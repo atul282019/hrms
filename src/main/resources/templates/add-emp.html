@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       
+       	<div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+               
+               <div th:insert="fragments/header.html :: header"></div>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 bg-white p-3">
+                                <div class="row">
+                                    <div class="col-12 organisation-wrap">
+                                        <h3 class="mb-1 text-center">Add Employee</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        <div class="card-form my-3">
+                                            <label for="">Employee ID</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49">
+                                            <label for="">First Name</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49 float-right">
+                                            <label for="">Last Name</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49">
+                                            <label for="">Date Of Birth</label>
+                                            <input type="date" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49 float-right">
+                                            <label for="">Gender</label>
+                                             <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example" id="salaryType" name="salaryType">
+                                                <option selected="">Select Gender*</option>
+                                                <option value="1">Male</option>
+                                                <option value="2">Female</option>
+                                                
+                                            </select>
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Mobile</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Pic URL</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Email</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Address</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Role ID</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">User</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Password</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Bank Account</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49">
+                                            <label for="">IFSC</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49 float-right">
+                                            <label for="">PAN</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49">
+                                            <label for="">URN</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3 w-49 float-right">
+                                            <label for="">Aadhaar</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Date of joining</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Designation</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+                                         <div class="card-form my-3">
+                                            <label for="">Department</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+										  <div class="card-form my-3">
+                                            <label for="">Salary Type</label>
+                                            <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example" id="salaryType" name="salaryType">
+                                                <option selected="">Select Salary Type*</option>
+                                                <option value="1">Weakly</option>
+                                                <option value="2">Monthly</option>
+                                                <option value="3">Yearly</option>
+                                            </select>
+                                        </div>
+                                         <div class="card-form my-3">
+                                            <label for="">Salary Amount</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+									<!-- 	
+                                        <div class="card-form my-3">
+                                            <label for="">Status</label>
+                                            <input type="text" class="form-input">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Intextra 1</label>
+                                            <input type="text" class="form-input">
+                                        </div> -->
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>

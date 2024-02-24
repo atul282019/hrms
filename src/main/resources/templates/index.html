@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta id="ctx" name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+
+    <title>Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body>
+
+    <div class="container my-3">
+
+        <!-- Outer Row -->
+        <div class="row login-container">
+            <div class="col-12 col-sm-7 col-md-8">
+                <div class="login-left-wrap">
+                    <div class="logo"><img src="img/cotodel_without tagline.png" alt="" width="200"></div>
+
+                    <h3>What’s new</h3>
+                    <div class="left-subhead">
+                        <div class="subhead-wrap">
+                            <span>Feature</span>
+                            <strong>#1</strong>
+                        </div>
+                        <div class="subhead-wrap">
+                            <span>Feature</span>
+                            <strong>#2</strong>
+                        </div>
+                        <div class="subhead-wrap">
+                            <span>Feature</span>
+                            <strong>#3</strong>
+                        </div>
+                        <div class="subhead-wrap">
+                            <span>Feature</span>
+                            <strong>#4</strong>
+                        </div>
+                    </div>
+
+                    <h3>What’s coming up next</h3>
+                    <div class="left-subhead">
+                        <div class="subhead-wrap">
+                            <span>Feature</span>
+                            <strong>#1</strong>
+                        </div>
+                        <div class="subhead-wrap">
+                            <span>Feature</span>
+                            <strong>#2</strong>
+                        </div>
+                        <div class="subhead-wrap">
+                            <span>Feature</span>
+                            <strong>#3</strong>
+                        </div>                        
+                    </div>
+
+                    <p>Need help <a href="#">Contact us</a></p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-5 col-md-4 login-left-section">
+                <div class="login-right-wrap">
+                    <img src="img/Logo.png" alt="" width="200">
+                    <h2>Login to Dashboard</h2>
+                    <p>Please login to continue to your account.</p>
+                    <form autocomplete="of" >
+                        <input class="form-control" placeholder="Enter Your Email or Mobile No." type="text" id="mob" name="mob"
+                        autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        <div class="error-msg" id="mobError" style="color:red"></div>
+                        <div  id="loginIdDiv" style="display: none" >
+                        <span>We have sent you an email with OTP</span>
+                        <div class="otp-box d-flex">
+                           <!--  <input  class="form-control form-control-sm" type="password" id="password" 
+                            name="password" maxlength="1" autocomplete="off"> -->
+                            <input  class="form-control form-control-sm" type="password" id="password1" 
+                            name="password1" maxlength="1" autocomplete="off" oninput="focusNext(this)">
+                            <input  class="form-control form-control-sm" type="password" id="password2" 
+                            name="password2" maxlength="1" autocomplete="off" oninput="focusNext(this)">
+                            <input  class="form-control form-control-sm" type="password" id="password3" 
+                            name="password3" maxlength="1" autocomplete="off" oninput="focusNext(this)">
+                            <input  class="form-control form-control-sm" type="password" id="password4" 
+                            name="password4" maxlength="1" autocomplete="off" oninput="focusNext(this)">
+                            <input  class="form-control form-control-sm" type="password" id="password5" 
+                            name="password5" maxlength="1" autocomplete="off" oninput="focusNext(this)">
+                            <input  class="form-control form-control-sm" type="password" id="password6" 
+                            name="password6" maxlength="1" autocomplete="off">
+                        </div>
+                        </div>
+                        
+                       <div id="otpError" style="color:red"></div>	
+                       <div id="errorOtp" style="color:red"></div>	
+                       <!-- <div class="text-center" id="countdown" style="color: green;"></div>
+						<p id="successmessage"></p> -->
+						<label for="" id="countdown" style="color: green;" ></label>
+						
+						<div class="form-group">
+										<div class="row">
+											<div class="col-sm-12 col-sm-offset-3">
+												<div id="successError">
+													<p id="error" style="color: red" th:if="${message ne null}">
+													 	<span id="incorrectOtp" th:text="${message}" style="color: red;"></span>
+													 </p>
+												</div>
+											</div>
+										</div>
+						</div>
+						
+                        <p>Didn’t receive the code? <a href="#">Resend Code</a></p>
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-user btn-block" id="optBtn" type="button"  onclick="getOTP()" >Login</button>
+                        </div>
+                        <div class="d-grid" id="verifyotpdiv" style="display:none">
+                            <button type="button" onclick="submitAction()"
+							class="btn btn-primary btn-user btn-block">Verify OTP and Sign In</button>
+                        </div>
+                        
+                         <div class="or text-center"><span>or</span></div>
+                        <p class="text-center">New to <a href="#">Cotodel?</a></p>
+                        <div class="d-grid">
+                            <a class="btn btn-outline-primary btn-user btn-block" type="button" th:href="@{/signup}" >Signup</a>
+                        </div>
+                    </form>
+                    <div class="logo-btm"><img src="img/powered by.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="logo-btm-sm"><img src="img/powered by.png" alt=""></div>
+
+    </div>
+	<div class="lds-spinner" id="loginLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+    <script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+    
+<script>
+
+$( document ).ready(function() {
+	var error = document.getElementById("incorrectOtp").innerHTML;
+	 
+	if(error==="Incorrect OTP !!"){
+    document.getElementById("loginIdDiv").style.display="none";
+   // document.getElementById("password").value="";
+   // document.getElementById("password").focus();
+    document.getElementById("optBtn").style.display="block";
+    }else if(error==="No Role assigned to User. Please contact to Organisation Admin !!"){
+		document.getElementById("loginIdDiv").style.display="none";
+	    document.getElementById("optBtn").style.display="block";
+	}else{
+		
+	}
+});
+
+
+  $(document).ready(function() {
+    $('#successError').delay(5000).fadeOut(600);
+});
+
+</script>
+
+</body>
+
+</html>

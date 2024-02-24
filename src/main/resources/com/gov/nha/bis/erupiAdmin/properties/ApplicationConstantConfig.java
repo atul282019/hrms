@@ -1,0 +1,155 @@
+package com.cotodel.properties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
+
+@Component
+@Configuration
+@PropertySource({"classpath:application.properties"})
+public class ApplicationConstantConfig {
+
+
+	@Value("${GET_OTP}")
+	public String GET_OTP;
+
+	@Value("${VERFY_OTP}")
+	public String VERFY_OTP;
+
+	
+	// master services start 
+
+	@Value("${GET_ORGNISATION_DATA_MASTER_SERVICE}")
+	public String GET_ORGNISATION_DATA_MASTER_SERVICE;
+
+	@Value("${GET_VOUCHAR_STATS}")
+	public String GET_VOUCHAR_STATS;
+
+	@Value("${GET_BANK_MASTER_SERVICE}")
+	public String GET_BANK_MASTER_SERVICE;
+	
+	@Value("${GET_PURPOSE_MASTER_SERVICE}")
+	public String GET_PURPOSE_MASTER_SERVICE;
+	
+	@Value("${GET_VOUCHAR_HISTORY}")
+	public String GET_VOUCHAR_HISTORY;
+	
+	// master services ends
+
+
+	@Value("${GET_ALL_ORGANISATION_DATA_SERVICE}")
+	public String GET_ALL_ORGANISATION_DATA_SERVICE;
+
+	@Value("${SAVE_ORGANISATION_DATA_SERVICE}")
+	public String SAVE_ORGANISATION_DATA_SERVICE;
+
+	@Value("${GET_ALL_API_ORGANISATION_DATA_SERVICE}")
+	public String GET_ALL_API_ORGANISATION_DATA_SERVICE;
+
+	@Value("${SAVE_API_ORGANISATION_DATA_SERVICE}")
+	public String SAVE_API_ORGANISATION_DATA_SERVICE;
+	
+	@Value("${GET_ALL_SUPER_ADMIN_DATA_SERVICE}")
+	public String GET_ALL_SUPER_ADMIN_DATA_SERVICE;
+
+	@Value("${SAVE_SUPER_ADMIN_DATA_SERVICE}")
+	public String SAVE_SUPER_ADMIN_DATA_SERVICE;
+
+	@Value("${GET_USER_LIST_TO_CREATE_ADMIN_ASSIGNER_SERVICE}")
+	public String GET_USER_LIST_TO_CREATE_ADMIN_ASSIGNER_SERVICE;
+
+	@Value("${MAKE_ADMIN_ASSIGNER_SERVICE}")
+	public String MAKE_ADMIN_ASSIGNER_SERVICE;
+	
+	@Value("${GET_BANK_DETAIL_LIST}")
+	public String GET_BANK_DETAIL_LIST;
+
+	@Value("${SAVE_BANK_DETAIL_SERVICE}")
+	public String SAVE_BANK_DETAIL_SERVICE;
+	
+	@Value("${REGISTER_USER_SERVICE}")
+	public String REGISTER_USER_SERVICE;
+	
+	@Value("${DEFINE_VOUCHAR_SERVICE}")
+	public String DEFINE_VOUCHAR_SERVICE;
+
+	@Value("${GET_ALL_VOUCHAR_DATA_IN_DETAILS_SERVICE}")
+	public String GET_ALL_VOUCHAR_DATA_IN_DETAILS_SERVICE;
+	
+	@Value("${GET_ALL_SUB_ASSIGN_VOUCHAR_DATA_SERVICE}")
+	public String GET_ALL_SUB_ASSIGN_VOUCHAR_DATA_SERVICE;
+	
+	@Value("${GET_OTP_REGISTER_USER_SERVICE}")
+	public String GET_OTP_REGISTER_USER_SERVICE;
+	
+	@Value("${GET_LOGIN_USER_DETAIL}")
+	public String GET_LOGIN_USER_DETAIL;
+	
+	@Value("${SEND_AADHAAR_OTP}")
+	public String SEND_AADHAAR_OTP;
+	
+	@Value("${VERIFY_AADHAR_OTP}")
+	public String VERIFY_AADHAR_OTP;
+	
+	@Value("${GET_ALL_VOUCHAR_DATA_TO_ALLOCATE_AND_ASSIGN_SERVICE}")
+	public String GET_ALL_VOUCHAR_DATA_TO_ALLOCATE_AND_ASSIGN_SERVICE;
+	
+	@Value("${GET_ALL_SINGLE_VOUCHAR_DATA_TO_ASSIGN_SERVICE}")
+	public String GET_ALL_SINGLE_VOUCHAR_DATA_TO_ASSIGN_SERVICE;
+	
+	@Value("${ASSIGN_VOUCHAR}")
+	public String ASSIGN_VOUCHAR ;
+	
+	@Value("${ALLOCATE_SINGLE_VOUCHAR}")
+	public String ALLOCATE_SINGLE_VOUCHAR ;
+	
+	@Value("${SEARCH_ASSIGNER_OR_SUB_ASSINGER_SERVICE}")
+	public String SEARCH_ASSIGNER_OR_SUB_ASSINGER_SERVICE ;
+	
+	@Value("${GET_SUB_ASSIGN_SINGLE_VOUCHAR_DATA_TO_ASSIGN_SERVICE}")
+	public String GET_SUB_ASSIGN_SINGLE_VOUCHAR_DATA_TO_ASSIGN_SERVICE ;
+
+	@Value("${SEARCH_SUB_ASSINGER_SERVICE}")
+	public String SEARCH_SUB_ASSINGER_SERVICE ;
+
+	@Value("${SUB_ASSIGNER_ASSIGN_VOUCHAR}")
+	public String SUB_ASSIGNER_ASSIGN_VOUCHAR ;
+
+	@Value("${SUB_ASSIGNER_ALLOCATE_SINGLE_VOUCHAR}")
+	public String SUB_ASSIGNER_ALLOCATE_SINGLE_VOUCHAR ;
+
+	@Value("${SUB_ASSIGNER_ALLOCATE_BULK_VOUCHAR}")
+	public String SUB_ASSIGNER_ALLOCATE_BULK_VOUCHAR ;
+	
+	@Value("${SUB_ASSIGNER_UPLOAD_AND_PROCESS_BULK_VOUCHAR}")
+	public String SUB_ASSIGNER_UPLOAD_AND_PROCESS_BULK_VOUCHAR ;
+
+	@Value("${SUB_ASSIGNER_GET_BULK_VOUCHAR_LIST}")
+	public String SUB_ASSIGNER_GET_BULK_VOUCHAR_LIST ;
+
+	@Value("${SUB_ASSIGNER_DOWNLOAD_EXCEL_BULK_VOUCHAR}")
+	public String SUB_ASSIGNER_DOWNLOAD_EXCEL_BULK_VOUCHAR ;
+	
+	
+	@Value("${UPLOAD_AND_PROCESS_BULK_VOUCHAR}")
+	public String UPLOAD_AND_PROCESS_BULK_VOUCHAR ;
+	
+	@Value("${GET_BULK_VOUCHAR_LIST}")
+	public String GET_BULK_VOUCHAR_LIST ;
+	
+	@Value("${DOWNLOAD_EXCEL_BULK_VOUCHAR}")
+	public String DOWNLOAD_EXCEL_BULK_VOUCHAR ;
+	
+	@Value("${ALLOCATE_BULK_VOUCHAR}")
+	public String ALLOCATE_BULK_VOUCHAR ;
+	
+	
+	@Value("${GET_THIRD_PARTY_USER_ORG_DATA}")
+	public String GET_THIRD_PARTY_USER_ORG_DATA;
+
+	@Value("${GET_IN_TOUCH}")
+	public String GET_IN_TOUCH;
+	
+
+}

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+
+ 
+<body id="page-top" onload="getOrgMaster(),getStateMaster(),getOrgMaster2()">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        
+         <div th:insert="fragments/sidenav.html :: sidevav"></div>
+       
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+           		 <div th:insert="fragments/header.html :: header"></div>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 bg-white p-3">
+                                <div class="row">
+                                    <div class="col-12 organisation-wrap">
+                                        <h3 class="mb-1 text-center">Enter company details</h3>
+                                        <div class="breadcrumb-wrap">
+                                            <div class="breadcrumb-in active">
+                                                <span>1</span>
+                                                <label>Enter company details</label>
+                                            </div>
+                                            <div id="tab2" class="breadcrumb-in">
+                                                <span>2</span>
+                                                <label>Set payroll date</label>
+                                            </div>
+                                            <div class="breadcrumb-in">
+                                                <span>3</span>
+                                                <label>Set employee salary structure</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						<form id="saveCompany" name="saveCompany" method="post" >
+                            <div class="mt-4">
+                                <div class="row" id="form1">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        <div class="card-form">
+                                            <label for="">Enter GSTN</label>
+                                            <input type="text" id="gstnNo" name="gstnNo" maxlength="15" class="form-input" onkeyup="checkGstNumber()">
+                                            
+                                        </div>
+                                         <div class="error-msg" id="gstnNoError" style="color:red"></div>
+
+                                        <div class="tip-wrap">
+                                            <img src="img/Tip.png" alt="" class="mr-2">
+                                            <p class="mb-0">Save time by entering GST and let us pre-fill your company
+                                                info like address, pin, etc. Bonus: claim GST credit on invoices!</p>
+                                        </div>
+
+                                        <div class="text-center text-md-center my-3">
+                                            <div class="btn btn-proceed-border my-1">Don't have GSTIN</div>
+                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
+                                            <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next1" >Continue</div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row tabs-row" id="form2">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        <div class="card-form">
+                                            <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example" id="organizationType" name="organizationType">
+                                                <option selected="">Organization type*</option>
+                                            </select>
+                                             
+                                        </div>
+ 										<div class="error-msg" id="organizationTypeError" style="color:red"></div>
+                                        <div class="tip-wrap justify-content-start my-3">
+                                            <p class="mb-0">Select business category</p>
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Enter PAN</label>
+                                            <input type="text" class="form-input" id="pan" name="pan" maxlength="10"  oninput="this.value = this.value.toUpperCase()">
+                                            
+                                        </div>
+										<div class="error-msg" id="panError" style="color:red"></div>
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">We need your pan verify your business details.</p>
+                                        </div>
+
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed-border my-1">Fill via GSTIN</div>
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
+                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
+                                            <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next2" onclick="checkPanNumber()">Continue</div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row tabs-row" id="form3">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        <div class="card-form my-3">
+                                            <label for="">Brand Name</label>
+                                            <input type="text" class="form-input" id="brandName" name="brandName" maxlength="100">
+                                        </div>
+										<div class="error-msg" id="brandNameError" style="color:red"></div>
+										
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">If your company is publicly known by a diffrent brand name,
+                                                then please enter that here.</p>
+                                        </div>
+
+                                        <div class="card-form">
+                                            <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example" id="orgType2" name="orgType2"  >
+                                                <option selected="">Organization type*</option>
+                                                
+                                            </select>
+                                        </div>
+										<div class="error-msg" id="orgType2Error" style="color:red"></div>
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">In case of incorrect company type. please go back to edit
+                                                PAN details.</p>
+                                        </div>
+
+                                        <div class="card-form">
+                                        <input type="text" class="form-input" id="panDetails" name="panDetails" maxlength="100">
+                                          <!--   <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example" id="companyPan" name="companyPan">
+                                                <option selected="">Company PAN*</option>
+                                                <option value="1">companypan1</option>
+                                                <option value="2">companypan2</option>
+                                                <option value="3">companypan3</option>
+                                            </select>  -->
+                                        </div>
+										<div class="error-msg" id="panDetailsError" style="color:red"></div>
+										
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">In case of incorrect company name. please go back to edit
+                                                PAN details.</p>
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Company Name</label>
+                                            <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100">
+                                        </div>
+										<div class="error-msg" id="companyNameError" style="color:red"></div>
+                                        <div class="card-form my-3">
+                                            <label for="">Enter Registered office Address*</label>
+                                            <input type="text" class="form-input" id="officeAddress" name="officeAddress" maxlength="100"> 
+                                        </div>
+										<div class="error-msg" id="officeAddressError" style="color:red"></div>
+                                        <div class="card-form my-3">
+                                            <label for="">Address line 2</label>
+                                            <input type="text" class="form-input" id="addressLine" name="addressLine" maxlength="100">
+                                        </div>
+										<div class="error-msg" id="addressLineError" style="color:red"></div>
+                                        <div class="card-form my-3">
+                                            <label for="">Enter PIN Code*</label>
+                                            <input type="text" class="form-input" id="pinCode" name="pinCode" maxlength="6" 
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+                                        </div>
+										<div class="error-msg" id="pinCodeError" style="color:red"></div>
+                                        <div class="card-form">
+                                         <input type="text" class="form-input" id="companyPan2" name="companyPan2">
+                                          
+                                        </div>
+										<div class="error-msg" id="companyPan2Error" style="color:red"></div>
+                                        <div class="card-form my-3">
+                                            <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example" id="stateCode" name="stateCode">
+                                               
+                                            </select>
+                                        </div>
+										<div class="error-msg" id="stateCodeError" style="color:red"></div>
+										
+                                        <div class="tip-wrap justify-content-start my-3">
+                                            <p class="mb-0">Choosing the state affects Professionals tax compliance, it
+                                                is suggested to select the state where your company based in.</p>
+                                        </div>
+
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed-border my-1">Back Edit PAN</div>
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back3">Back</div>
+                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validateBrandNumber()" />
+                                            <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next3">Continue</div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row tabs-row" id="form4">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="payrollEnabledFlag"
+                                                 name="payrollEnabledFlag" checked="" >
+                                                <label class="custom-control-label text-left" for="payrollEnabledFlag"
+                                                >Payroll Enabled.</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tip-wrap justify-content-start my-3">
+                                            <p class="mb-0">Choose when you would like to pay your employees. Select a
+                                                date after 15th to pay your employees for the same month eg. if you pick
+                                                31, then employees will get paid for January on 31st January. Or, if you
+                                                pick 1, then your employees will get paid for January on 1st February.
+                                            </p>
+                                        </div>
+
+                                        <div class="card-form">
+                                        <input type="date" class="form-input" id="paidDate" name="paidDate">
+                                          
+                                        </div>
+										<div class="error-msg" id="paidDateError" style="color:red"></div>
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">You can choose to either manually request execution each
+                                                month before the payroll is executed, or Cotodel can automatically
+                                                execute your payroll on the chosen date.</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="runFayrollFlag" 
+                                                name="runFayrollFlag">
+                                                <label class="custom-control-label text-left"
+                                                    for="runFayrollFlag">Automatically run payroll on selected date</label>
+                                            </div>
+                                            <div class="error-msg" id="runFayrollFlagError" style="color:red"></div>
+                                        </div>
+
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">Employees can request salary advances through Cotodel. If
+                                                approved, the advance amount will be paid immediately and automatically
+                                                recovered from future payments to the employees.</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="salaryAdvancesFlag"
+                                                 name="salaryAdvancesFlag"
+                                                    checked>
+                                                <label class="custom-control-label text-left" for="salaryAdvancesFlag">Let
+                                                    employees request salary advances </label>
+                                            </div>
+                                            <div class="error-msg" id="salaryAdvancesFlagError" style="color:red"></div>
+                                        </div>
+
+										  <div id="successmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
+							            	<span id="successmsg"></span>   
+							            </div>
+							            
+							            <div id="failmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
+							            	<span id="failmsg"></span>
+							            </div>
+					                          
+										
+										
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back4">Back</div>
+                                            
+                                            <input id="saveNext" type="button"  class="btn btn-proceed ml-2 my-1" value="Save" onclick="validateFormAndSubmit()" />
+                                            <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />
+                                          </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="row tabs-row" id="form5">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+
+                                        <div class="form-group">
+                                            <label class="mb-0 text-left company-dtl-label">Default Salary
+                                                Structure</label>
+                                        </div>
+
+                                        <div class="tip-wrap my-3 d-block">
+                                            <div class="tip-wrap-in">
+                                                <span>1</span>
+                                                <p class="mb-0">You can customize the default salary structure that
+                                                    Cotodel uses for your employees.</p>
+                                            </div>
+                                            <div class="tip-wrap-in mb-0">
+                                                <span>2</span>
+                                                <p class="mb-0">Employer contributions to PF and ESI (if applicable) are
+                                                    applied after the salary has been bifurcated into the components in
+                                                    the ratio defined. hence, the final salary structure can have a
+                                                    slightly different ratio.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck4" 
+                                                name="customCheck4" checked>
+                                                <label class="custom-control-label text-left" for="customCheck4">Let
+                                                    employees request salary advances </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table salary-table border-0" border="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Salary Component</th>
+                                                        <th>%age of CTC</th>
+                                                        <th>Percentage or Fixed?</th>
+                                                        <th>Taxable?</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Basic Salary</td>
+                                                        <td>50</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>HRA</td>
+                                                        <td>25</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Special Allowance</td>
+                                                        <td>15</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>LTA</td>
+                                                        <td>10</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">Employees can request salary advances through Cotodel. If
+                                                approved, the advance amount will be paid immediately and automatically
+                                                recovered from future payments to the employees.</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5" name="customCheck5"
+                                                    checked>
+                                                <label class="custom-control-label text-left"
+                                                    for="customCheck5">Consider FBP allowance to be taxable by default
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
+                                            <div class="btn btn-proceed ml-2 my-1 next">Continue</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+						</form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="cotodel-js/masterdata.js"></script>
+    <script type="text/javascript" src="cotodel-js/company-detail.js"></script>
+     
+
+
+    <script>
+        $(document).ready(function () {
+
+            $(".back").click(function () {
+                $(".tabs-row").hide();
+            });
+
+            $("#next1").click(function () {
+                $("#form2").show();
+                $("#form1").hide();
+            });
+
+            $("#next2").click(function () {
+                $("#form3").show();
+                $("#form2").hide();
+            });
+
+            $("#next3").click(function () {
+                $("#form4").show();
+                $("#form3").hide();
+            });
+
+            $("#next4").click(function () {
+            	$("#form4").hide();
+                $("#form5").show();
+                $("#tab2").addClass("active");
+            });
+
+            $("#back2").click(function () {
+                $("#form1").show();
+            });
+
+            $("#back3").click(function () {
+                $("#form2").show();
+            });
+
+            $("#back4").click(function () {
+                $("#form3").show();
+            });
+
+            $("#back5").click(function () {
+                $("#form4").show();
+            });
+
+
+        });
+    </script>
+
+
+</body>
+
+</html>
