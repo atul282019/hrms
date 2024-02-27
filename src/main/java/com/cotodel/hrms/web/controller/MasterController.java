@@ -52,5 +52,21 @@ public class MasterController  extends CotoDelBaseController{
 		String token = (String) session.getAttribute("cotodel");
 		return masterService.getOrgMaster(tokengeneration.getToken(),userForm);
 	}
+	
+	@GetMapping(value="/getPermission")
+	public @ResponseBody String getPermission(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,UserRegistrationRequest userForm) {
+		logger.info("getOrgMaster");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getPermission(tokengeneration.getToken(),userForm);
+	}
+	
+	@GetMapping(value="/getRole")
+	public @ResponseBody String getRole(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,UserRegistrationRequest userForm) {
+		logger.info("getOrgMaster");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getRole(tokengeneration.getToken(),userForm);
+	}
 
 }

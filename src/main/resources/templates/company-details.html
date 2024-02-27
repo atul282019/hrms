@@ -6,7 +6,7 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
  
-<body id="page-top" onload="getOrgMaster(),getStateMaster(),getOrgMaster2()">
+<body id="page-top" onload="getOrgMaster(),getStateMaster(),getOrgMaster2(),getPayrollMaster()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -274,12 +274,14 @@
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back4">Back</div>
                                             
                                             <input id="saveNext" type="button"  class="btn btn-proceed ml-2 my-1" value="Save" onclick="validateFormAndSubmit()" />
-                                            <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />
+                                           <!--  <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" /> -->
+                                            <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />
                                           </div>
                                         
                                     </div>
                                 </div>
-
+                                </form>
+							 <form id="savePayroll" name="savePayroll" method="post">
                                 <div class="row tabs-row" id="form5">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
 
@@ -311,7 +313,7 @@
                                                     employees request salary advances </label>
                                             </div>
                                         </div>
-
+										
                                         <div class="table-responsive">
                                             <table class="table salary-table border-0" border="0">
                                                 <thead>
@@ -323,29 +325,29 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Basic Salary</td>
-                                                        <td>50</td>
-                                                        <td>Percentage</td>
-                                                        <td>Yes</td>
+                                                     <tr>
+                                                        <td><span id="salaryComponentBasic" name="salaryComponentBasic"></span></td>
+                                                        <td><input type="text" id="perCtcBasic" name="perCtcBasic" ></td>
+                                                        <td><input type="text" id="perBasic" name="perBasic" ></td>
+                                                        <td><input type="text" id="taxableBasic" name="taxableBasic" ></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>HRA</td>
-                                                        <td>25</td>
-                                                        <td>Percentage</td>
-                                                        <td>Yes</td>
+                                                        <td><span id="salaryComponentHra" name="salaryComponentHra"></span></td>
+                                                        <td><input type="text" id="perCtcHra" name="perCtcHra" width="10px" ></td>
+                                                        <td><input type="text" id="perHra" name="perHra" width="10px"></td>
+                                                        <td><input type="text" id="taxableHra" name="taxableHra" width="10px"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Special Allowance</td>
-                                                        <td>15</td>
-                                                        <td>Percentage</td>
-                                                        <td>Yes</td>
+                                                        <td><span id="salaryComponentSpecial" name="salaryComponentSpecial"></span></td>
+                                                        <td><input type="text" id="perCtcSpecial" name="perCtcSpecial" ></td>
+                                                        <td><input type="text" id="perSpecial" name="perSpecial" ></td>
+                                                        <td><input type="text" id="taxableSpecial" name="taxableSpecial" ></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>LTA</td>
-                                                        <td>10</td>
-                                                        <td>Percentage</td>
-                                                        <td>Yes</td>
+                                                        <td><span id="salaryComponentLta" name="salaryComponentLta"></span></td>
+                                                        <td><input type="text" id="perCtcLta" name="perCtcLta" width="10px" ></td>
+                                                        <td><input type="text" id="perLta" name="perLta" width="10px" ></td>
+                                                        <td><input type="text" id="taxableLta" name="taxableLta"  width="10px"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -367,17 +369,24 @@
                                             </div>
                                         </div>
 
-
+  										<div id="payrollsuccessmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
+							            	<span id="payrollsuccessmsg"></span>   
+							            </div>
+							            
+							            <div id="payrollfailmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
+							            	<span id="payrollfailmsg"></span>
+							            </div>
+					                          
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
-                                            <div class="btn btn-proceed ml-2 my-1 next">Continue</div>
+                                            <input type="button" id="btnPayrollSave" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
                                         </div>
                                     </div>
                                 </div>
-
+								</form>
                             </div>
-						</form>
+						
 
                         </div>
                     </div>

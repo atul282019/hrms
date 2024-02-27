@@ -11,4 +11,8 @@ public interface MasterService {
 
 	String getOrgMaster(String token,UserRegistrationRequest userForm);
 
+	String getPermission(String token, UserRegistrationRequest userForm);
+
+	String getRole(String token, UserRegistrationRequest userForm);
+
 }

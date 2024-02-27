@@ -12,5 +12,10 @@ public interface CommonUtils {
 	public static String stateMaster = "/userServices/Api/get/state-list";
 	public static String orgMaster = "/userServices/Api/get/Organization";
 	public static String registerCompany = "/userServices/Api/get/saveProfileDetails";
-
+	public static String saveEmployee = "/empService/Api/add/employeeDetails";
+	public static String getPayrollList = "/userServices/Api/get/payroll-list";
+	public static String savePayrollDetail = "/empService/Api/save/payrollDetails";
+	public static String getPermission  = "/userServices/Api/get/Permissions";
+	public static String getRole  = "/userServices/Api/get/Roles";
+	
 }

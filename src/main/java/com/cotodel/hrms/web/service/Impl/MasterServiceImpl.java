@@ -25,4 +25,14 @@ public class MasterServiceImpl implements MasterService{
 		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.orgMaster);
 	}
 
+	@Override
+	public String getPermission(String token, UserRegistrationRequest userForm) {
+		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.getPermission);
+	}
+
+	@Override
+	public String getRole(String token, UserRegistrationRequest userForm) {
+		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.getRole);
+	}
+
 }

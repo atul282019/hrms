@@ -17,34 +17,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
-import com.cotodel.hrms.web.response.EmployeeProfileRequest;
-import com.cotodel.hrms.web.service.CompanyService;
+import com.cotodel.hrms.web.response.EmployeeDetailRequest;
+import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class CompanyDetailController extends CotoDelBaseController{
+public class EmployeeDetailController extends CotoDelBaseController{
 
-	private static final Logger logger = LoggerFactory.getLogger(CompanyDetailController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeDetailController.class);
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 	
 	@Autowired
-	CompanyService companyService;
+	EmployeeDetailService employeeDetailService;
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
-	@PostMapping(value="/saveCompanyDetail")
-	public @ResponseBody String saveCompanyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
+	
+	@PostMapping(value="/saveEmployeeDetail")
+	public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeDetailRequest employeeDetailRequest) {
 		String profileRes=null;JSONObject profileJsonRes=null;
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
-		String res = null;String userRes = null;
-		profileRes = companyService.saveCompany(tokengeneration.getToken(),employeeProfileRequest);
+		String res=null;String userRes=null;
+		profileRes = employeeDetailService.saveEmployeeDetail(tokengeneration.getToken(),employeeDetailRequest);
 		profileJsonRes= new JSONObject(profileRes);
 		
 		if(profileJsonRes.getBoolean("status")) { 

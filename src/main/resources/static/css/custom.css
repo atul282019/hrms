@@ -8,6 +8,18 @@ p{
   font-family: 'Open Sans', sans-serif;
 }
 
+.w-49 {
+  width: 49% !important;
+}
+
+.ml-half {
+  margin-left: .5%;
+}
+
+.mr-half {
+  margin-right: .5%;
+}
+
 .login-left-wrap{
   background: url("../img/container.jpg") no-repeat left top;
   height: 100%;
@@ -396,7 +408,7 @@ ul.navbar-nav.top-nav .nav-item a.active i, ul.navbar-nav.top-nav .nav-item a.ac
   border-radius: 15px;
   min-height: 54px;
   padding: 9px;
-  position: relative;
+  position: relative; float: left;
 }
 .card-form select:focus, .card-form select:visited{
   outline: 0;
@@ -799,3 +811,22 @@ li.nav-item.li-btm a {
 }
 
 }
+
+
+.nav-tabs .nav-link.active {
+  background: #367aff;
+  color: #fff;
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 0 5px;
+}
+
+.nav-tabs .nav-link {
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 0 5px;
+}
+.font-0 {
+  font-size: 0;
+}
+

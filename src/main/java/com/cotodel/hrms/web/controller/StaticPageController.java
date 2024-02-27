@@ -19,20 +19,13 @@ public class StaticPageController extends CotoDelBaseController{
 	
 	@GetMapping(value="/index")
 	public ModelAndView firstPage(Model model) {
-		logger.info("opening firstPage");
+		logger.info("opening index page");
 		return new ModelAndView("index", "command", "");
 	}	
-
-	@GetMapping(value="/test")
-	public ModelAndView testMethod(Model model) {
-		logger.info("opening firstPage");
-		return new ModelAndView("test", "command", "");
-	}	
-
 	@GetMapping(value="/login")
 	public ModelAndView loginPage(Model model) {
-		logger.info("opening loginPage");
-		return new ModelAndView("login", "command", "");
+		logger.info("opening login Page");
+		return new ModelAndView("index", "command", "");
 	}	
 
 	@GetMapping(value="/signup")
@@ -98,5 +91,28 @@ public class StaticPageController extends CotoDelBaseController{
 		logger.info("opening dashboard-details01");
 		return new ModelAndView("company-details01", "command", "");
 	}
+	
+	@GetMapping(value="/tdsPayment")
+	public ModelAndView tdsPayment(Model model) {
+		logger.info("opening dashboard-details01");
+		return new ModelAndView("emp-tds", "command", "");
+	}
+	@GetMapping(value="/employeeIncentive")
+	public ModelAndView employeeIncentive(Model model) {
+		logger.info("opening dashboard-details01");
+		return new ModelAndView("employee-incentive", "command", "");
+	}
+	
+	@GetMapping(value="/employeeDetails")
+	public ModelAndView employeeDetails(Model model) {
+		logger.info("opening dashboard-details01");
+		return new ModelAndView("emp-details", "command", "");
+	}
+	@GetMapping(value="/employeeSalary")
+	public ModelAndView employeeSalary(Model model) {
+		logger.info("opening dashboard-details01");
+		return new ModelAndView("emp-salary", "command", "");
+	}
+	
 	
 }

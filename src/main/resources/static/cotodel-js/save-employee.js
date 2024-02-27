@@ -1,22 +1,31 @@
-function validateFormAndSubmit(){
+function validateEmployeeAndSubmit(){
 	
-	 var gstnNo = document.getElementById("gstnNo").value;
-	 var organizationType = document.getElementById("organizationType").value;
-	 var pan = document.getElementById("pan").value; 
-	// var brnadName = document.getElementById("brnadName").value; 
+	 var firstName = document.getElementById("firstName").value;
+	 var lastName = document.getElementById("lastName").value;
+	 var dateOfBirth = document.getElementById("dateOfBirth").value; 
+	 var gender = document.getElementById("gender").value; 
 	 
-	// var brnadName = document.getElementById("brnadName").value; 
-     var orgType2 = document.getElementById("orgType2").value; 
-	 var panDetails = document.getElementById("panDetails").value; 
-	 var companyName = document.getElementById("companyName").value; 
+	 var Mobile = document.getElementById("Mobile").value; 
+     var picUrl = document.getElementById("picUrl").value; 
+	 var email = document.getElementById("email").value; 
+	 var address = document.getElementById("address").value; 
 	 
-	 var officeAddress = document.getElementById("officeAddress").value;
-	  var addressLine = document.getElementById("addressLine").value;
+	 var roleId = document.getElementById("roleId").value;
+	 var username = document.getElementById("username").value;
 	       
-	 var pinCode = document.getElementById("pinCode").value; 
-	 var companyPan2 = document.getElementById("companyPan2").value; 
-	 var stateCode = document.getElementById("stateCode").value;  
-	       
+	 var pwd = document.getElementById("pwd").value; 
+	 var bankAccount = document.getElementById("bankAccount").value; 
+	 var ifsc = document.getElementById("ifsc").value;  
+	 var pan = document.getElementById("pan").value;  
+	 var urn = document.getElementById("urn").value;  
+	 var aadhaar = document.getElementById("aadhaar").value;  
+
+	 var dateOfJoining = document.getElementById("dateOfJoining").value;  
+	 var designation = document.getElementById("designation").value;
+	 var department = document.getElementById("department").value;   
+	 var salaryType = document.getElementById("salaryType").value;
+	 var salaryAmount = document.getElementById("salaryAmount").value;   
+	 
 
 	 var regName = /^[a-zA-Z\s]*$/;
 	 var onlySpace = /^$|.*\S+.*/;
@@ -63,10 +72,10 @@ function validateFormAndSubmit(){
 		document.getElementById("overlay").style.display = "none";
 	}
 	*/
-	var formData = new FormData(saveCompany);
+	var formData = new FormData(saveEmployee);
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveCompanyDetail",
+	     url:""+$('#ctx').attr('content')+"/saveEmployeeDetail",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -333,166 +342,3 @@ function validateFormAndSubmit() {
                 $("#form5").show();
                 $("#tab2").addClass("active");
 	}
-	
-	
-function getPayrollMaster()  {
-	//document.getElementById("overlay").style.display = "flex";
-	$.ajax({
-		type: "GET",
-		url: "" + $('#ctx').attr('content') + "/getPayrollMaster",
-		data: {
-
-		},
-		beforeSend: function(xhr) {
-		},
-		success: function(data) {
-			newData = data;
-			var data1 = jQuery.parseJSON(newData);
-			var data2 = data1.data;
-			$('#salaryComponentBasic').html(data2[0].per);
-			document.getElementById("perCtcBasic").value=data2[0].per_ctc;
-			document.getElementById("perBasic").value=data2[0].salary_component;
-			document.getElementById("taxableBasic").value=data2[0].taxable;
-			
-			$('#salaryComponentHra').html(data2[1].per);
-			document.getElementById("perCtcHra").value=data2[1].per_ctc;
-			document.getElementById("perHra").value=data2[1].salary_component;
-			document.getElementById("taxableHra").value=data2[1].taxable;
-			
-			$('#salaryComponentSpecial').html(data2[2].per);
-			document.getElementById("perCtcSpecial").value=data2[2].per_ctc;
-			document.getElementById("perSpecial").value=data2[2].salary_component;
-			document.getElementById("taxableSpecial").value=data2[2].taxable;
-			
-			$('#salaryComponentLta').html(data2[3].per);
-			document.getElementById("perCtcLta").value=data2[3].per_ctc;
-			document.getElementById("perLta").value=data2[3].salary_component;
-			document.getElementById("taxableLta").value=data2[3].taxable;
-			
-		},
-		error: function(e) {
-			alert('Error: ' + e);
-		}
-	});
-}
-
-
-function validatePayrollAndSubmit(){
-	
-	        var salaryComponentBasic =  document.getElementById("salaryComponentBasic").innerText;
-			var perCtcBasic = document.getElementById("perCtcBasic").value;
-			var perBasic = document.getElementById("perBasic").value;
-			var taxableBasic = document.getElementById("taxableBasic");
-			
-			var salaryComponentHra =  document.getElementById("salaryComponentHra").innerText;
-			var perCtcHra = document.getElementById("perCtcHra").value;
-			var perHra = document.getElementById("perHra").value;
-			var taxableHra = document.getElementById("taxableHra").value;
-			
-			var salaryComponentSpecial = document.getElementById("salaryComponentSpecial").innerText;
-			var perCtcSpecial = document.getElementById("perCtcSpecial").value;
-			var perSpecial = document.getElementById("perSpecial").value;
-			var taxableSpecial = document.getElementById("taxableSpecial").value;
-			
-			var salaryComponentLta = document.getElementById("salaryComponentLta").innerText;
-			var perCtcLta = document.getElementById("perCtcLta").value;
-			var perLta = document.getElementById("perLta").value;
-			var taxableLta = document.getElementById("taxableLta").value;
-			
-			 var regName = /^[a-zA-Z\s]*$/;
-			 var onlySpace = /^$|.*\S+.*/;
-	 
-/*
-	if(pname==""){
-		document.getElementById("nameError").innerHTML="Please Enter Purpose Name";
-		document.getElementById("pname").focus();
-		return false;
-	}else if(pname.length < 4 || pname.length > 70){
-		document.getElementById("nameError").innerHTML="Please Enter Name between 4 to 70 character";
-		document.getElementById("pname").focus();
-		return false;
-	}else if(!pname.match(regName) || !pname.match(onlySpace)){
-		document.getElementById("nameError").innerHTML="Name cannot Consist Number or Special Character";
-		document.getElementById("pname").focus();
-		return false;
-	}else{
-		document.getElementById("nameError").innerHTML="";
-	}
-	
-	if(pcode==""){
-		document.getElementById("pcodeError").innerHTML="Please Enter Purpose Code";
-		document.getElementById("pcode").focus();
-		return false;
-	}else if(pcode.length < 1 || pcode.length > 5){
-		document.getElementById("pcodeError").innerHTML="Please Enter Valid Purpose Code";
-		document.getElementById("pcode").focus();
-		return false;
-	}else{
-		document.getElementById("pcodeError").innerHTML="";
-	}
-	
-	if(payeecode==""){
-		document.getElementById("payeecodeError").innerHTML="Please Enter Payee Code";
-		document.getElementById("payeecode").focus();
-		return false;
-	}else if(payeecode.length != 4){
-		document.getElementById("payeecodeError").innerHTML="Payee Code should be 4 character only";
-		document.getElementById("payeecode").focus();
-		return false;
-	}else{
-		document.getElementById("payeecodeError").innerHTML="";
-		document.getElementById("overlay").style.display = "none";
-	}
-	*/
-	var formData = new FormData(savePayroll);
-	formData.append("salaryComponentBasic", salaryComponentBasic);
-	formData.append("salaryComponentHra", salaryComponentHra);
-	formData.append("salaryComponentSpecial", salaryComponentSpecial);
-	formData.append("salaryComponentLta", salaryComponentLta);
-	
-	 	$.ajax({
-		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveCompanyPayroll",
-         data: formData,
-         processData: false,
-         contentType: false,       		 
-            success: function(data){
-            newData = data;
-			var data1 = jQuery.parseJSON(newData);
-			console.log(data1);
-			console.log(data.status);
-			if(data1.status==true){
-				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
-				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
-				 //document.getElementById("saveorg").reset();
-				 //$('#successmsgdiv').delay(5000).fadeOut(400);
-				// $("#form5").show();
-				//document.getElementById("saveNext").style.display="None";
-				//document.getElementById("nextDiv").style.display="flex";
-				/*$('#nextDiv').show();
-				$("#form4").hide();
-                $("#form5").show();
-                $("#tab2").addClass("active");*/
-				
-                // $("#form4").hide();
-			}else if(data1.status==false){
-				 document.getElementById("payrollfailmsg").innerHTML=data1.message;
-				 document.getElementById("payrollfailmsgDiv").style.display="block";
-				 //$('#failmsgDiv').delay(5000).fadeOut(400);
-				 //$("#form5").show();
-                 //$("#form4").hide();
-                 //document.getElementById("saveNext").style.display="block";
-				 //document.getElementById("nextDiv").style.display="None";
-				// $('#nextDiv').hide();
-			}else{
-				 document.getElementById("payrollfailmsgDiv").style.display="none";
-				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
-				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
-			}
-         },
-         error: function(e){
-             alert('Error: ' + e);
-         }
-    });			
-               
-	}  

@@ -13,19 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
-import com.cotodel.hrms.web.response.EmployeeProfileRequest;
-import com.cotodel.hrms.web.service.CompanyService;
+import com.cotodel.hrms.web.response.EmployeeDetailRequest;
+import com.cotodel.hrms.web.response.EmployeePayrollRequest;
+import com.cotodel.hrms.web.response.PayrollRequest;
+import com.cotodel.hrms.web.service.PayrollService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class CompanyDetailController extends CotoDelBaseController{
+public class PayrollComtroller extends CotoDelBaseController{
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyDetailController.class);
 
@@ -33,18 +36,27 @@ public class CompanyDetailController extends CotoDelBaseController{
 	public ApplicationConstantConfig applicationConstantConfig;
 	
 	@Autowired
-	CompanyService companyService;
+	PayrollService payrollService;
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
-	@PostMapping(value="/saveCompanyDetail")
-	public @ResponseBody String saveCompanyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
+	@GetMapping(value="/getPayrollMaster")
+	public @ResponseBody String getStateMaster(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,PayrollRequest payrollRequest) {
+			logger.info("getPayrollMaster");	
+			String token = (String) session.getAttribute("hrms");
+			return payrollService.getPayrollMaster(tokengeneration.getToken(),payrollRequest);
+	}
+	
+
+	@PostMapping(value="/saveCompanyPayroll")
+	public @ResponseBody String savePayrollDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeePayrollRequest employeePayrollRequest) {
 		String profileRes=null;JSONObject profileJsonRes=null;
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
-		String res = null;String userRes = null;
-		profileRes = companyService.saveCompany(tokengeneration.getToken(),employeeProfileRequest);
+		String res=null;String userRes=null;
+		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
 		profileJsonRes= new JSONObject(profileRes);
 		
 		if(profileJsonRes.getBoolean("status")) { 
@@ -61,5 +73,6 @@ public class CompanyDetailController extends CotoDelBaseController{
 		
 		return profileRes;
 	}
+	
 
 }
