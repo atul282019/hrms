@@ -1,11 +1,15 @@
 package com.cotodel.hrms.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cotodel.hrms.web.response.UserDetailsEntity;
@@ -80,11 +84,24 @@ public class StaticPageController extends CotoDelBaseController{
 	public String dashboard1(Model model) {
 		logger.info("opening dashboardPage");
 		String token = (String) session.getAttribute("hrms");
-		if(token!=null && token!="") {
-			return "dashboard01";
-		}
-		return "redirect:/index";
+//		if(token!=null && token!="") {
+//			return "dashboard01";
+//		}
+		//return "redirect:/index";
+		return "dashboard01";
+
+	}
+	@GetMapping(value="/tempLogin")
+	public String dashboard1(Model model, @RequestParam("mobile") String mobile,@RequestParam("email") String email) {
+		logger.info("opening dashboardPage");
+		System.out.println("getting token"+mobile);
+//		String token = (String) session.getAttribute("hrms");
+//		if(token!=null && token!="") {
+//			return "dashboard01";
+//		}
+		//return "redirect:/index";
 		
+		return "dashboard01";
 	}
 	@GetMapping(value="/companyDetails01")
 	public ModelAndView companyDetails(Model model) {
