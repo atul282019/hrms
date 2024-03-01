@@ -62,7 +62,7 @@ public class LoginController extends CotoDelBaseController{
 		try {
 			String password = null;
 			password= userForm.getPassword1()+userForm.getPassword2()+userForm.getPassword3()+userForm.getPassword4()+userForm.getPassword5()+userForm.getPassword6();      
-			profileRes =loginservice.verifyOtp(tokengeneration.getToken(),userForm.getUserName(),userForm.getMob(),password );
+			profileRes =loginservice.verifyOtp(tokengeneration.getToken(),userForm.getUserName(),userForm.getMob(),password,userForm.getOrderId());
 			
 			logger.info(profileRes);
 			
@@ -76,12 +76,15 @@ public class LoginController extends CotoDelBaseController{
 					//set token in session
 					request.getSession(true).setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));									  
 					request.getSession(true).setAttribute("hrms", profileJsonRes.getJSONObject("data").getString("mobile"));
+					request.getSession(true).setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
+					
 					//request.getSession(true).setAttribute("cotodel", profileJsonRes.getString("token"));
 					
 					//obj =  JwtTokenValidator.parseToken(profileJsonRes.getString("token"));
 					
 					session.setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));
 					session.setAttribute("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
+					session.setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
 					
 				
 					// switch case to identify the user screen login

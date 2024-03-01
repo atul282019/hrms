@@ -12,7 +12,14 @@ public class UserForm {
 	private String sResult;
 	private String otp;
 	private String mob;
+	private String orderId;
 	
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 	public String getOtp() {
 		return otp;
 	}

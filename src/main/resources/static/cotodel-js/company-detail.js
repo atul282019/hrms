@@ -1,3 +1,9 @@
+
+function openBrandPage(){
+	 $("#form2").show();
+     $("#form1").hide();
+}
+
 function validateFormAndSubmit(){
 	
 	 var gstnNo = document.getElementById("gstnNo").value;

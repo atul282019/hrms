@@ -37,7 +37,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public String sendOtp(String token, String userName, String mobile) {	
-		return CommonUtility.userRequest(token,sendOtpRequest(mobile),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendOtp);
+		return CommonUtility.userRequest(token,sendOtpRequest(mobile),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendOtpNew);
 	}
 	
 	public static String sendOtpRequest(String mobile) {
@@ -47,15 +47,28 @@ public class LoginServiceImpl implements LoginService {
 	}
 	
 	@Override
-	public String verifyOtp(String token,String userName, String mob, String otp) {
-		return CommonUtility.userRequest(token,verifyOtpOrLoginRequest(mob,otp), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtp);
+	public String resendOtp(String token, String userName, String mobile,String orderId) {	
+		return CommonUtility.userRequest(token,sendOtpRequest(mobile,orderId),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.resendOtpNew);
+	}
+	
+	public static String sendOtpRequest(String mobile,String orderId) {
+		JSONObject request= new JSONObject();
+		request.put("mobile", mobile);	
+		request.put("orderId", orderId);	
+		return request.toString();
+	}
+	
+	@Override
+	public String verifyOtp(String token,String userName, String mob, String otp,String orderId) {
+		return CommonUtility.userRequest(token,verifyOtpOrLoginRequest(mob,otp,orderId), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtpNew);
 	}
 	
 	
-	public static String verifyOtpOrLoginRequest(String mobile,String otp) {
+	public static String verifyOtpOrLoginRequest(String mobile,String otp,String orderId) {
 		JSONObject request= new JSONObject();
 		request.put("mobile", mobile);	
-		request.put("otp", otp);	
+		request.put("otp", otp);
+		request.put("orderId", orderId);
 		return request.toString();
 	}
 
@@ -67,9 +80,9 @@ public class LoginServiceImpl implements LoginService {
 	public static String registerUserRequest(UserRegistrationRequest req) {
 		JSONObject request= new JSONObject();
 		request.put("email", req.getEmail());	
-		request.put("orgname", req.getOrgname());	
+		request.put("org_name", req.getOrgname());	
 		request.put("mobile", req.getMobile());	
-		request.put("name", req.getUsername());	
+		request.put("username", req.getUsername());	
 		return request.toString();
 	}
 

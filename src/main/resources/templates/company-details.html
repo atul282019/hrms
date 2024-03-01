@@ -70,7 +70,8 @@
                                         </div>
 
                                         <div class="text-center text-md-center my-3">
-                                            <div class="btn btn-proceed-border my-1">Don't have GSTIN</div>
+                                            <!-- <div class="btn btn-proceed-border my-1">Don't have GSTIN</div> -->
+                                            <input type="button" value="Don't have GSTIN" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="openBrandPage()" />
                                             <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
                                             <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next1" >Continue</div> -->
                                         </div>

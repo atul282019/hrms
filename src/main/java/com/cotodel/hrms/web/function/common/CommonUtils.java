@@ -7,6 +7,10 @@ public interface CommonUtils {
 	public static String registerUserUrl = "/userServices/Api/get/saveUserDetails";
 	public static String verifyEmail = "/userServices/Api//verifyLink";
 	public static String sendOtp = "/userServices/Api/getOtp";
+	public static String sendOtpNew = "/userServices/Api/getOtpNew";
+	public static String resendOtpNew = "/userServices/Api/getOtpResend";
+	public static String verifyOtpNew = "/userServices/Api/verifyOtpNew";
+	
 	public static String verifyOtp = "/userServices/Api/verifyOtp";
 
 	public static String stateMaster = "/userServices/Api/get/state-list";

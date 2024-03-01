@@ -47,6 +47,7 @@ public class OtpSenderController extends CotoDelBaseController{
 				JSONObject userJson= new JSONObject(userRes);
 				if(userJson.getBoolean("status")) {
 					otpMap.put("msg", userJson.getString("message"));
+					otpMap.put("orderId", userJson.getString("orderId"));
 					otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 				}else {
 					otpMap.put("msg", userJson.getString("message"));
@@ -66,6 +67,36 @@ public class OtpSenderController extends CotoDelBaseController{
 		return res;
 	}	
 	
-	
+	@PostMapping(value="/smsOtpResender")
+	public @ResponseBody String resendOTP(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
+		ObjectMapper mapper = new ObjectMapper();
+		String res=null;String userRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		try {
+			userRes=loginservice.resendOtp(tokengeneration.getToken(), userForm.getUserName(),userForm.getMob(),userForm.getOrderId());
+			
+			if(!ObjectUtils.isEmpty(userRes)) {	
+				JSONObject userJson= new JSONObject(userRes);
+				if(userJson.getBoolean("status")) {
+					otpMap.put("msg", userJson.getString("message"));
+					otpMap.put("orderId", userJson.getString("orderId"));
+					otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+				}else {
+					otpMap.put("msg", userJson.getString("message"));
+					otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+				}
+			}else { 
+				otpMap.put("msg", "System not responding, Please try again later..!"); 
+				otpMap.put("status",  MessageConstant.RESPONSE_FAILED); 
+			}
+			res = mapper.writeValueAsString(otpMap);
+			logger.info("response for smsOtpSender *****-----"+res);
+		} catch (Exception e) {
+			logger.error("error in smsOtpSender =============="+e);
+		}finally {
+			mapper=null;otpMap=null;userRes=null;
+		}
+		return res;
+	}	
 
 }

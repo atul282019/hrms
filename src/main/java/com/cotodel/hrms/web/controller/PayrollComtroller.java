@@ -58,7 +58,7 @@ public class PayrollComtroller extends CotoDelBaseController{
 		String res=null;String userRes=null;
 		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
 		profileJsonRes= new JSONObject(profileRes);
-		
+			
 		if(profileJsonRes.getBoolean("status")) { 
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 		}else {

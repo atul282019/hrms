@@ -78,7 +78,7 @@
                     <img src="img/Logo.png" alt="" width="200">
                     <h2>Login to Dashboard</h2>
                     <p>Please login to continue to your account.</p>
-                    <form autocomplete="of" >
+                    <form autocomplete="of" id="loginForm" name="loginForm">
                         <input class="form-control" placeholder="Enter Your Email or Mobile No." type="text" id="mob" name="mob"
                         autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                         <div class="error-msg" id="mobError" style="color:red"></div>
@@ -87,18 +87,20 @@
                         <div class="otp-box d-flex">
                            <!--  <input  class="form-control form-control-sm" type="password" id="password" 
                             name="password" maxlength="1" autocomplete="off"> -->
-                            <input  class="form-control form-control-sm" type="password" id="password1" 
-                            name="password1" maxlength="1" autocomplete="off" oninput="focusNext(this)">
-                            <input  class="form-control form-control-sm" type="password" id="password2" 
-                            name="password2" maxlength="1" autocomplete="off" oninput="focusNext(this)">
-                            <input  class="form-control form-control-sm" type="password" id="password3" 
-                            name="password3" maxlength="1" autocomplete="off" oninput="focusNext(this)">
-                            <input  class="form-control form-control-sm" type="password" id="password4" 
-                            name="password4" maxlength="1" autocomplete="off" oninput="focusNext(this)">
-                            <input  class="form-control form-control-sm" type="password" id="password5" 
-                            name="password5" maxlength="1" autocomplete="off" oninput="focusNext(this)">
-                            <input  class="form-control form-control-sm" type="password" id="password6" 
-                            name="password6" maxlength="1" autocomplete="off">
+                            <input  class="form-control form-control-sm test" type="password" id="password1" 
+                            name="password1" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+                            <input  class="form-control form-control-sm test" type="password" id="password2" 
+                            name="password2" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+                            <input  class="form-control form-control-sm test" type="password" id="password3" 
+                            name="password3" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+                            <input  class="form-control form-control-sm test" type="password" id="password4" 
+                            name="password4" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+                            <input  class="form-control form-control-sm test" type="password" id="password5" 
+                            name="password5" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+                            <input  class="form-control form-control-sm test" type="password" id="password6" 
+                            name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+                            <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+                            name="orderId" >
                         </div>
                         </div>
                         
@@ -120,13 +122,12 @@
 										</div>
 						</div>
 						
-                        <p>Didn’t receive the code? <a href="#">Resend Code</a></p>
+                        <p>Didn’t receive the code?  <a href="#" onclick="resendOTP()">Resend OTP</a></p>
                         <div class="d-grid">
                             <button class="btn btn-primary btn-user btn-block" id="optBtn" type="button"  onclick="getOTP()" >Login</button>
                         </div>
-                        <div class="d-grid" id="verifyotpdiv" style="display:none">
-                            <button type="button" onclick="submitAction()"
-							class="btn btn-primary btn-user btn-block">Verify OTP and Sign In</button>
+                        <div class="d-grid">
+                            <button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn btn-primary btn-user btn-block">Verify OTP and Sign In</button>
                         </div>
                         
                          <div class="or text-center"><span>or</span></div>
