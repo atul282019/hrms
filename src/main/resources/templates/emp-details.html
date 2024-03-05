@@ -1,32 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Employee Details</title>
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/custom.css">
-
-</head>
-
-<body id="page-top">
+<body id="page-top" onload="getEmployeeDetail(),getEmployeeFamilyDetail(),getEmployeeQualificationDetail(),getEmployeeExperienceDetail(), getEmployeeCertificateDetail(),getEmployeeProjectDetail()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -80,8 +60,8 @@
                                                 aria-selected="false">Qualification</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="designation-tab" data-toggle="tab"
-                                                data-target="#designation" type="button" role="tab" aria-controls="designation"
+                                            <button class="nav-link" id="experiencetav-tab" data-toggle="tab"
+                                                data-target="#experiencetav" type="button" role="tab" aria-controls="experiencetav"
                                                 aria-selected="false">Experience</button>
                                         </li>
                                          <li class="nav-item" role="presentation">
@@ -100,33 +80,34 @@
                                     
                                        <div class="tab-pane fade show active" id="home" role="tabpanel"
                                             aria-labelledby="home-tab">
+                                            <form action="" id="empdetailForm" name="empdetailForm" method="Post" enctype="multipart/form-data">
                                             <div class="row">
                                              
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">First Name <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="firstName" name="firstName">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Middle Name </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="middleName" name="middleName">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Last Name </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="lastName" name="lastName">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">D.O.B <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="date" class="form-input" id="dateOfBirth" name="dateOfBirth">
                                                     </div>
                                                 </div>
 
@@ -134,8 +115,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Nationality <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Indian</option>
+                                                            aria-label="Default select example" id="nationality" name="nationality">
+                                                            <option selected="1">Indian</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -144,8 +125,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Marital Status <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Married</option>
+                                                            aria-label="Default select example" id="maritalStatus" name="maritalStatus">
+                                                            <option selected="" value="1">Married</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -153,7 +134,7 @@
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">D.O.J <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="date" class="form-input" id="dateOfJoining" name="dateOfJoining">
                                                     </div>
                                                 </div>
 
@@ -161,8 +142,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Designation  </label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Supervisior</option>
+                                                            aria-label="Default select example" id="designation" name="designation">
+                                                            <option selected="" value="1">Supervisior</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -171,8 +152,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Sex <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Male</option>
+                                                            aria-label="Default select example" id="gender" name="gender">
+                                                            <option selected="" value="1">Male</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -181,8 +162,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Department <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected=""></option>
+                                                            aria-label="Default select example" id="department" name="department">
+                                                            <option selected="" value="1"></option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -191,8 +172,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Location <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected=""></option>
+                                                            aria-label="Default select example" id="location" name="location">
+                                                            <option selected="" value="1">UP</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -200,35 +181,35 @@
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">PAN No  </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="panNo" name="panNo">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">PF No  </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="pfNo" name="pfNo">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">ESI No  </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="esiNo" name="esiNo">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Bank A/C No </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="accountNumber" name="accountNumber"> 
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">UAN No </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="uanNo" name="uanNo">
                                                     </div>
                                                 </div>
 
@@ -236,8 +217,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Bank Name </label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected=""></option>
+                                                            aria-label="Default select example" id="bankName" name="bankName">
+                                                            <option selected="" value="1"></option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -245,23 +226,17 @@
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="remarks" name="remarks">
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12 col-md-4">                                                
-                                                    <div class="card-form my-3">
-                                                        <label for="">Brief Description </label>
-                                                        <textarea name="" class="form-input border-0 w-100" id="" rows="2"></textarea>
-                                                    </div>
-                                                </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Add Image </label>
                                                         <div class="custom-file mt-3">
-                                                            <input type="file" class="custom-file-input" id="customFile">
-                                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                                            <input type="file" class="custom-file-input" id="docfile">
+                                                            <label class="custom-file-label" for="docfile">Choose file</label>
                                                           </div>
                                                     </div>
                                                 </div>
@@ -270,8 +245,8 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Add Signature </label>
                                                         <div class="custom-file mt-3">
-                                                            <input type="file" class="custom-file-input" id="customFile">
-                                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                                            <input type="file" class="custom-file-input" id="sigfile">
+                                                            <label class="custom-file-label" for="sigfile">Choose file</label>
                                                           </div>
                                                     </div>
                                                 </div>
@@ -279,9 +254,9 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Status <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">In Service*</option>
-                                                            <option selected="">Out Service*</option>
+                                                            aria-label="Default select example" id="serviceStatus" name="serviceStatus">
+                                                            <option selected="" value="1">In Service*</option>
+                                                            <option selected="" value="2">Out Service*</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -292,9 +267,9 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Employee Type <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Permanent</option>
-                                                            <option selected="">Contract</option>
+                                                            aria-label="Default select example" id="employeeType" name="employeeType">
+                                                            <option selected="1">Permanent</option>
+                                                            <option selected="2">Contract</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -303,9 +278,9 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Category <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Skilled</option>
-                                                            <option selected="">Non-skilled</option>
+                                                            aria-label="Default select example" id="category" name="category">
+                                                            <option selected="1">Skilled</option>
+                                                            <option selected="2">Non-skilled</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -323,19 +298,26 @@
                                                 
                                                 
                                             </div>
-
+											
+										    <div id="empmsgdiv" style="display:none" class="alert alert-success text-center">
+								            	<div id="empsuccmsg"></div>   
+								            </div>
+								            
+								            <div id="empfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								            	<div id="empfailmsg"></div>
+								            </div>
+											
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
-                                                        <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
-                                                        </div>
-                                                        <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
-                                                        </div>
+                                                           <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
+                                                           <input type="hidden" class="form-input" id="EmployerId" name="EmployerId" value="1">
+                                           				  <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validateEmployeeAndSubmit()" />
                                                     </div>
                                                 </div>
                                             </div>
-
-
+	
+											</form>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="card shadow mb-4">
@@ -344,7 +326,7 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                                <table class="table table-bordered" id="employeeDetail" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Employee ID</th>
@@ -359,17 +341,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>001</td>
-                                                                            <td>Service</td>
-                                                                            <td>Active</td>
-                                                                            <td>AA0012</td>
-                                                                            <td>Casual</td>
-                                                                            <td>General</td>
-                                                                            <td>Ram</td>
-                                                                            <td>Naresh</td> 
-                                                                            <td>Yadav</td>                                                                                      
-                                                                        </tr>
+                                                                       
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -381,53 +353,41 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                       <form id="employeeFamilyForm" name="employeeFamilyForm" method="POST">
                                             <div class="row">
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Name</label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="name" name="name">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">DOB <em>*</em></label>
-                                                        <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">In Service*</option>
-                                                        </select>
+                                                        <input type="date" class="form-input" id="dob" name="dob">
                                                     </div>
                                                 </div>
 
-                                               <!--  <div class="col-12 col-md-4">                                                
-                                                    <div class="my-3 d-flex align-items-center">
-                                                        <label for="" class="mb-0 mt-3">Relation</label>
-                                                        <div class="form-group mb-0 ml-3 mt-3">
-                                                            <div class="custom-control custom-checkbox small">
-                                                              <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                                                <label class="custom-control-label text-left font-0" for="customCheck3">Let </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                              
                                                    <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Relation</label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="relation" name="relation">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Nominee <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="nominee" name="nominee">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Insurance No <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="insuranceNo" name="insuranceNo">
                                                     </div>
                                                 </div>
 
@@ -438,33 +398,44 @@
                                                             aria-label="Default select example">
                                                             <option selected="">Skilled</option>
                                                         </select> -->
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="mobile" name="mobile">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Email <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="email" name="email">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remark </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="remark" name="remark">
                                                     </div>
                                                 </div>
                                                 
                                             </div>
-
+                                            
+                                             <div id="empfamilymsgdiv" style="display:none" class="alert alert-success text-center">
+								            	<div id="empfamilysuccmsg"></div>   
+								            </div>
+								            
+								            <div id="empfamilyfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								            	<div id="empfamilyfailmsg"></div>
+								            </div>
+								            
+										</form>
+										
+										
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
-                                                        <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
-                                                        </div>
+                                                        <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" id="familyButton" onclick="SaveFmailyDetail()" />
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -478,7 +449,7 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                                <table class="table table-bordered" id="empFamilyDetail" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Name</th>
@@ -491,15 +462,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <th>Name</th>
-                                                                            <th>Dob </th>
-                                                                            <th>Relation</th>
-                                                                            <th>Nominee</th>
-                                                                            <th>Insurance No</th>
-                                                                            <th>Mobile </th>
-                                                                            <th>Email</th>                                                                                  
-                                                                        </tr>
+                                                                       
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -510,34 +473,32 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                           <form action="" id="qualification" name="qualification" method="post"> 
                                             <div class="row">
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">From </label>
-                                                        <input type="Date" class="form-input">
+                                                        <input type="Date" class="form-input" id="fromDate" name="fromDate">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">To <em>*</em></label>
-                                                         <input type="Date" class="form-input">
+                                                         <input type="Date" class="form-input"  id="toDate" name="toDate">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Education <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input"  id="education" name="education">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Institutes <em>*</em></label>
-                                                        <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Casual</option>
-                                                        </select>
+                                                        <input type="text" class="form-input"  id="institutes" name="institutes">
                                                     </div>
                                                 </div>
 
@@ -545,8 +506,10 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Reference Type <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Skilled</option>
+                                                            aria-label="Default select example" id="referenceType" name="referenceType">
+                                                            <option selected="">Select Reference Type </option>
+                                                            <option value="1">Skilled</option>
+                                                            <option value="2">Non Skilled</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -554,18 +517,30 @@
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="remarks" name="remarks">
                                                     </div>
                                                 </div>      
                                             </div>
-
+                                            
+                                             <div id="qualificationmsgdiv" style="display:none" class="alert alert-success text-center">
+								            	<div id="qualificationsuccmsg"></div>   
+								            </div>
+								            
+								            <div id="qualificationfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								            	<div id="qualificationfailmsg"></div>
+								            </div>
+								            
+								            
+											</form>
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
-                                                        <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
-                                                        </div>
+                                                       <!--  <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
+                                                        </div> -->
+                                                        <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" id="qualificationButton" onclick="saveQualificationDetail()" />
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -578,7 +553,7 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                                <table class="table table-bordered" id="qualificationDetail" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>From</th>
@@ -591,14 +566,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <th>From</th>
-                                                                            <th>To </th>
-                                                                            <th>Education</th>
-                                                                            <th>Institutes</th>
-                                                                            <th>Reference Type</th>
-                                                                            <th>Remarks </th>
-                                                                        </tr>
+                                                                       
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -608,38 +576,40 @@
                                             </div>
                                         </div>
                                         
-                                       <div class="tab-pane fade" id="designation" role="tabpanel" aria-labelledby="designation-tab">
+                                       <div class="tab-pane fade" id="experiencetav" role="tabpanel" aria-labelledby="experiencetav-tab">
+                                       
+                                        <form action="" id="experience" name="experience" method="post">
                                             <div class="row">
                                             
                                                <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Designation </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="designation" name="designation">
                                                     </div>
                                                 </div>
                                                  <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Company </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="company" name="company">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">From </label>
-                                                        <input type="Date" class="form-input">
+                                                        <input type="Date" class="form-input" id="fromDate" name="fromDate">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">To <em>*</em></label>
-                                                         <input type="Date" class="form-input">
+                                                         <input type="Date" class="form-input" id="toDate" name="toDate">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">No of Year <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="noOfYear" name="noOfYear">
                                                     </div>
                                                 </div>
 
@@ -647,7 +617,7 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Country <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
+                                                            aria-label="Default select example" id="country" name="country">
                                                             <option selected="">India</option>
                                                             <option selected="">US</option>
                                                             <option selected="">UK</option>
@@ -658,33 +628,42 @@
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Reference Email <em>*</em></label>
-                                                       <input type="text" class="form-input">
+                                                       <input type="text" class="form-input" id="referenceEmail" name="referenceEmail">
                                                     </div>
                                                 </div>
 
 												<div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Reference Mobile <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="referenceMobile" name="referenceMobile">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="remarks" name="remarks">
                                                     </div>
                                                 </div>
     
                                             </div>
-
+                                            
+                                              <div id="experiencemsgdiv" style="display:none" class="alert alert-success text-center">
+								            	<div id="experiencesuccmsg"></div>   
+								            </div>
+								            
+								            <div id="experiencefailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								            	<div id="experiencefailmsg"></div>
+								            </div>
+								            
+										</form>
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
-                                                        <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
-                                                        </div>
+                                                        <input type="button" id="experienceButton" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="saveEmployeeExperience()">
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -697,7 +676,7 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                                <table class="table table-bordered" id="experienceTable" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Designation</th>
@@ -711,16 +690,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                             <th>Designation</th>
-                                                                            <th>Company </th>
-                                                                            <th>From</th>
-                                                                            <th>To</th>
-                                                                            <th>No Of Year</th>
-                                                                            <th>Company </th>
-                                                                            <th>Country</th>
-                                                                            <th>Reference Email</th>
-                                                                        </tr>
+                                                                       
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -731,23 +701,24 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="project" role="tabpanel" aria-labelledby="project-tab">
+                                       <form action="" id="projectForm" name="projectForm" method="post">
                                             <div class="row">
                                             
                                                <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Region </label>
                                                        <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">UP*</option>
-                                                              <option selected="">Delhi*</option>
-                                                                <option selected="">Mumbai*</option>
+                                                            aria-label="Default select example" id="region" name="region">
+                                                            <option selected="" value="1">UP</option>
+                                                              <option selected="" value="2">Delhi</option>
+                                                                <option selected="" value="3">Mumbai</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">project Name </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="projectName" name="projectName">
                                                     </div>
                                                 </div>
 
@@ -755,10 +726,10 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Role In Project <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Project Head*</option>
-                                                              <option selected="">Project Manager*</option>
-                                                                <option selected="">Project Member*</option>
+                                                            aria-label="Default select example" id="roleInProject" name="roleInProject">
+                                                            <option selected="">Select Role In Project</option>
+                                                              <option selected="" value="1">Project Manager</option>
+                                                                <option selected="" value="2">Project Member</option>
                                                         </select>
                                                          
                                                     </div>
@@ -768,20 +739,20 @@
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Assign From Date <em>*</em></label>
-                                                        <input type="Date" class="form-input">
+                                                        <input type="Date" class="form-input" id="assignFromDate" name="assignFromDate">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">To Date <em>*</em></label>
-                                                        <input type="date" class="form-input">                                                    </div>
+                                                        <input type="date" class="form-input" id="assignToDate" name="assignToDate">                                                    </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Sharing Percentage <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="sharingPercentage" name="sharingPercentage">
                                                     </div>
                                                 </div>
                                              
@@ -789,9 +760,9 @@
                                                     <div class="card-form my-3">
                                                         <label for="">Technical Support <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Yes</option>
-                                                            <option selected="">No</option>
+                                                            aria-label="Default select example" id="technicalSupport" name="technicalSupport">
+                                                            <option selected="" value="1">Yes</option>
+                                                            <option selected="" value="2">No</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -799,19 +770,26 @@
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="remark" name="remark">
                                                     </div>
                                                 </div>
 
                                             </div>
-
+										 <div id="projectmsgdiv" style="display:none" class="alert alert-success text-center">
+								            	<div id="projectsuccmsg"></div>   
+								            </div>
+								            
+								            <div id="projectfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								            	<div id="projectfailmsg"></div>
+								            </div>
+										</form>
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
-                                                        <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
-                                                        </div>
+                                                        <input type="button" class="btn btn-proceed ml-2 my-1 next" id="btnProject" value="Continue" onclick="saveEmployeeProject()">
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -823,7 +801,7 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                                <table class="table table-bordered" id="projectTable" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Region</th>
@@ -837,16 +815,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <th>Region</th>
-                                                                            <th>Project Name</th>
-                                                                            <th>Role In Project</th>
-                                                                            <th>Assign from Date</th>
-                                                                            <th>Assign To Date</th>
-                                                                            <th>Sharing Percentage </th>
-                                                                            <th>Technical Support</th>
-                                                                            <th>Remark</th> 
-                                                                        </tr>
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -857,61 +826,73 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="certificate" role="tabpanel" aria-labelledby="certificate-tab">
+                                           <form action="" id="certificateForm" name="certificateForm" method="POST">
                                             <div class="row">
                                             
                                                <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Doc Name </label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="docName" name="docName">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Institutes </label>
-                                                        <input type="Date" class="form-input">
+                                                        <input type="Date" class="form-input" id="institutes" name="institutes">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Doc Type <em>*</em></label>
-                                                         <input type="Text" class="form-input">
+                                                         <input type="Text" class="form-input" id="docType" name="docType">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Doc No <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="docNo" name="docNo">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Doc Date <em>*</em></label>
-                                                        <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
+                                                       <!--  <select class="form-select form-control no-bg border-0"
+                                                            aria-label="Default select example" id="docDate" name="docDate">
                                                             <option selected="">Casual</option>
-                                                        </select>
+                                                        </select> -->
+                                                        <input type="date" class="form-input" id="docDate" name="docDate">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
-                                                        <input type="text" class="form-input">
+                                                        <input type="text" class="form-input" id="remarks" name="remarks">
                                                     </div>
                                                 </div>
                                               
                                             </div>
-
+											
+											 <div id="certificatemsgdiv" style="display:none" class="alert alert-success text-center">
+								            	<div id="certificatesuccmsg"></div>   
+								            </div>
+								            
+								            <div id="certificatefailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								            	<div id="certificatefailmsg"></div>
+								            </div>
+											
+											</form>
+											
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
-                                                        <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
-                                                        </div>
+                                                        <input type="button"  class="btn btn-proceed ml-2 my-1 next" id="btnCertificate" value="Continue" onclick="saveEmployeeCertificate()">
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -925,7 +906,7 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                                <table class="table table-bordered" id="certificateTable" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Doc Name</th>
@@ -940,12 +921,6 @@
                                                                     <tbody>
                                                                         <tr>
                                                                           
-                                                                             <th>Doc Name</th>
-                                                                            <th>Institutes Type </th>
-                                                                            <th>DOc Type</th>
-                                                                            <th>Doc No </th>
-                                                                            <th>Doc Date</th>
-                                                                            <th>Remarks </th>
                                                                             
                                                                         </tr>
                                                                     </tbody>
@@ -974,6 +949,7 @@
             </div>
             <!-- End of Main Content -->
         </div>
+        <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -1001,7 +977,8 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
+    <script type="text/javascript" src="cotodel-js/save-employee.js"></script>
+     
 
 </body>
 

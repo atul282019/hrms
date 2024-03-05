@@ -70,10 +70,9 @@
                                         </div>
 
                                         <div class="text-center text-md-center my-3">
-                                            <!-- <div class="btn btn-proceed-border my-1">Don't have GSTIN</div> -->
                                             <input type="button" value="Don't have GSTIN" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="openBrandPage()" />
                                             <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
-                                            <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next1" >Continue</div> -->
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +105,6 @@
                                             <div class="btn btn-proceed-border my-1">Fill via GSTIN</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
                                             <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
-                                            <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next2" onclick="checkPanNumber()">Continue</div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -139,13 +137,7 @@
 
                                         <div class="card-form">
                                         <input type="text" class="form-input" id="panDetails" name="panDetails" maxlength="100">
-                                          <!--   <select class="form-select form-control no-bg border-0"
-                                                aria-label="Default select example" id="companyPan" name="companyPan">
-                                                <option selected="">Company PAN*</option>
-                                                <option value="1">companypan1</option>
-                                                <option value="2">companypan2</option>
-                                                <option value="3">companypan3</option>
-                                            </select>  -->
+                                        
                                         </div>
 										<div class="error-msg" id="panDetailsError" style="color:red"></div>
 										
@@ -175,10 +167,10 @@
                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                                         </div>
 										<div class="error-msg" id="pinCodeError" style="color:red"></div>
-                                        <div class="card-form">
+                                      <!--   <div class="card-form">
                                          <input type="text" class="form-input" id="companyPan2" name="companyPan2">
                                           
-                                        </div>
+                                        </div> -->
 										<div class="error-msg" id="companyPan2Error" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <select class="form-select form-control no-bg border-0"
@@ -328,27 +320,27 @@
                                                 <tbody>
                                                      <tr>
                                                         <td><span id="salaryComponentBasic" name="salaryComponentBasic"></span></td>
-                                                        <td><input type="text" id="perCtcBasic" name="perCtcBasic" ></td>
-                                                        <td><input type="text" id="perBasic" name="perBasic" ></td>
-                                                        <td><input type="text" id="taxableBasic" name="taxableBasic" ></td>
+                                                        <td><input type="text" id="perCtcBasic" name="perCtcBasic" maxlength="3" size="3" ></td>
+                                                        <td><input type="text" id="perBasic" name="perBasic" maxlength="10" size="3"></td>
+                                                        <td><input type="text" id="taxableBasic" name="taxableBasic" size="3"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentHra" name="salaryComponentHra"></span></td>
-                                                        <td><input type="text" id="perCtcHra" name="perCtcHra" width="10px" ></td>
-                                                        <td><input type="text" id="perHra" name="perHra" width="10px"></td>
-                                                        <td><input type="text" id="taxableHra" name="taxableHra" width="10px"></td>
+                                                        <td><input type="text" id="perCtcHra" name="perCtcHra" width="10px" maxlength="3" size="3"></td>
+                                                        <td><input type="text" id="perHra" name="perHra" width="10px" maxlength="10" size="3"></td>
+                                                        <td><input type="text" id="taxableHra" name="taxableHra" width="10px" size="3"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentSpecial" name="salaryComponentSpecial"></span></td>
-                                                        <td><input type="text" id="perCtcSpecial" name="perCtcSpecial" ></td>
-                                                        <td><input type="text" id="perSpecial" name="perSpecial" ></td>
-                                                        <td><input type="text" id="taxableSpecial" name="taxableSpecial" ></td>
+                                                        <td><input type="text" id="perCtcSpecial" name="perCtcSpecial" maxlength="3" size="3"></td>
+                                                        <td><input type="text" id="perSpecial" name="perSpecial" maxlength="10" size="3"></td>
+                                                        <td><input type="text" id="taxableSpecial" name="taxableSpecial" size="3"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentLta" name="salaryComponentLta"></span></td>
-                                                        <td><input type="text" id="perCtcLta" name="perCtcLta" width="10px" ></td>
-                                                        <td><input type="text" id="perLta" name="perLta" width="10px" ></td>
-                                                        <td><input type="text" id="taxableLta" name="taxableLta"  width="10px"></td>
+                                                        <td><input type="text" id="perCtcLta" name="perCtcLta" width="10px" maxlength="3" size="3" ></td>
+                                                        <td><input type="text" id="perLta" name="perLta" width="10px" maxlength="10" size="3"></td>
+                                                        <td><input type="text" id="taxableLta" name="taxableLta"  width="10px" size="3"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -398,6 +390,7 @@
             </div>
             <!-- End of Main Content -->
         </div>
+        <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <!-- End of Content Wrapper -->
 
     </div>

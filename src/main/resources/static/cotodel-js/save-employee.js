@@ -1,6 +1,431 @@
+
+function getEmployeeProjectDetail() {
+	//document.getElementById("overlay").style.display = "flex";
+	//var employeeid= document.getElementById("employeeid").value;
+	var employeeid=1; //document.getElementById("employeeid").value;
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeProjectDetail",
+		data: {
+			"employeeId": employeeid,
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			var table = $('#projectTable').DataTable({
+				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+             "language": {"emptyTable": "No History available"  },
+				"aaData": data2,
+				"aoColumns": [
+					{ "mData": "region" },
+					{ "mData": "projectName" },
+					{ "mData": "roleInProject" },
+					{ "mData": "assignFromDate" },
+					{ "mData": "assignToDate" },
+					{ "mData": "sharingPercentage"},
+					{ "mData": "technicalSupport"}
+				
+				]
+			}).buttons().container().appendTo('#certificateTable_wrapper .col-md-6:eq(0)');
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+function getEmployeeCertificateDetail() {
+	//document.getElementById("overlay").style.display = "flex";
+	//var employeeid= document.getElementById("employeeid").value;
+	var employeeid=1; //document.getElementById("employeeid").value;
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeCertificateDetail",
+		data: {
+			"employeeId": employeeid,
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			var table = $('#certificateTable').DataTable({
+				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+             "language": {"emptyTable": "No History available"  },
+				"aaData": data2,
+				"aoColumns": [
+					{ "mData": "docName" },
+					{ "mData": "institutes" },
+					{ "mData": "docType" },
+					{ "mData": "docDate" },
+					{ "mData": "docNo" },
+					{ "mData": "remarks"},
+				
+					
+				]
+			}).buttons().container().appendTo('#certificateTable_wrapper .col-md-6:eq(0)');
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+
+function getEmployeeExperienceDetail() {
+	//document.getElementById("overlay").style.display = "flex";
+	//var employeeid= document.getElementById("employeeid").value;
+	var employeeid=1; //document.getElementById("employeeid").value;
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeExperienceDetail",
+		data: {
+			"employeeId": employeeid,
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			var table = $('#experienceTable').DataTable({
+				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+             "language": {"emptyTable": "No History available"  },
+				"aaData": data2,
+				"aoColumns": [
+					{ "mData": "designation" },
+					{ "mData": "company" },
+					{ "mData": "fromDate" },
+					{ "mData": "toDate" },
+					{ "mData": "noOfYear" },
+					{ "mData": "country"},
+					{ "mData": "referenceEmail"},
+					{ "mData": "referenceMobile"},
+					{ "mData": "remarks"}
+					
+				]
+			}).buttons().container().appendTo('#experienceTable_wrapper .col-md-6:eq(0)');
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+
+function getEmployeeQualificationDetail() {
+	//document.getElementById("overlay").style.display = "flex";
+	//var employeeid= document.getElementById("employeeid").value;
+	var employeeid=1; //document.getElementById("employeeid").value;
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeQualificationDetail",
+		data: {
+			"employeeId": employeeid,
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			var table = $('#qualificationDetail').DataTable({
+				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+             "language": {"emptyTable": "No History available"  },
+				"aaData": data2,
+				"aoColumns": [
+					{ "mData": "fromDate" },
+					{ "mData": "toDate" },
+					{ "mData": "education" },
+					{ "mData": "institutes" },
+					{ "mData": "referenceType" },
+					{ "mData": "remarks"}
+				]
+			}).buttons().container().appendTo('#qualificationDetail_wrapper .col-md-6:eq(0)');
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+function getEmployeeFamilyDetail() {
+	//document.getElementById("overlay").style.display = "flex";
+	//var employeeid= document.getElementById("employeeid").value;
+	var employeeid=1; //document.getElementById("employeeid").value;
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeFamilyDetail",
+		data: {
+			"employeeId": employeeid,
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			var table = $('#empFamilyDetail').DataTable({
+				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+             "language": {"emptyTable": "No History available"  },
+				"aaData": data2,
+				"aoColumns": [
+					{ "mData": "name" },
+					{ "mData": "dob" },
+					{ "mData": "relation" },
+					{ "mData": "nominee" },
+					{ "mData": "insuranceNo" },
+					{ "mData": "mobile" },
+					{ "mData": "email" }
+				]
+			}).buttons().container().appendTo('#empFamilyDetail_wrapper .col-md-6:eq(0)');
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+
+function getEmployeeDetail() {
+	var employerId = document.getElementById("EmployerId").value;  
+	var employeeId =1; document.getElementById("EmployerId").value;  
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeDetail",
+		data: {
+			"employerId": employerId,
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			var table = $('#employeeDetail').DataTable({
+				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+             "language": {"emptyTable": "No History available"  },
+				"aaData": data2,
+				"aoColumns": [
+					{ "mData": "firstName" },
+					{ "mData": "dateOfBirth" },
+					{ "mData": "nationality" },
+					{ "mData": "dateOfJoining" },
+					{ "mData": "gender" },
+					{ "mData": "panNo" },
+					{ "mData": "accountNumber" },
+					{ "mData": "uanNo" },
+					{ "mData": "bankName" }
+				]
+			}).buttons().container().appendTo('#employeeDetail_wrapper .col-md-6:eq(0)');
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+function saveEmployeeProject(){
+	var employerId =1;// document.getElementById("EmployerId").value;  
+	var formData = new FormData(projectForm);
+	formData.append("employerId",employerId);
+	document.getElementById("signinLoader").style.display="flex";
+	 	$.ajax({
+		type: "POST",
+	     url:""+$('#ctx').attr('content')+"/saveEmployeeProject",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
+			if(data1.status==true){
+				 document.getElementById("certificatesuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("certificatemsgdiv").style.display="block";
+				 //document.getElementById("saveorg").reset();
+				 $('#certificatemsgdiv').delay(5000).fadeOut(400);
+			}else if(data1.status==false){
+				 document.getElementById("certificatefailmsg").innerHTML=data1.message;
+				 document.getElementById("certificatefailmsgDiv").style.display="block";
+				 $('#certificatefailmsgDiv').delay(5000).fadeOut(400);
+			}else{
+				 document.getElementById("certificatemsgdiv").style.display="none";
+				 document.getElementById("certificatefailmsgDiv").style.display="none";
+				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
+			}
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });	
+}
+
+function saveEmployeeCertificate(){
+	var employerId =1;// document.getElementById("EmployerId").value;  
+	var formData = new FormData(certificateForm);
+	formData.append("employerId",employerId);
+	document.getElementById("signinLoader").style.display="flex";
+	 	$.ajax({
+		type: "POST",
+	     url:""+$('#ctx').attr('content')+"/saveEmployeeCertificate",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
+			if(data1.status==true){
+				 document.getElementById("certificatesuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("certificatemsgdiv").style.display="block";
+				 //document.getElementById("saveorg").reset();
+				 $('#certificatemsgdiv').delay(5000).fadeOut(400);
+			}else if(data1.status==false){
+				 document.getElementById("certificatefailmsg").innerHTML=data1.message;
+				 document.getElementById("certificatefailmsgDiv").style.display="block";
+				 $('#certificatefailmsgDiv').delay(5000).fadeOut(400);
+			}else{
+				 document.getElementById("certificatemsgdiv").style.display="none";
+				 document.getElementById("certificatefailmsgDiv").style.display="none";
+				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
+			}
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });	
+}
+
+function saveEmployeeExperience(){
+	var employerId =1;// document.getElementById("EmployerId").value;  
+	var formData = new FormData(experience);
+	formData.append("employerId",employerId);
+	document.getElementById("signinLoader").style.display="flex";
+	 	$.ajax({
+		type: "POST",
+	     url:""+$('#ctx').attr('content')+"/saveEmployeeExperience",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
+			if(data1.status==true){
+				 document.getElementById("experiencesuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("experiencemsgdiv").style.display="block";
+				 //document.getElementById("saveorg").reset();
+				 $('#experiencemsgdiv').delay(5000).fadeOut(400);
+			}else if(data1.status==false){
+				 document.getElementById("experiencefailmsg").innerHTML=data1.message;
+				 document.getElementById("experiencefailmsgDiv").style.display="block";
+				 $('#experiencefailmsgDiv').delay(5000).fadeOut(400);
+			}else{
+				 document.getElementById("experiencemsgdiv").style.display="none";
+				 document.getElementById("experiencefailmsgDiv").style.display="none";
+				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
+			}
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });				
+}
+
+function saveQualificationDetail(){
+	
+	var employerId =1;// document.getElementById("EmployerId").value;  
+	var formData = new FormData(qualification);
+	formData.append("employerId",employerId);
+	document.getElementById("signinLoader").style.display="flex";
+	 	$.ajax({
+		type: "POST",
+	     url:""+$('#ctx').attr('content')+"/saveQualificationDetail",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
+			if(data1.status==true){
+				 document.getElementById("qualificationsuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("qualificationmsgdiv").style.display="block";
+				 //document.getElementById("saveorg").reset();
+				 $('#qualificationmsgdiv').delay(5000).fadeOut(400);
+			}else if(data1.status==false){
+				 document.getElementById("qualificationfailmsg").innerHTML=data1.message;
+				 document.getElementById("qualificationfailmsgDiv").style.display="block";
+				 $('#qualificationfailmsgDiv').delay(5000).fadeOut(400);
+			}else{
+				 document.getElementById("qualificationmsgdiv").style.display="none";
+				 document.getElementById("qualificationfailmsgDiv").style.display="none";
+				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
+			}
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });				
+}
+
+function SaveFmailyDetail(){
+	
+	var employerId = document.getElementById("EmployerId").value;  
+	var formData = new FormData(employeeFamilyForm);
+	formData.append("employerId",employerId);
+	document.getElementById("signinLoader").style.display="flex";
+	 	$.ajax({
+		type: "POST",
+	     url:""+$('#ctx').attr('content')+"/saveFamilyDetail",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
+			if(data1.status==true){
+				 document.getElementById("empfamilysuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("empfamilymsgdiv").style.display="block";
+				 //document.getElementById("saveorg").reset();
+				 $('#empmsgdiv').delay(5000).fadeOut(400);
+			}else if(data1.status==false){
+				 document.getElementById("empfamilyfailmsg").innerHTML=data1.message;
+				 document.getElementById("empfamilyfailmsgDiv").style.display="block";
+				 $('#empfailmsgDiv').delay(5000).fadeOut(400);
+			}else{
+				 document.getElementById("empfamilymsgdiv").style.display="none";
+				 document.getElementById("empfamilyfailmsgDiv").style.display="none";
+				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
+			}
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });				
+}
+
+
 function validateEmployeeAndSubmit(){
 	
-	 var firstName = document.getElementById("firstName").value;
+	/* var firstName = document.getElementById("firstName").value;
 	 var lastName = document.getElementById("lastName").value;
 	 var dateOfBirth = document.getElementById("dateOfBirth").value; 
 	 var gender = document.getElementById("gender").value; 
@@ -25,7 +450,7 @@ function validateEmployeeAndSubmit(){
 	 var department = document.getElementById("department").value;   
 	 var salaryType = document.getElementById("salaryType").value;
 	 var salaryAmount = document.getElementById("salaryAmount").value;   
-	 
+	 */
 
 	 var regName = /^[a-zA-Z\s]*$/;
 	 var onlySpace = /^$|.*\S+.*/;
@@ -72,7 +497,10 @@ function validateEmployeeAndSubmit(){
 		document.getElementById("overlay").style.display = "none";
 	}
 	*/
-	var formData = new FormData(saveEmployee);
+	var employerId = document.getElementById("EmployerId").value;  
+	var formData = new FormData(empdetailForm);
+	formData.append("employerId",employerId);
+	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/saveEmployeeDetail",
@@ -82,16 +510,17 @@ function validateEmployeeAndSubmit(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			console.log(data1)
+			document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
 			if(data1.status==true){
-				 document.getElementById("successmsg").innerHTML="Data Saved Successfully";
-				 document.getElementById("successmsgdiv").style.display="block";
+				 document.getElementById("empsuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("empmsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
-				 $('#successmsgdiv').delay(5000).fadeOut(400);
+				 $('#empmsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status==false){
-				 document.getElementById("failmsg").innerHTML=data1.message;
-				 document.getElementById("failmsgDiv").style.display="block";
-				 $('#failmsgDiv').delay(5000).fadeOut(400);
+				 document.getElementById("empfailmsg").innerHTML=data1.message;
+				 document.getElementById("empfailmsgDiv").style.display="block";
+				 $('#empfailmsgDiv').delay(5000).fadeOut(400);
 			}else{
 				 document.getElementById("failmsgDiv").style.display="none";
 				 document.getElementById("successmsgdiv").style.display="none";
@@ -298,7 +727,7 @@ function validateFormAndSubmit() {
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			console.log(data1)
+			//console.log(data1)
 			if(data1.status==false){
 				 document.getElementById("successmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("successmsgdiv").style.display="block";

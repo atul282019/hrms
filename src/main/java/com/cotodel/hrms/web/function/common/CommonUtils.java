@@ -22,4 +22,20 @@ public interface CommonUtils {
 	public static String getPermission  = "/userServices/Api/get/Permissions";
 	public static String getRole  = "/userServices/Api/get/Roles";
 	
+	public static String empDetails  = "/empService/Api/add/empDetails";
+	public static String empFamilyDetails  = "/empService/Api/add/empFamilyDetails";
+	public static String getEmployeeDetails  = "/empService/Api/get/empAllDetails";
+	public static String getEmployeeFamilyDetails  = "/empService/Api/get/empFamilyAllDetails";
+	public static String saveEmployeeQualification  = "/empService/Api/add/saveQualification";
+	public static String getEmployeeQualification = "/empService/Api/get/getQualification";
+	public static String saveEmpExperience = "/empService/Api/add/saveExperience";
+	public static String getEmpExperience = "/empService/Api/get/getExperience";
+	public static String saveEmpCertificate = "/empService/Api/add/saveCertificate";
+	public static String getEmpCertificate = "/empService/Api/get/getCertificate";
+	public static String saveEmpProject = "/empService/Api/add/saveProject";
+	public static String getEmpProject = "/empService/Api/get/getProject";
+	
+	
+	
+	
 }

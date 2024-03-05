@@ -4,7 +4,7 @@ function getStateMaster() {
         url: ""+$('#ctx').attr('content')+"/getStateMaster",
            success: function(data){
             newData = data;
-//            console.log(newData);
+            console.log(newData);
 			$("#stateCode option").remove();
             var obj = jQuery.parseJSON( data );
              obj = obj.data;

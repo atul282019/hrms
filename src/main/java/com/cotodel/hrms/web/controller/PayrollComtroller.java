@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
-import com.cotodel.hrms.web.response.EmployeeDetailRequest;
 import com.cotodel.hrms.web.response.EmployeePayrollRequest;
 import com.cotodel.hrms.web.response.PayrollRequest;
 import com.cotodel.hrms.web.service.PayrollService;

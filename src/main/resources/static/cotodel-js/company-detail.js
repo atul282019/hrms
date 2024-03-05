@@ -20,7 +20,7 @@ function validateFormAndSubmit(){
 	  var addressLine = document.getElementById("addressLine").value;
 	       
 	 var pinCode = document.getElementById("pinCode").value; 
-	 var companyPan2 = document.getElementById("companyPan2").value; 
+	 //var companyPan2 = document.getElementById("companyPan2").value; 
 	 var stateCode = document.getElementById("stateCode").value;  
 	       
 
@@ -79,7 +79,7 @@ function validateFormAndSubmit(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			console.log(data1)
+			//console.log(data1)
 			if(data1.status==true){
 				 document.getElementById("successmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("successmsgdiv").style.display="block";
@@ -159,6 +159,7 @@ function validateFormAndSubmit(){
                 }  
                 if (panNoFormat.test(pan)) {    
                     document.getElementById("panError").innerHTML="";
+                    
                 } else {    
                    document.getElementById("panError").innerHTML="Please Enter Valid Pan Number";
 					document.getElementById("pan").focus();
@@ -181,7 +182,7 @@ function validateFormAndSubmit(){
 				 var addressLine = document.getElementById("addressLine").value;
 				       
 				 var pinCode = document.getElementById("pinCode").value; 
-				 var companyPan2 = document.getElementById("companyPan2").value; 
+				 //var companyPan2 = document.getElementById("companyPan2").value; 
 				 var stateCode = document.getElementById("stateCode").value;  
 				 
                  if(brandName==""){
@@ -234,13 +235,13 @@ function validateFormAndSubmit(){
                    document.getElementById("pinCodeError").innerHTML="";
                 }   
                 
-                 if (companyPan2 =="") {    
+                /* if (companyPan2 =="") {    
                     document.getElementById("companyPan2Error").innerHTML="Please Enter Company Pan";
                     document.getElementById("companyPan2").focus();
                     return false;   
                 } else {    
                    document.getElementById("companyPan2Error").innerHTML="";
-                }   
+                }   */
 	 
 	 			if (stateCode =="") {    
                     document.getElementById("stateCodeError").innerHTML="Please Select State";
@@ -285,7 +286,8 @@ function validateFormAndSubmit() {
 					document.getElementById("salaryAdvancesFlag").focus();   
                 }   
                 
-                var formData = new FormData(saveCompany);
+       var formData = new FormData(saveCompany);
+       document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/saveCompanyDetail",
@@ -295,7 +297,8 @@ function validateFormAndSubmit() {
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			console.log(data1)
+			//console.log(data1)
+			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==false){
 				 document.getElementById("successmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("successmsgdiv").style.display="block";
@@ -456,6 +459,8 @@ function validatePayrollAndSubmit(){
 	formData.append("salaryComponentSpecial", salaryComponentSpecial);
 	formData.append("salaryComponentLta", salaryComponentLta);
 	
+	document.getElementById("signinLoader").style.display="flex";
+	
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/saveCompanyPayroll",
@@ -465,8 +470,9 @@ function validatePayrollAndSubmit(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			console.log(data1);
-			console.log(data.status);
+			//console.log(data1);
+			//console.log(data.status);
+			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
 				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
 				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
