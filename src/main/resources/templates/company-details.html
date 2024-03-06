@@ -371,6 +371,7 @@
 							            </div>
 					                          
                                         <div class="text-center text-md-center my-3 disabled">
+                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
                                             <input type="button" id="btnPayrollSave" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />

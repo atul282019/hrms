@@ -6,8 +6,8 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
 
-<body id="page-top" onload="getEmployeeDetail(),getEmployeeFamilyDetail(),getEmployeeQualificationDetail(),getEmployeeExperienceDetail(), getEmployeeCertificateDetail(),getEmployeeProjectDetail()">
-
+<!-- <body id="page-top" onload="getEmployeeDetail(),getEmployeeFamilyDetail(),getEmployeeQualificationDetail(),getEmployeeExperienceDetail(), getEmployeeCertificateDetail(),getEmployeeProjectDetail()"> -->
+<body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -116,7 +116,9 @@
                                                         <label for="">Nationality <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="nationality" name="nationality">
-                                                            <option selected="1">Indian</option>
+                                                            <option selected="1" value="">Select Nationality</option>
+                                                            <option selected="Indian">Indian</option>
+                                                           
                                                         </select>
                                                     </div>
                                                 </div>
@@ -126,7 +128,9 @@
                                                         <label for="">Marital Status <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="maritalStatus" name="maritalStatus">
-                                                            <option selected="" value="1">Married</option>
+                                                             <option selected="" value="">Select Marital Status</option>
+                                                            <option selected="" value="Married">Married</option>
+                                                            <option selected="" value="Un-married">Un-married</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -140,10 +144,12 @@
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
-                                                        <label for="">Designation  </label>
+                                                        <label for="">Designation</label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="designation" name="designation">
-                                                            <option selected="" value="1">Supervisior</option>
+                                                            <option selected="" value="Developer">Developer</option>
+                                                            <option selected="" value="Team Lead">Team Lead</option>
+                                                            <option selected="" value="Manager">Manager</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -153,7 +159,8 @@
                                                         <label for="">Sex <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="gender" name="gender">
-                                                            <option selected="" value="1">Male</option>
+                                                            <option selected="" value="Male">Male</option>
+                                                            <option value="Female">Female</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -163,7 +170,10 @@
                                                         <label for="">Department <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="department" name="department">
-                                                            <option selected="" value="1"></option>
+                                                            <option selected="" value="1">Select Department</option>
+                                                             <option value="IT">IT</option>
+                                                             <option value="Sales">Sales</option>
+                                                             <option value="Admin">Admin</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -173,7 +183,10 @@
                                                         <label for="">Location <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="location" name="location">
-                                                            <option selected="" value="1">UP</option>
+                                                           <option selected="" value="UP">Select Location</option>
+                                                            <option value="UP">UP</option>
+                                                            <option value="Delhi">Delhi</option>
+                                                            <option value="Mumbai">Mumbai</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -215,11 +228,8 @@
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
-                                                        <label for="">Bank Name </label>
-                                                        <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example" id="bankName" name="bankName">
-                                                            <option selected="" value="1"></option>
-                                                        </select>
+                                                        <label for="">Bank Name </label>   
+                                                        <input type="text" class="form-input" id="bankName" name="bankName">
                                                     </div>
                                                 </div>
 
@@ -255,8 +265,9 @@
                                                         <label for="">Status <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="serviceStatus" name="serviceStatus">
-                                                            <option selected="" value="1">In Service*</option>
-                                                            <option selected="" value="2">Out Service*</option>
+                                                             <option selected="" value="In Service">Select Status</option>
+                                                            <option value="In Service">In Service</option>
+                                                            <option value="Out Service">Out Service</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -268,8 +279,9 @@
                                                         <label for="">Employee Type <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="employeeType" name="employeeType">
-                                                            <option selected="1">Permanent</option>
-                                                            <option selected="2">Contract</option>
+                                                            <option selected="Permanent">Select Employee Type</option>
+                                                            <option value="Permanent">Permanent</option>
+                                                            <option value="Contract">Contract</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -279,8 +291,9 @@
                                                         <label for="">Category <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="category" name="category">
-                                                            <option selected="1">Skilled</option>
-                                                            <option selected="2">Non-skilled</option>
+                                                            <option selected="Skilled">Select Category</option>
+                                                            <option value="Skilled">Skilled</option>
+                                                            <option value="Non-skilled">Non-skilled</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -311,7 +324,7 @@
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
                                                            <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
-                                                           <input type="hidden" class="form-input" id="EmployerId" name="EmployerId" value="1">
+                                                           <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                            				  <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validateEmployeeAndSubmit()" />
                                                     </div>
                                                 </div>
@@ -329,15 +342,15 @@
                                                                 <table class="table table-bordered" id="employeeDetail" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Employee ID</th>
-                                                                            <th>Status </th>
-                                                                            <th>Active</th>
-                                                                            <th>Employee Ref. ID</th>
-                                                                            <th>Employee Type</th>
-                                                                            <th>Category </th>
-                                                                            <th>First Name</th>
-                                                                            <th>Middle Name</th>
-                                                                            <th>Last Name</th>
+                                                                            <th>First Name</th> 
+                                                                            <th>Nationality</th>
+                                                                            <th>Date Of Birth</th>
+                                                                            <th>Date Of Joining </th>
+                                                                            <th>Gender</th>
+                                                                            <th>Pan No</th>
+                                                                            <th>Acc No</th>
+                                                                            <th>UAN</th>
+                                                                            <th>Bank Name</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -387,32 +400,28 @@
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Insurance No <em>*</em></label>
-                                                        <input type="text" class="form-input" id="insuranceNo" name="insuranceNo">
+                                                        <input type="text" class="form-input" id="insuranceNo" name="insuranceNo" maxlength="10">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Mobile <em>*</em></label>
-                                                        <!-- <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example">
-                                                            <option selected="">Skilled</option>
-                                                        </select> -->
-                                                        <input type="text" class="form-input" id="mobile" name="mobile">
+                                                        <input type="text" class="form-input" id="mobile" name="mobile" maxlength="10">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Email <em>*</em></label>
-                                                        <input type="text" class="form-input" id="email" name="email">
+                                                        <input type="text" class="form-input" id="email" name="email" maxlength="10">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remark </label>
-                                                        <input type="text" class="form-input" id="remark" name="remark">
+                                                        <input type="text" class="form-input" id="remark" name="remark" maxlength="100">
                                                     </div>
                                                 </div>
                                                 
@@ -432,8 +441,9 @@
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
-                                                        <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
-                                                        </div>
+                                                        <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back </div>
+                                                        <input type="hidden" name="employeeId" id="employeeId">
+                                                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                                         <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" id="familyButton" onclick="SaveFmailyDetail()" />
                                                         
                                                     </div>
@@ -508,8 +518,8 @@
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="referenceType" name="referenceType">
                                                             <option selected="">Select Reference Type </option>
-                                                            <option value="1">Skilled</option>
-                                                            <option value="2">Non Skilled</option>
+                                                            <option value="Skilled">Skilled</option>
+                                                            <option value="Non Skilled">Non Skilled</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -535,10 +545,8 @@
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
-                                                        <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
-                                                        </div>
-                                                       <!--  <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue
-                                                        </div> -->
+                                                        <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back </div>
+                                                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                                         <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" id="qualificationButton" onclick="saveQualificationDetail()" />
                                                         
                                                     </div>
@@ -618,9 +626,10 @@
                                                         <label for="">Country <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="country" name="country">
-                                                            <option selected="">India</option>
-                                                            <option selected="">US</option>
-                                                            <option selected="">UK</option>
+                                                            <option selected="">Select Country</option>
+                                                            <option value="India">India</option>
+                                                            <option value="US">US</option>
+                                                            <option value="UK">UK</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -628,21 +637,21 @@
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Reference Email <em>*</em></label>
-                                                       <input type="text" class="form-input" id="referenceEmail" name="referenceEmail">
+                                                       <input type="text" class="form-input" id="referenceEmail" name="referenceEmail" maxlength="50">
                                                     </div>
                                                 </div>
 
 												<div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Reference Mobile <em>*</em></label>
-                                                        <input type="text" class="form-input" id="referenceMobile" name="referenceMobile">
+                                                        <input type="text" class="form-input" id="referenceMobile" name="referenceMobile" maxlength="10">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
-                                                        <input type="text" class="form-input" id="remarks" name="remarks">
+                                                        <input type="text" class="form-input" id="remarks" name="remarks" maxlength="100">
                                                     </div>
                                                 </div>
     
@@ -660,8 +669,8 @@
                                             <div class="row">
                                                 <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                                     <div class="text-center text-md-center my-3 disabled">
-                                                        <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
-                                                        </div>
+                                                        <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back </div>
+                                                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                                         <input type="button" id="experienceButton" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="saveEmployeeExperience()">
                                                        
                                                     </div>
@@ -709,9 +718,9 @@
                                                         <label for="">Region </label>
                                                        <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="region" name="region">
-                                                            <option selected="" value="1">UP</option>
-                                                              <option selected="" value="2">Delhi</option>
-                                                                <option selected="" value="3">Mumbai</option>
+                                                            <option selected="" value="UP">UP</option>
+                                                              <option  value="Delhi">Delhi</option>
+                                                                <option value="Mumbai">Mumbai</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -728,8 +737,8 @@
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="roleInProject" name="roleInProject">
                                                             <option selected="">Select Role In Project</option>
-                                                              <option selected="" value="1">Project Manager</option>
-                                                                <option selected="" value="2">Project Member</option>
+                                                              <option  value="Project Manager">Project Manager</option>
+                                                                <option value="Project Member">Project Member</option>
                                                         </select>
                                                          
                                                     </div>
@@ -761,8 +770,8 @@
                                                         <label for="">Technical Support <em>*</em></label>
                                                         <select class="form-select form-control no-bg border-0"
                                                             aria-label="Default select example" id="technicalSupport" name="technicalSupport">
-                                                            <option selected="" value="1">Yes</option>
-                                                            <option selected="" value="2">No</option>
+                                                            <option  value="Yes">Yes</option>
+                                                            <option  value="No">No</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -788,6 +797,7 @@
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
+                                                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                                         <input type="button" class="btn btn-proceed ml-2 my-1 next" id="btnProject" value="Continue" onclick="saveEmployeeProject()">
                                                        
                                                     </div>
@@ -811,7 +821,7 @@
                                                                             <th>Assign To Date</th>
                                                                             <th>Sharing Percentage </th>
                                                                             <th>Technical Support</th>
-                                                                            <th>Remark</th>
+                                                                           <!--  <th>Remark</th> -->
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -859,10 +869,7 @@
                                                 <div class="col-12 col-md-4">                
                                                     <div class="card-form my-3">
                                                         <label for="">Doc Date <em>*</em></label>
-                                                       <!--  <select class="form-select form-control no-bg border-0"
-                                                            aria-label="Default select example" id="docDate" name="docDate">
-                                                            <option selected="">Casual</option>
-                                                        </select> -->
+                                                      
                                                         <input type="date" class="form-input" id="docDate" name="docDate">
                                                     </div>
                                                 </div>
@@ -891,6 +898,7 @@
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
+                                                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                                         <input type="button"  class="btn btn-proceed ml-2 my-1 next" id="btnCertificate" value="Continue" onclick="saveEmployeeCertificate()">
                                                         
                                                     </div>
@@ -949,6 +957,7 @@
             </div>
             <!-- End of Main Content -->
         </div>
+        <input type="hidden" name="employeeId" id="employeeId">
         <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <!-- End of Content Wrapper -->
 

@@ -49,6 +49,7 @@ public class StaticPageController extends CotoDelBaseController{
 	public String companyDetail(Model model) {
 		logger.info("opening companyDetailPage");
 		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 //			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 //			if(obj!=null) {
@@ -58,6 +59,7 @@ public class StaticPageController extends CotoDelBaseController{
 //				model.addAttribute("email",obj.getEmail());
 //				return "company-details";
 //			}
+			model.addAttribute("id",id);
 			return "company-details";
 		}
 		return "redirect:/index";
@@ -122,7 +124,20 @@ public class StaticPageController extends CotoDelBaseController{
 	
 	@GetMapping(value="/employeeDetails")
 	public ModelAndView employeeDetails(Model model) {
-		logger.info("opening dashboard-details01");
+		
+		logger.info("opening companyDetailPage");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//			if(obj!=null) {
+//				model.addAttribute("name",obj.getName());
+//				model.addAttribute("org",obj.getOrgName());
+//				model.addAttribute("mobile",obj.getMobile());
+//				model.addAttribute("email",obj.getEmail());
+//				return "company-details";
+			}
+			model.addAttribute("id",id);
 		return new ModelAndView("emp-details", "command", "");
 	}
 	@GetMapping(value="/employeeSalary")

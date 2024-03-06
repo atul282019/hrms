@@ -18,7 +18,7 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	@Override
 	public String saveCompany(String token, EmployeeProfileRequest employeeProfileRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.registerCompany);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.registerCompany);
 	}
 	
 	

@@ -260,6 +260,8 @@ function validateFormAndSubmit() {
              	var runFayrollFlag = document.getElementById("runFayrollFlag").value;
              	var salaryAdvancesFlag = document.getElementById("salaryAdvancesFlag").value;
              	
+             	
+             	
                 if (paidDate =="") {    
 					document.getElementById("paidDateError").innerHTML="Please Select Date";
                     ///document.getElementById("paidDateError").innerHTML="Please Select Date";
@@ -285,8 +287,10 @@ function validateFormAndSubmit() {
                    document.getElementById("salaryAdvancesFlagError").innerHTML="";
 					document.getElementById("salaryAdvancesFlag").focus();   
                 }   
-                
+      var employerid = document.getElementById("employerId").value;
        var formData = new FormData(saveCompany);
+       formData.append("employerId",employerid);
+       
        document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
@@ -299,7 +303,7 @@ function validateFormAndSubmit() {
 			var data1 = jQuery.parseJSON(newData);
 			//console.log(data1)
 			document.getElementById("signinLoader").style.display="none";
-			if(data1.status==false){
+			if(data1.status==true){
 				 document.getElementById("successmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("successmsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
@@ -313,7 +317,7 @@ function validateFormAndSubmit() {
                 $("#tab2").addClass("active");
 				
                 // $("#form4").hide();
-			}else if(data1.status==true){
+			}else if(data1.status==false){
 				 document.getElementById("failmsg").innerHTML=data1.message;
 				 document.getElementById("failmsgDiv").style.display="block";
 				 //$('#failmsgDiv').delay(5000).fadeOut(400);
@@ -453,11 +457,13 @@ function validatePayrollAndSubmit(){
 		document.getElementById("overlay").style.display = "none";
 	}
 	*/
+	var employerId = document.getElementById("employerId").value;
 	var formData = new FormData(savePayroll);
 	formData.append("salaryComponentBasic", salaryComponentBasic);
 	formData.append("salaryComponentHra", salaryComponentHra);
 	formData.append("salaryComponentSpecial", salaryComponentSpecial);
 	formData.append("salaryComponentLta", salaryComponentLta);
+	formData.append("employerId", employerId);
 	
 	document.getElementById("signinLoader").style.display="flex";
 	

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmployeeExperienceRequest {
 
+	private Integer employeeId;
+	private Integer employerId;
 	private String designation;
 	private String company;	
 	private String fromDate;	

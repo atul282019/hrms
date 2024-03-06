@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmployeePayrollRequest {
 	
-	private Integer employer;
+	private Integer employeeId;
+	private Integer employerId;
 	private String salaryComponentBasic;
     private String perCtcBasic;
     private String perBasic ;

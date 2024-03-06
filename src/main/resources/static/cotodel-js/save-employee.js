@@ -1,14 +1,15 @@
 
 function getEmployeeProjectDetail() {
 	//document.getElementById("overlay").style.display = "flex";
-	//var employeeid= document.getElementById("employeeid").value;
-	var employeeid=1; //document.getElementById("employeeid").value;
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 		url: ""+$('#ctx').attr('content') + "/getEmployeeProjectDetail",
 		data: {
-			"employeeId": employeeid,
+			"employeeId": employeeId,
+			"employerId": employerId,
 		},
 		success: function(data) {
 			newData = data;
@@ -40,14 +41,15 @@ function getEmployeeProjectDetail() {
 
 function getEmployeeCertificateDetail() {
 	//document.getElementById("overlay").style.display = "flex";
-	//var employeeid= document.getElementById("employeeid").value;
-	var employeeid=1; //document.getElementById("employeeid").value;
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 		url: ""+$('#ctx').attr('content') + "/getEmployeeCertificateDetail",
 		data: {
-			"employeeId": employeeid,
+			"employeeId": employeeId,
+			"employerId": employerId,
 		},
 		success: function(data) {
 			newData = data;
@@ -63,8 +65,9 @@ function getEmployeeCertificateDetail() {
 					{ "mData": "docName" },
 					{ "mData": "institutes" },
 					{ "mData": "docType" },
-					{ "mData": "docDate" },
 					{ "mData": "docNo" },
+					{ "mData": "docDate" },
+					
 					{ "mData": "remarks"},
 				
 					
@@ -80,14 +83,15 @@ function getEmployeeCertificateDetail() {
 
 function getEmployeeExperienceDetail() {
 	//document.getElementById("overlay").style.display = "flex";
-	//var employeeid= document.getElementById("employeeid").value;
-	var employeeid=1; //document.getElementById("employeeid").value;
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 		url: ""+$('#ctx').attr('content') + "/getEmployeeExperienceDetail",
 		data: {
-			"employeeId": employeeid,
+			"employeeId": employeeId,
+			"employerId": employerId,
 		},
 		success: function(data) {
 			newData = data;
@@ -105,10 +109,11 @@ function getEmployeeExperienceDetail() {
 					{ "mData": "fromDate" },
 					{ "mData": "toDate" },
 					{ "mData": "noOfYear" },
+					{ "mData": "company"},
 					{ "mData": "country"},
 					{ "mData": "referenceEmail"},
-					{ "mData": "referenceMobile"},
-					{ "mData": "remarks"}
+					/*{ "mData": "referenceMobile"},*/
+				/*	{ "mData": "remarks"}*/
 					
 				]
 			}).buttons().container().appendTo('#experienceTable_wrapper .col-md-6:eq(0)');
@@ -122,14 +127,15 @@ function getEmployeeExperienceDetail() {
 
 function getEmployeeQualificationDetail() {
 	//document.getElementById("overlay").style.display = "flex";
-	//var employeeid= document.getElementById("employeeid").value;
-	var employeeid=1; //document.getElementById("employeeid").value;
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 		url: ""+$('#ctx').attr('content') + "/getEmployeeQualificationDetail",
 		data: {
-			"employeeId": employeeid,
+			"employeeId": employeeId,
+			"employerId": employerId,
 		},
 		success: function(data) {
 			newData = data;
@@ -159,14 +165,15 @@ function getEmployeeQualificationDetail() {
 
 function getEmployeeFamilyDetail() {
 	//document.getElementById("overlay").style.display = "flex";
-	//var employeeid= document.getElementById("employeeid").value;
-	var employeeid=1; //document.getElementById("employeeid").value;
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 		url: ""+$('#ctx').attr('content') + "/getEmployeeFamilyDetail",
 		data: {
-			"employeeId": employeeid,
+			"employeeId": employeeId,
+			"employerId": employerId,
 		},
 		success: function(data) {
 			newData = data;
@@ -197,8 +204,7 @@ function getEmployeeFamilyDetail() {
 
 
 function getEmployeeDetail() {
-	var employerId = document.getElementById("EmployerId").value;  
-	var employeeId =1; document.getElementById("EmployerId").value;  
+	var employerId = document.getElementById("employerId").value;  
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
@@ -236,9 +242,11 @@ function getEmployeeDetail() {
 }
 
 function saveEmployeeProject(){
-	var employerId =1;// document.getElementById("EmployerId").value;  
+	var employerId=document.getElementById("employerId").value; 
+	var employeeId=document.getElementById("employeeId").value;
 	var formData = new FormData(projectForm);
 	formData.append("employerId",employerId);
+	formData.append("employeeId",employeeId);
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
@@ -256,10 +264,12 @@ function saveEmployeeProject(){
 				 document.getElementById("certificatemsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
 				 $('#certificatemsgdiv').delay(5000).fadeOut(400);
+				 getEmployeeProjectDetail();
 			}else if(data1.status==false){
 				 document.getElementById("certificatefailmsg").innerHTML=data1.message;
 				 document.getElementById("certificatefailmsgDiv").style.display="block";
 				 $('#certificatefailmsgDiv').delay(5000).fadeOut(400);
+				 getEmployeeProjectDetail();
 			}else{
 				 document.getElementById("certificatemsgdiv").style.display="none";
 				 document.getElementById("certificatefailmsgDiv").style.display="none";
@@ -273,9 +283,11 @@ function saveEmployeeProject(){
 }
 
 function saveEmployeeCertificate(){
-	var employerId =1;// document.getElementById("EmployerId").value;  
+	var employerId=document.getElementById("employerId").value;  
+	var employeeId=document.getElementById("employeeId").value;
 	var formData = new FormData(certificateForm);
 	formData.append("employerId",employerId);
+	formData.append("employeeId",employeeId);
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
@@ -293,10 +305,12 @@ function saveEmployeeCertificate(){
 				 document.getElementById("certificatemsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
 				 $('#certificatemsgdiv').delay(5000).fadeOut(400);
+				 getEmployeeCertificateDetail();
 			}else if(data1.status==false){
 				 document.getElementById("certificatefailmsg").innerHTML=data1.message;
 				 document.getElementById("certificatefailmsgDiv").style.display="block";
 				 $('#certificatefailmsgDiv').delay(5000).fadeOut(400);
+				 getEmployeeCertificateDetail();
 			}else{
 				 document.getElementById("certificatemsgdiv").style.display="none";
 				 document.getElementById("certificatefailmsgDiv").style.display="none";
@@ -310,9 +324,12 @@ function saveEmployeeCertificate(){
 }
 
 function saveEmployeeExperience(){
-	var employerId =1;// document.getElementById("EmployerId").value;  
+	var employerId=document.getElementById("employerId").value;
+	var employeeId=document.getElementById("employeeId").value;
+	
 	var formData = new FormData(experience);
 	formData.append("employerId",employerId);
+	formData.append("employeeId",employeeId);
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
@@ -329,11 +346,13 @@ function saveEmployeeExperience(){
 				 document.getElementById("experiencesuccmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("experiencemsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
+				 getEmployeeExperienceDetail();
 				 $('#experiencemsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status==false){
 				 document.getElementById("experiencefailmsg").innerHTML=data1.message;
 				 document.getElementById("experiencefailmsgDiv").style.display="block";
 				 $('#experiencefailmsgDiv').delay(5000).fadeOut(400);
+				 getEmployeeExperienceDetail();
 			}else{
 				 document.getElementById("experiencemsgdiv").style.display="none";
 				 document.getElementById("experiencefailmsgDiv").style.display="none";
@@ -348,9 +367,11 @@ function saveEmployeeExperience(){
 
 function saveQualificationDetail(){
 	
-	var employerId =1;// document.getElementById("EmployerId").value;  
+	var employerId=document.getElementById("employerId").value; 
+	var employeeId=document.getElementById("employeeId").value; 
 	var formData = new FormData(qualification);
 	formData.append("employerId",employerId);
+	formData.append("employeeId",employeeId);
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
@@ -367,11 +388,13 @@ function saveQualificationDetail(){
 				 document.getElementById("qualificationsuccmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("qualificationmsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
+				 getEmployeeQualificationDetail();
 				 $('#qualificationmsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status==false){
 				 document.getElementById("qualificationfailmsg").innerHTML=data1.message;
 				 document.getElementById("qualificationfailmsgDiv").style.display="block";
 				 $('#qualificationfailmsgDiv').delay(5000).fadeOut(400);
+				 getEmployeeQualificationDetail();
 			}else{
 				 document.getElementById("qualificationmsgdiv").style.display="none";
 				 document.getElementById("qualificationfailmsgDiv").style.display="none";
@@ -386,9 +409,11 @@ function saveQualificationDetail(){
 
 function SaveFmailyDetail(){
 	
-	var employerId = document.getElementById("EmployerId").value;  
+	var employerId=document.getElementById("employerId").value;
+	var employeeId=document.getElementById("employeeId").value;
 	var formData = new FormData(employeeFamilyForm);
 	formData.append("employerId",employerId);
+	formData.append("employeeId",employeeId);
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
@@ -405,6 +430,7 @@ function SaveFmailyDetail(){
 				 document.getElementById("empfamilysuccmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("empfamilymsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
+				 getEmployeeFamilyDetail();
 				 $('#empmsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status==false){
 				 document.getElementById("empfamilyfailmsg").innerHTML=data1.message;
@@ -497,7 +523,7 @@ function validateEmployeeAndSubmit(){
 		document.getElementById("overlay").style.display = "none";
 	}
 	*/
-	var employerId = document.getElementById("EmployerId").value;  
+	var employerId = document.getElementById("employerId").value;  
 	var formData = new FormData(empdetailForm);
 	formData.append("employerId",employerId);
 	document.getElementById("signinLoader").style.display="flex";
@@ -511,13 +537,17 @@ function validateEmployeeAndSubmit(){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
-			//console.log(data1)
+			console.log(data1.data.employerId);
+			console.log(data1.data.id);
 			if(data1.status==true){
+				 document.getElementById("employeeId").value=data1.data.id;
 				 document.getElementById("empsuccmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("empmsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
+				 getEmployeeDetail();
 				 $('#empmsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status==false){
+				getEmployeeDetail();
 				 document.getElementById("empfailmsg").innerHTML=data1.message;
 				 document.getElementById("empfailmsgDiv").style.display="block";
 				 $('#empfailmsgDiv').delay(5000).fadeOut(400);

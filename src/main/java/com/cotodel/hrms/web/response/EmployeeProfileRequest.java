@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeProfileRequest {
+	
+	private Integer employeeId;
+	private Long employerId;
 	private String gstnNo;
 	private String organizationType;
     private String pan;
@@ -18,10 +21,10 @@ public class EmployeeProfileRequest {
     private String addressLine;
     private String pinCode;
     private String stateCode;
-    private String payrollEnabledFlag;
+    private boolean payrollEnabledFlag;
     private String paidDate;
-    private String runFayrollFlag;
-    private String salaryAdvancesFlag;
-     
+    private boolean runFayrollFlag;
+    private boolean salaryAdvancesFlag;
+    
      
 }

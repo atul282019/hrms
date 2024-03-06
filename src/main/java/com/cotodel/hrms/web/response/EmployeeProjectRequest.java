@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmployeeProjectRequest {
 	
+	
+	private Integer employerId;
 	private Long employeeId;
 	private String region;
 	private String projectName;

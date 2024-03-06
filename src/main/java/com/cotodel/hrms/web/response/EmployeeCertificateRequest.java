@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmployeeCertificateRequest {
 
+	private Integer employerId;
 	private Long employeeId;	
 	private String docName;
 	private String institutes;

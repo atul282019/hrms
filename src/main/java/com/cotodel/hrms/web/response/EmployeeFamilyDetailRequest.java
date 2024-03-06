@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmployeeFamilyDetailRequest {
 	
+	private Integer employerId;
 	private Integer employeeId;
 	private String name;
 	private String dob;
