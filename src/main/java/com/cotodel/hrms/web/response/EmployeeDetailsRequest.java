@@ -1,6 +1,6 @@
 package com.cotodel.hrms.web.response;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeDetailsRequest {
+public class EmployeeDetailsRequest  implements Serializable{
+	
+	private static final long serialVersionUID = -5145118965670277166L;
 	
 	private Long employerId;	
 	private String firstName;	
@@ -33,8 +35,8 @@ public class EmployeeDetailsRequest {
 	private String bankName;	
 	private String remarks;	
 	private String briefDescription;	
-	private  MultipartFile docfile;	
-	private  MultipartFile sigfile;	
+	public  MultipartFile docfile;	
+	public  MultipartFile sigfile;	
 	private String serviceStatus;
 	private String employeeType;	
 	private String category;	

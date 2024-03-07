@@ -23,7 +23,8 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 
 	@Override
 	public String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
+		// return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
+		return CommonUtility.userRequestforMultipartfile(token,employeeDetailRequest, applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
 	}
 
 	@Override

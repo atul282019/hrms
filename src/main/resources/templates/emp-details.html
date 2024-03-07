@@ -242,22 +242,30 @@
 
 
                                                 <div class="col-12 col-md-4">                                                
-                                                    <div class="card-form my-3">
+                                                    <!-- <div class="card-form my-3">
                                                         <label for="">Add Image </label>
                                                         <div class="custom-file mt-3">
                                                             <input type="file" class="custom-file-input" id="docfile">
                                                             <label class="custom-file-label" for="docfile">Choose file</label>
                                                           </div>
+                                                    </div> -->
+                                                    <div class="card-form my-3">
+                                                        <label for="">Add Image <em>*</em></label>
+                                                         <input type="file" class="form-input" id="docfile" name="docfile">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">                                                
-                                                    <div class="card-form my-3">
+                                                   <!--  <div class="card-form my-3">
                                                         <label for="">Add Signature </label>
                                                         <div class="custom-file mt-3">
                                                             <input type="file" class="custom-file-input" id="sigfile">
                                                             <label class="custom-file-label" for="sigfile">Choose file</label>
                                                           </div>
+                                                    </div> -->
+                                                     <div class="card-form my-3">
+                                                        <label for="">Add Signature<em>*</em></label>
+                                                         <input type="file" class="form-input" id="sigfile" name="sigfile">
                                                     </div>
                                                 </div>
                                                  <div class="col-12 col-md-4">                
@@ -366,7 +374,7 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                       <form id="employeeFamilyForm" name="employeeFamilyForm" method="POST">
+                                       <form id="employeeFamilyForm" name="employeeFamilyForm" method="POST" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
@@ -483,7 +491,7 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                           <form action="" id="qualification" name="qualification" method="post"> 
+                                           <form action="" id="qualification" name="qualification" method="post" enctype="multipart/form-data"> 
                                             <div class="row">
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
@@ -521,6 +529,13 @@
                                                             <option value="Skilled">Skilled</option>
                                                             <option value="Non Skilled">Non Skilled</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+                                                
+                                                 <div class="col-12 col-md-4">                
+                                                    <div class="card-form my-3">
+                                                        <label for="">attachment<em>*</em></label>
+                                                         <input type="file" class="form-input" id="remarks" name="attachment">
                                                     </div>
                                                 </div>
                                                 
@@ -586,7 +601,7 @@
                                         
                                        <div class="tab-pane fade" id="experiencetav" role="tabpanel" aria-labelledby="experiencetav-tab">
                                        
-                                        <form action="" id="experience" name="experience" method="post">
+                                        <form action="" id="experience" name="experience" method="post" enctype="multipart/form-data">
                                             <div class="row">
                                             
                                                <div class="col-12 col-md-4">                                                
@@ -648,6 +663,12 @@
                                                     </div>
                                                 </div>
 
+												<div class="col-12 col-md-4">                
+                                                    <div class="card-form my-3">
+                                                        <label for="">attachment<em>*</em></label>
+                                                         <input type="file" class="form-input" id="remarks" name="attachment">
+                                                    </div>
+                                                </div>
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
@@ -710,7 +731,7 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="project" role="tabpanel" aria-labelledby="project-tab">
-                                       <form action="" id="projectForm" name="projectForm" method="post">
+                                       <form action="" id="projectForm" name="projectForm" method="post" enctype="multipart/form-data">
                                             <div class="row">
                                             
                                                <div class="col-12 col-md-4">                                                
@@ -776,6 +797,7 @@
                                                     </div>
                                                 </div>
 
+												
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
@@ -836,7 +858,7 @@
                                         </div>
                                         
                                        <div class="tab-pane fade" id="certificate" role="tabpanel" aria-labelledby="certificate-tab">
-                                           <form action="" id="certificateForm" name="certificateForm" method="POST">
+                                           <form action="" id="certificateForm" name="certificateForm" method="POST" enctype="multipart/form-data">
                                             <div class="row">
                                             
                                                <div class="col-12 col-md-4">                                                
@@ -874,6 +896,12 @@
                                                     </div>
                                                 </div>
 
+												<div class="col-12 col-md-4">                
+                                                    <div class="card-form my-3">
+                                                        <label for="">attachment<em>*</em></label>
+                                                         <input type="file" class="form-input" id="remarks" name="attachment">
+                                                    </div>
+                                                </div>
                                                 <div class="col-12 col-md-4">                                                
                                                     <div class="card-form my-3">
                                                         <label for="">Remarks <em>*</em></label>
