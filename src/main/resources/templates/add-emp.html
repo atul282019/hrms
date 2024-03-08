@@ -295,6 +295,13 @@
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/save-employee.js"></script>
 
+	<script>
+	$(document).ready(function() {
+		  $('li.active').removeClass('active').removeAttr('aria-current');
+		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page'); 
+		});
+	</script>
+	
 </body>
 
 </html>

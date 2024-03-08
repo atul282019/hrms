@@ -133,6 +133,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("smsOtpResender");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/signin")){
+				RequestDispatcher rd = request.getRequestDispatcher("signin");
+				rd.forward(request, response);
+			}
 			else{
 				RequestDispatcher rd = request.getRequestDispatcher("index");
 				rd.forward(request, response);

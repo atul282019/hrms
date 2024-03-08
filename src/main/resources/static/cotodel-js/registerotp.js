@@ -199,6 +199,9 @@ function userRegistration(){
 				 //document.getElementById("getInTouchUser").reset();
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
 				//window.location.href = "http://localhost:9191/hrms/tempLogin?mobile="+mobile+"&email="+email;
+				 var mobile=document.getElementById("mobile").value;
+    			 localStorage.setItem("userName", mobile);
+    			 window.location.href = ""+$('#ctx').attr('content')+"/signin";
 			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";

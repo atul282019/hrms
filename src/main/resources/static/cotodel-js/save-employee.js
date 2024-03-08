@@ -224,8 +224,8 @@ function getEmployeeDetail() {
 				"aaData": data2,
 				"aoColumns": [
 					{ "mData": "firstName" },
-					{ "mData": "dateOfBirth" },
 					{ "mData": "nationality" },
+					{ "mData": "dateOfBirth" },
 					{ "mData": "dateOfJoining" },
 					{ "mData": "gender" },
 					{ "mData": "panNo" },
@@ -288,7 +288,7 @@ function saveEmployeeCertificate(){
 	var formData = new FormData(certificateForm);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employeeId);
-	document.getElementById("signinLoader").style.display="flex";
+	document.getElementById("signinLoader").style.display="none";
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/saveEmployeeCertificate",
