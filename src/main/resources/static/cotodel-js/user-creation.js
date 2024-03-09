@@ -64,16 +64,16 @@ function newUserCreation(){
 			if(data1.status==true){
 				 document.getElementById("successmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("successmsgdiv").style.display="block";
-				 //document.getElementById("getInTouchUser").reset();
+				 document.getElementById("registerUser").reset();
 				 $('#successmsgdiv').delay(5000).fadeOut(400);
 				 getUserDetails();
 				
 			}else if(data1.status==false){
-				 document.getElementById("otfailmsg").innerHTML=data1.message;
+				 document.getElementById("failmsg").innerHTML=data1.message;
 				 document.getElementById("failmsgDiv").style.display="block";
 				 $('#failmsgDiv').delay(5000).fadeOut(400);
 			}else{
-				 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
+				 document.getElementById("failmsg").innerHTML="API Gateway not respond. Please try again.";
 				 document.getElementById("failmsgDiv").style.display="block";
 				 $('#failmsgDiv').delay(5000).fadeOut(400);
 			}
@@ -86,11 +86,12 @@ function newUserCreation(){
  
  
  function getUserDetails() {
+	var employerId=document.getElementById("employerId").value;
 	$.ajax({
 		type: "GET",
 		url: ""+$('#ctx').attr('content') + "/getUserList",
 		data: {
-			
+			"employerId":employerId
 		},
 		success: function(data) {
 			newData = data;
@@ -98,12 +99,13 @@ function newUserCreation(){
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#userTable').DataTable({
+				  destroy: true,
 				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
              "language": {"emptyTable": "No History available"  },
 				"aaData": data2,
 				"aoColumns": [
-					{ "mData": "id" },
+					//{ "mData": "id" },
 					{ "mData": "username" },
 					{ "mData": "email" },
 					{ "mData": "mobile" },

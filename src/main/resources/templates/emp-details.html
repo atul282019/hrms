@@ -6,8 +6,8 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
 
-<!-- <body id="page-top" onload="getEmployeeDetail(),getEmployeeFamilyDetail(),getEmployeeQualificationDetail(),getEmployeeExperienceDetail(), getEmployeeCertificateDetail(),getEmployeeProjectDetail()"> -->
-<body id="page-top">
+<body id="page-top" onload="getEmployeeDetail(),getEmployeeFamilyDetail(),getEmployeeQualificationDetail(),getEmployeeExperienceDetail(), getEmployeeCertificateDetail(),getEmployeeProjectDetail()">
+<!-- <body id="page-top"> -->
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -327,7 +327,7 @@
                                                     <div class="text-center text-md-center my-3 disabled">
                                                            <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
                                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                           				  <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validateEmployeeAndSubmit()" />
+                                           				  <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validateEmployeeAndSubmit()" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -446,7 +446,7 @@
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back </div>
                                                         <input type="hidden" name="employeeId" id="employeeId">
                                                         <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                                        <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" id="familyButton" onclick="SaveFmailyDetail()" />
+                                                        <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" id="familyButton" onclick="SaveFmailyDetail()" />
                                                         
                                                     </div>
                                                 </div>
@@ -556,7 +556,7 @@
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back </div>
                                                         <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                                        <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" id="qualificationButton" onclick="saveQualificationDetail()" />
+                                                        <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" id="qualificationButton" onclick="saveQualificationDetail()" />
                                                         
                                                     </div>
                                                 </div>
@@ -686,7 +686,7 @@
                                                     <div class="text-center text-md-center my-3 disabled">
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back </div>
                                                         <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                                        <input type="button" id="experienceButton" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="saveEmployeeExperience()">
+                                                        <input type="button" id="experienceButton" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="saveEmployeeExperience()">
                                                        
                                                     </div>
                                                 </div>
@@ -814,7 +814,7 @@
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
                                                         <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                                        <input type="button" class="btn btn-proceed ml-2 my-1 next" id="btnProject" value="Continue" onclick="saveEmployeeProject()">
+                                                        <input type="button" class="btn btn-proceed ml-2 my-1 next" id="btnProject" value="Save" onclick="saveEmployeeProject()">
                                                        
                                                     </div>
                                                 </div>
@@ -921,7 +921,7 @@
                                                         <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back
                                                         </div>
                                                         <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                                        <input type="button"  class="btn btn-proceed ml-2 my-1 next" id="btnCertificate" value="Continue" onclick="saveEmployeeCertificate()">
+                                                        <input type="button"  class="btn btn-proceed ml-2 my-1 next" id="btnCertificate" value="Save" onclick="saveEmployeeCertificate()">
                                                         
                                                     </div>
                                                 </div>

@@ -5,7 +5,7 @@
 	
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top">
+<body id="page-top" onload="getUserDetails()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -113,7 +113,7 @@
                                                                 <table class="table table-bordered" id="userTable" width="100%" cellspacing="0">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Id</th>
+                                                                          <!--   <th>Id</th> -->
                                                                             <th>User Name </th>
                                                                             <th>User Mobile</th>
                                                                             <th>User Email</th>

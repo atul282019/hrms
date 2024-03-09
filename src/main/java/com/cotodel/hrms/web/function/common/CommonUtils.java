@@ -22,7 +22,7 @@ public interface CommonUtils {
 	public static String getPermission  = "/userServices/Api/get/Permissions";
 	public static String getRole  = "/userServices/Api/get/Roles";
 	public static String singleUserCreation  = "/userServices/Api/add/saveUsers";
-	public static String getSingleUser  = "/userServices/Api/add/saveUsers";
+	public static String getSingleUser  = "/userServices/Api/get/userList";
 	
 	public static String empDetails  = "/empService/Api/add/empDetails";
 	public static String empFamilyDetails  = "/empService/Api/add/empFamilyDetails";
