@@ -1,11 +1,14 @@
 package com.cotodel.hrms.web.service.Impl;
 
+import javax.xml.bind.DatatypeConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
+import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
@@ -13,6 +16,7 @@ import com.cotodel.hrms.web.response.EmployeeProjectRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.CopyUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -23,8 +27,28 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 
 	@Override
 	public String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest) {
+		EmployeeDetailsNewRequest employeeDetailsNewRequest=new EmployeeDetailsNewRequest();
+		CopyUtility.copyProperties(employeeDetailRequest, employeeDetailsNewRequest);
+		 String docfile ="";
+		 String signfile ="";
+		try {			
+			byte[] byt = employeeDetailRequest.getDocfile().getBytes();
+			docfile = DatatypeConverter.printBase64Binary(byt);
+			byte[] bytSign = employeeDetailRequest.getSigfile().getBytes();
+			signfile= DatatypeConverter.printBase64Binary(bytSign);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		String docfilename=employeeDetailRequest.getDocfile().getOriginalFilename();
+		String signfilename=employeeDetailRequest.getSigfile().getOriginalFilename();
+		employeeDetailsNewRequest.setDocfile(docfile);
+		employeeDetailsNewRequest.setDocFileName(docfilename);
+		employeeDetailsNewRequest.setSigfile(signfile);
+		employeeDetailsNewRequest.setSigFileName(signfilename);
+		
 		// return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-		return CommonUtility.userRequestforMultipartfile(token,employeeDetailRequest, applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
+		
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailsNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
 	}
 
 	@Override

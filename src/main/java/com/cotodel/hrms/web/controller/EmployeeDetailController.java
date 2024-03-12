@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
+import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
@@ -26,6 +28,7 @@ import com.cotodel.hrms.web.response.EmployeeProjectRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.CopyUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -51,13 +54,18 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res=null;String userRes=null;
+		
+		
+		
+		
 		profileRes = employeeDetailService.saveEmployeeDetail(tokengeneration.getToken(),employeeDetailRequest);
+		logger.info(profileRes);
 		profileJsonRes= new JSONObject(profileRes);
 		
 		if(profileJsonRes.getBoolean("status")) { 
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
+			//loginsevice.rsendEmailVerificationCompletion(userForm);
 			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
 		}
 		try {

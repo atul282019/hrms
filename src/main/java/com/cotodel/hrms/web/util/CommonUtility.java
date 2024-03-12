@@ -153,7 +153,7 @@ public class CommonUtility {
 			body.add("employeeType", requestJson.getEmployeeType());
 			body.add("category", requestJson.getCategory());
 			
-			
+;			logger.info(" body Json---"+body);
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
 			ResponseEntity<String> response = restTemplate.exchange(url,HttpMethod.POST,requestEntity, String.class);

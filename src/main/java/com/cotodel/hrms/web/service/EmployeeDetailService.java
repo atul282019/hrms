@@ -3,6 +3,7 @@ package com.cotodel.hrms.web.service;
 import org.springframework.stereotype.Repository;
 
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
+import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
