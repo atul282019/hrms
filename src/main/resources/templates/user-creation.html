@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+
+<body id="page-top" onload="getUserDetails()">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+         <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                
+               <div th:insert="fragments/header.html :: header"></div>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 bg-white p-3">
+                                <div class="row">
+                                    <div class="col-12 organisation-wrap">
+                                        <h3 class="mb-1 text-center">Create User</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="col-12 mx-auto company-dtl-wrap card shadow mb-4">
+                                    <form action="" id="registerUser" name="registerUser">
+                                            <div class="row">
+                                                <div class="col-12 col-md-4">                                                
+                                                    <div class="card-form my-3">
+                                                        <label for="">User Name</label>
+                                                        <input type="text" class="form-input" id="username" name="username">
+                                                    </div>
+                                                    <div class="error-msg" id="usernameError1" style="color:red"></div>
+                                                </div>
+												
+                                                <div class="col-12 col-md-4">                
+                                                    <div class="card-form my-3">
+                                                        <label for="">User Email<em>*</em></label>
+                                                        <input type="text" class="form-input" id="email" name="email">
+                                                    </div>
+                                                    <div class="error-msg" id="emailError1" style="color:red"></div>
+                                                </div>
+												
+                                                <div class="col-12 col-md-4">                
+                                                    <div class="card-form my-3">
+                                                        <label for="">User Mobile</label>
+                                                        <input type="text" class="form-input" id="mobile" name="mobile">
+                                                    </div>
+                                                     <div class="error-msg" id="mobileError1" style="color:red"></div>
+                                                </div>
+                                              
+												<div class="col-12 col-md-4">                
+                                                    <div class="card-form my-3">
+                                                        <label for="">User Status</label>
+                                                        <select class="form-select form-control no-bg border-0"
+				                                                aria-label="Default select example" id="status" name="status">
+				                                                <option selected="" value="">Select Status</option>
+				                                                <option value="1">Active</option>
+				                                                <option value="0">In Active</option>
+				                                         </select>
+                                                    </div>
+                                                    <div class="error-msg" id="statusError1" style="color:red"></div>
+                                                </div>
+                                                
+                                            </div>
+  										
+  										</form>
+  										<div id="successmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
+							            	<span id="successmsg"></span>   
+							            </div>
+							            
+							            <div id="failmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
+							            	<span id="failmsg"></span>
+							            </div>
+					                          
+                                            <div class="row">
+                                                <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                                    <div class="text-center text-md-center my-3 disabled">
+                                                     
+                                                     <input type="hidden" class="btn btn-proceed ml-2 my-1 next" id="employerId" name="employerId" th:value="${session.id}">
+                                                        <input type="button" class="btn btn-proceed ml-2 my-1 next" id="btnUserCreation" onclick="newUserCreation()" value="Save">
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card shadow mb-4">
+                                                        <div class="card-header py-3">
+                                                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered" id="userTable" width="100%" cellspacing="0">
+                                                                    <thead>
+                                                                        <tr>
+                                                                          <!--   <th>Id</th> -->
+                                                                            <th>User Name </th>
+                                                                            <th>User Mobile</th>
+                                                                            <th>User Email</th>
+                                                                            <th>User Status</th>
+                                                                           
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                       
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+                                        
+                                    
+
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+         <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="cotodel-js/user-creation.js"></script>
+    
+	<script>
+	$(document).ready(function() {
+		  $('li.active').removeClass('active').removeAttr('aria-current');
+		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page'); 
+		});
+	</script>
+
+</body>
+
+</html>

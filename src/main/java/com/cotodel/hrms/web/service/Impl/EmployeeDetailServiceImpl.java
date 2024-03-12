@@ -27,6 +27,7 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 
 	@Override
 	public String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest) {
+		
 		EmployeeDetailsNewRequest employeeDetailsNewRequest=new EmployeeDetailsNewRequest();
 		CopyUtility.copyProperties(employeeDetailRequest, employeeDetailsNewRequest);
 		 String docfile ="";
@@ -49,6 +50,9 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 		// return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
 		
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailsNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
+		//return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
+		//return CommonUtility.userRequestforMultipartfile(token,employeeDetailRequest, applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
+
 	}
 
 	@Override
@@ -72,6 +76,7 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	@Override
 	public String saveFamilyQualification(String token, EmployeeQualificationRequest employeeQualificationRequest) {
 		// TODO Auto-generated method stub
+		//return CommonUtility.userRequestforMultipartfile(token,employeeQualificationRequest, applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeQualification);
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeQualificationRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeQualification);
 	}
 

@@ -21,6 +21,16 @@ public class UserRegistrationRequest implements Serializable{
 	private String privacyCheck;
 	
 	private String whatsupCheck;
+	
+	private Integer employerId;
+	
+	public Integer getEmployerId() {
+		return employerId;
+	}
+
+	public void setEmployerId(Integer employerId) {
+		this.employerId = employerId;
+	}
 
 	public String getUsername() {
 		return username;

@@ -17,6 +17,7 @@ function getEmployeeProjectDetail() {
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#projectTable').DataTable({
+				 destroy: true,
 				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
              "language": {"emptyTable": "No History available"  },
@@ -57,6 +58,7 @@ function getEmployeeCertificateDetail() {
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#certificateTable').DataTable({
+				 destroy: true,
 				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
              "language": {"emptyTable": "No History available"  },
@@ -99,9 +101,10 @@ function getEmployeeExperienceDetail() {
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#experienceTable').DataTable({
-				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
-             "language": {"emptyTable": "No History available"  },
+			  destroy: true,
+			  "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+              "language": {"emptyTable": "No History available"  },
 				"aaData": data2,
 				"aoColumns": [
 					{ "mData": "designation" },
@@ -143,7 +146,8 @@ function getEmployeeQualificationDetail() {
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#qualificationDetail').DataTable({
-				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+			 destroy: true,			
+			 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
              "language": {"emptyTable": "No History available"  },
 				"aaData": data2,
@@ -181,7 +185,8 @@ function getEmployeeFamilyDetail() {
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#empFamilyDetail').DataTable({
-				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+			 destroy: true,
+			 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
              "language": {"emptyTable": "No History available"  },
 				"aaData": data2,
@@ -218,14 +223,15 @@ function getEmployeeDetail() {
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#employeeDetail').DataTable({
-				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+			destroy: true,
+			"responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
              "language": {"emptyTable": "No History available"  },
 				"aaData": data2,
 				"aoColumns": [
 					{ "mData": "firstName" },
-					{ "mData": "dateOfBirth" },
 					{ "mData": "nationality" },
+					{ "mData": "dateOfBirth" },
 					{ "mData": "dateOfJoining" },
 					{ "mData": "gender" },
 					{ "mData": "panNo" },
@@ -288,7 +294,7 @@ function saveEmployeeCertificate(){
 	var formData = new FormData(certificateForm);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employeeId);
-	document.getElementById("signinLoader").style.display="flex";
+	document.getElementById("signinLoader").style.display="none";
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/saveEmployeeCertificate",

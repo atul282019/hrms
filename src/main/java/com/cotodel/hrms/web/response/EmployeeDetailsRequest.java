@@ -34,7 +34,7 @@ public class EmployeeDetailsRequest  implements Serializable{
 	private String uanNo;	
 	private String bankName;	
 	private String remarks;	
-	private String briefDescription;	
+	//private String briefDescription;	
 	public  MultipartFile docfile;	
 	public  MultipartFile sigfile;	
 	private String serviceStatus;

@@ -26,6 +26,11 @@ public class StaticPageController extends CotoDelBaseController{
 		logger.info("opening index page");
 		return new ModelAndView("index", "command", "");
 	}	
+	@GetMapping(value="/signin")
+	public ModelAndView directSignin(Model model) {
+		logger.info("opening index page");
+		return new ModelAndView("signin", "command", "");
+	}	
 	@GetMapping(value="/login")
 	public ModelAndView loginPage(Model model) {
 		logger.info("opening login Page");
@@ -90,7 +95,7 @@ public class StaticPageController extends CotoDelBaseController{
 //			return "dashboard01";
 //		}
 		//return "redirect:/index";
-		return "dashboard01";
+		return "dashboard";
 
 	}
 	@GetMapping(value="/tempLogin")
@@ -149,6 +154,36 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView bulkUser(Model model) {
 		logger.info("opening dashboard-bulk-emp-details");
 		return new ModelAndView("bulk-emp-details", "command", "");
+	}
+	@GetMapping(value="/pfPayment")
+	public ModelAndView pfPayment(Model model) {
+		logger.info("opening dashboard-details01");
+		return new ModelAndView("emp-pf-payment", "command", "");
+	}
+	
+	@GetMapping(value="/userCreation")
+	public ModelAndView userCreation(Model model) {
+		logger.info("opening dashboard-details01");
+		String token = (String) session.getAttribute("hrms");
+		Integer employerId  = (Integer) session.getAttribute("id");
+//		if(token!=null) {
+//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//			if(obj!=null) {
+//				model.addAttribute("name",obj.getName());
+//				model.addAttribute("org",obj.getOrgName());
+//				model.addAttribute("mobile",obj.getMobile());
+//				model.addAttribute("email",obj.getEmail());
+//				return "company-details";
+//			}
+			model.addAttribute("employerId",employerId);
+		return new ModelAndView("user-creation", "command", "");
+	}
+	
+	
+	@GetMapping(value="/empPayroll")
+	public ModelAndView empPayroll(Model model) {
+		logger.info("opening dashboard-details01");
+		return new ModelAndView("emp-payroll", "command", "");
 	}
 	
 }

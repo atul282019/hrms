@@ -2,12 +2,12 @@ package com.cotodel.hrms.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,33 +16,32 @@ import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 
-
 @Controller
 @CrossOrigin
-public class SignupController  extends CotoDelBaseController{
+public class SingleUserCreationController extends CotoDelBaseController{
 	
-	private static final Logger logger = LoggerFactory.getLogger(SignupController.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(SingleUserCreationController.class);
+	
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
-
 	@Autowired
-	SingleUserCreationService usercreationService;
+	SingleUserCreationService singleUserService;
 	
 	@Autowired
 	TokenGenerationImpl tokengeneration;
-	
-	@PostMapping(value="/registerUser")
+
+	@PostMapping(value="/singleUserCreation")
 	public @ResponseBody String registerUser(HttpServletRequest request,UserRegistrationRequest userForm) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		
-		profileRes = usercreationService.singleUserCreation(tokengeneration.getToken(),userForm);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-		//loginservice.sendEmailToEmployee(userForm);
-		}
+		String profileRes=null;
+		profileRes = singleUserService.singleUserCreation(tokengeneration.getToken(),userForm);
 		return profileRes;
 	}
+	
 
+	@GetMapping(value="/getUserList")
+	public @ResponseBody String getUser(HttpServletRequest request,UserRegistrationRequest userForm) {
+		String profileRes=null;
+		profileRes = singleUserService.getUser(tokengeneration.getToken(),userForm);
+		return profileRes;
+	}
 }
