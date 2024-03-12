@@ -56,16 +56,16 @@ public class StaticPageController extends CotoDelBaseController{
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
-//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//			if(obj!=null) {
-//				model.addAttribute("name",obj.getName());
-//				model.addAttribute("org",obj.getOrgName());
-//				model.addAttribute("mobile",obj.getMobile());
-//				model.addAttribute("email",obj.getEmail());
-//				return "company-details";
-//			}
-			model.addAttribute("id",id);
-			return "company-details";
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return "company-details";
+			}
+		
 		}
 		return "redirect:/index";
 	}	
@@ -73,16 +73,18 @@ public class StaticPageController extends CotoDelBaseController{
 	public String dashboard(Model model) {
 		logger.info("opening dashboardPage");
 		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//			if(obj!=null) {
-//				model.addAttribute("name",obj.getName());
-//				model.addAttribute("org",obj.getOrgName());
-//				model.addAttribute("mobile",obj.getMobile());
-//				model.addAttribute("email",obj.getEmail());
-//				return "dashboard";
-//			}
-			return "dashboard";
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return "dashboard";
+			}
+			
 		}
 		return "redirect:/index";
 		
@@ -91,23 +93,37 @@ public class StaticPageController extends CotoDelBaseController{
 	public String dashboard1(Model model) {
 		logger.info("opening dashboardPage");
 		String token = (String) session.getAttribute("hrms");
-//		if(token!=null && token!="") {
-//			return "dashboard01";
-//		}
-		//return "redirect:/index";
-		return "dashboard";
-
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return "dashboard01";
+			}	
+		}
+		return "index";
 	}
 	@GetMapping(value="/tempLogin")
 	public String dashboard1(Model model, @RequestParam("mobile") String mobile,@RequestParam("email") String email) {
 		logger.info("opening dashboardPage");
 		System.out.println("getting token"+mobile);
-//		String token = (String) session.getAttribute("hrms");
-//		if(token!=null && token!="") {
-//			return "dashboard01";
-//		}
-		//return "redirect:/index";
-		
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return "dashboard01";
+			}
+		}
 		return "dashboard01";
 	}
 	@GetMapping(value="/companyDetails01")
@@ -134,16 +150,18 @@ public class StaticPageController extends CotoDelBaseController{
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
-//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//			if(obj!=null) {
-//				model.addAttribute("name",obj.getName());
-//				model.addAttribute("org",obj.getOrgName());
-//				model.addAttribute("mobile",obj.getMobile());
-//				model.addAttribute("email",obj.getEmail());
-//				return "company-details";
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return new ModelAndView("emp-details", "command", "");
 			}
+		}
 			model.addAttribute("id",id);
-		return new ModelAndView("emp-details", "command", "");
+		return new ModelAndView("index", "command", "");
 	}
 	@GetMapping(value="/employeeSalary")
 	public ModelAndView employeeSalary(Model model) {
@@ -161,25 +179,39 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView userCreation(Model model) {
 		logger.info("opening dashboard-details01");
 		String token = (String) session.getAttribute("hrms");
-		Integer employerId  = (Integer) session.getAttribute("id");
-//		if(token!=null) {
-//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//			if(obj!=null) {
-//				model.addAttribute("name",obj.getName());
-//				model.addAttribute("org",obj.getOrgName());
-//				model.addAttribute("mobile",obj.getMobile());
-//				model.addAttribute("email",obj.getEmail());
-//				return "company-details";
-//			}
-			model.addAttribute("employerId",employerId);
-		return new ModelAndView("user-creation", "command", "");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("user-creation", "command", "");
+			}
+		}
+			
+		return new ModelAndView("index", "command", "");
 	}
 	
 	
 	@GetMapping(value="/empPayroll")
 	public ModelAndView empPayroll(Model model) {
-		logger.info("opening dashboard-details01");
-		return new ModelAndView("emp-payroll", "command", "");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("emp-payroll", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
 	}
 	
 	

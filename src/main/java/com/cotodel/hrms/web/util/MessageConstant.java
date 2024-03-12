@@ -11,9 +11,10 @@ public class MessageConstant {
 	public static final boolean FALSE = false;
 
 	public static final String USER_NOT_LOGIN = "Kindly Login First";	
-	
+	public static final String USER_NOT_REG = "User is not registered. !!";
 	public static final Gson gson = new Gson();
 	
+	public static final Integer ONE = 1;
 	//JWT constant start
 
 	public static final String USER = "USER";

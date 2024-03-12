@@ -1,42 +1,31 @@
 package com.cotodel.hrms.web.controller;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.DatatypeConverter;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cotodel.hrms.web.jwt.util.JwtTokenGenerator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Controller
@@ -87,8 +76,25 @@ public class LoginController extends CotoDelBaseController{
 					session.setAttribute("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
 					session.setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
 					
-				
-					// switch case to identify the user screen login
+					//check user is in database or not
+					//userRes=loginService.checkUserExsistance(userForm);
+
+					//logger.info("user login user entity "+userRes);
+
+					//check user is active
+					//check role is defined
+					// check user is verified or not
+					
+						Map<String,Object> userRole = new HashMap<String,Object>();
+						userRole.put("email", profileJsonRes.getJSONObject("data").getString("email"));
+						userRole.put("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
+						String email = profileJsonRes.getJSONObject("data").getString("email");
+						String mobile = profileJsonRes.getJSONObject("data").getString("mobile");
+						String username = profileJsonRes.getJSONObject("data").getString("username");
+						String token	=	JwtTokenGenerator.generateToken(email,mobile,username, MessageConstant.SECRET);
+						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
+					    request.getSession(true).setAttribute("hrms", token);
+					    // switch case to identify the user screen login
 					switch (String.valueOf(profileJsonRes.getJSONObject("data").getInt("role_id"))) {	
 					case "1":
 						screenName="index";
