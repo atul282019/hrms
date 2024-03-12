@@ -115,7 +115,7 @@ public class CommonUtility {
 			body.add("referenceType", requestJson.getReferenceType());
 			body.add("remarks", requestJson.getRemarks());
 			
-			
+;			logger.info(" body Json---"+body);
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
 			ResponseEntity<String> response = restTemplate.exchange(url,HttpMethod.POST,requestEntity, String.class);

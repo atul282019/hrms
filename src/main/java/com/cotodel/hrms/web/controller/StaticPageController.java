@@ -168,7 +168,11 @@ public class StaticPageController extends CotoDelBaseController{
 		logger.info("opening dashboard-details01");
 		return new ModelAndView("emp-salary", "command", "");
 	}
-	
+	@GetMapping(value="/bulkUser")
+	public ModelAndView bulkUser(Model model) {
+		logger.info("opening dashboard-bulk-emp-details");
+		return new ModelAndView("bulk-emp-details", "command", "");
+	}
 	@GetMapping(value="/pfPayment")
 	public ModelAndView pfPayment(Model model) {
 		logger.info("opening dashboard-details01");
@@ -213,6 +217,5 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
-	
 	
 }

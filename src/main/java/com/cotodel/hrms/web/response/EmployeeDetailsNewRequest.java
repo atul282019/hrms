@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeDetailsRequest  implements Serializable{
+public class EmployeeDetailsNewRequest  implements Serializable{
 	
 	private static final long serialVersionUID = -5145118965670277166L;
 	
@@ -34,9 +34,13 @@ public class EmployeeDetailsRequest  implements Serializable{
 	private String uanNo;	
 	private String bankName;	
 	private String remarks;	
-	//private String briefDescription;	
-	public  MultipartFile docfile;	
-	public  MultipartFile sigfile;	
+	private String briefDescription;	
+//	public  MultipartFile docfile;	
+//	public  MultipartFile sigfile;
+	private  String docfile;
+	private  String docFileName;
+	private  String sigfile;
+	private  String sigFileName;
 	private String serviceStatus;
 	private String employeeType;	
 	private String category;	

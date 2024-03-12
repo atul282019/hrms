@@ -108,10 +108,21 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>4.1.2</version>
-		</dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-exec</artifactId>
+	<version>1.1</version>
+</dependency>
+	<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>3.12</version>
+</dependency>
+<!-- excel 2007 over-->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>3.12</version>
+</dependency>
 		 <dependency> 
         <groupId>org.projectlombok</groupId> 
         <artifactId>lombok</artifactId> 
