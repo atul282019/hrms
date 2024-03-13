@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.EmployeeCertificateNewRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
+import com.cotodel.hrms.web.response.EmployeeExperienceNewRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
 import com.cotodel.hrms.web.response.EmployeeProjectRequest;
+import com.cotodel.hrms.web.response.EmployeeQualificationNewRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.util.CommonUtility;
@@ -76,8 +79,20 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	@Override
 	public String saveFamilyQualification(String token, EmployeeQualificationRequest employeeQualificationRequest) {
 		// TODO Auto-generated method stub
+		EmployeeQualificationNewRequest employeeQualificationNewRequest=new EmployeeQualificationNewRequest();
+		CopyUtility.copyProperties(employeeQualificationRequest, employeeQualificationNewRequest);
+		 String docfile ="";
+		try {			
+			byte[] byt = employeeQualificationRequest.getAttachment().getBytes();
+			docfile = DatatypeConverter.printBase64Binary(byt);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String docfilename=employeeQualificationRequest.getAttachment().getOriginalFilename();
+		employeeQualificationNewRequest.setDocfile(docfile);
+		employeeQualificationNewRequest.setDocFileName(docfilename);
 		//return CommonUtility.userRequestforMultipartfile(token,employeeQualificationRequest, applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeQualification);
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeQualificationRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeQualification);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeQualificationNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeQualification);
 	}
 
 	@Override
@@ -89,8 +104,20 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 
 	@Override
 	public String saveEmpCertificateDetail(String token, EmployeeExperienceRequest	 employeeExperienceRequest) {
-		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeExperienceRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpExperience);
+		
+		EmployeeExperienceNewRequest employeeExperienceNewRequest=new EmployeeExperienceNewRequest();
+		CopyUtility.copyProperties(employeeExperienceRequest, employeeExperienceNewRequest);
+		String docfile ="";
+		try {			
+			byte[] byt = employeeExperienceRequest.getAttachment().getBytes();
+			docfile = DatatypeConverter.printBase64Binary(byt);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String docfilename=employeeExperienceRequest.getAttachment().getOriginalFilename();
+		employeeExperienceNewRequest.setDocfile(docfile);
+		employeeExperienceNewRequest.setDocFileName(docfilename);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeExperienceNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpExperience);
 	}
 
 	@Override
@@ -101,8 +128,20 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 
 	@Override
 	public String saveEmployeeCertificate(String token, EmployeeCertificateRequest employeeCertificateRequest) {
-		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeCertificateRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpCertificate);
+
+		EmployeeCertificateNewRequest employeeCertificateNewRequest=new EmployeeCertificateNewRequest();
+		CopyUtility.copyProperties(employeeCertificateRequest, employeeCertificateNewRequest);
+		 String docfile ="";
+		try {			
+			byte[] byt = employeeCertificateRequest.getAttachment().getBytes();
+			docfile = DatatypeConverter.printBase64Binary(byt);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String docfilename=employeeCertificateRequest.getAttachment().getOriginalFilename();
+		employeeCertificateNewRequest.setDocfile(docfile);
+		employeeCertificateNewRequest.setDocFileName(docfilename);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeCertificateNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpCertificate);
 	}
 
 	@Override
