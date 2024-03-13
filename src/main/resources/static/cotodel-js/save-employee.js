@@ -221,6 +221,7 @@ function getEmployeeDetail() {
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.data;
+			console.log(data2);
 			document.getElementById("signinLoader").style.display="none";
 			var table = $('#employeeDetail').DataTable({
 			destroy: true,
@@ -239,8 +240,9 @@ function getEmployeeDetail() {
 					{ "mData": "uanNo" },
 					{ "mData": "bankName" },
 					//{ "mData": "docfile" }
+					//document.getElementById("face_idqr").src = "data:image/jpeg;base64," + obj['qrimg'];
 					{"mData": "docfile","render": function (mData) {
-              		var img = 'data:image/png;base64,' + mData;
+              		var img = 'data:image/pdf;base64,' + mData;
               		return '<img src="' + img + '" height="50px" width="50px" >';
     				}
 				}				
