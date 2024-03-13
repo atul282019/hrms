@@ -20,6 +20,12 @@ public class CompanyServiceImpl implements CompanyService{
 	public String saveCompany(String token, EmployeeProfileRequest employeeProfileRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.registerCompany);
 	}
+
+	@Override
+	public String getCompanyProfileStatus(String token, EmployeeProfileRequest employeeProfileRequest) {
+		// TODO Auto-generated method stub
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.companyProfileStatus);
+	}
 	
 	
 

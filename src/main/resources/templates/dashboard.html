@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top">
+<body id="page-top" onload="getProfileStatus()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -33,7 +33,7 @@
                                 <div class="col-12 col-sm-4 organisation-wrap">
                                     <h3>Let’s set up your organisation!</h3>
                                     <div class="stepper"></div>
-                                    <p>0 of 7 completed</p>
+                                    <p><span id="profile"></span> of 7 completed</p>
                                     <a href="#"><img src="img/question-mark.png" alt="" class="mr-2">Need help with setup?</a>
                                 </div>
                                 <div class="col-12 col-sm-8">
@@ -75,8 +75,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center text-md-right my-3">                                            
-                                <a class="btn btn-proceed ml-2 my-1" th:href="@{/companyDetails}">Continue</a>
+                            <div class="text-center text-md-right my-3">                 
+                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">                           
+                            <a class="btn btn-proceed ml-2 my-1" th:href="@{/companyDetails}">Continue</a>
                             </div>
                         </div>
                         </div>
@@ -124,6 +125,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="cotodel-js/dashboard.js"></script>
 
 	 <script>
 	$(document).ready(function() {

@@ -9,4 +9,6 @@ public interface CompanyService {
 
 	String saveCompany(String token, EmployeeProfileRequest employeeProfileRequest);
 
+	String getCompanyProfileStatus(String token, EmployeeProfileRequest employeeProfileRequest);
+
 }

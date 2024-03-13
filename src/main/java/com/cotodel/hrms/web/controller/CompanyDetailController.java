@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
+import com.cotodel.hrms.web.response.PayrollRequest;
 import com.cotodel.hrms.web.service.CompanyService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.MessageConstant;
@@ -60,6 +62,14 @@ public class CompanyDetailController extends CotoDelBaseController{
 		}
 		
 		return profileRes;
+	}
+	
+	@PostMapping(value="/getCompanyProfileStatus")
+	public @ResponseBody String getCompanyProfileStatus(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
+			logger.info("getPayrollMaster");	
+			String token = (String) session.getAttribute("hrms");
+			return companyService.getCompanyProfileStatus(tokengeneration.getToken(),employeeProfileRequest);
 	}
 
 }
