@@ -1,7 +1,5 @@
 package com.cotodel.hrms.web.response;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeExperienceRequest {
+public class EmployeeExperienceNewRequest {
 
 	private Integer employeeId;
 	private Integer employerId;
@@ -22,5 +20,6 @@ public class EmployeeExperienceRequest {
 	private String referenceEmail;
 	private String referenceMobile;	
 	private String remarks;
-	public MultipartFile attachment;
+	private  String docfile;
+	private  String docFileName;
 }

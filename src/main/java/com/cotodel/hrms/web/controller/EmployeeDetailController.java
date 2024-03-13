@@ -205,6 +205,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		ObjectMapper mapper = new ObjectMapper();
 		String res=null;String userRes=null;
 		profileRes = employeeDetailService.getEmployeeDetail(tokengeneration.getToken(),employeeFamilyDetailRequest);
+		System.out.println("profileRes::"+profileRes);
 		profileJsonRes= new JSONObject(profileRes);
 		
 		if(profileJsonRes.getBoolean("status")) { 
