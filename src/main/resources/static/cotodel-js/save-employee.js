@@ -237,7 +237,13 @@ function getEmployeeDetail() {
 					{ "mData": "panNo" },
 					{ "mData": "accountNumber" },
 					{ "mData": "uanNo" },
-					{ "mData": "bankName" }
+					{ "mData": "bankName" },
+					//{ "mData": "docfile" }
+					{"mData": "docfile","render": function (mData) {
+              		var img = 'data:image/png;base64,' + mData;
+              		return '<img src="' + img + '" height="50px" width="50px" >';
+    				}
+				}				
 				]
 			}).buttons().container().appendTo('#employeeDetail_wrapper .col-md-6:eq(0)');
 		},
