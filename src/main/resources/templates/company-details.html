@@ -71,7 +71,7 @@
 
                                         <div class="text-center text-md-center my-3">
                                             <input type="button" value="Don't have GSTIN" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="openBrandPage()" />
-                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
+                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
                                             
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Fill via GSTIN</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
-                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
+                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
                                         </div>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Back Edit PAN</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back3">Back</div>
-                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validateBrandNumber()" />
+                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validateBrandNumber()" />
                                             <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next3">Continue</div> -->
                                         </div>
                                     </div>
@@ -371,10 +371,11 @@
 							            </div>
 					                          
                                         <div class="text-center text-md-center my-3 disabled">
-                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.employerId}">
+                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
+                                            <input type="hidden" class="form-input" id="employeeId" name="employeeId" >
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
-                                            <input type="button" id="btnPayrollSave" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
+                                            <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
                                         </div>
                                     </div>
                                 </div>
@@ -473,12 +474,18 @@
     </script>
 
 
-	<script>
-	$(document).ready(function() {
-		  $('li.active').removeClass('active').removeAttr('aria-current');
-		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page'); 
-		});
-	</script>
+<script>
+$(document).ready(function(){
+	 $(".innernav").click(function(){
+        $(".dropdownNav").addClass("active");
+    });
+	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+	  
+  
+});
+</script>
+	
 </body>
 
 </html>

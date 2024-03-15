@@ -99,7 +99,11 @@ public class LoginController extends CotoDelBaseController{
 					case "1":
 						screenName="index";
 						model.addAttribute("message", "No Role assigned to User. Please contact to Organisation Admin !!");
-						break;		
+						break;	
+					case "2":
+						screenName="dashboard";
+						model.addAttribute("message", "No Role assigned to User. Please contact to Organisation Admin !!");
+						break;	
 					case "0":
 						screenName="dashboard";
 						model.addAttribute("name",profileJsonRes.getJSONObject("data").getString("email"));

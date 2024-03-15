@@ -306,6 +306,8 @@ function validateFormAndSubmit() {
 			if(data1.status==true){
 				 document.getElementById("successmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("successmsgdiv").style.display="block";
+				 
+				 document.getElementById("employeeId").value=data1.data.employeeId;
 				 //document.getElementById("saveorg").reset();
 				 //$('#successmsgdiv').delay(5000).fadeOut(400);
 				// $("#form5").show();
