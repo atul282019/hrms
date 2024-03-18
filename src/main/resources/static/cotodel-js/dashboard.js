@@ -15,8 +15,13 @@ function getProfileStatus(){
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			//var data2 = data1.data;
-			$('#profile').html(data1.profile);
-			//document.getElementById("perCtcBasic").value=data2[0].per_ctc;
+			//$('#profile').html(data1.profile);
+			$('#profileComplete').html(data1.profile);
+			
+			//var e1 = document.getElementById("profile");
+			document.getElementById("profile").style.width = 40*data1.profile+"px";
+        	//e1.style.width = data1.profile+""+px;
+			//document.getElementById("perCtcBasic").value="5"data2[0].per_ctc;
 			
 		},
 		error: function(e) {

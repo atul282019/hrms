@@ -101,22 +101,22 @@ function newUserCreation(){
 			var table = $('#userTable').DataTable({
 				  destroy: true,
 				 "responsive": true, "lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
-             "language": {"emptyTable": "No History available"  },
-				"aaData": data2,
-				"aoColumns": [
-					//{ "mData": "id" },
-					{ "mData": "username" },
-					{ "mData": "email" },
-					{ "mData": "mobile" },
-					{ "mData": "status" }
-				
-				]
-			}).buttons().container().appendTo('#userTable_wrapper .col-md-6:eq(0)');
-		},
-		error: function(e) {
-			alert('Error: ' + e);
-		}
-	});
+            	 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],"aaSorting": [],
+	             "language": {"emptyTable": "No History available"  },
+					"aaData": data2,
+					"aoColumns": [
+						//{ "mData": "id" },
+						{ "mData": "username" },
+						{ "mData": "email" },
+						{ "mData": "mobile" },
+						{ "mData": "status" }
+					
+					]
+				});
+			},
+			error: function(e) {
+				alert('Error: ' + e);
+			}
+		});
 }
  

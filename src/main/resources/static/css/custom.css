@@ -830,4 +830,23 @@ li.nav-item.li-btm a {
   font-size: 0;
 }
 
+progress {
+  text-align: center;
+}
+progress:after {
+  content: attr(value);
+}
 
+
+/* default link color */
+a {
+  color: purple;
+}
+/* color for active link */
+a.active {
+  color: red;
+}
+/* hide submenu's by default */
+ul>li>ul {
+  display: none;
+}
