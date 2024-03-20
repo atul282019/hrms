@@ -5,14 +5,13 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-
 <body id="page-top" onload="getProfileStatus()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+		<div th:insert="fragments/sidenav.html :: sidevav"></div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -22,57 +21,57 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <div th:insert="fragments/header.html :: header"></div>
+           		 <div th:insert="fragments/header.html :: header"></div>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
-                     <div class="row px-2">
-                        <div class="col-12">
+                     <div class="row">
+                        <div class="col-12 col-md-9">
                             <div class="mt-4 bg-white p-3">
                             <div class="row">
-                                <!-- <div class="col-12 col-sm-4 organisation-wrap">
+                                <div class="col-12 col-sm-4 organisation-wrap">
                                     <h3>Let’s set up your organisation!</h3>
-                                   <div class="w3-border">
+                                   <!--  <progress max="100" id="profile"><span></span></progress>
+
+                                    <p><span id="profileComplete"></span> of 7 completed</p> -->
+                                    <div class="w3-border">
 										  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
 										</div>
                                     <p><span id="profileComplete"></span> of 7 completed</p>
                                     
                                     <a href="#"><img src="img/question-mark.png" alt="" class="mr-2">Need help with setup?</a>
-                                </div> -->
-                                <div class="col-12 col-sm-4 organisation-wrap">
-                                    <h3>Let’s set up your organisation!</h3>
-                                    <div class="stepper"></div>
-                                    <p>0 of 7 completed</p>
-                                    <a href="#"><img src="img/question-mark.png" alt="" class="mr-2">Need help with setup?</a>
                                 </div>
                                 <div class="col-12 col-sm-8">
-
                                     <div class="details-wrap">
-                                        <div class="basic-details-wrap">
+                                        <div class="basic-details-wrap-one">
                                             <h4>Basic Details</h4>
-                                            <div class="time">COMPLETED</div>                                            
+                                            <div class="basic-details-input">
+                                                <span>1</span>
+                                                <p>Enter company details</p>
+                                                <a class="btn btn-primary" th:href="@{/companyDetails}">Start</a>
+                                            </div>
+
+                                            <div class="basic-details-input no-bg">
+                                                <span>2</span>
+                                                <p>Set payroll date</p>
+                                                <a href="#"><i class="fas fa-angle-right"></i></a>
+                                            </div>
+
+                                            <div class="basic-details-input no-bg mb-0">
+                                                <span>3</span>
+                                                <p>Set employee salary structure</p>
+                                                <a href="#"><i class="fas fa-angle-right"></i></a>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="details-wrap">
-                                        <div class="basic-details-wrap mb-2">
+                                        <div class="basic-details-wrap">
                                             <h4>Compliance and people</h4>
-                                            <div class="time">2 steps | 10 mins</div>
+                                            <div class="time">2 steps | 10 mins</div>                                            
                                         </div>
-                                            <div class="basic-details-input">
-                                                <span>1</span>
-                                                <p>Setup Compliance</p>
-                                                <a class="btn btn-primary" th:href="@{/companyDetails}">Start</a>
-                                            </div>
-
-                                            <div class="basic-details-input no-bg mb-0">
-                                                <span>2</span>
-                                                <p>Add employee and contractors</p>
-                                                <a href="#"><i class="fas fa-angle-right"></i></a>
-                                            </div>
-                                       
-                                    </div>                                    
+                                    </div>
 
                                     <div class="details-wrap mb-0">
                                         <div class="basic-details-wrap">
@@ -82,31 +81,20 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="welcome-wrap">
-                                <div class="welcome-wrap-left">
-                                    <div class="welcome-wrap-in">
-                                        <h4>Welcome</h4>
-                                        <p>XYZ</p>
-                                    </div>
-                                    <div class="welcome-wrap-in">
-                                        <span class="mt-0">NEXT PAYROLL</span>
-                                        <b>NA</b>
-                                    </div>
-                                    <div class="welcome-wrap-in">
-                                        <span class="mt-0">ACCOUNT BALANCE</span>
-                                        <b>&#8377;0.00</b>
-                                    </div>
-                                </div>
-                                
-                                <div class="welcome-wrap-btn">
-                                    <button class="btn bg-white btn-block">UPDATE BALANCE</button>
-                                </div>                                
+                            <div class="text-center text-md-right my-3">                 
+                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">                           
+                            <a class="btn btn-proceed ml-2 my-1" th:href="@{/companyDetails}">Continue</a>
                             </div>
-                            
+                        </div>
+                        </div>
+                        <div class="col-12 col-md-3 welcome-wrap">
+                            <h4>Welcome</h4>
+                            <p>XYZ</p>
+                            <span>NEXT PAYROLL</span>
+                            <b>NA</b>
+                            <span>ACCOUNT BALANCE</span>
+                            <b>&#8377;0.00</b>
+                            <button class="btn bg-white btn-block">UPDATE BALANCE</button>
                         </div>
                      </div>
 
@@ -143,19 +131,20 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
-    <script>
-    $(document).ready(function(){
-   	 $(".innernav").click(function(){
-           $(".dropdownNav").addClass("active");
-       });
-   	 $('li.active').removeClass('active').removeAttr('aria-current'); 
-   	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-   	  
-     
-   });
-    </script>
+    <script type="text/javascript" src="cotodel-js/dashboard.js"></script>
 
+<script>
+$(document).ready(function(){
+	 $(".innernav").click(function(){
+        $(".dropdownNav").addClass("active");
+    });
+	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+	  
+  
+});
+</script>
+	
 </body>
 
 </html>

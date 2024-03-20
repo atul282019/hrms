@@ -3,18 +3,16 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
-<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
- 
-<body id="page-top" onload="getOrgMaster(),getStateMaster(),getOrgMaster2(),getPayrollMaster()">
+
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        
-         <div th:insert="fragments/sidenav.html :: sidevav"></div>
-       
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -24,7 +22,9 @@
             <div id="content">
 
                 <!-- Topbar -->
-           		 <div th:insert="fragments/header.html :: header"></div>
+                
+                 <div th:insert="fragments/header.html :: header"></div>
+               
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -40,7 +40,7 @@
                                                 <span>1</span>
                                                 <label>Enter company details</label>
                                             </div>
-                                            <div id="tab2" class="breadcrumb-in">
+                                            <div class="breadcrumb-in">
                                                 <span>2</span>
                                                 <label>Set payroll date</label>
                                             </div>
@@ -52,16 +52,14 @@
                                     </div>
                                 </div>
                             </div>
-						<form id="saveCompany" name="saveCompany" method="post" >
+
                             <div class="mt-4">
                                 <div class="row" id="form1">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form">
                                             <label for="">Enter GSTN</label>
-                                            <input type="text" id="gstnNo" name="gstnNo" maxlength="15" class="form-input" onkeyup="checkGstNumber()">
-                                            
+                                            <input type="text" class="form-input">
                                         </div>
-                                         <div class="error-msg" id="gstnNoError" style="color:red"></div>
 
                                         <div class="tip-wrap">
                                             <img src="img/Tip.png" alt="" class="mr-2">
@@ -70,9 +68,8 @@
                                         </div>
 
                                         <div class="text-center text-md-center my-3">
-                                            <input type="button" value="Don't have GSTIN" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="openBrandPage()" />
-                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
-                                            
+                                            <div class="btn btn-proceed-border my-1">Don't have GSTIN</div>
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next1">Continue</div>
                                         </div>
                                     </div>
                                 </div>
@@ -81,22 +78,21 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form">
                                             <select class="form-select form-control no-bg border-0"
-                                                aria-label="Default select example" id="organizationType" name="organizationType">
-                                                
+                                                aria-label="Default select example">
+                                                <option selected="">Organization type*</option>
+                                                <option value="1"></option>
                                             </select>
-                                             
                                         </div>
- 										<div class="error-msg" id="organizationTypeError" style="color:red"></div>
+
                                         <div class="tip-wrap justify-content-start my-3">
                                             <p class="mb-0">Select business category</p>
                                         </div>
 
                                         <div class="card-form my-3">
                                             <label for="">Enter PAN</label>
-                                            <input type="text" class="form-input" id="pan" name="pan" maxlength="10"  oninput="this.value = this.value.toUpperCase()">
-                                            
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="panError" style="color:red"></div>
+
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">We need your pan verify your business details.</p>
                                         </div>
@@ -104,7 +100,7 @@
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Fill via GSTIN</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
-                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue</div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,10 +109,9 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form my-3">
                                             <label for="">Brand Name</label>
-                                            <input type="text" class="form-input" id="brandName" name="brandName" maxlength="100">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="brandNameError" style="color:red"></div>
-										
+
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">If your company is publicly known by a diffrent brand name,
                                                 then please enter that here.</p>
@@ -124,23 +119,25 @@
 
                                         <div class="card-form">
                                             <select class="form-select form-control no-bg border-0"
-                                                aria-label="Default select example" id="orgType2" name="orgType2"  >
+                                                aria-label="Default select example">
                                                 <option selected="">Organization type*</option>
-                                                
+                                                <option value="1"></option>
                                             </select>
                                         </div>
-										<div class="error-msg" id="orgType2Error" style="color:red"></div>
+
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">In case of incorrect company type. please go back to edit
                                                 PAN details.</p>
                                         </div>
 
                                         <div class="card-form">
-                                        <input type="text" class="form-input" id="panDetails" name="panDetails" maxlength="100">
-                                        
+                                            <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example">
+                                                <option selected="">Company PAN*</option>
+                                                <option value="1"></option>
+                                            </select>
                                         </div>
-										<div class="error-msg" id="panDetailsError" style="color:red"></div>
-										
+
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">In case of incorrect company name. please go back to edit
                                                 PAN details.</p>
@@ -148,38 +145,40 @@
 
                                         <div class="card-form my-3">
                                             <label for="">Company Name</label>
-                                            <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="companyNameError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Enter Registered office Address*</label>
-                                            <input type="text" class="form-input" id="officeAddress" name="officeAddress" maxlength="100"> 
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="officeAddressError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Address line 2</label>
-                                            <input type="text" class="form-input" id="addressLine" name="addressLine" maxlength="100">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="addressLineError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Enter PIN Code*</label>
-                                            <input type="text" class="form-input" id="pinCode" name="pinCode" maxlength="6" 
-                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="pinCodeError" style="color:red"></div>
-                                      <!--   <div class="card-form">
-                                         <input type="text" class="form-input" id="companyPan2" name="companyPan2">
-                                          
-                                        </div> -->
-										<div class="error-msg" id="companyPan2Error" style="color:red"></div>
-                                        <div class="card-form my-3">
+
+                                        <div class="card-form">
                                             <select class="form-select form-control no-bg border-0"
-                                                aria-label="Default select example" id="stateCode" name="stateCode">
-                                               
+                                                aria-label="Default select example">
+                                                <option selected="">Company PAN*</option>
+                                                <option value="1"></option>
                                             </select>
                                         </div>
-										<div class="error-msg" id="stateCodeError" style="color:red"></div>
-										
+
+                                        <div class="card-form my-3">
+                                            <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example">
+                                                <option selected="">Select State*</option>
+                                                <option value="1"></option>
+                                            </select>
+                                        </div>
+
                                         <div class="tip-wrap justify-content-start my-3">
                                             <p class="mb-0">Choosing the state affects Professionals tax compliance, it
                                                 is suggested to select the state where your company based in.</p>
@@ -188,8 +187,7 @@
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Back Edit PAN</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back3">Back</div>
-                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validateBrandNumber()" />
-                                            <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next3">Continue</div> -->
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next3">Continue</div>
                                         </div>
                                     </div>
                                 </div>
@@ -199,10 +197,10 @@
 
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="payrollEnabledFlag"
-                                                 name="payrollEnabledFlag" checked="" >
-                                                <label class="custom-control-label text-left" for="payrollEnabledFlag"
-                                                >Payroll Enabled.</label>
+                                                <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                                    checked="">
+                                                <label class="custom-control-label text-left" for="customCheck1">Payroll
+                                                    Enabled.</label>
                                             </div>
                                         </div>
 
@@ -215,10 +213,13 @@
                                         </div>
 
                                         <div class="card-form">
-                                        <input type="date" class="form-input" id="paidDate" name="paidDate">
-                                          
+                                            <select class="form-select form-control no-bg border-0"
+                                                aria-label="Default select example">
+                                                <option selected="">Select Payroll Date*</option>
+                                                <option value="1"></option>
+                                            </select>
                                         </div>
-										<div class="error-msg" id="paidDateError" style="color:red"></div>
+
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">You can choose to either manually request execution each
                                                 month before the payroll is executed, or Cotodel can automatically
@@ -227,12 +228,11 @@
 
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="runFayrollFlag" 
-                                                name="runFayrollFlag">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
                                                 <label class="custom-control-label text-left"
-                                                    for="runFayrollFlag">Automatically run payroll on selected date</label>
+                                                    for="customCheck2">Automatically run payroll on selected
+                                                    date</label>
                                             </div>
-                                            <div class="error-msg" id="runFayrollFlagError" style="color:red"></div>
                                         </div>
 
                                         <div class="tip-wrap justify-content-start">
@@ -243,38 +243,21 @@
 
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="salaryAdvancesFlag"
-                                                 name="salaryAdvancesFlag"
+                                                <input type="checkbox" class="custom-control-input" id="customCheck3"
                                                     checked>
-                                                <label class="custom-control-label text-left" for="salaryAdvancesFlag">Let
+                                                <label class="custom-control-label text-left" for="customCheck3">Let
                                                     employees request salary advances </label>
                                             </div>
-                                            <div class="error-msg" id="salaryAdvancesFlagError" style="color:red"></div>
                                         </div>
 
-										  <div id="successmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
-							            	<span id="successmsg"></span>   
-							            </div>
-							            
-							            <div id="failmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
-							            	<span id="failmsg"></span>
-							            </div>
-					                          
-										
-										
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back4">Back</div>
-                                            
-                                            <input id="saveNext" type="button"  class="btn btn-proceed ml-2 my-1" value="Save" onclick="validateFormAndSubmit()" />
-                                           <!--  <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" /> -->
-                                            <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />
-                                          </div>
-                                        
+                                            <div class="btn btn-proceed ml-2 my-1" id="next4">Save & Next</div>
+                                        </div>
                                     </div>
                                 </div>
-                                </form>
-							 <form id="savePayroll" name="savePayroll" method="post">
+
                                 <div class="row tabs-row" id="form5">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
 
@@ -300,13 +283,13 @@
 
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck4" 
-                                                name="customCheck4" checked>
+                                                <input type="checkbox" class="custom-control-input" id="customCheck4"
+                                                    checked>
                                                 <label class="custom-control-label text-left" for="customCheck4">Let
                                                     employees request salary advances </label>
                                             </div>
                                         </div>
-										
+
                                         <div class="table-responsive">
                                             <table class="table salary-table border-0" border="0">
                                                 <thead>
@@ -318,29 +301,29 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                     <tr>
-                                                        <td><span id="salaryComponentBasic" name="salaryComponentBasic"></span></td>
-                                                        <td><input type="text" id="perCtcBasic" name="perCtcBasic" maxlength="3" size="3" ></td>
-                                                        <td><input type="text" id="perBasic" name="perBasic" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableBasic" name="taxableBasic" size="3"></td>
+                                                    <tr>
+                                                        <td>Basic Salary</td>
+                                                        <td>50</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span id="salaryComponentHra" name="salaryComponentHra"></span></td>
-                                                        <td><input type="text" id="perCtcHra" name="perCtcHra" width="10px" maxlength="3" size="3"></td>
-                                                        <td><input type="text" id="perHra" name="perHra" width="10px" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableHra" name="taxableHra" width="10px" size="3"></td>
+                                                        <td>HRA</td>
+                                                        <td>25</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span id="salaryComponentSpecial" name="salaryComponentSpecial"></span></td>
-                                                        <td><input type="text" id="perCtcSpecial" name="perCtcSpecial" maxlength="3" size="3"></td>
-                                                        <td><input type="text" id="perSpecial" name="perSpecial" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableSpecial" name="taxableSpecial" size="3"></td>
+                                                        <td>Special Allowance</td>
+                                                        <td>15</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span id="salaryComponentLta" name="salaryComponentLta"></span></td>
-                                                        <td><input type="text" id="perCtcLta" name="perCtcLta" width="10px" maxlength="3" size="3" ></td>
-                                                        <td><input type="text" id="perLta" name="perLta" width="10px" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableLta" name="taxableLta"  width="10px" size="3"></td>
+                                                        <td>LTA</td>
+                                                        <td>10</td>
+                                                        <td>Percentage</td>
+                                                        <td>Yes</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -354,7 +337,7 @@
 
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck5" name="customCheck5"
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5"
                                                     checked>
                                                 <label class="custom-control-label text-left"
                                                     for="customCheck5">Consider FBP allowance to be taxable by default
@@ -362,26 +345,148 @@
                                             </div>
                                         </div>
 
-  										<div id="payrollsuccessmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
-							            	<span id="payrollsuccessmsg"></span>   
-							            </div>
-							            
-							            <div id="payrollfailmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
-							            	<span id="payrollfailmsg"></span>
-							            </div>
-					                          
+
                                         <div class="text-center text-md-center my-3 disabled">
-                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
-                                            <input type="hidden" class="form-input" id="employeeId" name="employeeId" >
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
-                                            <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next5">Continue</div>
                                         </div>
                                     </div>
                                 </div>
-								</form>
+
+                                <div class="row tabs-row" id="form6">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5">
+                                                <label class="custom-control-label text-left" for="customCheck5">Use Cotodel’s default salary structure (recommended) </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="mb-0 text-left company-dtl-label">Default Salary
+                                                Structure</label>
+                                        </div>
+
+                                        <div class="tip-wrap my-3 d-block">
+                                            <div class="tip-wrap-in">
+                                                <span>1</span>
+                                                <p class="mb-0">To remove any predefined component, enter “0” as the
+                                                    percentage/amount.</p>
+                                            </div>
+                                            <div class="tip-wrap-in mb-0">
+                                                <span>2</span>
+                                                <p class="mb-0">Fixed amounts should be entered as per monthly slary.</p>
+                                            </div>
+                                            <div class="tip-wrap-in mb-0">
+                                                <span>3</span>
+                                                <p class="mb-0">If the sum of the components does’t match with monthly pay, the diffrence amount will be adjusted from these components - LTA, HRA, Special Allowances, Basic (Where LTA has the highest and Basic has the lowest).</p>
+                                            </div>
+                                        </div>
+                                      
+
+                                        <div class="table-responsive">
+                                            <table class="table salary-table border-0" border="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Salary Component</th>
+                                                        <th>%age of CTC</th>
+                                                        <th>Percentage or Fixed?</th>
+                                                        <th>Taxable?</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Basic Salary</td>
+                                                        <td>50</td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>HRA</td>
+                                                        <td>25</td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Special Allowance</td>
+                                                        <td>15</td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>LTA</td>
+                                                        <td>10</td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4" class="p-0">
+                                                            <a href="#" class="text-center d-block btn-grren add-custom">+ Add Custom allowance</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">If you are using Flexible Benefits you can specify whether they are taxable or not, if you have not explicitly approved exemption for them.</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5"
+                                                    checked>
+                                                <label class="custom-control-label text-left"
+                                                    for="customCheck5">Consider FBP allowance to be taxable by default
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back6">Back</div>
+                                            <div class="btn btn-proceed ml-2 my-1 next">Continue</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-						
+
 
                         </div>
                     </div>
@@ -392,7 +497,6 @@
             </div>
             <!-- End of Main Content -->
         </div>
-        <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -420,9 +524,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <script type="text/javascript" src="cotodel-js/masterdata.js"></script>
-    <script type="text/javascript" src="cotodel-js/company-detail.js"></script>
-     
 
 
     <script>
@@ -448,9 +549,13 @@
             });
 
             $("#next4").click(function () {
-            	$("#form4").hide();
                 $("#form5").show();
-                $("#tab2").addClass("active");
+                $("#form4").hide();
+            });
+
+            $("#next5").click(function () {
+                $("#form6").show();
+                $("#form5").hide();
             });
 
             $("#back2").click(function () {
@@ -469,23 +574,15 @@
                 $("#form4").show();
             });
 
+            $("#back6").click(function () {
+                $("#form5").show();
+            });
+
 
         });
     </script>
 
 
-<script>
-$(document).ready(function(){
-	 $(".innernav").click(function(){
-        $(".dropdownNav").addClass("active");
-    });
-	 $('li.active').removeClass('active').removeAttr('aria-current'); 
-	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-	  
-  
-});
-</script>
-	
 </body>
 
 </html>

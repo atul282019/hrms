@@ -50,7 +50,7 @@ function getOrgMaster() {
              var x = document.getElementById("organizationType");
              if(count==0){
              var option = document.createElement("option");
-             option.text ="Select OrgType";
+             option.text ="Select Organization Type";
              option.value = "";
              x.add(option);
              }
@@ -85,7 +85,7 @@ function getOrgMaster2() {
              var x = document.getElementById("orgType2");
              if(count==0){
              var option = document.createElement("option");
-             option.text ="Select OrgType";
+             option.text ="Select Organization Type";
              option.value = "";
              x.add(option);
              }

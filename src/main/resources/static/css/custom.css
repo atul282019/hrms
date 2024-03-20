@@ -329,7 +329,23 @@ ul.navbar-nav.top-nav .nav-item a.active i, ul.navbar-nav.top-nav .nav-item a.ac
   background: #2F945A;
   padding: 1rem;
   color: #fff;
-  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.welcome-wrap-left {
+  display: flex;
+  flex-grow: 4;
+}
+
+.welcome-wrap-btn {
+  flex-grow: 1;
+}
+
+.welcome-wrap-in {
+  margin-right: 10%;
 }
 
 .welcome-wrap span{
@@ -339,12 +355,11 @@ ul.navbar-nav.top-nav .nav-item a.active i, ul.navbar-nav.top-nav .nav-item a.ac
 
 .welcome-wrap p{
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .welcome-wrap b{
   display: block;
-  margin-bottom: 20px;
 }
 
 .hello-wrap p {
@@ -849,4 +864,22 @@ a.active {
 /* hide submenu's by default */
 ul>li>ul {
   display: none;
+}
+
+.btn-grren{
+  background: #2F945A;
+  padding: 1rem;
+  color: #fff;
+}
+
+.no-border{
+  border: none;
+}
+
+.add-custom{
+  text-decoration: none;
+}
+.add-custom:hover{
+  text-decoration: underline;
+  color: #fff;
 }

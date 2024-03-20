@@ -142,7 +142,7 @@ function validateFormAndSubmit(){
                 var panNoFormat = new RegExp('[A-Z]{5}[0-9]{4}[A-Z]{1}');
                 
                  if(organizationType==""){
-					document.getElementById("organizationTypeError").innerHTML="Please Select Account Type";
+					document.getElementById("organizationTypeError").innerHTML="Please Select Organization Type";
 					document.getElementById("organizationType").focus();
 					return false;
 				}else{
