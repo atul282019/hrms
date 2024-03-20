@@ -36,7 +36,6 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 
 	@Override
 	public String saveBulkDetail(String token, BulkEmployeeRequest bulkEmployeeRequest) {
-		// TODO Auto-generated method stub
 		
 		String response="";
 		String res=null;
@@ -50,17 +49,14 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 		if(!filename.contains(".xlsx")) {
 			saveMap.put("status", "N");
 			saveMap.put("message","File Extention is not correct.Please Download Bulk Sample.");
-			//return ContollerResponse.returnResponse(saveMap);
 		}
-		System.out.println(filename.substring(filename.indexOf("."), filename.length()));
 		
 		XSSFWorkbook workbook =null;
 		try {
 			workbook =new XSSFWorkbook(bulkEmployeeRequest.getDocfile().getInputStream());
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		
 		
 		XSSFSheet worksheet = workbook.getSheetAt(0);
 		DataFormatter formatter = new DataFormatter();
@@ -70,7 +66,6 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 		if(col>10) {
 			saveMap.put("status", "N");
 			saveMap.put("message","File format is not correct.");
-			//return ContollerResponse.returnResponse(saveMap); 
 		}
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
@@ -84,7 +79,6 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				if(cl1==null) {
 					//return ContollerResponse.returnResponse(saveMap); 
 				}
-				//logger.info("Type::"+cl1.getCellType());
 				String str2="";	
 				
 				str2=cl1.getStringCellValue().replaceAll("\\s", ""); 
@@ -123,22 +117,12 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				
 			}
 		}else {
-//			ExcelResponse exl = new ExcelResponse();
-//			exl.setMobile("");
-//			exl.setName("");
-//			exl.setGender("");
-//			exl.setDob("");
-//			exl.setEmail("");
-//			exl.setCscid("");
-//			exl.setStatus("Please Upload Excel Less Than 2000 Records");
-//			excelResponse.add(exl);
-//			saveMap.put("status", "N");
-//			saveMap.put("message","Please Upload Excel Less Than 2000 Records.");
-			
+
 		}
-		saveMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		
 		
 		try {
+			saveMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 			int correctSize=userCorrectList!=null?userCorrectList.size():0;
 			int incorrectSize=userCorrectList!=null?userInCorrectList.size():0;
 			int total=correctSize+incorrectSize;
