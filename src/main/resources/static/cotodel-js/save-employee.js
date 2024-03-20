@@ -836,16 +836,17 @@ function validateBulkSubmit(){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
-			//console.log(data1.data.employerId);
-			//console.log(data1.data.id);
-			if(data1.status==true){
+			console.log(data1);
+			console.log(data1.correct);			
+			console.log(data1.incorrect);
+			if(data1.status=="SUCCESS"){
 				// document.getElementById("employeeId").value=data1.data.id;
 				 document.getElementById("bulksuccmsg").innerHTML="Data Saved Successfully";
 				 document.getElementById("bulkmsgdiv").style.display="block";
 				 //document.getElementById("saveorg").reset();
 				 //getEmployeeDetail();
 				 $('#bulkmsgdiv').delay(5000).fadeOut(400);
-			}else if(data1.status==false){
+			}else if(data1.status=="FAILURE"){
 				//getEmployeeDetail();
 				 document.getElementById("bulkfailmsg").innerHTML=data1.message;
 				 document.getElementById("bulkfailmsgDiv").style.display="block";
