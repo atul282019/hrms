@@ -49,20 +49,20 @@ public class BulkUserController extends CotoDelBaseController{
 		
 		
 		profileRes = bulkEmployeeService.saveBulkDetail(tokengeneration.getToken(),bulkEmployeeRequest);
-		logger.info(profileRes);
-		profileJsonRes= new JSONObject(profileRes);
+		//logger.info(profileRes);
+		//profileJsonRes= new JSONObject(profileRes);
 		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginsevice.rsendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+//		if(profileJsonRes.getString("status").) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginsevice.rsendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		
 		return profileRes;
 	}
