@@ -1,20 +1,23 @@
 package com.cotodel.hrms.web.service.Impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
-import com.cotodel.hrms.web.controller.BulkUserController;
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkEmployeeRequest;
@@ -22,6 +25,8 @@ import com.cotodel.hrms.web.response.UserRequest;
 import com.cotodel.hrms.web.service.BulkEmployeeService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class BulkEmployeeServiceImpl implements BulkEmployeeService {
@@ -34,29 +39,26 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 
 	@Override
 	public String saveBulkDetail(String token, BulkEmployeeRequest bulkEmployeeRequest) {
-		// TODO Auto-generated method stub
 		
 		String response="";
+		String res=null;
 		String filename="";
-		String mob="Mobile Number\n"
-				+ "(Registered in  Aadhar)";
-		HashMap<String, String> saveMap = new  HashMap<String, String> ();
 		
+		HashMap<String, String> saveMap = new  HashMap<String, String> ();
+		List<UserRequest> userCorrectList=new ArrayList<UserRequest>();
+		List<UserRequest> userInCorrectList=new ArrayList<UserRequest>();
 		filename=bulkEmployeeRequest.getDocfile().getOriginalFilename();
 		if(!filename.contains(".xlsx")) {
 			saveMap.put("status", "N");
 			saveMap.put("message","File Extention is not correct.Please Download Bulk Sample.");
-			//return ContollerResponse.returnResponse(saveMap);
 		}
-		System.out.println(filename.substring(filename.indexOf("."), filename.length()));
 		
 		XSSFWorkbook workbook =null;
 		try {
 			workbook =new XSSFWorkbook(bulkEmployeeRequest.getDocfile().getInputStream());
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		
 		
 		XSSFSheet worksheet = workbook.getSheetAt(0);
 		DataFormatter formatter = new DataFormatter();
@@ -66,9 +68,9 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 		if(col>10) {
 			saveMap.put("status", "N");
 			saveMap.put("message","File format is not correct.");
-			//return ContollerResponse.returnResponse(saveMap); 
 		}
-		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 		if(worksheet.getLastRowNum() < 2000) {
 			for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
 				UserRequest userRequest = new UserRequest();
@@ -79,7 +81,6 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				if(cl1==null) {
 					//return ContollerResponse.returnResponse(saveMap); 
 				}
-				//logger.info("Type::"+cl1.getCellType());
 				String str2="";	
 				
 				str2=cl1.getStringCellValue().replaceAll("\\s", ""); 
@@ -89,12 +90,34 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				userRequest.setEmail(formatter.formatCellValue(row.getCell(3)));
 				userRequest.setMobile(formatter.formatCellValue(row.getCell(4)));
 				userRequest.setUsername(formatter.formatCellValue(row.getCell(5)));
-			
+				//Regular Expression   
+				boolean validmobile=isValidMobile(userRequest.getMobile());			    
+				
+				 boolean validEmail= isValidEmail(userRequest.getEmail());
+				 logger.info(userRequest.getMobile() +" : "+ validmobile+"\n"); 
+	            logger.info(userRequest.getEmail() +" : "+ validEmail+"\n"); 
+	            
+	           
+	            
+	            
 				try {
+					logger.info("userRequest::"+userRequest.toString());					
 					
-					System.out.println("userRequest::"+userRequest.toString());
 					response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.regiUserBulk);
-										
+					
+					if(!ObjectUtils.isEmpty(response)) {
+						JSONObject demoRes= new JSONObject(response);
+						boolean status = demoRes.getBoolean("status");
+						if(status) {
+							userRequest.setResponse(MessageConstant.RESPONSE_SUCCESS);
+							userCorrectList.add(userRequest);
+						}else if(!status) {
+							userRequest.setResponse(demoRes.getString("message"));
+							userInCorrectList.add(userRequest);
+						}
+							
+						}
+					
 				} catch (Exception e) {
 					toprint=true;
 					saveMap.put("status", "N");
@@ -104,95 +127,46 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				
 			}
 		}else {
-//			ExcelResponse exl = new ExcelResponse();
-//			exl.setMobile("");
-//			exl.setName("");
-//			exl.setGender("");
-//			exl.setDob("");
-//			exl.setEmail("");
-//			exl.setCscid("");
-//			exl.setStatus("Please Upload Excel Less Than 2000 Records");
-//			excelResponse.add(exl);
-//			saveMap.put("status", "N");
-//			saveMap.put("message","Please Upload Excel Less Than 2000 Records.");
-			
+
 		}
-		return response;
+		
+		try {
+			saveMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+			int correctSize=userCorrectList!=null?userCorrectList.size():0;
+			int incorrectSize=userCorrectList!=null?userInCorrectList.size():0;
+			int total=correctSize+incorrectSize;
+			String correct=mapper.writeValueAsString(userCorrectList);
+			String incorrect=mapper.writeValueAsString(userInCorrectList);
+			saveMap.put("correct", correct);
+			saveMap.put("incorrect", incorrect);
+			saveMap.put("correctSize", ""+correctSize);
+			saveMap.put("incorrectSize", ""+incorrectSize);
+			saveMap.put("total", ""+total);			
+			res=mapper.writeValueAsString(saveMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	
+	public static boolean isValidMobile(String mobile)
+    {       
+        Pattern p = Pattern.compile("^\\d{10}$"); 
+        Matcher m = p.matcher(mobile); 
+        return (m.matches());
+    }
 	
+	public static boolean isValidEmail(String email)
+    {       
+		 String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";  
+	     //Compile regular expression to get the pattern  
+	     Pattern pattern = Pattern.compile(regex);  
+	     Matcher matcher = pattern.matcher(email);
+	     return matcher.matches();
+    }
 	
-	
-	
-//	@Override
-//	public String saveEmployeeDetail(String token, EmployeeDetailsNewRequest employeeDetailRequest) {
-//		// return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-//	}
-//
-//	@Override
-//	public String saveFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeFamilyDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empFamilyDetails);
-//	}
-//
-//	@Override
-//	public String getEmployeeDetail(String token, EmployeeDetailsRequest employeeFamilyDetailRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeFamilyDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeDetails);
-//	}
-//
-//	@Override
-//	public String getEmployeeFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeFamilyDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeFamilyDetails);
-//	}
-//
-//	@Override
-//	public String saveFamilyQualification(String token, EmployeeQualificationRequest employeeQualificationRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeQualificationRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeQualification);
-//	}
-//
-//	@Override
-//	public String getEmployeeQualificationDetail(String token,
-//			EmployeeQualificationRequest employeeQualificationRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeQualificationRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeQualification);
-//	}
-//
-//	@Override
-//	public String saveEmpCertificateDetail(String token, EmployeeExperienceRequest	 employeeExperienceRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeExperienceRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpExperience);
-//	}
-//
-//	@Override
-//	public String getEmployeeExperience(String token, EmployeeExperienceRequest employeeExperienceRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeExperienceRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmpExperience);
-//	}
-//
-//	@Override
-//	public String saveEmployeeCertificate(String token, EmployeeCertificateRequest employeeCertificateRequest) {
-//		// TODO Auto-generated method stub
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeCertificateRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpCertificate);
-//	}
-//
-//	@Override
-//	public String getEmployeeCertificateDetail(String token, EmployeeCertificateRequest employeeCertificateRequest) {
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeCertificateRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmpCertificate);
-//	}
-//
-//	@Override
-//	public String saveEmployeeProject(String token, EmployeeProjectRequest employeeProjectRequest) {
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProjectRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpProject);
-//	}
-//
-//	@Override
-//	public String getEmployeeProjectDetail(String token, EmployeeProjectRequest employeeProjectRequest) {
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProjectRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmpProject);
-//	}
 	
 }

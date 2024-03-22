@@ -29,4 +29,5 @@ public class UserRequest {
     private String otp;
     private String txnId;
     private int status ;
+    private String response;
 }
