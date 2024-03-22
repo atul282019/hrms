@@ -998,7 +998,7 @@ ul>li>ul {
   margin: 30px 0;
 }
 
-button.btn.btn-green {
+a.btn.btn-green {
   background: #74B790;
   padding: 0.75rem 1rem;
   display: flex;
@@ -1009,9 +1009,10 @@ button.btn.btn-green {
   margin: 0 10px;
   color: #fff;
   border: 1px solid #2F945A;
+  position: relative;
 }
 
-button.btn.btn-white {
+a.btn.btn-white {
   background: #EAF4EF;
   padding: 0.75rem 1rem;
   display: flex;
@@ -1022,9 +1023,10 @@ button.btn.btn-white {
   margin: 0 10px;
   color: #2F945A;
   border: 1px solid #EAF4EF;
+  position: relative;
 }
 
-button.btn.btn-disabled {
+a.btn.btn-disabled {
   background: #ededf0;
   padding: 0.75rem 1rem;
   display: flex;
@@ -1035,6 +1037,7 @@ button.btn.btn-disabled {
   margin: 0 10px;
   color: #ACAEBA;
   border: 1px solid #ededf0;
+  position: relative;
 }
 
 .independent-form {
