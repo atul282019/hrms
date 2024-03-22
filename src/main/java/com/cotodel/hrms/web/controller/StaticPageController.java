@@ -168,11 +168,132 @@ public class StaticPageController extends CotoDelBaseController{
 		logger.info("opening dashboard-details01");
 		return new ModelAndView("emp-salary", "command", "");
 	}
-	@GetMapping(value="/bulkUser")
+	
+	@GetMapping(value="/bulkInvite")
+	public ModelAndView bulkInvite(Model model) {
+		logger.info("opening dashboard-bulk-emp-details");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("bulk-invite", "command", "");
+			}
+		}
+			
+		return new ModelAndView("index", "command", "");
+		
+	}
+	@GetMapping(value="/bulkupload")
 	public ModelAndView bulkUser(Model model) {
 		logger.info("opening dashboard-bulk-emp-details");
-		return new ModelAndView("bulk-emp-details", "command", "");
+		//return new ModelAndView("bulk-emp-details", "command", "");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("bulk-upload", "command", "");
+			}
+		}
+			
+		return new ModelAndView("index", "command", "");
 	}
+	@GetMapping(value="/bulkUserList")
+	public ModelAndView bulkUserList(Model model) {
+		logger.info("opening bulk-table-invitelist");
+		//return new ModelAndView("bulk-emp-details", "command", "");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("bulk-table-invitelist", "command", "");
+			}
+		}
+			
+		return new ModelAndView("index", "command", "");
+		
+	}
+	
+	@GetMapping(value="/manageEmployee")
+	public ModelAndView manageEmployee(Model model) {
+		logger.info("opening bulk-table-invitelist");
+		//return new ModelAndView("bulk-emp-details", "command", "");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("employee-manage", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}	
+		@GetMapping(value="/manageEmployeeContractor")
+		public ModelAndView manageEmployeeContractor(Model model) {
+			logger.info("opening bulk-table-invitelist");
+			//return new ModelAndView("bulk-emp-details", "command", "");
+			String token = (String) session.getAttribute("hrms");
+			Integer id  = (Integer) session.getAttribute("id");
+			if(token!=null) {
+				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+				if(obj!=null) {
+					model.addAttribute("name",obj.getName());
+					model.addAttribute("org",obj.getOrgName());
+					model.addAttribute("mobile",obj.getMobile());
+					model.addAttribute("email",obj.getEmail());
+					model.addAttribute("employerId",id);
+					return new ModelAndView("employee-manage-and-contractors", "command", "");
+				}
+			}
+				
+		return new ModelAndView("index", "command", "");
+		
+	}
+		
+		@GetMapping(value="/employeeOnBoarding")
+		public ModelAndView employeeOnBoarding(Model model) {
+			logger.info("opening bulk-table-invitelist");
+			//return new ModelAndView("bulk-emp-details", "command", "");
+			String token = (String) session.getAttribute("hrms");
+			Integer id  = (Integer) session.getAttribute("id");
+			if(token!=null) {
+				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+				if(obj!=null) {
+					model.addAttribute("name",obj.getName());
+					model.addAttribute("org",obj.getOrgName());
+					model.addAttribute("mobile",obj.getMobile());
+					model.addAttribute("email",obj.getEmail());
+					model.addAttribute("employerId",id);
+					return new ModelAndView("employee-onboarding", "command", "");
+				}
+			}
+				
+		return new ModelAndView("index", "command", "");
+		
+		}
+		
 	@GetMapping(value="/pfPayment")
 	public ModelAndView pfPayment(Model model) {
 		logger.info("opening dashboard-details01");

@@ -1,9 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	
- <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Add Empolyee</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
 
 <body id="page-top">
 
@@ -11,8 +32,80 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-       
-       	<div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <ul class="navbar-nav bg-dark-sidebar sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/avatar.png" alt="" width="36">
+                </div>
+                <div class="sidebar-brand-text mx-2 text-left">Name here <br><span>email@demo.com</span></div>
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active mt-3">
+                <a class="nav-link" href="index.html">
+                    <img src="img/home.png" alt="" class="mr-2">
+                    <span>Home</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="company-details.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>company Details</span></a>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-invite.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Invite</span></a>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-table-invitelist.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Table Invite list</span></a>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-upload.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Upload</span></a>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage</span></a>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage-and-Contractors.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage and Contractors</span></a>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Onboarding.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Onboarding</span></a>
+            </li> 
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+
+
+            <li class="nav-item li-btm">
+                <img src="img/undraw_profile.svg" alt="" width="30" class="mr-2">
+                <span>John Doe</span>
+                <a href="#" class="float-right mt-1"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
+            </li>
+
+            <!-- <div class="text-center">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div> -->
+
+        </ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -22,8 +115,31 @@
             <div id="content">
 
                 <!-- Topbar -->
-               
-               <div th:insert="fragments/header.html :: header"></div>
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">Empolyee Profile</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+
+
 
                 <!-- End of Topbar -->
 
@@ -38,7 +154,7 @@
                                     </div>
                                 </div>
                             </div>
-						<form id="saveEmployee" name="saveEmployee" method="post">
+
                             <div class="mt-4">
                                 <div class="row">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
@@ -49,122 +165,104 @@
 
                                         <div class="card-form my-3 w-49">
                                             <label for="">First Name</label>
-                                            <input type="text" class="form-input" id="firstName" name="firstName">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="firstNameError" style="color:red"></div>
+
                                         <div class="card-form my-3 w-49 float-right">
                                             <label for="">Last Name</label>
-                                            <input type="text" class="form-input" id="lastName" name="lastName">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="lastNameError" style="color:red"></div>
+
                                         <div class="card-form my-3 w-49">
                                             <label for="">Date Of Birth</label>
-                                            <input type="date" class="form-input" id="dateOfBirth" name="dateOfBirth">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="dateOfBirthError" style="color:red"></div>
+
                                         <div class="card-form my-3 w-49 float-right">
                                             <label for="">Gender</label>
-                                             <select class="form-select form-control no-bg border-0"
-                                                aria-label="Default select example" id="gender" name="gender">
-                                                <option selected="">Select Gender*</option>
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
-                                                
-                                            </select>
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="genderError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Mobile</label>
-                                            <input type="text" class="form-input" id="Mobile" name="Mobile">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="MobileError" style="color:red" ></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Pic URL</label>
-                                            <input type="text" class="form-input" id="picUrl" name="picUrl">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="picUrlError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Email</label>
-                                            <input type="text" class="form-input" id="email" name="email">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="emailError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Address</label>
-                                            <input type="text" class="form-input" id="address" name="address">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="addressError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Role ID</label>
-                                            <input type="text" class="form-input" id="roleId" name="roleId">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="roleIdError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">User</label>
-                                            <input type="text" class="form-input" id="username" name="username">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="usernameError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Password</label>
-                                            <input type="text" class="form-input" id="pwd" name="pwd">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="pwdError" style="color:red"></div>
+
                                         <div class="card-form my-3">
                                             <label for="">Bank Account</label>
-                                            <input type="text" class="form-input" id="bankAccount" name="bankAccount">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="bankAccountError" style="color:red"></div>
+
                                         <div class="card-form my-3 w-49">
                                             <label for="">IFSC</label>
-                                            <input type="text" class="form-input" id="ifsc" name="ifsc">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="ifscError" style="color:red"></div>
+
                                         <div class="card-form my-3 w-49 float-right">
                                             <label for="">PAN</label>
-                                            <input type="text" class="form-input" id="pan" name="pan">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="panError" style="color:red"></div>
+
                                         <div class="card-form my-3 w-49">
                                             <label for="">URN</label>
-                                            <input type="text" class="form-input" id="urn" name="urn">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="urnError" style="color:red"></div>
+
                                         <div class="card-form my-3 w-49 float-right">
                                             <label for="">Aadhaar</label>
-                                            <input type="text" class="form-input" id="aadhaar" name="aadhaar">
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="aadhaarError" style="color:red"></div>
+
                                         <div class="card-form my-3">
-                                            <label for="">Date of joining</label>
-                                            <input type="text" class="form-input" id="dateOfJoining" name="dateOfJoining">
+                                            <label for="">Extra 1</label>
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="dateOfJoiningError" style="color:red"></div>
+
                                         <div class="card-form my-3">
-                                            <label for="">Designation</label>
-                                            <input type="text" class="form-input" id="designation" name="designation">
+                                            <label for="">Extra 2</label>
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="designationError" style="color:red"></div>
-                                         <div class="card-form my-3">
-                                            <label for="">Department</label>
-                                            <input type="text" class="form-input" id="department" name="department">
+
+                                        <div class="card-form my-3">
+                                            <label for="">Status</label>
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="departmentError" style="color:red"></div>
-										  <div class="card-form my-3">
-                                            <label for="">Salary Type</label>
-                                            <select class="form-select form-control no-bg border-0"
-                                                aria-label="Default select example" id="salaryType" name="salaryType">
-                                                <option selected="">Select Salary Type*</option>
-                                                <option value="1">Weakly</option>
-                                                <option value="2">Monthly</option>
-                                                <option value="3">Yearly</option>
-                                            </select>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Intextra 1</label>
+                                            <input type="text" class="form-input">
                                         </div>
-										<div class="error-msg" id="salaryTypeError" style="color:red"></div>
-                                         <div class="card-form my-3">
-                                            <label for="">Salary Amount</label>
-                                            <input type="text" class="form-input" id="salaryAmount" name="salaryAmount">
-                                        </div>
-										<div class="error-msg" id="salaryAmountError" style="color:red"></div>
-								
+
                                     </div>
                                 </div>
 
@@ -172,25 +270,26 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
-                                            <input type="button" id="btnSave"  value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validateEmployeeAndSubmit()" />
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next2">Continue</div>
                                         </div>
                                     </div>
                                 </div>
 
 
                             </div>
-						</form>
+
 
                         </div>
                     </div>
-<div class="card shadow mb-4">
+
+                    <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                    <thead>
+                                    <tbody>
                                         <tr>
                                             <td><b>Employee ID</b></td>
                                             <td>001</td>                                        
@@ -203,63 +302,24 @@
                                             <td><b>First Name</b></td>
                                             <td>Deepak</td>         
                                         </tr>
-                                        
-                                    </thead>
-                                    <tbody>
-                                    
-	                                <tr>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>                                       
-                                       <td><b>Last Name</b></td>
-                                       <td>Yadav</td>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>         
-                                     </tr>  
-                                     <tr>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>                                       
-                                       <td><b>Last Name</b></td>
-                                       <td>Yadav</td>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>         
-                                     </tr>           
-                                   <tr>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>                                       
-                                       <td><b>Last Name</b></td>
-                                       <td>Yadav</td>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>         
-                                     </tr>  
-                                     <tr>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>                                       
-                                       <td><b>Last Name</b></td>
-                                       <td>Yadav</td>
-                                       <td><b>Employee ID</b></td>
-                                       <td>001</td>                                        
-                                       <td><b>First Name</b></td>
-                                       <td>Deepak</td>         
-                                     </tr>  
+                                        <tr>
+                                            <td><b>Employee ID</b></td>
+                                            <td>001</td>                                        
+                                            <td><b>First Name</b></td>
+                                            <td>Deepak</td>                                       
+                                            <td><b>Last Name</b></td>
+                                            <td>Yadav</td>
+                                            <td><b>Employee ID</b></td>
+                                            <td>001</td>                                        
+                                            <td><b>First Name</b></td>
+                                            <td>Deepak</td>         
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -293,15 +353,9 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <script type="text/javascript" src="cotodel-js/save-employee.js"></script>
 
-	<script>
-	$(document).ready(function() {
-		  $('li.active').removeClass('active').removeAttr('aria-current');
-		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page'); 
-		});
-	</script>
-	
+
+
 </body>
 
 </html>
