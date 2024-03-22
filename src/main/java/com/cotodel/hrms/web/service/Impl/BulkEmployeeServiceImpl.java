@@ -90,16 +90,12 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				userRequest.setEmail(formatter.formatCellValue(row.getCell(3)));
 				userRequest.setMobile(formatter.formatCellValue(row.getCell(4)));
 				userRequest.setUsername(formatter.formatCellValue(row.getCell(5)));
-				//Regular Expression   
-				boolean validmobile=isValidMobile(userRequest.getMobile());			    
 				
-				 boolean validEmail= isValidEmail(userRequest.getEmail());
-				 logger.info(userRequest.getMobile() +" : "+ validmobile+"\n"); 
+				boolean validmobile=isValidMobile(userRequest.getMobile());				
+				boolean validEmail= isValidEmail(userRequest.getEmail());
+				logger.info(userRequest.getMobile() +" : "+ validmobile+"\n"); 
 	            logger.info(userRequest.getEmail() +" : "+ validEmail+"\n"); 
-	            
-	           
-	            
-	            
+	                        
 				try {
 					logger.info("userRequest::"+userRequest.toString());					
 					
