@@ -3,12 +3,15 @@ package com.cotodel.hrms.web.service.Impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.json.JSONObject;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +43,7 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 		String response="";
 		String res=null;
 		String filename="";
-		String mob="Mobile Number\n"
-				+ "(Registered in  Aadhar)";
+		
 		HashMap<String, String> saveMap = new  HashMap<String, String> ();
 		List<UserRequest> userCorrectList=new ArrayList<UserRequest>();
 		List<UserRequest> userInCorrectList=new ArrayList<UserRequest>();
@@ -88,10 +90,18 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				userRequest.setEmail(formatter.formatCellValue(row.getCell(3)));
 				userRequest.setMobile(formatter.formatCellValue(row.getCell(4)));
 				userRequest.setUsername(formatter.formatCellValue(row.getCell(5)));
-			
+				//Regular Expression   
+				boolean validmobile=isValidMobile(userRequest.getMobile());			    
+				
+				 boolean validEmail= isValidEmail(userRequest.getEmail());
+				 logger.info(userRequest.getMobile() +" : "+ validmobile+"\n"); 
+	            logger.info(userRequest.getEmail() +" : "+ validEmail+"\n"); 
+	            
+	           
+	            
+	            
 				try {
-					
-					System.out.println("userRequest::"+userRequest.toString());
+					logger.info("userRequest::"+userRequest.toString());					
 					
 					response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.regiUserBulk);
 					
@@ -120,7 +130,6 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 
 		}
 		
-		
 		try {
 			saveMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 			int correctSize=userCorrectList!=null?userCorrectList.size():0;
@@ -142,5 +151,22 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 		return res;
 	}
 
+	
+	public static boolean isValidMobile(String mobile)
+    {       
+        Pattern p = Pattern.compile("^\\d{10}$"); 
+        Matcher m = p.matcher(mobile); 
+        return (m.matches());
+    }
+	
+	public static boolean isValidEmail(String email)
+    {       
+		 String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";  
+	     //Compile regular expression to get the pattern  
+	     Pattern pattern = Pattern.compile(regex);  
+	     Matcher matcher = pattern.matcher(email);
+	     return matcher.matches();
+    }
+	
 	
 }
