@@ -17,51 +17,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
-import com.cotodel.hrms.web.response.BulkEmployeeRequest;
-import com.cotodel.hrms.web.service.BulkEmployeeService;
+import com.cotodel.hrms.web.response.BulkInviteRequest;
+import com.cotodel.hrms.web.service.BulkInviteService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class BulkUserController extends CotoDelBaseController{
+public class BulkInviteController extends CotoDelBaseController{
 
-	private static final Logger logger = LoggerFactory.getLogger(BulkUserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BulkInviteController.class);
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 	
 	@Autowired
-	BulkEmployeeService bulkEmployeeService;
+	BulkInviteService bulkInviteService;
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
 	
-	@PostMapping(value="/saveBulkFile")
-	public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkEmployeeRequest bulkEmployeeRequest) {
+	@PostMapping(value="/sendInviteEmail")
+	public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkInviteRequest bulkEmployeeRequest) {
 		String profileRes=null;JSONObject profileJsonRes=null;
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res=null;String userRes=null;
-		
-		
-		
-		profileRes = bulkEmployeeService.saveBulkDetail(tokengeneration.getToken(),bulkEmployeeRequest);
-		//logger.info(profileRes);
-		//profileJsonRes= new JSONObject(profileRes);
-		
-//		if(profileJsonRes.getString("status").) { 
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
+				
+		profileRes = bulkInviteService.bulkInvite(tokengeneration.getToken(),bulkEmployeeRequest);
+
 		
 		return profileRes;
 	}

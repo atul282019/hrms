@@ -26,6 +26,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
+					<form action="" id="bulkInvite" name="bulkInvite" method="Post" >
                     <div class="row">
                         <div class="col-12 col-md-7">
                             <div class="mt-4 ml-2 p-3">
@@ -38,7 +39,7 @@
                                         Enter the email address of your <a href="#">employees,</a> separated by commas. They will be sent emails to join Cotodel and put in their information.
                                     </div>
 
-                                    <textarea class="br-10" name="" id="" cols="100" rows="5"></textarea>
+                                    <textarea class="br-10" name="inviteEmployee" id="inviteEmployee" cols="100" rows="5"></textarea>
 
                                     <h5 class="mb-1 w-100 head-h5">Invite contractors</h5>
 
@@ -50,10 +51,18 @@
                                         Please choose wheather you want to only insert new users, or also update them.
                                     </div>
 
-                                    <textarea class="br-10" name="" id="" cols="100" rows="5"></textarea>
-
+                                    <textarea class="br-10" name="inviteContractor" id="inviteContractor" cols="100" rows="5"></textarea>
+									<div id="invitemsgdiv" style="display:none" class="alert alert-success text-center">
+								            	<div id="invitesuccmsg"></div>   
+								            </div>
+								            
+								     <div id="invitefailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								            	<div id="invitefailmsg"></div>
+								            </div>
                                     <div class="my-3">
-                                        <div class="btn btn-primary d-block btn-lg">Send Invite</div>
+                                        <!--<div class="btn btn-primary d-block btn-lg">Send Invite</div>-->
+                                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                        <input type="button"  class="btn btn-proceed ml-2 my-1 next" id="btnSendInvite" value="Send Invite" onclick="sendBulkInviteSubmit()">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +70,7 @@
                         </div>
                     </div>
 
-                    
+                    </form>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -70,6 +79,8 @@
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
+        <input type="hidden" name="employeeId" id="employeeId">
+        <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
     </div>
     <!-- End of Page Wrapper -->
@@ -97,7 +108,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-
+	<script type="text/javascript" src="cotodel-js/bulk-invite.js"></script>
 
 </body>
 
