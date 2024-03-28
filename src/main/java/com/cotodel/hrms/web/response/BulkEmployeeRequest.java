@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BulkEmployeeRequest  implements Serializable{
 	
-	private static final long serialVersionUID = -5145118965670277166L;
-	
+	private static final long serialVersionUID = -5145118965670277166L;	
 	private Long employerId;	
 	private String firstName;	
 	private String middleName;	
@@ -22,4 +21,7 @@ public class BulkEmployeeRequest  implements Serializable{
 	public  MultipartFile docfile;
 	private String response;
 	private Long id;
+	public  MultipartFile up;
+	private String customCheckUpdate;
+	private String customCheckEmail;
 }

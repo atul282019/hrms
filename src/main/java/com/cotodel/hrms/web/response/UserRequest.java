@@ -30,4 +30,6 @@ public class UserRequest {
     private String txnId;
     private int status ;
     private String response;
+    private boolean updateStatus ;
+    private boolean emailStatus ;
 }

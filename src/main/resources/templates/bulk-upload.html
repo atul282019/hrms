@@ -36,11 +36,13 @@
                             </div>
 
                             <div class="mt-1 ml-2 p-3 bulk-wrap">
+								<form action="" id="empdetailForm" name="empdetailForm" method="Post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="bg-white py-3 px-2 mb-3 w-100 br-10">
                                         <div class="col-12 col-md-10">
                                             <div class="d-flex align-items-center mb-4">
                                                 <button class="btn btn-outline-green ml-0">Download Template</button>
+                                                <a href="bulkUserTemplate">Download Template Sample</a>
                                                 <p class="mb-0">Last updated on 20/02/2023</p>
                                             </div>
 
@@ -69,7 +71,7 @@
                                                     <div class="input-group-btn">
                                                         <span class="fileUpload">
                                                             <span class="upl" id="upload">Choose file</span>
-                                                                <input type="file" class="upload up" id="up" onchange="readURL(this);" />
+                                                                <input type="file" class="upload up" id="up" name="up" onchange="readURL(this);" />
                                                             </span>
                                                     </div>
                                                  </div>
@@ -93,14 +95,14 @@
 
                                             <div class="form-group mt-3">
                                                 <div class="custom-control custom-checkbox small">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck4">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck4" name="customCheckUpdate">
                                                     <label class="custom-control-label text-left" for="customCheck4">Update information of existing employees / contractors </label>
                                                 </div>
                                             </div> <div class="clearfix"></div>
 
                                             <div class="form-group mt-3">
                                                 <div class="custom-control custom-checkbox small">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck3" name="customCheckEmail">
                                                     <label class="custom-control-label text-left" for="customCheck3">Send welcome emails to new additions </label>
                                                 </div>
                                             </div>
@@ -109,12 +111,13 @@
                                     </div>
 
                                     <div class="w-100 my-3">
-                                        <div class="btn btn-primary d-block btn-lg">Upload</div>
+										<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                        <div class="btn btn-primary d-block btn-lg" onclick="bulkSubmit()">Upload</div>
                                     </div>
                                         
                                 
                                 </div>                                
-
+								</form>
 
                             </div>
 
@@ -131,7 +134,8 @@
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
-
+<input type="hidden" name="employeeId" id="employeeId">
+        <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
     <!-- End of Page Wrapper -->
 
@@ -157,7 +161,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
+	<script type="text/javascript" src="cotodel-js/bulk-upload.js"></script>
     <script>
         $(document).on('change','.up', function(){
 		   	var names = [];

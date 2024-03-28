@@ -43,7 +43,8 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 		String response="";
 		String res=null;
 		String filename="";
-		
+		if(bulkEmployeeRequest.docfile==null)
+			bulkEmployeeRequest.setDocfile(bulkEmployeeRequest.getUp());
 		HashMap<String, String> saveMap = new  HashMap<String, String> ();
 		List<UserRequest> userCorrectList=new ArrayList<UserRequest>();
 		List<UserRequest> userInCorrectList=new ArrayList<UserRequest>();
@@ -90,7 +91,16 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				userRequest.setEmail(formatter.formatCellValue(row.getCell(3)));
 				userRequest.setMobile(formatter.formatCellValue(row.getCell(4)));
 				userRequest.setUsername(formatter.formatCellValue(row.getCell(5)));
-				
+				boolean CustomCheckEmail=false;
+				boolean CustomCheckUpdate=false;
+				if(bulkEmployeeRequest.getCustomCheckEmail()!= null && bulkEmployeeRequest.getCustomCheckEmail().equals("on")) {
+					CustomCheckEmail=true;
+				}
+				if(bulkEmployeeRequest.getCustomCheckUpdate()!= null && bulkEmployeeRequest.getCustomCheckUpdate().equals("on")) {
+					CustomCheckUpdate=true;
+				}
+				userRequest.setUpdateStatus(CustomCheckUpdate);
+				userRequest.setEmailStatus(CustomCheckEmail);
 				boolean validmobile=isValidMobile(userRequest.getMobile());				
 				boolean validEmail= isValidEmail(userRequest.getEmail());
 				logger.info(userRequest.getMobile() +" : "+ validmobile+"\n"); 

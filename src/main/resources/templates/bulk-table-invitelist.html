@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top">
+<body id="page-top" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -31,96 +31,23 @@
                         <div class="col-12 col-md-12">
                             <div class="mt-4 ml-2 p-3">
                                 <div class="successful-wrap">
-                                    <h2 class="mb-1 text-green">Successful Upload <div class="count"><span>7</span><strong>10</strong></div></h2>
+                                    <h2 class="mb-1 text-green">Successful Upload <div class="count"><span id="correct"></span><strong id="correcttot"></strong></div></h2>
                                     <div class="alert alert-sucess">
                                         View/Edit Details and Confirm Upload 
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table table-sucess table-bordered">
+                                        <table class="table table-sucess table-bordered" id="example1">
                                             <thead>
                                                 <tr>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Email</th>
+                                                    <th>Mobile</th>
+                                                    <th>Username</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr class="last">
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
+                                            <tbody>                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -133,56 +60,23 @@
 
 
                                 <div class="unsuccessful-wrap">
-                                    <h2 class="mb-1 text-green">Unsuccessful Upload <div class="count"><span>3</span><strong>10</strong></div></h2>
+                                    <h2 class="mb-1 text-green">Unsuccessful Upload <div class="count"><span id="incorrect"></span><strong id="incorrecttot"></strong></div></h2>
                                     <div class="alert alert-unsucess">
                                         Edit Details to try again or Download Unsuccessful Upload 
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table class="table table-unsucess" cellspacing="0" cellpadding="0">
+                                        <table class="table table-unsucess" cellspacing="0" cellpadding="0" id="example2">
                                             <thead>
-                                                <tr>
-                                                    <th class="reasonth">Reason</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
-                                                    <th>Heading 1</th>
+                                                <tr>                                                    
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Email</th>
+                                                    <th>Mobile</th>
+                                                    <th>Username</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="reasontd">Reason 1</td>
-                                                    <td class="tdactive">Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="reasontd">Reason 2</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td class="tdactive">Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="reasontd">Reason 3</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td>Template Text</td>
-                                                    <td class="tdactive">Template Text</td>
-                                                    <td>Template Text</td>
-                                                </tr>                                               
+                                            <tbody>                                                                                             
                                             </tbody>
                                         </table>
                                     </div>
@@ -294,7 +188,73 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 
-
+<div th:text="${list}" id="list"></div>
+   <script th:inline="javascript">
+        $(document).ready(function() {
+		
+		var listDiv = document.getElementById("list");
+		var jsonString = listDiv.textContent;
+		var data = jQuery.parseJSON(jsonString);
+		var correctSize=data.correctSize;
+		var incorrectSize=data.incorrectSize;
+		var total=parseInt(correctSize)+parseInt(incorrectSize);
+		$('#correct').html(correctSize);
+		$('#correcttot').html(total);
+		$('#incorrect').html(incorrectSize);
+		$('#incorrecttot').html(total);
+				
+		if(data.status=="SUCCESS"){
+			var data1=data.correct;			
+			//console.log(data1);
+			var data2 = jQuery.parseJSON(data1);
+			//console.log("1st.......:"+data2);			
+			var table1 = $('#example1').DataTable( {
+          "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
+           "language": {"emptyTable": "No beneficiary available"  },
+              "aaData": data2,			
+					"aoColumns": [
+						{ "mData": "first_name"},
+						{ "mData": "last_name" },
+						{ "mData": "email" },
+						{ "mData": "mobile" },
+						{ "mData": "username"}					
+					]
+				}).buttons().container().appendTo('#qualificationDetail_wrapper .col-md-6:eq(0)');	
+			
+			}
+        
+        });
+       $(document).ready(function() {
+		//console.log(list);
+		var listDiv = document.getElementById("list");
+		var jsonString = listDiv.textContent;
+		var data = jQuery.parseJSON(jsonString);
+		//console.log(data);		
+        if(data.status=="SUCCESS"){
+			var data1=data.incorrect;
+			//console.log(data1);
+			var data2 = jQuery.parseJSON(data1);
+			//console.log("1st.......:"+data2);			
+			
+			
+			var table1 = $('#example2').DataTable( {
+          "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
+           "language": {"emptyTable": "No beneficiary available"  },
+              "aaData": data2,			
+					"aoColumns": [
+						{ "mData": "first_name"},
+						{ "mData": "last_name" },
+						{ "mData": "email" },
+						{ "mData": "mobile" },
+						{ "mData": "username"}					
+					]
+				}).buttons().container().appendTo('#qualificationDetail_wrapper .col-md-6:eq(0)');	
+			
+			}
+        });
+    </script>
+    
+    
 </body>
 
 </html>
