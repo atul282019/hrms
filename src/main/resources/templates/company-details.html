@@ -125,7 +125,7 @@
                                         <div class="card-form">
                                             <select class="form-select form-control no-bg border-0"
                                                 aria-label="Default select example" id="orgType2" name="orgType2"  >
-                                                <option selected="">Organization type*</option>
+                                                <option selected="">Select Organization Type*</option>
                                                 
                                             </select>
                                         </div>
@@ -320,27 +320,27 @@
                                                 <tbody>
                                                      <tr>
                                                         <td><span id="salaryComponentBasic" name="salaryComponentBasic"></span></td>
-                                                        <td><input type="text" id="perCtcBasic" name="perCtcBasic" maxlength="3" size="3" ></td>
-                                                        <td><input type="text" id="perBasic" name="perBasic" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableBasic" name="taxableBasic" size="3"></td>
+                                                        <td><span id="perCtcBasic" name="perCtcBasic" maxlength="3" size="3" ></span></td>
+                                                        <td><span id="perBasic" name="perBasic" maxlength="10" size="3"></span></td>
+                                                        <td><span id="taxableBasic" name="taxableBasic" size="3"></span></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentHra" name="salaryComponentHra"></span></td>
-                                                        <td><input type="text" id="perCtcHra" name="perCtcHra" width="10px" maxlength="3" size="3"></td>
-                                                        <td><input type="text" id="perHra" name="perHra" width="10px" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableHra" name="taxableHra" width="10px" size="3"></td>
+                                                        <td><span id="perCtcHra" name="perCtcHra" width="10px" maxlength="3" size="3"></span></td>
+                                                        <td><span id="perHra" name="perHra" width="10px" maxlength="10" size="3"></span></td>
+                                                        <td><span id="taxableHra" name="taxableHra" width="10px" size="3"></span></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentSpecial" name="salaryComponentSpecial"></span></td>
-                                                        <td><input type="text" id="perCtcSpecial" name="perCtcSpecial" maxlength="3" size="3"></td>
-                                                        <td><input type="text" id="perSpecial" name="perSpecial" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableSpecial" name="taxableSpecial" size="3"></td>
+                                                        <td><span id="perCtcSpecial" name="perCtcSpecial" maxlength="3" size="3"></span></td>
+                                                        <td><span id="perSpecial" name="perSpecial" maxlength="10" size="3"></span></td>
+                                                        <td><span id="taxableSpecial" name="taxableSpecial" size="3"></span></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentLta" name="salaryComponentLta"></span></td>
-                                                        <td><input type="text" id="perCtcLta" name="perCtcLta" width="10px" maxlength="3" size="3" ></td>
-                                                        <td><input type="text" id="perLta" name="perLta" width="10px" maxlength="10" size="3"></td>
-                                                        <td><input type="text" id="taxableLta" name="taxableLta"  width="10px" size="3"></td>
+                                                        <td><span id="perCtcLta" name="perCtcLta" width="10px" maxlength="3" size="3" ></span></td>
+                                                        <td><span id="perLta" name="perLta" width="10px" maxlength="10" size="3"></span></td>
+                                                        <td><span id="taxableLta" name="taxableLta"  width="10px" size="3"></span></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -375,11 +375,242 @@
                                             <input type="hidden" class="form-input" id="employeeId" name="employeeId" >
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next5">Continue</div>
                                             <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
                                         </div>
                                     </div>
                                 </div>
 								</form>
+								
+								<form action="">
+									                                <div class="row tabs-row" id="form6">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5">
+                                                <label class="custom-control-label text-left" for="customCheck5">Use Cotodel’s default salary structure (recommended) </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="mb-0 text-left company-dtl-label">Default Salary
+                                                Structure</label>
+                                        </div>
+
+                                        <div class="tip-wrap my-3 d-block">
+                                            <div class="tip-wrap-in">
+                                                <span>1</span>
+                                                <p class="mb-0">To remove any predefined component, enter “0” as the
+                                                    percentage/amount.</p>
+                                            </div>
+                                            <div class="tip-wrap-in mb-0">
+                                                <span>2</span>
+                                                <p class="mb-0">Fixed amounts should be entered as per monthly slary.</p>
+                                            </div>
+                                            <div class="tip-wrap-in mb-0">
+                                                <span>3</span>
+                                                <p class="mb-0">If the sum of the components does’t match with monthly pay, the diffrence amount will be adjusted from these components - LTA, HRA, Special Allowances, Basic (Where LTA has the highest and Basic has the lowest).</p>
+                                            </div>
+                                        </div>
+                                      
+
+                                        <div class="table-responsive">
+                                            <table class="table salary-table border-0" border="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Salary Component</th>
+                                                        <th>%age of CTC</th>
+                                                        <th>Percentage or Fixed?</th>
+                                                        <th>Taxable?</th>
+                                                    </tr>
+                                                    
+                                                </thead>
+                                               <!--  <tbody>
+		                                                 <tr>
+		                                                        <td><span id="salaryComponentBasic2" name="salaryComponentBasic2"></span>
+		                                                        </td>
+		                                                        <td>
+		                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border" id="perCtcBasic2" name="perCtcBasic2" />
+		                                                         </td>
+		                                                        <td>
+		                                                         <select class="no-bg no-border" >
+		                                                                <option value="">Percentage</option>
+		                                                            </select>
+		                                                   		 </td>
+		                                                        <td>
+		                                                        <select class="no-bg no-border" id="taxableBasic2" name="taxableBasic2" >
+		                                                                <option value="">Yes</option>
+		                                                            </select>
+		                                                      </td>
+		                                                   </tr>
+                                                   <tr>
+                                                        <td><span id="salaryComponentHra2" ></span>
+                                                        </td>
+                                                        <td>
+                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border"  id="perCtcHra2" name="perCtcHra2" />
+                                                                
+                                                         </td>
+                                                        <td>
+                                                         <select class="no-bg no-border" id="perHra2" name="perHra2" >
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                   		 </td>
+                                                        <td>
+                                                        <select class="no-bg no-border" id="taxableHra2" name="taxableHra2" >
+                                                                <option value="">Yes</option>
+                                                        </select>
+                                                      </td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td><span id="salaryComponentSpecial2" ></span></td>
+                                                        <td>
+                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border" id="perCtcSpecial2" name="perCtcSpecial2" />
+                                                               
+                                                         </td>
+                                                        <td>
+                                                         <select class="no-bg no-border" id="perSpecial2" name="perSpecial2" >
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                   		 </td>
+                                                        <td>
+                                                        <select class="no-bg no-border" id="taxableSpecial2" name="taxableSpecial2" >
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                      </td>
+                                                    </tr>
+                                                   <tr>
+                                                        <td>
+                                                        <span id="salaryComponentLta2" name="salaryComponentLta2" ></span>
+                                                        </td>
+                                                        <td>
+                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border" id="perCtcLta2" name="perCtcLta2" >
+                                                                
+                                                         </td>
+                                                        <td>
+                                                         <select class="no-bg no-border" id="perLta2" name="perLta2">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                   		 </td>
+                                                        <td>
+                                                        <select class="no-bg no-border" id="taxableLta2" name="taxableLta2">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                      </td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td><span id="salaryComponentBasic2" name="salaryComponentBasic"></span></td>
+                                                        <td>
+                                                         <input type="text" class="no-bg no-border" id="perCtcBasic2" name="perCtcBasic" />
+                                                              
+                                                         </td>
+                                                        <td>
+                                                         <select class="no-bg no-border" id="perBasic2" name="perBasic">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                   		 </td>
+                                                        <td>
+                                                        <select class="no-bg no-border" id="taxableBasic2" name="taxableBasic" >
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4" class="p-0">
+                                                            <a href="#" class="text-center d-block btn-grren add-custom">+ Add Custom allowance</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody> -->
+                                                  <tbody>
+                                                    <tr>
+                                                        <td><span id="salaryComponentBasic2"></span> </td>
+                                                        <td><input type="text" id="perCtcBasic2" maxlength="3" size="3"></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perBasic2" name="">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableBasic2" name="">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                         <td><span id="salaryComponentHra2"></span> </td>
+                                                        <td><input type="text" id="perCtcHra2" maxlength="3" size="3" ></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perHra2" name="">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableHra2" name="">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span id="salaryComponentSpecial2"></span> </td>
+                                                        <td><input type="text" id="perCtcSpecial2" maxlength="3" size="3"></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perSpecial2" name="">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableSpecial2" name="">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span id="salaryComponentLta2"></span> </td>
+                                                        <td><input type="text" id="perCtcLta2" maxlength="3" size="3"></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perLta2" name="">
+                                                                <option value="">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableLta2" name="">
+                                                                <option value="">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4" class="p-0">
+                                                            <a href="#" class="text-center d-block btn-grren add-custom">+ Add Custom allowance</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">If you are using Flexible Benefits you can specify whether they are taxable or not, if you have not explicitly approved exemption for them.</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5"
+                                                    checked>
+                                                <label class="custom-control-label text-left"
+                                                    for="customCheck5">Consider FBP allowance to be taxable by default
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back6">Back</div>
+                                            <div class="btn btn-proceed ml-2 my-1 next">Continue</div>
+                                        </div>
+                                    </div>
+                                </div>
+								</form>
+								
                             </div>
 						
 
@@ -452,6 +683,12 @@
                 $("#form5").show();
                 $("#tab2").addClass("active");
             });
+            
+            
+            $("#next5").click(function () {
+                $("#form6").show();
+                $("#form5").hide();
+            });
 
             $("#back2").click(function () {
                 $("#form1").show();
@@ -469,7 +706,10 @@
                 $("#form4").show();
             });
 
-
+            $("#back6").click(function () {
+                $("#form5").show();
+            });
+            
         });
     </script>
 

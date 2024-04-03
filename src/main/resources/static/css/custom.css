@@ -596,9 +596,11 @@ ul.navbar-nav.top-nav .nav-item a.active span {
 }
 
 .error-msg {
-  font-size: 14px;
-  position: relative;
-  top: 0;
+    font-size: 14px;
+    position: relative;
+    float: left;
+    top: 0px;
+    width: 100%;
 }
 
 label.company-dtl-label {

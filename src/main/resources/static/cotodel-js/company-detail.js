@@ -143,7 +143,7 @@ function validateFormAndSubmit(){
                 
                  if(organizationType==""){
 					document.getElementById("organizationTypeError").innerHTML="Please Select Organization Type";
-					document.getElementById("organizationType").focus();
+					//document.getElementById("organizationType").focus();
 					return false;
 				}else{
 					document.getElementById("organizationTypeError").innerHTML="";
@@ -365,24 +365,51 @@ function getPayrollMaster()  {
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.data;
 			$('#salaryComponentBasic').html(data2[0].per);
-			document.getElementById("perCtcBasic").value=data2[0].per_ctc;
-			document.getElementById("perBasic").value=data2[0].salary_component;
-			document.getElementById("taxableBasic").value=data2[0].taxable;
+			$('#salaryComponentBasic2').html(data2[0].per);
+			$('#perCtcBasic').html(data2[0].per_ctc);
+			document.getElementById("perCtcBasic2").value = data2[0].per_ctc;
+			
+			$('#perBasic').html(data2[0].salary_component);
+			//document.getElementById("perBasic2").value = data2[0].salary_component;
+			$('#taxableBasic').html(data2[0].taxable);
+			//document.getElementById("taxableBasic2").value = data2[0].taxable;
 			
 			$('#salaryComponentHra').html(data2[1].per);
-			document.getElementById("perCtcHra").value=data2[1].per_ctc;
-			document.getElementById("perHra").value=data2[1].salary_component;
-			document.getElementById("taxableHra").value=data2[1].taxable;
+			$('#salaryComponentHra2').html(data2[1].per);
+			
+			$('#perCtcHra').html(data2[1].per_ctc);
+			document.getElementById("perCtcHra2").value = data2[1].per_ctc;
+			
+			$('#perHra').html(data2[1].salary_component);
+			//document.getElementById("perHra2").value = data2[1].salary_component;
+			
+			$('#taxableHra').html(data2[1].taxable);
+			//document.getElementById("taxableHra2").value = data2[1].taxable;
 			
 			$('#salaryComponentSpecial').html(data2[2].per);
-			document.getElementById("perCtcSpecial").value=data2[2].per_ctc;
-			document.getElementById("perSpecial").value=data2[2].salary_component;
-			document.getElementById("taxableSpecial").value=data2[2].taxable;
+			$('#salaryComponentSpecial2').html(data2[2].per);
+			
+			$('#perCtcSpecial').html(data2[2].per_ctc);
+			document.getElementById("perCtcSpecial2").value = data2[2].per_ctc;
+			
+			$('#perSpecial').html(data2[2].salary_component);
+			//document.getElementById("perSpecial2").value = data2[2].salary_component;
+			
+			$('#taxableSpecial').html(data2[2].taxable);
+			//document.getElementById("taxableSpecial2").value = data2[2].taxable;
+			
 			
 			$('#salaryComponentLta').html(data2[3].per);
-			document.getElementById("perCtcLta").value=data2[3].per_ctc;
-			document.getElementById("perLta").value=data2[3].salary_component;
-			document.getElementById("taxableLta").value=data2[3].taxable;
+			$('#salaryComponentLta2').html(data2[3].per);
+			
+			$('#perCtcLta').html(data2[3].per_ctc);
+			document.getElementById("perCtcLta2").value = data2[3].per_ctc;
+				
+			$('#perLta').html(data2[3].salary_component);
+			//document.getElementById("perLta2").value = data2[3].salary_component;
+			
+			$('#taxableLta').html(data2[3].taxable);
+			//document.getElementById("taxableLta2").value = data2[3].taxable;
 			
 		},
 		error: function(e) {

@@ -38,7 +38,7 @@
                                     <div class="col-12 organisation-wrap">
                                         <h3 class="mb-1 text-center">Manage Employees and Contractors</h3>
                                         <div class="managemp-btn-wrap">
-                                            <a class="btn btn-green" th:href="@{/employeeOnBoarding}">Add One <img src="img/add.svg" alt=""></a>
+                                             <a class="btn btn-green" th:href="@{/employeeOnBoarding}">Add One <img src="img/add.svg" alt=""></a>
                                             <a class="btn btn-white" th:href="@{/bulkupload}">Upload Multiple <img src="img/Upload.svg" alt=""></a>
                                             <a class="btn btn-white" th:href="@{/bulkInvite}">Invite Many <img src="img/invite.svg" alt=""></a>
                                             <a class="btn btn-disabled" >Deactivate <img src="img/Archive.svg" alt=""></a>
@@ -103,10 +103,107 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-employees" role="tabpanel" aria-labelledby="pills-employees-tab">
-                                        
+                                        <div class="table-responsive">    
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Department <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Designation <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Employment Type <img src="img/Sort.svg" alt=""></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background: #fff;">
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <div class="tab-pane fade" id="pills-contractors" role="tabpanel" aria-labelledby="pills-contractors-tab">...</div>
-                                    <div class="tab-pane fade" id="pills-deactivated" role="tabpanel" aria-labelledby="pills-deactivated-tab">...</div>
+                                    <div class="tab-pane fade" id="pills-contractors" role="tabpanel" aria-labelledby="pills-contractors-tab">
+                                        <div class="table-responsive">    
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Department <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Designation <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Employment Type <img src="img/Sort.svg" alt=""></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background: #fff;">
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-deactivated" role="tabpanel" aria-labelledby="pills-deactivated-tab">
+                                        <div class="table-responsive">    
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Department <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Designation <img src="img/Sort.svg" alt=""></th>
+                                                        <th>Employment Type <img src="img/Sort.svg" alt=""></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background: #fff;">
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Charles</td>
+                                                        <td>Senior Consultant</td>
+                                                        <td>Product Manager</td>
+                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -217,18 +314,17 @@
             });
         });
         </script>
-	
 	<script>
-	$(document).ready(function(){
-		 $(".innernav").click(function(){
-	        $(".dropdownNav").addClass("active");
-	    });
-		 $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-		  
-	  
-	});
-	</script>
+		    $(document).ready(function(){
+		    	
+		    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+				  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+				  
+		        $(".innernav").click(function(){
+		            $(".dropdownNav").addClass("active");
+		        });
+		    });
+		</script>
 </body>
 
 </html>
