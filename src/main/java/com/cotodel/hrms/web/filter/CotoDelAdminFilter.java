@@ -46,6 +46,9 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		boolean isStaticResourceCss = httpServletRequest.getRequestURI().contains("css/");
 		boolean isStaticResourceSass = httpServletRequest.getRequestURI().contains("scss/");
 		boolean isStaticResourceImg = httpServletRequest.getRequestURI().contains("img/");
+		boolean isStaticResourceFiles = httpServletRequest.getRequestURI().contains("files/");
+		boolean isStaticResourcewebfonts = httpServletRequest.getRequestURI().contains("webfonts/");
+		
 		HttpSession session = httpServletRequest.getSession(false);
 		
 		
@@ -71,7 +74,7 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		//logger.info("request uri-------------"+requestURI);
 		if(login==null){	
 			if( isStaticResourceImg || isStaticResource1 || isStaticResource2 || isStaticResource3 
-					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass) {
+					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass || isStaticResourcewebfonts || isStaticResourceFiles) {
 						chain.doFilter(request, response);
 			}else if(requestURI.contains("/index")){
 				RequestDispatcher rd = request.getRequestDispatcher("index");

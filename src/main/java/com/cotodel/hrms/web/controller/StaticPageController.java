@@ -24,7 +24,7 @@ public class StaticPageController extends CotoDelBaseController{
 	@GetMapping(value="/index")
 	public ModelAndView firstPage(Model model) {
 		logger.info("opening index page");
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}	
 	@GetMapping(value="/signin")
 	public ModelAndView directSignin(Model model) {
