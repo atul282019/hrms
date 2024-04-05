@@ -7,6 +7,7 @@ import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
+import com.cotodel.hrms.web.response.EmployeeOnboarding;
 import com.cotodel.hrms.web.response.EmployeeProjectRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 
@@ -37,6 +38,8 @@ public interface EmployeeDetailService {
 	String saveEmployeeProject(String token, EmployeeProjectRequest employeeProjectRequest);
 
 	String getEmployeeProjectDetail(String token, EmployeeProjectRequest employeeProjectRequest);
+
+	String saveEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding);
 
 
 }

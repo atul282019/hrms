@@ -29,12 +29,13 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
+                <form id="employeeOnboarding" name="employeeOnboarding" method="post">
                     <div class="row">
                         <div class="col-12 col-md-12">
                             <div class="mt-4 bg-white p-3">
                                 <div class="row">
                                     <div class="col-12 organisation-wrap">
-                                        <h3 class="mb-1 text-center">Employee Onboarding</h3>
+                                        <h3 class="mb-1 text-center"> Employee Onboarding </h3>
                                     </div>
                                 </div>
                             </div>
@@ -44,108 +45,130 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="tip-wrap justify-content-start flex-column align-items-start">
                                             <h4 class="tip-h4">Is this an employee or a contractor?</h4>
-                                            <form action="">
+                                          
                                                 <div class="tip-option">
-                                                    <input type="radio" id="html" name="fav_language" value="HTML">
-                                                    <label for="html">Employee</label>
+                                                    <input type="radio" id="employee" name="fav_language" value="employee" checked>
+                                                    <label for="employee">Employee</label>
                                                 </div>
 
                                                 <div class="tip-option">
-                                                    <input type="radio" id="css" name="fav_language" value="CSS">
-                                                    <label for="css">Contractor</label>
+                                                    <input type="radio" id="contractor" name="fav_language" value="Contractor">
+                                                    <label for="contractor">Contractor</label>
                                                 </div>
-                                            </form>
+                                            <div class="error-msg" id="empTypeError" style="color:red"></div>
                                         </div>
 
                                         <div class="card-form my-3">
                                             <label for="">Name</label>
-                                            <input type="text" class="form-input">
+                                            <input type="text" class="form-input" id="name" maxlength="50">
                                         </div>
-
+ 										<div class="error-msg" id="nameError" style="color:red"></div>
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">If your company is publicly known by a diffrent brand name, then please enter that here.</p>
                                         </div>
 
                                         <div class="card-form my-3">
                                             <label for="">Email</label>
-                                            <input type="text" class="form-input">
+                                            <input type="text" class="form-input" id="email" maxlength="50">
                                         </div>
-
+										 <div class="error-msg" id="emailError" style="color:red"></div>
+										 
+										  <div class="card-form my-3">
+                                            <label for="">mobile</label>
+                                            <input type="text" class="form-input" id="mobile" maxlength="10"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        </div>
+										 <div class="error-msg" id="mobileError" style="color:red"></div>
+										 
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">The email they will use too log into cotodel. If this person does not have am email address, click here to generate one for them.</p>
                                         </div>
 
                                         <div class="card-form my-3">
                                             <label for="">Her Date</label>
-                                            <input type="text" class="form-input">
+                                            <input type="date" class="form-input" id="hireDate">
                                         </div>
-
+ 										<div class="error-msg" id="hireDateError" style="color:red"></div>
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">The first day of employment for this person.</p>
                                         </div>
 
                                         <div class="card-form my-3">
                                             <label for="">Job Title</label>
-                                            <input type="text" class="form-input">
+                                            <input type="text" class="form-input" id="jobTitle" maxlength="50">
                                         </div>
-
+ 										<div class="error-msg" id="jobTitleError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Depratment</label>
-                                            <input type="text" class="form-input">
+                                            <input type="text" class="form-input" id="department" maxlength="50">
                                         </div>
-                                        
+                                         <div class="error-msg" id="departmentError" style="color:red"></div>
                                         <div class="card-form">
-                                            <select class="form-select form-control no-bg border-0" aria-label="Default select example">
-                                                <option selected="">Please Select Manager</option>
-                                                <option value="1"></option>
+                                            <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="reporting">
+                                                <option value="" selected="" >Please Select Manager</option>
+                                                <option value="1">Manager 1</option>
+                                                <option value="2">Manager 2</option>
+                                                <option value="3">Manager 3</option>
                                             </select>
                                         </div>
-
+ 										<div class="error-msg" id="reportingError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <span><img src="img/rupees.svg" alt=""></span>
-                                            <input style="width: 95%; margin: 0; border-left: 1px solid #d9d9d9; margin-left: 5px;" type="text" class="form-input" placeholder="0">
+                                            <input style="width: 95%; margin: 0; border-left: 1px solid #d9d9d9;
+                                             margin-left: 5px;" type="text" class="form-input" placeholder="0" id="salary" maxlength="6"
+                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
-
+ 										<div class="error-msg" id="salaryError" style="color:red"></div>
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">Annual salary is the current CTC (cost to company) for this employee, not including variable pay. If you have a monthly CTC, please multiply by 12 Cotodol will automatically create an ideal salary structure</p>
                                         </div>
 
                                         <div class="card-form">
-                                            <select class="form-select form-control no-bg border-0" aria-label="Default select example">
-                                                <option selected="">Location</option>
-                                                <option value="1"></option>
+                                            <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="location">
+                                                <option value="">Please Select Location</option>
+                                                <option value="1">Location 1</option>
+                                                <option value="2">Location 2</option>
+                                                <option value="3">Location 3</option>
                                             </select>
                                         </div>
-
-                                        <div class="form-group">
+ 										<div class="error-msg" id="locationError" style="color:red"></div>
+                                        <div class="form-group float-left">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck3" checked="">
-                                                <label class="custom-control-label text-left" for="customCheck3">Resident of India </label>
+                                                <input type="checkbox" class="custom-control-input" id="residence" checked="" >
+                                                <label class="custom-control-label text-left" for="residence">Resident of India </label>
                                             </div>
                                         </div>
-
+ 										<div class="error-msg" id="residenceError" style="color:red"></div>
                                     </div>
                                 </div>
-
+							
+							<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+				            	<div id="otsuccmsg"></div>   
+				            </div>
+				            
+				            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+				            	<div id="otfailmsg"></div>
+				            </div>
+                        
+							
                                 <div class="row">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="text-center text-md-center my-3">
-                                            <div class="btn btn-primary next d-block">Continue</div>
+                                        	<input type="hidden" name="employeeId" id="employeeId">
+                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                            <div class="btn btn-primary next d-block" onclick ="saveEmployeeOnboarding()"> Save </div>
                                         </div>
                                     </div>
                                 </div>
 
-
                             </div>
-
-
                         </div>
-                    </div>
-
+                     </div>
                     
+                  </form>
 
-                </div>
-                <!-- /.container-fluid -->
+               </div>
+              <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -160,7 +183,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-
+<div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -178,7 +201,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-
+	<script type="text/javascript" src="cotodel-js/employee-onboarding.js"></script>
 
 </body>
 

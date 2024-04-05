@@ -14,6 +14,7 @@ import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceNewRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
+import com.cotodel.hrms.web.response.EmployeeOnboarding;
 import com.cotodel.hrms.web.response.EmployeeProjectRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationNewRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
@@ -157,6 +158,12 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	@Override
 	public String getEmployeeProjectDetail(String token, EmployeeProjectRequest employeeProjectRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProjectRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmpProject);
+	}
+
+	@Override
+	public String saveEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding) {
+		// TODO Auto-generated method stub
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpOnboarding);
 	}
 	
 }

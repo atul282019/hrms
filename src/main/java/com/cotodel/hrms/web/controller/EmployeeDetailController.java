@@ -24,6 +24,7 @@ import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
+import com.cotodel.hrms.web.response.EmployeeOnboarding;
 import com.cotodel.hrms.web.response.EmployeeProjectRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
@@ -342,4 +343,32 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		
 		return profileRes;
 	}
+	
+	@PostMapping(value="/employeeOnboarding")
+	public @ResponseBody String saveEmployeeOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		String res=null;String userRes=null;
+		
+		profileRes = employeeDetailService.saveEmployeeOnboarding(tokengeneration.getToken(),employeeOnboarding);
+		logger.info(profileRes);
+		profileJsonRes= new JSONObject(profileRes);
+		
+		if(profileJsonRes.getBoolean("status")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginsevice.rsendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return profileRes;
+	}
+	
+	
 }
