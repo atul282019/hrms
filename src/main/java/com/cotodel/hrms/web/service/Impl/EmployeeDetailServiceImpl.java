@@ -165,5 +165,10 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpOnboarding);
 	}
+
+	@Override
+	public String getEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboarding);
+	}
 	
 }

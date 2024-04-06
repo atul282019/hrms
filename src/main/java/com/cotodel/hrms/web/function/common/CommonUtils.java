@@ -40,7 +40,7 @@ public interface CommonUtils {
 	public static String saveEmpProject = "/empService/Api/add/saveProject";
 	public static String getEmpProject = "/empService/Api/get/getProject";
 	public static String saveEmpOnboarding = "/empService/Api/add/saveEmplOnboarding";
-	
+	public static String getEmployeeOnboarding ="/empService/Api/get/empOnboardingList";
 	
 	
 }

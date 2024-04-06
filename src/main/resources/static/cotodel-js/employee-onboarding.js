@@ -106,7 +106,6 @@ function saveEmployeeOnboarding(){
 	}else{
 		document.getElementById("locationError").innerHTML="";
 	}
-	
 	if(residentOfIndia==""){
 		document.getElementById("residenceError").innerHTML="Please Select Residence";
 		document.getElementById("residence").focus();
@@ -114,8 +113,6 @@ function saveEmployeeOnboarding(){
 	}else{
 		document.getElementById("residenceError").innerHTML="";
 	}
-	
-	
 	var formData = new FormData(employeeOnboarding);
 	
 	formData.append("employerId",employerId);
@@ -168,3 +165,78 @@ function saveEmployeeOnboarding(){
          }
     });	
 }
+
+
+function getEmployeeOnboarding() {
+
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
+	//document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeOnboarding",
+		data: {
+			"employeeId": employeeId,
+			"employerId": employerId,
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			//document.getElementById("signinLoader").style.display="none";
+			var tableBody = $('#employeeTable tbody');
+            
+            
+            const orgin =  data1.data;
+			
+			
+			const warehouseQuant = data =>
+			  document.getElementById("employeeTableBody").innerHTML = data.map(
+			    item => ([
+			      '<tr>',
+			      ['name','depratment','jobTitle','empOrCont'].map(
+			        key => `<td>${item[key]}</td>`
+			      ),
+			      '</tr>'
+			    ])
+			  ).flat(Infinity).join('');
+  			warehouseQuant(data1.data);
+		
+            
+            
+            
+            /*$.each(data2, function(index, item) {
+                var row = $('<tr>');
+              
+                for (var key in item) {
+                    if (item.hasOwnProperty(key)) {
+                        var value = item[key];
+                        row.append($('<td>').text(value));
+                    }
+                }
+                tableBody.append(row);
+            });
+            */
+          /*  $.each(data, function(index, item) {
+                var row = $('<tr>');
+                for (var key in item) {
+                    if (item.hasOwnProperty(key)) {
+                        var value = item[key];
+                        row.append($('<td>').text(value));
+                    }
+                }
+                tableBody.append(row);
+            });*/
+			
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
+
+// Function to populate table with JSON data
+        function populateTable(data) {
+          
+        }
+  

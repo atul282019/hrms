@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top">
+<body id="page-top" onload="getEmployeeOnboarding()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -70,7 +70,7 @@
                                 <div class="tab-content tabs-details-tbl" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="pills-active" role="tabpanel" aria-labelledby="pills-active-tab">
                                         <div class="table-responsive">    
-                                            <table class="table">
+                                            <table class="table" id="employeeTable">
                                                 <thead>
                                                     <tr>
                                                         <th>Name <img src="img/Sort.svg" alt=""></th>
@@ -79,25 +79,8 @@
                                                         <th>Employment Type <img src="img/Sort.svg" alt=""></th>
                                                     </tr>
                                                 </thead>
-                                                <tbody style="background: #fff;">
-                                                    <tr>
-                                                        <td>Charles</td>
-                                                        <td>Senior Consultant</td>
-                                                        <td>Product Manager</td>
-                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Charles</td>
-                                                        <td>Senior Consultant</td>
-                                                        <td>Product Manager</td>
-                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Charles</td>
-                                                        <td>Senior Consultant</td>
-                                                        <td>Product Manager</td>
-                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
-                                                    </tr>
+                                                <tbody style="background: #fff;" id="employeeTableBody">
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -202,6 +185,10 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            
+                                            <input type="hidden" name="employeeId" id="employeeId">
+                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -282,6 +269,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="cotodel-js/employee-onboarding.js"></script>
 
     <script>
         jQuery(document).ready(function($){

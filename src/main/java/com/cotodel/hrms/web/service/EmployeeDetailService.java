@@ -41,5 +41,7 @@ public interface EmployeeDetailService {
 
 	String saveEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding);
 
+	String getEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding);
+
 
 }
