@@ -22,8 +22,4 @@ public class ApplicationConstantConfig {
 	@Value("${employer.service.base.url}")
 	public String employerServiceBaseUrl;
 	
-	@Value("${bulk.employee.download.template}")
-	public String bulkEmployeeTemplate;
-	
-	
 }
