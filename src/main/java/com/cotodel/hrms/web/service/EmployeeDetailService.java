@@ -43,5 +43,7 @@ public interface EmployeeDetailService {
 
 	String getEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding);
 
+	String getEmployeeOnboardingFailList(String token, EmployeeOnboarding employeeOnboarding);
+
 
 }

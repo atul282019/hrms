@@ -187,7 +187,24 @@ function getEmployeeOnboarding() {
 			var tableBody = $('#employeeTable tbody');
             
             
-            const orgin =  data1.data;
+            function populateTable(data) {
+            var tableBody = $('#employeeTable tbody');
+            
+            $.each(data, function(index, item) {
+                var row = $('<tr>');
+                row.append($('<td>').text(item.name));
+                row.append($('<td>').text(item.depratment));
+                row.append($('<td>').text(item.jobTitle));
+                row.append($('<td >').text(item.empOrCont));
+                row.append($('<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>'));
+                tableBody.append(row);
+            });
+        }
+
+        // Call the function to populate table with JSON list data
+        populateTable(data1.data);
+            
+         /*   const orgin =  data1.data;
 			
 			
 			const warehouseQuant = data =>
@@ -202,7 +219,7 @@ function getEmployeeOnboarding() {
 			  ).flat(Infinity).join('');
   			warehouseQuant(data1.data);
 		
-            
+            */
             
             
             /*$.each(data2, function(index, item) {
@@ -234,9 +251,4 @@ function getEmployeeOnboarding() {
 		}
 	});
 }
-
-// Function to populate table with JSON data
-        function populateTable(data) {
-          
-        }
   

@@ -170,5 +170,10 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	public String getEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboarding);
 	}
+
+	@Override
+	public String getEmployeeOnboardingFailList(String token, EmployeeOnboarding employeeOnboarding) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingFailList);
+	}
 	
 }

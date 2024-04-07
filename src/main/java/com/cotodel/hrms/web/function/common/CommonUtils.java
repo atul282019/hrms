@@ -41,6 +41,7 @@ public interface CommonUtils {
 	public static String getEmpProject = "/empService/Api/get/getProject";
 	public static String saveEmpOnboarding = "/empService/Api/add/saveEmplOnboarding";
 	public static String getEmployeeOnboarding ="/empService/Api/get/empOnboardingList";
+	public static String getEmployeeOnboardingFailList ="/empService/Api/get/empOnboardingFailList";
 	
 	
 }

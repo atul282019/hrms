@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" >
+<body id="page-top" onload="getEmployeeOnboarding(),getEmployeeOnboardingFailList()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -44,10 +44,10 @@
                                                     <th>Last Name</th>
                                                     <th>Email</th>
                                                     <th>Mobile</th>
-                                                    <th>Username</th>
+                                                 <!--    <th>Username</th> -->
                                                 </tr>
                                             </thead>
-                                            <tbody>                                               
+                                            <tbody id="successbody">                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -73,7 +73,7 @@
                                                     <th>Last Name</th>
                                                     <th>Email</th>
                                                     <th>Mobile</th>
-                                                    <th>Username</th>
+                                                   <!--  <th>Username</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>                                                                                             
@@ -85,6 +85,11 @@
                                         <button class="btn btn-outline-download" data-toggle="modal" data-target="#ModalDownload">Download</button>
                                         <button class="btn btn-retry">Retry</button>
                                     </div>
+                                    
+                                      <input type="hidden" name="employeeId" id="employeeId">
+                                      <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                            
+                                            
                                 </div>
 
                             </div>
@@ -187,6 +192,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
+<script type="text/javascript" src="cotodel-js/employee-onboarding-list.js"></script>
 
 <div th:text="${list}" id="list"></div>
    <script th:inline="javascript">
