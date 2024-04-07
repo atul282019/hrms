@@ -40,7 +40,7 @@
                                     </div>
 
                                     <textarea class="br-10" name="inviteEmployee" id="inviteEmployee" cols="100" rows="5"></textarea>
-
+									<div class="error-msg" id="inviteEmployeeError" style="color:red"></div>
                                     <h5 class="mb-1 w-100 head-h5">Invite contractors</h5>
 
                                     <div class="bulk-invite-p">
@@ -52,6 +52,8 @@
                                     </div>
 
                                     <textarea class="br-10" name="inviteContractor" id="inviteContractor" cols="100" rows="5"></textarea>
+                                    <div class="error-msg" id="inviteContractorError" style="color:red"></div>
+                                    
 									<div id="invitemsgdiv" style="display:none" class="alert alert-success text-center">
 								            	<div id="invitesuccmsg"></div>   
 								            </div>
@@ -60,7 +62,6 @@
 								            	<div id="invitefailmsg"></div>
 								            </div>
                                     <div class="my-3">
-                                        <!--<div class="btn btn-primary d-block btn-lg">Send Invite</div>-->
                                         <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                         <input type="button"  class="btn btn-proceed ml-2 my-1 next" id="btnSendInvite" value="Send Invite" onclick="sendBulkInviteSubmit()">
                                     </div>

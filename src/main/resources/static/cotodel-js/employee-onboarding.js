@@ -134,7 +134,7 @@ function saveEmployeeOnboarding(){
 	formData.append("residentOfIndia",residentOfIndia);
 	
 	document.getElementById("signinLoader").style.display="flex";
-	
+	document.getElementById("empOnboarding").disabled=true;
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/employeeOnboarding",
@@ -148,11 +148,13 @@ function saveEmployeeOnboarding(){
 			if(data1.status==true){
 				 document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("otmsgdiv").style.display="block";
-				 //document.getElementById("getInTouchUser").reset();
+				 document.getElementById("employeeOnboarding").reset();
+				 document.getElementById("empOnboarding").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
+				 document.getElementById("empOnboarding").disabled=false;
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
 			}else{
 				 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";

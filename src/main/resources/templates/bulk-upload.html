@@ -70,21 +70,24 @@
                                                     <div class="input-group-btn">
                                                         <span class="fileUpload">
                                                             <span class="upl" id="upload">Choose file</span>
-                                                                <input type="file" class="upload up" id="up" name="up" onchange="readURL(this);" />
+                                                                <input type="file" class="upload up" id="up" name="up" 
+                                                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                                onchange="readURL(this);" />
                                                             </span>
                                                     </div>
                                                  </div>
                                             </div>
 
 
-                                            <!-- <div class="form-group choose-file">
+                                         <!--     <div class="form-group choose-file">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" id="read" readonly >  
-                                                    <button type="button" id="clearButton" onclick="clearSearch()">X</button>                                                
+                                                    <button type="button" style="display:none" id="clearButton" >X</button>                                                
                                                     <div class="input-group-btn">
                                                         <span class="fileUpload">
                                                             <span class="upl" id="upload">Choose file</span>
-                                                                <input type="file" class="upload up" id="up" onchange="showClearButton();" onchange="readURL(this);"  />
+                                                                <input type="file" class="upload up" id="up" onchange="showClearButton();" 
+                                                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  />
                                                             </span>
                                                     </div>
                                                  </div>
@@ -108,10 +111,19 @@
 
                                         </div>
                                     </div>
-
+									
+									<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+						            	<div id="otsuccmsg"></div>   
+						            </div>
+						            
+						            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+						            	<div id="otfailmsg"></div>
+						            </div>
+				                        
+                        
                                     <div class="w-100 my-3">
 										<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                        <div class="btn btn-primary d-block btn-lg" onclick="bulkSubmit()">Upload</div>
+                                        <input type="button" class="btn btn-primary d-block btn-lg" id="bulksubmit" onclick="bulkSubmit()" value="Upload">
                                     </div>
                                         
                                 
@@ -133,7 +145,7 @@
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
-<input type="hidden" name="employeeId" id="employeeId">
+		<input type="hidden" name="employeeId" id="employeeId">
         <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
     <!-- End of Page Wrapper -->
@@ -180,22 +192,36 @@
     </script>
 
     <script>
-        // function clearSearch() {
-        //     document.getElementById("docfile").value = "";
-        //      clearButton.style.display = "none";
-        // }
-        
-        // function showClearButton() {
-        //     var fileInput = document.getElementById("docfile");
-        //     var clearButton = document.getElementById("clearButton");
-            
-        //     if (fileInput.value !== "") {
-        //         clearButton.style.display = "inline-block";
-        //     } else {
-        //         clearButton.style.display = "none";
-        //     }
-        // }
+        /*  function clearSearch() {
+             document.getElementById("up").value = "";
+              clearButton.style.display = "none";
+         } */
+         
+         
+        /*  function clearSearch(id) 
+         { 
+        	var id =  document.getElementById(id);
+             var oldInput = document.getElementById(id); 
+
+             var newInput = document.createElement("input"); 
+
+             newInput.type = "file"; 
+             newInput.id = oldInput.id; 
+             newInput.name = oldInput.name; 
+             newInput.className = oldInput.className; 
+             newInput.style.cssText = oldInput.style.cssText; 
+             // TODO: copy any other relevant attributes 
+
+             oldInput.parentNode.replaceChild(newInput, oldInput); 
+         }
+		
+         clearSearch("up"); */
+         
+       /*   document.getElementById('clearButton').addEventListener('click', function() {
+        	    document.getElementById('up').value = '';
+        	}); */
     </script>
+
 
 
 	<script>

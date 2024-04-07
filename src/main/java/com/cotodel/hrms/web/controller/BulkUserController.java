@@ -2,10 +2,13 @@ package com.cotodel.hrms.web.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ import com.cotodel.hrms.web.response.BulkEmployeeRequest;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.service.BulkEmployeeService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.MessageConstant;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
@@ -46,16 +51,35 @@ public class BulkUserController extends CotoDelBaseController{
 	TokenGenerationImpl tokengeneration;
 	
 	@PostMapping(value="/saveBulkFile")
-	public String saveEmployeeDetail(HttpServletResponse response, HttpServletRequest request,
+	public  @ResponseBody String saveEmployeeDetail(HttpServletResponse response, HttpServletRequest request,
 			@ModelAttribute("formData") BulkEmployeeRequest bulkEmployeeRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 	//public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkEmployeeRequest bulkEmployeeRequest) {
-		String profileRes=null;
+		
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		String res = null; String userRes = null;
+		
 		
 		profileRes = bulkEmployeeService.saveBulkDetail(tokengeneration.getToken(),bulkEmployeeRequest);
-		session.setAttribute("list",profileRes);
-		logger.info(profileRes);
-		model.addAttribute("list",profileRes);
-		return "bulk-table-invitelist";
+		profileJsonRes= new JSONObject(profileRes);
+		if(profileJsonRes.getString("status").equalsIgnoreCase("SUCCESS")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return res;
+		/*
+		 * session.setAttribute("list",profileRes); logger.info(profileRes);
+		 * model.addAttribute("list",profileRes); return "bulk-table-invitelist";
+		 */
 	}
 	@GetMapping(value = "/bulkUserTemplate")
 	public ResponseEntity<InputStreamResource> bulkUSer() {

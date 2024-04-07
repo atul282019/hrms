@@ -1,8 +1,28 @@
 function sendBulkInviteSubmit(){
 	
-	var formData = new FormData(bulkInvite);
-	//formData.append("employerId",employerId);
-	document.getElementById("signinLoader").style.display="flex";
+		var inviteEmployee =document.getElementById("inviteEmployee").value;
+		var inviteContractor =document.getElementById("inviteContractor").value;
+		
+		if(inviteEmployee==""){
+			document.getElementById("inviteEmployeeError").innerHTML="Please Enter Email Seprated By Comma";
+			document.getElementById("inviteEmployee").focus();
+			return false;
+			}else{
+				document.getElementById("inviteEmployeeError").innerHTML="";
+			}
+		
+		if(inviteContractor==""){
+			document.getElementById("inviteContractorError").innerHTML="Please Enter Email Seprated By Comma";
+			document.getElementById("inviteContractor").focus();
+			return false;
+			}else{
+				document.getElementById("inviteContractorError").innerHTML="";
+			}
+		
+		var formData = new FormData(bulkInvite);
+		//formData.append("employerId",employerId);
+		document.getElementById("signinLoader").style.display="flex";
+		document.getElementById("btnSendInvite").disabled = true;;
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/sendInviteEmail",
@@ -20,7 +40,7 @@ function sendBulkInviteSubmit(){
 				// document.getElementById("employeeId").value=data1.data.id;
 				 document.getElementById("invitesuccmsg").innerHTML="Email Send Successfully";
 				 document.getElementById("invitemsgdiv").style.display="block";
-				 //document.getElementById("saveorg").reset();
+				 document.getElementById("bulkInvite").reset();
 				 $('#invitemsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status==false){
 				 document.getElementById("invitefailmsg").innerHTML=data1.message;
