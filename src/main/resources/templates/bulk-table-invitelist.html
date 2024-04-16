@@ -41,7 +41,7 @@
                                         <table class="table table-sucess table-bordered" id="example1">
                                             <thead>
                                                 <tr>
-                                                  <!--   <th>Id</th> -->
+                                                    <th>Id</th>
                                                     <th>First Name</th>
                                                     <th>Last Name</th>
                                                     <th>Email</th>
@@ -71,7 +71,7 @@
                                         <table class="table table-unsucess" cellspacing="0" cellpadding="0" id="example2">
                                             <thead>
                                                 <tr>  
-                                                    <!-- <th>Id</th>    -->                                               
+                                                    <th>Id</th>                                            
                                                     <th>First Name</th>
                                                     <th>Last Name</th>
                                                     <th>Email</th>
@@ -231,13 +231,15 @@
 				
 		if(data.status=="SUCCESS"){
 			var data1=data.correct;		
-			var data2 = jQuery.parseJSON(data1);			
+			var data2 = jQuery.parseJSON(data1);	
+			 var i=1;
 			var table1 = $('#example1').DataTable( {
           "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
            "language": {"emptyTable": "No Data available"  },
               "aaData": data2,			
 					"aoColumns": [
 						/* { "mData": "id"}, */
+						{ "render": function(data2,type,full,meta){return i++;}   }, 
 						{ "mData": "first_name"},
 						{ "mData": "last_name" },
 						{ "mData": "email" },
@@ -260,13 +262,13 @@
 			//console.log(data1);
 			var data2 = jQuery.parseJSON(data1);
 			//console.log("1st.......:"+data2);			
-			
+			var i=1;
 			var table1 = $('#example2').DataTable( {
           "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
            "language": {"emptyTable": "No Data available"  },
               "aaData": data2,			
 					"aoColumns": [
-						//{ "mData": "id"},
+						{ "render": function(data2,type,full,meta){return i++;}   }, 
 						{ "mData": "first_name"},
 						{ "mData": "last_name"},
 						{ "mData": "email"},
