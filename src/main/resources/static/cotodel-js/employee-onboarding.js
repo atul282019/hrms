@@ -181,76 +181,124 @@ function getEmployeeOnboarding() {
 			"employeeId": employeeId,
 			"employerId": employerId,
 		},
-		success: function(data) {
-			newData = data;
-			var data1 = jQuery.parseJSON(newData);
+       		  beforeSend : function(xhr) {
+				//xhr.setRequestHeader(header, token);
+				},
+            success: function(data){
+            newData = data;
+           // console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
-			//document.getElementById("signinLoader").style.display="none";
-			var tableBody = $('#employeeTable tbody');
-            
-            
-            function populateTable(data) {
-            var tableBody = $('#employeeTable tbody');
-            
-            $.each(data, function(index, item) {
-                var row = $('<tr>');
-                row.append($('<td>').text(item.name));
-                row.append($('<td>').text(item.depratment));
-                row.append($('<td>').text(item.jobTitle));
-                row.append($('<td >').text(item.empOrCont));
-                row.append($('<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>'));
-                tableBody.append(row);
-            });
-        }
-
-        // Call the function to populate table with JSON list data
-        populateTable(data1.data);
-            
-         /*   const orgin =  data1.data;
-			
-			
-			const warehouseQuant = data =>
-			  document.getElementById("employeeTableBody").innerHTML = data.map(
-			    item => ([
-			      '<tr>',
-			      ['name','depratment','jobTitle','empOrCont'].map(
-			        key => `<td>${item[key]}</td>`
-			      ),
-			      '</tr>'
-			    ])
-			  ).flat(Infinity).join('');
-  			warehouseQuant(data1.data);
-		
-            */
-            
-            
-            /*$.each(data2, function(index, item) {
-                var row = $('<tr>');
-              
-                for (var key in item) {
-                    if (item.hasOwnProperty(key)) {
-                        var value = item[key];
-                        row.append($('<td>').text(value));
-                    }
-                }
-                tableBody.append(row);
-            });
-            */
-          /*  $.each(data, function(index, item) {
-                var row = $('<tr>');
-                for (var key in item) {
-                    if (item.hasOwnProperty(key)) {
-                        var value = item[key];
-                        row.append($('<td>').text(value));
-                    }
-                }
-                tableBody.append(row);
-            });*/
-			
-		},
+			//console.log(newData);
+           var table = $('#employeeTable').DataTable( {	
+		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+             "language": {"emptyTable": "No Data available"  },
+	        
+	         "aaData": data2,
+      		  "aoColumns": [ 
+				{ "mData": "id"},
+      		    { "mData": "name"},          
+      		    { "mData": "depratment"},
+      		    { "mData": "jobTitle"},
+      		    { "mData": "empOrCont"},
+      		  	{ "mData": "id", "render": function (data1, type, row) {
+                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+                 }}, 
+    		 	]
+      		});
+      	     		  
+    		},
 		error: function(e) {
 			alert('Failed to fetch JSON data' + e);
 		}
 	});
 }
   
+
+ 
+ function pupolateDataEmployee() {
+	 
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
+	//document.getElementById("signinLoader").style.display="flex";
+		$.ajax({
+		type: "GET",
+		url: ""+$('#ctx').attr('content') + "/getEmployeeOnboarding",
+		data: {
+			"employeeId": employeeId,
+			"employerId": employerId,
+		},
+       		  beforeSend : function(xhr) {
+				//xhr.setRequestHeader(header, token);
+				},
+            success: function(data){
+            newData = data;
+           // console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
+            
+			var data2 = data1.data;
+			//console.log(newData);
+			document.getElementById("empployeecount").innerHTML=data2.length; 
+           var table = $('#employee').DataTable( {	
+		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+             "language": {"emptyTable": "No Data available"  },
+	        
+	         "aaData": data2,
+      		  "aoColumns": [ 
+				{ "mData": "id"},
+      		    { "mData": "name"},          
+      		    { "mData": "depratment"},
+      		    { "mData": "jobTitle"},
+      		    { "mData": "empOrCont"},
+      		  	{ "mData": "id", "render": function (data1, type, row) {
+                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+                 }}, 
+    		 	]
+      		});
+      	     		  
+                  },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });
+}
+  
+  
+  function pupolateData(id) {
+	 
+	var employeeId= document.getElementById("employeeId").value;
+	var employerId=document.getElementById("employerId").value;
+	//document.getElementById("signinLoader").style.display="flex";
+		$.ajax({
+		type: "GET",
+		url:""+$('#ctx').attr('content')+"/getEmployeeOnboardingById",
+        data: {
+				"id": id,
+				"employerId": employerId,
+       		 },
+       		  beforeSend : function(xhr) {
+				//xhr.setRequestHeader(header, token);
+				},
+            success: function(data){
+            newData = data;
+           // console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
+			var data2 = data1.data;
+			//console.log(newData);
+  			document.getElementById("email").innerHTML=data2.email;
+  			document.getElementById("mobile").innerHTML=data2.mobile;
+  			document.getElementById("designation").innerHTML=data2.jobTitle;
+  			document.getElementById("empname").innerHTML=data2.name;
+  			document.getElementById("reportingManager").innerHTML=data2.managerName;
+  			document.getElementById("empType").innerHTML=data2.empOrCont;
+  			document.getElementById("herDate").innerHTML=data2.herDate;
+  			document.getElementById("emailid").innerHTML=data2.email;
+  			
+           },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });
+}

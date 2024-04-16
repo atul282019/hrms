@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="getEmployeeOnboarding()">
+<body id="page-top" onload="getEmployeeOnboarding(),pupolateDataEmployee()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -47,18 +47,28 @@
                                 </div>
                             </div>
 
-                            <div class="mt-4 independent-form br-10">
-                                <input type="text" class="form-input" placeholder="Search by name, email, employee id, department or desgination">
-                                <button class="btn btn-primary">Search</button>
+                           <!--  <div class="mt-4 independent-form br-10">
+                                <input type="text" class="form-input" id="searchBox" placeholder="Search by name, email, employee id, department or desgination" >
+                                <button class="btn btn-primary ">Search</button>
+                            </div> -->
+                            
+                            <div id="myDIV" class="mt-4 independent-form br-10"> 
+                                <img src="img/search.svg" class="searchimg" alt=""> 
+                                <input type="text" class="form-input" id="searchBox" onchange="performSearch(),newElement()" placeholder="Search by name, email, employee id, department or desgination">
+                               <!--  <span  class="addBtn">Add</span> -->
                             </div>
 
+                            <ul id="myUL" class="todolist-wrap"> 
+                                <strong>Quick Filters</strong>
+                            </ul>
+							 <!-- <ul id="searchHistory"><button class="btn btn-primary ">Cancel</button></ul> -->
                             <div class="mt-4">
                                 <ul class="nav nav-pills mb-3 tabs-details" id="pills-tab" role="tablist">
                                     <li class="nav-item">
                                       <a class="nav-link active" id="pills-active-tab" data-toggle="pill" href="#pills-active" role="tab" aria-controls="pills-active" aria-selected="true">Active</a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" id="pills-employees-tab" data-toggle="pill" href="#pills-employees" role="tab" aria-controls="pills-employees" aria-selected="false">Employees (2)</a>
+                                      <a class="nav-link" id="pills-employees-tab" data-toggle="pill" href="#pills-employees" role="tab" aria-controls="pills-employees" aria-selected="false">Employees (<b id="empployeecount"></b>)</a>
                                     </li>
                                     <li class="nav-item">
                                       <a class="nav-link" id="pills-contractors-tab" data-toggle="pill" href="#pills-contractors" role="tab" aria-controls="pills-contractors" aria-selected="false">Contractors (0)</a>
@@ -70,14 +80,16 @@
                                 <div class="tab-content tabs-details-tbl" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="pills-active" role="tabpanel" aria-labelledby="pills-active-tab">
                                         <div class="table-responsive">    
-                                            <table class="table" id="employeeTable">
+                                            <table class="table table-sucess table-bordered" id="employeeTable">
+                                            
                                                 <thead>
                                                     <tr>
-                                                        <th>Name <img src="img/Sort.svg" alt=""></th>
-                                                        <th>Department <img src="img/Sort.svg" alt=""></th>
-                                                        <th>Designation <img src="img/Sort.svg" alt=""></th>
-                                                        <th>Employment Type <img src="img/Sort.svg" alt=""></th>
-                                                         <th></th>
+                                                   		<th onclick="sortTable(0)">Id</th>
+                                                        <th onclick="sortTable(1)">Name <img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(2)">Department <img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(3)">Designation <img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(4)">Employment Type <img src="img/Sort.svg" alt=""></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody style="background: #fff;" id="employeeTableBody">
@@ -87,38 +99,26 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-employees" role="tabpanel" aria-labelledby="pills-employees-tab">
-                                        <div class="table-responsive">    
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Name <img src="img/Sort.svg" alt=""></th>
-                                                        <th>Department <img src="img/Sort.svg" alt=""></th>
-                                                        <th>Designation <img src="img/Sort.svg" alt=""></th>
-                                                        <th>Employment Type <img src="img/Sort.svg" alt=""></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody style="background: #fff;">
-                                                    <tr>
-                                                        <td>Charles</td>
-                                                        <td>Senior Consultant</td>
-                                                        <td>Product Manager</td>
-                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Charles</td>
-                                                        <td>Senior Consultant</td>
-                                                        <td>Product Manager</td>
-                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Charles</td>
-                                                        <td>Senior Consultant</td>
-                                                        <td>Product Manager</td>
-                                                        <td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <div class="table-responsive">  
+                                        
+                                         <div class="table-responsive">
+                                        <table class="table table-sucess table-bordered" id="employee">
+                                            <thead>
+                                                <tr>
+                                                  <th>Id <img src="img/Sort.svg" alt=""></th>
+                                                  <th>Name <img src="img/Sort.svg" alt=""></th>
+                                                   <th>Department <img src="img/Sort.svg" alt=""></th>
+                                                   <th>Designation <img src="img/Sort.svg" alt=""></th>
+                                                   <th>Employment Type <img src="img/Sort.svg" alt=""></th>
+                                                   <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="successbody" style="background: #fff;">                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                          
+                                     </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-contractors" role="tabpanel" aria-labelledby="pills-contractors-tab">
                                         <div class="table-responsive">    
@@ -215,25 +215,25 @@
             <div class="bs-canvas-top-img">
                 <img src="img/profile-pic.svg" alt="">
             </div>
-            <h4>Jhon Doe</h4>
-            <p>jhondoe@company.com</p>
+            <h4><p id="empname"></p></h4>
+            <p id="emailid"></p>
         </div>        
 
         <div class="bs-canvas-mid">
-            <p>Employee ID</p>
-            <b>jhondoe@email.com</b>
-            <p>Mobile Number</p>
-            <b>+91 9910318406</b>
+            <p >Employee ID</p>
+            <b id="email"></b>
+            <p >Mobile Number</p>
+            <b id="mobile"></b>
             <p>Designation</p>
-            <b>Product Manager</b>
+            <b id="designation"></b>
             <p>Location</p>
-            <b>India, Gurgaon</b>
+            <b id="location"></b>
             <p>Reporting Manager</p>
-            <b>Jhon Wik</b>
+            <b id="reportingManager"></b>
             <p>Employment Type</p>
-            <b>Full Time</b>
+            <b id="empType"></b>
             <p>Hire date</p>
-            <b>10th March, 2024</b>
+            <b id="herDate"></b>
             <p>App Subscriptions</p>
             <div class="bs-icons">
                 <a href="#"><img src="img/microsoft-office.svg" alt=""></a>
@@ -271,6 +271,8 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/employee-onboarding.js"></script>
+ 
+    
 
     <script>
         jQuery(document).ready(function($){
@@ -303,6 +305,7 @@
             });
         });
         </script>
+        
 	<script>
 		    $(document).ready(function(){
 		    	
@@ -313,7 +316,176 @@
 		            $(".dropdownNav").addClass("active");
 		        });
 		    });
+		    
+		 function viewData(value){
+			
+			 var row = jQuery(value).closest('tr');
+			 var id = row[0].children[0].innerHTML;
+			 pupolateData(id);
+			
+			 jQuery(document).ready(function($){
+		            var bsOverlay = $('.bs-canvas-overlay');
+		            $('[data-toggle="canvas"]').on('click', function(){
+		                var ctrl = $(this), 
+		                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+		                $(elm).addClass('mr-0');
+		                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+		                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+		                if(bsOverlay.length)
+		                    bsOverlay.addClass('show');
+		                return false;
+		            });
+		            
+		            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function(){
+		                var elm;
+		                if($(this).hasClass('bs-canvas-close')) {
+		                    elm = $(this).closest('.bs-canvas');
+		                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+		                } else {
+		                    elm = $('.bs-canvas')
+		                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");	
+		                }
+		                elm.removeClass('mr-0');
+		                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+		                if(bsOverlay.length)
+		                    bsOverlay.removeClass('show');
+		                return false;
+		            });
+		        });
+		 }
 		</script>
+		
+		
+		<script>
+		 function performSearch() {
+			  //newElement();
+		      // Declare search string 
+		      const searchBox = document.getElementById('searchBox');
+		      const table = document.getElementById("employeeTable");
+		      const trs = table.tBodies[0].getElementsByTagName("tr");
+		    
+		      var filter = searchBox.value.toUpperCase();
+
+		      var myArray = [];
+			  myArray.push($('#searchBox').val());
+			  
+			 //document.getElementById("searchText").innerHtml = myArray;
+			 
+		      // Loop through first tbody's rows
+		      for (var rowI = 0; rowI < trs.length; rowI++) {
+
+		        // define the row's cells
+		        var tds = trs[rowI].getElementsByTagName("td");
+
+		        // hide the row
+		        trs[rowI].style.display = "none";
+
+		        // loop through row cells
+		        for (var cellI = 0; cellI < tds.length; cellI++) {
+
+		          // if there's a match
+		          if (tds[cellI].innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+		            // show the row
+		            trs[rowI].style.display = "";
+
+		            // skip to the next row
+		            continue;
+
+		          }
+		        }
+		      }
+
+		    }
+		 	
+		    // declare elements
+		   
+
+		    // add event listener to search box
+		    //searchBox.addEventListener('onchange', performSearch);
+
+</script>
+
+<script>
+function search() {
+	  var searchTerm = document.getElementById("searchBox").value.trim();
+	  if (searchTerm !== "") {
+	    var searchHistory = document.getElementById("searchHistory");
+	    var li = document.createElement("li");
+	    li.textContent = searchTerm;
+	    searchHistory.appendChild(li);
+	    document.getElementById("searchInput").value = ""; // Clear the input field after adding to history
+	    // Optionally, you can add a cancel button to remove the search term from history
+	    var cancelButton = document.createElement("button");
+	    cancelButton.textContent = "Cancel";
+	    cancelButton.onclick = function() {
+	      li.remove();
+	    };
+	    li.appendChild(cancelButton);
+	  }
+	}
+</script>
+
+
+<script>
+    // Create a "close" button and append it to each list item
+    var myNodelist = document.getElementsByTagName(".todolist-wrap LI");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      myNodelist[i].appendChild(span);
+    }
+    
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function() {
+        var div = this.parentElement;
+        div.style.display = "none";
+      }
+    }
+    
+    // Add a "checked" symbol when clicking on a list item
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function(ev) {
+      if (ev.target.tagName === 'LI') {
+        ev.target.classList.toggle('checked');
+      }
+    }, false);
+    
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+      var li = document.createElement("li");
+      var inputValue = document.getElementById("searchBox").value;
+      var t = document.createTextNode(inputValue);
+      li.appendChild(t);
+      if (inputValue === '') {
+       //alert("You must write something!");
+      } else {
+        document.getElementById("myUL").appendChild(li);
+      }
+      document.getElementById("searchBox").value = "";
+    
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+    
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+    }
+    </script>
+    
+  
 </body>
 
 </html>

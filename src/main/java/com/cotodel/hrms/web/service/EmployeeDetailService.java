@@ -2,6 +2,7 @@ package com.cotodel.hrms.web.service;
 
 import org.springframework.stereotype.Repository;
 
+import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
@@ -44,6 +45,10 @@ public interface EmployeeDetailService {
 	String getEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding);
 
 	String getEmployeeOnboardingFailList(String token, EmployeeOnboarding employeeOnboarding);
+
+	String getEmployeeOnboardingById(String token, EmployeeOnboarding employeeOnboarding);
+
+	String confirmBulkEmplOnboarding(String token, BulkConfirmationRequest[] employeeOnboarding);
 
 
 }

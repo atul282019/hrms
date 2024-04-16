@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 .open-sans {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif !important;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -12,7 +12,7 @@
 }
 
 .inter {
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif !important;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -496,7 +496,7 @@ ul.navbar-nav.top-nav .nav-item a.active span {
   margin-top: 2px;
   border: none;
   outline: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding-left: 5px;
 }
 
@@ -1473,7 +1473,7 @@ button.btn-outline-download {
   text-align: center;
 }
 
-button.btn-retry {
+button.btn-retry, a.btn-retry {
   border: 1px solid #4a4e69;
   color: #fff;
   padding: 0.75rem 1rem;
@@ -1485,7 +1485,7 @@ button.btn-retry {
 }
 
 button.btn-confirm:hover,
-button.btn-retry:hover {
+button.btn-retry:hover, a.btn-retry:hover {
   color: #fff;
 }
 
@@ -1603,3 +1603,155 @@ table.table.table-unsucess tbody tr td.tdactive {
 }
 
 /**/
+
+
+#wrapper #content-wrapper {
+    background-color: #f8f9fc;
+    width: calc(100% - 225px);
+    overflow-x: hidden;
+    margin-left: 225px;
+}
+
+.bg-dark-sidebar {
+    position: fixed;
+}
+
+.form-control{
+    font-size: 16px;
+    padding: 1.375rem .75rem;
+    color: #232323;
+}
+.form-control::placeholder, .form-control:focus{
+	color: #232323;
+	font-size: 16px;
+} 
+
+@media screen and (max-width:767px){
+	#wrapper #content-wrapper {
+    	width: calc(100% - 105px);
+    	margin-left: 105px;
+	}
+}
+
+select.form-select {
+    font-size: 16px;
+    color: #232323;
+}
+
+.form-select {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem 0rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6e707e;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #d1d3e2;
+    border-radius: .35rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-select:focus{
+  outline: none;
+  box-shadow: none;
+}
+
+
+table.dataTable>thead .sorting::before,
+table.dataTable>thead .sorting_asc::before,
+table.dataTable>thead .sorting_desc::before,
+table.dataTable>thead .sorting_asc_disabled::before,
+table.dataTable>thead .sorting_desc_disabled::before {
+    right: 0 !important;
+    content: "" !important;
+}
+  
+ table.dataTable>thead .sorting::after,
+ table.dataTable>thead .sorting_asc::after,
+ table.dataTable>thead .sorting_desc::after,
+ table.dataTable>thead .sorting_asc_disabled::after,
+ table.dataTable>thead .sorting_desc_disabled::after {
+    right: 0 !important;
+    content: "" !important;
+}
+  
+ table.dataTable>thead>tr>th:not(.sorting_disabled),
+ table.dataTable>thead>tr>td:not(.sorting_disabled) {
+    padding-right: .75rem !important;
+    padding-left: .75rem !important;
+}
+  
+ table.dataTable>thead>tr>th,
+ table.dataTable>thead>tr>td {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+
+
+/************/
+img.searchimg {
+  margin: 10px;
+  display: inline-block;
+}
+
+.todolist-wrap {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0;
+  display: flex;
+}
+
+.todolist-wrap strong {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 8px 5px 0 0;
+  color: #1F212C;
+}
+
+.todolist-wrap li {
+  margin: 5px;
+  background: #9fceb3;
+  color: #fff;
+  padding: 4px 17px 4px 10px;
+  border-radius: 2px;
+  position: relative;
+  border: 1px solid #bfdecc;
+  min-width: 120px;
+  font-size: 13px;
+}
+
+/* Style the close button */
+.todolist-wrap .close {
+  position: absolute;
+  right: 5px;
+  top: 1px;
+  padding: 0;
+  color: #1d6e3f;
+  font-weight: 500;
+  text-shadow: none;
+  cursor: pointer;
+}
+
+.todolist-wrap .close:hover {
+  color: #1d6e3f;
+}
+
+.otp-box-onboarding {
+  display: flex;
+  margin: 10px 0 10px;
+}
+.otp-box-onboarding input.form-control {
+  width: 40px;
+  display: flex;
+  margin-right: 10px;
+  border-radius: 10px;
+  background: none;
+}
+
+.time-otp{
+  margin-left: 100px;
+}

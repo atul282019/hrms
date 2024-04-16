@@ -5,8 +5,9 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<!-- <body id="page-top" onload="getEmployeeOnboarding(),getEmployeeOnboardingFailList()"> -->
-<body id="page-top">
+
+ <body id="page-top" onload="getEmployeeOnboarding(),getEmployeeOnboardingFailList()">
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -85,20 +86,24 @@
                                     </div>
 
                                     <div class="text-right my-3">
-                                        <button class="btn btn-outline-download" onclick="ExportToExcel('xlsx')" data-toggle="modal" data-target="#ModalDownload">Download</button>
+                                        <button class="btn btn-outline-download" onclick="tableToExcel('example2', 'export')" data-toggle="modal" data-target="#ModalDownload">Download</button>
                                         <a class="btn btn-retry" th:href="@{/bulkupload}" >Retry</a>
                                     </div>
                                     
                                       <input type="hidden" name="employeeId" id="employeeId">
-                                      <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">                                            
+                                      <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                            
                                             
                                 </div>
 
                             </div>
 
+
                         </div>
                     </div>
-                 
+
+                    
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -120,7 +125,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bulk">
             <div class="modal-top text-center">          
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="refrecePage()">
                 <img src="img/modal-close.svg" alt="">
             </button>        
             <img src="img/modal-success.svg" alt="">
@@ -198,7 +203,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-	<script type="text/javascript" src="cotodel-js/employee-onboarding-list.js"></script>
+<script type="text/javascript" src="cotodel-js/employee-onboarding-list.js"></script>
 
 <div th:text="${list}" id="list" style="display:none">
 </div>
@@ -219,6 +224,8 @@
 		
 		$('#rejectConfirm').html(correctSize);
 		$('#rejectTotal').html(total);
+		
+		
 		
 		$('#incorrect').html(incorrectSize);
 		$('#incorrecttot').html(total);
@@ -334,23 +341,63 @@ function confirmSuccess(){
 </script>
 
 
-  <script>
+<script type="text/javascript">
+var tableToExcel = (function() {
+  var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+  return function(table, name) {
+    if (!table.nodeType) table = document.getElementById(table)
+    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+    window.location.href = uri + base64(format(template, ctx))
+  }
+});
 
-        function ExportToExcel(type, fn, dl) {
-            var elt = document.getElementById('example2');
-            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-            return dl ?
-                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
-                XLSX.writeFile(wb, fn || ('BulkUserTemplate.' + (type || 'xlsx')));
-        }
+function refrecePage(){
+	 
+    window.location.href = ""+$('#ctx').attr('content') + "/bulkUserList";
+}
 
-        
-        function refrecePage(){
-       	 
-            window.location.href = ""+$('#ctx').attr('content') + "/bulkUserList";
-        }
+</script>
 
-    </script>
+<script>
+/* 
+function fnExcelReport() {
+    var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
+    var j = 0;
+    var tab = document.getElementById('example2'); // id of table
+
+    for (j = 0; j < tab.rows.length; j++) {
+        tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+        //tab_text=tab_text+"</tr>";
+    }
+
+    tab_text = tab_text + "</table>";
+    tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+    tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+    tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+    var msie = window.navigator.userAgent.indexOf("MSIE ");
+
+    // If Internet Explorer
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+        txtArea1.document.open("txt/html", "replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus();
+
+        sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+    } else {
+        // other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+    }
+
+    return sa;
+}
+ */
+
+</script>
 </body>
 
 </html>

@@ -223,7 +223,7 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("mobile",obj.getMobile());
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
-				return new ModelAndView("bulk-table-invitelist", "command", "");
+				return new ModelAndView("bulk-table-invitelist_2", "command", "");
 			}
 		}
 			
@@ -388,6 +388,42 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
 				return new ModelAndView("company-detail-new", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	@GetMapping(value="/employeeOnboarding")
+	public ModelAndView employeeOnboarding(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("Employee-Onboarding-Admin", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	@GetMapping(value="/employeeOnboarding2")
+	public ModelAndView employeeOnboarding2(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("Employee-Onboarding-Admin-bankinfo", "command", "");
 			}
 		}
 		return new ModelAndView("index", "command", "");

@@ -51,7 +51,7 @@ public class BulkUserController extends CotoDelBaseController{
 	TokenGenerationImpl tokengeneration;
 	
 	@PostMapping(value="/saveBulkFile")
-	public  @ResponseBody String saveEmployeeDetail(HttpServletResponse response, HttpServletRequest request,
+	public String saveEmployeeDetail(HttpServletResponse response, HttpServletRequest request,
 			@ModelAttribute("formData") BulkEmployeeRequest bulkEmployeeRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 	//public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkEmployeeRequest bulkEmployeeRequest) {
 		
@@ -75,11 +75,12 @@ public class BulkUserController extends CotoDelBaseController{
 			// TODO: handle exception
 		}
 		
-		return res;
-		/*
-		 * session.setAttribute("list",profileRes); logger.info(profileRes);
-		 * model.addAttribute("list",profileRes); return "bulk-table-invitelist";
-		 */
+		
+		
+		  session.setAttribute("list",profileRes); logger.info(profileRes);
+		  model.addAttribute("list",profileRes); 
+		  return "bulk-table-invitelist";
+		  
 	}
 	@GetMapping(value = "/bulkUserTemplate")
 	public ResponseEntity<InputStreamResource> bulkUSer() {

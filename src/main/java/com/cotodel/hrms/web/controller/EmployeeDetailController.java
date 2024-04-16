@@ -16,9 +16,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
@@ -31,9 +34,11 @@ import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.CopyUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.tools.javac.util.List;
 
-@Controller
+@RestController
 @CrossOrigin
 public class EmployeeDetailController extends CotoDelBaseController{
 
@@ -401,6 +406,60 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null; String userRes = null;
 		profileRes = employeeDetailService.getEmployeeOnboardingFailList(tokengeneration.getToken(),employeeOnboarding);
+		profileJsonRes= new JSONObject(profileRes);
+		
+		if(profileJsonRes.getBoolean("status")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return profileRes;
+	}
+	
+	@GetMapping(value="/getEmployeeOnboardingById")
+	public @ResponseBody String getEmployeeOnboardingById(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		String res = null; String userRes = null;
+		profileRes = employeeDetailService.getEmployeeOnboardingById(tokengeneration.getToken(),employeeOnboarding);
+		profileJsonRes= new JSONObject(profileRes);
+		
+		if(profileJsonRes.getBoolean("status")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return profileRes;
+	}
+	
+	@PostMapping(value="/confirmBulkEmplOnboarding")
+	public String confirmBulkEmplOnboarding( @RequestBody BulkConfirmationRequest[] bulkConfirmationRequest , HttpSession session) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		/*
+		 * BulkConfirmationRequest[] jsonObj = null; try { jsonObj =
+		 * mapper.readValue(employeeOnboarding,BulkConfirmationRequest[].class); } catch
+		 * (JsonProcessingException e1) { // TODO Auto-generated catch block
+		 * e1.printStackTrace(); }
+		 */
+		String res = null; String userRes = null;
+		profileRes = employeeDetailService.confirmBulkEmplOnboarding(tokengeneration.getToken(),bulkConfirmationRequest);
 		profileJsonRes= new JSONObject(profileRes);
 		
 		if(profileJsonRes.getBoolean("status")) { 

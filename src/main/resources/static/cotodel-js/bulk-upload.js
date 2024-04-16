@@ -23,12 +23,12 @@ document.getElementById("bulksubmit").onclick = function() {
 	var employerId = document.getElementById("employerId").value;
 	var formData = new FormData(empdetailForm);
 	formData.append("employerId",employerId);
-	//document.forms[0].action = "" + $('#ctx').attr('content') + "/saveBulkFile";
-	//document.forms[0].method = "post";
-	//document.forms[0].submit();
+	document.forms[0].action = "" + $('#ctx').attr('content') + "/saveBulkFile";
+	document.forms[0].method = "post";
+	document.forms[0].submit();
 	
     //do some validation stuff
-    document.getElementById("signinLoader").style.display="flex";
+   /* document.getElementById("signinLoader").style.display="flex";
     $.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/saveBulkFile",
@@ -68,5 +68,5 @@ document.getElementById("bulksubmit").onclick = function() {
          error: function(e){
              alert('Error: ' + e);
          }
-    });	
+    });	*/
 }

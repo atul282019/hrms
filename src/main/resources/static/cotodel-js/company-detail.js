@@ -421,77 +421,55 @@ function getPayrollMaster()  {
 
 function validatePayrollAndSubmit(){
 	
-	        var salaryComponentBasic =  document.getElementById("salaryComponentBasic").innerText;
-			var perCtcBasic = document.getElementById("perCtcBasic").value;
-			var perBasic = document.getElementById("perBasic").value;
-			var taxableBasic = document.getElementById("taxableBasic");
+	        var salaryComponentBasic =  document.getElementById("salaryComponentBasic2").innerText;
+			var perCtcBasic = document.getElementById("perCtcBasic2").value;
+			var perBasic = document.getElementById("perBasic2").value;
+			var taxableBasic = document.getElementById("taxableBasic2");
 			
-			var salaryComponentHra =  document.getElementById("salaryComponentHra").innerText;
-			var perCtcHra = document.getElementById("perCtcHra").value;
-			var perHra = document.getElementById("perHra").value;
-			var taxableHra = document.getElementById("taxableHra").value;
+			var salaryComponentHra =  document.getElementById("salaryComponentHra2").innerText;
+			var perCtcHra = document.getElementById("perCtcHra2").value;
+			var perHra = document.getElementById("perHra2").value;
+			var taxableHra = document.getElementById("taxableHra2").value;
 			
-			var salaryComponentSpecial = document.getElementById("salaryComponentSpecial").innerText;
-			var perCtcSpecial = document.getElementById("perCtcSpecial").value;
-			var perSpecial = document.getElementById("perSpecial").value;
-			var taxableSpecial = document.getElementById("taxableSpecial").value;
+			var salaryComponentSpecial = document.getElementById("salaryComponentSpecial2").innerText;
+			var perCtcSpecial = document.getElementById("perCtcSpecial2").value;
+			var perSpecial = document.getElementById("perSpecial2").value;
+			var taxableSpecial = document.getElementById("taxableSpecial2").value;
 			
-			var salaryComponentLta = document.getElementById("salaryComponentLta").innerText;
-			var perCtcLta = document.getElementById("perCtcLta").value;
-			var perLta = document.getElementById("perLta").value;
-			var taxableLta = document.getElementById("taxableLta").value;
+			var salaryComponentLta = document.getElementById("salaryComponentLta2").innerText;
+			var perCtcLta = document.getElementById("perCtcLta2").value;
+			var perLta = document.getElementById("perLta2").value;
+			var taxableLta = document.getElementById("taxableLta2").value;
 			
 			 var regName = /^[a-zA-Z\s]*$/;
 			 var onlySpace = /^$|.*\S+.*/;
 	 
-/*
-	if(pname==""){
-		document.getElementById("nameError").innerHTML="Please Enter Purpose Name";
-		document.getElementById("pname").focus();
-		return false;
-	}else if(pname.length < 4 || pname.length > 70){
-		document.getElementById("nameError").innerHTML="Please Enter Name between 4 to 70 character";
-		document.getElementById("pname").focus();
-		return false;
-	}else if(!pname.match(regName) || !pname.match(onlySpace)){
-		document.getElementById("nameError").innerHTML="Name cannot Consist Number or Special Character";
-		document.getElementById("pname").focus();
-		return false;
-	}else{
-		document.getElementById("nameError").innerHTML="";
-	}
-	
-	if(pcode==""){
-		document.getElementById("pcodeError").innerHTML="Please Enter Purpose Code";
-		document.getElementById("pcode").focus();
-		return false;
-	}else if(pcode.length < 1 || pcode.length > 5){
-		document.getElementById("pcodeError").innerHTML="Please Enter Valid Purpose Code";
-		document.getElementById("pcode").focus();
-		return false;
-	}else{
-		document.getElementById("pcodeError").innerHTML="";
-	}
-	
-	if(payeecode==""){
-		document.getElementById("payeecodeError").innerHTML="Please Enter Payee Code";
-		document.getElementById("payeecode").focus();
-		return false;
-	}else if(payeecode.length != 4){
-		document.getElementById("payeecodeError").innerHTML="Payee Code should be 4 character only";
-		document.getElementById("payeecode").focus();
-		return false;
-	}else{
-		document.getElementById("payeecodeError").innerHTML="";
-		document.getElementById("overlay").style.display = "none";
-	}
-	*/
+
 	var employerId = document.getElementById("employerId").value;
 	var formData = new FormData(savePayroll);
 	formData.append("salaryComponentBasic", salaryComponentBasic);
 	formData.append("salaryComponentHra", salaryComponentHra);
 	formData.append("salaryComponentSpecial", salaryComponentSpecial);
 	formData.append("salaryComponentLta", salaryComponentLta);
+	
+	formData.append("perCtcBasic", perCtcBasic);
+	formData.append("perBasic", perBasic);
+	formData.append("taxableBasic", taxableBasic);
+	
+	formData.append("perCtcHra", perCtcHra);
+	formData.append("perHra", perHra);
+	formData.append("taxableHra", taxableHra);
+	
+	formData.append("perCtcSpecial", perCtcSpecial);
+	formData.append("perSpecial", perSpecial);
+	formData.append("taxableSpecial", taxableSpecial);
+	
+	
+	formData.append("perCtcLta", perCtcLta);
+	formData.append("perLta", perLta);
+	formData.append("taxableLta", taxableLta);
+	
+	
 	formData.append("employerId", employerId);
 	
 	document.getElementById("signinLoader").style.display="flex";

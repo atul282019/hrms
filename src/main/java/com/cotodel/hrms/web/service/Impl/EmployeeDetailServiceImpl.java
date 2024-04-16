@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateNewRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
@@ -175,5 +176,17 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	public String getEmployeeOnboardingFailList(String token, EmployeeOnboarding employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingFailList);
 	}
+
+	@Override
+	public String getEmployeeOnboardingById(String token, EmployeeOnboarding employeeOnboarding) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingById);
+	}
+
+	@Override
+	public String confirmBulkEmplOnboarding(String token, BulkConfirmationRequest[] employeeOnboarding) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.confirmBulkEmplOnboarding);
+	}
+
+	
 	
 }

@@ -80,7 +80,7 @@
                                 <div class="row tabs-row" id="form2">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form">
-                                            <select class="form-select form-control no-bg border-0"
+                                            <select class="form-select  no-bg border-0"
                                                 aria-label="Default select example" id="organizationType" name="organizationType">
                                                 
                                             </select>
@@ -123,7 +123,7 @@
                                         </div>
 
                                         <div class="card-form">
-                                            <select class="form-select form-control no-bg border-0"
+                                            <select class="form-select no-bg border-0"
                                                 aria-label="Default select example" id="orgType2" name="orgType2"  >
                                                 <option selected="">Select Organization Type*</option>
                                                 
@@ -173,7 +173,7 @@
                                         </div> -->
 										<div class="error-msg" id="companyPan2Error" style="color:red"></div>
                                         <div class="card-form my-3">
-                                            <select class="form-select form-control no-bg border-0"
+                                            <select class="form-select no-bg border-0"
                                                 aria-label="Default select example" id="stateCode" name="stateCode">
                                                
                                             </select>
@@ -362,28 +362,21 @@
                                             </div>
                                         </div>
 
-  										<div id="payrollsuccessmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
-							            	<span id="payrollsuccessmsg"></span>   
-							            </div>
-							            
-							            <div id="payrollfailmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
-							            	<span id="payrollfailmsg"></span>
-							            </div>
 					                          
                                         <div class="text-center text-md-center my-3 disabled">
                                             <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
                                             <input type="hidden" class="form-input" id="employeeId" name="employeeId" >
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
-                                            <div class="btn btn-proceed ml-2 my-1 next" id="next5">Continue</div>
-                                            <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
+                                            <div class="btn btn-proceed ml-2 my-1 next" id="next5">Next</div>
+                                            
                                         </div>
                                     </div>
                                 </div>
 								</form>
 								
 								<form action="">
-									                                <div class="row tabs-row" id="form6">
+									 <div class="row tabs-row" id="form6">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
 
                                         <div class="form-group">
@@ -394,15 +387,13 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="mb-0 text-left company-dtl-label">Default Salary
-                                                Structure</label>
+                                            <label class="mb-0 text-left company-dtl-label">Default Salary Structure</label>
                                         </div>
 
                                         <div class="tip-wrap my-3 d-block">
                                             <div class="tip-wrap-in">
                                                 <span>1</span>
-                                                <p class="mb-0">To remove any predefined component, enter “0” as the
-                                                    percentage/amount.</p>
+                                                <p class="mb-0">To remove any predefined component, enter “0” as the percentage/amount.</p>
                                             </div>
                                             <div class="tip-wrap-in mb-0">
                                                 <span>2</span>
@@ -426,113 +417,19 @@
                                                     </tr>
                                                     
                                                 </thead>
-                                               <!--  <tbody>
-		                                                 <tr>
-		                                                        <td><span id="salaryComponentBasic2" name="salaryComponentBasic2"></span>
-		                                                        </td>
-		                                                        <td>
-		                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border" id="perCtcBasic2" name="perCtcBasic2" />
-		                                                         </td>
-		                                                        <td>
-		                                                         <select class="no-bg no-border" >
-		                                                                <option value="">Percentage</option>
-		                                                            </select>
-		                                                   		 </td>
-		                                                        <td>
-		                                                        <select class="no-bg no-border" id="taxableBasic2" name="taxableBasic2" >
-		                                                                <option value="">Yes</option>
-		                                                            </select>
-		                                                      </td>
-		                                                   </tr>
-                                                   <tr>
-                                                        <td><span id="salaryComponentHra2" ></span>
-                                                        </td>
-                                                        <td>
-                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border"  id="perCtcHra2" name="perCtcHra2" />
-                                                                
-                                                         </td>
-                                                        <td>
-                                                         <select class="no-bg no-border" id="perHra2" name="perHra2" >
-                                                                <option value="">Percentage</option>
-                                                            </select>
-                                                   		 </td>
-                                                        <td>
-                                                        <select class="no-bg no-border" id="taxableHra2" name="taxableHra2" >
-                                                                <option value="">Yes</option>
-                                                        </select>
-                                                      </td>
-                                                    </tr>
-                                                     <tr>
-                                                        <td><span id="salaryComponentSpecial2" ></span></td>
-                                                        <td>
-                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border" id="perCtcSpecial2" name="perCtcSpecial2" />
-                                                               
-                                                         </td>
-                                                        <td>
-                                                         <select class="no-bg no-border" id="perSpecial2" name="perSpecial2" >
-                                                                <option value="">Percentage</option>
-                                                            </select>
-                                                   		 </td>
-                                                        <td>
-                                                        <select class="no-bg no-border" id="taxableSpecial2" name="taxableSpecial2" >
-                                                                <option value="">Yes</option>
-                                                            </select>
-                                                      </td>
-                                                    </tr>
-                                                   <tr>
-                                                        <td>
-                                                        <span id="salaryComponentLta2" name="salaryComponentLta2" ></span>
-                                                        </td>
-                                                        <td>
-                                                         <input type="text" maxlength="3" size="3 class="no-bg no-border" id="perCtcLta2" name="perCtcLta2" >
-                                                                
-                                                         </td>
-                                                        <td>
-                                                         <select class="no-bg no-border" id="perLta2" name="perLta2">
-                                                                <option value="">Percentage</option>
-                                                            </select>
-                                                   		 </td>
-                                                        <td>
-                                                        <select class="no-bg no-border" id="taxableLta2" name="taxableLta2">
-                                                                <option value="">Yes</option>
-                                                            </select>
-                                                      </td>
-                                                    </tr>
-                                                     <tr>
-                                                        <td><span id="salaryComponentBasic2" name="salaryComponentBasic"></span></td>
-                                                        <td>
-                                                         <input type="text" class="no-bg no-border" id="perCtcBasic2" name="perCtcBasic" />
-                                                              
-                                                         </td>
-                                                        <td>
-                                                         <select class="no-bg no-border" id="perBasic2" name="perBasic">
-                                                                <option value="">Percentage</option>
-                                                            </select>
-                                                   		 </td>
-                                                        <td>
-                                                        <select class="no-bg no-border" id="taxableBasic2" name="taxableBasic" >
-                                                                <option value="">Yes</option>
-                                                            </select>
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="4" class="p-0">
-                                                            <a href="#" class="text-center d-block btn-grren add-custom">+ Add Custom allowance</a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody> -->
+                                              
                                                   <tbody>
                                                     <tr>
                                                         <td><span id="salaryComponentBasic2"></span> </td>
                                                         <td><input type="text" id="perCtcBasic2" maxlength="3" size="3"></td>
                                                         <td>
                                                             <select class="no-bg no-border" id="perBasic2" name="">
-                                                                <option value="">Percentage</option>
+                                                                <option value="Percentage">Percentage</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableBasic2" name="">
-                                                                <option value="">Yes</option>
+                                                                <option value="Yes">Yes</option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -541,12 +438,12 @@
                                                         <td><input type="text" id="perCtcHra2" maxlength="3" size="3" ></td>
                                                         <td>
                                                             <select class="no-bg no-border" id="perHra2" name="">
-                                                                <option value="">Percentage</option>
+                                                                <option value="Percentage">Percentage</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableHra2" name="">
-                                                                <option value="">Yes</option>
+                                                                <option value="Yes">Yes</option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -555,12 +452,12 @@
                                                         <td><input type="text" id="perCtcSpecial2" maxlength="3" size="3"></td>
                                                         <td>
                                                             <select class="no-bg no-border" id="perSpecial2" name="">
-                                                                <option value="">Percentage</option>
+                                                                <option value="Percentage">Percentage</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableSpecial2" name="">
-                                                                <option value="">Yes</option>
+                                                                <option value="Yes">Yes</option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -569,12 +466,12 @@
                                                         <td><input type="text" id="perCtcLta2" maxlength="3" size="3"></td>
                                                         <td>
                                                             <select class="no-bg no-border" id="perLta2" name="">
-                                                                <option value="">Percentage</option>
+                                                                <option value="Percentage">Percentage</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableLta2" name="">
-                                                                <option value="">Yes</option>
+                                                                <option value="Percentage">Yes</option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -602,10 +499,19 @@
                                         </div>
 
 
+  										<div id="payrollsuccessmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
+							            	<span id="payrollsuccessmsg"></span>   
+							            </div>
+							            
+							            <div id="payrollfailmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
+							            	<span id="payrollfailmsg"></span>
+							            </div>
+							            
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back6">Back</div>
-                                            <div class="btn btn-proceed ml-2 my-1 next">Continue</div>
+                                            <!-- <div class="btn btn-proceed ml-2 my-1 next">Continue</div> -->
+                                            <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
                                         </div>
                                     </div>
                                 </div>
@@ -626,7 +532,7 @@
         <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <!-- End of Content Wrapper -->
 
-    </div>
+    
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->

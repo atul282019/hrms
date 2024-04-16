@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+ 
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Company Details</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        
+           <div th:insert="fragments/sidenav.html :: sidevav"></div>
+           
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                
+                <div th:insert="fragments/header.html :: header"></div>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 bg-white p-3">
+                                <div class="row">
+                                    <div class="col-12 col-md-4 mx-auto organisation-wrap">
+                                        <h3 class="mb-1 text-center">Employee Onboarding</h3>
+                                        <div class="breadcrumb-wrap">
+                                            <div class="breadcrumb-in active">
+                                                <span>1</span>
+                                                <label>The Basics </label>
+                                            </div>
+                                            <div class="breadcrumb-in active">
+                                                <span>2</span>
+                                                <label>Bank Information</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        <div class="tip-wrap mb-4">
+                                            <p class="mb-0">Please be very careful while entering data on this screen. Mistakes may lead to incorrect tax dedications and filings, and/or failures in salary transfers / payments.</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div>
+                                            <label for="">Enter PAN</label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="otp-box-onboarding">
+                                            <input type="text" class="form-control" placeholder="A">
+                                            <input type="text" class="form-control" placeholder="B">
+                                            <input type="text" class="form-control" placeholder="E">
+                                            <input type="text" class="form-control" placeholder="P">
+                                            <input type="text" class="form-control" placeholder="G">
+                                            <input type="text" class="form-control" placeholder="4">
+                                            <input type="text" class="form-control" placeholder="1">
+                                            <input type="text" class="form-control" placeholder="9">
+                                            <input type="text" class="form-control" placeholder="7">
+                                            <input type="text" class="form-control" placeholder="A">
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Bank Account Number</label>
+                                            <input type="text" class="form-input" placeholder="*************">
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                        <div class="card-form my-3">
+                                            <label for="">Confirm Bank Account Number</label>
+                                            <input type="text" class="form-input" placeholder="87452145874555">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="tip-wrap mb-4 align-items-start justify-content-start" style="background-color: #f4e9ec;">
+                                            <p class="mb-0">The bank account numbers entered don’t match each other. Please try again.</p>
+                                        </div>
+
+                                        <div class="card-form my-3">
+                                            <input type="text" class="form-input" placeholder="Bank IFSC Code">
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                        <div class="tip-wrap mb-4">
+                                            <p class="mb-0">If your name on your bank account is different from your given name - “ [Given Name]”, then please enter it here. Otherwise please leave it bank.</p>
+                                        </div>
+
+                                        <div class="card-form my-1">
+                                            <input type="text" class="form-input" placeholder="Beneficiary Name (Optional)">
+                                        </div>
+                               
+                                        <div class="clearfix"></div>
+
+                                        <div class="text-center text-md-center my-2 disabled">
+                                            <div class="btn btn-proceed-border my-1">Back to Previous Page</div>
+                                            <div class="btn btn-proceed my-1 next">Confirm</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>
