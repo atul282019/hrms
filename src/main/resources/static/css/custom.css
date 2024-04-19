@@ -1777,3 +1777,193 @@ img.email-verify {
 .iti--separate-dial-code .iti__selected-flag {
   background-color: rgb(255 255 255 / 5%);
 }
+
+.profile-name-wrap {
+  margin-top: 5px;
+  padding: 5px 15px 5px;
+}
+
+.profile-name-wrap h4 {
+  display: inline-block;
+  color: #2F945A;
+  font-size: 22px;
+  font-weight: 700;
+  position: relative;
+  top: 3px;
+}
+
+.profile-name-wrap button {
+  float: right;
+}
+
+.profile-name-wrap button {
+  float: right;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 140px;
+  padding: 0.75rem 1rem !important;
+  margin: 5px 0px 0 0;
+}
+
+.profile-add-wrap {
+  display: flex;
+  padding: 10px 15px;
+  flex-wrap: wrap;
+}
+.profile-add {
+  margin-right: 20px;
+  color: #1F212C;
+}
+.profile-add img {
+  margin-right: 10px;
+}
+
+.profile-info-wrap {
+  border-top: 1px solid #ededf0;
+  border-bottom: 1px solid #ededf0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-info{
+  min-width: 210px;
+  padding: 15px;
+  border-right: 1px solid #ededf0;
+}
+
+.profile-info:last-child{
+  border-right: none;
+}
+
+.profile-info label {
+  color: #86889B;
+  margin-bottom: 3px;
+}
+
+.profile-info p {
+  color: #1F212C;
+  margin-bottom: 0;
+}
+
+.profile-tabs ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-tabs ul li {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+.profile-tabs ul li a {
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+  padding: 25px 0;
+  color: #86889B;
+  text-decoration: none;
+}
+
+.profile-tabs ul li a.active{
+  color: #2F945A;
+  font-weight: 600;
+  border-bottom: 1px solid #2F945A;
+}
+
+.Primary-details-section h5{
+  color: #4A4E69;
+}
+.primary-Details-wrap {
+  display: block;
+  overflow: hidden;
+}
+.Primary-details-info {
+  float: left;
+  width: 50%;
+  margin-bottom: 15px;
+}
+.Primary-details-info label, .Reporting-team-info label {
+  color: #86889B;
+  margin-bottom: 3px;
+}
+.Primary-details-info p, .Reporting-team-info p {
+  color: #1F212C;
+  margin-bottom: 0;
+}
+
+.Reporting-team-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Reporting-team-info {
+  width: 33.33%;
+  margin-bottom: 20px;
+  min-width: 230px;
+} 
+
+.Reporting-team-info p{
+  margin-bottom: 5px;
+}
+
+.Reporting-team-info a {
+  color: #367aff;
+}
+
+.timeline-detl-info{
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.timeline-detl-info label{
+  color: #86889B;
+  margin-bottom: 3px;
+}
+
+.timeline-detl-info p{
+  color: #1F212C;
+  margin-bottom: 0;
+}
+
+.timeline-line::before {
+  position: absolute;
+  left: 23px;
+  top: 9px;
+  content: "";
+  border-left: 2px dashed #ededf0;
+  width: 2px;
+  height: 73px;
+}
+
+.info-msg {
+  background: #ebf2ff;
+  padding: 10px;
+  border: 1px solid #c7daff;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.info-msg strong {
+  display: block;
+  font-weight: 500;
+  margin: 0 0 10px;
+  color: #4A4E69;
+}
+
+.info-msg p {
+  display: block;
+  margin: 0 0 0;
+  color: #86889B;
+}
+
+@media screen and (max-width:767px) {
+  .Primary-details-info{
+    width: 100%;
+  }
+
+  .Reporting-team-info{
+    width: 100%;
+  }
+}
