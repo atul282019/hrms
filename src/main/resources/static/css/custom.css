@@ -1755,3 +1755,25 @@ img.searchimg {
 .time-otp{
   margin-left: 100px;
 }
+
+.card-form.mobile-code-validate strong {
+  float: right; margin-top: 4px; font-weight: 500;
+}
+
+.card-form input.form-input.mobile-code-validate-input {
+  width: 220px; padding-right: 0;
+}
+
+img.email-verify {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+}
+
+.company-dtl-wrap p a {
+  color: #367AFF; font-weight: 500;
+}
+
+.iti--separate-dial-code .iti__selected-flag {
+  background-color: rgb(255 255 255 / 5%);
+}
