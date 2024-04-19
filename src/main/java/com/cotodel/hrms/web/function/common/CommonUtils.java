@@ -10,7 +10,7 @@ public interface CommonUtils {
 	public static String sendOtpNew = "/userServices/Api/getOtpNew";
 	public static String resendOtpNew = "/userServices/Api/getOtpResend";
 	public static String verifyOtpNew = "/userServices/Api/verifyOtpNew";
-	public static String regiUserBulk = "/userServices/Api/add/saveUsersBulk";
+	public static String regiUserBulk = "/empService/Api/add/saveBulkEmplOnboarding";
 	
 	public static String verifyOtp = "/userServices/Api/verifyOtp";
 

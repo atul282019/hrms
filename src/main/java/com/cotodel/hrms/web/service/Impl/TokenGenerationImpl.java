@@ -24,7 +24,7 @@ public class TokenGenerationImpl {
 			String responseToken="";
 			String authToken = "";
 	    	try {	    		
-	    		String companyId = "HRMS0000100";
+	    		String companyId = "HRMS00001";
 	    		 responseToken = loginservice.getToken(companyId);
 					//String authToken = "";
 					if (!ObjectUtils.isEmpty(responseToken)) {

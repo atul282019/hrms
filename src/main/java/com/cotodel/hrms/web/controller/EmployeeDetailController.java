@@ -5,13 +5,11 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.DatatypeConverter;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
-import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
@@ -32,12 +29,8 @@ import com.cotodel.hrms.web.response.EmployeeProjectRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
-import com.cotodel.hrms.web.util.CopyUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.javac.util.List;
-
 @RestController
 @CrossOrigin
 public class EmployeeDetailController extends CotoDelBaseController{
@@ -60,8 +53,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res=null;String userRes=null;
-		
-		
 		
 		
 		profileRes = employeeDetailService.saveEmployeeDetail(tokengeneration.getToken(),employeeDetailRequest);

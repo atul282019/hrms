@@ -109,7 +109,7 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				try {
 					logger.info("userRequest::"+userRequest.toString());					
 					
-					response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.regiUserBulk);
+					response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.regiUserBulk);
 					
 					if(!ObjectUtils.isEmpty(response)) {
 						JSONObject demoRes= new JSONObject(response);
