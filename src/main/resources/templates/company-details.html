@@ -285,7 +285,7 @@
                                             </div>
                                         </div>
 									  
-									  <div id="defaultSalary" style="display:block">
+									  <div id="defaultSalary" style="display:none">
                                         <div class="form-group">
                                             <label class="mb-0 text-left company-dtl-label">Default Salary
                                                 Structure</label>
@@ -383,7 +383,7 @@
                                         
                                         </div>
                                         
-                                        <div id="autoUpdate" style="display:none">
+                                        <div id="autoUpdate" style="display:block">
                                         
                                         <div class="form-group">
                                             <label class="mb-0 text-left company-dtl-label">Default Salary Structure</label>
@@ -413,6 +413,7 @@
                                                         <th>%age of CTC</th>
                                                         <th>Percentage or Fixed?</th>
                                                         <th>Taxable?</th>
+                                                        <th></th>
                                                     </tr>
                                                     
                                                 </thead>
@@ -424,13 +425,16 @@
                                                         <td>
                                                             <select class="no-bg no-border" id="perBasic2" name="">
                                                                 <option value="Percentage">Percentage</option>
+                                                                <option value="Fixed">Fixed</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableBasic2" name="">
                                                                 <option value="Yes">Yes</option>
+                                                                <option value="No">No</option>
                                                             </select>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
                                                          <td><span id="salaryComponentHra2"></span> </td>
@@ -438,13 +442,16 @@
                                                         <td>
                                                             <select class="no-bg no-border" id="perHra2" name="">
                                                                 <option value="Percentage">Percentage</option>
+                                                                <option value="Fixed">Fixed</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableHra2" name="">
                                                                 <option value="Yes">Yes</option>
+                                                                 <option value="Yes">No</option>
                                                             </select>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentSpecial2"></span> </td>
@@ -452,13 +459,16 @@
                                                         <td>
                                                             <select class="no-bg no-border" id="perSpecial2" name="">
                                                                 <option value="Percentage">Percentage</option>
+                                                                <option value="Fixed">Fixed</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableSpecial2" name="">
                                                                 <option value="Yes">Yes</option>
+                                                                <option value="No">No</option>
                                                             </select>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span id="salaryComponentLta2"></span> </td>
@@ -466,20 +476,23 @@
                                                         <td>
                                                             <select class="no-bg no-border" id="perLta2" name="">
                                                                 <option value="Percentage">Percentage</option>
+                                                                <option value="Fixed">Fixed</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="no-bg no-border" id="taxableLta2" name="">
-                                                                <option value="Percentage">Yes</option>
+                                                                <option value="Yes">Yes</option>
+                                                                <option value="No">No</option>
                                                             </select>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     
                                                 </tbody>
                                             </table>
                                            
-                                            <input type="button" class="text-center d-block btn-grren add-custom" value="+ Add Custom allowance" />
-                                                       
+                                            <input type="button" class="text-center d-block btn-grren add-custom" onclick="addRow()" value="+ Add Custom allowance" />
+                                                              
                                         </div>
 
                                         <div class="tip-wrap justify-content-start">
@@ -766,12 +779,12 @@
         $(document).ready(function () {
             $('#customCheck5').change(function () {
                 if (!this.checked) {
-                   $('#autoUpdate').fadeOut('slow');
-               	   $('#defaultSalary').fadeIn('slow');
+               	  $('#autoUpdate').fadeIn('slow');
+              	  $('#defaultSalary').fadeOut('slow');
                 }
                 else {
-                    $('#autoUpdate').fadeIn('slow');
-                	$('#defaultSalary').fadeOut('slow');
+              	   $('#autoUpdate').fadeOut('slow');
+                   $('#defaultSalary').fadeIn('slow');
                 }
                 
             });
@@ -790,40 +803,78 @@ $(document).ready(function(){
   
 });
 
-function addField (argument) {
-    var myTable = document.getElementById("newTable");
-    var currentIndex = myTable.rows.length;
-    var currentRow = myTable.insertRow(-1);
-
-    var linksBox = document.createElement("input");
-    linksBox.setAttribute("name", "links" + currentIndex);
-
-    var keywordsBox = document.createElement("input");
-    keywordsBox.setAttribute("name", "keywords" + currentIndex);
-
-    var violationsBox = document.createElement("input");
-    violationsBox.setAttribute("name", "violationtype" + currentIndex);
-
-    var addRowBox = document.createElement("input");
-    addRowBox.setAttribute("type", "button");
-    addRowBox.setAttribute("value", "Add another line");
-    addRowBox.setAttribute("onclick", "addField();");
-    addRowBox.setAttribute("class", "button");
-
-    var currentCell = currentRow.insertCell(-1);
-    currentCell.appendChild(linksBox);
-
-    currentCell = currentRow.insertCell(-1);
-    currentCell.appendChild(keywordsBox);
-
-    currentCell = currentRow.insertCell(-1);
-    currentCell.appendChild(violationsBox);
-
-    currentCell = currentRow.insertCell(-1);
-    currentCell.appendChild(addRowBox);
-}
 </script>
+
+<script>
+function addRow() {
+    var table = document.getElementById("newTable").getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(table.rows.length);
+
+    var cell1 = newRow.insertCell(0);
+    var nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.name = "name";
+    nameInput.setAttribute('class',"no-bg border-0");
+    nameInput.setAttribute('maxlength',"30");
+    nameInput.setAttribute('placeholder',"Salary Component");
+    nameInput.setAttribute('size',"10");
+ 
+    cell1.appendChild(nameInput);
+
+    var cell2 = newRow.insertCell(1);
+    var ageInput = document.createElement("input");
+    ageInput.type = "text";
+    ageInput.name = "age";
+	ageInput.setAttribute('class',"no-bg border-0");
+	ageInput.setAttribute('maxlength',"3");
+	ageInput.setAttribute('size',"3");
+	ageInput.setAttribute('placeholder',"% of ctc");
+ 
+    cell2.appendChild(ageInput);
+
+    var cell3 = newRow.insertCell(2);
+    var genderSelect = document.createElement("select");
+    genderSelect.name = "Percentage";
+    var maleOption = document.createElement("option");
+    maleOption.text = "Percentage";
+    var femaleOption = document.createElement("option");
+    femaleOption.text = "Fixed";
+	 genderSelect.setAttribute('class',"no-bg no-border");
 	
+	 
+	 var cell4 = newRow.insertCell(3);
+	    var taxable = document.createElement("select");
+	    taxable.name = "Yes";
+	    var taxable1 = document.createElement("option");
+	    taxable1.text = "Yes";
+	    var taxable2 = document.createElement("option");
+	    taxable2.text = "No";
+	    taxable.setAttribute('class',"no-bg no-border");
+		
+	 
+    genderSelect.add(maleOption);
+    genderSelect.add(femaleOption);
+    cell3.appendChild(genderSelect);
+
+    taxable.add(taxable1);
+    taxable.add(taxable2);
+    cell4.appendChild(taxable);
+
+    var cell5 = newRow.insertCell(4);
+    var deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "- Del";
+    deleteButton.setAttribute('class',"text-left d-block btn-grren add-custom");
+    deleteButton.onclick = function() {
+        deleteRow(this);
+    };
+    cell5.appendChild(deleteButton);
+}
+
+function deleteRow(btn) {
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+</script>	
 </body>
 
 </html>
