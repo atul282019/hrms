@@ -277,7 +277,15 @@
 							 <form id="savePayroll" name="savePayroll" method="post">
                                 <div class="row tabs-row" id="form5">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
-
+									
+									    <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5">
+                                                <label class="custom-control-label text-left" for="customCheck5">Use Cotodel’s default salary structure (recommended) </label>
+                                            </div>
+                                        </div>
+									  
+									  <div id="defaultSalary" style="display:block">
                                         <div class="form-group">
                                             <label class="mb-0 text-left company-dtl-label">Default Salary
                                                 Structure</label>
@@ -361,8 +369,9 @@
                                                 </label>
                                             </div>
                                         </div>
-
-					                          
+											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
+                                            <input type="hidden" class="form-input" id="employeeId" name="employeeId" >
+					                   <!--        
                                         <div class="text-center text-md-center my-3 disabled">
                                             <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
                                             <input type="hidden" class="form-input" id="employeeId" name="employeeId" >
@@ -370,7 +379,143 @@
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
                                             <div class="btn btn-proceed ml-2 my-1 next" id="next5">Next</div>
                                             
+                                        </div> -->
+                                        
                                         </div>
+                                        
+                                        <div id="autoUpdate" style="display:none">
+                                        
+                                        <div class="form-group">
+                                            <label class="mb-0 text-left company-dtl-label">Default Salary Structure</label>
+                                        </div>
+
+                                        <div class="tip-wrap my-3 d-block">
+                                            <div class="tip-wrap-in">
+                                                <span>1</span>
+                                                <p class="mb-0">To remove any predefined component, enter “0” as the percentage/amount.</p>
+                                            </div>
+                                            <div class="tip-wrap-in mb-0">
+                                                <span>2</span>
+                                                <p class="mb-0">Fixed amounts should be entered as per monthly slary.</p>
+                                            </div>
+                                            <div class="tip-wrap-in mb-0">
+                                                <span>3</span>
+                                                <p class="mb-0">If the sum of the components does’t match with monthly pay, the diffrence amount will be adjusted from these components - LTA, HRA, Special Allowances, Basic (Where LTA has the highest and Basic has the lowest).</p>
+                                            </div>
+                                        </div>
+                                      
+
+                                        <div class="table-responsive">
+                                            <table class="table salary-table border-0" border="0" id="newTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Salary Component</th>
+                                                        <th>%age of CTC</th>
+                                                        <th>Percentage or Fixed?</th>
+                                                        <th>Taxable?</th>
+                                                    </tr>
+                                                    
+                                                </thead>
+                                              
+                                                  <tbody>
+                                                    <tr>
+                                                        <td><span id="salaryComponentBasic2"></span> </td>
+                                                        <td><input class="no-bg border-0" type="text" id="perCtcBasic2" maxlength="3" size="3"></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perBasic2" name="">
+                                                                <option value="Percentage">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableBasic2" name="">
+                                                                <option value="Yes">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                         <td><span id="salaryComponentHra2"></span> </td>
+                                                        <td><input class="no-bg border-0"  type="text" id="perCtcHra2" maxlength="3" size="3" ></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perHra2" name="">
+                                                                <option value="Percentage">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableHra2" name="">
+                                                                <option value="Yes">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span id="salaryComponentSpecial2"></span> </td>
+                                                        <td><input class="no-bg border-0" type="text" id="perCtcSpecial2" maxlength="3" size="3"></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perSpecial2" name="">
+                                                                <option value="Percentage">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableSpecial2" name="">
+                                                                <option value="Yes">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span id="salaryComponentLta2"></span> </td>
+                                                        <td><input class="no-bg border-0" type="text" id="perCtcLta2" maxlength="3" size="3"></td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="perLta2" name="">
+                                                                <option value="Percentage">Percentage</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="no-bg no-border" id="taxableLta2" name="">
+                                                                <option value="Percentage">Yes</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                           
+                                            <input type="button" class="text-center d-block btn-grren add-custom" value="+ Add Custom allowance" />
+                                                       
+                                        </div>
+
+                                        <div class="tip-wrap justify-content-start">
+                                            <p class="mb-0">If you are using Flexible Benefits you can specify whether they are taxable or not, if you have not explicitly approved exemption for them.</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5"
+                                                    checked>
+                                                <label class="custom-control-label text-left"
+                                                    for="customCheck5">Consider FBP allowance to be taxable by default
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+  										<div id="payrollsuccessmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
+							            	<span id="payrollsuccessmsg"></span>   
+							            </div>
+							            
+							            <div id="payrollfailmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
+							            	<span id="payrollfailmsg"></span>
+							            </div>
+							            
+                                       
+                                        
+                                        </div>
+                                        
+                                         <div class="text-center text-md-center my-3 disabled">
+                                            <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
+                                            <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
+                                            <!-- <div class="btn btn-proceed ml-2 my-1 next">Continue</div> -->
+                                            <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
+                                        </div>
+                                        
                                     </div>
                                 </div>
 								</form>
@@ -379,14 +524,14 @@
 									 <div class="row tabs-row" id="form6">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
 
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck5">
                                                 <label class="custom-control-label text-left" for="customCheck5">Use Cotodel’s default salary structure (recommended) </label>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label class="mb-0 text-left company-dtl-label">Default Salary Structure</label>
                                         </div>
 
@@ -510,9 +655,9 @@
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back6">Back</div>
-                                            <!-- <div class="btn btn-proceed ml-2 my-1 next">Continue</div> -->
+                                            <div class="btn btn-proceed ml-2 my-1 next">Continue</div>
                                             <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 								</form>
@@ -617,6 +762,20 @@
             });
             
         });
+        
+        $(document).ready(function () {
+            $('#customCheck5').change(function () {
+                if (!this.checked) {
+                   $('#autoUpdate').fadeOut('slow');
+               	   $('#defaultSalary').fadeIn('slow');
+                }
+                else {
+                    $('#autoUpdate').fadeIn('slow');
+                	$('#defaultSalary').fadeOut('slow');
+                }
+                
+            });
+        });
     </script>
 
 
@@ -630,6 +789,39 @@ $(document).ready(function(){
 	  
   
 });
+
+function addField (argument) {
+    var myTable = document.getElementById("newTable");
+    var currentIndex = myTable.rows.length;
+    var currentRow = myTable.insertRow(-1);
+
+    var linksBox = document.createElement("input");
+    linksBox.setAttribute("name", "links" + currentIndex);
+
+    var keywordsBox = document.createElement("input");
+    keywordsBox.setAttribute("name", "keywords" + currentIndex);
+
+    var violationsBox = document.createElement("input");
+    violationsBox.setAttribute("name", "violationtype" + currentIndex);
+
+    var addRowBox = document.createElement("input");
+    addRowBox.setAttribute("type", "button");
+    addRowBox.setAttribute("value", "Add another line");
+    addRowBox.setAttribute("onclick", "addField();");
+    addRowBox.setAttribute("class", "button");
+
+    var currentCell = currentRow.insertCell(-1);
+    currentCell.appendChild(linksBox);
+
+    currentCell = currentRow.insertCell(-1);
+    currentCell.appendChild(keywordsBox);
+
+    currentCell = currentRow.insertCell(-1);
+    currentCell.appendChild(violationsBox);
+
+    currentCell = currentRow.insertCell(-1);
+    currentCell.appendChild(addRowBox);
+}
 </script>
 	
 </body>

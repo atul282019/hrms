@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
+       
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                
+                 <div th:insert="fragments/header.html :: header"></div>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-1 ml-2 p-1 p-md-3 bulk-wrap">                                
+                                <div class="bg-white py-0 px-0 mb-3 w-100 br-10">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-3 col-md-2">
+                                            <img src="img/profile-pic01.svg" class="profile-pic01 img-fluid" alt="">
+                                        </div>
+                                        <div class="col-12 col-sm-9 col-md-10 pl-md-0">
+                                            <div class="profile-pic01-wrap">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="profile-name-wrap">
+                                                            <h4>Jhon Doe Narendrakumar Jariwala</h4><img src="img/linked.svg" class="ml-2" alt="">
+                                                            <div style="position: relative; display: inline;">
+                                                                <button class="btn p-0 btn btn-confirm dropdown-toggle" href="#" id="userDropdown" role="button"
+                                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
+
+                                                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                                                    aria-labelledby="userDropdown">
+                                                                   <a class="dropdown-item py-2" href="#">
+                                                                        Revise Salary
+                                                                    </a>
+                                                                    <a class="dropdown-item py-2" href="#">
+                                                                        Revise Position
+                                                                    </a>
+                                                                    <a class="dropdown-item py-2" href="#">
+                                                                        Deactivate
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                         
+                                                        
+                                                        <div class="profile-add-wrap">
+                                                            <div class="profile-add"><img src="img/mail.svg" alt="">jhondoe@company.com</div>
+                                                            <div class="profile-add"><img src="img/call.svg" alt="">+91 9910318405</div>
+                                                            <div class="profile-add"><img src="img/location.svg" alt="">India, Gurgaon</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="profile-info-wrap">
+                                                            <div class="profile-info">
+                                                                <label for="">Designation</label>
+                                                                <p>Product Manager</p>
+                                                            </div>
+
+                                                            <div class="profile-info">
+                                                                <label for="">Department</label>
+                                                                <p>Product</p>
+                                                            </div>
+
+                                                            <div class="profile-info">
+                                                                <label for="">Reporting Manager</label>
+                                                                <p>Jhon Wik</p>
+                                                            </div>
+
+                                                            <div class="profile-info">
+                                                                <label for="">Employment Type</label>
+                                                                <p>Full Time</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="profile-tabs">
+                                                            <ul>
+                                                                <li><a href="#" class="active">About</a></li>
+                                                                <li><a href="#">Salary</a></li>
+                                                                <li><a href="#">Attendance</a></li>
+                                                                <li><a href="#">Apps</a></li>
+                                                                <li><a href="#">Docs</a></li>
+                                                                <li><a href="#">Onboarding</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                <h5>Primary Details</h5>
+                                                <div class="primary-Details-wrap">
+                                                    <div class="Primary-details-info">
+                                                        <label for="">First Name</label>
+                                                        <p>Sagar</p>
+                                                    </div>
+                                                    <div class="Primary-details-info">
+                                                        <label for="">Middle Name</label>
+                                                        <p>Narendra Kumar</p>
+                                                    </div>
+                                                    <div class="Primary-details-info">
+                                                        <label for="">Last Name</label>
+                                                        <p>Jariwal</p>
+                                                    </div>
+                                                    <div class="Primary-details-info">
+                                                        <label for="">Gender</label>
+                                                        <p>Male</p>
+                                                    </div>
+                                                    <div class="Primary-details-info">
+                                                        <label for="">Date of Birth</label>
+                                                        <p>02 Sept. 2001</p>
+                                                    </div>
+                                                    <div class="Primary-details-info">
+                                                        <label for="">Martial Status</label>
+                                                        <p>Single</p>
+                                                    </div>
+                                                    <div class="Primary-details-info">
+                                                        <label for="">Physically Handicapped</label>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                <h5>Reporting Team (12)</h5>
+                                                <div class="Reporting-team-wrap">
+                                                    <div class="Reporting-team-info row">
+                                                        <div class="col-3 text-center">
+                                                            <img src="img/sm-profile.svg" alt="">
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <p>Victor Pacho</p>
+                                                            <label for="">Senior Engineer</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="Reporting-team-info row">
+                                                        <div class="col-3 text-center">
+                                                            <img src="img/sm-profile.svg" alt="">
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <p>Pablo Escobar</p>
+                                                            <label for="">Full Stack Devloper</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="Reporting-team-info row">
+                                                        <div class="col-3 text-center">
+                                                            <img src="img/sm-profile.svg" alt="">
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <p>Penea Huwera</p>
+                                                            <label for="">Web Devloper</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="Reporting-team-info row">
+                                                        <div class="col-3 text-center">
+                                                            <img src="img/sm-profile.svg" alt="">
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <p>Natalia</p>
+                                                            <label for="">Ui Designer</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="Reporting-team-info row">
+                                                        <div class="col-3 text-center">
+                                                            <img src="img/sm-profile.svg" alt="">
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <p>Judi</p>
+                                                            <label for="">Full Stack Devloper</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="Reporting-team-info row">
+                                                        <div class="col-3 text-center">
+                                                            <img src="img/sm-profile.svg" alt="">
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <p>Carlos</p>
+                                                            <label for="">Web Devloper</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="Reporting-team-info row mb-0">
+                                                        <div class="col-12">
+                                                            <a href="#">View All</a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                <h5>Timeline</h5>
+                                                <div class="timeline-detl-wrap">
+                                                    <div class="timeline-detl-info timeline-line row">
+                                                        <div class="col-2 col-md-1">
+                                                            <img src="img/thumb.svg" alt="">
+                                                        </div>
+                                                        <div class="col-10 col-md-11">
+                                                            <label for="">Work Anniversary - 3rd</label>
+                                                            <p>Jan 24,2020</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline-detl-info timeline-line row">
+                                                        <div class="col-2 col-md-1">
+                                                            <img src="img/pay.svg" alt="">
+                                                        </div>
+                                                        <div class="col-10 col-md-11">
+                                                            <label for="">Pay Increase</label>
+                                                            <p>Jan 24,2020</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline-detl-info row">
+                                                        <div class="col-2 col-md-1">
+                                                            <img src="img/star award.svg" alt="">
+                                                        </div>
+                                                        <div class="col-10 col-md-11">
+                                                            <label for="">Praise - Super Start Worker</label>
+                                                            <p>Jan 24,2020</p>
+                                                            <div class="info-msg">
+                                                                <strong>Raj Kumar Srinath</strong>
+                                                                <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+    <script>
+        $(document).on('change','.up', function(){
+		   	var names = [];
+		   	var length = $(this).get(0).files.length;
+			    for (var i = 0; i < $(this).get(0).files.length; ++i) {
+			        names.push($(this).get(0).files[i].name);
+			    }
+			    // $("input[name=file]").val(names);
+				if(length>2){
+				  var fileName = names.join(', ');
+				  $(this).closest('.form-group').find('.form-control').attr("value",length+" files selected");
+				}
+				else{
+					$(this).closest('.form-group').find('.form-control').attr("value",names);
+				}
+	   });
+    </script>
+
+    <script>
+        // function clearSearch() {
+        //     document.getElementById("docfile").value = "";
+        //      clearButton.style.display = "none";
+        // }
+        
+        // function showClearButton() {
+        //     var fileInput = document.getElementById("docfile");
+        //     var clearButton = document.getElementById("clearButton");
+            
+        //     if (fileInput.value !== "") {
+        //         clearButton.style.display = "inline-block";
+        //     } else {
+        //         clearButton.style.display = "none";
+        //     }
+        // }
+    </script>
+
+
+
+</body>
+
+</html>
