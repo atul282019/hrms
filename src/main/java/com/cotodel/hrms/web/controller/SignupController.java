@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.response.UserWaitList;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 
@@ -45,4 +46,17 @@ public class SignupController  extends CotoDelBaseController{
 		return profileRes;
 	}
 
+	
+	@PostMapping(value="/userWaitList")
+	public @ResponseBody String userWaitList(HttpServletRequest request,UserWaitList userWaitList) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		
+		profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
+		profileJsonRes= new JSONObject(profileRes);
+		if(profileJsonRes.getBoolean("status")) { 
+		}
+		return profileRes;
+	}
+
+	
 }

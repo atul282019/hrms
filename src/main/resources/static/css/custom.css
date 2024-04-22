@@ -1967,3 +1967,11 @@ img.email-verify {
     width: 100%;
   }
 }
+
+.remove-btn{
+	padding: 0;
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer !important;
+}

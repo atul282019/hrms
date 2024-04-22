@@ -46,4 +46,6 @@ public interface CommonUtils {
 	
 	public static String confirmBulkEmplOnboarding = "/empService/Api/add/confirmBulkEmplOnboarding";
 	
+	public static String saveWaitlist = "/userServices/Api/add/saveWaitingListUsers"; 
+	
 }

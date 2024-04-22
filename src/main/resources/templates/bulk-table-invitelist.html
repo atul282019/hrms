@@ -273,8 +273,25 @@
 						{ "mData": "last_name"},
 						{ "mData": "email"},
 						{ "mData": "mobile"},
+						
 					/* 	{ "mData": "username"}		 */			
-					]
+					],
+					createdRow: function (row, data2, dataIndex) 
+                    {
+                     console.log("row : "+JSON.stringify(data2));
+                     var regMobile = /^[6-9]\d{9}$/gi;
+                 	 var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+                 	var email = data2.email;
+                	var mobile = data2.mobile;
+                     if(!mobile.match(regMobile))
+                     {
+                       $(row).find('td:eq(4)').addClass("tdactive");
+                     }
+                     if(!email.match(regEmail))
+                     {
+                       $(row).find('td:eq(3)').addClass("tdactive");
+                     }
+                    }
 				});	
 			
 			}

@@ -93,18 +93,28 @@ Header END -->
 				</div>
 				<div class="modal-body">
 					<div class="w-100 p-3">
-						<form>
+						<form action="" class="mt-2" id='waitlistuser' name='waitlistuser'>
 							<div class="mb-3">
 								<label class="form-label" for="exampleInputName">Your Name</label>
-								<input type="text" class="form-control" id="exampleInputName" placeholder="Name">
+								<input type="text" class="form-control" id="name" name="name" placeholder="Name">
 							</div>
+							<div class="error-msg" id="nameError1" style="color:red"></div>
 							<div class="mb-3">
 								<label class="form-label" for="exampleInputEmail1">Email Address</label>
-								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail">
+								<input type="email" class="form-control" id="email" name="email" placeholder="E-mail">
 							</div>
+							<div class="error-msg" id="emailError1" style="color:red"></div>
+							
+							<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+				            	<div id="otsuccmsg"></div>   
+				            </div>
+				            
+				            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+				            	<div id="otfailmsg"></div>
+				            </div>
 							<div class="row align-items-center">
 								<div class="col-12 text-center">
-									<button type="submit" class="btn btn-lg btn-primary bradius-8">Join</button>
+									<input type="button" class="btn btn-lg btn-primary bradius-8" onclick="waitList()" value="Join">
 								</div>
 							</div>
 						</form>
@@ -185,6 +195,8 @@ Main Banner START -->
 										class="btn btn-lg btn-dark-purple bradius-8"><img src="img/rocketlaunch.svg" alt="">
 										Join the Waitlist</a></div>
 							</div>
+							
+							
 						</div>
 					</div>
 				</div>
@@ -395,20 +407,31 @@ Service END -->
 							chat
 							and our team will get back to you</p>
 
-							<form action="" class="mt-2">
+							<form action="" class="mt-2" id="getintuch" name="getintuch">
 								<div class="form-wrap">
 									<img src="img/User.svg" alt="">
-									<input type="text" class="form-input" placeholder="Full Name">
+									<input type="text" class="form-input" placeholder="Full Name" id="name1" name="name">
 								</div>
+								<div class="error-msg" id="name1Error1" style="color:red"></div>
 								<div class="form-wrap">
 									<img src="img/EnvelopeSimple.svg" alt="">
-									<input type="text" class="form-input" placeholder="Email">
+									<input type="text" class="form-input" placeholder="Email" id="email1" name="email">
 								</div>
+								<div class="error-msg" id="email1Error1" style="color:red"></div>
 								<div class="form-wrap">
 									<img src="img/PhoneCall.svg" alt="">
-									<input type="text" class="form-input" placeholder="Phone No.">
+									<input type="text" class="form-input" placeholder="Phone No." id="mobile1" name="mobile">
 								</div>
-								<div class="mt-3"><a href="#" class="btn btn-lg btn-primary bradius-8">Submit <i
+								
+								<div id="msgdiv" style="display:none" class="alert alert-success text-center">
+				            	<div id="succmsg"></div>   
+					            </div>
+					            
+					            <div id="failmsgDiv" style="display:none" class="alert alert-danger text-center">
+					            	<div id="failmsg"></div>
+					            </div>
+								<div class="error-msg" id="mobile1Error1" style="color:red"></div>
+								<div class="mt-3"><a href="javascript:void(0)" class="btn btn-lg btn-primary bradius-8" onclick="getInTuch()">Submit <i
 											class="fas fa-arrow-right ms-2"></i></a></div>
 							</form>
 					</div>
@@ -542,7 +565,150 @@ JS libraries, plugins and custom scripts -->
 		function myFunction() {
 			document.getElementById("dynamic").style.display = "none";
 		}
+		
+		
+	</script>
+	<script type="text/javascript">
+	
+	
+	function getInTuch(){
+		alert("test");
+		var name =document.getElementById("name1").value;
+		var email = document.getElementById("email1").value;
+		var mobile = document.getElementById("mobile1").value;
+		
+		var regMobile = /^[6-9]\d{9}$/gi;
+		var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+		
+		if(name==""){
+			document.getElementById("name1Error1").innerHTML="Please Enter Name";
+			document.getElementById("name1").focus();
+			return false;
+		}else{
+			document.getElementById("name1Error1").innerHTML="";
+		}
+		if(email==""){
+			document.getElementById("email1Error1").innerHTML="Please Enter Email";
+			document.getElementById("email1").focus();
+			return false;
+		}else if(!email.match(regEmail)){
+			document.getElementById("email1Error1").innerHTML="Please Enter Valid Email";
+			document.getElementById("email1").focus();
+			return false;
+		}else{
+			document.getElementById("email1Error1").innerHTML="";
+		}
+		
+		if(mobile==""){
+			document.getElementById("mobile1Error1").innerHTML="Please Enter Mobile Number";
+			document.getElementById("mobile1").focus();
+			return false;
+		}else if(!mobile.match(regMobile)){
+			document.getElementById("mobile1Error1").innerHTML="Please Enter Valid Mobile Number";
+			document.getElementById("mobile1").focus();
+			return false;
+		}else{
+			document.getElementById("mobile1Error1").innerHTML="";
+		}
+		  var formData = new FormData(getintuch);
+		  
+		 	$.ajax({
+			type: "POST",
+		     url:""+$('#ctx').attr('content')+"/userWaitList",
+		     //url:"/registerUser",
+	         data: formData,
+	         processData: false,
+	         contentType: false,
+	         success: function(data){
+	            newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				//document.getElementById("signinLoader").style.display="none";
+				if(data1.status==true){
+					 document.getElementById("succmsg").innerHTML="Our Team Will Contact you soon, Thanks for Registration.";
+					 document.getElementById("msgdiv").style.display="block";
+					 document.getElementById("getintuch").reset();
+					 $('#msgdiv').delay(5000).fadeOut(400);
+					//window.location.href = "http://localhost:9191/hrms/tempLogin?mobile="+mobile+"&email="+email;
+					 
+				}else if(data1.status==false){
+					 document.getElementById("failmsg").innerHTML=data1.message;
+					 document.getElementById("failmsgDiv").style.display="block";
+					 $('#failmsgDiv').delay(5000).fadeOut(400);
+				}else{
+					 document.getElementById("failmsg").innerHTML="API Gateway not respond. Please try again.";
+					 document.getElementById("failmsgDiv").style.display="block";
+					 $('#failmsgDiv').delay(5000).fadeOut(400);
+				}
+	         },
+	         error: function(e){
+	             alert('Error: ' + e);
+	         }
+	    });
+	}
 
+	function waitList(){
+		
+		var name =document.getElementById("name").value;
+		var email = document.getElementById("email").value;
+		
+		var regMobile = /^[6-9]\d{9}$/gi;
+		var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+		
+		if(name==""){
+			document.getElementById("nameError1").innerHTML="Please Enter Name";
+			document.getElementById("name").focus();
+			return false;
+		}else{
+			document.getElementById("nameError1").innerHTML="";
+		}
+		if(email==""){
+			document.getElementById("emailError1").innerHTML="Please Enter Email";
+			document.getElementById("email").focus();
+			return false;
+		}else if(!email.match(regEmail)){
+			document.getElementById("emailError1").innerHTML="Please Enter Valid Email";
+			document.getElementById("email").focus();
+			return false;
+		}else{
+			document.getElementById("emailError1").innerHTML="";
+		}
+		  var formData = new FormData(waitlistuser);
+		  
+		 	$.ajax({
+			type: "POST",
+		     url:""+$('#ctx').attr('content')+"/userWaitList",
+		     //url:"/registerUser",
+	         data: formData,
+	         processData: false,
+	         contentType: false,
+	         success: function(data){
+	            newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				//document.getElementById("signinLoader").style.display="none";
+				if(data1.status==true){
+					 document.getElementById("otsuccmsg").innerHTML="Our Team Will Contact you soon, Thanks for Registration.";
+					 document.getElementById("otmsgdiv").style.display="block";
+					 //document.getElementById("getInTouchUser").reset();
+					 $('#otmsgdiv').delay(5000).fadeOut(400);
+					//window.location.href = "http://localhost:9191/hrms/tempLogin?mobile="+mobile+"&email="+email;
+					 var mobile=document.getElementById("mobile").value;
+	    			 localStorage.setItem("userName", mobile);
+	    			 window.location.href = ""+$('#ctx').attr('content')+"/signin";
+				}else if(data1.status==false){
+					 document.getElementById("otfailmsg").innerHTML=data1.message;
+					 document.getElementById("otfailmsgDiv").style.display="block";
+					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+				}else{
+					 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
+					 document.getElementById("otfailmsgDiv").style.display="block";
+					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+				}
+	         },
+	         error: function(e){
+	             alert('Error: ' + e);
+	         }
+	    });
+	}
 
 	</script>
 

@@ -862,8 +862,8 @@ function addRow() {
 
     var cell5 = newRow.insertCell(4);
     var deleteButton = document.createElement("button");
-    deleteButton.innerHTML = "- Del";
-    deleteButton.setAttribute('class',"text-left d-block btn-grren add-custom");
+   deleteButton.innerHTML = '<i class="fa fa-trash"> </i>';
+    deleteButton.setAttribute('class',"text-left remove-btn");
     deleteButton.onclick = function() {
         deleteRow(this);
     };
