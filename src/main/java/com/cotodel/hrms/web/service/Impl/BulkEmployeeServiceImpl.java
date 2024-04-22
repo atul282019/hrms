@@ -42,6 +42,7 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 		
 		String response="";
 		String res=null;
+		
 		String filename="";
 		if(bulkEmployeeRequest.docfile==null)
 			bulkEmployeeRequest.setDocfile(bulkEmployeeRequest.getUp());
