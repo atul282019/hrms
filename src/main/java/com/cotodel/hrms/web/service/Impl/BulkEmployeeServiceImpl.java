@@ -111,23 +111,24 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 					logger.info("userRequest::"+userRequest.toString());					
 					if(validmobile && validEmail) {
 						response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.regiUserBulk);
+						if(!ObjectUtils.isEmpty(response)) {
+							JSONObject demoRes= new JSONObject(response);
+							boolean status = demoRes.getBoolean("status");
+							if(status) {
+								userRequest.setResponse(MessageConstant.RESPONSE_SUCCESS);
+								userCorrectList.add(userRequest);
+							}else if(!status) {
+								userRequest.setResponse(demoRes.getString("message"));
+								userInCorrectList.add(userRequest);
+							}
+								
+							}
 					}else {
 						userRequest.setResponse(MessageConstant.EMAIL_MOBILE_INVALID);
 						userInCorrectList.add(userRequest);
 					}
 					
-					if(!ObjectUtils.isEmpty(response)) {
-						JSONObject demoRes= new JSONObject(response);
-						boolean status = demoRes.getBoolean("status");
-						if(status) {
-							userRequest.setResponse(MessageConstant.RESPONSE_SUCCESS);
-							userCorrectList.add(userRequest);
-						}else if(!status) {
-							userRequest.setResponse(demoRes.getString("message"));
-							userInCorrectList.add(userRequest);
-						}
-							
-						}
+					
 					
 				} catch (Exception e) {
 					toprint=true;
