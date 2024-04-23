@@ -12,7 +12,7 @@
 
         <!-- Sidebar -->
        
-       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+       <div th:insert="fragments/employee-sidenav.html :: sidevav"></div>
 
         <!-- End of Sidebar -->
 
@@ -55,30 +55,37 @@
                                         <form action="">
                                             <div class="card-form">
                                                 <label for="">Name</label>
-                                                <input type="text" class="form-input">
+                                                <input type="text" class="form-input" id="name" name="name">
                                             </div>
                                             <div class="clearfix"></div>
 
                                             <div class="card-form my-3">
-                                                <input type="text" class="form-input" placeholder="Enter Email ID">
+                                                <input type="text" class="form-input" id="email" name="email" placeholder="Enter Email ID">
                                                 <img src="img/verify.svg" class="email-verify" alt="">
                                             </div>
 
                                             <div class="clearfix"></div>
 
                                             <div class="card-form my-1 mobile-code-validate">
-                                                <input type="text" id="mobile_code" class="form-input mobile-code-validate-input" placeholder="Enter Phone No." name="name">
+                                                <input type="text" id="mobilecode" class="form-input mobile-code-validate-input" placeholder="Enter Phone No." name="name">
                                                 <strong>Validate</strong>
                                             </div>
 
                                             <div class="clearfix"></div>
 
                                             <div class="otp-box-onboarding">
-                                                <input type="text" class="form-control">
-                                                <input type="text" class="form-control">
-                                                <input type="text" class="form-control">
-                                                <input type="text" class="form-control">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control test" id="password1" 
+                           						 name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password1" 
+                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password1" 
+                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password1" 
+                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password1" 
+                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                            					<input type="text" class="form-control test" id="password1" 
+                            					name="password1" maxlength="1" autocomplete="off"  onkeydown="focusBackOtp()">
                                             </div>
 
                                             <label class="time-otp" for="">00:30</label>
@@ -89,9 +96,12 @@
                                             </div>
 
                                             <div class="card-form">
-                                                <select class="form-select form-control no-bg border-0" aria-label="Default select example">
+                                                <select class="form-select form-control no-bg border-0" id="proofOfIdentity" name="proofOfIdentity" aria-label="Default select example">
                                                     <option selected="">Proof of Identity</option>
-                                                    <option value="1"></option>
+                                                    <option value="1">Passport</option>
+                                                    <option value="2">Voter In Card</option>
+                                                    <option value="3">Pan Card</option>
+                                                    
                                                 </select>
                                             </div>
                                             <div class="clearfix"></div>
@@ -114,37 +124,41 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="otp-box-onboarding">
-                                            <input type="text" class="form-control" placeholder="A">
-                                            <input type="text" class="form-control" placeholder="B">
-                                            <input type="text" class="form-control" placeholder="E">
-                                            <input type="text" class="form-control" placeholder="P">
-                                            <input type="text" class="form-control" placeholder="G">
-                                            <input type="text" class="form-control" placeholder="4">
-                                            <input type="text" class="form-control" placeholder="1">
-                                            <input type="text" class="form-control" placeholder="9">
-                                            <input type="text" class="form-control" placeholder="7">
-                                            <input type="text" class="form-control" placeholder="A">
+                                            <input type="text" class="form-control test" id="pan1" placeholder="A" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan2" placeholder="B" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan3" placeholder="E" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan4" placeholder="P" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan5" placeholder="G" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan6" placeholder="4" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan7" placeholder="1" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan8" placeholder="9" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan9" placeholder="7" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
+                                            <input type="text" class="form-control test" id="pan10" placeholder="A" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()" style="text-transform:uppercase">
                                         </div>
-
+ 										<div class="error-msg" id="panError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Bank Account Number</label>
-                                            <input type="text" class="form-input" placeholder="*************">
+                                            <input type="password" id="accountNo" onkeyup="validate()"  name="accountNo" 
+                                            class="form-input"  placeholder="*************" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
+                                        <div class="error-msg" id="accountNoError" style="color:red"></div>
                                         <div class="clearfix"></div>
 
                                         <div class="card-form my-3">
                                             <label for="">Confirm Bank Account Number</label>
-                                            <input type="text" class="form-input" placeholder="87452145874555">
+                                            <input type="text" class="form-input" onkeyup="validate()" id="confirmAccountNo"  
+                                            name="confirmAccountNo" placeholder="87452145874555" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
+                                         <div class="error-msg" id="confirmAccountNoError" style="color:red"></div>
                                         <div class="clearfix"></div>
                                         <div class="tip-wrap mb-4 align-items-start justify-content-start" style="background-color: #f4e9ec;">
                                             <p class="mb-0">The bank account numbers entered don’t match each other. Please try again.</p>
                                         </div>
 
                                         <div class="card-form my-3">
-                                            <input type="text" class="form-input" placeholder="Bank IFSC Code">
+                                            <input type="text" class="form-input" id="bankIfsc" maxlength="11" name="bankIfsc" onkeyup="validateIFSC()" placeholder="Bank IFSC Code" style="text-transform:uppercase">
                                         </div>
-
+										 <div class="error-msg" id="bankIfscError" style="color:red"></div>
                                         <div class="clearfix"></div>
 
                                         <div class="tip-wrap mb-4">
@@ -152,7 +166,7 @@
                                         </div>
 
                                         <div class="card-form my-1">
-                                            <input type="text" class="form-input" placeholder="Beneficiary Name (Optional)">
+                                            <input type="text" class="form-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name (Optional)">
                                         </div>
                                
                                         <div class="clearfix"></div>
@@ -207,7 +221,10 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
+    
+    
+	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
 
     <script>
@@ -234,6 +251,62 @@
         });
 
     });
+</script>
+
+<!-- <script>
+    // Get the password and confirm password fields
+    var passwordField = document.getElementById('accountNo').value;
+    var confirmPasswordField = document.getElementById('confirmAccountNo').value;
+    var message = document.getElementById('confirmAccountNoError');
+
+    // Add event listener to confirm password field
+    confirmPasswordField.addEventListener('input', function() {
+        // Check if passwords match
+        if (passwordField === confirmPasswordField) {
+            message.innerHTML = 'Passwords match';
+            message.style.color = 'green';
+        } else {
+            message.innerHTML = 'Passwords do not match';
+            message.style.color = 'red';
+        }
+    });
+</script> -->
+
+<script>
+function validate() {
+	var x= document.getElementById("accountNo").value;
+    var y= document.getElementById("confirmAccountNo").value;
+    var message = document.getElementById('confirmAccountNoError');
+
+    if (x === y) {
+        message.innerHTML = 'Passwords match';
+        message.style.color = 'green';
+    } else {
+        message.innerHTML = 'Passwords do not match';
+        message.style.color = 'red';
+    }
+}
+
+function validateIFSC(){
+	var x= document.getElementById("bankIfsc").value;
+    var message = document.getElementById('bankIfscError');
+    var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
+    if(x==""){
+    	document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
+		document.getElementById("bankIfsc").focus();
+		return false;
+    }
+    else if(!x.match(ifscRegex)){
+		document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
+		document.getElementById("bankIfsc").focus();
+		return false;
+	}
+    else{
+    	document.getElementById("bankIfscError").innerHTML="";
+    }
+  
+}
+
 </script>
 
 </body>

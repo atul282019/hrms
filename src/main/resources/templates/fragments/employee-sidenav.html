@@ -1,0 +1,39 @@
+<div th:fragment="sidevav">
+
+        <ul class="navbar-nav bg-dark-sidebar sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/dashboard}">
+                <div class="sidebar-brand-icon">
+                    <img src="img/avatar.png" alt="" width="36">
+                </div>
+                
+                <div class="sidebar-brand-text mx-2 text-left"><span class="text-muted text-sm" th:text="${session.username}"></span> <br> 
+                <!-- <span class="text-muted text-sm" th:text="${session.email}"></span> -->
+                </div>   
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active mt-3">
+                <a class="nav-link" th:href="@{/employee-dashboard}">
+                    <img src="img/home.png" alt="" class="mr-2">
+                    <span>Home</span></a>
+            </li>
+		
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/employeeProfile}">
+                 <img src="img/pf.png" alt="" class="mr-2"> <span>Employee Profile</span> </a>
+            </li>
+           
+          
+            <!-- Sidebar Toggler (Sidebar) -->
+
+            <li class="nav-item li-btm">               
+                <img src="img/undraw_profile.svg" alt="" width="30" class="mr-2">
+                <!-- <span class="text-muted text-sm" th:text="${session.mobile}"></span> -->
+                <a href="#" class="float-right mt-1"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
+            </li>
+
+        </ul>
+      
+</div>
