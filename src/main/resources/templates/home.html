@@ -96,12 +96,12 @@ Header END -->
 						<form action="" class="mt-2" id='waitlistuser' name='waitlistuser'>
 							<div class="mb-3">
 								<label class="form-label" for="exampleInputName">Your Name</label>
-								<input type="text" class="form-control" id="name" name="name" placeholder="Name">
+								<input type="text" class="form-control" id="name" name="name" placeholder="Name" onkeypress="validateWaitList()">
 							</div>
 							<div class="error-msg" id="nameError1" style="color:red"></div>
 							<div class="mb-3">
 								<label class="form-label" for="exampleInputEmail1">Email Address</label>
-								<input type="email" class="form-control" id="email" name="email" placeholder="E-mail">
+								<input type="email" class="form-control" id="email" name="email" placeholder="E-mail" onkeypress="validateWaitList()">
 							</div>
 							<div class="error-msg" id="emailError1" style="color:red"></div>
 							
@@ -410,17 +410,17 @@ Service END -->
 							<form action="" class="mt-2" id="getintuch" name="getintuch">
 								<div class="form-wrap">
 									<img src="img/User.svg" alt="">
-									<input type="text" class="form-input" placeholder="Full Name" id="name1" name="name">
+									<input type="text" class="form-input" placeholder="Full Name" id="name1" name="name" onkeypress="validateGetInTuch()">
 								</div>
 								<div class="error-msg" id="name1Error1" style="color:red"></div>
 								<div class="form-wrap">
 									<img src="img/EnvelopeSimple.svg" alt="">
-									<input type="text" class="form-input" placeholder="Email" id="email1" name="email">
+									<input type="text" class="form-input" placeholder="Email" id="email1" name="email" onkeypress="validateGetInTuch()">
 								</div>
 								<div class="error-msg" id="email1Error1" style="color:red"></div>
 								<div class="form-wrap">
 									<img src="img/PhoneCall.svg" alt="">
-									<input type="text" class="form-input" placeholder="Phone No." id="mobile1" name="mobile">
+									<input type="text" class="form-input" onkeypress="validateGetInTuch()" placeholder="Phone No." id="mobile1" name="mobile" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 								</div>
 								
 								<div id="msgdiv" style="display:none" class="alert alert-success text-center">
@@ -572,7 +572,7 @@ JS libraries, plugins and custom scripts -->
 	
 	
 	function getInTuch(){
-		alert("test");
+		
 		var name =document.getElementById("name1").value;
 		var email = document.getElementById("email1").value;
 		var mobile = document.getElementById("mobile1").value;
@@ -710,6 +710,75 @@ JS libraries, plugins and custom scripts -->
 	    });
 	}
 
+	
+	function validateWaitList(){
+		
+		var name =document.getElementById("name").value;
+		var email = document.getElementById("email").value;
+		
+		var regMobile = /^[6-9]\d{9}$/gi;
+		var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+		
+		if(name==""){
+			document.getElementById("nameError1").innerHTML="Please Enter Name";
+			document.getElementById("name").focus();
+			return false;
+		}else{
+			document.getElementById("nameError1").innerHTML="";
+		}
+		if(email==""){
+			document.getElementById("emailError1").innerHTML="Please Enter Email";
+			document.getElementById("email").focus();
+			return false;
+		}else if(!email.match(regEmail)){
+			document.getElementById("emailError1").innerHTML="Please Enter Valid Email";
+			document.getElementById("email").focus();
+			return false;
+		}else{
+			document.getElementById("emailError1").innerHTML="";
+		}
+	}
+	
+function validateGetInTuch(){
+		
+	var name =document.getElementById("name1").value;
+	var email = document.getElementById("email1").value;
+	var mobile = document.getElementById("mobile1").value;
+	
+	var regMobile = /^[6-9]\d{9}$/gi;
+	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+	
+	if(name==""){
+		document.getElementById("name1Error1").innerHTML="Please Enter Name";
+		document.getElementById("name1").focus();
+		return false;
+	}else{
+		document.getElementById("name1Error1").innerHTML="";
+	}
+	if(email==""){
+		document.getElementById("email1Error1").innerHTML="Please Enter Email";
+		document.getElementById("email1").focus();
+		return false;
+	}else if(!email.match(regEmail)){
+		document.getElementById("email1Error1").innerHTML="Please Enter Valid Email";
+		document.getElementById("email1").focus();
+		return false;
+	}else{
+		document.getElementById("email1Error1").innerHTML="";
+	}
+	
+	if(mobile==""){
+		document.getElementById("mobile1Error1").innerHTML="Please Enter Mobile Number";
+		document.getElementById("mobile1").focus();
+		return false;
+	}else if(!mobile.match(regMobile)){
+		document.getElementById("mobile1Error1").innerHTML="Please Enter Valid Mobile Number";
+		document.getElementById("mobile1").focus();
+		return false;
+	}else{
+		document.getElementById("mobile1Error1").innerHTML="";
+	}
+	}
 	</script>
 
 </body>
