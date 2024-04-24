@@ -1756,8 +1756,13 @@ img.searchimg {
   margin-left: 100px;
 }
 
-.card-form.mobile-code-validate strong {
-  float: right; margin-top: 4px; font-weight: 500;
+.card-form.mobile-code-validate button.validate-btn {
+  float: right;
+  margin-top: 4px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  color: #858796;
 }
 
 .card-form input.form-input.mobile-code-validate-input {

@@ -40,7 +40,7 @@
                                                 <span>1</span>
                                                 <label>The Basics </label>
                                             </div>
-                                            <div class="breadcrumb-in">
+                                            <div class="breadcrumb-in" id="tab2">
                                                 <span>2</span>
                                                 <label>Bank Information</label>
                                             </div>
@@ -57,40 +57,64 @@
                                                 <label for="">Name</label>
                                                 <input type="text" class="form-input" id="name" name="name">
                                             </div>
+                                            <div class="error-msg" id="nameError" style="color:red"></div>
                                             <div class="clearfix"></div>
 
                                             <div class="card-form my-3">
                                                 <input type="text" class="form-input" id="email" name="email" placeholder="Enter Email ID">
                                                 <img src="img/verify.svg" class="email-verify" alt="">
                                             </div>
-
+											<div class="error-msg" id="emailError" style="color:red"></div>
                                             <div class="clearfix"></div>
 
                                             <div class="card-form my-1 mobile-code-validate">
                                                 <input type="text" id="mobilecode" class="form-input mobile-code-validate-input" placeholder="Enter Phone No." name="name">
-                                                <strong>Validate</strong>
+                                                <button class="validate-btn" id="optBtn" type="button"  onclick="getOTP()">Validate</button>
                                             </div>
-
+											<div class="error-msg" id="mobilecodeError" style="color:red"></div>
                                             <div class="clearfix"></div>
-
+											<div  id="loginIdDiv" style="display: none" >
                                             <div class="otp-box-onboarding">
-                                                <input type="text" class="form-control test" id="password1" 
-                           						 name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
-                                                <input type="text" class="form-control test" id="password1" 
-                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
-                                                <input type="text" class="form-control test" id="password1" 
-                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
-                                                <input type="text" class="form-control test" id="password1" 
-                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
-                                                <input type="text" class="form-control test" id="password1" 
-                            					name="password1" maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
-                            					<input type="text" class="form-control test" id="password1" 
-                            					name="password1" maxlength="1" autocomplete="off"  onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password1" name="password1"
+                           						  maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password2" name="password1" 
+                            					 maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password3" name="password1"
+                            					 maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password4" name="password1"
+                            					 maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                                                <input type="text" class="form-control test" id="password5" name="password1"
+                            					 maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
+                            					<input type="text" class="form-control test" id="password6" name="password1"
+                            					 maxlength="1" autocomplete="off"  onkeydown="focusBackOtp()">
                                             </div>
-
-                                            <label class="time-otp" for="">00:30</label>
+											</div>
+                                           <!--  <label class="time-otp" for="">00:30</label>
                                             <p>Didn’t receive the code? <a href="#">Resend Code</a></p>
-
+ 											-->
+ 											
+ 											 <div id="otpError" style="color:red"></div>	
+					                       <div id="errorOtp" style="color:red"></div>	
+					                       <!-- <div class="text-center" id="countdown" style="color: green;"></div>
+											<p id="successmessage"></p> -->
+											<label for="" id="countdown" style="color: green;" ></label>
+											
+											<div class="form-group">
+															<div class="row">
+																<div class="col-sm-12 col-sm-offset-3">
+																	<div id="successError">
+																		<p id="error" style="color: red" th:if="${message ne null}">
+																		 	<span id="incorrectOtp" th:text="${message}" style="color: red;"></span>
+																		 </p>
+																	</div>
+																</div>
+															</div>
+											</div>
+											
+					                        <p>Didn’t receive the code?  <a href="#" onclick="resendOTP()">Resend OTP</a></p>
+					                       <!--  <div class="d-grid">
+					                            <button class="btn btn-primary btn-user btn-block" id="optBtn" type="button"  onclick="getOTP()" >getOTP</button>
+					                        </div> -->
                                             <div class="tip-wrap mb-4">
                                                 <p class="mb-0">Validation code will be sent to your phone, Enter code to validate your phone number.</p>
                                             </div>
@@ -105,9 +129,19 @@
                                                 </select>
                                             </div>
                                             <div class="clearfix"></div>
-
+											
+											<div id="successmsgdiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
+							            	<span id="successmsg"></span>   
+								            </div>
+								            
+								            <div id="failmsgDiv" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
+								            	<span id="failmsg"></span>
+								            </div>
+								            
+                                       
                                             <div class="text-center text-md-center my-2 disabled">
-                                                <div class="btn btn-proceed w-100 my-1 next" id="emp-next1">Continue</div>
+                                            <input type="hidden" id="orderId" name="orderId">
+                                                <button class="btn btn-proceed w-100 my-1 next" id="empOnboarding" type="button" onclick="saveEmployeeProfile()" disabled>Continue</button>
                                             </div>
                                         </form>
                                     </div>
@@ -170,10 +204,20 @@
                                         </div>
                                
                                         <div class="clearfix"></div>
-
+                                        
+										<div id="successmsgdivtab2" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
+							            	<span id="successmsgtab2"></span>   
+								        </div>
+								            
+							            <div id="failmsgDivtab2" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-danger text-center">
+							            	<span id="failmsgtab2"></span>
+							            </div>
+								            
                                         <div class="text-center text-md-center my-2 disabled">
+                                        	<input type="hidden" id="empid" name="empid">
+                                        	<input type="hidden" id="inputpan" name="inputpan">
                                             <div class="btn btn-proceed-border my-1" id="back-emp-onb-one">Back to Previous Page</div>
-                                            <div class="btn btn-proceed my-1 next">Confirm</div>
+                                            <button type="button" class="btn btn-proceed my-1 next" id="confirm" onclick="saveEmployeeProfileTab2()">Confirm</button>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +247,8 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+ <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+ <div class="lds-spinner" id="loginLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -228,16 +273,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
 
     <script>
-                // -----Country Code Selection
+    
+        // -----Country Code Selection
         $("#mobile_code").intlTelInput({
             initialCountry: "in",
             separateDialCode: true,
             // utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
         });
+        
         </script>
 
 <script>
 
+	$(document).ready(function(){
+		
+		 $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+	
     $(document).ready(function () {
 
         $("#emp-next1").click(function () {
@@ -253,24 +310,7 @@
     });
 </script>
 
-<!-- <script>
-    // Get the password and confirm password fields
-    var passwordField = document.getElementById('accountNo').value;
-    var confirmPasswordField = document.getElementById('confirmAccountNo').value;
-    var message = document.getElementById('confirmAccountNoError');
 
-    // Add event listener to confirm password field
-    confirmPasswordField.addEventListener('input', function() {
-        // Check if passwords match
-        if (passwordField === confirmPasswordField) {
-            message.innerHTML = 'Passwords match';
-            message.style.color = 'green';
-        } else {
-            message.innerHTML = 'Passwords do not match';
-            message.style.color = 'red';
-        }
-    });
-</script> -->
 
 <script>
 function validate() {
@@ -282,7 +322,7 @@ function validate() {
         message.innerHTML = 'Passwords match';
         message.style.color = 'green';
     } else {
-        message.innerHTML = 'Passwords do not match';
+        message.innerHTML = 'Account No do not match';
         message.style.color = 'red';
     }
 }

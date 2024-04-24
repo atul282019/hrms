@@ -467,4 +467,31 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		
 		return profileRes;
 	}
+	
+	@PostMapping(value="/saveEmployeeProfile")
+	public @ResponseBody String saveEmployeeProfile(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		String res=null;String userRes=null;
+		
+		profileRes = employeeDetailService.saveEmployeeProfile(tokengeneration.getToken(),employeeOnboarding);
+		logger.info(profileRes);
+		profileJsonRes= new JSONObject(profileRes);
+		
+		if(profileJsonRes.getBoolean("status")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginsevice.rsendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return profileRes;
+	}
+	
 }

@@ -48,4 +48,6 @@ public interface CommonUtils {
 	
 	public static String saveWaitlist = "/userServices/Api/add/saveWaitingListUsers"; 
 	
+	public static String saveEmployeeProfile = "/empService/Api/add/saveEmplOnboardingNew";
+	
 }
