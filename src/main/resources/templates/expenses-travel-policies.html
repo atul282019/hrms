@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+            <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+               
+		<div th:insert="fragments/header.html :: header"></div>
+
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs expense-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home">Expenses & Travel Policies</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Claim Settings</a></li>
+                              </ul>
+                              
+                              <div class="tab-content">
+                                <div id="home" class="tab-pane in active">
+                                  
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Approval & Payout Flow Settings</h4>
+                                            <div class="policies-wrap-in">
+                                                <div class="policies-wrap-in-left">
+                                                    <div class="policies-wrap-in-approval">
+                                                        <h4>Approval Flow</h4>
+                                                        <div class="approval-input">
+                                                            <input type="text" class="form-control form-control-50" placeholder="Employee">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Plus One Reporting Level">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Plus Two Reporting Level">
+                                                        </div>                                                    
+                                                    </div>
+                                                    <img src="img/green-right-arrow.svg" alt="">
+                                                    <div class="policies-wrap-in-approval policies-wrap-in-approval-50">
+                                                        <h4>Payout Authorisation Flow</h4>
+                                                        <div class="approval-input">
+                                                            <input type="text" class="form-control" placeholder="Human Resources">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Finance">
+                                                        </div>                                                    
+                                                    </div>
+                                                </div>
+                                                <div class="policies-wrap-in-right">
+                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalApproval">
+                                                        <img src="img/edit.svg" alt="">
+                                                      </button>                                                  
+                                                </div>                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+
+
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Advance Request Settings </h4>
+                                            
+                                            <div class="policies-wrap-in d-block">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox small">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                        <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for cash advances & travel bookings.</label>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <div class="policies-wrap-in-left">                                                
+                                                        <div class="incurring-exp">
+                                                            <p>After availing a cash advance, an employee is required to submit respective expense claim within: <input type="text" class="form-control incurr" placeholder="60">days of incurring expense.</p>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="policies-wrap-in-right">
+                                                        <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalAdvanceRequest">
+                                                            <img src="img/edit.svg" alt="">
+                                                        </button> 
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Expense Category Settings </h4>
+                                            
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-policies">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>EXPENSE CATEGORY</th>
+                                                                <th>EXPENSE CODE</th>
+                                                                <th>EXPENSE LIMIT</th>
+                                                                <th>DAYS TO EXPIRY <div class="d-inline"><img src="img/infoo.svg" alt=""></div></th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/Travel.svg" alt="" class="mr-2">Travel
+                                                                </td>
+                                                                <td>EXP01</td>
+                                                                <td><p>No Upper Limits</p></td>
+                                                                <td>30 Days</td>
+                                                                <td><a href="#"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/taxi.svg" alt="" class="mr-2">Conveyance
+                                                                </td>
+                                                                <td>EXP02</td>
+                                                                <td><p>Limits based on Duration</p><a href="#"><img src="img/add-tr.svg" alt=""></a></td>
+                                                                <td>60 Days</td>
+                                                                <td><a href="#"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/hotel.svg" alt="" class="mr-2">Stay
+                                                                </td>
+                                                                <td>EXP03</td>
+                                                                <td><p>Limits based on Employee Bands</p><a href="#"><img src="img/add-tr.svg" alt=""></a></td>
+                                                                <td>20 Days</td>
+                                                                <td><a href="#"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/food.svg" alt="" class="mr-2">Food
+                                                                </td>
+                                                                <td>EXP04</td>
+                                                                <td><p>Limits based on Employee Bands & Duration</p><a href="#"><img src="img/remove-tr.svg" alt=""></a></td>
+                                                                <td>20 Days</td>
+                                                                <td><a href="#"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/cash.svg" alt="" class="mr-2">Cash Advance
+                                                                </td>
+                                                                <td>EXP05</td>
+                                                                <td class="d-block"><p class="d-inline">Per Quarter</p><div class="perquarter"><span>INR</span><input type="text" placeholder="50,000"></div></td>
+                                                                <td>20 Days</td>
+                                                                <td><a href="#"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/Miscellaneous.svg" alt="" class="mr-2">Miscellaneous
+                                                                </td>
+                                                                <td>EXP06</td>
+                                                                <td><p>No Upper Limits</p></td>
+                                                                <td>30 Days</td>
+                                                                <td><a href="#"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a></td>
+                                                            </tr>
+                                                            <tr class="last-add">
+                                                                <td colspan="5">
+                                                                    <a href="#" class="add-ctgry">+ Add Category</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Currency Conversion Settings </h4>
+                                            
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-policies">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>CHOOSE CURRENCY</th>
+                                                                <th class="conversion">CONVESRION METHOD</th>
+                                                                <th>CONVERSION RATE</th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-currency">
+                                                                        <select class="select-currency">
+                                                                            <option value="">Currency 1</option>
+                                                                        </select>
+                                                                        <img src="img/Arrow-grey.svg" alt="">
+                                                                        <select class="select-currency">
+                                                                            <option value="">Currency 2</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="position: relative;">
+                                                                    <div class="toggleWrapper">
+                                                                        <input type="checkbox" class="dn" id="dn"/>
+                                                                        <label for="dn" class="toggle">
+                                                                            <span class="toggle__handler"></span>       
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>0.012</td>
+                                                                <td>                                                                    
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalCurrencyConversion">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>                                                           
+                                                            <tr class="last-add">
+                                                                <td colspan="4">
+                                                                    <a href="#" class="add-ctgry">+ Add Currency Conversion</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div id="menu1" class="tab-pane ">
+                                  <h3>Menu 1</h3>
+                                  <p>Some content in menu 1.</p>
+                                </div>                                
+                              </div>
+                        </div>
+                    </div>
+                                        
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+
+ <!-- Modal Approval Payout Flow Settings -->
+<div class="modal fade" id="ModalApproval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+      <div class="modal-content">
+        <div class="modal-header pb-0">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Approval &amp; Payout Flow Settings</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="policies-wrap-in-approval">
+                <h4>Approval Flow</h4>
+                <div class="approval-input">
+                    <div class="form-wrap form-control-50 active">
+                        Employee
+                    </div>
+                    <img src="img/right-arrow-sm.svg" alt="">
+                    <div class="form-wrap">
+                        <label for="">Reporting Level 1 </label>
+                        <img src="img/cross-green.svg" alt="">
+                    </div>
+                    <img src="img/right-arrow-sm.svg" alt="">
+                    <div class="form-wrap">
+                        <label for="">Reporting Level 2 </label>
+                        <img src="img/cross-green.svg" alt="">
+                    </div>
+                    <img src="img/right-arrow-sm.svg" alt="">
+                    <div class="form-wrap">
+                        <label for="">Reporting Level 3 </label>
+                        <img src="img/cross-green.svg" alt="">
+                    </div>
+                    <img src="img/right-arrow-sm.svg" alt="">
+                    <div class="form-wrap">
+                        <label for="">Reporting Level 4 </label>
+                        <img src="img/cross-green.svg" alt="">
+                    </div>
+                </div>                                                    
+            </div>
+            <br>
+            <div class="policies-wrap-in-approval w-64">
+                <h4>Payout Authorisation Flow</h4>
+                <div class="approval-input">                    
+                    <div class="form-wrap">
+                        <label for="">Add Another Level </label>
+                        <img src="img/add-tr.svg" alt="">
+                    </div>
+                    <img src="img/right-arrow-sm.svg" alt="">
+                    <div class="form-wrap">
+                        <label for="">Human Resources </label>
+                        <img src="img/cross-green.svg" alt="">
+                    </div>
+                    <img src="img/right-arrow-sm.svg" alt="">
+                    <div class="form-wrap active">
+                        <label for="">Finance & Accounts </label>
+                    </div>                    
+                </div>                                                    
+            </div>
+            <div class="d-block mt-3">
+                <button class="btn btn-primary d-block btn-lg w-100">Count</button>
+            </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Advance Request -->
+<div class="modal fade" id="ModalAdvanceRequest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered modal-approval-wrap" role="document">
+      <div class="modal-content">
+        <div class="modal-header pb-0">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Advance Request Settings</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="policies-wrap-in-modal">
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="customCheck2">
+                        <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for cash advances & travel bookings.</label>
+                    </div>
+                </div>
+                <div class="incurring-exp-modal">
+                    <p>An employee is required to submit respective expense claims within: <input type="text" class="form-control incurr" placeholder="60">days of the disbursal of cash advance.</p>
+                </div>
+            </div>
+            
+            
+            <div class="d-block mt-3">
+                <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
+            </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal Currency Conversion -->
+<div class="modal fade" id="ModalCurrencyConversion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered modal-approval-wrap" role="document">
+      <div class="modal-content">
+        <div class="modal-header pb-0">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Currency Conversion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="table-currency">
+                <select class="select-currency">
+                    <option value="">Currency 1</option>
+                </select>
+                <img src="img/Arrow-grey.svg" alt="">
+                <select class="select-currency">
+                    <option value="">Currency 2</option>
+                </select>
+            </div>
+            <br>
+            <div class="toggle-wrap">
+                <div class="toggleWrapper">
+                    <input type="checkbox" class="dn" id="dn">
+                    <label for="dn" class="toggle">
+                        <span class="toggle__handler"></span>       
+                    </label>
+                </div>
+            </div>
+            <br>
+            <div class="conversion-div">
+                <label for="">Conversion Rate</label>
+                <input type="text" class="conversion-input" placeholder="0.012">
+            </div>
+            
+            
+            <div class="d-block mt-3">
+                <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
+            </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

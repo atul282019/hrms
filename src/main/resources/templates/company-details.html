@@ -491,7 +491,7 @@
                                                 </tbody>
                                             </table>
                                            
-                                            <input type="button" class="text-center d-block btn-grren add-custom" onclick="addRow()" value="+ Add Custom allowance" />
+                                            <input id="addButton" type="button" class="text-center d-block btn-grren add-custom" onclick="addRow()" value="+ Add Custom allowance" />
                                                               
                                         </div>
 
@@ -807,6 +807,7 @@ $(document).ready(function(){
 
 <script>
 function addRow() {
+	dissableButton();
     var table = document.getElementById("newTable").getElementsByTagName('tbody')[0];
     var newRow = table.insertRow(table.rows.length);
 
@@ -873,6 +874,18 @@ function addRow() {
 function deleteRow(btn) {
     var row = btn.parentNode.parentNode;
     row.parentNode.removeChild(row);
+}
+
+function dissableButton(){
+	
+	var rowCount = document.getElementById('newTable').rows.length;
+	if(rowCount=="10"){
+		document.getElementById("addButton").disabled=true;
+		
+		var element = document.getElementById("addButton");
+		  element.classList.add("btn-disabled");
+		
+	}
 }
 </script>	
 </body>
