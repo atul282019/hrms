@@ -807,10 +807,9 @@ $(document).ready(function(){
 
 <script>
 function addRow() {
-	dissableButton();
+	
     var table = document.getElementById("newTable").getElementsByTagName('tbody')[0];
     var newRow = table.insertRow(table.rows.length);
-
     var cell1 = newRow.insertCell(0);
     var nameInput = document.createElement("input");
     nameInput.type = "text";
@@ -853,39 +852,55 @@ function addRow() {
 	    taxable.setAttribute('class',"no-bg no-border");
 		
 	 
-    genderSelect.add(maleOption);
-    genderSelect.add(femaleOption);
-    cell3.appendChild(genderSelect);
-
-    taxable.add(taxable1);
-    taxable.add(taxable2);
-    cell4.appendChild(taxable);
-
-    var cell5 = newRow.insertCell(4);
-    var deleteButton = document.createElement("button");
-   deleteButton.innerHTML = '<i class="fa fa-trash"> </i>';
-    deleteButton.setAttribute('class',"text-left remove-btn");
-    deleteButton.onclick = function() {
-        deleteRow(this);
-    };
-    cell5.appendChild(deleteButton);
+	    genderSelect.add(maleOption);
+	    genderSelect.add(femaleOption);
+	    cell3.appendChild(genderSelect);
+	
+	    taxable.add(taxable1);
+	    taxable.add(taxable2);
+	    cell4.appendChild(taxable);
+	
+	    var cell5 = newRow.insertCell(4);
+	    var deleteButton = document.createElement("button");
+	   deleteButton.innerHTML = '<i class="fa fa-trash"> </i>';
+	    deleteButton.setAttribute('class',"text-left remove-btn");
+	    deleteButton.onclick = function() {
+	        deleteRow(this);
+	    };
+    	cell5.appendChild(deleteButton);
+    	dissableButton();
 }
 
 function deleteRow(btn) {
     var row = btn.parentNode.parentNode;
     row.parentNode.removeChild(row);
+    enableAddButton();
 }
 
 function dissableButton(){
-	
-	var rowCount = document.getElementById('newTable').rows.length;
-	if(rowCount=="10"){
+	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
+	 document.getElementById("addButton").disabled=false;
+     var element = document.getElementById("addButton");
+     element.classList.remove("btn-disabled");
+    if(rowCount == "10"){
 		document.getElementById("addButton").disabled=true;
-		
 		var element = document.getElementById("addButton");
-		  element.classList.add("btn-disabled");
+		element.classList.add("btn-disabled");
 		
 	}
+    
+	
+}
+function enableAddButton(){
+	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
+	
+	if(rowCount <= "10"){
+		 document.getElementById("addButton").disabled=false;
+	     var element = document.getElementById("addButton");
+	     element.classList.remove("btn-disabled");
+		
+	}
+	
 }
 </script>	
 </body>
