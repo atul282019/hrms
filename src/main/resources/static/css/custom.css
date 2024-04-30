@@ -2341,6 +2341,129 @@ justify-content: space-between;
   width: 100px;
 }
 
-.btn-grren.btn-disabled {
-    background: #b6b8b9;
+.expense-table {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.expense-table .table thead, .expense-table .table tbody{
+  background: none;
+}
+
+.expense-table .table thead th, .expense-table .table tbody td{
+  padding: 3px;
+}
+
+.expense-table .table thead th .band {
+  color: #4A4E69;
+  border-radius: 40px;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.expense-table .table thead th .band1{
+  background-color: #BFDECC;
+}
+
+.expense-table .table thead th .band2{
+  background-color: #9FCEB3;
+}
+
+.expense-table .table thead th .band3{
+  background-color: #74B790;
+}
+
+.expense-table .table tbody td:nth-child(1) {
+  text-align: left;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.expense-table .table tbody td{
+  text-align: center;
+}
+.expense-table .table tbody td .perquarter{
+  margin: 0 auto;
+}
+
+.expense-table .table tbody td .perquarter input{
+  text-align: left;
+}
+
+.expense-inwrap h5 {
+  color: #4A4E69;
+  font-size: 16px;
+  font-weight: 600;
+  display: block;
+  margin: 0 0 15px;
+}
+
+.expense-inwrap p {
+  color: #86889B;
+  font-size: 16px;
+  font-weight: 400;
+  display: block;
+  margin: 0 0 15px;
+}
+
+.expense-card-inner {
+  background: #EDEDF0;
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.expense-card-inner .form-group {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #C7C8D1;
+  padding-bottom: 15px;
+}
+
+.expense-card-inner .expense-table {
+  max-width: 100%;
+}
+
+.expense-card-inner .expense-table .table thead th, .expense-card-inner .expense-table .table tbody td {
+  border: none;
+}
+
+.perquarter-in{
+  display: flex;
+  background: #ededf0;
+  height: calc(1.5em + .75rem + 2px);
+  border: 1px solid #cccdd5;
+  border-radius: 5px;
+  color: #4A4E69;
+  align-items: center;
+  padding: 0 10px;
+  margin: 0 3px 5px;
+}
+
+.perquarter-in input {
+  background: none;
+  border: none;
+  max-width: 150px;
+  text-align: left;
+  padding: .85rem .75rem;
+  width: 100%;
+}
+
+.perquarter-in input:focus{
+  background: transparent;
+  border:none;
+  box-shadow: none;
+}
+
+.perquarter-in input::placeholder{
+  color: #ACAEBA;
+}
+
+.expense-card-inner .expense-table .table tbody td a {
+  top: 5px;
+  position: relative;
 }

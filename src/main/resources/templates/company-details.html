@@ -872,9 +872,9 @@ function addRow() {
 }
 
 function deleteRow(btn) {
+	enableAddButton();
     var row = btn.parentNode.parentNode;
     row.parentNode.removeChild(row);
-    enableAddButton();
 }
 
 function dissableButton(){
@@ -882,6 +882,7 @@ function dissableButton(){
 	 document.getElementById("addButton").disabled=false;
      var element = document.getElementById("addButton");
      element.classList.remove("btn-disabled");
+	
     if(rowCount == "10"){
 		document.getElementById("addButton").disabled=true;
 		var element = document.getElementById("addButton");
@@ -895,9 +896,9 @@ function enableAddButton(){
 	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
 	
 	if(rowCount <= "10"){
-		 document.getElementById("addButton").disabled=false;
-	     var element = document.getElementById("addButton");
-	     element.classList.remove("btn-disabled");
+		document.getElementById("addButton").disabled=true;
+		var element = document.getElementById("addButton");
+		element.classList.add("btn-disabled");
 		
 	}
 	
