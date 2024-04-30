@@ -29,5 +29,6 @@ public class EmployeePayrollRequest {
     private String taxableLta;
     private Integer status; 
     private String response;
+    private String[] list;
 
 }
