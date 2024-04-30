@@ -55,6 +55,10 @@ public class PayrollComtroller extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res=null;String userRes=null;
+		String data[]=employeePayrollRequest.getList();
+		for(int i=0;i<data.length-1;i++) {
+			System.out.println(data[i]);
+		}
 		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
 		profileJsonRes= new JSONObject(profileRes);
 			

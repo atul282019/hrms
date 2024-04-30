@@ -421,7 +421,7 @@ function getPayrollMaster()  {
 
 function validatePayrollAndSubmit(){
 	
-	        var salaryComponentBasic =  document.getElementById("salaryComponentBasic2").innerText;
+	        /*var salaryComponentBasic =  document.getElementById("salaryComponentBasic2").innerText;
 			var perCtcBasic = document.getElementById("perCtcBasic2").value;
 			var perBasic = document.getElementById("perBasic2").value;
 			var taxableBasic = document.getElementById("taxableBasic2");
@@ -442,7 +442,7 @@ function validatePayrollAndSubmit(){
 			var taxableLta = document.getElementById("taxableLta2").value;
 			
 			 var regName = /^[a-zA-Z\s]*$/;
-			 var onlySpace = /^$|.*\S+.*/;
+			 var onlySpace = /^$|.*\S+.;
 	 
 
 	var employerId = document.getElementById("employerId").value;
@@ -470,9 +470,40 @@ function validatePayrollAndSubmit(){
 	formData.append("taxableLta", taxableLta);
 	
 	
-	formData.append("employerId", employerId);
+	formData.append("employerId", employerId);*/
 	
 	document.getElementById("signinLoader").style.display="flex";
+	
+	
+	
+	//
+	var formData = new FormData(savePayroll);
+	var table = document.getElementById("newTable");
+    var rows = table.getElementsByTagName("tr");
+    var allInputValues = [];
+
+	
+	 $('.newTable tbody tr').each(function () {
+		 
+	        var hours = $(this).find('select.per').val();
+	        var rate = $(this).find('select.tax').val();
+	       // alert(""+hours+""+rate);
+	        var comp = $(this).find('span.comp').html();
+	        var age = $(this).find('input.age').val();
+	      // alert(""+comp+""+age);
+	      var rowvalue=hours+"|"+rate+"|"+comp+"|"+age;
+	       allInputValues.push(rowvalue);
+	    }); 
+    
+       
+   
+    console.log(allInputValues);
+    
+    
+    formData.append("list", allInputValues);
+    
+    
+	//
 	
 	 	$.ajax({
 		type: "POST",
@@ -521,3 +552,44 @@ function validatePayrollAndSubmit(){
     });			
                
 	}  
+	
+
+function findAllInputValues() {
+    var table = document.getElementById("newTable");
+    var rows = table.getElementsByTagName("tr");
+    var allInputValues = [];
+
+    // Iterate over each row (skipping the header row)
+    for (var i = 1; i < rows.length; i++) {
+        var row = rows[i];
+        var rowData = [];
+
+        // Get all td elements in the row
+        var tds = row.getElementsByTagName("td");
+
+        // Iterate over each td element in the row
+        for (var j = 0; j < tds.length; j++) {
+            var td = tds[j];
+
+            // Check if the td contains an input element
+            var input = td.querySelector("input");
+            if (input) {
+                // Get the value of the input element
+                var inputValue = input.value.trim();
+                // Add the input value to the rowData array
+                rowData.push(inputValue);
+            } else {
+                // Get the text content of the td element
+                var tdText = td.textContent.trim();
+                // Add the text content to the rowData array
+                rowData.push(tdText);
+            }
+        }
+
+        // Add the rowData array to the allInputValues array
+        allInputValues.push(rowData);
+    }
+
+    return allInputValues;
+}
+	
