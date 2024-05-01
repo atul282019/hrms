@@ -2467,3 +2467,7 @@ justify-content: space-between;
   top: 5px;
   position: relative;
 }
+
+.btn-grren.btn-disabled {
+    background: #b6b8b9;
+}

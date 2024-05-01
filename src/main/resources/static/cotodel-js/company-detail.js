@@ -365,7 +365,8 @@ function getPayrollMaster()  {
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.data;
 			$('#salaryComponentBasic').html(data2[0].per);
-			$('#salaryComponentBasic2').html(data2[0].per);
+			//$('#salaryComponentBasic2').html(data2[0].per);
+			document.getElementById("salaryComponentBasic2").value = data2[0].per;
 			$('#perCtcBasic').html(data2[0].per_ctc);
 			document.getElementById("perCtcBasic2").value = data2[0].per_ctc;
 			
@@ -375,8 +376,8 @@ function getPayrollMaster()  {
 			//document.getElementById("taxableBasic2").value = data2[0].taxable;
 			
 			$('#salaryComponentHra').html(data2[1].per);
-			$('#salaryComponentHra2').html(data2[1].per);
-			
+			//$('#salaryComponentHra2').html(data2[1].per);
+			document.getElementById("salaryComponentHra2").value = data2[1].per;
 			$('#perCtcHra').html(data2[1].per_ctc);
 			document.getElementById("perCtcHra2").value = data2[1].per_ctc;
 			
@@ -387,8 +388,9 @@ function getPayrollMaster()  {
 			//document.getElementById("taxableHra2").value = data2[1].taxable;
 			
 			$('#salaryComponentSpecial').html(data2[2].per);
-			$('#salaryComponentSpecial2').html(data2[2].per);
+			//$('#salaryComponentSpecial2').html(data2[2].per);
 			
+			document.getElementById("salaryComponentSpecial2").value = data2[2].per;
 			$('#perCtcSpecial').html(data2[2].per_ctc);
 			document.getElementById("perCtcSpecial2").value = data2[2].per_ctc;
 			
@@ -400,8 +402,8 @@ function getPayrollMaster()  {
 			
 			
 			$('#salaryComponentLta').html(data2[3].per);
-			$('#salaryComponentLta2').html(data2[3].per);
-			
+			//$('#salaryComponentLta2').html(data2[3].per);
+			document.getElementById("salaryComponentLta2").value = data2[3].per;
 			$('#perCtcLta').html(data2[3].per_ctc);
 			document.getElementById("perCtcLta2").value = data2[3].per_ctc;
 				
@@ -485,13 +487,13 @@ function validatePayrollAndSubmit(){
 	
 	 $('.newTable tbody tr').each(function () {
 		 
-	        var hours = $(this).find('select.per').val();
-	        var rate = $(this).find('select.tax').val();
+	        var per = $(this).find('select.per').val();
+	        var taxable = $(this).find('select.tax').val();
 	       // alert(""+hours+""+rate);
-	        var comp = $(this).find('span.comp').html();
-	        var age = $(this).find('input.age').val();
+	        var component = $(this).find('input.comp').val();
+	        var percentage = $(this).find('input.percent').val();
 	      // alert(""+comp+""+age);
-	      var rowvalue=hours+"|"+rate+"|"+comp+"|"+age;
+	      var rowvalue=component+"|"+percentage+"|"+per+"|"+taxable;
 	       allInputValues.push(rowvalue);
 	    }); 
     

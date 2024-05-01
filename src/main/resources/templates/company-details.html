@@ -420,8 +420,9 @@
                                               
                                                   <tbody>
                                                     <tr>
-                                                        <td><span id="salaryComponentBasic2" class="comp"></span> </td>
-                                                        <td><input class="no-bg border-0 age" type="text" id="perCtcBasic2" maxlength="3" size="3"></td>
+                                                        <!-- <td><span id="salaryComponentBasic2" class="comp"></span> </td> -->
+                                                        <td><input class="no-bg border-0 age comp" type="text" id="salaryComponentBasic2" maxlength="30" size="10"></td>
+                                                        <td><input class="no-bg border-0 percent" type="text" id="perCtcBasic2" maxlength="3" size="3"></td>
                                                         <td>
                                                             <select class="no-bg no-border per" id="perBasic2" name="">
                                                                 <option value="Percentage">Percentage</option>
@@ -437,8 +438,9 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                         <td><span id="salaryComponentHra2" class="comp"></span> </td>
-                                                        <td><input class="no-bg border-0 age"  type="text" id="perCtcHra2" maxlength="3" size="3" ></td>
+                                                         <!-- <td><span id="salaryComponentHra2" class="comp"></span> </td> -->
+                                                          <td><input class="no-bg border-0 age comp"  type="text" id="salaryComponentHra2" maxlength="30" size="10" ></td>
+                                                        <td><input class="no-bg border-0 percent"  type="text" id="perCtcHra2" maxlength="3" size="3" ></td>
                                                         <td>
                                                             <select class="no-bg no-border per" id="perHra2" name="">
                                                                 <option value="Percentage">Percentage</option>
@@ -454,8 +456,9 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span id="salaryComponentSpecial2" class="comp"></span> </td>
-                                                        <td><input class="no-bg border-0 age" type="text" id="perCtcSpecial2" maxlength="3" size="3"></td>
+                                                        <!-- <td><span id="salaryComponentSpecial2" class="comp"></span> </td> -->
+                                                        <td><input class="no-bg border-0 age comp" type="text" id="salaryComponentSpecial2" maxlength="30" size="10"></td>
+                                                        <td><input class="no-bg border-0 percent" type="text" id="perCtcSpecial2" maxlength="3" size="3"></td>
                                                         <td>
                                                             <select class="no-bg no-border per" id="perSpecial2" name="">
                                                                 <option value="Percentage">Percentage</option>
@@ -471,8 +474,9 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span id="salaryComponentLta2" class="comp"></span> </td>
-                                                        <td><input class="no-bg border-0 age" type="text" id="perCtcLta2" maxlength="3" size="3"></td>
+                                                        <!-- <td><span id="salaryComponentLta2" class="comp"></span> </td> -->
+                                                        <td><input class="no-bg border-0 age comp" type="text" id="salaryComponentLta2" maxlength="30" size="10"></td>
+                                                        <td><input class="no-bg border-0 percent" type="text" id="perCtcLta2" maxlength="3" size="3"></td>
                                                         <td>
                                                             <select class="no-bg no-border per" id="perLta2" name="">
                                                                 <option value="Percentage">Percentage</option>
@@ -814,7 +818,7 @@ function addRow() {
     var nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.name = "name";
-    nameInput.setAttribute('class',"no-bg border-0");
+    nameInput.setAttribute('class',"no-bg border-0 comp");
     nameInput.setAttribute('maxlength',"30");
     nameInput.setAttribute('placeholder',"Salary Component");
     nameInput.setAttribute('size',"10");
@@ -825,7 +829,7 @@ function addRow() {
     var ageInput = document.createElement("input");
     ageInput.type = "text";
     ageInput.name = "age";
-	ageInput.setAttribute('class',"no-bg border-0");
+	ageInput.setAttribute('class',"no-bg border-0 percent");
 	ageInput.setAttribute('maxlength',"3");
 	ageInput.setAttribute('size',"3");
 	ageInput.setAttribute('placeholder',"% of ctc");
@@ -839,7 +843,7 @@ function addRow() {
     maleOption.text = "Percentage";
     var femaleOption = document.createElement("option");
     femaleOption.text = "Fixed";
-	 genderSelect.setAttribute('class',"no-bg no-border");
+	 genderSelect.setAttribute('class',"no-bg no-border per");
 	
 	 
 	 var cell4 = newRow.insertCell(3);
@@ -849,7 +853,7 @@ function addRow() {
 	    taxable1.text = "Yes";
 	    var taxable2 = document.createElement("option");
 	    taxable2.text = "No";
-	    taxable.setAttribute('class',"no-bg no-border");
+	    taxable.setAttribute('class',"no-bg no-border tax");
 		
 	 
 	    genderSelect.add(maleOption);
@@ -880,10 +884,6 @@ function deleteRow(btn) {
 
 function dissableButton(){
 	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
-	 document.getElementById("addButton").disabled=false;
-     var element = document.getElementById("addButton");
-     element.classList.remove("btn-disabled");
-	
     if(rowCount == "10"){
 		document.getElementById("addButton").disabled=true;
 		var element = document.getElementById("addButton");
@@ -895,11 +895,10 @@ function dissableButton(){
 }
 function enableAddButton(){
 	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
-	
 	if(rowCount <= "10"){
-		document.getElementById("addButton").disabled=true;
+		document.getElementById("addButton").disabled=false;
 		var element = document.getElementById("addButton");
-		element.classList.add("btn-disabled");
+		element.classList.remove("btn-disabled");
 		
 	}
 	

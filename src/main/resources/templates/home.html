@@ -691,13 +691,15 @@ JS libraries, plugins and custom scripts -->
 					 //document.getElementById("getInTouchUser").reset();
 					 $('#otmsgdiv').delay(5000).fadeOut(400);
 					//window.location.href = "http://localhost:9191/hrms/tempLogin?mobile="+mobile+"&email="+email;
-					 var mobile=document.getElementById("mobile").value;
+					/*  var mobile=document.getElementById("mobile").value;
 	    			 localStorage.setItem("userName", mobile);
-	    			 window.location.href = ""+$('#ctx').attr('content')+"/signin";
+	    			 window.location.href = ""+$('#ctx').attr('content')+"/signin"; */
+					 document.getElementById("dynamic").style.display = "none";
 				}else if(data1.status==false){
 					 document.getElementById("otfailmsg").innerHTML=data1.message;
 					 document.getElementById("otfailmsgDiv").style.display="block";
 					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+					 
 				}else{
 					 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
 					 document.getElementById("otfailmsgDiv").style.display="block";
