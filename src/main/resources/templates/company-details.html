@@ -690,7 +690,7 @@ function addRow() {
 	ageInput.setAttribute('class',"no-bg border-0 percent");
 	ageInput.setAttribute('maxlength',"3");
 	ageInput.setAttribute('size',"3");
-	ageInput.setAttribute('placeholder',"");
+	ageInput.setAttribute('placeholder',"%age of CTC");
  
     cell2.appendChild(ageInput);
 
@@ -763,26 +763,6 @@ function enableAddButton(){
 }
 </script>	
 
-
-<script>
-    function countValues() {
-      let total = 0;
-      const textBoxes = document.querySelectorAll('.percent');
-      
-      textBoxes.forEach(textBoxes => {
-        let value = parseInt(textBoxes.value, 10);
-        total += isNaN(value) ? 0 : value;
-      });
-
-      if (total === 100) {
-      } 
-      else {
-    	  document.getElementById("tableError").innerHTML="Total value is not 100. Please adjust the values.";
-    	  return false;
-       
-      }
-    }
-  </script>
 </body>
 
 </html>

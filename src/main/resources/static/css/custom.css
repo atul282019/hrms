@@ -2469,5 +2469,56 @@ justify-content: space-between;
 }
 
 .btn-grren.btn-disabled {
+  background: #b6b8b9;
+}
+
+table.table-reimbursements thead {
+  background: #2f945a;
+  color: #fff;
+}
+
+table.table-reimbursements thead tr th {
+  border: none;
+}
+
+table.table-reimbursements tbody {
+  background: #fff;
+}
+
+table.table-reimbursements tbody td {
+  border: none;
+  color: #1F212C;
+}
+
+table.table-reimbursements tbody td label {
+  color: #86889B;
+  margin-bottom: 0;
+}
+button.btn-attach {
+  background: none;
+  border: 2px solid #2F945A;
+  border-radius: 6px;
+  color: #2F945A;
+  font-size: 15px;
+  padding: 2px 10px 4px;
+  margin-right: 10px;
+}
+
+button.btn-attach img {
+  margin: 0 5px;
+}
+
+.btn-ellipsis{
+  background: none;
+  border: none;
+}
+
+.color-sec{
+  color: #86889B;
+}
+
+.otp-box.d-flex>input.form-control{ text-align:center}
+
+.btn-grren.btn-disabled {
     background: #b6b8b9;
 }

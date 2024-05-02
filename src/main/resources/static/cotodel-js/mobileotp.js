@@ -36,7 +36,7 @@ function getOTP() {
 				$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
 				var downloadTimer = setInterval(function() {
-					document.getElementById("countdown").innerHTML = "00."+timeleft;
+					document.getElementById("countdown").innerHTML = "00:"+timeleft;
 					timeleft -= 1;
 					document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];

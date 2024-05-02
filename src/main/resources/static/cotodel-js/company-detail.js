@@ -22,53 +22,10 @@ function validateFormAndSubmit(){
 	 var pinCode = document.getElementById("pinCode").value; 
 	 //var companyPan2 = document.getElementById("companyPan2").value; 
 	 var stateCode = document.getElementById("stateCode").value;  
-	       
-
+	 
 	 var regName = /^[a-zA-Z\s]*$/;
 	 var onlySpace = /^$|.*\S+.*/;
-	 
-/*
-	if(pname==""){
-		document.getElementById("nameError").innerHTML="Please Enter Purpose Name";
-		document.getElementById("pname").focus();
-		return false;
-	}else if(pname.length < 4 || pname.length > 70){
-		document.getElementById("nameError").innerHTML="Please Enter Name between 4 to 70 character";
-		document.getElementById("pname").focus();
-		return false;
-	}else if(!pname.match(regName) || !pname.match(onlySpace)){
-		document.getElementById("nameError").innerHTML="Name cannot Consist Number or Special Character";
-		document.getElementById("pname").focus();
-		return false;
-	}else{
-		document.getElementById("nameError").innerHTML="";
-	}
-	
-	if(pcode==""){
-		document.getElementById("pcodeError").innerHTML="Please Enter Purpose Code";
-		document.getElementById("pcode").focus();
-		return false;
-	}else if(pcode.length < 1 || pcode.length > 5){
-		document.getElementById("pcodeError").innerHTML="Please Enter Valid Purpose Code";
-		document.getElementById("pcode").focus();
-		return false;
-	}else{
-		document.getElementById("pcodeError").innerHTML="";
-	}
-	
-	if(payeecode==""){
-		document.getElementById("payeecodeError").innerHTML="Please Enter Payee Code";
-		document.getElementById("payeecode").focus();
-		return false;
-	}else if(payeecode.length != 4){
-		document.getElementById("payeecodeError").innerHTML="Payee Code should be 4 character only";
-		document.getElementById("payeecode").focus();
-		return false;
-	}else{
-		document.getElementById("payeecodeError").innerHTML="";
-		document.getElementById("overlay").style.display = "none";
-	}
-	*/
+
 	var formData = new FormData(saveCompany);
 	 	$.ajax({
 		type: "POST",
@@ -115,7 +72,7 @@ function validateFormAndSubmit(){
 					document.getElementById("gstnNo").focus();
 					return false;     
                 }   
-	}  
+		}  
 	function validateGstNumber() {
 				var gstnNo = document.getElementById("gstnNo").value;
                 var gstinformat = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;   
@@ -148,8 +105,7 @@ function validateFormAndSubmit(){
 				}else{
 					document.getElementById("organizationTypeError").innerHTML="";
 					
-				}
-				
+				}			
 				 if (pan =="") {    
                     document.getElementById("panError").innerHTML="Please Enter Valid Pan Number";
 					document.getElementById("pan").focus();
@@ -234,15 +190,6 @@ function validateFormAndSubmit(){
                 } else {    
                    document.getElementById("pinCodeError").innerHTML="";
                 }   
-                
-                /* if (companyPan2 =="") {    
-                    document.getElementById("companyPan2Error").innerHTML="Please Enter Company Pan";
-                    document.getElementById("companyPan2").focus();
-                    return false;   
-                } else {    
-                   document.getElementById("companyPan2Error").innerHTML="";
-                }   */
-	 
 	 			if (stateCode =="") {    
                     document.getElementById("stateCodeError").innerHTML="Please Select State";
                     document.getElementById("stateCode").focus();
@@ -259,8 +206,6 @@ function validateFormAndSubmit() {
 				var paidDate = document.getElementById("paidDate").value;
              	var runFayrollFlag = document.getElementById("runFayrollFlag").value;
              	var salaryAdvancesFlag = document.getElementById("salaryAdvancesFlag").value;
-             	
-             	
              	
                 if (paidDate =="") {    
 					document.getElementById("paidDateError").innerHTML="Please Select Date";
@@ -486,16 +431,17 @@ function validatePayrollAndSubmit(){
 			document.getElementById("tableError").innerHTML="";
       } 
       else {
-    	  document.getElementById("tableError").innerHTML="Total % age of CTC should be greater than or equal to 100. Please adjust the values.";
+    	  document.getElementById("tableError").innerHTML="Total % age of CTC should be less than or equal to 100. Please adjust the values.";
     	  return false;
       }
       
       //end calculating textbox value to 100
+      
 	document.getElementById("signinLoader").style.display="flex";
 	
+	// get dynamic table data start
 	var formData = new FormData(savePayroll);
     var allInputValues = [];
-
 	
 	 $('.newTable tbody tr').each(function () {
 		 
@@ -507,19 +453,13 @@ function validatePayrollAndSubmit(){
 	      // alert(""+comp+""+age);
 	      var rowvalue=component+"|"+percentage+"|"+per+"|"+taxable;
 	       allInputValues.push(rowvalue);
-	    }); 
-    
-       
-  
-   
-    console.log(allInputValues);
-    
+	    });  
+   // console.log(allInputValues);
+   // get dynamic table data start
     
     formData.append("list", allInputValues);
     
-    
-	//
-	
+ 
 	 	$.ajax({
 		type: "POST",
 	     url:""+$('#ctx').attr('content')+"/saveCompanyPayroll",
@@ -566,45 +506,5 @@ function validatePayrollAndSubmit(){
          }
     });			
                
-	}  
-	
-
-function findAllInputValues() {
-    var table = document.getElementById("newTable");
-    var rows = table.getElementsByTagName("tr");
-    var allInputValues = [];
-
-    // Iterate over each row (skipping the header row)
-    for (var i = 1; i < rows.length; i++) {
-        var row = rows[i];
-        var rowData = [];
-
-        // Get all td elements in the row
-        var tds = row.getElementsByTagName("td");
-
-        // Iterate over each td element in the row
-        for (var j = 0; j < tds.length; j++) {
-            var td = tds[j];
-
-            // Check if the td contains an input element
-            var input = td.querySelector("input");
-            if (input) {
-                // Get the value of the input element
-                var inputValue = input.value.trim();
-                // Add the input value to the rowData array
-                rowData.push(inputValue);
-            } else {
-                // Get the text content of the td element
-                var tdText = td.textContent.trim();
-                // Add the text content to the rowData array
-                rowData.push(tdText);
-            }
-        }
-
-        // Add the rowData array to the allInputValues array
-        allInputValues.push(rowData);
-    }
-
-    return allInputValues;
-}
+}  
 	

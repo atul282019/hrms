@@ -149,8 +149,7 @@
 				            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
 				            	<div id="otfailmsg"></div>
 				            </div>
-                        
-							
+				            							
                                 <div class="row">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="text-center text-md-center my-3">
@@ -207,7 +206,7 @@
 	$(document).ready(function(){
 		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="/hrms/manageEmployee"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  $('a[href="' + $('#ctx').attr('content') +'/manageEmployee"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
 	   $(".innernav").click(function(){
 	       $(".dropdownNav").addClass("active");
