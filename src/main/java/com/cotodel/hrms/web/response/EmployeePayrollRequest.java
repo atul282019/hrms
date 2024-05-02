@@ -1,5 +1,7 @@
 package com.cotodel.hrms.web.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,7 @@ public class EmployeePayrollRequest {
     private String taxableLta;
     private Integer status; 
     private String response;
-    private String[] list;
-
+    private String[] listArray;
+    private List<EmployeePayrollNew> list;
+    
 }

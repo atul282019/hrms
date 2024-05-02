@@ -27,7 +27,7 @@ public class PayrollServiceImpl implements PayrollService{
 	@Override
 	public String savePayrollDetail(String token, EmployeePayrollRequest employeePayrollRequest) {
 		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeePayrollRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.savePayrollDetail);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeePayrollRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.savePayrollDetailNew);
 
 	}
 	

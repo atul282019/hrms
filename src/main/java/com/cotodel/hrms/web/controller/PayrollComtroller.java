@@ -1,6 +1,9 @@
 package com.cotodel.hrms.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.EmployeePayrollNew;
 import com.cotodel.hrms.web.response.EmployeePayrollRequest;
 import com.cotodel.hrms.web.response.PayrollRequest;
 import com.cotodel.hrms.web.service.PayrollService;
@@ -55,10 +59,21 @@ public class PayrollComtroller extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res=null;String userRes=null;
-		String data[]=employeePayrollRequest.getList();
-		for(int i=0;i<data.length-1;i++) {
-			System.out.println(data[i]);
+		List<EmployeePayrollNew> list=new ArrayList<EmployeePayrollNew>();
+		String data[]=employeePayrollRequest.getListArray();
+		for (int i = 0; i < data.length; i++) {
+			String listValue=data[i];
+			String[] rowArray=listValue.split("@");
+			EmployeePayrollNew employeePayrollNew=new EmployeePayrollNew();
+			employeePayrollNew.setSalary_component(rowArray[0]);
+			employeePayrollNew.setPer_ctc(rowArray[1]);
+			employeePayrollNew.setPer(rowArray[2]);
+			employeePayrollNew.setTaxable(rowArray[3]);
+			employeePayrollNew.setEmployerId(employeePayrollRequest.getEmployerId().longValue());
+			list.add(employeePayrollNew);
 		}
+		
+		employeePayrollRequest.setList(list);
 		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
 		profileJsonRes= new JSONObject(profileRes);
 			
