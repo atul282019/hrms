@@ -473,15 +473,27 @@ function validatePayrollAndSubmit(){
 	
 	
 	formData.append("employerId", employerId);*/
-	
+	//calculating textbox value to 100
+	 let total = 0;
+      const textBoxes = document.querySelectorAll('.percent');
+      
+      textBoxes.forEach(textBoxes => {
+        let value = parseInt(textBoxes.value, 10);
+        total += isNaN(value) ? 0 : value;
+      });
+
+      if (total === 100) {
+			document.getElementById("tableError").innerHTML="";
+      } 
+      else {
+    	  document.getElementById("tableError").innerHTML="Total % age of CTC should be greater than or equal to 100. Please adjust the values.";
+    	  return false;
+      }
+      
+      //end calculating textbox value to 100
 	document.getElementById("signinLoader").style.display="flex";
 	
-	
-	
-	//
 	var formData = new FormData(savePayroll);
-	var table = document.getElementById("newTable");
-    var rows = table.getElementsByTagName("tr");
     var allInputValues = [];
 
 	
@@ -498,6 +510,7 @@ function validatePayrollAndSubmit(){
 	    }); 
     
        
+  
    
     console.log(allInputValues);
     
