@@ -21,6 +21,7 @@ public interface CommonUtils {
 	public static String saveEmployee = "/empService/Api/add/employeeDetails";
 	public static String getPayrollList = "/userServices/Api/get/payroll-list";
 	public static String savePayrollDetail = "/empService/Api/save/payrollDetails";
+	public static String savePayrollDetailNew = "/empService/Api/save/payrollDetailsNew";
 	public static String getPermission  = "/userServices/Api/get/Permissions";
 	public static String getRole  = "/userServices/Api/get/Roles";
 	public static String singleUserCreation  = "/userServices/Api/add/saveUsers";

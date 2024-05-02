@@ -457,7 +457,7 @@ function validatePayrollAndSubmit(){
    // console.log(allInputValues);
    // get dynamic table data start
     
-    formData.append("list", allInputValues);
+    formData.append("listArray", allInputValues);
     
  
 	 	$.ajax({
