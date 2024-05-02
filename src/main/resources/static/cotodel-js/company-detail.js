@@ -515,7 +515,7 @@ function validatePayrollAndSubmit(){
     console.log(allInputValues);
     
     
-    formData.append("list", allInputValues);
+    formData.append("listArray", allInputValues);
     
     
 	//
