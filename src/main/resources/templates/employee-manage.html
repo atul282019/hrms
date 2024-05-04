@@ -64,8 +64,30 @@
                                 <strong>Quick Filters</strong>
                             </ul>
 							 <!-- <ul id="searchHistory"><button class="btn btn-primary ">Cancel</button></ul> -->
-                            <div class="mt-4">
-                                <ul class="nav nav-pills mb-3 tabs-details" id="pills-tab" role="tablist">
+                            <div class="mt-4 tabs-details-tbl">
+                            	<div class="table-responsive">    
+                                            <table class="table table-sucess table-bordered" id="employeeTable">
+                                            
+                                                <thead>
+                                                    <tr>
+                                                   		<th onclick="sortTable(0)">Id</th>
+                                                        <th onclick="sortTable(1)">Name <img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(2)">Department <img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(3)">Designation <img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(4)">Employment Type <img src="img/Sort.svg" alt=""></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background: #fff;" id="employeeTableBody">
+                                                   
+                                                </tbody>
+                                            </table>
+                                        </div>
+                            
+                            			 <input type="hidden" name="employeeId" id="employeeId">
+                                         <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                            
+                              <!--   <ul class="nav nav-pills mb-3 tabs-details" id="pills-tab" role="tablist">
                                     <li class="nav-item">
                                       <a class="nav-link active" id="pills-active-tab" data-toggle="pill" href="#pills-active" role="tab" aria-controls="pills-active" aria-selected="true">Active</a>
                                     </li>
@@ -78,8 +100,8 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="pills-deactivated-tab" data-toggle="pill" href="#pills-deactivated" role="tab" aria-controls="pills-deactivated" aria-selected="false">Deactivated (0)</a>
                                     </li>
-                                </ul>
-                                <div class="tab-content tabs-details-tbl" id="pills-tabContent">
+                                </ul> -->
+                              <!--   <div class="tab-content tabs-details-tbl" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="pills-active" role="tabpanel" aria-labelledby="pills-active-tab">
                                         <div class="table-responsive">    
                                             <table class="table table-sucess table-bordered" id="employeeTable">
@@ -99,8 +121,8 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="pills-employees" role="tabpanel" aria-labelledby="pills-employees-tab">
+                                    </div> -->
+                                  <!--   <div class="tab-pane fade" id="pills-employees" role="tabpanel" aria-labelledby="pills-employees-tab">
                                         <div class="table-responsive">  
                                         
                                          <div class="table-responsive">
@@ -121,8 +143,8 @@
                                     </div>
                                           
                                      </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="pills-contractors" role="tabpanel" aria-labelledby="pills-contractors-tab">
+                                    </div> -->
+                               <!--      <div class="tab-pane fade" id="pills-contractors" role="tabpanel" aria-labelledby="pills-contractors-tab">
                                         <div class="table-responsive">    
                                             <table class="table">
                                                 <thead>
@@ -155,8 +177,8 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="pills-deactivated" role="tabpanel" aria-labelledby="pills-deactivated-tab">
+                                    </div> -->
+                                  <!--   <div class="tab-pane fade" id="pills-deactivated" role="tabpanel" aria-labelledby="pills-deactivated-tab">
                                         <div class="table-responsive">    
                                             <table class="table">
                                                 <thead>
@@ -189,11 +211,9 @@
                                                 </tbody>
                                             </table>
                                             
-                                            <input type="hidden" name="employeeId" id="employeeId">
-                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                            
+                                           
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -482,6 +502,7 @@ function search() {
         close[i].onclick = function() {
           var div = this.parentElement;
           div.style.display = "none";
+          getEmployeeOnboarding();
         }
       }
     }

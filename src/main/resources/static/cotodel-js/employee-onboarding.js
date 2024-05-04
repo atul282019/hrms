@@ -190,7 +190,8 @@ function getEmployeeOnboarding() {
             var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
 			//console.log(newData);
-           var table = $('#employeeTable').DataTable( {	
+           var table = $('#employeeTable').DataTable( {
+	          destroy: true,	
 		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
              "language": {"emptyTable": "No Data available"  },
@@ -239,7 +240,7 @@ function getEmployeeOnboarding() {
             
 			var data2 = data1.data;
 			//console.log(newData);
-			document.getElementById("empployeecount").innerHTML=data2.length; 
+			//document.getElementById("empployeecount").innerHTML=data2.length; 
            var table = $('#employee').DataTable( {	
 		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
