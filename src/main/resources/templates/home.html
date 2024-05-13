@@ -114,7 +114,7 @@ Header END -->
 				            </div>
 							<div class="row align-items-center">
 								<div class="col-12 text-center">
-									<input type="button" class="btn btn-lg btn-primary bradius-8" onclick="waitList()" value="Join">
+									<input type="button" id="joinWaitlist" class="btn btn-lg btn-primary bradius-8" onclick="waitList()" value="Join">
 								</div>
 							</div>
 						</form>
@@ -431,8 +431,8 @@ Service END -->
 					            </div>
 								<div class="error-msg" id="mobile1Error1" style="color:red"></div>
 							    <div class="mt-3"><a href="javascript:void(0)" class="btn btn-lg btn-primary bradius-8" onclick="getInTuch()">Submit <i
-								class="fas fa-arrow-right ms-2"></i></a></div>
-								<!-- <div class=" mt-3"><button id="getInTuch" class="btn btn-lg btn-primary bradius-8" type="button" onclick="getInTuch()" >Submit <i
+								class="fas fa-arrow-right ms-2"></i></a></div> 
+								<!--  <div class=" mt-3"><button id="getInTuch" class="btn btn-lg btn-primary bradius-8" type="button" onclick="getInTuch()" > Submit <i
 								class="fas fa-arrow-right ms-2"></i></button></div> -->
 							</form>
 					</div>
@@ -612,8 +612,14 @@ JS libraries, plugins and custom scripts -->
 		}else{
 			document.getElementById("mobile1Error1").innerHTML="";
 		}
+		
+	/* 	document.getElementById("getInTuch").disabled=true;
+		var element = document.getElementById("joinWaitlist");
+		element.classList.add("btn-disabled"); */
+		
 		  var formData = new FormData(getintuch);
 		  document.getElementById("signinLoader").style.display="flex";
+		  
 		 	$.ajax({
 			type: "POST",
 		     url:"/userWaitList",
@@ -676,8 +682,8 @@ JS libraries, plugins and custom scripts -->
 		}
 		document.getElementById("signinLoader").style.display="flex";
 		
-		document.getElementById("addButton").disabled=true;
-		var element = document.getElementById("addButton");
+		document.getElementById("joinWaitlist").disabled=true;
+		var element = document.getElementById("joinWaitlist");
 		element.classList.add("btn-disabled");
 		
 		  var formData = new FormData(waitlistuser);
@@ -702,16 +708,27 @@ JS libraries, plugins and custom scripts -->
 					/*  var mobile=document.getElementById("mobile").value;
 	    			 localStorage.setItem("userName", mobile);
 	    			 window.location.href = "/signin"; */
+	    			 document.getElementById("joinWaitlist").disabled=false;
+					 var element = document.getElementById("joinWaitlist");
+					 element.classList.remove("btn-disabled");
+					 
 					 document.getElementById("dynamic").style.display = "none";
 				}else if(data1.status==false){
 					 document.getElementById("otfailmsg").innerHTML=data1.message;
 					 document.getElementById("otfailmsgDiv").style.display="block";
 					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
 					 
+					 document.getElementById("joinWaitlist").disabled=false;
+					 var element = document.getElementById("joinWaitlist");
+					 element.classList.remove("btn-disabled");
+					 
 				}else{
 					 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
 					 document.getElementById("otfailmsgDiv").style.display="block";
 					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+					 document.getElementById("joinWaitlist").disabled=false;
+					 var element = document.getElementById("joinWaitlist");
+					 element.classList.remove("btn-disabled");
 				}
 	         },
 	         error: function(e){

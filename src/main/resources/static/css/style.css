@@ -22583,3 +22583,6 @@ input.form-input {
   }
 }
 
+.btn-grren.btn-disabled {
+    background: #b6b8b9;
+}
