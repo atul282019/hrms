@@ -4,7 +4,7 @@ function getProfileStatus(){
 	var employeeId = "2";//document.getElementById("employerId").value;
 	$.ajax({
 		type: "POST",
-		url: "" + $('#ctx').attr('content') + "/getCompanyProfileStatus",
+		url: "/getCompanyProfileStatus",
 		data: {
 				"employerId":employerId,
 				 "employeeId" :employeeId

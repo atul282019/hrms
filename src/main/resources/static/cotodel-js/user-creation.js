@@ -52,7 +52,7 @@ function newUserCreation(){
     var formData = new FormData(registerUser);
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/singleUserCreation",
+	     url:"/singleUserCreation",
 	     //url:"/registerUser",
          data: formData,
          processData: false,
@@ -89,7 +89,7 @@ function newUserCreation(){
 	var employerId=document.getElementById("employerId").value;
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getUserList",
+		url:"/getUserList",
 		data: {
 			"employerId":employerId
 		},

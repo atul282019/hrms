@@ -184,7 +184,7 @@ function userRegistration(){
     var formData = new FormData(registerUser);
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/registerUser",
+	     url:"/registerUser",
 	     //url:"/registerUser",
          data: formData,
          processData: false,
@@ -201,7 +201,7 @@ function userRegistration(){
 				//window.location.href = "http://localhost:9191/hrms/tempLogin?mobile="+mobile+"&email="+email;
 				 var mobile=document.getElementById("mobile").value;
     			 localStorage.setItem("userName", mobile);
-    			 window.location.href = ""+$('#ctx').attr('content')+"/signin";
+    			 window.location.href = "/signin";
 			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
@@ -326,7 +326,7 @@ function verifyEmail(){
     var formData = new FormData(emailregisterUser);
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/verifyRegisterUser",
+	     url:"/verifyRegisterUser",
 	     //url:"/registerUser",
          data: formData,
          processData: false,

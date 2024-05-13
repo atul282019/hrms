@@ -137,7 +137,7 @@ function saveEmployeeOnboarding(){
 	document.getElementById("empOnboarding").disabled=true;
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/employeeOnboarding",
+	     url:"/employeeOnboarding",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -176,7 +176,7 @@ function getEmployeeOnboarding() {
 	//document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeOnboarding",
+		url: "/getEmployeeOnboarding",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -225,7 +225,7 @@ function getEmployeeOnboarding() {
 	//document.getElementById("signinLoader").style.display="flex";
 		$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeOnboarding",
+		url: "/getEmployeeOnboarding",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -274,7 +274,7 @@ function getEmployeeOnboarding() {
 	//document.getElementById("signinLoader").style.display="flex";
 		$.ajax({
 		type: "GET",
-		url:""+$('#ctx').attr('content')+"/getEmployeeOnboardingById",
+		url:"/getEmployeeOnboardingById",
         data: {
 				"id": id,
 				"employerId": employerId,

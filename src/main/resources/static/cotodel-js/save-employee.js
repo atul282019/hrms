@@ -6,7 +6,7 @@ function getEmployeeProjectDetail() {
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeProjectDetail",
+		url:"/getEmployeeProjectDetail",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -47,7 +47,7 @@ function getEmployeeCertificateDetail() {
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeCertificateDetail",
+		url:"/getEmployeeCertificateDetail",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -90,7 +90,7 @@ function getEmployeeExperienceDetail() {
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeExperienceDetail",
+		url:"/getEmployeeExperienceDetail",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -135,7 +135,7 @@ function getEmployeeQualificationDetail() {
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeQualificationDetail",
+		url:"/getEmployeeQualificationDetail",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -174,7 +174,7 @@ function getEmployeeFamilyDetail() {
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeFamilyDetail",
+		url: "/getEmployeeFamilyDetail",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -213,7 +213,7 @@ function getEmployeeDetail() {
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeDetail",
+		url:"/getEmployeeDetail",
 		data: {
 			"employerId": employerId,
 		},
@@ -264,7 +264,7 @@ function saveEmployeeProject(){
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveEmployeeProject",
+	     url:"/saveEmployeeProject",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -305,7 +305,7 @@ function saveEmployeeCertificate(){
 	document.getElementById("signinLoader").style.display="none";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveEmployeeCertificate",
+	     url:"/saveEmployeeCertificate",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -347,7 +347,7 @@ function saveEmployeeExperience(){
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveEmployeeExperience",
+	     url:"/saveEmployeeExperience",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -389,7 +389,7 @@ function saveQualificationDetail(){
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveQualificationDetail",
+	     url:"/saveQualificationDetail",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -431,7 +431,7 @@ function SaveFmailyDetail(){
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveFamilyDetail",
+	     url:"/saveFamilyDetail",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -543,7 +543,7 @@ function validateEmployeeAndSubmit(){
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveEmployeeDetail",
+	     url:"/saveEmployeeDetail",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -764,7 +764,7 @@ function validateFormAndSubmit() {
                 var formData = new FormData(saveCompany);
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveCompanyDetail",
+	     url:"/saveCompanyDetail",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -828,7 +828,7 @@ function validateBulkSubmit(){
 	document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveBulkFile",
+	     url:"/saveBulkFile",
          data: formData,
          processData: false,
          contentType: false,       		 

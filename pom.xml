@@ -12,7 +12,7 @@
 	<groupId>com.cotodel.hrms</groupId>
 	<artifactId>hrms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hrms</name>
+	<name></name>
 	<packaging>war</packaging>
 	<description>CotoDel Admin Dashboard</description>
 	<properties>

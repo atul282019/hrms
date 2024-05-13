@@ -319,7 +319,7 @@ function confirmSuccess(){
       
 	$.ajax({
 		type: "POST",
-		url: ""+$('#ctx').attr('content') + "/confirmBulkEmplOnboarding",
+		url: "/confirmBulkEmplOnboarding",
 		 dataType: "json",
 		contentType: 'application/json',
 		data: JSON.stringify(data2),

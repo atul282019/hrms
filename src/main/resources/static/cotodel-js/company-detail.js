@@ -29,7 +29,7 @@ function validateFormAndSubmit(){
 	var formData = new FormData(saveCompany);
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveCompanyDetail",
+	     url:"/saveCompanyDetail",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -239,7 +239,7 @@ function validateFormAndSubmit() {
        document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveCompanyDetail",
+	     url:"/saveCompanyDetail",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -299,7 +299,7 @@ function getPayrollMaster()  {
 	//document.getElementById("overlay").style.display = "flex";
 	$.ajax({
 		type: "GET",
-		url: "" + $('#ctx').attr('content') + "/getPayrollMaster",
+		url:"/getPayrollMaster",
 		data: {
 
 		},
@@ -462,7 +462,7 @@ function validatePayrollAndSubmit(){
  
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveCompanyPayroll",
+	     url:"/saveCompanyPayroll",
          data: formData,
          processData: false,
          contentType: false,       		 

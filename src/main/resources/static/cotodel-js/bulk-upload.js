@@ -31,7 +31,7 @@ document.getElementById("bulksubmit").onclick = function() {
    /* document.getElementById("signinLoader").style.display="flex";
     $.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveBulkFile",
+	     url:"/saveBulkFile",
          data: formData,
          processData: false,
          contentType: false,       		 

@@ -25,7 +25,7 @@ function sendBulkInviteSubmit(){
 		document.getElementById("btnSendInvite").disabled = true;;
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/sendInviteEmail",
+	     url:"/sendInviteEmail",
          data: formData,
          processData: false,
          contentType: false,       		 

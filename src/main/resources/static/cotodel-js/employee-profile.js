@@ -24,7 +24,7 @@ function getOTP() {
 	document.getElementById("loginLoader").style.display = "flex";
 	$.ajax({
 		type: "POST",
-		url: "" + $('#ctx').attr('content') + "/smsOtpSender",
+		url: "/smsOtpSender",
 		dataType: 'json',
 		data: {
 			"mob": userName,
@@ -102,7 +102,7 @@ function resendOTP() {
 	document.getElementById("loginLoader").style.display = "flex";
 	$.ajax({
 		type: "POST",
-		url: "" + $('#ctx').attr('content') + "/smsOtpResender",
+		url: "/smsOtpResender",
 		dataType: 'json',
 		data: {
 			"mob": userName,
@@ -353,7 +353,7 @@ function saveEmployeeProfile(){
 	document.getElementById("empOnboarding").disabled=true;
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveEmployeeProfile",
+	     url:"/saveEmployeeProfile",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -478,7 +478,7 @@ function saveEmployeeProfileTab2(){
 	document.getElementById("empOnboarding").disabled=true;
 	 	$.ajax({
 		type: "POST",
-	     url:""+$('#ctx').attr('content')+"/saveEmployeeProfile",
+	     url:"/saveEmployeeProfile",
          data: formData,
          processData: false,
          contentType: false,       		 

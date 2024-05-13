@@ -5,7 +5,7 @@ function getEmployeeOnboarding() {
 	//document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeOnboarding",
+		url: "/getEmployeeOnboarding",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,
@@ -67,7 +67,7 @@ function getEmployeeOnboardingFailList() {
 	//document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
-		url: ""+$('#ctx').attr('content') + "/getEmployeeOnboarding",
+		url: "/getEmployeeOnboarding",
 		data: {
 			"employeeId": employeeId,
 			"employerId": employerId,

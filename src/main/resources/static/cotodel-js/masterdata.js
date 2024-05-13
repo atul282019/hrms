@@ -1,7 +1,7 @@
 function getStateMaster() {
   	$.ajax({
 		type: "GET",
-        url: ""+$('#ctx').attr('content')+"/getStateMaster",
+        url: "/getStateMaster",
            success: function(data){
             newData = data;
             console.log(newData);
@@ -36,7 +36,7 @@ function getStateMaster() {
 function getOrgMaster() {
   $.ajax({
 		type: "GET",
-        url: ""+$('#ctx').attr('content')+"/getOrgMaster",
+        url: "/getOrgMaster",
            success: function(data){
             newData = data;
 //            console.log(newData);
@@ -71,7 +71,7 @@ function getOrgMaster() {
 function getOrgMaster2() {
   $.ajax({
 		type: "GET",
-        url: ""+$('#ctx').attr('content')+"/getOrgMaster",
+        url: "/getOrgMaster",
            success: function(data){
             newData = data;
 //            console.log(newData);
