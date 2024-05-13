@@ -69,7 +69,7 @@ Header START -->
 						<li class="nav-item"> <a class="nav-link" href="#ourservices">Our Services</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#aboutus">About Us</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#contactus">Contact Us</a></li>
-						<li class="nav-item"> <a class="nav-link" th:href="@{/login}">Login</a></li>
+						<!-- <li class="nav-item"> <a class="nav-link" th:href="@{/login}">Login</a></li> -->
 					</ul>
 				</div>
 				<!-- Main Menu END -->
@@ -127,8 +127,7 @@ Header END -->
 	<!-- Waitlist Popup END -->
 
 	<!-- Offcanvas end START -->
-	<div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEnd"
-		style="background-image:url(assets/images/bg/pattern/03.png); background-position: center left; background-size: cover;">
+	<div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEnd" >
 		<div class="offcanvas-header">
 			<a class="ms-auto btn btn-primary btn-round zoom-hover" data-bs-dismiss="offcanvas" aria-label="Close">
 				<i class="fas fa-times p-0"></i>
@@ -431,8 +430,10 @@ Service END -->
 					            	<div id="failmsg"></div>
 					            </div>
 								<div class="error-msg" id="mobile1Error1" style="color:red"></div>
-								<div class="mt-3"><a href="javascript:void(0)" class="btn btn-lg btn-primary bradius-8" onclick="getInTuch()">Submit <i
-											class="fas fa-arrow-right ms-2"></i></a></div>
+							    <div class="mt-3"><a href="javascript:void(0)" class="btn btn-lg btn-primary bradius-8" onclick="getInTuch()">Submit <i
+								class="fas fa-arrow-right ms-2"></i></a></div>
+								<!-- <div class=" mt-3"><button id="getInTuch" class="btn btn-lg btn-primary bradius-8" type="button" onclick="getInTuch()" >Submit <i
+								class="fas fa-arrow-right ms-2"></i></button></div> -->
 							</form>
 					</div>
 				</div>
@@ -491,6 +492,7 @@ Footer END -->
 		<div class="scroll-line"></div>
 		<span class="scoll-text">Go Up</span>
 	</div>
+<div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
 	<!-- =======================
 JS libraries, plugins and custom scripts -->
@@ -611,7 +613,7 @@ JS libraries, plugins and custom scripts -->
 			document.getElementById("mobile1Error1").innerHTML="";
 		}
 		  var formData = new FormData(getintuch);
-		  
+		  document.getElementById("signinLoader").style.display="flex";
 		 	$.ajax({
 			type: "POST",
 		     url:"/userWaitList",
@@ -622,7 +624,7 @@ JS libraries, plugins and custom scripts -->
 	         success: function(data){
 	            newData = data;
 				var data1 = jQuery.parseJSON(newData);
-				//document.getElementById("signinLoader").style.display="none";
+				document.getElementById("signinLoader").style.display="none";
 				if(data1.status==true){
 					 document.getElementById("succmsg").innerHTML="Our Team Will Contact you soon, Thanks for Registration.";
 					 document.getElementById("msgdiv").style.display="block";
@@ -672,6 +674,12 @@ JS libraries, plugins and custom scripts -->
 		}else{
 			document.getElementById("emailError1").innerHTML="";
 		}
+		document.getElementById("signinLoader").style.display="flex";
+		
+		document.getElementById("addButton").disabled=true;
+		var element = document.getElementById("addButton");
+		element.classList.add("btn-disabled");
+		
 		  var formData = new FormData(waitlistuser);
 		  
 		 	$.ajax({
@@ -684,7 +692,7 @@ JS libraries, plugins and custom scripts -->
 	         success: function(data){
 	            newData = data;
 				var data1 = jQuery.parseJSON(newData);
-				//document.getElementById("signinLoader").style.display="none";
+				document.getElementById("signinLoader").style.display="none";
 				if(data1.status==true){
 					 document.getElementById("otsuccmsg").innerHTML="Our Team Will Contact you soon, Thanks for Registration.";
 					 document.getElementById("otmsgdiv").style.display="block";

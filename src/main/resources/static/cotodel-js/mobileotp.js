@@ -242,7 +242,7 @@ function submitAction() {
 		//var formData = new FormData(loginForm);
 		//formData.append("loginId", loginId);
 	if (x) {
-		document.forms[0].action = "" + $('#ctx').attr('content') + "/userLogin";
+		document.forms[0].action = "/userLogin";
 		document.forms[0].method = "post";
 		document.forms[0].submit();
 	}
