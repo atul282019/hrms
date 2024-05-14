@@ -451,7 +451,7 @@ function validatePayrollAndSubmit(){
 	        var component = $(this).find('input.comp').val();
 	        var percentage = $(this).find('input.percent').val();
 	      // alert(""+comp+""+age);
-	      var rowvalue=component+"|"+percentage+"|"+per+"|"+taxable;
+	      var rowvalue=component+"@"+percentage+"@"+per+"@"+taxable;
 	       allInputValues.push(rowvalue);
 	    });  
    // console.log(allInputValues);
