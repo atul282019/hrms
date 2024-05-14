@@ -20,7 +20,7 @@ public class SingleUserCreationServiceImpl implements SingleUserCreationService{
 	
 	@Override
 	public String singleUserCreation(String token, UserRegistrationRequest userForm) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl+CommonUtils.singleUserCreation);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl+CommonUtils.registerUserUrl);
 	}
 
 
