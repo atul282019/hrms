@@ -23,5 +23,13 @@ public class EmployeeOnboarding {
 	private String ctc;
 	private String location;
 	private String residentOfIndia;
+	private boolean updateStatus ;
+    private boolean emailStatus ;
+    private String proofOfIdentity;
+    private String pan;
+    private String bankAccountNumber;
+    private String ifscCode;
+    private String beneficiaryName;    
+	private String response;
 	
 }
