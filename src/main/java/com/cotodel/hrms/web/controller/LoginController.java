@@ -96,16 +96,16 @@ public class LoginController extends CotoDelBaseController{
 					    request.getSession(true).setAttribute("hrms", token);
 					    // switch case to identify the user screen login
 					switch (String.valueOf(profileJsonRes.getJSONObject("data").getInt("role_id"))) {	
-					case "1":
+					case "0":
 						screenName="index";
 						model.addAttribute("message", "No Role assigned to User. Please contact to Organisation Admin !!");
 						break;	
-					case "2":
+					case "1":
 						screenName="dashboard";
 						//screenName="employee-dashboard";
 						//model.addAttribute("message", "No Role assigned to User. Please contact to Organisation Admin !!");
 						break;	
-					case "0":
+					case "2":
 						//screenName="dashboard";
 						screenName="employee-dashboard";
 						model.addAttribute("name",profileJsonRes.getJSONObject("data").getString("email"));
