@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class PayrollComtroller extends CotoDelBaseController{
+public class PayrollController extends CotoDelBaseController{
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyDetailController.class);
 

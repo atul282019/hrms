@@ -51,4 +51,6 @@ public interface CommonUtils {
 	
 	public static String saveEmployeeProfile = "/empService/Api/add/saveEmplOnboardingNew";
 	
+	public static String saveExpenseCategory = "/empService/Api/add/expenseCategoryBandDetails";
+	
 }

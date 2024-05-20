@@ -167,7 +167,7 @@
                                                                     <img src="img/food.svg" alt="" class="mr-2">Food
                                                                 </td>
                                                                 <td>EXP04</td>
-                                                                <td><p>Limits based on Employee Bands & Duration</p><a href="#"><img src="img/remove-tr.svg" alt=""></a></td>
+                                                                <td><p>Limits based on Employee Bands & Duration</p><a href="#"><img src="img/remove-tr.svg" alt="" onclick="toggle();" ></a> </td>
                                                                 <td>20 Days</td>
                                                                 <td>
                                                                     <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
@@ -176,7 +176,7 @@
                                                                     <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
                                                                 </td>
                                                             </tr>
-                                                            <tr style="background: #EDEDF0;">
+                                                            <tr style="display:none; background: #EDEDF0;" id="hidethis" >
                                                                 <td colspan="5">
                                                                     <div class="expense-table">
                                                                         <table class="table mb-0">
@@ -345,6 +345,8 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    
+     <script type="text/javascript" src="cotodel-js/expenses-travel-polices.js"></script>
 
 	<script>
 	$(document).ready(function(){
@@ -358,7 +360,127 @@
 	});
 	
 	</script>
+	<script>
+		function toggle() {
+		 if( document.getElementById("hidethis").style.display=='none' ){
+		   document.getElementById("hidethis").style.display = '';
+		 }else{
+		   document.getElementById("hidethis").style.display = 'none';
+		 }
+	}
+	</script>
+	
+	
+	
+<script>
+function addRow() {
+	
+    var table = document.getElementById("newTable").getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(table.rows.length);
+ 
+	 
+	 var cell1 = newRow.insertCell(0);
+	    var period = document.createElement("select");
+	    period.name = "period";
+	    var period1 = document.createElement("option");
+	    period1.text = "Select Time Period";
+	    var period2 = document.createElement("option");
+	    period2.text = "Per Week ";
+	    var period3 = document.createElement("option");
+	    period3.text = "Per Month";
+	    var period4 = document.createElement("option");
+	    period4.text = "Per Quater";
+	    var period5 = document.createElement("option");
+	    period5.text = "Per Year";
+	    period.setAttribute('class',"form-select period");
+		
+	
+	    period.add(period1);
+	    period.add(period2);
+	    period.add(period3);
+	    period.add(period4);
+	    period.add(period5);
+	    cell1.appendChild(period);
+	   
+	    
+	    var cell2 = newRow.insertCell(1);
+	    var nameInput = document.createElement("input");
+	    nameInput.type = "text";
+	    nameInput.name = "band1";
+	    nameInput.setAttribute('class',"perquarter-in-input band1");
+	    nameInput.setAttribute('maxlength',"");
+	    nameInput.setAttribute('placeholder',"INR  Expance Limit 1 ");
+	   // nameInput.setAttribute('size',"10");
+	 
+	    cell2.appendChild(nameInput);
 
+	    var cell3 = newRow.insertCell(2);
+	    var ageInput = document.createElement("input");
+	    ageInput.type = "band2";
+	    ageInput.name = "band2";
+		ageInput.setAttribute('class',"perquarter-in-input band2");
+		//ageInput.setAttribute('maxlength',"");
+		//ageInput.setAttribute('size',"3");
+		ageInput.setAttribute('placeholder',"INR  Expance Limit 2");
+	 
+	    cell3.appendChild(ageInput);
+
+	    var cell4 = newRow.insertCell(3);
+	    var bandinput = document.createElement("input");
+	    bandinput.type = "band3";
+	    bandinput.name = "band3";
+	    bandinput.setAttribute('class',"perquarter-in-input band3");
+	   // bandinput.setAttribute('maxlength',"");
+	    //bandinput.setAttribute('size',"");
+	    bandinput.setAttribute('placeholder',"INR  Expance Limit 3");
+	 
+	    cell4.appendChild(bandinput);
+	
+	    var cell5 = newRow.insertCell(4);
+	    var deleteButton = document.createElement("button");
+	    deleteButton.innerHTML = '<i class="fa fa-trash"> </i>';
+	    deleteButton.setAttribute('class',"text-left remove-btn");
+	    deleteButton.onclick = function() {
+	        deleteRow(this);
+	    };
+    	cell5.appendChild(deleteButton);
+    	dissableButton();
+    	
+}
+
+function deleteRow(btn) {
+	enableAddButton();
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+
+function dissableButton(){
+	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
+    if(rowCount == "10"){
+		document.getElementById("addButton").disabled=true;
+		var element = document.getElementById("addButton");
+		element.classList.add("btn-disabled");
+		
+	}
+    
+	
+}
+function enableAddButton(){
+	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
+	if(rowCount <= "10"){
+		document.getElementById("addButton").disabled=false;
+		var element = document.getElementById("addButton");
+		element.classList.remove("btn-disabled");
+		
+	}
+	
+}
+</script>	
+	
+	
+	
+	
+	
  <!-- Modal Approval Payout Flow Settings -->
 <div class="modal fade" id="ModalApproval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
@@ -440,8 +562,8 @@
             <div class="policies-wrap-in-modal">
                 <div class="form-group">
                     <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                        <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for cash advances & travel bookings.</label>
+                        <input type="checkbox" class="custom-control-input" id="advanceRequestCheckbox">
+                        <label class="custom-control-label text-left" for="advanceRequestCheckbox">Allow employees to request for cash advances & travel bookings.</label>
                     </div>
                 </div>
                 <div class="incurring-exp-modal">
@@ -451,7 +573,7 @@
             
             
             <div class="d-block mt-3">
-                <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
+                <button class="btn btn-primary d-block btn-lg w-100" onClick="saveAdavanceSetting()">Confirm</button>
             </div>
         </div>        
       </div>
@@ -462,6 +584,7 @@
 <!-- Modal Expense Category Settings -->
 <div class="modal fade" id="ModalExpenseCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+    
       <div class="modal-content">
         <div class="modal-header pb-0">
           <h5 class="modal-title" id="exampleModalCenterTitle">Expense Category</h5>
@@ -469,13 +592,14 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form id="addExpenses" name="addExpenses"> 
         <div class="modal-body">
             <div class="card-form my-3">
                 <label for="">Expense Category</label>
-                <input type="text" class="form-input">
+                <input type="text" id="expenseCategory" class="form-input">
             </div>
             <div class="card-form mb-3">                                            
-                <input style="width: 100%; margin: 0;" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
+                <input style="width: 100%; margin: 0;" id="expanceCode" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
             </div>
             <div class="clearfix"></div>
             <div class="expense-inwrap">
@@ -484,62 +608,88 @@
                 <div class="expense-card-inner">
                     <div class="form-group">
                         <div class="custom-control custom-checkbox small">
-                            <input type="checkbox" class="custom-control-input" id="customCheck3" checked="">
-                            <label class="custom-control-label text-left" for="customCheck3">Distinguish by Employee Bands </label>
+                            <input type="checkbox" class="custom-control-input" id="distingushEmployeeBand" checked="" >
+                            <label class="custom-control-label text-left" for="distingushEmployeeBand">Distinguish by Employee Bands </label>
                         </div>
                     </div>
 
                     <div class="expense-table">
-                        <table class="table mb-0">
+                        <table class="table mb-0 newTable" id="newTable">
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th><div class="band band1">Band 1</div></th>
-                                    <th><div class="band band2">Band 2</div></th>
-                                    <th><div class="band band3">Band 3</div></th>
+                                    <th><div class="band band1"> Band 1</div>
+                                    </th>
+                                    <th><div class="band band2"> Band 2</div></th>
+                                    <th><div class="band band3"> Band 3</div></th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select name="" id="" class="form-select">
-                                            <option value="">Day</option>
+                                        <select name="period" id="period" class="form-select period">
+                                            <option value="">Select Time Period</option>
+                                            <option value="Perday" selected>Per Day</option>
+                                             <option value="Week">Per Week</option>
+                                             <option value="month">Per Month</option>
+                                             <option value="Quater">Per Quater</option>
+                                             <option value="year">Per Year</option>
                                         </select>
                                     </td>
-                                    <td><div class="perquarter-in"><span>INR</span><input type="text" placeholder="500" class="form-control"></div></td>
-                                    <td><div class="perquarter-in"><span>INR</span><input type="text" placeholder="800" class="form-control"></div></td>
-                                    <td><div class="perquarter-in"><span>INR</span><input type="text" placeholder="850" class="form-control"></div></td>
+                                    <td><div class="perquarter-in"><span>INR</span>
+		                                    <input type="text" placeholder="500" name="band1" class="form-control band1">
+		                                    <input type="hidden"  name="band1" class="form-control band1" value="Band 1">
+                                    </div>
+                                    </td>
+                                    <td><div class="perquarter-in"><span>INR</span>
+                                    <input type="text" placeholder="800" name="band2" class="form-control band2"></div>
+                                    <input type="hidden"  name="band1" class="form-control band2" value="Band 2">
+                                    </td>
+                                    <td><div class="perquarter-in"><span>INR</span>
+                                    <input type="text" placeholder="850" name="band3" class="form-control band3"></div>
+                                    <input type="hidden"  name="band1" class="form-control band3" value="Band 3">
+                                    </td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <select name="" id="" class="form-select">
+                                        <select name="period" id="period1" class="form-select period">
                                             <option value="">Select Time Period</option>
+                                            <option value="Perday">Per Day</option>
+                                             <option value="Week">Per Week</option>
+                                             <option value="month">Per Month</option>
+                                             <option value="Quater">Per Quater</option>
+                                             <option value="year">Per Year</option>
                                         </select>
                                     </td>
-                                    <td><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 1" class="form-control"></div></td>
-                                    <td><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 2" class="form-control"></div></td>
-                                    <td><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" class="form-control"></div></td>
-                                    <td>
+                                    <td ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 1" name="band1" class="form-control band1"></div></td>
+                                    <td ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 2" name="band2" class="form-control band2"></div></td>
+                                    <td  ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" name="band3" class="form-control band3"></div></td>
+                                    <!-- <td>
                                         <a href="#"><img src="img/add-tr.svg" alt=""> Add Another Limit</a>
-                                    </td>
+                                    </td> -->
                                 </tr>   
                             </tbody>
                         </table>
+                        <div>
+                           <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a>
+                        </div>
                     </div>
 
                 </div>
                 <p>Set time period in which an expense incurred can be submitted (in Days)</p>
                 <div class="incurring-exp-modal">
-                    <p><input type="text" class="form-control incurr ml-0" placeholder="20"> Days</p>
+                    <p><input type="text" class="form-control incurr ml-0" id="timeperiod" placeholder="20"> Days</p>
                 </div>
             </div>
             <div class="d-block mt-3">
-                <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
+                <button class="btn btn-primary d-block btn-lg w-100" onclick="addExpensesCategory()">Confirm</button>
             </div>
-        </div>        
+        </div>    
+         </form>    
       </div>
+     
     </div>
   </div>
 
