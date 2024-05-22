@@ -53,4 +53,8 @@ public interface CommonUtils {
 	
 	public static String saveExpenseCategory = "/empService/Api/add/expenseCategoryBandDetails";
 	
+	public static String getExpenseCategory = "/empService/Api/get/expenseCategoryMaster";
+	
+	public static String getExpenseCategoryEditValue = "/empService/Api/get/expenseCategoryBandDetailsId";
+	
 }

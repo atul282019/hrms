@@ -501,4 +501,41 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("index", "command", "");
 	}
 	
+	@GetMapping(value="/employeeBand")
+	public ModelAndView employeeBand(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("employee-bands", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+
+	@GetMapping(value="/employeeBandSetting")
+	public ModelAndView employeeBandSetting(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("employee-band-setting", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
 }

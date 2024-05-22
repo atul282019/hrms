@@ -5,7 +5,7 @@
 	
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top">
+<body id="page-top"  onload="getExpanceCategoryList()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -109,9 +109,10 @@
                                             
                                             <div class="policies-wrap-in-table">
                                                 <div class="table-responsive">
-                                                    <table class="table table-policies">
+                                                    <table class="table table-policies" id="expensesTable">
                                                         <thead>
                                                             <tr>
+                                                                <th></th>
                                                                 <th>EXPENSE CATEGORY</th>
                                                                 <th>EXPENSE CODE</th>
                                                                 <th>EXPENSE LIMIT</th>
@@ -120,7 +121,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
+                                                          <!--   <tr>
                                                                 <td>
                                                                     <img src="img/Travel.svg" alt="" class="mr-2">Travel
                                                                 </td>
@@ -234,13 +235,14 @@
                                                                     <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
                                                                 </td>
                                                             </tr>
-                                                            <tr class="last-add">
-                                                                <td colspan="5">
-                                                                    <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalExpenseCategory" >+ Add Category</a>
-                                                                </td>
-                                                            </tr>
+                                                            -->
                                                         </tbody>
                                                     </table>
+                                                     <div class="last-add">
+                                                                <div colspan="5">
+                                                                    <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalExpenseCategory" >+ Add Category</a>
+                                                                </div>
+                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -319,6 +321,8 @@
             </div>
             <!-- End of Main Content -->
         </div>
+        
+        <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -626,7 +630,7 @@ function enableAddButton(){
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                               <!--  <tr>
                                     <td>
                                         <select name="period" id="period" class="form-select period">
                                             <option value="">Select Time Period</option>
@@ -651,7 +655,7 @@ function enableAddButton(){
                                     <input type="hidden"  name="band1" class="form-control band3" value="Band 3">
                                     </td>
                                     <td></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td>
                                         <select name="period" id="period1" class="form-select period">
