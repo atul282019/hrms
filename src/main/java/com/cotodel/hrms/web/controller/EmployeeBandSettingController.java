@@ -44,28 +44,9 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
 	@Autowired
 	EmployeeBandSettingService empBandSettingService;
 	
-	@PostMapping(value="/saveEmployeeBandTab1")
-	public @ResponseBody String saveCompanyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeBandSettingResponse employeeBandSettingResponse) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;String userRes = null;
-		profileRes = empBandSettingService.employeeBand(tokengeneration.getToken(),employeeBandSettingResponse);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
+	@PostMapping(value="/saveEmployeeBandTierTab3")
+	public @ResponseBody String getEmployeeBandTier(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeBandSettingResponse employeeBandSettingResponse) {
+		return empBandSettingService.getEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
 	}
 	
 	
@@ -76,24 +57,16 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
 		ObjectMapper mapper = new ObjectMapper();
 		String res=null;String userRes=null;
 		List<EmployeeBandTiersResponse> list = new ArrayList<EmployeeBandTiersResponse>();
-		String data[]= employeeBandSettingResponse.getListBand();
-		String dataBandTiers[]= employeeBandSettingResponse.getListBandTier();
+		String data[]= employeeBandSettingResponse.getListArray();
+		
 		for (int i = 0; i < data.length; i++) {
 			String listValue=data[i];
-			String[] rowArray=listValue.split(",");
+			String[] rowArray=listValue.split("@");
 			EmployeeBandTiersResponse employeeBandTierSetting=new EmployeeBandTiersResponse();
 			employeeBandTierSetting.setEmployeeBand(rowArray[0]);
+			employeeBandTierSetting.setAdditionalTiers(rowArray[1]);
 			
-			
-			//employeeBandTierSetting.setEmployerId(employeeBandSettingResponse.getEmployerId().longValue());
-			list.add(employeeBandTierSetting);
-		}
-		for (int i = 0; i < dataBandTiers.length; i++) {
-			String listValue=dataBandTiers[i];
-			String[] rowArray=listValue.split(",");
-			EmployeeBandTiersResponse employeeBandTierSetting=new EmployeeBandTiersResponse();
-			employeeBandTierSetting.setAdditionalTiers(rowArray[0]);
-			//employeeBandTierSetting.setEmployerId(employeeBandSettingResponse.getEmployerId().longValue());
+			employeeBandTierSetting.setEmployerId(employeeBandSettingResponse.getEmployerId());
 			list.add(employeeBandTierSetting);
 		}
 		

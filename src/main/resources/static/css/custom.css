@@ -3444,9 +3444,9 @@ input.empolyeeinput01 {
   border-radius: 10px;
   height: 48px;
   padding: 10px;
-  width: 130px;
+  width: 100px;
   color: #1F212C;
-  margin-right: 40px;
+  margin-right: 20px;
 }
 
 input.empolyeeinput02 {
@@ -3456,7 +3456,7 @@ input.empolyeeinput02 {
   padding: 10px;
   width: 90px;
   color: #1F212C;
-  margin-right: 10px;
+  margin-right: 0px;
 }
 
 input.empolyeeinput01:focus, input.empolyeeinput02:focus {
@@ -3554,6 +3554,79 @@ label.modalbandlabel01 {
   min-height: 48px;
 }
 
+.abc {
+    display: none !important;
+}
+
+
+table.empolyee-band-head-modal thead tr th{
+	color: #4A4E69;
+    font-size: 16px;
+    margin-bottom: 0;
+    border:none;
+    font-weight:500;
+}
+
+table.empolyee-band-head-modal tbody tr{
+	background: #EDEDF0;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+table.empolyee-band-head-modal tbody tr td{
+	border:none;
+	padding:0;
+	width:50%;
+}
+
+table.empolyee-band-head-modal tbody tr td input.empolyeeinput01{
+	border: 1px solid #C7C8D1;
+    border-radius: 10px;
+    height: 48px;
+    padding: 10px;
+    width: 95%;
+    color: #1F212C;
+    margin:10px;
+}
+
+table.empolyee-band-head-modal tbody, table.empolyee-band-table tbody{
+  max-height: 260px;
+  overflow-y: scroll;
+  padding-right: 40px;
+}
+
+/* width */
+table.empolyee-band-head-modal tbody::-webkit-scrollbar, table.empolyee-band-table tbody::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+table.empolyee-band-head-modal tbody::-webkit-scrollbar-track, table.empolyee-band-table tbody::-webkit-scrollbar-track {
+  background: #ededf0; 
+}
+ 
+/* Handle */
+table.empolyee-band-head-modal tbody::-webkit-scrollbar-thumb, table.empolyee-band-table tbody::-webkit-scrollbar-thumb {
+  background: #acaeba; 
+}
+
+/* Handle on hover */
+table.empolyee-band-head-modal tbody::-webkit-scrollbar-thumb:hover, table.empolyee-band-table tbody::-webkit-scrollbar-thumb:hover {
+  background: #acaeba; 
+}
+
+
+table.empolyee-band-head-modal tbody tr td select.did-floating-select{
+	height: 48px;
+    width: 95%;
+    border: 1px solid #C7C8D1;
+    border-radius: 10px;
+    margin: 10px;
+    float: right;
+    min-height: 48px;
+}
+
 .band-list {
   max-height: 260px;
   overflow-y: scroll;
@@ -3580,6 +3653,10 @@ label.modalbandlabel01 {
   background: #acaeba; 
 }
 
-.abc {
-    display: none !important;
+table.empolyee-band-table thead tr th.bandlabel, table.empolyee-band-table thead tr th.bandlabel01 {
+    font-weight: 500;
+    color: #4A4E69;
+    font-size: 16px;
+    margin-bottom: 0;
+    border:none;
 }

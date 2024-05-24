@@ -19,9 +19,9 @@ public class EmployeeBandSettingServiceImpl implements EmployeeBandSettingServic
 
 	
 	@Override
-	public String employeeBand(String token, EmployeeBandSettingResponse employeeBandSettingResponse) {
+	public String getEmployeeBandTier(String token, EmployeeBandSettingResponse employeeBandSettingResponse) {
 		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeBandSettingResponse), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addEmployeeBand);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeBandSettingResponse), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeBandWithTier);
 	}
 
 	@Override
@@ -29,5 +29,6 @@ public class EmployeeBandSettingServiceImpl implements EmployeeBandSettingServic
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeBandSettingResponse), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addEmployeeBandTier);
 	}
+
 
 }

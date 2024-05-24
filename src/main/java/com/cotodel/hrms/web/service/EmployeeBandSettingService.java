@@ -6,9 +6,9 @@ import com.cotodel.hrms.web.response.EmployeeBandSettingResponse;
 
 @Repository
 public interface EmployeeBandSettingService {
-
-	String employeeBand(String token, EmployeeBandSettingResponse employeeBandSettingResponse);
-
+	
 	String saveEmployeeBandTier(String token, EmployeeBandSettingResponse employeeBandSettingResponse);
+
+	String getEmployeeBandTier(String token, EmployeeBandSettingResponse employeeBandSettingResponse);
 
 }

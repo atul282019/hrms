@@ -18,8 +18,7 @@ public class EmployeeBandSettingResponse {
 	private String employeeBandOrder;
 	private Long status;
 	
-	private String[] listBand;
-	private String[] listBandTier;
+	private String[] listArray;
     private List<EmployeeBandTiersResponse> list;
 	
 }
