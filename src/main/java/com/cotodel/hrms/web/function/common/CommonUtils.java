@@ -57,4 +57,8 @@ public interface CommonUtils {
 	
 	public static String getExpenseCategoryEditValue = "/empService/Api/get/expenseCategoryBandDetailsId";
 	
+	public static String addEmployeeBand = "empService/Api/add/employeeBand";
+	
+	public static String addEmployeeBandTier = "/empService/Api/add/employeeBandAddTier";
+	
 }

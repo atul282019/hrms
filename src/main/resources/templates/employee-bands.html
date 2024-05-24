@@ -93,7 +93,8 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
+	
+	 <script type="text/javascript" src="cotodel-js/employee-band.js"></script>
 	
 	<script>
 	
@@ -107,6 +108,150 @@
 	   });
 	});
 	</script>
+	
+	 <script>
+	 function updateTextboxesAlpha() {
+		 
+	    var element = document.getElementById('alphaSeniority');
+	    element.classList.remove("abc");
+		  
+		var element2  = document.getElementById('numericSeniority');
+	    element2.classList.add("abc");
+		  
+        const dropdownValue = document.getElementById('dropdown').value;
+        const textboxContainer = document.getElementById('textboxContainer');
+		const dropdownContainer = document.getElementById('dropdownContainer');
+
+         // Clear previous dropdowns
+         dropdownContainer.innerHTML = '';
+
+         // Clear previous textboxes
+         textboxContainer.innerHTML = '';
+
+         // Add new textboxes based on dropdownValue
+         for (let i = 0; i < dropdownValue; i++) {
+             const textbox = document.createElement('input');
+			 const newDropdown = document.createElement('select');
+				
+             textbox.type = 'text';
+             textbox.setAttribute('class',"empolyeeinput01");
+             textbox.placeholder = `Employee Band ${i + 1}`;
+             if(i === 0){
+             textbox.value = `Employee Band A`;
+             }
+             else if(i=== 1){
+            	 textbox.value = `Employee Band B`;
+             }
+             else if(i=== 2){
+            	 textbox.value = `Employee Band C`;
+             }
+             else if(i=== 3){
+            	 textbox.value = `Employee Band D`;
+             }
+             else if(i=== 4){
+            	 textbox.value = `Employee Band E`;
+             }
+             else if(i=== 5){
+            	 textbox.value = `Employee Band F`;
+             }
+             textboxContainer.appendChild(textbox);
+             textboxContainer.appendChild(document.createElement('br'));
+				
+				
+			 for (let j = 1; j <= 5; j++) {
+				 
+                 const option = document.createElement('option');
+                 option.value = j;
+                // option.text = `Option ${j}`;
+                 option.text = `${j}`;
+                 newDropdown.appendChild(option);
+                 newDropdown.setAttribute('class',"did-floating-select dropdownvalue");
+                
+             }
+
+             dropdownContainer.appendChild(newDropdown);
+             dropdownContainer.appendChild(document.createElement('br'));
+         }
+     }
+	 
+ function updateTextboxesNumeric() {
+		 
+	 	
+	 
+		var element = document.getElementById('alphaSeniority');
+		element.classList.add("abc");
+		  
+		var element2  = document.getElementById('numericSeniority');
+		element2.classList.remove("abc");
+	  
+        const dropdownValue = document.getElementById('dropdown').value;
+        const textboxContainer = document.getElementById('textboxContainer');	
+		const dropdownContainer = document.getElementById('dropdownContainer');
+
+         // Clear previous dropdowns
+         dropdownContainer.innerHTML = '';
+
+         // Clear previous textboxes
+         textboxContainer.innerHTML = '';
+
+         // Add new textboxes based on dropdownValue
+         for (let i = 0; i < dropdownValue; i++) {
+             const textbox = document.createElement('input');
+			 const newDropdown = document.createElement('select');
+				
+             textbox.type = 'text';
+             textbox.setAttribute('class',"empolyeeinput01");
+             textbox.placeholder = `Employee Band ${i + 1}`;
+             if(i === 0){
+             textbox.value = `Employee Band 1`;
+             }
+             else if(i=== 1){
+            	 textbox.value = `Employee Band 2`;
+             }
+             else if(i=== 2){
+            	 textbox.value = `Employee Band 3`;
+             }
+             else if(i=== 3){
+            	 textbox.value = `Employee Band 4`;
+             }
+             else if(i=== 4){
+            	 textbox.value = `Employee Band 5`;
+             }
+             else if(i=== 5){
+            	 textbox.value = `Employee Band 6`;
+             }
+             textboxContainer.appendChild(textbox);
+             textboxContainer.appendChild(document.createElement('br'));
+				
+				
+			 for (let j = 1; j <= 5; j++) {
+				 
+                 const option = document.createElement('option');
+                 option.value = j;
+                 // option.text = `Option ${j}`;
+                 option.text = `${j}`;
+                 newDropdown.appendChild(option);
+                 newDropdown.setAttribute('class',"did-floating-select dropdownvalue");
+                
+             }
+
+             dropdownContainer.appendChild(newDropdown);
+             dropdownContainer.appendChild(document.createElement('br'));
+         }
+     }
+ 	 
+</script>
+    
+    <script type="text/javascript">
+    function valueChanged()
+    {
+        if($('.coupon_question').is(":checked"))   
+            $(".answer").show();
+        else
+            $(".answer").hide();
+    }
+</script>
+    
     <!-- Modal Modal Employee Band Setting -->
     <div class="modal fade" id="ModalEmployeeBandSetting" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -123,18 +268,23 @@
                     <div id="carouselExampleFade" class="carousel slide employeeCarousel" data-ride="carousel" data-touch="false" data-interval="false">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
+                            <form id="formtab1" >
                                 <div class="slide-wrap">
                                     <div class="d-flex">
                                         <div class="table-check mr-2">
-                                            <input type="checkbox" id="customCheck1">
+                                            <input type="checkbox" id="employeeBandEnabled" checked>
                                         </div>
                                         <p class="mb-0">Employee bands enabled</p>
                                     </div>
                                     <div class="d-flex align-items-center mb-2">
                                         <p class="mb-0">Define the number of Employee Bands</p>
-                                        <select class="did-floating-select">
-                                            <option value="">1</option>
-                                            <option value="1">1</option>
+                                        <select class="did-floating-select" id="dropdown" >
+                                             <option value="1">1</option>
+                                             <option value="2">2</option>
+                                             <option value="3">3</option>
+                                             <option value="4">4</option>
+                                             <option value="5">5</option>
+                                             <option value="6">6</option>
                                         </select>
                                     </div>
                                     <div>
@@ -143,16 +293,16 @@
                                     <div>
                                         <div class="band-option">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                <input class="form-check-input" type="radio" name="numericFigure" value="numeric"
+                                                    id="numericFigure" onclick="updateTextboxesNumeric()">
+                                                <label class="form-check-label" for="numeric">
                                                     Numeric Figures
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                    id="flexRadioDefault2" checked>
-                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                <input class="form-check-input" type="radio" name="numericFigure" value="Alphabetical" onchange="updateTextboxesAlpha()"
+                                                    id="AlphabeticalFigure" >
+                                                <label class="form-check-label" for="AlphabeticalFigure">
                                                     Alphabetical Figures
                                                 </label>
                                             </div>
@@ -168,7 +318,7 @@
                                     <div class="d-flex align-items-center">
                                         <p class="mb-0">Choose the starting Employee Band to define the order of
                                             seniority</p>
-                                        <select class="did-floating-select mx-2 min-w170">
+                                        <select class="did-floating-select mx-2 min-w170" id="startingEmployeeBand">
                                             <option value="">Employee Band A</option>
                                             <option value="1">Employee Band A</option>
                                         </select>
@@ -186,15 +336,17 @@
                                     </ol>
 
                                     <div class="d-flex justify-content-center mt-2">
-                                        <button class="btn btn-primary w-100" data-target="#carouselExampleFade" data-slide="next">Continue</button>
+                                        <button class="btn btn-primary w-100" data-target="#carouselExampleFade" data-slide="next" >Continue</button>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                             <div class="carousel-item">
+                            <form id="formtab2">
                                 <div class="slide-wrap">
                                     <div class="d-flex">
                                         <div class="table-check mr-2">
-                                            <input type="checkbox" id="customCheck2">
+                                            <input type="checkbox" id="addtionalTiersCheckBox" value="1" class="coupon_question" onchange="valueChanged()">
                                         </div>
                                         <p class="mb-0">Introduce additional Tiers to each Employee Band</p>
                                     </div>
@@ -205,36 +357,10 @@
                                     </div>
                                     <div class="band-list">
                                         <div class="empolyee-band-body-modal">
-                                            <input type="text" class="empolyeeinput01" placeholder="Employee Band A">
-                                            <select class="did-floating-select">
-                                                <option value="">1</option>
-                                                <option value="1">3</option>
-                                            </select>
+                                            <div id="textboxContainer" style="width:45%;"></div>   
+                                             <div id="dropdownContainer" style="width:50%; display:none" class="answer"> </div>
                                         </div>
 
-                                        <div class="empolyee-band-body-modal">
-                                            <input type="text" class="empolyeeinput01" placeholder="Employee Band B">
-                                            <select class="did-floating-select">
-                                                <option value="">1</option>
-                                                <option value="1">3</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="empolyee-band-body-modal">
-                                            <input type="text" class="empolyeeinput01" placeholder="Employee Band C">
-                                            <select class="did-floating-select">
-                                                <option value="">1</option>
-                                                <option value="1">3</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="empolyee-band-body-modal">
-                                            <input type="text" class="empolyeeinput01" placeholder="Employee Band D">
-                                            <select class="did-floating-select">
-                                                <option value="">1</option>
-                                                <option value="1">3</option>
-                                            </select>
-                                        </div>
                                     </div>
                                     <ol class="carousel-indicators">
                                         <li data-target="#carouselExampleFade" data-slide-to="0" data-slide="prev" class="active"></li>
@@ -244,22 +370,41 @@
 
                                     <div class="d-flex justify-content-center mt-2">
                                         <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
-                                        <button class="btn btn-primary mx-2 w-49" data-target="#carouselExampleFade" data-slide="next">Continue</button>
+                                        <button class="btn btn-primary mx-2 w-49" data-target="#carouselExampleFade" data-slide="next" onclick="saveEmployeeBandTab2()">Continue</button>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                             <div class="carousel-item">
+                            <form id="formTab3">
                                 <div class="slide-wrap">
                                     <div class="d-block">
                                         <p class="mb-0">Please review and confirm the Employee Bands below</p>
                                     </div>
-                                    <div class="d-flex align-items-center my-2">
+                                    <div class="d-flex align-items-center my-2" id="alphaSeniority">
                                         <p class="mb-0">Starting Employee Band that defines the order of seniority</p>
                                         <select class="did-floating-select mx-2 min-w170">
-                                            <option value="">Employee Band A</option>
-                                            <option value="1">Employee Band A</option>
+                                            <option value="A">Employee Band A</option>
+                                            <option value="B">Employee Band B</option>
+                                            <option value="C">Employee Band C</option>
+                                            <option value="D">Employee Band D</option>
+                                            <option value="E">Employee Band E</option>
+                                            <option value="F">Employee Band F</option>
                                         </select>
                                     </div>
+                                    
+                                      <div class="d-flex align-items-center my-2 abc" id="numericSeniority">
+                                        <p class="mb-0">Starting Employee Band that defines the order of seniority</p>
+                                        <select class="did-floating-select mx-2 min-w170">
+                                            <option value="1">Employee Band 1</option>
+                                            <option value="2">Employee Band 2</option>
+                                            <option value="3">Employee Band 3</option>
+                                            <option value="4">Employee Band 5</option>
+                                            <option value="5">Employee Band 6</option>
+                                            <option value="6">Employee Band 6</option>
+                                        </select>
+                                    </div>
+                                    
                                     <hr>
                                     <div class="empolyee-band-table">
                                         <div class="empolyee-band-head">
@@ -272,17 +417,24 @@
                                                 <input type="text" class="empolyeeinput02" placeholder="A1">
                                                 <input type="text" class="empolyeeinput02" placeholder="A2">
                                                 <input type="text" class="empolyeeinput02" placeholder="A3">
+                                                <input type="text" class="empolyeeinput02" placeholder="A3">
+                                                <input type="text" class="empolyeeinput02" placeholder="A5">
                                             </div>
                                             <div class="empolyee-band-body">
                                                 <input type="text" class="empolyeeinput01" placeholder="B">
                                                 <input type="text" class="empolyeeinput02" placeholder="B1">
                                                 <input type="text" class="empolyeeinput02" placeholder="B2">
                                                 <input type="text" class="empolyeeinput02" placeholder="B3">
+                                                 <input type="text" class="empolyeeinput02" placeholder="B4">
+                                                 <input type="text" class="empolyeeinput02" placeholder="B5">
                                             </div>
                                             <div class="empolyee-band-body">
                                                 <input type="text" class="empolyeeinput01" placeholder="C">
                                                 <input type="text" class="empolyeeinput02" placeholder="C1">
                                                 <input type="text" class="empolyeeinput02" placeholder="C2">
+                                                <input type="text" class="empolyeeinput02" placeholder="C3">
+                                                <input type="text" class="empolyeeinput02" placeholder="C4">
+                                                <input type="text" class="empolyeeinput02" placeholder="C5">
                                             </div>
                                         </div>
                                     </div>
@@ -298,6 +450,7 @@
                                         <a href="employee-band-setting.html" class="btn btn-primary mx-2 w-49" >Confirm</a>
                                     </div>
                                 </div>
+                               </form>
                             </div>
                         </div>
                         
