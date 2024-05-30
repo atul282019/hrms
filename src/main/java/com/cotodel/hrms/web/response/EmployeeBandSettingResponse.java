@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class EmployeeBandSettingResponse {
 	
 	private Integer employerId;
-	private Long bandEnabled;	
+	private String bandEnabled;	
 	private String employeeBandNo;
 	private String employeeBandNoAlpha;
 	private String employeeBandOrder;

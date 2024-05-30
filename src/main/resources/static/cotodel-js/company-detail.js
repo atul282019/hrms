@@ -232,9 +232,10 @@ function validateFormAndSubmit() {
                    document.getElementById("salaryAdvancesFlagError").innerHTML="";
 					document.getElementById("salaryAdvancesFlag").focus();   
                 }   
-      var employerid = document.getElementById("employerId").value;
-       var formData = new FormData(saveCompany);
-       formData.append("employerId",employerid);
+      
+        var employerid = document.getElementById("employerId").value;
+        var formData = new FormData(saveCompany);
+        formData.append("employerId",employerid);
        
        document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
