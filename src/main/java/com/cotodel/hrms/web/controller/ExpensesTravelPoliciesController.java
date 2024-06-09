@@ -58,12 +58,11 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController{
 			String listValue=data[i];
 			String[] rowArray=listValue.split("@");
 			BandDetailRequest bandDetailRequest= new BandDetailRequest();
-			bandDetailRequest.setBandId(rowArray[0]);
-			bandDetailRequest.setBandName(rowArray[1]);
-			bandDetailRequest.setBandPerDay(listValue);
-			bandDetailRequest.setBandPerWeek(listValue);
-			bandDetailRequest.setBandPerMonth(rowArray[3]);
-			bandDetailRequest.setBandPerYear("");
+			bandDetailRequest.setBandType(rowArray[0]);
+			bandDetailRequest.setBandOneInr(rowArray[1]);
+			bandDetailRequest.setBandTwoInr(rowArray[2]);
+			bandDetailRequest.setBandThreeInr(rowArray[3]);
+			
 			list.add(bandDetailRequest);
 		}
 		

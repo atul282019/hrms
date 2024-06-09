@@ -5,7 +5,7 @@
 	
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top">
+<body id="page-top" onload="viewEmployeeBand()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -34,6 +34,79 @@
                                 <li class="active"><a data-toggle="tab" href="#home">Employee Bands</a></li>
                                 <li><a data-toggle="tab" href="#menu1">Expenses & Advances</a></li>
                             </ul>
+                            <div class="tab-content">
+                            
+                                  <form id="viewBand">
+                                <div class="slide-wrap">
+                                
+                                 <div class="d-block">
+                                 <h4>Employee Bands Activation </h4>
+                                        <p class="mb-0">Employee Bands are activated. This helps introduce segmentation and 
+                                        set guidelines for the administration employee benefits and expenses allowances </p>
+                                    </div>
+                                    
+                                     <div class="d-block">
+                                 <h4>Employee Bands Setting </h4>
+                                        <p class="mb-0">Number of Employee Bands <span id="Noofband"></span></p>
+                                    </div>
+                                   
+                                      <div>
+                                        <p>Employee Bands represented by: </p>
+                                    </div>
+                                    <div>
+                                        <div class="band-option">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="numericFigureView" value="NumericView"
+                                                    id="numericFigure">
+                                                <label class="form-check-label" for="numericView">
+                                                    Numeric Figures
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="numericFigureView" value="AlphabeticalView"
+                                                    id="AlphabeticalFigureView" >
+                                                <label class="form-check-label" for="AlphabeticalFigureView">
+                                                    Alphabetical Figures
+                                                </label>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="" id="numericFigureViewError" style="color:red"></div> 
+                                        
+                                    </div>
+                                    <div class="d-flex align-items-center my-2" id="alphaSeniority">
+                                        <p class="mb-0">Starting Employee Band that defines the order of seniority</p>
+                                        <select  id="reviewDropdown">
+                                        </select>
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <div class="table-responsive">
+                                    	<table class="table empolyee-band-table" id="viewEmployeeBandTable">
+                                    		<thead>
+                                    			<tr>
+                                    				<th class="bandlabel">Employee Bands</th>
+                                    				<th class="bandlabel01" >Additional Tiers</th>
+                                    				<th class="bandlabel01" ></th>
+                                    				<th class="bandlabel01"></th>
+                                    				<th class="bandlabel01" ></th>
+                                    				<th class="bandlabel01" ></th>
+                                    				<th class="bandlabel01" ></th>
+                                    			</tr>
+                                    		</thead>
+                                    		<tbody>
+                                    			
+                                    		</tbody>
+                                    	</table>
+                                    </div>
+                                </div>
+                               </form>
+                              
+                            </div>
+                            
+                            
                             <div class="tab-content">
                                 <div id="home" class="tab-pane in active">
                                     <div class="employee-band-wrap">
@@ -97,8 +170,6 @@
 	   });
 	});
 	</script>
-    
-	
 	
 	<script>
         function toggleColumn() {
@@ -181,7 +252,8 @@
                                             </div>
                                             
                                         </div>
-                                        <div class="error-msg" id="numericFigureError" style="color:red"></div> 
+                                        <div class="" id="numericFigureError" style="color:red"></div> 
+                                        
                                     </div>
                                     <div class="my-4">
                                         <div class="info-msg">
@@ -192,21 +264,13 @@
                                     <div class="d-flex align-items-center">
                                         <p class="mb-0">Choose the starting Employee Band to define the order of seniority </p>
                                         <select class="did-floating-select mx-2 min-w170" id="startingEmployeeAlpha" style="display: block" onchange="change();">
-                                            <option value="Band A">Employee Band A</option>
-                                            <option value="Band B">Employee Band B</option>
-                                            <option value="Band C">Employee Band C</option>
-                                            <option value="Band D">Employee Band D</option>
-                                            <option value="Band E">Employee Band E</option>
-                                            <option value="Band F">Employee Band F</option>
+                                           <option value="ascending">Ascending</option>
+                                           <option value="descending">Descending</option>
                                         </select>
                                         
                                         <select class="did-floating-select mx-2 min-w170" id="startingEmployeeNumeric" style="display: none" onchange="change();">
-                                            <option value="Band 1">Employee Band 1</option>
-                                            <option value="Band 2">Employee Band 2</option>
-                                            <option value="Band 3">Employee Band 3</option>
-                                            <option value="Band 4">Employee Band 4</option>
-                                            <option value="Band 5">Employee Band 5</option>
-                                            <option value="Band 6">Employee Band 6</option>
+                                            <option value="ascending">Ascending</option>
+                                            <option value="descending">Descending</option>
                                         </select>
                                         
                                         <div class="exclaimation"><img src="img/exclaimation.svg" alt="" data-toggle="tooltip" data-placement="top"
@@ -245,12 +309,12 @@
                                    		<table id="bandTable" class="table no-bordered empolyee-band-head-modal newTable" colpadding="5">
                                    			<thead>
                                    				<tr>
-                                   					<th>Employee Bands</th>
-                                   					<th>Additional Tiers</th>
+                                   				   <th>Employee Bands</th>
+                                   				   <th>Additional Tiers</th>
                                    				</tr>
                                    			</thead>
-	                                   			<tbody>
-	                                   			</tbody>
+	                                   			  <tbody>
+	                                   			  </tbody>
                                    		</table>
                                    	</div>
                                        
@@ -289,19 +353,16 @@
                                     		<thead>
                                     			<tr>
                                     				<th class="bandlabel">Employee Bands</th>
-                                    				<th class="bandlabel01" colspan="5">Additional Tiers</th>
-									               
+                                    				<th class="bandlabel01" >Additional Tiers</th>
+                                    				<th class="bandlabel01" ></th>
+                                    				<th class="bandlabel01"></th>
+                                    				<th class="bandlabel01" ></th>
+                                    				<th class="bandlabel01" ></th>
+                                    				<th class="bandlabel01" ></th>
                                     			</tr>
                                     		</thead>
                                     		<tbody>
-                                    			<!-- <tr class="empolyee-band-body">
-                                    				<td><input type="text" class="empolyeeinput01" placeholder="A"></td>
-                                    				<td><input type="text" class="empolyeeinput02" placeholder="A1"></td>
-                                    				<td><input type="text" class="empolyeeinput02" placeholder="A1"></td>
-                                    				<td><input type="text" class="empolyeeinput02" placeholder="A1"></td>
-                                    				<td><input type="text" class="empolyeeinput02" placeholder="A1"></td>
-                                    				<td><input type="text" class="empolyeeinput02" placeholder="A1"></td>
-                                    			</tr> -->
+                                    			
                                     		</tbody>
                                     	</table>
                                     </div>
@@ -318,6 +379,7 @@
 					                    <button type="button" class="btn btn-primary mx-2 w-49" data-dismiss="modal" aria-label="Close" >
 					                       <span aria-hidden="true">Confirm</span>
 					                    </button>
+					                    
                                     </div>
                                     <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                                 </div>

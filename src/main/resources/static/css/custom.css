@@ -3660,3 +3660,19 @@ table.empolyee-band-table thead tr th.bandlabel, table.empolyee-band-table thead
     margin-bottom: 0;
     border:none;
 }
+
+.empolyee-band-table tbody tr {
+    background: #e3e6f0;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.empolyee-band-table tbody tr td {
+    border: none;
+}
+
+.empolyee-band-table tbody tr td input.empolyeeinput01 {
+    background: #fff;
+    margin-right: 5px;
+}

@@ -5,7 +5,7 @@
 	
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top"  onload="getExpanceCategoryList()">
+ <body id="page-top"  onload="getExpanceCategoryList()"> 
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -21,9 +21,8 @@
             <div id="content">
 
                 <!-- Topbar -->
-               
+                               
 		<div th:insert="fragments/header.html :: header"></div>
-
 
                 <!-- End of Topbar -->
 
@@ -71,9 +70,7 @@
                                                 </div>                                              
                                             </div>
                                         </div>
-                                    </div>
-                                   
-
+                                    </div>                               
 
                                     <div class="policies-section">
                                         <div class="policies-wrap">
@@ -121,7 +118,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                          <!--   <tr>
+                                                         <!--  <tr>
                                                                 <td>
                                                                     <img src="img/Travel.svg" alt="" class="mr-2">Travel
                                                                 </td>
@@ -140,7 +137,7 @@
                                                                     <img src="img/taxi.svg" alt="" class="mr-2">Conveyance
                                                                 </td>
                                                                 <td>EXP02</td>
-                                                                <td><p>Limits based on Duration</p><a href="#"><img src="img/add-tr.svg" alt=""></a></td>
+                                                                <td><p>Limits based on Duration</p><button class="button" onclick="toggleRow(this)">+</button></td>
                                                                 <td>60 Days</td>
                                                                 <td>
                                                                     <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
@@ -154,7 +151,7 @@
                                                                     <img src="img/hotel.svg" alt="" class="mr-2">Stay
                                                                 </td>
                                                                 <td>EXP03</td>
-                                                                <td><p>Limits based on Employee Bands</p><a href="#"><img src="img/add-tr.svg" alt=""></a></td>
+                                                                <td><p>Limits based on Employee Bands</p><button class="button" onclick="toggleRow(this)">+</button></td>
                                                                 <td>20 Days</td>
                                                                 <td>
                                                                     <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
@@ -168,7 +165,10 @@
                                                                     <img src="img/food.svg" alt="" class="mr-2">Food
                                                                 </td>
                                                                 <td>EXP04</td>
-                                                                <td><p>Limits based on Employee Bands & Duration</p><a href="#"><img src="img/remove-tr.svg" alt="" onclick="toggle();" ></a> </td>
+                                                                <td><p>Limits based on Employee Bands & Duration</p>
+                                                                <a href="#"><img src="img/remove-tr.svg" alt="" onclick="toggle();" ></a> 
+                                                                <button class="button" onclick="toggleRow(this)">+</button>
+                                                                </td>
                                                                 <td>20 Days</td>
                                                                 <td>
                                                                     <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
@@ -177,7 +177,7 @@
                                                                     <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
                                                                 </td>
                                                             </tr>
-                                                            <tr style="display:none; background: #EDEDF0;" id="hidethis" >
+                                                            <tr id="hidethis" class="hidden">
                                                                 <td colspan="5">
                                                                     <div class="expense-table">
                                                                         <table class="table mb-0">
@@ -234,8 +234,8 @@
                                                                     </button> 
                                                                     <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
                                                                 </td>
-                                                            </tr>
-                                                            -->
+                                                            </tr> -->
+                                                           
                                                         </tbody>
                                                     </table>
                                                      <div class="last-add">
@@ -353,6 +353,47 @@
      <script type="text/javascript" src="cotodel-js/expenses-travel-polices.js"></script>
 
 	<script>
+	     function toggleRow(button) {
+	        const row = button.parentNode.parentNode.nextElementSibling;
+	        if (row.classList.contains('hidden')) {
+	            row.classList.remove('hidden');
+	            button.textContent = '-';
+	        } else {
+	            row.classList.add('hidden');
+	            button.textContent = '+';
+	        }
+	    } 
+	   
+	</script>
+	<script>
+	
+	function addAdditionalTR() {
+	        // Initialize DataTable
+	        var table = $('#expensesTable').DataTable();
+	        
+	        // Add hidden rows after each row in the DataTable
+	        $('#expensesTable tbody tr').each(function() {
+	            var detailsRow = $('<tr class="hidden"><td colspan="6">Detailed information</td></tr>');
+	            $(this).after(detailsRow);
+	        });
+
+	        // Handle plus/minus button click
+	        $('#expensesTable').on('click', '.button', function() {
+	            var button = $(this);
+	            var detailsRow = button.closest('tr').next('tr.hidden');
+	            if (detailsRow.length > 0) {
+	                if (detailsRow.is(':visible')) {
+	                    detailsRow.hide();
+	                    button.text('+');
+	                } else {
+	                    detailsRow.show();
+	                    button.text('-');
+	                }
+	            }
+	        });
+	    }
+	  
+	  
 	$(document).ready(function(){
 		 $(".innernav").click(function(){
 	        $(".dropdownNav").addClass("active");
@@ -696,22 +737,6 @@ function enableAddButton(){
      
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
    <!-- Modal Currency Conversion -->

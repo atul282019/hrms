@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BandDetailRequest {
 	
-	private String bandId;
-	private String bandName;	
-    private String bandPerDay;    
-    private String bandPerMonth;    
-    private String bandPerWeek;    
-    private String bandPerYear;
+	private String expenseCategoryId;
+	private String bandType;	
+    private String bandOneInr;    
+    private String bandTwoInr;    
+    private String bandThreeInr;    
     private boolean status;
 
 }

@@ -41,7 +41,7 @@ function getExpanceCategoryList() {
                      if(expenseCategory=="Conveyance")
                      {
 					 var imgTag = '<img src="img/taxi.svg" alt="" class="mr-2">'+expenseCategory;
- 					 var addImage = expenseLimit+'<a href="#"><img src="img/add-tr.svg" alt=""></a>';
+ 					 var addImage = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
  					  $(row).find('td:eq(3)').html(addImage);
                       $(row).find('td:eq(1)').html(imgTag);
                      }
@@ -57,7 +57,7 @@ function getExpanceCategoryList() {
 						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+expenseCategory;
 	 					 $(row).find('td:eq(1)').html(imgTag);
 	                      
-	                     var plus   = expenseLimit+'<a href="#"><img src="img/remove-tr.svg" alt="" onclick="toggle();" ></a>';
+	                     var plus   = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
 	                     $(row).find('td:eq(3)').html(plus);
                       
                      }
@@ -78,13 +78,13 @@ function getExpanceCategoryList() {
                      {
 					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
 					 
-					 var addImage = expenseLimit+'<a href="#"><img src="img/add-tr.svg" alt=""></a>';
+					 var addImage = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
  					  $(row).find('td:eq(3)').html(addImage);
                       $(row).find('td:eq(1)').html(imgTag);
                      }
                   }
       		});		
-			
+			addAdditionalTR();
 		},
 		error: function(e) {
 			alert('Failed to fetch JSON data' + e);
