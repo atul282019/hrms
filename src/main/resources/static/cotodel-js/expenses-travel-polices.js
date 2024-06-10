@@ -103,6 +103,9 @@ function addExpensesCategory(){
 	var distingushEmployeeBand = document.getElementById("distingushEmployeeBand").value;
 	var timeperiod = document.getElementById("timeperiod").value;
 	
+	var employerid = document.getElementById("employerId").value;
+	var id = document.getElementById("expensesid").value;
+	
     var allInputValues = [];
 	
 	 $('.newTable tbody tr').each(function () {
@@ -118,11 +121,12 @@ function addExpensesCategory(){
      //get dynamic table data end
     
      var formData = new FormData(addExpenses);
-    
+     formData.append("id", id);
+     formData.append("employerId", employerid);
      formData.append("expenseCategory", expenseCategory);
-     formData.append("expanceCode", expanceCode);
+     formData.append("expenseCode", expanceCode);
      formData.append("distingushEmployeeBand", distingushEmployeeBand);
-     formData.append("timeperiod", timeperiod);
+     formData.append("period", timeperiod);
      formData.append("listArray", allInputValues);
     
  
