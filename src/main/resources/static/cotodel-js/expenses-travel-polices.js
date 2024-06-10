@@ -1,9 +1,11 @@
 function getExpanceCategoryList() {
 	document.getElementById("signinLoader").style.display="flex";
+	var employerid = document.getElementById("employerId").value;
 	$.ajax({
 		type: "GET",
 		url: "/getExpensesCategory",
 		data: {
+			"employerId": employerid
 		},
 		success: function(data) {
 			newData = data;
@@ -172,7 +174,7 @@ function addExpensesCategory(){
 		type: "GET",
 		url:"/editExpensesCategory",
         data: {
-				//"id": id,
+				"id": id,
 				"expenseCode": expanceCode,
        		 },
        		  beforeSend : function(xhr) {

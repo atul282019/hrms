@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ExpenseCategoryRequest {
 	
 	private Integer id;
+	private Integer employerId;
 	private String expenseCategory;
 	private String expenseCode;
 	private String bandFlag;

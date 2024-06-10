@@ -36,78 +36,9 @@
                             </ul>
                             <div class="tab-content">
                             
-                                  <form id="viewBand">
-                                <div class="slide-wrap">
-                                
-                                 <div class="d-block">
-                                 <h4>Employee Bands Activation </h4>
-                                        <p class="mb-0">Employee Bands are activated. This helps introduce segmentation and 
-                                        set guidelines for the administration employee benefits and expenses allowances </p>
-                                    </div>
-                                    
-                                     <div class="d-block">
-                                 <h4>Employee Bands Setting </h4>
-                                        <p class="mb-0">Number of Employee Bands <span id="Noofband"></span></p>
-                                    </div>
-                                   
-                                      <div>
-                                        <p>Employee Bands represented by: </p>
-                                    </div>
-                                    <div>
-                                        <div class="band-option">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="numericFigureView" value="NumericView"
-                                                    id="numericFigure">
-                                                <label class="form-check-label" for="numericView">
-                                                    Numeric Figures
-                                                </label>
-                                            </div>
-                                            
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="numericFigureView" value="AlphabeticalView"
-                                                    id="AlphabeticalFigureView" >
-                                                <label class="form-check-label" for="AlphabeticalFigureView">
-                                                    Alphabetical Figures
-                                                </label>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="" id="numericFigureViewError" style="color:red"></div> 
-                                        
-                                    </div>
-                                    <div class="d-flex align-items-center my-2" id="alphaSeniority">
-                                        <p class="mb-0">Starting Employee Band that defines the order of seniority</p>
-                                        <select  id="reviewDropdown">
-                                        </select>
-                                    </div>
-                                    
-                                    <hr>
-                                    
-                                    <div class="table-responsive">
-                                    	<table class="table empolyee-band-table" id="viewEmployeeBandTable">
-                                    		<thead>
-                                    			<tr>
-                                    				<th class="bandlabel">Employee Bands</th>
-                                    				<th class="bandlabel01" >Additional Tiers</th>
-                                    				<th class="bandlabel01" ></th>
-                                    				<th class="bandlabel01"></th>
-                                    				<th class="bandlabel01" ></th>
-                                    				<th class="bandlabel01" ></th>
-                                    				<th class="bandlabel01" ></th>
-                                    			</tr>
-                                    		</thead>
-                                    		<tbody>
-                                    			
-                                    		</tbody>
-                                    	</table>
-                                    </div>
-                                </div>
-                               </form>
-                              
                             </div>
                             
-                            
-                            <div class="tab-content">
+                            <div class="tab-content" id="defaultDiv" style="display: block">
                                 <div id="home" class="tab-pane in active">
                                     <div class="employee-band-wrap">
                                         <h4>Employee Bands</h4>
@@ -126,6 +57,101 @@
                                     <p>Some content in menu 1.</p>
                                 </div>
                             </div>
+                            
+                            
+                             <div class="tab-content" style="display: none" id="viewBandDiv" >
+                                <div id="home" class="tab-pane in active">
+                                    <div class="bandsetting">
+                                        <h4>Expense Reimbursements </h4>
+                                        <div class="bandsetting01-wrap">
+                                            <div class="left-bandsetting d-flex">
+                                                <div class="table-check">
+                                                    <input type="checkbox" id="customCheck3">
+                                                </div>
+                                                <p>Employee Bands are activated. This helps introduce segmentation and
+                                                    set guidelines for the administration of employee benefits and
+                                                    expense allowances.</p>
+                                            </div>
+                                            <div class="right-bandsetting">
+                                                <button type="button" class="btn p-0">
+                                                    <img src="img/edit.svg" alt="" data-toggle="modal" data-target="#ModalEmployeeBandActivation">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bandsetting" >
+                                        <h4>Employee Band Settings </h4>
+                                        <div class="bandsetting01-wrap">
+                                            <div class="left-bandsetting">
+                                                <div>
+                                                    <label>Number of Employee Bands</label> <input type="text" id="Noofband" class="num" readonly>
+                                                </div>
+                                                <div>
+                                                    <label>Employee Bands represented by:</label><br>
+		                                                    <div class="band-option">
+		                                                         <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="NumericView"
+		                                                    id="numericFigure">
+		                                                <label class="form-check-label" for="numericView">
+		                                                    Numeric Figures
+		                                                </label>
+		                                            </div>
+		                                            
+		                                            <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="AlphabeticalView"
+		                                                    id="AlphabeticalFigureView" >
+		                                                <label class="form-check-label" for="AlphabeticalFigureView">
+		                                                    Alphabetical Figures
+		                                                </label>
+		                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label>Starting Employee Band that defines the order of
+                                                        seniority</label> <input type="text"
+                                                        placeholder="Employee Band A1" class="employee">
+                                                    <div class="exclaimation"><img src="img/exclaimation.svg" alt=""
+                                                            data-toggle="tooltip" data-placement="top"
+                                                            title="The selected band forms the starting point for the order of seniority. In case A or 1 is selected, the order of seniority will be in a chronological order, with A or 1 as the base, and vice-versa.">
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table emp_Bnd_Tbl" id="viewEmployeeBandTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Employee Bands</th>
+                                                                <th colspan="3">Additional Tiers</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                            <div class="right-bandsetting">
+                                                <button type="button" class="btn p-0" data-toggle="modal"
+                                                    data-target="#ModalEmployeeBandSetting">
+                                                    <img src="img/edit.svg" alt="">
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div id="menu1" class="tab-pane ">
+                                    <h3>Menu 1</h3>
+                                    <p>Some content in menu 1.</p>
+                                </div>
+                            </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -281,11 +307,11 @@
                                    
                                     <hr>
 
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
-                                        <li data-target="#carouselExampleFade" data-slide-to="1" data-slide="next"></li>
-                                        <li data-target="#carouselExampleFade" data-slide-to="2" data-slide="next"></li>
-                                    </ol>
+                                    <ul class="custom-slid-bar">
+                                        <li class="highlight">1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                    </ul>
 
                                     <div class="d-flex justify-content-center mt-2">
                                         <button class="btn btn-primary w-100" type="button" onclick="validateTab1()" id="continewTab1" style="display:block"> Continue </button>
@@ -318,13 +344,11 @@
                                    		</table>
                                    	</div>
                                        
-                                    <ol class="carousel-indicators">
-                                    
-                                        <li data-target="#carouselExampleFade" data-slide-to="0" data-slide="prev" class="active"></li>
-                                        <li data-target="#carouselExampleFade" data-slide-to="1" data-slide="next" class="active"></li>
-                                        <li data-target="#carouselExampleFade" data-slide-to="2" data-slide="next"></li>
-                                   
-                                    </ol>
+                                    <ul class="custom-slid-bar">                                    
+                                        <li class="highlight">1</li>
+                                        <li class="highlight">2</li>
+                                        <li>3</li>                                   
+                                    </ul>
 
                                     <div class="d-flex justify-content-center mt-2">
                                         <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
@@ -367,11 +391,11 @@
                                     	</table>
                                     </div>
                                     
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#carouselExampleFade" data-slide-to="0" data-slide="prev" class="active"></li>
-                                        <li data-target="#carouselExampleFade" data-slide-to="1" data-slide="prev" class="active"></li>
-                                        <li data-target="#carouselExampleFade" data-slide-to="2" class="active"></li>
-                                    </ol>
+                                    <ul class="custom-slid-bar">
+                                        <li class="highlight">1</li>
+                                        <li class="highlight">2</li>
+                                        <li class="highlight">3</li>
+                                    </ul>
 
                                     <div class="d-flex justify-content-center mt-2">
                                         <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
@@ -381,7 +405,7 @@
 					                    </button>
 					                    
                                     </div>
-                                    <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                                    <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> 
                                 </div>
                                </form>
                                <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
@@ -393,7 +417,7 @@
             </div>
         </div>
     </div>
-
+<div class="lds-spinner" id="signinLoader2" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 </body>
 
 </html>

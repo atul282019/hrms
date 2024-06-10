@@ -484,7 +484,7 @@ function bindJsonToTable(jsonData) {
      function viewEmployeeBand() {
 
 			var employerId=document.getElementById("employerId").value;
-			///document.getElementById("signinLoader").style.display="flex";
+			document.getElementById("signinLoader2").style.display="flex";
 			
 			$.ajax({
 				type: "POST",
@@ -498,8 +498,12 @@ function bindJsonToTable(jsonData) {
 		            success: function(data){
 			 		newData = data;
 					var data1 = jQuery.parseJSON( newData );
-					bindJsonToTableEmployee(data1);
-		      	    //document.getElementById("signinLoader").style.display="none";		  
+					if(data1.data.list !== null && data1.data.list !== ""){
+						document.getElementById("viewBandDiv").style.display="block";
+						document.getElementById("defaultDiv").style.display="none";
+						bindJsonToTableEmployee(data1);
+					}
+		      	    document.getElementById("signinLoader2").style.display="none";		  
 		    		},
 				error: function(e) {
 					alert('Failed to fetch JSON data' + e);
@@ -525,7 +529,7 @@ function bindJsonToTableEmployee(jsonData) {
 				else{
 					document.getElementById('numericFigure').checked = true;
 				}
-			document.getElementById('Noofband').innerHTML  = employeeBandNo;
+			document.getElementById('Noofband').value  = employeeBandNo;
 			
              newDropdown.appendChild(option);
                  
@@ -538,7 +542,7 @@ function bindJsonToTableEmployee(jsonData) {
                 const cell1 = row.insertCell(0);
                 const input3 = document.createElement('input');
                 input3.type = 'text';
-                input3.setAttribute('class',"empolyeeinput01");
+               // input3.setAttribute('class',"empolyeeinput01");
                 input3.setAttribute('disabled',"disabled");
                 input3.value = item.employeeBand;
                 cell1.appendChild(input3);
@@ -547,7 +551,7 @@ function bindJsonToTableEmployee(jsonData) {
                 const cell2 = row.insertCell(1);
                 const input5 = document.createElement('input');
                 input5.type = 'text';
-                input5.setAttribute('class',"empolyeeinput01");
+                //input5.setAttribute('class',"empolyeeinput01");
                 input5.setAttribute('disabled',"disabled");
                 input5.value = item.additionalTiersOne ? item.additionalTiersOne : 'N/A';;
                 cell2.appendChild(input5);
@@ -556,7 +560,7 @@ function bindJsonToTableEmployee(jsonData) {
                 const cell3 = row.insertCell(2);
                 const input6 = document.createElement('input');
                 input6.type = 'text';
-                 input6.setAttribute('class',"empolyeeinput01");
+                 //input6.setAttribute('class',"empolyeeinput01");
                  input6.setAttribute('disabled',"disabled");
                 input6.value = item.additionalTiersTwo ? item.additionalTiersTwo : 'N/A';
                 cell3.appendChild(input6);
@@ -565,7 +569,7 @@ function bindJsonToTableEmployee(jsonData) {
                 const cell4 = row.insertCell(3);
                 const input7 = document.createElement('input');
                 input7.type = 'text';
-                input7.setAttribute('class',"empolyeeinput01");
+                //input7.setAttribute('class',"empolyeeinput01");
                 input7.setAttribute('disabled',"disabled");
                 input7.value = item.additionalTiersThree ? item.additionalTiersThree : 'N/A';
                 cell4.appendChild(input7);
@@ -574,7 +578,7 @@ function bindJsonToTableEmployee(jsonData) {
                 const cell5 = row.insertCell(4);
                 const input8 = document.createElement('input');
                 input8.type = 'text';
-                input8.setAttribute('class',"empolyeeinput01");
+                //input8.setAttribute('class',"empolyeeinput01");
                 input8.setAttribute('disabled',"disabled");
                 input8.value = item.additionalTiersFour ? item.additionalTiersFour : 'N/A';
                 cell5.appendChild(input8);
@@ -584,7 +588,7 @@ function bindJsonToTableEmployee(jsonData) {
                 const cell6 = row.insertCell(5);
                 const input9 = document.createElement('input');
                 input9.type = 'text';
-                input9.setAttribute('class',"empolyeeinput01");
+                //input9.setAttribute('class',"empolyeeinput01");
                 input9.setAttribute('disabled',"disabled");
                 input9.value = item.additionalTiersFive ? item.additionalTiersFive : 'N/A';
                 cell6.appendChild(input9);
