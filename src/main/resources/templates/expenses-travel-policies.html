@@ -72,29 +72,82 @@
                                         </div>
                                     </div>                               
 
-                                    <div class="policies-section">
+                                      <div class="policies-section">
                                         <div class="policies-wrap">
                                             <h4>Advance Request Settings </h4>
-                                            
+
                                             <div class="policies-wrap-in d-block">
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-checkbox small">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                        <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for cash advances & travel bookings.</label>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="policies-wrap-in-left">                                                
-                                                        <div class="incurring-exp">
-                                                            <p>After availing a cash advance, an employee is required to submit respective expense claim within: <input type="text" class="form-control incurr" placeholder="60">days of incurring expense.</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-block">
+
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="customCheck2">
+                                                                <label class="custom-control-label text-left"
+                                                                    for="customCheck2">Allow employees to request for
+                                                                    travel bookings.</label>
+                                                            </div>
                                                         </div>
-                                                        
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="customCheck3">
+                                                                <label class="custom-control-label text-left"
+                                                                    for="customCheck3">Allow employees to request for
+                                                                    cash advances.</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small pl-0">
+                                                                <label class="mb-0">Restrictions for usage of cash
+                                                                    advances:</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="band-option d-flex-column">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    All employees are allowed
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="flexRadioDefault" id="flexRadioDefault2"
+                                                                    checked="">
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                    Specific employees are allowed
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="policies-wrap-in-left w-100 my-3">
+                                                            <div class="incurring-exp w-100">
+                                                                <input type="text" placeholder="Sujata Kumar" disabled class="incur-input">
+                                                                <input type="text" placeholder="Kamal Khan" disabled class="incur-input">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="policies-wrap-in-left w-100">
+                                                            <div class="incurring-exp">
+                                                                <p>An employee is required to submit expense claims
+                                                                    against a cash advance within: <input type="text"
+                                                                        class="form-control incurr"
+                                                                        placeholder="60">Days from the date of disbursal
+                                                                    of cash advance</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="policies-wrap-in-right">
-                                                        <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalAdvanceRequest">
-                                                            <img src="img/edit.svg" alt="">
-                                                        </button> 
-                                                    </div>                                              
+                                                    <div class="d-block">
+                                                        <div class="policies-wrap-in-right w-100">
+                                                            <button type="button" class="btn p-0" data-toggle="modal"
+                                                                data-target="#ModalAdvanceRequest">
+                                                                <img src="img/edit.svg" alt="">
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -523,8 +576,81 @@ function enableAddButton(){
 	
 }
 </script>	
+<!-- 
+ <script >
 	
+	class Validator {
+    constructor(form) {
+        this.form = form;
+        this.inputs = form.querySelectorAll('.band1');
+        this.errors = form.querySelectorAll('.error-message');
+
+        this.initialize();
+    }
+
+    initialize() {
+        this.inputs.forEach(input => {
+            input.addEventListener('input', () => this.validateField(input));
+        });
+
+        this.form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            this.validateForm();
+        });
+    }
+
+    validateField(input) {
+        const errorElement = input.nextElementSibling;
+        let isValid = true;
+        let errorMessage = '';
+
+        if (input.value.trim() === '') {
+            isValid = false;
+            errorMessage = `${input.previousElementSibling.innerText} is required.`;
+        } else if (input.type === 'email' && !this.validateEmail(input.value)) {
+            isValid = false;
+            errorMessage = 'Please enter a valid email address.';
+        }
+
+        if (isValid) {
+            input.classList.remove('invalid');
+            errorElement.style.display = 'none';
+        } else {
+            input.classList.add('invalid');
+            errorElement.innerText = errorMessage;
+            errorElement.style.display = 'block';
+        }
+
+        return isValid;
+    }
+
+    validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    validateForm() {
+        let isFormValid = true;
+
+        this.inputs.forEach(input => {
+            const isFieldValid = this.validateField(input);
+            if (!isFieldValid) {
+                isFormValid = false;
+            }
+        });
+
+        if (isFormValid) {
+            alert('Form submitted successfully!');
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form');
+    new Validator(form);
+});
 	
+	</script> -->
 	
 	
 	
@@ -596,36 +722,73 @@ function enableAddButton(){
 
 
   <!-- Modal Advance Request -->
-<div class="modal fade" id="ModalAdvanceRequest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered modal-approval-wrap" role="document">
-      <div class="modal-content">
-        <div class="modal-header pb-0">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Advance Request Settings</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="policies-wrap-in-modal">
-                <div class="form-group">
-                    <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="advanceRequestCheckbox">
-                        <label class="custom-control-label text-left" for="advanceRequestCheckbox">Allow employees to request for cash advances & travel bookings.</label>
+    <div class="modal fade" id="ModalAdvanceRequest" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Advance Request Settings</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="policies-wrap-in-modal">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox small">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for travel bookings.</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox small">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for cash advances.</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox small pl-0">
+                                <label class="mb-0">Restrictions for usage of cash advances:</label>
+                            </div>
+                        </div>
+                        <div class="band-option d-flex-column">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    All employees are allowed
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked="">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Specific employees are allowed
+                                </label>
+                            </div>
+                        </div>
+                        <div class="incurring-exp-modal d-flex align-items-center my-2"> <input type="text" class="form-control incurr mr-2 w-100" placeholder="Enter names of employees who are allowed cash advances">
+                           
+                        </div>
+                        <div class="form-group mt-2">
+                            <div class="custom-control custom-checkbox small pl-0">
+                                <label class="mb-0">Define the number of days within which an employee is required to submit expense
+                                    claims against the cash advance disbursed:</label>
+                            </div>
+                        </div>
+                        <div class="incurring-exp-modal d-flex align-items-center"> <input type="text" class="form-control incurr mr-2" style="width:50px; text-align: 			center;" placeholder="60"> Days from the date of disbursal of cash advance
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="d-block mt-3">
+                        <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
                     </div>
                 </div>
-                <div class="incurring-exp-modal">
-                    <p>An employee is required to submit respective expense claims within: <input type="text" class="form-control incurr" placeholder="60">days of the disbursal of cash advance.</p>
-                </div>
             </div>
-            
-            
-            <div class="d-block mt-3">
-                <button class="btn btn-primary d-block btn-lg w-100" onClick="saveAdavanceSetting()">Confirm</button>
-            </div>
-        </div>        
-      </div>
+        </div>
     </div>
-  </div>
+
 
 
 <!-- Modal Expense Category Settings -->
@@ -719,6 +882,7 @@ function enableAddButton(){
                                 </tr>   
                             </tbody>
                         </table>
+                        <span class="error-message" id="username-error"></span>
                         <div>
                            <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a>
                         </div>
@@ -731,7 +895,13 @@ function enableAddButton(){
                 </div>
             </div>
             <div class="d-block mt-3">
-                <button class="btn btn-primary d-block btn-lg w-100" onclick="addExpensesCategory()">Confirm</button>
+            	<input type="hidden" id="categoryId" >
+            	<div id="addCategoryButton" style="display: block">
+                <button class="btn btn-primary d-block btn-lg w-100"  onclick="addExpensesCategory()" >Confirm</button>
+                </div>
+                <div id="editCategoryButton" style="display: none">
+                <button class="btn btn-primary d-block btn-lg w-100"  onclick="editExpensesCategory()" >Confirm</button>
+                </div>
             </div>
         </div>    
          </form>    

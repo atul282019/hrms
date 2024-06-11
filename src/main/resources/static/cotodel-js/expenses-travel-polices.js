@@ -104,7 +104,7 @@ function addExpensesCategory(){
 	var timeperiod = document.getElementById("timeperiod").value;
 	
 	var employerid = document.getElementById("employerId").value;
-	var id = document.getElementById("expensesid").value;
+	var id = document.getElementById("categoryId").value;
 	
     var allInputValues = [];
 	
@@ -140,7 +140,6 @@ function addExpensesCategory(){
 	
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			
 			// document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
 				
@@ -156,7 +155,6 @@ function addExpensesCategory(){
 				
 				 document.getElementById("payrollfailmsgDiv").style.display="none";
 				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
-				 
 			}
          },
          error: function(e){
@@ -169,11 +167,14 @@ function addExpensesCategory(){
 
  function viewData(value){
 	
+	 document.getElementById("editCategoryButton").style.display="block";
+	 document.getElementById("addCategoryButton").style.display="none";
 	 var row = jQuery(value).closest('tr');
 	 var  id = $(row).find("input[name='expensesid']").val();
 	 var  id = $(row).find("input[name='expensesid']").val();
 	 var expanceCode = row[0].children[2].innerHTML;
-		
+	
+	 
 	 	$.ajax({
 		type: "GET",
 		url:"/editExpensesCategory",
@@ -186,13 +187,15 @@ function addExpensesCategory(){
 				},
             success: function(data){
             newData = data;
-           // console.log(newData);
+            // console.log(newData);
             var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
 			//console.log(newData);
   			document.getElementById("expenseCategory").value = data2.expenseCategory ;
 			document.getElementById("expanceCode").value =  data2.expenseCode;
 			document.getElementById("timeperiod").value =data2.dayToExpiry ;
+			document.getElementById("categoryId").value = data2.id;
+			
            },
          error: function(e){
              alert('Error: ' + e);

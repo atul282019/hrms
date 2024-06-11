@@ -3759,3 +3759,26 @@ table.table.emp_Bnd_Tbl tbody tr td input {
     height: 2px;
     background-color: #367AFF;
 }
+
+.d-flex-column {
+    flex-direction: column;
+    margin: 0 0 !important;
+}
+
+.d-flex-column .form-check{
+margin: 0 0 10px 0 !important;
+}
+
+input.incur-input {
+    border: 1px solid #C7C8D1;
+    background: #EDEDF0;
+    width: 124px;
+    border-radius: 2px;
+    margin-right: 5px;
+    font-size: 13px;
+    padding: 3px;
+}
+
+.policies-wrap-in-modal {
+  color: #333;
+}

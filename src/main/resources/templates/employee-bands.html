@@ -66,7 +66,7 @@
                                         <div class="bandsetting01-wrap">
                                             <div class="left-bandsetting d-flex">
                                                 <div class="table-check">
-                                                    <input type="checkbox" id="customCheck3">
+                                                    <input type="checkbox" id="customCheck3" checked>
                                                 </div>
                                                 <p>Employee Bands are activated. This helps introduce segmentation and
                                                     set guidelines for the administration of employee benefits and
@@ -216,6 +216,10 @@
             document.getElementById('addtionalTiersCheckBox').checked = true;
             toggleColumn();
         });
+        
+        function close(){
+        	window.location.href = "http://localhost:9191/employeeBand";
+        }
     </script>
 
     <!-- Modal Modal Employee Band Setting -->
@@ -400,7 +404,7 @@
                                     <div class="d-flex justify-content-center mt-2">
                                         <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
                                         
-					                    <button type="button" class="btn btn-primary mx-2 w-49" data-dismiss="modal" aria-label="Close" >
+					                    <button class="btn btn-primary mx-2 w-49" id="close" onclick="close()">
 					                       <span aria-hidden="true">Confirm</span>
 					                    </button>
 					                    
