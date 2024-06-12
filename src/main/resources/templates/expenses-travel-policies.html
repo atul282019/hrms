@@ -5,7 +5,7 @@
 	
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
- <body id="page-top"  onload="getExpanceCategoryList()"> 
+ <body id="page-top"  onload="getExpanceCategoryList(),getExpanseTravelAdvance()"> 
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -83,18 +83,18 @@
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox small">
                                                                 <input type="checkbox" class="custom-control-input"
-                                                                    id="customCheck2">
+                                                                    id="travelBooking">
                                                                 <label class="custom-control-label text-left"
-                                                                    for="customCheck2">Allow employees to request for
+                                                                    for="travelBooking">Allow employees to request for
                                                                     travel bookings.</label>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox small">
                                                                 <input type="checkbox" class="custom-control-input"
-                                                                    id="customCheck3">
+                                                                    id="cashBooking">
                                                                 <label class="custom-control-label text-left"
-                                                                    for="customCheck3">Allow employees to request for
+                                                                    for="cashBooking">Allow employees to request for
                                                                     cash advances.</label>
                                                             </div>
                                                         </div>
@@ -108,16 +108,16 @@
                                                         <div class="band-option d-flex-column">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="flexRadioDefault" id="flexRadioDefault1">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    name="flexRadioDefault" id="allowAll">
+                                                                <label class="form-check-label" for="allowAll">
                                                                     All employees are allowed
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio"
-                                                                    name="flexRadioDefault" id="flexRadioDefault2"
+                                                                    name="flexRadioDefault" id="allowSpefic"
                                                                     checked="">
-                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                <label class="form-check-label" for="allowSpefic">
                                                                     Specific employees are allowed
                                                                 </label>
                                                             </div>
@@ -125,7 +125,7 @@
 
                                                         <div class="policies-wrap-in-left w-100 my-3">
                                                             <div class="incurring-exp w-100">
-                                                                <input type="text" placeholder="Sujata Kumar" disabled class="incur-input">
+                                                                <input type="text" id="speficevalue" placeholder="Sujata Kumar" disabled class="incur-input">
                                                                 <input type="text" placeholder="Kamal Khan" disabled class="incur-input">
                                                             </div>
                                                         </div>
@@ -133,9 +133,9 @@
                                                         <div class="policies-wrap-in-left w-100">
                                                             <div class="incurring-exp">
                                                                 <p>An employee is required to submit expense claims
-                                                                    against a cash advance within: <input type="text"
-                                                                        class="form-control incurr"
-                                                                        placeholder="60">Days from the date of disbursal
+                                                                    against a cash advance within: 
+                                                                    <input type="text" id="disbursalDate"  class="form-control incurr" placeholder="60">
+                                                                    Days from the date of disbursal
                                                                     of cash advance</p>
                                                             </div>
                                                         </div>
@@ -726,6 +726,7 @@ document.addEventListener('DOMContentLoaded', () => {
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-approval-wrap" role="document">
             <div class="modal-content">
+            <form id="addAdvance">
                 <div class="modal-header pb-0">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Advance Request Settings</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -736,15 +737,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="policies-wrap-in-modal">
                         <div class="form-group">
                             <div class="custom-control custom-checkbox small">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for travel bookings.</label>
+                                <input type="checkbox" class="custom-control-input" id="travel">
+                                <label class="custom-control-label text-left" for="travel">Allow employees to request for travel bookings.</label>
                             </div>
                         </div>
                         <hr>
                         <div class="form-group">
                             <div class="custom-control custom-checkbox small">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label text-left" for="customCheck2">Allow employees to request for cash advances.</label>
+                                <input type="checkbox" class="custom-control-input" id="cash">
+                                <label class="custom-control-label text-left" for="cash">Allow employees to request for cash advances.</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -754,19 +755,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="band-option d-flex-column">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="all">
+                                <label class="form-check-label" for="all">
                                     All employees are allowed
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked="">
-                                <label class="form-check-label" for="flexRadioDefault2">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="spefic" checked="">
+                                <label class="form-check-label" for="spefic">
                                     Specific employees are allowed
                                 </label>
                             </div>
                         </div>
-                        <div class="incurring-exp-modal d-flex align-items-center my-2"> <input type="text" class="form-control incurr mr-2 w-100" placeholder="Enter names of employees who are allowed cash advances">
+                        <div class="incurring-exp-modal d-flex align-items-center my-2"> 
+                        <input type="text" class="form-control incurr mr-2 w-100"  id="speficEmployees"
+                        placeholder="Enter names of employees who are allowed cash advances">
                            
                         </div>
                         <div class="form-group mt-2">
@@ -775,21 +778,21 @@ document.addEventListener('DOMContentLoaded', () => {
                                     claims against the cash advance disbursed:</label>
                             </div>
                         </div>
-                        <div class="incurring-exp-modal d-flex align-items-center"> <input type="text" class="form-control incurr mr-2" style="width:50px; text-align: 			center;" placeholder="60"> Days from the date of disbursal of cash advance
+                        <div class="incurring-exp-modal d-flex align-items-center"> 
+                        <input type="text" class="form-control incurr mr-2" id="disbursmentDate" style="width:50px; text-align: center;" placeholder="60"> Days from the date of disbursal of cash advance
                             </p>
                         </div>
                     </div>
 
 
                     <div class="d-block mt-3">
-                        <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
+                        <button class="btn btn-primary d-block btn-lg w-100"  onclick="addAdvanceRequest()">Confirm</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
-
-
 
 <!-- Modal Expense Category Settings -->
 <div class="modal fade" id="ModalExpenseCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -811,6 +814,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-form mb-3">                                            
                 <input style="width: 100%; margin: 0;" id="expanceCode" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
             </div>
+            
+             <div class="card-form mb-3">                                            
+                <input style="width: 100%; margin: 0;" id="expanceLimit" type="text" class="form-input" placeholder="Expense Limit">
+            </div>
+            
             <div class="clearfix"></div>
             <div class="expense-inwrap">
                 <h5>Optional Inputs</h5>

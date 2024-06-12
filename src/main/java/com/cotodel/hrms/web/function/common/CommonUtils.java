@@ -62,4 +62,9 @@ public interface CommonUtils {
 	
 	public static String addEmployeeBandTier = "/empService/Api/add/employeeBandAddTier";
 	
+	public static String saveExpanceTravelAdvance ="/empService/Api/add/expanceTravelAdvanceRequest";
+	
+	public static String getexpanceTravelAdvance ="/empService/Api/get/expanceTravelAdvanceList";
+	
+	
 }

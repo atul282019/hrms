@@ -15,9 +15,10 @@ public class ExpenseCategoryRequest {
 	private Integer employerId;
 	private String expenseCategory;
 	private String expenseCode;
+	private String expenseLimit;
 	private String bandFlag;
 	private String bandId; 
-	private String period;
+	private String dayToExpiry;
 	private Integer	status;
 	private String[] listArray;
 	private List<BandDetailRequest> list;
