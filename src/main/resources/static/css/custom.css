@@ -3782,3 +3782,7 @@ input.incur-input {
 .policies-wrap-in-modal {
   color: #333;
 }
+
+.hidden {
+            display: none;
+        }

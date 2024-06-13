@@ -30,7 +30,7 @@ function getExpanceCategoryList() {
       		    { "mData": "expenseLimit"},
       		    { "mData": "dayToExpiry"},
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory"  onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a></td>';
+                    return '<td align="right"><button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory"  onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <button type="button" onclick="deleteData(this)" class="btn p-0" ><img src="img/delete.svg" ></button> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -97,7 +97,6 @@ function getExpanceCategoryList() {
 
 function editExpensesCategory(){
 	
-	
 	var expenseCategory = document.getElementById("expenseCategory").value;
 	var expanceCode = document.getElementById("expanceCode").value;
 	var expanceLimit = document.getElementById("expanceLimit").value;
@@ -143,6 +142,7 @@ function editExpensesCategory(){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			// document.getElementById("signinLoader").style.display="none";
+			location.reload();
 			if(data1.status==true){
 				
 				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
@@ -158,6 +158,7 @@ function editExpensesCategory(){
 				 document.getElementById("payrollfailmsgDiv").style.display="none";
 				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			getExpanceCategoryList();
          },
          error: function(e){
              alert('Error: ' + e);
@@ -167,9 +168,7 @@ function editExpensesCategory(){
 }  
 
 
-
 function addExpensesCategory(){
-	
 	
 	var expenseCategory = document.getElementById("expenseCategory").value;
 	var expanceCode = document.getElementById("expanceCode").value;
@@ -203,8 +202,7 @@ function addExpensesCategory(){
      formData.append("distingushEmployeeBand", distingushEmployeeBand);
      formData.append("dayToExpiry", timeperiod);
      formData.append("listArray", allInputValues);
-    
- 
+   
 	 	$.ajax({
 		 type: "POST",
 	     url:"/saveExpensesCategory",
@@ -216,6 +214,7 @@ function addExpensesCategory(){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			// document.getElementById("signinLoader").style.display="none";
+			location.reload();
 			if(data1.status==true){
 				
 				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
@@ -231,6 +230,7 @@ function addExpensesCategory(){
 				 document.getElementById("payrollfailmsgDiv").style.display="none";
 				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			getExpanceCategoryList();
          },
          error: function(e){
              alert('Error: ' + e);
@@ -238,8 +238,6 @@ function addExpensesCategory(){
     });			
                
 }  
-
-
 
 
  function viewData(value){
@@ -280,6 +278,64 @@ function addExpensesCategory(){
     }); 
 				
  }
+
+ function toggleDiv(show) {
+            const section = document.getElementById('nameEmployeesCash');
+            if (show) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        }
+
+function toggleDivEdit(show) {
+         
+            const section = document.getElementById('speficEmployeesDiv');
+            if (show) {
+                section.style.display="block";
+            } else {
+                section.style.display="none";
+            }
+        }
+
+
+function deleteData(value){
+	
+	 var row = jQuery(value).closest('tr');
+	 var  id = $(row).find("input[name='expensesid']").val();
+	 var expanceCode = row[0].children[2].innerHTML;
+	 var employerid = document.getElementById("employerId").value;
+	 
+	 $.ajax({
+		type: "GET",
+		url:"/deleteExpanseTravelAdvance",
+        data: {
+				"id": id,
+				"employerId": employerid,
+       		 },
+       		  beforeSend : function(xhr) {
+				//xhr.setRequestHeader(header, token);
+				},
+            success: function(data){
+            newData = data;
+            // console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
+			var data2 = data1.data;
+			location.reload();
+			//console.log(newData);
+  			/*document.getElementById("expenseCategory").value = data2.expenseCategory ;
+			document.getElementById("expanceCode").value =  data2.expenseCode;
+			document.getElementById("timeperiod").value =data2.dayToExpiry ;
+			document.getElementById("expanceLimit").value =data2.expenseLimit ;
+			document.getElementById("categoryId").value = data2.id;*/
+			
+           },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });
+    		
+}
 
  function addAdvanceRequest(){
 	
@@ -326,11 +382,13 @@ function addExpensesCategory(){
 	     url:"/saveExpanceTravelAdvance",
          data: formData,
          processData: false,
-         contentType: false,       		 
+         contentType: false,       	
+         	 
             success: function(data){
-	
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
+			
+			window.location.reload();
 			// document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
 				
@@ -347,6 +405,7 @@ function addExpensesCategory(){
 				 //document.getElementById("payrollfailmsgDiv").style.display="none";
 				 //document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			getExpanseTravelAdvance();
          },
          error: function(e){
              alert('Error: ' + e);
@@ -375,24 +434,31 @@ function getExpanseTravelAdvance() {
 			//bindJsonToTable(data1);
 			 //var bandRepresentation = jsonData.data.employeeBandNoAlpha;
       	    //document.getElementById("signinLoader").style.display="none";		
-	      	     if(data1.data[0].allowEmployeesTravel==="Yes")
+	      	     if(data1.data.allowEmployeesTravel==="Yes")
 	             {
 							document.getElementById('travelBooking').checked = true;
 				 }
 				
-				if(data1.data[0].allowEmployeesCash==="Yes" || data1.data[0].allowEmployeesCash==="YES"){
+				if(data1.data.allowEmployeesCash==="Yes" || data1.data.allowEmployeesCash==="YES"){
 					document.getElementById('cashBooking').checked = true;
 				}
 				
-				if(data1.data[0].employeesAllow==="All"){
+				if(data1.data.employeesAllow==="All"){
 					document.getElementById('allowAll').checked = true;
 				}
 				else{
 					document.getElementById('allowSpefic').checked = true;
 				}
 				
-			document.getElementById('speficevalue').value  =data1.data[0].nameEmployeesCash;
-			document.getElementById('disbursalDate').value  =data1.data[0].daysDisbursalCash;  
+		      const nameEmployeesCashContainer = document.getElementById('nameEmployeesCash');
+	        data1.data.nameEmployeesCash.forEach(name => {
+	            const inputField = document.createElement('input');
+	            inputField.type = 'text';
+	            inputField.value = name;
+	            inputField.className = 'incur-input';
+	            nameEmployeesCashContainer.appendChild(inputField);
+	        });
+			document.getElementById('disbursalDate').value  =data1.data.daysDisbursalCash;  
 			
 			
     		},

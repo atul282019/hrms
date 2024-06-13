@@ -64,7 +64,8 @@ public interface CommonUtils {
 	
 	public static String saveExpanceTravelAdvance ="/empService/Api/add/expanceTravelAdvanceRequest";
 	
-	public static String getexpanceTravelAdvance ="/empService/Api/get/expanceTravelAdvanceList";
+	public static String getexpanceTravelAdvance ="/empService/Api/get/expanceTravelAdvance";
 	
+	public static String deleteExpanceTravelAllounce = "/empService/Api/delete/deleteExpenseCategoryDetails";
 	
 }

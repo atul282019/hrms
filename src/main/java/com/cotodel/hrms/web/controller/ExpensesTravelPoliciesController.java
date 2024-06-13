@@ -183,5 +183,29 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController{
 		return profileRes;
 	}
 	
+	@GetMapping(value="/deleteExpanseTravelAdvance")
+	public @ResponseBody String deleteExpanseTravelAdvance(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ExpenseCategoryRequest expenseCategoryRequest) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		String res=null;String userRes=null;
+		profileRes = expensesTravelService.deletetExpanseTravelAdvance(tokengeneration.getToken(),expenseCategoryRequest);
+		profileJsonRes= new JSONObject(profileRes);
+		
+		if(profileJsonRes.getBoolean("status")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return profileRes;
+	}
+	
 	
 }

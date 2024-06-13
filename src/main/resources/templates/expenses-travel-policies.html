@@ -107,14 +107,14 @@
 
                                                         <div class="band-option d-flex-column">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
+                                                                <input class="form-check-input" type="radio"  onclick="toggleDiv(false)"
                                                                     name="flexRadioDefault" id="allowAll">
                                                                 <label class="form-check-label" for="allowAll">
                                                                     All employees are allowed
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
+                                                                <input class="form-check-input" type="radio" onclick="toggleDiv(true)"
                                                                     name="flexRadioDefault" id="allowSpefic"
                                                                     checked="">
                                                                 <label class="form-check-label" for="allowSpefic">
@@ -124,10 +124,10 @@
                                                         </div>
 
                                                         <div class="policies-wrap-in-left w-100 my-3">
-                                                            <div class="incurring-exp w-100">
-                                                                <input type="text" id="speficevalue" placeholder="Sujata Kumar" disabled class="incur-input">
-                                                                <input type="text" placeholder="Kamal Khan" disabled class="incur-input">
-                                                            </div>
+                                                         
+                                                       	   <div id="nameEmployeesCash"  class="incurring-exp w-100">
+                                                           </div>
+                                                           
                                                         </div>
 
                                                         <div class="policies-wrap-in-left w-100">
@@ -294,7 +294,7 @@
                                                      <div class="last-add">
                                                      
                                                    			    <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                                                <div colspan="5">
+                                                                <div colspan="5" style="padding:.75rem;">
                                                                     <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalExpenseCategory" >+ Add Category</a>
                                                                 </div>
                                                      </div>
@@ -755,19 +755,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="band-option d-flex-column">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="all">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="toggleDivEdit(false)" id="all">
                                 <label class="form-check-label" for="all">
                                     All employees are allowed
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="spefic" checked="">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="toggleDivEdit(true)" id="spefic" checked="">
                                 <label class="form-check-label" for="spefic">
                                     Specific employees are allowed
                                 </label>
                             </div>
                         </div>
-                        <div class="incurring-exp-modal d-flex align-items-center my-2"> 
+                        <div id="speficEmployeesDiv"> 
                         <input type="text" class="form-control incurr mr-2 w-100"  id="speficEmployees"
                         placeholder="Enter names of employees who are allowed cash advances">
                            
@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     claims against the cash advance disbursed:</label>
                             </div>
                         </div>
-                        <div class="incurring-exp-modal d-flex align-items-center"> 
+                        <div class="incurring-exp-modal d-flex align-items-center" > 
                         <input type="text" class="form-control incurr mr-2" id="disbursmentDate" style="width:50px; text-align: center;" placeholder="60"> Days from the date of disbursal of cash advance
                             </p>
                         </div>
