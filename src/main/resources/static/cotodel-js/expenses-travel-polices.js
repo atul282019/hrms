@@ -366,7 +366,7 @@ function deleteData(value){
 			}   
 			else if(document.getElementById('spefic').checked){
 			   // document.getElementById("numericFigureError").innerHTML="";	
-			    employeesAllow="Spefic";
+			    employeesAllow="Specific";
 			    nameEmployeesCash = speficEmployees;
 			}
 			

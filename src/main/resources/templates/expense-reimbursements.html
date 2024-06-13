@@ -86,7 +86,8 @@
                                                                 <td><span class="color-third draft">Draft</span></td>
                                                                 <td><span class="color-third">Bank Account</span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View <img
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalSubmitExpenseReimbursement">View <img
                                                                                 src="img/attached.svg" alt=""></button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
@@ -116,7 +117,8 @@
                                                                 </td>
                                                                 <td><span class="color-third">e-RUPI Voucher</span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View <img
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalSubmitExpenseReimbursement">View <img
                                                                                 src="img/attached.svg" alt=""></button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
@@ -147,7 +149,8 @@
                                                                 </td>
                                                                 <td><span class="color-third">e-RUPI Voucher</span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View <img
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalSubmitExpenseReimbursement">View <img
                                                                                 src="img/attached.svg" alt=""></button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
@@ -177,7 +180,8 @@
                                                                 </td>
                                                                 <td><span class="color-third">Bank Account</span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View <img
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalSubmitExpenseReimbursement">View <img
                                                                                 src="img/attached.svg" alt=""></button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
@@ -207,7 +211,8 @@
                                                                 </td>
                                                                 <td><span class="color-third">Bank Account</span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View <img
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalSubmitExpenseReimbursement">View <img
                                                                                 src="img/attached.svg" alt=""></button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
@@ -237,7 +242,8 @@
                                                                 <td><span class="color-third"><a href="#">e-RUPI
                                                                             Voucher</a></span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View <img
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalSubmitExpenseReimbursement">View <img
                                                                                 src="img/attached.svg" alt=""></button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
@@ -298,7 +304,7 @@
                                                                 <td><span class="color-third">Draft</span></td>
                                                                 <td><span class="color-third">Bank Account</span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View</button>
+                                                                    <div><button class="btn-attach" data-toggle="modal" data-target="#ModalTravelRequest">View</button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
                                                                     </div>
@@ -328,7 +334,7 @@
                                                                 <td><span class="color-third"><a href="#">Bank
                                                                             Account</a></span></td>
                                                                 <td>
-                                                                    <div><button class="btn-attach">View</button>
+                                                                    <div><button class="btn-attach" data-toggle="modal" data-target="#ModalTravelRequest">View</button>
                                                                         <button class="btn-ellipsis"><i
                                                                                 class="fas fa-ellipsis-v fa-sm"></i></button>
                                                                     </div>
@@ -395,18 +401,6 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 
-	<script>
-	$(document).ready(function(){
-		 $(".innernav").click(function(){
-	        $(".dropdownNav").addClass("active");
-	    });
-		 $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-		  
-	  
-	});
-	
-	</script>
     <script>
         $(document).ready(function () {
             $("#hide").click(function () {
@@ -416,6 +410,19 @@
                 $(".ftr-content").show();
             });
         });
+        
+        
+        $(document).ready(function(){
+   		 $(".innernav").click(function(){
+   	        $(".dropdownNav").addClass("active");
+   	    });
+   		 $('li.active').removeClass('active').removeAttr('aria-current'); 
+   		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+   		  
+   	  
+   	});
+        
+        
     </script>
 
     <!-- Modal Add Expense Reimbursements -->
