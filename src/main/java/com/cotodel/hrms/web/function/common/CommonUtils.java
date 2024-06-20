@@ -68,4 +68,7 @@ public interface CommonUtils {
 	
 	public static String deleteExpanceTravelAllounce = "/empService/Api/delete/deleteExpenseCategoryDetails";
 	
+	public static String getExpenseBandList = "/empService/Api/get/getExpenseBandList";
+	//public static String getExpenseBandList = "/empService/Api/get/employeeBandName";
+	
 }

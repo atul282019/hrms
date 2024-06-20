@@ -186,8 +186,11 @@ function addExpensesCategory(){
 	        var band1 = $(this).find('input.band1').val();
 	        var band2 = $(this).find('input.band2').val();
 	        var band3 = $(this).find('input.band3').val();
-	      var rowvalue=period+"@"+band1+"@"+band2+"@"+band3;
-	       allInputValues.push(rowvalue);
+	        var band4 = $(this).find('input.band4').val();
+	        var band5 = $(this).find('input.band5').val();
+	        var band6 = $(this).find('input.band6').val();
+	        var rowvalue=period+"@"+band1+"@"+band2+"@"+band3+"@"+band4+"@"+band5+"@"+band6;
+	        allInputValues.push(rowvalue);
 	    });  
 	 //alert(""+allInputValues);
      //console.log(allInputValues);
@@ -300,7 +303,13 @@ function toggleDivEdit(show) {
 
 
 function deleteData(value){
-	
+	var result = confirm("Are you sure you want to delete?");
+	if (result) {
+		 document.getElementById("signinLoader").style.display="flex";
+	}
+	else{
+		return false;
+	}
 	 var row = jQuery(value).closest('tr');
 	 var  id = $(row).find("input[name='expensesid']").val();
 	 var expanceCode = row[0].children[2].innerHTML;
@@ -319,8 +328,9 @@ function deleteData(value){
             success: function(data){
             newData = data;
             // console.log(newData);
+            document.getElementById("signinLoader").style.display="none";
             var data1 = jQuery.parseJSON( newData );
-			var data2 = data1.data;
+			//var data2 = data1.data;
 			location.reload();
 			//console.log(newData);
   			/*document.getElementById("expenseCategory").value = data2.expenseCategory ;
@@ -368,7 +378,22 @@ function deleteData(value){
 			   // document.getElementById("numericFigureError").innerHTML="";	
 			    employeesAllow="Specific";
 			    nameEmployeesCash = speficEmployees;
+			    
+			    if(speficEmployees==null || speficEmployees =="") {
+					document.getElementById("speficEmployeesError").innerHTML="Please Enter Employee Name";
+					return false;
+				}
+				else{
+					document.getElementById("speficEmployeesError").innerHTML="";
+				}
 			}
+		if(disbursmentDate =="" || disbursmentDate ==null){
+			document.getElementById("disbursmentDateError").innerHTML="Please Enter Days of disbursal";
+			return false;
+		}
+		else{
+			document.getElementById("disbursmentDateError").innerHTML="";
+		}
 			
         formData.append("employerId", employerid);
 	    formData.append("allowEmployeesTravel", travel);
@@ -376,7 +401,8 @@ function deleteData(value){
 	    formData.append("employeesAllow", employeesAllow);
 	    formData.append("nameEmployeesCash",nameEmployeesCash)
 	    formData.append("daysDisbursalCash", disbursmentDate);
-	    
+	    document.getElementById("signinLoader").style.display="flex";
+	    document.getElementById("adavanceButton").disabled=true;
 	 	$.ajax({
 		 type: "POST",
 	     url:"/saveExpanceTravelAdvance",
@@ -387,9 +413,9 @@ function deleteData(value){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			
+			document.getElementById("signinLoader").style.display="none";
 			window.location.reload();
-			// document.getElementById("signinLoader").style.display="none";
+		  
 			if(data1.status==true){
 				
 			//	 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
@@ -467,3 +493,228 @@ function getExpanseTravelAdvance() {
 		}
 	});
 }
+
+     function viewEmployeeBand() {
+
+			var employerId=document.getElementById("employerId").value;
+			//document.getElementById("signinLoader2").style.display="flex";
+			
+			$.ajax({
+				type: "GET",
+				url: "/getExpenseBandList",
+				data: {
+						"employerId": employerId,
+					},
+		       		  beforeSend : function(xhr) {
+						//xhr.setRequestHeader(header, token);
+					},
+		            success: function(data){
+			 		newData = data;
+					var data1 = jQuery.parseJSON( newData );
+					if(data1.data.list !== null && data1.data.list !== ""){
+						loadTableData(data1);
+						loadTableData2(data1);
+					}
+					
+						  
+		    		},
+				error: function(e) {
+					alert('Failed to fetch JSON data' + e);
+				}
+		});
+}
+
+function loadTableData(jsonData) {
+     const tableBody = document.getElementById('newTable').querySelector('tbody');
+     tableBody.innerHTML = '';
+     jsonData.data.forEach(item => {
+	
+			const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                var dateSpan = document.createElement('span')
+				dateSpan.innerHTML = "";
+				
+                //const input3 = document.createElement('input');
+                //input3.type = 'text';
+               // input3.setAttribute('class',"empolyeeinput01");
+               // input3.setAttribute('disabled',"disabled");
+                //input3.value = item.bandNameOne;
+                cell1.appendChild(dateSpan);
+
+				if(item.bandNameOne !==null){
+                const cell2 = row.insertCell(1);
+                const input5 = document.createElement('span');
+                
+                //input5.type = 'text';
+                input5.setAttribute('class',"band band1");
+                //input5.setAttribute('disabled',"disabled");
+                input5.innerHTML = item.bandNameOne ? item.bandNameOne : 'N/A';
+                //input5.value = item.bandNameOne ? item.bandNameOne : 'N/A';;
+               
+                cell2.appendChild(input5);
+				}
+				if(item.bandNameTwo !==null){
+                const cell3 = row.insertCell(2);
+                const input6 = document.createElement('span');
+                //input6.type = 'text';
+                input6.setAttribute('class',"band band2");
+                // input6.setAttribute('disabled',"disabled");
+                input6.innerHTML = item.bandNameTwo ? item.bandNameTwo : 'N/A';
+                cell3.appendChild(input6);
+                }
+				if(item.bandNameThree !==null){
+                const cell4 = row.insertCell(3);
+                const input7 = document.createElement('span');
+                //input7.type = 'text';
+                input7.setAttribute('class',"band band3");
+                //input7.setAttribute('disabled',"disabled");
+                input7.innerHTML = item.bandNameThree ? item.bandNameThree : 'N/A';
+                cell4.appendChild(input7);
+                }
+				if(item.bandNameFour !==null){
+                const cell5 = row.insertCell(4);
+                const input8 = document.createElement('span');
+                //input8.type = 'text';
+                input8.setAttribute('class',"band band4");
+                //input8.setAttribute('disabled',"disabled");
+                input8.innerHTML = item.bandNameFour ? item.bandNameFour : 'N/A';
+                cell5.appendChild(input8);
+                  }
+				if(item.bandNameFive !==null){
+
+                const cell6 = row.insertCell(5);
+                const input9 = document.createElement('span');
+               // input9.type = 'text';
+               input9.setAttribute('class',"band band5");
+               // input9.setAttribute('disabled',"disabled");
+                input9.innerHTML = item.bandNameFive ?  item.bandNameFive : 'N/A';
+                cell6.appendChild(input9);
+                }
+                if(item.bandNameSix !==null){
+
+                const cell7 = row.insertCell(6);
+                const input10 = document.createElement('span');
+                //input10.type = 'text';
+                input10.setAttribute('class',"band band6");
+               // input10.setAttribute('disabled',"disabled");
+                input10.innerHTML = item.bandNameSix ?  item.bandNameSix : 'N/A';
+                cell7.appendChild(input10);
+                }
+            });
+     
+  }
+  
+  function loadTableData2(jsonData) {
+        const tableBody = document.getElementById('newTable').querySelector('tbody');
+   
+      /* jsonData.data.forEach(item => {
+		const row2 = document.createElement('tr');
+        
+        row2.innerHTML = `
+            <td>  <select class="form-select period">
+                   <option value="">Select Time Period</option>
+                   <option value="perday">Per Day</option>
+                   <option value="perweak">Per Weak</option>
+                   <option value="permonth">Per Month</option>
+             </select> </td>
+            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 1" class="form-control band2" name="${item.bandNameOne}"></td>
+            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 2" class="form-control band2"  name="${item.bandNameTwo}"></td>
+            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 3" class="form-control band2" name="${item.bandNameThree}"></td>
+            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 4" class="form-control band2" name="${item.bandNameFour}"></td>
+            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 5" class="form-control band2" name="${item.bandNameFive}"></td>
+            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 6" class="form-control band2" name="${item.bandNameSix}"></td>
+            <td></td>       
+        `;
+       
+       tableBody.appendChild(row2);     
+    });*/
+    
+    jsonData.data.forEach(item => {
+	
+			const row = tableBody.insertRow();
+                
+                //const cell1 = row.insertCell(0);
+               /// const input3 = document.createElement('input');
+               // input3.type = 'text';
+               // input3.setAttribute('class',"empolyeeinput01");
+                //input3.setAttribute('disabled',"disabled");
+               // input3.value = item.bandNameOne;
+                //cell1.appendChild(input3);
+                
+                var cell1 = row.insertCell(0);
+			    var day = document.createElement("select");
+			    day.name = "Select Day";
+			    var perday = document.createElement("option");
+			    perday.text = "Per Day";
+			    perday.value = "Per Day";
+			    var perweak = document.createElement("option");
+			    perweak.text = "Per Weak";
+			    perweak.value = "Per Weak";
+			    var permonth = document.createElement("option");
+			    permonth.text = "Per Month";
+			    permonth.value = "Per Month";
+			    day.setAttribute('class',"form-select period");
+				
+			    day.add(perday);
+	    		day.add(perweak);
+	    		day.add(permonth)
+	   		    cell1.appendChild(day);
+
+				if(item.bandNameOne !==null){
+                const cell2 = row.insertCell(1);
+                const input5 = document.createElement('input');
+                input5.type = 'text';
+                input5.setAttribute('class',"form-control band1");
+                input5.setAttribute('placeholder',"INR Expense Limit 1");
+                // var iDiv = document.createElement('span');
+				///iDiv.innerHTML = "INR";
+				////iDiv.setAttribute('class', "perquarter-in");
+			
+                //cell2.appendChild(iDiv);
+                cell2.appendChild(input5);
+				}
+				if(item.bandNameTwo !==null){
+                const cell3 = row.insertCell(2);
+                const input6 = document.createElement('input');
+                input6.type = 'text';
+                input6.setAttribute('class',"form-control band2");
+                input6.setAttribute('placeholder',"INR Expense Limit 2");
+                cell3.appendChild(input6);
+                }
+				if(item.bandNameThree !==null){
+                const cell4 = row.insertCell(3);
+                const input7 = document.createElement('input');
+                input7.type = 'text';
+                input7.setAttribute('class',"form-control band3");
+                input7.setAttribute('placeholder',"INR Expense Limit 3");
+                cell4.appendChild(input7);
+                }
+				if(item.bandNameFour !==null){
+                const cell5 = row.insertCell(4);
+                const input8 = document.createElement('input');
+                input8.type = 'text';
+                input8.setAttribute('class',"form-control band4");
+                input8.setAttribute('placeholder',"INR Expense Limit 4");
+                cell5.appendChild(input8);
+                  }
+				if(item.bandNameFive !==null){
+
+                const cell6 = row.insertCell(5);
+                const input9 = document.createElement('input');
+                input9.type = 'text';
+                input9.setAttribute('class',"form-control band5");
+                input9.setAttribute('placeholder',"INR Expense Limit 5");
+                cell6.appendChild(input9);
+                }
+                if(item.bandNameSix !==null){
+
+                const cell7 = row.insertCell(6);
+                const input10 = document.createElement('input');
+                input10.type = 'text';
+                input10.setAttribute('class',"form-control band6");
+                input10.setAttribute('placeholder',"INR Expense Limit 6");
+                cell7.appendChild(input10);
+                }
+            });
+	     	
+    }

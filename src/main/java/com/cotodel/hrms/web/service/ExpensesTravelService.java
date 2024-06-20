@@ -22,5 +22,7 @@ public interface ExpensesTravelService {
 
 	String deletetExpanseTravelAdvance(String token, ExpenseCategoryRequest expenseCategoryRequest);
 
+	String getExpenseBandList(String token, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest);
+
 	
 }

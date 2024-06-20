@@ -32,73 +32,54 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class ExpensesTravelPoliciesController extends CotoDelBaseController{
+public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExpensesTravelPoliciesController.class);
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
-	
+
 	@Autowired
 	ExpensesTravelService expensesTravelService;
-	
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
-	
-	
-	@PostMapping(value="/saveExpensesCategory")
-	public @ResponseBody String saveExpensesCategory(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ExpenseCategoryRequest expenseCategoryRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+
+	@PostMapping(value = "/saveExpensesCategory")
+	public @ResponseBody String saveExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
+		String profileRes = null;
+		JSONObject profileJsonRes = null;
+		HashMap<String, String> otpMap = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		List<BandDetailRequest> list= new ArrayList<BandDetailRequest>();
-		String data[]= expenseCategoryRequest.getListArray();
-		/*
-		 * for (int i = 0; i < data.length; i++) { String listValue=data[i]; String[]
-		 * rowArray=listValue.split("@"); BandDetailRequest bandDetailRequest= new
-		 * BandDetailRequest(); bandDetailRequest.setBandType(rowArray[0]);
-		 * bandDetailRequest.setBandOneInr(rowArray[1]);
-		 * bandDetailRequest.setBandTwoInr(rowArray[2]);
-		 * bandDetailRequest.setBandThreeInr(rowArray[3]);
-		 * 
-		 * list.add(bandDetailRequest); }
-		 */
+		String res = null;
+		String userRes = null;
+		List<BandDetailRequest> list = new ArrayList<BandDetailRequest>();
+		String data[] = expenseCategoryRequest.getListArray();
 		
+		 for (int i = 1; i < data.length; i++) { String listValue=data[i]; String[]
+		 rowArray=listValue.split("@"); 
+		  BandDetailRequest bandDetailRequest= new  BandDetailRequest(); 
+		  
+		  bandDetailRequest.setBandType(rowArray[0]);
+		  bandDetailRequest.setBandOneInr(rowArray[1]);
+		  bandDetailRequest.setBandTwoInr(rowArray[2]);
+		  bandDetailRequest.setBandThreeInr(rowArray[3]);
+		  bandDetailRequest.setBandFourInr(rowArray[4]);
+		  bandDetailRequest.setBandFiveInr(rowArray[5]);
+		  bandDetailRequest.setBandSixInr(rowArray[6]);
+		  
+		  list.add(bandDetailRequest); }
+		 
+
 		expenseCategoryRequest.setList(list);
-		profileRes = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(),expenseCategoryRequest);
-		profileJsonRes= new JSONObject(profileRes);
-			
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
-	
+		profileRes = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
+		profileJsonRes = new JSONObject(profileRes);
 
-	@GetMapping(value="/getExpensesCategory")
-	public @ResponseBody String getExpensesCategory(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ExpenseCategoryRequest expenseCategoryRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = expensesTravelService.getExpensesCategory(tokengeneration.getToken(),expenseCategoryRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
+		if (profileJsonRes.getBoolean("status")) {
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
+		} else {
+			// loginservice.sendEmailVerificationCompletion(userForm);
 			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
 		}
 		try {
@@ -106,23 +87,26 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return profileRes;
 	}
 
-	@GetMapping(value="/editExpensesCategory")
-	public @ResponseBody String editExpensesCategory(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ExpenseCategoryRequest expenseCategoryRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+	@GetMapping(value = "/getExpensesCategory")
+	public @ResponseBody String getExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
+		String profileRes = null;
+		JSONObject profileJsonRes = null;
+		HashMap<String, String> otpMap = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = expensesTravelService.getEditExpensesCategory(tokengeneration.getToken(),expenseCategoryRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
+		String res = null;
+		String userRes = null;
+		profileRes = expensesTravelService.getExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
+		profileJsonRes = new JSONObject(profileRes);
+
+		if (profileJsonRes.getBoolean("status")) {
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
+		} else {
+			// loginservice.sendEmailVerificationCompletion(userForm);
 			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
 		}
 		try {
@@ -130,23 +114,26 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return profileRes;
 	}
-	
-	@PostMapping(value="/saveExpanceTravelAdvance")
-	public @ResponseBody String saveExpanceTravelAdvance(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+
+	@GetMapping(value = "/editExpensesCategory")
+	public @ResponseBody String editExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
+		String profileRes = null;
+		JSONObject profileJsonRes = null;
+		HashMap<String, String> otpMap = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(),expanceTravelAdvanceRequest);
-		profileJsonRes= new JSONObject(profileRes);
-			
-		if(profileJsonRes.getBoolean("status")) { 
+		String res = null;
+		String userRes = null;
+		profileRes = expensesTravelService.getEditExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
+		profileJsonRes = new JSONObject(profileRes);
+
+		if (profileJsonRes.getBoolean("status")) {
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
+		} else {
+			// loginservice.sendEmailVerificationCompletion(userForm);
 			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
 		}
 		try {
@@ -154,24 +141,27 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return profileRes;
 	}
-	
-	
-	@GetMapping(value="/getExpanseTravelAdvance")
-	public @ResponseBody String getExpanseTravelAdvance(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+
+	@PostMapping(value = "/saveExpanceTravelAdvance")
+	public @ResponseBody String saveExpanceTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
+		String profileRes = null;
+		JSONObject profileJsonRes = null;
+		HashMap<String, String> otpMap = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = expensesTravelService.getExpanseTravelAdvance(tokengeneration.getToken(),expanceTravelAdvanceRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
+		String res = null;
+		String userRes = null;
+		profileRes = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(),
+				expanceTravelAdvanceRequest);
+		profileJsonRes = new JSONObject(profileRes);
+
+		if (profileJsonRes.getBoolean("status")) {
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
+		} else {
+			// loginservice.sendEmailVerificationCompletion(userForm);
 			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
 		}
 		try {
@@ -179,23 +169,27 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return profileRes;
 	}
-	
-	@GetMapping(value="/deleteExpanseTravelAdvance")
-	public @ResponseBody String deleteExpanseTravelAdvance(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ExpenseCategoryRequest expenseCategoryRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+
+	@GetMapping(value = "/getExpanseTravelAdvance")
+	public @ResponseBody String getExpanseTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
+		String profileRes = null;
+		JSONObject profileJsonRes = null;
+		HashMap<String, String> otpMap = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = expensesTravelService.deletetExpanseTravelAdvance(tokengeneration.getToken(),expenseCategoryRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
+		String res = null;
+		String userRes = null;
+		profileRes = expensesTravelService.getExpanseTravelAdvance(tokengeneration.getToken(),
+				expanceTravelAdvanceRequest);
+		profileJsonRes = new JSONObject(profileRes);
+
+		if (profileJsonRes.getBoolean("status")) {
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
+		} else {
+			// loginservice.sendEmailVerificationCompletion(userForm);
 			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
 		}
 		try {
@@ -203,9 +197,63 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return profileRes;
 	}
-	
-	
+
+	@GetMapping(value = "/deleteExpanseTravelAdvance")
+	public @ResponseBody String deleteExpanseTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
+		String profileRes = null;
+		JSONObject profileJsonRes = null;
+		HashMap<String, String> otpMap = new HashMap<String, String>();
+		ObjectMapper mapper = new ObjectMapper();
+		String res = null;
+		String userRes = null;
+		profileRes = expensesTravelService.deletetExpanseTravelAdvance(tokengeneration.getToken(),
+				expenseCategoryRequest);
+		profileJsonRes = new JSONObject(profileRes);
+
+		if (profileJsonRes.getBoolean("status")) {
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		} else {
+			// loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return profileRes;
+	}
+
+	@GetMapping(value = "/getExpenseBandList")
+	public @ResponseBody String getExpenseBandList(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
+		String profileRes = null;
+		JSONObject profileJsonRes = null;
+		HashMap<String, String> otpMap = new HashMap<String, String>();
+		ObjectMapper mapper = new ObjectMapper();
+		String res = null;
+		String userRes = null;
+		profileRes = expensesTravelService.getExpenseBandList(tokengeneration.getToken(), expanceTravelAdvanceRequest);
+		profileJsonRes = new JSONObject(profileRes);
+
+		if (profileJsonRes.getBoolean("status")) {
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		} else {
+			// loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return profileRes;
+	}
+
 }

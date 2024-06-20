@@ -5,7 +5,7 @@
 	
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
- <body id="page-top"  onload="getExpanceCategoryList(),getExpanseTravelAdvance()"> 
+ <body id="page-top"  onload="getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()"> 
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -31,8 +31,8 @@
                     <div class="row">
                         <div class="col-12">
                             <ul class="nav nav-tabs expense-tabs">
-                                <li class="active"><a data-toggle="tab" href="#home">Expenses & Travel Policies</a></li>
-                                <li><a data-toggle="tab" href="#menu1">Claim Settings</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Employee Bands</a></li>
+                                <li class="active"><a data-toggle="tab" href="#home">Expenses & Advance</a></li>
                               </ul>
                               
                               <div class="tab-content">
@@ -459,6 +459,8 @@
 	  
 	});
 	
+	
+	
 	</script>
 	<script>
 		function toggle() {
@@ -473,6 +475,20 @@
 	
 	
 <script>
+
+function newRow(){
+	    var rowCount = $('#newTable tr').length;
+	    if(rowCount <= 4){
+		   $("#newTable tbody").append($("#newTable tbody tr:last").clone());
+	    }
+}
+function deleteTableRow(){
+	 var rowCount = $('#newTable tr').length;
+	 if(rowCount >= 4){
+	    $('#newTable tbody tr:last').remove();
+	 }
+}
+
 function addRow() {
 	
     var table = document.getElementById("newTable").getElementsByTagName('tbody')[0];
@@ -772,6 +788,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         placeholder="Enter names of employees who are allowed cash advances">
                            
                         </div>
+                        <div class="error-msg" id="speficEmployeesError" style="color:red"></div>
+                        
                         <div class="form-group mt-2">
                             <div class="custom-control custom-checkbox small pl-0">
                                 <label class="mb-0">Define the number of days within which an employee is required to submit expense
@@ -782,11 +800,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <input type="text" class="form-control incurr mr-2" id="disbursmentDate" style="width:50px; text-align: center;" placeholder="60"> Days from the date of disbursal of cash advance
                             </p>
                         </div>
+                        <div class="error-msg" id="disbursmentDateError" style="color:red"></div>
                     </div>
-
-
                     <div class="d-block mt-3">
-                        <button class="btn btn-primary d-block btn-lg w-100"  onclick="addAdvanceRequest()">Confirm</button>
+                        <button class="btn btn-primary d-block btn-lg w-100" type="button" id="adavanceButton"  onclick="addAdvanceRequest()">Confirm</button>
                     </div>
                 </div>
                 </form>
@@ -835,12 +852,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         <table class="table mb-0 newTable" id="newTable">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                   <!--  <th></th>
                                     <th><div class="band band1"> Band 1</div>
                                     </th>
                                     <th><div class="band band2"> Band 2</div></th>
                                     <th><div class="band band3"> Band 3</div></th>
-                                    <th></th>
+                                    <th></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -870,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </td>
                                     <td></td>
                                 </tr> -->
-                                <tr>
+                               <!--  <tr>
                                     <td>
                                         <select name="period" id="period1" class="form-select period">
                                             <option value="">Select Time Period</option>
@@ -884,15 +901,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <td ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 1" name="band1" class="form-control band1"></div></td>
                                     <td ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 2" name="band2" class="form-control band2"></div></td>
                                     <td  ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" name="band3" class="form-control band3"></div></td>
-                                    <!-- <td>
-                                        <a href="#"><img src="img/add-tr.svg" alt=""> Add Another Limit</a>
-                                    </td> -->
-                                </tr>   
+                                   <td  ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" name="band3" class="form-control band3"></div></td>
+                                   <td  ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" name="band3" class="form-control band3"></div></td>
+                                   
+                                </tr>   --> 
                             </tbody>
                         </table>
                         <span class="error-message" id="username-error"></span>
                         <div>
-                           <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a>
+                           <!-- <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a> -->
+                          <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new" onclick="newRow()">+ Add Another Limit</button>
+						  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new" onclick="deleteTableRow()">- Delete</button>
                         </div>
                     </div>
 

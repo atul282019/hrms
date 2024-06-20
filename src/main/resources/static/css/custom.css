@@ -3786,3 +3786,8 @@ input.incur-input {
 .hidden {
             display: none;
         }
+
+input[type=file]{
+padding:10px;
+background:#2d2d2d;
+}

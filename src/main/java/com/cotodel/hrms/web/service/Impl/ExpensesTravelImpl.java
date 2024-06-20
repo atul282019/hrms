@@ -52,6 +52,11 @@ public class ExpensesTravelImpl implements ExpensesTravelService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expenseCategoryRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.deleteExpanceTravelAllounce);
 	}
 
+	@Override
+	public String getExpenseBandList(String token, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expanceTravelAdvanceRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpenseBandList);
+	}
+
 	
 	
 

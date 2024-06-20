@@ -1,9 +1,17 @@
 
 function change() {
 	
-  var emplyeeBand = document.getElementById('startingEmployeeAlpha').value;
-  document.getElementById("reviewDropdown").value = emplyeeBand;
-  document.getElementById("reviewDropdown").text = emplyeeBand;
+  var startingEmployeeAlpha = document.getElementById('startingEmployeeAlpha').value;
+  var startingEmployeeNumeric = document.getElementById('startingEmployeeNumeric').value;
+  
+  if(startingEmployeeAlpha !==null || startingEmployeeAlpha !==""){
+	  document.getElementById("reviewDropdown").value = startingEmployeeAlpha;
+	  document.getElementById("reviewDropdown").text = startingEmployeeAlpha;
+  }
+   if(startingEmployeeNumeric !==null || startingEmployeeNumeric !==""){
+	  document.getElementById("reviewDropdown").value = startingEmployeeNumeric;
+	  document.getElementById("reviewDropdown").text = startingEmployeeNumeric;
+  }
 
 };
 
@@ -272,6 +280,8 @@ function validateTab1(){
 			var startingEmployeeNumeric = document.getElementById("startingEmployeeNumeric").value;
 			var addtionalTiersCheckBox = document.getElementById("addtionalTiersCheckBox").value;
 			
+		//	var status = document.getElementById('AlphabeticalFigure').checked;
+			//var status2 = document.getElementById('numericFigure').checked;
 			var startingBand=null;
 			
 			var introAddTierFlag=null;
@@ -291,7 +301,7 @@ function validateTab1(){
 					
 			}
 			
-			if(document.getElementById('numericFigure').checked) {
+			/*if(document.getElementById('numericFigure').checked) {
 				  var selectedValue = document.getElementById('numericFigure').value;  
 				  //alert(selectedValue);
 				  numericFigure=selectedValue;
@@ -310,7 +320,7 @@ function validateTab1(){
 				document.getElementById("numericFigureError").innerHTML="Please select Bands representation";
 				return false;
 			}
-			
+			*/
 				if(addtionalTiersCheckBox.checked===false){
 					//document.getElementById("employeeBandEnabledError").innerHTML="Please Check Employee Band";
 					//document.getElementbyId("employeeBandEnabled").focus();
