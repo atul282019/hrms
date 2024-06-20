@@ -828,14 +828,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label for="">Expense Category</label>
                 <input type="text" id="expenseCategory" class="form-input">
             </div>
+            <div class="error-msg" id="expenseCategoryError" style="color:red"></div>
             <div class="card-form mb-3">                                            
                 <input style="width: 100%; margin: 0;" id="expanceCode" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
             </div>
-            
+            <div class="error-msg" id="expanceCodeError" style="color:red"></div>
              <div class="card-form mb-3">                                            
                 <input style="width: 100%; margin: 0;" id="expanceLimit" type="text" class="form-input" placeholder="Expense Limit">
             </div>
-            
+            <div class="error-msg" id="expanceLimitError" style="color:red"></div>
             <div class="clearfix"></div>
             <div class="expense-inwrap">
                 <h5>Optional Inputs</h5>
@@ -920,14 +921,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="incurring-exp-modal">
                     <p><input type="text" class="form-control incurr ml-0" id="timeperiod" placeholder="20"> Days</p>
                 </div>
+                 <div class="error-msg" id="timeperiodError" style="color:red"></div>
             </div>
             <div class="d-block mt-3">
             	<input type="hidden" id="categoryId" >
             	<div id="addCategoryButton" style="display: block">
-                <button class="btn btn-primary d-block btn-lg w-100"  onclick="addExpensesCategory()" >Confirm</button>
+                <button class="btn btn-primary d-block btn-lg w-100" type="button"  onclick="addExpensesCategory()" >Confirm</button>
                 </div>
                 <div id="editCategoryButton" style="display: none">
-                <button class="btn btn-primary d-block btn-lg w-100"  onclick="editExpensesCategory()" >Confirm</button>
+                <button class="btn btn-primary d-block btn-lg w-100" type="button"  onclick="editExpensesCategory()" >Confirm</button>
                 </div>
             </div>
         </div>    

@@ -113,11 +113,13 @@ function editExpensesCategory(){
 	        var band1 = $(this).find('input.band1').val();
 	        var band2 = $(this).find('input.band2').val();
 	        var band3 = $(this).find('input.band3').val();
-	      var rowvalue=period+"@"+band1+"@"+band2+"@"+band3;
-	       allInputValues.push(rowvalue);
+	        var band4 = $(this).find('input.band4').val();
+	        var band5 = $(this).find('input.band5').val();
+	        var band6 = $(this).find('input.band6').val();
+	        var rowvalue=period+"@"+band1+"@"+band2+"@"+band3+"@"+band4+"@"+band5+"@"+band6;
+	        allInputValues.push(rowvalue);
 	    });  
-	 //alert(""+allInputValues);
-     //console.log(allInputValues);
+	
      //get dynamic table data end
     
      var formData = new FormData(addExpenses);
@@ -175,6 +177,39 @@ function addExpensesCategory(){
 	var expanceLimit = document.getElementById("expanceLimit").value;
 	var distingushEmployeeBand = document.getElementById("distingushEmployeeBand").value;
 	var timeperiod = document.getElementById("timeperiod").value;
+	
+	if(expenseCategory ==null || expenseCategory==""){
+		document.getElementById("expenseCategoryError").innerHTML="Please Enter Expense Category";
+		document.getElementbyId("expenseCategory").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expenseCategoryError").innerHTML="";
+	}
+	if(expanceCode ==null || expanceCode==""){
+		document.getElementById("expanceCodeError").innerHTML="Please Enter Expense Code";
+		document.getElementbyId("expanceCode").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expanceCodeError").innerHTML="";
+	}
+	if(expanceLimit ==null || expanceLimit==""){
+		document.getElementById("expanceLimitError").innerHTML="Please Enter Expense Limit";
+		document.getElementbyId("expanceLimit").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expanceLimitError").innerHTML="";
+	}
+	if(timeperiod ==null || timeperiod==""){
+		document.getElementById("timeperiodError").innerHTML="Please Enter Days";
+		document.getElementbyId("timeperiod").focus();
+		return false;
+	}
+	else{
+		document.getElementById("timeperiodError").innerHTML="";
+	}
 	
 	var employerid = document.getElementById("employerId").value;
 	//var id = document.getElementById("categoryId").value;
