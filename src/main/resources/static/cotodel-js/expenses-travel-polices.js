@@ -236,7 +236,7 @@ function addExpensesCategory(){
      formData.append("employerId", employerid);
      formData.append("expenseCategory", expenseCategory);
      formData.append("expenseCode", expanceCode);
-     formData.append("expanceLimit", expanceLimit);
+     formData.append("expenseLimit", expanceLimit);
      formData.append("distingushEmployeeBand", distingushEmployeeBand);
      formData.append("dayToExpiry", timeperiod);
      formData.append("listArray", allInputValues);

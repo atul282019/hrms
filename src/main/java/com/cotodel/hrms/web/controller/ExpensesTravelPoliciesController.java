@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BandDetailRequest;
-import com.cotodel.hrms.web.response.EmployeePayrollNew;
-import com.cotodel.hrms.web.response.EmployeePayrollRequest;
 import com.cotodel.hrms.web.response.ExpanceTravelAdvanceRequest;
 import com.cotodel.hrms.web.response.ExpenseCategoryRequest;
 import com.cotodel.hrms.web.service.ExpensesTravelService;
