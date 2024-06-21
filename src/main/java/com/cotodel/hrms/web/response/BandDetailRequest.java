@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BandDetailRequest {
 	
-	private String expenseCategoryId;
+	private int expenseCategoryId;
 	private String bandType;	
     private String bandOneInr;    
     private String bandTwoInr;    

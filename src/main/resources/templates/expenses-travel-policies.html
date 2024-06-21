@@ -489,82 +489,22 @@ function deleteTableRow(){
 	 }
 }
 
-function addRow() {
-	
-    var table = document.getElementById("newTable").getElementsByTagName('tbody')[0];
-    var newRow = table.insertRow(table.rows.length);
- 
-	 
-	 var cell1 = newRow.insertCell(0);
-	    var period = document.createElement("select");
-	    period.name = "period";
-	    var period1 = document.createElement("option");
-	    period1.text = "Select Time Period";
-	    var period2 = document.createElement("option");
-	    period2.text = "Per Week ";
-	    var period3 = document.createElement("option");
-	    period3.text = "Per Month";
-	    var period4 = document.createElement("option");
-	    period4.text = "Per Quater";
-	    var period5 = document.createElement("option");
-	    period5.text = "Per Year";
-	    period.setAttribute('class',"form-select period");
-		
-	
-	    period.add(period1);
-	    period.add(period2);
-	    period.add(period3);
-	    period.add(period4);
-	    period.add(period5);
-	    cell1.appendChild(period);
-	   
-	    
-	    var cell2 = newRow.insertCell(1);
-	    var nameInput = document.createElement("input");
-	    nameInput.type = "text";
-	    nameInput.name = "band1";
-	    nameInput.setAttribute('class',"perquarter-in-input band1");
-	    nameInput.setAttribute('maxlength',"");
-	    nameInput.setAttribute('placeholder',"INR  Expance Limit 1 ");
-	   // nameInput.setAttribute('size',"10");
-	 
-	    cell2.appendChild(nameInput);
 
-	    var cell3 = newRow.insertCell(2);
-	    var ageInput = document.createElement("input");
-	    ageInput.type = "band2";
-	    ageInput.name = "band2";
-		ageInput.setAttribute('class',"perquarter-in-input band2");
-		//ageInput.setAttribute('maxlength',"");
-		//ageInput.setAttribute('size',"3");
-		ageInput.setAttribute('placeholder',"INR  Expance Limit 2");
-	 
-	    cell3.appendChild(ageInput);
-
-	    var cell4 = newRow.insertCell(3);
-	    var bandinput = document.createElement("input");
-	    bandinput.type = "band3";
-	    bandinput.name = "band3";
-	    bandinput.setAttribute('class',"perquarter-in-input band3");
-	   // bandinput.setAttribute('maxlength',"");
-	    //bandinput.setAttribute('size',"");
-	    bandinput.setAttribute('placeholder',"INR  Expance Limit 3");
-	 
-	    cell4.appendChild(bandinput);
-	
-	    var cell5 = newRow.insertCell(4);
-	    var deleteButton = document.createElement("button");
-	    deleteButton.innerHTML = '<i class="fa fa-trash"> </i>';
-	    deleteButton.setAttribute('class',"text-left remove-btn");
-	    deleteButton.onclick = function() {
-	        deleteRow(this);
-	    };
-    	cell5.appendChild(deleteButton);
-    	dissableButton();
-    	
+function newRowEdit(){
+	    var rowCount = $('#newTableEdit tr').length;
+	    if(rowCount <= 4){
+		   $("#newTableEdit tbody").append($("#newTable tbody tr:last").clone());
+	    }
+}
+function deleteTableRowEdit(){
+	 var rowCount = $('#newTableEdit tr').length;
+	 if(rowCount >= 4){
+	    $('#newTableEdit tbody tr:last').remove();
+	 }
 }
 
-function deleteRow(btn) {
+
+/* function deleteRow(btn) {
 	enableAddButton();
     var row = btn.parentNode.parentNode;
     row.parentNode.removeChild(row);
@@ -577,11 +517,10 @@ function dissableButton(){
 		var element = document.getElementById("addButton");
 		element.classList.add("btn-disabled");
 		
-	}
-    
-	
+	}	
 }
-function enableAddButton(){
+ */
+/* function enableAddButton(){
 	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
 	if(rowCount <= "10"){
 		document.getElementById("addButton").disabled=false;
@@ -590,84 +529,8 @@ function enableAddButton(){
 		
 	}
 	
-}
+} */
 </script>	
-<!-- 
- <script >
-	
-	class Validator {
-    constructor(form) {
-        this.form = form;
-        this.inputs = form.querySelectorAll('.band1');
-        this.errors = form.querySelectorAll('.error-message');
-
-        this.initialize();
-    }
-
-    initialize() {
-        this.inputs.forEach(input => {
-            input.addEventListener('input', () => this.validateField(input));
-        });
-
-        this.form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            this.validateForm();
-        });
-    }
-
-    validateField(input) {
-        const errorElement = input.nextElementSibling;
-        let isValid = true;
-        let errorMessage = '';
-
-        if (input.value.trim() === '') {
-            isValid = false;
-            errorMessage = `${input.previousElementSibling.innerText} is required.`;
-        } else if (input.type === 'email' && !this.validateEmail(input.value)) {
-            isValid = false;
-            errorMessage = 'Please enter a valid email address.';
-        }
-
-        if (isValid) {
-            input.classList.remove('invalid');
-            errorElement.style.display = 'none';
-        } else {
-            input.classList.add('invalid');
-            errorElement.innerText = errorMessage;
-            errorElement.style.display = 'block';
-        }
-
-        return isValid;
-    }
-
-    validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    validateForm() {
-        let isFormValid = true;
-
-        this.inputs.forEach(input => {
-            const isFieldValid = this.validateField(input);
-            if (!isFieldValid) {
-                isFormValid = false;
-            }
-        });
-
-        if (isFormValid) {
-            alert('Form submitted successfully!');
-        }
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('form');
-    new Validator(form);
-});
-	
-	</script> -->
-	
 	
 	
  <!-- Modal Approval Payout Flow Settings -->
@@ -908,7 +771,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </tr>   --> 
                             </tbody>
                         </table>
-                        <span class="error-message" id="username-error"></span>
+                        <div>
+                        <span class="errormulti-message" id="error1"></span>
+                        <span class="errormulti-message" id="error2"></span>
+                        <span class="errormulti-message" id="error3"></span>
+                        <span class="errormulti-message" id="error4"></span>
+                        <span class="errormulti-message" id="error5"></span>
+                        <span class="errormulti-message" id="error6"></span>
+                        </div>
                         <div>
                            <!-- <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a> -->
                           <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new" onclick="newRow()">+ Add Another Limit</button>
@@ -926,9 +796,95 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="d-block mt-3">
             	<input type="hidden" id="categoryId" >
             	<div id="addCategoryButton" style="display: block">
-                <button class="btn btn-primary d-block btn-lg w-100" type="button"  onclick="addExpensesCategory()" >Confirm</button>
+                <button class="btn btn-primary d-block btn-lg w-100" type="button"  id="addcat" onclick="addExpensesCategory()" >Confirm</button>
                 </div>
-                <div id="editCategoryButton" style="display: none">
+               <!--  <div id="editCategoryButton" style="display: none">
+                <button class="btn btn-primary d-block btn-lg w-100" type="button"  onclick="editExpensesCategory()" >Confirm</button>
+                </div> -->
+            </div>
+        </div>    
+         </form>    
+      </div>
+     
+    </div>
+  </div>
+
+<!-- Modal Expense Category Settings edit-->
+<div class="modal fade" id="ModalExpenseCategoryEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+    
+      <div class="modal-content">
+        <div class="modal-header pb-0">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Expense Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="addExpensesEdit" name="addExpensesEdit"> 
+        <div class="modal-body">
+            <div class="card-form my-3">
+                <label for="">Expense Category</label>
+                <input type="text" id="expenseCategoryEdit" class="form-input">
+            </div>
+            <div class="error-msg" id="expenseCategoryError" style="color:red"></div>
+            <div class="card-form mb-3">                                            
+                <input style="width: 100%; margin: 0;" id="expanceCodeEdit" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
+            </div>
+            <div class="error-msg" id="expanceCodeError" style="color:red"></div>
+             <div class="card-form mb-3">                                            
+                <input style="width: 100%; margin: 0;" id="expanceLimitEdit" type="text" class="form-input" placeholder="Expense Limit">
+            </div>
+            <div class="error-msg" id="expanceLimitError" style="color:red"></div>
+            <div class="clearfix"></div>
+            <div class="expense-inwrap">
+                <h5>Optional Inputs</h5>
+                <p>Set maximum limit for this expense category for a given period </p>
+                <div class="expense-card-inner">
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="distingushEmployeeBandEdit" checked="" >
+                            <label class="custom-control-label text-left" for="distingushEmployeeBandEdit">Distinguish by Employee Bands </label>
+                        </div>
+                    </div>
+
+                    <div class="expense-table">
+                        <table class="table mb-0 newTableEdit" id="newTableEdit">
+                            <thead>
+                                <tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
+                        </table>
+                        <div>
+                        <span class="errormulti-messagee-edit" id="errorEdit1"></span>
+                        <span class="errormulti-message-edit" id="errorEdit2"></span>
+                        <span class="errormulti-message-edit" id="errorEdit3"></span>
+                        <span class="errormulti-message-edit" id="errorEdit4"></span>
+                        <span class="errormulti-message-edit" id="errorEdit5"></span>
+                        <span class="errormulti-message-edit" id="errorEdit6"></span>
+                        </div>
+                        <div>
+                           <!-- <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a> -->
+                          <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="newRowEdit()">+ Add Another Limit</button>
+						  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="deleteTableRowEdit()">- Delete</button>
+                        </div>
+                    </div>
+
+                </div>
+                <p>Set time period in which an expense incurred can be submitted (in Days)</p>
+                <div class="incurring-exp-modal">
+                    <p><input type="text" class="form-control incurr ml-0" id="timeperiodEdit" placeholder="20"> Days</p>
+                </div>
+                 <div class="error-msg" id="timeperiodError" style="color:red"></div>
+            </div>
+            <div class="d-block mt-3">
+            	<input type="hidden" id="categoryId" >
+            	<!-- <div id="addCategoryButton" style="display: block">
+                <button class="btn btn-primary d-block btn-lg w-100" type="button"  id="addcat" onclick="addExpensesCategory()" >Confirm</button>
+                </div> -->
+                <div id="editCategoryButton">
                 <button class="btn btn-primary d-block btn-lg w-100" type="button"  onclick="editExpensesCategory()" >Confirm</button>
                 </div>
             </div>
@@ -938,8 +894,6 @@ document.addEventListener('DOMContentLoaded', () => {
      
     </div>
   </div>
-
-
    <!-- Modal Currency Conversion -->
 <div class="modal fade" id="ModalCurrencyConversion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered modal-approval-wrap" role="document">

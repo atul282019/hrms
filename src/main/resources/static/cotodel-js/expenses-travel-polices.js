@@ -30,7 +30,7 @@ function getExpanceCategoryList() {
       		    { "mData": "expenseLimit"},
       		    { "mData": "dayToExpiry"},
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory"  onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <button type="button" onclick="deleteData(this)" class="btn p-0" ><img src="img/delete.svg" ></button> </td>';
+                    return '<td align="right"><button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategoryEdit"  onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <button type="button" onclick="deleteData(this)" class="btn p-0" ><img src="img/delete.svg" ></button> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -97,25 +97,25 @@ function getExpanceCategoryList() {
 
 function editExpensesCategory(){
 	
-	var expenseCategory = document.getElementById("expenseCategory").value;
-	var expanceCode = document.getElementById("expanceCode").value;
-	var expanceLimit = document.getElementById("expanceLimit").value;
-	var distingushEmployeeBand = document.getElementById("distingushEmployeeBand").value;
-	var timeperiod = document.getElementById("timeperiod").value;
+	var expenseCategory = document.getElementById("expenseCategoryEdit").value;
+	var expanceCode = document.getElementById("expanceCodeEdit").value;
+	var expanceLimit = document.getElementById("expanceLimitEdit").value;
+	var distingushEmployeeBand = document.getElementById("distingushEmployeeBandEdit").value;
+	var timeperiod = document.getElementById("timeperiodEdit").value;
 	
 	var employerid = document.getElementById("employerId").value;
 	var id = document.getElementById("categoryId").value;
 	
     var allInputValues = [];
 	
-	 $('.newTable tbody tr').each(function () {
-	        var period = $(this).find('select.period').val();
-	        var band1 = $(this).find('input.band1').val();
-	        var band2 = $(this).find('input.band2').val();
-	        var band3 = $(this).find('input.band3').val();
-	        var band4 = $(this).find('input.band4').val();
-	        var band5 = $(this).find('input.band5').val();
-	        var band6 = $(this).find('input.band6').val();
+	 $('.newTableEdit tbody tr').each(function () {
+	        var period = $(this).find('input.bandedit').val();
+	        var band1 = $(this).find('input.bandedit1').val();
+	        var band2 = $(this).find('input.bandedit2').val();
+	        var band3 = $(this).find('input.bandedit3').val();
+	        var band4 = $(this).find('input.bandedit4').val();
+	        var band5 = $(this).find('input.bandedit5').val();
+	        var band6 = $(this).find('input.bandedit6').val();
 	        var rowvalue=period+"@"+band1+"@"+band2+"@"+band3+"@"+band4+"@"+band5+"@"+band6;
 	        allInputValues.push(rowvalue);
 	    });  
@@ -135,7 +135,7 @@ function editExpensesCategory(){
  
 	 	$.ajax({
 		 type: "POST",
-	     url:"/saveExpensesCategory",
+	     url:"/updateExpensesCategory",
          data: formData,
          processData: false,
          contentType: false,       		 
@@ -204,13 +204,214 @@ function addExpensesCategory(){
 	}
 	if(timeperiod ==null || timeperiod==""){
 		document.getElementById("timeperiodError").innerHTML="Please Enter Days";
-		document.getElementbyId("timeperiod").focus();
+		document.getElementById("timeperiod").focus();
 		return false;
 	}
 	else{
 		document.getElementById("timeperiodError").innerHTML="";
 	}
 	
+	///
+	// Get all input elements with the class 'validate'
+    const inputs = document.querySelectorAll('.band1');
+    const inputs2 = document.querySelectorAll('.band2');
+    const inputs3 = document.querySelectorAll('.band3');
+    const inputs4 = document.querySelectorAll('.band4');
+    const inputs5 = document.querySelectorAll('.band5');
+    const inputs6 = document.querySelectorAll('.band6');
+    let isValid = true;
+    let isValid2 = true;
+    let isValid3 = true;
+    let isValid4 = true;
+    let isValid5 = true;
+    let isValid6 = true; // Flag to track overall form validity
+
+    // Clear previous error messages and styles
+    inputs.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+       // alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+    // Clear previous error messages and styles
+    inputs2.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs2.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid2 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid2) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs3.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs3.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid3 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid3) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs4.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs4.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid4 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid4) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs5.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs5.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid5 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid5) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        // alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs6.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs6.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid6 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid6) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+	///
 	var employerid = document.getElementById("employerId").value;
 	//var id = document.getElementById("categoryId").value;
 	
@@ -227,8 +428,7 @@ function addExpensesCategory(){
 	        var rowvalue=period+"@"+band1+"@"+band2+"@"+band3+"@"+band4+"@"+band5+"@"+band6;
 	        allInputValues.push(rowvalue);
 	    });  
-	 //alert(""+allInputValues);
-     //console.log(allInputValues);
+	
      //get dynamic table data end
     
      var formData = new FormData(addExpenses);
@@ -240,7 +440,8 @@ function addExpensesCategory(){
      formData.append("distingushEmployeeBand", distingushEmployeeBand);
      formData.append("dayToExpiry", timeperiod);
      formData.append("listArray", allInputValues);
-   
+     document.getElementById("addcat").disabled = true;
+     document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		 type: "POST",
 	     url:"/saveExpensesCategory",
@@ -251,7 +452,8 @@ function addExpensesCategory(){
 	
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			// document.getElementById("signinLoader").style.display="none";
+			document.getElementById("signinLoader").style.display="none";
+			document.getElementById("addcat").disabled = false;
 			location.reload();
 			if(data1.status==true){
 				
@@ -276,6 +478,8 @@ function addExpensesCategory(){
     });			
                
 }  
+//input field validation using class anme
+	
 
 
  function viewData(value){
@@ -303,12 +507,26 @@ function addExpensesCategory(){
             var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
 			//console.log(newData);
-  			document.getElementById("expenseCategory").value = data2.expenseCategory ;
-			document.getElementById("expanceCode").value =  data2.expenseCode;
-			document.getElementById("timeperiod").value =data2.dayToExpiry ;
-			document.getElementById("expanceLimit").value =data2.expenseLimit ;
+  			document.getElementById("expenseCategoryEdit").value = data2.expenseCategory ;
+			document.getElementById("expanceCodeEdit").value =  data2.expenseCode;
+			document.getElementById("timeperiodEdit").value =data2.dayToExpiry ;
+			document.getElementById("expanceLimitEdit").value =data2.expenseLimit ;
 			document.getElementById("categoryId").value = data2.id;
-			
+			const tableBody = document.getElementById('newTableEdit').querySelector('tbody');
+   
+			data2.list.forEach((item, index) => {
+		        const row = document.createElement('tr');
+		        row.innerHTML = `
+		            <td><input type="text" class="form-control bandedit" name="bandType${index + 1}" value="${item.bandType}"></td>
+		            <td><input type="number" class="form-control bandedit1" name="bandOneInr${index + 1}" value="${item.bandOneInr}"></td>
+		            <td><input type="number" class="form-control bandedit2" name="bandTwoInr${index + 1}" value="${item.bandTwoInr}"></td>
+		            <td><input type="number" class="form-control bandedit3" name="bandThreeInr${index + 1}" value="${item.bandThreeInr}"></td>
+		            <td><input type="number" class="form-control bandedit4" name="bandThreeInr${index + 1}" value="${item.bandFourInr}"></td>
+		            <td><input type="number" class="form-control bandedit5" name="bandThreeInr${index + 1}" value="${item.bandFiveInr}"></td>
+		            <td><input type="number" class="form-control bandedit6" name="bandThreeInr${index + 1}" value="${item.bandSixInr}"></td>
+		        `;
+		        tableBody.appendChild(row);
+		    });
            },
          error: function(e){
              alert('Error: ' + e);
@@ -581,7 +799,7 @@ function loadTableData(jsonData) {
                 const input5 = document.createElement('span');
                 
                 //input5.type = 'text';
-                input5.setAttribute('class',"band band1");
+                input5.setAttribute('class',"band");
                 //input5.setAttribute('disabled',"disabled");
                 input5.innerHTML = item.bandNameOne ? item.bandNameOne : 'N/A';
                 //input5.value = item.bandNameOne ? item.bandNameOne : 'N/A';;
@@ -592,7 +810,7 @@ function loadTableData(jsonData) {
                 const cell3 = row.insertCell(2);
                 const input6 = document.createElement('span');
                 //input6.type = 'text';
-                input6.setAttribute('class',"band band2");
+                input6.setAttribute('class',"band");
                 // input6.setAttribute('disabled',"disabled");
                 input6.innerHTML = item.bandNameTwo ? item.bandNameTwo : 'N/A';
                 cell3.appendChild(input6);
@@ -601,7 +819,7 @@ function loadTableData(jsonData) {
                 const cell4 = row.insertCell(3);
                 const input7 = document.createElement('span');
                 //input7.type = 'text';
-                input7.setAttribute('class',"band band3");
+                input7.setAttribute('class',"band");
                 //input7.setAttribute('disabled',"disabled");
                 input7.innerHTML = item.bandNameThree ? item.bandNameThree : 'N/A';
                 cell4.appendChild(input7);
@@ -610,7 +828,7 @@ function loadTableData(jsonData) {
                 const cell5 = row.insertCell(4);
                 const input8 = document.createElement('span');
                 //input8.type = 'text';
-                input8.setAttribute('class',"band band4");
+                input8.setAttribute('class',"band");
                 //input8.setAttribute('disabled',"disabled");
                 input8.innerHTML = item.bandNameFour ? item.bandNameFour : 'N/A';
                 cell5.appendChild(input8);
@@ -620,7 +838,7 @@ function loadTableData(jsonData) {
                 const cell6 = row.insertCell(5);
                 const input9 = document.createElement('span');
                // input9.type = 'text';
-               input9.setAttribute('class',"band band5");
+               input9.setAttribute('class',"band");
                // input9.setAttribute('disabled',"disabled");
                 input9.innerHTML = item.bandNameFive ?  item.bandNameFive : 'N/A';
                 cell6.appendChild(input9);
@@ -630,7 +848,7 @@ function loadTableData(jsonData) {
                 const cell7 = row.insertCell(6);
                 const input10 = document.createElement('span');
                 //input10.type = 'text';
-                input10.setAttribute('class',"band band6");
+                input10.setAttribute('class',"band");
                // input10.setAttribute('disabled',"disabled");
                 input10.innerHTML = item.bandNameSix ?  item.bandNameSix : 'N/A';
                 cell7.appendChild(input10);
