@@ -478,13 +478,13 @@
 
 function newRow(){
 	    var rowCount = $('#newTable tr').length;
-	    if(rowCount <= 4){
+	    if(rowCount <= 5){
 		   $("#newTable tbody").append($("#newTable tbody tr:last").clone());
 	    }
 }
 function deleteTableRow(){
 	 var rowCount = $('#newTable tr').length;
-	 if(rowCount >= 4){
+	 if(rowCount >= 3){
 	    $('#newTable tbody tr:last').remove();
 	 }
 }
@@ -492,13 +492,13 @@ function deleteTableRow(){
 
 function newRowEdit(){
 	    var rowCount = $('#newTableEdit tr').length;
-	    if(rowCount <= 4){
+	    if(rowCount <= 5){
 		   $("#newTableEdit tbody").append($("#newTable tbody tr:last").clone());
 	    }
 }
 function deleteTableRowEdit(){
 	 var rowCount = $('#newTableEdit tr').length;
-	 if(rowCount >= 4){
+	 if(rowCount >= 5){
 	    $('#newTableEdit tbody tr:last').remove();
 	 }
 }
@@ -715,14 +715,14 @@ function dissableButton(){
                     <div class="expense-table">
                         <table class="table mb-0 newTable" id="newTable">
                             <thead>
-                                <tr>
-                                   <!--  <th></th>
+                               <!--  <tr>
+                                    <th></th>
                                     <th><div class="band band1"> Band 1</div>
                                     </th>
                                     <th><div class="band band2"> Band 2</div></th>
                                     <th><div class="band band3"> Band 3</div></th>
-                                    <th></th> -->
-                                </tr>
+                                    <th></th> 
+                                </tr> -->
                             </thead>
                             <tbody>
                                <!--  <tr>
@@ -850,8 +850,7 @@ function dissableButton(){
                     <div class="expense-table">
                         <table class="table mb-0 newTableEdit" id="newTableEdit">
                             <thead>
-                                <tr>
-                                </tr>
+                               
                             </thead>
                             <tbody>
                                

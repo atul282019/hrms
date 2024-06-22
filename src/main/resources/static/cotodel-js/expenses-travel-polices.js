@@ -131,129 +131,16 @@ function editExpensesCategory(){
 	else{
 		document.getElementById("expanceLimitEditError").innerHTML="";
 	}
-	if(timeperiod ==null || timeperiod==""){
-		document.getElementById("timeperiodEditError").innerHTML="Please Enter Days";
-		document.getElementById("timeperiodEdit").focus();
-		return false;
-	}
-	else{
-		document.getElementById("timeperiodEditError").innerHTML="";
-	}
 	
 	
-    var allInputValues = [];
-	
-	 $('.newTableEdit tbody tr').each(function () {
-	        var period = $(this).find('select.bandedit').val();
-	        var band1 = $(this).find('input.bandedit1').val();
-	        var band2 = $(this).find('input.bandedit2').val();
-	        var band3 = $(this).find('input.bandedit3').val();
-	        var band4 = $(this).find('input.bandedit4').val();
-	        var band5 = $(this).find('input.bandedit5').val();
-	        var band6 = $(this).find('input.bandedit6').val();
-	        var rowvalue=period+"@"+band1+"@"+band2+"@"+band3+"@"+band4+"@"+band5+"@"+band6;
-	        allInputValues.push(rowvalue);
-	    });  
-	
-     //get dynamic table data end
-    
-     var formData = new FormData(addExpensesEdit);
-     formData.append("id", id);
-     formData.append("employerId", employerid);
-     formData.append("expenseCategory", expenseCategory);
-     formData.append("expenseCode", expanceCode);
-     formData.append("expenseLimit", expanceLimit);
-     formData.append("distingushEmployeeBand", distingushEmployeeBand);
-     formData.append("dayToExpiry", timeperiod);
-     formData.append("listArray", allInputValues);
-	 document.getElementById("editCategory").disabled = true;
-	 
-	 	$.ajax({
-		 type: "POST",
-	     url:"/updateExpensesCategory",
-         data: formData,
-         processData: false,
-         contentType: false,       		 
-            success: function(data){
-	
-            newData = data;
-			var data1 = jQuery.parseJSON(newData);
-			// document.getElementById("signinLoader").style.display="none";
-			location.reload();
-			if(data1.status==true){
-				
-				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
-				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
-				 
-			}else if(data1.status==false){
-				
-				 document.getElementById("payrollfailmsg").innerHTML=data1.message;
-				 document.getElementById("payrollfailmsgDiv").style.display="block";
-				
-			}else{
-				
-				 document.getElementById("payrollfailmsgDiv").style.display="none";
-				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
-			}
-			getExpanceCategoryList();
-         },
-         error: function(e){
-             alert('Error: ' + e);
-         }
-    });			
-               
-}  
-
-
-function addExpensesCategory(){
-	
-	var expenseCategory = document.getElementById("expenseCategory").value;
-	var expanceCode = document.getElementById("expanceCode").value;
-	var expanceLimit = document.getElementById("expanceLimit").value;
-	var distingushEmployeeBand = document.getElementById("distingushEmployeeBand").value;
-	var timeperiod = document.getElementById("timeperiod").value;
-	
-	if(expenseCategory ==null || expenseCategory==""){
-		document.getElementById("expenseCategoryError").innerHTML="Please Enter Expense Category";
-		document.getElementbyId("expenseCategory").focus();
-		return false;
-	}
-	else{
-		document.getElementById("expenseCategoryError").innerHTML="";
-	}
-	if(expanceCode ==null || expanceCode==""){
-		document.getElementById("expanceCodeError").innerHTML="Please Enter Expense Code";
-		document.getElementbyId("expanceCode").focus();
-		return false;
-	}
-	else{
-		document.getElementById("expanceCodeError").innerHTML="";
-	}
-	if(expanceLimit ==null || expanceLimit==""){
-		document.getElementById("expanceLimitError").innerHTML="Please Enter Expense Limit";
-		document.getElementbyId("expanceLimit").focus();
-		return false;
-	}
-	else{
-		document.getElementById("expanceLimitError").innerHTML="";
-	}
-	if(timeperiod ==null || timeperiod==""){
-		document.getElementById("timeperiodError").innerHTML="Please Enter Days";
-		document.getElementById("timeperiod").focus();
-		return false;
-	}
-	else{
-		document.getElementById("timeperiodError").innerHTML="";
-	}
-	
-	///
+	/////////////////////////////////////////////////////
 	// Get all input elements with the class 'validate'
-    const inputs = document.querySelectorAll('.band1');
-    const inputs2 = document.querySelectorAll('.band2');
-    const inputs3 = document.querySelectorAll('.band3');
-    const inputs4 = document.querySelectorAll('.band4');
-    const inputs5 = document.querySelectorAll('.band5');
-    const inputs6 = document.querySelectorAll('.band6');
+    const inputs = document.querySelectorAll('.bandedit1');
+    const inputs2 = document.querySelectorAll('.bandedit2');
+    const inputs3 = document.querySelectorAll('.bandedit3');
+    const inputs4 = document.querySelectorAll('.bandedit4');
+    const inputs5 = document.querySelectorAll('.bandedit5');
+    const inputs6 = document.querySelectorAll('.bandedit6');
     let isValid = true;
     let isValid2 = true;
     let isValid3 = true;
@@ -446,7 +333,361 @@ function addExpensesCategory(){
         //alert('Form is valid!');
         // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
     }
+	//////////////////////////////
+	
+	
+	if(timeperiod ==null || timeperiod==""){
+		document.getElementById("timeperiodEditError").innerHTML="Please Enter Days";
+		document.getElementById("timeperiodEdit").focus();
+		return false;
+	}
+	else{
+		document.getElementById("timeperiodEditError").innerHTML="";
+	}
+	
+    var allInputValues = [];
+	
+	 $('.newTableEdit tbody tr').each(function () {
+	        var period = $(this).find('select.bandedit').val();
+	        var band1 = $(this).find('input.bandedit1').val();
+	        var band2 = $(this).find('input.bandedit2').val();
+	        var band3 = $(this).find('input.bandedit3').val();
+	        var band4 = $(this).find('input.bandedit4').val();
+	        var band5 = $(this).find('input.bandedit5').val();
+	        var band6 = $(this).find('input.bandedit6').val();
+	        var rowvalue=period+"@"+band1+"@"+band2+"@"+band3+"@"+band4+"@"+band5+"@"+band6;
+	        allInputValues.push(rowvalue);
+	    });  
+	
+     //get dynamic table data end
+    
+     var formData = new FormData(addExpensesEdit);
+     formData.append("id", id);
+     formData.append("employerId", employerid);
+     formData.append("expenseCategory", expenseCategory);
+     formData.append("expenseCode", expanceCode);
+     formData.append("expenseLimit", expanceLimit);
+     formData.append("distingushEmployeeBand", distingushEmployeeBand);
+     formData.append("dayToExpiry", timeperiod);
+     formData.append("listArray", allInputValues);
+	 document.getElementById("editCategory").disabled = true;
+	 
+	 	$.ajax({
+		 type: "POST",
+	     url:"/updateExpensesCategory",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+	
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			// document.getElementById("signinLoader").style.display="none";
+			location.reload();
+			if(data1.status==true){
+				
+				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
+				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
+				 
+			}else if(data1.status==false){
+				
+				 document.getElementById("payrollfailmsg").innerHTML=data1.message;
+				 document.getElementById("payrollfailmsgDiv").style.display="block";
+				
+			}else{
+				
+				 document.getElementById("payrollfailmsgDiv").style.display="none";
+				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
+			}
+			getExpanceCategoryList();
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });			
+               
+}  
+
+
+function addExpensesCategory(){
+	
+	var expenseCategory = document.getElementById("expenseCategory").value;
+	var expanceCode = document.getElementById("expanceCode").value;
+	var expanceLimit = document.getElementById("expanceLimit").value;
+	var distingushEmployeeBand = document.getElementById("distingushEmployeeBand").value;
+	var timeperiod = document.getElementById("timeperiod").value;
+	
+	if(expenseCategory ==null || expenseCategory==""){
+		document.getElementById("expenseCategoryError").innerHTML="Please Enter Expense Category";
+		document.getElementbyId("expenseCategory").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expenseCategoryError").innerHTML="";
+	}
+	if(expanceCode ==null || expanceCode==""){
+		document.getElementById("expanceCodeError").innerHTML="Please Enter Expense Code";
+		document.getElementbyId("expanceCode").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expanceCodeError").innerHTML="";
+	}
+	if(expanceLimit ==null || expanceLimit==""){
+		document.getElementById("expanceLimitError").innerHTML="Please Enter Expense Limit";
+		document.getElementbyId("expanceLimit").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expanceLimitError").innerHTML="";
+	}
+	
 	///
+	// Get all input elements with the class 'validate'
+	const select = document.querySelectorAll('.period');
+    const inputs = document.querySelectorAll('.band1');
+    const inputs2 = document.querySelectorAll('.band2');
+    const inputs3 = document.querySelectorAll('.band3');
+    const inputs4 = document.querySelectorAll('.band4');
+    const inputs5 = document.querySelectorAll('.band5');
+    const inputs6 = document.querySelectorAll('.band6');
+    
+    let isValid7 = true;
+    let isValid = true;
+    let isValid2 = true;
+    let isValid3 = true;
+    let isValid4 = true;
+    let isValid5 = true;
+    let isValid6 = true; // Flag to track overall form validity
+
+    // Clear previous error messages and styles
+    
+     select.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    select.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid7 = false; // Set form validity to false
+        }
+    });
+    
+    if (!isValid7) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+       // alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+    
+    inputs.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+       // alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+    // Clear previous error messages and styles
+    inputs2.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs2.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid2 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid2) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs3.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs3.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid3 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid3) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs4.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs4.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid4 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid4) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs5.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs5.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid5 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid5) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        // alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+    
+     // Clear previous error messages and styles
+    inputs6.forEach(input => {
+        input.classList.remove('errormulti');
+        const errorSpan = input.nextElementSibling;
+        if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+            errorSpan.textContent = '';
+        }
+    });
+
+    // Validate each input field
+    inputs6.forEach((input, index) => {
+        if (!input.value.trim()) {
+            // If the input field is empty, add error class and show error message
+            input.classList.add('errormulti');
+            const errorSpan = input.nextElementSibling;
+            if (errorSpan && errorSpan.classList.contains('errormulti-message')) {
+                errorSpan.textContent = `Input ${index + 1} is required.`;
+            }
+            isValid6 = false; // Set form validity to false
+        }
+    });
+
+    if (!isValid6) {
+        // If the form is not valid, return false
+        return false;
+    } else {
+        // If the form is valid, you can proceed with form submission or other actions
+        //alert('Form is valid!');
+        // document.getElementById('myForm').submit(); // Uncomment this line to submit the form
+    }
+	///
+	
+	if(timeperiod ==null || timeperiod==""){
+		document.getElementById("timeperiodError").innerHTML="Please Enter Days";
+		document.getElementById("timeperiod").focus();
+		return false;
+	}
+	else{
+		document.getElementById("timeperiodError").innerHTML="";
+	}
+	
 	var employerid = document.getElementById("employerId").value;
 	//var id = document.getElementById("categoryId").value;
 	
@@ -514,8 +755,6 @@ function addExpensesCategory(){
                
 }  
 //input field validation using class anme
-	
-
 
  function viewData(value){
 	
@@ -545,7 +784,7 @@ function addExpensesCategory(){
 			document.getElementById("timeperiodEdit").value =data2.dayToExpiry ;
 			document.getElementById("expanceLimitEdit").value =data2.expenseLimit ;
 			document.getElementById("categoryId").value = data2.id;
-			
+			viewEmployeeBandEdit();
 			const tableBody = document.getElementById('newTableEdit').querySelector('tbody');
   		    tableBody.innerHTML = '';
 
@@ -565,12 +804,22 @@ function addExpensesCategory(){
 			    var permonth = document.createElement("option");
 			    permonth.text = "Per Month";
 			    permonth.value = "Per Month";
+			    
+			    var perquarter = document.createElement("option");
+			    perquarter.text = "Per Quarter";
+			    perquarter.value = "Per Quarter";
+			    
+			    var peryear = document.createElement("option");
+			    peryear.text = "Per Year";
+			    peryear.value = "Per Year";
 			   
 			    day.setAttribute('class',"form-select bandedit");
 				
 			    day.add(perday);
 			    day.add(perweak);
 			    day.add(permonth);
+			    day.add(perquarter);
+			    day.add(peryear);
 			    
 			     if (item.bandType=== "Per Day") {
 	                perday.selected = true; // Set the option with id 4 as selected
@@ -580,6 +829,14 @@ function addExpensesCategory(){
 	            }
 	             if (item.bandType=== "Per Month") {
 	                permonth.selected = true; // Set the option with id 4 as selected
+	            }
+	    		
+	    		 if (item.bandType=== "Per Year") {
+	                peryear.selected = true; // Set the option with id 4 as selected
+	            }
+	    		
+	    		 if (item.bandType=== "Per Quarter") {
+	                perquarter.selected = true; // Set the option with id 4 as selected
 	            }
 	    		
 	   		    cell1.appendChild(day);
@@ -706,12 +963,6 @@ function deleteData(value){
             var data1 = jQuery.parseJSON( newData );
 			//var data2 = data1.data;
 			location.reload();
-			//console.log(newData);
-  			/*document.getElementById("expenseCategory").value = data2.expenseCategory ;
-			document.getElementById("expanceCode").value =  data2.expenseCode;
-			document.getElementById("timeperiod").value =data2.dayToExpiry ;
-			document.getElementById("expanceLimit").value =data2.expenseLimit ;
-			document.getElementById("categoryId").value = data2.id;*/
 			
            },
          error: function(e){
@@ -719,10 +970,9 @@ function deleteData(value){
          }
     });
     		
-}
+	}
 
  function addAdvanceRequest(){
-	
 	
 	var employeesAllow = null;
 	var nameEmployeesCash = "all";
@@ -743,9 +993,7 @@ function deleteData(value){
 	
      if(document.getElementById('all').checked) {
 				   
-				  employeesAllow="All";
-				
-				  //document.getElementById("numericFigureError").innerHTML="";
+		 employeesAllow="All";
 				  
 			}   
 			else if(document.getElementById('spefic').checked){
@@ -866,7 +1114,7 @@ function getExpanseTravelAdvance() {
 			alert('Failed to fetch JSON data' + e);
 		}
 	});
-}
+ }
 
      function viewEmployeeBand() {
 
@@ -886,8 +1134,8 @@ function getExpanseTravelAdvance() {
 			 		newData = data;
 					var data1 = jQuery.parseJSON( newData );
 					if(data1.data.list !== null && data1.data.list !== ""){
-						//loadTableData(data1);
-						viewEmployeeBandEdit();
+					    loadTableData(data1);
+						
 						loadTableData2(data1);
 					}
 					
@@ -919,6 +1167,7 @@ function getExpanseTravelAdvance() {
 					var data1 = jQuery.parseJSON( newData );
 					if(data1.data.list !== null && data1.data.list !== ""){
 						loadTableDataEdit(data1);
+						
 					 }			  
 		    	 },
 				error: function(e) {
@@ -929,8 +1178,8 @@ function getExpanseTravelAdvance() {
 
 
 function loadTableData(jsonData) {
-     const tableBody = document.getElementById('newTable').querySelector('tbody');
-     tableBody.innerHTML = '';
+     const tableBody = document.getElementById('newTable').querySelector('thead');
+     //tableBody.innerHTML = '';
      jsonData.data.forEach(item => {
 	
 			const row = tableBody.insertRow();
@@ -1005,7 +1254,7 @@ function loadTableData(jsonData) {
   
   function loadTableDataEdit(jsonData) {
      const tableBody = document.getElementById('newTableEdit').querySelector('thead');
-     //tableBody.innerHTML = '';
+     tableBody.innerHTML = '';
      jsonData.data.forEach(item => {
 	
 			const row = tableBody.insertRow();
@@ -1075,7 +1324,8 @@ function loadTableData(jsonData) {
                 cell7.appendChild(input10);
                 }
             });
-     
+ 
+ 
   }
   
   function loadTableData2(jsonData) {
@@ -1085,31 +1335,43 @@ function loadTableData(jsonData) {
 	
 			const row = tableBody.insertRow();
                 
-                //const cell1 = row.insertCell(0);
-               /// const input3 = document.createElement('input');
-               // input3.type = 'text';
-               // input3.setAttribute('class',"empolyeeinput01");
-                //input3.setAttribute('disabled',"disabled");
-               // input3.value = item.bandNameOne;
-                //cell1.appendChild(input3);
-                
                 var cell1 = row.insertCell(0);
 			    var day = document.createElement("select");
 			    day.name = "Select Day";
+			    
+			    var select = document.createElement("option");
+			    select.text = "Select Day";
+			    select.value = "";
+			    
 			    var perday = document.createElement("option");
 			    perday.text = "Per Day";
 			    perday.value = "Per Day";
+			    
 			    var perweak = document.createElement("option");
 			    perweak.text = "Per Weak";
 			    perweak.value = "Per Weak";
+			    
 			    var permonth = document.createElement("option");
 			    permonth.text = "Per Month";
 			    permonth.value = "Per Month";
+			    
+			    var perquater = document.createElement("option");
+			    perquater.text = "Per Quarter";
+			    perquater.value = "Per Quarter";
+			    
+			    var peryear = document.createElement("option");
+			    peryear.text = "Per Year";
+			    peryear.value = "Per Year";
+			    
+			  
 			    day.setAttribute('class',"form-select period");
 				
+				day.add(select);
 			    day.add(perday);
 	    		day.add(perweak);
-	    		day.add(permonth)
+	    		day.add(permonth);
+	    		day.add(perquater);
+	    		day.add(peryear);
 	   		    cell1.appendChild(day);
 
 				if(item.bandNameOne !==null){
