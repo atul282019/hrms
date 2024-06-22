@@ -826,15 +826,15 @@ function dissableButton(){
                 <label for="">Expense Category</label>
                 <input type="text" id="expenseCategoryEdit" class="form-input">
             </div>
-            <div class="error-msg" id="expenseCategoryError" style="color:red"></div>
+            <div class="error-msg" id="expenseCategoryEditError" style="color:red"></div>
             <div class="card-form mb-3">                                            
                 <input style="width: 100%; margin: 0;" id="expanceCodeEdit" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
             </div>
-            <div class="error-msg" id="expanceCodeError" style="color:red"></div>
+            <div class="error-msg" id="expanceCodeEditError" style="color:red"></div>
              <div class="card-form mb-3">                                            
                 <input style="width: 100%; margin: 0;" id="expanceLimitEdit" type="text" class="form-input" placeholder="Expense Limit">
             </div>
-            <div class="error-msg" id="expanceLimitError" style="color:red"></div>
+            <div class="error-msg" id="expanceLimitEditError" style="color:red"></div>
             <div class="clearfix"></div>
             <div class="expense-inwrap">
                 <h5>Optional Inputs</h5>
@@ -866,9 +866,8 @@ function dissableButton(){
                         <span class="errormulti-message-edit" id="errorEdit6"></span>
                         </div>
                         <div>
-                           <!-- <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a> -->
-                          <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="newRowEdit()">+ Add Another Limit</button>
-						  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="deleteTableRowEdit()">- Delete</button>
+                         <!--  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="newRowEdit()">+ Add Another Limit</button>
+						  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="deleteTableRowEdit()">- Delete</button> -->
                         </div>
                     </div>
 
@@ -877,15 +876,12 @@ function dissableButton(){
                 <div class="incurring-exp-modal">
                     <p><input type="text" class="form-control incurr ml-0" id="timeperiodEdit" placeholder="20"> Days</p>
                 </div>
-                 <div class="error-msg" id="timeperiodError" style="color:red"></div>
+                 <div class="error-msg" id="timeperiodEditError" style="color:red"></div>
             </div>
             <div class="d-block mt-3">
             	<input type="hidden" id="categoryId" >
-            	<!-- <div id="addCategoryButton" style="display: block">
-                <button class="btn btn-primary d-block btn-lg w-100" type="button"  id="addcat" onclick="addExpensesCategory()" >Confirm</button>
-                </div> -->
                 <div id="editCategoryButton">
-                <button class="btn btn-primary d-block btn-lg w-100" type="button"  onclick="editExpensesCategory()" >Confirm</button>
+                <button class="btn btn-primary d-block btn-lg w-100" type="button" id="editCategory" onclick="editExpensesCategory()" >Confirm</button>
                 </div>
             </div>
         </div>    
@@ -928,7 +924,6 @@ function dissableButton(){
                 <label for="">Conversion Rate</label>
                 <input type="text" class="conversion-input" placeholder="0.012">
             </div>
-            
             
             <div class="d-block mt-3">
                 <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>

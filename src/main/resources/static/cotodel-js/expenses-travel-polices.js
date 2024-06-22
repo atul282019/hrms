@@ -98,6 +98,7 @@ function getExpanceCategoryList() {
 function editExpensesCategory(){
 	
 	var expenseCategory = document.getElementById("expenseCategoryEdit").value;
+	var expenseCategory = document.getElementById("expenseCategoryEdit").value;
 	var expanceCode = document.getElementById("expanceCodeEdit").value;
 	var expanceLimit = document.getElementById("expanceLimitEdit").value;
 	var distingushEmployeeBand = document.getElementById("distingushEmployeeBandEdit").value;
@@ -106,10 +107,44 @@ function editExpensesCategory(){
 	var employerid = document.getElementById("employerId").value;
 	var id = document.getElementById("categoryId").value;
 	
+	if(expenseCategory ==null || expenseCategory==""){
+		document.getElementById("expenseCategoryEditError").innerHTML="Please Enter Expense Category";
+		document.getElementbyId("expenseCategoryEdit").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expenseCategoryEditError").innerHTML="";
+	}
+	if(expanceCode ==null || expanceCode==""){
+		document.getElementById("expanceCodeEditError").innerHTML="Please Enter Expense Code";
+		document.getElementbyId("expanceCodeEdit").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expanceCodeEditError").innerHTML="";
+	}
+	if(expanceLimit ==null || expanceLimit==""){
+		document.getElementById("expanceLimitEditError").innerHTML="Please Enter Expense Limit";
+		document.getElementbyId("expanceLimitEdit").focus();
+		return false;
+	}
+	else{
+		document.getElementById("expanceLimitEditError").innerHTML="";
+	}
+	if(timeperiod ==null || timeperiod==""){
+		document.getElementById("timeperiodEditError").innerHTML="Please Enter Days";
+		document.getElementById("timeperiodEdit").focus();
+		return false;
+	}
+	else{
+		document.getElementById("timeperiodEditError").innerHTML="";
+	}
+	
+	
     var allInputValues = [];
 	
 	 $('.newTableEdit tbody tr').each(function () {
-	        var period = $(this).find('input.bandedit').val();
+	        var period = $(this).find('select.bandedit').val();
 	        var band1 = $(this).find('input.bandedit1').val();
 	        var band2 = $(this).find('input.bandedit2').val();
 	        var band3 = $(this).find('input.bandedit3').val();
@@ -122,7 +157,7 @@ function editExpensesCategory(){
 	
      //get dynamic table data end
     
-     var formData = new FormData(addExpenses);
+     var formData = new FormData(addExpensesEdit);
      formData.append("id", id);
      formData.append("employerId", employerid);
      formData.append("expenseCategory", expenseCategory);
@@ -131,8 +166,8 @@ function editExpensesCategory(){
      formData.append("distingushEmployeeBand", distingushEmployeeBand);
      formData.append("dayToExpiry", timeperiod);
      formData.append("listArray", allInputValues);
-    
- 
+	 document.getElementById("editCategory").disabled = true;
+	 
 	 	$.ajax({
 		 type: "POST",
 	     url:"/updateExpensesCategory",
@@ -484,8 +519,6 @@ function addExpensesCategory(){
 
  function viewData(value){
 	
-	 document.getElementById("editCategoryButton").style.display="block";
-	 document.getElementById("addCategoryButton").style.display="none";
 	 var row = jQuery(value).closest('tr');
 	 var  id = $(row).find("input[name='expensesid']").val();
 	 var  id = $(row).find("input[name='expensesid']").val();
@@ -512,21 +545,109 @@ function addExpensesCategory(){
 			document.getElementById("timeperiodEdit").value =data2.dayToExpiry ;
 			document.getElementById("expanceLimitEdit").value =data2.expenseLimit ;
 			document.getElementById("categoryId").value = data2.id;
+			
 			const tableBody = document.getElementById('newTableEdit').querySelector('tbody');
-   
-			data2.list.forEach((item, index) => {
-		        const row = document.createElement('tr');
-		        row.innerHTML = `
-		            <td><input type="text" class="form-control bandedit" name="bandType${index + 1}" value="${item.bandType}"></td>
-		            <td><input type="number" class="form-control bandedit1" name="bandOneInr${index + 1}" value="${item.bandOneInr}"></td>
-		            <td><input type="number" class="form-control bandedit2" name="bandTwoInr${index + 1}" value="${item.bandTwoInr}"></td>
-		            <td><input type="number" class="form-control bandedit3" name="bandThreeInr${index + 1}" value="${item.bandThreeInr}"></td>
-		            <td><input type="number" class="form-control bandedit4" name="bandThreeInr${index + 1}" value="${item.bandFourInr}"></td>
-		            <td><input type="number" class="form-control bandedit5" name="bandThreeInr${index + 1}" value="${item.bandFiveInr}"></td>
-		            <td><input type="number" class="form-control bandedit6" name="bandThreeInr${index + 1}" value="${item.bandSixInr}"></td>
-		        `;
-		        tableBody.appendChild(row);
-		    });
+  		    tableBody.innerHTML = '';
+
+		     data2.list.forEach(item => {
+	
+			 const row = tableBody.insertRow();
+                
+                var cell1 = row.insertCell(0);
+			    var day = document.createElement("select");
+			    day.name = "Select Day";
+			    var perday = document.createElement("option");
+			    perday.text = "Per Day";
+			    perday.value = "Per Day";
+			    var perweak = document.createElement("option");
+			    perweak.text = "Per Weak";
+			    perweak.value = "Per Weak";
+			    var permonth = document.createElement("option");
+			    permonth.text = "Per Month";
+			    permonth.value = "Per Month";
+			   
+			    day.setAttribute('class',"form-select bandedit");
+				
+			    day.add(perday);
+			    day.add(perweak);
+			    day.add(permonth);
+			    
+			     if (item.bandType=== "Per Day") {
+	                perday.selected = true; // Set the option with id 4 as selected
+	            }
+	             if (item.bandType=== "Per Weak") {
+	                perweak.selected = true; // Set the option with id 4 as selected
+	            }
+	             if (item.bandType=== "Per Month") {
+	                permonth.selected = true; // Set the option with id 4 as selected
+	            }
+	    		
+	   		    cell1.appendChild(day);
+
+				if(item.bandOneInr !==null){
+                const cell2 = row.insertCell(1);
+                const input5 = document.createElement('input');
+                input5.type = 'text';
+                input5.value = item.bandOneInr;
+                
+                input5.setAttribute('class',"form-control bandedit1");
+                input5.setAttribute('placeholder',"INR Expense Limit 1");
+                // var iDiv = document.createElement('span');
+				///iDiv.innerHTML = "INR";
+				////iDiv.setAttribute('class', "perquarter-in");
+			
+                //cell2.appendChild(iDiv);
+                cell2.appendChild(input5);
+				}
+				if(item.bandTwoInr !==null){
+                const cell3 = row.insertCell(2);
+                const input6 = document.createElement('input');
+                input6.type = 'text';
+                input6.value = item.bandTwoInr ;
+                input6.setAttribute('class',"form-control bandedit2");
+                input6.setAttribute('placeholder',"INR Expense Limit 2");
+                cell3.appendChild(input6);
+                }
+				if(item.bandThreeInr !==null){
+                const cell4 = row.insertCell(3);
+                const input7 = document.createElement('input');
+                input7.type = 'text';
+                input7.value = item.bandThreeInr ;
+                input7.setAttribute('class',"form-control bandedit3");
+                input7.setAttribute('placeholder',"INR Expense Limit 3");
+                cell4.appendChild(input7);
+                }
+				if(item.bandFourInr !==null){
+                const cell5 = row.insertCell(4);
+                const input8 = document.createElement('input');
+                input8.type = 'text';
+                input8.value = item. bandFourInr;
+                input8.setAttribute('class',"form-control bandedit4");
+                input8.setAttribute('placeholder',"INR Expense Limit 4");
+                cell5.appendChild(input8);
+                  }
+				if(item.bandFiveInr !==null && item.bandFiveInr !=="" && item.bandFiveInr !==0){
+
+                const cell6 = row.insertCell(5);
+                const input9 = document.createElement('input');
+                input9.type = 'text';
+                input9.value = item.bandFiveInr;
+                input9.setAttribute('class',"form-control bandedit5");
+                input9.setAttribute('placeholder',"INR Expense Limit 5");
+                cell6.appendChild(input9);
+                }
+                if(item.bandSixInr !==null && item.bandSixInr !=="" && item.bandSixInr !==0){
+
+                const cell7 = row.insertCell(6);
+                const input10 = document.createElement('input');
+                input10.type = 'text';
+                input10.value = item.bandSixInr;
+                input10.setAttribute('class',"form-control bandedit6");
+                input10.setAttribute('placeholder',"INR Expense Limit 6");
+                cell7.appendChild(input10);
+                }
+            });
+		    
            },
          error: function(e){
              alert('Error: ' + e);
@@ -765,7 +886,8 @@ function getExpanseTravelAdvance() {
 			 		newData = data;
 					var data1 = jQuery.parseJSON( newData );
 					if(data1.data.list !== null && data1.data.list !== ""){
-						loadTableData(data1);
+						//loadTableData(data1);
+						viewEmployeeBandEdit();
 						loadTableData2(data1);
 					}
 					
@@ -777,6 +899,35 @@ function getExpanseTravelAdvance() {
 		});
 }
 
+
+     function viewEmployeeBandEdit() {
+
+			var employerId=document.getElementById("employerId").value;
+			//document.getElementById("signinLoader2").style.display="flex";
+			
+			$.ajax({
+				type: "GET",
+				url: "/getExpenseBandList",
+				data: {
+						"employerId": employerId,
+					},
+		       		  beforeSend : function(xhr) {
+						//xhr.setRequestHeader(header, token);
+					},
+		            success: function(data){
+			 		newData = data;
+					var data1 = jQuery.parseJSON( newData );
+					if(data1.data.list !== null && data1.data.list !== ""){
+						loadTableDataEdit(data1);
+					 }			  
+		    	 },
+				error: function(e) {
+					alert('Failed to fetch JSON data' + e);
+			}
+	});
+}
+
+
 function loadTableData(jsonData) {
      const tableBody = document.getElementById('newTable').querySelector('tbody');
      tableBody.innerHTML = '';
@@ -787,11 +938,81 @@ function loadTableData(jsonData) {
                 var dateSpan = document.createElement('span')
 				dateSpan.innerHTML = "";
 				
-                //const input3 = document.createElement('input');
-                //input3.type = 'text';
-               // input3.setAttribute('class',"empolyeeinput01");
-               // input3.setAttribute('disabled',"disabled");
-                //input3.value = item.bandNameOne;
+                cell1.appendChild(dateSpan);
+
+				if(item.bandNameOne !==null){
+                const cell2 = row.insertCell(1);
+                const input5 = document.createElement('span');
+                
+                //input5.type = 'text';
+                input5.setAttribute('class',"band");
+                //input5.setAttribute('disabled',"disabled");
+                input5.innerHTML = item.bandNameOne ? item.bandNameOne : 'N/A';
+                //input5.value = item.bandNameOne ? item.bandNameOne : 'N/A';;
+               
+                cell2.appendChild(input5);
+				}
+				if(item.bandNameTwo !==null){
+                const cell3 = row.insertCell(2);
+                const input6 = document.createElement('span');
+                //input6.type = 'text';
+                input6.setAttribute('class',"band");
+                // input6.setAttribute('disabled',"disabled");
+                input6.innerHTML = item.bandNameTwo ? item.bandNameTwo : 'N/A';
+                cell3.appendChild(input6);
+                }
+				if(item.bandNameThree !==null){
+                const cell4 = row.insertCell(3);
+                const input7 = document.createElement('span');
+                //input7.type = 'text';
+                input7.setAttribute('class',"band");
+                //input7.setAttribute('disabled',"disabled");
+                input7.innerHTML = item.bandNameThree ? item.bandNameThree : 'N/A';
+                cell4.appendChild(input7);
+                }
+				if(item.bandNameFour !==null){
+                const cell5 = row.insertCell(4);
+                const input8 = document.createElement('span');
+                //input8.type = 'text';
+                input8.setAttribute('class',"band");
+                //input8.setAttribute('disabled',"disabled");
+                input8.innerHTML = item.bandNameFour ? item.bandNameFour : 'N/A';
+                cell5.appendChild(input8);
+                  }
+				if(item.bandNameFive !==null){
+
+                const cell6 = row.insertCell(5);
+                const input9 = document.createElement('span');
+               // input9.type = 'text';
+               input9.setAttribute('class',"band");
+               // input9.setAttribute('disabled',"disabled");
+                input9.innerHTML = item.bandNameFive ?  item.bandNameFive : 'N/A';
+                cell6.appendChild(input9);
+                }
+                if(item.bandNameSix !==null){
+
+                const cell7 = row.insertCell(6);
+                const input10 = document.createElement('span');
+                //input10.type = 'text';
+                input10.setAttribute('class',"band");
+               // input10.setAttribute('disabled',"disabled");
+                input10.innerHTML = item.bandNameSix ?  item.bandNameSix : 'N/A';
+                cell7.appendChild(input10);
+                }
+            });
+     
+  }
+  
+  function loadTableDataEdit(jsonData) {
+     const tableBody = document.getElementById('newTableEdit').querySelector('thead');
+     //tableBody.innerHTML = '';
+     jsonData.data.forEach(item => {
+	
+			const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                var dateSpan = document.createElement('span')
+				dateSpan.innerHTML = "";
+				
                 cell1.appendChild(dateSpan);
 
 				if(item.bandNameOne !==null){
@@ -860,28 +1081,6 @@ function loadTableData(jsonData) {
   function loadTableData2(jsonData) {
         const tableBody = document.getElementById('newTable').querySelector('tbody');
    
-      /* jsonData.data.forEach(item => {
-		const row2 = document.createElement('tr');
-        
-        row2.innerHTML = `
-            <td>  <select class="form-select period">
-                   <option value="">Select Time Period</option>
-                   <option value="perday">Per Day</option>
-                   <option value="perweak">Per Weak</option>
-                   <option value="permonth">Per Month</option>
-             </select> </td>
-            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 1" class="form-control band2" name="${item.bandNameOne}"></td>
-            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 2" class="form-control band2"  name="${item.bandNameTwo}"></td>
-            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 3" class="form-control band2" name="${item.bandNameThree}"></td>
-            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 4" class="form-control band2" name="${item.bandNameFour}"></td>
-            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 5" class="form-control band2" name="${item.bandNameFive}"></td>
-            <td> <div class="perquarter-in"><span>INR</span> <input type="text" placeholder="Expense Limit 6" class="form-control band2" name="${item.bandNameSix}"></td>
-            <td></td>       
-        `;
-       
-       tableBody.appendChild(row2);     
-    });*/
-    
     jsonData.data.forEach(item => {
 	
 			const row = tableBody.insertRow();

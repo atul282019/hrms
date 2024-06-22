@@ -55,18 +55,38 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		List<BandDetailRequest> list = new ArrayList<BandDetailRequest>();
 		String data[] = expenseCategoryRequest.getListArray();
 		
-		 for (int i = 1; i < data.length; i++) { String listValue=data[i]; String[]
-		 rowArray=listValue.split("@"); 
+		 for (int i = 0; i < data.length; i++) { String listValue=data[i]; 
+		 String[] rowArray= listValue.split("@"); 
 		  BandDetailRequest bandDetailRequest= new  BandDetailRequest(); 
 		  
-		  bandDetailRequest.setBandType(rowArray[0]);
-		  bandDetailRequest.setBandOneInr(rowArray[1]);
-		  bandDetailRequest.setBandTwoInr(rowArray[2]);
-		  bandDetailRequest.setBandThreeInr(rowArray[3]);
+		  String rowarray0 = rowArray[0];
+		  if(!rowarray0.equalsIgnoreCase("undefined")) {
+		   bandDetailRequest.setBandType(rowArray[0]);
+		  }
+		  String rowarray1 = rowArray[1];
+		  if(!rowarray1.equalsIgnoreCase("undefined")) {
+		   bandDetailRequest.setBandOneInr(rowArray[1]);
+		  }
+		  String rowarray2 = rowArray[2];
+		  if(!rowarray2.equalsIgnoreCase("undefined")) {
+		   bandDetailRequest.setBandTwoInr(rowArray[2]);
+		  }
+		  String rowarray3 = rowArray[3];
+		  if(!rowarray3.equalsIgnoreCase("undefined")) {
+		   bandDetailRequest.setBandThreeInr(rowArray[3]);
+		  }
+		  String rowarray4 = rowArray[4];
+		  if(!rowarray4.equalsIgnoreCase("undefined")) {
 		  bandDetailRequest.setBandFourInr(rowArray[4]);
+		  }
+		  String rowarray5 = rowArray[5];
+		  if(!rowarray5.equalsIgnoreCase("undefined")) {
 		  bandDetailRequest.setBandFiveInr(rowArray[5]);
+		  }
+		  String rowarray6 = rowArray[6];
+		  if(!rowarray6.equalsIgnoreCase("undefined")) {
 		  bandDetailRequest.setBandSixInr(rowArray[6]);
-		  
+		  }
 		  list.add(bandDetailRequest); }
 		 
 
@@ -107,13 +127,36 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 			  String[] rowArray=listValue.split("@");
 			  BandDetailRequest bandDetailRequest= new BandDetailRequest();
 			  
-			  bandDetailRequest.setBandType(rowArray[0]);
-			  bandDetailRequest.setBandOneInr(rowArray[1]);
-			  bandDetailRequest.setBandTwoInr(rowArray[2]);
-			  bandDetailRequest.setBandThreeInr(rowArray[3]);
+
+			  String rowarray0 = rowArray[0];
+			  if(!rowarray0.equalsIgnoreCase("undefined")) {
+			   bandDetailRequest.setBandType(rowArray[0]);
+			  }
+			  String rowarray1 = rowArray[1];
+			  if(!rowarray1.equalsIgnoreCase("undefined")) {
+			   bandDetailRequest.setBandOneInr(rowArray[1]);
+			  }
+			  String rowarray2 = rowArray[2];
+			  if(!rowarray2.equalsIgnoreCase("undefined")) {
+			   bandDetailRequest.setBandTwoInr(rowArray[2]);
+			  }
+			  String rowarray3 = rowArray[3];
+			  if(!rowarray3.equalsIgnoreCase("undefined")) {
+			   bandDetailRequest.setBandThreeInr(rowArray[3]);
+			  }
+			  String rowarray4 = rowArray[4];
+			  if(!rowarray4.equalsIgnoreCase("undefined")) {
 			  bandDetailRequest.setBandFourInr(rowArray[4]);
+			  }
+			  String rowarray5 = rowArray[5];
+			  if(!rowarray5.equalsIgnoreCase("undefined")) {
 			  bandDetailRequest.setBandFiveInr(rowArray[5]);
+			  }
+			  String rowarray6 = rowArray[6];
+			  if(!rowarray6.equalsIgnoreCase("undefined")) {
 			  bandDetailRequest.setBandSixInr(rowArray[6]);
+			  }
+			  
 		     list.add(bandDetailRequest); }
 		  
 			expenseCategoryRequest.setList(list);
