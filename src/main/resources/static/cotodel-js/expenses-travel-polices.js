@@ -11,6 +11,7 @@ function getExpanceCategoryList() {
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.data;
+			 console.log(data2);
 			document.getElementById("signinLoader").style.display="none";
 			
 			 var table = $('#expensesTable').DataTable( {
@@ -1194,7 +1195,7 @@ function loadTableData(jsonData) {
                 const input5 = document.createElement('span');
                 
                 //input5.type = 'text';
-                input5.setAttribute('class',"band");
+                input5.setAttribute('class',"band-color band1-color");
                 //input5.setAttribute('disabled',"disabled");
                 input5.innerHTML = item.bandNameOne ? item.bandNameOne : 'N/A';
                 //input5.value = item.bandNameOne ? item.bandNameOne : 'N/A';;
@@ -1205,7 +1206,7 @@ function loadTableData(jsonData) {
                 const cell3 = row.insertCell(2);
                 const input6 = document.createElement('span');
                 //input6.type = 'text';
-                input6.setAttribute('class',"band");
+                input6.setAttribute('class',"band-color band2-color");
                 // input6.setAttribute('disabled',"disabled");
                 input6.innerHTML = item.bandNameTwo ? item.bandNameTwo : 'N/A';
                 cell3.appendChild(input6);
@@ -1214,7 +1215,7 @@ function loadTableData(jsonData) {
                 const cell4 = row.insertCell(3);
                 const input7 = document.createElement('span');
                 //input7.type = 'text';
-                input7.setAttribute('class',"band");
+                input7.setAttribute('class',"band-color band3-color");
                 //input7.setAttribute('disabled',"disabled");
                 input7.innerHTML = item.bandNameThree ? item.bandNameThree : 'N/A';
                 cell4.appendChild(input7);
@@ -1223,7 +1224,7 @@ function loadTableData(jsonData) {
                 const cell5 = row.insertCell(4);
                 const input8 = document.createElement('span');
                 //input8.type = 'text';
-                input8.setAttribute('class',"band");
+                input8.setAttribute('class',"band-color band4-color");
                 //input8.setAttribute('disabled',"disabled");
                 input8.innerHTML = item.bandNameFour ? item.bandNameFour : 'N/A';
                 cell5.appendChild(input8);
@@ -1233,7 +1234,7 @@ function loadTableData(jsonData) {
                 const cell6 = row.insertCell(5);
                 const input9 = document.createElement('span');
                // input9.type = 'text';
-               input9.setAttribute('class',"band");
+               input9.setAttribute('class',"band-color band5-color");
                // input9.setAttribute('disabled',"disabled");
                 input9.innerHTML = item.bandNameFive ?  item.bandNameFive : 'N/A';
                 cell6.appendChild(input9);
@@ -1243,7 +1244,7 @@ function loadTableData(jsonData) {
                 const cell7 = row.insertCell(6);
                 const input10 = document.createElement('span');
                 //input10.type = 'text';
-                input10.setAttribute('class',"band");
+                input10.setAttribute('class',"band-color band6-color");
                // input10.setAttribute('disabled',"disabled");
                 input10.innerHTML = item.bandNameSix ?  item.bandNameSix : 'N/A';
                 cell7.appendChild(input10);
@@ -1269,7 +1270,7 @@ function loadTableData(jsonData) {
                 const input5 = document.createElement('span');
                 
                 //input5.type = 'text';
-                input5.setAttribute('class',"band");
+                input5.setAttribute('class',"band-color band1-color");
                 //input5.setAttribute('disabled',"disabled");
                 input5.innerHTML = item.bandNameOne ? item.bandNameOne : 'N/A';
                 //input5.value = item.bandNameOne ? item.bandNameOne : 'N/A';;
@@ -1280,7 +1281,7 @@ function loadTableData(jsonData) {
                 const cell3 = row.insertCell(2);
                 const input6 = document.createElement('span');
                 //input6.type = 'text';
-                input6.setAttribute('class',"band");
+                input6.setAttribute('class',"band-color band2-color");
                 // input6.setAttribute('disabled',"disabled");
                 input6.innerHTML = item.bandNameTwo ? item.bandNameTwo : 'N/A';
                 cell3.appendChild(input6);
@@ -1289,7 +1290,7 @@ function loadTableData(jsonData) {
                 const cell4 = row.insertCell(3);
                 const input7 = document.createElement('span');
                 //input7.type = 'text';
-                input7.setAttribute('class',"band");
+                input7.setAttribute('class',"band-color band3-color");
                 //input7.setAttribute('disabled',"disabled");
                 input7.innerHTML = item.bandNameThree ? item.bandNameThree : 'N/A';
                 cell4.appendChild(input7);
@@ -1298,7 +1299,7 @@ function loadTableData(jsonData) {
                 const cell5 = row.insertCell(4);
                 const input8 = document.createElement('span');
                 //input8.type = 'text';
-                input8.setAttribute('class',"band");
+                input8.setAttribute('class',"band-color band4-color");
                 //input8.setAttribute('disabled',"disabled");
                 input8.innerHTML = item.bandNameFour ? item.bandNameFour : 'N/A';
                 cell5.appendChild(input8);
@@ -1308,7 +1309,7 @@ function loadTableData(jsonData) {
                 const cell6 = row.insertCell(5);
                 const input9 = document.createElement('span');
                // input9.type = 'text';
-               input9.setAttribute('class',"band");
+               input9.setAttribute('class',"band-color band5-color");
                // input9.setAttribute('disabled',"disabled");
                 input9.innerHTML = item.bandNameFive ?  item.bandNameFive : 'N/A';
                 cell6.appendChild(input9);
@@ -1318,7 +1319,7 @@ function loadTableData(jsonData) {
                 const cell7 = row.insertCell(6);
                 const input10 = document.createElement('span');
                 //input10.type = 'text';
-                input10.setAttribute('class',"band");
+                input10.setAttribute('class',"band-color band6-color");
                // input10.setAttribute('disabled',"disabled");
                 input10.innerHTML = item.bandNameSix ?  item.bandNameSix : 'N/A';
                 cell7.appendChild(input10);
@@ -1375,6 +1376,9 @@ function loadTableData(jsonData) {
 	   		    cell1.appendChild(day);
 
 				if(item.bandNameOne !==null){
+				
+				
+				
                 const cell2 = row.insertCell(1);
                 const input5 = document.createElement('input');
                 input5.type = 'text';

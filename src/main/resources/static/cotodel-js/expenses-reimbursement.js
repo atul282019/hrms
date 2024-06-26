@@ -1,19 +1,92 @@
-function getReimbursementList() {
+
+function submitExpense(){
+	
+	
+	var employerId= document.getElementById("employerId").value; 
+	var expenseCategory=  document.getElementById("expenseCategory").value ;
+	var dateofExpense = document.getElementById("dateofExpense").value;
+	var expenseTitle = document.getElementById("expenseTitle").value;
+	var venderName= document.getElementById("venderName").value;
+	var invoiceNumber = document.getElementById("invoiceNumber").value;
+	var currency= document.getElementById("currency").value;
+	var amount = document.getElementById("amount").value;
+	var modeofPayment = document.getElementById("modeofPayment").value;
+	var additionalRemark = document.getElementById("additionalRemark").value;
+	//var up_file = document.getElementById("upfile").value; 
+	
+	var formData = new FormData(expenseReimbursement);
+	formData.append("employerId",employerId);
+	formData.append("employeeId",employerId);
+	//formData.append("employeeId",employeeId);
+	formData.append("expenseCategory",expenseCategory);
+	formData.append("dateOfExpense",dateofExpense);
+	formData.append("expenseTitle",expenseTitle);
+	formData.append("vendorName",venderName);
+	formData.append("invoiceNumber",invoiceNumber);
+	formData.append("currency",currency);
+	formData.append("amount",amount);
+	formData.append("modeOfPayment",modeofPayment);
+	formData.append("remarks",additionalRemark);
+	//formData.append("upfile",up_file);
+	
+	//document.getElementById("signinLoader").style.display="flex";
+	
+	 	$.ajax({
+		type: "POST",
+	     url:"/addExpenseReimbursement",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			getExpanceCategoryList();
+			//document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
+		/*	if(data1.status==true){
+				 document.getElementById("certificatesuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("certificatemsgdiv").style.display="block";
+				 //document.getElementById("saveorg").reset();
+				 $('#certificatemsgdiv').delay(5000).fadeOut(400);
+				 getEmployeeProjectDetail();
+			}else if(data1.status==false){
+				 document.getElementById("certificatefailmsg").innerHTML=data1.message;
+				 document.getElementById("certificatefailmsgDiv").style.display="block";
+				 $('#certificatefailmsgDiv').delay(5000).fadeOut(400);
+				 getEmployeeProjectDetail();
+			}else{
+				 document.getElementById("certificatemsgdiv").style.display="none";
+				 document.getElementById("certificatefailmsgDiv").style.display="none";
+				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
+			}*/
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });	
+	
+}
+
+
+
+function getExpanceCategoryList(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;
 	$.ajax({
 		type: "GET",
-		url: "/getExpensesCategory",
+		url: "/getExpanseReimbursement",
 		data: {
+			"employeeId": employerid,
 			"employerId": employerid
 		},
 		success: function(data) {
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			var data2 = data1.data;
+			var data2 = data1.list;
+			 console.log(data2);
 			document.getElementById("signinLoader").style.display="none";
 			
-			 var table = $('#expensesTable').DataTable( {
+			var table = $('#reimbursementTable').DataTable( {
 	          destroy: true,	
 		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
@@ -22,18 +95,62 @@ function getReimbursementList() {
 	         "aaData": data2,
       		  "aoColumns": [ 
 				
-                  { "mData": "id", "render": function (data2, type, row) {
-                    return '<input type="hidden" value="'+data2+'" id="expensesid"  Name="expensesid" >';
+                { "mData": "id", "render": function (data2, type, row) {
+					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck3" name="customCheck3" ></div>';
                  }}, 
-                { "mData": "expenseCategory"},          
-      		    { "mData": "expenseCode"},
-      		    { "mData": "expenseLimit"},
-      		    { "mData": "dayToExpiry"},
+                { "mData": "created_date"},   
+			    { "mData": "expenseCategory"},
+				
+			    { "mData": "expenseTitle"},   
+			 	{ "mData": "amount"},    
+				{ "mData": "modeOfPayment"},
+				{ "mData": "modeOfPayment"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory"  onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <button type="button" onclick="deleteData(this)" class="btn p-0" ><img src="img/delete.svg" ></button> </td>';
+                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" data-toggle="modal" data-target="#ModalSubmitExpenseReimbursementView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><a class="dropdown-item py-2" href="#"> Delete  </a><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
                  }}, 
     		 	],
-    		 	
+    		 	createdRow: function (row, data2, dataIndex) 
+                    {
+                     console.log("row : "+JSON.stringify(data2));
+                   
+                 	var expenseCategory = data2.expenseCategory;
+                 	var expenseLimit = data2.expenseLimit;
+                	
+                     if(expenseCategory=="Conveyance")
+                     {
+					 var imgTag = '<img src="img/taxi.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Miscellaneous")
+                     {
+					 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+expenseCategory;
+ 					
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                     if(expenseCategory=="Food")
+                     {
+						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+expenseCategory;
+	 					 $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                     if(expenseCategory=="Cash Advance")
+                     {
+					 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Travel")
+                     {
+					 var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+expenseCategory;
+ 					
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Stay")
+                     {
+					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                  }
       		});		
 			
 		},
@@ -42,3 +159,46 @@ function getReimbursementList() {
 		}
 	});
 }
+
+
+ function  viewExpance(value){
+	
+	 var row = jQuery(value).closest('tr');
+	 var  id = $(row).find("input[name='customCheck3']").val();
+	 alert("test"+id);
+	
+	 	$.ajax({
+		type: "POST",
+		url:"/viewExpenseReimbursement",
+        data: {
+				"id": id
+       		 },
+       		  beforeSend : function(xhr) {
+				//xhr.setRequestHeader(header, token);
+				},
+            success: function(data){
+            newData = data;
+            console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
+			var data2 = data1.data;
+			//console.log(newData);
+  			document.getElementById("viewExpenseCategory").value= data2.expenseCategory;
+			document.getElementById("viewDateofExpense").value = data2.dateOfExpense;
+			document.getElementById("viewExpenseTitle").value = data2.expenseTitle;
+			document.getElementById("viewVenderName").value =data2.vendorName;
+			document.getElementById("viewInvoiceNumber").value = data2.expenseTitle;
+			document.getElementById("viewCurrency").value = data2.expenseTitle;
+			document.getElementById("viewAmount").value = data2.expenseTitle;
+		    document.getElementById("viewModeofPayment").value = data2.expenseTitle;
+			document.getElementById("viewAdditionalRemark").value =data2.expenseTitle;
+			document.getElementById("viewStatus").value =data2.expenseTitle;
+			document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
+			//document.getElementById("").value =data2.expenseTitle;
+           },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    }); 
+				
+ }
+
