@@ -76,5 +76,6 @@ public interface CommonUtils {
 	public static String getExpensesReimbursement = "/empService/Api/get/expenseReimbFileDownloadByEmpID";
 	
 	public static String viewExpensesReimbursement = "/empService/Api/get/expenseReimbFileDownloadByID";
+	public static String deleteExpenseReimbursement = "/empService/Api/delete/expenseReimbFileDeleteByID";
 	
 }

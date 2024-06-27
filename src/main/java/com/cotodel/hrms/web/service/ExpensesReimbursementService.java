@@ -13,4 +13,6 @@ public interface ExpensesReimbursementService {
 
 	String viewExpenseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
 
+	String deleteExpanseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+
 }

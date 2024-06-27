@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.ExpanceTravelAdvanceRequest;
+import com.cotodel.hrms.web.response.ExpenseCategoryRequest;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -83,5 +84,14 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		return profileRes;
 	}
 	
+	@PostMapping(value = "/deleteExpanseReimbursement")
+	public @ResponseBody String deleteExpanseReimbursement(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
+		String profileRes = null;
 	
+		profileRes = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(),
+				expensesReimbursementRequest);
+
+		return profileRes;
+	}
 }

@@ -110,7 +110,7 @@ function getExpanceCategoryList(){
 				{ "mData": "modeOfPayment"},
 				{ "mData": "modeOfPayment"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><a class="dropdown-item py-2" href="#"> Delete  </a><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -218,6 +218,44 @@ function getExpanceCategoryList(){
     }); 
 				
  }
+
+function deleteExpance(value){
+	
+	var result = confirm("Are you sure you want to delete?");
+	if (result) {
+		 document.getElementById("signinLoader").style.display="flex";
+	}
+	else{
+		return false;
+	}
+	 var row = jQuery(value).closest('tr');
+	 var  id = $(row).find("input[name='customCheck3']").val();
+	
+	 	$.ajax({
+		type: "POST",
+		url:"/deleteExpanseReimbursement",
+        data: {
+				"id": id
+       		 },
+       		  beforeSend : function(xhr) {
+				//xhr.setRequestHeader(header, token);
+				},
+            success: function(data){
+            newData = data;
+            console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			getExpanceCategoryList();
+			//console.log(newData);
+           },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    }); 
+	 
+	 
+}
 
  ///open model popup of view reimbursement
   document.addEventListener('DOMContentLoaded', function () {
