@@ -511,7 +511,7 @@
                 
                 const cancelButton = document.createElement("button");
                 cancelButton.className = "cancel-button";
-                cancelButton.textContent = "Cancel";
+                cancelButton.innerHTML = '<img src="img/delete-black.svg" alt="Cancel">';
                 cancelButton.addEventListener("click", () => {
                     fileToRemoveIndex = index;
                     modal.style.display = "flex";
@@ -569,28 +569,33 @@
             <div class="modal-content">
                 <div class="modal-header pb-0">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Add Expense Reimbursements</h5>
-                    <div id="file-list" class="file-list"></div>
+                  <!--   <div id="file-list" class="file-list"></div> -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                
+                	
                      <div class="add-files container" id="drop-zone" >
+                     	<div id="file-list" class="file-list add-file-docs"></div>
                         <div  class="form-group-files choose-file">
                             <span class="fileUpload">
-                                <span class="upl" id="upload"><img src="img/download-files.svg" alt=""></span>
+                                <span class="upl" id="upload"><!-- <img src="img/download-files.svg" alt=""> --></span>
                                 <input type="file" id="file-input" multiple style="display: none;">
                                 
                                  <!-- <input type="file" id="file-input" multiple style="display: none;" onchange="readURL(this);">
                                 <img id="blah" src="http://placehold.it/180" alt="your image" style="display: none;" /> -->
                                 
                             </span>
+                              
                         </div>
+                        
                         <b>To automatically pre-fill details, drag and drop your receipt(s) (max 5)</b>
                         <p>Alternatively, click to upload your receipt</p>
                     </div>       
- 
-				 <!-- 
+ 				
+				  
 				 		<div class="container">
 				        <div id="drop-zone" class="drop-zone">
 				            Drag & Drop files here (Max 5)
@@ -599,7 +604,7 @@
 				        <button id="upload-button">Upload</button>
 				        <button id="view-button">View</button>
 				        <div id="file-list" class="file-list"></div>
-				    </div> -->
+				    </div>
 				    
  				    <div class="clearfix"></div>
 

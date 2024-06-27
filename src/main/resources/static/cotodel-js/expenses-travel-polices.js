@@ -31,7 +31,7 @@ function getExpanceCategoryList() {
       		    { "mData": "expenseLimit"},
       		    { "mData": "dayToExpiry"},
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategoryEdit"  onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <button type="button" onclick="deleteData(this)" class="btn p-0" ><img src="img/delete.svg" ></button> </td>';
+                    return '<td align="right"><button type="button" class="btn p-0" onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <button type="button" onclick="deleteData(this)" class="btn p-0" ><img src="img/delete.svg" ></button> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -758,7 +758,7 @@ function addExpensesCategory(){
 //input field validation using class anme
 
  function viewData(value){
-	
+	 document.getElementById("signinLoader").style.display="flex";
 	 var row = jQuery(value).closest('tr');
 	 var  id = $(row).find("input[name='expensesid']").val();
 	 var  id = $(row).find("input[name='expensesid']").val();
@@ -905,7 +905,10 @@ function addExpensesCategory(){
                 cell7.appendChild(input10);
                 }
             });
-		    
+		    document.getElementById("signinLoader").style.display="none";
+		    var modal = document.getElementById("ModalExpenseCategoryEdit");
+			modal.style.display = "block";
+			
            },
          error: function(e){
              alert('Error: ' + e);
@@ -1436,3 +1439,23 @@ function loadTableData(jsonData) {
             });
 	     	
     }
+    
+    
+    
+     ///open model popup of view reimbursement
+  document.addEventListener('DOMContentLoaded', function () {
+  var modal = document.getElementById("ModalExpenseCategoryEdit");
+  // Close the modal if the user clicks outside of it
+   window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+ }
+ 
+  btnClose.onclick = function() {
+   var modal = document.getElementById("ModalExpenseCategoryEdit");
+  // Get the <span> element that closes the modal
+   modal.style.display = "none";
+  }
+
+});

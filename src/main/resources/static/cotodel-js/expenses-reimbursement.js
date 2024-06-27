@@ -40,6 +40,12 @@ function submitExpense(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
+			//close popup
+			document.getElementById("ModalAddmanualexp").style.display = "none";;
+			
+		   document.getElementById("ModalAddExpenseReimbursement").style.display = "none";;
+	
+  			// Get the <span> element that closes the modal
 			getExpanceCategoryList();
 			//document.getElementById("signinLoader").style.display="none";
 			//console.log(data1)
@@ -66,8 +72,6 @@ function submitExpense(){
     });	
 	
 }
-
-
 
 function getExpanceCategoryList(){
 	document.getElementById("signinLoader").style.display="flex";
@@ -106,7 +110,7 @@ function getExpanceCategoryList(){
 				{ "mData": "modeOfPayment"},
 				{ "mData": "modeOfPayment"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" data-toggle="modal" data-target="#ModalSubmitExpenseReimbursementView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><a class="dropdown-item py-2" href="#"> Delete  </a><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><a class="dropdown-item py-2" href="#"> Delete  </a><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -162,11 +166,9 @@ function getExpanceCategoryList(){
 
 
  function  viewExpance(value){
-	
 	 var row = jQuery(value).closest('tr');
 	 var  id = $(row).find("input[name='customCheck3']").val();
-	 alert("test"+id);
-	
+	 document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
 		url:"/viewExpenseReimbursement",
@@ -181,6 +183,7 @@ function getExpanceCategoryList(){
             console.log(newData);
             var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
+			
 			//console.log(newData);
   			document.getElementById("viewExpenseCategory").value= data2.expenseCategory;
 			document.getElementById("viewDateofExpense").value = data2.dateOfExpense;
@@ -192,8 +195,22 @@ function getExpanceCategoryList(){
 		    document.getElementById("viewModeofPayment").value = data2.expenseTitle;
 			document.getElementById("viewAdditionalRemark").value =data2.expenseTitle;
 			document.getElementById("viewStatus").value =data2.expenseTitle;
-			document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
+			//document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
+			if(data2.fileType =="application/pdf"){
+			
+				document.getElementById("imagePDF").style="display: block";
+				document.getElementById("image").style="display: none";
+				document.getElementById("imagePDF").src="data:application/pdf;base64,"+data2.file;
+			}
+			else{
+				document.getElementById("image").style="display: block";
+				document.getElementById("imagePDF").style="display: none";
+				document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
+			}
 			//document.getElementById("").value =data2.expenseTitle;
+			document.getElementById("signinLoader").style.display="none";
+			var modal = document.getElementById("ModalSubmitExpenseReimbursementView");
+			  modal.style.display = "block";
            },
          error: function(e){
              alert('Error: ' + e);
@@ -202,3 +219,69 @@ function getExpanceCategoryList(){
 				
  }
 
+ ///open model popup of view reimbursement
+  document.addEventListener('DOMContentLoaded', function () {
+	
+  var modal = document.getElementById("ModalSubmitExpenseReimbursementView");
+  // Close the modal if the user clicks outside of it
+   window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+ }
+ 
+ 
+ 
+ 
+  var modalfirst = document.getElementById("ModalAddExpenseReimbursement");
+  // Close the modal if the user clicks outside of it
+   window.onclick = function(event) {
+    if (event.target == modal) {
+      modalfirst.style.display = "none";
+    }
+ }
+ 
+ 
+ firstPopup.onclick = function() {
+   modalfirst.style.display = "none";
+  }
+  
+  btnCloseView.onclick = function() {
+   var modal = document.getElementById("ModalSubmitExpenseReimbursementView");
+  // Get the <span> element that closes the modal
+   modal.style.display = "none";
+  }
+
+var modal2 = document.getElementById("ModalAddfreshexpContinew");
+
+  // Close the modal if the user clicks outside of it
+   window.onclick = function(event) {
+    if (event.target == modal2) {
+      modal2.style.display = "none";
+    }
+ }
+  
+   btnCloseFresh.onclick = function() {
+   modal2.style.display = "none";
+  
+  }
+ 
+  
+  
+  
+});
+
+////
+
+
+
+function openModelPopup(){
+	 var modal2 = document.getElementById("ModalAddfreshexpContinew");
+	 var modalfirst = document.getElementById("ModalAddExpenseReimbursement");
+	 modal2.style.display = "block";
+	 modalfirst.style.display = "none";
+	// var element = document.getElementById("firstPopup");
+      //element.classList.add("highlight");
+	
+	 
+}
