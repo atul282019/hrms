@@ -27,18 +27,18 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		CopyUtility.copyProperties(expensesReimbursementRequest, expensesReimbursementRequestNew);
 		 String file ="";
 		
-		try {			
-			byte[] byt = expensesReimbursementRequest.getUpfile().getBytes();
-			file = DatatypeConverter.printBase64Binary(byt);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		String fileName=expensesReimbursementRequest.getUpfile().getOriginalFilename();
-		String fileType =expensesReimbursementRequest.getUpfile().getContentType();
-		
-		expensesReimbursementRequestNew.setFile(file);
-		expensesReimbursementRequestNew.setFileName(fileName);
-		expensesReimbursementRequestNew.setFileType(fileType);
+			/*
+			 * try { byte[] byt = expensesReimbursementRequest.getUpfile().getBytes(); file
+			 * = DatatypeConverter.printBase64Binary(byt); } catch (Exception e) { // TODO:
+			 * handle exception }
+			 * 
+			 * String
+			 * fileName=expensesReimbursementRequest.getUpfile().getOriginalFilename();
+			 * String fileType =expensesReimbursementRequest.getUpfile().getContentType();
+			 */
+		expensesReimbursementRequestNew.setFile(expensesReimbursementRequest.getFileInput());
+		//expensesReimbursementRequestNew.setFileName(fileName);
+		//expensesReimbursementRequestNew.setFileType(fileType);
 		
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursement);
 		

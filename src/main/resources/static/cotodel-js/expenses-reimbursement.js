@@ -12,8 +12,12 @@ function submitExpense(){
 	var amount = document.getElementById("amount").value;
 	var modeofPayment = document.getElementById("modeofPayment").value;
 	var additionalRemark = document.getElementById("additionalRemark").value;
-	//var up_file = document.getElementById("upfile").value; 
+	var fileInput = document.getElementById("fileInput").value; 
 	
+	var imageAdd = document.getElementById("imageAdd").src;
+	const base64String = imageAdd;
+	const cleanedBase64String = base64String.replace("data:image/png;base64,", "");
+	console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employerId);
@@ -27,7 +31,8 @@ function submitExpense(){
 	formData.append("amount",amount);
 	formData.append("modeOfPayment",modeofPayment);
 	formData.append("remarks",additionalRemark);
-	//formData.append("upfile",up_file);
+	formData.append("fileInput",cleanedBase64String);
+	
 	
 	//document.getElementById("signinLoader").style.display="flex";
 	
