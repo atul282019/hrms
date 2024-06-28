@@ -324,11 +324,25 @@
             
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#imageAdd')
-                        .attr('src', e.target.result);
-                };
+				var fileName=input.files[0].name;
+				var fileType=input.files[0].type;
+				
+				if(fileType==="application/pdf"){
+	                reader.onload = function (e) {
+	                    $('#imagePDF').attr('src', e.target.result);
+	                    $('#base64PDF').val(e.target.result);
+	                   
+	                    document.getElementById("imagePDF").style.display="block";
+	                    document.getElementById("imageAdd").style.display="none";
+	                };
+				}
+				else{
+					reader.onload = function (e) {
+	                    $('#imageAdd').attr('src', e.target.result);
+	                    document.getElementById("imageAdd").style.display="block";
+	                    document.getElementById("imagePDF").style.display="none";
+	                };
+				}
                 reader.readAsDataURL(input.files[0]);
             }
         }
@@ -462,7 +476,7 @@
 </script>
 
 <!-- Modal Add Expense Reimbursements 01 -->
-
+<!-- 
 <div class="modal fade" id="ModalViewExpenseReimbursement" tabindex="-1" role="dialog"
 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
@@ -644,7 +658,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
 </div>
 </div>
-
+ -->
 
     <!-- Modal Add Expense Reimbursements -->
 
@@ -690,11 +704,11 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
                     </div>
                      <div id="modal" class="modal">
-			        <div class="modal-content">
-			            <p>Are you sure you want to remove this file?</p>
-			            <button id="confirm-remove">Yes</button>
-			            <button id="cancel-remove">No</button>
-			        </div>
+				        <div class="modal-content">
+				            <p>Are you sure you want to remove this file?</p>
+				            <button id="confirm-remove">Yes</button>
+				            <button id="cancel-remove">No</button>
+				        </div>
 			   	 </div>
                      <div class="container">
 				        <!-- <div id="drop-zone" class="drop-zone">
@@ -767,9 +781,10 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 </div>
                                  <div class="add-files no-border p-0">
 		                            <div class="img-scrollbar" >
-		                                <img src="img/bill.svg" alt=""  id="imageAdd">
+		                                <img alt="" id="imageAdd">
 		                                </div>
-		                               <!--  <embed id="imagePDF"  height="480 px" width="500 px" type="application/pdf" ></embed> -->
+		                                  <embed id="imagePDF"  height="480 px" width="500 px" type="application/pdf" ></embed>
+		                                  <input type="hidden" id="base64PDF" >
 		                            </div>
 		                            
                                 <b>To automatically pre-fill details, drag and drop your receipt(s)</b>
@@ -928,30 +943,20 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="col-12 col-md-7">
                             <div class="add-files no-border padd-8">
                             <div class="img-scrollbar" >
-                                <img src="img/bill.svg" alt=" " id="image" >
+                                <img src="img/bill.svg" alt=" " id="imageView" >
                                 </div>
-                                <embed id="imagePDF"  height="480 px" width="500 px" type="application/pdf" ></embed>
+                                <embed id="imagePDFView"  height="480 px" width="500 px" type="application/pdf" ></embed>
                             </div>
                         </div>
                         <div class="col-12 col-md-5">
                            
                                 <div class="form-grp-half">
                                     <div class="did-floating-label-content mr-2">
-                                        <select class="did-floating-select"
-                                            onclick="this.setAttribute('value', this.value);"
-                                            onchange="this.setAttribute('value', this.value);" value="" id="viewExpenseCategory">
-                                            <option value=""></option>
-                                            <option value="1">Food</option>
-                                        </select>
+                                        <input class="did-floating-input" type="text" placeholder=" " id="viewExpenseCategory">
                                         <label class="did-floating-label">Select Expense Category</label>
                                     </div>
                                     <div class="did-floating-label-content ml-2">
-                                        <select class="did-floating-select"
-                                            onclick="this.setAttribute('value', this.value);"
-                                            onchange="this.setAttribute('value', this.value);" value="" id="viewDateofExpense">
-                                            <option value=""></option>
-                                            <option value="1">15/04/2024</option>
-                                        </select>
+                                        <input class="did-floating-input" type="text" placeholder=" " id="viewDateofExpense">
                                         <label class="did-floating-label">Date of Expense</label>
                                     </div>
                                 </div>
@@ -973,12 +978,8 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="clearfix"></div>
                                 <div class="form-grp-half">
                                     <div class="did-floating-label-content mr-2">
-                                        <select class="did-floating-select" id="viewCurrency"
-                                            onclick="this.setAttribute('value', this.value);"
-                                            onchange="this.setAttribute('value', this.value);" value="" >
-                                            <option value=""></option>
-                                            <option value="1">INR</option>
-                                        </select>
+                                        
+                                         <input class="did-floating-input" type="text" placeholder=" " id="viewCurrency">
                                         <label class="did-floating-label">Currency</label>
                                     </div>
                                     <div class="did-floating-label-content ml-2">
@@ -1071,7 +1072,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                           </div>
                         
                     </div>
                     </form>

@@ -28,8 +28,6 @@ public class ExpensesReimbursementRequest{
 	private String modeOfPayment;
 	private String remarks;
 	
-	public  MultipartFile upfile;
-	
 	public  String fileInput;
 
 }

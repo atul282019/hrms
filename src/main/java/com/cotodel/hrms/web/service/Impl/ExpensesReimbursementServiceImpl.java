@@ -23,23 +23,14 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	
 	@Override
 	public String saveExpensesReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest) {
-		ExpensesReimbursementRequestNew expensesReimbursementRequestNew=new ExpensesReimbursementRequestNew();
-		CopyUtility.copyProperties(expensesReimbursementRequest, expensesReimbursementRequestNew);
-		 String file ="";
+		ExpensesReimbursementRequestNew expensesReimbursementRequestNew = new ExpensesReimbursementRequestNew();
 		
-			/*
-			 * try { byte[] byt = expensesReimbursementRequest.getUpfile().getBytes(); file
-			 * = DatatypeConverter.printBase64Binary(byt); } catch (Exception e) { // TODO:
-			 * handle exception }
-			 * 
-			 * String
-			 * fileName=expensesReimbursementRequest.getUpfile().getOriginalFilename();
-			 * String fileType =expensesReimbursementRequest.getUpfile().getContentType();
-			 */
-		expensesReimbursementRequestNew.setFile(expensesReimbursementRequest.getFileInput());
-		//expensesReimbursementRequestNew.setFileName(fileName);
-		//expensesReimbursementRequestNew.setFileType(fileType);
-		
+		  CopyUtility.copyProperties(expensesReimbursementRequest, expensesReimbursementRequestNew);
+		  
+		  expensesReimbursementRequestNew.setFile(expensesReimbursementRequest.getFileInput());
+		  expensesReimbursementRequestNew.setFileName(expensesReimbursementRequest.getFileName());
+		  expensesReimbursementRequestNew.setFileType(expensesReimbursementRequest.getFileType());
+		 
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursement);
 		
 	}

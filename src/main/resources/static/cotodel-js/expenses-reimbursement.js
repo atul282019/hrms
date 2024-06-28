@@ -1,7 +1,6 @@
 
 function submitExpense(){
 	
-	
 	var employerId= document.getElementById("employerId").value; 
 	var expenseCategory=  document.getElementById("expenseCategory").value ;
 	var dateofExpense = document.getElementById("dateofExpense").value;
@@ -15,9 +14,33 @@ function submitExpense(){
 	var fileInput = document.getElementById("fileInput").value; 
 	
 	var imageAdd = document.getElementById("imageAdd").src;
-	const base64String = imageAdd;
-	const cleanedBase64String = base64String.replace("data:image/png;base64,", "");
-	console.log(cleanedBase64String);
+	var imagePDF = document.getElementById("base64PDF").value; 
+	
+	var fileType = null;
+	var fileBase64=null;
+	
+	
+	//const base64String = imageAdd;
+	const cleanedBase64String = imagePDF.replace("data:application/pdf;base64,", "");
+	
+	try {
+		
+		if(imageAdd !==null && imageAdd !==""){
+			const result = extractBase64Info(imageAdd);
+			fileType = result.dataType;
+		    fileBase64 = result.base64Content;
+		}else{
+	   		 fileType = "application/pdf";
+		    fileBase64 = cleanedBase64String;
+	    }
+	    
+	   // console.log('Data Type:', result.dataType);
+	    //console.log('Base64 Content:', result.base64Content);
+	} catch (error) {
+	    console.error(error.message);
+	}
+		
+	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employerId);
@@ -31,7 +54,9 @@ function submitExpense(){
 	formData.append("amount",amount);
 	formData.append("modeOfPayment",modeofPayment);
 	formData.append("remarks",additionalRemark);
-	formData.append("fileInput",cleanedBase64String);
+	
+	formData.append("fileInput",fileBase64);
+	formData.append("fileType",fileType);
 	
 	
 	//document.getElementById("signinLoader").style.display="flex";
@@ -92,7 +117,7 @@ function getExpanceCategoryList(){
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.list;
-			 console.log(data2);
+			 //console.log(data2);
 			document.getElementById("signinLoader").style.display="none";
 			
 			var table = $('#reimbursementTable').DataTable( {
@@ -120,10 +145,10 @@ function getExpanceCategoryList(){
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
                     {
-                     console.log("row : "+JSON.stringify(data2));
+                     //console.log("row : "+JSON.stringify(data2));
                    
                  	var expenseCategory = data2.expenseCategory;
-                 	var expenseLimit = data2.expenseLimit;
+                 	//var expenseLimit = data2.expenseLimit;
                 	
                      if(expenseCategory=="Conveyance")
                      {
@@ -185,7 +210,7 @@ function getExpanceCategoryList(){
 				},
             success: function(data){
             newData = data;
-            console.log(newData);
+            //console.log(newData);
             var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
 			
@@ -194,23 +219,23 @@ function getExpanceCategoryList(){
 			document.getElementById("viewDateofExpense").value = data2.dateOfExpense;
 			document.getElementById("viewExpenseTitle").value = data2.expenseTitle;
 			document.getElementById("viewVenderName").value =data2.vendorName;
-			document.getElementById("viewInvoiceNumber").value = data2.expenseTitle;
-			document.getElementById("viewCurrency").value = data2.expenseTitle;
-			document.getElementById("viewAmount").value = data2.expenseTitle;
-		    document.getElementById("viewModeofPayment").value = data2.expenseTitle;
-			document.getElementById("viewAdditionalRemark").value =data2.expenseTitle;
+			document.getElementById("viewInvoiceNumber").value = data2.invoiceNumber;
+			document.getElementById("viewCurrency").value = data2.currency;
+			document.getElementById("viewAmount").value = data2.amount;
+		    document.getElementById("viewModeofPayment").value = data2.modeOfPayment;
+			document.getElementById("viewAdditionalRemark").value =data2.remarks;
 			document.getElementById("viewStatus").value =data2.expenseTitle;
 			//document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
 			if(data2.fileType =="application/pdf"){
 			
-				document.getElementById("imagePDF").style="display: block";
-				document.getElementById("image").style="display: none";
-				document.getElementById("imagePDF").src="data:application/pdf;base64,"+data2.file;
+				document.getElementById("imagePDFView").style="display: block";
+				document.getElementById("imageView").style="display: none";
+				document.getElementById("imagePDFView").src="data:application/pdf;base64,"+data2.file;
 			}
 			else{
-				document.getElementById("image").style="display: block";
-				document.getElementById("imagePDF").style="display: none";
-				document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
+				document.getElementById("imageView").style="display: block";
+				document.getElementById("imagePDFView").style="display: none";
+				document.getElementById("imageView").src="data:image/jpeg;base64,"+data2.file;
 			}
 			//document.getElementById("").value =data2.expenseTitle;
 			document.getElementById("signinLoader").style.display="none";
@@ -247,7 +272,7 @@ function deleteExpance(value){
 				},
             success: function(data){
             newData = data;
-            console.log(newData);
+            //console.log(newData);
             var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
 			document.getElementById("signinLoader").style.display="none";
@@ -327,4 +352,21 @@ function openModelPopup(){
       //element.classList.add("highlight");
 	
 	 
+}
+
+
+function extractBase64Info(base64String) {
+    const regex = /^data:(.*);base64,(.*)$/;
+    const match = base64String.match(regex);
+    
+    if (match) {
+        const dataType = match[1];
+        const base64Content = match[2];
+        return {
+            dataType,
+            base64Content
+        };
+    } else {
+        throw new Error("Invalid base64 string format");
+    }
 }
