@@ -1,3 +1,84 @@
+function getExpanceMaster() {
+	document.getElementById("signinLoader").style.display="flex";
+	var employerid = document.getElementById("employerId").value;
+	$.ajax({
+		type: "GET",
+		url: "/getExpensesCategory",
+		data: {
+			"employerId": employerid
+		},
+		
+		 success: function(data){
+            newData = data;
+            console.log(newData);
+			$("#expenseCategory option").remove();
+            var obj = jQuery.parseJSON( data );
+             obj = obj.data;
+        	 var count=0;
+         	for (var key in obj) {
+
+             var values =  obj[key];
+             var x = document.getElementById("expenseCategory");
+             if(count==0){
+             var option = document.createElement("option");
+             option.text ="Select Expenses Category";
+             option.value = "";
+             x.add(option);
+             }
+             var option = document.createElement("option");
+             option.text = values.expenseCategory;
+             option.value = values.expenseCategory;
+             x.add(option);
+
+             count++;
+             }   
+         },
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
+
+function getExpanceMasterMulti() {
+	document.getElementById("signinLoader").style.display="flex";
+	var employerid = document.getElementById("employerId").value;
+	$.ajax({
+		type: "GET",
+		url: "/getExpensesCategory",
+		data: {
+			"employerId": employerid
+		},
+		
+		 success: function(data){
+            newData = data;
+            console.log(newData);
+			$("#expenseCategoryMulti option").remove();
+            var obj = jQuery.parseJSON( data );
+             obj = obj.data;
+        	 var count=0;
+         	for (var key in obj) {
+
+             var values =  obj[key];
+             var x = document.getElementById("expenseCategoryMulti");
+             if(count==0){
+             var option = document.createElement("option");
+             option.text ="Select Expenses Category";
+             option.value = "";
+             x.add(option);
+             }
+             var option = document.createElement("option");
+             option.text = values.expenseCategory;
+             option.value = values.expenseCategory;
+             x.add(option);
+
+             count++;
+             }   
+         },
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
 
 function submitExpense(){
 	

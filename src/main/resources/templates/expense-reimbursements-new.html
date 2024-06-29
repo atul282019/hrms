@@ -6,7 +6,7 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
 <!-- <body id="page-top" onload="getExpanceCategoryList()"> -->
-<body id="page-top"  onload="getExpanceCategoryList()">
+<body id="page-top"  onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -804,14 +804,7 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="did-floating-label-content mr-2">
                                         <select class="did-floating-select"  id="expenseCategory"
                                             onclick="this.setAttribute('value', this.value);"
-                                            onchange="this.setAttribute('value', this.value);" value="">
-                                            <option value=""></option>
-                                            <option value="Food">Food</option>
-                                            <option value="Travel">Travel</option>
-                                            <option value="Travel">Stay</option>
-                                            <option value="Travel">Conveyance</option>
-                                            <option value="Travel">Cash Advance</option>
-                                            <option value="Travel">Miscellaneous</option>
+                                            onchange="this.setAttribute('value', this.value);">
                                            
                                         </select>
                                         <label class="did-floating-label">Select Expense Category</label>
@@ -1176,11 +1169,10 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <form action="">
                                 <div class="form-grp-half">
                                     <div class="did-floating-label-content mr-2">
-                                        <select class="did-floating-select"
+                                        <select class="did-floating-select" id="expenseCategoryMulti"
                                             onclick="this.setAttribute('value', this.value);"
-                                            onchange="this.setAttribute('value', this.value);" value="">
-                                            <option value=""></option>
-                                            <option value="1">Food</option>
+                                            onchange="this.setAttribute('value', this.value);" >
+                                           
                                         </select>
                                         <label class="did-floating-label">Select Expense Category</label>
                                     </div>
