@@ -2,8 +2,8 @@
 function saveEmployeeOnboarding(){
 	var employerId=document.getElementById("employerId").value; 
 	var employeeId=document.getElementById("employeeId").value;
-	var empOrCont = document.getElementById("contractor").value;
-	var empOrCont = document.getElementById("employee").value;
+	//var empOrCont = document.getElementById("contractor").value;
+	//var empOrCont = document.getElementById("employee").value;
 	
 	var name = document.getElementById("name").value;
 	var email = document.getElementById("email").value;
@@ -20,6 +20,20 @@ function saveEmployeeOnboarding(){
 	var onlySpace = /^$|.*\S+.*/;
 	var regMobile = /^[6-9]\d{9}$/gi;
 	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+	
+	empOrCont = null;
+	if(document.getElementById("employee").checked){
+		empOrCont="Employee";
+		document.getElementById("empTypeError").innerHTML="";
+	}
+	else if( document.getElementById("contractor").checked){
+		empOrCont="Contractor";
+		document.getElementById("empTypeError").innerHTML="";
+	}
+	else{
+		document.getElementById("empTypeError").innerHTML="Please Select Employee Type";
+		return false;
+	}
 	
 	if(name==""){
 		document.getElementById("nameError").innerHTML="Please Enter Name";

@@ -47,7 +47,7 @@
                                             <h4 class="tip-h4">Is this an employee or a contractor?</h4>
                                           
                                                 <div class="tip-option">
-                                                    <input type="radio" id="employee" name="fav_language" value="employee" checked>
+                                                    <input type="radio" id="employee" name="fav_language" value="Employee" checked>
                                                     <label for="employee">Employee</label>
                                                 </div>
 
@@ -206,7 +206,7 @@
 	$(document).ready(function(){
 		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' + $('#ctx').attr('content') +'/manageEmployee"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  $('a[href="' +'/manageEmployee"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
 	   $(".innernav").click(function(){
 	       $(".dropdownNav").addClass("active");

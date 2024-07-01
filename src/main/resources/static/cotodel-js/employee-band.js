@@ -301,26 +301,25 @@ function validateTab1(){
 					
 			}
 			
-			/*if(document.getElementById('numericFigure').checked) {
-				  var selectedValue = document.getElementById('numericFigure').value;  
-				  //alert(selectedValue);
-				  numericFigure=selectedValue;
+			 var checkedRadio = document.querySelector('input[name="numericFigure"]:checked');
+            // Get the value of the checked radio button
+            var value = checkedRadio ? checkedRadio.value : null;
+            // Display the value
+            //alert("Checked value: " + value);
+			if(value=="Numeric") {
+				  numericFigure=value;
 				  startingBand=startingEmployeeNumeric;
-				  document.getElementById("numericFigureError").innerHTML="";
 				  
 			}   
-			else if(document.getElementById('AlphabeticalFigure').checked){
-			    var selectedValue = document.getElementById('AlphabeticalFigure').value;  
-			    document.getElementById("numericFigureError").innerHTML="";	
-			   // alert(selectedValue);
-			    numericFigure=selectedValue;
+			else if(value=="Alphabetical"){
+			    numericFigure=value;
 			    startingBand=startingEmployeeAlpha;
 			}
 			else{
 				document.getElementById("numericFigureError").innerHTML="Please select Bands representation";
 				return false;
 			}
-			*/
+			
 				if(addtionalTiersCheckBox.checked===false){
 					//document.getElementById("employeeBandEnabledError").innerHTML="Please Check Employee Band";
 					//document.getElementbyId("employeeBandEnabled").focus();
