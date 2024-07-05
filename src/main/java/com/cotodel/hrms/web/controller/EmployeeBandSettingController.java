@@ -52,10 +52,7 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
 	
 	@PostMapping(value="/saveEmployeeBandTab2")
 	public @ResponseBody String saveEmployeeBandTab2(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeBandSettingResponse employeeBandSettingResponse) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
+		String profileRes=null;
 		List<EmployeeBandTiersResponse> list = new ArrayList<EmployeeBandTiersResponse>();
 		String data[]= employeeBandSettingResponse.getListArray();
 		
@@ -71,22 +68,8 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
 		}
 		
 		employeeBandSettingResponse.setList(list);
-		profileRes = empBandSettingService.saveEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
-		profileJsonRes= new JSONObject(profileRes);
-			
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		return profileRes = empBandSettingService.saveEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
 		
-		return profileRes;
 	}
 	
 

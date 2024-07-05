@@ -1,4 +1,4 @@
-
+/*
 function getEmployeeProjectDetail() {
 	//document.getElementById("overlay").style.display = "flex";
 	var employeeId= document.getElementById("employeeId").value;
@@ -39,7 +39,8 @@ function getEmployeeProjectDetail() {
 		}
 	});
 }
-
+*/
+/*
 function getEmployeeCertificateDetail() {
 	//document.getElementById("overlay").style.display = "flex";
 	var employeeId= document.getElementById("employeeId").value;
@@ -81,10 +82,10 @@ function getEmployeeCertificateDetail() {
 		}
 	});
 }
+*/
 
 
 function getEmployeeExperienceDetail() {
-	//document.getElementById("overlay").style.display = "flex";
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
 	document.getElementById("signinLoader").style.display="flex";
@@ -128,7 +129,7 @@ function getEmployeeExperienceDetail() {
 }
 
 
-function getEmployeeQualificationDetail() {
+/*function getEmployeeQualificationDetail() {
 	//document.getElementById("overlay").style.display = "flex";
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
@@ -166,8 +167,8 @@ function getEmployeeQualificationDetail() {
 		}
 	});
 }
-
-function getEmployeeFamilyDetail() {
+*/
+/*function getEmployeeFamilyDetail() {
 	//document.getElementById("overlay").style.display = "flex";
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
@@ -206,9 +207,9 @@ function getEmployeeFamilyDetail() {
 		}
 	});
 }
+*/
 
-
-function getEmployeeDetail() {
+/*function getEmployeeDetail() {
 	var employerId = document.getElementById("employerId").value;  
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
@@ -253,8 +254,8 @@ function getEmployeeDetail() {
 			alert('Error: ' + e);
 		}
 	});
-}
-
+}*/
+/*
 function saveEmployeeProject(){
 	var employerId=document.getElementById("employerId").value; 
 	var employeeId=document.getElementById("employeeId").value;
@@ -294,8 +295,8 @@ function saveEmployeeProject(){
              alert('Error: ' + e);
          }
     });	
-}
-
+}*/
+/*
 function saveEmployeeCertificate(){
 	var employerId=document.getElementById("employerId").value;  
 	var employeeId=document.getElementById("employeeId").value;
@@ -335,8 +336,8 @@ function saveEmployeeCertificate(){
              alert('Error: ' + e);
          }
     });	
-}
-
+}*/
+/*
 function saveEmployeeExperience(){
 	var employerId=document.getElementById("employerId").value;
 	var employeeId=document.getElementById("employeeId").value;
@@ -377,8 +378,8 @@ function saveEmployeeExperience(){
              alert('Error: ' + e);
          }
     });				
-}
-
+}*/
+/*
 function saveQualificationDetail(){
 	
 	var employerId=document.getElementById("employerId").value; 
@@ -420,7 +421,8 @@ function saveQualificationDetail(){
          }
     });				
 }
-
+*/
+/*
 function SaveFmailyDetail(){
 	
 	var employerId=document.getElementById("employerId").value;
@@ -460,7 +462,7 @@ function SaveFmailyDetail(){
              alert('Error: ' + e);
          }
     });				
-}
+}*/
 
 
 function validateEmployeeAndSubmit(){

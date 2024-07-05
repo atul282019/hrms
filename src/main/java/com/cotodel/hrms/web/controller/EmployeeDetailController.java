@@ -74,271 +74,271 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		return profileRes;
 	}
 
-	@PostMapping(value="/saveFamilyDetail")
-	public @ResponseBody String saveFamilyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.saveFamilyDetail(tokengeneration.getToken(),employeeFamilyDetailRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@PostMapping(value="/saveFamilyDetail")
+//	public @ResponseBody String saveFamilyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.saveFamilyDetail(tokengeneration.getToken(),employeeFamilyDetailRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 	
-	@PostMapping(value="/saveQualificationDetail")
-	public @ResponseBody String saveFamilyQualification(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeQualificationRequest employeeQualificationRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.saveFamilyQualification(tokengeneration.getToken(),employeeQualificationRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@PostMapping(value="/saveQualificationDetail")
+//	public @ResponseBody String saveFamilyQualification(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeQualificationRequest employeeQualificationRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.saveFamilyQualification(tokengeneration.getToken(),employeeQualificationRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
+//	
+//	@PostMapping(value="/saveEmployeeExperience")
+//	public @ResponseBody String saveEmpCertificateDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeExperienceRequest employeeExperienceRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.saveEmpCertificateDetail(tokengeneration.getToken(),employeeExperienceRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 	
-	@PostMapping(value="/saveEmployeeExperience")
-	public @ResponseBody String saveEmpCertificateDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeExperienceRequest employeeExperienceRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.saveEmpCertificateDetail(tokengeneration.getToken(),employeeExperienceRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@PostMapping(value="/saveEmployeeCertificate")
+//	public @ResponseBody String saveEmployeeCertificate(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeCertificateRequest employeeCertificateRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.saveEmployeeCertificate(tokengeneration.getToken(),employeeCertificateRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 	
-	@PostMapping(value="/saveEmployeeCertificate")
-	public @ResponseBody String saveEmployeeCertificate(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeCertificateRequest employeeCertificateRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.saveEmployeeCertificate(tokengeneration.getToken(),employeeCertificateRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
-	
-	@PostMapping(value="/saveEmployeeProject")
-	public @ResponseBody String saveEmployeeProject(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProjectRequest employeeProjectRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.saveEmployeeProject(tokengeneration.getToken(),employeeProjectRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@PostMapping(value="/saveEmployeeProject")
+//	public @ResponseBody String saveEmployeeProject(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProjectRequest employeeProjectRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.saveEmployeeProject(tokengeneration.getToken(),employeeProjectRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 	
 	
-	@GetMapping(value="/getEmployeeDetail")
-	public @ResponseBody String getEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeDetailsRequest employeeFamilyDetailRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.getEmployeeDetail(tokengeneration.getToken(),employeeFamilyDetailRequest);
-		System.out.println("profileRes::"+profileRes);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@GetMapping(value="/getEmployeeDetail")
+//	public @ResponseBody String getEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeDetailsRequest employeeFamilyDetailRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.getEmployeeDetail(tokengeneration.getToken(),employeeFamilyDetailRequest);
+//		System.out.println("profileRes::"+profileRes);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
+//	
+//	@GetMapping(value="/getEmployeeFamilyDetail")
+//	public @ResponseBody String getEmployeeFamilyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.getEmployeeFamilyDetail(tokengeneration.getToken(),employeeFamilyDetailRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 	
-	@GetMapping(value="/getEmployeeFamilyDetail")
-	public @ResponseBody String getEmployeeFamilyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.getEmployeeFamilyDetail(tokengeneration.getToken(),employeeFamilyDetailRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
-	
-	@GetMapping(value="/getEmployeeQualificationDetail")
-	public @ResponseBody String getEmployeeQualificationDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeQualificationRequest employeeQualificationRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.getEmployeeQualificationDetail(tokengeneration.getToken(),employeeQualificationRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@GetMapping(value="/getEmployeeQualificationDetail")
+//	public @ResponseBody String getEmployeeQualificationDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeQualificationRequest employeeQualificationRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.getEmployeeQualificationDetail(tokengeneration.getToken(),employeeQualificationRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 
-	@GetMapping(value="/getEmployeeExperienceDetail")
-	public @ResponseBody String getEmployeeExperience(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeExperienceRequest employeeExperienceRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.getEmployeeExperience(tokengeneration.getToken(),employeeExperienceRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@GetMapping(value="/getEmployeeExperienceDetail")
+//	public @ResponseBody String getEmployeeExperience(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeExperienceRequest employeeExperienceRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.getEmployeeExperience(tokengeneration.getToken(),employeeExperienceRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
+//	
+//	@GetMapping(value="/getEmployeeCertificateDetail")
+//	public @ResponseBody String getEmployeeCertificateDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeCertificateRequest employeeCertificateRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.getEmployeeCertificateDetail(tokengeneration.getToken(),employeeCertificateRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 	
-	@GetMapping(value="/getEmployeeCertificateDetail")
-	public @ResponseBody String getEmployeeCertificateDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeCertificateRequest employeeCertificateRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.getEmployeeCertificateDetail(tokengeneration.getToken(),employeeCertificateRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
-	
-	@GetMapping(value="/getEmployeeProjectDetail")
-	public @ResponseBody String getEmployeeProjectDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProjectRequest employeeProjectRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		profileRes = employeeDetailService.getEmployeeProjectDetail(tokengeneration.getToken(),employeeProjectRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return profileRes;
-	}
+//	@GetMapping(value="/getEmployeeProjectDetail")
+//	public @ResponseBody String getEmployeeProjectDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProjectRequest employeeProjectRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		profileRes = employeeDetailService.getEmployeeProjectDetail(tokengeneration.getToken(),employeeProjectRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		
+//		return profileRes;
+//	}
 	
 	@PostMapping(value="/employeeOnboarding")
 	public @ResponseBody String saveEmployeeOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {

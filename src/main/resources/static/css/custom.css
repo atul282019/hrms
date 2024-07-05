@@ -607,8 +607,7 @@ ul.navbar-nav.top-nav .nav-item a.active span {
 .error-msg {
   font-size: 14px;
   position: relative;
-  float: left;
-  top: 0px;
+  top: -10px;
   width: 100%;
 }
 

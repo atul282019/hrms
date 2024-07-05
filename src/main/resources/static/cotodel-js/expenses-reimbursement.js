@@ -52,14 +52,14 @@ function getExpanceMasterMulti() {
 		 success: function(data){
             newData = data;
             console.log(newData);
-			$("#expenseCategoryMulti option").remove();
+			$("#expenseCategorySingle option").remove();
             var obj = jQuery.parseJSON( data );
              obj = obj.data;
         	 var count=0;
          	for (var key in obj) {
 
              var values =  obj[key];
-             var x = document.getElementById("expenseCategoryMulti");
+             var x = document.getElementById("expenseCategorySingle");
              if(count==0){
              var option = document.createElement("option");
              option.text ="Select Expenses Category";
@@ -100,7 +100,69 @@ function submitExpense(){
 	var fileType = null;
 	var fileBase64=null;
 	
+	if(expenseCategory=="" || expenseCategory==null){
+		document.getElementById("expenseCategoryError").innerHTML="Please Select Expence Category";
+		return false;
+	}
+	else{
+		document.getElementById("expenseCategoryError").innerHTML="";
+	}
 	
+	if(dateofExpense=="" || dateofExpense==null){
+		document.getElementById("dateofExpenseError").innerHTML="Please Select Date";
+		return false;
+	}
+	else{
+		document.getElementById("dateofExpenseError").innerHTML="";
+	}
+	
+	if(expenseTitle=="" || expenseTitle==null){
+		document.getElementById("expenseTitleError").innerHTML="Please Enter Expense Title";
+		return false;
+	}
+	else{
+		document.getElementById("expenseTitleError").innerHTML="";
+	}
+	
+	if(venderName=="" || venderName==null){
+		document.getElementById("venderNameError").innerHTML="Please Enter Vender Name";
+		return false;
+	}
+	else{
+		document.getElementById("venderNameError").innerHTML="";
+	}
+	if(invoiceNumber=="" || invoiceNumber==null){
+		document.getElementById("invoiceNumberError").innerHTML="Please Enter Invoice Number";
+		return false;
+	}
+	else{
+		document.getElementById("invoiceNumberError").innerHTML="";
+	}
+	
+	if(currency=="" || currency==null){
+		document.getElementById("currencyError").innerHTML="Please Select Currency";
+		return false;
+	}
+	else{
+		document.getElementById("currencyError").innerHTML="";
+	}
+	
+	if(amount=="" || amount==null){
+		document.getElementById("amountError").innerHTML="Please Enter Amount";
+		return false;
+	}
+	else{
+		document.getElementById("amountError").innerHTML="";
+	}
+	
+	if(modeofPayment=="" || modeofPayment==null){
+		document.getElementById("modeofPaymentError").innerHTML="Please Select Mode of Payment";
+		return false;
+	}
+	else{
+		document.getElementById("modeofPaymentError").innerHTML="";
+	}
+
 	//const base64String = imageAdd;
 	const cleanedBase64String = imagePDF.replace("data:application/pdf;base64,", "");
 	
@@ -153,6 +215,171 @@ function submitExpense(){
 			var data1 = jQuery.parseJSON(newData);
 			//close popup
 			document.getElementById("ModalAddmanualexp").style.display = "none";;
+			
+		   document.getElementById("ModalAddExpenseReimbursement").style.display = "none";;
+	
+  			// Get the <span> element that closes the modal
+			getExpanceCategoryList();
+			//document.getElementById("signinLoader").style.display="none";
+			//console.log(data1)
+		/*	if(data1.status==true){
+				 document.getElementById("certificatesuccmsg").innerHTML="Data Saved Successfully";
+				 document.getElementById("certificatemsgdiv").style.display="block";
+				 //document.getElementById("saveorg").reset();
+				 $('#certificatemsgdiv').delay(5000).fadeOut(400);
+				 getEmployeeProjectDetail();
+			}else if(data1.status==false){
+				 document.getElementById("certificatefailmsg").innerHTML=data1.message;
+				 document.getElementById("certificatefailmsgDiv").style.display="block";
+				 $('#certificatefailmsgDiv').delay(5000).fadeOut(400);
+				 getEmployeeProjectDetail();
+			}else{
+				 document.getElementById("certificatemsgdiv").style.display="none";
+				 document.getElementById("certificatefailmsgDiv").style.display="none";
+				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
+			}*/
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });	
+	
+}
+
+function submitExpenseSingle(){
+	
+	var employerId= document.getElementById("employerId").value; 
+	var expenseCategory=  document.getElementById("expenseCategorySingle").value ;
+	var dateofExpense = document.getElementById("dateSingle").value;
+	var expenseTitle = document.getElementById("expenseTitleSingle").value;
+	var venderName= document.getElementById("vendorNameSingle").value;
+	var invoiceNumber = document.getElementById("invoiceNumberSingle").value;
+	var currency= document.getElementById("currencySingle").value;
+	var amount = document.getElementById("amountSingle").value;
+	var modeofPayment = document.getElementById("modeofpaymentSingle").value;
+	var additionalRemark = document.getElementById("remarkSingle").value;
+	
+	var imageAdd = document.getElementById("imageAddSingle").src;
+	var imagePDF = document.getElementById("base64PDFSingle").value; 
+	
+	var fileType = null;
+	var fileBase64=null;
+	
+	if(expenseCategory=="" || expenseCategory==null){
+		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expence Category";
+		return false;
+	}
+	else{
+		document.getElementById("expenseCategorySingleError").innerHTML="";
+	}
+	
+	if(dateofExpense=="" || dateofExpense==null){
+		document.getElementById("dateSingleError").innerHTML="Please Select Date";
+		return false;
+	}
+	else{
+		document.getElementById("dateSingleError").innerHTML="";
+	}
+	
+	if(expenseTitle=="" || expenseTitle==null){
+		document.getElementById("expenseTitleError").innerHTML="Please Enter Expense Title";
+		return false;
+	}
+	else{
+		document.getElementById("expenseTitleError").innerHTML="";
+	}
+	
+	if(venderName=="" || venderName==null){
+		document.getElementById("venderNameError").innerHTML="Please Enter Vender Name";
+		return false;
+	}
+	else{
+		document.getElementById("venderNameError").innerHTML="";
+	}
+	if(invoiceNumber=="" || invoiceNumber==null){
+		document.getElementById("invoiceNumberError").innerHTML="Please Enter Invoice Number";
+		return false;
+	}
+	else{
+		document.getElementById("invoiceNumberError").innerHTML="";
+	}
+	
+	if(currency=="" || currency==null){
+		document.getElementById("currencyError").innerHTML="Please Select Currency";
+		return false;
+	}
+	else{
+		document.getElementById("currencyError").innerHTML="";
+	}
+	
+	if(amount=="" || amount==null){
+		document.getElementById("amountError").innerHTML="Please Enter Amount";
+		return false;
+	}
+	else{
+		document.getElementById("amountError").innerHTML="";
+	}
+	
+	if(modeofPayment=="" || modeofPayment==null){
+		document.getElementById("modeofPaymentError").innerHTML="Please Select Mode of Payment";
+		return false;
+	}
+	else{
+		document.getElementById("modeofPaymentError").innerHTML="";
+	}
+
+	//const base64String = imageAdd;
+	const cleanedBase64String = imagePDF.replace("data:application/pdf;base64,", "");
+	
+	try {
+		
+		if(imageAdd !==null && imageAdd !==""){
+			const result = extractBase64Info(imageAdd);
+			fileType = result.dataType;
+		    fileBase64 = result.base64Content;
+		}else{
+	   		 fileType = "application/pdf";
+		    fileBase64 = cleanedBase64String;
+	    }
+	    
+	   // console.log('Data Type:', result.dataType);
+	    //console.log('Base64 Content:', result.base64Content);
+	} catch (error) {
+	    console.error(error.message);
+	}
+		
+	//console.log(cleanedBase64String);
+	var formData = new FormData(expenseReimbursement);
+	formData.append("employerId",employerId);
+	formData.append("employeeId",employerId);
+	//formData.append("employeeId",employeeId);
+	formData.append("expenseCategory",expenseCategory);
+	formData.append("dateOfExpense",dateofExpense);
+	formData.append("expenseTitle",expenseTitle);
+	formData.append("vendorName",venderName);
+	formData.append("invoiceNumber",invoiceNumber);
+	formData.append("currency",currency);
+	formData.append("amount",amount);
+	formData.append("modeOfPayment",modeofPayment);
+	formData.append("remarks",additionalRemark);
+	
+	formData.append("fileInput",fileBase64);
+	formData.append("fileType",fileType);
+	
+	
+	//document.getElementById("signinLoader").style.display="flex";
+	
+	 	$.ajax({
+		type: "POST",
+	     url:"/addExpenseReimbursement",
+         data: formData,
+         processData: false,
+         contentType: false,       		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			//close popup
+			document.getElementById("ModalAddfreshexpContinew").style.display = "none";;
 			
 		   document.getElementById("ModalAddExpenseReimbursement").style.display = "none";;
 	
