@@ -50,6 +50,18 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	@Autowired
 	ExpensesReimbursementService expensesReimbursementService;
 	
+	@PostMapping(value="/addExpenseReimbursementDraft")
+	public @ResponseBody String saveExpensesReimbursementDraft(HttpServletRequest request,
+		 ExpensesReimbursementRequest expensesReimbursementRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
+	
+		String profileRes=null;
+		
+		profileRes = expensesReimbursementService.saveExpensesReimbursementDraft(tokengeneration.getToken(),expensesReimbursementRequest);
+		
+		  return profileRes;
+		  
+	}
+	
 	@PostMapping(value="/addExpenseReimbursement")
 	public @ResponseBody String saveExpensesReimbursement(HttpServletRequest request,
 		 ExpensesReimbursementRequest expensesReimbursementRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {

@@ -93,6 +93,7 @@
 																		<input type="checkbox" id="customCheck3">
 																	</div>
 																</th>
+																<th>Id</th>
 																<th>DATE & TIME</th>
 																<th>CATEGORY</th>
 																<th>TITLE</th>
@@ -167,7 +168,7 @@
 																		<span>INR</span><span>9,120</span>
 																	</div>
 																</td>
-																<td><span class="color-third">Draft</span></td>
+																<td  class="td-btn draft">Draft </td>
 																<td><span class="color-third">Bank Account</span></td>
 																<td>
 																	<div>
@@ -197,7 +198,7 @@
 																		<span>INR</span><span>10,000</span>
 																	</div>
 																</td>
-																<td><span class="color-third disbursed">Disbursed</span>
+																<td class="td-btn draft">Disbursed 
 																</td>
 																<td><span class="color-third"><a href="#">Bank
 																			Account</a></span></td>
@@ -579,7 +580,12 @@
 
 	<script type="text/javascript"
 		src="cotodel-js/expenses-reimbursement.js"></script>
+		
+		<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+		
 
+   
 	<script>
         $(document).ready(function () {
             $("#hide").click(function () {
@@ -620,7 +626,6 @@
         
         function readURL(input) {
         	
-        	//document.getElementById("blah").style.display="block";
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
@@ -628,15 +633,6 @@
                  //   $('#blah').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
-                
-               /*  const base64String = e.target.result;
-                const fileTypeMatch = base64String.match(/^data:(image\/[a-zA-Z]+);base64,/);
-                const fileType = fileTypeMatch ? fileTypeMatch[1] : 'unknown';
-                const fileName = file.name;
-
-                console.log('File Name:', fileName);
-                console.log('File Type:', fileType);
-                console.log('Base64 String:', base64String); */
                 
             }
             
@@ -722,13 +718,217 @@
         document.addEventListener("DOMContentLoaded", () => {
         const dropZone = document.getElementById("drop-zone");
         const fileInput = document.getElementById("fileInput");
-        const uploadButton = document.getElementById("upload-button");
-        const viewButton = document.getElementById("view-button");
-        const fileList = document.getElementById("file-list");
-        const modal = document.getElementById("modal");
-        const confirmRemove = document.getElementById("confirm-remove");
-        const cancelRemove = document.getElementById("cancel-remove");
+      
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+        document.getElementById('merge-button').addEventListener('click', mergeSelectedPDFs);
+        document.getElementById('delete-button').addEventListener('click', deleteSelectedPDFs);
 
+        const fileArray = [];
+
+        function handleFileUpload(event) {
+        	document.getElementById('docViewDiv').style.display="block";
+        	
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+            	 if (fileArray.length == 5) {
+            		 document.getElementById("drop-zone").style.display = "none";
+            	
+                     window.alert = function () { };
+	                // Use SweetAlert to display an alert
+	                Swal.fire({
+	                   // title: 'Custom Alert',
+	                    text: 'You can only upload up to 5 PDF files.',
+	                    //icon: 'success',
+	                    confirmButtonText: 'OK'
+	                }); 
+                
+                     return;
+                 }
+                fileArray.push(file);
+                addFileToList(file);
+            }
+            event.target.value = ''; // Reset the input value
+        }
+
+        function addFileToList(file) {
+            const fileList = document.getElementById('show-list');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = file.name;
+            checkbox.name = 'pdfFiles';
+            checkbox.value = fileArray.length - 1;
+            checkbox.addEventListener('change', updateSelectedFiles);
+
+
+            const label = document.createElement('label');
+            label.htmlFor = file.name;
+            label.textContent = file.name;
+            
+            const label2 = document.createElement('span');
+            label2.htmlFor = file.size;
+            label2.textContent = file.size+" KB";
+
+            fileItem.appendChild(checkbox);
+            fileItem.appendChild(label);
+            fileItem.appendChild(label2);
+            fileList.appendChild(fileItem);
+        }
+
+        async function mergeSelectedPDFs() {
+            const selectedFiles = Array.from(document.querySelectorAll('input[name="pdfFiles"]:checked')).map(checkbox => fileArray[checkbox.value]);
+			
+            if (selectedFiles.length === 0) {
+            	
+                 window.alert = function () { };
+	                // Use SweetAlert to display an alert
+	                Swal.fire({
+	                   // title: 'Custom Alert',
+	                    text: 'Please select at least one PDF file.',
+	                    //icon: 'success',
+	                    confirmButtonText: 'OK'
+	                }); 
+                
+                return;
+            }
+            const fileType = selectedFiles[0].type;
+            
+            const mergedPdf = await PDFLib.PDFDocument.create();
+            for (const file of selectedFiles) {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                copiedPages.forEach((page) => {
+                    mergedPdf.addPage(page);
+                });
+            }
+
+            window.alert = function () { };
+            // Use SweetAlert to display an alert
+            Swal.fire({
+               // title: 'Custom Alert',
+                text: 'Selected Files Merged Successfully',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }); 
+        
+            const mergedPdfBytes = await mergedPdf.save();
+            const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+
+            const pdfDisplay = document.getElementById('imagePDF');
+            pdfDisplay.src = url;
+
+            const base64String = arrayBufferToBase64(mergedPdfBytes);
+           $('#base64PDF').val(base64String);
+                
+           if(fileType==="application/pdf"){
+           
+           //$('#imagePDF').attr('src', base64String);
+           $('#base64PDF').val(base64String);
+          
+           document.getElementById("imagePDF").style.display="block";
+           document.getElementById("imageAdd").style.display="none";
+    
+			}
+			else{
+				
+		           //$('#imageAdd').attr('src', base64String);
+		           document.getElementById("imageAdd").style.display="block";
+		           document.getElementById("imagePDF").style.display="none";
+		       
+			} 
+           
+           var modalfirst = document.getElementById("exampleModalCenterTitle");
+           modalfirst.style.display = "none";
+        }
+
+        function arrayBufferToBase64(buffer) {
+            let binary = '';
+            const bytes = new Uint8Array(buffer);
+            const len = bytes.byteLength;
+            for (let i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+        
+
+        function deleteSelectedPDFs() {
+            const selectedCheckboxes = document.querySelectorAll('input[name="pdfFiles"]:checked');
+           
+            if (fileArray.length <= 5) {
+       		 document.getElementById("drop-zone").style.display = "block";
+            }
+            if (selectedCheckboxes.length === 0) {
+            	document.getElementById("drop-zone").style.display = "none";
+            	
+            	
+            	 window.alert = function () { };
+                // Use SweetAlert to display an alert
+                Swal.fire({
+                   // title: 'Custom Alert',
+                    text: 'Please select PDF file to delete.',
+                   // icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                
+                return;
+            }
+            selectedCheckboxes.forEach(checkbox => {
+                const index = parseInt(checkbox.value);
+                fileArray[index] = null; // Mark the file as null
+                checkbox.parentElement.remove(); // Remove the file item from the list
+                
+                 window.alert = function () { };
+                // Use SweetAlert to display an alert
+                Swal.fire({
+                   // title: 'Custom Alert',
+                    text: 'Selected File deleted Successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                
+            });
+
+            // Clear the merged PDF display and Base64 string
+            $('#base64PDF').val('');
+            document.getElementById('imagePDF').src = '';
+        }
+        
+        function updateSelectedFiles() {
+            const selectedFiles = Array.from(document.querySelectorAll('input[name="pdfFiles"]:checked')).map(checkbox => fileArray[checkbox.value].name);
+            const selectedFilesDiv = document.getElementById('selected-files');
+            selectedFilesDiv.innerHTML = '';
+            selectedFiles.forEach(fileName => {
+            	
+                const fileDiv = document.createElement('div');
+                fileDiv.className = 'top-badge mr-2';
+               
+                const fileDiv2 = document.createElement('div');
+                fileDiv2.className = 'table-check';
+                fileDiv2.textContent = fileName;
+                
+                
+                const anchor = document.createElement('a');
+                anchor.href = '#';
+
+                // Step 2: Create the image element
+                const img = document.createElement('img');
+                img.src = 'img/attach.svg';
+                img.alt = '';
+
+                // Step 3: Append the image to the anchor
+                anchor.appendChild(img);
+                
+                fileDiv2.appendChild(anchor);
+                fileDiv.appendChild(fileDiv2);
+                selectedFilesDiv.appendChild(fileDiv);
+            });
+        }
+         
         let files = [];
         let fileToRemoveIndex = null;
 
@@ -752,79 +952,8 @@
 
         dropZone.addEventListener("click", () => {
             fileInput.click();
-        });
+        }); 
 
-        fileInput.addEventListener("change", (e) => {
-            const selectedFiles = Array.from(e.target.files);
-            handleFiles(selectedFiles);
-        });
-
-        function handleFiles(selectedFiles) {
-            if (files.length + selectedFiles.length > 5) {
-                alert("You can only upload up to 5 files.");
-                return;
-            }
-
-            files = files.concat(selectedFiles);
-            renderFileList();
-        }
-
-        function renderFileList() {
-            fileList.innerHTML = "";
-            files.forEach((file, index) => {
-                const fileItem = document.createElement("div");
-                fileItem.className = "file-item";
-                fileItem.textContent = `${index + 1}. ${file.name}`;
-                
-                const cancelButton = document.createElement("button");
-                cancelButton.className = "cancel-button";
-                cancelButton.innerHTML = '<img src="img/delete-black.svg" alt="Cancel">';
-                cancelButton.addEventListener("click", () => {
-                    fileToRemoveIndex = index;
-                    modal.style.display = "flex";
-                });
-
-                fileItem.appendChild(cancelButton);
-                fileList.appendChild(fileItem);
-            });
-        }
-
-        confirmRemove.addEventListener("click", () => {
-            if (fileToRemoveIndex !== null) {
-                files.splice(fileToRemoveIndex, 1);
-                renderFileList();
-                fileToRemoveIndex = null;
-                modal.style.display = "none";
-            }
-        });
-
-        cancelRemove.addEventListener("click", () => {
-            fileToRemoveIndex = null;
-            modal.style.display = "none";
-        });
-
-       /*  uploadButton.addEventListener("click", () => {
-            if (files.length === 0) {
-                alert("No files to upload.");
-                return;
-            }
-            // Simulate file upload
-            console.log("Uploading files...");
-            files.forEach((file) => {
-                console.log(file.name);
-            });
-            alert("Files uploaded successfully!");
-        }); */
-
-     /*    viewButton.addEventListener("click", () => {
-            if (files.length === 0) {
-                alert("No files to view.");
-                return;
-            }
-            // Display file names in an alert
-            const fileNames = files.map(file => file.name).join("\n");
-            alert(`Selected files:\n${fileNames}`);
-        }); */
     });
 </script>
 
@@ -847,22 +976,12 @@
 				</div>
 				<div class="modal-body">
 					<hr class="mt-0">
-					<div class="add-file-docs">
+					<div class="add-file-docs" id="docViewDiv" style="display: none">
                             <div class="add-file-docs-top">Uploaded Documents</div>
-                            <div class="add-file-docs-mid">
-								<p><input type="checkbox" id="customCheck003" class="mr-2">        	
-                                doc_1.png</p>
-                                <span>
-                                    365 KB
-                                </span>
+                            <div class="add-file-docs-mid p-0" id="show-list">
+						
                             </div>
-                            <div class="add-file-docs-mid">
-                            	<p><input type="checkbox" id="customCheck003" class="mr-2">  
-                                doc_2.png</p>
-                                <span>
-                                    1125 KB
-                                </span>
-                            </div>
+                           
                             <div class="add-file-docs-btm">
                                 <div class="d-flex justify-content-between">
                                 	<div class="d-flex multipic-wrap">
@@ -870,6 +989,8 @@
                                 		<p class="mb-0">For multiple pictures/documents of the same expense, use ‘Merge’ to combine them into one document</p>
                                 	</div>
                                 	<div class="d-flex justify-content-evenly align-items-center merge-wrapp">
+				                        <!-- <button id="merge-button" class="mx-1 d-flex align-items-center"> <img src="img/merge.svg" alt="">Merge</button>
+				                        <button id="delete-button" class="mx-1 d-flex align-items-center"><img src="img/info.svg" alt="" >Delete</button> -->
 				                        <a href="#" data-toggle="modal" data-target="#Modaladdfilesmerge" class="mx-1 d-flex align-items-center"><img src="img/merge.svg" alt="">Merge</a>
 				                        <a href="#" data-toggle="modal" data-target="#Modaladdfilesdel" class="mx-1 d-flex align-items-center"><img src="img/info.svg" alt="" >Delete </a>
 				                    </div>
@@ -882,7 +1003,7 @@
 							<div class="form-group-files choose-file add-files-grp-browse pt-2">
 								<span class="fileUpload"> <span class="upl" id="upload"><img
 										src="img/download-files.svg" alt=""></span> <!--  <input type="file" class="upload up" id="up" onchange="readURL(this);"> -->
-									<input type="file" id="fileInput" multiple
+									<input type="file" id="fileInput" multiple 
 									style="display: none;" onchange="readURL(this);">
 	
 								</span>
@@ -895,17 +1016,11 @@
 							<p>Max number of documents: 5 per Upload | Max size per document: 5 MB | Accepted formats: JPG/JPEG/PNG/PDF</p>
 						</div>
 					</div>
-					<div id="modal" class="modal">
-						<div class="modal-content">
-							<p>Are you sure you want to remove this file?</p>
-							<button id="confirm-remove">Yes</button>
-							<button id="cancel-remove">No</button>
-						</div>
-					</div>
-					<div class="container">
+					
+					<!-- <div class="container">
 
 						<div id="file-list" class="file-list"></div>
-					</div>
+					</div> -->
 					<div class="clearfix"></div>
 
 					<div class="d-flex justify-content-center mt-4">
@@ -940,46 +1055,16 @@
 				<div
 					class="d-flex justify-content-between border-btm modal-head-secd">
 
-					<div class="d-flex add-topbadge">
+					<div class="d-flex add-topbadge" id="selected-files">
 						<div class="top-badge mr-2">
 							<div class="table-check">
-								<input type="checkbox" id="customCheck3" class="mr-2">
-								McDonalds
+								 <input type="checkbox" id="customCheck3" class="mr-2">
 							</div>
 
 							<a href="#"> <img src="img/attach.svg" alt="">
 							</a>
 						</div>
-						<div class="top-badge mr-2">
-							<div class="table-check">
-								<input type="checkbox" id="customCheck3" class="mr-2">
-								Doc_2
-							</div>
-
-						</div>
-						<div class="top-badge mr-2">
-							<div class="table-check">
-								<input type="checkbox" id="customCheck3" class="mr-2">
-								Doc_3
-							</div>
-
-						</div>
-						<div class="top-badge mr-2">
-							<div class="table-check">
-								<input type="checkbox" id="customCheck3" class="mr-2">
-								Doc_4
-							</div>
-
-							<a href="#"> <img src="img/attach.svg" alt="">
-							</a>
-						</div>
-						<div class="top-badge mr-2">
-							<div class="table-check">
-								<input type="checkbox" id="customCheck3" class="mr-2">
-								Doc_5
-							</div>
-
-						</div>
+						
 					</div>
 
 					<div>
@@ -1043,21 +1128,21 @@
 								</div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" 
 										id="expenseTitle"> <label class="did-floating-label">Enter
 										Expense Title</label>
 								</div>
 								<div class="error-msg" id="expenseTitleError" style="color: red"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" 
 										id="venderName"> <label class="did-floating-label">Enter
 										Vendor Name</label>
 								</div>
 								<div class="error-msg" id="venderNameError" style="color: red"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" 
 										id="invoiceNumber"> <label class="did-floating-label">Enter
 										Invoice Number</label>
 								</div>
@@ -1077,7 +1162,7 @@
 									</div>
 									<div class="ml-2 w-100 mb-2">
 										<div class="did-floating-label-content mb-0">
-											<input class="did-floating-input" type="text" placeholder=""
+											<input class="did-floating-input" type="text"
 												id="amount"> <label class="did-floating-label">Enter
 												Amount</label>
 										</div>
@@ -1100,6 +1185,8 @@
 										<option value="">Select Preferred Mode of Payment</option>
 										<option value="Cash">Cash</option>
 										<option value="Cheque">Cheque</option>
+										<option value="e-RUPI Voucher">e-RUPI Voucher</option>
+										<option value="Bank Account">Bank Account</option>
 									</select> <label class="did-floating-label">Select Preferred
 										Mode of Payment</label>
 
@@ -1130,10 +1217,12 @@
 									<input type="hidden" class="form-input" id="employerId"
 										name="employerId" th:value="${session.id}"> <input
 										class="btn btn-border mx-2" type="button"
-										onclick="submitExpense()" value="Save & Next" /> <a
-										class="btn btn-primary mx-2 d-flex align-items-center"
+										onclick="submitExpenseDraft()" value="Save & Next" />
+										<!--  <a class="btn btn-primary mx-2 d-flex align-items-center"
 										data-toggle="modal" data-target="#ModalExpensesSubmitted"
-										type="button">Submit</a>
+										type="button">Submit</a> -->
+										<input class="btn btn-primary mx-2 d-flex align-items-center"
+										type="button" value="Submit" onclick="submitExpenseMultiple()" />
 								</div>
 							</div>
 						</div>
@@ -1208,33 +1297,33 @@
 
 								<div class="form-grp-half">
 									<div class="did-floating-label-content mr-2">
-										<input class="did-floating-input" type="text" placeholder=" "
+										<input class="did-floating-input" type="text" readonly
 											id="viewExpenseCategory"> <label
 											class="did-floating-label">Select Expense Category</label>
 									</div>
 									<div class="error-msg" id="expenseCategoryError"
 										style="color: red"></div>
 									<div class="did-floating-label-content ml-2">
-										<input class="did-floating-input" type="text" placeholder=" "
+										<input class="did-floating-input" type="text" readonly
 											id="viewDateofExpense"> <label
 											class="did-floating-label">Date of Expense</label>
 									</div>
 								</div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" readonly
 										id="viewExpenseTitle"> <label
 										class="did-floating-label">Expense Title</label>
 								</div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" readonly
 										id="viewVenderName"> <label class="did-floating-label">Vendor
 										Name</label>
 								</div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" readonly
 										id="viewInvoiceNumber"> <label
 										class="did-floating-label">Invoice Number</label>
 								</div>
@@ -1242,11 +1331,11 @@
 								<div class="form-grp-half">
 									<div class="did-floating-label-content mr-2">
 
-										<input class="did-floating-input" type="text" placeholder=" "
+										<input class="did-floating-input" type="text" readonly
 											id="viewCurrency"> <label class="did-floating-label">Currency</label>
 									</div>
 									<div class="did-floating-label-content ml-2">
-										<input class="did-floating-input" type="text" placeholder=" "
+										<input class="did-floating-input" type="text" readonly
 											id="viewAmount"> <label class="did-floating-label">Amount</label>
 									</div>
 								</div>
@@ -1259,13 +1348,13 @@
 								</div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" readonly
 										id="viewModeofPayment"> <label
 										class="did-floating-label">Preferred Mode of Payment</label>
 								</div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" readonly
 										id="viewAdditionalRemark"> <label
 										class="did-floating-label">No additional remarks added</label>
 								</div>
@@ -1490,7 +1579,7 @@
 
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" 
 										id="expenseTitleSingle"> <label
 										class="did-floating-label">Enter Expense Title</label>
 								</div>
@@ -1498,7 +1587,7 @@
 									style="color: red"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text"
 										id="vendorNameSingle"> <label
 										class="did-floating-label">Enter Vendor Name</label>
 								</div>
@@ -1506,7 +1595,7 @@
 									style="color: red"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text" 
 										id="invoiceNumberSingle"> <label
 										class="did-floating-label">Enter Invoice Number</label>
 								</div>
@@ -1528,7 +1617,7 @@
 									</div>
 									<div class="ml-2 w-100 mb-2">
 										<div class="did-floating-label-content mb-0">
-											<input class="did-floating-input" type="text" placeholder=""
+											<input class="did-floating-input" type="text"
 												id="amountSingle"> <label
 												class="did-floating-label">Enter Amount</label>
 										</div>
@@ -1550,6 +1639,8 @@
 										<option value="">Select Currency</option>
 										<option value="Cash">Cash</option>
 										<option value="Cheque">Cheque</option>
+										<option value="e-RUPI Voucher">e-RUPI Voucher</option>
+										<option value="Bank Account">Bank Account</option>
 									</select> <label class="did-floating-label">Select Preferred
 										Mode of Payment</label>
 								</div>
@@ -1557,7 +1648,7 @@
 									style="color: red"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
-									<input class="did-floating-input" type="text" placeholder=" "
+									<input class="did-floating-input" type="text"
 										id="remarkSingle"> <label class="did-floating-label">Enter
 										Additional Remarks (Optional)</label>
 								</div>
@@ -1575,13 +1666,15 @@
 									</button>
 
 									<input type="button" id="btnSingleSaveNext"
-										class="btn btn-border mx-1" onclick="submitExpenseSingle()"
+										class="btn btn-border mx-1" onclick="submitExpenseSingleDraft()"
 										value="Save & Next" />
 									<!-- 
                                     <button type="button" id="btnSingleSaveNext" class="btn btn-border mx-1" >Save & Next</button> -->
-									<a class="btn btn-primary mx-1 d-flex align-items-center"
+									<!-- <a class="btn btn-primary mx-1 d-flex align-items-center"
 										data-toggle="modal" data-target="#ModalExpensesSubmitted"
-										id="btnSingleSubmit">Submit</a>
+										id="btnSingleSubmit">Submit</a> -->
+										<input type="button" class="btn btn-primary mx-1 d-flex align-items-center"
+										id="btnSingleSubmit" value="Submit" onclick="submitExpenseSingle()" />
 								</div>
 							</form>
 						</div>
@@ -1719,8 +1812,9 @@
 						<p class="mb-0 text-center secondary-900">Please confirm that you would like to merge the selected uploads as part of multiple pages/documents of one expense.</p>
 					</div>
 					<div class="d-flex justify-content-center mt-3">
-						<button class="btn btn-border mx-2 w-100">Cancel</button>
-						<button class="btn btn-primary mx-2 w-100">Merge</button>
+						<button class="btn btn-border mx-2 w-100 close" data-dismiss="modal"
+						aria-label="Close">Cancel</button>
+						<button class="btn btn-primary mx-2 w-100" id="merge-button">Merge</button>
 					</div>
 				</div>
 			</div>
@@ -1748,8 +1842,9 @@
 						<p class="mb-0 text-center secondary-900">Please confirm that you would like to delete  the selected uploads.</p>
 					</div>
 					<div class="d-flex justify-content-center mt-3">
-						<button class="btn btn-border mx-2 w-100">Back</button>
-						<button class="btn btn-delete mx-2 w-100">Delete</button>
+						<button class="btn btn-border mx-2 w-100" data-dismiss="modal"
+						aria-label="Close">Cancel</button>
+						<button class="btn btn-delete mx-2 w-100" id="delete-button">Delete</button>
 					</div>
 				</div>
 			</div>

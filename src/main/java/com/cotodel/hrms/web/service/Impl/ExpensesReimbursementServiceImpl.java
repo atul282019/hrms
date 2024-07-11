@@ -50,4 +50,19 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.deleteExpenseReimbursement);
 	}
 
+	@Override
+	public String saveExpensesReimbursementDraft(String token,
+			ExpensesReimbursementRequest expensesReimbursementRequest) {
+		ExpensesReimbursementRequestNew expensesReimbursementRequestNew = new ExpensesReimbursementRequestNew();
+		
+		  CopyUtility.copyProperties(expensesReimbursementRequest, expensesReimbursementRequestNew);
+		  
+		  expensesReimbursementRequestNew.setFile(expensesReimbursementRequest.getFileInput());
+		  expensesReimbursementRequestNew.setFileName(expensesReimbursementRequest.getFileName());
+		  expensesReimbursementRequestNew.setFileType(expensesReimbursementRequest.getFileType());
+		 
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursementDraft);
+		
+	}
+
 }

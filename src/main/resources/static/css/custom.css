@@ -2627,53 +2627,39 @@ button.btn-attach img {
     background: #b6b8b9;
 }
 
-.color-third {
-    color: #4A4E69;
-}
-
-span.color-third.draft {
-    border: 1px solid #86889B;
-    color: #86889B;
-    padding: 2px 10px 4px;
+.td-btn {
+    color: #4A4E69 !important;
+    padding: 2px 20px 4px !important;
     border-radius: 25px;
-    min-width: 120px;
+    min-width: 50px;
     display: inline-block;
     text-align: center;
+    margin:20px 0 0 15px;
 }
 
-span.color-third.submitted,
-span.color-third.in-progress {
+.td-btn.draft{
+    border: 1px solid #86889B;
+    color: #86889B;    
+}
+
+.td-btn.submitted,
+.td-btn.in-progress {
     border: 1px solid #2F945A;
     color: #2F945A;
-    padding: 2px 10px 4px;
-    border-radius: 25px;
-    min-width: 120px;
-    display: inline-block;
-    text-align: center;
 }
 
-span.color-third.rejected {
+.td-btn.rejected {
     border: 1px solid #F24822;
     color: #F24822;
-    padding: 2px 10px 4px;
-    border-radius: 25px;
-    min-width: 120px;
-    display: inline-block;
-    text-align: center;
 }
 
-span.color-third.settled {
+.td-btn.settled {
     border: 1px solid #2F945A;
     background: #2F945A;
     color: #ffffff;
-    padding: 2px 10px 4px;
-    border-radius: 25px;
-    min-width: 120px;
-    display: inline-block;
-    text-align: center;
 }
 
-span.color-third a {
+.td-btn a {
     color: #367AFF;
 }
 
@@ -3885,7 +3871,6 @@ button.btn {
 
 .add-file-docs-mid,
 .add-file-docs .file-item {
-    display: flex;
     justify-content: space-between;
     padding: 10px 15px;
     font-size: 13px;
@@ -4229,4 +4214,30 @@ td input.form-control-custom:focus {
     min-height: 100px;
     padding: 10px;
     font-size: 14px;
+}
+
+ .container {
+        text-align: center;
+    }
+
+    h1 {
+        color: green;
+    }
+    
+.add-file-docs-mid > .file-item {
+    border: 1px solid #EDEDF0;
+    border-bottom: none;
+}
+
+.add-file-docs-mid > .file-item > span {
+    float: right;
+}
+
+.add-file-docs-mid > .file-item > label {
+    margin: 0 0 0 5px;
+}
+
+.add-file-docs-mid > .file-item > input {
+    position: relative;
+    top: 2px;
 }

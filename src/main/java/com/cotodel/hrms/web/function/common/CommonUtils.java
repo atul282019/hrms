@@ -71,11 +71,12 @@ public interface CommonUtils {
 	public static String getExpenseBandList = "/empService/Api/get/getExpenseBandList";
 	//public static String getExpenseBandList = "/empService/Api/get/employeeBandName";
 	
-	public static String addExpensesReimbursement ="/empService/Api/add/expenseReimbursementFileUpload";
+	public static String addExpensesReimbursement ="/empService/Api/add/expenseReimbursementFileUploadSubmit";
 	
 	public static String getExpensesReimbursement = "/empService/Api/get/expenseReimbFileDownloadByEmpID";
 	
 	public static String viewExpensesReimbursement = "/empService/Api/get/expenseReimbFileDownloadByID";
 	public static String deleteExpenseReimbursement = "/empService/Api/delete/expenseReimbFileDeleteByID";
 	
+	public static String addExpensesReimbursementDraft ="/empService/Api/add/expenseReimbursementFileUpload"; 
 }
