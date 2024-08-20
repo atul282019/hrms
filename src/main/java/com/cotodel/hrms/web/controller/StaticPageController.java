@@ -18,6 +18,11 @@ public class StaticPageController extends CotoDelBaseController{
 
 	private static final Logger logger = LoggerFactory.getLogger(StaticPageController.class);
 	
+	@GetMapping(value="/index1")
+	public ModelAndView firstPage1(Model model) {
+		logger.info("opening index page");
+		return new ModelAndView("home1", "command", "");
+	}	
 	@GetMapping(value="/index")
 	public ModelAndView firstPage(Model model) {
 		logger.info("opening index page");
