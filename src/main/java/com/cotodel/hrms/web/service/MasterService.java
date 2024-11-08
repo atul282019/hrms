@@ -15,4 +15,6 @@ public interface MasterService {
 
 	String getRole(String token, UserRegistrationRequest userForm);
 
+	String getBankMaster(String token, UserRegistrationRequest userForm);
+
 }

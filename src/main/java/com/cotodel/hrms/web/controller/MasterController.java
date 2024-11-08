@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
@@ -48,25 +49,25 @@ public class MasterController  extends CotoDelBaseController{
 	@GetMapping(value="/getOrgMaster")
 	public @ResponseBody String getOrgMaster(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
 			,UserRegistrationRequest userForm) {
-		logger.info("getOrgMaster");	
-		String token = (String) session.getAttribute("cotodel");
 		return masterService.getOrgMaster(tokengeneration.getToken(),userForm);
 	}
 	
 	@GetMapping(value="/getPermission")
 	public @ResponseBody String getPermission(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
 			,UserRegistrationRequest userForm) {
-		logger.info("getOrgMaster");	
-		String token = (String) session.getAttribute("cotodel");
 		return masterService.getPermission(tokengeneration.getToken(),userForm);
 	}
 	
 	@GetMapping(value="/getRole")
 	public @ResponseBody String getRole(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
 			,UserRegistrationRequest userForm) {
-		logger.info("getOrgMaster");	
-		String token = (String) session.getAttribute("cotodel");
 		return masterService.getRole(tokengeneration.getToken(),userForm);
+	}
+	
+	@PostMapping(value="/getBankMaster")
+	public @ResponseBody String getBankMaster(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,UserRegistrationRequest userForm) {
+		return masterService.getBankMaster(tokengeneration.getToken(),userForm);
 	}
 
 }

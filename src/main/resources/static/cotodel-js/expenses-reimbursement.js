@@ -945,3 +945,343 @@ function extractBase64Info(base64String) {
         throw new Error("Invalid base64 string format");
     }
 }
+
+
+function getBankMaster() {
+	document.getElementById("signinLoader").style.display="flex";
+	//var employerid = document.getElementById("employerId").value;
+	$.ajax({
+		type: "POST",
+		url: "/getBankMaster",
+		data: {
+			//"employerId": employerid
+		},
+		
+		 success: function(data){
+            newData = data;
+            console.log(newData);
+			$("#bankName option").remove();
+            var obj = jQuery.parseJSON( data );
+             obj = obj.data;
+        	 var count=0;
+         	for (var key in obj) {
+
+             var values =  obj[key];
+             var x = document.getElementById("bankName");
+             if(count==0){
+             var option = document.createElement("option");
+             option.text ="Select Bank";
+             option.value = "";
+             x.add(option);
+             }
+             var option = document.createElement("option");
+             option.text = values.bankName;
+             option.value = values.bankCode;
+             x.add(option);
+
+             count++;
+             }   
+         },
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
+
+
+function  getLinkedBankDetail(){
+	
+    document.getElementById("signinLoader").style.display="flex";
+ 	var employerid = document.getElementById("employerId").value;
+ 	$.ajax({
+	type: "POST",
+	url:"/getErupiLinkBankAccountDetail",
+       data: {
+			"orgId": employerid
+      		 },
+      		  beforeSend : function(xhr) {
+			//xhr.setRequestHeader(header, token);
+			},
+           success: function(data){
+           newData = data;
+           //console.log(newData);
+        var data1 = jQuery.parseJSON( newData );
+		var data2 = data1.data;
+		//console.log(newData);
+ 		document.getElementById("bankNameView").innerHTML= data2.bankName;
+		document.getElementById("acNumber").innerHTML = data2.acNumber;
+		document.getElementById("accountType").innerHTML = data2.accountType;
+		document.getElementById("ifsc").innerHTML =data2.ifsc;
+		
+		document.getElementById("viewmerchentIid").innerHTML= data2.merchentIid;
+		document.getElementById("viewtid").innerHTML = data2.tid;
+		document.getElementById("viewmcc").innerHTML = data2.mcc;
+		document.getElementById("accountholdername").innerHTML = data2.accountHolderName;
+		
+          },
+        error: function(e){
+            alert('Error: ' + e);
+        }
+   }); 
+			
+}
+
+
+function submitLinkBankAccount(){
+	
+	var employerId= document.getElementById("employerId").value; 
+	var bankCode=  $("#bankName option:selected").val();
+	var bankName=  $("#bankName option:selected").text();
+	var bankingName = document.getElementById("bankingName").value;
+	var bankAccNumber = document.getElementById("bankAccNumber").value;
+	var bankAccNumberConfirm= document.getElementById("bankAccNumberConfirm").value;
+	var accountType= document.getElementById("bankAccType").value;
+	var bankIfsc = document.getElementById("bankIfsc").value;
+	
+	var tid = document.getElementById("tid").value;
+	var merchentIid = document.getElementById("merchentIid").value;
+	var mcc = document.getElementById("mcc").value;
+	var submurchentid = document.getElementById("submurchentid").value;
+	var payerva = document.getElementById("payerva").value;
+	var moblieLink = document.getElementById("moblieLink").value;
+	
+	
+	if(bankCode=="" || bankCode==null){
+			document.getElementById("bankNameError").innerHTML="Please Select Bank";
+			return false;
+		}
+		else{
+			document.getElementById("bankNameError").innerHTML="";
+		}
+		if(accountType=="" || accountType==null){
+			document.getElementById("bankAccTypeError").innerHTML="Please Select Account Type";
+			return false;
+		}
+		else{
+			document.getElementById("bankAccTypeError").innerHTML="";
+		}
+		if(bankingName=="" || bankingName==null){
+			document.getElementById("bankingNameError").innerHTML="Please Enter Account Holder Name";
+			return false;
+		}
+		else{
+			document.getElementById("bankingNameError").innerHTML="";
+		}
+				
+		if(bankAccNumber=="" || bankAccNumber==null){
+			document.getElementById("bankAccNumberError").innerHTML="Please Enter Account Number";
+			return false;
+		}
+		else{
+			document.getElementById("bankAccNumberError").innerHTML="";
+		}
+		
+		if(bankAccNumberConfirm=="" || bankAccNumberConfirm==null){
+			document.getElementById("bankAccNumberConfirmError").innerHTML="Please Enter Confirm Account Number";
+			return false;
+		}
+		else{
+			document.getElementById("bankAccNumberConfirmError").innerHTML="";
+		}
+		if(bankIfsc=="" || bankIfsc==null){
+			document.getElementById("bankIfscError").innerHTML="Please Enter IFSC Code";
+			return false;
+		}
+		else{
+			document.getElementById("bankIfscError").innerHTML="";
+		}
+		
+		if(moblieLink=="" || moblieLink==null){
+			document.getElementById("moblieLinkError").innerHTML="Please Enter Mobile Number";
+			return false;
+		}
+		else{
+			document.getElementById("moblieLinkError").innerHTML="";
+		}
+		
+		if(tid=="" || tid==null){
+			document.getElementById("tidError").innerHTML="Please Enter Tid";
+			return false;
+		}
+		else{
+			document.getElementById("tidError").innerHTML="";
+		}
+		
+		if(merchentIid=="" || merchentIid==null){
+			document.getElementById("merchentIidError").innerHTML="Please Enter Merchent Id";
+			return false;
+		}
+		else{
+			document.getElementById("merchentIidError").innerHTML="";
+		}
+		if(mcc=="" || mcc==null){
+					document.getElementById("mccError").innerHTML="Please Enter MCC";
+			return false;
+		}
+		else{
+			document.getElementById("mccError").innerHTML="";
+		}
+		if(submurchentid=="" || submurchentid==null){
+		document.getElementById("submurchentidError").innerHTML="Please Enter Sub Merchent Id";
+				return false;
+			}
+			else{
+				document.getElementById("submurchentidError").innerHTML="";
+			}
+
+			if(payerva=="" || payerva==null){
+				document.getElementById("payervaError").innerHTML="Please Enter Payer va";
+				return false;
+			}
+			else{
+				document.getElementById("payervaError").innerHTML="";
+			}
+		
+
+	 	$.ajax({
+		type: "POST",
+	     url:"/addErupiLinkBankAccount",
+		 data: {
+		 			  "employeeId": employerId,
+					  "bank": {
+						"id": employerId
+					  },
+					  "bankCode": bankCode,
+					  "bankName": bankName,
+					  "accountHolderName": bankingName,
+					  "acNumber": bankAccNumber,
+					  "conirmAccNumber": bankAccNumberConfirm,
+					  "accountType":accountType,
+					  "ifsc": bankIfsc,
+					  "erupiFlag": "Y",
+					  "createdby": "",
+					  "updateDate": "",
+					  "updatedby": "",
+					  "branchCode": "",
+					  "orgId": employerId,
+					  "orgCode": "",
+					  "employeCode": "",
+					  "authStatus":"Y",
+					  "authResponse": "",
+					  "mobile": "",
+					  "accstatus":1,
+					  "tid": tid,
+					  "merchentIid": merchentIid,
+					  "mcc": mcc,
+					  "submurchentid": submurchentid,
+					  "payerva": payerva
+					
+		 		},    		 
+            success: function(data){
+            newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			if(data1.status==true){
+					 document.getElementById("otsuccmsg").innerHTML="Bank Account Linked Successfully.";
+					 document.getElementById("otmsgdiv").style.display="block";
+					 //document.getElementById("getInTouchUser").reset();
+					 $('#otmsgdiv').delay(5000).fadeOut(400);
+					 var mobile=document.getElementById("mobile").value;
+	    			 localStorage.setItem("userName", mobile);
+	    			 window.location.href = "/signin";
+				}else if(data1.status==false){
+					 document.getElementById("otfailmsg").innerHTML=data1.message;
+					 document.getElementById("otfailmsgDiv").style.display="block";
+					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+				}else{
+					 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
+					 document.getElementById("otfailmsgDiv").style.display="block";
+					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+				}
+			
+         },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });	
+	
+}
+
+function validate() {
+	var x= document.getElementById("bankAccNumber").value;
+    var y= document.getElementById("bankAccNumberConfirm").value;
+    var message = document.getElementById('bankAccNumberConfirmError');
+
+    if (x === y) {
+        message.innerHTML = '';
+        message.style.color = 'green';
+    } else {
+        message.innerHTML = "The bank account numbers entered don't match each other. Please try again.";
+        message.style.color = 'red';
+    }
+}
+
+function validateIFSC(){
+	var x= document.getElementById("bankIfsc").value;
+    var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
+    if(x==""){
+    	document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
+		document.getElementById("bankIfsc").focus();
+		return false;
+    }
+    else if(!x.match(ifscRegex)){
+		document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
+		document.getElementById("bankIfsc").focus();
+		return false;
+	}
+    else{
+    	document.getElementById("bankIfscError").innerHTML="";
+    }
+  
+}
+
+function validateMobile(){
+	
+	var regMobile = /^[6-9]\d{9}$/gi;
+		var moblieLink = document.getElementById("moblieLink").value;
+		if (moblieLink == "") {
+			document.getElementById("moblieLink").focus();
+			document.getElementById("moblieLinkError").innerHTML="Please Enter Mobile Number";
+			return false;
+		}
+		else if(moblieLink.length < 10){
+				document.getElementById("moblieLinkError").innerHTML="Please Enter Valid Mobile Number";
+				document.getElementById("moblieLink").focus();
+				return false;
+		}
+		
+		else if(!moblieLink.match(regMobile)){
+				document.getElementById("moblieLinkError").innerHTML="Please Enter Valid Mobile Number";
+				document.getElementById("moblieLink").focus();
+				return false;
+		}
+		else{
+			document.getElementById("moblieLinkError").innerHTML="";
+		}
+}
+
+
+function validatePayerva(){
+	
+	var regEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
+	
+		var payerva = document.getElementById("payerva").value;
+		if(payerva==""){
+				document.getElementById("payervaError").innerHTML="Please Enter payerva";
+				document.getElementById("payerva").focus();
+				return false;
+			}else{
+				document.getElementById("payervaError").innerHTML="";
+			}
+			
+			if (!payerva.match(regEmail)) {    
+		        document.getElementById("payervaError").innerHTML="Please Enter Valid payerva";
+		        document.getElementById("payerva").focus();
+		        return false;  
+		        
+		    } else {    
+		       document.getElementById("payervaError").innerHTML="";
+				   
+		    }
+			
+}
+

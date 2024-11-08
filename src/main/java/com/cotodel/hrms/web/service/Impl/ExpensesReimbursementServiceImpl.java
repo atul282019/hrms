@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
+import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequestNew;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
@@ -63,6 +64,17 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		 
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursementDraft);
 		
+	}
+
+	@Override
+	public String erupiLinkBankAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addErupiLinkAccount);
+
+	}
+
+	@Override
+	public String getErupiLinkBankAccountDetail(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetail);
 	}
 
 }

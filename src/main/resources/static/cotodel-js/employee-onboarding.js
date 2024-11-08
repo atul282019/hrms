@@ -136,6 +136,7 @@ function saveEmployeeOnboarding(){
 	formData.append("name",name);
 	
 	formData.append("email",email);
+	formData.append("mobile",mobile);
 	formData.append("herDate",herDate);
 	
 	formData.append("jobTitle",jobTitle);

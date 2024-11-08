@@ -35,4 +35,9 @@ public class MasterServiceImpl implements MasterService{
 		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.getRole);
 	}
 
+	@Override
+	public String getBankMaster(String token, UserRegistrationRequest userForm) {
+		return CommonUtility.userRequest(token,null, applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getBankMaster);
+	}
+
 }

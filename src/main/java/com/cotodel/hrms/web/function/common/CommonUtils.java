@@ -79,4 +79,12 @@ public interface CommonUtils {
 	public static String deleteExpenseReimbursement = "/empService/Api/delete/expenseReimbFileDeleteByID";
 	
 	public static String addExpensesReimbursementDraft ="/empService/Api/add/expenseReimbursementFileUpload"; 
+	
+	public static String addErupiLinkAccount ="/empService/Api/add/erupiLinkAccount";
+	
+	public static String getErupiLinkAccountDetail ="/empService/Api/get/erupiLinkAccount";
+	
+	public static String getBankMaster  = "/empService/Api/get/getBankMasterDetailsList";
+	
+	
 }

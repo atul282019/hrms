@@ -66,12 +66,12 @@ public class LoginController extends CotoDelBaseController{
 					request.getSession(true).setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));									  
 					request.getSession(true).setAttribute("hrms", profileJsonRes.getJSONObject("data").getString("mobile"));
 					request.getSession(true).setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
-					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
 					
 					//request.getSession(true).setAttribute("cotodel", profileJsonRes.getString("token"));
 					
 					//obj =  JwtTokenValidator.parseToken(profileJsonRes.getString("token"));
-					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
 					session.setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));
 					session.setAttribute("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
 					session.setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));

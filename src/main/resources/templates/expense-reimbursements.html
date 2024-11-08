@@ -8,7 +8,7 @@
 
 <!-- <body id="page-top" onload="getExpanceCategoryList()"> -->
 <body id="page-top"
-	onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti()">
+	onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),getLinkedBankDetail(),getBankMaster()">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -43,11 +43,38 @@
 						</a></li>
 
 					</ul>
-
+					
+					<ul class="navbar-nav ml-auto">
+					                        <li class="nav-item dropdown no-arrow">
+					                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+					                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+					                            </a>
+					                            <!-- Dropdown - User Information -->
+					                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+					                                <a class="dropdown-item" href="#">
+					                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+					                                    Profile
+					                                </a>
+					                                <a class="dropdown-item" href="#">
+					                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+					                                    Settings
+					                                </a>
+					                              
+					                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+										            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+												          <i class="fas fa-user-circle"></i> Logout         
+												        </a>
+										          </div> -->  
+					                              <div class="dropdown-divider"></div>
+					                                <a class="dropdown-item" th:href="@{/logout}">
+					                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+					                                    Logout
+					                                </a>
+					                            </div>
+					                        </li>
+					                   </ul>		
 				</nav>
-
-
-
 
 				<!-- End of Topbar -->
 
@@ -56,11 +83,10 @@
 					<div class="row">
 						<div class="col-12">
 							<ul class="nav nav-tabs expense-tabs">
-								<li class="active"><a data-toggle="tab" href="#home">Expenses
-										& Travel Policies</a></li>
-								<li><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
-                                <li><a data-toggle="tab" href="#menu2">History</a></li>
-							</ul>
+                                <li class="active"><a data-toggle="tab" href="#home">Expenses & Advances</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
+                                <li><a data-toggle="tab" href="#menu2">Linked Bank Account</a></li>
+                            </ul>
 
 							<div class="tab-content">
 								<div id="home" class="tab-pane in active">
@@ -525,6 +551,173 @@
                                     </div>
 
                                 </div>
+							
+								<div id="menu2" class="tab-pane">
+								    <div class="policies-section-bank" id="linkaccbankform" style="display: none;">
+								        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+								            <div class="text-center">
+								                <h3>Bank A/c Linking</h3>
+								            </div>
+
+								            <div class="form-linkedbank">
+								                <div class="did-floating-label-content mr-2">
+								                    <select class="did-floating-select" id="bankName" onclick="this.setAttribute('value', this.value);" onchange="this.setAttribute('value', this.value);" value="1">
+								                       
+								                    </select>
+								                    <label class="did-floating-label">Select Bank</label>
+								                </div>
+												<div class="error-msg" id="bankNameError" style="color:red"></div>
+												
+												<div class="did-floating-label-content mr-2">
+							                    <select class="did-floating-select" id="bankAccType" onclick="this.setAttribute('value', this.value);" onchange="this.setAttribute('value', this.value);" value="1">
+							                       <option value="SAVING">Saving</option>
+												   <option value="CURRENT">Current</option>
+							                    </select>
+							                    <label class="did-floating-label">Select Account Type</label>
+							                </div>
+											<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
+								                <div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="bankingName">
+								                    <label class="did-floating-label">Enter Name on the Bank
+								                        Account</label>
+								                </div>
+												<div class="error-msg" id="bankingNameError" style="color:red"></div>
+												
+												
+								                <div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber"  onkeyup="validate()" maxlength="16"
+													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+								                    <label class="did-floating-label">Enter Bank A/c Number</label>
+								                </div>
+												<div class="error-msg" id="bankAccNumberError" style="color:red"></div>
+								                <div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="bankAccNumberConfirm" onkeyup="validate()" maxlength="16"
+													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+								                    <label class="did-floating-label">Re-enter Bank A/c Name</label>
+								                </div>
+												<div class="error-msg" id="bankAccNumberConfirmError" style="color:red"></div>
+								               <!-- <div class="tip-wrap justify-content-start">
+								                    <p class="mb-0">The bank account numbers entered don't match each
+								                        other. Please try again.</p>
+								                </div>-->
+												
+								                <div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="bankIfsc"
+													maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase">
+								                    <label class="did-floating-label">Enter IFSC Code</label>
+								                </div>
+												<div class="error-msg" id="bankIfscError" style="color:red"></div>
+												
+												<div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="moblieLink"
+													maxlength="10" onkeyup="validateMobile()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+								                    <label class="did-floating-label">Enter Mobile Number</label>
+								                </div>
+												<div class="error-msg" id="moblieLinkError" style="color:red"></div>
+	
+												<div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="tid" maxlength="25">
+								                    <label class="did-floating-label">Tid</label>
+							 					</div>
+												<div class="error-msg" id="tidError" style="color:red"></div>
+												<div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="merchentIid" maxlength="25">
+								                    <label class="did-floating-label">Merchent id</label>
+								                </div>
+												<div class="error-msg" id="merchentIidError" style="color:red"></div>
+												<div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="mcc" maxlength="25">
+								                    <label class="did-floating-label">Mcc</label>
+								                </div>
+												<div class="error-msg" id="mccError" style="color:red"></div>
+												<div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="submurchentid" maxlength="25">
+								                    <label class="did-floating-label">Submurchent id</label>
+								                </div>
+												<div class="error-msg" id="submurchentidError" style="color:red"></div>
+												<div class="did-floating-label-content">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="payerva" 
+													maxlength="25" onkeyup="validatePayerva()">
+								                    <label class="did-floating-label">Payerva</label>
+								                </div>
+												<div class="clearfix"></div>
+												<div class="error-msg" id="payervaError" style="color:red"></div>
+												<div class="clearfix"></div>
+												<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+									            	<div id="otsuccmsg"></div>   
+									            </div>
+									            
+									            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+									            	<div id="otfailmsg"></div>
+									            </div>
+												                        
+								                <div class="d-flex justify-content-center mt-3">
+													<input class="btn btn-primary w-100" id="linkBankBtn" value="AUTHENTICATE" onclick="submitLinkBankAccount()"> 
+													
+								                   <!-- <button class="btn btn-primary w-100" data-toggle="modal" data-target="#ModalAuthenticate">AUTHENTICATE</button>-->
+								                </div>
+								            </div>
+								        </div>
+								    </div>
+
+
+								    <div class="linked-bank-account-section" id="linkedbnkacntsctn" style="display: block;">
+								            <div class="text-left">
+								                <h3>Linked Bank Account</h3>
+								            </div>
+
+								            <div class="linked-bank-account-innersection">
+								                <div class="left-linkedaccount-info">
+								                    <div class="d-flex align-items-center">
+								                        <img src="img/indianbank.png" alt="" width="24" class="mr-2">
+								                        <span id="bankNameView"></span>
+								                    </div>
+													
+													<div>
+								                        <label>Bank Account Holder</label>
+								                        <p id="accountholdername"></p>
+								                    </div>
+								                    <div>
+								                        <label>Bank Account Number</label>
+								                        <p id="acNumber"></p>
+								                    </div>
+								                    <div>
+								                        <label>IFSC Code</label>
+								                        <p id="ifsc"> </p>
+								                    </div>
+								                    <div>
+								                        <label>Account Type</label>
+								                        <p id="accountType"></p>
+								                    </div>
+													
+												<div>
+							                        <label>Merchent Id</label>
+							                        <p id="viewmerchentIid"></p>
+							                    </div>
+												<div>
+						                           <label>TID</label>
+						                           <p id="viewtid"></p>
+					                    		</div>
+												<div>
+							                        <label>MCC</label>
+							                        <p id="viewmcc"></p>
+							                    </div>
+								                </div>
+								                <div class="right-linkedaccount-info">
+								                    <button class="btn btn-green">Primary Account</button>
+								                    <a href="#">De-linked Bank A/c</a>
+								                </div>
+								            </div>
+
+								            <div class="d-flex justify-content-end">
+								                <button class="btn btn-primary" id="linkedanotheraccount">Link Another Bank Account</button>
+								            </div>
+								    </div>
+
+
+
+								</div>
+									
 							</div>
 						</div>
 					</div>
@@ -584,9 +777,20 @@
 		<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		
+		<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
+		
 
    
 	<script>
+		
+		$(document).ready(function () {
+		           $("#linkedanotheraccount").click(function () {
+		               $("#linkaccbankform").show();
+		               $("#linkedbnkacntsctn").hide();
+
+		           });
+		       });
+			   
         $(document).ready(function () {
             $("#hide").click(function () {
                 $(".ftr-content").hide();
@@ -955,6 +1159,9 @@
         }); 
 
     });
+	
+	
+	
 </script>
 
 	<!-- Modal Add Expense Reimbursements -->
@@ -2380,7 +2587,62 @@
     </div>
 	<!-- End Content For Tab 2 -->
 
+	
+	
 
+	 <!--- Modal AUTHENTICATE --->
+	    
+	 <div class="modal fade" id="ModalAuthenticate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	 aria-hidden="true">
+	 <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	     <div class="modal-content modal-bulk">
+	         <div class="modal-header pb-0 text-center">
+	             <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication Bank A/c Linking</h5>             
+	         </div>
+	         <div class="modal-body text-center">
+	            <div class="otp-box-onboarding justify-content-center">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	            </div>
+	            <label class="time-otp ml-0 text-dark" for="">00:30</label>
+	            <p class="text-dark">Didn’t receive the code? <a href="#">Resend Code</a></p>
+	             <div class="tip-wrap justify-content-center">
+	                 <p class="mb-0">OTP code has been sent to your phone. Enter OTP to authenticate linking.</p>
+	             </div>
+	             <div class="d-flex justify-content-center mt-3">
+	                 <button class="btn btn-primary w-100" data-toggle="modal"
+	                 data-target="#Modalbankaclinked">Authenticate</button>
+	             </div>
+	         </div>
+	     </div>
+	 </div>
+	</div>
+	   
+
+	  <!-- Modal Bank Account Linked -->
+	  <div class="modal fade" id="successModal" style="display: none;">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	      <div class="modal-content modal-bulk">
+	          <div class="modal-top text-center">
+	              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                  <img src="img/modal-close.svg" alt="">
+	              </button>
+	              <img src="img/modal-success.svg" alt="">
+	          </div>
+	          <div class="modal-bottom">             
+	              <span>Bank Account Linked Successfully</span>
+	          </div>
+	      </div>
+	  </div>
+	</div>
+
+
+	
+	
+	
 </body>
 
 </html>

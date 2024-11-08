@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
+import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpanceTravelAdvanceRequest;
 import com.cotodel.hrms.web.response.ExpenseCategoryRequest;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
@@ -106,4 +107,29 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 
 		return profileRes;
 	}
+	
+	@PostMapping(value="/addErupiLinkBankAccount")
+	public @ResponseBody String erupiLinkBankAccount(HttpServletRequest request,
+			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
+	
+		String profileRes=null;
+		
+		profileRes = expensesReimbursementService.erupiLinkBankAccount(tokengeneration.getToken(),erupiLinkBankAccount);
+		
+		  return profileRes;
+		  
+	}
+	
+	@PostMapping(value="/getErupiLinkBankAccountDetail")
+	public @ResponseBody String getErupiLinkBankAccountDetail(HttpServletRequest request,
+			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
+	
+			String profileRes=null;
+			
+			profileRes = expensesReimbursementService.getErupiLinkBankAccountDetail(tokengeneration.getToken(),erupiLinkBankAccount);
+			
+			return profileRes;
+		  
+	}
+	
 }

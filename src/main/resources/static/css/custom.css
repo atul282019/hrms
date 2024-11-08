@@ -2013,6 +2013,7 @@ ul.expense-tabs {
     border-top: 1px solid #dddfeb;
     padding: 15px 0;
     margin-bottom: 15px;
+    background-color: #fff;
 }
 
 ul.expense-tabs li {
@@ -2627,39 +2628,53 @@ button.btn-attach img {
     background: #b6b8b9;
 }
 
-.td-btn {
-    color: #4A4E69 !important;
-    padding: 2px 20px 4px !important;
+.color-third {
+    color: #4A4E69;
+}
+
+span.color-third.draft {
+    border: 1px solid #86889B;
+    color: #86889B;
+    padding: 2px 10px 4px;
     border-radius: 25px;
-    min-width: 50px;
+    min-width: 120px;
     display: inline-block;
     text-align: center;
-    margin:20px 0 0 15px;
 }
 
-.td-btn.draft{
-    border: 1px solid #86889B;
-    color: #86889B;    
-}
-
-.td-btn.submitted,
-.td-btn.in-progress {
+span.color-third.submitted,
+span.color-third.in-progress {
     border: 1px solid #2F945A;
     color: #2F945A;
+    padding: 2px 10px 4px;
+    border-radius: 25px;
+    min-width: 120px;
+    display: inline-block;
+    text-align: center;
 }
 
-.td-btn.rejected {
+span.color-third.rejected {
     border: 1px solid #F24822;
     color: #F24822;
+    padding: 2px 10px 4px;
+    border-radius: 25px;
+    min-width: 120px;
+    display: inline-block;
+    text-align: center;
 }
 
-.td-btn.settled {
+span.color-third.settled {
     border: 1px solid #2F945A;
     background: #2F945A;
     color: #ffffff;
+    padding: 2px 10px 4px;
+    border-radius: 25px;
+    min-width: 120px;
+    display: inline-block;
+    text-align: center;
 }
 
-.td-btn a {
+span.color-third a {
     color: #367AFF;
 }
 
@@ -3862,7 +3877,7 @@ button.btn {
 }
 
 .add-file-docs-btm {
-   background: #EDEDF0;
+    background: #EDEDF0;
     color: #2F945A;
     text-align: center;
     padding: 5px 8px;
@@ -4077,8 +4092,9 @@ td button.btn {
     padding: 10px;
     font-size: 14px;
 }
+
 .modal-open .modal {
-  background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .custom-alert-info {
@@ -4155,7 +4171,7 @@ body {
 }
 
 .modal-backdrop.fade.show {
-  display: none;
+    display: none;
 }
 
 .custom-dd-btn.sortIcon {
@@ -4216,28 +4232,598 @@ td input.form-control-custom:focus {
     font-size: 14px;
 }
 
- .container {
-        text-align: center;
-    }
+.container {
+    text-align: center;
+}
 
-    h1 {
-        color: green;
-    }
-    
-.add-file-docs-mid > .file-item {
+h1 {
+    color: green;
+}
+
+.add-file-docs-mid>.file-item {
     border: 1px solid #EDEDF0;
     border-bottom: none;
 }
 
-.add-file-docs-mid > .file-item > span {
+.add-file-docs-mid>.file-item>span {
     float: right;
 }
 
-.add-file-docs-mid > .file-item > label {
+.add-file-docs-mid>.file-item>label {
     margin: 0 0 0 5px;
 }
 
-.add-file-docs-mid > .file-item > input {
+.add-file-docs-mid>.file-item>input {
     position: relative;
     top: 2px;
+}
+
+.policies-section-bank,
+.linked-bank-account-section {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.policies-section-bank h3,
+.linked-bank-account-section h3 {
+    color: #1F212C;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.policies-section-bank .did-floating-label-content {
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.linked-bank-account-innersection {
+    background: #EDEDF0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-linkedaccount-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.btn-green {
+    color: #fff;
+    background: #2F945A;
+}
+
+.btn-green:hover {
+    background: #257a49;
+    color: #fff;
+}
+
+.right-linkedaccount-info a {
+    color: #86889B;
+}
+
+.right-linkedaccount-info a:hover {
+    color: #224abe;
+}
+
+
+.left-linkedaccount-info>div {
+    margin-bottom: 10px;
+}
+
+.left-linkedaccount-info label {
+    margin-bottom: 5px;
+    color: #4A4E69;
+}
+
+.left-linkedaccount-info span,
+.left-linkedaccount-info p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #4A4E69;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width:767px) {
+
+    .policies-section-bank,
+    .linked-bank-account-section {
+        padding: 10px;
+    }
+
+    .linked-bank-account-innersection {
+        flex-direction: column;
+    }
+
+    .right-linkedaccount-info {
+        text-align: center;
+    }
+
+    .left-linkedaccount-info {
+        margin-bottom: 10px;
+    }
+}
+
+.upi-voucher-wrap {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.upi-voucher-wrap h3 {
+    color: #1F212C;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.btn.btn-primary-deactive {
+    color: #fff;
+    background-color: rgba(54, 122, 255, 0.5);
+    border-color: rgba(54, 122, 255, 0.5);
+}
+
+.upi-voucher-in-wrap {
+    margin: 20px 0;
+    border: 1px solid rgb(221 223 226 / 50%);
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.upi-voucher-in-wrap .tip-wrap {
+    padding: 6px 10px;
+}
+
+.upi-voucher-in-head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.upi-voucher-in-head i {
+    margin-right: 5px;
+}
+
+.upi-voucher-in-head p {
+    color: #1F212C;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-family: inter;
+}
+
+table.table-upivouchers thead tr th:first-child {
+    border-radius: 10px 0 0 10px !important;
+}
+
+table.table-upivouchers thead tr th:last-child {
+    border-radius: 0 10px 10px 0 !important;
+}
+
+.upi-voucher-tbody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 310px;
+    justify-content: center;
+}
+
+.upi-voucher-tbody p {
+    margin-bottom: 0;
+    font-size: 18px;
+    color: #86889B;
+}
+
+.linkedAccount-wrap {
+    background: #2F945A;
+    border-radius: 10px;
+    margin: 22px 0 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.linkedAccount-wrap-left {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.linkedAccount-wrap-left img {
+    max-width: 34px;
+    margin-right: 10px;
+}
+
+.linkedAccount-wrap-left span {
+    margin-right: 10px;
+}
+
+.linkedAccount-wrap-right {
+    display: flex;
+}
+
+.funds-mark {
+    min-width: 28px;
+    height: 28px;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 5px 0 10px;
+    padding: 0 5px;
+}
+
+.linkedAccount-wrap-right span {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.linkedAccount-wrap-p {
+    text-align: right;
+    font-family: inter;
+}
+
+.linkedAccount-wrap-p label {
+    color: #86889B;
+}
+
+.linkedAccount-wrap-p span {
+    color: #1F212C;
+    margin-left: 10px;
+}
+
+.upi-voucher-wrap div>p {
+    color: #4A4E69;
+    margin-right: 1rem;
+}
+
+.btn.bulkissue {
+    background: #EAF4EF;
+    padding: 18px 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 150px;
+}
+
+.btn-border-primary {
+    border: 1px solid rgba(54, 122, 255, .50);
+    min-width: 150px;
+    color: #367AFF;
+}
+
+.specificDetails {
+    background: #2F945A;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 0 20px;
+    color: #fff;
+}
+
+.specificDetails h4 {
+    margin-top: 5px;
+    margin-bottom: 1rem;
+}
+
+.specificDetails-white {
+    padding: 15px;
+    margin: 0 0 20px;
+    color: #1F212C;
+    border-radius: 10px;
+    border: 1px solid #EDEDF0;
+}
+
+.specificDetails-white>div>img {
+    margin-right: 1rem;
+}
+
+.cards-upivouchers {
+    background: #FBFBFB;
+    border-radius: 20px;
+    border: 1px solid #EAF4EF;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.cards-upivouchers-top {
+    border: 1px solid #EDEDF0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    min-height: 151px;
+}
+
+.cards-upivouchers-top-left {
+    display: flex;
+    align-items: flex-end;
+}
+
+.cards-upivouchers-top-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 4px 4px 4px 0;
+}
+
+.cards-upivouchers-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 0;
+    padding: 0 10px;
+}
+
+.cards-upivouchers-bottom span {
+    color: #4A4E69;
+}
+
+.highlight {
+    background: #2F945A;
+}
+
+.highlight .cards-upivouchers-bottom span {
+    color: #fff;
+}
+
+.selectvouchers-update {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.selectvouchers-update p {
+    margin-bottom: 0;
+}
+
+.selectvouchers-update span {
+    margin-left: 10px;
+    color: #1F212C;
+}
+
+.selectvouchers-top {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    margin: 20px 0;
+    justify-content: space-between;
+}
+
+.selectvouchers-topleft {
+    display: flex;
+    border-radius: 10px;
+    background: #EDEDF0;
+    width: 40%;
+    padding: 10px 0;
+}
+
+.selectvouchers-topleft-cards {
+    width: 50%;
+    background: #fff;
+    padding: 10px;
+    margin: 0 10px;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.bnkdetils {
+    text-align: right;
+    color: #000;
+}
+
+.bnkdetils p {
+    color: #4A4E69;
+    font-size: 15px;
+}
+
+.selectvouchers-topleft-primary {
+    background: #2F945A;
+    color: #fff;
+}
+
+.selectvouchers-topleft-primary h5 {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+.selectvouchers-carosel {
+    display: flex;
+    margin: 25px 0 0;
+}
+.selectvouchers-carosel-cards h5 {
+    text-align: center;
+    font-size: 1rem;
+    margin: 0;
+}
+.selectvouchers-carosel-cards {
+    min-width: 120px;
+    border-right: 1px solid #e4e1e1;
+    padding-right: 10px;
+}
+
+.selectvouchers-carosel-cards:last-child{
+    border: none;
+    padding-right: 0;
+}
+
+
+select.GeneralSelect, .table-input, .table-date {
+    margin-top: 0px;
+    width: 100%;
+    max-width: 350px;
+    height: 38px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    min-width: 150px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #4A4E69;
+}
+.table-input:focus, .table-date:focus{
+    border: 1px solid #ccc !important;
+}
+
+.selectvouchers-table thead tr th:first-child{
+    border-radius: 5px 0 0 5px;
+}
+
+.selectvouchers-table thead tr th:last-child{
+    border-radius: 0 5px 5px 0;
+}
+
+.selectvouchers-table tbody tr{
+    border-left: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+} 
+
+.border-btm{
+    border-bottom: 1px solid #eeeeee;
+}
+
+.selectvouchers-table tbody tr:last-child td{
+    border-radius: 0 0 5px 5px;
+}
+
+.btn-lg{
+    min-width: 150px;
+}
+
+.selectvouchers-table td span {
+    margin-left: 10px;
+}
+
+.selectvouchers-table.border-btm{
+    border-bottom: 1px solid #eeeeee;
+}
+
+.dashboard-top {
+    display: flex;
+    justify-content: space-between;
+    background: #EAF4EF;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    align-items: center;
+}
+
+input.dashboard-date {
+    background: #fff;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: #4A4E69;
+    font-size: 16px;
+}
+
+.dashboard-lefttop a {   
+    padding: 5px 0;
+    color: #4A4E69;
+    font-size: 16px;
+}
+
+.dashboard-righttop {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-righttop a {
+    margin-left: 10px;
+}
+
+.dashboard-btm {
+    background: #FBFBFB;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.dashboard-btm-in {
+    display: flex;
+    background: #fff;
+    padding: 5px;
+}
+
+.dashboard-btm-cards {
+    width: 25%;
+    text-align: right;
+    padding: 10px;
+}
+
+.dashboard-btm-cards label {
+    margin: 0 0 5px;
+    font-size: 13px;
+    color: #4A4E69;
+}
+
+.dashboard-btm-cards-in {
+    background: #EAF4EF;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    color: #2F945A;
+}
+
+.dashboard-btm-cards-in span {
+    width: 50%;
+    border-right: 1px solid #8ee3b2;
+    padding-right: 5px;
+}
+
+.dashboard-btm-cards-in span:last-child {
+    width: 50%;
+    border-right:none;
+}
+
+.dashboard-btm-cards-in.blackcards {
+    background: #000;
+    color: #fff;
+}
+
+.dashboard-btm-cards-in.greencard {
+    background: #2F945A;
+    color: #fff;
+}
+
+.upi-voucher-in-head label {
+    margin-block: 0;
+    background: #EAF4EF;
+    padding: 3px 10px;
+    border: 1px solid #BFDECC;
+    margin-right: 10px;
+    min-width: 100px;
+    border-radius: 2px;
+    color: #2F945A;
+}
+
+table.table-upivouchers thead {
+    background: #2f945a;
+    color: #fff;
+}
+
+table.table-upivouchers thead th{
+    border: 1px solid transparent;
+}
+table.table-upivouchers tbody td {
+    color: #1F212C;
+}
+
+.bgblckcard{
+    background: #000;
+    color: #fff;
+}
+
+.greycard{
+    background: #EAF4EF;
+    color:#232323;
 }
