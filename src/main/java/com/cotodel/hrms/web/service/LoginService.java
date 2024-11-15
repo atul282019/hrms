@@ -12,5 +12,6 @@ public interface LoginService {
 	public void sendEmailVerificationCompletion(UserRegistrationRequest userForm);
 	String getToken(String companyId);
 	String resendOtp(String token, String userName, String mob, String orderId);
+	String verifyVoucherIssueOTP(String token, String userName, String mob, String password, String orderId);
 
 }

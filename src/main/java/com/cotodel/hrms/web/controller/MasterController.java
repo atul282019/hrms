@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
+import com.cotodel.hrms.web.response.ErupiVoucherMaster;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.service.MasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -69,5 +71,19 @@ public class MasterController  extends CotoDelBaseController{
 			,UserRegistrationRequest userForm) {
 		return masterService.getBankMaster(tokengeneration.getToken(),userForm);
 	}
+	
+	@PostMapping(value="/getVoucherDetailByBoucherCode")
+	public @ResponseBody String getVoucherDetailByBoucherCode(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,ErupiVoucherMaster erupiVoucherMaster) {
+		return masterService.getVoucherDescriptionByVoucherCode(tokengeneration.getToken(),erupiVoucherMaster);
+	}
+	
+	@PostMapping(value="/getBankDetailByAccountNo")
+	public @ResponseBody String getBankDetailByAccountNo(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,ErupiLinkBankAccount erupiLinkBankAccount) {
+		return masterService.getBankDetailByAccountNo(tokengeneration.getToken(),erupiLinkBankAccount);
+	}
+	
+	
 
 }

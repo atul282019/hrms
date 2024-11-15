@@ -1007,17 +1007,72 @@ function  getLinkedBankDetail(){
            //console.log(newData);
         var data1 = jQuery.parseJSON( newData );
 		var data2 = data1.data;
-		//console.log(newData);
- 		document.getElementById("bankNameView").innerHTML= data2.bankName;
-		document.getElementById("acNumber").innerHTML = data2.acNumber;
-		document.getElementById("accountType").innerHTML = data2.accountType;
-		document.getElementById("ifsc").innerHTML =data2.ifsc;
-		
-		document.getElementById("viewmerchentIid").innerHTML= data2.merchentIid;
-		document.getElementById("viewtid").innerHTML = data2.tid;
-		document.getElementById("viewmcc").innerHTML = data2.mcc;
-		document.getElementById("accountholdername").innerHTML = data2.accountHolderName;
-		
+		if(data2.length ===0 && data2.length <=0){
+			$("#linkaccbankform").show();
+			$("#linkedbnkacntsctn").hide();
+				
+		}
+		else{
+			$("#linkaccbankform").hide();
+			$("#linkedbnkacntsctn").show();
+
+		}
+		  const wrapper = document.getElementById('data-wrapper');
+
+		   // Render only specific fields with Edit button
+		   data1.data.forEach(item => {
+		       const container = document.createElement('div');
+		       container.className = 'data-container';
+
+		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile","merchentIid","submurchentid","mcc","payerva"];
+			   
+			   const fieldLabels = {
+			          
+			           bankName: "Bank Name",
+			           accountHolderName: "Account Holder Name",
+			           acNumber: "Account Number",
+					   accountType: "Account Type",
+					   ifsc: "ifsc",
+					   mobile: "Mobile",
+					   merchentIid: "Merchent Iid",
+					   submurchentid:"Sub Murchent Id",
+   					   mcc: "MCC",
+   					   payerva: "Payerva",
+			       };
+				   
+		       fieldsToDisplay.forEach(key => {
+		           const fieldDiv = document.createElement('div');
+		           fieldDiv.className = 'field';
+		           fieldDiv.innerHTML = `<span class="label">${fieldLabels[key]}:</span> ${item[key] ?? 'N/A'}`;
+		           container.appendChild(fieldDiv);
+		       });
+
+		       const editButton = document.createElement('button');
+		       editButton.className = 'btn btn-green';
+		       editButton.innerText = 'primary Account';
+		       //editButton.onclick = () => editItem(item.id);
+			
+			  
+			   const editButton1 = document.createElement('a');
+			   editButton1.className = '';
+			   editButton1.innerText = 'De-linked Bank A/c';
+			   editButton1.href = '#';  // Use this if you don't have a specific link
+			   editButton1.onclick = () => editItem(item.id); 
+			   
+			   
+		      
+			
+			   container.appendChild(editButton);
+		       container.appendChild(editButton1);
+
+		       wrapper.appendChild(container);
+		   });
+
+		   function editItem(id) {
+			   alert(`Are You Sure you want to de link this Account`);
+		       // alert(`Are You Sure  de link this Account: ${id}`);
+		       // Implement actual edit functionality here
+		   }
           },
         error: function(e){
             alert('Error: ' + e);
@@ -1029,6 +1084,8 @@ function  getLinkedBankDetail(){
 
 function submitLinkBankAccount(){
 	
+	document.getElementById("linkBankBtn").disabled = true;
+	document.getElementById("signinLoader").style.display="flex";
 	var employerId= document.getElementById("employerId").value; 
 	var bankCode=  $("#bankName option:selected").val();
 	var bankName=  $("#bankName option:selected").text();
@@ -1163,7 +1220,7 @@ function submitLinkBankAccount(){
 					  "employeCode": "",
 					  "authStatus":"Y",
 					  "authResponse": "",
-					  "mobile": "",
+					  "mobile": moblieLink,
 					  "accstatus":1,
 					  "tid": tid,
 					  "merchentIid": merchentIid,
@@ -1175,14 +1232,15 @@ function submitLinkBankAccount(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
+
+			document.getElementById("signinLoader").style.display="none";
+			
 			if(data1.status==true){
 					 document.getElementById("otsuccmsg").innerHTML="Bank Account Linked Successfully.";
 					 document.getElementById("otmsgdiv").style.display="block";
 					 //document.getElementById("getInTouchUser").reset();
 					 $('#otmsgdiv').delay(5000).fadeOut(400);
-					 var mobile=document.getElementById("mobile").value;
-	    			 localStorage.setItem("userName", mobile);
-	    			 window.location.href = "/signin";
+	    			 window.location.href = "/expenseReimbursements";
 				}else if(data1.status==false){
 					 document.getElementById("otfailmsg").innerHTML=data1.message;
 					 document.getElementById("otfailmsgDiv").style.display="block";

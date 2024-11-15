@@ -4827,3 +4827,82 @@ table.table-upivouchers tbody td {
     background: #EAF4EF;
     color:#232323;
 }
+
+.data-container {
+          border: 1px solid #ddd;
+          padding: 10px;
+          margin: 10px;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+      }
+      .field {
+          margin: 5px 0;
+      }
+      .label {
+          font-weight: bold;
+          color: #333;
+      }
+      .edit-button {
+          margin-top: 10px;
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+      }
+      .edit-button:hover {
+          background-color: #0056b3;
+      }
+	  
+
+	  /* css for full pixel */
+	  .data-container > .field {
+	      display: inline-block;
+	      min-width: 270px;
+	      margin-right: 0px;
+	      width: 33%;
+	  }
+
+	  .data-container > .btn {
+	      float: right;
+	  }
+
+	  .data-container > a {
+	      float: right;
+	      margin: 7px 15px 0 0;
+	  }
+
+	  .data-container{
+	  overflow:hidden;
+	  }
+
+	  .cstm-gensel {
+	      background: #f8f9fc;
+	      padding: 10px;
+	      border-radius: 10px;
+		  display: flex;
+		      align-items: center;
+		      justify-content: space-between;
+	  }
+	  .custom-GeneralSelect{
+		float: left;
+		min-width: 300px; 	
+	  }
+	  .bnak-dtail-wrap {
+	      display: flex;
+	      justify-content: space-evenly;
+		  margin-bottom: 0px;
+		  width: 100%;		  
+	  }
+
+	  .bnk-dtl-wrap-in {
+	      display: flex;
+	      flex-direction: column;
+	      font-size: 1rem;
+	  }
+
+	  .bnk-dtl-wrap-in label {
+	      color: #1F212C;
+	      margin: 0;
+	  }

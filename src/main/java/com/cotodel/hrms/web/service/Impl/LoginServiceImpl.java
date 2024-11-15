@@ -200,5 +200,10 @@ public class LoginServiceImpl implements LoginService {
 		// TODO Auto-generated method stub
 		return CommonUtility.getTokenRequest(null,"",companyId,applicationConstantConfig.tokenServiceBaseUrl +CommonUtils.tokenUrl);
 	}
+
+	@Override
+	public String verifyVoucherIssueOTP(String token, String userName, String mob, String otp, String orderId) {
+		return CommonUtility.userRequest(token,verifyOtpOrLoginRequest(mob,otp,orderId), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyVoucherIssueOTP);
+	}
 	
 }

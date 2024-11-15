@@ -585,7 +585,7 @@
 												
 												
 								                <div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber"  onkeyup="validate()" maxlength="16"
+								                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber"  onkeyup="validate()" minlength="10" maxlength="16"
 													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 								                    <label class="did-floating-label">Enter Bank A/c Number</label>
 								                </div>
@@ -642,6 +642,16 @@
 								                </div>
 												<div class="clearfix"></div>
 												<div class="error-msg" id="payervaError" style="color:red"></div>
+												
+												<div class="did-floating-label-content">
+													<!--<select class="did-floating-select" id="bankAccType" onclick="this.setAttribute('value', this.value);" onchange="this.setAttribute('value', this.value);" value="1">
+								                       <option value="P">Primary</option>
+								                    </select>-->
+													<input type="checkbox" class="vouchers-checkbox12 vouchers-checkbox" 
+													value="se as primary" id="primary" name="Primary" checked>
+													<!--<label class="did-floating-label">Select Account Type</label>-->
+								                </div>
+												
 												<div class="clearfix"></div>
 												<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
 									            	<div id="otsuccmsg"></div>   
@@ -666,47 +676,12 @@
 								                <h3>Linked Bank Account</h3>
 								            </div>
 
-								            <div class="linked-bank-account-innersection">
-								                <div class="left-linkedaccount-info">
-								                    <div class="d-flex align-items-center">
-								                        <img src="img/indianbank.png" alt="" width="24" class="mr-2">
-								                        <span id="bankNameView"></span>
-								                    </div>
+								            <div class="linked-bank-account-innersection d-block">
+								               
+												<div id="data-wrapper"> 
 													
-													<div>
-								                        <label>Bank Account Holder</label>
-								                        <p id="accountholdername"></p>
-								                    </div>
-								                    <div>
-								                        <label>Bank Account Number</label>
-								                        <p id="acNumber"></p>
-								                    </div>
-								                    <div>
-								                        <label>IFSC Code</label>
-								                        <p id="ifsc"> </p>
-								                    </div>
-								                    <div>
-								                        <label>Account Type</label>
-								                        <p id="accountType"></p>
-								                    </div>
-													
-												<div>
-							                        <label>Merchent Id</label>
-							                        <p id="viewmerchentIid"></p>
-							                    </div>
-												<div>
-						                           <label>TID</label>
-						                           <p id="viewtid"></p>
-					                    		</div>
-												<div>
-							                        <label>MCC</label>
-							                        <p id="viewmcc"></p>
-							                    </div>
-								                </div>
-								                <div class="right-linkedaccount-info">
-								                    <button class="btn btn-green">Primary Account</button>
-								                    <a href="#">De-linked Bank A/c</a>
-								                </div>
+												</div>
+								               
 								            </div>
 
 								            <div class="d-flex justify-content-end">
