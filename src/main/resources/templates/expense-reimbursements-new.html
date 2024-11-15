@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Expense Reimbursements</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body id="page-top">
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-dark-sidebar sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/avatar.png" alt="" width="36">
+                </div>
+                <div class="sidebar-brand-text mx-2 text-left">Name here <br><span>email@demo.com</span></div>
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active mt-3">
+                <a class="nav-link" href="index.html">
+                    <img src="img/home.png" alt="" class="mr-2">
+                    <span>Home</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="company-details.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>company Details</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-invite.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Invite</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-table-invitelist.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Table Invite list</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-upload.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Upload</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage-and-Contractors.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage and Contractors</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Onboarding.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Onboarding</span></a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+
+
+            <li class="nav-item li-btm">
+                <img src="img/undraw_profile.svg" alt="" width="30" class="mr-2">
+                <span>John Doe</span>
+                <a href="#" class="float-right mt-1"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
+            </li>
+
+            <!-- <div class="text-center">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div> -->
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">Empolyee Profile</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+
+
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs expense-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home">Expenses & Advances</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
+                                <li><a data-toggle="tab" href="#menu2">Linked Bank Account</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane in active">
+
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <div
+                                                class="d-flex justify-content-between border-btm modal-head-secd px-0 py-3">
+                                                <div>
+                                                    <h4 class="mb-0">Expense Reimbursements </h4>
+                                                </div>
+                                                <div>
+                                                    <a href="#" class="mx-1"><img src="img/download-black.svg"
+                                                            alt=""></a>
+                                                    <a href="#" class="mx-1"><img src="img/delete-black.svg" alt=""></a>
+                                                    <a href="#" class="mx-1"><img src="img/info-black.svg" alt=""></a>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-reimbursements">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </th>
+                                                                <th>ID</th>
+                                                                <th>DATE & TIME</th>
+                                                                <th>CATEGORY</th>
+                                                                <th>TITLE</th>
+                                                                <th>AMOUNT</th>
+                                                                <th>STATUS</th>
+                                                                <th>MODE OF PAYMENT</th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-001</span></td>
+                                                                <td><span>21/04/2024</span><br><label>17:57:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/Travel.svg" alt=""
+                                                                            class="mr-2">Travel</span></td>
+                                                                <td><span class="color-third">Bangalore Flight</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>16,680</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="color-third draft">Draft</span></td>
+                                                                <td><span class="color-third">Bank Account</span></td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalViewExpenseReimbursement">View
+                                                                            <img src="img/attached.svg" alt=""></button>
+
+
+                                                                        <!-- ellipsis Information -->
+                                                                        <div class="dropdown no-arrow ml-2">
+                                                                            <a class="dropdown-toggle" href="#"
+                                                                                id="userDropdown" role="button"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                                <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                            </a>
+                                                                            <br>
+                                                                            <!-- Dropdown - User Information -->
+                                                                            <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                                aria-labelledby="userDropdown">
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Delete
+                                                                                </a>
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Download
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-002</span></td>
+                                                                <td><span>20/04/2024</span><br><label>18:57:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/food.svg" alt=""
+                                                                            class="mr-2">Food</span></td>
+                                                                <td><span class="color-third">Bangalore Trip - Client
+                                                                        Lunch</span></td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>890</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="color-third submitted">Submitted</span>
+                                                                </td>
+                                                                <td><span class="color-third">e-RUPI Voucher</span></td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalViewExpenseReimbursement">View
+                                                                            <img src="img/attached.svg" alt=""></button>
+
+
+                                                                        <!-- ellipsis Information -->
+                                                                        <div class="dropdown no-arrow ml-2">
+                                                                            <a class="dropdown-toggle" href="#"
+                                                                                id="userDropdown" role="button"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                                <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                            </a>
+                                                                            <br>
+                                                                            <!-- Dropdown - User Information -->
+                                                                            <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                                aria-labelledby="userDropdown">
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Delete
+                                                                                </a>
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Download
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-003</span></td>
+                                                                <td><span>20/04/2024</span><br><label>20:57:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/food.svg" alt=""
+                                                                            class="mr-2">Food</span></td>
+                                                                <td><span class="color-third">Bangalore Trip
+                                                                        Dinner</span></td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>1,265</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span
+                                                                        class="color-third in-progress">In-Progress</span>
+                                                                </td>
+                                                                <td><span class="color-third">e-RUPI Voucher</span></td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalViewExpenseReimbursement">View
+                                                                            <img src="img/attached.svg" alt=""></button>
+
+
+                                                                        <!-- ellipsis Information -->
+                                                                        <div class="dropdown no-arrow ml-2">
+                                                                            <a class="dropdown-toggle" href="#"
+                                                                                id="userDropdown" role="button"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                                <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                            </a>
+                                                                            <br>
+                                                                            <!-- Dropdown - User Information -->
+                                                                            <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                                aria-labelledby="userDropdown">
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Delete
+                                                                                </a>
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Download
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-004</span></td>
+                                                                <td><span>15/04/2024</span><br><label>16:57:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/taxi.svg" alt=""
+                                                                            class="mr-2">Conveyance</span></td>
+                                                                <td><span class="color-third">Client Meeting Taxi</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>370</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="color-third rejected">Rejected</span>
+                                                                </td>
+                                                                <td><span class="color-third">Bank Account</span></td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalViewExpenseReimbursement">View
+                                                                            <img src="img/attached.svg" alt=""></button>
+
+
+                                                                        <!-- ellipsis Information -->
+                                                                        <div class="dropdown no-arrow ml-2">
+                                                                            <a class="dropdown-toggle" href="#"
+                                                                                id="userDropdown" role="button"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                                <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                            </a>
+                                                                            <br>
+                                                                            <!-- Dropdown - User Information -->
+                                                                            <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                                aria-labelledby="userDropdown">
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Delete
+                                                                                </a>
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Download
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-005</span></td>
+                                                                <td><span>10/04/2024</span><br><label>18:04:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/Miscellaneous.svg" alt=""
+                                                                            class="mr-2">Miscellaneous</span></td>
+                                                                <td><span class="color-third">Zoom Subscription</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>849</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="color-third settled">Approved</span>
+                                                                </td>
+                                                                <td><span class="color-third">Bank Account</span></td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalViewExpenseReimbursement">View
+                                                                            <img src="img/attached.svg" alt=""></button>
+
+
+                                                                        <!-- ellipsis Information -->
+                                                                        <div class="dropdown no-arrow ml-2">
+                                                                            <a class="dropdown-toggle" href="#"
+                                                                                id="userDropdown" role="button"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                                <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                            </a>
+                                                                            <br>
+                                                                            <!-- Dropdown - User Information -->
+                                                                            <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                                aria-labelledby="userDropdown">
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Delete
+                                                                                </a>
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Download
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-006</span></td>
+                                                                <td><span>07/04/2024</span><br><label>17:57:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/food.svg" alt=""
+                                                                            class="mr-2">Food</span></td>
+                                                                <td><span class="color-third">Team Outing</span></td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>4,580</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="color-third settled">Settled</span>
+                                                                </td>
+                                                                <td><span class="color-third"><a href="#">e-RUPI
+                                                                            Voucher</a></span></td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalViewExpenseReimbursement">View
+                                                                            <img src="img/attached.svg" alt=""></button>
+
+
+                                                                        <!-- ellipsis Information -->
+                                                                        <div class="dropdown no-arrow ml-2">
+                                                                            <a class="dropdown-toggle" href="#"
+                                                                                id="userDropdown" role="button"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                                <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                            </a>
+                                                                            <br>
+                                                                            <!-- Dropdown - User Information -->
+                                                                            <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                                aria-labelledby="userDropdown">
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Delete
+                                                                                </a>
+                                                                                <a class="dropdown-item py-2" href="#">
+                                                                                    Download
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="last-add">
+                                                                <td colspan="9">
+                                                                    <a href="#" class="add-ctgry" data-toggle="modal"
+                                                                        data-target="#ModalAddExpenseReimbursement">+
+                                                                        Add Expense Reimbursements</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="policies-wrap">
+
+                                            <div
+                                                class="d-flex justify-content-between border-btm modal-head-secd px-0 py-3">
+                                                <div>
+                                                    <h4 class="mb-0">Advance & Travel Requests </h4>
+                                                </div>
+                                                <div>
+                                                    <a href="#" class="mx-1"><img src="img/download-black.svg"
+                                                            alt=""></a>
+                                                    <a href="#" class="mx-1"><img src="img/delete-black.svg" alt=""></a>
+                                                    <a href="#" class="mx-1"><img src="img/info-black.svg" alt=""></a>
+                                                </div>
+                                            </div>
+
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-reimbursements">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="2">ID</th>
+                                                                <th>DATE & TIME</th>
+                                                                <th>CATEGORY</th>
+                                                                <th>TITLE</th>
+                                                                <th>AMOUNT</th>
+                                                                <th>STATUS</th>
+                                                                <th>MODE OF PAYMENT</th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-001</span></td>
+                                                                <td><span>21/04/2024</span><br><label>17:57:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/Travel.svg" alt=""
+                                                                            class="mr-2">Travel</span></td>
+                                                                <td><span class="color-third">Hyderabad Flights</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>9,120</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="color-third">Draft</span></td>
+                                                                <td><span class="color-third">Bank Account</span></td>
+                                                                <td>
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalTravelRequest">View</button>
+                                                                        <button class="btn-ellipsis"><i
+                                                                                class="fas fa-ellipsis-v fa-sm"></i></button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-check">
+                                                                        <input type="checkbox" id="customCheck3">
+                                                                    </div>
+                                                                </td>
+                                                                <td><span>CDL-0424-004</span></td>
+                                                                <td><span>15/04/2024</span><br><label>17:57:13</label>
+                                                                </td>
+                                                                <td><span><img src="img/dollar.svg" alt=""
+                                                                            class="mr-2">Cash</span></td>
+                                                                <td><span class="color-third">Office Admin
+                                                                        Expenses</span></td>
+                                                                <td>
+                                                                    <div
+                                                                        class="d-flex justify-content-between color-third">
+                                                                        <span>INR</span><span>10,000</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="color-third disbursed">Disbursed</span>
+                                                                </td>
+                                                                <td><span class="color-third"><a href="#">Bank
+                                                                            Account</a></span></td>
+                                                                <td>
+                                                                    <div><button class="btn-attach" data-toggle="modal"
+                                                                            data-target="#ModalTravelRequest">View</button>
+                                                                        <button class="btn-ellipsis"><i
+                                                                                class="fas fa-ellipsis-v fa-sm"></i></button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="last-add">
+                                                                <td colspan="9">
+                                                                    <a href="#" class="add-ctgry" data-toggle="modal"
+                                                                        data-target="#ModalChooseAdvanceRequest">+
+                                                                        Request Advance</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div id="menu1" class="tab-pane ">
+                                    <div class="policies-section">
+
+                                        <div class="policies-wrap">
+                                            <div
+                                                class="d-flex justify-content-between border-btm modal-head-secd px-0 py-3">
+                                                <div>
+                                                    <h4 class="mb-0">Approve Pending Expense Reimbursements </h4>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <button class="custom-dd-btn approveIcon"></button>
+                                                    <button class="custom-dd-btn rejectIcon ml-2"></button>
+                                                    <div class="dropdown no-arrow ml-2">
+                                                        <a class="dropdown-toggle custom-dd-btn sortIcon" href="#"
+                                                            id="userDropdown" role="button" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false"> Sort by
+                                                            <img src="img/short.svg" alt="" class="ml-2">
+                                                        </a>
+                                                        <!-- Dropdown - User Information -->
+                                                        <div class="dropdown-menu dropdown-menu-right shadow"
+                                                            aria-labelledby="userDropdown">
+                                                            <a class="dropdown-item py-2" href="#">Category</a>
+                                                            <a class="dropdown-item py-2" href="#">Employee name</a>
+                                                            <a class="dropdown-item py-2" href="#">Department</a>
+                                                            <a class="dropdown-item py-2" href="#">Location</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="policies-wrap-in-table">
+                                            <div class="table-responsive">
+                                                <table class="table table-approval-flow">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <div class="table-check">
+                                                                    <input type="checkbox" id="customCheck0">
+                                                                </div>
+                                                            </th>
+                                                            <th>EXPENSE ID</th>
+                                                            <th>CATEGORY</th>
+                                                            <th>EMPLOYEE</th>
+                                                            <th>DEPARTMENT</th>
+                                                            <th>AMOUNT</th>
+                                                            <th>LAST APPROVED</th>
+                                                            <th>PAYMENT MODE</th>
+                                                            <th>ACTIONS</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="table-check">
+                                                                    <input type="checkbox" id="customCheck00">
+                                                                </div>
+                                                            </td>
+                                                            <td><span>CDL-0424-001</span></td>
+                                                            <td class="d-flex align-items-center">
+                                                                <div><img src="img/Travel.svg" alt="" class="mr-2">
+                                                                </div>
+                                                                <div><span>Travel</span><br><label>17:57:13</label>
+                                                                </div>
+                                                            </td>
+                                                            <td><button class="no-bg no-border p-0 name-btn"
+                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="bs-canvas-right">Deepak
+                                                                    Yadav</button><br><label>CTD001 | Product
+                                                                    Lead</label></td>
+                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between color-third">
+                                                                    <span>INR</span><span>16,680</span>
+                                                                </div>
+                                                            </td>
+                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
+                                                            </td>
+                                                            <td><span>Bank Transfer</span></td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalViewPendingExp">View <img
+                                                                            src="img/attached.svg" alt=""></button>
+                                                                    <!-- ellipsis Information -->
+                                                                    <div class="dropdown no-arrow ml-2">
+                                                                        <a class="dropdown-toggle" href="#"
+                                                                            id="userDropdown" role="button"
+                                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                                            aria-expanded="false">
+                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                        </a>
+                                                                        <br>
+                                                                        <!-- Dropdown - User Information -->
+                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                            aria-labelledby="userDropdown">
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Delete</a>
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Download</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="table-check">
+                                                                    <input type="checkbox" id="customCheck00">
+                                                                </div>
+                                                            </td>
+                                                            <td><span>CDL-0424-001</span></td>
+                                                            <td class="d-flex align-items-center">
+                                                                <div><img src="img/food.svg" alt="" class="mr-2"></div>
+                                                                <div><span>Trip - Client
+                                                                        Lunch</span><br><label>17:57:13</label></div>
+                                                            </td>
+                                                            <td><button class="no-bg no-border p-0 name-btn"
+                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="bs-canvas-right">Deepak
+                                                                    Yadav</button><br><label>CTD001</label>
+                                                            </td>
+                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between color-third">
+                                                                    <span>INR</span><span>16,680</span>
+                                                                </div>
+                                                            </td>
+                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
+                                                            </td>
+                                                            <td><span>Bank Transfer</span></td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalViewPendingExp">View <img
+                                                                            src="img/attached.svg" alt=""></button>
+                                                                    <!-- ellipsis Information -->
+                                                                    <div class="dropdown no-arrow ml-2">
+                                                                        <a class="dropdown-toggle" href="#"
+                                                                            id="userDropdown" role="button"
+                                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                                            aria-expanded="false">
+                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                        </a>
+                                                                        <br>
+                                                                        <!-- Dropdown - User Information -->
+                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                            aria-labelledby="userDropdown">
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Delete</a>
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Download</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="table-check">
+                                                                    <input type="checkbox" id="customCheck00">
+                                                                </div>
+                                                            </td>
+                                                            <td><span>CDL-0424-001</span></td>
+                                                            <td class="d-flex align-items-center">
+                                                                <div><img src="img/taxi.svg" alt="" class="mr-2"></div>
+                                                                <div><span>Convenience</span><br><label>17:57:13</label>
+                                                                </div>
+                                                            </td>
+                                                            <td><button class="no-bg no-border p-0 name-btn"
+                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="bs-canvas-right">Deepak
+                                                                    Yadav</button><br><label>CTD001</label>
+                                                            </td>
+                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between color-third">
+                                                                    <span>INR</span><span>16,680</span>
+                                                                </div>
+                                                            </td>
+                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
+                                                            </td>
+                                                            <td><span>Bank Transfer</span></td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalViewPendingExp">View <img
+                                                                            src="img/attached.svg" alt=""></button>
+                                                                    <!-- ellipsis Information -->
+                                                                    <div class="dropdown no-arrow ml-2">
+                                                                        <a class="dropdown-toggle" href="#"
+                                                                            id="userDropdown" role="button"
+                                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                                            aria-expanded="false">
+                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                        </a>
+                                                                        <br>
+                                                                        <!-- Dropdown - User Information -->
+                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                            aria-labelledby="userDropdown">
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Delete</a>
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Download</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="table-check">
+                                                                    <input type="checkbox" id="customCheck00">
+                                                                </div>
+                                                            </td>
+                                                            <td><span>CDL-0424-001</span></td>
+                                                            <td class="d-flex align-items-center">
+                                                                <div><img src="img/Miscellaneous.svg" alt=""
+                                                                        class="mr-2"></div>
+                                                                <div>
+                                                                    <span>Miscellaneous</span><br><label>17:57:13</label>
+                                                                </div>
+                                                            </td>
+                                                            <td><button class="no-bg no-border p-0 name-btn"
+                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="bs-canvas-right">Deepak
+                                                                    Yadav</button><br><label>CTD001</label>
+                                                            </td>
+                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between color-third">
+                                                                    <span>INR</span><span>16,680</span>
+                                                                </div>
+                                                            </td>
+                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
+                                                            </td>
+                                                            <td><span>Bank Transfer</span></td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn-attach" data-toggle="modal"
+                                                                        data-target="#ModalViewPendingExp">View <img
+                                                                            src="img/attached.svg" alt=""></button>
+                                                                    <!-- ellipsis Information -->
+                                                                    <div class="dropdown no-arrow ml-2">
+                                                                        <a class="dropdown-toggle" href="#"
+                                                                            id="userDropdown" role="button"
+                                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                                            aria-expanded="false">
+                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
+                                                                        </a>
+                                                                        <br>
+                                                                        <!-- Dropdown - User Information -->
+                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
+                                                                            aria-labelledby="userDropdown">
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Delete</a>
+                                                                            <a class="dropdown-item py-2"
+                                                                                href="#">Download</a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <div class="d-flex justify-content-between px-0 py-3">
+                                                <div>
+                                                    <h4 class="mb-0">Add Expense Reimbursements </h4>
+                                                </div>
+                                            </div>
+
+                                            <p>The following are the advance settlements that are approved but yet to be
+                                                paid. You can reject them in case you change your mind</p>
+                                            <div class="custom-alert custom-alert-info">No Pending expense
+                                                claims/advance settlements are there to show.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div id="menu2" class="tab-pane">
+                                    <div class="policies-section-bank">
+                                        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                                            <div class="text-center">
+                                                <h3>Bank A/c Linking</h3>
+                                            </div>
+
+                                            <div class="form-linkedbank">
+                                                <div class="did-floating-label-content mr-2">
+                                                    <select class="did-floating-select" onclick="this.setAttribute('value', this.value);" onchange="this.setAttribute('value', this.value);" value="1">
+                                                        <option value="">Select Bank</option>
+                                                        <option value="1">Indian Bank</option>
+                                                        <option value="1">ICICI Bank</option>
+                                                        <option value="1">Bank of Baroda</option>
+                                                        <option value="1">HDFC Bank</option>
+                                                        <option value="1">Yes Bank</option>
+                                                    </select>
+                                                    <label class="did-floating-label">Select Bank</label>
+                                                </div>
+
+                                                <div class="did-floating-label-content">
+                                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                                    <label class="did-floating-label">Enter Name on the Bank
+                                                        Account</label>
+                                                </div>
+
+                                                <div class="did-floating-label-content">
+                                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                                    <label class="did-floating-label">Enter Bank A/c Number</label>
+                                                </div>
+
+                                                <div class="did-floating-label-content">
+                                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                                    <label class="did-floating-label">Re-enter Bank A/c Name</label>
+                                                </div>
+                                                <div class="tip-wrap justify-content-start">
+                                                    <p class="mb-0">The bank account numbers entered don't match each
+                                                        other. Please try again.</p>
+                                                </div>
+
+                                                <div class="did-floating-label-content">
+                                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                                    <label class="did-floating-label">Enter IFSC Code</label>
+                                                </div>
+
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <button class="btn btn-primary w-100" data-toggle="modal" data-target="#ModalAuthenticate">AUTHENTICATE</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div  id="linkedbnkacntsctn" class="linked-bank-account-section">
+                                            <div class="text-left">
+                                                <h3>Linked Bank Account</h3>
+                                            </div>
+
+                                            <div class="linked-bank-account-innersection">
+                                                <div class="left-linkedaccount-info">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="img/indianbank.png" alt="" width="24" class="mr-2">
+                                                        <span>Indian Bank</span>
+                                                    </div>
+                                                    <div>
+                                                        <label>Bank Account Number</label>
+                                                        <p>****6547</p>
+                                                    </div>
+                                                    <div>
+                                                        <label>IFSC Code</label>
+                                                        <p>IDIB0000NH98</p>
+                                                    </div>
+                                                    <div>
+                                                        <label>Account Type</label>
+                                                        <p>Current Account</p>
+                                                    </div>
+                                                </div>
+                                                <div class="right-linkedaccount-info">
+                                                    <button class="btn btn-green">Primary Account</button>
+                                                    <a href="#">De-linked Bank A/c</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-primary">Link Another Bank Account</button>
+                                            </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+    <div id="bs-canvas-right" class="bs-canvas bs-canvas-right position-fixed bg-white h-100">
+        <button type="button" class="bs-canvas-close float-left close" aria-label="Close" aria-expanded="false"><span
+                aria-hidden="true">&times;</span></button>
+        <div class="bs-canvas-top">
+            <div class="bs-canvas-top-img">
+                <img src="img/profile-pic.svg" alt="">
+            </div>
+            <h4>Jhon Doe</h4>
+            <p>jhondoe@company.com</p>
+        </div>
+
+        <div class="bs-canvas-mid">
+            <p>Employee ID</p>
+            <b>jhondoe@email.com</b>
+            <p>Mobile Number</p>
+            <b>+91 9910318406</b>
+            <p>Designation</p>
+            <b>Product Manager</b>
+            <p>Location</p>
+            <b>India, Gurgaon</b>
+            <p>Reporting Manager</p>
+            <b>Jhon Wik</b>
+            <p>Employment Type</p>
+            <b>Full Time</b>
+            <p>Hire date</p>
+            <b>10th March, 2024</b>
+            <p>App Subscriptions</p>
+            <div class="bs-icons">
+                <a href="#"><img src="img/microsoft-office.svg" alt=""></a>
+                <a href="#"><img src="img/icons8-slack 1.svg" alt=""></a>
+                <a href="#"><img src="img/icons8-zoom 1.svg" alt=""></a>
+                <a href="#"><img src="img/apps.svg" alt=""></a>
+            </div>
+        </div>
+
+        <div class="bs-canvas-btm">
+            <button class="btn btn-green">More Actions</button>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $(".ftr-content").hide();
+            });
+            $("#show").click(function () {
+                $(".ftr-content").show();
+            });
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+        jQuery(document).ready(function ($) {
+            var bsOverlay = $('.bs-canvas-overlay');
+            $('[data-toggle="canvas"]').on('click', function () {
+                var ctrl = $(this),
+                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+                $(elm).addClass('mr-0');
+                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+                if (bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+                var elm;
+                if ($(this).hasClass('bs-canvas-close')) {
+                    elm = $(this).closest('.bs-canvas');
+                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+                } else {
+                    elm = $('.bs-canvas')
+                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");
+                }
+                elm.removeClass('mr-0');
+                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+                if (bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+
+    </script>
+
+    <!-- Modal Add Expense Reimbursements 01 -->
+
+    <div class="modal fade" id="ModalViewExpenseReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Submitted Expense Reimbursements </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between border-btm modal-head-secd">
+                    <div>
+
+                    </div>
+                    <div>
+                        <a href="#" class="mx-1"><img src="img/download-blue.svg" alt=""></a>
+                        <a href="#" class="mx-1"><img src="img/refresh-blue.svg" alt=""></a>
+                        <a href="#" class="mx-1"><img data-toggle="tooltip" data-placement="top" title=""
+                                src="img/info.svg" alt=""
+                                data-original-title="In case you want to recall a submitted expense, press the ‘Undo’ Button and make necessary changes."></a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-md-7">
+                            <div class="add-files no-border padd-8">
+                                <img src="img/bill.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <form action=""
+                                style="max-height: 545px; overflow-y: scroll; padding-top: 5px; padding-bottom: 5px;">
+                                <div class="form-grp-half">
+
+                                    <div class="did-floating-label-content mr-2">
+                                        <input class="did-floating-input" type="text" placeholder=" ">
+                                        <label class="did-floating-label">Food</label>
+                                    </div>
+
+                                    <div class="did-floating-label-content">
+                                        <input class="did-floating-input" type="text" placeholder=" ">
+                                        <label class="did-floating-label">Expense Title</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Expense Title</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Vendor Name</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Invoice Number</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">INR</option>
+                                        </select>
+                                        <label class="did-floating-label">Currency</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <input class="did-floating-input" type="text" placeholder=" ">
+                                        <label class="did-floating-label">Amount</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp">
+                                    <div class="form-grp-card-form-right">
+                                        <label for="">Daily Limit:</label>
+                                        <div class="ntdfnd">INR 500</div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Preferred Mode of Payment</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">No additional remarks added</label>
+                                </div>
+                                <div id="accordion" class="accordion">
+                                    <div class="did-floating-label-content collapsed" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseOne">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">Pending Approval</option>
+                                        </select>
+                                        <label class="did-floating-label">Status</label>
+                                    </div>
+                                    <div id="collapseOne" class="timeline-collapse collapse" data-parent="#accordion">
+                                        <div class="timeline-detl-collapse">
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row active">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Employee Name</label>
+                                                    <p>Sent on 27/04/2024</p>
+                                                    <p>17:32:07</p>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row active">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Reporting Level 1 - Manager Name</label>
+                                                    <p>Awaiting Approval</p>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Reporting Level 2 - Manager Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">HR Manager - Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Finance Manager - Name</label>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="timeline-detl-collapse-info timeline-line-collapse timeline-lastline-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Settlement Details</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer modal-footer-content" style="background: #F6F6F6;">
+                    <div class="btm-vender m-0">
+                        <div class="btm-vender-left"><a href="#"><img src="img/left-arow.svg" alt=""></a></div>
+                        <div class="btm-vender-mid">
+                            <div class="vendor-num">1/10</div>
+                            <strong>Vendor Name</strong>
+                            <div class="vender-amount">
+                                <span>INR</span>
+                                <input type="text" placeholder="Amount">
+                            </div>
+                        </div>
+                        <div class="btm-vender-right"><a href="#"><img src="img/right-arow.svg" alt=""></a></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Modal Add Expense Reimbursements -->
+
+    <div class="modal fade" id="ModalAddExpenseReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Expense Reimbursements</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="add-files">
+                        <div class="form-group-files choose-file">
+                            <span class="fileUpload">
+                                <span class="upl" id="upload"><img src="img/download-files.svg" alt=""></span>
+                                <input type="file" class="upload up" id="up" onchange="readURL(this);">
+                            </span>
+                        </div>
+                        <b>To automatically pre-fill details, drag and drop your receipt(s)</b>
+                        <p>Alternatively, click to upload your receipt</p>
+                        <hr>
+                        <div class="add-files-btm">
+                            <strong>PLEASE NOTE</strong>
+                            <p>Max number of documents: 5 per Upload Max size per document: 5 MB Accepted formats:
+                                JPG/JPEG/PNG/PDF</p>
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                        <button class="btn btn-border mx-2" data-toggle="modal" data-target="#ModalAddmanualexp">Skip to
+                            add Manually</button>
+                        <button class="btn btn-primary mx-2" data-toggle="modal"
+                            data-target="#ModalAddfreshexp">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Add Expense Reimbursements -->
+
+    <div class="modal fade" id="ModalAddExpenseReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Expense Reimbursements</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="add-files">
+
+                        <div class="add-file-docs">
+                            <div class="add-file-docs-top">Uploaded Documents</div>
+                            <div class="add-file-docs-mid">
+                                <p>doc_1.png</p>
+                                <span>
+                                    365 KB
+                                    <a href="#"><img src="img/delete-black.svg" alt=""></a>
+                                </span>
+                            </div>
+                            <div class="add-file-docs-mid">
+                                <p>doc_2.png</p>
+                                <span>
+                                    1125 KB
+                                    <a href="#"><img src="img/delete-black.svg" alt=""></a>
+                                </span>
+                            </div>
+                            <div class="add-file-docs-btm">
+                                <a href="#">+ Add More</a>
+                            </div>
+                        </div>
+
+                        <b>To automatically pre-fill details, drag and drop your receipt(s)</b>
+                        <hr>
+                        <div class="add-files-btm">
+                            <strong>PLEASE NOTE</strong>
+                            <p>Max number of documents: 5 per Upload Max size per document: 5 MB Accepted formats:
+                                JPG/JPEG/PNG/PDF</p>
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                        <button class="btn btn-border mx-2" data-toggle="modal" data-target="#ModalAddmanualexp">Skip to
+                            add Manually</button>
+                        <button class="btn btn-primary mx-2" data-toggle="modal"
+                            data-target="#ModalAddfreshexp">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Add Expense Reimbursements 01 -->
+
+    <div class="modal fade" id="ModalAddmanualexp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Expense Reimbursements</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between border-btm modal-head-secd">
+                    <div>
+                        <div class="top-badge">
+                            Expense 1
+                            <a href="#">
+                                <img src="img/attach.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="#" data-toggle="modal" data-target="#ModalmergeReimbursement" class="mx-1"><img
+                                src="img/merge.svg" alt=""></a>
+                        <a href="#" class="mx-1"><img data-toggle="tooltip" data-placement="top"
+                                title="To combine multiple uploads related to the same expense, you can tick the check boxes of tabs and click here to Merge them into one expense item."
+                                src="img/info.svg" alt=""></a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-md-7">
+                            <div class="add-files no-border">
+                                <div class="form-group-files choose-file">
+                                    <span class="fileUpload">
+                                        <span class="upl" id="upload"><img src="img/download-files.svg" alt=""></span>
+                                        <input type="file" class="upload up" id="up" onchange="readURL(this);">
+                                    </span>
+                                </div>
+                                <b>To automatically pre-fill details, drag and drop your receipt(s)</b>
+                                <p>Alternatively, click to upload your receipt</p>
+                                <hr>
+                                <div class="add-files-btm">
+                                    <strong>PLEASE NOTE</strong>
+                                    <p>Max number of documents: 5 per Upload Max size per document: 5 MB Accepted
+                                        formats: JPG/JPEG/PNG/PDF</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <form action="">
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">Food</option>
+                                        </select>
+                                        <label class="did-floating-label">Select Expense Category</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">15/04/2024</option>
+                                        </select>
+                                        <label class="did-floating-label">Date of Expense</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Enter Expense Title</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Enter Vendor Name</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Enter Invoice Number</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">INR</option>
+                                        </select>
+                                        <label class="did-floating-label">Select Currency</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <input class="did-floating-input" type="text" placeholder=" ">
+                                        <label class="did-floating-label">Enter Amount</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp">
+                                    <div class="form-grp-card-form-right">
+                                        <label for="">Periodic Limit: </label>
+                                        <div class="ntdfnd">Not Defined </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Select Preferred Mode of Payment</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Enter Additional Remarks (Optional)</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="d-flex justify-content-end mt-4 form-btns">
+                                    <button class="btn btn-border mx-1 width-auto"><img src="img/del.svg"
+                                            alt=""></button>
+                                    <button class="btn btn-border mx-1 width-auto"><img src="img/download.svg"
+                                            alt=""></button>
+                                    <button class="btn btn-border mx-1 width-auto"><img src="img/save.svg"
+                                            alt=""></button>
+                                    <button class="btn btn-border mx-1">Save & Next</button>
+                                    <a class="btn btn-primary mx-1 d-flex align-items-center" data-toggle="modal"
+                                        data-target="#ModalExpensesSubmitted">Submit</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer modal-footer-content bg-f6">
+                    <div class="btm-vender m-0">
+                        <div class="btm-vender-left"><a href="#"><img src="img/left-arow.svg" alt=""></a></div>
+                        <div class="btm-vender-mid">
+                            <div class="vendor-num">1/10</div>
+                            <strong>Vendor Name</strong>
+                            <div class="vender-amount">
+                                <span>INR</span>
+                                <input type="text" placeholder="Amount">
+                            </div>
+                        </div>
+                        <div class="btm-vender-right"><a href="#"><img src="img/right-arow.svg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Add Expense Reimbursements 01 -->
+
+    <div class="modal fade" id="ModalSubmitExpenseReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Submitted Expense Reimbursements </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between border-btm modal-head-secd">
+                    <div>
+
+                    </div>
+                    <div>
+                        <a href="#" class="mx-1"><img src="img/download-blue.svg" alt=""></a>
+                        <a href="#" class="mx-1"><img src="img/refresh-blue.svg" alt=""></a>
+                        <a href="#" class="mx-1"><img data-toggle="tooltip" data-placement="top" title=""
+                                src="img/info.svg" alt=""
+                                data-original-title="In case you want to recall a submitted expense, press the ‘Undo’ Button and make necessary changes."></a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-md-7">
+                            <div class="add-files no-border padd-8">
+                                <img src="img/bill.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <form action="" style="max-height: 540px; overflow-y: scroll;">
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">Food</option>
+                                        </select>
+                                        <label class="did-floating-label">Select Expense Category</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">15/04/2024</option>
+                                        </select>
+                                        <label class="did-floating-label">Date of Expense</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Expense Title</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Vendor Name</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Invoice Number</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">INR</option>
+                                        </select>
+                                        <label class="did-floating-label">Currency</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <input class="did-floating-input" type="text" placeholder=" ">
+                                        <label class="did-floating-label">Amount</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp">
+                                    <div class="form-grp-card-form-right">
+                                        <label for="">Daily Limit:</label>
+                                        <div class="ntdfnd">INR 500</div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Preferred Mode of Payment</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">No additional remarks added</label>
+                                </div>
+                                <div id="accordion" class="accordion">
+                                    <div class="did-floating-label-content collapsed" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseOne">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">Pending Approval</option>
+                                        </select>
+                                        <label class="did-floating-label">Status</label>
+                                    </div>
+                                    <div id="collapseOne" class="timeline-collapse collapse" data-parent="#accordion">
+                                        <div class="timeline-detl-collapse">
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row active">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Employee Name</label>
+                                                    <p>Sent on 27/04/2024</p>
+                                                    <p>17:32:07</p>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row active">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Reporting Level 1 - Manager Name</label>
+                                                    <p>Awaiting Approval</p>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Reporting Level 2 - Manager Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">HR Manager - Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Finance Manager - Name</label>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="timeline-detl-collapse-info timeline-line-collapse timeline-lastline-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Settlement Details</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer modal-footer-content" style="background: #F6F6F6;">
+                    <div class="btm-vender m-0">
+                        <div class="btm-vender-left"><a href="#"><img src="img/left-arow.svg" alt=""></a></div>
+                        <div class="btm-vender-mid">
+                            <div class="vendor-num">1/10</div>
+                            <strong>Vendor Name</strong>
+                            <div class="vender-amount">
+                                <span>INR</span>
+                                <input type="text" placeholder="Amount">
+                            </div>
+                        </div>
+                        <div class="btm-vender-right"><a href="#"><img src="img/right-arow.svg" alt=""></a></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <!-- Modal Add Expense Reimbursements 01 -->
+
+    <div class="modal fade" id="ModalAddfreshexp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Expense Reimbursements </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between border-btm modal-head-secd">
+                    <div class="d-flex add-topbadge">
+                        <div class="top-badge mr-2">
+                            <div class="table-check">
+                                <input type="checkbox" id="customCheck3" class="mr-2">
+                                McDonalds
+                            </div>
+
+                            <a href="#">
+                                <img src="img/attach.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="top-badge mr-2">
+                            <div class="table-check">
+                                <input type="checkbox" id="customCheck3" class="mr-2">
+                                Doc_2
+                            </div>
+
+                        </div>
+                        <div class="top-badge mr-2">
+                            <div class="table-check">
+                                <input type="checkbox" id="customCheck3" class="mr-2">
+                                Doc_3
+                            </div>
+
+                        </div>
+                        <div class="top-badge mr-2">
+                            <div class="table-check">
+                                <input type="checkbox" id="customCheck3" class="mr-2">
+                                Doc_4
+                            </div>
+
+                            <a href="#">
+                                <img src="img/attach.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="top-badge mr-2">
+                            <div class="table-check">
+                                <input type="checkbox" id="customCheck3" class="mr-2">
+                                Doc_5
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <a href="#" data-toggle="modal" data-target="#ModalmergeReimbursement" class="mx-1"><img
+                                src="img/merge.svg" alt=""></a>
+                        <a href="#" class="mx-1"><img data-toggle="tooltip" data-placement="top" title=""
+                                src="img/info.svg" alt=""
+                                data-original-title="To combine multiple uploads related to the same expense, you can tick the check boxes of tabs and click here to ‘Merge’ them into one expense item."></a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-md-7">
+                            <div class="add-files no-border padd-8">
+                                <img src="img/bill.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <form action="">
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">Food</option>
+                                        </select>
+                                        <label class="did-floating-label">Select Expense Category</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">15/04/2024</option>
+                                        </select>
+                                        <label class="did-floating-label">Date of Expense</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Expense Title</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Vendor Name</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Invoice Number</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                            <option value="1">INR</option>
+                                        </select>
+                                        <label class="did-floating-label">Currency</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <input class="did-floating-input" type="text" placeholder=" ">
+                                        <label class="did-floating-label">Amount</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp">
+                                    <div class="form-grp-card-form-right">
+                                        <label for="">Daily Limit:</label>
+                                        <div class="ntdfnd">INR 500</div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">Preferred Mode of Payment</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">No additional remarks added</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="d-flex justify-content-end mt-4 form-btns">
+                                    <button class="btn btn-border mx-1 width-auto"><img src="img/del.svg"
+                                            alt=""></button>
+                                    <button class="btn btn-border mx-1 width-auto"><img src="img/download.svg"
+                                            alt=""></button>
+                                    <button class="btn btn-border mx-1 width-auto"><img src="img/save.svg"
+                                            alt=""></button>
+                                    <button class="btn btn-border mx-1">Save &amp; Next</button>
+                                    <a class="btn btn-primary mx-1 d-flex align-items-center" data-toggle="modal"
+                                        data-target="#ModalExpensesSubmitted">Submit</a>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer modal-footer-content" style="background: #F6F6F6;">
+                    <div class="btm-vender m-0">
+                        <div class="btm-vender-left"><a href="#"><img src="img/left-arow.svg" alt=""></a></div>
+                        <div class="btm-vender-mid">
+                            <div class="vendor-num">1/10</div>
+                            <strong>Vendor Name</strong>
+                            <div class="vender-amount">
+                                <span>INR</span>
+                                <input type="text" placeholder="Amount">
+                            </div>
+                        </div>
+                        <div class="btm-vender-right"><a href="#"><img src="img/right-arow.svg" alt=""></a></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Modal Confirm -->
+    <div class="modal fade" id="ModalExpensesSubmitted" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-top text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="img/modal-close.svg" alt="">
+                    </button>
+                    <img src="img/modal-success.svg" alt="">
+                </div>
+                <div class="modal-bottom">
+                    <div class="count"><span>4</span><strong>10</strong></div>
+                    <br>
+                    <span>Expenses submitted Successfully!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Choose Type of Advance Request -->
+    <div class="modal fade" id="ModalmergeReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Merge Uploads</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <hr class="mt-0">
+                    <div class="d-flex">
+                        <p class="mb-0 text-center secondary-900">Please confirm that you would like to merge the
+                            uploaded documents as part of multiple pages/documents of one expense.</p>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-border mx-2 w-100">Cancel</button>
+                        <button class="btn btn-primary mx-2 w-100">Merge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Add Remarks -->
+    <div class="modal fade" id="Modaladdremarks" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add remark!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <hr class="mt-0">
+                    <div class="d-flex">
+                        <p class="mb-0 text-center secondary-900">Please add a remark to this expense since the expense
+                            amount exceeds the limit prescribed for you.</p>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-primary w-100">Got it!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal View Pending Expense -->
+
+    <div class="modal fade" id="ModalViewPendingExp" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Submitted Expense Reimbursements </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between border-btm modal-head-secd">
+                    <div>
+                        <p><span>Submitted By</span><label>Deepak Yadav | COTO1</label></p>
+                    </div>
+                    <div>
+                        <a href="#" class="mx-1"><img src="img/calendar.svg" alt=""></a>
+                        <a href="#" class="mx-1"><img src="img/download-dark.svg" alt=""></a>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-md-7">
+                            <div class="add-files no-border padd-8">
+                                <img src="img/bill.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <form action=""
+                                style="max-height: 545px; overflow-y: scroll; padding-top: 5px; padding-bottom: 5px;">
+                                <div class="form-grp-half">
+
+                                    <div class="did-floating-label-content mr-2">
+                                        <input class="did-floating-input" type="text" placeholder="" value="Food">
+                                        <label class="did-floating-label">Food</label>
+                                    </div>
+
+                                    <div class="did-floating-label-content">
+                                        <input class="did-floating-input" type="text" placeholder=" "
+                                            value="15/04/2024">
+                                        <label class="did-floating-label">Expense Title</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" "
+                                        value="Field visit lunch">
+                                    <label class="did-floating-label">Expense Title</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" " value="McDonalds">
+                                    <label class="did-floating-label">Vendor Name</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" "
+                                        value="011401200022804">
+                                    <label class="did-floating-label">Invoice Number</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp-half">
+                                    <div class="did-floating-label-content mr-2">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="INR">
+                                            <option value=""></option>
+                                            <option value="1">INR</option>
+                                        </select>
+                                        <label class="did-floating-label">Currency</label>
+                                    </div>
+                                    <div class="did-floating-label-content ml-2">
+                                        <input class="did-floating-input" type="text" placeholder=" " value="131">
+                                        <label class="did-floating-label">Amount</label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-grp">
+                                    <div class="form-grp-card-form-right">
+                                        <label for="">Daily Limit:</label>
+                                        <div class="ntdfnd">INR 500</div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" " value="Bank Account">
+                                    <label class="did-floating-label">Preferred Mode of Payment</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="did-floating-label-content">
+                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <label class="did-floating-label">No additional remarks added</label>
+                                </div>
+                                <div id="accordion" class="accordion">
+                                    <div class="did-floating-label-content collapsed" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseOne">
+                                        <select class="did-floating-select"
+                                            onclick="this.setAttribute('value', this.value);"
+                                            onchange="this.setAttribute('value', this.value);" value="Pending Approval">
+                                            <option value=""></option>
+                                            <option value="1">Pending Approval</option>
+                                        </select>
+                                        <label class="did-floating-label">Status</label>
+                                    </div>
+                                    <div id="collapseOne" class="timeline-collapse collapse" data-parent="#accordion">
+                                        <div class="timeline-detl-collapse">
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row active">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Employee Name</label>
+                                                    <p>Sent on 27/04/2024</p>
+                                                    <p>17:32:07</p>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row active">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Reporting Level 1 - Manager Name</label>
+                                                    <p>Awaiting Approval</p>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Reporting Level 2 - Manager Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">HR Manager - Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-detl-collapse-info timeline-line-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Finance Manager - Name</label>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="timeline-detl-collapse-info timeline-line-collapse timeline-lastline-collapse row">
+                                                <div class="col-2 col-md-1">
+                                                    <div class="grey-circle"></div>
+                                                </div>
+                                                <div class="col-10 col-md-11">
+                                                    <label for="">Settlement Details</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer modal-footer-content justify-content-between" style="background: #F6F6F6;">
+
+                    <div class="w-md-60">
+                        <div class="btm-vender btm-vender-dark m-0">
+                            <div class="btm-vender-left"><a href="#"><img src="img/left-arow.svg" alt=""></a></div>
+                            <div class="btm-vender-mid">
+                                <div class="vendor-num">1/10</div>
+                                <strong>Vendor Name</strong>
+                                <div class="vender-amount">
+                                    <span>INR</span>
+                                    <input type="text" placeholder="Amount">
+                                </div>
+                            </div>
+                            <div class="btm-vender-right"><a href="#"><img src="img/right-arow.svg" alt=""></a></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center justify-content-md-end">
+                        <button class="btn btn-border mx-2" data-toggle="modal"
+                            data-target="#ModalRejectRemarkReimbursement">Reject</button>
+                        <button class="btn btn-primary mx-2" data-toggle="modal"
+                            data-target="#ModalViewPendingExpSubmit">Approve</button>
+                        <button class="btn p-0 mx-2" type="button" style="min-width: auto;"><i
+                                class="fas fa-ellipsis-v fa-sm"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal View Pending Expense Submit -->
+    <div class="modal fade" id="ModalViewPendingExpSubmit" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-top text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="img/modal-close.svg" alt="">
+                    </button>
+                    <img src="img/modal-success.svg" alt="">
+                </div>
+                <div class="modal-bottom">
+                    <div class="count"><span>1</span><strong>5</strong></div>
+                    <br>
+                    <span>Reimbursement Approved</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Add remark for Rejection -->
+    <div class="modal fade" id="ModalAddRemarkRejection" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add remark for Rejection</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <hr class="mt-0">
+                    <div class="d-flex">
+                        <p class="text-center secondary-900">Please add a remark to explain the rejection of the
+                            reimbursement to the employee.</p>
+                    </div>
+                    <div class="d-flex">
+                        <textarea name="" id="" class="custom-textarea"
+                            placeholder="Add Remark (Compulsory) "></textarea>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-border mr-2 w-100">Back</button>
+                        <button class="btn btn-primary ml-2 w-100" data-toggle="modal"
+                            data-target="#ModalAddRemarkReimbrushRejection">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Reimbursement Rejected -->
+    <div class="modal fade" id="ModalAddRemarkReimbrushRejection" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-top text-center" style="background: #FFEBE6;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="img/modal-close.svg" alt="">
+                    </button>
+                    <img src="img/reject.svg" alt="">
+                </div>
+                <div class="modal-bottom">
+                    <div class="count"><span>1</span><strong>5</strong></div>
+                    <br>
+                    <span>Reimbursement Rejected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal Approved Remark Reimbursement -->
+    <div class="modal fade" id="ModalApprovedRemarkReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-xxl modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Review and enter Remarks for Approved
+                        Reimbursements </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="policies-wrap-in-table">
+                        <div class="table-responsive">
+                            <table class="table table-rejectremark">
+                                <thead>
+                                    <tr>
+                                        <th>EXPENSE ID</th>
+                                        <th>SUBMITTED ON</th>
+                                        <th>CATEGORY</th>
+                                        <th>EMPLOYEE</th>
+                                        <th>AMOUNT</th>
+                                        <th>PAYMENT MODE</th>
+                                        <th>REMARKS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/Travel.svg" alt="" class="mr-2">Travel</span></td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Optional)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/food.svg" alt="" class="mr-2">Trip - Client Lunch</span>
+                                        </td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Optional)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/taxi.svg" alt="" class="mr-2">Convenience</span></td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Optional)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/Miscellaneous.svg" alt=""
+                                                    class="mr-2">Miscellaneous</span></td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Optional)"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-center justify-content-md-end">
+                            <button class="btn btn-border mx-2">Back</button>
+                            <button class="btn btn-primary mx-2" data-toggle="modal"
+                                data-target="#modalReimbursementApproved">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Reimbursement Approved -->
+    <div class="modal fade" id="modalReimbursementApproved" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-top text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="img/modal-close.svg" alt="">
+                    </button>
+                    <img src="img/modal-success.svg" alt="">
+                </div>
+                <div class="modal-bottom">
+                    <div class="count"><span>4</span><strong>5</strong></div>
+                    <br>
+                    <span>Reimbursement Approved</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal Reject Remark Reimbursement -->
+    <div class="modal fade" id="ModalRejectRemarkReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-xxl modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Review and enter Remarks for Rejected
+                        Reimbursements </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="policies-wrap-in-table">
+                        <div class="table-responsive">
+                            <table class="table table-rejectremark">
+                                <thead>
+                                    <tr>
+                                        <th>EXPENSE ID</th>
+                                        <th>SUBMITTED ON</th>
+                                        <th>CATEGORY</th>
+                                        <th>EMPLOYEE</th>
+                                        <th>AMOUNT</th>
+                                        <th>PAYMENT MODE</th>
+                                        <th>REMARKS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/Travel.svg" alt="" class="mr-2">Travel</span></td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Compulsory)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/food.svg" alt="" class="mr-2">Trip - Client Lunch</span>
+                                        </td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Compulsory)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/taxi.svg" alt="" class="mr-2">Convenience</span></td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Compulsory)"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>CDL-0424-001</span></td>
+                                        <td><span>21/04/2024</span></td>
+                                        <td><span><img src="img/Miscellaneous.svg" alt=""
+                                                    class="mr-2">Miscellaneous</span></td>
+                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
+                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between color-third">
+                                                <span>INR</span><span>16,680</span>
+                                            </div>
+                                        </td>
+                                        <td><span>Salary Bank A/c</span></td>
+                                        <td><input type="text" class="form-control-custom"
+                                                placeholder="Add Remark (Compulsory)"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-center justify-content-md-end">
+                            <button class="btn btn-border mx-2">Back</button>
+                            <button class="btn btn-primary mx-2" data-toggle="modal"
+                                data-target="#ModalReimbursementRejected">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Reimbursement Rejected -->
+    <div class="modal fade" id="ModalReimbursementRejected" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-top text-center" style="background: #FFEBE6;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="img/modal-close.svg" alt="">
+                    </button>
+                    <img src="img/reject.svg" alt="">
+                </div>
+                <div class="modal-bottom">
+                    <div class="count"><span>4</span><strong>5</strong></div>
+                    <br>
+                    <span>Reimbursement Rejected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!--- Modal AUTHENTICATE --->
+	    
+	 <div class="modal fade" id="ModalAuthenticate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	 aria-hidden="true">
+	 <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	     <div class="modal-content modal-bulk">
+	         <div class="modal-header pb-0 text-center">
+	             <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication Bank A/c Linking</h5>             
+	         </div>
+	         <div class="modal-body text-center">
+	            <div class="otp-box-onboarding justify-content-center">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	                <input type="text" class="form-control">
+	            </div>
+	            <label class="time-otp ml-0 text-dark" for="">00:30</label>
+	            <p class="text-dark">Didn’t receive the code? <a href="#">Resend Code</a></p>
+	             <div class="tip-wrap justify-content-center">
+	                 <p class="mb-0">OTP code has been sent to your phone. Enter OTP to authenticate linking.</p>
+	             </div>
+	             <div class="d-flex justify-content-center mt-3">
+	                 <button class="btn btn-primary w-100" data-toggle="modal"
+	                 data-target="#Modalbankaclinked">Authenticate</button>
+	             </div>
+	         </div>
+	     </div>
+	 </div>
+	</div>
+	   
+
+	  <!-- Modal Bank Account Linked -->
+	  <div class="modal fade" id="Modalbankaclinked" tabindex="-1" role="dialog"
+	  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	      <div class="modal-content modal-bulk">
+	          <div class="modal-top text-center">
+	              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                  <img src="img/modal-close.svg" alt="">
+	              </button>
+	              <img src="img/modal-success.svg" alt="">
+	          </div>
+	          <div class="modal-bottom">             
+	              <span>Bank Account Linked Successfully</span>
+	          </div>
+	      </div>
+	  </div>
+	</div>
+
+
+</body>
+
+</html>
+

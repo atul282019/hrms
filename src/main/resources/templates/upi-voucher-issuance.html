@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+
+
+<body id="page-top" onload="getIssueVoucherList()">
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+		<!-- Sidebar -->
+		      
+		 	  <div th:insert="fragments/sidenav.html :: sidevav"></div>
+		      <!-- End of Sidebar -->
+       
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">Empolyee Profile</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+					<ul class="navbar-nav ml-auto">
+					                        <li class="nav-item dropdown no-arrow">
+					                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+					                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+					                            </a>
+					                            <!-- Dropdown - User Information -->
+					                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+					                                <a class="dropdown-item" href="#">
+					                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+					                                    Profile
+					                                </a>
+					                                <a class="dropdown-item" href="#">
+					                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+					                                    Settings
+					                                </a>
+					                              
+					                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+										            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+												          <i class="fas fa-user-circle"></i> Logout         
+												        </a>
+										          </div> -->  
+					                              <div class="dropdown-divider"></div>
+					                                <a class="dropdown-item" th:href="@{/logout}">
+					                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+					                                    Logout
+					                                </a>
+					                            </div>
+					                        </li>
+
+					                   </ul>		
+                                </nav>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <div class="upi-voucher-wrap">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h3 class="mb-0">Dashboard</h3>
+                                        <a th:href="@{/createUpiVoucherIssuance}" class="btn btn-primary-deactive">+ Create Vouchers</a>
+                                    </div>
+                                    <div id="nolinkBankAccount">
+                                        <div class="d-flex align-items-center upi-voucher-in-wrap">
+                                            <div class="tip-wrap justify-content-start m-0">
+                                                <p class="mb-0">No Bank Account linked till now. Please click on ‘Link
+                                                    Bank
+                                                    Account Now’ to activate UPI Voucher issuance.</p>
+                                            </div>
+                                            <a class="btn btn-primary" id="linkBankAccount">Link Bank Account
+                                                Now</a>
+                                        </div>
+                                    </div>
+
+                                    <div id="linkedAccount" style="display:none;">
+                                        <div class="linkedAccount-wrap">
+                                            <div class="linkedAccount-wrap-left">
+                                                <img src="img/indianbank.png" alt="">
+                                                <span>Indian Bank</span>
+                                                <span>****3456</span>
+                                            </div>
+                                            <div class="linkedAccount-wrap-right">
+                                                <span>Funds Marked for <img src="img/e-rupi-seeklogo.png" alt=""></span>
+                                                <div class="funds-mark">-</div>
+                                            </div>
+                                        </div>
+                                        <div class="linkedAccount-wrap-p"><label>Last updated on</label><span>15:26:13</span><span>Wed 4 Sep 2024</span></div>
+                                    </div>
+
+                                    <div class="upi-voucher-table">
+                                        <div class="upi-voucher-in-head"><i class="fa fa-filter"></i>
+                                            <p>Quick Filters</p>
+                                        </div>
+										
+                                        <div class="table-responsive">
+                                            <table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th onclick="sortTable(0)">ID <img src="img/Sort.png" alt=""></th>
+                                                        <th onclick="sortTable(0)">Name <img src="img/Sort.png" alt=""></th>
+                                                        <th onclick="sortTable(0)">Mobile <img src="img/Sort.png" alt=""></th>
+                                                        <th onclick="sortTable(0)">Amount <img src="img/Sort.png" alt=""></th>
+                                                        <th onclick="sortTable(0)">merchant txnId </th>
+                                                        <th onclick="sortTable(0)">Purpose Code</th>
+                                                        <th onclick="sortTable(0)">MCC</th>
+														<th onclick="sortTable(0)">Creation Date</th>
+														<th onclick="sortTable(0)">Expiry Date</th>
+														<th onclick="sortTable(0)">Status</th>
+                                                        <th onclick="sortTable(0)">Redemtion Type</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="tableBody">
+                                                    
+                                                </tbody>
+                                            </table>
+											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+																				
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	
+	<script type="text/javascript" src="cotodel-js/upi-voucher-issuance.js"></script>
+
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/upiVoucherIssuance"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+
+	</script>
+
+    <script>
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $(".ftr-content").hide();
+            });
+            $("#show").click(function () {
+                $(".ftr-content").show();
+            });
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+        jQuery(document).ready(function ($) {
+            var bsOverlay = $('.bs-canvas-overlay');
+            $('[data-toggle="canvas"]').on('click', function () {
+                var ctrl = $(this),
+                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+                $(elm).addClass('mr-0');
+                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+                if (bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+                var elm;
+                if ($(this).hasClass('bs-canvas-close')) {
+                    elm = $(this).closest('.bs-canvas');
+                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+                } else {
+                    elm = $('.bs-canvas')
+                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");
+                }
+                elm.removeClass('mr-0');
+                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+                if (bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+
+
+        $(document).ready(function () {
+            $("#linkBankAccount").click(function () {
+                $("#linkedAccount").show();
+                $("#nolinkBankAccount").hide();
+
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

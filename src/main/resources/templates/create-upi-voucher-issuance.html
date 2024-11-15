@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+
+
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail()" >
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+		<!-- Sidebar -->
+		    <div th:insert="fragments/sidenav.html :: sidevav"></div>
+       <!-- End of Sidebar -->
+  
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">Empolyee Profile</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+					<ul class="navbar-nav ml-auto">
+	                        <li class="nav-item dropdown no-arrow">
+	                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+	                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+	                            </a>
+	                            <!-- Dropdown - User Information -->
+	                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+	                                <a class="dropdown-item" href="#">
+	                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+	                                    Profile
+	                                </a>
+	                                <a class="dropdown-item" href="#">
+	                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+	                                    Settings
+	                                </a>
+	                              
+	                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+						            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+								          <i class="fas fa-user-circle"></i> Logout         
+								        </a>
+						          </div> -->  
+	                              <div class="dropdown-divider"></div>
+	                                <a class="dropdown-item" th:href="@{/logout}">
+	                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+	                                    Logout
+	                                </a>
+	                            </div>
+	                        </li>
+
+	                   </ul>		
+                </nav>
+
+            <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <div class="upi-voucher-wrap">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <h3 class="mb-0">UPI Voucher Issuance </h3>
+                                    </div>
+                                    <div class="col-12 col-md-8 mx-auto">
+                                        <div class="breadcrumb-wrap">
+                                            <div class="breadcrumb-in active">
+                                                <span>1</span>
+                                                <label>Select Vouchers</label>
+                                            </div>
+                                            <div class="breadcrumb-in">
+                                                <span>2</span>
+                                                <label>Enter Details</label>
+                                            </div>
+                                            <div class="breadcrumb-in">
+                                                <span>3</span>
+                                                <label>Issue Vouchers</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="tab-content" id="selectvouchers-wrap01">
+                                <div class="upi-voucher-wrap">
+									
+																	
+                                    <h3>Select Vouchers </h3>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <p class="mb-1 mb-md-0">Select Vouchers from the selection provided below,
+                                                and continue to enter details for issuance. Alternatively, you could
+                                                also download an
+                                                Excel Template and upload it with the details for bulk issuance.</p>
+                                        </div>
+                                        <div>
+                                            <a th:href="@{/bulkVoucherIssuance}" class="btn bulkissue">Bulk Issue <i
+                                                    class="fa fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="cards-upivouchers-wrap">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers1">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/coffee-shop.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/meal.svg" alt="" class="img-fluid">
+                                                            <span>Meal </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox1 vouchers-checkbox" id="meal" name="Meal" value="A003">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers2">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/Fuel.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/fuel-circle.svg" alt="" class="img-fluid">
+                                                            <span>Fuel </span>
+                                                        </div>
+														
+                                                        <input type="checkbox" class="vouchers-checkbox2 vouchers-checkbox" id="fuel" name="Fuel" value="F003">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers3">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/Travelinsurance-bro.svg" alt=""
+                                                                class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/travel-circle.svg" alt="" class="img-fluid">
+                                                            <span>Travel </span>
+                                                        </div>
+														  <input type="checkbox" class="vouchers-checkbox3 vouchers-checkbox" name="Travel" id="Travel" value="T003">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers4">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/conveyance.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/conveyance-circle.svg" alt=""
+                                                                class="img-fluid">
+                                                            <span>Conveyance </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox4 vouchers-checkbox" value="C003"
+														  name="Conveyance" id="Conveyance">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers5">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/uniform-info.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/uniform.svg" alt="" class="img-fluid">
+                                                            <span>Uniform </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox5 vouchers-checkbox" value="U003"
+														id="uniform" name="uniform">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers6">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/gadgets-info.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/gadgets.svg" alt="" class="img-fluid">
+                                                            <span>Gadgets </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox6 vouchers-checkbox" 
+														value="Gadgets" id="Gadgets" name="Gadgets">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers7">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/health-info.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/health.svg" alt="" class="img-fluid">
+                                                            <span>Health </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox7 vouchers-checkbox" 
+														 value="H003" id="Health" name="Health">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers8">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/wellness-info.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/wellness.svg" alt="" class="img-fluid">
+                                                            <span>Wellness </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox8 vouchers-checkbox" 
+														value="W003" id="Wellness" name="Wellness">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers9">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/telecom-info.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/telecom.svg" alt="" class="img-fluid">
+                                                            <span>Telecom </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox9 vouchers-checkbox" 
+														value="T003" id="Telecom" name="Telecom">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers10">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/entertainment-info.svg" alt=""
+                                                                class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/entertainment.svg" alt="" class="img-fluid">
+                                                            <span>Entertainment </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox10 vouchers-checkbox" 
+														value="E003" id="Entertainment" name="Entertainment">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers11">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/groceries-info.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/groceries.svg" alt="" class="img-fluid">
+                                                            <span>Groceries </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox11 vouchers-checkbox" 
+														value="G003" id="Groceries" name="Groceries">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="cards-upivouchers cards-upivouchers12">
+                                                    <div class="cards-upivouchers-top">
+                                                        <div class="cards-upivouchers-top-left">
+                                                            <img src="img/books-info.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="cards-upivouchers-top-right">
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#Modal-upivouchers-info"><img
+                                                                    src="img/info-cards.svg" alt="" width="20"
+                                                                    class="img-fluid"></a>
+                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
+                                                                class="img-fluid e-rupi-seek">
+                                                        </div>
+                                                    </div>
+                                                    <div class="cards-upivouchers-bottom">
+                                                        <div>
+                                                            <img src="img/books.svg" alt="" class="img-fluid">
+                                                            <span>Books & Periodicals </span>
+                                                        </div>
+                                                        <input type="checkbox" class="vouchers-checkbox12 vouchers-checkbox" 
+														value="B003" id="books" name="books">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+										
+										<div class="error-msg" id="selectVoucherError" style="color:red"></div>
+										
+                                        <div class="row">
+                                            <div class="col-md-12 text-right">
+                                               <!-- <a class="btn btn-primary" id="selectvouchers" onclick="updateDropdown()" >Continue</a>-->
+											<input class="btn btn-primary" id="selectvouchersContinew" type="button" value="Continue" onclick="updateDropdown()" />
+												
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-content" id="selectvouchers-wrap02" style="display: none;">
+                                <div class="selectvouchers-update">
+                                    <p>Last updated on</p>
+                                    <span>15:26:13</span>
+                                    <span>Wed 4 Sep 2024</span>
+                                </div>
+                                <div class="selectvouchers-top">
+                                    <div class="selectvouchers-topleft">
+                                        <div class="selectvouchers-topleft-cards d-flex" >
+                                            <div id="jsonDataBank"></div>
+                                <!--            <div class="bnkdetils">
+                                                <span>Indian Bank</span>
+                                                <p> xxxx3456</p>
+                                                <p class="mb-0">Available Balance</p>
+                                                <strong>₹1,00,000</strong>
+                                            </div>-->
+                                        </div>
+                                        <div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
+                                            <h5>Total Vouchers</h5>
+                                            <div class="d-flex justify-content-between my-1 mb-3">
+                                                <span>Number</span>
+                                                <span>18</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-1">
+                                                <span>Value</span>
+                                                <span>₹2,10,000</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="selectvouchers-topright">
+                                        <div class="selectvouchers-carosel" id="jsonData">
+                                          
+                                           <!-- <div class="selectvouchers-carosel-cards">
+                                                <h5><img src="img/fuel-1.svg" alt="">Fuel</h5>
+                                                <div class="d-flex justify-content-between my-1 mb-3">
+                                                    <span></span>
+                                                    <span>2</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between my-1">
+                                                    <span></span>
+                                                    <span>₹15,000</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="selectvouchers-carosel-cards">
+                                                <h5><img src="img/Travel-1.svg" alt="">Travel</h5>
+                                                <div class="d-flex justify-content-between my-1 mb-3">
+                                                    <span></span>
+                                                    <span>2</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between my-1">
+                                                    <span></span>
+                                                    <span>₹1,50,000</span>
+                                                </div>
+                                            </div>-->
+											<!--
+                                           <div class="selectvouchers-carosel-cards">
+                                                <h5><img src="img/cup-1.svg" alt="">Conveyance</h5>
+                                                <div class="d-flex justify-content-between my-1 mb-3">
+                                                    <span></span>
+                                                    <span></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between my-1">
+                                                    <span></span>
+                                                    <span></span>
+                                                </div>
+                                            </div>
+                                           <div class="selectvouchers-carosel-cards">
+                                                <h5><img src="img/call-1.svg" alt="">Telecom</h5>
+                                                <div class="d-flex justify-content-between my-1 mb-3">
+                                                    <span></span>
+                                                    <span></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between my-1">
+                                                    <span></span>
+                                                    <span></span>
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
+                                   
+									<div>
+										
+										<div>
+		                                   <h3> Select Linked Bank Account</h3>
+		                                </div>
+																				
+										
+										<div class="cstm-gensel">
+										<div class="custom-GeneralSelect">
+										  <select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber()">
+											 <option value="" class="test">Select Bank</option>
+		                                     </select>
+
+											 <div class="error-msg" id="banklistError" style="color:red"></div>	 
+										 </div>
+											 
+										  <div class="bnak-dtail-wrap" id="bankDetailView" style="display: none">
+										      <div class="bnk-dtl-wrap-in">
+										          <label>Account Type</label><span id="accTypeView"></span>
+										      </div>
+
+										      <div class="bnk-dtl-wrap-in">
+										          <label>IFSC Code</label><span id="accIfscView"></span>
+										      </div>
+
+					                          <div class="bnk-dtl-wrap-in">
+										          <label>Name</label><span id="accHolderNameView"></span>
+										      </div>
+
+							                  <div class="bnk-dtl-wrap-in">
+										          <label>MID</label><span id="accMidView"></span>
+										      </div>                                       
+							             </div>
+										 </div>
+
+
+	                                 </div>
+									
+									 <div class="d-flex justify-content-between align-items-center">
+                                        <h3>Enter Details </h3>
+                                      <div>
+											 <a href="#" class="btn btn-primary" id="addcategory">+ ADD CATEGORY</a>
+                                       </div>
+                                    </div>
+
+									<div>
+                                      <p>Please input the details for the issuance of vouchers.</p>
+                                   </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-reimbursements selectvouchers-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Voucher</th>
+                                                    <th>Type</th>
+                                                    <th>Name</th>
+                                                    <th>Mobile Number</th>
+                                                    <th>Amount</th>
+                                                    <th>Start Date</th>
+                                                    <th>Validity</th>
+                                                   <!-- <th></th>-->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+														<select id="selectedOptionsDropdown" class="GeneralSelect"  onchange="getVoucherDetailByBoucherCode()">
+														    <option value="" disabled selected>Select checked options</option>
+														</select>
+                                                    </td>
+                                                    <td>
+                                                        <select class="GeneralSelect" id="voucherType">
+															<option value="" class="test">Select Type</option>
+                                                            <option value="Single" class="test">Single</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="table-input" placeholder="Enter Name" id="beneficiaryName" maxlength="50" >
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="table-input" placeholder="Enter Mobile Number" id="beneficiaryMobile"
+														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+														
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="table-input" placeholder="Enter Amount" id="amount"
+														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                                    </td>
+                                                    <td>
+                                                        <input type="date" class="table-date" placeholder="25/10/2024" id="startDate">
+                                                    </td>
+                                                    <td>
+                                                        <input type="date" class="table-input" placeholder="Enter Figure" id="expiryDate">
+														
+                                                    </td>
+                                                  <!--  <td>
+                                                        <a href="#"><img src="img/delete.svg" alt=""></a>
+                                                    </td>-->
+                                                </tr>
+                                                
+												<tr>
+	                                                   <td>
+														  <div class="error-msg" id="selectedOptionsDropdownError" style="color:red"></div>
+													   </td>
+	                                                   <td>
+														<div class="error-msg" id="voucherTypeError" style="color:red"></div>
+
+	                                                   </td>
+	                                                   <td>
+														<div class="error-msg" id="beneficiaryNameError" style="color:red"></div>
+	                                                   </td>
+	                                                   <td>
+														<div class="error-msg" id="beneficiaryMobileError" style="color:red"></div>
+	                                                   </td>
+	                                                   <td>
+														<div class="error-msg" id="amountError" style="color:red"></div>
+	                                                   </td>
+	                                                   <td>
+														<div class="error-msg" id="startDateError" style="color:red"></div>
+	                                                   </td>
+	                                                   <td>
+														<div class="error-msg" id="expiryDateError" style="color:red"></div>
+	                                                   </td>
+	                                                 <!--  <td>
+	                                                       <a href="#"><img src="img/delete.svg" alt=""></a>
+	                                                   </td>-->
+	                                               </tr>
+												                                               
+                                               <!-- <tr class="text-center">
+                                                    <td colspan="8" style="background: #EAF4EF;">
+                                                        <a href="#" class="text-success">+ Add New Voucher</a>
+                                                    </td>
+                                                </tr>-->
+												
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="w-100 my-3 text-right">
+										
+										<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+										
+										<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+										<input type="hidden" class="form-input" id="voucherId" name="voucherId"> 
+										<input type="hidden" class="form-input" id="voucherCode" name="voucherCode"> 
+										<input type="hidden" class="form-input" id="voucherType" name="voucherType"> 
+										<input type="hidden" class="form-input" id="voucherSubType" name="voucherSubType"> 
+										<input type="hidden" class="form-input" id="voucherDesc" name="voucherDesc"> 
+										<input type="hidden" class="form-input" id="purposeCode" name="purposeCode"> 
+										<input type="hidden" class="form-input" id="activeStatus" name="activeStatus"> 
+										<input type="hidden" class="form-input" id="createdby" name="createdby"> 
+										
+										
+										<input type="hidden" class="form-input" id="bankName" name="bankName"> 
+										<input type="hidden" class="form-input" id="bankCode" name="bankCode"> 
+										<input type="hidden" class="form-input" id="accountHolderName" name="accountHolderName"> 
+										<input type="hidden" class="form-input" id="acNumber" name="acNumber">
+										<input type="hidden" class="form-input" id="accountType" name="accountType"> 
+										<input type="hidden" class="form-input" id="ifsc" name="ifsc">
+										
+										<input type="hidden" class="form-input" id="erupiFlag" name="erupiFlag"> 
+										<input type="hidden" class="form-input" id="branchCode" name="branchCode"> 
+										<input type="hidden" class="form-input" id="authStatus" name="authStatus">
+										
+										<input type="hidden" class="form-input" id="authResponse" name="authResponse">
+										<input type="hidden" class="form-input" id="banklinkedMobile" name="mobile"> 
+										<input type="hidden" class="form-input" id="accstatus" name="accstatus"> 
+										
+										<input type="hidden" class="form-input" id="orgId" name="orgId"> 
+										<input type="hidden" class="form-input" id="orgCode" name="orgCode"> 
+										<input type="hidden" class="form-input" id="tid" name="tid"> 
+										<input type="hidden" class="form-input" id="merchentIid" name="merchentIid"> 
+										<input type="hidden" class="form-input" id="mcc" name="mcc"> 
+										<input type="hidden" class="form-input" id="submurchentid" name="submurchentid"> 
+										<input type="hidden" class="form-input" id="payerva" name="payerva"> 
+										
+																				
+										<div class="clearfix"></div>
+												<div class="error-msg" id="payervaError" style="color:red"></div>
+												<div class="clearfix"></div>
+												<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+									            	<div id="otsuccmsg"></div>   
+									            </div>
+									            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+									            	<div id="otfailmsg"></div>
+									            </div>	
+												
+																							
+                                        <button class="btn btn-border-primary" id="backToVoucherSelect">Back</button>
+                                        <!--<div class="btn btn-primary" id="addcategory">Continue</div>-->
+										<!--<a href="#" class="btn btn-primary" id="addcategory">Continue</a>-->
+										<input type="button" class="btn btn-primary" id="createVoucher" value="Continue" onclick="createSingleVoucherValidation()">
+										
+										<!--<input type="button" class="btn btn-primary" id="optBtn" value="Get OTP"  onclick="getVoucherOTP()">-->
+										<!--<div class="d-grid" id="verifyDiv">
+								        	<input type="button"  style="display: none;" value="Verify OTP" onclick="verfyOTP()" id="verifyotpdiv" class="btn btn-primary">
+								    	</div>
+												-->									
+																				
+									 </div>
+                                </div>
+
+                                <div class="upi-voucher-wrap selectvouchers-VerifyDetails" id="selectvouchers-wrap04" style="display: none;">
+                                    <h3>Verify Details </h3>
+                                    <div>
+                                        <p>Please cross-check the details for the issuance of vouchers.</p>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-reimbursements selectvouchers-table border-btm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Voucher</th>
+                                                    <th>Type</th>
+                                                    <th>Name</th>
+                                                    <th>Mobile Number</th>
+                                                    <th>Amount</th>
+                                                    <th>Start Date</th>
+                                                    <th>Validity</th>
+                                                  
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span id="voucherlbl"></span></td>
+                                                    <td><span id="vtypelbl"></span></td>
+                                                    <td><span id="namelbl"></span></td>
+													<td><span id="mobilelbl"></span></td>
+                                                    <td><span id="amountlbl"></span></td>
+                                                    <td><span id="startdatelbl"></span></td>
+                                                    <td><span id="validitylbl"></span></td>
+                                                  
+                                                   
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck45">
+                                            <label class="custom-control-label text-left" for="customCheck45">I confirm
+                                                that the details uploaded above are correct to the best of my knowledge,
+                                                and are approved by the competent authority in my organization.</label>
+                                        </div>
+										<div class="error-msg" id="errorMessage" style="color:red"></div>
+                                    </div>
+									
+											
+											<div class="clearfix"></div>
+											<div id="issuemsgdiv" style="display:none" class="alert alert-success text-center">
+									        	<div id="issuesuccmsg"></div>   
+									        </div>
+									        <div id="issuesfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+									        	<div id="issuesfailmsg"></div>
+									        </div>		
+									
+                                    <div class="w-100 mt-3 text-right">
+                                        <div class="btn btn-border-primary" id="verifyDetailBack">Back</div>
+                                       <!-- <div class="btn btn-primary" data-toggle="modal"
+                                            data-target="#modalissueVouchers">Issue Vouchers</div>-->
+											
+											<button  class="btn btn-primary" id="submitButton">Issue Vouchers</button>
+                                    </div>
+                                </div>
+
+                                <div class="upi-voucher-wrap selectvouchers-VerifyDetails" id="selectvouchers-wrap05" style="display: none;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h3>Report for Voucher Issuance </h3>
+                                        <div>
+                                            <a href="#"><img src="img/download-green.svg" alt=""></a>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p>Below are the details of the voucher issuance.</p>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-reimbursements selectvouchers-table border-btm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Voucher</th>
+                                                    <th>Transaction Number</th>
+                                                    <th>Type</th>
+                                                    <th>Name</th>
+                                                    <th>Mobile Number</th>
+                                                    <th>Amount</th>
+                                                    <th>Start Date</th>
+                                                    <th>Validity</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span>Meal</span></td>
+                                                    <td>12345678965433456789</td>
+                                                    <td>General</td>
+                                                    <td>Deepika Sudan</td>
+                                                    <td>9910318405</td>
+                                                    <td>₹10,000</td>
+                                                    <td>25/10/2024</td>
+                                                    <td>100 Days</td>
+                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Meal</span></td>
+                                                    <td>12345678965433456789</td>
+                                                    <td>General</td>
+                                                    <td>Deepika Sudan</td>
+                                                    <td>9910318405</td>
+                                                    <td>₹10,000</td>
+                                                    <td>25/10/2024</td>
+                                                    <td>100 Days</td>
+                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Meal</span></td>
+                                                    <td>12345678965433456789</td>
+                                                    <td>General</td>
+                                                    <td>Deepika Sudan</td>
+                                                    <td>9910318405</td>
+                                                    <td>₹10,000</td>
+                                                    <td>25/10/2024</td>
+                                                    <td>100 Days</td>
+                                                    <td><a href="#"><img src="img/status-cancel.svg" alt=""></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Meal</span></td>
+                                                    <td>12345678965433456789</td>
+                                                    <td>General</td>
+                                                    <td>Deepika Sudan</td>
+                                                    <td>9910318405</td>
+                                                    <td>₹10,000</td>
+                                                    <td>25/10/2024</td>
+                                                    <td>100 Days</td>
+                                                    <td><a href="#"><img src="img/status-pending.svg" alt=""></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Meal</span></td>
+                                                    <td>12345678965433456789</td>
+                                                    <td>General</td>
+                                                    <td>Deepika Sudan</td>
+                                                    <td>9910318405</td>
+                                                    <td>₹10,000</td>
+                                                    <td>25/10/2024</td>
+                                                    <td>100 Days</td>
+                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Meal</span></td>
+                                                    <td>12345678965433456789</td>
+                                                    <td>General</td>
+                                                    <td>Deepika Sudan</td>
+                                                    <td>9910318405</td>
+                                                    <td>₹10,000</td>
+                                                    <td>25/10/2024</td>
+                                                    <td>100 Days</td>
+                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+									
+
+                                    <div class="w-100 mt-3 text-right">
+                                        <div class="btn btn-primary"><a class="text-white" href="upi-voucher-issuance-dashboard.html">Go To Dashboard</a></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+		
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+			
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	
+	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
+
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			
+			  $('li.active').removeClass('active').removeAttr('aria-current'); 
+			  $('a[href="' +'/upiVoucherIssuance"]').closest('li').addClass('active').attr('aria-current', 'page');   
+			  
+		   $(".innernav").click(function(){
+		       $(".dropdownNav").addClass("active");
+		   });
+		});
+
+		</script>
+
+    <script>
+        $(document).ready(function () {
+            $("#linkBankAccount").click(function () {
+                $("#linkedAccount").show();
+                $("#nolinkBankAccount").hide();
+
+            });
+        });
+
+
+        $(document).ready(function () {
+
+            $("#selectvouchers").click(function () {
+               // $("#selectvouchers-wrap02").show();
+               // $("#selectvouchers-wrap01").hide();
+            });
+
+			$("#backToVoucherSelect").click(function () {
+               $("#selectvouchers-wrap01").show();
+               $("#selectvouchers-wrap02").hide();
+			 });
+
+					   
+            $("#addcategory").click(function () {
+                $("#selectvouchers-wrap04").show();
+                $("#selectvouchers-wrap03").hide();
+            });
+			
+			   
+			$("#verifyDetailBack").click(function () {
+			    $("#selectvouchers-wrap03").show();
+			    $("#selectvouchers-wrap04").hide();
+			});
+			
+			
+            $("#authenticatereport").click(function () {
+                $("#selectvouchers-wrap05").show();
+                $(".modal").hide();
+                $("#selectvouchers-wrap04").hide();
+            });
+            
+            
+        });
+
+        $(document).ready(function () {
+            $('.vouchers-checkbox1').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers1').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers1').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox2').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers2').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers2').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox3').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers3').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers3').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox4').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers4').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers4').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox5').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers5').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers5').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox6').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers6').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers6').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox7').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers7').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers7').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox8').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers8').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers8').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox9').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers9').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers9').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox10').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers10').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers10').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox11').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers11').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers11').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox12').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers12').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers12').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+        });
+
+    </script>
+	
+	<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+	<script>
+	  $(document).ready(function() {
+		
+		
+	    $('#submitButton').click(function() {
+	      // Call the AJAX function
+		  document.getElementById('submitButton').disabled=true;
+		  const checkbox = document.getElementById('customCheck45');
+	  		 const errorMessage = document.getElementById('errorMessage');
+	  		 if (checkbox.checked) {
+	  		    errorMessage.textContent = "";
+	  		  } else {
+	  		    errorMessage.textContent = "Please check consent"; 
+	  			return false;
+	  		  }
+	  		
+		  var linkedmobilenumber = document.getElementById("banklinkedMobile").value;
+	      $.ajax({
+	        url:"/smsOtpSender",
+	        type: 'POST',
+			data: {
+						"mob": linkedmobilenumber,
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj['status'] == "SUCCESS") {
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+								var downloadTimer = setInterval(function() {
+									document.getElementById("countdown").innerHTML = "00:"+timeleft;
+									timeleft -= 1;
+									//document.getElementById("optBtn").style.display = "none";
+									document.getElementById("orderId").value= obj['orderId'];
+									//document.getElementById("verifyotpdiv").style.display = "block";
+									if (timeleft <= 0) {
+										clearInterval(downloadTimer);
+										///document.getElementById("optBtn").disabled = false;
+										///document.getElementById("countdown").innerHTML = " ";
+										//document.getElementById("optBtn").style.display = "none";
+										//document.getElementById("verifyotpdiv").style.display = "none";
+										///$('#loginIdDiv').hide('slow');
+									}
+									//document.getElementById('password').focus();
+								}, 1000);
+	            $('#otpModal').fadeIn();
+	          } else {
+	            alert("Error: " + response.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+	    });
+
+	    // Close the modal when clicking outside the modal content
+	    $(window).on('click', function(event) {
+	      if (event.target.id === 'otpModal') {
+	        $('#otpModal').fadeOut();
+	      }
+	    });
+	  });
+	  
+	  
+	  
+	</script>
+    <!-- Modal Issue Vouchers -->
+   <!-- <div class="modal fade" id="modalissueVouchers" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+		<div id="otpModal" class="modal">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-header pb-0 text-center">
+                    <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication Bank A/c Linking</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="otp-box-onboarding justify-content-center">
+					
+						        <input  class="form-control form-control-sm test" type="password" id="password1" 
+						        name="password1" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password2" 
+						        name="password2" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password3" 
+						        name="password3" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password4" 
+						        name="password4" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password5" 
+						        name="password5" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password6" 
+						        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+						        name="orderId" >
+                    </div>
+                   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+					<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+                    <div class="tip-wrap justify-content-center">
+                        <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+                    </div>
+					
+					<div class="error-msg" id="otpError" style="color:red"></div>
+					
+                    <div class="d-flex justify-content-center mt-3">
+						<!--
+                        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+						-->
+						<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Choose Type of Advance Request -->
+    <div class="modal fade" id="Modal-upivouchers-info" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Voucher Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-block">
+                        <p>These are e-RUPI Vouchers that are person and purpose specific. They can be redeemed using
+                            UPI Apps. To learn more, <a href="#"><b>click here.</b></a></p>
+                    </div>
+                    <div class="specificDetails">
+                        <h4>Voucher Specific Details</h4>
+                        <p>Category: <strong>Meal</strong></p>
+                        <p class="mb-0">Eligible Merchants: <strong>Restaurants, Food Ordering Platforms, Fast
+                                Food</strong></p>
+                    </div>
+
+                    <div class="specificDetails-white">
+                        <h4>Brands Available</h4>
+                        <hr>
+                        <div class="d-flex">
+                            <img src="img/zomato.svg" alt="">
+                            <img src="img/swiggy.svg" alt="">
+                            <img src="img/dominos.svg" alt="">
+                            <img src="img/freshmenu.svg" alt="">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-primary w-100">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
