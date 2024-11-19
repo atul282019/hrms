@@ -22,4 +22,5 @@ public class ErupiVoucherMaster {
 	private String beneficiaryID;
 	private String payerVA;
 	private String type;
+	
 }
