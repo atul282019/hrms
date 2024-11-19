@@ -1,7 +1,4 @@
 
-
-
-
 function resendVoucherOTP() {
 	
 	var userName = document.getElementById("banklinkedMobile").value;
