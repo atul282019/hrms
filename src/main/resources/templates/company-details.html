@@ -44,7 +44,7 @@
                                                 <span>2</span>
                                                 <label>Set payroll date</label>
                                             </div>
-                                            <div class="breadcrumb-in">
+                                            <div class="breadcrumb-in" id="tab3">
                                                 <span>3</span>
                                                 <label>Set employee salary structure</label>
                                             </div>
@@ -268,7 +268,7 @@
                                             
                                             <input id="saveNext" type="button"  class="btn btn-proceed ml-2 my-1" value="Save" onclick="validateFormAndSubmit()" />
                                            <!--  <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" /> -->
-                                            <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />
+                                           <!--  <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />-->
                                           </div>
                                         
                                     </div>
@@ -606,6 +606,7 @@
             $("#next5").click(function () {
                 $("#form6").show();
                 $("#form5").hide();
+				$("#tab3").addClass("active");
             });
 
             $("#back2").click(function () {

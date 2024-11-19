@@ -36,7 +36,7 @@ function getIssueVoucherList(){
 				{ "mData": "purposeCode"},  
 				{ "mData": "mcc"}, 
 				{ "mData": "creationDate"},
-				{ "mData": "creationDate"},
+				{ "mData": "expDate"},
 				{ "mData": "type"},      
 				{ "mData": "redemtionType"},
 				{ "mData": "id", "render": function (data1, type, row) {

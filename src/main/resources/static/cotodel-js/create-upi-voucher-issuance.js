@@ -352,6 +352,7 @@ function  getBankDetailByBankAccountNumber(){
 			document.getElementById("merchentIid").value=data1.data.merchentIid; 
 			document.getElementById("mcc").value=data1.data.mcc; 
 			document.getElementById("submurchentid").value=data1.data.submurchentid;  
+			document.getElementById("merchentid").value=data1.data.merchentIid;  
 			document.getElementById("payerva").value=data1.data.payerva;  
 												 
           },
@@ -472,7 +473,9 @@ function  issueVoucher(){
 	document.getElementById("password4").value="";
 	document.getElementById("password5").value="";
     document.getElementById("password6").value="";
+	
     //document.getElementById("signinLoader").style.display="flex";
+	
 	var banklist = document.getElementById("banklist").value;
 	
 	var voucher = document.getElementById("voucherId").value;
@@ -492,6 +495,9 @@ function  issueVoucher(){
 	var bankCode = document.getElementById("bankCode").value;
 	var mcc = document.getElementById("mcc").value;
 	var payerva = document.getElementById("payerva").value;
+	
+	var merchentid = document.getElementById("merchentid").value;
+	var submurchentid = document.getElementById("submurchentid").value;
 	
 	 document.getElementById("voucherlbl").innerHTML= $("#selectedOptionsDropdown option:selected").text();
 	 document.getElementById("vtypelbl").innerHTML = $("#voucherType option:selected").text();
@@ -521,6 +527,8 @@ function  issueVoucher(){
 			   "accountId": "",
 			   "orgId": employerId,
 			   "merchanttxnid": "",
+			   "merchantId": merchentid,
+			   "subMerchantId": submurchentid,
 			   "bulktblId": "",
 			   "redemtionType": "",
 			   "mcc": mcc,

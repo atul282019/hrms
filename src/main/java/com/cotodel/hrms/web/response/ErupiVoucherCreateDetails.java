@@ -42,5 +42,8 @@ public class ErupiVoucherCreateDetails {
 	private String payerVA;
 	private String type;
 	private Integer workflowid;
+	
+	private String merchantId;
+	private String subMerchantId;
 }
 
