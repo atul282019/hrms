@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ErupiVoucherCreateDetails {
 	
-    private Integer Id;
+    private Integer id;
 	private Integer voucherId;
+	private String voucherCode;
+	private String voucherType;
+	private String voucherDesc;
 	private String name;	
 	private String bankCode;	
 	private String mobile;			

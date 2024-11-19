@@ -15,4 +15,6 @@ public interface ErupiVoucherCreateDetailsService {
 
 	String getPrimaryBankDetailsByOrgId(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
+	String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+
 }

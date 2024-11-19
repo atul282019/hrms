@@ -465,6 +465,23 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	@GetMapping(value="/expenseReimbursementsCompany")
+	public ModelAndView expenseReimbursementsCompany(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("expense-reimbursements-company", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
 	
 	@GetMapping(value="/employeeBand")
 	public ModelAndView employeeBand(Model model) {
@@ -570,6 +587,80 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
 				return new ModelAndView("expense-reimbursements-new", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	
+	@GetMapping(value="/bankMaster")
+	public ModelAndView bankMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+
+				return new ModelAndView("bank-master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	@GetMapping(value="/displayvoucherMaster")
+	public ModelAndView displayvoucherMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+
+				return new ModelAndView("display-voucher-Master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	@GetMapping(value="/voucherTypeMaster")
+	public ModelAndView voucherTypeMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+
+				return new ModelAndView("voucher-Type-Master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	@GetMapping(value="/displaybankMaster")
+	public ModelAndView displaybankMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+
+				return new ModelAndView("display-bank-Master", "command", "");
 			}
 		}
 		return new ModelAndView("index", "command", "");

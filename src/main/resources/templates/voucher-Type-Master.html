@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+              
+               <div th:insert="fragments/header.html :: header"></div>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                <form id="vouchermasterForm" name="vouchermasterForm" method="post">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 bg-white p-3">
+                                <div class="row">
+                                    <div class="col-12 organisation-wrap">
+                                        <h3 class="mb-1 text-center"> voucher Master Form</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        
+										
+										
+										<div class="card-form my-3">
+                                            <label for="voucherDesc">voucherDesc</label>
+                                            <!--<input type="text" class="form-input" id="voucherDesc" maxlength="20">-->
+                                            <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="voucherDesc" name="voucherDesc"  >
+                                                <option value="">Select voucher</option>
+                                            </select>
+                                            <input type="text" class="form-input mt-2" id="customVoucherDesc" name="customVoucherDesc" maxlength="20"
+           										placeholder="Enter new voucher description" style="display: none;" required>
+                                        </div>
+ 										<div class="error-msg" id="voucherDescError" style="color:red"></div>
+										
+										
+										
+										
+										
+										
+                                        
+                                        <div class="card-form my-3">
+                                            <label for="voucherType">voucherType</label>
+                                            <!--<input type="text" class="form-input" id="voucherType" maxlength="10" required>
+                                        -->
+                                        <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="voucherType" maxlength="10" required>
+                                                <option value="" >Please Select voucher Type</option>
+                                                <option value="SINGLE">SINGLE</option>
+                                                <option value="MULTIPLE">MULTIPLE</option>
+                                                
+                                            </select>
+                                        </div>
+										 <div class="error-msg" id="voucherTypeError" style="color:red"></div>
+										 
+										  <div class="card-form my-3">
+                                            <label for="voucherSubType">voucherSubType</label>
+                                            <input type="text" class="form-input" id="voucherSubType" maxlength="10" required>
+                                        </div>
+										 <div class="error-msg" id="voucherSubTypeError" style="color:red"></div>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+
+                                        
+										 
+										 
+										 
+										 
+                                      
+
+                                    
+
+                                        <div class="card-form my-3">
+                                            <label for="purposeCode">purposeCode</label>
+                                            <input type="text" class="form-input" id="purposeCode" maxlength="5">
+                                        </div>
+ 										<div class="error-msg" id="purposeCodeError" style="color:red"></div>
+                                        
+
+                                    
+                                    	<div class="card-form my-3">
+				    						<label for="statusToggle">Status  </labelfor><br>
+				        				<!--<label for="statusToggle">Status:</label>-->
+				        				<input type="checkbox" clas="form-input" id="statusToggle" name="statusToggle" onchange="toggleStatus()" checked>
+				        				<span id="statusText">Active</span>
+				        				<input type="hidden" id="status" name="status">
+				       
+										</div><br>
+
+                                        
+                                    
+                                    </div>
+                                </div>
+							
+							<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+				            	<div id="otsuccmsg"></div>   
+				            </div>
+				            
+				            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+				            	<div id="otfailmsg"></div>
+				            </div>
+				            							
+                                <div class="row">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        <div class="text-center text-md-center my-3">
+                                        	<!--<input type="hidden" name="employeeId" id="employeeId">
+                                            <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">-->
+                                            <input type="button" id="saveVoucherTypeMaster" class="btn btn-primary next d-block" onclick ="saveVoucher()" value="Save"> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                     </div>
+                    
+                  </form>
+
+               </div>
+              <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+<div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+	<script type="text/javascript" src="cotodel-js/voucher-Type-Master.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/voucherTypeMaster"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+	
+	</script>
+	
+	<script>document.addEventListener("DOMContentLoaded", function() {
+            initializevoucherDropdown()});</script>
+
+	
+</body>
+
+</html>

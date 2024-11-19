@@ -100,6 +100,15 @@ public interface CommonUtils {
 	
 	public static String getPrimaryBankDetailByOrgId = "/empService/Api/get/erupiPrimaryAccountDetails";
 	
+	public static String updateErupiLinkAccount = "/empService/Api/update/erupiLinAccPsFlag";
+	public static String saveVoucherTypeMasterDetailS="/empService/Api/add/voucherTypeMaster";
+	public static String getvoucherTypeMasterList="/empService/Api/get/voucherTypeMasterList";
+	public static String updatevoucherTypeMasterStatus="/empService/Api/update/voucherTypeMasterStatus";
+	public static String saveBankMasterDetailS="/empService/Api/add/bankMasterDetails";
+	public static String getaftersaveBankMasterDetailsList="/empService/Api/get/getBankMasterDetailsList";
+	public static String getbankNameMasterList="/empService/Api/get/bankNameMasterList";
+	public static String updatebankMasterDetailStatus="/empService/Api/update/bankMasterDetailStatus";
 	
+	public static String revokeCreatedVoucherOneByOne="/empService/Api/update/erupiVoucherRevokeSingle";
 	
 }

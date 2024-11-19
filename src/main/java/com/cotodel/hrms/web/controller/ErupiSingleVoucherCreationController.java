@@ -77,4 +77,13 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		return profileRes;
 	}
 	
+	@PostMapping(value = "/revokeCreatedVoucher")
+	public @ResponseBody String revokeCreatedVoucher(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		String profileRes = null;
+		profileRes = erupiVoucherCreateDetailsService.revokeCreatedVoucher(tokengeneration.getToken(),	erupiVoucherCreateDetails);
+
+		return profileRes;
+	}
+	
 }

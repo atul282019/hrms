@@ -4604,22 +4604,33 @@ table.table-upivouchers thead tr th:last-child {
     display: flex;
     border-radius: 10px;
     background: #EDEDF0;
-    width: 40%;
+    width: 20%;
     padding: 10px 0;
 }
 
+.selectvouchers-topright{
+	width:80%;
+}
+
+.selectvouchers-topright .selectvouchers-carosel{
+	margin-top: 10px;
+}
+.selectvouchers-topleft-primary{
+	max-width:170px;
+}
 .selectvouchers-topleft-cards {
-    width: 50%;
+    width: 100%;
     background: #fff;
     padding: 10px;
     margin: 0 10px;
-    justify-content: space-between;
+    display: block !important;
     border-radius: 10px;
 }
 
 .bnkdetils {
     text-align: right;
     color: #000;
+	width:90%;
 }
 
 .bnkdetils p {

@@ -1010,7 +1010,6 @@ function  getLinkedBankDetail(){
 		if(data2.length ===0 && data2.length <=0){
 			$("#linkaccbankform").show();
 			$("#linkedbnkacntsctn").hide();
-				
 		}
 		else{
 			$("#linkaccbankform").hide();
@@ -1048,29 +1047,72 @@ function  getLinkedBankDetail(){
 		       });
 
 		       const editButton = document.createElement('button');
-		       editButton.className = 'btn btn-green';
-		       editButton.innerText = 'primary Account';
-		       //editButton.onclick = () => editItem(item.id);
-			
-			  
+		       
+			   if(item.psFlag=="Secondary"){
+				editButton.className = 'btn btn-primary';
+				editButton.innerText = 'Set As Primary';
+			   }
+			   else{
+				editButton.className = 'btn btn-green';
+		       editButton.innerText = item.psFlag;
+			   }
+		       editButton.onclick = () => editItem(item.acNumber);
+						  
 			   const editButton1 = document.createElement('a');
 			   editButton1.className = '';
 			   editButton1.innerText = 'De-linked Bank A/c';
 			   editButton1.href = '#';  // Use this if you don't have a specific link
-			   editButton1.onclick = () => editItem(item.id); 
-			   
-			   
-		      
-			
+			   editButton1.onclick = () => dlinkAccount(item.id); 
+			  
 			   container.appendChild(editButton);
 		       container.appendChild(editButton1);
 
 		       wrapper.appendChild(container);
 		   });
 
-		   function editItem(id) {
-			   alert(`Are You Sure you want to de link this Account`);
-		       // alert(`Are You Sure  de link this Account: ${id}`);
+		   function editItem(acNumber) {
+			   //alert(`Are You Sure you want to de link this Account`);
+		        //alert(`Are You Sure  de link this Account: ${acNumber}`);
+				var accountid= acNumber;
+				document.getElementById("linkBankBtn").disabled = true;
+					document.getElementById("signinLoader").style.display="flex";
+					
+
+					 	$.ajax({
+						type: "POST",
+					     url:"/updateErupiLinkBankAccountStaus",
+						 data: {
+								"orgId": employerid,
+								"acNumber":accountid
+						 		},    		 
+				            success: function(data){
+				            newData = data;
+							var data1 = jQuery.parseJSON(newData);
+
+							document.getElementById("signinLoader").style.display="none";
+							
+							if(data1.status==true){
+									 document.getElementById("otsuccmsg").innerHTML="Bank Account Linked Successfully.";
+									 document.getElementById("otmsgdiv").style.display="block";
+									 //document.getElementById("getInTouchUser").reset();
+									 $('#otmsgdiv').delay(5000).fadeOut(400);
+					    			 window.location.href = "/expenseReimbursements";
+								}else if(data1.status==false){
+									 document.getElementById("otfailmsg").innerHTML=data1.message;
+									 document.getElementById("otfailmsgDiv").style.display="block";
+									 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+								}else{
+									 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
+									 document.getElementById("otfailmsgDiv").style.display="block";
+									 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+								}
+							
+				         },
+				         error: function(e){
+				             alert('Error: ' + e);
+				         }
+				    });	
+					
 		       // Implement actual edit functionality here
 		   }
           },
@@ -1256,6 +1298,12 @@ function submitLinkBankAccount(){
              alert('Error: ' + e);
          }
     });	
+	
+}
+
+
+function updateLinkBankAccount(){
+	
 	
 }
 

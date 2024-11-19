@@ -120,15 +120,16 @@
                                     </div>
 
                                     <div class="upi-voucher-table">
-                                        <div class="upi-voucher-in-head"><i class="fa fa-filter"></i>
+                                       <!-- <div class="upi-voucher-in-head"><i class="fa fa-filter"></i>
                                             <p>Quick Filters</p>
-                                        </div>
-										
+                                        </div>-->
+										<!--<button class="btn" id="deleteBtn" disabled>Revoke Selected</button>-->
                                         <div class="table-responsive">
                                             <table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
                                                 <thead>
                                                     <tr>
-                                                        <th onclick="sortTable(0)">ID <img src="img/Sort.png" alt=""></th>
+                                                        <th></th>
+														<th onclick="sortTable(0)">Voucher Type <img src="img/Sort.png" alt=""></th>
                                                         <th onclick="sortTable(0)">Name <img src="img/Sort.png" alt=""></th>
                                                         <th onclick="sortTable(0)">Mobile <img src="img/Sort.png" alt=""></th>
                                                         <th onclick="sortTable(0)">Amount <img src="img/Sort.png" alt=""></th>
@@ -139,6 +140,7 @@
 														<th onclick="sortTable(0)">Expiry Date</th>
 														<th onclick="sortTable(0)">Status</th>
                                                         <th onclick="sortTable(0)">Redemtion Type</th>
+														<th onclick="sortTable(0)" colspan="2">Action</th>
                                                     </tr>
                                                 </thead>
 
@@ -164,6 +166,21 @@
             </div>
             <!-- End of Main Content -->
         </div>
+		
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -207,7 +224,7 @@
 
 	</script>
 
-    <script>
+    <script>	
         $(document).ready(function () {
             $("#hide").click(function () {
                 $(".ftr-content").hide();

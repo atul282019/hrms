@@ -77,4 +77,10 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetail);
 	}
 
+	@Override
+	public String updateErupiLinkBankAccountStaus(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.updateErupiLinkAccount);
+
+	}
+
 }

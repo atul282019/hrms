@@ -49,6 +49,9 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("accountId", "");
 		data.put("orgId", erupiVoucherCreateDetails.getOrgId());
 		data.put("accountNumber", erupiVoucherCreateDetails.getAccountNumber());
+		data.put("voucherCode", erupiVoucherCreateDetails.getVoucherCode());
+		data.put("voucherType", erupiVoucherCreateDetails.getVoucherType());
+		data.put("voucherDesc", erupiVoucherCreateDetails.getVoucherDesc());
 		
 		
 		JSONObject entrymodeIdPk= new JSONObject();
@@ -88,5 +91,11 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	@Override
 	public String getPrimaryBankDetailsByOrgId(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getPrimaryBankDetailByOrgId);
+	}
+
+	@Override
+	public String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.revokeCreatedVoucherOneByOne);
+
 	}
 }

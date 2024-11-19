@@ -406,7 +406,7 @@ function  createSingleVoucherValidation(){
 			document.getElementById("banklistError").innerHTML="";
 		}
 			
-	if(voucher=="" || voucher==null){
+	if(voucher=="" || voucher== null){
 				document.getElementById("selectedOptionsDropdownError").innerHTML="Please Select Voucher";
 				return false;
 			}
@@ -631,7 +631,7 @@ function updateDropdown() {
 						       checkboxes.forEach(checkbox => {
 								    const option = document.createElement('option');
 								    option.value = checkbox.value;
-								    option.textContent = checkbox.value;
+								    option.textContent = checkbox.name;
 								    dropdown.appendChild(option);
 								  });
 							
@@ -639,6 +639,8 @@ function updateDropdown() {
 		  					$("#selectvouchers-wrap02").show();
 		  					$("#selectvouchers-wrap01").hide();
 		  		   		  }
+						  
+						 // const label2 = document.getElementById('lable2');
 						
 		}
 
@@ -657,14 +659,26 @@ function getVoucherSummaryList(){
 					var data1 = jQuery.parseJSON(newData);
 					var data2 = data1.data;
 					 //console.log(data2);
+					 
 					 const container = document.getElementById('jsonData');	
+					 
+					 const statusMessage = document.createElement('div');
+					 statusMessage.classList.add('selectvouchers-carosel-cards');
+					 statusMessage.innerHTML = `
+ 					                 <h5>Total Vouchers</h5>
+ 					                <div class="d-flex justify-content-between my-1 mb-3"><span >Number</span><span> ${data1.totalCount}</span></div>
+ 					                <div class="d-flex justify-content-between my-1"><span>Value</span> <span>${data1.totalAmount}</span></div>
+ 					            `;
+					      
+					        container.appendChild(statusMessage);
+
 					        data1.data.forEach(voucher => {
 					            const voucherDiv = document.createElement('div');
 					            voucherDiv.classList.add('selectvouchers-carosel-cards');
 					            voucherDiv.innerHTML = `
-					                 <h5><img src="img/fuel-1.svg" alt=""><span></span> ${voucher.voucherName}</h5>
+					                 <h5><img src="img/food-1.svg" alt=""><span></span> ${voucher.voucherName}</h5>
 					                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
-					                <div class="d-flex justify-content-between my-1"><span class="info"></span> ${voucher.totalAmount}</div>
+					                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
 					            `;
 					            container.appendChild(voucherDiv);
 					        });
@@ -709,10 +723,12 @@ function getPrimaryBankDetail(){
 					      
 							 dataSection.innerHTML = `
 							 
-					          <p><span ></span> ${account.bankName}</p>
-					          <p><span></span> ${account.accountHolderName}</p>
-					          <p><span class="mb-0"></span> <strong>${account.acNumber}</strong> </p>
-					          <p><span class="info"></span> ${account.accountType}</p>
+					          <p><span >Bank Name </span> <strong>${account.bankName}</strong></p>
+					          <p><span>Name </span>
+							  <strong>${account.accountHolderName}</strong></p>
+					          <p><span class="mb-0">Acc Number: </span><strong>${account.acNumber}</strong> </p>
+					          <p><span class="info">Account Type: </span><strong>${account.accountType}</strong></p>
+							  <p><span class="info">Status </span><strong>Primary</strong></p>
 					 
 					      `;
 					      container.appendChild(dataSection);
