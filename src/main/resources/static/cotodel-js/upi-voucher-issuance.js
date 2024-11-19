@@ -46,8 +46,8 @@ function getIssueVoucherList(){
 				 	return '<td>  <button class="btn-attach" id="btnSend" onclick="sendsms(this)"> Send SMS  </button> </td>';
 				  }}, 
     		 	],
-    		 	
-      		}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');		
+			});
+      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');		
 			
 		},
 		error: function(e) {

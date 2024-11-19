@@ -39,7 +39,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("name", erupiVoucherCreateDetails.getName());
 		data.put("mobile", erupiVoucherCreateDetails.getMobile());
 		data.put("amount", erupiVoucherCreateDetails.getAmount());
-		data.put("startDate", "");
+		data.put("startDate", erupiVoucherCreateDetails.getStartDate());
 		data.put("expDate",erupiVoucherCreateDetails.getExpDate() );
 		data.put("purposeCode", erupiVoucherCreateDetails.getPurposeCode());
 		data.put("consent", erupiVoucherCreateDetails.getConsent());
