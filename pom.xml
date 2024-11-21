@@ -13,7 +13,7 @@
 	<artifactId>hrms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name></name>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<description>CotoDel Admin Dashboard</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -143,7 +143,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warName>cotodelAdmin</warName>
-					<outputDirectory>C:\Users\Desktop\build</outputDirectory>
+					<outputDirectory>C:\Users\aashv\Desktop\build</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

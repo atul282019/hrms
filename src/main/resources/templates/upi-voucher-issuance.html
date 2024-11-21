@@ -133,13 +133,14 @@
                                                         <th onclick="sortTable(0)">Name <img src="img/Sort.png" alt=""></th>
                                                         <th onclick="sortTable(0)">Mobile <img src="img/Sort.png" alt=""></th>
                                                         <th onclick="sortTable(0)">Amount <img src="img/Sort.png" alt=""></th>
-                                                        <th onclick="sortTable(0)">merchant txnId </th>
+                                                       <!-- <th onclick="sortTable(0)">merchant txnId </th>-->
                                                         <th onclick="sortTable(0)">Purpose Code</th>
-                                                        <th onclick="sortTable(0)">MCC</th>
+                                                        <!--<th onclick="sortTable(0)">MCC</th>-->
 														<th onclick="sortTable(0)">Creation Date</th>
 														<th onclick="sortTable(0)">Expiry Date</th>
+														<th onclick="sortTable(0)">Redemtion Type</th>
 														<th onclick="sortTable(0)">Status</th>
-                                                        <th onclick="sortTable(0)">Redemtion Type</th>
+                                                       
 														<th onclick="sortTable(0)" colspan="2">Action</th>
                                                     </tr>
                                                 </thead>
@@ -284,3 +285,60 @@
 </body>
 
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="tableRevoke" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	            <div class="modal-content modal-bulk">
+	                <div class="modal-top text-center">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <img src="img/modal-close.svg" alt="">
+	                    </button>
+	                    <img src="img/modal-success.svg" alt="">
+	                </div>
+	                <div class="modal-bottom">
+	                    <span>Voucher Revoke Successfully!</span>
+	                </d>
+	            </div>
+	        </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="tableSendSms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	            <div class="modal-content modal-bulk">
+	                <div class="modal-top text-center">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <img src="img/modal-close.svg" alt="">
+	                    </button>
+	                    <img src="img/modal-success.svg" alt="">
+	                </div>
+	                <div class="modal-bottom">
+	                    <span>SMS Send Successfully!</span>
+	                </div>
+	            </div>
+	        </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="revokeConfirmation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+		            <div class="modal-content">
+		                <div class="modal-header pb-0">
+	                    <h5 class="modal-title" id="">Are you sure you want to revoke ?</h5>
+	                    
+	                </div>
+		                <div class="modal-body confirmbox">
+		                    <div class="d-flex justify-content-center mt-4">
+	                        <button class="btn btn-border mx-2">No</button>
+	                        <button class="btn btn-primary mx-2">Yes</button>
+	                    </div>
+		                
+		            </div>
+		        </div>
+	</div>
+</div>

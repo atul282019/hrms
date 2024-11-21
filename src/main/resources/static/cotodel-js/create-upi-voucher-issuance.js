@@ -328,6 +328,8 @@ function  getBankDetailByBankAccountNumber(){
 			document.getElementById("accIfscView").innerHTML=data1.data.ifsc;
 			document.getElementById("accHolderNameView").innerHTML=data1.data.accountHolderName;
 			document.getElementById("accMidView").innerHTML=data1.data.merchentIid;
+			document.getElementById("accPayervaView").innerHTML=data1.data.payerva;
+		    document.getElementById("MccView").innerHTML=data1.data.mcc;
 			
 			document.getElementById("bankName").value=data1.data.bankName; 
 			document.getElementById("bankCode").value=data1.data.bankCode; 
@@ -681,9 +683,10 @@ function getVoucherSummaryList(){
 					            const voucherDiv = document.createElement('div');
 					            voucherDiv.classList.add('selectvouchers-carosel-cards');
 					            voucherDiv.innerHTML = `
-					                 <h5><img src="img/food-1.svg" alt=""><span></span> ${voucher.voucherName}</h5>
-					                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
-					                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
+								<h5>${voucher.type}</h5>
+										
+						                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
+						                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
 					            `;
 					            container.appendChild(voucherDiv);
 					        });
@@ -728,12 +731,12 @@ function getPrimaryBankDetail(){
 					      
 							 dataSection.innerHTML = `
 							 
-					          <p><span >Bank Name </span> <strong>${account.bankName}</strong></p>
-					          <p><span>Name </span>
+					          <p><strong>${account.bankName}</strong></p>
+					          <p>
 							  <strong>${account.accountHolderName}</strong></p>
-					          <p><span class="mb-0">Acc Number: </span><strong>${account.acNumber}</strong> </p>
-					          <p><span class="info">Account Type: </span><strong>${account.accountType}</strong></p>
-							  <p><span class="info">Status </span><strong>Primary</strong></p>
+					          <p><span class="mb-0">A/C No: </span><strong>${account.acNumber}</strong> </p>
+					          <p><span class="info">MCC: </span><strong>${account.mcc}</strong></p>
+							  
 					 
 					      `;
 					      container.appendChild(dataSection);
