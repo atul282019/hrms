@@ -86,4 +86,13 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		return profileRes;
 	}
 	
+	@PostMapping(value = "/erupiVoucheSmsSend")
+	public @ResponseBody String erupiVoucheSmsSend(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		String profileRes = null;
+		profileRes = erupiVoucherCreateDetailsService.erupiVoucheSmsSend(tokengeneration.getToken(),	erupiVoucherCreateDetails);
+
+		return profileRes;
+	}
+	
 }

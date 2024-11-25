@@ -17,4 +17,6 @@ public interface ErupiVoucherCreateDetailsService {
 
 	String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
+	String erupiVoucheSmsSend(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+
 }

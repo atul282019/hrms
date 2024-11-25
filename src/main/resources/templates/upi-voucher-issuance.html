@@ -167,6 +167,46 @@
             </div>
             <!-- End of Main Content -->
         </div>
+
+
+		<!-- Modal -->
+		<div id="confirmationDialog" style="display: none;">
+			<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+				            <div class="modal-content">
+				                <div class="modal-header pb-0">
+			                    <h5 class="modal-title" id="">Are you sure you want to revoke this? </h5>
+			                    
+			                </div>
+				                <div class="modal-body confirmbox">
+				                    <div class="d-flex justify-content-center mt-4">
+										<button id="confirmButton">Yes</button>
+										<button id="cancelButton">No</button>
+			                    </div>
+				                
+				            </div>
+				        </div>
+			</div>
+		</div>
+		
+		<div id="confirmationSendDialog" style="display: none;">
+			<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+				            <div class="modal-content">
+				                <div class="modal-header pb-0">
+			                    <h5 class="modal-title" id="">Are you sure you want to send SMS to beneficiary? </h5>
+			                    
+			                </div>
+				                <div class="modal-body confirmbox">
+				                    <div class="d-flex justify-content-center mt-4">
+										<button id="confirmSendButton">Yes</button>
+										<button id="cancelSendButton">No</button>
+			                    </div>
+				                
+				            </div>
+				        </div>
+			</div>
+		</div>
+
+		
 		
 		<div class="lds-spinner" id="signinLoader" style="display: none">
 					<div></div>
@@ -182,6 +222,8 @@
 					<div></div>
 					<div></div>
 				</div>
+				
+			
         <!-- End of Content Wrapper -->
 
     </div>
@@ -281,17 +323,83 @@
         });
 
     </script>
+	<script>
+		
+		let revokeValue = null;
+
+		function openRevokeDialog(button) {
+		    revokeValue = button.value; // Store the button value
+		    document.getElementById("confirmationDialog").style.display = "flex";
+		}
+		function closeRevokeDialog() {
+		    document.getElementById("confirmationDialog").style.display = "none";
+		}
+
+		function confirmRevokeDialog() {
+		    console.log("Revoke confirmed for value:", revokeValue);
+		    revoke(revokeValue);
+		    closeRevokeDialog();
+		}
+		document.getElementById("confirmButton").addEventListener("click", confirmRevokeDialog);
+		document.getElementById("cancelButton").addEventListener("click", closeRevokeDialog);
+
+		
+	</script>
+	
+	<script>
+			
+			let resendValue = null;
+
+			function openSendDialog(button) {
+			    revokeValue = button.value; // Store the button value
+			    document.getElementById("confirmationSendDialog").style.display = "flex";
+			}
+			function closeSendDialog() {
+			    document.getElementById("confirmationSendDialog").style.display = "none";
+			}
+
+			function confirmSendDialog() {
+			    console.log("Revoke confirmed for value:", resendValue);
+			    sendsms(resendValue);
+			    closeSendDialog();
+			}
+			document.getElementById("confirmSendButton").addEventListener("click", confirmSendDialog);
+			document.getElementById("cancelSendButton").addEventListener("click", closeSendDialog);
+
+			
+		</script>
+
+		
 
 </body>
 
 </html>
 
+
+
 <!-- Modal -->
-<div class="modal fade" id="tableRevoke" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tblSend" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 	            <div class="modal-content modal-bulk">
 	                <div class="modal-top text-center">
-	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeSendSms()">
+	                        <img src="img/modal-close.svg" alt="">
+	                    </button>
+	                    <img src="img/modal-success.svg" alt="">
+	                </div>
+	                <div class="modal-bottom">
+	                    <span>SMS Send Successfully!</span>
+	                </div>
+	            </div>
+	        </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	            <div class="modal-content modal-bulk">
+	                <div class="modal-top text-center">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="colosethis()">
 	                        <img src="img/modal-close.svg" alt="">
 	                    </button>
 	                    <img src="img/modal-success.svg" alt="">
@@ -304,41 +412,3 @@
 </div>
 
 
-
-<!-- Modal -->
-<div class="modal fade" id="tableSendSms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-	            <div class="modal-content modal-bulk">
-	                <div class="modal-top text-center">
-	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                        <img src="img/modal-close.svg" alt="">
-	                    </button>
-	                    <img src="img/modal-success.svg" alt="">
-	                </div>
-	                <div class="modal-bottom">
-	                    <span>SMS Send Successfully!</span>
-	                </div>
-	            </div>
-	        </div>
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="revokeConfirmation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
-		            <div class="modal-content">
-		                <div class="modal-header pb-0">
-	                    <h5 class="modal-title" id="">Are you sure you want to revoke ?</h5>
-	                    
-	                </div>
-		                <div class="modal-body confirmbox">
-		                    <div class="d-flex justify-content-center mt-4">
-	                        <button class="btn btn-border mx-2">No</button>
-	                        <button class="btn btn-primary mx-2">Yes</button>
-	                    </div>
-		                
-		            </div>
-		        </div>
-	</div>
-</div>

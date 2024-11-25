@@ -99,4 +99,11 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.revokeCreatedVoucherOneByOne);
 
 	}
+
+	@Override
+	public String erupiVoucheSmsSend(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.resendErupiVoucheSmsSend);
+
+	}
 }

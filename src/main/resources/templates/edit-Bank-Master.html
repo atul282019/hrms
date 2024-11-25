@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+              
+               <div th:insert="fragments/header.html :: header"></div>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                <form id="editbankMaster" name="editbankMaster" method="post">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 bg-white p-3">
+                                <div class="row">
+                                    <div class="col-12 organisation-wrap">
+                                        <h3 class="mb-1 text-center"> Edit Bank Master </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+								
+                                <div class="row">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+                                        
+										
+										<input type="hidden" id="bankId" name="bankId" th:value="${bankId}"> 
+										
+										<div class="card-form my-3">
+                                            <label for="bankNameInput">Bank Name</label>
+                                            <!--<input  type="text" id="bankName" name="bankName" th:value="${bankName}">-->
+                                        
+                                         <!-- Extra functionality-->
+                                         <span id="bankNameText" onclick="enableEditing('bankNameText', 'bankNameInput')"th:text="${bankName}"></span>
+    <!-- Input field for editing (hidden by default) -->
+    <input type="text" id="bankNameInput" name="bankName" style="display: none;"
+           onblur="saveAndDisplay('bankNameText', 'bankNameInput')"> <!-- Extra functionality-->
+                                        </div></span>
+ 										<div class="error-msg" id="bankNameerror" style="color:red"></div>
+										
+										
+										
+										
+										
+										
+                                        
+                                        <div class="card-form my-3">
+                                            <label for="bankCodeInput">Bank Code</label>
+                                            <!--<input type="text" id="bankCode" name="bankCode" th:value="${bankCode}">-->
+ 											
+ 											<span id="bankCodeText" onclick="enableEditing('bankCodeText', 'bankCodeInput')" th:text="${bankCode}"></span>
+									    <input type="text" id="bankCodeInput" name="bankCode" style="display: none;"
+									           onblur="saveAndDisplay('bankCodeText', 'bankCodeInput')"th:value="${bankCode}">
+                                        </div>
+										 <div class="error-msg" id="bankcodeError" style="color:red"></div>
+										 
+										  
+                                        
+                                    
+                                    	<div class="card-form my-3">
+				    						<label for="statusInput">current Status  </labelfor><br>
+				        				<!--<select id="statusToggle" name="statusToggle">
+                						<option value="1" th:selected="${status == 1}">Active</option>
+                						<option value="0" th:selected="${status == 0}">Inactive</option>
+            								</select>-->
+            								<!--extra functionality  -->
+											
+										    <span 
+										        id="statusText" 
+										        data-value="1" 
+										        onclick="enableEditing('statusText', 'statusInput')">
+										        <th:block th:text="${status == 1 ? 'Active' : 'Inactive'}">Active</th:block>
+										    </span>
+										    <select 
+										        id="statusInput" 
+										        name="status" 
+										        style="display: none;" 
+										        onblur="saveAndDisplay('statusText', 'statusInput')">
+										        <option value="1" th:selected="${status == 1}">Active</option>
+										        <option value="0" th:selected="${status == 0}">Inactive</option>
+										    </select>
+				       
+										</div><br>
+
+                                        
+                                        
+										
+										<div class="card-form my-3">
+									    <label for="newbankLogo">new Bank Logo</label><br>
+									    <input type="file" id="newbankLogo" name="newbankLogo" accept="image/*" onchange="convertImageToBase64()">
+										</div><br>
+                                    
+                                    
+                                    </div>
+                                </div>
+							
+							
+								
+							
+							<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+				            	<div id="otsuccmsg"></div>   
+				            </div>
+				            
+				            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+				            	<div id="otfailmsg"></div>
+				            </div>
+				            							
+                                <div class="row">
+									
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
+										
+                                        <div class="text-center text-md-center my-3">
+											
+                                        	
+                                            <!--<input type="button" id="saveBankmaster" class="btn btn-primary next d-block" onclick ="saveBankMaster()" value="Save">
+                                              -->
+										
+                                        </div>
+                                        
+                                        
+										
+										  </div>
+                                    
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto">
+                                        <!-- Save and Back buttons -->
+                                        <div class="d-flex my-3 justify-content-start">
+                                            <!-- Save button -->
+                                            <input type="button" id="saveBankmaster" class="btn btn-primary" 
+                                                   onclick="saveBankMaster()" value="Save">
+                                            <!-- Back button with custom margin -->
+                                            <a href="/displaybankMaster" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+									
+												
+                            </div>
+                        </div>
+                     </div>
+                    
+                  </form>
+
+               </div>
+              <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+<div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+	<script type="text/javascript" src="cotodel-js/edit-Bank-Master.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/voucherTypeMaster"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+	
+	</script>
+	
+	
+	
+            <!--<style>
+				input, select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.card-form {
+    margin-bottom: 15px;
+}
+
+			</style>-->
+	
+
+
+
+
+</body>
+
+</body>
+
+</html>

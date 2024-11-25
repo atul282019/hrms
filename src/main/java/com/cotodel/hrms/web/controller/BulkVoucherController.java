@@ -3,7 +3,7 @@ package com.cotodel.hrms.web.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
-import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,42 +18,38 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
-import com.cotodel.hrms.web.response.BulkEmployeeRequest;
-import com.cotodel.hrms.web.response.UserForm;
-import com.cotodel.hrms.web.service.BulkEmployeeService;
+import com.cotodel.hrms.web.response.BulkVoucherRequest;
+import com.cotodel.hrms.web.service.BulkVoucherService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class BulkUserController extends CotoDelBaseController{
+public class BulkVoucherController extends CotoDelBaseController{
 
-	private static final Logger logger = LoggerFactory.getLogger(BulkUserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BulkVoucherController.class);
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 	
 	@Autowired
-	BulkEmployeeService bulkEmployeeService;
+	BulkVoucherService bulkVoucherService;
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
-	@PostMapping(value="/saveBulkFile")
-	public String saveEmployeeDetail(HttpServletResponse response, HttpServletRequest request,
-			@ModelAttribute("formData") BulkEmployeeRequest bulkEmployeeRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
-	//public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkEmployeeRequest bulkEmployeeRequest) {
+	@PostMapping(value="/saveBulkVoucher")
+	public String saveBulkVoucher(HttpServletResponse response, HttpServletRequest request,
+			@ModelAttribute("formData") BulkVoucherRequest bulkVoucherRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 		
 		String profileRes=null;JSONObject profileJsonRes=null;
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
@@ -61,13 +57,13 @@ public class BulkUserController extends CotoDelBaseController{
 		String res = null; String userRes = null;
 		
 		
-		profileRes = bulkEmployeeService.saveBulkDetail(tokengeneration.getToken(),bulkEmployeeRequest);
+		profileRes = bulkVoucherService.saveBulkVoucher(tokengeneration.getToken(),bulkVoucherRequest);
 		profileJsonRes= new JSONObject(profileRes);
 		if(profileJsonRes.getString("status").equalsIgnoreCase("SUCCESS")) { 
 			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 		}else {
 			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+			  otpMap.put("status", MessageConstant.RESPONSE_FAILED);
 		}
 		try {
 			res = mapper.writeValueAsString(otpMap);
@@ -79,16 +75,18 @@ public class BulkUserController extends CotoDelBaseController{
 		
 		  session.setAttribute("list",profileRes); logger.info(profileRes);
 		  model.addAttribute("list",profileRes); 
-		  return "bulk-table-invitelist";
+		  return "bulk-voucher-issuance-list";
 		  
 	}
-	@GetMapping(value = "/bulkUserTemplate")
-	public ResponseEntity<InputStreamResource> bulkUSer() {
+
+	@GetMapping(value = "/getVoucherTemplate")
+	public ResponseEntity<InputStreamResource> getVoucherTemplate() {
 		try {
 			String filePath ="src/main/resources/file/";
-			String fileName = "BulkUserTemplate.xlsx";
+			String fileName = "Bulk_Voucher_Templates.xlsx";
 			File file = new File(filePath+fileName);
-			HttpHeaders headers = new HttpHeaders();      
+			HttpHeaders headers = new HttpHeaders();    
+			
 			headers.add("content-disposition", "inline;filename=" +fileName);
 
 			InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
@@ -104,6 +102,5 @@ public class BulkUserController extends CotoDelBaseController{
 		}
 		return null;
 	}
-	
 
 }
