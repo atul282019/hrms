@@ -82,7 +82,7 @@ function saveBankMaster()
 
 
 
-function convertImageToBase64() {
+/*function convertImageToBase64() {
     const fileInput = document.getElementById("newbankLogo");
     const file = fileInput.files[0]; // Get the selected file
 
@@ -107,7 +107,36 @@ function convertImageToBase64() {
         alert("Please select a valid image file.");
     }
 }
+*/
+function validateAndConvertImageToBase64() {
+        const fileInput = document.getElementById('newbankLogo');
+        const file = fileInput.files[0];
 
+        // Validate file input
+        if (!file) {
+            alert('No file selected. Please choose a file.');
+            return;
+        }
+
+        const allowedTypes = ['image/jpeg', 'image/png'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Invalid file type. Please upload a JPG or PNG image.');
+            fileInput.value = ''; // Clear the input
+            return;
+        }
+
+        // Convert to Base64
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64String = event.target.result.split(',')[1];
+            bankLogo=base64String;
+            // You can now use the Base64 string as needed
+        };
+        reader.onerror = function() {
+            console.log('Error reading file.');
+        };
+        reader.readAsDataURL(file);
+    }
  function enableEditing(spanId, inputId) {
         const span = document.getElementById(spanId);
         const input = document.getElementById(inputId);

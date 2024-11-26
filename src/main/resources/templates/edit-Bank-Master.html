@@ -109,7 +109,11 @@
 										
 										<div class="card-form my-3">
 									    <label for="newbankLogo">new Bank Logo</label><br>
-									    <input type="file" id="newbankLogo" name="newbankLogo" accept="image/*" onchange="convertImageToBase64()">
+									    <input type="file" 
+									    id="newbankLogo" 
+									    name="newbankLogo" 
+									    accept=".jpg, .jpeg, .png" 
+									    onchange="validateAndConvertImageToBase64()">
 										</div><br>
                                     
                                     
@@ -145,18 +149,18 @@
                                     
                                 </div>
                                 
-                                <div class="row">
-                                    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto">
-                                        <!-- Save and Back buttons -->
-                                        <div class="d-flex my-3 justify-content-start">
-                                            <!-- Save button -->
-                                            <input type="button" id="saveBankmaster" class="btn btn-primary" 
-                                                   onclick="saveBankMaster()" value="Save">
-                                            <!-- Back button with custom margin -->
-                                            <a href="/displaybankMaster" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
-                                        </div>
-                                    </div>
-                                </div>
+                               <div class="row">
+    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto">
+        <!-- Save and Back buttons -->
+        <div class="d-flex my-3 justify-content-start">
+            <!-- Save button -->
+            <input type="button" id="saveBankmaster" class="btn btn-primary" 
+                   onclick="saveBankMaster()" value="Save">
+            <!-- Back button with custom margin -->
+            <a href="/displaybankMaster" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
+        </div>
+    </div>
+</div>
 									
 												
                             </div>

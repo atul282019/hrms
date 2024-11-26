@@ -111,6 +111,6 @@ public interface CommonUtils {
 	
 	public static String revokeCreatedVoucherOneByOne="/empService/Api/update/erupiVoucherRevokeSingle";
 	public static String resendErupiVoucheSmsSend="/empService/Api/get/erupiVoucherSms";
-	public static String bulkVoucherUpload = "/empService/Api/add/erupiVoucherBulkUload";
+	public static String bulkVoucherUpload = "/empService/Api/add/erupiVoucherBulkVoucherUpload";
 	
 }

@@ -1,4 +1,202 @@
+function convertImageToBase64() {
+           const fileInput = document.getElementById('up');
+           const output = document.getElementById('base64Output');
+		   const outputFileName = document.getElementById('fileName');
+		  
+           if (!fileInput.files || fileInput.files.length === 0) {
+			 document.getElementById("fileInputError").innerHTML="Please select file";
+			 return;
+           }
+		     
+           var filePath = fileInput.value;
+           
+              // var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+			   var allowedExtensions =  /(\.xlsx)$/i;
+               if (!allowedExtensions.exec(filePath)) {
+				  document.getElementById("fileInputError").innerHTML="Invalid file type";
+					
+                   fileInput.value = '';
+                   return false;
+               } 
+			   else{
+				document.getElementById("fileInputError").innerHTML="";
+			   }
 
+           const file = fileInput.files[0];
+		   
+           const reader = new FileReader();
+
+           reader.onload = function(event) {
+               const base64String = event.target.result.split(',')[1]; 
+               output.value = base64String; 
+			   console.log("FileName:", fileInput.files[0].name);
+			   outputFileName.value =fileInput.files[0].name;
+			   //console.log("FileName:", outputFileName);
+              // console.log("Base64 String:", base64String);
+           };
+           reader.readAsDataURL(file);
+    }
+
+function saveBulkVoucherUpload(){
+	
+	var banklist = document.getElementById("banklist").value;
+	var fileInput = document.getElementById("up").value;
+	var fileName = document.getElementById("fileName").value;
+	var base64file = document.getElementById("base64Output").value;
+	//var  purposeCode = document.getElementById("up").value;
+	//var accountId = document.getElementById("up").value;
+	var mcc = document.getElementById("up").value;
+	//var beneficiaryID = document.getElementById("up").value;
+	var payerva = document.getElementById("payerva").value;
+	var merchentid = document.getElementById("merchentid").value;
+	var bankcode = document.getElementById("bankCode").value;
+	
+	//var voucherCode = document.getElementById("up").value;
+	var mcc = document.getElementById("mcc").value;
+	//var merchantId = document.getElementById("merchentid").value;
+	var submurchentid = document.getElementById("submurchentid").value;
+	//var createdby = document.getElementById("up").value;
+	
+	var orgId = document.getElementById("employerId").value;
+	var employerName = document.getElementById("employerName").value;
+	
+	var element = document.getElementById("tab2");
+	 element.classList.add("active");
+	
+	if(banklist =="" || banklist == null){
+			 document.getElementById("banklistError").innerHTML="Please Select Bank";
+			 return false;
+		}
+		else{
+			document.getElementById("banklistError").innerHTML="";
+		}
+		
+	if(fileInput =="" || fileInput == null){
+		 document.getElementById("fileInputError").innerHTML="Please Select File";
+		 return false;
+	}
+	else{
+		document.getElementById("fileInputError").innerHTML="";
+	}
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "POST",
+	     url:"/saveBulkVoucher",
+		 dataType: 'json',   
+	      data: {
+					"orgId":orgId,
+					"fileName":fileName,
+					"file":base64file,
+					"purposeCode":"A3",
+					"accountId":1,
+					"mcc":mcc,
+				    "beneficiaryID":"",
+					"payerVA":payerva,
+					"type":"CREATE",
+					"bankcode":bankcode,
+					"voucherCode":"A003",
+					"voucherDesc":"Meal",
+				    "merchantId":merchentid,
+				    "subMerchantId":submurchentid,
+				    "createdby":employerName
+			 },  		 
+	        success:function(data){
+	        var data1 = data;
+	       // console.log(data);
+			//var data1 = jQuery.parseJSON(data);
+			var success = data1.data.success;
+			var fail = data1.data.fail;
+			document.getElementById("signinLoader").style.display="none";
+			if(data1.status==true){
+				
+				 document.getElementById("BulkVoucherIssuanceTable").style.display="block";
+				 document.getElementById("BulkVoucherIssuance-wrap").style.display="none";
+				 
+				 document.getElementById("failed").innerHTML=data1.data.failCount;
+				 document.getElementById("success").innerHTML=data1.data.successCount;
+				 document.getElementById("successTotal").innerHTML=data1.data.totalCount;
+				 document.getElementById("failedTotal").innerHTML=data1.data.totalCount;
+				
+				 var table = $('#successUpload').DataTable( {
+				 	          destroy: true,	
+				 			 // "dom": 'rtip',
+				 			 //dom: 'Bfrtip',
+				 		     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+				              "buttons": ["csv", "excel"],
+				              "language": {"emptyTable": "No Data available"  },
+				 	         "aaData": success,
+				       		  "aoColumns": [ 
+				 				
+				 				{ "mData": "voucherType"},
+				                { "mData": "beneficiaryName"},   
+				                { "mData": "mobile"},   
+				 			    { "mData": "amount"},
+				 				{ "mData": "startDate"},  
+				 				{ "mData": "expDate"}
+				     		 	],
+				 				
+				 			});
+							
+							var table = $('#issueVoucherTable').DataTable( {
+					 	          destroy: true,	
+					 			 // "dom": 'rtip',
+					 			 //dom: 'Bfrtip',
+					 		     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+					              "buttons": ["csv", "excel"],
+					              "language": {"emptyTable": "No Data available"  },
+					 	         "aaData": success,
+					       		  "aoColumns": [ 
+					 				
+					 				{ "mData": "voucherType"},
+					                { "mData": "beneficiaryName"},   
+					                { "mData": "mobile"},   
+					 			    { "mData": "amount"},
+					 				{ "mData": "startDate"},  
+					 				{ "mData": "expDate"},
+									{ "mData": "id", "render": function (data2, type, row) {
+												return '<td><a href="#"><img src="img/delete.svg" alt=""></a></td>';
+										}}, 
+					     		 	],
+					 				
+					 			});
+								
+							var table = $('#failedUpload').DataTable( {
+								          destroy: true,	
+										 // "dom": 'rtip',
+										 //dom: 'Bfrtip',
+									     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+							             "buttons": ["csv", "excel"],
+							             "language": {"emptyTable": "No Data available"  },
+								         "aaData": fail,
+							      		  "aoColumns": [ 
+
+											{ "mData": "voucherType"},
+											{ "mData": "beneficiaryName"},   
+											{ "mData": "mobile"},   
+											 { "mData": "amount"},
+											{ "mData": "startDate"},  
+											{ "mData": "expDate"}
+							    		 	],
+										});
+							      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');	
+				// document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
+				// document.getElementById("otmsgdiv").style.display="block";
+				// document.getElementById("bankMaster1").reset();
+				// document.getElementById("saveBankmaster").disabled=false;
+				 //$('#otmsgdiv').delay(5000).fadeOut(400);
+			}else if(data1.status==false){
+				// document.getElementById("otfailmsg").innerHTML=data1.message;
+				// document.getElementById("otfailmsgDiv").style.display="block";
+				// document.getElementById("saveBankmaster1").disabled=false;
+				// $('#otfailmsgDiv').delay(5000).fadeOut(400);
+			}
+	     },
+	     error: function(e){
+	         alert('Error: ' + e);
+	     }
+	});	
+	
+}
  function showClearButton() {
             var fileInput = document.getElementById("up");
             document.getElementById("clearButton").style.display="block";
@@ -10,23 +208,6 @@
                 clearButton.style.display = "none";
         }
    }
-
-
-document.getElementById("bulksubmit").onclick = function() {
-    //disable
-    this.disabled = true;
-
- 	var regName = /^[a-zA-Z\s]*$/;
-	var onlySpace = /^$|.*\S+.*/;	 
-	
-	document.getElementById("employerId").value;
-	var employerId = document.getElementById("employerId").value;
-	var formData = new FormData(empdetailForm);
-	formData.append("employerId",employerId);
-	document.forms[0].action = "/saveBulkVoucher";
-	document.forms[0].method = "post";
-	document.forms[0].submit();
-}
 
 function resendVoucherOTP() {
 	
@@ -633,7 +814,7 @@ function  issueVoucher(){
 		
 }
 
-
+/*
 function updateDropdown() {
 		  
 		  const dropdown = document.getElementById('selectedOptionsDropdown');
@@ -679,9 +860,9 @@ function updateDropdown() {
 						 // const label2 = document.getElementById('lable2');
 						
 		}
+*/
 
-
-function getVoucherSummaryList(){
+/*function getVoucherSummaryList(){
 			var employerid = document.getElementById("employerId").value;
 			$.ajax({
 				type: "POST",
@@ -725,8 +906,8 @@ function getVoucherSummaryList(){
 				}
 			});
 		}
-
-
+*/
+/*
 function getPrimaryBankDetail(){
 			var employerid = document.getElementById("employerId").value;
 			$.ajax({
@@ -775,3 +956,4 @@ function getPrimaryBankDetail(){
 				}
 			});
 		}
+*/

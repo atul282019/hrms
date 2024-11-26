@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
@@ -34,9 +35,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class BulkVoucherController extends CotoDelBaseController{
+public class BulkVoucherCreationController extends CotoDelBaseController{
 
-	private static final Logger logger = LoggerFactory.getLogger(BulkVoucherController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BulkVoucherCreationController.class);
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
@@ -48,34 +49,13 @@ public class BulkVoucherController extends CotoDelBaseController{
 	TokenGenerationImpl tokengeneration;
 	
 	@PostMapping(value="/saveBulkVoucher")
-	public String saveBulkVoucher(HttpServletResponse response, HttpServletRequest request,
-			@ModelAttribute("formData") BulkVoucherRequest bulkVoucherRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
+	public @ResponseBody  String saveBulkVoucher(HttpServletResponse response, HttpServletRequest request,
+			BulkVoucherRequest bulkVoucherRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 		
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null; String userRes = null;
-		
-		
+		String profileRes=null;
 		profileRes = bulkVoucherService.saveBulkVoucher(tokengeneration.getToken(),bulkVoucherRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		if(profileJsonRes.getString("status").equalsIgnoreCase("SUCCESS")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			  otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		
-		
-		
-		  session.setAttribute("list",profileRes); logger.info(profileRes);
-		  model.addAttribute("list",profileRes); 
-		  return "bulk-voucher-issuance-list";
+		  return profileRes;
 		  
 	}
 
