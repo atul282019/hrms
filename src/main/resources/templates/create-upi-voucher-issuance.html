@@ -112,8 +112,7 @@
 
                             <div class="tab-content" id="selectvouchers-wrap01">
                                 <div class="upi-voucher-wrap">
-									
-																	
+																										
                                     <h3>Select Vouchers </h3>
                                     <div class="d-flex justify-content-center align-items-center">
                                         <div>
@@ -122,12 +121,15 @@
                                                 also download an
                                                 Excel Template and upload it with the details for bulk issuance.</p>
                                         </div>
-                                        <div>
+                                        <!--<div>
                                             <a th:href="@{/bulkVoucherIssuance}" class="btn bulkissue">Bulk Issue <i
                                                     class="fa fa-arrow-right"></i></a>
+                                        </div>-->
+										<div>
+                                       <Button th:href="@{/bulkVoucherIssuance}" class="btn bulkissue" id="BtnBulkIssue" onclick="bulkIssuePage()">Bulk Issue <i
+                                                    class="fa fa-arrow-right"></i></Button>
                                         </div>
                                     </div>
-
                                     <hr>
 
                                     <div class="cards-upivouchers-wrap">
@@ -1163,7 +1165,76 @@
 	  });
 	  
 	  
-	  
+	  function bulkIssuePage(){
+			const checkbox = document.getElementById('meal');
+			const fuel = document.getElementById('fuel');
+		    const travel = document.getElementById('Travel');
+		    const conveyance = document.getElementById('Conveyance');
+		    const uniform = document.getElementById('uniform');
+		    const gadgets = document.getElementById('Gadgets');
+		    const health = document.getElementById('Health');
+		    const telecom = document.getElementById('Telecom');
+		    const entertainment = document.getElementById('Entertainment');
+		    const groceries = document.getElementById('Groceries');
+		    const books = document.getElementById('books');
+				  		 
+           if (checkbox.checked) {
+			localStorage.setItem("voucherName", checkbox.name);
+			localStorage.setItem("voucherCode",checkbox.value);
+		     window.location.href = "/bulkVoucherIssuance";
+           } 
+		   else if (travel.checked) {
+		   		localStorage.setItem("voucherName", travel.name);
+		   		localStorage.setItem("voucherCode",travel.value);
+		   	     window.location.href = "/bulkVoucherIssuance";
+		    } 
+			 else if (conveyance.checked) {
+		  		localStorage.setItem("voucherName", conveyance.name);
+		  		localStorage.setItem("voucherCode",conveyance.value);
+		  	     window.location.href = "/bulkVoucherIssuance";
+		     } 
+	  	     else if (uniform.checked) {
+	     		localStorage.setItem("voucherName", uniform.name);
+	     		localStorage.setItem("voucherCode",uniform.value);
+	     	     window.location.href = "/bulkVoucherIssuance";
+	          }
+	  	    else if (gadgets.checked) {
+	  	   		localStorage.setItem("voucherName", gadgets.name);
+	  	   		localStorage.setItem("voucherCode",gadgets.value);
+	  	   	     window.location.href = "/bulkVoucherIssuance";
+	  	      } 
+					  
+		   else if (health.checked) {
+		  		localStorage.setItem("voucherName", health.name);
+		  		localStorage.setItem("voucherCode",health.value);
+		  	     window.location.href = "/bulkVoucherIssuance";
+		       } 
+	  	    else if (telecom.checked) {
+	     		localStorage.setItem("voucherName", telecom.name);
+	     		localStorage.setItem("voucherCode",telecom.value);
+	     	     window.location.href = "/bulkVoucherIssuance";
+	           }
+	  	    else if (entertainment.checked) {
+	  	   		localStorage.setItem("voucherName", entertainment.name);
+	  	   		localStorage.setItem("voucherCode",entertainment.value);
+	  	   	    window.location.href = "/bulkVoucherIssuance";
+	  	       
+	  	      } 
+		   else if (groceries.checked) {
+  		      localStorage.setItem("voucherName", groceries.name);
+  		      localStorage.setItem("voucherCode",groceries.value);
+  	          window.location.href = "/bulkVoucherIssuance";
+            } 
+  	      else if (books.checked) {
+     		 localStorage.setItem("voucherName", books.name);
+     		 localStorage.setItem("voucherCode",books.value);
+     	     window.location.href = "/bulkVoucherIssuance";
+           }			   
+		   else{
+			document.getElementById("confirmationDialog").style.display = "flex";
+		   }
+		   
+	  }
 	</script>
     <!-- Modal Issue Vouchers -->
    <!-- <div class="modal fade" id="modalissueVouchers" tabindex="-1" role="dialog"
@@ -1177,20 +1248,26 @@
                 <div class="modal-body text-center">
                     <div class="otp-box-onboarding justify-content-center">
 					
-						        <input  class="form-control form-control-sm test" type="password" id="password1" 
-						        name="password1" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password2" 
-						        name="password2" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password3" 
-						        name="password3" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password4" 
-						        name="password4" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password5" 
-						        name="password5" maxlength="1" autocomplete="off" oninput="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password6" 
-						        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
-						        name="orderId" >
+						<input  class="form-control form-control-sm test" type="password" id="password1" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password2" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password3" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password4" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password5" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password6" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+					        name="orderId" >
                     </div>
                    <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -1253,7 +1330,30 @@
             </div>
         </div>
     </div>
+	
 
+	<!-- Modal -->
+		<div id="confirmationDialog" style="display: none;">
+			<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+				            <div class="modal-content">
+				                <div class="modal-header pb-0">
+			                    <h5 class="modal-title" id="">Please select at least one voucher.</h5>
+			                </div>
+				                <div class="modal-body confirmbox">
+				                    <div class="d-flex justify-content-center mt-4">
+										<button id="no" onclick="closeDialog()">oK</button>
+			                    </div>
+				            </div>
+				     </div>
+			</div>
+		</div>
+	<script>
+		function closeDialog() {
+		    document.getElementById("confirmationDialog").style.display = "none";
+		}
+
+	</script>
+	
 </body>
 
 </html>

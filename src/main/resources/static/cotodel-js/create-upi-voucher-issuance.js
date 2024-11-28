@@ -398,6 +398,11 @@ function  createSingleVoucherValidation(){
 	 document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
     var employerId = document.getElementById("employerId").value;
 	var employerName = document.getElementById("employerName").value;
+	
+	
+	var element = document.getElementById("lable3");
+	element.classList.add("active");
+			  
 	if(banklist=="" || banklist==null){
 				document.getElementById("banklistError").innerHTML="Please Select Bank";
 				return false;
@@ -611,7 +616,9 @@ function updateDropdown() {
 		  dropdown.innerHTML = '<option value="">--Select an option--</option>';
 
 		  const checkboxes = document.querySelectorAll('.vouchers-checkbox:checked');
-
+		  var element = document.getElementById("lable2");
+		  	 element.classList.add("active");
+		  	
 		  const errorMessage = document.getElementById('selectVoucherError');
 		  			  
 		  			  const meal = document.getElementById('meal');
@@ -630,7 +637,7 @@ function updateDropdown() {
 		  				 && !travel.checked && !conveyance.checked &&  !uniform.checked
 		  				 &&  !gadgets.checked &&  !health.checked &&  !telecom.checked
 		  				  &&  !entertainment.checked &&  !groceries.checked &&  !books.checked) {
-		  		   		       errorMessage.textContent = "Please select at least one voucher."; 
+		  		   		      document.getElementById("confirmationDialog").style.display = "flex";
 		  					   return false;
 		  		   		  }
 		  			   else {

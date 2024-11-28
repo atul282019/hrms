@@ -1,5 +1,6 @@
 package com.cotodel.hrms.web.response;
 
+
 import java.lang.reflect.Array;
 
 import lombok.AllArgsConstructor;
@@ -9,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErupiVoucherCreateDetails {
-	
+public class ErupiBulkVoucherCreateRequest {
     private Integer id;
 	private Integer voucherId;
 	private String voucherCode;
@@ -48,8 +48,7 @@ public class ErupiVoucherCreateDetails {
 	private String merchantId;
 	private String subMerchantId;
 	
-	//private Array arrayofid;
+	private String[] arrayofid;
 	
-	
-}
 
+}

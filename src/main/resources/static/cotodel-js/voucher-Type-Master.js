@@ -1,12 +1,26 @@
 let statusInput1 =1;
+let voucherLogo="";
 function saveVoucher()
 { console.log("saveVoucherTypeMaster clicked");
 
-	var voucherDesc = document.getElementById("voucherDesc").value;
-	var voucherType = document.getElementById("voucherType").value;
-	var voucherSubType = document.getElementById("voucherSubType").value;
-	
-	var purposeCode= document.getElementById("purposeCode").value;
+	const voucherDescDropdown = document.getElementById("voucherDesc");
+    const selectedOption = voucherDescDropdown.options[voucherDescDropdown.selectedIndex];
+    const voucherId = selectedOption.dataset.id || null; // Get the ID or set it as null if not available
+
+    var voucherDesc = voucherDescDropdown.value;// Default to dropdown value
+    const voucherType = document.getElementById("voucherType").value;
+    const voucherSubType = document.getElementById("voucherSubType").value;
+    const purposeCode = document.getElementById("purposeCode").value;
+
+
+
+   /* if (voucherDesc === "addNew") {
+        voucherDesc = document.getElementById("customVoucherDesc").value.trim();
+    } else {
+        voucherDesc = selectedOption.textContent.trim(); // Get displayed text for voucherDesc
+    }*/
+
+
 
 	if(voucherDesc==""){
 		document.getElementById("voucherDescError").innerHTML="Please Enter or select voucherDesc";
@@ -38,7 +52,12 @@ function saveVoucher()
 	}else{
 		document.getElementById("purposeCodeError").innerHTML="";
 	}
-	
+	if (voucherLogo.length === 0) {
+        document.getElementById("voucherLogoError").innerHTML="Please select voucher image";
+        document.getElementById("voucherLogo").focus();
+        return false;
+    }
+
 	
 	
 	
@@ -46,11 +65,13 @@ function saveVoucher()
 		type: "POST",
 	     url:"/savevoucherTypeMaster",
           data: {
+			  "id": voucherId, 
 			"voucherDesc": voucherDesc,
 			"voucherType": voucherType,
 			"voucherSubType":voucherSubType,
 			"purposeCode":purposeCode,
 			"status": statusInput1,
+			"voucherLogo":voucherLogo,
 					
       		 },
       		 dataType: "json", 
@@ -102,7 +123,181 @@ function toggleStatus()
 
 }
 
+function initializevoucherDropdown() {
+    console.log("Inside initializevoucherDropdown()");
 
+    // Fetch voucher data and populate dropdown
+    $.ajax({
+        type: "GET",
+        url: "/getvoucherTypeMaster", // Replace with your actual endpoint
+        dataType: "json",
+        success: function (response) {
+            const voucherDropdown = document.getElementById("voucherDesc");
+            voucherDropdown.innerHTML = ""; // Clear existing options
+
+            // Default option
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = "Select voucher";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            voucherDropdown.appendChild(defaultOption);
+
+            // Populate dropdown with voucher descriptions and subtypes from the response
+            if (response.status === true) {
+                response.data.forEach((voucher) => {
+                    const option = document.createElement("option");
+                    //option.value = voucher.voucherCode; // Assuming voucherCode as value
+                    option.value = voucher.voucherDesc;
+                    option.textContent = voucher.voucherDesc; // Display voucherDesc
+                    option.dataset.id = voucher.id; // Store the voucher ID
+                    option.dataset.voucherSubType = voucher.voucherSubType || ""; // Store voucherSubType in data attribute
+                    option.dataset.voucherType = voucher.voucherType || ""; // Store voucherType in data attribute
+                    option.dataset.purposeCode = voucher.purposeCode;
+                    voucherDropdown.appendChild(option);
+                });
+            }
+
+            // Add "Add New" option
+            const addNewOption = document.createElement("option");
+            addNewOption.value = "addNew";
+            addNewOption.textContent = "Add New Voucher";
+            voucherDropdown.appendChild(addNewOption);
+
+            // Event listener for dropdown changes
+            voucherDropdown.addEventListener("change", function () {
+                const customVoucherInput = document.getElementById("customVoucherDesc");
+                const voucherTypeDropdown = document.getElementById("voucherType");
+                const voucherSubTypeInput = document.getElementById("voucherSubType");
+				const purposeCodeInput = document.getElementById("purposeCode");
+                if (this.value === "addNew") {
+                    // Show input for new voucher description
+                    customVoucherInput.style.display = "block";
+                    customVoucherInput.value = ""; // Clear custom input
+                    voucherTypeDropdown.value = ""; // Clear voucher type
+                    voucherSubTypeInput.value = ""; // Clear voucher subtype
+                 	purposeCodeInput.value = "";
+                } else {
+                    // Hide custom voucher input
+                    customVoucherInput.style.display = "none";
+
+                    // Autofill voucher type and subtype based on selected voucher
+                    const selectedOption = this.options[this.selectedIndex];
+                    voucherTypeDropdown.value = selectedOption.dataset.voucherType || ""; // Autofill or clear
+                    const voucherId = selectedOption.dataset.id;
+                    voucherSubTypeInput.value = selectedOption.dataset.voucherSubType || ""; // Autofill or clear
+				const purposeCode = selectedOption.dataset.purposeCode;  
+				purposeCodeInput.value = purposeCode || "";             
+ console.log(`Selected Voucher ID: ${voucherId}`);
+                }
+            });
+        },
+        error: function () {
+            console.error("Failed to fetch voucher descriptions");
+        },
+    });
+}
+
+
+
+
+
+
+function convertImageToBase64() {
+    const fileInput = document.getElementById("voucherLogo");
+    const file = fileInput.files[0]; // Get the selected file
+
+    if (file) {
+        const reader = new FileReader();
+        
+        // When file is read, execute this function
+        reader.onload = function(event) {
+            const base64String = event.target.result.split(',')[1]; // Extract Base64 part
+
+            // Display Base64 string in the output div (optional)
+            //document.getElementById("base64Output").textContent = base64String;
+
+            // priting base64 string on console
+            console.log("Base64 String", base64String);
+            voucherLogo=base64String; 
+        };
+
+        // Read file as Data URL (Base64)
+       reader.readAsDataURL(file);
+    } else {
+        alert("Please select a valid image file.");
+    }
+}
+/*function initializevoucherDropdown() {
+    console.log("Inside initializevoucherDropdown()");
+    // Fetch voucher data and populate dropdown
+    $.ajax({
+        type: "GET",
+        url: "/getvoucherTypeMaster", // Replace with your actual endpoint
+        dataType: "json",
+        success: function(response) {
+            const voucherDropdown = document.getElementById("voucherDesc");
+            voucherDropdown.innerHTML = ""; // Clear existing options
+
+            // Default option
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = "Select voucher";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            voucherDropdown.appendChild(defaultOption);
+
+            // Populate dropdown with voucher descriptions and subtypes from the response
+            if (response.status === true) {
+                response.data.forEach(voucher => {
+                    const option = document.createElement("option");
+                    option.value = voucher.voucherCode; // Assuming voucherCode as value
+                    option.textContent = voucher.voucherDesc; // Display voucherDesc
+                    option.dataset.voucherSubType = voucher.voucherSubType; // Store voucherSubType
+                    option.dataset.purposeCode = voucher.purposeCode; // Store purposeCode (add this to your data if not included)
+                    
+                    voucherDropdown.appendChild(option);
+                });
+            }
+
+            // Add "Add New" option
+            const addNewOption = document.createElement("option");
+            addNewOption.value = "addNew";
+            addNewOption.textContent = "Add New Voucher";
+            voucherDropdown.appendChild(addNewOption);
+
+            // Add change event to handle option selection
+            voucherDropdown.addEventListener("change", function() {
+                const customVoucherInput = document.getElementById("customVoucherDesc");
+                const voucherSubTypeInput = document.getElementById("voucherSubType");
+                const purposeCodeInput = document.getElementById("purposeCode");
+
+                if (this.value === "addNew") {
+                    customVoucherInput.style.display = "block"; // Show input for new voucher description
+                    voucherSubTypeInput.value = ""; // Clear voucherSubType field for new entry
+                    purposeCodeInput.value = ""; // Clear purposeCode field for new entry
+                } else {
+                    customVoucherInput.style.display = "none"; // Hide input for predefined option
+
+                    // Get selected voucher's subtype and purpose code
+                    const selectedOption = this.options[this.selectedIndex];
+                    const voucherSubType = selectedOption.dataset.voucherSubType;
+                    const purposeCode = selectedOption.dataset.purposeCode;
+
+                    // Set subtype and purpose code in the respective input fields
+                    voucherSubTypeInput.value = voucherSubType || ""; // Set subtype or clear if undefined
+                    purposeCodeInput.value = purposeCode || ""; // Set purposeCode or clear if undefined
+                }
+            });
+        },
+        error: function() {
+            console.error("Failed to fetch voucher descriptions");
+        }
+    });
+}*/
+
+/*
+working dropdown 
 function initializevoucherDropdown() {
       // Local variable to store bank data by bank code
 console.log("Inside initializeBankDropdown()")
@@ -130,6 +325,7 @@ console.log("Inside initializeBankDropdown()")
                     option.value = voucher.voucherCode;  // Assuming voucherCode as value
                     option.textContent = voucher.voucherDesc;  // Display voucherDesc
                     option.dataset.voucherSubType = voucher.voucherSubType;  // Store voucherSubType in data attribute
+                    
                     voucherDropdown.appendChild(option);
                 });
             }
@@ -162,7 +358,7 @@ console.log("Inside initializeBankDropdown()")
             console.error("Failed to fetch voucher descriptions");
         }
     });
-}
+}*/
 
 // Call `initializeBankDropdown` on page load
 //document.addEventListener("DOMContentLoaded", initializeBankDropdown);

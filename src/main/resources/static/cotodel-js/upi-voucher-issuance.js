@@ -123,13 +123,13 @@ function getIssueVoucherList(){
 					 if(type=="Revoke")
                      {
 				
-						var imgTag = ' <img src="img/table-revoke.svg" alt="" class="mr-2">';
+						var imgTag = ' <img src="img/Revoke.svg" alt="" class="mr-2">';
 					    $(row).find('td:eq(9)').html(imgTag);
 					 
                      }
 					 if(type=="Reedeem")
                      {
-						var imgTag = ' <img src="img/table-revoke.svg" alt="" class="mr-2">';
+						var imgTag = ' <img src="img/remoke.svg" alt="" class="mr-2">';
 						 $(row).find('td:eq(9)').html(imgTag);
                      }
                   }

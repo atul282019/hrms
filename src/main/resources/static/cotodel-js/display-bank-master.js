@@ -1,4 +1,81 @@
+/*function loadBankMasterTable() {
+    $.ajax({
+        type: "POST",
+        url: "/getaftersaveBankMasterDetailsList",
+        dataType: "json",
+        success: function(response) {
+            console.log(response); // Check the structure of the response object
 
+            const tableBody = document.getElementById("bankMasterTableBody");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            if (response.status === 'SUCCESS') {
+                if (Array.isArray(response.data)) {  // Ensure that response.data is an array
+                    response.data.forEach((bank) => {
+                        const row = document.createElement("tr");
+
+                        // Bank Logo
+                        const logoCell = document.createElement("td");
+                        const logoImage = document.createElement("img");
+
+                        // Set the image source to the Base64 data URI
+                        if (bank.bankLogo) {
+                            logoImage.src = `data:image/png;base64,${bank.bankLogo}`;
+                        } else {
+                            logoImage.src = "img/default-logo.png"; // Default image if no logo is provided
+                        }
+                        logoImage.alt = "Bank Logo";
+                        logoImage.style.width = "50px"; // Adjust size as needed
+                        logoCell.appendChild(logoImage);
+                        row.appendChild(logoCell);
+
+                        // Bank Name
+                        const nameCell = document.createElement("td");
+                        nameCell.textContent = bank.bankName || "N/A";
+                        row.appendChild(nameCell);
+
+                        // Bank Code
+                        const codeCell = document.createElement("td");
+                        codeCell.textContent = bank.bankCode || "N/A";
+                        row.appendChild(codeCell);
+
+                        // Status (Convert 1 to "Active" and 0 to "Inactive")
+                        const statusCell = document.createElement("td");
+                        statusCell.textContent = bank.status === 1 ? "Active" : "Inactive";
+                        row.appendChild(statusCell);
+
+                        // Action (Edit or Delete buttons)
+                        const actionCell = document.createElement("td");
+                        const editButton = document.createElement("button");
+                        editButton.className = "btn btn-sm btn-warning";
+                        editButton.textContent = "Edit";
+                        editButton.onclick = () => editBank(bank.bankCode); // Implement editBank function
+                        actionCell.appendChild(editButton);
+                        row.appendChild(actionCell);
+
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    console.error("response.data is not an array:", response.data);
+                    // If data is not an array, handle accordingly (e.g., show a message)
+                }
+            } else {
+                const emptyRow = document.createElement("tr");
+                const emptyCell = document.createElement("td");
+                emptyCell.colSpan = 5;
+                emptyCell.textContent = "No bank data found.";
+                emptyCell.style.textAlign = "center";
+                emptyRow.appendChild(emptyCell);
+                tableBody.appendChild(emptyRow);
+            }
+        },
+        error: function(error) {
+            console.error("Error fetching bank data:", error);
+            // You can add additional error handling logic here
+        }
+    });
+}
+*/
 function loadBankMasterTable() {
     fetch('/getaftersaveBankMasterDetailsList', {
         method: 'POST',
@@ -34,7 +111,7 @@ function loadBankMasterTable() {
             <input type="hidden" name="bankName" value="${bank.bankName}">
             <input type="hidden" name="bankCode" value="${bank.bankCode}">
             <input type="hidden" name="status" value="${bank.status}">
-            
+            <input type="hidden" name="bankLogo" value="${bank.bankLogo}">
             <button type="submit" class="btn btn-sm btn-primary">Edit</button></td>
             
                     </td>

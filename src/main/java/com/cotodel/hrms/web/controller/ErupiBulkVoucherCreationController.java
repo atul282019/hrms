@@ -2,13 +2,12 @@ package com.cotodel.hrms.web.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,26 +17,27 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkVoucherRequest;
+import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
+import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.service.BulkVoucherService;
+import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
-import com.cotodel.hrms.web.util.MessageConstant;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
-public class BulkVoucherCreationController extends CotoDelBaseController{
+public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
-	private static final Logger logger = LoggerFactory.getLogger(BulkVoucherCreationController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ErupiBulkVoucherCreationController.class);
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
@@ -47,6 +47,9 @@ public class BulkVoucherCreationController extends CotoDelBaseController{
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
+	
+	@Autowired
+	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
 	
 	@PostMapping(value="/saveBulkVoucher")
 	public @ResponseBody  String saveBulkVoucher(HttpServletResponse response, HttpServletRequest request,
@@ -59,6 +62,26 @@ public class BulkVoucherCreationController extends CotoDelBaseController{
 		  
 	}
 
+
+	@PostMapping(value="/issueBulkVoucher")
+	public @ResponseBody String issueBulkVoucher(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
+			ErupiBulkVoucherCreateRequest erupiBulkVoucherCreateRequest) {
+		String profileRes=null;
+		
+		profileRes = erupiVoucherCreateDetailsService.issueBulkVoucher(tokengeneration.getToken(),erupiBulkVoucherCreateRequest);
+		
+		return profileRes;
+	}
+	
+	@PostMapping(value = "/beneficiaryDeleteFromVoucherList")
+	public @ResponseBody String beneficiaryDeleteFromVoucherList(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, BulkVoucherRequest bulkVoucherRequest) {
+		String profileRes = null;
+		profileRes = erupiVoucherCreateDetailsService.beneficiaryDeleteFromVoucherList(tokengeneration.getToken(),	bulkVoucherRequest);
+
+		return profileRes;
+	}
+	
 	@GetMapping(value = "/getVoucherTemplate")
 	public ResponseEntity<InputStreamResource> getVoucherTemplate() {
 		try {

@@ -115,7 +115,7 @@
 									    accept=".jpg, .jpeg, .png" 
 									    onchange="validateAndConvertImageToBase64()">
 										</div><br>
-                                    
+                                        <input type="hidden" id="oldbankLogo" name="oldbankLogo" th:value="${bankLogo}">
                                     
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
         <div class="d-flex my-3 justify-content-start">
             <!-- Save button -->
             <input type="button" id="saveBankmaster" class="btn btn-primary" 
-                   onclick="saveBankMaster()" value="Save">
+                   onclick="saveEditedBankMaster()" value="Save">
             <!-- Back button with custom margin -->
             <a href="/displaybankMaster" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
         </div>
@@ -217,34 +217,6 @@
 	});
 	
 	</script>
-	
-	
-	
-            <!--<style>
-				input, select {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px 12px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.card-form {
-    margin-bottom: 15px;
-}
-
-			</style>-->
-	
-
-
-
 
 </body>
 

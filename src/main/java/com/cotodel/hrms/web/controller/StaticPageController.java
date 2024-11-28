@@ -297,27 +297,6 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("index", "command", "");
 		
 		}
-		
-
-	@GetMapping(value="/userCreation")
-	public ModelAndView userCreation(Model model) {
-		logger.info("opening dashboard-details01");
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("employerId",id);
-				return new ModelAndView("user-creation", "command", "");
-			}
-		}
-			
-		return new ModelAndView("index", "command", "");
-	}
 	
 	@GetMapping(value="/peopel")
 	public ModelAndView getPeopelList(Model model) {
@@ -588,6 +567,24 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	@GetMapping(value="/displaybankMaster")
+	public ModelAndView displaybankMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+
+				return new ModelAndView("display-bank-Master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
 	
 	
 	@GetMapping(value="/bankMaster")
@@ -640,24 +637,6 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("employerId",id);
 
 				return new ModelAndView("voucher-Type-Master", "command", "");
-			}
-		}
-		return new ModelAndView("index", "command", "");
-	}
-	@GetMapping(value="/displaybankMaster")
-	public ModelAndView displaybankMaster(Model model) {
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("employerId",id);
-
-				return new ModelAndView("display-bank-Master", "command", "");
 			}
 		}
 		return new ModelAndView("index", "command", "");

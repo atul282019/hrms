@@ -26,7 +26,7 @@
 
 </head>
 
-<body id="page-top" onload="getLinkedBankDetail()" >
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail(),getVoucherDetailByBoucherCode()" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -160,7 +160,7 @@
                                     </div>
 
                                     <div class="bg-white py-3 px-2 mb-3 w-100 br-10">
-                                        <div class="col-12 col-md-10">
+                                        <div class="col-12 col-md-12">
                                             <h5>Template file instruction</h5>
                                             <ul class="bulk-list">
                                                 <li><span>1.</span>There are two tabs. Please fill in the data accordingly.</li>
@@ -169,7 +169,7 @@
                                                 <li><span>4.</span>Please do not use all capital letters in address, name, title etc.</li>
                                             </ul>
 											
-											<div class="col-12 col-md-10">
+											<div class="upi-voucher-wrap">
 																				
 													<div>
 					                                   <h5> Select Linked Bank Account</h5>
@@ -232,8 +232,8 @@
 
                                             <div class="form-group mt-3">
                                                 <div class="custom-control custom-checkbox small">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck45">
-                                                    <label class="custom-control-label text-left" for="customCheck45">Send welcome emails to new additions </label>
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck44">
+                                                    <label class="custom-control-label text-left" for="customCheck44">Send welcome emails to new additions </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -402,7 +402,7 @@
                                     </div>
 
                                     <div class="text-right my-3">
-                                        <button class="btn btn-outline-reject">Reject</button>
+                                        <button class="btn btn-outline-reject" onclick="bulkReject()">Reject</button>
                                         <button class="btn btn-confirm"><a class="text-white" style="text-decoration: none;" onclick="nextTab()">Continue</a>
 											</button>
 											<!--<input type="button" class="btn btn-confirm" id="issueVoucher" value="Continue" />-->
@@ -466,8 +466,9 @@
                                     </div>
 
                                     <div class="text-right my-3">
-                                        <button class="btn btn-outline-download" data-toggle="modal" data-target="#ModalDownload1">Download</button>
-                                        <button class="btn btn-retry">Retry</button>
+                                       <!-- <button class="btn btn-outline-download" data-toggle="modal" data-target="#ModalDownload1">Download</button>-->
+										<button class="btn btn-outline-download" id="downloadBtn" data-toggle="modal" data-target="#ModalDownload1">Download</button>
+                                        <!--<button class="btn btn-retry">Retry</button>-->
                                     </div>
                                 </div>
 
@@ -476,117 +477,153 @@
 
                         </div>
                     </div>
-
-					<div class="upi-voucher-wrap selectvouchers-VerifyDetails" id="selectvouchers-wrap-issue" style="display: none;">
-					                                   <h3>Verify Details </h3>
-					                                   <div>
-					                                       <p>Please cross-check the details for the issuance of vouchers.</p>
+					<div class="tab-content" id="selectvouchers-wrap-issue" style="display: none;">
+					                               <div class="selectvouchers-update">
+					                                   <p>Last updated on</p>
+					                                   <span>15:26:13</span>
+					                                   <span>Wed 4 Sep 2024</span>
+					                               </div>
+					                               <div class="selectvouchers-top">
+					                                   <div class="selectvouchers-topleft">
+					                                       <div class="selectvouchers-topleft-cards d-flex" >
+					                                           <div id="jsonDataBank"></div>
+					                             
+					                                       </div>
+					                                 
 					                                   </div>
-
-					                                   <div class="table-responsive">
-					                                       <table class="table table-reimbursements selectvouchers-table border-btm" id="issueVoucherTable">
-															<thead>
-					                                                <tr>
-																		<th>Voucher Type</th>
-					                                                    <th>Beneficiary Name</th>
-					                                                    <th>mobile</th>
-					                                                    <th>amount</th>
-					                                                    <th>startDate</th>
-					                                                    <th>expDate</th>
-																		<th></th>
-					                                                </tr>
-					                                            </thead>
-					                                           <tbody>
-					                                               <!--<tr>
-					                                                   <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
-					                                                   <td>General</td>
-					                                                   <td>Deepika Sudan</td>
-					                                                   <td>9910318405</td>
-					                                                   <td>₹10,000</td>
-					                                                   <td>25/10/2024</td>
-					                                                   <td>100 Days</td>
-					                                                   <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
-					                                               </tr>
-					                                               <tr>
-					                                                   <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
-					                                                   <td>General</td>
-					                                                   <td>Deepika Sudan</td>
-					                                                   <td>9910318405</td>
-					                                                   <td>₹10,000</td>
-					                                                   <td>25/10/2024</td>
-					                                                   <td>100 Days</td>
-					                                                   <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
-					                                               </tr>
-					                                               <tr>
-					                                                   <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
-					                                                   <td>General</td>
-					                                                   <td>Deepika Sudan</td>
-					                                                   <td>9910318405</td>
-					                                                   <td>₹10,000</td>
-					                                                   <td>25/10/2024</td>
-					                                                   <td>100 Days</td>
-					                                                   <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
-					                                               </tr>
-					                                               <tr>
-					                                                   <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
-					                                                   <td>General</td>
-					                                                   <td>Deepika Sudan</td>
-					                                                   <td>9910318405</td>
-					                                                   <td>₹10,000</td>
-					                                                   <td>25/10/2024</td>
-					                                                   <td>100 Days</td>
-					                                                   <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
-					                                               </tr>
-					                                               <tr>
-					                                                   <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
-					                                                   <td>General</td>
-					                                                   <td>Deepika Sudan</td>
-					                                                   <td>9910318405</td>
-					                                                   <td>₹10,000</td>
-					                                                   <td>25/10/2024</td>
-					                                                   <td>100 Days</td>
-					                                                   <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
-					                                               </tr>
-					                                               <tr>
-					                                                   <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
-					                                                   <td>General</td>
-					                                                   <td>Deepika Sudan</td>
-					                                                   <td>9910318405</td>
-					                                                   <td>₹10,000</td>
-					                                                   <td>25/10/2024</td>
-					                                                   <td>100 Days</td>
-					                                                   <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
-					                                               </tr>
-					                                               <tr>
-					                                                   <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
-					                                                   <td>General</td>
-					                                                   <td>Deepika Sudan</td>
-					                                                   <td>9910318405</td>
-					                                                   <td>₹10,000</td>
-					                                                   <td>25/10/2024</td>
-					                                                   <td>100 Days</td>
-					                                                   <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
-					                                               </tr>-->
-					                                           </tbody>
-					                                       </table>
-					                                   </div>
-
-					                                   <div class="form-group mt-3">
-					                                       <div class="custom-control custom-checkbox small">
-					                                           <input type="checkbox" class="custom-control-input" id="customCheck45">
-					                                           <label class="custom-control-label text-left" for="customCheck45">I confirm
-					                                               that the details uploaded above are correct to the best of my knowledge,
-					                                               and are approved by the competent authority in my organization.</label>
+					                                   <div class="selectvouchers-topright">
+					                                       <div class="selectvouchers-carosel" id="jsonData">
+					                                         
+					                                         
 					                                       </div>
 					                                   </div>
-
-					                                   <div class="w-100 mt-3 text-right">
-					                                       <div class="btn btn-border-primary" onclick="returnTab2()">Back</div>
-					                                       <div class="btn btn-primary" data-toggle="modal"
-					                                           data-target="#modalissueVouchers">Issue Vouchers</div>
-					                                   </div>
 					                               </div>
+					<div class="upi-voucher-wrap selectvouchers-VerifyDetails" >
+						
+						
+                           <h3>Verify Details </h3>
+                           <div>
+                               <p>Please cross-check the details for the issuance of vouchers.</p>
+                           </div>
 
+                           <div class="table-responsive">
+                               <table class="table table-reimbursements selectvouchers-table border-btm" id="issueVoucherTable">
+								<thead>
+                                        <tr>
+											<th></th>
+											<th>Voucher Type</th>
+                                            <th>Beneficiary Name</th>
+                                            <th>mobile</th>
+                                            <th>amount</th>
+                                            <th>startDate</th>
+                                            <th>expDate</th>
+											<th></th>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                       <!--<tr>
+                                           <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
+                                           <td>General</td>
+                                           <td>Deepika Sudan</td>
+                                           <td>9910318405</td>
+                                           <td>₹10,000</td>
+                                           <td>25/10/2024</td>
+                                           <td>100 Days</td>
+                                           <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
+                                       </tr>
+                                       <tr>
+                                           <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
+                                           <td>General</td>
+                                           <td>Deepika Sudan</td>
+                                           <td>9910318405</td>
+                                           <td>₹10,000</td>
+                                           <td>25/10/2024</td>
+                                           <td>100 Days</td>
+                                           <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
+                                       </tr>
+                                       <tr>
+                                           <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
+                                           <td>General</td>
+                                           <td>Deepika Sudan</td>
+                                           <td>9910318405</td>
+                                           <td>₹10,000</td>
+                                           <td>25/10/2024</td>
+                                           <td>100 Days</td>
+                                           <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
+                                       </tr>
+                                       <tr>
+                                           <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
+                                           <td>General</td>
+                                           <td>Deepika Sudan</td>
+                                           <td>9910318405</td>
+                                           <td>₹10,000</td>
+                                           <td>25/10/2024</td>
+                                           <td>100 Days</td>
+                                           <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
+                                       </tr>
+                                       <tr>
+                                           <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
+                                           <td>General</td>
+                                           <td>Deepika Sudan</td>
+                                           <td>9910318405</td>
+                                           <td>₹10,000</td>
+                                           <td>25/10/2024</td>
+                                           <td>100 Days</td>
+                                           <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
+                                       </tr>
+                                       <tr>
+                                           <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
+                                           <td>General</td>
+                                           <td>Deepika Sudan</td>
+                                           <td>9910318405</td>
+                                           <td>₹10,000</td>
+                                           <td>25/10/2024</td>
+                                           <td>100 Days</td>
+                                           <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
+                                       </tr>
+                                       <tr>
+                                           <td><img src="img/food-1.svg" alt=""><span>Meal</span></td>
+                                           <td>General</td>
+                                           <td>Deepika Sudan</td>
+                                           <td>9910318405</td>
+                                           <td>₹10,000</td>
+                                           <td>25/10/2024</td>
+                                           <td>100 Days</td>
+                                           <td><a href="#"><img src="img/delete.svg" alt=""></a></td>
+                                       </tr>-->
+                                   </tbody>
+                               </table>
+                           </div>
+
+						   <div class="form-group mt-3">
+						       <div class="custom-control custom-checkbox small">
+						           <input type="checkbox" class="custom-control-input" id="customCheck45" >
+						           <label class="custom-control-label text-left" for="customCheck45">I confirm
+						               that the details uploaded above are correct to the best of my knowledge,
+						               and are approved by the competent authority in my organization.</label>
+						       </div>
+						   	<div class="error-msg" id="errorMessage" style="color:red"></div>
+						   </div>
+							
+
+						   <div class="clearfix"></div>
+						   <div id="issuemsgdiv" style="display:none" class="alert alert-success text-center">
+						   	<div id="issuesuccmsg"></div>   
+						   </div>
+						   <div id="issuesfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+						   	<div id="issuesfailmsg"></div>
+						   </div>		
+						   
+						   
+                           <div class="w-100 mt-3 text-right">
+                               <div class="btn btn-border-primary" onclick="returnTab2()">Back</div>
+                              <!-- <div class="btn btn-primary" data-toggle="modal"
+                                   data-target="#modalissueVouchers">Issue Vouchers</div>-->
+								   
+								   <button  class="btn btn-primary" id="submitButton">Issue Vouchers</button>
+                           </div>
+					  </div>
+					</div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -639,7 +676,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
+	<script src="js/xsls-export.js"></script>
 	<script type="text/javascript" src="cotodel-js/bulk-voucher-issuance.js"></script>
 
 
@@ -702,10 +739,104 @@
 				
 			}
 		
-		
+			function bulkReject(){
+				     window.location.href = "/createUpiVoucherIssuance";
+			         
+		}
     </script>
 
+	
+	<script>
+		  $(document).ready(function() {
+		    $('#submitButton').click(function() {
+			  const checkbox = document.getElementById('customCheck45');
+		  		 const errorMessage = document.getElementById('errorMessage');
+		  		 if (checkbox.checked) {
+		  		    errorMessage.textContent = "";
+		  		  } else {
+		  		    errorMessage.textContent = "Please check consent"; 
+		  			return false;
+		  		  }
+			  document.getElementById('submitButton').disabled=true;
+		      var linkedmobilenumber = document.getElementById("banklinkedMobile").value;
+		      $.ajax({
+		        url:"/smsOtpSender",
+		        type: 'POST',
+				data: {
+							"mob": linkedmobilenumber,
+					  },
+				dataType: 'json',
+				success: function(data) {
+				var obj = data;
+		        if (obj['status'] == "SUCCESS") {
+		            // If successful, open the OTP modal
+					var timeleft = "60";
+									var downloadTimer = setInterval(function() {
+										document.getElementById("countdown").innerHTML = "00:"+timeleft;
+										timeleft -= 1;
+										//document.getElementById("optBtn").style.display = "none";
+										document.getElementById("orderId").value= obj['orderId'];
+										//document.getElementById("verifyotpdiv").style.display = "block";
+										if (timeleft <= 0) {
+											clearInterval(downloadTimer);
+											///document.getElementById("optBtn").disabled = false;
+											///document.getElementById("countdown").innerHTML = " ";
+											//document.getElementById("optBtn").style.display = "none";
+											//document.getElementById("verifyotpdiv").style.display = "none";
+											///$('#loginIdDiv').hide('slow');
+										}
+										//document.getElementById('password').focus();
+									}, 1000);
+		            $('#otpModal').fadeIn();
+		          } else {
+		            alert("Error: " + response.message);
+		          }
+		        },
+		        error: function() {
+				  //$('#otpModal').fadeIn();
+		         // alert("An error occurred. Please try again.");
+		        }
+		      });
+		    });
 
+		    // Close the modal when clicking outside the modal content
+		    $(window).on('click', function(event) {
+		      if (event.target.id === 'otpModal') {
+		        $('#otpModal').fadeOut();
+		      }
+		    });
+		  });
+		  
+		  
+		  
+		</script>
+
+		
+		<script>
+				
+				let deleteValue = null;
+
+				function openRevokeDialog(button) {
+				    deleteValue = button.value; // Store the button value
+				    document.getElementById("confirmationDialog").style.display = "flex";
+				}
+				function closeDialog() {
+				    document.getElementById("confirmationDialog").style.display = "none";
+				}
+
+				function confirmRevokeDialog() {
+				    console.log("Revoke confirmed for value:", deleteValue);
+				    deleteBeneficiay(deleteValue);
+				    closeDialog();
+				}
+				//document.getElementById("yes").addEventListener("click", confirmRevokeDialog);
+				//document.getElementById("no").addEventListener("click", closeRevokeDialog);
+
+				
+			</script>
+	
+		
+		
 <!-- Modal Download -->
 <div class="modal fade" id="ModalDownload1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -714,12 +845,17 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <img src="img/modal-close.svg" alt="">
         </button>        
-        <div class="count"><span>7</span><strong>10</strong></div>
+        <div class="count">
+			<!--<span>7</span><strong>10</strong>-->
+			<span id="successUploadDownload"></span><strong id="successUploadTotal">
+		</div>
             <br>
             <span>Upload Successful</span>
         </div>
         <div class="modal-bottom">
-            <div class="count"><span>3</span><strong>10</strong></div>
+            <div class="count">
+				<span id="failedUploadDownload"></span><strong id="failedUploadTotal"></strong>
+			</div>
             <br>
             <span>Review Pending Unsuccessful Upload</span>
         </div>
@@ -727,9 +863,10 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="modalissueVouchers" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Modal Issue Vouchers -->
+   <!-- <div class="modal fade" id="modalissueVouchers" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+		<div id="otpModal" class="modal customfade">
         <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
             <div class="modal-content modal-bulk">
                 <div class="modal-header pb-0 text-center">
@@ -737,27 +874,72 @@
                 </div>
                 <div class="modal-body text-center">
                     <div class="otp-box-onboarding justify-content-center">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
+					
+						        <input  class="form-control form-control-sm test" type="password" id="password1" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password2" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password3" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password4" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password5" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password6" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+						        name="orderId" >
                     </div>
-                    <label class="time-otp ml-0 text-dark" for="">00:30</label>
-                    <p class="text-dark">Didn’t receive the code? <a href="#">Resend Code</a></p>
+                   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+					<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
                     <div class="tip-wrap justify-content-center">
                         <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
                     </div>
+					
+					<div class="error-msg" id="otpError" style="color:red"></div>
+					
                     <div class="d-flex justify-content-center mt-3">
+						<!--
                         <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+						-->
+						<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-
+	
 </body>
 
+
+<!-- Modal -->
+	<div id="confirmationDialog" style="display: none;">
+		<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+			            <div class="modal-content">
+			                <div class="modal-header pb-0">
+		                    <h5 class="modal-title" id="">Are you sure you want to revoke this? </h5>
+		                    
+		                </div>
+			                <div class="modal-body confirmbox">
+			                    <div class="d-flex justify-content-center mt-4">
+									<button id="yes" onclick="confirmRevokeDialog()">Yes</button>
+									<button id="no" onclick="closeDialog()">No</button>
+		                    </div>
+			                
+			            </div>
+			        </div>
+		</div>
+	</div>
+	
+	
+
+					
 </html>

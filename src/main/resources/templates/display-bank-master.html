@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
- <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"> </th:block> 
 
 <body id="page-top" >
 
@@ -13,7 +13,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <div th:insert="fragments/sidenav.html :: sidevav"> </div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -53,9 +53,9 @@
                                                         <th onclick="sortTable(0)">BankLogo<img src="img/Sort.svg" alt=""></th>
                                                         <th onclick="sortTable(1)">Bank Name<img src="img/Sort.svg" alt=""></th>
                                                         <th onclick="sortTable(2)">Bank Code<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(3)">status<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(4)">set status<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(5)">Edit status<img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(4)">status<img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(5)">set status<img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(6)">Edit status<img src="img/Sort.svg" alt=""></th>
                                                         
                                                     </tr>
                                                 </thead>
@@ -67,11 +67,9 @@
                                             </table>
                                         </div>
                                         
-		                            			<div class="mt-3" style="text-align: right;">
-    											<a class="btn btn-primary"  th:href="@{/bankMaster}">Add bankMaster</a>
-												</div>
-		                                            
-
+                            			<div class="mt-3" style="text-align: right;">
+										<a class="btn btn-primary"  th:href="@{/bankMaster}">Add bankMaster</a>
+										</div>                                         
                                 </div>
                             </div>
 
@@ -88,8 +86,6 @@
 
     </div>
     <!-- End of Page Wrapper -->
-
-    
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -116,15 +112,15 @@
     <script type="text/javascript" src="cotodel-js/display-bank-master.js"></script>
  
     <script type="text/javascript">
-$(document).ready(function(){
-		
-		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' +'/bankMaster"]').closest('li').addClass('active').attr('aria-current', 'page');   
-		  
-	   $(".innernav").click(function(){
-	       $(".dropdownNav").addClass("active");
-	   });
-	});
+		$(document).ready(function(){
+				
+				  $('li.active').removeClass('active').removeAttr('aria-current'); 
+				  $('a[href="' +'/bankMaster"]').closest('li').addClass('active').attr('aria-current', 'page');   
+				  
+			   $(".innernav").click(function(){
+			       $(".dropdownNav").addClass("active");
+			   });
+			});
     
     </script>
         <script>
@@ -160,15 +156,6 @@ $(document).ready(function(){
         </script>
         
 	<script>
-		    $(document).ready(function(){
-		    	
-		    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
-				  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-				  
-		        $(".innernav").click(function(){
-		            $(".dropdownNav").addClass("active");
-		        });
-		    });
 		    
 		 function viewData(value){
 			

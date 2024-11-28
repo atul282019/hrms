@@ -1,37 +1,39 @@
 
 let bankLogo="";
 
-function saveBankMaster()
+function saveEditedBankMaster()
 { 
+    /*
 	var bankId = document.getElementById("bankId").value;
 	var bankName = document.getElementById("bankNameInput").value;
 	//var ifsc=document.getElementById("ifsc").value;
 	var bankCode = document.getElementById("bankCodeInput").value;
 	var updatedstatus=document.getElementById("statusInput").value;
-	
-	if(bankName==""){
-		document.getElementById("bankNameerror").innerHTML="Please Enter Bank Name";
-		document.getElementById("bankName").focus();
-		return false;
-	}else{
-		document.getElementById("bankNameerror").innerHTML="";
-	}
-	
-	if(bankCode==""){
-		document.getElementById("bankcodeError").innerHTML="Please Enter bank code";
-		document.getElementById("bankCode").focus();
-		return false;
-	}else{
-		document.getElementById("bankcodeError").innerHTML="";
-	}
+	var oldbankLogo = document.getElementById("oldbankLogo").value;
+     if(bankLogo==="")
+     {
+        bankLogo=oldbankLogo;
+     }
+	*/
+	var bankId = document.getElementById("bankId").value;
 
+    // Get Bank Name (check both span and input field)
+    var bankNameInput = document.getElementById("bankNameInput").value.trim();
+    var bankName = bankNameInput || document.getElementById("bankNameText").textContent.trim();
 
-    if (bankLogo.length === 0) {
-        document.getElementById("bankLogoError").innerHTML="Please Enter bank logo";
-        document.getElementById("bankLogo").focus();
-        return false;
+    // Get Bank Code (check both span and input field)
+    var bankCodeInput = document.getElementById("bankCodeInput").value.trim();
+    var bankCode = bankCodeInput || document.getElementById("bankCodeText").textContent.trim();
+
+    // Get Status (check both select and span data-value)
+    var statusInput = document.getElementById("statusInput").value;
+    var updatedStatus = statusInput || document.getElementById("statusText").dataset.value;
+
+    // Get Bank Logo (default to old logo if new logo is not provided)
+    var oldbankLogo = document.getElementById("oldbankLogo").value;
+    if (bankLogo === "") {
+        bankLogo = oldbankLogo;
     }
-	
 
 	console.log("Printing bankname "+bankName);
 	 	$.ajax({
@@ -41,7 +43,7 @@ function saveBankMaster()
 			  "id":bankId,
 			"bankName": bankName,
 			"bankCode": bankCode,
-			"status": updatedstatus,
+			"status": updatedStatus,
 			"bankLogo": bankLogo,
 			//"bankIfsc": ifsc
 			
@@ -57,9 +59,13 @@ function saveBankMaster()
 			if(data1.status=='SUCCESS'){
 				 document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("otmsgdiv").style.display="block";
-				 document.getElementById("bankMaster1").reset();
+	
 				 document.getElementById("saveBankmaster").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
+                 //window.location.reload().delay(5000);
+                 setTimeout(function() {
+                    window.location.href = "/displaybankMaster"; // Update with your previous page URL
+                }, 1000);
 			}else if(data1.status=='FAILURE'){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
@@ -79,35 +85,6 @@ function saveBankMaster()
 }
 
 
-
-
-
-/*function convertImageToBase64() {
-    const fileInput = document.getElementById("newbankLogo");
-    const file = fileInput.files[0]; // Get the selected file
-
-    if (file) {
-        const reader = new FileReader();
-        
-        // When file is read, execute this function
-        reader.onload = function(event) {
-            const base64String = event.target.result.split(',')[1]; // Extract Base64 part
-
-            // Display Base64 string in the output div (optional)
-            //document.getElementById("base64Output").textContent = base64String;
-
-            // priting base64 string on console
-            //console.log("Base64 String", base64String);
-            bankLogo=base64String; 
-        };
-
-        // Read file as Data URL (Base64)
-       reader.readAsDataURL(file);
-    } else {
-        alert("Please select a valid image file.");
-    }
-}
-*/
 function validateAndConvertImageToBase64() {
         const fileInput = document.getElementById('newbankLogo');
         const file = fileInput.files[0];

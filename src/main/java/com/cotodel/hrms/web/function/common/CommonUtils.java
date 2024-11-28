@@ -113,4 +113,9 @@ public interface CommonUtils {
 	public static String resendErupiVoucheSmsSend="/empService/Api/get/erupiVoucherSms";
 	public static String bulkVoucherUpload = "/empService/Api/add/erupiVoucherBulkVoucherUpload";
 	
+	public static String createBulkVoucher = "/empService/Api/add/erupiVoucherBulkVoucherCreate";
+	
+	public static String beneficiaryDeleteFromVoucherList = "/empService/Api/update/erupiVoucherDelete";
+	
+	
 }

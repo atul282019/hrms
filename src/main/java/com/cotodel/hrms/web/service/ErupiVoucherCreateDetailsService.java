@@ -2,6 +2,8 @@ package com.cotodel.hrms.web.service;
 
 import org.springframework.stereotype.Repository;
 
+import com.cotodel.hrms.web.response.BulkVoucherRequest;
+import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 
 @Repository
@@ -18,5 +20,9 @@ public interface ErupiVoucherCreateDetailsService {
 	String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
 	String erupiVoucheSmsSend(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+
+	String issueBulkVoucher(String token, ErupiBulkVoucherCreateRequest erupiBulkVoucherCreateRequest);
+
+	String beneficiaryDeleteFromVoucherList(String token, BulkVoucherRequest bulkVoucherRequest);
 
 }

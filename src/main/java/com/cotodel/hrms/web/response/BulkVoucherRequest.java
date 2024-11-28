@@ -13,24 +13,34 @@ public class BulkVoucherRequest {
 	
 	private static final long serialVersionUID = -5145118965670277166L;	
 	
+	private Long id;	
 	private Long employerId;	
 	private String fileName;
 	private String file;
 	private String bankName;	
-	private String bankCode;	
+	private String bankcode;	
 	private String accountHolderName;
 	
 	private String acNumber;	
-	private String accountType;	
+	private String type;	
 	private String ifsc;
 	private String orgId;
 	private String orgCode;
 	private String tid;
-	private String merchentIid;
+	private String merchantId;
 	private String mcc;
-	private String submurchentid;
+	private String subMerchantId;
 	private String merchentid;
-	private String payerva;
+	private String payerVA;
+	private String createdby;
+	
+	private String voucherDesc;
+	
+	private String purposeCode;
+	private String accountId;
+	
+	private String voucherCode;
+	private String beneficiaryID;
 	
 	
 
