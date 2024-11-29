@@ -121,14 +121,11 @@
                                                 also download an
                                                 Excel Template and upload it with the details for bulk issuance.</p>
                                         </div>
-                                        <!--<div>
-                                            <a th:href="@{/bulkVoucherIssuance}" class="btn bulkissue">Bulk Issue <i
-                                                    class="fa fa-arrow-right"></i></a>
-                                        </div>-->
+                                     <!--  
 										<div>
                                        <Button th:href="@{/bulkVoucherIssuance}" class="btn bulkissue" id="BtnBulkIssue" onclick="bulkIssuePage()">Bulk Issue <i
                                                     class="fa fa-arrow-right"></i></Button>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <hr>
 
@@ -451,13 +448,12 @@
 										
 										<div class="error-msg" id="selectVoucherError" style="color:red"></div>
 										
-                                        <div class="row">
-                                            <div class="col-md-12 text-right">
-                                               <!-- <a class="btn btn-primary" id="selectvouchers" onclick="updateDropdown()" >Continue</a>-->
-											<input class="btn btn-primary" id="selectvouchersContinew" type="button" value="Continue" onclick="updateDropdown()" />
-												
-                                            </div>
-                                        </div>
+										<div class="w-100 my-3 text-right">
+											<Button th:href="@{/bulkVoucherIssuance}" class="btn btn-border-primary btn-lg" id="BtnBulkIssue" 
+											onclick="bulkIssuePage()"> Bulk Issue <!--<i class="fa fa-arrow-right"></i>--></Button>
+											<input type="button" class="btn btn-primary btn-lg" id="selectvouchersContinew" onclick="updateDropdown()" 
+											value="Single Voucher Isssue" fdprocessedid="u5l3n6"> 
+	                                    </div>
 
 
 

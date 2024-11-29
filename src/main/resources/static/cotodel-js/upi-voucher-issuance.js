@@ -22,7 +22,7 @@ function getIssueVoucherList(){
 			 //dom: 'Bfrtip',
 		     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["csv", "excel"],
-             "language": {"emptyTable": "No Data available"  },
+             "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
 	         "aaData": data2,
       		  "aoColumns": [ 
 				{ "mData": "id", "render": function (data2, type, row) {
@@ -155,7 +155,7 @@ function sendsms(value){
 		 	type: "POST",
 		 	url:"/erupiVoucheSmsSend",
 		     data: {
-		 			"id": id
+		 			"id": value
 		    		 },
 		    		  beforeSend : function(xhr) {
 		 			//xhr.setRequestHeader(header, token);
@@ -184,7 +184,7 @@ function revoke(value){
 		 	type: "POST",
 		 	url:"/revokeCreatedVoucher",
 		     data: {
-		 			"id": id
+		 			"id": value
 		    		 },
 		    		  beforeSend : function(xhr) {
 		 			//xhr.setRequestHeader(header, token);

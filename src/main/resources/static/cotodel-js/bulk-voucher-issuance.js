@@ -157,7 +157,10 @@ function saveBulkVoucherUpload(){
 					              "language": {"emptyTable": "No Data available"  },
 					 	         "aaData": success,
 					       		  "aoColumns": [ 
-									{ "mData": "id"},
+									{ "mData": "id", "render": function (data2, type, row) {
+											 return '<td> <input type="hidden" name="issueId" id="issueId" value="'+data2+'" /> </td>';
+										}}, 								
+									{ "mData": "id"},	
 					 				{ "mData": "voucherType"},
 					                { "mData": "beneficiaryName"},   
 					                { "mData": "mobile"},   
@@ -165,7 +168,7 @@ function saveBulkVoucherUpload(){
 					 				{ "mData": "startDate"},  
 					 				{ "mData": "expDate"},
 									{ "mData": "id", "render": function (data2, type, row) {
-									   return '<td> <button class="btn-revoke"  value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/delete.svg" alt=""></a> </button> </td>';
+									   return '<td> <button class="btn-revoke"  value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/status-approve.svg" alt=""></a> </button> </td>';
 									}}, 
 										
 					     		 	],
@@ -935,7 +938,7 @@ function verfyIssueVoucherOTP() {
 	      const firstColumnData = [];
 	      
 	      for (let row of table.tBodies[0].rows) {
-	        firstColumnData.push(row.cells[0].textContent);
+	        firstColumnData.push(row.cells[1].textContent);
 	      }
 	      console.log(firstColumnData);
 	    
@@ -999,7 +1002,7 @@ function verfyIssueVoucherOTP() {
   		   					 document.getElementById("issuemsgdiv").style.display="block";
   		   					 //document.getElementById("getInTouchUser").reset();
   		   					 $('#otmsgdiv').delay(10000).fadeOut(800);
-  							 //window.location.href = "/createUpiVoucherIssuance";
+  							 window.location.href = "/createUpiVoucherIssuance";
   							 document.getElementById('submitButton').disabled=false;
   							 document.getElementById('authenticate').disabled=false;
   							
@@ -1037,14 +1040,14 @@ function verfyIssueVoucherOTP() {
 
   
   function deleteBeneficiay(value){
-  		 var row = jQuery(value).closest('tr');
-  		 var  id = $(row).find("input[name='revoke']").val();
+  		/* var row = jQuery(value).closest('tr');
+  		 var  id = $(row).find("input[name='issueId']").val();*/
   		 document.getElementById("signinLoader").style.display="flex";
   		  	$.ajax({
   		 	type: "POST",
   		 	url:"/beneficiaryDeleteFromVoucherList",
   		     data: {
-  		 			"id": id
+  		 			"id": value
   		    		 },
   		    		  beforeSend : function(xhr) {
   		 			//xhr.setRequestHeader(header, token);
@@ -1055,6 +1058,14 @@ function verfyIssueVoucherOTP() {
   				 document.getElementById("signinLoader").style.display="none";
   		         var data1 = jQuery.parseJSON( newData );
   		 		 var data2 = data1.data;
+				 var table = $('#issueVoucherTable').DataTable();
+
+ 			    // Handle row click to hide
+ 			    $('#issueVoucherTable tbody').on('click', 'tr', function () {
+ 			        $(this).hide(); // Hides the row in the DOM
+ 			       
+ 			    });
+				 				
   		        },
   		      error: function(e){
   		          alert('Error: ' + e);
