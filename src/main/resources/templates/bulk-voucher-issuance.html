@@ -402,18 +402,16 @@
                                     </div>
 
                                     <div class="text-right my-3">
-                                        <button class="btn btn-outline-reject" onclick="bulkReject()">Reject</button>
+                                        <button class="btn btn-outline-reject" onclick="bulkReject()">Cancel</button>
                                         <button class="btn btn-confirm"><a class="text-white" style="text-decoration: none;" onclick="nextTab()">Continue</a>
 											</button>
-											<!--<input type="button" class="btn btn-confirm" id="issueVoucher" value="Continue" />-->
                                     </div>
                                 </div>
-
 
                                 <div class="unsuccessful-wrap">
                                     <h2 class="mb-1 text-green">Unsuccessful Upload <div class="count"><span id="failed"></span><strong id="failedTotal"></strong></div></h2>
                                     <div class="alert alert-unsucess">
-                                        Edit Details to try again or Download Unsuccessful Upload 
+                                       Download Unsuccessful Upload  to try again 
                                     </div>
 
                                     <div class="table-responsive">
@@ -700,150 +698,7 @@
 	});
 
 	</script>
-	
-    <script>
-        $(document).on('change','.up', function(){
-		   	var names = [];
-		   	var length = $(this).get(0).files.length;
-			    for (var i = 0; i < $(this).get(0).files.length; ++i) {
-			        names.push($(this).get(0).files[i].name);
-			    }
-			    // $("input[name=file]").val(names);
-				if(length>2){
-				  var fileName = names.join(', ');
-				  $(this).closest('.form-group').find('.form-control').attr("value",length+" files selected");
-				}
-				else{
-					$(this).closest('.form-group').find('.form-control').attr("value",names);
-				}
-	   });
-    </script>
-
-    <script>
-         $(document).ready(function () {
-            $("#uploadBulkVoucherTable").click(function () {
-                $("#selectvouchers-wrap-issue").show();
-                $("#BulkVoucherIssuance-wrap").hide();
-
-            });
-        });
-		
-		function nextTab(){
-			$("#selectvouchers-wrap-issue").show();
-			 $("#BulkVoucherIssuanceTable").hide();
-			 var element = document.getElementById("tab2");
-			 element.classList.add("active");
-			 var element2 = document.getElementById("tab3");
-			 element2.classList.add("active");
-		}
-		
-		function returnTab2(){
-				$("#selectvouchers-wrap-issue").hide();
-				$("#BulkVoucherIssuanceTable").show();
-				
-				var element = document.getElementById("tab3");
-				 element.classList.remove("active");
-				
-			}
-		
-			function bulkReject(){
-				     window.location.href = "/createUpiVoucherIssuance";
-			         
-		}
-    </script>
-
-	
-	<script>
-		  $(document).ready(function() {
-		    $('#submitButton').click(function() {
-			  const checkbox = document.getElementById('customCheck45');
-		  		 const errorMessage = document.getElementById('errorMessage');
-		  		 if (checkbox.checked) {
-		  		    errorMessage.textContent = "";
-		  		  } else {
-		  		    errorMessage.textContent = "Please check consent"; 
-		  			return false;
-		  		  }
-			  document.getElementById('submitButton').disabled=true;
-		      var linkedmobilenumber = document.getElementById("banklinkedMobile").value;
-		      $.ajax({
-		        url:"/smsOtpSender",
-		        type: 'POST',
-				data: {
-							"mob": linkedmobilenumber,
-					  },
-				dataType: 'json',
-				success: function(data) {
-				var obj = data;
-		        if (obj['status'] == "SUCCESS") {
-		            // If successful, open the OTP modal
-					var timeleft = "60";
-									var downloadTimer = setInterval(function() {
-										document.getElementById("countdown").innerHTML = "00:"+timeleft;
-										timeleft -= 1;
-										//document.getElementById("optBtn").style.display = "none";
-										document.getElementById("orderId").value= obj['orderId'];
-										//document.getElementById("verifyotpdiv").style.display = "block";
-										if (timeleft <= 0) {
-											clearInterval(downloadTimer);
-											///document.getElementById("optBtn").disabled = false;
-											///document.getElementById("countdown").innerHTML = " ";
-											//document.getElementById("optBtn").style.display = "none";
-											//document.getElementById("verifyotpdiv").style.display = "none";
-											///$('#loginIdDiv').hide('slow');
-										}
-										//document.getElementById('password').focus();
-									}, 1000);
-		            $('#otpModal').fadeIn();
-		          } else {
-		            alert("Error: " + response.message);
-		          }
-		        },
-		        error: function() {
-				  //$('#otpModal').fadeIn();
-		         // alert("An error occurred. Please try again.");
-		        }
-		      });
-		    });
-
-		    // Close the modal when clicking outside the modal content
-		    $(window).on('click', function(event) {
-		      if (event.target.id === 'otpModal') {
-		        $('#otpModal').fadeOut();
-		      }
-		    });
-		  });
-		  
-		  
-		  
-		</script>
-
-		
-		<script>
-				
-				let deleteValue = null;
-
-				function openRevokeDialog(button) {
-				    deleteValue = button.value; // Store the button value
-				    document.getElementById("confirmationDialog").style.display = "flex";
-				}
-				function closeDialog() {
-				    document.getElementById("confirmationDialog").style.display = "none";
-				}
-
-				function confirmRevokeDialog() {
-				    console.log("Revoke confirmed for value:", deleteValue);
-				    deleteBeneficiay(deleteValue);
-				    closeDialog();
-				}
-				//document.getElementById("yes").addEventListener("click", confirmRevokeDialog);
-				//document.getElementById("no").addEventListener("click", closeRevokeDialog);
-
-				
-			</script>
-	
-		
-		
+			
 <!-- Modal Download -->
 <div class="modal fade" id="ModalDownload1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

@@ -481,8 +481,6 @@ function  issueVoucher(){
 	document.getElementById("password5").value="";
     document.getElementById("password6").value="";
 	
-    //document.getElementById("signinLoader").style.display="flex";
-	
 	var banklist = document.getElementById("banklist").value;
 	
 	var voucher = document.getElementById("voucherId").value;
@@ -515,7 +513,8 @@ function  issueVoucher(){
 	 document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
     var employerId = document.getElementById("employerId").value;
 	var employerName = document.getElementById("employerName").value;
-	
+	document.getElementById("signinLoader").style.display="flex";
+
  	$.ajax({
 	type: "POST",
 	url:"/createSingleVoucher",

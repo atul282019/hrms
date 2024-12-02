@@ -1,3 +1,129 @@
+$(document).on('change','.up', function(){
+	   	var names = [];
+	   	var length = $(this).get(0).files.length;
+		    for (var i = 0; i < $(this).get(0).files.length; ++i) {
+		        names.push($(this).get(0).files[i].name);
+		    }
+		    // $("input[name=file]").val(names);
+			if(length>2){
+			  var fileName = names.join(', ');
+			  $(this).closest('.form-group').find('.form-control').attr("value",length+" files selected");
+			}
+			else{
+				$(this).closest('.form-group').find('.form-control').attr("value",names);
+			}
+   });
+
+   $(document).ready(function () {
+             $("#uploadBulkVoucherTable").click(function () {
+                 $("#selectvouchers-wrap-issue").show();
+                 $("#BulkVoucherIssuance-wrap").hide();
+
+             });
+         });
+   	
+   	function nextTab(){
+   		$("#selectvouchers-wrap-issue").show();
+   		 $("#BulkVoucherIssuanceTable").hide();
+   		 var element = document.getElementById("tab2");
+   		 element.classList.add("active");
+   		 var element2 = document.getElementById("tab3");
+   		 element2.classList.add("active");
+   	}
+   	
+   	function returnTab2(){
+   			$("#selectvouchers-wrap-issue").hide();
+   			$("#BulkVoucherIssuanceTable").show();
+   			
+   			var element = document.getElementById("tab3");
+   			 element.classList.remove("active");
+   			
+   		}
+   	
+   		function bulkReject(){
+   			     window.location.href = "/createUpiVoucherIssuance";
+   		         
+   	}
+   
+	$(document).ready(function() {
+			    $('#submitButton').click(function() {
+				  const checkbox = document.getElementById('customCheck45');
+			  		 const errorMessage = document.getElementById('errorMessage');
+			  		 if (checkbox.checked) {
+			  		    errorMessage.textContent = "";
+			  		  } else {
+			  		    errorMessage.textContent = "Please check consent"; 
+			  			return false;
+			  		  }
+				  document.getElementById('submitButton').disabled=true;
+			      var linkedmobilenumber = document.getElementById("banklinkedMobile").value;
+			      $.ajax({
+			        url:"/smsOtpSender",
+			        type: 'POST',
+					data: {
+								"mob": linkedmobilenumber,
+						  },
+					dataType: 'json',
+					success: function(data) {
+					var obj = data;
+			        if (obj['status'] == "SUCCESS") {
+			            // If successful, open the OTP modal
+						var timeleft = "60";
+										var downloadTimer = setInterval(function() {
+											document.getElementById("countdown").innerHTML = "00:"+timeleft;
+											timeleft -= 1;
+											//document.getElementById("optBtn").style.display = "none";
+											document.getElementById("orderId").value= obj['orderId'];
+											//document.getElementById("verifyotpdiv").style.display = "block";
+											if (timeleft <= 0) {
+												clearInterval(downloadTimer);
+												///document.getElementById("optBtn").disabled = false;
+												///document.getElementById("countdown").innerHTML = " ";
+												//document.getElementById("optBtn").style.display = "none";
+												//document.getElementById("verifyotpdiv").style.display = "none";
+												///$('#loginIdDiv').hide('slow');
+											}
+											//document.getElementById('password').focus();
+										}, 1000);
+			            $('#otpModal').fadeIn();
+			          } else {
+			            alert("Error: " + response.message);
+			          }
+			        },
+			        error: function() {
+					  //$('#otpModal').fadeIn();
+			         // alert("An error occurred. Please try again.");
+			        }
+			      });
+			    });
+
+			    // Close the modal when clicking outside the modal content
+			    $(window).on('click', function(event) {
+			      if (event.target.id === 'otpModal') {
+			        $('#otpModal').fadeOut();
+			      }
+			    });
+			  });
+			  
+			  
+		
+		  let deleteValue = null;
+
+			function openRevokeDialog(button) {
+			    deleteValue = button.value; // Store the button value
+			    document.getElementById("confirmationDialog").style.display = "flex";
+			}
+			function closeDialog() {
+			    document.getElementById("confirmationDialog").style.display = "none";
+			}
+
+			function confirmRevokeDialog() {
+			    console.log("Revoke confirmed for value:", deleteValue);
+			    deleteBeneficiay(deleteValue);
+			    closeDialog();
+			}
+			  						  
+	
 function convertImageToBase64() {
            const fileInput = document.getElementById('up');
            const output = document.getElementById('base64Output');
@@ -48,7 +174,7 @@ function saveBulkVoucherUpload(){
 	var submurchentid = document.getElementById("submurchentid").value;
 	var orgId = document.getElementById("employerId").value;
 
-	var getElementById= document.getElementById("voucherId").value;
+	var voucherId= document.getElementById("voucherId").value;
 	var voucherCode= document.getElementById("voucherCode").value;
 	var voucherType= document.getElementById("voucherType").value;
 	var voucherSubType = document.getElementById("voucherSubType").value;
@@ -91,6 +217,7 @@ function saveBulkVoucherUpload(){
 					"payerVA":payerva,
 					"type":"CREATE",
 					"bankcode": bankcode,
+					"voucherId": voucherId,
 				    "voucherCode": voucherCode,
 					"voucherDesc": voucherDesc,
 					"voucherType": "Bulk",
@@ -168,12 +295,11 @@ function saveBulkVoucherUpload(){
 					 				{ "mData": "startDate"},  
 					 				{ "mData": "expDate"},
 									{ "mData": "id", "render": function (data2, type, row) {
-									   return '<td> <button class="btn-revoke"  value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/status-approve.svg" alt=""></a> </button> </td>';
+									   return '<td> <button value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/delete.svg" alt=""></a> </button> </td>';
 									}}, 
 										
 					     		 	],
-					 				
-					 			});
+								});
 								
 							var table = $('#failedUpload').DataTable( {
 								          destroy: true,	
@@ -192,6 +318,23 @@ function saveBulkVoucherUpload(){
 											{ "mData": "startDate"},  
 											{ "mData": "expDate"}
 							    		 	],
+											createdRow: function (row, data2, dataIndex) 
+							                    {
+								                     console.log("row : "+JSON.stringify(data2));
+								                     var regMobile = /^[6-9]\d{9}$/gi;
+								                 	 var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+								                 	//var email = data2.mobile;
+								                	var mobile = data2.mobile;
+								                     if(!mobile.match(regMobile))
+								                     {
+								                       $(row).find('td:eq(2)').addClass("tdactive");
+								                     }
+													else if(mobile.length !==10)
+			 					                     {
+			 					                       $(row).find('td:eq(2)').addClass("tdactive");
+			 					                     }		 
+								                  
+									                 }
 										});
 							      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');	
 				// document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
@@ -511,7 +654,7 @@ function  getVoucherDetailByBoucherCode(){
            var data1 = jQuery.parseJSON( newData );
 		   //var data2 = data1.data;
 			
-		   document.getElementById("voucherId").value=data1.data.id;
+		    document.getElementById("voucherId").value=data1.data.id;
 			document.getElementById("voucherCode").value=data1.data.voucherCode;
 			document.getElementById("voucherType").value=data1.data.voucherType;
 			document.getElementById("voucherSubType").value=data1.data.voucherSubType;

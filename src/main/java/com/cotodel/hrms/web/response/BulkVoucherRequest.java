@@ -40,6 +40,7 @@ public class BulkVoucherRequest {
 	private String accountId;
 	
 	private String voucherCode;
+	private Integer voucherId;
 	private String beneficiaryID;
 	
 	
