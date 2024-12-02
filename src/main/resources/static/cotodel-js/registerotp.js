@@ -1,12 +1,17 @@
-
  function validateRegistrationForm(){
 	var name =document.getElementById("username").value;
 	var email = document.getElementById("email").value;
-	var email = email.toLowerCase();
+		 email = email.toLowerCase();
 	var mobile = document.getElementById("mobile").value;
-	var orgid = document.getElementById("orgname").value;
-	var regMobile = /^[6-9]\d{9}$/gi;
-	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+	var orgname = document.getElementById("orgname").value;
+	//regex 
+	var regName = /^[A-Za-z]+( [A-Za-z]+)*$/;  // Name must not be only spaces, allows space between words
+	var regMobile = /^[6-9]\d{9}$/; // Mobile number starting with 6-9 and 10 digits
+    var regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,5}$/; // Email validation
+   
+	var regOrgName = /^[A-Za-z0-9]+( [A-Za-z0-9]+)*$/; 
+ //Organization name must not be only spaces, allows space between words
+	
 	var noofEmp = document.getElementById("noofEmp").value;
 	var privacyCheck = document.getElementById("privacyCheck").checked;
 	var whatsupCheck = document.getElementById("whatsupCheck").checked;
@@ -15,14 +20,23 @@
 		document.getElementById("usernameError1").innerHTML="Please Enter Name";
 		document.getElementById("username").focus();
 		return false;
-	}else{
+	}else if (!name.match(regName)) {
+        document.getElementById("usernameError1").innerHTML = "special character not allowed in name";
+        document.getElementById("username").focus();
+        return false;
+	}
+		else{
 		document.getElementById("usernameError1").innerHTML="";
 	}
-	if(orgid==""){
+	if(orgname==""){
 		document.getElementById("orgnameError1").innerHTML="Please Enter Organization Name";
 		document.getElementById("orgname").focus();
 		return false;
-	}else{
+	}else if (!orgname.match(regOrgName)) {
+        document.getElementById("orgnameError1").innerHTML = "special character not allowed in  Organization name ";
+        document.getElementById("orgname").focus();
+        return false;
+    }else{
 		document.getElementById("orgnameError1").innerHTML="";
 	}
 	if(email==""){
@@ -71,7 +85,6 @@
 	}
 	
 }	
-
 function validateemail()  {  
 	var x=document.getElementById("email").value;  
 	var atposition=x.indexOf("@");  
@@ -218,7 +231,83 @@ function userRegistration(){
     });
  }
  
- function validateRegistrationForm(){
+/* function validateRegistrationForm(){
+	var name =document.getElementById("username").value;  
+	
+	var email = document.getElementById("email").value;
+	var email = email.toLowerCase();
+	var mobile = document.getElementById("mobile").value;
+	var orgid = document.getElementById("orgname").value;
+	
+	var regMobile = /^[6-9]\d{9}$/gi;
+	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{3,5})$/;
+	var noofEmp = document.getElementById("noofEmp").value;
+	var privacyCheck = document.getElementById("privacyCheck").checked;
+	var whatsupCheck = document.getElementById("whatsupCheck").checked;
+	
+	if(name==""){
+		document.getElementById("usernameError1").innerHTML="Please Enter Name";
+		document.getElementById("username").focus();
+		return false;
+	}else{
+		document.getElementById("usernameError1").innerHTML="";
+	}
+	if(orgid==""){
+		document.getElementById("orgnameError1").innerHTML="Please Enter Organization Name";
+		document.getElementById("orgname").focus();
+		return false;
+	}else{
+		document.getElementById("orgnameError1").innerHTML="";
+	}
+	if(email==""){
+		document.getElementById("emailError1").innerHTML="Please Enter Email";
+		document.getElementById("email").focus();
+		return false;
+	}else if(!email.match(regEmail)){
+		document.getElementById("emailError1").innerHTML="Please Enter Valid Email";
+		document.getElementById("email").focus();
+		return false;
+	}else{
+		document.getElementById("emailError1").innerHTML="";
+	}
+ 	if(mobile==""){
+		document.getElementById("mobileError1").innerHTML="Please Enter Mobile Number";
+		document.getElementById("mobile").focus();
+		return false;
+	}else if(!mobile.match(regMobile)){
+		document.getElementById("mobileError1").innerHTML="Please Enter Valid Mobile Number";
+		document.getElementById("mobile").focus();
+		return false;
+	}else{
+		document.getElementById("mobileError1").innerHTML="";
+	}
+	if(noofEmp==""){
+		document.getElementById("noofEmpError1").innerHTML="Please Select No of Employee";
+		document.getElementById("noofEmp").focus();
+		return false;
+	}else{
+		document.getElementById("noofEmpError1").innerHTML="";
+	}
+	if(privacyCheck==false){
+		document.getElementById("privacyCheckError1").innerHTML="Please Checked Terms And Condition";
+		document.getElementById("privacyCheck").focus();
+		return false;
+	}else{
+		document.getElementById("privacyCheckError1").innerHTML="";
+	}
+	if(whatsupCheck==false){
+		document.getElementById("whatsupCheckError1").innerHTML="Please Checked Terms And Condition";
+		document.getElementById("whatsupCheck").focus();
+		return false;
+	}else{
+		document.getElementById("whatsupCheckError1").innerHTML="";
+		return true;
+	}
+	
+}	*/
+
+
+ /*function validateRegistrationForm(){
 	var name =document.getElementById("username").value;
 	var email = document.getElementById("email").value;
 	var email = email.toLowerCase();
@@ -355,4 +444,4 @@ function verifyEmail(){
              alert('Error: ' + e);
          }
     });
- }
+ }*/

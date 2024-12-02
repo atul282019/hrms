@@ -1,4 +1,190 @@
 function getOTP() {
+	console.log("get otp called");
+    var regMobile = /^[6-9]\d{9}$/gi;
+    var userName = document.getElementById("mob").value;
+
+    if (userName == "") {
+        document.getElementById("mob").focus();
+        document.getElementById("mobError").innerHTML = "Please Enter Mobile Number";
+        return false;
+    } else if (userName.length < 10) {
+        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+        document.getElementById("mob").focus();
+        return false;
+    } else if (!userName.match(regMobile)) {
+        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+        document.getElementById("mob").focus();
+        return false;
+    }
+
+    document.getElementById("optBtn").disabled = true;
+    document.getElementById("mobError").innerHTML = "";
+    document.getElementById("loginLoader").style.display = "flex";
+ 
+    $.ajax({
+        type: "POST",
+        url: "/smsOtpSender",
+        dataType: 'json',
+        data: { "mob": userName },
+        success: function (data) {
+            var obj = data;
+            document.getElementById("loginLoader").style.display = "none";
+
+            if (obj['status'] == "SUCCESS") {
+                $('#errorOtp').hide('slow');
+                $('#loginIdDiv').hide('slow');
+                var timeleft = 60;
+                var downloadTimer = setInterval(function () {
+                    document.getElementById("countdown").innerHTML = "00:" + (timeleft < 10 ? "0" + timeleft : timeleft);
+                    timeleft -= 1;
+                    document.getElementById("optBtn").style.display = "none";
+                    document.getElementById("orderId").value = obj['orderId'];
+                    document.getElementById("verifyotpdiv").style.display = "block";
+
+                    if (timeleft <= 0) {
+                        clearInterval(downloadTimer);
+                        document.getElementById("countdown").innerHTML = " ";
+						document.getElementById("resendOTPText").style.display = "block";
+                     
+                        document.getElementById("optBtn").disabled = true;
+						document.getElementById("optBtn").style.display = "none";
+                        document.getElementById("verifyotpdiv").style.display = "none";
+                    }
+                }, 1000);
+
+                $('#loginIdDiv').show('slow');
+            } else if (obj['status'] == "FAILURE") {
+                $('#errorOtp').html("Registration is mandatory for login");
+                $('#successmessage').hide('slow');
+                document.getElementById("optBtn").style.display = "block";
+                document.getElementById("optBtn").disabled = false;
+                $('#successerror').hide('slow');
+            } else {
+                $('#errorOtp').html("OTP Failed");
+                document.getElementById("optBtn").disabled = false;
+                $('#successmessage').hide('slow');
+                document.getElementById("optBtn").style.display = "block";
+                $('#successerror').hide('slow');
+            }
+        },
+        error: function (e) {
+            alert('Error: ' + e);
+        }
+    });
+}
+
+function resendOTP() {
+	
+    console.log("resend otp clicked");
+	document.getElementById("password1").value = "";
+	document.getElementById("password2").value = "";
+	document.getElementById("password3").value = "";
+	document.getElementById("password4").value = "";
+	document.getElementById("password5").value = "";
+	document.getElementById("password6").value = "";
+    var regMobile = /^[6-9]\d{9}$/gi;
+    var userName = document.getElementById("mob").value;
+    var orderId = document.getElementById("orderId").value;
+
+    if (userName == "") {
+        document.getElementById("mob").focus();
+        document.getElementById("mobError").innerHTML = "Please Enter Mobile Number";
+        return false;
+    } else if (userName.length < 10) {
+        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+        document.getElementById("mob").focus();
+        return false;
+    } else if (!userName.match(regMobile)) {
+        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+        document.getElementById("mob").focus();
+        return false;
+    }
+
+    document.getElementById("optBtn").disabled = true;
+    document.getElementById("mobError").innerHTML = "";
+    document.getElementById("resendOTPText").style.display = "none"; // Hide Resend OTP link
+    document.getElementById("loginLoader").style.display = "flex";
+	document.getElementById("verifyotpdiv").style.display = "block";
+
+    $.ajax({
+        type: "POST",
+        url: "/smsOtpResender",
+        dataType: 'json',
+        data: { "mob": userName, "orderId": orderId },
+        success: function (data) {
+            var obj = data;
+            document.getElementById("loginLoader").style.display = "none";
+
+            if (obj['status'] == "SUCCESS") {
+                $('#errorOtp').hide('slow');
+                document.getElementById("countdown").innerHTML = "00:60"; // Reset countdown
+                startCountdown(); // Restart the countdown logic
+            } else {
+                $('#errorOtp').html(obj['msg']);
+                document.getElementById("resendOTPText").style.display = "block";
+                document.getElementById("optBtn").disabled = true;
+				document.getElementById("verifyotpdiv").style.display = "none";
+            }
+        },
+        error: function (e) {
+            alert('Error: ' + e);
+        }
+    });
+}
+
+function startCountdown() {
+    var timeleft = 60;
+    var downloadTimer = setInterval(function () {
+        document.getElementById("countdown").innerHTML = "00:" + (timeleft < 10 ? "0" + timeleft : timeleft);
+        timeleft -= 1;
+
+        if (timeleft <= 0) {
+            clearInterval(downloadTimer);
+            document.getElementById("countdown").innerHTML = " ";
+            document.getElementById("resendOTPText").style.display = "block";
+            document.getElementById("optBtn").disabled = false;
+			document.getElementById("verifyotpdiv").style.display = "none";
+        }
+    }, 1000);
+}
+function toggleOtpVisibility() {
+    // Get the icon element
+    const toggleIcon = document.getElementById('toggleOtpVisibility').querySelector('i');
+
+    // Get all OTP input fields (currently only of type password)
+    const otpInputs = document.querySelectorAll('.otp-box input[type="password"], .otp-box input[type="text"]');
+
+    // Check if the current icon is "eye" (which means password is hidden)
+    const isPasswordVisible = toggleIcon.classList.contains("fa-eye");
+
+    // Loop through each OTP input and toggle between 'password' and 'text' type
+    otpInputs.forEach(input => {
+        if (isPasswordVisible) {
+            input.type = "text";  // Show password (set input type to text)
+        } else {
+            input.type = "password";  // Hide password (set input type to password)
+        }
+    });
+
+    // Toggle the icon between 'fa-eye' (eye) and 'fa-eye-slash' (crossed eye)
+    if (isPasswordVisible) {
+        toggleIcon.classList.remove("fa-eye");
+        toggleIcon.classList.add("fa-eye-slash");  // Change to crossed-eye icon (showing password)
+    } else {
+        toggleIcon.classList.remove("fa-eye-slash");
+        toggleIcon.classList.add("fa-eye");  // Change back to eye icon (hiding password)
+    }
+}
+
+
+
+
+       
+
+
+
+/*
+function getOTP() {
 	var regMobile = /^[6-9]\d{9}$/gi;
 	var userName = document.getElementById("mob").value;
 	if (userName == "") {
@@ -71,9 +257,7 @@ function getOTP() {
 			alert('Error: ' + e);
 		}
 	});
-}
-
-function resendOTP() {
+}function resendOTP() {
 	var regMobile = /^[6-9]\d{9}$/gi;
 	var userName = document.getElementById("mob").value;
 	var orderId = document.getElementById("orderId").value;
@@ -151,7 +335,7 @@ function resendOTP() {
 		}
 	});
 }
-
+*/
 function submitAction() {
 	var x = true;
 	var password1 = document.getElementById("password1").value;
