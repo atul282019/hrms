@@ -69,7 +69,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">.
+                        <div class="form-group">
                             <div class="custom-control custom-checkbox small">
                                 <input type="checkbox" class="custom-control-input" id="whatsupCheck" name="whatsupCheck"  onclick="validateRegistrationForm()">
                                 <label class="custom-control-label text-left" for="whatsupCheck" >Connect with me on WhatsApp for onboarding.</label>
@@ -84,7 +84,10 @@
 		            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
 		            	<div id="otfailmsg"></div>
 		            </div>
-                        
+					
+					<!-- Google reCAPTCHA -->
+					<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+					
                         <div class="d-grid mt-2">
                             <button class="btn btn-primary btn-user btn-block" type="button" onclick="userRegistration()" >Signup </button>
                         </div>
@@ -114,6 +117,8 @@
     <script src="js/sb-admin-2.min.js"></script>
 
 	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
+	<!-- script for captcha-->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	
 </body>
 
