@@ -131,7 +131,7 @@ function validateFormAndSubmit(){
 	
 	         	 var brandName = document.getElementById("brandName").value; 
 			     var orgType2 = document.getElementById("orgType2").value; 
-				 var panDetails = document.getElementById("panDetails").value; 
+				// var panDetails = document.getElementById("panDetails").value; 
 				 var companyName = document.getElementById("companyName").value; 
 				 
 				 var officeAddress = document.getElementById("officeAddress").value;
@@ -155,29 +155,29 @@ function validateFormAndSubmit(){
                 } else {    
                    document.getElementById("orgType2Error").innerHTML="";
                 }   
-                 if (panDetails =="") {    
+                /* if (panDetails =="") {    
                     document.getElementById("panDetailsError").innerHTML="Please Enter Pan Details";
                     document.getElementById("panDetails").focus();
                     return false;   
                 } else {    
                    document.getElementById("panDetailsError").innerHTML="";
-                }   
+                }  */ 
                 if (companyName =="") {    
-                    document.getElementById("companyNameError").innerHTML="Please Enter Company Details";
+                    document.getElementById("companyNameError").innerHTML="Please Enter Company Name";
                     document.getElementById("companyName").focus();
                     return false;   
                 } else {    
                    document.getElementById("companyNameError").innerHTML="";
                 }  
                 if (officeAddress =="") {    
-                    document.getElementById("officeAddressError").innerHTML="Please Enter Office Address";
+                    document.getElementById("officeAddressError").innerHTML="Please Enter Registered office Address";
                     document.getElementById("officeAddress").focus();
                     return false;   
                 } else {    
                    document.getElementById("officeAddressError").innerHTML="";
                 }  
                 if (addressLine =="") {    
-                    document.getElementById("addressLineError").innerHTML="Please Enter Address Line one";
+                    document.getElementById("addressLineError").innerHTML="Please Enter Address Line 2";
                     document.getElementById("addressLine").focus();
                     return false;   
                 } else {    

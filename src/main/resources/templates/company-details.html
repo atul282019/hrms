@@ -69,9 +69,9 @@
                                                 info like address, pin, etc. Bonus: claim GST credit on invoices!</p>
                                         </div>
 
-                                        <div class="text-center text-md-center my-3">
-                                            <input type="button" value="Don't have GSTIN" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="openBrandPage()" />
-                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
+                                        <div class="text-center text-md-center my-3 disabled">
+                                            <input type="button" value="Don't have GSTIN" class="btn btn-proceed-border my-1"  oninput="this.value = this.value.toUpperCase()" onclick="openBrandPage()" />
+                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
                                             
                                         </div>
                                     </div>
@@ -98,13 +98,13 @@
                                         </div>
 										<div class="error-msg" id="panError" style="color:red"></div>
                                         <div class="tip-wrap justify-content-start">
-                                            <p class="mb-0">We need your pan verify your business details.</p>
+											<p class="mb-0">We need your pan to verify your business details.</p>
                                         </div>
 
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Fill via GSTIN</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
-                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
+                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
 										<div class="error-msg" id="brandNameError" style="color:red"></div>
 										
                                         <div class="tip-wrap justify-content-start">
-                                            <p class="mb-0">If your company is publicly known by a diffrent brand name,
+                                            <p class="mb-0">If your company is publicly known by a different brand name,
                                                 then please enter that here.</p>
                                         </div>
 
@@ -136,21 +136,26 @@
                                         </div>
 
                                         <div class="card-form">
+										<!--<label for="">Company Name</label>
                                         <input type="text" class="form-input" id="panDetails" name="panDetails" maxlength="100">
-                                        
+                                        -->
+										<label for="">Company Name</label>
+									   <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100">
+									   
                                         </div>
-										<div class="error-msg" id="panDetailsError" style="color:red"></div>
+										<div class="error-msg" id="companyNameError" style="color:red"></div>
+										<!--<div class="error-msg" id="panDetailsError" style="color:red"></div>-->
 										
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">In case of incorrect company name. please go back to edit
                                                 PAN details.</p>
                                         </div>
 
-                                        <div class="card-form my-3">
+                                        <!--<div class="card-form my-3">
                                             <label for="">Company Name</label>
                                             <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100">
                                         </div>
-										<div class="error-msg" id="companyNameError" style="color:red"></div>
+										<div class="error-msg" id="companyNameError" style="color:red"></div>-->
                                         <div class="card-form my-3">
                                             <label for="">Enter Registered office Address*</label>
                                             <input type="text" class="form-input" id="officeAddress" name="officeAddress" maxlength="100"> 
@@ -188,7 +193,7 @@
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Back Edit PAN</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back3">Back</div>
-                                            <input type="button" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validateBrandNumber()" />
+                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validateBrandNumber()" />
                                             <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next3">Continue</div> -->
                                         </div>
                                     </div>
@@ -207,10 +212,10 @@
                                         </div>
 
                                         <div class="tip-wrap justify-content-start my-3">
-                                            <p class="mb-0">Choose when you would like to pay your employees. Select a
-                                                date after 15th to pay your employees for the same month eg. if you pick
-                                                31, then employees will get paid for January on 31st January. Or, if you
-                                                pick 1, then your employees will get paid for January on 1st February.
+                                            <p class="mb-0">Choose when you would like to pay your employees. 
+												Select a date after the 15th to pay your employees for the same month. For example,
+												 if you pick the 31st, employees will be paid for January on January 31st. Alternatively,
+												  if you pick the 1st, employees will be paid for January on February 1st.
                                             </p>
                                         </div>
 
@@ -220,9 +225,8 @@
                                         </div>
 										<div class="error-msg" id="paidDateError" style="color:red"></div>
                                         <div class="tip-wrap justify-content-start">
-                                            <p class="mb-0">You can choose to either manually request execution each
-                                                month before the payroll is executed, or Cotodel can automatically
-                                                execute your payroll on the chosen date.</p>
+                                            <p class="mb-0">You can choose to either manually request execution each month before the 
+												payroll is processed, or Cotodel can automatically execute your payroll on the chosen date.</p>
                                         </div>
 
                                         <div class="form-group">
@@ -236,9 +240,9 @@
                                         </div>
 
                                         <div class="tip-wrap justify-content-start">
-                                            <p class="mb-0">Employees can request salary advances through Cotodel. If
-                                                approved, the advance amount will be paid immediately and automatically
-                                                recovered from future payments to the employees.</p>
+                                            <p class="mb-0">Employees can request salary advances through Cotodel. If approved, 
+												the advance amount will be paid immediately and automatically deducted from future payments to the 
+												employees.</p>
                                         </div>
 
                                         <div class="form-group">
@@ -266,7 +270,7 @@
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-proceed ml-2 my-1 back" id="back4">Back</div>
                                             
-                                            <input id="saveNext" type="button"  class="btn btn-proceed ml-2 my-1" value="Save" onclick="validateFormAndSubmit()" />
+                                            <input id="saveNext" type="button"  class="btn btn-proceed ml-2 my-1" value="Continue" onclick="validateFormAndSubmit()" />
                                            <!--  <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" /> -->
                                            <!--  <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />-->
                                           </div>
@@ -388,11 +392,13 @@
                                             </div>
                                             <div class="tip-wrap-in mb-0">
                                                 <span>2</span>
-                                                <p class="mb-0">Fixed amounts should be entered as per monthly slary.</p>
+                                                <p class="mb-0">Fixed amounts should be entered as per the monthly salary.</p>
                                             </div>
                                             <div class="tip-wrap-in mb-0">
                                                 <span>3</span>
-                                                <p class="mb-0">If the sum of the components does’t match with monthly pay, the diffrence amount will be adjusted from these components - LTA, HRA, Special Allowances, Basic (Where LTA has the highest and Basic has the lowest).</p>
+                                                <p class="mb-0">If the sum of the components doesn’t match the monthly pay, the difference will be adjusted from these components: LTA, HRA,
+													 Special Allowances, and Basic (where LTA has the highest priority and Basic has the lowest).
+</p>
                                             </div>
                                         </div>
                                       
@@ -492,7 +498,7 @@
                                         </div>
 
                                         <div class="tip-wrap justify-content-start">
-                                            <p class="mb-0">If you are using Flexible Benefits you can specify whether they are taxable or not, if you have not explicitly approved exemption for them.</p>
+                                            <p class="mb-0">If you are using Flexible Benefits, you can specify whether they are taxable or not, unless you have explicitly approved an exemption for them.</p>
                                         </div>
 
                                         <div class="form-group">

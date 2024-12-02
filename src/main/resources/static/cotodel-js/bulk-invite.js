@@ -4,7 +4,7 @@ function sendBulkInviteSubmit(){
 		var inviteContractor =document.getElementById("inviteContractor").value;
 		
 		if(inviteEmployee==""){
-			document.getElementById("inviteEmployeeError").innerHTML="Please Enter Email Seprated By Comma";
+			document.getElementById("inviteEmployeeError").innerHTML="Please enter emails separated by commas.";
 			document.getElementById("inviteEmployee").focus();
 			return false;
 			}else{
@@ -12,7 +12,7 @@ function sendBulkInviteSubmit(){
 			}
 		
 		if(inviteContractor==""){
-			document.getElementById("inviteContractorError").innerHTML="Please Enter Email Seprated By Comma";
+			document.getElementById("inviteContractorError").innerHTML="Please enter emails separated by commas.";
 			document.getElementById("inviteContractor").focus();
 			return false;
 			}else{
