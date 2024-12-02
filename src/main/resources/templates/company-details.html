@@ -58,7 +58,7 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form">
                                             <label for="">Enter GSTN</label>
-                                            <input type="text" id="gstnNo" name="gstnNo" maxlength="15" class="form-input" onkeyup="checkGstNumber()">
+                                            <input type="text" id="gstnNo" name="gstnNo" maxlength="15" class="form-input" oninput="sanitizeInput(this)" onkeyup="checkGstNumber()">
                                             
                                         </div>
                                          <div class="error-msg" id="gstnNoError" style="color:red"></div>
@@ -113,7 +113,7 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form my-3">
                                             <label for="">Brand Name</label>
-                                            <input type="text" class="form-input" id="brandName" name="brandName" maxlength="100">
+                                            <input type="text" class="form-input" id="brandName" name="brandName" maxlength="100" oninput="sanitizeInput(this)">
                                         </div>
 										<div class="error-msg" id="brandNameError" style="color:red"></div>
 										
@@ -140,7 +140,7 @@
                                         <input type="text" class="form-input" id="panDetails" name="panDetails" maxlength="100">
                                         -->
 										<label for="">Company Name</label>
-									   <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100">
+									   <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100" oninput="sanitizeInput(this)">
 									   
                                         </div>
 										<div class="error-msg" id="companyNameError" style="color:red"></div>
@@ -158,12 +158,12 @@
 										<div class="error-msg" id="companyNameError" style="color:red"></div>-->
                                         <div class="card-form my-3">
                                             <label for="">Enter Registered office Address*</label>
-                                            <input type="text" class="form-input" id="officeAddress" name="officeAddress" maxlength="100"> 
+                                            <input type="text" class="form-input" id="officeAddress" name="officeAddress" maxlength="100" oninput="sanitizeInput(this)"> 
                                         </div>
 										<div class="error-msg" id="officeAddressError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Address line 2</label>
-                                            <input type="text" class="form-input" id="addressLine" name="addressLine" maxlength="100">
+                                            <input type="text" class="form-input" id="addressLine" name="addressLine" maxlength="100" oninput="sanitizeInput(this)">
                                         </div>
 										<div class="error-msg" id="addressLineError" style="color:red"></div>
                                         <div class="card-form my-3">
@@ -250,8 +250,8 @@
                                                 <input type="checkbox" class="custom-control-input" id="salaryAdvancesFlag"
                                                  name="salaryAdvancesFlag"
                                                     checked>
-                                                <label class="custom-control-label text-left" for="salaryAdvancesFlag">Let
-                                                    employees request salary advances </label>
+                                                <label class="custom-control-label text-left" for="salaryAdvancesFlag">
+													Let employees request salary advances </label>
                                             </div>
                                             <div class="error-msg" id="salaryAdvancesFlagError" style="color:red"></div>
                                         </div>
@@ -375,7 +375,6 @@
                                         </div>
 											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
                                             <input type="hidden" class="form-input" id="employeeId" name="employeeId" >
-					                 
                                         
                                         </div>
                                         
@@ -398,11 +397,10 @@
                                                 <span>3</span>
                                                 <p class="mb-0">If the sum of the components doesn’t match the monthly pay, the difference will be adjusted from these components: LTA, HRA,
 													 Special Allowances, and Basic (where LTA has the highest priority and Basic has the lowest).
-</p>
+												</p>
                                             </div>
                                         </div>
-                                      
-
+                                     
                                         <div class="table-responsive">
                                             <table class="table salary-table border-0 newTable" border="0" id="newTable">
                                                 <thead>
@@ -412,8 +410,7 @@
                                                         <th>Percentage or Fixed?</th>
                                                         <th>Taxable?</th>
                                                         <th></th>
-                                                    </tr>
-                                                    
+                                                    </tr>                                                 
                                                 </thead>
                                               
                                                   <tbody>
@@ -520,9 +517,7 @@
 							            	<span id="payrollfailmsg"></span>
 							            </div>
 							            
-                                       
-                                        
-                                        </div>
+                                       </div>
                                         
                                          <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
@@ -535,10 +530,9 @@
                                 </div>
 							</form>
 								
-                         </div>
-						
+                         </div>						
 
-                        </div>
+                      </div>
                     </div>
 
                 </div>
@@ -549,7 +543,6 @@
         </div>
         <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <!-- End of Content Wrapper -->
-
     
     <!-- End of Page Wrapper -->
 
@@ -557,7 +550,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -577,9 +569,8 @@
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/masterdata.js"></script>
     <script type="text/javascript" src="cotodel-js/company-detail.js"></script>
-     
-
-
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	
     <script>
         $(document).ready(function () {
 
