@@ -66,11 +66,12 @@ public class MasterController  extends CotoDelBaseController{
 		return masterService.getRole(tokengeneration.getToken(),userForm);
 	}
 	
-	@PostMapping(value="/getBankMaster")
-	public @ResponseBody String getBankMaster(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
-			,UserRegistrationRequest userForm) {
-		return masterService.getBankMaster(tokengeneration.getToken(),userForm);
-	}
+	
+	  @PostMapping(value="/getBankMaster") public @ResponseBody String getBankMaster(HttpServletRequest request, ModelMap model,Locale
+	  locale,HttpSession session ,UserRegistrationRequest userForm) {
+		  return  masterService.getBankMaster(tokengeneration.getToken(),userForm); 
+	  }
+	 
 	
 	@PostMapping(value="/getVoucherDetailByBoucherCode")
 	public @ResponseBody String getVoucherDetailByBoucherCode(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session

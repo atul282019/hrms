@@ -1,31 +1,5 @@
-/*function getVoucherData() {
-	// this function prints dynamic table
-            fetch('/getvoucherTypeMaster')
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById('voucherMasterTableBody');
-                    tableBody.innerHTML = ''; // Clear existing rows
 
-                    if (data && data.data && Array.isArray(data.data)) {
-                        data.data.forEach(voucher => {
-                            const row = document.createElement('tr');
-
-                            row.innerHTML = `
-                                <td>${voucher.id || ''}</td>
-                                <td>${voucher.voucherDesc || ''}</td>
-                                <td>${voucher.voucherType || ''}</td>
-                                <td>${voucher.voucherSubType || ''}</td>
-                                <td>${voucher.purposeCode || ''}</td>
-                                <td>${voucher.status === 1 ? 'Active' : 'Inactive'}</td>
-                            `;
-                            tableBody.appendChild(row);
-                        });
-                    }
-                })
-                .catch(error => console.error('Error fetching voucher data:', error));
-        }*/
-        
-      function getVoucherData() {
+ function getVoucherData() {
     fetch('/getvoucherTypeMaster')
         .then(response => response.json())
         .then(data => {
@@ -102,59 +76,9 @@ function toggleStatus(id, currentStatus) {
     rows.forEach(row => tbody.appendChild(row));
 }
 
-    /*2nd attempt
-function toggleVoucherStatus(id) {
-    fetch('/toggleVoucherStatus', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id: id })
-    })
-    .then(response => response.json())
-    .then(responseData => {
-        if (responseData.status === 'success') {
-            //getVoucherData(); // Refresh data after successful update
-        } else {
-            console.log('Failed to update voucher status');
-        }
-    })
-    .catch(error => console.error('Error sending voucher ID:', error));
-}*/
+  
 
 
-
-   /* function getVoucherData() {
-        $.ajax({
-            type: "GET",
-            url: "/getvoucherTypeMaster",
-            success: function(response) {
-                const tableBody = document.getElementById("voucherMasterTableBody");
-                tableBody.innerHTML = ""; 
-
-                response.data.forEach(voucher => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${voucher.voucherDesc}</td>
-                        <td>${voucher.voucherType}</td>
-                        <td>${voucher.voucherSubType}</td>
-                        <td>${voucher.purposeCode}</td>
-                        <td>${voucher.status === 1 ? 'Active' : 'Inactive'}</td>
-                        <td>
-                            <button class="btn ${voucher.status === 1 ? 'btn-danger' : 'btn-success'}"
-                                    onclick="toggleStatus(${voucher.id}, ${voucher.status})">
-                                ${voucher.status === 1 ? 'Deactivate' : 'Activate'}
-                            </button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            },
-            error: function(error) {
-                console.error("Error fetching voucher data:", error);
-            }
-        });
-    }*/
 
     
 

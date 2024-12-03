@@ -580,13 +580,30 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
 
-				return new ModelAndView("display-bank-Master", "command", "");
+				return new ModelAndView("display-bank-master", "command", "");
 			}
 		}
 		return new ModelAndView("index", "command", "");
 	}
-	
-	
+ 
+	@GetMapping(value="/displayvoucherMaster")
+	public ModelAndView displayvoucherMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+
+				return new ModelAndView("display-voucher-master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
 	@GetMapping(value="/bankMaster")
 	public ModelAndView bankMaster(Model model) {
 		String token = (String) session.getAttribute("hrms");
@@ -605,24 +622,7 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
-	@GetMapping(value="/displayvoucherMaster")
-	public ModelAndView displayvoucherMaster(Model model) {
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("employerId",id);
-
-				return new ModelAndView("display-voucher-Master", "command", "");
-			}
-		}
-		return new ModelAndView("index", "command", "");
-	}
+	
 	@GetMapping(value="/voucherTypeMaster")
 	public ModelAndView voucherTypeMaster(Model model) {
 		String token = (String) session.getAttribute("hrms");

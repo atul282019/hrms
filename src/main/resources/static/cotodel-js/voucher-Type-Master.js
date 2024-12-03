@@ -1,7 +1,8 @@
 let statusInput1 =1;
 let voucherLogo="";
 function saveVoucher()
-{ console.log("saveVoucherTypeMaster clicked");
+{ 
+	console.log("saveVoucherTypeMaster clicked");
 
 	const voucherDescDropdown = document.getElementById("voucherDesc");
     const selectedOption = voucherDescDropdown.options[voucherDescDropdown.selectedIndex];
@@ -11,14 +12,6 @@ function saveVoucher()
     const voucherType = document.getElementById("voucherType").value;
     const voucherSubType = document.getElementById("voucherSubType").value;
     const purposeCode = document.getElementById("purposeCode").value;
-
-
-
-   /* if (voucherDesc === "addNew") {
-        voucherDesc = document.getElementById("customVoucherDesc").value.trim();
-    } else {
-        voucherDesc = selectedOption.textContent.trim(); // Get displayed text for voucherDesc
-    }*/
 
 
 
@@ -107,19 +100,19 @@ function saveVoucher()
 
 function toggleStatus()
 {
-	const statusText=document.getElementById('statusText');
-												const statusToggle=document.getElementById('statusToggle');
-												const statusInput = document.getElementById('status');
-												statusText.textContent=statusToggle.checked ? "Active":"Inactive";
-											if (statusToggle.checked) {
-									                statusText.textContent = "Active";
-									                statusInput.value = 1;
-									                statusInput1=1; // Set status as 1 for active
-									            } else {
-									                statusText.textContent = "Inactive";
-									                statusInput.value = 0;  // Set status as 0 for inactive
-									            statusInput1=0;
-									            }
+	     const statusText=document.getElementById('statusText');
+		const statusToggle=document.getElementById('statusToggle');
+		const statusInput = document.getElementById('status');
+		statusText.textContent=statusToggle.checked ? "Active":"Inactive";
+	    if (statusToggle.checked) {
+            statusText.textContent = "Active";
+            statusInput.value = 1;
+            statusInput1=1; // Set status as 1 for active
+        } else {
+            statusText.textContent = "Inactive";
+            statusInput.value = 0;  // Set status as 0 for inactive
+        statusInput1=0;
+        }
 
 }
 
@@ -188,7 +181,7 @@ function initializevoucherDropdown() {
                     voucherSubTypeInput.value = selectedOption.dataset.voucherSubType || ""; // Autofill or clear
 				const purposeCode = selectedOption.dataset.purposeCode;  
 				purposeCodeInput.value = purposeCode || "";             
- console.log(`Selected Voucher ID: ${voucherId}`);
+ 				console.log(`Selected Voucher ID: ${voucherId}`);
                 }
             });
         },
@@ -197,11 +190,6 @@ function initializevoucherDropdown() {
         },
     });
 }
-
-
-
-
-
 
 function convertImageToBase64() {
     const fileInput = document.getElementById("voucherLogo");
@@ -228,142 +216,4 @@ function convertImageToBase64() {
         alert("Please select a valid image file.");
     }
 }
-/*function initializevoucherDropdown() {
-    console.log("Inside initializevoucherDropdown()");
-    // Fetch voucher data and populate dropdown
-    $.ajax({
-        type: "GET",
-        url: "/getvoucherTypeMaster", // Replace with your actual endpoint
-        dataType: "json",
-        success: function(response) {
-            const voucherDropdown = document.getElementById("voucherDesc");
-            voucherDropdown.innerHTML = ""; // Clear existing options
 
-            // Default option
-            const defaultOption = document.createElement("option");
-            defaultOption.value = "";
-            defaultOption.textContent = "Select voucher";
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-            voucherDropdown.appendChild(defaultOption);
-
-            // Populate dropdown with voucher descriptions and subtypes from the response
-            if (response.status === true) {
-                response.data.forEach(voucher => {
-                    const option = document.createElement("option");
-                    option.value = voucher.voucherCode; // Assuming voucherCode as value
-                    option.textContent = voucher.voucherDesc; // Display voucherDesc
-                    option.dataset.voucherSubType = voucher.voucherSubType; // Store voucherSubType
-                    option.dataset.purposeCode = voucher.purposeCode; // Store purposeCode (add this to your data if not included)
-                    
-                    voucherDropdown.appendChild(option);
-                });
-            }
-
-            // Add "Add New" option
-            const addNewOption = document.createElement("option");
-            addNewOption.value = "addNew";
-            addNewOption.textContent = "Add New Voucher";
-            voucherDropdown.appendChild(addNewOption);
-
-            // Add change event to handle option selection
-            voucherDropdown.addEventListener("change", function() {
-                const customVoucherInput = document.getElementById("customVoucherDesc");
-                const voucherSubTypeInput = document.getElementById("voucherSubType");
-                const purposeCodeInput = document.getElementById("purposeCode");
-
-                if (this.value === "addNew") {
-                    customVoucherInput.style.display = "block"; // Show input for new voucher description
-                    voucherSubTypeInput.value = ""; // Clear voucherSubType field for new entry
-                    purposeCodeInput.value = ""; // Clear purposeCode field for new entry
-                } else {
-                    customVoucherInput.style.display = "none"; // Hide input for predefined option
-
-                    // Get selected voucher's subtype and purpose code
-                    const selectedOption = this.options[this.selectedIndex];
-                    const voucherSubType = selectedOption.dataset.voucherSubType;
-                    const purposeCode = selectedOption.dataset.purposeCode;
-
-                    // Set subtype and purpose code in the respective input fields
-                    voucherSubTypeInput.value = voucherSubType || ""; // Set subtype or clear if undefined
-                    purposeCodeInput.value = purposeCode || ""; // Set purposeCode or clear if undefined
-                }
-            });
-        },
-        error: function() {
-            console.error("Failed to fetch voucher descriptions");
-        }
-    });
-}*/
-
-/*
-working dropdown 
-function initializevoucherDropdown() {
-      // Local variable to store bank data by bank code
-console.log("Inside initializeBankDropdown()")
-    // Fetch bank data and populate dropdown
-    $.ajax({
-        type: "GET",
-        url: "/getvoucherTypeMaster",  // Replace with your actual endpoint
-        dataType: "json",
-        success: function(response) {
-            const voucherDropdown = document.getElementById("voucherDesc");
-            voucherDropdown.innerHTML = "";  // Clear existing options
-
-            // Default option
-            const defaultOption = document.createElement("option");
-            defaultOption.value = "";
-            defaultOption.textContent = "Select voucher";
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-            voucherDropdown.appendChild(defaultOption);
-
-            // Populate dropdown with voucher descriptions and subtypes from the response
-            if (response.status === true) {
-                response.data.forEach(voucher => {
-                    const option = document.createElement("option");
-                    option.value = voucher.voucherCode;  // Assuming voucherCode as value
-                    option.textContent = voucher.voucherDesc;  // Display voucherDesc
-                    option.dataset.voucherSubType = voucher.voucherSubType;  // Store voucherSubType in data attribute
-                    
-                    voucherDropdown.appendChild(option);
-                });
-            }
-
-            // Add "Add New" option
-            const addNewOption = document.createElement("option");
-            addNewOption.value = "addNew";
-            addNewOption.textContent = "Add New Voucher";
-            voucherDropdown.appendChild(addNewOption);
-
-            // Add change event to handle option selection
-            voucherDropdown.addEventListener("change", function() {
-                const customVoucherInput = document.getElementById("customVoucherDesc");
-                const voucherSubTypeInput = document.getElementById("voucherSubType");
-                
-                if (this.value === "addNew") {
-                    customVoucherInput.style.display = "block";  // Show input for new voucher description
-                    voucherSubTypeInput.value = "";  // Clear voucherSubType field for new entry
-                } else {
-                    customVoucherInput.style.display = "none";  // Hide input for predefined option
-
-                    // Get selected voucher's subtype and set it in the input field
-                    const selectedOption = this.options[this.selectedIndex];
-                    const voucherSubType = selectedOption.dataset.voucherSubType;
-                    voucherSubTypeInput.value = voucherSubType || "";  // Set subtype or clear if undefined
-                }
-            });
-        },
-        error: function() {
-            console.error("Failed to fetch voucher descriptions");
-        }
-    });
-}*/
-
-// Call `initializeBankDropdown` on page load
-//document.addEventListener("DOMContentLoaded", initializeBankDropdown);
-
- 
-  
-  
-  

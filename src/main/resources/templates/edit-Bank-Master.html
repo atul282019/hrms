@@ -54,19 +54,13 @@
                                         
                                          <!-- Extra functionality-->
                                          <span id="bankNameText" onclick="enableEditing('bankNameText', 'bankNameInput')"th:text="${bankName}"></span>
-    <!-- Input field for editing (hidden by default) -->
-    <input type="text" id="bankNameInput" name="bankName" style="display: none;"
-           onblur="saveAndDisplay('bankNameText', 'bankNameInput')"> <!-- Extra functionality-->
+										    <!-- Input field for editing (hidden by default) -->
+										    <input type="text" id="bankNameInput" name="bankName" style="display: none;"
+										    onblur="saveAndDisplay('bankNameText', 'bankNameInput')"> <!-- Extra functionality-->
                                         </div></span>
  										<div class="error-msg" id="bankNameerror" style="color:red"></div>
-										
-										
-										
-										
-										
-										
-                                        
-                                        <div class="card-form my-3">
+									   
+										 <div class="card-form my-3">
                                             <label for="bankCodeInput">Bank Code</label>
                                             <!--<input type="text" id="bankCode" name="bankCode" th:value="${bankCode}">-->
  											
@@ -76,17 +70,9 @@
                                         </div>
 										 <div class="error-msg" id="bankcodeError" style="color:red"></div>
 										 
-										  
-                                        
-                                    
                                     	<div class="card-form my-3">
 				    						<label for="statusInput">current Status  </labelfor><br>
-				        				<!--<select id="statusToggle" name="statusToggle">
-                						<option value="1" th:selected="${status == 1}">Active</option>
-                						<option value="0" th:selected="${status == 0}">Inactive</option>
-            								</select>-->
-            								<!--extra functionality  -->
-											
+				        				
 										    <span 
 										        id="statusText" 
 										        data-value="1" 
@@ -103,11 +89,7 @@
 										    </select>
 				       
 										</div><br>
-
-                                        
-                                        
-										
-										<div class="card-form my-3">
+									<div class="card-form my-3">
 									    <label for="newbankLogo">new Bank Logo</label><br>
 									    <input type="file" 
 									    id="newbankLogo" 
@@ -119,8 +101,6 @@
                                     
                                     </div>
                                 </div>
-							
-							
 								
 							
 							<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
@@ -142,25 +122,22 @@
                                               -->
 										
                                         </div>
-                                        
-                                        
-										
-										  </div>
+                                    </div>
                                     
                                 </div>
                                 
-                               <div class="row">
-    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto">
-        <!-- Save and Back buttons -->
-        <div class="d-flex my-3 justify-content-start">
-            <!-- Save button -->
-            <input type="button" id="saveBankmaster" class="btn btn-primary" 
-                   onclick="saveEditedBankMaster()" value="Save">
-            <!-- Back button with custom margin -->
-            <a href="/displaybankMaster" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
-        </div>
-    </div>
-</div>
+                       <div class="row">
+					    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto">
+					        <!-- Save and Back buttons -->
+					        <div class="d-flex my-3 justify-content-start">
+					            <!-- Save button -->
+					            <input type="button" id="saveBankmaster" class="btn btn-primary" 
+					                   onclick="saveEditedBankMaster()" value="Save">
+					            <!-- Back button with custom margin -->
+					            <a th:href="@{/displaybankMaster}" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
+					        </div>
+					    </div>
+					</div>
 									
 												
                             </div>
@@ -204,6 +181,7 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 	<script type="text/javascript" src="cotodel-js/edit-Bank-Master.js"></script>
+	
 	<script type="text/javascript">
 	
 	$(document).ready(function(){

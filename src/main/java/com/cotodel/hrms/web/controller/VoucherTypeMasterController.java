@@ -52,11 +52,6 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         voucherJsonResponse = new JSONObject(voucherResponse);
 
        
-//        if (voucherJsonResponse.getBoolean("status")) {
-//            responseMap.put("status", "Success");
-//        } else {
-//            responseMap.put("status", "Failed");
-//        }
 		if(voucherJsonResponse.getBoolean("status")) { 
 			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 		}else {
@@ -128,45 +123,9 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 			//loginsevice.rsendEmailVerificationCompletion(userForm);
 			responseMap.put("status","FAILURE");
 		}
-        
-//        try {
-//            jsonResponse = mapper.writeValueAsString(responseMap);
-//        } catch (Exception e) {
-//            e.printStackTrace(); 
-//        }
-//
-//        
-//        return jsonResponse;  
+ 
 		return new ObjectMapper().writeValueAsString(responseMap);
 		}
-//	@PostMapping(value="/toggleVoucherStatus")
-//	public @ResponseBody String updateVoucherTypeMasterStatus(
-//	        ModelMap model, Locale locale, HttpSession session, VoucherTypeMaster voucherTypeMaster) throws JsonProcessingException {
-//
-//	    // Initialize response map
-//	    Map<String, String> responseMap = new HashMap<>();
-//	    String voucherResponse = null;
-//
-//	    try {
-//	        // Call the service to update the voucher status
-//	        voucherResponse = voucherTypeMasterService.updatevoucherTypeMasterStatus(tokengeneration.getToken(), voucherTypeMaster);
-//	        System.out.println(voucherResponse);  // Log the response from the service
-//
-//	        // Assuming voucherResponse is a JSON string, we can check for the "status" directly
-//	        if (voucherResponse != null && voucherResponse.contains("\"status\":\"SUCCESS\"")) {
-//	            responseMap.put("status", "SUCCESS");
-//	        } else {
-//	            responseMap.put("status", "FAILURE");
-//	        }
-//
-//	    } catch (Exception e) {
-//	        // Handle any exceptions during the process
-//	        e.printStackTrace();
-//	        responseMap.put("status", "ERROR");
-//	    }
-//
-//	    // Convert the response map to JSON string and return it
-//	    return new ObjectMapper().writeValueAsString(responseMap);
-//	}
+
 
 }

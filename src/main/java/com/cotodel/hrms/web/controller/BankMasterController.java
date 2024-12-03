@@ -58,11 +58,6 @@ public class BankMasterController extends CotoDelBaseController{
         bankJsonResponse = new JSONObject(bankResponse);
 
        
-//        if (bankJsonResponse.getBoolean("status")) {
-//            responseMap.put("status", "Success");
-//        } else {
-//            responseMap.put("status", "Failed");
-//        }
 		if(bankJsonResponse.getBoolean("status")) { 
 			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
 		}else {
@@ -167,14 +162,6 @@ public class BankMasterController extends CotoDelBaseController{
 			responseMap.put("status",false);
 		}
         
-//        try {
-//            jsonResponse = mapper.writeValueAsString(responseMap);
-//        } catch (Exception e) {
-//            e.printStackTrace(); 
-//        }
-//
-//        
-//        return jsonResponse;  
 		return new ObjectMapper().writeValueAsString(responseMap);
 		}
 	
