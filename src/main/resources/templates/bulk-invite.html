@@ -39,7 +39,7 @@
                                         Enter the email address of your <a href="#">employees,</a> separated by commas. They will be sent emails to join Cotodel and put in their information.
                                     </div>
 
-                                    <textarea class="br-10" name="inviteEmployee" id="inviteEmployee" cols="100" rows="5"></textarea>
+                                    <textarea class="br-10" name="inviteEmployee" id="inviteEmployee" cols="100" rows="5" oninput="validateEmails()"></textarea>
 									<div class="error-msg" id="inviteEmployeeError" style="color:red"></div>
                                     <h5 class="mb-1 w-100 head-h5">Invite contractors</h5>
 
@@ -51,7 +51,7 @@
                                         Please choose wheather you want to only insert new users, or also update them.
                                     </div>
 
-                                    <textarea class="br-10" name="inviteContractor" id="inviteContractor" cols="100" rows="5"></textarea>
+                                    <textarea class="br-10" name="inviteContractor" id="inviteContractor" cols="100" rows="5" oninput="validateContractorEmails()"></textarea>
                                     <div class="error-msg" id="inviteContractorError" style="color:red"></div>
                                     
 									<div id="invitemsgdiv" style="display:none" class="alert alert-success text-center">

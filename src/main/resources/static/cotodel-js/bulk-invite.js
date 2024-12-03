@@ -1,10 +1,50 @@
+function validateEmails() {
+    const emailInput = document.getElementById("inviteEmployee").value.trim();
+    const emailError = document.getElementById("inviteEmployeeError");
+	
+    // Regular expression for a valid email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Split the input by commas and remove any extra spaces
+    const emails = emailInput.split(",").map(email => email.trim());
+
+    // Check each email
+    const invalidEmails = emails.filter(email => email !== "" && !emailRegex.test(email));
+
+    if (invalidEmails.length > 0) {
+        emailError.innerText = `Invalid email(s): ${invalidEmails.join(", ")}`;
+    } else {
+        emailError.innerText = "";
+    }
+}
+
+function validateContractorEmails() {
+    const emailInput = document.getElementById("inviteContractor").value.trim();
+    const emailError = document.getElementById("inviteContractorError");
+	
+    // Regular expression for a valid email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Split the input by commas and remove any extra spaces
+    const emails = emailInput.split(",").map(email => email.trim());
+
+    // Check each email
+    const invalidEmails = emails.filter(email => email !== "" && !emailRegex.test(email));
+
+    if (invalidEmails.length > 0) {
+        emailError.innerText = `Invalid email(s): ${invalidEmails.join(", ")}`;
+    } else {
+        emailError.innerText = "";
+    }
+}
+
 function sendBulkInviteSubmit(){
 	
 		var inviteEmployee =document.getElementById("inviteEmployee").value;
 		var inviteContractor =document.getElementById("inviteContractor").value;
 		
 		if(inviteEmployee==""){
-			document.getElementById("inviteEmployeeError").innerHTML="Please enter emails separated by commas.";
+			document.getElementById("inviteEmployeeError").innerHTML="Please Enter Emails Separated By Commas.";
 			document.getElementById("inviteEmployee").focus();
 			return false;
 			}else{
@@ -12,7 +52,7 @@ function sendBulkInviteSubmit(){
 			}
 		
 		if(inviteContractor==""){
-			document.getElementById("inviteContractorError").innerHTML="Please enter emails separated by commas.";
+			document.getElementById("inviteContractorError").innerHTML="Please Enter Emails Separated By Commas.";
 			document.getElementById("inviteContractor").focus();
 			return false;
 			}else{

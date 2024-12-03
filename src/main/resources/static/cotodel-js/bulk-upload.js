@@ -1,4 +1,45 @@
-  function showClearButton() {
+function validateFileUpload() {
+    const fileInput = document.getElementById("up");
+    const fileError = document.getElementById("fileError");
+    const allowedExtensions = ["csv","xlsx"]; // Allowed file extensions
+    const maxSizeInMB = 5; // Max file size in MB
+
+    // Clear any previous errors
+    fileError.innerText = "";
+
+    // Check if a file is selected
+    if (fileInput.files.length === 0) {
+        fileError.innerText = "Please select a file to upload.";
+        return false;
+    }
+	else{
+		fileError.innerText = "";
+	}
+	
+    const file = fileInput.files[0];
+    const fileName = file.name;
+    const fileSizeInMB = file.size / (1024 * 1024); // Convert size to MB
+    const fileExtension = fileName.split('.').pop().toLowerCase(); // Extract file extension
+
+    // Validate file extension
+    if (!allowedExtensions.includes(fileExtension)) {
+        fileError.innerText = `Invalid file type. Allowed types: ${allowedExtensions.join(", ")}`;
+        return false;
+    }
+
+    // Validate file size
+    if (fileSizeInMB > maxSizeInMB) {
+        fileError.innerText = `File size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`;
+        return false;
+    }
+
+    // If validation passes
+    fileError.innerText = "";
+    return true;
+}
+  
+
+function showClearButton() {
             var fileInput = document.getElementById("up");
             document.getElementById("clearButton").style.display="block";
              var clearButton = document.getElementById("clearButton");
@@ -12,13 +53,18 @@
 
 
 document.getElementById("bulksubmit").onclick = function() {
-    //disable
-    this.disabled = true;
 
  	 var regName = /^[a-zA-Z\s]*$/;
 	 var onlySpace = /^$|.*\S+.*/;	 
-	
-	
+	var up = document.getElementById("up").value;
+	if(up ===""){
+		document.getElementById("fileError").innerText="Please Upload File";
+		return false;
+	}
+	else{
+		document.getElementById("fileError").innerText="";
+	}
+	this.disabled = true;
 	document.getElementById("employerId").value;
 	var employerId = document.getElementById("employerId").value;
 	var formData = new FormData(empdetailForm);
@@ -27,46 +73,4 @@ document.getElementById("bulksubmit").onclick = function() {
 	document.forms[0].method = "post";
 	document.forms[0].submit();
 	
-    //do some validation stuff
-   /* document.getElementById("signinLoader").style.display="flex";
-    $.ajax({
-		type: "POST",
-	     url:"/saveBulkFile",
-         data: formData,
-         processData: false,
-         contentType: false,       		 
-            success: function(data){
-            newData = data;
-			var data1 = jQuery.parseJSON(newData);
-			document.getElementById("signinLoader").style.display="none";
-			console.log(data1);
-			console.log(data1.correct);			
-			console.log(data1.incorrect);
-			if(data1.status=="SUCCESS"){
-				// document.getElementById("employeeId").value=data1.data.id;
-				 document.getElementById("otsuccmsg").innerHTML="File Process Successfully";
-				 document.getElementById("otmsgdiv").style.display="block";
-				 document.getElementById("up").value="";
-				 document.getElementById('up').value = '';
-				  document.getElementById("empdetailForm").reset();
-				 $("#up").val('');
-				  document.getElementById("bulksubmit").disabled = false;
-				 this.disabled = false;
-				 $('#otmsgdiv').delay(5000).fadeOut(400);
-			}else if(data1.status=="FAILURE"){
-				//getEmployeeDetail();
-				 document.getElementById("otfailmsg").innerHTML=data1.message;
-				 document.getElementById("otfailmsgDiv").style.display="block";
-				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-				  this.disabled = false;
-			}else{
-				 document.getElementById("otmsgdiv").style.display="none";
-				 document.getElementById("otfailmsgDiv").style.display="none";
-				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
-			}
-         },
-         error: function(e){
-             alert('Error: ' + e);
-         }
-    });	*/
 }

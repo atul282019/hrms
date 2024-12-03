@@ -72,27 +72,12 @@
                                                             <span class="upl" id="upload">Choose file</span>
                                                                 <input type="file" class="upload up" id="up" name="up" 
                                                                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                                                onchange="readURL(this);" />
+                                                                onchange="validateFileUpload()" />
                                                             </span>
                                                     </div>
                                                  </div>
                                             </div>
-
-
-                                         <!--     <div class="form-group choose-file">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="read" readonly >  
-                                                    <button type="button" style="display:none" id="clearButton" >X</button>                                                
-                                                    <div class="input-group-btn">
-                                                        <span class="fileUpload">
-                                                            <span class="upl" id="upload">Choose file</span>
-                                                                <input type="file" class="upload up" id="up" onchange="showClearButton();" 
-                                                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  />
-                                                            </span>
-                                                    </div>
-                                                 </div>
-                                            </div> -->
-                                          
+											<div class="error-msg" id="fileError" style="color:red"></div>
                                             <div class="clearfix"></div>
 
                                             <div class="form-group mt-3">
@@ -125,7 +110,7 @@
 										<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                         <input type="button" class="btn btn-primary d-block btn-lg" id="bulksubmit" onclick="bulkSubmit()" value="Upload">
                                     </div>
-                                        
+									<div id="fileError" style="color: red;"></div>
                                 
                                 </div>                                
 								</form>
