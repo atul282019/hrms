@@ -71,7 +71,7 @@
 
                                         <div class="text-center text-md-center my-3 disabled">
                                             <input type="button" value="Don't have GSTIN" class="btn btn-proceed-border my-1"  oninput="this.value = this.value.toUpperCase()" onclick="openBrandPage()" />
-                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
+                                            <input type="button" value="Continue" class="btn btn-primary ml-2 my-1 next"  oninput="this.value = this.value.toUpperCase()" onclick="validateGstNumber()" />
                                             
                                         </div>
                                     </div>
@@ -81,10 +81,8 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form">
                                             <select class="form-select  no-bg border-0"
-                                                aria-label="Default select example" id="organizationType" name="organizationType">
-                                                
+                                                aria-label="Default select example" id="organizationType" name="organizationType" onchange="tab2Validation()">
                                             </select>
-                                             
                                         </div>
  										<div class="error-msg" id="organizationTypeError" style="color:red"></div>
                                         <div class="tip-wrap justify-content-start my-3">
@@ -93,7 +91,7 @@
 
                                         <div class="card-form my-3">
                                             <label for="">Enter PAN</label>
-                                            <input type="text" class="form-input" id="pan" name="pan" maxlength="10"  oninput="this.value = this.value.toUpperCase()">
+                                            <input type="text" class="form-input" id="pan" name="pan" maxlength="10"  oninput="this.value = this.value.toUpperCase()" onkeyup="tab2Validation()">
                                             
                                         </div>
 										<div class="error-msg" id="panError" style="color:red"></div>
@@ -103,8 +101,8 @@
 
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Fill via GSTIN</div>
-                                            <div class="btn btn-proceed ml-2 my-1 back" id="back2">Back</div>
-                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="checkPanNumber()" />
+                                            <div class="btn btn-primary ml-2 my-1 back" id="back2">Back</div>
+                                            <input type="button" value="Continue" class="btn btn-primary ml-2 my-1 next" onclick="checkPanNumber()" />
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +111,7 @@
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="card-form my-3">
                                             <label for="">Brand Name</label>
-                                            <input type="text" class="form-input" id="brandName" name="brandName" maxlength="100" oninput="sanitizeInput(this)">
+                                            <input type="text" class="form-input" id="brandName" name="brandName" maxlength="100" oninput="sanitizeInput(this)" onkeyup="validateTab3()">
                                         </div>
 										<div class="error-msg" id="brandNameError" style="color:red"></div>
 										
@@ -124,7 +122,7 @@
 
                                         <div class="card-form">
                                             <select class="form-select no-bg border-0"
-                                                aria-label="Default select example" id="orgType2" name="orgType2"  >
+                                                aria-label="Default select example" id="orgType2" name="orgType2" onchange="validateTab3()" >
                                                 <option selected="">Select Organization Type*</option>
                                                 
                                             </select>
@@ -136,50 +134,41 @@
                                         </div>
 
                                         <div class="card-form">
-										<!--<label for="">Company Name</label>
-                                        <input type="text" class="form-input" id="panDetails" name="panDetails" maxlength="100">
-                                        -->
+										
 										<label for="">Company Name</label>
-									   <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100" oninput="sanitizeInput(this)">
+									   <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100" oninput="sanitizeInput(this)" onkeyup="validateTab3()">
 									   
                                         </div>
 										<div class="error-msg" id="companyNameError" style="color:red"></div>
-										<!--<div class="error-msg" id="panDetailsError" style="color:red"></div>-->
+									
 										
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">In case of incorrect company name. please go back to edit
                                                 PAN details.</p>
                                         </div>
 
-                                        <!--<div class="card-form my-3">
-                                            <label for="">Company Name</label>
-                                            <input type="text" class="form-input" id="companyName" name="companyName" maxlength="100">
-                                        </div>
-										<div class="error-msg" id="companyNameError" style="color:red"></div>-->
+                                  
                                         <div class="card-form my-3">
                                             <label for="">Enter Registered office Address*</label>
-                                            <input type="text" class="form-input" id="officeAddress" name="officeAddress" maxlength="100" oninput="sanitizeInput(this)"> 
+                                            <input type="text" class="form-input" id="officeAddress" name="officeAddress" maxlength="100" oninput="sanitizeInput(this)" onkeyup="validateTab3()"> 
                                         </div>
 										<div class="error-msg" id="officeAddressError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Address line 2</label>
-                                            <input type="text" class="form-input" id="addressLine" name="addressLine" maxlength="100" oninput="sanitizeInput(this)">
+                                            <input type="text" class="form-input" id="addressLine" name="addressLine" maxlength="100" oninput="sanitizeInput(this)" onkeyup="validateTab3()">
                                         </div>
 										<div class="error-msg" id="addressLineError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Enter PIN Code*</label>
                                             <input type="text" class="form-input" id="pinCode" name="pinCode" maxlength="6" 
-                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeyup="validateTab3()">
                                         </div>
 										<div class="error-msg" id="pinCodeError" style="color:red"></div>
-                                      <!--   <div class="card-form">
-                                         <input type="text" class="form-input" id="companyPan2" name="companyPan2">
-                                          
-                                        </div> -->
+                                      
 										<div class="error-msg" id="companyPan2Error" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <select class="form-select no-bg border-0"
-                                                aria-label="Default select example" id="stateCode" name="stateCode">
+                                                aria-label="Default select example" id="stateCode" name="stateCode" onchange="validateTab3()">
                                                
                                             </select>
                                         </div>
@@ -192,9 +181,9 @@
 
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1">Back Edit PAN</div>
-                                            <div class="btn btn-proceed ml-2 my-1 back" id="back3">Back</div>
-                                            <input type="button" value="Continue" class="btn btn-proceed ml-2 my-1 next" onclick="validateBrandNumber()" />
-                                            <!-- <div class="btn btn-proceed ml-2 my-1 next" id="next3">Continue</div> -->
+                                            <div class="btn btn-primary ml-2 my-1 back" id="back3">Back</div>
+                                            <input type="button" value="Continue" class="btn btn-primary ml-2 my-1 next" onclick="validateBrandNumber()" />
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +209,7 @@
                                         </div>
 
                                         <div class="card-form">
-                                        <input type="date" class="form-input" id="paidDate" name="paidDate">
+                                        <input type="date" class="form-input" id="paidDate" name="paidDate" onchange="validateDate()">
                                           
                                         </div>
 										<div class="error-msg" id="paidDateError" style="color:red"></div>
@@ -268,9 +257,9 @@
 										
                                         <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
-                                            <div class="btn btn-proceed ml-2 my-1 back" id="back4">Back</div>
+                                            <div class="btn btn-primary ml-2 my-1 back" id="back4">Back</div>
                                             
-                                            <input id="saveNext" type="button"  class="btn btn-proceed ml-2 my-1" value="Continue" onclick="validateFormAndSubmit()" />
+                                            <input id="saveNext" type="button"  class="btn btn-primary ml-2 my-1" value="Continue" onclick="validateFormAndSubmit()" />
                                            <!--  <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" /> -->
                                            <!--  <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />-->
                                           </div>
@@ -521,9 +510,9 @@
                                         
                                          <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
-                                            <div class="btn btn-proceed ml-2 my-1 back" id="back5">Back</div>
+                                            <div class="btn btn-primary ml-2 my-1 back" id="back5">Back</div>
                                             <!-- <div class="btn btn-proceed ml-2 my-1 next">Continue</div> -->
-                                            <input type="button" id="btnPayrollSave" value="Save" class="btn btn-proceed ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
+                                            <input type="button" id="btnPayrollSave" value="Save" class="btn btn-primary ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
                                         </div>
                                         
                                     </div>
@@ -731,7 +720,7 @@ function deleteRow(btn) {
 }
 
 function dissableButton(){
-	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
+	var rowCount = $('#newTable>tbody>tr').length;
     if(rowCount == "10"){
 		document.getElementById("addButton").disabled=true;
 		var element = document.getElementById("addButton");
@@ -742,7 +731,7 @@ function dissableButton(){
 	
 }
 function enableAddButton(){
-	var rowCount = $('#newTable>tbody>tr').length;//document.getElementById('newTable').tbody[0].rows.length;
+	var rowCount = $('#newTable>tbody>tr').length;
 	if(rowCount <= "10"){
 		document.getElementById("addButton").disabled=false;
 		var element = document.getElementById("addButton");

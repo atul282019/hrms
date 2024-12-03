@@ -93,14 +93,11 @@ function validateFormAndSubmit(){
 	function checkPanNumber() {
 		
 				var organizationType = document.getElementById("organizationType").value;
-				var pan = document.getElementById("pan").value;
-				///\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/
-                //var gstinformat = new RegExp('^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]1}[1-9A-Z]{1}Z[0-9A-Z]{1}$');    
+				var pan = document.getElementById("pan").value; 
                 var panNoFormat = new RegExp('[A-Z]{5}[0-9]{4}[A-Z]{1}');
                 
                  if(organizationType==""){
 					document.getElementById("organizationTypeError").innerHTML="Please Select Organization Type";
-					//document.getElementById("organizationType").focus();
 					return false;
 				}else{
 					document.getElementById("organizationTypeError").innerHTML="";
@@ -126,6 +123,36 @@ function validateFormAndSubmit(){
                 
 	}  
 	
+	function tab2Validation() {
+		
+				var organizationType = document.getElementById("organizationType").value;
+				var pan = document.getElementById("pan").value;
+	            var panNoFormat = new RegExp('[A-Z]{5}[0-9]{4}[A-Z]{1}');
+	            
+	             if(organizationType==""){
+					document.getElementById("organizationTypeError").innerHTML="Please Select Organization Type";
+					return false;
+				}else{
+					document.getElementById("organizationTypeError").innerHTML="";
+					
+				}			
+				 if (pan =="") {    
+	                document.getElementById("panError").innerHTML="Please Enter Valid Pan Number";
+					document.getElementById("pan").focus();
+					return false;
+	            } else {    
+	               document.getElementById("panError").innerHTML="";    
+	            }  
+	            if (panNoFormat.test(pan)) {    
+	                document.getElementById("panError").innerHTML="";
+	                
+	            } else {    
+	               document.getElementById("panError").innerHTML="Please Enter Valid Pan Number";
+					document.getElementById("pan").focus();
+					return false;     
+	            }   
+	       
+	} 
 
   function validateBrandNumber(){
 	
@@ -201,7 +228,63 @@ function validateFormAndSubmit(){
             $("#form3").hide();	
 	}
 
+	function validateTab3() {
+	    // Retrieve values
+	    const brandName = document.getElementById("brandName").value.trim();
+	    const orgType2 = document.getElementById("orgType2").value;
+	    const companyName = document.getElementById("companyName").value.trim();
+	    const officeAddress = document.getElementById("officeAddress").value.trim();
+	    const pinCode = document.getElementById("pinCode").value.trim();
+	    const stateCode = document.getElementById("stateCode").value;
 
+	    if (brandName === "") {
+	        document.getElementById("brandNameError").innerText = "Brand Name is required.";
+	    } else {
+	        document.getElementById("brandNameError").innerText = "";
+	    }
+	    if (orgType2 === "Select Organization Type*" || orgType2 === "") {
+	        document.getElementById("orgType2Error").innerText = "Please select an organization type.";
+	    } else {
+	        document.getElementById("orgType2Error").innerText = "";
+	    }
+
+	    if (companyName === "") {
+	        document.getElementById("companyNameError").innerText = "Company Name is required.";
+	    } else {
+	        document.getElementById("companyNameError").innerText = "";
+	    }
+
+	    if (officeAddress === "") {
+	        document.getElementById("officeAddressError").innerText = "Office Address is required.";
+	    } else {
+	        document.getElementById("officeAddressError").innerText = "";
+	    }
+	    if (pinCode === "") {
+	        document.getElementById("pinCodeError").innerText = "PIN Code is required.";
+	    } else if (pinCode.length !== 6) {
+	        document.getElementById("pinCodeError").innerText = "PIN Code must be 6 digits.";
+	    } else {
+	        document.getElementById("pinCodeError").innerText = "";
+	    }
+	    if (stateCode === "Select State*" || stateCode === "") {
+	        document.getElementById("stateCodeError").innerText = "Please select a state.";
+	    } else {
+	        document.getElementById("stateCodeError").innerText = "";
+	    }
+	}
+
+function validateDate() {
+					var paidDate = document.getElementById("paidDate").value;
+	             	
+	                if (paidDate =="") {    
+						document.getElementById("paidDateError").innerHTML="Please Select Date";
+						document.getElementById("paidDate").focus();
+						return false;   
+	                } else {    
+	                   document.getElementById("paidDateError").innerHTML="";
+						document.getElementById("paidDate").focus();   
+	                }
+		}
 function validateFormAndSubmit() {
 				var paidDate = document.getElementById("paidDate").value;
              	var runFayrollFlag = document.getElementById("runFayrollFlag").value;
