@@ -157,22 +157,26 @@ function validateFormAndSubmit(){
   function validateBrandNumber(){
 	
 	         	 var brandName = document.getElementById("brandName").value; 
-			     var orgType2 = document.getElementById("orgType2").value; 
-				// var panDetails = document.getElementById("panDetails").value; 
+			     var orgType2 = document.getElementById("orgType2").value;  
 				 var companyName = document.getElementById("companyName").value; 
 				 
 				 var officeAddress = document.getElementById("officeAddress").value;
 				 var addressLine = document.getElementById("addressLine").value;
 				       
 				 var pinCode = document.getElementById("pinCode").value; 
-				 //var companyPan2 = document.getElementById("companyPan2").value; 
 				 var stateCode = document.getElementById("stateCode").value;  
-				 
+			
+				const specialChrRegex = /[^a-zA-Z0-9\s.,-]/; 
                  if(brandName==""){
-					document.getElementById("brandNameError").innerHTML="Please Select Account Type";
+					document.getElementById("brandNameError").innerHTML="Please Enter Brand Name";
 					document.getElementById("brandName").focus();
 					return false;
-				}else{
+				}
+				else if (specialChrRegex.test(brandName)) { // Check for special characters
+				        document.getElementById("brandNameError").innerText = "Please Enter a Valid Brand Name (No special characters)";
+						return false;
+				    }
+				else{
 					document.getElementById("brandNameError").innerHTML="";
 				}
                 if (orgType2 =="") {    
@@ -182,32 +186,39 @@ function validateFormAndSubmit(){
                 } else {    
                    document.getElementById("orgType2Error").innerHTML="";
                 }   
-                /* if (panDetails =="") {    
-                    document.getElementById("panDetailsError").innerHTML="Please Enter Pan Details";
-                    document.getElementById("panDetails").focus();
-                    return false;   
-                } else {    
-                   document.getElementById("panDetailsError").innerHTML="";
-                }  */ 
                 if (companyName =="") {    
                     document.getElementById("companyNameError").innerHTML="Please Enter Company Name";
                     document.getElementById("companyName").focus();
                     return false;   
-                } else {    
+                }
+				else if (specialChrRegex.test(companyName)) { // Check for special characters
+				        document.getElementById("companyNameError").innerText = "Please Enter a Valid Company Name (No special characters)";
+						return false;
+				    }
+				 else {    
                    document.getElementById("companyNameError").innerHTML="";
                 }  
                 if (officeAddress =="") {    
                     document.getElementById("officeAddressError").innerHTML="Please Enter Registered office Address";
                     document.getElementById("officeAddress").focus();
                     return false;   
-                } else {    
+                }
+				else if (specialChrRegex.test(officeAddress)) { // Check for special characters
+				        document.getElementById("officeAddressError").innerText = "Please Enter a Valid Registered office Address (No special characters)";
+						return false;
+					}
+				 else {    
                    document.getElementById("officeAddressError").innerHTML="";
                 }  
                 if (addressLine =="") {    
                     document.getElementById("addressLineError").innerHTML="Please Enter Address Line 2";
                     document.getElementById("addressLine").focus();
                     return false;   
-                } else {    
+                }
+				else if (specialChrRegex.test(addressLine)) { // Check for special characters
+				        document.getElementById("addressLineError").innerText = "Please Enter a Valid Registered office Address (No special characters)";
+				    }
+				 else {    
                    document.getElementById("addressLineError").innerHTML="";
                 }  
                 if (pinCode =="") {    
@@ -234,14 +245,20 @@ function validateFormAndSubmit(){
 	    const orgType2 = document.getElementById("orgType2").value;
 	    const companyName = document.getElementById("companyName").value.trim();
 	    const officeAddress = document.getElementById("officeAddress").value.trim();
+		const addressLine = document.getElementById("addressLine").value.trim();
 	    const pinCode = document.getElementById("pinCode").value.trim();
 	    const stateCode = document.getElementById("stateCode").value;
-
+		const specialChrRegex = /[^a-zA-Z0-9\s.,-]/; 
 	    if (brandName === "") {
-	        document.getElementById("brandNameError").innerText = "Brand Name is required.";
-	    } else {
+	        document.getElementById("brandNameError").innerText = "Please Enter Brand Name";
+	    }
+		else if (specialChrRegex.test(brandName)) { // Check for special characters
+		        document.getElementById("brandNameError").innerText = "Please Enter a Valid Brand Name (No special characters)";
+		    }
+		 else {
 	        document.getElementById("brandNameError").innerText = "";
 	    }
+		
 	    if (orgType2 === "Select Organization Type*" || orgType2 === "") {
 	        document.getElementById("orgType2Error").innerText = "Please select an organization type.";
 	    } else {
@@ -249,18 +266,35 @@ function validateFormAndSubmit(){
 	    }
 
 	    if (companyName === "") {
-	        document.getElementById("companyNameError").innerText = "Company Name is required.";
-	    } else {
+	        document.getElementById("companyNameError").innerText = "Please Enter Company Name";
+	    }
+		else if (specialChrRegex.test(companyName)) { // Check for special characters
+		        document.getElementById("companyNameError").innerText = "Please Enter a Valid Company Name (No special characters)";
+		    }
+		 else {
 	        document.getElementById("companyNameError").innerText = "";
 	    }
 
 	    if (officeAddress === "") {
-	        document.getElementById("officeAddressError").innerText = "Office Address is required.";
-	    } else {
+	        document.getElementById("officeAddressError").innerText = "Please Enter Office Address";
+	    }
+		else if (specialChrRegex.test(officeAddress)) { // Check for special characters
+	        document.getElementById("officeAddressError").innerText = "Please Enter a Valid Office Address (No special characters)";
+	    }
+		 else {
 	        document.getElementById("officeAddressError").innerText = "";
 	    }
+		if (addressLine =="") {    
+           document.getElementById("addressLineError").innerText ="Please Enter Address Line 2";
+        }
+	    else if (specialChrRegex.test(addressLine)) { // Check for special characters
+	        document.getElementById("addressLineError").innerText = "Please Enter a Valid Address Line2 (No special characters)";
+	    }
+	   else {    
+           document.getElementById("addressLineError").innerHTML="";
+        } 
 	    if (pinCode === "") {
-	        document.getElementById("pinCodeError").innerText = "PIN Code is required.";
+	        document.getElementById("pinCodeError").innerText = "Please Enter Pin Code";
 	    } else if (pinCode.length !== 6) {
 	        document.getElementById("pinCodeError").innerText = "PIN Code must be 6 digits.";
 	    } else {
