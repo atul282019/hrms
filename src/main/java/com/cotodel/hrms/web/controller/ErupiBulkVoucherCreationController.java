@@ -85,7 +85,8 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	@GetMapping(value = "/getVoucherTemplate")
 	public ResponseEntity<InputStreamResource> getVoucherTemplate() {
 		try {
-			String filePath ="src/main/resources/file/";
+			//String filePath ="D:\\opt\\file\\"; //local path 
+			String filePath ="/opt/cotodel/key/";
 			String fileName = "Bulk_Voucher_Templates.xlsx";
 			File file = new File(filePath+fileName);
 			HttpHeaders headers = new HttpHeaders();    

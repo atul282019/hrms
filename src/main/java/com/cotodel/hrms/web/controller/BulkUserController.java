@@ -85,7 +85,8 @@ public class BulkUserController extends CotoDelBaseController{
 	@GetMapping(value = "/bulkUserTemplate")
 	public ResponseEntity<InputStreamResource> bulkUSer() {
 		try {
-			String filePath ="src/main/resources/file/";
+			//String filePath ="D:\\opt\\file\\";
+			String filePath ="/opt/cotodel/key/";
 			String fileName = "BulkUserTemplate.xlsx";
 			File file = new File(filePath+fileName);
 			HttpHeaders headers = new HttpHeaders();      
