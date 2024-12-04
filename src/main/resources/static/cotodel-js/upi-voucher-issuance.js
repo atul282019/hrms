@@ -42,7 +42,7 @@ function getIssueVoucherList(){
 				
 				{ "mData": "id", "render": function (data2, type, row) {
 					
-				if(row.type==="Revoke" || row.type==="fail"){
+				if(row.type==="Revoke" || row.type==="fail" || row.type==="Redeem"){
 					return '';
 				}
 				else{
@@ -54,7 +54,7 @@ function getIssueVoucherList(){
 								
 			}}, 
 			 { "mData": "id", "render": function (data2, type, row) {
-			 if(row.type==="Revoke" || row.type==="fail"){
+			 if(row.type==="Revoke" || row.type==="fail" || row.type==="Redeem"){
 					return '';
 				}
 				else{
@@ -127,9 +127,9 @@ function getIssueVoucherList(){
 					    $(row).find('td:eq(9)').html(imgTag);
 					 
                      }
-					 if(type=="Reedeem")
+					 if(type=="Redeem")
                      {
-						var imgTag = ' <img src="img/remoke.svg" alt="" class="mr-2">';
+						var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
 						 $(row).find('td:eq(9)').html(imgTag);
                      }
                   }
