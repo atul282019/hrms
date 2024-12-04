@@ -1,132 +1,265 @@
+function validateAmount(amount) {
+           // Regex to allow positive numbers with up to 2 decimal places
+           const amountRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
+           return amountRegex.test(amount);
+  }
 
+  function saveEmployeeValidation(){
+  	    
+  	    var employerId = document.getElementById("employerId").value;
+  	    var employeeId = document.getElementById("employeeId").value;
+
+  	    const name = document.getElementById("name").value;
+  	    const email = document.getElementById("email").value;
+  	    const mobile = document.getElementById("mobile").value;
+  	    const hireDate = document.getElementById("hireDate").value;
+  	    const jobTitle = document.getElementById("jobTitle").value;
+  	    const department = document.getElementById("department").value;
+  	    const managerName = document.getElementById("reporting").value;
+  	    const ctc = document.getElementById("salary").value;
+  	    const location = document.getElementById("location").value;
+  	    const residentOfIndia = document.getElementById("residence").value;
+
+  	    const regName = /^[a-zA-Z\s]*$/;
+  	    const onlySpace = /^$|.*\S+.*/;
+  	    const regMobile = /^[6-9]\d{9}$/gi;
+  	    const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  	    let namespace = name.replace(/\s+/g, ' ').trim();
+  	    let emailspace = email.replace(/\s+/g, ' ').trim();
+  	    let jobTitlespace = jobTitle.replace(/\s+/g, ' ').trim();
+  	    let departmentspace = department.replace(/\s+/g, ' ').trim();
+
+  	    let empOrCont = null;
+
+  	    if (document.getElementById("employee").checked) {
+  	        empOrCont = "Employee";
+  	        document.getElementById("empTypeError").textContent = "";
+  	    } else if (document.getElementById("contractor").checked) {
+  	        empOrCont = "Contractor";
+  	        document.getElementById("empTypeError").textContent = "";
+  	    } else {
+  	        document.getElementById("empTypeError").textContent = "Please select employee type";
+  	        return false;
+  	    }
+
+  	    if (name === "" || namespace !== name) {
+  	        document.getElementById("nameError").textContent = namespace !== name 
+  	            ? "Only single spaces are allowed." 
+  	            : "Please enter name";
+  	        return false;
+  	    } else {
+  	        document.getElementById("nameError").textContent = "";
+  	    }
+
+  	    if (email === "" || !email.match(regEmail) || emailspace !== email) {
+  	        document.getElementById("emailError").textContent = 
+  	            emailspace !== email 
+  	                ? "Only single spaces are allowed."
+  	                : !email.match(regEmail) 
+  	                    ? "Please enter a valid email" 
+  	                    : "Please enter email";
+  	        return false;
+  	    } else {
+  	        document.getElementById("emailError").textContent = "";
+  	    }
+
+  	    if (mobile === "" || !mobile.match(regMobile)) {
+  	        document.getElementById("mobileError").textContent = 
+  	            mobile === "" ? "Please enter valid mobile number" : "Mobile number is invalid.";
+  	        return false;
+  	    } else {
+  	        document.getElementById("mobileError").textContent = "";
+  	    }
+
+  	    if (hireDate === "") {
+  	        document.getElementById("hireDateError").textContent = "Please select date";
+  	        return false;
+  	    } else {
+  	        document.getElementById("hireDateError").textContent = "";
+  	    }
+
+  	    if (jobTitle === "" || jobTitlespace !== jobTitle) {
+  	        document.getElementById("jobTitleError").textContent = jobTitlespace !== jobTitle 
+  	            ? "Only single spaces are allowed."
+  	            : "Please enter job title";
+  	        return false;
+  	    } else {
+  	        document.getElementById("jobTitleError").textContent = "";
+  	    }
+
+  	    if (department === "" || departmentspace !== department) {
+  	        document.getElementById("departmentError").textContent = departmentspace !== department 
+  	            ? "Only single spaces are allowed."
+  	            : "Please enter department";
+  	        return false;
+  	    } else {
+  	        document.getElementById("departmentError").textContent = "";
+  	    }
+
+  	    if (managerName === "") {
+  	        document.getElementById("reportingError").textContent = "Please select manager name";
+  	        return false;
+  	    } else {
+  	        document.getElementById("reportingError").textContent = "";
+  	    }
+
+  	    if (ctc === "" || isNaN(ctc) || parseFloat(ctc) <= 0) {
+  	        document.getElementById("salaryError").textContent = ctc === "" 
+  	            ? "Please enter salary" 
+  	            : "Please enter a valid amount greater than zero.";
+  	        return false;
+  	    } else {
+  	        document.getElementById("salaryError").textContent = "";
+  	    }
+
+  	    if (location === "") {
+  	        document.getElementById("locationError").textContent = "Please select location";
+  	        return false;
+  	    } else {
+  	        document.getElementById("locationError").textContent = "";
+  	    }
+
+  	    if (residentOfIndia === "") {
+  	        document.getElementById("residenceError").textContent = "Please select residence";
+  	        return false;
+  	    } else {
+  	        document.getElementById("residenceError").textContent = "";
+  	    }
+}
 function saveEmployeeOnboarding(){
-	var employerId=document.getElementById("employerId").value; 
-	var employeeId=document.getElementById("employeeId").value;
-	//var empOrCont = document.getElementById("contractor").value;
-	//var empOrCont = document.getElementById("employee").value;
-	
-	var name = document.getElementById("name").value;
-	var email = document.getElementById("email").value;
-	var mobile = document.getElementById("mobile").value;
-	var herDate = document.getElementById("hireDate").value;
-	var jobTitle = document.getElementById("jobTitle").value;
-	var depratment = document.getElementById("department").value;
-	var managerName = document.getElementById("reporting").value;
-	var ctc = document.getElementById("salary").value;
-	var location = document.getElementById("location").value;
-	var residentOfIndia = document.getElementById("residence").value;
-	
-	var regName = /^[a-zA-Z\s]*$/;
-	var onlySpace = /^$|.*\S+.*/;
-	var regMobile = /^[6-9]\d{9}$/gi;
-	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-	
-	empOrCont = null;
-	if(document.getElementById("employee").checked){
-		empOrCont="Employee";
-		document.getElementById("empTypeError").innerHTML="";
-	}
-	else if( document.getElementById("contractor").checked){
-		empOrCont="Contractor";
-		document.getElementById("empTypeError").innerHTML="";
-	}
-	else{
-		document.getElementById("empTypeError").innerHTML="Please Select Employee Type";
-		return false;
-	}
-	
-	if(name==""){
-		document.getElementById("nameError").innerHTML="Please Enter Name";
-		document.getElementById("name").focus();
-		return false;
-	}else{
-		document.getElementById("nameError").innerHTML="";
-	}
-	
-	if(email==""){
-		document.getElementById("emailError").innerHTML="Please Enter email";
-		document.getElementById("email").focus();
-		return false;
-	}else{
-		document.getElementById("emailError").innerHTML="";
-	}
-	
-	if (!email.match(regEmail)) {    
-        document.getElementById("emailError").innerHTML="Please Enter Valid Email";
-        document.getElementById("email").focus();
-        return false;  
-        
-    } else {    
-       document.getElementById("emailError").innerHTML="";
-		   
-    } 
-    
-	if(mobile==""){
-		document.getElementById("mobileError").innerHTML="Please Enter valid mobile Number";
-		document.getElementById("mobile").focus();
-		return false;
-	}
-  	else if (!mobile.match(regMobile)) {    
-        document.getElementById("mobileError").innerHTML="Please Enter Valid Mobile Number";
-        document.getElementById("mobile").focus();
-        return false;     
-    } else {    
-       document.getElementById("mobileError").innerHTML="";
-		  
-    }         
-    if(herDate==""){
-		document.getElementById("hireDateError").innerHTML="Please select Date";
-		document.getElementById("hireDate").focus();
-		return false;
-	}else{
-		document.getElementById("hireDateError").innerHTML="";
-	}
-	
-	if(jobTitle==""){
-		document.getElementById("jobTitleError").innerHTML="Please Enter job Title";
-		document.getElementById("jobTitle").focus();
-		return false;
-	}else{
-		document.getElementById("jobTitleError").innerHTML="";
-	}
-	
-	if(depratment==""){
-		document.getElementById("departmentError").innerHTML="Please Enter Department";
-		document.getElementById("department").focus();
-		return false;
-	}else{
-		document.getElementById("departmentError").innerHTML="";
-	}
-	
-	if(managerName==""){
-		document.getElementById("reportingError").innerHTML="Please Select Manager Name";
-		document.getElementById("reporting").focus();
-		return false;
-	}else{
-		document.getElementById("reportingError").innerHTML="";
-	}
-	if(ctc==""){
-		document.getElementById("salaryError").innerHTML="Please Enter Salary";
-		document.getElementById("salary").focus();
-		return false;
-	}else{
-		document.getElementById("salaryError").innerHTML="";
-	}
-	
-	if(location==""){
-		document.getElementById("locationError").innerHTML="Please Select Location";
-		document.getElementById("location").focus();
-		return false;
-	}else{
-		document.getElementById("locationError").innerHTML="";
-	}
-	if(residentOfIndia==""){
-		document.getElementById("residenceError").innerHTML="Please Select Residence";
-		document.getElementById("residence").focus();
-		return false;
-	}else{
-		document.getElementById("residenceError").innerHTML="";
-	}
+	    
+	    var employerId = document.getElementById("employerId").value;
+	    var employeeId = document.getElementById("employeeId").value;
+
+	    const name = document.getElementById("name").value;
+	    const email = document.getElementById("email").value;
+	    const mobile = document.getElementById("mobile").value;
+	    const hireDate = document.getElementById("hireDate").value;
+	    const jobTitle = document.getElementById("jobTitle").value;
+	    const department = document.getElementById("department").value;
+	    const managerName = document.getElementById("reporting").value;
+	    const ctc = document.getElementById("salary").value;
+	    const location = document.getElementById("location").value;
+	    const residentOfIndia = document.getElementById("residence").value;
+
+	    const regName = /^[a-zA-Z\s]*$/;
+	    const onlySpace = /^$|.*\S+.*/;
+	    const regMobile = /^[6-9]\d{9}$/gi;
+	    const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+	    let namespace = name.replace(/\s+/g, ' ').trim();
+	    let emailspace = email.replace(/\s+/g, ' ').trim();
+	    let jobTitlespace = jobTitle.replace(/\s+/g, ' ').trim();
+	    let departmentspace = department.replace(/\s+/g, ' ').trim();
+
+	    let empOrCont = null;
+
+	    if (document.getElementById("employee").checked) {
+	        empOrCont = "Employee";
+	        document.getElementById("empTypeError").textContent = "";
+	    } else if (document.getElementById("contractor").checked) {
+	        empOrCont = "Contractor";
+	        document.getElementById("empTypeError").textContent = "";
+	    } else {
+	        document.getElementById("empTypeError").textContent = "Please select employee type";
+	        return false;
+	    }
+
+	    if (name === "" || namespace !== name) {
+	        document.getElementById("nameError").textContent = namespace !== name 
+	            ? "Only single spaces are allowed." 
+	            : "Please enter name";
+	        document.getElementById("name").focus();
+	        return false;
+	    } else {
+	        document.getElementById("nameError").textContent = "";
+	    }
+
+	    if (email === "" || !email.match(regEmail) || emailspace !== email) {
+	        document.getElementById("emailError").textContent = 
+	            emailspace !== email 
+	                ? "Only single spaces are allowed."
+	                : !email.match(regEmail) 
+	                    ? "Please enter a valid email" 
+	                    : "Please enter email";
+	        document.getElementById("email").focus();
+	        return false;
+	    } else {
+	        document.getElementById("emailError").textContent = "";
+	    }
+
+	    if (mobile === "" || !mobile.match(regMobile)) {
+	        document.getElementById("mobileError").textContent = 
+	            mobile === "" ? "Please enter valid mobile number" : "Mobile number is invalid.";
+	        document.getElementById("mobile").focus();
+	        return false;
+	    } else {
+	        document.getElementById("mobileError").textContent = "";
+	    }
+
+	    if (hireDate === "") {
+	        document.getElementById("hireDateError").textContent = "Please select date";
+	        document.getElementById("hireDate").focus();
+	        return false;
+	    } else {
+	        document.getElementById("hireDateError").textContent = "";
+	    }
+
+	    if (jobTitle === "" || jobTitlespace !== jobTitle) {
+	        document.getElementById("jobTitleError").textContent = jobTitlespace !== jobTitle 
+	            ? "Only single spaces are allowed."
+	            : "Please enter job title";
+	        document.getElementById("jobTitle").focus();
+	        return false;
+	    } else {
+	        document.getElementById("jobTitleError").textContent = "";
+	    }
+
+	    if (department === "" || departmentspace !== department) {
+	        document.getElementById("departmentError").textContent = departmentspace !== department 
+	            ? "Only single spaces are allowed."
+	            : "Please enter department";
+	        document.getElementById("department").focus();
+	        return false;
+	    } else {
+	        document.getElementById("departmentError").textContent = "";
+	    }
+
+	    if (managerName === "") {
+	        document.getElementById("reportingError").textContent = "Please select manager name";
+	        document.getElementById("reporting").focus();
+	        return false;
+	    } else {
+	        document.getElementById("reportingError").textContent = "";
+	    }
+
+	    if (ctc === "" || isNaN(ctc) || parseFloat(ctc) <= 0) {
+	        document.getElementById("salaryError").textContent = ctc === "" 
+	            ? "Please enter salary" 
+	            : "Please enter a valid amount greater than zero.";
+	        document.getElementById("salary").focus();
+	        return false;
+	    } else {
+	        document.getElementById("salaryError").textContent = "";
+	    }
+
+	    if (location === "") {
+	        document.getElementById("locationError").textContent = "Please select location";
+	        document.getElementById("location").focus();
+	        return false;
+	    } else {
+	        document.getElementById("locationError").textContent = "";
+	    }
+
+	    if (residentOfIndia === "") {
+	        document.getElementById("residenceError").textContent = "Please select residence";
+	        document.getElementById("residence").focus();
+	        return false;
+	    } else {
+	        document.getElementById("residenceError").textContent = "";
+	    }
+
 	var formData = new FormData(employeeOnboarding);
 	
 	formData.append("employerId",employerId);
@@ -137,10 +270,10 @@ function saveEmployeeOnboarding(){
 	
 	formData.append("email",email);
 	formData.append("mobile",mobile);
-	formData.append("herDate",herDate);
+	formData.append("herDate",hireDate);
 	
 	formData.append("jobTitle",jobTitle);
-	formData.append("depratment",depratment);
+	formData.append("depratment",department);
 	
 	formData.append("managerName",managerName);
 	formData.append("ctc",ctc);
