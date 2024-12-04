@@ -365,6 +365,11 @@ function  getBankDetailByBankAccountNumber(){
 			
 }
 
+function validateAmount(amount) {
+           // Regex to allow positive numbers with up to 2 decimal places
+           const amountRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
+           return amountRegex.test(amount);
+  }
 
 function  createSingleVoucherValidation(){
 	
@@ -402,9 +407,11 @@ function  createSingleVoucherValidation(){
 	
 	var element = document.getElementById("lable3");
 	element.classList.add("active");
+	
+	const amountValue = amount.trim();
 			  
 	if(banklist=="" || banklist==null){
-				document.getElementById("banklistError").innerHTML="Please Select Bank";
+				document.getElementById("banklistError").innerHTML="Please select bank";
 				return false;
 			}
 		else{
@@ -412,7 +419,7 @@ function  createSingleVoucherValidation(){
 		}
 			
 	if(voucher=="" || voucher== null){
-				document.getElementById("selectedOptionsDropdownError").innerHTML="Please Select Voucher";
+				document.getElementById("selectedOptionsDropdownError").innerHTML="Please select voucher";
 				return false;
 			}
 		else{
@@ -420,7 +427,7 @@ function  createSingleVoucherValidation(){
 		}
 
 		if(voucherType=="" || voucherType==null){
-				document.getElementById("voucherTypeError").innerHTML="Please Select Type";
+				document.getElementById("voucherTypeError").innerHTML="Please select type";
 				return false;
 			}
 		else{
@@ -428,7 +435,7 @@ function  createSingleVoucherValidation(){
 		}
 
 	if(beneficiaryName=="" || beneficiaryName==null){
-			document.getElementById("beneficiaryNameError").innerHTML="Please Enter Beneficiary Name";
+			document.getElementById("beneficiaryNameError").innerHTML="Please enter beneficiary name";
 			return false;
 		}
 	else{
@@ -436,7 +443,7 @@ function  createSingleVoucherValidation(){
 	}
 
 	if(beneficiaryMobile=="" || beneficiaryMobile==null){
-			document.getElementById("beneficiaryMobileError").innerHTML="Please Enter Beneficiary Mobile Number";
+			document.getElementById("beneficiaryMobileError").innerHTML="Please enter beneficiary mobile number";
 			return false;
 		}
 	else{
@@ -444,15 +451,25 @@ function  createSingleVoucherValidation(){
 	}
 
 	if(amount=="" || amount==null){
-			document.getElementById("amountError").innerHTML="Please Enter Amount";
+			document.getElementById("amountError").innerHTML="Please enter amount";
 			return false;
 		}
-	else{
-		document.getElementById("amountError").innerHTML="";
-	}
-
+        else if (isNaN(amountValue) || !validateAmount(amountValue)) {
+            amountError.textContent = "Please enter a valid amount (e.g., 10 or 10.50).";
+        } 
+		else if (amountValue === "0" || amountValue === "00" || amountValue === "000"
+			|| amountValue === "0000" || amountValue === "00000" || amountValue === "000000"
+		) {
+                amount.value = ""; // Clear the input
+                amountError.textContent = "Zero is not allowed.";
+				return false;
+            }
+		else {
+            amountError.textContent = "";
+      }
+	
 	if(startDate=="" || startDate==null){
-			document.getElementById("startDateError").innerHTML="Please Select Voucher Start Date";
+			document.getElementById("startDateError").innerHTML="Please select voucher start date";
 			return false;
 		}
 		else{
@@ -460,7 +477,7 @@ function  createSingleVoucherValidation(){
 		}
 
 	if(validity=="" || validity==null){
-			document.getElementById("expiryDateError").innerHTML="Please Enter Voucher Validity";
+			document.getElementById("expiryDateError").innerHTML="Please enter voucher validity";
 			return false;
 		}
 		else{

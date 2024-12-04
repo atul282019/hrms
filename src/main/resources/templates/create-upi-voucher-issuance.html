@@ -569,7 +569,8 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="table-input" placeholder="Enter Name" id="beneficiaryName" maxlength="50" >
+                                                        <input type="text" class="table-input" placeholder="Enter Name" id="beneficiaryName" maxlength="50"
+														oninput="sanitizeInput(this)" >
                                                     </td>
                                                     <td>
                                                         <input type="text" class="table-input" placeholder="Enter Mobile Number" id="beneficiaryMobile" maxlength="10"
@@ -577,8 +578,8 @@
 														
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="table-input" placeholder="Enter Amount" id="amount"
-														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                                        <input type="text" class="table-input" id="amount" min="1.01" step="0.01" maxlength="6"
+														placeholder="e.g., 10 or 1.50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                     </td>
                                                     <td>
                                                         <input type="date" class="table-date" placeholder="25/10/2024" id="startDate">
@@ -910,6 +911,7 @@
     <script src="js/demo/datatables-demo.js"></script>
 	
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 
 	<script>
 	      // Set the min attribute to today's date
@@ -1094,11 +1096,8 @@
 
     </script>
 	
-	<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
 	<script>
 	  $(document).ready(function() {
-		
-		
 	    $('#submitButton').click(function() {
 	      // Call the AJAX function
 		  document.getElementById('submitButton').disabled=true;
