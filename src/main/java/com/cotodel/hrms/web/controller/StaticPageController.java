@@ -643,14 +643,91 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	
 	@PostMapping("/editBankMaster")
-	public String editBankMaster(@RequestParam int id,@RequestParam String bankName,
-	                             @RequestParam String bankCode, @RequestParam int status,  Model model) {
+	public String editBankMaster(@RequestParam int id,
+            @RequestParam String bankName,
+            @RequestParam String bankCode,
+            @RequestParam int status,
+			 @RequestParam String bankLogo,
+           
+            Model model) {
 	    //Pass data to the edit page
 	    model.addAttribute("bankId", id);
 	    model.addAttribute("bankName", bankName);
 	    model.addAttribute("bankCode", bankCode);
 	    model.addAttribute("status", status);
+	    model.addAttribute("bankLogo", bankLogo);
 	   
 	    return "edit-Bank-Master"; // This refers to the Thymeleaf template for editing
+	}
+	@GetMapping(value="/managerMaster")
+	public ModelAndView managerMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("manager-Master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	@GetMapping(value="/displaymanagerMaster")
+	public ModelAndView displaymanagerMaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("display-manager-Master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	@GetMapping(value="/jobTitlemaster")
+	public ModelAndView jobTitlemaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("job-Title-master", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	@GetMapping(value="/displayjobTitlemaster")
+	public ModelAndView displayjobTitlemaster(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("display-jobTitlemaster", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
 	}
 }

@@ -12,6 +12,9 @@ function saveVoucher()
     const voucherType = document.getElementById("voucherType").value;
     const voucherSubType = document.getElementById("voucherSubType").value;
     const purposeCode = document.getElementById("purposeCode").value;
+	
+	//regex 
+	var regex=/^[a-zA-Z0-9 ]*$/;
 
 
 
@@ -19,22 +22,34 @@ function saveVoucher()
 		document.getElementById("voucherDescError").innerHTML="Please Enter or select voucherDesc";
 		document.getElementById("voucherDesc").focus();
 		return false;
-	}else{
+	}	else if (!voucherDesc.match(regex)) {
+	        document.getElementById("voucherDescError").innerHTML = "special character not allowed in voucher Desc";
+	        document.getElementById("voucherDesc").focus();
+	        return false;
+		}
+	else{
 		document.getElementById("voucherDescError").innerHTML="";
 	}
 	
 	if(voucherType==""){
-		document.getElementById("voucherTypeError").innerHTML="Please Enter voucherType";
+		document.getElementById("voucherTypeError").innerHTML="Please Select voucherType";
 		document.getElementById("voucherType").focus();
 		return false;
 	}else{
 		document.getElementById("voucherTypeError").innerHTML="";
 	}
+	
 	if(voucherSubType==""){
-		document.getElementById("voucherSubTypeError").innerHTML="Please Enter voucherType";
+		document.getElementById("voucherSubTypeError").innerHTML="Please Select voucherCubType";
 		document.getElementById("voucherSubType").focus();
 		return false;
-	}else{
+	}
+	else if (!voucherSubType.match(regex)) {
+		        document.getElementById("voucherSubTypeError").innerHTML = "special character not allowed in voucherSubType";
+		        document.getElementById("voucherSubType").focus();
+		        return false;
+			}
+	else{
 		document.getElementById("voucherSubTypeError").innerHTML="";
 	}
 
@@ -42,7 +57,13 @@ function saveVoucher()
 		document.getElementById("purposeCodeError").innerHTML="Please Enter purposeCode";
 		document.getElementById("purposeCode").focus();
 		return false;
-	}else{
+	}
+	else if (!purposeCode.match(regex)) {
+			        document.getElementById("purposeCodeError").innerHTML = "special character not allowed in purposeCode";
+			        document.getElementById("purposeCode").focus();
+			        return false;
+				}
+	else{
 		document.getElementById("purposeCodeError").innerHTML="";
 	}
 	if (voucherLogo.length === 0) {
