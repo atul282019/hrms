@@ -374,7 +374,7 @@ function submitAction() {
 	else{
 		document.getElementById("otpError").innerHTML="";
 	}
-	 if (password3 == "" && passwor3.length < 1) {
+	 if (password3 == "" && password3.length < 1) {
 		document.getElementById("mobError").innerHTML="";
 		document.getElementById("otpError").innerHTML="Please Enter OTP..";
 		x = false;
@@ -421,6 +421,7 @@ function submitAction() {
 	}
 	else{
 		document.getElementById("otpError").innerHTML="";
+		
 	}
 	
 		//var formData = new FormData(loginForm);

@@ -117,5 +117,11 @@ public interface CommonUtils {
 	
 	public static String beneficiaryDeleteFromVoucherList = "/empService/Api/update/erupiVoucherDelete";
 	
+	public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
+	public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
+	
+	public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";
+	public static String getjobTitlemasterDetailS="/empService/Api/get/jobTitleMasterList";
+	
 	
 }

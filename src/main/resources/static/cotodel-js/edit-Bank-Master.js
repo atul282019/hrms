@@ -30,12 +30,10 @@ function saveEditedBankMaster()
     var updatedStatus = statusInput || document.getElementById("statusText").dataset.value;
 
     // Get Bank Logo (default to old logo if new logo is not provided)
-    var oldbankLogo = document.getElementById("oldbankLogo").value;
-    if (bankLogo === "") {
-        bankLogo = oldbankLogo;
-    }
+    var newbankLogo = bankLogo||document.getElementById("oldbankLogo").value;
+    
 
-	console.log("Printing bankname "+bankName);
+	//console.log("Printing data "+data);
 	 	$.ajax({
 		type: "POST",
 	     url:"/savebankMaster",
@@ -44,7 +42,7 @@ function saveEditedBankMaster()
 			"bankName": bankName,
 			"bankCode": bankCode,
 			"status": updatedStatus,
-			"bankLogo": bankLogo,
+			"bankLogo": newbankLogo
 			//"bankIfsc": ifsc
 			
       		 },dataType: "json", 

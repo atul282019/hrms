@@ -45,13 +45,13 @@
                 <div class="login-right-wrap">                    
                     <h2>Start your free trail!</h2>
                     <form action="" class="mt-2" id='registerUser' name='registerUser'>
-                        <input type="text" class="form-control" placeholder="Enter Your Full Name" id="username" name="username" minlength="5" maxlength="50" onkeypress="validateRegistrationForm()">
+                        <input type="text" class="form-control" placeholder="Enter Your Full Name" id="username" name="username" minlength="5" maxlength="50" oninput="sanitizeInput(this)" onkeypress="validateRegistrationForm()">
 				        <div class="error-msg" id="usernameError1" style="color:red"></div>
-                        <input type="text" class="form-control" id="orgname" name="orgname" placeholder="Organization Name" minlength="5" maxlength="50" onkeypress="validateRegistrationForm()" >
+                        <input type="text" class="form-control" id="orgname" name="orgname" placeholder="Organization Name" minlength="5" maxlength="50" oninput="sanitizeInput(this)" onkeypress="validateRegistrationForm()" >
 					    <div class="error-msg" id="orgnameError1" style="color:red"></div>  
-                        <input type="text" class="form-control" placeholder="Enter your work email address" id="email"name="email" maxlength="50" onkeyup="validateRegistrationForm()">
+                        <input type="text" class="form-control" placeholder="Enter your work email address" id="email"name="email" maxlength="50" oninput="sanitizeInput(this)" onkeyup="validateRegistrationForm()">
 						<div class="error-msg" id="emailError1" style="color:red"></div> 
-                        <input type="text" class="form-control" placeholder="Enter Mobile No " id="mobile" name="mobile" maxlength="10" onkeyup="validateRegistrationForm()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+                        <input type="text" class="form-control" placeholder="Enter Mobile No " id="mobile" name="mobile" maxlength="10" ontextbox="sanitizeInput(this)" onkeyup="validateRegistrationForm()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 				 		<div class="error-msg" id="mobileError1" style="color:red"></div>
                         <select class="form-select form-control" aria-label="Default select example" id="noofEmp"  name="noofEmp" onchange="validateRegistrationForm()">
                             <option selected value="">Select number of employees</option>
@@ -119,6 +119,8 @@
 	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
 	<!-- script for captcha-->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<!-- sql injection function-->
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	
 </body>
 
