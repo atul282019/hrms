@@ -697,7 +697,7 @@ function getVoucherSummaryList(){
 					 statusMessage.innerHTML = `
  					                 <h5>Total Vouchers</h5>
  					                <div class="d-flex justify-content-between my-1 mb-3"><span >Number</span><span> ${data1.totalCount}</span></div>
- 					                <div class="d-flex justify-content-between my-1"><span>Value</span> <span>${data1.totalAmount}</span></div>
+ 					                <div class="d-flex justify-content-between my-1"><span>Value</span> <span> ₹${data1.totalAmount}</span></div>
  					            `;
 					      
 					        container.appendChild(statusMessage);
@@ -758,9 +758,6 @@ function getPrimaryBankDetail(){
 					          <p>
 							  <strong>${account.accountHolderName}</strong></p>
 					          <p><span class="mb-0">A/C No: </span><strong>${account.acNumber}</strong> </p>
-					          <p><span class="info">MCC: </span><strong>${account.mcc}</strong></p>
-							  
-					 
 					      `;
 					      container.appendChild(dataSection);
 					},

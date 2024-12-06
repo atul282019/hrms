@@ -88,6 +88,26 @@ public class StaticPageController extends CotoDelBaseController{
 		return "redirect:/index";
 		
 	}
+	@GetMapping(value="/erupiDashboard")
+	public String erupiDashboard(Model model) {
+		logger.info("opening dashboardPage");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return "erupi-dashboard";
+			}
+			
+		}
+		return "redirect:/index";
+		
+	}
 	
 	@GetMapping(value="/employee-dashboard")
 	public String employeeDashboard(Model model) {
@@ -653,4 +673,23 @@ public class StaticPageController extends CotoDelBaseController{
 	   
 	    return "edit-Bank-Master"; // This refers to the Thymeleaf template for editing
 	}
+	
+	@GetMapping(value="/employeeRoleManagement")
+	public ModelAndView employeeRoleManagement(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("employee-role-management", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
 }

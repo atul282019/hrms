@@ -71,6 +71,10 @@ public class LoginController extends CotoDelBaseController{
 					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 					}
+					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 9) {
+						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+						}
 					else {
 						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
 						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
@@ -109,6 +113,11 @@ public class LoginController extends CotoDelBaseController{
 						break;	
 					case "1":
 						screenName="dashboard";
+						//screenName="employee-dashboard";
+						//model.addAttribute("message", "No Role assigned to User. Please contact to Organisation Admin !!");
+						break;	
+					case "9":
+						screenName="erupi-dashboard";
 						//screenName="employee-dashboard";
 						//model.addAttribute("message", "No Role assigned to User. Please contact to Organisation Admin !!");
 						break;	

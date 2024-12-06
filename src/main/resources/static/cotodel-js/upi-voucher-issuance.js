@@ -114,7 +114,7 @@ function getIssueVoucherList(){
 						 $(row).find('td:eq(9)').html(imgTag);
                     //  $(row).find('td:eq(10)').addClass('tdactive');
                      }
-                     if(type=="Create")
+                     if(type=="Created")
                      {
 						var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
 						 $(row).find('td:eq(9)').html(imgTag);
