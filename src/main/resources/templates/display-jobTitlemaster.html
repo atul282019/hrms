@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"> </th:block> 
 
-<body id="page-top" >
+<body id="page-top"  >
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -41,15 +41,7 @@
                                     </div>
                                 </div>
                             </div>
-							<div class="search-box" style="position: absolute; right: 20px; top: 10px;">
-							 </label>
-							    <input type="text" 
-							           id="orgIdInput" 
-							           class="form-control form-control-sm" 
-							           placeholder="Enter Org ID" 
-							           aria-controls="JobMasterTable">
-							    <button class="btn btn-primary mt-2" onclick="submitOrgId()">Submit</button>
-							</div>
+							<input type="hidden" class="form-input" id="orgIdInput" name="orgIdInput" th:value="${session.id}">
 							<!--<label> Search
 													   <input type="search" class="form-control form-control-sm" placeholder="" aria-controls=""></label>-->
                             <div class="mt-4 tabs-details-tbl">
@@ -206,6 +198,12 @@
 		 }
 		</script>
   	</script>
+	
+	<script>
+	    document.addEventListener("DOMContentLoaded", function() {
+	        submitOrgId();
+	    });
+	</script>
 	
 </body>
 

@@ -1,7 +1,9 @@
 
 function submitOrgId() {
-    const orgIdInput = document.getElementById('orgIdInput');
-    const orgId = orgIdInput.value.trim();
+    var orgIdInput = document.getElementById('orgIdInput');
+    var orgId = orgIdInput.value.trim();
+	//orgId=70;
+	
 
     // Validate that the orgId is a two-digit number
     if (/^\d{2}$/.test(orgId)) {
@@ -14,7 +16,7 @@ function submitOrgId() {
             },
             dataType: "json",
             success: function(data) {
-                const tableBody = document.getElementById('JobMasterTableBody');
+                var tableBody = document.getElementById('JobMasterTableBody');
                 const tableContainer = document.querySelector('.tabs-details-tbl');
 
                 tableBody.innerHTML = ''; // Clear existing rows
@@ -42,8 +44,13 @@ function submitOrgId() {
 				                    </button>
 				                </td>
 				                <td>
-				                    <form action="/editBankMaster" method="POST" style="display:inline;">
+				                    <form action="/editjobTitlemaster" method="POST" style="display:inline;">
 				                        <input type="hidden" name="id" value="${item.id}">
+										<input type="hidden" name="orgId" value="${item.orgId}">
+										<input type="hidden" name="jobDisc" value="${item.jobDisc}">
+										<input type="hidden" name="managerLblId" value="${item.managerLblId}">
+										<input type="hidden" name="createdBy" value="${item.createdBy}">
+										<input type="hidden" name="remarks" value="${item.remarks}">
 				                        <button type="submit" class="btn btn-sm btn-primary">Edit</button>
 				                    </form>
 				                </td>
@@ -51,10 +58,10 @@ function submitOrgId() {
 				            tableBody.appendChild(row);
 				        });
 				    } else {
-				        tableContainer.style.display = 'none'; // Hide table if no results
+				        tableContainer.style.display = 'block'; // Hide table if no results
 				    }
 				} else {
-				    tableContainer.style.display = 'none'; // Hide table on server error or empty response
+				    tableContainer.style.display = 'block'; // Hide table on server error or empty response
 				}
             },
             error: function(e) {

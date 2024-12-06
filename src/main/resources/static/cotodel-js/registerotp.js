@@ -124,6 +124,8 @@ function userRegistration(){
 	var noofEmp = document.getElementById("noofEmp").value;
 	var privacyCheck = document.getElementById("privacyCheck").checked;
 	var whatsupCheck = document.getElementById("whatsupCheck").checked;
+	var eRupiStatus = document.getElementById("eRupiStatus").checked;
+	console.log("eRupiStatus",eRupiStatus);
 	
 	
 	if(name==""){

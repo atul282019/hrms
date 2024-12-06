@@ -1,11 +1,12 @@
 
 
-function savemngrMaster()
+function SavemanagerMaster()
 {
 	
 	var orgId = document.getElementById("orgId").value;//getting from session
 	//var ifsc=document.getElementById("ifsc").value;
-	var userNamefromSession = document.getElementById("createdby").value;//getting from session
+	var userNamefromSession = document.getElementById("updatedby").value;//getting from session
+	var id = document.getElementById("id").value;
 	var managerLeveldesc = document.getElementById("managerLevel").value;
 	var remarks = document.getElementById("remarks").value;
 	
@@ -26,11 +27,11 @@ function savemngrMaster()
 	}
 
 
-	
+
 	 	$.ajax({
 		type: "POST",
 	     url:"/savemanagerMaster",
-          data: {
+          data: {"id":id,
 			"orgId": orgId,
 			"managerLblDesc":managerLeveldesc,
 			"createdBy":userNamefromSession,
@@ -47,19 +48,19 @@ function savemngrMaster()
 			if(data1.status=='SUCCESS'){
 				 document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("otmsgdiv").style.display="block";
-				 document.getElementById("managerMaster").reset();
-				 setTimeout(function() {
-                 window.location.href = "/displaymanagerMaster"; // Update with your previous page URL
-                 }, 1000);
-				 document.getElementById("managerMaster").disabled=false;
+				 document.getElementById("editmanagerMaster").reset();
+				
+                 window.location.href = "/displaymanagerMaster"; 
+                 
+				 document.getElementById("editmanagerMaster").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
 			}else if(data1.status=='FAILURE'){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
-				 document.getElementById("managerMaster").disabled=false;
+				 document.getElementById("savemanagerMaster").disabled=false;
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
 			}else{
-				console.log("logging from the save bank master")
+				console.log("logging from the save manager master")
 				 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
 				 document.getElementById("otfailmsgDiv").style.display="block";
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);

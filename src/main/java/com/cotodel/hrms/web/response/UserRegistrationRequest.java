@@ -24,6 +24,16 @@ public class UserRegistrationRequest implements Serializable{
 	
 	private Integer employerId;
 	
+	private boolean eRupiStatus ;
+	
+	public boolean geteRupiStatus()
+	{
+		return eRupiStatus;
+	}
+	public void seteRupiStatus(boolean eRupiStatus) {
+		this.eRupiStatus = eRupiStatus;
+	}
+	
 	public Integer getEmployerId() {
 		return employerId;
 	}
