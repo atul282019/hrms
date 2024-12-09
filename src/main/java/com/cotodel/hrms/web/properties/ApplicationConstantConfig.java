@@ -22,4 +22,7 @@ public class ApplicationConstantConfig {
 	@Value("${employer.service.base.url}")
 	public String employerServiceBaseUrl;
 	
+	@Value("${master.service.base.url}")
+	public String masterServiceBaseUrl;
+	
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
+import com.cotodel.hrms.web.response.MccMaster;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 
 @Repository
@@ -22,5 +23,9 @@ public interface MasterService {
 	String getVoucherDescriptionByVoucherCode(String token, ErupiVoucherMaster erupiVoucherMaster);
 
 	String getBankDetailByAccountNo(String token, ErupiLinkBankAccount erupiLinkBankAccount);
+
+	String getmccMasterListByPurposeCode(String token, MccMaster mccMaster);
+
+	String getmccMasterDetailsByPurposeCodeAndMcc(String token, MccMaster mccMaster);
 
 }

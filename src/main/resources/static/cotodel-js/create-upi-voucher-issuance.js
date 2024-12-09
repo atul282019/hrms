@@ -273,36 +273,108 @@ function  getVoucherDetailByBoucherCode(){
  	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
  	$.ajax({
 	type: "POST",
-	url:"/getVoucherDetailByBoucherCode",
+	//url:"/getVoucherDetailByBoucherCode",
+	url:"/getmccMasterListByPurposeCode",
        data: {
-			"voucherCode": voucherCode
+			"purposeCode": voucherCode
       		 },
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
 			},
-           success: function(data){
-           newData = data;
+        //   success: function(data){
+         //  newData = data;
            //console.log(newData);
-           var data1 = jQuery.parseJSON( newData );
+          // var data1 = jQuery.parseJSON( newData );
 		   //var data2 = data1.data;
 			
-		   document.getElementById("voucherId").value=data1.data.id;
+		  /*  document.getElementById("voucherId").value=data1.data.id;
 			document.getElementById("voucherCode").value=data1.data.voucherCode;
 			document.getElementById("voucherType").value=data1.data.voucherType;
 			document.getElementById("voucherSubType").value=data1.data.voucherSubType;
 			document.getElementById("voucherDesc").value=data1.data.voucherDesc;
 			document.getElementById("purposeCode").value=data1.data.purposeCode;
 			document.getElementById("activeStatus").value=data1.data.activeStatus;
-			document.getElementById("createdby").value=data1.data.createdby;
+			document.getElementById("createdby").value=data1.data.createdby;*/
+		/*	
           },
         error: function(e){
             alert('Error: ' + e);
         }
+		*/
+		success: function(data){
+		           newData = data;
+		           console.log(newData);
+				$("#voucherTypeMCC option").remove();
+		           var obj = jQuery.parseJSON( data );
+		            obj = obj.data;
+		       	 var count=0;
+		        	for (var key in obj) {
+
+		            var values =  obj[key];
+		            var x = document.getElementById("voucherTypeMCC");
+		            if(count==0){
+		            var option = document.createElement("option");
+		            option.text ="Select Voucher Type MCC";
+		            option.value = "";
+		            x.add(option);
+		            }
+		            var option = document.createElement("option");
+		            option.text = values.mccDesc;
+		            option.value = values.mcc;
+		            x.add(option);
+
+		            count++;
+		            }   
+		        },
+		        error: function(e){
+		            alert('Error: ' + e);
+		        }
    }); 
 			
 }
 
 
+function  getmccMasterDetailsByPurposeCodeAndMcc(){
+	
+    //document.getElementById("signinLoader").style.display="flex";
+ 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
+	var mcc = document.getElementById("voucherTypeMCC").value;
+ 	$.ajax({
+	type: "POST",
+	url:"/getmccMasterDetailsByPurposeCodeAndMcc",
+       data: {
+			"purposeCode": voucherCode,
+			"mcc": mcc
+      		 },
+      		  beforeSend : function(xhr) {
+			//xhr.setRequestHeader(header, token);
+			},
+           success: function(data){
+           newData = data;
+           console.log(newData);
+           var data1 = jQuery.parseJSON( newData );
+		   var data2 = data1.data;
+			
+		    document.getElementById("voucherId").value=data1.data.id;
+			document.getElementById("voucherCode").value=data1.data.purposeCode;
+			document.getElementById("vmcclbl").value=data1.data.mcc;
+			document.getElementById("voucherSubType").value=data1.data.purposeCode;
+			document.getElementById("voucherDesc").value=data1.data.purposeDesc;
+			document.getElementById("purposeCode").value=data1.data.purposeCode;
+			document.getElementById("activeStatus").value=data1.data.activeStatus;
+			document.getElementById("createdby").value=data1.data.createdby;
+			document.getElementById("mcc").value=data1.data.mcc;
+			
+			
+          },
+        error: function(e){
+            alert('Error: ' + e);
+        }
+		
+
+   }); 
+			
+}
 
 function  getBankDetailByBankAccountNumber(){
 	
@@ -329,7 +401,7 @@ function  getBankDetailByBankAccountNumber(){
 			document.getElementById("accHolderNameView").innerHTML=data1.data.accountHolderName;
 			document.getElementById("accMidView").innerHTML=data1.data.merchentIid;
 			document.getElementById("accPayervaView").innerHTML=data1.data.payerva;
-		    document.getElementById("MccView").innerHTML=data1.data.mcc;
+		    //document.getElementById("MccView").innerHTML=data1.data.mcc;
 			
 			document.getElementById("bankName").value=data1.data.bankName; 
 			document.getElementById("bankCode").value=data1.data.bankCode; 
@@ -352,7 +424,7 @@ function  getBankDetailByBankAccountNumber(){
 			document.getElementById("tid").value=data1.data.tid;
 			
 			document.getElementById("merchentIid").value=data1.data.merchentIid; 
-			document.getElementById("mcc").value=data1.data.mcc; 
+			//document.getElementById("mcc").value=data1.data.mcc; 
 			document.getElementById("submurchentid").value=data1.data.submurchentid;  
 			document.getElementById("merchentid").value=data1.data.merchentIid;  
 			document.getElementById("payerva").value=data1.data.payerva;  
@@ -395,7 +467,8 @@ function  createSingleVoucherValidation(){
 	var payerva = document.getElementById("payerva").value;
 	
 	 document.getElementById("voucherlbl").innerHTML= $("#selectedOptionsDropdown option:selected").text();
-	 document.getElementById("vtypelbl").innerHTML = $("#voucherType option:selected").text();
+	 document.getElementById("vtypelbl").innerHTML = $("#voucherType option:selected").text(); 
+	 document.getElementById("vmcclbl").innerHTML = $("#voucherTypeMCC option:selected").text();
 	 document.getElementById("namelbl").innerHTML = $("#beneficiaryName").val();
 	 document.getElementById("mobilelbl").innerHTML = $("#beneficiaryMobile").val();
 	 document.getElementById("amountlbl").innerHTML = $("#amount").val();
@@ -758,7 +831,7 @@ function getPrimaryBankDetail(){
 					          <p>
 							  <strong>${account.accountHolderName}</strong></p>
 					          <p><span class="mb-0">A/C No: </span><strong>${account.acNumber}</strong> </p>
-							  <p><span class="mb-0">MCC: </span><strong>${account.mcc}</strong> </p>
+							 
 					      `;
 					      container.appendChild(dataSection);
 					},

@@ -40,7 +40,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span class="mr-2 small">Empolyee Profile</span>
+                                <span class="mr-2 small">UPI Voucher Issuance</span>
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
                             </a>
                         </li>
@@ -151,7 +151,7 @@
                                                             <img src="img/meal.svg" alt="" class="img-fluid">
                                                             <span>Meal </span>
                                                         </div>
-                                                        <input type="checkbox" class="vouchers-checkbox1 vouchers-checkbox" id="meal" name="Meal" value="A003">
+                                                        <input type="checkbox" class="vouchers-checkbox1 vouchers-checkbox" id="meal" name="Meal" value="1A">
                                                     </div>
                                                 </div>
                                             </div>
@@ -518,9 +518,9 @@
 										          <label>MID</label><span id="accMidView"></span>
 										      </div>          
 											  
-											  <div class="bnk-dtl-wrap-in">
+											  <!--<div class="bnk-dtl-wrap-in">
    										          <label>MCC</label><span id="MccView"></span>
-   										      </div>
+   										      </div>-->
   										      <div class="bnk-dtl-wrap-in">
     									          <label>Payerva</label><span id="accPayervaView"></span>
     									      </div>                                
@@ -563,7 +563,7 @@
 														</select>
                                                     </td>
 													<td>
-                                                        <select class="GeneralSelect" id="voucherTypeMCC">
+                                                        <select class="GeneralSelect" id="voucherTypeMCC" onchange="getmccMasterDetailsByPurposeCodeAndMcc()">
 															<option value="" class="test">Select Voucher Type MCC</option>
                                                         </select>
                                                     </td>
@@ -713,6 +713,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Voucher</th>
+													<th>Voucher MCC</th>
                                                     <th>Redemption Type</th>
                                                     <th>Name</th>
                                                     <th>Mobile Number</th>
@@ -725,6 +726,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td><span id="voucherlbl"></span></td>
+													<td><span id="vmcclbl"></span></td>
                                                     <td><span id="vtypelbl"></span></td>
                                                     <td><span id="namelbl"></span></td>
 													<td><span id="mobilelbl"></span></td>

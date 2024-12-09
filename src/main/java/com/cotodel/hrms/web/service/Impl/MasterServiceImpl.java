@@ -7,6 +7,7 @@ import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
+import com.cotodel.hrms.web.response.MccMaster;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.service.MasterService;
 import com.cotodel.hrms.web.util.CommonUtility;
@@ -51,6 +52,17 @@ public class MasterServiceImpl implements MasterService{
 	@Override
 	public String getBankDetailByAccountNo(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getLinkedDetailByAccountNumber);
+	}
+
+	@Override
+	public String getmccMasterListByPurposeCode(String token, MccMaster mccMaster) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(mccMaster), applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getMCCMasterByPurposeCode);
+
+	}
+
+	@Override
+	public String getmccMasterDetailsByPurposeCodeAndMcc(String token, MccMaster mccMaster) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(mccMaster), applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getMCCMasterDeailsByPurposeCodeAndMCC);
 	}
 
 }

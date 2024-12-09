@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
+import com.cotodel.hrms.web.response.MccMaster;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.service.MasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -83,6 +84,18 @@ public class MasterController  extends CotoDelBaseController{
 	public @ResponseBody String getBankDetailByAccountNo(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
 			,ErupiLinkBankAccount erupiLinkBankAccount) {
 		return masterService.getBankDetailByAccountNo(tokengeneration.getToken(),erupiLinkBankAccount);
+	}
+	
+	@PostMapping(value="/getmccMasterListByPurposeCode")
+	public @ResponseBody String getmccMasterListByPurposeCode(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,MccMaster mccMaster) {
+		return masterService.getmccMasterListByPurposeCode(tokengeneration.getToken(),mccMaster);
+	}
+	
+	@PostMapping(value="/getmccMasterDetailsByPurposeCodeAndMcc")
+	public @ResponseBody String getmccMasterDetailsByPurposeCodeAndMcc(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,MccMaster mccMaster) {
+		return masterService.getmccMasterDetailsByPurposeCodeAndMcc(tokengeneration.getToken(),mccMaster);
 	}
 	
 	

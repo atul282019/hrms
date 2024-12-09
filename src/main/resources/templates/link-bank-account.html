@@ -15,7 +15,7 @@
 
 		<!-- Sidebar -->
 
-		<div th:insert="fragments/sidenav.html :: sidevav"></div>
+		<div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
 
 		<!-- End of Sidebar -->
 
@@ -38,42 +38,42 @@
 								class="fas fa-ellipsis-v fa-sm fa-fw"></i>
 						</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"> <span
-								class="mr-2 small">Expenses & Advances</span> <i
+								class="mr-2 small">Link Bank Account</span> <i
 								class="fas fa-ellipsis-v fa-sm fa-fw"></i>
 						</a></li>
 
 					</ul>
 					
 					<ul class="navbar-nav ml-auto">
-					                        <li class="nav-item dropdown no-arrow">
-					                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
-					                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-					                            </a>
-					                            <!-- Dropdown - User Information -->
-					                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-					                                <a class="dropdown-item" href="#">
-					                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-					                                    Profile
-					                                </a>
-					                                <a class="dropdown-item" href="#">
-					                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-					                                    Settings
-					                                </a>
-					                              
-					                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-										            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-												          <i class="fas fa-user-circle"></i> Logout         
-												        </a>
-										          </div> -->  
-					                              <div class="dropdown-divider"></div>
-					                                <a class="dropdown-item" th:href="@{/logout}">
-					                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
-					                                    Logout
-					                                </a>
-					                            </div>
-					                        </li>
-					                   </ul>		
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                              
+                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+							          <i class="fas fa-user-circle"></i> Logout         
+							        </a>
+					          </div> -->  
+                              <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                   </ul>		
 				</nav>
 
 				<!-- End of Topbar -->
@@ -84,7 +84,7 @@
 						<div class="col-12">
 							<ul class="nav nav-tabs expense-tabs">
                               <!--  <li class="active"><a data-toggle="tab" href="#home">Expenses & Advances</a></li></li>-->
-                                <li><a data-toggle="tab" href="#menu1">Pending Approvals</a>
+                              <!--  <li><a data-toggle="tab" href="#menu1">Pending Approvals</a>-->
                                 <li><a data-toggle="tab" href="#menu2">Linked Bank Account</a></li>
                             </ul>
 
@@ -93,10 +93,10 @@
 
 									<div class="policies-section">
 										<div class="policies-wrap">
-											<div
+											<!--<div
 												class="d-flex justify-content-between border-btm modal-head-secd px-0 py-3">
 												<div>
-													<h4 class="mb-0">Expense Reimbursements</h4>
+													<h4 class="mb-0">Link Bank Account</h4>
 												</div>
 												<div>
 													<a href="#" class="mx-1"><img
@@ -105,9 +105,9 @@
 													<a href="#" class="mx-1"><img src="img/info-black.svg"
 														alt=""></a>
 												</div>
-											</div>
+											</div>-->
 
-
+<!--
 											<div class="policies-wrap-in-table">
 												<div class="table-responsive">
 													<table class="table table-reimbursements"
@@ -141,12 +141,12 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div>-->
 										</div>
 
 										<div class="policies-wrap">
 
-											<div
+										<!--	<div
 												class="d-flex justify-content-between border-btm modal-head-secd px-0 py-3">
 												<div>
 													<h4 class="mb-0">Advance & Travel Requests</h4>
@@ -249,12 +249,12 @@
 												</div>
 											</div>
 
-										</div>
+										</div>-->
 
 									</div>
 
 								</div>
-								<div id="menu1" class="tab-pane ">
+								<!--<div id="menu1" class="tab-pane ">
                                     <div class="policies-section">
 
                                         <div class="policies-wrap">
@@ -272,7 +272,7 @@
                                                             aria-haspopup="true" aria-expanded="false"> Sort by
                                                             <img src="img/Short.svg" alt="" class="ml-2">
                                                         </a>
-                                                        <!-- Dropdown - User Information -->
+                                                         Dropdown - User Information 
                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                             aria-labelledby="userDropdown">
                                                             <a class="dropdown-item py-2" href="#">Category</a>
@@ -339,7 +339,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -348,7 +348,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -394,7 +394,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -403,7 +403,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -449,7 +449,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -458,7 +458,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -506,7 +506,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -515,7 +515,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -549,7 +549,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div>-->
 							
 								<div id="menu2" class="tab-pane">
 								    <div class="policies-section-bank" id="linkaccbankform" style="display: none;">
@@ -668,7 +668,7 @@
 
 								    <div class="linked-bank-account-section" id="linkedbnkacntsctn" style="display: block;">
 								            <div class="text-left">
-								                <h3>Linked Bank Account</h3>
+								                <h3>Linked Bank Account Details</h3>
 								            </div>
 
 								            <div class="linked-bank-account-innersection d-block">

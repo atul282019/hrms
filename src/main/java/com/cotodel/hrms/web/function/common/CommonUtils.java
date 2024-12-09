@@ -123,5 +123,6 @@ public interface CommonUtils {
 	public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";
 	public static String getjobTitlemasterDetailS="/empService/Api/get/jobTitleMasterList";
 	
-	
+	public static String getMCCMasterByPurposeCode="/masterService/Api/get/mccMasterListByPurposeCode";
+	public static String getMCCMasterDeailsByPurposeCodeAndMCC="/masterService/Api/get/mccMasterListByPurposeCodeAndMccCode";
 }
