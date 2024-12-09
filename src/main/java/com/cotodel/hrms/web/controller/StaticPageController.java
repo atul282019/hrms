@@ -68,6 +68,26 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return "redirect:/index";
 	}	
+	
+	@GetMapping(value="/erupiCompanyDetails")
+	public String erupiCompanyDetails(Model model) {
+		logger.info("opening companyDetailPage");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return "erupi-company-details";
+			}
+		
+		}
+		return "redirect:/index";
+	}	
 	@GetMapping(value="/dashboard")
 	public String dashboard(Model model) {
 		logger.info("opening dashboardPage");
@@ -768,4 +788,42 @@ public class StaticPageController extends CotoDelBaseController{
 	   
 	    return "edit-jobTitlemaster"; // This refers to the Thymeleaf template for editing
 	}
+	
+	@GetMapping(value="/linkBankDetail")
+	public ModelAndView linkBankDetail(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("link-bank-account", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	@GetMapping(value="/erupiDashboard")
+	public ModelAndView erupiDashboard(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("erupi-dashboard", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	
 }

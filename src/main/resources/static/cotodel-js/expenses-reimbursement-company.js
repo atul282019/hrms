@@ -1096,7 +1096,7 @@ function  getLinkedBankDetail(){
 									 document.getElementById("otmsgdiv").style.display="block";
 									 //document.getElementById("getInTouchUser").reset();
 									 $('#otmsgdiv').delay(5000).fadeOut(400);
-					    			 window.location.href = "/expenseReimbursementsCompany";
+					    			 window.location.href = "/linkBankDetail";
 								}else if(data1.status==false){
 									 document.getElementById("otfailmsg").innerHTML=data1.message;
 									 document.getElementById("otfailmsgDiv").style.display="block";
@@ -1281,15 +1281,18 @@ function submitLinkBankAccount(){
 					 document.getElementById("otmsgdiv").style.display="block";
 					 //document.getElementById("getInTouchUser").reset();
 					 $('#otmsgdiv').delay(5000).fadeOut(400);
-	    			 window.location.href = "/expenseReimbursementsCompany";
+					 document.getElementById("linkBankBtn").disabled = false;
+	    			 window.location.href = "/linkBankDetail";
 				}else if(data1.status==false){
 					 document.getElementById("otfailmsg").innerHTML=data1.message;
 					 document.getElementById("otfailmsgDiv").style.display="block";
 					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+					 document.getElementById("linkBankBtn").disabled = false;
 				}else{
 					 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
 					 document.getElementById("otfailmsgDiv").style.display="block";
 					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+					 document.getElementById("linkBankBtn").disabled = false;
 				}
 			
          },
