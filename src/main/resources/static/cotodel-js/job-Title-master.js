@@ -1,3 +1,94 @@
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Initializing auto-suggestion functionality");
+
+    let jobDescriptions = []; // Store job descriptions
+    const orgId = document.getElementById("orgId").value; // Get organization ID
+    const jobDescInput = document.getElementById("jobDesc"); // Input field
+    const suggestionList = document.getElementById("suggestions"); // Suggestion list container
+
+    // Disable input field initially
+    jobDescInput.disabled = true;
+
+    // Fetch job descriptions from the server
+    function fetchJobDescriptions() {
+        $.ajax({
+            type: "POST",
+            url: "/getjobMasterWithId",
+            data: { orgId: orgId },
+            dataType: "json",
+            success: function (response) {
+                if (response.data && response.data.length > 0) {
+                    // Extract and clean job descriptions
+                    jobDescriptions = response.data
+                        .filter((item) => item.jobDisc) // Exclude items without jobDisc
+                        .map((item) => item.jobDisc.trim()); // Trim whitespace
+
+                    console.log("Job descriptions loaded:", jobDescriptions);
+
+                    // Enable input field after loading data
+                    jobDescInput.disabled = false;
+                } else {
+                    console.warn("No valid job descriptions found.");
+                }
+            },
+            error: function (error) {
+                console.error("Error fetching job descriptions:", error);
+            },
+        });
+    }
+
+    // Handle user input for auto-suggestions
+    function handleInputEvent(event) {
+        const query = event.target.value.toLowerCase(); // Convert input to lowercase
+        suggestionList.innerHTML = ""; // Clear previous suggestions
+
+        if (query.length >= 3) {
+            // Filter jobDescriptions based on the user's input
+            const filteredSuggestions = jobDescriptions.filter((desc) =>
+                desc.toLowerCase().includes(query)
+            );
+
+            if (filteredSuggestions.length > 0) {
+                suggestionList.style.display = "block"; // Show suggestions list
+
+                // Add suggestions to the list
+                filteredSuggestions.forEach((item) => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = item;
+                    listItem.style.cursor = "pointer"; // Add pointer cursor
+                    listItem.addEventListener("click", function () {
+                        jobDescInput.value = this.textContent; // Update input field
+                        suggestionList.innerHTML = ""; // Clear suggestions
+                        suggestionList.style.display = "none"; // Hide the list
+                    });
+                    suggestionList.appendChild(listItem);
+                });
+            } else {
+                suggestionList.style.display = "none"; // Hide if no matches
+            }
+        } else {
+            suggestionList.style.display = "none"; // Hide suggestions if query is too short
+        }
+    }
+
+    // Fetch job descriptions on page load
+    fetchJobDescriptions();
+
+    // Attach event listener for user input
+    jobDescInput.addEventListener("input", handleInputEvent);
+
+    // Hide suggestion list if clicked outside
+    document.addEventListener("click", function (event) {
+        if (!jobDescInput.contains(event.target) && !suggestionList.contains(event.target)) {
+            suggestionList.style.display = "none"; // Hide the suggestion list if clicked outside
+        }
+    });
+});
+
+
+
+
+
 
 
 function savejobMaster()

@@ -1,4 +1,96 @@
 
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Initializing manager level auto-suggestion");
+
+    let managerLevels = []; // Array to store manager level descriptions
+    const orgId = document.getElementById("orgId").value; // Get organization ID
+    const managerLevelInput = document.getElementById("managerLevel"); // Manager level input field
+
+    // Create suggestion list dynamically
+    const suggestionList = document.createElement("ul");
+    suggestionList.classList.add("suggestion-list");
+    managerLevelInput.parentElement.style.position = "relative"; // Ensure parent has relative positioning
+    managerLevelInput.parentElement.appendChild(suggestionList);
+
+    // Disable input field initially
+    managerLevelInput.disabled = true;
+
+    // Fetch manager level data
+    function fetchManagerLevels() {
+        $.ajax({
+            type: "POST",
+            url: "/getmanagerMasterWithId",
+            data: { orgId: orgId },
+            dataType: "json",
+            success: function (response) {
+                if (response.data && response.data.length > 0) {
+                    managerLevels = response.data
+                        .filter((item) => item.managerLblDesc) // Exclude items without levelDesc
+                        .map((item) => item.managerLblDesc.trim()); // Trim whitespace
+                    console.log("Manager levels loaded:", managerLevels);
+
+                    // Enable input field after loading data
+                    managerLevelInput.disabled = false;
+                } else {
+                    console.warn("No valid manager levels found.");
+                }
+            },
+            error: function (error) {
+                console.error("Error fetching manager levels:", error);
+            },
+        });
+    }
+
+    // Handle user input for auto-suggestions
+    function handleInputEvent(event) {
+        const query = event.target.value.toLowerCase(); // Convert input to lowercase
+        suggestionList.innerHTML = ""; // Clear previous suggestions
+
+        if (query.length >= 3) {
+            // Filter managerLevels based on the user's input
+            const filteredSuggestions = managerLevels.filter((level) =>
+                level.toLowerCase().includes(query)
+            );
+
+            if (filteredSuggestions.length > 0) {
+                suggestionList.classList.add("show"); // Show suggestions list
+
+                filteredSuggestions.forEach((item) => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = item;
+                    listItem.addEventListener("click", function () {
+                        managerLevelInput.value = this.textContent; // Update input field
+                        suggestionList.innerHTML = ""; // Clear suggestions
+                        suggestionList.classList.remove("show"); // Hide the list
+                    });
+                    suggestionList.appendChild(listItem);
+                });
+            } else {
+                suggestionList.classList.remove("show"); // Hide if no matches
+            }
+        } else {
+            suggestionList.classList.remove("show"); // Hide suggestions if query is too short
+        }
+    }
+
+    // Fetch manager levels on page load
+    fetchManagerLevels();
+
+    // Attach event listener for user input
+    managerLevelInput.addEventListener("input", handleInputEvent);
+
+    // Hide suggestion list if clicked outside
+    document.addEventListener("click", function (event) {
+        if (
+            !managerLevelInput.contains(event.target) &&
+            !suggestionList.contains(event.target)
+        ) {
+            suggestionList.classList.remove("show"); // Hide the suggestion list
+        }
+    });
+});
+
+
 
 function savemngrMaster()
 {

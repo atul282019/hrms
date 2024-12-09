@@ -10,6 +10,7 @@ function savejobMaster()
 	var reportingDropdownValue = document.getElementById('reporting').value;
 	var orgId= document.getElementById("orgId").value;
 	var remarks= document.getElementById("remarks").value;
+	var id = document.getElementById("id").value;
 	
 	
 	if(jobDesc==""){
@@ -47,7 +48,7 @@ function savejobMaster()
 	 	$.ajax({
 		type: "POST",
 	     url:"/savejobTitlemaster",
-          data: {
+          data: {"id":id,
 			"jobDisc":jobDesc,
 			"managerLblId":reportingDropdownValue,
 			"createdBy":userNamefromSession,
@@ -65,7 +66,7 @@ function savejobMaster()
 			if(data1.status=='SUCCESS'){
 				 document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("otmsgdiv").style.display="block";
-				 document.getElementById("jobTitlemaster").reset();//form
+				 document.getElementById("editjobTitlemaster").reset();//form
 				 setTimeout(function() {
 				                     window.location.href = "/displayjobTitlemaster"; // Update with your previous page URL
 				                 }, 1000);
@@ -74,7 +75,7 @@ function savejobMaster()
 			}else if(data1.status=='FAILURE'){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
-				 document.getElementById("jobTitlemaster").disabled=false;
+				 document.getElementById("editjobTitlemaster").disabled=false;
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
 			}else{
 				//console.log("logging from the save bank master")

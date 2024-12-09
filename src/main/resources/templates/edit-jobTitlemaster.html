@@ -24,7 +24,61 @@
 
                 <!-- Topbar -->
               
-               <div th:insert="fragments/header.html :: header"></div>
+               <!--<div th:insert="fragments/header.html :: header"></div>-->
+			   
+			   <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+			   			  			   			                       <!-- Topbar Navbar -->
+			   			  			   			                       <ul class="navbar-nav top-nav">
+
+			   			  			   			                           <!-- Nav Item - User Information -->
+			   			  			   			                           <li class="nav-item">
+			   			  			   			                               <a class="nav-link active" href="#">
+			   			  			   			                                   <span class="mr-2 small">Dashboard</span>
+			   			  			   			                                   <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+			   			  			   			                               </a>
+			   			  			   			                           </li>
+			   			  			   			                           <li class="nav-item">
+			   			  			   			                               <a class="nav-link" href="#">
+			   			  			   			                                   <span class="mr-2 small">Job Master Edit Form</span>
+			   			  			   			                                   <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+			   			  			   			                               </a>
+			   			  			   			                           </li>
+
+			   			  			   			                       </ul>
+
+			   			  			   			   					<ul class="navbar-nav ml-auto">
+			   			  			   			   		                        <li class="nav-item dropdown no-arrow">
+			   			  			   			   		                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			   			  			   			   		                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+			   			  			   			   		                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+			   			  			   			   		                            </a>
+			   			  			   			   		                            <!-- Dropdown - User Information -->
+			   			  			   			   		                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+			   			  			   			   		                                <a class="dropdown-item" href="#">
+			   			  			   			   		                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+			   			  			   			   		                                    Profile
+			   			  			   			   		                                </a>
+			   			  			   			   		                                <a class="dropdown-item" href="#">
+			   			  			   			   		                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+			   			  			   			   		                                    Settings
+			   			  			   			   		                                </a>
+			   			  			   			   		                              
+			   			  			   			   		                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+			   			  			   			   							            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+			   			  			   			   									          <i class="fas fa-user-circle"></i> Logout         
+			   			  			   			   									        </a>
+			   			  			   			   							          </div> -->  
+			   			  			   			   		                              <div class="dropdown-divider"></div>
+			   			  			   			   		                                <a class="dropdown-item" th:href="@{/logout}">
+			   			  			   			   		                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+			   			  			   			   		                                    Logout
+			   			  			   			   		                                </a>
+			   			  			   			   		                            </div>
+			   			  			   			   		                        </li>
+
+			   			  			   			   		                   </ul>		
+			   			  			   			                         </nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -46,20 +100,21 @@
                         
                                         <div class="card-form my-3">
                                             <label for="jobDesc">Job Desc</label>
-                                            <input type="text" class="form-input" id="jobDesc" name="jobDesc"  >
+                                            <input type="text" class="form-input" id="jobDesc" name="jobDesc"  th:value="${jobDisc}">
                                          
                                         </div>
 										 <div class="error-msg" id="jobDescError" style="color:red"></div>
 										 
 										 
 										 <div class="card-form">
-		                                  <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="reporting">
-		                                      <option value="" selected="" >Please Select Reporting Manager Level</option>
-		                                      <option value="1">Manager 1</option>
-		                                      <option value="2">Manager 2</option>
-		                                      <option value="3">Manager 3</option>
-		                                  </select>
-		                                  </div>
+										     <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="reporting" name="managerLblId">
+										         <option value="" th:selected="${managerLblId == null}">Please Select Reporting Manager Level</option>
+										         <option value="1" th:selected="${managerLblId == 1}">Manager 1</option>
+										         <option value="2" th:selected="${managerLblId == 2}">Manager 2</option>
+										         <option value="3" th:selected="${managerLblId == 3}">Manager 3</option>
+										     </select>
+										 </div>
+
 			 							 	<div class="error-msg" id="reportingError" style="color:red"></div>
 									
 											
@@ -79,7 +134,7 @@
 									 
 								 <div class="card-form my-3">
                               		 <label for="remarks">Remarks</label>
-                               		<input type="text" class="form-input" id="remarks" name="remarks"  >
+                               		<input type="text" class="form-input" id="remarks" name="remarks"  th:value="${remarks}">
                            
                            		</div>
 						 		<div class="error-msg" id="remarksError" style="color:red"></div>
@@ -99,12 +154,21 @@
 				            							
                                 <div class="row">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
-                                        <div class="text-center text-md-center my-3">
-                                        	<!--<input type="hidden" name="employeeId" id="employeeId">-->
-                                            <input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
-											<input type="hidden" class="form-input" id="createdby" name="createdby" th:value="${session.username}">
-                                            <input type="button" id="savejobmaster" class="btn btn-primary next d-block" onclick ="savejobMaster()" value="Save"> 
-                                        </div>
+										<input type="hidden"  id="id" name="id" th:value="${id}">
+										<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+										<input type="hidden" class="form-input" id="createdby" name="createdby" th:value="${session.username}">
+										                                         
+                                        <!--<div class="text-center text-md-center my-3">
+                                        	
+                                             <input type="button" id="savejobmaster" class="btn btn-primary next d-block" onclick ="savejobMaster()" value="Save"> 
+                                        </div>>-->
+										<div class="d-flex my-3 justify-content-start">
+									            <!-- Save button -->
+									            <input type="button" id="savejobmaster" class="btn btn-primary" 
+									                   onclick="savejobMaster()" value="Save">
+									            <!-- Back button with custom margin -->
+									            <a th:href="@{/displayjobTitlemaster}" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
+									        </div>
                                     </div>
                                 </div>
 
@@ -154,7 +218,7 @@
 	$(document).ready(function(){
 		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' +'/jobTitlemaster"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  $('a[href="' +'/editjobTitlemaster"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
 	   $(".innernav").click(function(){
 	       $(".dropdownNav").addClass("active");
@@ -164,7 +228,7 @@
 	</script>
 	
 	
-	cript>
+	
 </body>
 
 </body>
