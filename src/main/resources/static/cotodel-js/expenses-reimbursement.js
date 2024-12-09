@@ -1127,7 +1127,7 @@ function  getLinkedBankDetail(){
 function submitLinkBankAccount(){
 	
 	document.getElementById("linkBankBtn").disabled = true;
-	document.getElementById("signinLoader").style.display="flex";
+	
 	var employerId= document.getElementById("employerId").value; 
 	var bankCode=  $("#bankName option:selected").val();
 	var bankName=  $("#bankName option:selected").text();
@@ -1235,7 +1235,7 @@ function submitLinkBankAccount(){
 			else{
 				document.getElementById("payervaError").innerHTML="";
 			}
-		
+			document.getElementById("signinLoader").style.display="flex";
 
 	 	$.ajax({
 		type: "POST",
@@ -1266,7 +1266,7 @@ function submitLinkBankAccount(){
 					  "accstatus":1,
 					  "tid": tid,
 					  "merchentIid": merchentIid,
-					  "mcc": mcc,
+					  //"mcc": mcc,
 					  "submurchentid": submurchentid,
 					  "payerva": payerva
 					

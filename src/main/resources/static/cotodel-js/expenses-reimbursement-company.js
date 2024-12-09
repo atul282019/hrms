@@ -1126,8 +1126,6 @@ function  getLinkedBankDetail(){
 
 function submitLinkBankAccount(){
 	
-	document.getElementById("linkBankBtn").disabled = true;
-	document.getElementById("signinLoader").style.display="flex";
 	var employerId= document.getElementById("employerId").value; 
 	var bankCode=  $("#bankName option:selected").val();
 	var bankName=  $("#bankName option:selected").text();
@@ -1139,7 +1137,7 @@ function submitLinkBankAccount(){
 	
 	var tid = document.getElementById("tid").value;
 	var merchentIid = document.getElementById("merchentIid").value;
-	var mcc = document.getElementById("mcc").value;
+	//var mcc = document.getElementById("mcc").value;
 	var submurchentid = document.getElementById("submurchentid").value;
 	var payerva = document.getElementById("payerva").value;
 	var moblieLink = document.getElementById("moblieLink").value;
@@ -1213,13 +1211,13 @@ function submitLinkBankAccount(){
 		else{
 			document.getElementById("merchentIidError").innerHTML="";
 		}
-		if(mcc=="" || mcc==null){
+		/*if(mcc=="" || mcc==null){
 					document.getElementById("mccError").innerHTML="Please Enter MCC";
 			return false;
 		}
 		else{
 			document.getElementById("mccError").innerHTML="";
-		}
+		}*/
 		if(submurchentid=="" || submurchentid==null){
 		document.getElementById("submurchentidError").innerHTML="Please Enter Sub Merchent Id";
 				return false;
@@ -1235,8 +1233,9 @@ function submitLinkBankAccount(){
 			else{
 				document.getElementById("payervaError").innerHTML="";
 			}
-		
-
+			document.getElementById("signinLoader").style.display="flex";
+			document.getElementById("linkBankBtn").disabled = true;
+			
 	 	$.ajax({
 		type: "POST",
 	     url:"/addErupiLinkBankAccount",
@@ -1266,7 +1265,7 @@ function submitLinkBankAccount(){
 					  "accstatus":1,
 					  "tid": tid,
 					  "merchentIid": merchentIid,
-					  "mcc": mcc,
+					 // "mcc": mcc,
 					  "submurchentid": submurchentid,
 					  "payerva": payerva
 					
@@ -1391,3 +1390,22 @@ function validatePayerva(){
 			
 }
 
+function resetErrorMessages() {
+    const errorFields = [
+        "bankNameError",
+        "bankAccTypeError",
+        "bankingNameError",
+        "bankAccNumberError",
+        "bankAccNumberConfirmError",
+        "bankIfscError",
+        "moblieLinkError",
+        "tidError",
+        "merchentIidError",
+        "submurchentidError",
+        "payervaError"
+    ];
+
+    errorFields.forEach((field) => {
+        document.getElementById(field).innerHTML = "";
+    });
+}
