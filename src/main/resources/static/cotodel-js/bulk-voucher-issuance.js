@@ -69,22 +69,22 @@ $(document).on('change','.up', function(){
 			        if (obj['status'] == "SUCCESS") {
 			            // If successful, open the OTP modal
 						var timeleft = "60";
-										var downloadTimer = setInterval(function() {
-											document.getElementById("countdown").innerHTML = "00:"+timeleft;
-											timeleft -= 1;
-											//document.getElementById("optBtn").style.display = "none";
-											document.getElementById("orderId").value= obj['orderId'];
-											//document.getElementById("verifyotpdiv").style.display = "block";
-											if (timeleft <= 0) {
-												clearInterval(downloadTimer);
-												///document.getElementById("optBtn").disabled = false;
-												///document.getElementById("countdown").innerHTML = " ";
-												//document.getElementById("optBtn").style.display = "none";
-												//document.getElementById("verifyotpdiv").style.display = "none";
-												///$('#loginIdDiv').hide('slow');
-											}
-											//document.getElementById('password').focus();
-										}, 1000);
+							var downloadTimer = setInterval(function() {
+								document.getElementById("countdown").innerHTML = "00:"+timeleft;
+								timeleft -= 1;
+								//document.getElementById("optBtn").style.display = "none";
+								document.getElementById("orderId").value= obj['orderId'];
+								//document.getElementById("verifyotpdiv").style.display = "block";
+								if (timeleft <= 0) {
+									clearInterval(downloadTimer);
+									///document.getElementById("optBtn").disabled = false;
+									///document.getElementById("countdown").innerHTML = " ";
+									//document.getElementById("optBtn").style.display = "none";
+									//document.getElementById("verifyotpdiv").style.display = "none";
+									///$('#loginIdDiv').hide('slow');
+								}
+								//document.getElementById('password').focus();
+							}, 1000);
 			            $('#otpModal').fadeIn();
 			          } else {
 			            alert("Error: " + response.message);
@@ -161,6 +161,7 @@ function convertImageToBase64() {
 function saveBulkVoucherUpload(){
 	
 	var banklist = document.getElementById("banklist").value;
+	var voucherTypeMCC = document.getElementById("voucherTypeMCC").value;
 	var fileInput = document.getElementById("up").value;
 	var fileName = document.getElementById("fileName").value;
 	var base64file = document.getElementById("base64Output").value;
@@ -192,6 +193,13 @@ function saveBulkVoucherUpload(){
 		}
 		else{
 			document.getElementById("banklistError").innerHTML="";
+		}
+		if(voucherTypeMCC =="" || voucherTypeMCC == null){
+			 document.getElementById("voucherTypeMCCError").innerHTML="Please Select Voucher MCC";
+			 return false;
+		}
+		else{
+			document.getElementById("voucherTypeMCCError").innerHTML="";
 		}
 		
 	if(fileInput =="" || fileInput == null){
@@ -641,14 +649,15 @@ function  getVoucherDetailByBoucherCode(){
  	var voucherCode = localStorage.getItem('voucherCode');
  	$.ajax({
 	type: "POST",
-	url:"/getVoucherDetailByBoucherCode",
+	//url:"/getVoucherDetailByBoucherCode",
+	url:"/getmccMasterListByPurposeCode",
        data: {
-			"voucherCode": voucherCode
+			"purposeCode": voucherCode
       		 },
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
 			},
-           success: function(data){
+          /* success: function(data){
            newData = data;
            //console.log(newData);
            var data1 = jQuery.parseJSON( newData );
@@ -665,12 +674,82 @@ function  getVoucherDetailByBoucherCode(){
           },
         error: function(e){
             alert('Error: ' + e);
-        }
+        }*/
+		
+		success: function(data){
+	           newData = data;
+	           console.log(newData);
+			$("#voucherTypeMCC option").remove();
+	           var obj = jQuery.parseJSON( data );
+	            obj = obj.data;
+	       	 var count=0;
+	        	for (var key in obj) {
+
+	            var values =  obj[key];
+	            var x = document.getElementById("voucherTypeMCC");
+	            if(count==0){
+	            var option = document.createElement("option");
+	            option.text ="Select Voucher Type MCC";
+	            option.value = "";
+	            x.add(option);
+	            }
+	            var option = document.createElement("option");
+	            option.text = values.mccDesc;
+	            option.value = values.mcc;
+	            x.add(option);
+
+	            count++;
+	            }   
+	        },
+	        error: function(e){
+	            alert('Error: ' + e);
+	        }
    }); 
 			
 }
 
 
+function  getmccMasterDetailsByPurposeCodeAndMcc(){
+	
+    //document.getElementById("signinLoader").style.display="flex";
+ 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
+	var mcc = document.getElementById("voucherTypeMCC").value;
+ 	$.ajax({
+	type: "POST",
+	url:"/getmccMasterDetailsByPurposeCodeAndMcc",
+       data: {
+			"purposeCode": voucherCode,
+			"mcc": mcc
+      		 },
+      		  beforeSend : function(xhr) {
+			//xhr.setRequestHeader(header, token);
+			},
+           success: function(data){
+           newData = data;
+           console.log(newData);
+           var data1 = jQuery.parseJSON( newData );
+		   var data2 = data1.data;
+			
+		    document.getElementById("voucherId").value=data1.data.id;
+			document.getElementById("voucherCode").value=data1.data.purposeCode;
+			document.getElementById("vmcclbl").value=data1.data.mcc;
+			document.getElementById("voucherSubType").value=data1.data.purposeCode;
+			document.getElementById("voucherDesc").value=data1.data.purposeDesc;
+			document.getElementById("purposeCode").value=data1.data.purposeCode;
+			document.getElementById("activeStatus").value=data1.data.activeStatus;
+			document.getElementById("createdby").value=data1.data.createdby;
+			document.getElementById("mcc").value=data1.data.mcc;
+			
+			
+          },
+        error: function(e){
+            alert('Error: ' + e);
+        }
+		
+
+   }); 
+			
+}
 
 function  getBankDetailByBankAccountNumber(){
 	
@@ -731,107 +810,6 @@ function  getBankDetailByBankAccountNumber(){
         }
    }); 
 			
-}
-
-
-function  createSingleVoucherValidation(){
-	
-    //document.getElementById("signinLoader").style.display="flex";
-	var banklist = document.getElementById("banklist").value;
-	
-	var voucher = document.getElementById("voucherId").value;
-	var beneficiaryName = document.getElementById("beneficiaryName").value;
-	var beneficiaryMobile = document.getElementById("beneficiaryMobile").value;;
-	var amount = document.getElementById("amount").value;
-	var startDate = document.getElementById("startDate").value;
-	var validity = document.getElementById("expiryDate").value;
-	
-	var voucherCode = document.getElementById("voucherCode").value;
-	var voucherType = document.getElementById("voucherType").value;;
-	var voucherSubType = document.getElementById("voucherSubType").value;
-	var voucherDesc = document.getElementById("voucherDesc").value;
-	var  purposeCode= document.getElementById("purposeCode").value;
-	var activeStatus = document.getElementById("activeStatus").value;
-	var createdby = document.getElementById("employerName").value;
-	var bankCode = document.getElementById("bankCode").value;
-	var mcc = document.getElementById("mcc").value;
-	var payerva = document.getElementById("payerva").value;
-	
-	 document.getElementById("voucherlbl").innerHTML= $("#selectedOptionsDropdown option:selected").text();
-	 document.getElementById("vtypelbl").innerHTML = $("#voucherType option:selected").text();
-	 document.getElementById("namelbl").innerHTML = $("#beneficiaryName").val();
-	 document.getElementById("mobilelbl").innerHTML = $("#beneficiaryMobile").val();
-	 document.getElementById("amountlbl").innerHTML = $("#amount").val();
-	 document.getElementById("startdatelbl").innerHTML = $("#startDate").val();
-	 document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
-    var employerId = document.getElementById("employerId").value;
-	var employerName = document.getElementById("employerName").value;
-	if(banklist=="" || banklist==null){
-				document.getElementById("banklistError").innerHTML="Please Select Bank";
-				return false;
-			}
-		else{
-			document.getElementById("banklistError").innerHTML="";
-		}
-			
-	if(voucher=="" || voucher== null){
-				document.getElementById("selectedOptionsDropdownError").innerHTML="Please Select Voucher";
-				return false;
-			}
-		else{
-			document.getElementById("selectedOptionsDropdownError").innerHTML="";
-		}
-
-		if(voucherType=="" || voucherType==null){
-				document.getElementById("voucherTypeError").innerHTML="Please Select Type";
-				return false;
-			}
-		else{
-			document.getElementById("voucherTypeError").innerHTML="";
-		}
-
-	if(beneficiaryName=="" || beneficiaryName==null){
-			document.getElementById("beneficiaryNameError").innerHTML="Please Enter Beneficiary Name";
-			return false;
-		}
-	else{
-		document.getElementById("beneficiaryNameError").innerHTML="";
-	}
-
-	if(beneficiaryMobile=="" || beneficiaryMobile==null){
-			document.getElementById("beneficiaryMobileError").innerHTML="Please Enter Beneficiary Mobile Number";
-			return false;
-		}
-	else{
-		document.getElementById("beneficiaryMobileError").innerHTML="";
-	}
-
-	if(amount=="" || amount==null){
-			document.getElementById("amountError").innerHTML="Please Enter Amount";
-			return false;
-		}
-	else{
-		document.getElementById("amountError").innerHTML="";
-	}
-
-	if(startDate=="" || startDate==null){
-			document.getElementById("startDateError").innerHTML="Please Select Voucher Start Date";
-			return false;
-		}
-		else{
-			document.getElementById("startDateError").innerHTML="";
-		}
-
-	if(validity=="" || validity==null){
-			document.getElementById("expiryDateError").innerHTML="Please Enter Voucher Validity";
-			return false;
-		}
-		else{
-			document.getElementById("expiryDateError").innerHTML="";
-		}
-		$("#selectvouchers-wrap04").show();
-		$("#selectvouchers-wrap03").hide();
-		
 }
 
 
