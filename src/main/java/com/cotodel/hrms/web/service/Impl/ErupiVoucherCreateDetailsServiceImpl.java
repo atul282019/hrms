@@ -173,4 +173,9 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 
 	}
 
+	@Override
+	public String geterupiVoucherOldList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getVoucherUserList);
+	}
+
 }

@@ -95,4 +95,14 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		return profileRes;
 	}
 	
+	@PostMapping(value="/geterupiVoucherOldList")
+	public @ResponseBody String geterupiVoucherOldList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
+			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		String profileRes=null;
+		
+		profileRes = erupiVoucherCreateDetailsService.geterupiVoucherOldList(tokengeneration.getToken(),erupiVoucherCreateDetails);
+		
+		return profileRes;
+	}
+	
 }

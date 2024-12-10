@@ -711,8 +711,7 @@ function  getVoucherDetailByBoucherCode(){
 
 function  getmccMasterDetailsByPurposeCodeAndMcc(){
 	
-    //document.getElementById("signinLoader").style.display="flex";
- 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
+ 	var voucherCode = localStorage.getItem('voucherCode');
 	var mcc = document.getElementById("voucherTypeMCC").value;
  	$.ajax({
 	type: "POST",
@@ -730,7 +729,7 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
            var data1 = jQuery.parseJSON( newData );
 		   var data2 = data1.data;
 			
-		    document.getElementById("voucherId").value=data1.data.id;
+		   /* document.getElementById("voucherId").value=data1.data.id;
 			document.getElementById("voucherCode").value=data1.data.purposeCode;
 			document.getElementById("vmcclbl").value=data1.data.mcc;
 			document.getElementById("voucherSubType").value=data1.data.purposeCode;
@@ -738,9 +737,18 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
 			document.getElementById("purposeCode").value=data1.data.purposeCode;
 			document.getElementById("activeStatus").value=data1.data.activeStatus;
 			document.getElementById("createdby").value=data1.data.createdby;
+			document.getElementById("mcc").value=data1.data.mcc;*/
+			
+			document.getElementById("voucherId").value=data1.data.id;
+			document.getElementById("voucherCode").value=data1.data.purposeCode;
+			document.getElementById("voucherType").value=data1.data.purposeCode;
+			document.getElementById("voucherSubType").value=data1.data.purposeCode;
+			document.getElementById("voucherDesc").value=data1.data.purposeCode;
+			document.getElementById("purposeCode").value=data1.data.purposeCode;
+			document.getElementById("activeStatus").value=data1.data.activeStatus;
 			document.getElementById("mcc").value=data1.data.mcc;
 			
-			
+			document.getElementById("createdby").value=data1.data.createdby;
           },
         error: function(e){
             alert('Error: ' + e);

@@ -25,4 +25,6 @@ public interface ErupiVoucherCreateDetailsService {
 
 	String beneficiaryDeleteFromVoucherList(String token, BulkVoucherRequest bulkVoucherRequest);
 
+	String geterupiVoucherOldList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+
 }
