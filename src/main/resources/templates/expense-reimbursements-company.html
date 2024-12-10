@@ -565,7 +565,7 @@
 								                    </select>
 								                    <label class="did-floating-label">Select Bank</label>
 								                </div>
-												<div class="error-msg" id="bankNameError" style="color:red"></div>
+												<div class="error-msg" id="bankNameError"  style="color: red; margin-top: -10px; font-size: 12px;"></div>
 												
 												<div class="did-floating-label-content mr-2">
 							                    <select class="did-floating-select" id="bankAccType" onchange="resetErrorMessages()">
@@ -576,11 +576,11 @@
 							                </div>
 											<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
 								                <div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="bankingName" onkeyup="resetErrorMessages()">
+								                    <input class="did-floating-input" type="text" placeholder=" " id="bankingName" onkeyup="validateBankname()" onkeypress="resetErrorMessages()">
 								                    <label class="did-floating-label">Enter Name as on the Bank
 								                        Account</label>
 								                </div>
-												<div class="error-msg" id="bankingNameError" style="color:red"></div>
+												<div class="error-msg" id="bankingNameError" style="color:red "></div>
 												
 												
 								                <div class="did-floating-label-content">
@@ -589,14 +589,14 @@
 													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 								                    <label class="did-floating-label">Enter Bank A/c Number</label>
 								                </div>
-												<div class="error-msg" id="bankAccNumberError" style="color:red"></div>
+												<div class="error-msg" id="bankAccNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 								                <div class="did-floating-label-content">
 								                    <input class="did-floating-input" type="text" placeholder=" " id="bankAccNumberConfirm" onkeyup="validate()" 
 													 onkeypress="resetErrorMessages()" maxlength="16"
 													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 								                    <label class="did-floating-label">Re-enter Bank A/c Name</label>
 								                </div>
-												<div class="error-msg" id="bankAccNumberConfirmError" style="color:red"></div>
+												<div class="error-msg" id="bankAccNumberConfirmError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 								               <!-- <div class="tip-wrap justify-content-start">
 								                    <p class="mb-0">The bank account numbers entered don't match each
 								                        other. Please try again.</p>
@@ -607,7 +607,7 @@
 													maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase" onkeypress="resetErrorMessages()">
 								                    <label class="did-floating-label">Enter IFSC Code</label>
 								                </div>
-												<div class="error-msg" id="bankIfscError" style="color:red"></div>
+												<div class="error-msg" id="bankIfscError"  style="color: red; margin-top: -10px; font-size: 12px;"></div>
 												
 												<div class="did-floating-label-content">
 								                    <input class="did-floating-input" type="text" placeholder=" " id="moblieLink" onkeypress="resetErrorMessages()"
@@ -623,9 +623,9 @@
 							 					</div>
 												<div class="error-msg" id="tidError" style="color:red"></div>
 												<div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="merchentIid" maxlength="25"
+								                    <input class="did-floating-input" onkeyup="validateMerchantId()"type="text" placeholder=" " id="merchentIid" maxlength="25"
 													onkeypress="resetErrorMessages()" >
-								                    <label class="did-floating-label">Merchent id</label>
+								                    <label class="did-floating-label">Merchant Id</label>
 								                </div>
 												<div class="error-msg" id="merchentIidError" style="color:red"></div>
 												<!--<div class="did-floating-label-content">
@@ -636,9 +636,9 @@
 												<div class="did-floating-label-content">
 								                    <input class="did-floating-input" type="text" placeholder=" " id="submurchentid" maxlength="25"
 													onkeypress="resetErrorMessages()" >
-								                    <label class="did-floating-label">Submurchent id</label>
+								                    <label class="did-floating-label">Sub Merchant Id</label>
 								                </div>
-												<div class="error-msg" id="submurchentidError" style="color:red"></div>
+												<div class="error-msg" id="submurchentidError"  style="color: red; margin-top: -10px; font-size: 12px;"></div>
 												<div class="did-floating-label-content">
 								                    <input class="did-floating-input" type="text" placeholder=" " id="payerva" onkeypress="resetErrorMessages()"
 													maxlength="25" onkeyup="validatePayerva()">
@@ -654,7 +654,7 @@
 									            
 									            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
 									            	<div id="otfailmsg"></div>
-									            </div>
+									            </div><br>
 												                        
 								                <div class="d-flex justify-content-center mt-3">
 													<input type="button" class="btn btn-primary w-100" id="linkBankBtn" value="AUTHENTICATE" onclick="submitLinkBankAccount()"> 
@@ -787,6 +787,7 @@
 	});
 	
 	</script>
+	
 	<script>
         $(document).ready(function () {
             $("#hide").click(function () {
@@ -2611,7 +2612,7 @@
 
 
 	
-	
+
 	
 </body>
 

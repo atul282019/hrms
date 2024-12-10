@@ -1219,7 +1219,7 @@ function submitLinkBankAccount(){
 			document.getElementById("mccError").innerHTML="";
 		}*/
 		if(submurchentid=="" || submurchentid==null){
-		document.getElementById("submurchentidError").innerHTML="Please Enter Sub Merchent Id";
+		document.getElementById("submurchentidError").innerHTML="Please Enter Sub Merchant Id";
 				return false;
 			}
 			else{
@@ -1303,43 +1303,93 @@ function submitLinkBankAccount(){
 	
 }
 
-
+function validateBankname()
+{
+	var banknameregex=/^[A-Za-z]+( [A-Za-z]+)?$/;
+	var bankingName = document.getElementById("bankingName").value;
+	
+	if(bankingName=="" || bankingName==null){
+				document.getElementById("bankingNameError").innerHTML="Please Enter Account Holder Name";
+				document.getElementById("bankingName").focus();
+				
+			}else if(!bankingName.match(banknameregex)){
+				document.getElementById("bankingNameError").innerHTML="Special Characters Not Allowed in Account Holder Name";
+					document.getElementById("bankingName").focus();
+				
+			}
+			else{
+				document.getElementById("bankingNameError").innerHTML="";
+			}
+}
 function updateLinkBankAccount(){
 	
 	
 }
 
+
 function validate() {
 	var x= document.getElementById("bankAccNumber").value;
     var y= document.getElementById("bankAccNumberConfirm").value;
     var message = document.getElementById('bankAccNumberConfirmError');
+	var accRegex = /^\d+$/;
 
+	    
+	    if (!x.match(accRegex)) {
+	        message.innerHTML = "Account number should not be in decimal";
+	        message.style.color = 'red';
+	        return false;
+	    }
     if (x === y) {
         message.innerHTML = '';
         message.style.color = 'green';
     } else {
-        message.innerHTML = "The bank account numbers entered don't match each other. Please try again.";
+        message.innerHTML = "Account No. do not match.. Please try again.";
         message.style.color = 'red';
     }
 }
 
 function validateIFSC(){
-	var x= document.getElementById("bankIfsc").value;
-    var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
-    if(x==""){
+	var x= document.getElementById("bankIfsc").value.trim();
+   var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
+	var ifscRegex1 = /^[A-Za-z]{4}/ ;
+    if(x==""|| x==null){
     	document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
 		document.getElementById("bankIfsc").focus();
 		return false;
     }
-    else if(!x.match(ifscRegex)){
-		document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
+	
+    else if(!x.match(ifscRegex1)){
+		document.getElementById("bankIfscError").innerHTML="First four alphabets are expected in IFSC";
 		document.getElementById("bankIfsc").focus();
 		return false;
 	}
+	else if(!x.match(ifscRegex)){
+			document.getElementById("bankIfscError").innerHTML="Special symbol not allowed in IFSC";
+			document.getElementById("bankIfsc").focus();
+			return false;
+		}
     else{
     	document.getElementById("bankIfscError").innerHTML="";
     }
   
+}
+
+function validateMerchantId()
+{
+	var merchentIid = document.getElementById("merchentIid").value;
+	var merchentidregex=/^[A-Za-z0-9]+$/;
+	if(merchentIid==""){
+				document.getElementById("merchentIidError").innerHTML="Please Enter Merchant Id";
+				document.getElementById("merchentIid").focus();
+			}
+			else if(!merchentIid.match(merchentidregex))
+				{
+				document.getElementById("merchentIidError").innerHTML="Special Characters are not allowed in merchant id";
+						document.getElementById("merchentIid").focus();
+				}
+			else{
+				document.getElementById("merchentIidError").innerHTML="";
+			}
 }
 
 function validateMobile(){
