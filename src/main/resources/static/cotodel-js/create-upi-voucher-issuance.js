@@ -281,26 +281,6 @@ function  getVoucherDetailByBoucherCode(){
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
 			},
-        //   success: function(data){
-         //  newData = data;
-           //console.log(newData);
-          // var data1 = jQuery.parseJSON( newData );
-		   //var data2 = data1.data;
-			
-		  /*  document.getElementById("voucherId").value=data1.data.id;
-			document.getElementById("voucherCode").value=data1.data.voucherCode;
-			document.getElementById("voucherType").value=data1.data.voucherType;
-			document.getElementById("voucherSubType").value=data1.data.voucherSubType;
-			document.getElementById("voucherDesc").value=data1.data.voucherDesc;
-			document.getElementById("purposeCode").value=data1.data.purposeCode;
-			document.getElementById("activeStatus").value=data1.data.activeStatus;
-			document.getElementById("createdby").value=data1.data.createdby;*/
-		/*	
-          },
-        error: function(e){
-            alert('Error: ' + e);
-        }
-		*/
 		success: function(data){
 		           newData = data;
 		           console.log(newData);

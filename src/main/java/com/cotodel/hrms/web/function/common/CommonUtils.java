@@ -126,5 +126,7 @@ public interface CommonUtils {
 	public static String getMCCMasterByPurposeCode="/masterService/Api/get/mccMasterListByPurposeCode";
 	public static String getMCCMasterDeailsByPurposeCodeAndMCC="/masterService/Api/get/mccMasterListByPurposeCodeAndMccCode";
 	public static String getVoucherUserList="/empService/Api/get/erupiVoucherOldList";
+	
+	public static String exitingUserVoucherCreation="/empService/Api/add/erupiVoucherCreateList";
 
 }

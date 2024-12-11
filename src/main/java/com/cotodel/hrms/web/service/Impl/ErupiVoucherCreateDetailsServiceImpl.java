@@ -12,6 +12,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
+import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
@@ -177,5 +178,60 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	public String geterupiVoucherOldList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getVoucherUserList);
 	}
+
+	@Override
+	public String exitingUserVoucherCreation(String token,
+			ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest) {
+		return CommonUtility.userRequest(token,createExitingUserVoucherRequestJson(existingUserVoucherCreationRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.exitingUserVoucherCreation);
+	}
+	public  String createExitingUserVoucherRequestJson(ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest){
+		JSONObject data= new JSONObject();
+
+		JSONObject voucherId= new JSONObject();
+		voucherId.put("id", existingUserVoucherCreationRequest.getVoucherId());
+		
+		data.put("voucherId", voucherId);
+		
+		data.put("name", existingUserVoucherCreationRequest.getName());
+		//data.put("mobile", existingUserVoucherCreationRequest);
+		data.put("amount", existingUserVoucherCreationRequest.getAmount());
+		data.put("startDate", existingUserVoucherCreationRequest.getStartDate());
+		data.put("expDate",existingUserVoucherCreationRequest.getExpDate() );
+		data.put("purposeCode", existingUserVoucherCreationRequest.getPurposeCode());
+		data.put("consent", existingUserVoucherCreationRequest.getConsent());
+		data.put("otpValidationStatus", "");
+		data.put("creationDate", "");
+		data.put("createdby", existingUserVoucherCreationRequest.getCreatedby());
+		data.put("accountId", "");
+		data.put("orgId", existingUserVoucherCreationRequest.getOrgId());
+		data.put("accountNumber", existingUserVoucherCreationRequest.getAccountId());
+		data.put("voucherCode", existingUserVoucherCreationRequest.getVoucherCode());
+		data.put("voucherType", existingUserVoucherCreationRequest.getVoucherType());
+		data.put("voucherDesc", existingUserVoucherCreationRequest.getVoucherDesc());
+		
+		
+		JSONObject entrymodeIdPk= new JSONObject();
+		entrymodeIdPk.put("id", "");
+		data.put("entrymodeIdPk", entrymodeIdPk);
+	
+		data.put("creationmode", "");
+		//data.put("bulktblId", erupiVoucherCreateDetails.getBeneficiaryID());
+		data.put("redemtionType", "SINGLE");
+		data.put("mcc", existingUserVoucherCreationRequest.getMcc());
+		data.put("merchantId", existingUserVoucherCreationRequest.getMerchantId());
+		data.put("subMerchantId", existingUserVoucherCreationRequest.getSubMerchantId());
+		data.put("extra1", "");
+		data.put("extra2","");
+		data.put("extra3", "");
+		//data.put("beneficiaryID",existingUserVoucherCreationRequest.get);
+		data.put("payerVA", existingUserVoucherCreationRequest.getPayerVA());
+		data.put("bankcode", existingUserVoucherCreationRequest.getBankCode());
+		data.put("type", "CREATE");
+		data.put("arrayofnamemobile", existingUserVoucherCreationRequest.getArrayofnamemobile());
+		
+		logger.info(data.toString());
+		return data.toString();
+	}
+
 
 }
