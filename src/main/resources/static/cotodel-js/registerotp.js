@@ -136,7 +136,7 @@ function userRegistration(){
 		document.getElementById("usernameError1").innerHTML="";
 	}
 	 if(orgname==""){
-		document.getElementById("orgnameError1").innerHTML="Please Enter Message";
+		document.getElementById("orgnameError1").innerHTML="Please Enter Organization Name";
 		document.getElementById("orgname").focus();
 		return false;
 	}else{
@@ -165,14 +165,6 @@ function userRegistration(){
 	}else{
 		document.getElementById("mobileError1").innerHTML="";
 	}
-	
-	/*if(message==""){
-		document.getElementById("messageError1").innerHTML="Please Enter Message";
-		document.getElementById("messageu").focus();
-		return false;
-	}else{
-		document.getElementById("messageError1").innerHTML="";
-	}*/
 	if(noofEmp==""){
 		document.getElementById("noofEmpError1").innerHTML="Please Select No of Employee";
 		document.getElementById("noofEmp").focus();
@@ -395,19 +387,6 @@ function validateemail()  {
 	}
 }
 
-
-function validateemailForUser()  {  
-	var x=document.getElementById("emailu").value;  
-	var atposition=x.indexOf("@");  
-	var dotposition=x.lastIndexOf(".");  
-	if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){   
-  		document.getElementById("emailError1").innerHTML="Please Enter Valid E-mail Address";
-  		return false;  
-  	}else{
-		document.getElementById("emailError1").innerHTML="";
- 		return true;  
-	}
-}
 
 function verifyEmail(){ 
 	

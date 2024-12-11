@@ -690,20 +690,20 @@ function updateDropdown() {
 		  	
 		  const errorMessage = document.getElementById('selectVoucherError');
 		  			  
-		  			  const meal = document.getElementById('meal');
-		  			  const fuel = document.getElementById('fuel');
-		  			  const travel = document.getElementById('Travel');
+		  			  const groceries = document.getElementById('groceries');
+		  			  const food = document.getElementById('food');
+		  			  const petroleum = document.getElementById('petroleum');
 		  			  const conveyance = document.getElementById('Conveyance');
 		  			  const uniform = document.getElementById('uniform');
 		  			  const gadgets = document.getElementById('Gadgets');
 		  			  const health = document.getElementById('Health');
 		  			  const telecom = document.getElementById('Telecom');
 		  			  const entertainment = document.getElementById('Entertainment');
-		  			  const groceries = document.getElementById('Groceries');
+		  			//  const groceries = document.getElementById('Groceries');
 		  			  const books = document.getElementById('books');
 		  		 
-		  		   		 if (!meal.checked && !fuel.checked
-		  				 && !travel.checked && !conveyance.checked &&  !uniform.checked
+		  		   		 if (!groceries.checked && !food.checked
+		  				 && !petroleum.checked && !conveyance.checked &&  !uniform.checked
 		  				 &&  !gadgets.checked &&  !health.checked &&  !telecom.checked
 		  				  &&  !entertainment.checked &&  !groceries.checked &&  !books.checked) {
 		  		   		      document.getElementById("confirmationDialog").style.display = "flex";

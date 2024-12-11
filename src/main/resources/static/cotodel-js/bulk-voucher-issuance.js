@@ -272,7 +272,6 @@ function saveBulkVoucherUpload(){
 				              "language": {"emptyTable": "No Data available"  },
 				 	         "aaData": success,
 				       		  "aoColumns": [ 
-				 				
 				 				{ "mData": "voucherType"},
 				                { "mData": "beneficiaryName"},   
 				                { "mData": "mobile"},   
@@ -318,7 +317,6 @@ function saveBulkVoucherUpload(){
 							             "language": {"emptyTable": "No Data available"  },
 								         "aaData": fail,
 							      		  "aoColumns": [ 
-
 											{ "mData": "voucherType"},
 											{ "mData": "beneficiaryName"},   
 											{ "mData": "mobile"},   

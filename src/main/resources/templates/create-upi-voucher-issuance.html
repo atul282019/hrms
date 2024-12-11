@@ -128,9 +128,34 @@
                                         </div>-->
                                     </div>
                                     <hr>
-
+									
                                     <div class="cards-upivouchers-wrap">
                                         <div class="row">
+											<div class="col-12 col-sm-3 col-md-3">
+		                                            <div class="cards-upivouchers cards-upivouchers11">
+		                                                <div class="cards-upivouchers-top">
+		                                                    <div class="cards-upivouchers-top-left">
+		                                                        <img src="img/groceries-info.svg" alt="" class="img-fluid">
+		                                                    </div>
+		                                                    <div class="cards-upivouchers-top-right">
+		                                                        <a href="#" data-toggle="modal"
+		                                                            data-target="#Modal-upivouchers-info"><img
+		                                                                src="img/info-cards.svg" alt="" width="20"
+		                                                                class="img-fluid"></a>
+		                                                        <img src="img/e-rupi-seeklogo2.svg" alt=""
+		                                                            class="img-fluid e-rupi-seek">
+		                                                    </div>
+		                                                </div>
+		                                                <div class="cards-upivouchers-bottom">
+		                                                    <div>
+		                                                        <img src="img/groceries.svg" alt="" class="img-fluid">
+		                                                        <span>Groceries </span>
+		                                                    </div>
+		                                                    <input type="checkbox" class="vouchers-checkbox11 vouchers-checkbox" 
+															id="groceries" name="Groceries and Supermarket Voucher" value="3A" >
+		                                                </div>
+		                                            </div>
+		                                        </div>
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="cards-upivouchers cards-upivouchers1">
                                                     <div class="cards-upivouchers-top">
@@ -149,9 +174,10 @@
                                                     <div class="cards-upivouchers-bottom">
                                                         <div>
                                                             <img src="img/meal.svg" alt="" class="img-fluid">
-                                                            <span>Meal </span>
+                                                            <span>Food Voucher </span>
                                                         </div>
-                                                        <input type="checkbox" class="vouchers-checkbox1 vouchers-checkbox" id="meal" name="Groceries and Supermarket Voucher" value="3A">
+                                                        <input type="checkbox" class="vouchers-checkbox1 vouchers-checkbox" 
+														id="food" name="Food Voucher" value="1C">
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,10 +200,11 @@
                                                     <div class="cards-upivouchers-bottom">
                                                         <div>
                                                             <img src="img/fuel-circle.svg" alt="" class="img-fluid">
-                                                            <span>Fuel </span>
+                                                            <span>Petroleum Voucher </span>
                                                         </div>
 														
-                                                        <input type="checkbox" class="vouchers-checkbox2 vouchers-checkbox" id="fuel" name="Fuel" value="F003">
+                                                        <input type="checkbox" class="vouchers-checkbox2 vouchers-checkbox" 
+														id="petroleum" name="Petroleum Voucher" value="5B">
                                                     </div>
                                                 </div>
                                             </div>
@@ -392,33 +419,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="cards-upivouchers cards-upivouchers11">
-                                                    <div class="cards-upivouchers-top">
-                                                        <div class="cards-upivouchers-top-left">
-                                                            <img src="img/groceries-info.svg" alt="" class="img-fluid">
-                                                        </div>
-                                                        <div class="cards-upivouchers-top-right">
-                                                            <a href="#" data-toggle="modal"
-                                                                data-target="#Modal-upivouchers-info"><img
-                                                                    src="img/info-cards.svg" alt="" width="20"
-                                                                    class="img-fluid"></a>
-                                                            <img src="img/e-rupi-seeklogo2.svg" alt=""
-                                                                class="img-fluid e-rupi-seek">
-                                                        </div>
-                                                    </div>
-                                                    <div class="cards-upivouchers-bottom">
-                                                        <div>
-                                                            <img src="img/groceries.svg" alt="" class="img-fluid">
-                                                            <span>Groceries </span>
-                                                        </div>
-                                                        <input type="checkbox" class="vouchers-checkbox11 vouchers-checkbox" 
-														value="G003" id="Groceries" name="Groceries">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12 col-sm-3 col-md-3">
+                                        <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="cards-upivouchers cards-upivouchers12">
                                                     <div class="cards-upivouchers-top">
                                                         <div class="cards-upivouchers-top-left">
@@ -1168,31 +1169,31 @@
 	  
 	  
 	  function bulkIssuePage(){
-			const checkbox = document.getElementById('meal');
-			const fuel = document.getElementById('fuel');
-		    const travel = document.getElementById('Travel');
-		    const conveyance = document.getElementById('Conveyance');
-		    const uniform = document.getElementById('uniform');
-		    const gadgets = document.getElementById('Gadgets');
-		    const health = document.getElementById('Health');
-		    const telecom = document.getElementById('Telecom');
-		    const entertainment = document.getElementById('Entertainment');
-		    const groceries = document.getElementById('Groceries');
-		    const books = document.getElementById('books');
+	  const groceries = document.getElementById('groceries');
+	  const food = document.getElementById('food');
+	  const petroleum = document.getElementById('petroleum');
+	  const conveyance = document.getElementById('Conveyance');
+	  const uniform = document.getElementById('uniform');
+	  const gadgets = document.getElementById('Gadgets');
+	  const health = document.getElementById('Health');
+	  const telecom = document.getElementById('Telecom');
+	  const entertainment = document.getElementById('Entertainment');
+	  //  const groceries = document.getElementById('Groceries');
+	  const books = document.getElementById('books');
 				  		 
-           if (checkbox.checked) {
-			localStorage.setItem("voucherName", checkbox.name);
-			localStorage.setItem("voucherCode",checkbox.value);
+           if (groceries.checked) {
+			localStorage.setItem("voucherName", groceries.name);
+			localStorage.setItem("voucherCode",groceries.value);
 		     window.location.href = "/bulkVoucherIssuance";
            } 
-		   else if (travel.checked) {
-		   		localStorage.setItem("voucherName", travel.name);
-		   		localStorage.setItem("voucherCode",travel.value);
+		   else if (food.checked) {
+		   		localStorage.setItem("voucherName", food.name);
+		   		localStorage.setItem("voucherCode",food.value);
 		   	     window.location.href = "/bulkVoucherIssuance";
 		    } 
-			 else if (conveyance.checked) {
-		  		localStorage.setItem("voucherName", conveyance.name);
-		  		localStorage.setItem("voucherCode",conveyance.value);
+			 else if (petroleum.checked) {
+		  		localStorage.setItem("voucherName", petroleum.name);
+		  		localStorage.setItem("voucherCode",petroleum.value);
 		  	     window.location.href = "/bulkVoucherIssuance";
 		     } 
 	  	     else if (uniform.checked) {

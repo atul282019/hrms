@@ -110,27 +110,29 @@ body {
 }
 
 .login-left-section {
-    display: flex;
-    align-items: center;
+    display: block;
+    padding: 0;
 }
 
 .login-right-wrap {
     display: flex;
     flex-direction: column;
-    padding: 0 1rem;
+    padding: 0 2.5rem;
     position: relative;
 }
 
 .login-right-wrap h2 {
     font-size: 1.8rem;
-    font-weight: 800;
-    margin-top: 20px;
+    font-weight: 700;
+    margin-top: 30px;
     color: black;
+    text-align: left;
 }
 
 .login-right-wrap p {
     color: #969696;
     font-size: .85rem;
+    margin: .1rem 0 1.2rem;
 }
 
 .login-right-wrap form span {
@@ -151,7 +153,7 @@ body {
 
 .login-right-wrap form input.form-control {
     border: 1px solid rgb(189 188 188 / 50%);
-    margin-bottom: 0.75rem;
+    margin-bottom: 2px;
 }
 
 .otp-box {
@@ -167,7 +169,7 @@ body {
     display: block;
     text-align: center;
     font-size: .85rem;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .login-right-wrap form p {
@@ -183,7 +185,8 @@ body {
 
 .login-right-wrap form p.reCAPTCHA {
     font-size: .70rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
+    text-align: left;
 }
 
 .login-right-wrap form p.already-login {
@@ -241,6 +244,12 @@ body {
 
 .headerright p {
     margin-bottom: 0;
+    color: #232323;
+    font-weight: 600;
+}
+
+.headerright p a{
+    color: #367AFF;
 }
 
 .bg-dark-sidebar {
@@ -5328,4 +5337,71 @@ input.autocomp-input {
 
 .logoNew {
     margin-top: 30px;
+}
+
+.login-left-section {
+    background: #FBFAFA;
+    border-radius: 20px;
+}
+
+.login-right-wrap form input.form-control, .login-right-wrap form select.form-select{
+    background: none;
+    color: #9A9A9A;
+    border-radius: 10px; min-height: 46px;
+}
+
+.login-right-wrap form select.form-select{
+    padding-left: 10px;
+}
+
+.login-right-wrap form input.form-control::placeholder{
+    color: #9A9A9A;
+}
+
+.login-right-wrap h2{
+    margin-bottom: 10px;
+}
+
+.carousel-signupindicators li {
+    width: 5px;
+    height: 5px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+}
+ol.carousel-signupindicators{
+    bottom: 30px;
+}
+.carousel-signupindicators li {
+    width: 5px;
+    height: 5px;
+    background-color: #86889B;
+    border-radius: 50%;
+    opacity: 1;
+}
+
+.carousel-signupindicators li.active{
+    background-color: #FFFFFF; height: 5px;
+}
+
+.login-right-wrap .form-group {
+    margin-bottom: 5px;
+}
+
+.login-right-wrap .form-group .custom-control-label::before{
+    top: .15rem;
+}
+
+.signup-right-wrap .carousel-inner .logo img {
+    border-radius: 20px;
+}
+
+.custom-errormsg {
+    display: block;
+    text-align: left;
+    font-size: 15px;
+    color: red;
+}
+
+.custom-in{
+    margin-bottom: 0.75rem;
 }

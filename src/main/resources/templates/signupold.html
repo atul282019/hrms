@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    	<meta id="ctx" name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+
+    <title> Signup </title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+ 
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="img/cotodel_without tagline.svg" alt="">
+            </div>
+            <div class="headerright">
+               <!-- <p>New to <a href="#"> Cotodel? </a> Click here for our homepage! </p>--> 
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-2">
+        <div class="row">            
+            <div class="col-12 col-sm-5 col-md-4 login-left-section">
+                <div class="login-right-wrap">                    
+                    <h2>Start your free trail!</h2>
+                    <form action="" class="mt-2" id='registerUser' name='registerUser'>
+                        <input type="text" class="form-control" placeholder="Enter Your Full Name" id="username" name="username" minlength="5" maxlength="50" oninput="sanitizeInput(this)" onkeypress="validateRegistrationForm()">
+				        <div class="error-msg" id="usernameError1" style="color:red"></div>
+                        <input type="text" class="form-control" id="orgname" name="orgname" placeholder="Organization Name" minlength="5" maxlength="50" oninput="sanitizeInput(this)" onkeypress="validateRegistrationForm()" >
+					    <div class="error-msg" id="orgnameError1" style="color:red"></div>  
+                        <input type="text" class="form-control" placeholder="Enter your work email address" id="email"name="email" maxlength="50" oninput="sanitizeInput(this)" onkeyup="validateRegistrationForm()">
+						<div class="error-msg" id="emailError1" style="color:red"></div> 
+                        <input type="text" class="form-control" placeholder="Enter Mobile No " id="mobile" name="mobile" maxlength="10" ontextbox="sanitizeInput(this)" onkeyup="validateRegistrationForm()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+				 		<div class="error-msg" id="mobileError1" style="color:red"></div>
+                        <select class="form-select form-control" aria-label="Default select example" id="noofEmp"  name="noofEmp" onchange="validateRegistrationForm()">
+                            <option selected value="">Select number of employees</option>
+                            <option value="1">up to 10 </option>
+                            <option value="2">up to 20 </option>
+                            <option value="3">up to 40</option>
+                            <option value="4">more than 50</option>
+                        </select>
+						<div class="error-msg" id="noofEmpError1" style="color:red"></div>
+                          <div class="form-group">
+                            <div class="custom-control custom-checkbox small">
+                                <input type="checkbox" class="custom-control-input"  id="privacyCheck" name="privacyCheck"  onclick="validateRegistrationForm()">
+                               <label class="custom-control-label text-left" for="privacyCheck">I agree to the <a href="#">privacy policy</a> and <a href="#">terms of use</a>. </label>
+                               <span class="error-msg" id="privacyCheckError1" style="color:red"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox small">
+                                <input type="checkbox" class="custom-control-input" id="whatsupCheck" name="whatsupCheck"  onclick="validateRegistrationForm()">
+                                <label class="custom-control-label text-left" for="whatsupCheck" >Connect with me on WhatsApp for onboarding.</label>
+                                <div class="error-msg" id="whatsupCheckError1" style="color:red"></div>
+                            </div>
+                        </div>
+						
+						
+						<div class="form-group">
+                        <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="eRupiStatus" name="eRupiStatus" >
+                            <label class="custom-control-label text-left" for="eRupiStatus" >eRupiStatus</label>
+                            
+                        </div>
+                    </div>
+												
+ 					<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+		            	<div id="otsuccmsg"></div>   
+		            </div>
+		            
+		            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+		            	<div id="otfailmsg"></div>
+		            </div>
+					
+					<!-- Google reCAPTCHA -->
+					<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+					
+                        <div class="d-grid mt-2">
+                            <button class="btn btn-primary btn-user btn-block" type="button" onclick="userRegistration()" >Signup </button>
+                        </div>
+                        <p class="reCAPTCHA">This site is protected by reCAPTCHA and <a href="#">Google Privacy Policy</a> and <a href="#">Terms of Service</a> apply.</p>
+                        <p class="text-center already-login">Already have account with us? <a th:href="@{/login}">Login</a></p>                        
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 col-sm-7 col-md-8">
+                <div class="signup-right-wrap">
+                    <div class="logo"><img src="img/Component 1.svg" alt="" class="img-fluid" ></div>
+                </div>
+            </div>
+        </div>     
+    </div>
+    
+    <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
+	<!-- script for captcha-->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<!-- sql injection function-->
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	
+</body>
+
+</html>
