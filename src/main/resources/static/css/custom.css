@@ -195,7 +195,7 @@ body {
     display: block;
     text-align: center;
     font-size: .85rem;
-    margin: 10px 0;
+    margin: 15px 0;
     position: relative;
 }
 
@@ -5225,4 +5225,107 @@ input.autocomp-input {
     padding: 10px 20px;
     color: #4A4E69;
     font-size: 14px;
+}
+
+.loginNew-wrap{
+    background: url("../img/loginNewBg.jpg") no-repeat center center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 10px;
+    min-height: 100vh;
+    background-size: cover;
+}
+
+.logoNewLeft {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.logoNewBtm h2 {
+    color: #FFFFFF;
+    font-size: 28px;
+    line-height: 40px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.logoNewBtm h2 span {
+    color: #2F945A;   
+}
+
+.logoNewBtm ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.logoNewBtm ul li {
+    color: #EDEDF0;
+    width: 50%;
+    float: left;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 5px 0px 5px 0;
+}
+
+.logoNewBtm ul li img {
+    margin-right: 5px;
+}
+
+.logoNewForm {
+    height: 100vh;
+    background: #fff;
+    padding: 20px 30px;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logoNewFormbtm {
+    text-align: center;
+}
+
+.logoNewFormtop {
+    margin-top: 50px;
+}
+.logoNewFormWelcome {
+    line-height: 22px;
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    color: #86889B;
+}
+.logoNewFormtop h4 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    color: #1F212C;
+    margin-bottom: 20px;
+}
+
+.logoNewFormtop p {
+    color: #4A4E69;
+    margin: 15px 0;
+}
+
+.logoNewFormtop input {
+    color: #9A9A9A;
+    border: 1px solid #d1d3e2;
+}
+
+.logoNewFormtop input:focus {
+    color: #9A9A9A;
+    border: 1px solid #d1d3e2;
+}
+
+.logoNewFormtop input::placeholder{
+    color: #9A9A9A;
+} 
+
+.logoNew {
+    margin-top: 30px;
 }
