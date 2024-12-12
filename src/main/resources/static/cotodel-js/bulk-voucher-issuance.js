@@ -158,6 +158,38 @@ function convertImageToBase64() {
            reader.readAsDataURL(file);
     }
 
+	function saveBulkVoucherclearmessage(){
+		
+		var banklist = document.getElementById("banklist").value;
+		var voucherTypeMCC = document.getElementById("voucherTypeMCC").value;
+		var fileInput = document.getElementById("up").value;
+		
+		
+		if(banklist =="" || banklist == null){
+				 document.getElementById("banklistError").innerHTML="Please Select Bank";
+				 return false;
+			}
+			else{
+				document.getElementById("banklistError").innerHTML="";
+			}
+			if(voucherTypeMCC =="" || voucherTypeMCC == null){
+				 document.getElementById("voucherTypeMCCError").innerHTML="Please Select Voucher MCC";
+				 return false;
+			}
+			else{
+				document.getElementById("voucherTypeMCCError").innerHTML="";
+			}
+			
+		if(fileInput =="" || fileInput == null){
+			 document.getElementById("fileInputError").innerHTML="Please Select File";
+			 return false;
+		}
+		else{
+			document.getElementById("fileInputError").innerHTML="";
+		}
+		
+	}
+	
 function saveBulkVoucherUpload(){
 	
 	var banklist = document.getElementById("banklist").value;
@@ -708,7 +740,7 @@ function  getVoucherDetailByBoucherCode(){
 
 
 function  getmccMasterDetailsByPurposeCodeAndMcc(){
-	
+	saveBulkVoucherclearmessage();
  	var voucherCode = localStorage.getItem('voucherCode');
 	var mcc = document.getElementById("voucherTypeMCC").value;
  	$.ajax({
@@ -758,7 +790,7 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
 }
 
 function  getBankDetailByBankAccountNumber(){
-	
+	saveBulkVoucherclearmessage();
     //document.getElementById("signinLoader").style.display="flex";
  	var accountNumber = document.getElementById("banklist").value;
  	$.ajax({

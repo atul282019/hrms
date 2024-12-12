@@ -268,7 +268,7 @@ function  getLinkedBankDetail(){
 
 
 function  getVoucherDetailByBoucherCode(){
-	
+	createSingleVoucherValidation();
     //document.getElementById("signinLoader").style.display="flex";
  	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
  	$.ajax({
@@ -315,7 +315,7 @@ function  getVoucherDetailByBoucherCode(){
 
 
 function  getmccMasterDetailsByPurposeCodeAndMcc(){
-	
+	createSingleVoucherValidation();
     //document.getElementById("signinLoader").style.display="flex";
  	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
 	var mcc = document.getElementById("voucherTypeMCC").value;
@@ -357,7 +357,7 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
 }
 
 function  getBankDetailByBankAccountNumber(){
-	
+	createSingleVoucherValidation();
     //document.getElementById("signinLoader").style.display="flex";
  	var accountNumber = document.getElementById("banklist").value;
  	$.ajax({
@@ -423,12 +423,15 @@ function validateAmount(amount) {
            return amountRegex.test(amount);
   }
 
+
+    
+  
 function  createSingleVoucherValidation(){
 	
     //document.getElementById("signinLoader").style.display="flex";
 	var banklist = document.getElementById("banklist").value;
 	
-	var voucher = document.getElementById("voucherId").value;
+	var voucher = $("#selectedOptionsDropdown option:selected").val(); //document.getElementById("voucherId").value;
 	var beneficiaryName = document.getElementById("beneficiaryName").value;
 	var beneficiaryMobile = document.getElementById("beneficiaryMobile").value;;
 	var amount = document.getElementById("amount").value;
@@ -456,7 +459,7 @@ function  createSingleVoucherValidation(){
 	 document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
     var employerId = document.getElementById("employerId").value;
 	var employerName = document.getElementById("employerName").value;
-	
+	var voucherTypeMCC = $("#voucherTypeMCC option:selected").val();
 	
 	var element = document.getElementById("lable3");
 	element.classList.add("active");
@@ -477,6 +480,13 @@ function  createSingleVoucherValidation(){
 			}
 		else{
 			document.getElementById("selectedOptionsDropdownError").innerHTML="";
+		}
+		if(voucherTypeMCC=="" || voucherTypeMCC== null){
+				document.getElementById("voucherTypeMCCError").innerHTML="Please select voucher MCC";
+				return false;
+			}
+		else{
+			document.getElementById("voucherTypeMCCError").innerHTML="";
 		}
 
 		if(voucherType=="" || voucherType==null){
@@ -530,12 +540,19 @@ function  createSingleVoucherValidation(){
 		}
 
 	if(validity=="" || validity==null){
-			document.getElementById("expiryDateError").innerHTML="Please enter voucher validity";
+			document.getElementById("expiryDateError").innerHTML="Please select expiry date";
 			return false;
 		}
 		else{
 			document.getElementById("expiryDateError").innerHTML="";
 		}
+		if (validity <= startDate) {
+	        document.getElementById("expiryDateError").innerHTML="Expiry date should be greater than start date";
+			return false;
+            }
+		 else {
+       	 document.getElementById("expiryDateError").innerHTML="";
+        }
 		$("#selectvouchers-wrap04").show();
 		$("#selectvouchers-wrap03").hide();
 		
