@@ -6,6 +6,7 @@
 
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
+
 <body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail()" >
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
@@ -16,6 +17,7 @@
 		<!-- Sidebar -->
 		    <div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
        <!-- End of Sidebar -->
+  
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -531,9 +533,7 @@
 									
 									 <div class="d-flex justify-content-between align-items-center">
                                         <h3>Enter Details </h3>
-                                    <!--  <div>
-											 <a href="#" class="btn btn-primary" id="addcategory">+ ADD CATEGORY</a>
-                                       </div>-->
+                                  
                                     </div>
 
 									<div>
@@ -567,71 +567,64 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select class="GeneralSelect" id="voucherType">
+                                                        <select class="GeneralSelect" id="voucherType" onchange="getmccMasterDetailsByPurposeCodeAndMcc()">
 															<option value="" class="test">Select Type</option>
                                                             <option value="Single" class="test">Single</option>
 															<option value="Multiple" class="test">Multiple</option>
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="table-input" placeholder="Enter Name" id="beneficiaryName" maxlength="50"
+                                                        <input type="text" class="table-input" placeholder="Enter Name" id="beneficiaryName" maxlength="50" onkeypress="createSingleVoucherValidation()"
 														oninput="sanitizeInput(this)" >
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="table-input" placeholder="Enter Mobile Number" id="beneficiaryMobile" maxlength="10"
+                                                        <input type="text" class="table-input" placeholder="Enter Mobile Number" 
+														id="beneficiaryMobile" maxlength="10" onkeyup="validateMobile()" 
 														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 														
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="table-input" id="amount" min="1.01" step="0.01" maxlength="6"
+                                                        <input type="text" class="table-input" id="amount" min="1.01" step="0.01" maxlength="6" onkeypress="createSingleVoucherValidation()"
 														placeholder="e.g., 10 or 1.50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                                     </td>
                                                     <td>
-                                                        <input type="date" class="table-date" placeholder="25/10/2024" id="startDate">
+                                                        <input type="date" class="table-date" placeholder="25/10/2024" id="startDate" onchange="createSingleVoucherValidation()">
                                                     </td>
                                                     <td>
-                                                        <input type="date" class="table-input" placeholder="Enter Figure" id="expiryDate">
+                                                        <input type="date" class="table-input" placeholder="Enter Figure" id="expiryDate" onchange="createSingleVoucherValidation()">
 														
                                                     </td>
-                                                  <!--  <td>
-                                                        <a href="#"><img src="img/delete.svg" alt=""></a>
-                                                    </td>-->
                                                 </tr>
                                                 
 												<tr>
-	                                                   <td>
-														  <div class="error-msg" id="selectedOptionsDropdownError" style="color:red"></div>
-													   </td>
-	                                                   <td>
-														<div class="error-msg" id="voucherTypeError" style="color:red"></div>
+                                                   <td>
+													  <div class="error-msg" id="selectedOptionsDropdownError" style="color:red"></div>
+												   </td>
+												   <td>
+   													<div class="error-msg" id="voucherTypeMCCError" style="color:red"></div>
 
-	                                                   </td>
-	                                                   <td>
-														<div class="error-msg" id="beneficiaryNameError" style="color:red"></div>
-	                                                   </td>
-	                                                   <td>
-														<div class="error-msg" id="beneficiaryMobileError" style="color:red"></div>
-	                                                   </td>
-	                                                   <td>
-														<div class="error-msg" id="amountError" style="color:red"></div>
-	                                                   </td>
-	                                                   <td>
-														<div class="error-msg" id="startDateError" style="color:red"></div>
-	                                                   </td>
-	                                                   <td>
-														<div class="error-msg" id="expiryDateError" style="color:red"></div>
-	                                                   </td>
-	                                                 <!--  <td>
-	                                                       <a href="#"><img src="img/delete.svg" alt=""></a>
-	                                                   </td>-->
-	                                               </tr>
-												                                               
-                                               <!-- <tr class="text-center">
-                                                    <td colspan="8" style="background: #EAF4EF;">
-                                                        <a href="#" class="text-success">+ Add New Voucher</a>
                                                     </td>
-                                                </tr>-->
-												
+                                                   <td>
+													<div class="error-msg" id="voucherTypeError" style="color:red"></div>
+
+                                                   </td>
+                                                   <td>
+													<div class="error-msg" id="beneficiaryNameError" style="color:red"></div>
+                                                   </td>
+                                                   <td>
+													<div class="error-msg" id="beneficiaryMobileError" style="color:red"></div>
+                                                   </td>
+                                                   <td>
+													<div class="error-msg" id="amountError" style="color:red"></div>
+                                                   </td>
+                                                   <td>
+													<div class="error-msg" id="startDateError" style="color:red"></div>
+                                                   </td>
+                                                   <td>
+													<div class="error-msg" id="expiryDateError" style="color:red"></div>
+                                                   </td>
+                                               </tr>
+											
                                             </tbody>
                                         </table>
                                     </div>
@@ -767,10 +760,13 @@
                                     </div>
                                 </div>
 
+                             
                             </div>
+
 
                         </div>
                     </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -1246,6 +1242,25 @@
 		}
 
 	</script>
+	
+	<script>
+	        function validateMobile(){
+	            const mobileInput = document.getElementById('beneficiaryMobile').value;
+	            const errorMessage = document.getElementById('beneficiaryMobileError');
+	            
+	            // Regex for validating 10-digit mobile numbers starting with 6-9
+	            const mobileRegex = /^[6-9]\d{9}$/;
+
+	            if (!mobileRegex.test(mobileInput)) {
+	                // Prevent form submission and show error message
+	                event.preventDefault();
+	                errorMessage.style.display = 'block';
+	            } else {
+	                // Hide error message if validation passes
+	                errorMessage.style.display = 'none';
+	            }
+	      } 
+	    </script>
 	
 </body>
 

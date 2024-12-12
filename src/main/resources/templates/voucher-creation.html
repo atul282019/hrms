@@ -253,14 +253,14 @@
 										<input type="hidden" class="form-input" id="merchentid" name="merchentid">
 										<input type="hidden" class="form-input" id="payerva" name="payerva"> 
 										
-										<span id="voucherlbl"></span>
-										<span id="vmcclbl"></span>
-					                    <span id="vtypelbl"></span>
-					                    <span id="namelbl"></span>
-										<span id="mobilelbl"></span>
-					                    <span id="amountlbl"></span>
-					                    <span id="startdatelbl"></span>
-					                    <span id="validitylbl"></span>
+										<input type="hidden" id="voucherlbl" />
+										<input type="hidden" id="vmcclbl" />
+					                    <input type="hidden" id="vtypelbl" />
+					                    <input type="hidden" id="namelbl" />
+										<input type="hidden" id="mobilelbl" />
+					                    <input type="hidden" id="amountlbl" />
+					                    <input type="hidden" id="startdatelbl" />
+					                    <input type="hidden" id="validitylbl" />
                                     </div>
 							   </div>
                             </div>
@@ -503,8 +503,14 @@
 					return false;
 				}
 				else{
-					document.getElementById("voucherTypeError").innerHTML="";
+					document.getElementById("expiryDateError").innerHTML="";
 				}
+				if (expiryDate <= startDate) {
+					        document.getElementById("expiryDateError").innerHTML="Expiry date should be greater than start date";
+							return false;
+				            } else {
+				            document.getElementById("expiryDateError").innerHTML="";
+				            }
 				if(amount=="" || amount==null){
 					document.getElementById("amountError").innerHTML="Please select amount";
 					return false;
@@ -512,7 +518,7 @@
 				else{
 					document.getElementById("amountError").innerHTML="";
 				}
-
+				
 				const selectedCheckboxes = document.querySelectorAll(".rowCheckbox:checked");
 
 				    if (selectedCheckboxes.length > 0) {
@@ -553,6 +559,7 @@
 						document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
 						var employerId = document.getElementById("employerId").value;
 						var employerName = document.getElementById("employerName").value;
+						
 						document.getElementById("signinLoader").style.display="flex";
 						
 						$.ajax({
