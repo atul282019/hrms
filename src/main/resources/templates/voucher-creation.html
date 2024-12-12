@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+
+<body id="page-top" onload="getLinkedBankDetail(), getUserList()" >
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+		<!-- Sidebar -->
+			      
+		<div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
+
+		<!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+					<ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                              
+                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+							          <i class="fas fa-user-circle"></i> Logout         
+							        </a>
+					          </div> -->  
+                              <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                   </ul>
+                </nav>
+                <!-- End of Topbar -->
+				
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs expense-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home1">User Voucher Issuance</a></li>                               
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home1" class="tab-pane in active">
+                                    <div class="role-access-wrap" id="RoleAaccessWrap01">
+                                        <div class="role-access-wrapin-top">
+                                            <div class="role-access-wrapin-topflex d-flex justify-content-between py-3">
+                                                <div>
+                                                    <h4 class="mb-0">Vouchers Creation User List
+                                                    </h4>
+                                                </div>
+                                           </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                                <div class="did-floating-label-contentwrap">
+                                                    <label>Bank Name</label>
+													<select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber()">
+												 <option value="" class="test">Select Bank</option>
+			                                     </select>        
+												 <div class="custom-errormsg" id="banklistError" style="color:red"></div>	
+                                                                                         
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <div class="did-floating-label-contentwrap">
+                                                    <label>Select Voucher</label>
+													<select id="selectedOptionsDropdown" class="GeneralSelect" onchange="getVoucherDetailByBoucherCode()">
+													    <option value="">Select Voucher</option>
+														<option value="3A">Meal</option>
+														<option value="1A">Lab Voucher</option>
+													</select> 
+													<div class="custom-errormsg" id="selectedOptionsDropdownError" style="color:red"></div>	
+													                                                                                                    
+                                                </div>                                            
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <div class="did-floating-label-contentwrap">
+                                                    <label>Select Voucher Type MCC</label>
+													<select  class="GeneralSelect" id="voucherTypeMCC" onchange="getmccMasterDetailsByPurposeCodeAndMcc()">
+													<option value="" class="test">Select Voucher Type MCC</option>
+		                                           </select>   
+												   <div class="custom-errormsg" id="voucherTypeMCCError" style="color:red"></div>                                               
+                                                </div>                                               
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <div class="did-floating-label-contentwrap">
+                                                    <label>Select Creation Type</label>
+													<select class="GeneralSelect" id="voucherType" onchange="clearMessage()">
+														<option value="" class="test">Select Creation Type</option>
+					                                          <option value="Single" class="test">Single</option>
+														<option value="Multiple" class="test">Multiple</option>
+					                                </select>    
+													<div class="custom-errormsg" id="voucherTypeError" style="color:red"></div>                                                  
+                                                </div>                                                                                                  
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <div class="did-floating-label-contentwrap">
+                                                    <label>Creation Date</label>
+                                                    <input  id="startDate" type="date" class="table-date" placeholder="Creation Date" onchange="clearMessage()"> 
+													<div class="custom-errormsg" id="startDateError" style="color:red"></div>                                                     
+                                                </div> 
+                                                
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <div class="did-floating-label-contentwrap">
+                                                    <label>Expiry Date</label>
+                                                    <input id="expiryDate" type="date" class="table-date" placeholder="Expiry Date" onchange="clearMessage()">  
+													<div class="custom-errormsg" id="expiryDateError" style="color:red"></div>                                                  
+                                                </div>                                                 
+                                            </div>
+											<div class="col-12 col-md-4">
+                                                <div class="did-floating-label-contentwrap">
+                                                    <label>Amount</label>
+                                                    <input id="amount" type="text" class="table-date" min="1.01" step="0.01" maxlength="6" 
+													placeholder="e.g., 10 or 1.50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+													onkeyup="clearMessage()" >   
+													<div class="custom-errormsg" id="amountError" style="color:red"></div>                                                
+                                                </div>                                                 
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-center my-3" id="bankDetailView" style="display: none">
+                                            <div class="col-12 col-md-2">
+                                                <div class="vouCredetails">
+                                                    <span>Account Type</span>
+                                                    <strong id="accTypeView"></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-2">
+                                                <div class="vouCredetails">
+                                                    <span>IFSC Code</span>
+                                                    <strong id="accIfscView"></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-2">
+                                                <div class="vouCredetails">
+                                                    <span>Name</span>
+                                                    <strong id="accHolderNameView"></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-2">
+                                                <div class="vouCredetails">
+                                                    <span>MID</span>
+                                                    <strong id="accMidView"></strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-2">
+                                                <div class="vouCredetails">
+                                                    <span>Payerva</span>
+                                                    <strong id="accPayervaView"></strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="role-access-wrapin-bottom">
+                                            <div class="table-responsive">
+                                                <table class="table table-reimbursements" id="userListTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+	                                                            <div class="unstyled centered">
+	                                                                <input type="checkbox" id="selectAll">
+	                                                            </div>
+                                                            </th>
+                                                            <th>Name</th>                                                            
+                                                            <th>Mobile </th>                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="text-right mt-1 mb-3">
+                                            <button class="btn btn-primary" id="issueBtn" disabled >Issue Voucher</button>
+                                        </div>
+										
+										<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+										<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+										<input type="hidden" class="form-input" id="voucherId" name="voucherId"> 
+										<input type="hidden" class="form-input" id="voucherCode" name="voucherCode"> 
+										<input type="hidden" class="form-input" id="voucherType" name="voucherType"> 
+										<input type="hidden" class="form-input" id="voucherSubType" name="voucherSubType"> 
+										<input type="hidden" class="form-input" id="voucherDesc" name="voucherDesc"> 
+										<input type="hidden" class="form-input" id="purposeCode" name="purposeCode"> 
+										<input type="hidden" class="form-input" id="activeStatus" name="activeStatus"> 
+										<input type="hidden" class="form-input" id="createdby" name="createdby"> 
+										
+										
+										<input type="hidden" class="form-input" id="bankName" name="bankName"> 
+										<input type="hidden" class="form-input" id="bankCode" name="bankCode"> 
+										<input type="hidden" class="form-input" id="accountHolderName" name="accountHolderName"> 
+										<input type="hidden" class="form-input" id="acNumber" name="acNumber">
+										<input type="hidden" class="form-input" id="accountType" name="accountType"> 
+										<input type="hidden" class="form-input" id="ifsc" name="ifsc">
+										
+										<input type="hidden" class="form-input" id="erupiFlag" name="erupiFlag"> 
+										<input type="hidden" class="form-input" id="branchCode" name="branchCode"> 
+										<input type="hidden" class="form-input" id="authStatus" name="authStatus">
+										
+										<input type="hidden" class="form-input" id="authResponse" name="authResponse">
+										<input type="hidden" class="form-input" id="banklinkedMobile" name="mobile"> 
+										<input type="hidden" class="form-input" id="accstatus" name="accstatus"> 
+										
+										<input type="hidden" class="form-input" id="orgId" name="orgId"> 
+										<input type="hidden" class="form-input" id="orgCode" name="orgCode"> 
+										<input type="hidden" class="form-input" id="tid" name="tid"> 
+										<input type="hidden" class="form-input" id="merchentIid" name="merchentIid"> 
+										<input type="hidden" class="form-input" id="mcc" name="mcc"> 
+										<input type="hidden" class="form-input" id="submurchentid" name="submurchentid"> 
+										<input type="hidden" class="form-input" id="merchentid" name="merchentid">
+										<input type="hidden" class="form-input" id="payerva" name="payerva"> 
+										
+										<span id="voucherlbl"></span>
+										<span id="vmcclbl"></span>
+					                    <span id="vtypelbl"></span>
+					                    <span id="namelbl"></span>
+										<span id="mobilelbl"></span>
+					                    <span id="amountlbl"></span>
+					                    <span id="startdatelbl"></span>
+					                    <span id="validitylbl"></span>
+                                    </div>
+							   </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/userVoucheCreation"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+
+	</script>
+    <!-- Page level custom scripts -->
+
+	<script>
+		
+		function getUserList() {
+		    const employerId = document.getElementById("employerId").value;
+
+		    $.ajax({
+		        type: "POST",
+		        url: "/geterupiVoucherOldList",
+		        data: {
+		            "orgId": employerId
+		        },
+		        success: function(data) {
+		            const parsedData = JSON.parse(data);
+		            const data2 = parsedData.data;
+
+		            const table = $('#userListTable').DataTable({
+		                destroy: true,
+		                responsive: true,
+		                searching: true,
+		                bInfo: false,
+		                paging: false,
+		                lengthChange: true,
+		                autoWidth: false,
+		                pagingType: "full_numbers",
+		                pageLength: 50,
+		                buttons: ["csv", "excel"],
+		                language: { emptyTable: "No Data Available" },
+		                aaData: data2,
+		                aoColumns: [
+		                    {
+		                        mData: "mobile",
+		                        render: function(data2) {
+		                            return `
+		                                <div class="table-check">
+		                                    <input type="checkbox" class="rowCheckbox" value="${data2}" />
+		                                </div>`;
+		                        }
+		                    },
+		                    { mData: "name" },
+		                    { mData: "mobile" }
+		                ]
+		            });
+		        },
+		        error: function(e) {
+		            alert('Failed to fetch JSON data: ' + e.statusText);
+		        }
+		    });
+		}
+
+		// Get selected IDs
+		function getSelectedIds() {
+		    const selectedCheckboxes = document.querySelectorAll(".rowCheckbox:checked");
+		    return Array.from(selectedCheckboxes).map(cb => cb.value);
+		}
+
+		// Update Delete button state
+		function updateDeleteButtonState() {
+		    const selectedIds = getSelectedIds();
+		    const issueBtn = document.getElementById("issueBtn");
+			const selectAllCheckbox = document.getElementById("selectAll"); // Reference to the Select All checkbox
+		    issueBtn.disabled = selectedIds.length === 0;
+			// Uncheck the Select All checkbox if no rows are selected
+		    if (selectedIds.length === 0) {
+		        selectAllCheckbox.checked = false;
+		    }
+		}
+
+		function clearMessage() {
+					
+					const banklist = document.getElementById("banklist").value;
+					const selectedOptionsDropdown = document.getElementById("selectedOptionsDropdown").value;
+					const voucherTypeMCC = document.getElementById("voucherTypeMCC").value;
+					const voucherType = document.getElementById("voucherType").value;
+					
+					const startDate = document.getElementById("startDate").value;
+					const expiryDate = document.getElementById("expiryDate").value;
+				    const amount = document.getElementById("amount").value;
+					
+					if(banklist=="" || banklist==null){
+						    document.getElementById("banklistError").innerHTML="Please select bank";
+							return false;
+							}
+						else{
+							document.getElementById("banklistError").innerHTML="";
+						}
+					if(selectedOptionsDropdown=="" || selectedOptionsDropdown== null){
+							document.getElementById("selectedOptionsDropdownError").innerHTML="Please select voucher";
+							return false;
+						}
+						else{
+							document.getElementById("selectedOptionsDropdownError").innerHTML="";
+						}
+
+						if(voucherTypeMCC=="" || voucherTypeMCC==null){
+							document.getElementById("voucherTypeMCCError").innerHTML="Please select type";
+							return false;
+						}
+						else{
+							document.getElementById("voucherTypeMCCError").innerHTML="";
+						}
+						if(voucherType=="" || voucherType==null){
+							document.getElementById("voucherTypeError").innerHTML="Please select type";
+							return false;
+						}
+						else{
+							document.getElementById("voucherTypeError").innerHTML="";
+						}
+						
+						if(startDate=="" || startDate==null){
+							document.getElementById("startDateError").innerHTML="Please select start date";
+							return false;
+						}
+						else{
+							document.getElementById("startDateError").innerHTML="";
+						}
+						if(expiryDate=="" || expiryDate==null){
+							document.getElementById("expiryDateError").innerHTML="Please select expiry date";
+							return false;
+						}
+						else{
+							document.getElementById("expiryDateError").innerHTML="";
+						}
+						if(amount=="" || amount==null){
+							document.getElementById("amountError").innerHTML="Please select amount";
+							return false;
+						}
+						else{
+							document.getElementById("amountError").innerHTML="";
+						}
+					}
+		// Delete selected rows
+		function selecctCheckbox() {
+		    const selectedIds = getSelectedIds();
+			
+			const banklist = document.getElementById("banklist").value;
+			const selectedOptionsDropdown = document.getElementById("selectedOptionsDropdown").value;
+			const voucherTypeMCC = document.getElementById("voucherTypeMCC").value;
+			const voucherType = document.getElementById("voucherType").value;
+			
+			const startDate = document.getElementById("startDate").value;
+			const expiryDate = document.getElementById("expiryDate").value;
+		    const amount = document.getElementById("amount").value;
+			
+			if(banklist=="" || banklist==null){
+				    document.getElementById("banklistError").innerHTML="Please select bank";
+					return false;
+					}
+				else{
+					document.getElementById("banklistError").innerHTML="";
+				}
+			if(selectedOptionsDropdown=="" || selectedOptionsDropdown== null){
+					document.getElementById("selectedOptionsDropdownError").innerHTML="Please select voucher";
+					return false;
+				}
+				else{
+					document.getElementById("selectedOptionsDropdownError").innerHTML="";
+				}
+
+				if(voucherTypeMCC=="" || voucherTypeMCC==null){
+					document.getElementById("voucherTypeMCCError").innerHTML="Please select type";
+					return false;
+				}
+				else{
+					document.getElementById("voucherTypeMCCError").innerHTML="";
+				}
+				if(voucherType=="" || voucherType==null){
+					document.getElementById("voucherTypeError").innerHTML="Please select type";
+					return false;
+				}
+				else{
+					document.getElementById("voucherTypeError").innerHTML="";
+				}
+				
+				if(startDate=="" || startDate==null){
+					document.getElementById("startDateError").innerHTML="Please select start date";
+					return false;
+				}
+				else{
+					document.getElementById("startDateError").innerHTML="";
+				}
+				if(expiryDate=="" || expiryDate==null){
+					document.getElementById("expiryDateError").innerHTML="Please select expiry date";
+					return false;
+				}
+				else{
+					document.getElementById("voucherTypeError").innerHTML="";
+				}
+				if(amount=="" || amount==null){
+					document.getElementById("amountError").innerHTML="Please select amount";
+					return false;
+				}
+				else{
+					document.getElementById("amountError").innerHTML="";
+				}
+
+				const selectedCheckboxes = document.querySelectorAll(".rowCheckbox:checked");
+
+				    if (selectedCheckboxes.length > 0) {
+				        const selectedRowData = Array.from(selectedCheckboxes).map(checkbox => {
+				            const row = checkbox.closest("tr"); // Get the closest table row for the checkbox
+				            const cells = Array.from(row.querySelectorAll("td")).slice(1); // Exclude the first `<td>`
+
+				            // Combine data from the remaining `<td>` elements in the desired format
+				            return cells.map(cell => cell.textContent.trim()).join("|");
+				        });
+
+				        console.log("Selected rows data (formatted):", selectedRowData);
+
+						var voucher = document.getElementById("voucherId").value;
+						//var beneficiaryName = document.getElementById("beneficiaryName").value;
+						//var beneficiaryMobile = document.getElementById("beneficiaryMobile").value;;
+						
+						var voucherCode = document.getElementById("voucherCode").value;
+						//var voucherType = document.getElementById("voucherType").value;;
+						var voucherSubType = document.getElementById("voucherSubType").value;
+						var voucherDesc = document.getElementById("voucherDesc").value;
+						var  purposeCode= document.getElementById("purposeCode").value;
+						var activeStatus = document.getElementById("activeStatus").value;
+						var createdby = document.getElementById("employerName").value;
+						var bankCode = document.getElementById("bankCode").value;
+						var mcc = document.getElementById("mcc").value;
+						var payerva = document.getElementById("payerva").value;
+
+						var merchentid = document.getElementById("merchentid").value;
+						var submurchentid = document.getElementById("submurchentid").value;
+
+						document.getElementById("voucherlbl").innerHTML= $("#selectedOptionsDropdown option:selected").text();
+					    document.getElementById("vtypelbl").innerHTML = $("#voucherType option:selected").text();
+						document.getElementById("namelbl").innerHTML = $("#beneficiaryName").val();
+						document.getElementById("mobilelbl").innerHTML = $("#beneficiaryMobile").val();
+						document.getElementById("amountlbl").innerHTML = $("#amount").val();
+						document.getElementById("startdatelbl").innerHTML = $("#startDate").val();
+						document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
+						var employerId = document.getElementById("employerId").value;
+						var employerName = document.getElementById("employerName").value;
+						document.getElementById("signinLoader").style.display="flex";
+						
+						$.ajax({
+						type: "POST",
+						url:"/exitingUserVoucherCreation",
+						    data: {
+								  
+								   ///"name": beneficiaryName,
+								   //"mobile": beneficiaryMobile,
+								   "amount": amount,
+								   "startDate": startDate,
+								   "expDate": expiryDate,
+								   "purposeCode": purposeCode,
+								   "otpValidationStatus": "",
+								   "consent": "",
+								   "creationDate": "",
+								   "createdby": createdby,
+								   "accountId": "",
+								   "orgId": employerId,
+								   "merchanttxnid": "",
+								   "merchantId": merchentid,
+								   "subMerchantId": submurchentid,
+								   "bulktblId": "",
+								   "redemtionType": "",
+								   "mcc": mcc,
+								   "voucherType": voucherType,
+								   "voucherCode": voucherCode,
+								   "voucherDesc": voucherDesc,
+								   "activeStatus": activeStatus,
+								   "bankCode":banklist,
+								   "voucherId":voucher,
+								   "payerVA":payerva,
+								   "arrayofnamemobile":selectedRowData
+								   
+						   		 },
+						   		  beforeSend : function(xhr) {
+								//xhr.setRequestHeader(header, token);
+								},
+						        success: function(data){
+						        newData = data;
+						        //console.log(newData);
+						        var data1 = jQuery.parseJSON( newData );
+							   //var data2 = data1.data;
+							   document.getElementById("signinLoader").style.display="none";
+							   			
+				   			if(data1.status==true){
+								
+								    document.getElementById("banklist").value="";
+									
+								    document.getElementById("voucherId").value=""
+								    document.getElementById("beneficiaryName").value="";
+									document.getElementById("beneficiaryMobile").value="";
+									document.getElementById("amount").value="";
+									document.getElementById("startDate").value="";
+									document.getElementById("expiryDate").value="";
+									
+									document.getElementById("voucherCode").value="";
+									document.getElementById("voucherType").value="";
+									document.getElementById("voucherSubType").value="";
+									document.getElementById("voucherDesc").value="";
+									document.getElementById("purposeCode").value="";
+									document.getElementById("activeStatus").value="";
+									document.getElementById("employerName").value="";
+									document.getElementById("bankCode").value="";
+									document.getElementById("mcc").value="";
+									document.getElementById("payerva").value="";
+									
+				   					document.getElementById("issuesuccmsg").innerHTML="Voucher Created Successfully.";
+				   					document.getElementById("issuemsgdiv").style.display="block";
+				   					 //document.getElementById("getInTouchUser").reset();
+				   					 $('#otmsgdiv').delay(10000).fadeOut(800);
+									 window.location.href = "/createUpiVoucherIssuance";
+									document.getElementById('submitButton').disabled=false;
+									document.getElementById('authenticate').disabled=false;
+									
+				   				}else if(data1.status==false){
+									document.getElementById('submitButton').disabled=false;
+									document.getElementById('authenticate').disabled=false;									
+				   					 document.getElementById("issuesfailmsg").innerHTML=data1.message;
+				   					 document.getElementById("issuesfailmsgDiv").style.display="block";
+				   					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+				   				}else{
+									document.getElementById('submitButton').disabled=false;
+									document.getElementById('authenticate').disabled=false;						
+				   					 document.getElementById("issuesfailmsg").innerHTML="API Gateway not respond. Please try again.";
+				   					 document.getElementById("issuesfailmsgDiv").style.display="block";
+				   					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+				   				}
+						       },
+						     error: function(e){
+						         alert('Error: ' + e);
+						     }
+						});
+				        getUserList();
+				    } else {
+				        alert("No rows selected to delete.");
+				    }
+
+		}
+
+		// Event listeners
+		document.addEventListener("DOMContentLoaded", () => {
+		    getUserList();
+
+		    const issueBtn = document.getElementById("issueBtn");
+		    const selectAllCheckbox = document.getElementById("selectAll");
+		    const dataTable = document.getElementById("userListTable");
+
+		    // Select all rows
+		    selectAllCheckbox.addEventListener("change", () => {
+		        const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
+		        rowCheckboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+		        updateDeleteButtonState();
+		    });
+
+		    // Event delegation for dynamic checkboxes
+		    dataTable.addEventListener("change", event => {
+		        if (event.target.classList.contains("rowCheckbox")) {
+		            const allCheckboxes = document.querySelectorAll(".rowCheckbox");
+		            selectAllCheckbox.checked = Array.from(allCheckboxes).every(cb => cb.checked);
+		            updateDeleteButtonState();
+		        }
+		    });
+
+		    // Delete button click
+		    issueBtn.addEventListener("click", selecctCheckbox);
+		});
+	
+
+		function  getLinkedBankDetail(){
+			clearMessage();
+		    //document.getElementById("signinLoader").style.display="flex";
+		 	var employerid = document.getElementById("employerId").value;
+		 	$.ajax({
+			type: "POST",
+			url:"/getErupiLinkBankAccountDetail",
+		       data: {
+					"orgId": employerid
+		      		 },
+		      		  beforeSend : function(xhr) {
+					//xhr.setRequestHeader(header, token);
+					},
+					   success: function(data){
+					            newData = data;
+					//            console.log(newData);
+								$("#banklist option").remove();
+					            var obj = jQuery.parseJSON( data );
+					             obj = obj.data;
+					        	 var count=0;
+					         	for (var key in obj) {
+
+					             var values =  obj[key];
+					             var x = document.getElementById("banklist");
+					             if(count==0){
+					             var option = document.createElement("option");
+					             option.text ="Select Bank";
+					             option.value = "";
+					             x.add(option);
+					             }
+					             var option = document.createElement("option");
+					             option.value = values.acNumber;
+					             option.text = values.bankName+" | "+values.acNumber;
+					             x.add(option);
+
+					             count++;
+					             }
+		          },
+		        error: function(e){
+		            alert('Error: ' + e);
+		        }
+		   }); 
+					
+		}
+
+
+		function  getBankDetailByBankAccountNumber(){
+			clearMessage();
+		    //document.getElementById("signinLoader").style.display="flex";
+		 	var accountNumber = document.getElementById("banklist").value;
+		 	$.ajax({
+			type: "POST",
+			url:"/getBankDetailByAccountNo",
+		       data: {
+					"acNumber": accountNumber
+		      		 },
+		      		  beforeSend : function(xhr) {
+					//xhr.setRequestHeader(header, token);
+					},
+		           success: function(data){
+		           newData = data;
+		           //console.log(newData);
+		           var data1 = jQuery.parseJSON( newData );
+				   //var data2 = data1.data;
+				   
+				    document.getElementById("bankDetailView").style.display="flex";
+					document.getElementById("accTypeView").innerHTML=data1.data.accountType;
+					document.getElementById("accIfscView").innerHTML=data1.data.ifsc;
+					document.getElementById("accHolderNameView").innerHTML=data1.data.accountHolderName;
+					document.getElementById("accMidView").innerHTML=data1.data.merchentIid;
+					document.getElementById("accPayervaView").innerHTML=data1.data.payerva;
+				    //document.getElementById("MccView").innerHTML=data1.data.mcc;
+					
+					document.getElementById("bankName").value=data1.data.bankName; 
+					document.getElementById("bankCode").value=data1.data.bankCode; 
+					document.getElementById("accountHolderName").value=data1.data.accountHolderName; 
+					
+					document.getElementById("acNumber").value=data1.data.acNumber; 
+					document.getElementById("accountType").value=data1.data.accountType; 
+					document.getElementById("ifsc").value=data1.data.ifsc; 
+					
+					document.getElementById("erupiFlag").value=data1.data.erupiFlag; 
+					document.getElementById("branchCode").value=data1.data.branchCode; 
+					document.getElementById("authStatus").value=data1.data.authStatus; 
+					
+					document.getElementById("authResponse").value=data1.data.authResponse; 
+					document.getElementById("banklinkedMobile").value=data1.data.mobile; 
+					document.getElementById("accstatus").value=data1.data.accstatus; 
+
+					document.getElementById("orgId").value=data1.data.orgId; 
+					document.getElementById("orgCode").value=data1.data.orgCode; 
+					document.getElementById("tid").value=data1.data.tid;
+					
+					document.getElementById("merchentIid").value=data1.data.merchentIid; 
+					//document.getElementById("mcc").value=data1.data.mcc; 
+					document.getElementById("submurchentid").value=data1.data.submurchentid;  
+					document.getElementById("merchentid").value=data1.data.merchentIid;  
+					document.getElementById("payerva").value=data1.data.payerva;  
+														 
+		          },
+		        error: function(e){
+		            alert('Error: ' + e);
+		        }
+		   }); 
+					
+		}
+
+
+		function  getVoucherDetailByBoucherCode(){
+			clearMessage();
+		    //document.getElementById("signinLoader").style.display="flex";
+		 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
+		 	$.ajax({
+			type: "POST",
+			//url:"/getVoucherDetailByBoucherCode",
+			url:"/getmccMasterListByPurposeCode",
+		       data: {
+					"purposeCode": voucherCode
+		      		 },
+		      		  beforeSend : function(xhr) {
+					//xhr.setRequestHeader(header, token);
+					},
+				success: function(data){
+				           newData = data;
+				           console.log(newData);
+						$("#voucherTypeMCC option").remove();
+				           var obj = jQuery.parseJSON( data );
+				            obj = obj.data;
+				       	 var count=0;
+				        	for (var key in obj) {
+
+				            var values =  obj[key];
+				            var x = document.getElementById("voucherTypeMCC");
+				            if(count==0){
+				            var option = document.createElement("option");
+				            option.text ="Select Voucher Type MCC";
+				            option.value = "";
+				            x.add(option);
+				            }
+				            var option = document.createElement("option");
+				            option.text = values.mccDesc;
+				            option.value = values.mcc;
+				            x.add(option);
+
+				            count++;
+				            }   
+				        },
+				        error: function(e){
+				            alert('Error: ' + e);
+				        }
+		   }); 
+					
+		}
+
+
+		function  getmccMasterDetailsByPurposeCodeAndMcc(){
+			clearMessage();
+		    //document.getElementById("signinLoader").style.display="flex";
+		 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
+			var mcc = document.getElementById("voucherTypeMCC").value;
+		 	$.ajax({
+			type: "POST",
+			url:"/getmccMasterDetailsByPurposeCodeAndMcc",
+		       data: {
+					"purposeCode": voucherCode,
+					"mcc": mcc
+		      		 },
+		      		  beforeSend : function(xhr) {
+					//xhr.setRequestHeader(header, token);
+					},
+		           success: function(data){
+		           newData = data;
+		           console.log(newData);
+		           var data1 = jQuery.parseJSON( newData );
+				   var data2 = data1.data;
+					
+				    document.getElementById("voucherId").value=data1.data.id;
+					document.getElementById("voucherCode").value=data1.data.purposeCode;
+					document.getElementById("vmcclbl").value=data1.data.mcc;
+					document.getElementById("voucherSubType").value=data1.data.purposeCode;
+					document.getElementById("voucherDesc").value=data1.data.purposeDesc;
+					document.getElementById("purposeCode").value=data1.data.purposeCode;
+					document.getElementById("activeStatus").value=data1.data.activeStatus;
+					document.getElementById("createdby").value=data1.data.createdby;
+					document.getElementById("mcc").value=data1.data.mcc;
+					
+					
+		          },
+		        error: function(e){
+		            alert('Error: ' + e);
+		        }
+				
+
+		   }); 
+					
+		}
+
+	</script>
+
+</body>
+</html>

@@ -108,7 +108,7 @@ public class LoginController extends CotoDelBaseController{
 					    // switch case to identify the user screen login
 					switch (String.valueOf(profileJsonRes.getJSONObject("data").getInt("role_id"))) {	
 					case "0":
-						screenName="login-fleet-managment";
+						screenName="index";
 						model.addAttribute("message", "No Role assigned to User. Please contact to Organisation Admin !!");
 						break;	
 					case "1":
@@ -129,13 +129,11 @@ public class LoginController extends CotoDelBaseController{
 			}else {
 				model.addAttribute("message", "Incorrect OTP !!");
 			}	
-			//return "index";
-			return "login-fleet-managment";
+			return "index";
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 			model.addAttribute("message", "System not responding, Please try again later..!");
-			//return "index";
-			return "login-fleet-managment";
+			return "index";
 		}finally {
 			profileRes=null;profileJsonRes=null;screenName=null; obj =null;
 		}

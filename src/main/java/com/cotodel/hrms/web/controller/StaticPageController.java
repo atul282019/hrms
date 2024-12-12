@@ -33,7 +33,7 @@ public class StaticPageController extends CotoDelBaseController{
 	@GetMapping(value="/login")
 	public ModelAndView loginPage(Model model) {
 		logger.info("opening login Page");
-		return new ModelAndView("login-fleet-managment", "command", "");
+		return new ModelAndView("index", "command", "");
 	}	
 	
 	@GetMapping(value="/loginNew")
@@ -843,7 +843,7 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("mobile",obj.getMobile());
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
-				return new ModelAndView("user-voucher-creation", "command", "");
+				return new ModelAndView("voucher-creation", "command", "");
 			}
 		}
 		return new ModelAndView("index", "command", "");

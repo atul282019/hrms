@@ -272,7 +272,7 @@ function saveBulkVoucherUpload(){
 				              "language": {"emptyTable": "No Data available"  },
 				 	         "aaData": success,
 				       		  "aoColumns": [ 
-				 				{ "mData": "voucherType"},
+				 				/*{ "mData": "voucherType"},*/
 				                { "mData": "beneficiaryName"},   
 				                { "mData": "mobile"},   
 				 			    { "mData": "amount"},
@@ -295,7 +295,7 @@ function saveBulkVoucherUpload(){
 											 return '<td> <input type="hidden" name="issueId" id="issueId" value="'+data2+'" /> </td>';
 										}}, 								
 									{ "mData": "id"},	
-					 				{ "mData": "voucherType"},
+					 			/*	{ "mData": "voucherType"},*/
 					                { "mData": "beneficiaryName"},   
 					                { "mData": "mobile"},   
 					 			    { "mData": "amount"},
@@ -317,7 +317,7 @@ function saveBulkVoucherUpload(){
 							             "language": {"emptyTable": "No Data available"  },
 								         "aaData": fail,
 							      		  "aoColumns": [ 
-											{ "mData": "voucherType"},
+											/*{ "mData": "redemtionType"},*/
 											{ "mData": "beneficiaryName"},   
 											{ "mData": "mobile"},   
 											 { "mData": "amount"},

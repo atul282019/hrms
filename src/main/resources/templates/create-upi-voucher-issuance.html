@@ -6,7 +6,6 @@
 
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-
 <body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail()" >
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
@@ -17,7 +16,6 @@
 		<!-- Sidebar -->
 		    <div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
        <!-- End of Sidebar -->
-  
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -174,7 +172,7 @@
                                                     <div class="cards-upivouchers-bottom">
                                                         <div>
                                                             <img src="img/meal.svg" alt="" class="img-fluid">
-                                                            <span>Food Voucher </span>
+                                                            <span>Food</span>
                                                         </div>
                                                         <input type="checkbox" class="vouchers-checkbox1 vouchers-checkbox" 
 														id="food" name="Food Voucher" value="1C">
@@ -200,7 +198,7 @@
                                                     <div class="cards-upivouchers-bottom">
                                                         <div>
                                                             <img src="img/fuel-circle.svg" alt="" class="img-fluid">
-                                                            <span>Petroleum Voucher </span>
+                                                            <span>Fuel</span>
                                                         </div>
 														
                                                         <input type="checkbox" class="vouchers-checkbox2 vouchers-checkbox" 
@@ -769,118 +767,10 @@
                                     </div>
                                 </div>
 
-                              <!--  <div class="upi-voucher-wrap selectvouchers-VerifyDetails" id="selectvouchers-wrap05" style="display: none;">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h3>Report for Voucher Issuance </h3>
-                                        <div>
-                                            <a href="#"><img src="img/download-green.svg" alt=""></a>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <p>Below are the details of the voucher issuance.</p>
-                                    </div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-reimbursements selectvouchers-table border-btm">
-                                            <thead>
-                                                <tr>
-                                                    <th>Voucher</th>
-                                                    <th>Transaction Number</th>
-                                                    <th>Type</th>
-                                                    <th>Name</th>
-                                                    <th>Mobile Number</th>
-                                                    <th>Amount</th>
-                                                    <th>Start Date</th>
-                                                    <th>Validity</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><span>Meal</span></td>
-                                                    <td>12345678965433456789</td>
-                                                    <td>General</td>
-                                                    <td>Deepika Sudan</td>
-                                                    <td>9910318405</td>
-                                                    <td>₹10,000</td>
-                                                    <td>25/10/2024</td>
-                                                    <td>100 Days</td>
-                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>Meal</span></td>
-                                                    <td>12345678965433456789</td>
-                                                    <td>General</td>
-                                                    <td>Deepika Sudan</td>
-                                                    <td>9910318405</td>
-                                                    <td>₹10,000</td>
-                                                    <td>25/10/2024</td>
-                                                    <td>100 Days</td>
-                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>Meal</span></td>
-                                                    <td>12345678965433456789</td>
-                                                    <td>General</td>
-                                                    <td>Deepika Sudan</td>
-                                                    <td>9910318405</td>
-                                                    <td>₹10,000</td>
-                                                    <td>25/10/2024</td>
-                                                    <td>100 Days</td>
-                                                    <td><a href="#"><img src="img/status-cancel.svg" alt=""></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>Meal</span></td>
-                                                    <td>12345678965433456789</td>
-                                                    <td>General</td>
-                                                    <td>Deepika Sudan</td>
-                                                    <td>9910318405</td>
-                                                    <td>₹10,000</td>
-                                                    <td>25/10/2024</td>
-                                                    <td>100 Days</td>
-                                                    <td><a href="#"><img src="img/status-pending.svg" alt=""></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>Meal</span></td>
-                                                    <td>12345678965433456789</td>
-                                                    <td>General</td>
-                                                    <td>Deepika Sudan</td>
-                                                    <td>9910318405</td>
-                                                    <td>₹10,000</td>
-                                                    <td>25/10/2024</td>
-                                                    <td>100 Days</td>
-                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>Meal</span></td>
-                                                    <td>12345678965433456789</td>
-                                                    <td>General</td>
-                                                    <td>Deepika Sudan</td>
-                                                    <td>9910318405</td>
-                                                    <td>₹10,000</td>
-                                                    <td>25/10/2024</td>
-                                                    <td>100 Days</td>
-                                                    <td><a href="#"><img src="img/status-approve.svg" alt=""></a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-									
-
-                                    <div class="w-100 mt-3 text-right">
-                                        <div class="btn btn-primary"><a class="text-white" href="upi-voucher-issuance-dashboard.html">Go To Dashboard</a></div>
-                                    </div>
-                                </div>-->
-
-
                             </div>
-
 
                         </div>
                     </div>
-
 
                 </div>
                 <!-- /.container-fluid -->

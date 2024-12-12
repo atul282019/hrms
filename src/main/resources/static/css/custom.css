@@ -5231,9 +5231,13 @@ input.autocomp-input {
     height: 44px;
     border-radius: 20px;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 35px !important;
     color: #4A4E69;
-    font-size: 14px;
+    font-size: 15px !important;
+    background: url("../img/searchautocomp.svg") no-repeat 10px center #fff;
+}
+.autocomp-input-wrap{
+    position: relative;
 }
 
 .loginNew-wrap{
@@ -5387,9 +5391,11 @@ ol.carousel-signupindicators{
     margin-bottom: 5px;
 }
 
-.login-right-wrap .form-group .custom-control-label::before{
+.login-right-wrap .form-group .custom-control-label::before, .login-right-wrap .form-group .custom-control-label::after{
     top: .15rem;
 }
+
+
 
 .signup-right-wrap .carousel-inner .logo img {
     border-radius: 20px;
@@ -5404,4 +5410,101 @@ ol.carousel-signupindicators{
 
 .custom-in{
     margin-bottom: 0.75rem;
+}
+
+.role-access-wrap select.did-floating-select, .role-access-wrap .did-floating-label-content {
+    background: #fff;
+}
+
+.role-access-wrap .did-floating-select:not([value=""]):valid~.did-floating-label{
+    background: #fff;
+}
+
+.vouCredetails {
+    color: #1F212C;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.vouCredetails span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#search {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .autocomplete-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    width: 340px;
+    border: 1px solid #EAF4EF;
+    background-color: white;
+    box-shadow: none;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1;
+    border-radius: 12px;
+}
+  
+.autocomplete-suggestion {
+    font-size: 14px;
+    padding: 12px 10px;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 18px;
+    color: #4A4E69;
+    text-align: right;
+}
+  
+  .autocomplete-suggestion:hover {
+    background-color: #EAF4EF;
+  }
+  
+  .autocomplete-suggestion strong {
+    float: left;
+    width: 140px;
+    font-weight: 400;
+    text-align: left;
+}
+span.user-contact {
+    margin-left: 5px;
+}
+.autocomplete-suggestion span {
+    display: inline-flex;
+    color: #86889B;
+    font-weight: 400;
+}
+
+
+  .did-floating-label-contentwrap {
+    margin-bottom: 15px;
+}
+
+.did-floating-label-contentwrap label{
+    display: block;
+    margin-bottom: 2px;
+    color: #1F212C;
+    font-size: 15px;
+}
+
+select.did-label-content{
+    width: 100%;
+    min-height: 38px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #4A4E69;
+}
+
+.role-access-wrapin-bottom-add > .table-responsive {
+    overflow-x: clip;
 }
