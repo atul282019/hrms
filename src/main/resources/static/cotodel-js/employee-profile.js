@@ -43,6 +43,7 @@ function getOTP() {
 					document.getElementById("optBtn").style="display:none";
 					document.getElementById("orderId").value= obj['orderId'];
 					//document.getElementById("verifyotpdiv").style.display = "block";
+					
 					if (timeleft <= 0) {
 						clearInterval(downloadTimer);
 						document.getElementById("optBtn").style="display:none";
@@ -77,27 +78,28 @@ function getOTP() {
 
 function resendOTP() {
 	var regMobile = /^[6-9]\d{9}$/gi;
-	var userName = document.getElementById("mob").value;
+	var userName = document.getElementById("mobilecode").value;
 	var orderId = document.getElementById("orderId").value;
 	
 	if (userName == "") {
-		document.getElementById("mob").focus();
-		document.getElementById("mobError").innerHTML="Please Enter Mobile Number";
+		
+		document.getElementById("mobilecodeError").innerHTML="Please Enter Mobile Number";
+		document.getElementById("mobilecode").focus();
 		return false;
 	}
 	else if(userName.length < 10){
-			document.getElementById("mobError").innerHTML="Please Enter Valid Mobile Number";
-			document.getElementById("mob").focus();
+			document.getElementById("mobilecodeError").innerHTML="Please Enter Valid Mobile Number";
+			document.getElementById("mobilecode").focus();
 			return false;
 	}
 	
 	else if(!userName.match(regMobile)){
-			document.getElementById("mobError").innerHTML="Please Enter Valid Mobile Number";
-			document.getElementById("mob").focus();
+			document.getElementById("mobilecodeError").innerHTML="Please Enter Valid Mobile Number";
+			document.getElementById("mobilecode").focus();
 			return false;
 	}
 	document.getElementById("optBtn").disabled = true;
-	document.getElementById("mobError").innerHTML="";
+	document.getElementById("mobilecodeError").innerHTML="";
 	
 	document.getElementById("loginLoader").style.display = "flex";
 	$.ajax({
@@ -416,6 +418,8 @@ function saveEmployeeProfileTab2(){
 	var onlySpace = /^$|.*\S+.*/;
 	var regMobile = /^[6-9]\d{9}$/gi;
 	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+	var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
+	var ifscRegex1 = /^[A-Za-z]{4}/ ;
 	
 	if(pan==""){
 		document.getElementById("panError").innerHTML="Please Enter Name";
@@ -426,7 +430,7 @@ function saveEmployeeProfileTab2(){
 	}
 	
 	if(accountNo==""){
-		document.getElementById("accountNoError").innerHTML="Please Enter Name";
+		document.getElementById("accountNoError").innerHTML="Please Bank Account Number";
 		document.getElementById("accountNo").focus();
 		return false;
 	}else{
@@ -447,10 +451,29 @@ function saveEmployeeProfileTab2(){
         document.getElementById("bankIfsc").focus();
         return false;  
         
-    } else {    
+    } 
+	else if(!bankIfsc.match(ifscRegex1)){
+			document.getElementById("bankIfscError").innerHTML="First four alphabets are expected in IFSC";
+			document.getElementById("bankIfsc").focus();
+			return false;
+		}
+		else if(!bankIfsc.match(ifscRegex)){
+				document.getElementById("bankIfscError").innerHTML="Special symbol not allowed in IFSC";
+				document.getElementById("bankIfsc").focus();
+				return false;
+			}else {    
        document.getElementById("bankIfscError").innerHTML="";
 		   
-    } 
+    }
+	 
+		 if(!beneficiaryName.match(regName)){
+					document.getElementById("beneficiaryNameError").innerHTML="Special symbol not allowed in beneficiaryName";
+					document.getElementById("beneficiaryName").focus();
+					return false;
+				}else {    
+	       document.getElementById("beneficiaryNameError").innerHTML="";
+			   
+	    }
    
 	var formData = new FormData();
 	

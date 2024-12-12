@@ -128,7 +128,7 @@
 											<div class="error-msg" id="mobilecodeError" style="color:red"></div>
                                             <div class="clearfix"></div>
 											<div  id="loginIdDiv" style="display: none" >
-                                            <div class="otp-box-onboarding">
+                                            <div class="otp-box-onboarding" id="otpbox">
                                                 <input type="text" class="form-control test" id="password1" name="password1"
                            						  maxlength="1" autocomplete="off" oninput="focusNextOtp(this)" onkeydown="focusBackOtp()">
                                                 <input type="text" class="form-control test" id="password2" name="password1" 
@@ -165,7 +165,7 @@
 															</div>
 											</div>
 											
-					                        <p>Didn’t receive the code?  <a href="#" onclick="resendOTP()">Resend OTP</a></p>
+					                        <p id="optBtn">Didn’t receive the code?  <a href="#" onclick="resendOTP()">Resend OTP</a></p>
 					                       <!--  <div class="d-grid">
 					                            <button class="btn btn-primary btn-user btn-block" id="optBtn" type="button"  onclick="getOTP()" >getOTP</button>
 					                        </div> -->
@@ -204,7 +204,7 @@
                                 <div class="row tabs-row" id="employee-onboarding-two">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="tip-wrap mb-4">
-                                            <p class="mb-0">Please be very careful while entering data on this screen. Mistakes may lead to incorrect tax dedications and filings, and/or failures in salary transfers / payments.</p>
+                                            <p class="mb-0">Please be careful when entering data on this screen, as mistakes may result in incorrect tax deductions, filings, or issues with salary transfers/payments.</p>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div>
@@ -235,28 +235,30 @@
                                         <div class="card-form my-3">
                                             <label for="">Confirm Bank Account Number</label>
                                             <input type="text" class="form-input" onkeyup="validate()" id="confirmAccountNo"  
-                                            name="confirmAccountNo" placeholder="87452145874555" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                            name="confirmAccountNo" placeholder="Confirm Bank Account" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
                                          <div class="error-msg" id="confirmAccountNoError" style="color:red"></div>
                                         <div class="clearfix"></div>
-                                        <div class="tip-wrap mb-4 align-items-start justify-content-start" style="background-color: #f4e9ec;">
+                                       <!--  <div class="tip-wrap mb-4 align-items-start justify-content-start" style="background-color: #f4e9ec;">
                                             <p class="mb-0">The bank account numbers entered don’t match each other. Please try again.</p>
-                                        </div>
+                                        </div>-->
 
                                         <div class="card-form my-3">
+											<label for="">Bank Ifsc Code</label>
                                             <input type="text" class="form-input" id="bankIfsc" maxlength="11" name="bankIfsc" onkeyup="validateIFSC()" placeholder="Bank IFSC Code" style="text-transform:uppercase">
                                         </div>
 										 <div class="error-msg" id="bankIfscError" style="color:red"></div>
                                         <div class="clearfix"></div>
 
                                         <div class="tip-wrap mb-4">
-                                            <p class="mb-0">If your name on your bank account is different from your given name - “ [Given Name]”, then please enter it here. Otherwise please leave it bank.</p>
+                                            <p class="mb-0">If the name on your bank account differs from your given name ("[Given Name]"), please enter it here. Otherwise, leave it blank.</p>
                                         </div>
 
                                         <div class="card-form my-1">
+											<label for="">Beneficiary Name</label>
                                             <input type="text" class="form-input" id="beneficiaryName" name="beneficiaryName" placeholder="Beneficiary Name (Optional)">
                                         </div>
-                               
+										<div class="error-msg" id="beneficiaryNameError" style="color:red"></div>
                                         <div class="clearfix"></div>
                                         
 										<div id="successmsgdivtab2" style="display:none" class="col-12 col-sm-8 col-md-6 mx-auto py-2 mb-4 alert alert-success text-center">
@@ -373,10 +375,10 @@ function validate() {
     var message = document.getElementById('confirmAccountNoError');
 
     if (x === y) {
-        message.innerHTML = 'Account no match';
+        message.innerHTML = 'Account no. Matched';
         message.style.color = 'green';
     } else {
-        message.innerHTML = 'Account No do not match';
+        message.innerHTML = 'Account no. Do not Match';
         message.style.color = 'red';
     }
 }
@@ -385,11 +387,17 @@ function validateIFSC(){
 	var x= document.getElementById("bankIfsc").value;
     var message = document.getElementById('bankIfscError');
     var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
+		var ifscRegex1 = /^[A-Za-z]{4}/ ;
     if(x==""){
     	document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
 		document.getElementById("bankIfsc").focus();
 		return false;
     }
+	else if(!x.match(ifscRegex1)){
+			document.getElementById("bankIfscError").innerHTML="First four alphabets are expected in IFSC";
+			document.getElementById("bankIfsc").focus();
+			return false;
+		}
     else if(!x.match(ifscRegex)){
 		document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
 		document.getElementById("bankIfsc").focus();
