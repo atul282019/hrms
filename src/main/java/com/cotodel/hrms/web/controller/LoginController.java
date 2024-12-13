@@ -47,6 +47,7 @@ public class LoginController extends CotoDelBaseController{
 	public String validateLogin(HttpServletResponse response, HttpServletRequest request,
 			@ModelAttribute("userForm") UserForm userForm, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 		String profileRes=null;JSONObject profileJsonRes=null;String screenName="index";
+		String message =null; String otpmobile =null; String orderid=null;
 		UserDetailsEntity obj =null;
 		try {
 			String password = null;
@@ -123,11 +124,22 @@ public class LoginController extends CotoDelBaseController{
 						break;		
 					}
 					return screenName;
-				}else {
-						model.addAttribute("message", "Incorrect OTP !!");
+				}else if(profileJsonRes.getString("message").equalsIgnoreCase("Invalid Request")){
+					    session.setAttribute("message", "Incorrect OTP ||");
+					    session.setAttribute("mobile", userForm.getMob());
+					    session.setAttribute("orderid", userForm.getOrderId());
+						return "redirect:/FleetLogin";
+				}
+				else if(profileJsonRes.getString("message").equalsIgnoreCase("Expired")){
+					  model.addAttribute("message", "OTP Expired");
+					 return "index";
+				}
+				else if(profileJsonRes.getString("message").equalsIgnoreCase("Link expired")){
+					  model.addAttribute("message", "OTP Expired");
+					 return "index";
 				}
 			}else {
-				model.addAttribute("message", "Incorrect OTP !!");
+				model.addAttribute("message", "Incorrect OTP ||");
 			}	
 			return "index";
 		}catch (Exception e) {

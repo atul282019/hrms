@@ -33,24 +33,32 @@ function getOTP() {
             if (obj['status'] == "SUCCESS") {
                 $('#errorOtp').hide('slow');
                 $('#loginIdDiv').hide('slow');
-                var timeleft = 60;
-                var downloadTimer = setInterval(function () {
-                    document.getElementById("countdown").innerHTML = "00:" + (timeleft < 10 ? "0" + timeleft : timeleft);
-                    timeleft -= 1;
-                    document.getElementById("optBtn").style.display = "none";
-                    document.getElementById("orderId").value = obj['orderId'];
-                    document.getElementById("verifyotpdiv").style.display = "block";
+				var timeleft = 60; // 3 minutes in seconds
+				   var downloadTimer = setInterval(function () {
+				       var minutes = Math.floor(timeleft / 60); // Calculate minutes
+				       var seconds = timeleft % 60; // Calculate remaining seconds
 
-                    if (timeleft <= 0) {
-                        clearInterval(downloadTimer);
+				       // Update countdown display in "MM:SS" format
+				       document.getElementById("countdown").innerHTML = 
+				           (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+				           (seconds < 10 ? "0" + seconds : seconds);
+
+				       timeleft -= 1;
+					   
+					   document.getElementById("optBtn").style.display = "none";
+					   document.getElementById("orderId").value = obj['orderId'];
+					   document.getElementById("verifyotpdiv").style.display = "block";
+
+				       if (timeleft < 0) {
+						clearInterval(downloadTimer);
                         document.getElementById("countdown").innerHTML = " ";
 						document.getElementById("resendOTPText").style.display = "block";
                      
                         document.getElementById("optBtn").disabled = true;
 						document.getElementById("optBtn").style.display = "none";
                         document.getElementById("verifyotpdiv").style.display = "none";
-                    }
-                }, 1000);
+				       }
+				   }, 1000); 
 
                 $('#loginIdDiv').show('slow');
             } else if (obj['status'] == "FAILURE") {
@@ -133,19 +141,27 @@ function resendOTP() {
 }
 
 function startCountdown() {
-    var timeleft = 60;
-    var downloadTimer = setInterval(function () {
-        document.getElementById("countdown").innerHTML = "00:" + (timeleft < 10 ? "0" + timeleft : timeleft);
+        var timeleft =60; // 3 minutes in seconds
+	    //var timeleft = Math.floor(Math.random() * 60); /// 1 min  random in seconds
+        var downloadTimer = setInterval(function () {
+        var minutes = Math.floor(timeleft / 60); // Calculate minutes
+        var seconds = timeleft % 60; // Calculate remaining seconds
+
+        // Update countdown display in "MM:SS" format
+        document.getElementById("countdown").innerHTML = 
+            (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+            (seconds < 10 ? "0" + seconds : seconds);
+
         timeleft -= 1;
 
-        if (timeleft <= 0) {
+        if (timeleft < 0) {
             clearInterval(downloadTimer);
             document.getElementById("countdown").innerHTML = " ";
             document.getElementById("resendOTPText").style.display = "block";
             document.getElementById("optBtn").disabled = false;
-			document.getElementById("verifyotpdiv").style.display = "none";
+            document.getElementById("verifyotpdiv").style.display = "none";
         }
-    }, 1000);
+    }, 1000); // Runs every second
 }
 function toggleOtpVisibility() {
     // Get the icon element

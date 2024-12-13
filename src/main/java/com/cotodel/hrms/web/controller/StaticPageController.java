@@ -33,7 +33,29 @@ public class StaticPageController extends CotoDelBaseController{
 	@GetMapping(value="/login")
 	public ModelAndView loginPage(Model model) {
 		logger.info("opening login Page");
+	    String mobile  = (String) session.getAttribute("mobile");
+		if(mobile!=null) {
+			model.addAttribute("message","");
+			model.addAttribute("mobile","");
+			model.addAttribute("orderid","");
+			return new ModelAndView("index", "command", "");
+		}
 		return new ModelAndView("index", "command", "");
+
+	}
+	@GetMapping(value="/FleetLogin")
+	public ModelAndView loginFleet(Model model) {
+		logger.info("opening login Fleet");
+		
+	    String message = (String)session.getAttribute("message");
+	    String mobile  = (String) session.getAttribute("mobile");
+	    String orderid  = (String) session.getAttribute("orderid");
+		
+		model.addAttribute("message",message);
+		model.addAttribute("mobile",mobile);
+		model.addAttribute("orderid",orderid);
+		return new ModelAndView("index", "command", "");
+
 	}	
 	
 	@GetMapping(value="/loginNew")
