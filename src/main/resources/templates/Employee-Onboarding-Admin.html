@@ -398,11 +398,11 @@ function validateIFSC(){
 			document.getElementById("bankIfsc").focus();
 			return false;
 		}
-    else if(!x.match(ifscRegex)){
+    /*else if(!x.match(ifscRegex)){
 		document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
 		document.getElementById("bankIfsc").focus();
 		return false;
-	}
+	}*/
     else{
     	document.getElementById("bankIfscError").innerHTML="";
     }

@@ -156,7 +156,7 @@ function toggleStatus()
         }
 
 }
-function convertImageToBase64() {
+/*function convertImageToBase64() {
     const fileInput = document.getElementById("bankLogo");
     const file = fileInput.files[0]; // Get the selected file
 
@@ -180,7 +180,93 @@ function convertImageToBase64() {
 	    } else {
 	        alert("Please select a valid image file.");
 	  }
+}*/
+
+/*function validateAndConvertImage() {
+    const fileInput = document.getElementById("bankLogo");
+    const file = fileInput.files[0];
+    const errorDiv = document.getElementById("bankLogoError");
+
+    errorDiv.textContent = "";
+
+    if (file) {
+        const validMimeTypes = ["image/jpeg", "image/png"];
+        const maxSizeInMB = 2;
+        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+        if (!validMimeTypes.includes(file.type)) {
+            errorDiv.textContent = "Invalid file type. Please upload a JPEG or PNG image.";
+            fileInput.value = "";
+            return;
+        }
+
+        if (file.size > maxSizeInBytes) {
+            errorDiv.textContent = `File size exceeds ${maxSizeInMB}MB. Please upload a smaller image.`;
+            fileInput.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64String = event.target.result.split(",")[1];
+            console.log("Base64 String", base64String);
+			bankLogo=base64String;
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        errorDiv.textContent = "Please select a valid image file.";
+    }
+}*/
+function validateAndConvertImage() {
+    const fileInput = document.getElementById("bankLogo");
+    const file = fileInput.files[0];
+    const errorDiv = document.getElementById("bankLogoError");
+
+    // Clear any previous error messages
+    errorDiv.textContent = "";
+
+    if (file) {
+        const validMimeTypes = ["image/jpeg", "image/png"];
+        const maxSizeInMB = 2;
+        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+        // Validate file type
+        if (!validMimeTypes.includes(file.type)) {
+            displayError("Invalid file type. Please upload a JPEG or PNG image.", errorDiv, fileInput);
+            return;
+        }
+
+        // Validate file size
+        if (file.size > maxSizeInBytes) {
+            displayError(`File size exceeds ${maxSizeInMB}MB. Please upload a smaller image.`, errorDiv, fileInput);
+            return;
+        }
+
+        // Convert to Base64
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const base64String = event.target.result.split(",")[1];
+            console.log("Base64 String", base64String);
+            bankLogo = base64String; // Assign Base64 string to the variable
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        displayError("Please select a valid image file.", errorDiv, fileInput);
+    }
 }
+
+// Helper function to display error and reset file input
+function displayError(message, errorDiv, fileInput) {
+    errorDiv.textContent = message;
+    setTimeout(() => {
+        errorDiv.textContent = ""; // Clear error message after 0.5 seconds
+    }, 1500);
+    fileInput.value = ""; // Reset the file input field
+}
+
+
 
 
  

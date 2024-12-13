@@ -18,12 +18,12 @@ function saveEditedBankMaster()
 	var bankId = document.getElementById("bankId").value;
 
     // Get Bank Name (check both span and input field)
-    var bankNameInput = document.getElementById("bankNameInput").value.trim();
-    var bankName = bankNameInput || document.getElementById("bankNameText").textContent.trim();
+    var bankName = document.getElementById("bankName").value.trim();
+    //var bankName = bankNameInput || document.getElementById("bankNameText").textContent.trim();
 
     // Get Bank Code (check both span and input field)
-    var bankCodeInput = document.getElementById("bankCodeInput").value.trim();
-    var bankCode = bankCodeInput || document.getElementById("bankCodeText").textContent.trim();
+    var bankCode = document.getElementById("bankCode").value.trim();
+    //var bankCode = bankCodeInput || document.getElementById("bankCodeText").textContent.trim();
 
     // Get Status (check both select and span data-value)
     var statusInput = document.getElementById("statusInput").value;

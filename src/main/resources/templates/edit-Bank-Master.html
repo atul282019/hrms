@@ -102,29 +102,24 @@
 										<input type="hidden" id="bankId" name="bankId" th:value="${bankId}"> 
 										
 										<div class="card-form my-3">
-                                            <label for="bankNameInput">Bank Name</label>
-                                            <!--<input  type="text" id="bankName" name="bankName" th:value="${bankName}">-->
-                                        
-                                         <!-- Extra functionality-->
-                                         <span id="bankNameText" onclick="enableEditing('bankNameText', 'bankNameInput')"th:text="${bankName}"></span>
-										    <!-- Input field for editing (hidden by default) -->
-										    <input type="text" id="bankNameInput" name="bankName" style="display: none;"
-										    onblur="saveAndDisplay('bankNameText', 'bankNameInput')"> <!-- Extra functionality-->
-                                        </div></span>
+                                        <label for="bankName">Bank Name</label>
+                                        <input type="text" class="form-input" id="bankName" name="bankName"  th:value="${bankName}">
+                                    
+                                        </select>
+                                    </div>
+										
  										<div class="error-msg" id="bankNameerror" style="color:red"></div>
 									   
-										 <div class="card-form my-3">
-                                            <label for="bankCodeInput">Bank Code</label>
-                                            <!--<input type="text" id="bankCode" name="bankCode" th:value="${bankCode}">-->
- 											
- 											<span id="bankCodeText" onclick="enableEditing('bankCodeText', 'bankCodeInput')" th:text="${bankCode}"></span>
-									    <input type="text" id="bankCodeInput" name="bankCode" style="display: none;"
-									           onblur="saveAndDisplay('bankCodeText', 'bankCodeInput')"th:value="${bankCode}">
-                                        </div>
+										<div class="card-form my-3">
+                                        <label for="bankCode">Bank Code</label>
+                                        <input type="text" class="form-input" id="bankCode" name="bankCode"  th:value="${bankCode}">
+                                    
+                                        </select>
+                                    </div>
 										 <div class="error-msg" id="bankcodeError" style="color:red"></div>
 										 
                                     	<div class="card-form my-3">
-				    						<label for="statusInput">current Status  </labelfor><br>
+				    						<label for="statusInput">Current Status  </labelfor><br>
 				        				
 										    <span 
 										        id="statusText" 
@@ -143,7 +138,7 @@
 				       
 										</div><br>
 									<div class="card-form my-3">
-									    <label for="newbankLogo">new Bank Logo</label><br>
+									    <label for="newbankLogo">New Bank Logo</label><br>
 									    <input type="file" 
 									    id="newbankLogo" 
 									    name="newbankLogo" 

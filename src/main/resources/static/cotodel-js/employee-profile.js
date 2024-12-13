@@ -422,7 +422,7 @@ function saveEmployeeProfileTab2(){
 	var ifscRegex1 = /^[A-Za-z]{4}/ ;
 	
 	if(pan==""){
-		document.getElementById("panError").innerHTML="Please Enter Name";
+		document.getElementById("panError").innerHTML="Please Enter Pan No.";
 		document.getElementById("pan1").focus();
 		return false;
 	}else{
@@ -430,7 +430,7 @@ function saveEmployeeProfileTab2(){
 	}
 	
 	if(accountNo==""){
-		document.getElementById("accountNoError").innerHTML="Please Bank Account Number";
+		document.getElementById("accountNoError").innerHTML="Please Enter Bank Account Number";
 		document.getElementById("accountNo").focus();
 		return false;
 	}else{
@@ -457,11 +457,11 @@ function saveEmployeeProfileTab2(){
 			document.getElementById("bankIfsc").focus();
 			return false;
 		}
-		else if(!bankIfsc.match(ifscRegex)){
+		/*else if(!bankIfsc.match(ifscRegex)){
 				document.getElementById("bankIfscError").innerHTML="Special symbol not allowed in IFSC";
 				document.getElementById("bankIfsc").focus();
 				return false;
-			}else {    
+			}*/else {    
        document.getElementById("bankIfscError").innerHTML="";
 		   
     }

@@ -1023,7 +1023,7 @@ function  getLinkedBankDetail(){
 		       const container = document.createElement('div');
 		       container.className = 'data-container';
 
-		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile","merchentIid","submurchentid","mcc","payerva"];
+		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile","merchantId","submerchantid","mcc","payerva"];
 			   
 			   const fieldLabels = {
 			          
@@ -1033,8 +1033,8 @@ function  getLinkedBankDetail(){
 					   accountType: "Account Type",
 					   ifsc: "ifsc",
 					   mobile: "Mobile",
-					   merchentIid: "Merchent Iid",
-					   submurchentid:"Sub Murchent Id",
+					   merchantId: "Merchant Id",
+					   submerchantid:"Sub Merchant Id",
    					   mcc: "MCC",
    					   payerva: "Payerva",
 			       };
@@ -1136,9 +1136,9 @@ function submitLinkBankAccount(){
 	var bankIfsc = document.getElementById("bankIfsc").value;
 	
 	var tid = document.getElementById("tid").value;
-	var merchentIid = document.getElementById("merchentIid").value;
+	var merchantId = document.getElementById("merchantId").value;
 	//var mcc = document.getElementById("mcc").value;
-	var submurchentid = document.getElementById("submurchentid").value;
+	var submerchantid = document.getElementById("submerchantid").value;
 	var payerva = document.getElementById("payerva").value;
 	var moblieLink = document.getElementById("moblieLink").value;
 	
@@ -1204,12 +1204,12 @@ function submitLinkBankAccount(){
 			document.getElementById("tidError").innerHTML="";
 		}
 		
-		if(merchentIid=="" || merchentIid==null){
-			document.getElementById("merchentIidError").innerHTML="Please Enter Merchent Id";
+		if(merchantId=="" || merchantId==null){
+			document.getElementById("merchantIdError").innerHTML="Please Enter Merchant Id";
 			return false;
 		}
 		else{
-			document.getElementById("merchentIidError").innerHTML="";
+			document.getElementById("merchantIdError").innerHTML="";
 		}
 		/*if(mcc=="" || mcc==null){
 					document.getElementById("mccError").innerHTML="Please Enter MCC";
@@ -1218,12 +1218,12 @@ function submitLinkBankAccount(){
 		else{
 			document.getElementById("mccError").innerHTML="";
 		}*/
-		if(submurchentid=="" || submurchentid==null){
-		document.getElementById("submurchentidError").innerHTML="Please Enter Sub Merchant Id";
+		if(submerchantid=="" || submerchantid==null){
+		document.getElementById("submerchantidError").innerHTML="Please Enter Sub Merchant Id";
 				return false;
 			}
 			else{
-				document.getElementById("submurchentidError").innerHTML="";
+				document.getElementById("submerchantidError").innerHTML="";
 			}
 
 			if(payerva=="" || payerva==null){
@@ -1264,9 +1264,9 @@ function submitLinkBankAccount(){
 					  "mobile": moblieLink,
 					  "accstatus":1,
 					  "tid": tid,
-					  "merchentIid": merchentIid,
+					  "merchantId": merchantId,
 					 // "mcc": mcc,
-					  "submurchentid": submurchentid,
+					  "submerchantid": submerchantid,
 					  "payerva": payerva
 					
 		 		},    		 
@@ -1304,7 +1304,7 @@ function submitLinkBankAccount(){
 }
 
 function validateBankname()
-{
+{ console.log("Inside validateBankname");
 	var banknameregex=/^[A-Za-z]+( [A-Za-z]+)?$/;
 	var bankingName = document.getElementById("bankingName").value;
 	
@@ -1335,8 +1335,8 @@ function validate() {
 
 	    
 	    if (!x.match(accRegex)) {
-	        message.innerHTML = "Account number should not be in decimal";
-	        message.style.color = 'red';
+	        message.innerHTML = "Please note Account number should not be in decimal";
+	        //message.style.color = 'red';
 	        return false;
 	    }
     if (x === y) {
@@ -1363,11 +1363,11 @@ function validateIFSC(){
 		document.getElementById("bankIfsc").focus();
 		return false;
 	}
-	else if(!x.match(ifscRegex)){
+	/*else if(!x.match(ifscRegex)){
 			document.getElementById("bankIfscError").innerHTML="Special symbol not allowed in IFSC";
 			document.getElementById("bankIfsc").focus();
 			return false;
-		}
+		}*/
     else{
     	document.getElementById("bankIfscError").innerHTML="";
     }
@@ -1376,19 +1376,36 @@ function validateIFSC(){
 
 function validateMerchantId()
 {
-	var merchentIid = document.getElementById("merchentIid").value;
-	var merchentidregex=/^[A-Za-z0-9]+$/;
-	if(merchentIid==""){
-				document.getElementById("merchentIidError").innerHTML="Please Enter Merchant Id";
-				document.getElementById("merchentIid").focus();
+	var merchantId = document.getElementById("merchantId").value;
+	var merchantidregex=/^[A-Za-z0-9]+$/;
+	if(merchantId==""){
+				document.getElementById("merchantIdError").innerHTML="Please Enter Merchant Id";
+				document.getElementById("merchantId").focus();
 			}
-			else if(!merchentIid.match(merchentidregex))
+			else if(!merchantId.match(merchantidregex))
 				{
-				document.getElementById("merchentIidError").innerHTML="Special Characters are not allowed in merchant id";
-						document.getElementById("merchentIid").focus();
+				document.getElementById("merchantIdError").innerHTML="Special Characters are not allowed in merchant id";
+						document.getElementById("merchantId").focus();
 				}
 			else{
-				document.getElementById("merchentIidError").innerHTML="";
+				document.getElementById("merchantIdError").innerHTML="";
+			}
+}
+function validateSubMerchantId()
+{
+	var merchantId = document.getElementById("submerchantid").value;
+	var merchantidregex=/^[A-Za-z0-9]+$/;
+	if(merchantId==""){
+				document.getElementById("submerchantidError").innerHTML="Please Enter Merchant Id";
+				document.getElementById("submerchantid").focus();
+			}
+			else if(!merchantId.match(merchantidregex))
+				{
+				document.getElementById("submerchantidError").innerHTML="Special Characters are not allowed in submerchant id";
+						document.getElementById("submerchantid").focus();
+				}
+			else{
+				document.getElementById("submerchantidError").innerHTML="";
 			}
 }
 
@@ -1453,8 +1470,8 @@ function resetErrorMessages() {
         "bankIfscError",
         "moblieLinkError",
         "tidError",
-        "merchentIidError",
-        "submurchentidError",
+        "merchantIdError",
+        "submerchantidError",
         "payervaError"
     ];
 
