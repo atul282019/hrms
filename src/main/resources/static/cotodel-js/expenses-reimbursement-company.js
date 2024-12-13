@@ -1311,10 +1311,12 @@ function validateBankname()
 	if(bankingName=="" || bankingName==null){
 				document.getElementById("bankingNameError").innerHTML="Please Enter Account Holder Name";
 				document.getElementById("bankingName").focus();
+				return false;
 				
 			}else if(!bankingName.match(banknameregex)){
 				document.getElementById("bankingNameError").innerHTML="Special Characters Not Allowed in Account Holder Name";
 					document.getElementById("bankingName").focus();
+					return false;
 				
 			}
 			else{
@@ -1381,11 +1383,13 @@ function validateMerchantId()
 	if(merchantId==""){
 				document.getElementById("merchantIdError").innerHTML="Please Enter Merchant Id";
 				document.getElementById("merchantId").focus();
+				return false;
 			}
 			else if(!merchantId.match(merchantidregex))
 				{
 				document.getElementById("merchantIdError").innerHTML="Special Characters are not allowed in merchant id";
 						document.getElementById("merchantId").focus();
+						return false;
 				}
 			else{
 				document.getElementById("merchantIdError").innerHTML="";
@@ -1398,11 +1402,13 @@ function validateSubMerchantId()
 	if(merchantId==""){
 				document.getElementById("submerchantidError").innerHTML="Please Enter Merchant Id";
 				document.getElementById("submerchantid").focus();
+				return false;
 			}
 			else if(!merchantId.match(merchantidregex))
 				{
 				document.getElementById("submerchantidError").innerHTML="Special Characters are not allowed in submerchant id";
 						document.getElementById("submerchantid").focus();
+						return false;
 				}
 			else{
 				document.getElementById("submerchantidError").innerHTML="";

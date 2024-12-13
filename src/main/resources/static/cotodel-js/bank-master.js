@@ -26,7 +26,7 @@ function saveBankMaster()
 
 
     if (bankLogo.length === 0) {
-        document.getElementById("bankLogoError").innerHTML="Please Enter bank code";
+        document.getElementById("bankLogoError").innerHTML="Please Select a image ";
         document.getElementById("bankLogo").focus();
         return false;
     }
