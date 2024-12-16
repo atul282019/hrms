@@ -7,7 +7,7 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
 
-<body id="page-top">
+<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -41,6 +41,36 @@
                         </li>
 
                     </ul>
+					<ul class="navbar-nav ml-auto">
+					                        <li class="nav-item dropdown no-arrow">
+					                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+					                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+					                            </a>
+					                            <!-- Dropdown - User Information -->
+					                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+					                                <a class="dropdown-item" href="#">
+					                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+					                                    Profile
+					                                </a>
+					                                <a class="dropdown-item" href="#">
+					                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+					                                    Settings
+					                                </a>
+					                              
+					                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+										            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+												          <i class="fas fa-user-circle"></i> Logout         
+												        </a>
+										          </div> -->  
+					                              <div class="dropdown-divider"></div>
+					                                <a class="dropdown-item" th:href="@{/logout}">
+					                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+					                                    Logout
+					                                </a>
+					                            </div>
+					                        </li>
+					                   </ul>		
 
                 </nav>
 
@@ -77,20 +107,17 @@
                                         </div>
                                         <div class="role-access-wrapin-bottom">
                                             <div class="table-responsive">
-                                                <table class="table table-reimbursements">
+                                                <table class="table table-reimbursements" id="userTable">
                                                     <thead>
                                                         <tr>
-                                                            <th>Name</th>
                                                             <th>ID</th>
-                                                            <th>Mobile #</th>
-                                                            <th>Super Admin</th>
-                                                            <th>Admin</th>
-                                                            <th>User Addition</th>
-                                                            <th>eRUPI Voucher Issuance</th>
+                                                            <th>User Name</th>
+                                                            <th>Email</th>
+                                                            <th>Mobile</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                       <!-- <tr>
                                                             <td>Deepika Sudan</td>
                                                             <td>CTD001</td>
                                                             <td>+91 9910318564</td>
@@ -126,229 +153,8 @@
                                                                     <label for="styled-checkbox-4"></label>
                                                                 </div>
                                                             </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        </tr>-->
+                                                       
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -375,336 +181,30 @@
                                         </div>
                                         <div class="role-access-wrapin-bottom">
                                             <div class="table-responsive">
-                                                <table class="table table-reimbursements">
+                                                <table class="table table-reimbursements" id="editUserRole">
                                                     <thead>
                                                         <tr>
-                                                            <th>Name</th>
                                                             <th>ID</th>
-                                                            <th>Mobile #</th>
-                                                            <th>Super Admin</th>
-                                                            <th>Admin</th>
-                                                            <th>User Addition</th>
-                                                            <th>eRUPI Voucher Issuance</th>
-                                                            <th>Action</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Mobile</th>
+                                                           
+                                                            <th>Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td><a href="#"><img src="img/role-delete.png" alt=""></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td><a href="#"><img src="img/role-delete.png" alt=""></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td><a href="#"><img src="img/role-delete.png" alt=""></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td><a href="#"><img src="img/role-delete.png" alt=""></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td><a href="#"><img src="img/role-delete.png" alt=""></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td><a href="#"><img src="img/role-delete.png" alt=""></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td><a href="#"><img src="img/role-delete.png" alt=""></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="addrow-roleaccess">
-                                                            <td colspan="3">
-                                                                <input type="text" placeholder="Search employee..."
-                                                                    class="autocomp-input" />
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="#" class="text-green">Add +</a>
-                                                            </td>
-                                                        </tr>
+                                                    
                                                     </tbody>
                                                 </table>
+										      	<div class="table table-reimbursements">
+	                                              <!-- <a href="#" class="text-green">Add +</a>-->
+												  
+                                                  <div colspan="8" align="right">
+                                                      <button class="btn mr-1 mb-1 no-bg border-0" id="lastrowaddBtn">Add +</button>                                                            
+                                                  </div>
+                                                
+												<!-- <button class="text-green" id="addRowButton">Add +</button>-->
+	                                           </div>
                                             </div>
 
                                             <div class="unstyled centered d-flex mt-2">
@@ -716,11 +216,12 @@
                                                     my organization.</p>
                                             </div>
                                             <hr>
+											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+											<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
                                             <div class="d-block text-right">
                                                 <button class="btn btn-border-primary mr-1 mb-1"
                                                     id="BackroleAcess">Back</button>
-                                                <button class="btn btn-primary mb-1" id="ConfirmroleAccess">Confirm
-                                                    Changes</button>
+                                                <button class="btn btn-primary mb-1" id="ConfirmroleAccess">Confirm Changes</button>
                                             </div>
                                         </div>
                                     </div>
@@ -733,13 +234,29 @@
                         </div>
                     </div>
 
-
                 </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
         </div>
+		
+
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			
         <!-- End of Content Wrapper -->
 
     </div>
@@ -840,13 +357,93 @@
                         <p class="mb-0">OTP code has been sent to your phone.</p>
                     </div>
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                        <button class="btn btn-primary w-100 mx-0" id="AuthenticateClose">Authenticate</button>
+                        <button class="btn btn-primary w-100 mx-0" id="submitButton">Authenticate</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+	
+	<div class="customModal modal lastrowaddBtnWrap">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xl">
+	        <div class="modal-content modal-bulk p-0">
+	            <div class="modal-header">
+	                <h5 class="modal-title">Heading Name </h5>
+	                <span id="closeBtn0" class="close">&times;</span>
+	            </div>
+	            <div class="modal-body pt-0">
+	                <div class="role-access-wrapin-bottom role-access-wrapin-bottom-add">
+	                    <div class="table-responsive">
+	                        <table class="table table-reimbursements">
+	                            <thead>
+	                                <tr>
+	                                    <th>Name</th>                                       
+	                                    <th>Super Admin</th>
+	                                    <th>Admin</th>
+	                                    <th>User Addition</th>
+	                                    <th>eRUPI Voucher Issuance</th>
+	                                    <th>Actions</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr class="addrow-roleaccess">
+	                                    <td>
+	                                        <div class="autocomp-input-wrap">
+	                                            <input type="text" class="autocomp-input" id="search"
+	                                            placeholder="Search Employee..."
+	                                            autocomplete="off">
+	                                        <div id="autocomplete-suggestions"
+	                                            class="autocomplete-dropdown"></div>
+	                                        </div>                                                                
+	                                    </td>
+	                                    <td>
+	                                        <div class="unstyled centered">
+	                                            <input class="styled-checkbox"
+	                                                id="styled-checkbox-4" type="checkbox"
+	                                                value="value1">
+	                                            <label for="styled-checkbox-4"></label>
+	                                        </div>
+	                                    </td>
+	                                    <td>
+	                                        <div class="unstyled centered">
+	                                            <input class="styled-checkbox"
+	                                                id="styled-checkbox-4" type="checkbox"
+	                                                value="value1">
+	                                            <label for="styled-checkbox-4"></label>
+	                                        </div>
+	                                    </td>
+	                                    <td>
+	                                        <div class="unstyled centered">
+	                                            <input class="styled-checkbox"
+	                                                id="styled-checkbox-4" type="checkbox"
+	                                                value="value1">
+	                                            <label for="styled-checkbox-4"></label>
+	                                        </div>
+	                                    </td>
+	                                    <td>
+	                                        <div class="unstyled centered">
+	                                            <input class="styled-checkbox"
+	                                                id="styled-checkbox-4" type="checkbox"
+	                                                value="value1">
+	                                            <label for="styled-checkbox-4"></label>
+	                                        </div>
+	                                    </td>
+	                                    <td><a href="#" class="mr-3"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/role-delete.png" alt=""></a>
+	                                    </td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+	                    </div>
+
+	                    <div class="d-block text-right">
+	                        <button class="btn btn-primary mb-1">Submit</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
     <div class="customModal modal" id="roleAcessModalSuccessful">
         <div class="modal-dialog modal-dialog-centered">
@@ -879,7 +476,8 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	
+	<script type="text/javascript" src="cotodel-js/user-role-access.js"></script>
+	 
 	<script type="text/javascript">
 
 	$(document).ready(function(){
@@ -895,6 +493,26 @@
 	</script>
 	
     <script>
+		
+		$(document).ready(function () {
+		           // Show the modal when the button is clicked
+		           $("#lastrowaddBtn").click(function () {
+		               $(".lastrowaddBtnWrap").show();
+		           });
+
+		           // Hide the modal when the close button is clicked
+		           $("#closeBtn0").click(function () {
+		               $(".lastrowaddBtnWrap").hide();
+		           });
+
+		           // Optionally, hide the modal if the user clicks outside the modal content
+		           $(window).click(function (event) {
+		               if ($(event.target).is(".lastrowaddBtnWrap")) {
+		                   $(".lastrowaddBtnWrap").hide();
+		               }
+		           });
+		       });
+			   
         $(document).ready(function () {
             // Show the modal when the button is clicked
             $("#btnroleAcess").click(function () {

@@ -272,7 +272,21 @@
             </div>
             <!-- End of Main Content -->
         </div>
+
 		<div class="lds-spinner" id="signinLoader" style="display: none">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -317,11 +331,34 @@
 
 	</script>
     <!-- Page level custom scripts -->
+	<script>
+		      // Set the min attribute to today's date
+		      const datePicker = document.getElementById('expiryDate');
+		      const today = new Date();
+		      const yyyy = today.getFullYear();
+		      const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+		      const dd = String(today.getDate()+1).padStart(2, '0');
+		      const formattedDate = `${yyyy}-${mm}-${dd}`;
 
+		      datePicker.min = formattedDate;
+			  
+			  
+			  const startDatedatePicker = document.getElementById('startDate');
+	          const startDatetoday = new Date();
+	          const startDateyyyy = today.getFullYear();
+	          const startDatemm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	          const startDatedd = String(today.getDate()).padStart(2, '0');
+	          const startDateformattedDate = `${startDateyyyy}-${startDatemm}-${startDatedd}`;
+
+	          startDatedatePicker.min = startDateformattedDate;
+			
+					
+		  </script>
 	<script>
 		
 		function getUserList() {
 		    const employerId = document.getElementById("employerId").value;
+			
 
 		    $.ajax({
 		        type: "POST",
@@ -440,6 +477,13 @@
 						else{
 							document.getElementById("expiryDateError").innerHTML="";
 						}
+						if (expiryDate <= startDate) {
+							        document.getElementById("expiryDateError").innerHTML="Expiry date should be greater than start date";
+									return false;
+						            }
+								 else {
+						       	 document.getElementById("expiryDateError").innerHTML="";
+						        }
 						if(amount=="" || amount==null){
 							document.getElementById("amountError").innerHTML="Please select amount";
 							return false;
@@ -691,7 +735,7 @@
 
 		function  getLinkedBankDetail(){
 			clearMessage();
-		    //document.getElementById("signinLoader").style.display="flex";
+		    document.getElementById("signinLoader").style.display="flex";
 		 	var employerid = document.getElementById("employerId").value;
 		 	$.ajax({
 			type: "POST",
@@ -705,6 +749,7 @@
 					   success: function(data){
 					            newData = data;
 					//            console.log(newData);
+					document.getElementById("signinLoader").style.display="none";
 								$("#banklist option").remove();
 					            var obj = jQuery.parseJSON( data );
 					             obj = obj.data;
@@ -737,7 +782,7 @@
 
 		function  getBankDetailByBankAccountNumber(){
 			clearMessage();
-		    //document.getElementById("signinLoader").style.display="flex";
+		    document.getElementById("signinLoader").style.display="flex";
 		 	var accountNumber = document.getElementById("banklist").value;
 		 	$.ajax({
 			type: "POST",
@@ -753,7 +798,7 @@
 		           //console.log(newData);
 		           var data1 = jQuery.parseJSON( newData );
 				   //var data2 = data1.data;
-				   
+				   document.getElementById("signinLoader").style.display="none";
 				    document.getElementById("bankDetailView").style.display="flex";
 					document.getElementById("accTypeView").innerHTML=data1.data.accountType;
 					document.getElementById("accIfscView").innerHTML=data1.data.ifsc;
@@ -799,7 +844,7 @@
 
 		function  getVoucherDetailByBoucherCode(){
 			clearMessage();
-		    //document.getElementById("signinLoader").style.display="flex";
+		    document.getElementById("signinLoader").style.display="flex";
 		 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
 		 	$.ajax({
 			type: "POST",
@@ -814,6 +859,7 @@
 				success: function(data){
 				           newData = data;
 				           console.log(newData);
+						   document.getElementById("signinLoader").style.display="none";
 						$("#voucherTypeMCC option").remove();
 				           var obj = jQuery.parseJSON( data );
 				            obj = obj.data;
@@ -846,7 +892,7 @@
 
 		function  getmccMasterDetailsByPurposeCodeAndMcc(){
 			clearMessage();
-		    //document.getElementById("signinLoader").style.display="flex";
+		    document.getElementById("signinLoader").style.display="flex";
 		 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
 			var mcc = document.getElementById("voucherTypeMCC").value;
 		 	$.ajax({
@@ -864,7 +910,7 @@
 		           console.log(newData);
 		           var data1 = jQuery.parseJSON( newData );
 				   var data2 = data1.data;
-					
+				   document.getElementById("signinLoader").style.display="none";
 				    document.getElementById("voucherId").value=data1.data.id;
 					document.getElementById("voucherCode").value=data1.data.purposeCode;
 					document.getElementById("vmcclbl").value=data1.data.mcc;
