@@ -933,7 +933,7 @@ function getPrimaryBankDetail(){
 					          <p>
 							  <strong>${account.accountHolderName}</strong></p>
 					          <p><span class="mb-0">A/C No: </span><strong>${account.acNumber}</strong> </p>
-					          <p><span class="info">MCC: </span><strong>${account.mcc}</strong></p>
+					          
 							  
 					 
 					      `;
