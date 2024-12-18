@@ -192,6 +192,8 @@ function editUserRoleWithMoreUser() {
 
 						editButton.title = "Update"; // Tooltip for accessibility
 						editButton.addEventListener("click", () => {
+							
+						alert("Are you sure you want to update this user role");
 			            // Retrieve the parent row of the button
 			            const row = editButton.parentElement.parentElement;
 

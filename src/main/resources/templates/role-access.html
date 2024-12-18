@@ -106,8 +106,8 @@
                                                     <button class="btn btn-border-primary mr-1 mb-1"
                                                         id="btnroleAcess">Role Access <img src="img/rollAccessIcon.png"
                                                             alt="" /></button>
-                                                    <button class="btn btn-primary mb-1" id="addEditroleAccess">Add/Edit
-                                                        View</button>
+															 <button class="btn btn-primary mb-1" id="addEditroleAccess" th:if="${session.user_role == 9}">Add/Edit View</button>
+                                          
                                                 </div>
                                             </div>
                                         </div>
@@ -123,44 +123,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                       <!-- <tr>
-                                                            <td>Deepika Sudan</td>
-                                                            <td>CTD001</td>
-                                                            <td>+91 9910318564</td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-1" type="checkbox"
-                                                                        value="value1" checked>
-                                                                    <label for="styled-checkbox-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-2" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-3" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="unstyled centered">
-                                                                    <input class="styled-checkbox"
-                                                                        id="styled-checkbox-4" type="checkbox"
-                                                                        value="value1">
-                                                                    <label for="styled-checkbox-4"></label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>-->
-                                                       
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -388,10 +351,10 @@
 	                    <div class="table-responsive">
 	                        <table class="table table-reimbursements" id="resultTable">
 								<thead id="tableHeader">
-						               <!-- Headers will be dynamically generated -->
-							           </thead>
-							           <tbody id="tableBody">
-						               <!-- Rows will be dynamically generated -->
+					               <!-- Headers will be dynamically generated -->
+						           </thead>
+						           <tbody id="tableBody">
+					               <!-- Rows will be dynamically generated -->
 					           </tbody>
 	                        </table>
 							
@@ -632,9 +595,8 @@
 		        let headerHTML = `
 		            <tr>
 		                <th>ID</th>
-		                <th>Email</th>
+						<th>Username</th>
 		                <th>Mobile</th>
-		                <th>Username</th>
 		        `;
 
 		        // Extract unique role descriptions for dynamic headers
@@ -667,9 +629,9 @@
 		            // Start with basic user details
 		            let rowHTML = `
 		                <td>${user.id}</td>
-		                <td>${user.email || '-'}</td>
+						<td>${user.username || '-'}</td>
 		                <td>${user.mobile || '-'}</td>
-		                <td>${user.username || '-'}</td>
+		               
 		            `;
 
 		            // Generate role checkboxes in columns
@@ -725,7 +687,6 @@
 
 				  // Extract the static data from the row
 				  const id = row.cells[0].innerText;
-				  const email = row.cells[1].innerText;
 				  const mobile = row.cells[2].innerText;
 				  const username = row.cells[3].innerText;
 
@@ -745,7 +706,6 @@
 				     // orgId: "70", // Static orgId
 				      id: id,
 				      username: username,
-				      email: email,
 				      mobile: mobile,
 				      roleDesc: roleDesc
 				  };
@@ -763,12 +723,11 @@
 						"orgId":70,
 						"id":rowData.id,
 						"username":rowData.username,
-						"email":rowData.email,
 						"mobile":rowData.mobile,
 						"roleDesc": rowData.roleDesc.map(role => role.roleDesc) // Directly send the roleDesc array
 			        },
 			        success: function(response) {
-			            console.log("User data sent successfully:", response);
+						window.location.href = "/roleAccess";
 			        },
 			        error: function(err) {
 			            console.error("Error sending user data:", err);
