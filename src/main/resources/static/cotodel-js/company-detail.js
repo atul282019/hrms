@@ -1,5 +1,5 @@
 
-function initializeOrgTypeDropdown() {
+/*function initializeOrgTypeDropdown() {
     console.log("Inside initializeOrgTypeDropdown()");
 
     $.ajax({
@@ -40,10 +40,62 @@ function initializeOrgTypeDropdown() {
             document.getElementById("organizationsubTypeError").innerHTML = "Error loading organization types.";
         }
     });
-}
+}*/
 
 // Call the function when the page loads
 //document.addEventListener("DOMContentLoaded", initializeOrgTypeDropdown);
+
+function initializeOrgTypeDropdown() {
+    console.log("Inside initializeOrgTypeDropdown()");
+	var orgId=1;
+    $.ajax({
+        type: "GET",
+        url: "/getorgsubType", 
+        dataType: "json",
+		data: {
+					"orgTypeId": orgId,
+					
+					
+		      		 },dataType: "json",
+        success: function (response) {
+            console.log("Response received:", response);
+
+            if (response.status === true) {
+                const orgTypeDropdown = document.getElementById("organizationsubType");
+
+                // Clear existing dropdown options
+                orgTypeDropdown.innerHTML = "";
+
+                // Add a default disabled option
+                const defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.textContent = "Select Organization Sub Type*";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                orgTypeDropdown.appendChild(defaultOption);
+
+                // Populate dropdown with response data
+                response.data.forEach((item) => {
+                    const option = document.createElement("option");
+                    option.value = item.id; // Use 'id' as the value
+                    option.textContent = item.orgType; // Display 'orgType'
+                    orgTypeDropdown.appendChild(option);
+                });
+
+                // Clear any existing error message
+                document.getElementById("organizationsubTypeError").textContent = "";
+            } else {
+                console.error("Failed to fetch organization types:", response.message);
+                document.getElementById("organizationsubTypeError").textContent = "Failed to load organization types.";
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching organization types:", status, error);
+            document.getElementById("organizationsubTypeError").textContent = "Error loading organization types.";
+        },
+    });
+}
+
 
 function openBrandPage(){
 	 $("#form2").show();

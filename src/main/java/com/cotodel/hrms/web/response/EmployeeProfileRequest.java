@@ -29,6 +29,7 @@ public class EmployeeProfileRequest {
     private String orgType;
     private String orgDesc;
     private Integer status;
+    private Integer orgTypeId;
     
     
      
