@@ -194,11 +194,6 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return "dashboard01";
 	}
-	@GetMapping(value="/companyDetails01")
-	public ModelAndView companyDetails(Model model) {
-		logger.info("opening dashboard-details01");
-		return new ModelAndView("company-details01", "command", "");
-	}
 	
 	@GetMapping(value="/employeeDetails")
 	public ModelAndView employeeDetails(Model model) {
@@ -893,6 +888,7 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView ProfileInfo(Model model) {
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
+		Integer role_id  = (Integer) session.getAttribute("user_role");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
@@ -901,7 +897,15 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("mobile",obj.getMobile());
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
+				if(role_id==9) {
 				return new ModelAndView("Profile-Info", "command", "");
+				}
+				else if(role_id==1) {
+					return new ModelAndView("profile-info-company", "command", "");
+				}
+				else if(role_id==2) {
+					return new ModelAndView("profile-info-employee", "command", "");
+				}	
 			}
 		}
 		return new ModelAndView("index", "command", "");
