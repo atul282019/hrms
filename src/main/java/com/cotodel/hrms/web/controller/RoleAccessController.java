@@ -60,5 +60,14 @@ public class RoleAccessController extends CotoDelBaseController{
 			return roleaccessservice.deleteUserRole(tokengeneration.getToken(),roleAccessRequest);
 	}
 	
+	@PostMapping(value="/userSearch")
+	public @ResponseBody String userSearch(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,RoleAccessRequest roleAccessRequest) {
+			logger.info("edit User with Role");	
+			String token = (String) session.getAttribute("hrms");
+			return roleaccessservice.userSearch(tokengeneration.getToken(),roleAccessRequest);
+	}
+	
+	
 
 }

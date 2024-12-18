@@ -364,76 +364,41 @@
         </div>
     </div>
 
+	<div id="popup">
+	        <h3>Employee Details</h3>
+	        <p id="popupContent"></p>
+	        <button onclick="closePopup()">Close</button>
+	</div>
 	
 	<div class="customModal modal lastrowaddBtnWrap">
 	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xl">
 	        <div class="modal-content modal-bulk p-0">
 	            <div class="modal-header">
-	                <h5 class="modal-title">Heading Name </h5>
+	                <h5 class="modal-title">Add Role </h5>
 	                <span id="closeBtn0" class="close">&times;</span>
 	            </div>
 	            <div class="modal-body pt-0">
 	                <div class="role-access-wrapin-bottom role-access-wrapin-bottom-add">
 	                    <div class="table-responsive">
-	                        <table class="table table-reimbursements">
-	                            <thead>
-	                                <tr>
-	                                    <th>Name</th>                                       
-	                                    <th>Super Admin</th>
-	                                    <th>Admin</th>
-	                                    <th>User Addition</th>
-	                                    <th>eRUPI Voucher Issuance</th>
-	                                    <th>Actions</th>
-	                                </tr>
-	                            </thead>
-	                            <tbody>
-	                                <tr class="addrow-roleaccess">
-	                                    <td>
-	                                        <div class="autocomp-input-wrap">
-	                                            <input type="text" class="autocomp-input" id="search"
-	                                            placeholder="Search Employee..."
-	                                            autocomplete="off">
-	                                        <div id="autocomplete-suggestions"
-	                                            class="autocomplete-dropdown"></div>
-	                                        </div>                                                                
-	                                    </td>
-	                                    <td>
-	                                        <div class="unstyled centered">
-	                                            <input class="styled-checkbox"
-	                                                id="styled-checkbox-4" type="checkbox"
-	                                                value="value1">
-	                                            <label for="styled-checkbox-4"></label>
-	                                        </div>
-	                                    </td>
-	                                    <td>
-	                                        <div class="unstyled centered">
-	                                            <input class="styled-checkbox"
-	                                                id="styled-checkbox-4" type="checkbox"
-	                                                value="value1">
-	                                            <label for="styled-checkbox-4"></label>
-	                                        </div>
-	                                    </td>
-	                                    <td>
-	                                        <div class="unstyled centered">
-	                                            <input class="styled-checkbox"
-	                                                id="styled-checkbox-4" type="checkbox"
-	                                                value="value1">
-	                                            <label for="styled-checkbox-4"></label>
-	                                        </div>
-	                                    </td>
-	                                    <td>
-	                                        <div class="unstyled centered">
-	                                            <input class="styled-checkbox"
-	                                                id="styled-checkbox-4" type="checkbox"
-	                                                value="value1">
-	                                            <label for="styled-checkbox-4"></label>
-	                                        </div>
-	                                    </td>
-	                                    <td><a href="#" class="mr-3"><img src="img/edit.svg" alt=""></a><a href="#"><img src="img/role-delete.png" alt=""></a>
-	                                    </td>
-	                                </tr>
-	                            </tbody>
+	                        <table class="table table-reimbursements" id="resultTable">
+								<thead id="tableHeader">
+						               <!-- Headers will be dynamically generated -->
+							           </thead>
+							           <tbody id="tableBody">
+						               <!-- Rows will be dynamically generated -->
+					           </tbody>
 	                        </table>
+							
+							<div>
+                                <div class="autocomp-input-wrap">
+                                    <!--<input type="text" class="autocomp-input" id="search"
+                                    placeholder="Search Employee..."
+                                    autocomplete="off">-->
+									<input type="text" class="autocomp-input" id="searchBox" placeholder="Search Employee..." oninput="searchEmployee()" />
+                                <div id="autocomplete-suggestions"
+                                    class="autocomplete-dropdown"></div>
+                                </div>                                                                
+                            </div>
 	                    </div>
 
 	                    <div class="d-block text-right">
@@ -616,7 +581,195 @@
     </script>
 
 
+		
+		<script>
+		    // Function to search employee
+		    function searchEmployee() {
+		        const searchBox = document.getElementById('searchBox').value;
+		        const employerId = document.getElementById('employerId').value;
 
+		        // Show loader
+		        document.getElementById("signinLoader").style.display = "flex";
+
+		        $.ajax({
+		            type: "POST",
+		            url: "/userSearch",
+		            dataType: 'json',
+		            data: {
+		                "orgId": 70,
+		                "userName": searchBox
+		            },
+		            success: function (data) {
+		                document.getElementById("signinLoader").style.display = "none";
+
+		                if (data && data.status && data.data.length > 0) {
+		                    const roleHeaders = generateHeaders(data.data);
+		                    generateRows(data.data, roleHeaders);
+		                } else {
+		                    alert("No data found for the given search.");
+		                }
+		            },
+		            error: function (e) {
+		                document.getElementById("signinLoader").style.display = "none";
+		                console.error('Error:', e);
+		                alert('An error occurred while fetching the data.');
+		            }
+		        });
+		    }
+
+		    // Function to Generate Table Headers Dynamically
+		    function generateHeaders(users) {
+		        const tableHeader = document.getElementById('tableHeader');
+		        tableHeader.innerHTML = "";
+
+		        // Static headers
+		        let headerHTML = `
+		            <tr>
+		                <th>ID</th>
+		                <th>Email</th>
+		                <th>Mobile</th>
+		                <th>Username</th>
+		        `;
+
+		        // Extract unique role descriptions for dynamic headers
+		        const roleHeaders = new Set();
+		        users.forEach(user => {
+		            user.userRole.forEach(role => roleHeaders.add(role.roleDesc));
+		        });
+
+		        // Add role headers
+		        roleHeaders.forEach(roleDesc => {
+		            headerHTML += `<th>${roleDesc}</th>`;
+		        });
+
+		        // Add the action column
+		        headerHTML += `<th>Action</th></tr>`;
+		        tableHeader.innerHTML = headerHTML;
+
+		        // Return ordered role descriptions for later use
+		        return Array.from(roleHeaders);
+		    }
+
+		    // Function to Generate Table Rows
+		    function generateRows(users, roleHeaders) {
+		        const tableBody = document.getElementById('tableBody');
+		        tableBody.innerHTML = "";
+
+		        users.forEach(user => {
+		            const row = document.createElement('tr');
+
+		            // Start with basic user details
+		            let rowHTML = `
+		                <td>${user.id}</td>
+		                <td>${user.email || '-'}</td>
+		                <td>${user.mobile || '-'}</td>
+		                <td>${user.username || '-'}</td>
+		            `;
+
+		            // Generate role checkboxes in columns
+					roleHeaders.forEach(roleHeader => {
+					    const role = user.userRole.find(r => r.roleDesc === roleHeader);
+					    const isChecked = role && role.checked ? 'checked' : '';
+					    const roleId = role ? role.roleId : null;
+
+					    rowHTML += `
+					        <td data-roledesc="${roleHeader}">
+					            <input type="checkbox" 
+					                   class="form-check-input role-checkbox" 
+					                   data-userid="${user.id}" 
+					                   data-roleid="${roleId}" 
+					                   ${isChecked}>
+					        </td>
+					    `;
+					});
+		            // Add action column
+		            rowHTML += `
+		                <td>
+		                    <button class="btn btn-sm btn-primary" onclick="addAction(${user.id})">Add</button>
+		                </td>
+		            `;
+
+		            row.innerHTML = rowHTML;
+		            tableBody.appendChild(row);
+		        });
+
+		        // Add event listeners for checkboxes
+		        document.querySelectorAll('.role-checkbox').forEach(checkbox => {
+		            checkbox.addEventListener('change', handleCheckboxChange);
+		        });
+		    }
+
+		    // Handle Checkbox State Changes
+		    function handleCheckboxChange(event) {
+		        const checkbox = event.target;
+		        const userId = checkbox.dataset.userid;
+		        const roleId = checkbox.dataset.roleid;
+		        const isChecked = checkbox.checked;
+
+		        console.log(`User ID: ${userId}, Role ID: ${roleId}, Checked: ${isChecked}`);
+		        // Add your backend update logic here if needed
+		    }
+
+		    // Action Button Click Handler
+			function addAction(userId) {
+			    // Find the row containing the clicked button
+			    const orgId = document.getElementById("employerId").value;
+				// Find the row containing the clicked button
+				  const row = event.target.closest('tr');
+
+				  // Extract the static data from the row
+				  const id = row.cells[0].innerText;
+				  const email = row.cells[1].innerText;
+				  const mobile = row.cells[2].innerText;
+				  const username = row.cells[3].innerText;
+
+				  // Collect checked role descriptions
+				  const roleDesc = [];
+				  row.querySelectorAll('.role-checkbox').forEach(checkbox => {
+				      if (checkbox.checked) {
+				          const roleDescription = checkbox.closest('td').getAttribute('data-roledesc');
+				          if (roleDescription) {
+				              roleDesc.push({ roleDesc: roleDescription });
+				          }
+				      }
+				  });
+
+				  // Build the final JSON object
+				  const rowData = {
+				     // orgId: "70", // Static orgId
+				      id: id,
+				      username: username,
+				      email: email,
+				      mobile: mobile,
+				      roleDesc: roleDesc
+				  };
+
+				  // Output the result in the desired format
+				  console.log(rowData);
+				  //alert("Row Data: " + JSON.stringify(rowData));
+			    // Send data to backend via AJAX
+			    $.ajax({
+			        url: '/editUserRole',
+			        type: 'POST',
+			        dataType: 'json',
+			        data: {
+			            //orgId: orgId,
+						"orgId":70,
+						"id":rowData.id,
+						"username":rowData.username,
+						"email":rowData.email,
+						"mobile":rowData.mobile,
+						"roleDesc": rowData.roleDesc.map(role => role.roleDesc) // Directly send the roleDesc array
+			        },
+			        success: function(response) {
+			            console.log("User data sent successfully:", response);
+			        },
+			        error: function(err) {
+			            console.error("Error sending user data:", err);
+			        }
+			    });
+			}
+		</script>
 </body>
 
 </html>

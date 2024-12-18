@@ -170,6 +170,8 @@ function editUserRoleWithMoreUser() {
 						const deleteIcon = document.createElement("img");
 						deleteIcon.src = "img/role-delete.png"; // Replace with the correct image path
 						deleteIcon.alt = "delete";
+						deleteIcon.style="height:15px"
+						deleteIcon.style="width:15px"
 						deleteButton.appendChild(deleteIcon);
 						deleteButton.title = "delete"; // Tooltip for accessibility
 
@@ -180,11 +182,15 @@ function editUserRoleWithMoreUser() {
 												
 						// Add an image as an icon
 						const editIcon = document.createElement("img");
-						editIcon.src = "img/edit.svg"; // Replace with the correct image path
-						editIcon.alt = "Edit";
+						
+						editIcon.src = "img/update.png"; 
+						editIcon.style="height:15px"
+						editIcon.style="width:15px"
+						// Replace with the correct image path
+						editIcon.alt = "update";
 						editButton.appendChild(editIcon);
 
-						editButton.title = "Edit"; // Tooltip for accessibility
+						editButton.title = "Update"; // Tooltip for accessibility
 						editButton.addEventListener("click", () => {
 			            // Retrieve the parent row of the button
 			            const row = editButton.parentElement.parentElement;

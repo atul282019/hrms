@@ -5508,3 +5508,95 @@ select.did-label-content{
 .role-access-wrapin-bottom-add > .table-responsive {
     overflow-x: clip;
 }
+
+.leftselctVoucehrs, .rightselctVoucehrs {
+    border: 1px solid #EAF4EF;
+    border-radius: 10px;
+}
+
+.leftselctVoucehrs h4, .rightselctVoucehrs h4 {
+    font-weight: 600;
+    font-size: 18px;
+    color: #000000;
+    display: block;
+    padding: 12px 16px; margin-bottom: 0;
+}
+.leftselctVoucehrs ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.leftselctVoucehrs ul li {
+    padding: 7px 15px 8px;
+}
+
+.leftselctVoucehrs ul li:hover{
+    background: #EAF4EF;
+}
+
+.leftselctVoucehrs ul li a {
+    text-decoration: none;
+}
+
+.leftselctVoucehrs ul li a span {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #4A4E69;
+}
+
+.rightselctVoucehrs{
+    padding: 15px;
+}
+
+.select-upivouchers{
+    background: #FBFBFB;
+    border-radius: 14px;
+    border: 1px solid #EAF4EF;
+    padding: 7px;
+    margin-bottom: 20px;
+}
+
+.select-upivouchers img{
+    border-radius: 10px;
+    border: 1px solid #EAF4EF;
+}
+
+.cards-upivouchers-desc h4{
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.cards-upivouchers-desc p{
+    color: #2F945A !important;
+    font-weight: 400;
+}
+
+.selctedVoucehr ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.selctedVoucehr ul li.active {
+    background: #EAF4EF;
+    border-radius: 10px;
+    padding: 11px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.selctedVoucehr ul li {
+    background: #fff;
+    border-radius: 10px;
+    padding: 11px 10px;
+    display: flex;
+    align-items: center;
+}
+.selctedVoucehr ul li input, .selctedVoucehr ul li img {
+    margin-right: 10px;
+}
+
+.selctedVoucehr ul li img {
+    min-width: 24px;
+}

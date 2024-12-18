@@ -13,10 +13,10 @@ public class RoleAccessRequest {
 	
 	    private Integer orgId;
 	    private Integer id;
-	    private String username;
+	    private String userName;
 	    private String email;
 	    private String mobile;
-	    private String createedby;
+	    private String createdby;
 	    private List<String> roleDesc;
 
 }

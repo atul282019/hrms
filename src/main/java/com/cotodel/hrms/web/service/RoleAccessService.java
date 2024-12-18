@@ -13,4 +13,6 @@ public interface RoleAccessService {
 
 	String deleteUserRole(String token, RoleAccessRequest roleAccessRequest);
 
+	String userSearch(String token, RoleAccessRequest roleAccessRequest);
+
 }

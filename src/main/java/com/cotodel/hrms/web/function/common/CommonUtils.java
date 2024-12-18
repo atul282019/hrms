@@ -133,6 +133,9 @@ public interface CommonUtils {
 	public static String editUserListWithRole="/userServices/Api/update/editUserRole";
 	public static String deleteUserListWithRole="/userServices/Api/delete/deleteUserRole";
 	
+	public static String addUserSearch="/userServices/Api/get/userSearch";
+	
+	
 	
 
 }

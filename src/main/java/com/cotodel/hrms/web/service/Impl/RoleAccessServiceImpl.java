@@ -32,4 +32,9 @@ public class RoleAccessServiceImpl implements RoleAccessService{
 	public String deleteUserRole(String token, RoleAccessRequest roleAccessRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(roleAccessRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.deleteUserListWithRole);
 	}
+
+	@Override
+	public String userSearch(String token, RoleAccessRequest roleAccessRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(roleAccessRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.addUserSearch);
+	}
 }

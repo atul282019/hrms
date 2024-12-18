@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>UPI Voucher Issuance - Select Vouchers</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body id="page-top">
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-dark-sidebar sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/avatar.png" alt="" width="36">
+                </div>
+                <div class="sidebar-brand-text mx-2 text-left">Name here <br><span>email@demo.com</span></div>
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active mt-3">
+                <a class="nav-link" href="index.html">
+                    <img src="img/home.png" alt="" class="mr-2">
+                    <span>Home</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="company-details.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>company Details</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-invite.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Invite</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-table-invitelist.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Table Invite list</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-upload.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Upload</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage-and-Contractors.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage and Contractors</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Onboarding.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Onboarding</span></a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+
+
+            <li class="nav-item li-btm">
+                <img src="img/undraw_profile.svg" alt="" width="30" class="mr-2">
+                <span>John Doe</span>
+                <a href="#" class="float-right mt-1"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
+            </li>
+
+            <!-- <div class="text-center">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div> -->
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">Empolyee Profile</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+
+
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <div class="upi-voucher-wrap">
+                                    <div>
+                                        <h3>Select Vouchers</h3>
+                                        <p>Select Vouchers from the selection provided below, and continue to enter
+                                            details for issuance. </p>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-12 col-md-4">
+                                            <div class="leftselctVoucehrs">
+                                                <h4>Vouchers Categories</h4>
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/meal.svg" alt="" class="img-fluid">
+                                                            <span>Meal </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/fuel-circle.svg" alt="" class="img-fluid">
+                                                            <span>Fuel </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/travel-circle.svg" alt="" class="img-fluid">
+                                                            <span>Travel </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/conveyance-circle.svg" alt=""
+                                                                class="img-fluid">
+                                                            <span>Conveyance </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/uniform.svg" alt="" class="img-fluid">
+                                                            <span>Uniform </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/gadgets.svg" alt="" class="img-fluid">
+                                                            <span>Gadgets </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/health.svg" alt="" class="img-fluid">
+                                                            <span>Health & Wellness </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/telecom.svg" alt="" class="img-fluid">
+                                                            <span>Telecom & Entertainment </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/groceries.svg" alt="" class="img-fluid">
+                                                            <span>Groceries </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0);">
+                                                            <img src="img/books.svg" alt="" class="img-fluid">
+                                                            <span>Books & Periodicals </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-8 pl-sm-0">
+                                            <div class="rightselctVoucehrs">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-5">
+                                                        <div class="select-upivouchers">
+                                                            <img src="img/fuelVouchers.svg" alt="" class="img-fluid">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-7">
+                                                        <div class="cards-upivouchers-desc">
+                                                            <h4>Fuel Vouchers</h4>
+                                                            <p>To issue e-RUPI Voucher, please select a category, a
+                                                                sub-category or an associated brand: </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="selctedVoucehr">
+                                                            <ul>
+                                                                <li class="active"><input type="radio"
+                                                                        class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img
+                                                                        src="img/fuel-1.svg" alt=""> <span>Fuel</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="selctedVoucehr">
+                                                            <ul>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img
+                                                                        src="img/fuel-1.svg" alt=""> <span>Fuel
+                                                                        Stations</span> </li>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img src="img/cng.svg"
+                                                                        alt=""> <span>CNG Stations</span> </li>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img src="img/gas.svg"
+                                                                        alt=""> <span>Fuel Oil, Coal, Wood & LPG </span>
+                                                                </li>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img
+                                                                        src="img/servicestation.svg" alt="">
+                                                                    <span>Service Stations</span>
+                                                                </li>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img
+                                                                        src="img/shell.svg" alt=""> <span>Shell
+                                                                        Oil</span> </li>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img src="img/rilp.svg"
+                                                                        alt=""> <span>Reliance Petroleum</span> </li>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img src="img/hpcl.svg"
+                                                                        alt=""> <span>Hindustan Petroleum</span> </li>
+                                                                <li><input type="radio" class="voucher-radioinput"
+                                                                        name="selectvouchers" /> <img src="img/bpcl.svg"
+                                                                        alt=""> <span>Bharat Petroleum</span> </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 text-right my-3">
+                                            <button class="btn btn-border-primary mb-1">Back</button>
+                                            <button class="btn btn-primary mb-1">Continue</button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>
