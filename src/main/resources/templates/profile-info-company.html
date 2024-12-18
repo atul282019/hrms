@@ -12,7 +12,7 @@
 
         <!-- Sidebar -->
         
-        <div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
         
         <!-- End of Sidebar -->
 
@@ -39,7 +39,7 @@
 			                           </li>
 			                           <li class="nav-item">
 			                               <a class="nav-link" href="#">
-			                                   <span class="mr-2 small">Bank Master Edit Form</span>
+			                                   <span class="mr-2 small">Profile Info</span>
 			                                   <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
 			                               </a>
 			                           </li>
@@ -82,13 +82,13 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
-                <form id="editbankMaster" name="editbankMaster" method="post">
+                <form id="Profile Info" name="Profile Info" method="post">
                     <div class="row">
                         <div class="col-12 col-md-12">
                             <div class="mt-4 bg-white p-3">
                                 <div class="row">
                                     <div class="col-12 organisation-wrap">
-                                        <h3 class="mb-1 text-center"> Edit Bank Master </h3>
+                                        <h3 class="mb-1 text-center"> Profile Info</h3>
                                     </div>
                                 </div>
                             </div>
@@ -97,55 +97,48 @@
 								
                                 <div class="row">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
-                                        
-										
-										<input type="hidden" id="bankId" name="bankId" th:value="${bankId}"> 
-										
+                                        	
+								    <!--		
 										<div class="card-form my-3">
-                                        <label for="bankName">Bank Name</label>
-                                        <input type="text" class="form-input" id="bankName" name="bankName"  th:value="${bankName}">
+		                                        <label for="Id">Id</label>
+		                                        <input type="text" class="form-input" id="Id" name="Id"  th:value="${session.id}" readonly>
+		                                    
+		                                        
+		                                    </div>
+										-->
+										<div class="card-form my-3">
+                                        <label for="Name">Name</label>
+                                        <input type="text" class="form-input" id="Name" name="Name"  th:value="${session.username}" readonly>
                                     
-                                        </select>
+                                        
                                     </div>
 										
- 										<div class="error-msg" id="bankNameerror" style="color:red"></div>
+ 										<div class="error-msg" id="Nameerror" style="color:red"></div>
 									   
 										<div class="card-form my-3">
-                                        <label for="bankCode">Bank Code</label>
-                                        <input type="text" class="form-input" id="bankCode" name="bankCode"  th:value="${bankCode}">
+                                        <label for="emailId">Email id</label>
+                                        <input type="text" class="form-input" id="emailId" name="emailId"  th:value="${session.email}" readonly>
                                     
-                                        </select>
+                                        
                                     </div>
-										 <div class="error-msg" id="bankcodeError" style="color:red"></div>
+										 <div class="error-msg" id="emailIdError" style="color:red"></div>
 										 
-                                    	<div class="card-form my-3">
-				    						<label for="statusInput">Current Status  </labelfor><br>
-				        				
-										    <span 
-										        id="statusText" 
-										        data-value="1" 
-										        onclick="enableEditing('statusText', 'statusInput')">
-										        <th:block th:text="${status == 1 ? 'Active' : 'Inactive'}">Active</th:block>
-										    </span>
-										    <select 
-										        id="statusInput" 
-										        name="status" 
-										        style="display: none;" 
-										        onblur="saveAndDisplay('statusText', 'statusInput')">
-										        <option value="1" th:selected="${status == 1}">Active</option>
-										        <option value="0" th:selected="${status == 0}">Inactive</option>
-										    </select>
-				       
-										</div><br>
-									<div class="card-form my-3">
-									    <label for="newbankLogo">New Bank Logo</label><br>
-									    <input type="file" 
-									    id="newbankLogo" 
-									    name="newbankLogo" 
-									    accept=".jpg, .jpeg, .png" 
-									    onchange="validateAndConvertImageToBase64()">
-										</div><br>
-                                        <input type="hidden" id="oldbankLogo" name="oldbankLogo" th:value="${bankLogo}">
+										 
+										 <div class="card-form my-3">
+                                         <label for="mobno">Mobile Number</label>
+                                         <input type="text" class="form-input" id="mobno" name="mobno"  th:value="${session.mobile}" readonly>
+                                     
+                                         
+                                     </div>
+ 										 <div class="error-msg" id="mobnoError" style="color:red"></div>
+										 
+																				 
+										 <!--<div class="card-form my-3">
+                                      <label for="employerid">Employer Id</label>
+                                      <input type="text" class="form-input" id="employerid" name="employerid"  th:value="${session.employerid}" readonly>
+                                                                    </div>
+									 <div class="error-msg" id="employeridError" style="color:red"></div>-->
+									
                                     
                                     </div>
                                 </div>
@@ -174,18 +167,7 @@
                                     
                                 </div>
                                 
-                       <div class="row">
-					    <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto">
-					        <!-- Save and Back buttons -->
-					        <div class="d-flex my-3 justify-content-start">
-					            <!-- Save button -->
-					            <input type="button" id="saveBankmaster" class="btn btn-primary" 
-					                   onclick="saveEditedBankMaster()" value="Save">
-					            <!-- Back button with custom margin -->
-					            <a th:href="@{/displaybankMaster}" id="backButton" class="btn" style="background-color: #FFA500; color: white; margin-left: 15px;">Cancel</a>
-					        </div>
-					    </div>
-					</div>
+                       
 									
 												
                             </div>
@@ -228,22 +210,9 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-	<script type="text/javascript" src="cotodel-js/edit-Bank-Master.js"></script>
+	<script type="text/javascript" src="cotodel-js/"></script>
 	
-	<script type="text/javascript">
 	
-	$(document).ready(function(){
-		
-		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' +'/editBankMaster"]').closest('li').addClass('active').attr('aria-current', 'page');   
-		  
-	   $(".innernav").click(function(){
-	       $(".dropdownNav").addClass("active");
-	   });
-	});
-	
-	</script>
-
 </body>
 
 </body>
