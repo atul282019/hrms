@@ -15,6 +15,8 @@ function saveEditedBankMaster()
         bankLogo=oldbankLogo;
      }
 	*/
+	var bankNameRegex=/^[A-Za-z]+( [A-Za-z]+)?$/;
+	var bankCodeRegex=/^[a-zA-Z0-9]+$/;
 	var bankId = document.getElementById("bankId").value;
 
     // Get Bank Name (check both span and input field)
@@ -32,6 +34,33 @@ function saveEditedBankMaster()
     // Get Bank Logo (default to old logo if new logo is not provided)
     var newbankLogo = bankLogo||document.getElementById("oldbankLogo").value;
     
+	if(bankName==""){
+		document.getElementById("bankNameerror").innerHTML="Please Enter Bank Name";
+		document.getElementById("bankName").focus();
+		return false;
+	}
+	else if(!bankName.match(bankNameRegex)){
+							document.getElementById("bankNameerror").innerHTML="Special Characters Not Allowed in Bank Name";
+								document.getElementById("bankName").focus();
+								return false;
+							
+						}else{
+		document.getElementById("bankNameerror").innerHTML="";
+	}
+
+	if(bankCode==""){
+		document.getElementById("bankcodeError").innerHTML="Please Enter bank code";
+		document.getElementById("bankCode").focus();
+		return false;
+	}	else if(!bankCode.match(bankCodeRegex)){
+								document.getElementById("bankcodeError").innerHTML="Special Characters Not Allowed in Bank Code";
+									document.getElementById("bankCode").focus();
+									return false;
+								
+							}
+	else{
+		document.getElementById("bankcodeError").innerHTML="";
+	}
 
 	//console.log("Printing data "+data);
 	 	$.ajax({

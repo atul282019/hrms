@@ -25,6 +25,11 @@ public class EmployeeProfileRequest {
     private String paidDate;
     private boolean runFayrollFlag;
     private boolean salaryAdvancesFlag;
+    private Integer id;
+    private String orgType;
+    private String orgDesc;
+    private Integer status;
+    
     
      
 }

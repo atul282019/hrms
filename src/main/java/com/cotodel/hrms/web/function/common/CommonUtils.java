@@ -18,6 +18,7 @@ public interface CommonUtils {
 	public static String orgMaster = "/userServices/Api/get/Organization";
 	public static String registerCompany = "/empService/Api/get/saveProfileDetails";
 	public static String companyProfileStatus = "/empService/Api/get/getEmpComplete";
+	public static String getorgsubType = "/masterService/Api/get/orgTypeMasterList";
 	public static String saveEmployee = "/empService/Api/add/employeeDetails";
 	public static String getPayrollList = "/userServices/Api/get/payroll-list";
 	public static String savePayrollDetail = "/empService/Api/save/payrollDetails";
@@ -101,6 +102,7 @@ public interface CommonUtils {
 	public static String getPrimaryBankDetailByOrgId = "/empService/Api/get/erupiPrimaryAccountDetails";
 	
 	public static String updateErupiLinkAccount = "/empService/Api/update/erupiLinAccPsFlag";
+	public static String delinkErupiLinkAccount = "/empService/Api/update/erupiLinAccDisable";
 	public static String saveVoucherTypeMasterDetailS="/empService/Api/add/voucherTypeMaster";
 	public static String getvoucherTypeMasterList="/empService/Api/get/voucherTypeMasterList";
 	public static String updatevoucherTypeMasterStatus="/empService/Api/update/voucherTypeMasterStatus";

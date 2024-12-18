@@ -1,4 +1,50 @@
 
+function initializeOrgTypeDropdown() {
+    console.log("Inside initializeOrgTypeDropdown()");
+
+    $.ajax({
+        type: "GET",
+        url: "/getorgsubType", // Replace with your endpoint
+        dataType: "json",
+        success: function(response) {
+            console.log("Response received:", response);
+
+            if (response.status === true) {
+                const orgTypeDropdown = document.getElementById("organizationsubType");
+
+                // Clear existing dropdown options
+                orgTypeDropdown.innerHTML = "";
+
+                // Add a default disabled option
+                const defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.textContent = "Select organization subType";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                orgTypeDropdown.appendChild(defaultOption);
+
+                // Populate dropdown with orgType values
+                response.data.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.id; // Use 'id' as the value (or use orgType if preferred)
+                    option.textContent = item.orgType; // Display 'orgType'
+                    orgTypeDropdown.appendChild(option);
+                });
+            } else {
+                console.log("Failed to fetch organization types:", response.message);
+                document.getElementById("organizationsubTypeError").innerHTML = "Failed to load organization types.";
+            }
+        },
+        error: function(error) {
+           console.log("Error fetching organization types:", error);
+            document.getElementById("organizationsubTypeError").innerHTML = "Error loading organization types.";
+        }
+    });
+}
+
+// Call the function when the page loads
+//document.addEventListener("DOMContentLoaded", initializeOrgTypeDropdown);
+
 function openBrandPage(){
 	 $("#form2").show();
      $("#form1").hide();

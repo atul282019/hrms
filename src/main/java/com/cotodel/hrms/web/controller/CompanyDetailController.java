@@ -1,7 +1,9 @@
 package com.cotodel.hrms.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -70,6 +72,35 @@ public class CompanyDetailController extends CotoDelBaseController{
 			logger.info("getPayrollMaster");	
 			String token = (String) session.getAttribute("hrms");
 			return companyService.getCompanyProfileStatus(tokengeneration.getToken(),employeeProfileRequest);
+	}
+	
+	@GetMapping(value="/getorgsubType")
+	public @ResponseBody String getorgsubType(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
+	     String companyResponse = null;
+	        JSONObject companyJsonResponse = null;
+	        Map<String, Object> responseMap = new HashMap<>();
+	        ObjectMapper mapper = new ObjectMapper();
+	        String jsonResponse = null;	
+			//String token = (String) session.getAttribute("hrms");
+			companyResponse= companyService.getorgsubType(tokengeneration.getToken(),employeeProfileRequest);
+			 companyJsonResponse = new JSONObject(companyResponse);      
+		        if(companyJsonResponse.getBoolean("status")) { 
+					
+					//responseMap.put("data", companyJsonResponse.getJSONArray("data"));
+					List<Object> companyList = companyJsonResponse.getJSONArray("data").toList();
+					responseMap.put("status",true);
+					responseMap.put("data", companyList);
+		        }else {
+					//loginsevice.rsendEmailVerificationCompletion(userForm);
+					responseMap.put("status", false);
+				}
+		        try {
+		            jsonResponse = mapper.writeValueAsString(responseMap);
+		        } catch (Exception e) {
+		            e.printStackTrace(); 
+		        }       
+		        return jsonResponse;
 	}
 
 }

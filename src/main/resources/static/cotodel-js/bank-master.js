@@ -61,7 +61,7 @@ function saveBankMaster()
 			}else if(data1.status=='FAILURE'){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
-				 document.getElementById("saveBankmaster1").disabled=false;
+				 document.getElementById("saveBankmaster").disabled=false;
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
 			}else{
 				console.log("logging from the save bank master")

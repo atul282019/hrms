@@ -1004,7 +1004,7 @@ function  getLinkedBankDetail(){
 			},
            success: function(data){
            newData = data;
-           //console.log(newData);
+           console.log("Linked bank account data : ",newData);
         var data1 = jQuery.parseJSON( newData );
 		var data2 = data1.data;
 		if(data2.length ===0 && data2.length <=0){
@@ -1023,7 +1023,8 @@ function  getLinkedBankDetail(){
 		       const container = document.createElement('div');
 		       container.className = 'data-container';
 
-		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile","merchantId","submerchantid","mcc","payerva"];
+		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile","merchentIid","submurchentid",//"mcc"
+				,"payerva"];
 			   
 			   const fieldLabels = {
 			          
@@ -1033,9 +1034,9 @@ function  getLinkedBankDetail(){
 					   accountType: "Account Type",
 					   ifsc: "ifsc",
 					   mobile: "Mobile",
-					   merchantId: "Merchant Id",
-					   submerchantid:"Sub Merchant Id",
-   					   mcc: "MCC",
+					   merchentIid: "Merchant Id",
+					   submurchentid:"Sub Merchant Id",
+   					   //mcc: "MCC",
    					   payerva: "Payerva",
 			       };
 				   
@@ -1060,9 +1061,10 @@ function  getLinkedBankDetail(){
 						  
 			   const editButton1 = document.createElement('a');
 			   editButton1.className = '';
+			   editButton1.style.cursor = 'pointer';
 			   editButton1.innerText = 'De-linked Bank A/c';
-			   editButton1.href = '#';  // Use this if you don't have a specific link
-			   editButton1.onclick = () => dlinkAccount(item.id); 
+			   //editButton1.href = '#';  // Use this if you don't have a specific link
+			   editButton1.onclick = () => dlinkAccount(item.acNumber); 
 			  
 			   container.appendChild(editButton);
 		       container.appendChild(editButton1);
@@ -1123,6 +1125,50 @@ function  getLinkedBankDetail(){
 			
 }
 
+function dlinkAccount(acNumber)
+{console.log("Inside  de-link function");
+	var employerid = document.getElementById("employerId").value;
+	 	$.ajax({
+		type: "POST",
+	     url:"/de-linkErupiaccount",
+		 data: {
+		 			  "orgId": employerid ,
+					  "acNumber":acNumber ,					  
+					
+		 		}, 
+						 
+	        success: function(data){
+	        newData = data;
+			var data1 = jQuery.parseJSON(newData);
+
+			document.getElementById("signinLoader").style.display="none";
+			
+			if(data1.status==true){
+					 document.getElementById("otsuccmsg").innerHTML="Bank Account De-Linked Successfully.";
+					 document.getElementById("otmsgdiv").style.display="block";
+					 //document.getElementById("getInTouchUser").reset();
+					 $('#otmsgdiv').delay(5000).fadeOut(400);
+					 document.getElementById("linkBankBtn").disabled = false;
+	    			 window.location.href = "/linkBankDetail";
+					 //getLinkedBankDetail();
+				}else if(data1.status==false){
+					 document.getElementById("otfailmsg").innerHTML=data1.message;
+					 document.getElementById("otfailmsgDiv").style.display="block";
+					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+					 document.getElementById("linkBankBtn").disabled = false;
+				}else{
+					 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
+					 document.getElementById("otfailmsgDiv").style.display="block";
+					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+					 document.getElementById("linkBankBtn").disabled = false;
+				}
+			
+	     },
+	     error: function(e){
+	         alert('Error: ' + e);
+	     }
+	});	
+}
 
 function submitLinkBankAccount(){
 	
@@ -1141,7 +1187,9 @@ function submitLinkBankAccount(){
 	var submerchantid = document.getElementById("submerchantid").value;
 	var payerva = document.getElementById("payerva").value;
 	var moblieLink = document.getElementById("moblieLink").value;
-	
+	var banknameregex=/^[A-Za-z]+( [A-Za-z]+)?$/;
+	var merchantidregex=/^[A-Za-z0-9]+$/;
+	var submerchantidregex=/^[A-Za-z0-9]+$/;
 	
 	if(bankCode=="" || bankCode==null){
 			document.getElementById("bankNameError").innerHTML="Please Select Bank";
@@ -1160,7 +1208,12 @@ function submitLinkBankAccount(){
 		if(bankingName=="" || bankingName==null){
 			document.getElementById("bankingNameError").innerHTML="Please Enter Account Holder Name";
 			return false;
-		}
+		}		else if(!bankingName.match(banknameregex)){
+						document.getElementById("bankingNameError").innerHTML="Special Characters Not Allowed in Account Holder Name";
+							document.getElementById("bankingName").focus();
+							return false;
+						
+					}
 		else{
 			document.getElementById("bankingNameError").innerHTML="";
 		}
@@ -1207,7 +1260,12 @@ function submitLinkBankAccount(){
 		if(merchantId=="" || merchantId==null){
 			document.getElementById("merchantIdError").innerHTML="Please Enter Merchant Id";
 			return false;
-		}
+		}		else if(!merchantId.match(merchantidregex))
+								{
+								document.getElementById("merchantIdError").innerHTML="Special Characters are not allowed in merchant id";
+										document.getElementById("merchantId").focus();
+										return false;
+								}
 		else{
 			document.getElementById("merchantIdError").innerHTML="";
 		}
@@ -1221,7 +1279,14 @@ function submitLinkBankAccount(){
 		if(submerchantid=="" || submerchantid==null){
 		document.getElementById("submerchantidError").innerHTML="Please Enter Sub Merchant Id";
 				return false;
-			}
+		}		
+		else if(!submerchantid.match(submerchantidregex))
+						{
+						document.getElementById("submerchantidError").innerHTML="Special Characters are not allowed in submerchant id";
+								document.getElementById("submerchantid").focus();
+								return false;
+						}
+		
 			else{
 				document.getElementById("submerchantidError").innerHTML="";
 			}
@@ -1264,12 +1329,13 @@ function submitLinkBankAccount(){
 					  "mobile": moblieLink,
 					  "accstatus":1,
 					  "tid": tid,
-					  "merchantId": merchantId,
+					  "merchentIid": merchantId,
 					 // "mcc": mcc,
-					  "submerchantid": submerchantid,
+					  "submurchentid": submerchantid,
 					  "payerva": payerva
 					
-		 		},    		 
+		 		}, 
+						 
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
@@ -1397,14 +1463,14 @@ function validateMerchantId()
 }
 function validateSubMerchantId()
 {
-	var merchantId = document.getElementById("submerchantid").value;
-	var merchantidregex=/^[A-Za-z0-9]+$/;
-	if(merchantId==""){
+	var submerchantId = document.getElementById("submerchantid").value;
+	var submerchantidregex=/^[A-Za-z0-9]+$/;
+	if(submerchantId==""){
 				document.getElementById("submerchantidError").innerHTML="Please Enter Merchant Id";
 				document.getElementById("submerchantid").focus();
 				return false;
 			}
-			else if(!merchantId.match(merchantidregex))
+			else if(!submerchantId.match(submerchantidregex))
 				{
 				document.getElementById("submerchantidError").innerHTML="Special Characters are not allowed in submerchant id";
 						document.getElementById("submerchantid").focus();
