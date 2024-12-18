@@ -907,5 +907,23 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("index", "command", "");
 	}
 	
+	@GetMapping(value="/selectVoucher")
+	public ModelAndView selectVoucher(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("upi-voucher-issuance-selectvoucher", "command", "");
+			}
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
 	
 }
