@@ -1,12 +1,19 @@
 
+
+/* working 
 function initializeOrgTypeDropdown() {
     console.log("Inside initializeOrgTypeDropdown()");
-
+	var orgId=1;
     $.ajax({
         type: "GET",
-        url: "/getorgsubType", // Replace with your endpoint
+        url: "/getorgsubType", 
         dataType: "json",
-        success: function(response) {
+		data: {
+					"orgTypeId": orgId,
+					
+					
+		      		 },dataType: "json",
+        success: function (response) {
             console.log("Response received:", response);
 
             if (response.status === true) {
@@ -18,32 +25,98 @@ function initializeOrgTypeDropdown() {
                 // Add a default disabled option
                 const defaultOption = document.createElement("option");
                 defaultOption.value = "";
-                defaultOption.textContent = "Select organization subType";
+                defaultOption.textContent = "Select Organization Sub Type*";
                 defaultOption.disabled = true;
                 defaultOption.selected = true;
                 orgTypeDropdown.appendChild(defaultOption);
 
-                // Populate dropdown with orgType values
-                response.data.forEach(item => {
+                // Populate dropdown with response data
+                response.data.forEach((item) => {
                     const option = document.createElement("option");
-                    option.value = item.id; // Use 'id' as the value (or use orgType if preferred)
+                    option.value = item.id; // Use 'id' as the value
                     option.textContent = item.orgType; // Display 'orgType'
                     orgTypeDropdown.appendChild(option);
                 });
+
+                // Clear any existing error message
+                document.getElementById("organizationsubTypeError").textContent = "";
             } else {
-                console.log("Failed to fetch organization types:", response.message);
-                document.getElementById("organizationsubTypeError").innerHTML = "Failed to load organization types.";
+                console.error("Failed to fetch organization types:", response.message);
+                document.getElementById("organizationsubTypeError").textContent = "Failed to load organization types.";
             }
         },
-        error: function(error) {
-           console.log("Error fetching organization types:", error);
-            document.getElementById("organizationsubTypeError").innerHTML = "Error loading organization types.";
-        }
+        error: function (xhr, status, error) {
+            console.error("Error fetching organization types:", status, error);
+            document.getElementById("organizationsubTypeError").textContent = "Error loading organization types.";
+        },
     });
 }
+*/
+function initializeOrgTypeDropdown() {
+    
+    const orgTypeDropdown = document.getElementById("orgType2");
+    const selectedOrgType = orgTypeDropdown.value;
 
-// Call the function when the page loads
-//document.addEventListener("DOMContentLoaded", initializeOrgTypeDropdown);
+    // Determine orgId based on selected organization type
+    let orgId = null;
+    if (selectedOrgType === "Private") {
+        orgId = 1;
+    } else if (selectedOrgType === "Government") {
+        orgId = 2;
+    } else {
+        console.log("Invalid Organization Type selected.");
+        document.getElementById("organizationsubTypeError").textContent = "Please select a valid organization type.";
+        return;
+    }
+
+    console.log("Selected Organization Type:", selectedOrgType, "| orgId:", orgId);
+
+    // Fetch organization sub types based on orgId
+    $.ajax({
+        type: "GET",
+        url: "/getorgsubType",
+        data: {
+            orgTypeId: orgId,
+        },
+        dataType: "json",
+        success: function (response) {
+            console.log("Response received:", response);
+
+            if (response.status === true) {
+                const subTypeDropdown = document.getElementById("organizationsubType");
+
+                // Clear existing options
+                subTypeDropdown.innerHTML = "";
+
+                // Add a default disabled option
+                const defaultOption = document.createElement("option");
+                defaultOption.textContent = "Select Organization Sub Type*";
+                defaultOption.value = "";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                subTypeDropdown.appendChild(defaultOption);
+
+                // Populate dropdown with data from the response
+                response.data.forEach((item) => {
+                    const option = document.createElement("option");
+                    option.value = item.id;
+                    option.textContent = item.orgType;
+                    subTypeDropdown.appendChild(option);
+                });
+
+                // Clear error message
+                document.getElementById("organizationsubTypeError").textContent = "";
+            } else {
+                console.error("Failed to fetch organization sub types:", response.message);
+                document.getElementById("organizationsubTypeError").textContent = "Failed to load organization sub types.";
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching organization sub types:", status, error);
+            document.getElementById("organizationsubTypeError").textContent = "Error loading organization sub types.";
+        },
+    });
+}
 
 function openBrandPage(){
 	 $("#form2").show();
@@ -68,6 +141,7 @@ function validateFormAndSubmit(){
 	 var pinCode = document.getElementById("pinCode").value; 
 	 //var companyPan2 = document.getElementById("companyPan2").value; 
 	 var stateCode = document.getElementById("stateCode").value;  
+	 var orgsubType = document.getElementById("organizationsubType").value;
 	 
 	 var regName = /^[a-zA-Z\s]*$/;
 	 var onlySpace = /^$|.*\S+.*/;
