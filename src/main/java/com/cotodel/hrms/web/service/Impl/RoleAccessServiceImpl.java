@@ -1,11 +1,13 @@
 package com.cotodel.hrms.web.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.RoleAccessRequest;
+import com.cotodel.hrms.web.response.RoleDTO;
 import com.cotodel.hrms.web.service.RoleAccessService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
@@ -36,5 +38,10 @@ public class RoleAccessServiceImpl implements RoleAccessService{
 	@Override
 	public String userSearch(String token, RoleAccessRequest roleAccessRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(roleAccessRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.addUserSearch);
+	}
+
+	@Override
+	public String editUserRoleDTO(String token, RoleDTO requestDTO) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(requestDTO), applicationConstantConfig.userServiceBaseUrl+CommonUtils.editUserListWithRole);
 	}
 }

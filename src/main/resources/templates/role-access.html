@@ -48,35 +48,35 @@
 
                     </ul>
 					<ul class="navbar-nav ml-auto">
-					                        <li class="nav-item dropdown no-arrow">
-					                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
-					                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-					                            </a>
-					                            <!-- Dropdown - User Information -->
-					                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-					                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
-					                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-					                                    Profile
-					                                </a>
-					                                <a class="dropdown-item" href="#">
-					                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-					                                    Settings
-					                                </a>
-					                              
-					                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-										            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-												          <i class="fas fa-user-circle"></i> Logout         
-												        </a>
-										          </div> -->  
-					                              <div class="dropdown-divider"></div>
-					                                <a class="dropdown-item" th:href="@{/logout}">
-					                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
-					                                    Logout
-					                                </a>
-					                            </div>
-					                        </li>
-					                   </ul>		
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                              
+                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+							          <i class="fas fa-user-circle"></i> Logout         
+							        </a>
+					          </div> -->  
+                              <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+					 </ul>		
 
                 </nav>
 
@@ -103,10 +103,9 @@
                                                     </h4>
                                                 </div>
                                                 <div>
-                                                    <button class="btn btn-border-primary mr-1 mb-1"
-                                                        id="btnroleAcess">Role Access <img src="img/rollAccessIcon.png"
-                                                            alt="" /></button>
-															 <button class="btn btn-primary mb-1" id="addEditroleAccess" th:if="${session.user_role == 9}">Add/Edit View</button>
+                                                <button class="btn btn-border-primary mr-1 mb-1"
+                                                    id="btnroleAcess">Role Access <img src="img/rollAccessIcon.png" alt="" /></button>
+												 <button class="btn btn-primary mb-1" id="addEditroleAccess" th:if="${session.user_role == 9}">Add/Edit View</button>
                                           
                                                 </div>
                                             </div>
@@ -187,10 +186,11 @@
                                             <hr>
 											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
 											<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+											<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
                                             <div class="d-block text-right">
-                                                <button class="btn btn-border-primary mr-1 mb-1"
-                                                    id="BackroleAcess">Back</button>
-                                                <button class="btn btn-primary mb-1" id="ConfirmroleAccess">Confirm Changes</button>
+                                                <button class="btn btn-border-primary mr-1 mb-1" id="BackroleAcess">Back</button>
+												<!--	<button class="btn btn-primary mb-1" onclick="roleUpdate()">Confirm Changes</button>
+-->                                             <button class="btn btn-primary mb-1" onclick="getOTP()">Confirm Changes</button>
                                             </div>
                                         </div>
                                     </div>
@@ -310,28 +310,104 @@
             <div class="modal-content modal-bulk p-0">
                 <div class="modal-header text-center">
                     <h5 class="modal-title w-100">Confirm Role Access Changes</h5>
-                </div>
-                <div class="modal-body text-center pb-0">
-                    <div class="otp-box-onboarding justify-content-center">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                    </div>
-                    <label class="time-otp ml-0 text-dark" for="">00:30</label>
-                    <p class="text-dark">Didn’t receive the code? <a href="#">Resend Code</a></p>
-                    <div class="tip-wrap justify-content-center mb-1">
-                        <p class="mb-0">OTP code has been sent to your phone.</p>
-                    </div>
-                    <div class="d-flex justify-content-center mt-2 mb-2">
-                        <button class="btn btn-primary w-100 mx-0" id="submitButton">Authenticate</button>
-                    </div>
-                </div>
+                </div>				
+				<div class="modal-body text-center">
+				    <div class="otp-box-onboarding justify-content-center">
+					
+						<input  class="form-control form-control-sm test" type="password" id="password1" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password2" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password3" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password4" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password5" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password6" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+					        name="orderId" >
+				    </div>
+				   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+					<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+				    <div class="tip-wrap justify-content-center">
+				        <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+				    </div>
+					
+					<div class="error-msg" id="otpError" style="color:red"></div>
+					
+				    <div class="d-flex justify-content-center mt-3">
+						<!--
+				        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+						-->
+						<button class="btn btn-primary w-100" id="authenticate"  onclick="verfyIssueVoucherOTP()">Authenticate</button>
+				    </div>
+				</div>
+
+				
             </div>
         </div>
     </div>
+
+	<div class="customModal modal" id="addRoleAcessOTPModal">
+	        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
+	            <div class="modal-content modal-bulk p-0">
+	                <div class="modal-header text-center">
+	                    <h5 class="modal-title w-100">Confirm Add Users Roles</h5>
+	                </div>				
+					<div class="modal-body text-center">
+					    <div class="otp-box-onboarding justify-content-center">
+						
+							<input  class="form-control form-control-sm test" type="password" id="password11" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password22" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password33" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password44" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password55" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="password" id="password66" 
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+						        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+						        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+						        name="orderId" >
+					    </div>
+					   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+					  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+						<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+					    <div class="tip-wrap justify-content-center">
+					        <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+					    </div>
+						
+						<div class="error-msg" id="otpError" style="color:red"></div>
+						
+					    <div class="d-flex justify-content-center mt-3">
+							<!--
+					        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+							-->
+							<button class="btn btn-primary w-100" id="authenticateAdd"  onclick="verfyAddRoleOTP()">Authenticate</button>
+					    </div>
+					</div>
+
+					
+	            </div>
+	        </div>
+	    </div>
 
 	<div id="popup">
 	        <h3>Employee Details</h3>
@@ -371,7 +447,8 @@
 	                    </div>
 
 	                    <div class="d-block text-right">
-	                        <button class="btn btn-primary mb-1">Submit</button>
+	                       <!-- <button class="btn btn-primary mb-1" onclick="getAddOTP()">Submit</button>-->
+						   <button class="btn btn-primary mb-1" onclick="addRole()()">Submit</button>
 	                    </div>
 	                </div>
 	            </div>
@@ -413,7 +490,7 @@
 	<script type="text/javascript" src="cotodel-js/user-role-access.js"></script>
 	 
 	<script type="text/javascript">
-
+	
 	$(document).ready(function(){
 		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
@@ -429,23 +506,23 @@
     <script>
 		
 		$(document).ready(function () {
-		           // Show the modal when the button is clicked
-		           $("#lastrowaddBtn").click(function () {
-		               $(".lastrowaddBtnWrap").show();
-		           });
+           // Show the modal when the button is clicked
+           $("#lastrowaddBtn").click(function () {
+               $(".lastrowaddBtnWrap").show();
+           });
 
-		           // Hide the modal when the close button is clicked
-		           $("#closeBtn0").click(function () {
-		               $(".lastrowaddBtnWrap").hide();
-		           });
+           // Hide the modal when the close button is clicked
+           $("#closeBtn0").click(function () {
+               $(".lastrowaddBtnWrap").hide();
+           });
 
-		           // Optionally, hide the modal if the user clicks outside the modal content
-		           $(window).click(function (event) {
-		               if ($(event.target).is(".lastrowaddBtnWrap")) {
-		                   $(".lastrowaddBtnWrap").hide();
-		               }
-		           });
-		       });
+           // Optionally, hide the modal if the user clicks outside the modal content
+           $(window).click(function (event) {
+               if ($(event.target).is(".lastrowaddBtnWrap")) {
+                   $(".lastrowaddBtnWrap").hide();
+               }
+           });
+       });
 			   
         $(document).ready(function () {
             // Show the modal when the button is clicked
@@ -514,7 +591,6 @@
             });
         });
 
-      
         // Get the elements
         var addEditroleAccess = document.getElementById("addEditroleAccess");
         var RoleAaccessWrap01 = document.getElementById("RoleAaccessWrap01");
@@ -546,10 +622,7 @@
             }
         }
 
-
     </script>
-
-
 		
 		<script>
 		    // Function to search employee
@@ -596,6 +669,7 @@
 		            <tr>
 		                <th>ID</th>
 						<th>Username</th>
+						<th>Email</th>
 		                <th>Mobile</th>
 		        `;
 
@@ -630,8 +704,8 @@
 		            let rowHTML = `
 		                <td>${user.id}</td>
 						<td>${user.username || '-'}</td>
+						<td>${user.email || '-'}</td>
 		                <td>${user.mobile || '-'}</td>
-		               
 		            `;
 
 		            // Generate role checkboxes in columns
@@ -667,7 +741,85 @@
 		        });
 		    }
 
-		    // Handle Checkbox State Changes
+	function getOTP(){
+		var userMobile = document.getElementById("userMobile").value;
+		$.ajax({
+			type: 'POST',
+	        url:"/smsOtpSender",
+			data: {
+						"mob": userMobile,
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj['status'] == "SUCCESS") {
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+				var downloadTimer = setInterval(function() {
+					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+					timeleft -= 1;
+					//document.getElementById("optBtn").style.display = "none";
+					document.getElementById("orderId").value= obj['orderId'];
+					//document.getElementById("verifyotpdiv").style.display = "block";
+					if (timeleft <= 0) {
+						clearInterval(downloadTimer);	
+					}	
+				}, 1000);
+	            $("#roleAcessOTPModal").show();  
+	          } else {
+	            alert("Error: " + response.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+		
+	}
+	
+	// otp for add role
+	
+	function getAddOTP(){
+			var userMobile = document.getElementById("userMobile").value;
+			$.ajax({
+				type: 'POST',
+		        url:"/smsOtpSender",
+				data: {
+							"mob": userMobile,
+						},
+				dataType: 'json',
+				success: function(data) {
+				var obj = data;
+		        if (obj['status'] == "SUCCESS") {
+					$(".lastrowaddBtnWrap").hide();
+					$("#addRoleAcessOTPModal").show();
+					//addRoleAcessOTPModal
+		            // If successful, open the OTP modal
+					var timeleft = "60";
+					var downloadTimer = setInterval(function() {
+						document.getElementById("countdown").innerHTML = "00:"+timeleft;
+						timeleft -= 1;
+						//document.getElementById("optBtn").style.display = "none";
+						document.getElementById("orderId").value= obj['orderId'];
+						//document.getElementById("verifyotpdiv").style.display = "block";
+						if (timeleft <= 0) {
+							clearInterval(downloadTimer);	
+						}	
+					}, 1000);
+		            $("#roleAcessOTPModal").show();  
+		          } else {
+		            alert("Error: " + response.message);
+		          }
+		        },
+		        error: function() {
+				  //$('#otpModal').fadeIn();
+		         // alert("An error occurred. Please try again.");
+		        }
+		      });
+			
+		}
+	 // Handle Checkbox State Changes
 		    function handleCheckboxChange(event) {
 		        const checkbox = event.target;
 		        const userId = checkbox.dataset.userid;
@@ -734,6 +886,437 @@
 			        }
 			    });
 			}
+					 
+			    function focusNext(currentInput) {
+			        // Move focus to the next input box
+			        var maxLength = parseInt(currentInput.getAttribute("maxlength"));
+			        var currentLength = currentInput.value.length;
+
+			        if (currentLength >= maxLength) {
+			            var nextIndex = Array.from(currentInput.parentElement.children).indexOf(currentInput) + 1;
+			            var nextInput = currentInput.parentElement.children[nextIndex];
+
+			            if (nextInput) {
+			                nextInput.focus();
+			            }
+			        }
+			    }
+
+			function focusBack(){
+				  var elts = document.getElementsByClassName('test')
+				  Array.from(elts).forEach(function(elt) {
+				  elt.addEventListener("keydown", function(event) {
+				    // Number 13 is the "Enter" key on the keyboard
+				    if (event.keyCode === 13 ||
+				        event.keyCode !== 8 && elt.value.length === Number(elt.maxLength)
+				    ) {
+				      // Focus on the next sibling
+				      elt.nextElementSibling.focus()
+				    }
+				    if (event.keyCode == 8) {
+				      elt.value = '';
+				      if (elt.previousElementSibling != null) {
+				        elt.previousElementSibling.focus();
+				        event.preventDefault();
+				      }
+				    }
+				  });
+				})
+			}
+			
+
+			function verfyIssueVoucherOTP() {
+				document.getElementById("authenticate").disabled = true;
+			  	var password1 = document.getElementById("password1").value;
+			  	var password2 = document.getElementById("password2").value;
+			  	var password3 = document.getElementById("password3").value;
+			  	var password4 = document.getElementById("password4").value;
+			  	var password5 = document.getElementById("password5").value;
+			  	var password6 = document.getElementById("password6").value;
+			  	var orderId = document.getElementById("orderId").value;
+			  	var userMobile = document.getElementById("userMobile").value;
+			  	 if (password1 == "" && password1.length < 1) {
+			  		document.getElementById("mobError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password1.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password2 == "" && password2.length < 1) {
+			  		document.getElementById("mobError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password2.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password3 == "" && passwor3.length < 1) {
+			  		document.getElementById("mobError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password3.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password4 == "" && password4.length < 1) {
+			  		document.getElementById("mobError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password4.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password5 == "" && password5.length < 1) {
+			  		document.getElementById("mobError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password5.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password6 == "" && password6.length < 1) {
+			  		document.getElementById("mobError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password6.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	
+			  	$.ajax({
+			  			type: "POST",
+			  			url:"/verifyOTP",
+			  			dataType: 'json',
+			  			data: {
+			  				"password1": password1,
+			  				"password2": password2,
+			  				"password3": password3,
+			  				"password4": password4,	
+			  				"password5": password5,
+			  				"password6": password6,
+			  				"mob": userMobile,
+			  				"orderId": orderId,
+			  				"userName":userMobile
+			  			},
+			  			success: function(data) {
+			  				var obj = data;
+
+			  				if (obj['status']== true) {
+								roleUpdate();
+								$("#roleAcessOTPModal").hide();
+								$("#roleAcessModalSuccessful").show();
+								window.location.href="/roleAccess";
+			  				}else if (obj['status'] == false) {
+							
+							} else {
+			  				
+			  				}
+			  			},
+			  			error: function(e) {
+			  				alert('Error: ' + e);
+			  			}
+			  		});
+			  }
+	
+			  function verfyAddRoleOTP() {
+			  				document.getElementById("authenticate").disabled = true;
+			  			  	var password1 = document.getElementById("password11").value;
+			  			  	var password2 = document.getElementById("password22").value;
+			  			  	var password3 = document.getElementById("password33").value;
+			  			  	var password4 = document.getElementById("password44").value;
+			  			  	var password5 = document.getElementById("password55").value;
+			  			  	var password6 = document.getElementById("password66").value;
+			  			  	var orderId = document.getElementById("orderId").value;
+			  			  	var userMobile = document.getElementById("userMobile").value;
+			  			  	 if (password1 == "" && password1.length < 1) {
+			  			  		document.getElementById("mobError").innerHTML="";
+			  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	 else if (password1.length < 1) {
+			  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	else{
+			  			  		document.getElementById("otpError").innerHTML="";
+			  			  	}
+			  			  	 if (password2 == "" && password2.length < 1) {
+			  			  		document.getElementById("mobError").innerHTML="";
+			  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	 else if (password2.length < 1) {
+			  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	else{
+			  			  		document.getElementById("otpError").innerHTML="";
+			  			  	}
+			  			  	 if (password3 == "" && passwor3.length < 1) {
+			  			  		document.getElementById("mobError").innerHTML="";
+			  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	 else if (password3.length < 1) {
+			  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	else{
+			  			  		document.getElementById("otpError").innerHTML="";
+			  			  	}
+			  			  	 if (password4 == "" && password4.length < 1) {
+			  			  		document.getElementById("mobError").innerHTML="";
+			  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	 else if (password4.length < 1) {
+			  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	else{
+			  			  		document.getElementById("otpError").innerHTML="";
+			  			  	}
+			  			  	 if (password5 == "" && password5.length < 1) {
+			  			  		document.getElementById("mobError").innerHTML="";
+			  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	 else if (password5.length < 1) {
+			  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	else{
+			  			  		document.getElementById("otpError").innerHTML="";
+			  			  	}
+			  			  	 if (password6 == "" && password6.length < 1) {
+			  			  		document.getElementById("mobError").innerHTML="";
+			  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	 else if (password6.length < 1) {
+			  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  			  		x = false;
+			  			  	}
+			  			  	else{
+			  			  		document.getElementById("otpError").innerHTML="";
+			  			  	}
+			  			  	
+			  			  	$.ajax({
+			  			  			type: "POST",
+			  			  			url:"/verifyOTP",
+			  			  			dataType: 'json',
+			  			  			data: {
+			  			  				"password1": password1,
+			  			  				"password2": password2,
+			  			  				"password3": password3,
+			  			  				"password4": password4,	
+			  			  				"password5": password5,
+			  			  				"password6": password6,
+			  			  				"mob": userMobile,
+			  			  				"orderId": orderId,
+			  			  				"userName":userMobile
+			  			  			},
+			  			  			success: function(data) {
+			  			  				var obj = data;
+
+			  			  				if (obj['status']== true) {
+			  								addRole();
+			  								$("#AddRoleAcessOTPModal").hide();
+			  								$("#roleAcessModalSuccessful").show();
+			  								window.location.href="/roleAccess";
+			  			  				}else if (obj['status'] == false) {
+			  							
+			  							} else {
+			  			  				
+			  			  				}
+			  			  			},
+			  			  			error: function(e) {
+			  			  				alert('Error: ' + e);
+			  			  			}
+			  			  		});
+			  			  }
+			  			  		  
+			  function  roleUpdate(){
+			  	
+			  	document.getElementById("password1").value="";
+			  	document.getElementById("password2").value="";
+			    document.getElementById("password3").value="";
+			  	document.getElementById("password4").value="";
+			  	document.getElementById("password5").value="";
+			    document.getElementById("password6").value="";
+				
+				// Retrieve all rows from the table body
+					const rows = document.querySelectorAll("#editUserRole tbody tr");
+					const allRowsData = [];
+
+					// Loop through each row to extract data
+					rows.forEach(row => {
+					    // Extract basic user information
+					    const cells = row.querySelectorAll("td");
+					    const id = cells[0].textContent.trim();
+					    const username = cells[1].querySelector("input") 
+					                     ? cells[1].querySelector("input").value.trim() 
+					                     : cells[1].textContent.trim();
+					    const email = cells[2].querySelector("input") 
+					                  ? cells[2].querySelector("input").value.trim() 
+					                  : cells[2].textContent.trim();
+					    const mobile = cells[3].querySelector("input") 
+					                   ? cells[3].querySelector("input").value.trim() 
+					                   : cells[3].textContent.trim();
+
+					    // Extract roles
+					    const userRole = [];
+					    const headers = document.querySelectorAll("thead th");
+					    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
+					        const checkbox = cells[i].querySelector("input[type='checkbox']");
+					        if (checkbox && checkbox.checked) {
+					            const roleDesc = headers[i].textContent.trim();
+					            userRole.push({ roleDesc }); // Add more role details if needed
+					        }
+					    }
+
+					    // Add row data to the array
+					    allRowsData.push({
+					        id,
+					        username,
+					        email,
+					        mobile,
+					        userRole,
+					    });
+					});
+
+					// Log the collected data (optional)
+					console.log(allRowsData);
+					alert(JSON.stringify(allRowsData, null, 2));
+					// AJAX call to send the data
+					document.getElementById("signinLoader").style.display = "flex";
+					$.ajax({
+					    type: "POST",
+					    url: "/editUserRole",
+					    dataType: 'json',
+						contentType: 'application/json',
+					    data: JSON.stringify({
+					        orgId: 70,
+					        employerId: 70,
+					        createdby: "atl kumar yadav",
+					        userDTO: allRowsData, // Send all rows as an array
+					    }),
+					    success: function(data) {
+					        console.log("Success:", data);
+					        document.getElementById("signinLoader").style.display = "none";
+					    },
+					    error: function(e) {
+					        console.error("Error:", e);
+					        alert('Error: ' + e.responseText || e.statusText);
+					        document.getElementById("signinLoader").style.display = "none";
+					    }
+					});
+   
+			  }
+			  function  addRole(){
+			  			  	
+			  			  	document.getElementById("password11").value="";
+			  			  	document.getElementById("password22").value="";
+			  			    document.getElementById("password33").value="";
+			  			  	document.getElementById("password44").value="";
+			  			  	document.getElementById("password55").value="";
+			  			    document.getElementById("password66").value="";
+			  				
+			  				// Retrieve all rows from the table body
+							const rows = document.querySelectorAll("#resultTable tbody tr");
+							const allRowsData = [];
+
+							// Loop through each row to extract data
+							rows.forEach(row => {
+							    // Extract basic user information
+							    const cells = row.querySelectorAll("td");
+							    const id = cells[0].textContent.trim();
+							    const username = cells[1].querySelector("input") 
+							                     ? cells[1].querySelector("input").value.trim() 
+							                     : cells[1].textContent.trim();
+							    const email = cells[2].querySelector("input") 
+							                  ? cells[2].querySelector("input").value.trim() 
+							                  : cells[2].textContent.trim();
+							    const mobile = cells[3].querySelector("input") 
+							                   ? cells[3].querySelector("input").value.trim() 
+							                   : cells[3].textContent.trim();
+
+							    // Extract roles
+							    const userRole = [];
+							    const roleColumns = Array.from(document.querySelectorAll("thead th"))
+							                             .slice(4, -1); // Adjust for the actual roles column range
+
+							    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
+							        const checkbox = cells[i].querySelector("input[type='checkbox']");
+							        if (checkbox && checkbox.checked) {
+							            const roleDesc = roleColumns[i - 4].textContent.trim(); // Align headers with role columns
+							            userRole.push({ roleDesc });
+							        }
+							    }
+
+							    // Add row data to the array
+							    allRowsData.push({
+							        id,
+							        username,
+							        email,
+							        mobile,
+							        userRole,
+							    });
+							});
+
+							// Log the collected data (optional)
+							console.log(allRowsData);
+							alert(JSON.stringify(allRowsData, null, 2));
+			  					// AJAX call to send the data
+			  					document.getElementById("signinLoader").style.display = "flex";
+			  					$.ajax({
+			  					    type: "POST",
+			  					    url: "/editUserRole",
+			  					    dataType: 'json',
+			  						contentType: 'application/json',
+			  					    data: JSON.stringify({
+			  					        orgId: 70,
+			  					        employerId: 70,
+			  					        createdby: "atul kumar yadav",
+			  					        userDTO: allRowsData, // Send all rows as an array
+			  					    }),
+			  					    success: function(data) {
+			  					        console.log("Success:", data);
+			  					        document.getElementById("signinLoader").style.display = "none";
+			  					    },
+			  					    error: function(e) {
+			  					        console.error("Error:", e);
+			  					        alert('Error: ' + e.responseText || e.statusText);
+			  					        document.getElementById("signinLoader").style.display = "none";
+			  					    }
+			  					});
+			     
+			  			  }
 		</script>
 </body>
 

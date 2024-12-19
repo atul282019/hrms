@@ -248,7 +248,7 @@ body {
     font-weight: 600;
 }
 
-.headerright p a{
+.headerright p a {
     color: #367AFF;
 }
 
@@ -2580,6 +2580,7 @@ table.table-reimbursements thead tr th,
 table.table-approval-flow thead tr th,
 table.table-rejectremark thead tr th {
     border: none;
+    font-weight: 600;
 }
 
 table.table-reimbursements tbody,
@@ -4473,18 +4474,19 @@ table.table-upivouchers thead tr th:last-child {
 
 .linkedAccount-wrap-right {
     display: flex;
+    align-items: center;
 }
 
 .funds-mark {
     min-width: 28px;
-    height: 28px;
+    height: 38px;
     background: #fff;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 5px;
     margin: 0 5px 0 10px;
-    padding: 0 5px;
+    padding: 0 10px;
 }
 
 .linkedAccount-wrap-right span {
@@ -5080,25 +5082,34 @@ table.table-upivouchers tbody td.tdreedeem {
 
 
 .customModal {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: fixed;
-    z-index: 1; /* Sit on top */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.7); /* Black with transparency */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Black with transparency */
 }
 
 /* Modal content */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
+    /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%;
+    /* Could be more or less, depending on screen size */
 }
 
 /* Close button styles */
@@ -5116,7 +5127,7 @@ table.table-upivouchers tbody td.tdreedeem {
     cursor: pointer;
 }
 
-.roleAccessModal-wrap{
+.roleAccessModal-wrap {
     background: #EAF4EF;
     padding: 20px;
     border-radius: 10px;
@@ -5124,20 +5135,22 @@ table.table-upivouchers tbody td.tdreedeem {
     text-align: left;
 }
 
-.roleAccessModal-wrap h5{
-    color:#1F212C;
+.roleAccessModal-wrap h5 {
+    color: #1F212C;
     font-size: 13px;
     font-weight: 400;
     border-bottom: 1px solid #BFDECC;
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
-.roleAccessModal-wrap ul{
+
+.roleAccessModal-wrap ul {
     padding-left: 30px;
     margin-bottom: 0;
 }
-.roleAccessModal-wrap ul li{
-    color:#1F212C;
+
+.roleAccessModal-wrap ul li {
+    color: #1F212C;
     font-size: 13px;
     font-weight: 400;
 }
@@ -5146,8 +5159,9 @@ table.table-upivouchers tbody td.tdreedeem {
 .styled-checkbox {
     position: absolute;
     opacity: 0;
-  }
-  .styled-checkbox + label {
+}
+
+.styled-checkbox+label {
     position: relative;
     cursor: pointer;
     padding: 0;
@@ -5158,8 +5172,9 @@ table.table-upivouchers tbody td.tdreedeem {
     border-radius: 4px;
     width: 22px;
     height: 22px;
-  }
-  .styled-checkbox + label:before {
+}
+
+.styled-checkbox+label:before {
     content: "";
     margin-right: 0px;
     display: inline-block;
@@ -5168,27 +5183,32 @@ table.table-upivouchers tbody td.tdreedeem {
     height: 18px;
     background: white;
     margin-top: -1px;
-  }
-  /* .styled-checkbox:hover + label:before {
+}
+
+/* .styled-checkbox:hover + label:before {
     background: #367AFF;
   } */
-  .styled-checkbox:focus + label:before {
+.styled-checkbox:focus+label:before {
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
-  }
-  .styled-checkbox:checked + label:before {
+}
+
+.styled-checkbox:checked+label:before {
     background: #367AFF;
     box-shadow: 0 0 0 3px #367AFF;
     border-radius: 2px;
-  }
-  .styled-checkbox:disabled + label {
+}
+
+.styled-checkbox:disabled+label {
     color: #b8b8b8;
     cursor: auto;
-  }
-  .styled-checkbox:disabled + label:before {
+}
+
+.styled-checkbox:disabled+label:before {
     box-shadow: none;
     background: #ddd;
-  }
-  .styled-checkbox:checked + label:after {
+}
+
+.styled-checkbox:checked+label:after {
     content: "";
     position: absolute;
     left: 4px;
@@ -5198,31 +5218,31 @@ table.table-upivouchers tbody td.tdreedeem {
     height: 2px;
     box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
     transform: rotate(45deg);
-  }
-  
-  .unstyled {
+}
+
+.unstyled {
     margin: 0;
     padding: 0;
     list-style-type: none;
-  }
-  
-  .centered {
+}
+
+.centered {
     width: auto;
     margin: auto;
-  }
-  
-  .title {
+}
+
+.title {
     text-align: center;
     color: #4571ec;
-  }
+}
 
-  .text-green{
+.text-green {
     color: #2F945A;
     font-size: 16px;
     font-weight: 700;
-  }
+}
 
-  tr.addrow-roleaccess {
+tr.addrow-roleaccess {
     background: #EAF4EF;
 }
 
@@ -5236,11 +5256,12 @@ input.autocomp-input {
     font-size: 15px !important;
     background: url("../img/searchautocomp.svg") no-repeat 10px center #fff;
 }
-.autocomp-input-wrap{
+
+.autocomp-input-wrap {
     position: relative;
 }
 
-.loginNew-wrap{
+.loginNew-wrap {
     background: url("../img/loginNewBg.jpg") no-repeat center center;
     width: 100%;
     height: 100%;
@@ -5266,7 +5287,7 @@ input.autocomp-input {
 }
 
 .logoNewBtm h2 span {
-    color: #2F945A;   
+    color: #2F945A;
 }
 
 .logoNewBtm ul {
@@ -5305,6 +5326,7 @@ input.autocomp-input {
 .logoNewFormtop {
     margin-top: 50px;
 }
+
 .logoNewFormWelcome {
     line-height: 22px;
     display: block;
@@ -5312,6 +5334,7 @@ input.autocomp-input {
     margin-top: 5px;
     color: #86889B;
 }
+
 .logoNewFormtop h4 {
     font-weight: 600;
     font-size: 24px;
@@ -5335,9 +5358,9 @@ input.autocomp-input {
     border: 1px solid #d1d3e2;
 }
 
-.logoNewFormtop input::placeholder{
+.logoNewFormtop input::placeholder {
     color: #9A9A9A;
-} 
+}
 
 .logoNew {
     margin-top: 30px;
@@ -5348,21 +5371,23 @@ input.autocomp-input {
     border-radius: 20px;
 }
 
-.login-right-wrap form input.form-control, .login-right-wrap form select.form-select{
+.login-right-wrap form input.form-control,
+.login-right-wrap form select.form-select {
     background: none;
     color: #9A9A9A;
-    border-radius: 10px; min-height: 46px;
+    border-radius: 10px;
+    min-height: 46px;
 }
 
-.login-right-wrap form select.form-select{
+.login-right-wrap form select.form-select {
     padding-left: 10px;
 }
 
-.login-right-wrap form input.form-control::placeholder{
+.login-right-wrap form input.form-control::placeholder {
     color: #9A9A9A;
 }
 
-.login-right-wrap h2{
+.login-right-wrap h2 {
     margin-bottom: 10px;
 }
 
@@ -5372,9 +5397,11 @@ input.autocomp-input {
     background-color: #FFFFFF;
     border-radius: 50%;
 }
-ol.carousel-signupindicators{
+
+ol.carousel-signupindicators {
     bottom: 30px;
 }
+
 .carousel-signupindicators li {
     width: 5px;
     height: 5px;
@@ -5383,15 +5410,17 @@ ol.carousel-signupindicators{
     opacity: 1;
 }
 
-.carousel-signupindicators li.active{
-    background-color: #FFFFFF; height: 5px;
+.carousel-signupindicators li.active {
+    background-color: #FFFFFF;
+    height: 5px;
 }
 
 .login-right-wrap .form-group {
     margin-bottom: 5px;
 }
 
-.login-right-wrap .form-group .custom-control-label::before, .login-right-wrap .form-group .custom-control-label::after{
+.login-right-wrap .form-group .custom-control-label::before,
+.login-right-wrap .form-group .custom-control-label::after {
     top: .15rem;
 }
 
@@ -5408,15 +5437,16 @@ ol.carousel-signupindicators{
     color: red;
 }
 
-.custom-in{
+.custom-in {
     margin-bottom: 0.75rem;
 }
 
-.role-access-wrap select.did-floating-select, .role-access-wrap .did-floating-label-content {
+.role-access-wrap select.did-floating-select,
+.role-access-wrap .did-floating-label-content {
     background: #fff;
 }
 
-.role-access-wrap .did-floating-select:not([value=""]):valid~.did-floating-label{
+.role-access-wrap .did-floating-select:not([value=""]):valid~.did-floating-label {
     background: #fff;
 }
 
@@ -5437,9 +5467,9 @@ ol.carousel-signupindicators{
     width: 300px;
     padding: 10px;
     font-size: 16px;
-  }
-  
-  .autocomplete-dropdown {
+}
+
+.autocomplete-dropdown {
     display: none;
     position: absolute;
     top: 50px;
@@ -5452,7 +5482,7 @@ ol.carousel-signupindicators{
     z-index: 1;
     border-radius: 12px;
 }
-  
+
 .autocomplete-suggestion {
     font-size: 14px;
     padding: 12px 10px;
@@ -5462,20 +5492,22 @@ ol.carousel-signupindicators{
     color: #4A4E69;
     text-align: right;
 }
-  
-  .autocomplete-suggestion:hover {
+
+.autocomplete-suggestion:hover {
     background-color: #EAF4EF;
-  }
-  
-  .autocomplete-suggestion strong {
+}
+
+.autocomplete-suggestion strong {
     float: left;
     width: 140px;
     font-weight: 400;
     text-align: left;
 }
+
 span.user-contact {
     margin-left: 5px;
 }
+
 .autocomplete-suggestion span {
     display: inline-flex;
     color: #86889B;
@@ -5483,18 +5515,18 @@ span.user-contact {
 }
 
 
-  .did-floating-label-contentwrap {
+.did-floating-label-contentwrap {
     margin-bottom: 15px;
 }
 
-.did-floating-label-contentwrap label{
+.did-floating-label-contentwrap label {
     display: block;
     margin-bottom: 2px;
     color: #1F212C;
     font-size: 15px;
 }
 
-select.did-label-content{
+select.did-label-content {
     width: 100%;
     min-height: 38px;
     border-radius: 10px;
@@ -5505,22 +5537,26 @@ select.did-label-content{
     color: #4A4E69;
 }
 
-.role-access-wrapin-bottom-add > .table-responsive {
+.role-access-wrapin-bottom-add>.table-responsive {
     overflow-x: clip;
 }
 
-.leftselctVoucehrs, .rightselctVoucehrs {
+.leftselctVoucehrs,
+.rightselctVoucehrs {
     border: 1px solid #EAF4EF;
     border-radius: 10px;
 }
 
-.leftselctVoucehrs h4, .rightselctVoucehrs h4 {
+.leftselctVoucehrs h4,
+.rightselctVoucehrs h4 {
     font-weight: 600;
     font-size: 18px;
     color: #000000;
     display: block;
-    padding: 12px 16px; margin-bottom: 0;
+    padding: 12px 16px;
+    margin-bottom: 0;
 }
+
 .leftselctVoucehrs ul {
     list-style: none;
     margin: 0;
@@ -5531,7 +5567,7 @@ select.did-label-content{
     padding: 7px 15px 8px;
 }
 
-.leftselctVoucehrs ul li:hover{
+.leftselctVoucehrs ul li:hover {
     background: #EAF4EF;
 }
 
@@ -5545,11 +5581,11 @@ select.did-label-content{
     color: #4A4E69;
 }
 
-.rightselctVoucehrs{
+.rightselctVoucehrs {
     padding: 15px;
 }
 
-.select-upivouchers{
+.select-upivouchers {
     background: #FBFBFB;
     border-radius: 14px;
     border: 1px solid #EAF4EF;
@@ -5557,17 +5593,17 @@ select.did-label-content{
     margin-bottom: 20px;
 }
 
-.select-upivouchers img{
+.select-upivouchers img {
     border-radius: 10px;
     border: 1px solid #EAF4EF;
 }
 
-.cards-upivouchers-desc h4{
+.cards-upivouchers-desc h4 {
     padding: 0;
     margin-bottom: 5px;
 }
 
-.cards-upivouchers-desc p{
+.cards-upivouchers-desc p {
     color: #2F945A !important;
     font-weight: 400;
 }
@@ -5593,10 +5629,169 @@ select.did-label-content{
     display: flex;
     align-items: center;
 }
-.selctedVoucehr ul li input, .selctedVoucehr ul li img {
+
+.selctedVoucehr ul li input,
+.selctedVoucehr ul li img {
     margin-right: 10px;
 }
 
 .selctedVoucehr ul li img {
     min-width: 24px;
+}
+
+button.btn-border-custom {
+    border: 1px solid rgba(54, 122, 255, 1);
+    background: #fff;
+    border-radius: 20px;
+    padding: 15px 12px;
+    width: 100%;    
+    margin: 10px 0;    
+    align-items: center;
+}
+
+button.btn-border-custom a{
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    color: rgba(31, 33, 44, 1);
+}
+
+button.btn-voucher-custom {
+    border: 1px solid rgba(54, 122, 255, 1);
+    background: rgba(54, 122, 255, 1);
+    border-radius: 20px;
+    padding: 15px 12px;
+    width: 100%;    
+    margin: 10px 0;    
+    min-height: 62px;
+    align-items: center;
+}
+
+button.btn-voucher-custom a{
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+}
+
+.calender-time {
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid rgba(237, 237, 240, 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 200px;
+}
+
+.download-vc {
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid rgba(237, 237, 240, 1);
+    display: inline-block;
+    min-width: 40px;
+    margin-left: 10px;
+}
+
+.linkedAccount-wrap-left-btn {
+    border: 1px solid rgba(116, 183, 144, 1);
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: #fff;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.linkedAccount-wrap-left-btn span {
+    margin-left: 5px;
+}
+
+.fundmarked {
+    border: 1px solid rgba(89, 169, 123, 1);
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.activeupivcmarked {
+    border: 1px solid rgba(237, 237, 240, 1);
+    border-radius: 0 0 20px 20px;
+    padding: 15px;
+}
+
+.left-activeupivcmarked {
+    border: 1px solid rgba(237, 237, 240, 1);
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.left-activeupivcmarked.active {
+    border: 1px solid rgba(191, 222, 204, 1);
+    background: rgba(234, 244, 239, 1);
+}
+
+.img-bank {
+    border: 1px solid rgba(234, 244, 239, 1);
+    border-radius: 50%;
+    width: 30px;
+    display: flex;
+    height: 30px;
+    background: #fff;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.left-activeupivcmarked span {
+    min-width: 145px;
+    color: #000;
+}
+
+.activeupivcmarked th {
+    color: rgba(74, 78, 105, 1);
+    padding: 1rem .75rem;
+}
+
+.activeupivcmarked td{
+    color: rgba(110, 113, 135, 1);
+    font-weight: 400;
+    padding: 1rem .75rem;
+}
+
+tr.lasttr {
+    background: rgba(234, 244, 239, 1);
+}
+
+.autocomp-input-wrap.table-input .autocomp-input{
+    height: 35px;
+    width: 200px !important;
+}
+
+.table-input-voucher{
+    background: url("../img/voucher-sm.svg") no-repeat 95% center;
+}
+
+.table-input-date{
+    background: url("../img/calendar-time.svg") no-repeat 95% center;
+    margin-top: 0px;
+    width: 100%;
+    max-width: 350px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    min-width: 150px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #4A4E69;
+}
+
+.table-input-date .table-dateed{
+    width: 100px;
+    border: none; margin-top: 5px;
 }

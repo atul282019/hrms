@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>UPI Voucher Issuance</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body id="page-top">
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-dark-sidebar sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/avatar.png" alt="" width="36">
+                </div>
+                <div class="sidebar-brand-text mx-2 text-left">Name here <br><span>email@demo.com</span></div>
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active mt-3">
+                <a class="nav-link" href="index.html">
+                    <img src="img/home.png" alt="" class="mr-2">
+                    <span>Home</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="company-details.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>company Details</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-invite.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Invite</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-table-invitelist.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Table Invite list</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Bulk-upload.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Bulk Upload</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Manage-and-Contractors.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Manage and Contractors</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Employee-Onboarding.html">
+                    <img src="img/pf.png" alt="" class="mr-2">
+                    <span>Employee Onboarding</span></a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+
+
+            <li class="nav-item li-btm">
+                <img src="img/undraw_profile.svg" alt="" width="30" class="mr-2">
+                <span>John Doe</span>
+                <a href="#" class="float-right mt-1"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
+            </li>
+
+            <!-- <div class="text-center">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div> -->
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">Empolyee Profile</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+
+
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <div class="upi-voucher-wrap">
+                                    <div class="d-block">
+                                        <h3>UPI Voucher Issuance</h3>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-md-3">
+                                            <button class="btn-border-custom">
+                                                <a href="#">
+                                                    <div>
+                                                        <img src="img/user-voucher.svg" alt="">
+                                                        <span>Vouchers Requested</span>
+                                                    </div>
+                                                    <div>
+                                                        <strong>-</strong>
+                                                        <img src="img/arrow-voucher.svg" alt="">
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <button class="btn-border-custom">
+                                                <a href="#">
+                                                    <div>
+                                                        <img src="img/calendar-voucher.svg" alt="">
+                                                        <span>Vouchers Scheduled</span>
+                                                    </div>
+                                                    <div>
+                                                        <strong>-</strong>
+                                                        <img src="img/arrow-voucher.svg" alt="">
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12 col-md-3">
+                                            <button class="btn-voucher-custom">
+                                                <div><a href="create-upi-voucher-issue-manually.html">
+                                                        <img src="img/add-voucher.svg" alt="">
+                                                        <span>Issue Manually</span>
+                                                    </a>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <button class="btn-voucher-custom">
+                                                <div><a href="#">
+                                                        <img src="img/upload-voucher.svg" alt="">
+                                                        <span>Issue with Bulk Upload</span></a>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="upi-voucher-wrap mb-2">
+                                    <div id="nolinkBankAccount">
+                                        <div class="d-flex align-items-center upi-voucher-in-wrap p-0 m-0">
+                                            <div class="tip-wrap justify-content-start m-0">
+                                                <p class="mb-0">No Bank Account linked till now. Please click on ‘Link
+                                                    Bank
+                                                    Account Now’ to activate UPI Voucher issuance.</p>
+                                            </div>
+                                            <a class="btn btn-primary" id="linkBankAccount">Link Bank Account
+                                                Now</a>
+                                        </div>
+                                    </div>
+
+                                    <div id="linkedAccount" style="display:none;">
+                                        <div class="linkedAccount-wrap m-0">
+                                            <div class="linkedAccount-wrap-left-btn">
+                                                <img src="img/allbank.svg" alt="">
+                                                <span>All Linked Bank Accounts</span>
+                                            </div>
+                                            <div class="linkedAccount-wrap-right">
+                                                <span>Funds Marked for Active UPI Vouchers <img
+                                                        src="img/e-rupi-seeklogo.png" alt=""></span>
+                                                <div class="funds-mark">0 Vouchers <strong>&#8377;0.00</strong></div>
+                                                <div class="fundmarked" id="fundmarked">
+                                                    <a href="#"><img src="img/fund-expand.svg" alt=""></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="activeupivcmarked" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-12 col-md-3">
+                                                    <div class="left-activeupivcmarked active">
+                                                        <div class="img-bank">
+                                                            <img src="img/allbankblk.svg" alt="">
+                                                        </div>
+                                                        <span>All Banks</span>
+
+                                                    </div>
+
+                                                    <div class="left-activeupivcmarked">
+                                                        <div class="img-bank">
+                                                            <img src="img/indianbank.png" width="18" alt="">
+                                                        </div>
+                                                        <span>Indian Bank</span>
+                                                        <label class="mb-0">xxx0569</label>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-md-9">
+                                                    <div class="table-responsive mt-2">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Total Vouchers Issued (A)</th>
+                                                                    <th>0</th>
+                                                                    <th>&#8377;0.00</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Redeemed Vouchers (B)</td>
+                                                                    <td>0</td>
+                                                                    <td>&#8377;0.00</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Expired & Revoked Vouchers (C)</td>
+                                                                    <td>0</td>
+                                                                    <td>&#8377;0.00</td>
+                                                                </tr>
+                                                                <tr class="lasttr">
+                                                                    <td>Active Vouchers (D)</td>
+                                                                    <td>0</td>
+                                                                    <td>&#8377;0.00</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="linkedAccount-wrap-p"><img src="img/recall.svg" alt="" class="mr-1"><label
+                                        class="mb-0">Last updated
+                                        on</label><span>15:26:13</span><span>Wed 4 Sep 2024</span></div>
+
+                                <div class="upi-voucher-wrap">
+
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h3 class="mb-3">Details of Vouchers Issued</h3>
+                                        <div class="rightdownload mb-3 d-flex">
+                                            <div class="calender-time">
+                                                <span>Select Time Period</span>
+                                                <img src="img/calendar-time.svg" alt="">
+                                            </div>
+                                            <div class="download-vc">
+                                                <img src="img/download-vouchers.svg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="upi-voucher-table">
+                                        <div class="upi-voucher-in-head"><i class="fa fa-filter"></i>
+                                            <p>Quick Filters</p>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-reimbursements table-upivouchers">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name <img src="img/Sort.png" alt=""></th>
+                                                        <th>Mobile Number </th>
+                                                        <th>Bank A/c </th>
+                                                        <th>Voucher & Type <img src="img/Sort.png" alt=""></th>
+                                                        <th>Status <img src="img/Sort.png" alt=""></th>
+                                                        <th>Issue Date <img src="img/Sort.png" alt=""></th>
+                                                        <th>Expiry Date</th>
+                                                        <th>Issued</th>
+                                                        <th>Redeemed</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="9">
+                                                            <div class="upi-voucher-tbody">
+                                                                <p>UPI Vouchers section is currently not enabled. </p>
+                                                                <p>Please link your bank account to enable this section.
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $(".ftr-content").hide();
+            });
+            $("#show").click(function () {
+                $(".ftr-content").show();
+            });
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+        jQuery(document).ready(function ($) {
+            var bsOverlay = $('.bs-canvas-overlay');
+            $('[data-toggle="canvas"]').on('click', function () {
+                var ctrl = $(this),
+                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+                $(elm).addClass('mr-0');
+                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+                if (bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+                var elm;
+                if ($(this).hasClass('bs-canvas-close')) {
+                    elm = $(this).closest('.bs-canvas');
+                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+                } else {
+                    elm = $('.bs-canvas')
+                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");
+                }
+                elm.removeClass('mr-0');
+                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+                if (bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+
+
+        $(document).ready(function () {
+            $("#linkBankAccount").click(function () {
+                $("#linkedAccount").show();
+                $("#nolinkBankAccount").hide();
+
+            });
+        });
+
+
+        $("#fundmarked").click(function () {
+            $(".activeupivcmarked").hide();
+        });
+
+        $("#fundmarked").click(function () {
+            $(".activeupivcmarked").show();
+        });
+
+
+    </script>
+
+</body>
+
+</html>
