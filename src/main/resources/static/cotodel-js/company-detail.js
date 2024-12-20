@@ -53,9 +53,21 @@ function initializeOrgTypeDropdown() {
 }
 */
 function initializeOrgTypeDropdown() {
-    
     const orgTypeDropdown = document.getElementById("orgType2");
     const selectedOrgType = orgTypeDropdown.value;
+
+    // Clear the sub-type dropdown immediately
+    const subTypeDropdown = document.getElementById("organizationsubType");
+    subTypeDropdown.innerHTML = "";
+    const defaultOption = document.createElement("option");
+    defaultOption.textContent = "Select Organization Sub Type*";
+    defaultOption.value = "";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    subTypeDropdown.appendChild(defaultOption);
+
+    // Clear any previous error message
+    document.getElementById("organizationsubTypeError").textContent = "";
 
     // Determine orgId based on selected organization type
     let orgId = null;
@@ -82,20 +94,7 @@ function initializeOrgTypeDropdown() {
         success: function (response) {
             console.log("Response received:", response);
 
-            if (response.status === true) {
-                const subTypeDropdown = document.getElementById("organizationsubType");
-
-                // Clear existing options
-                subTypeDropdown.innerHTML = "";
-
-                // Add a default disabled option
-                const defaultOption = document.createElement("option");
-                defaultOption.textContent = "Select Organization Sub Type*";
-                defaultOption.value = "";
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                subTypeDropdown.appendChild(defaultOption);
-
+            if (response.status === true && Array.isArray(response.data) && response.data.length > 0) {
                 // Populate dropdown with data from the response
                 response.data.forEach((item) => {
                     const option = document.createElement("option");
@@ -103,12 +102,9 @@ function initializeOrgTypeDropdown() {
                     option.textContent = item.orgType;
                     subTypeDropdown.appendChild(option);
                 });
-
-                // Clear error message
-                document.getElementById("organizationsubTypeError").textContent = "";
             } else {
-                console.error("Failed to fetch organization sub types:", response.message);
-                document.getElementById("organizationsubTypeError").textContent = "Failed to load organization sub types.";
+                console.warn("No data available for the selected organization type.");
+                document.getElementById("organizationsubTypeError").textContent = "No sub-types available for the selected organization type.";
             }
         },
         error: function (xhr, status, error) {
@@ -117,6 +113,7 @@ function initializeOrgTypeDropdown() {
         },
     });
 }
+
 
 function openBrandPage(){
 	 $("#form2").show();
