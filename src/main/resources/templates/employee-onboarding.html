@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top">
+<body id="page-top" onload="getEmployeeType(),getEmployeeMasterList()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -97,47 +97,43 @@
                             <div class="mt-4">
                                 <div class="row">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
-                                        <div class="tip-wrap justify-content-start flex-column align-items-start">
-                                            <h4 class="tip-h4">Is this an employee or a contractor?</h4>
-                                          
-                                                <div class="tip-option">
-                                                    <input type="radio" id="employee" name="fav_language" value="Employee" checked>
-                                                    <label for="employee">Employee</label>
-                                                </div>
-
-                                                <div class="tip-option">
-                                                    <input type="radio" id="contractor" name="fav_language" value="Contractor">
-                                                    <label for="contractor">Contractor</label>
-                                                </div>
-                                            <div class="error-msg" id="empTypeError" style="color:red"></div>
-                                        </div>
-
+                                       
+										<div class="card-form">
+                                          <select class="form-select form-control no-bg border-0" aria-label="Default select example" 
+										  id="employeeType" onchange="showHideDiv()" >
+                                              <option value="">Please Select Employee Type</option>
+                                              
+                                          </select>
+                                      </div>
+									  
+									<div class="error-msg" id="empTypeError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Name</label>
                                             <input type="text" class="form-input" id="name" maxlength="50" oninput="sanitizeInput(this)" onkeypress="saveEmployeeValidation()">
                                         </div>
  										<div class="error-msg" id="nameError" style="color:red"></div>
-                                        <div class="tip-wrap justify-content-start">
-                                            <p class="mb-0">If your company is publicly known by a Different brand name, then please enter that here.</p>
-                                        </div>
+                                        <!--<div class="tip-wrap justify-content-start">
+                                            <p class="mb-0"></p>
+                                        </div>-->
 
-                                        <div class="card-form my-3">
-                                            <label for="">Email</label>
-                                            <input type="text" class="form-input" id="email" maxlength="50" oninput="sanitizeInput(this)" onkeypress="saveEmployeeValidation()">
-                                        </div>
-										 <div class="error-msg" id="emailError" style="color:red"></div>
-										 
+                                       
 										  <div class="card-form my-3">
                                             <label for="">mobile</label>
                                             <input type="text" class="form-input" id="mobile" maxlength="10"
                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeypress="saveEmployeeValidation()">
                                         </div>
 										 <div class="error-msg" id="mobileError" style="color:red"></div>
-										 
+										 <div class="card-form my-3">
+                                        <label for="">Email</label>
+                                        <input type="text" class="form-input" id="email" maxlength="50" oninput="sanitizeInput(this)" onkeypress="saveEmployeeValidation()">
+	                                    </div>
+									 <div class="error-msg" id="emailError" style="color:red"></div>
+								 
+										<!-- 
                                         <div class="tip-wrap justify-content-start">
                                             <p class="mb-0">The email they will use to log into Cotodel. If this person does not have an email address, click here to generate one for them.</p>
-                                        </div>
-
+                                        </div>-->
+									<div id="employeeDiv" style="display: none;">
                                         <div class="card-form my-3">
                                             <label for="">Joining Date</label>
                                             <input type="date" class="form-input" id="hireDate" onchange="saveEmployeeValidation()">
@@ -161,9 +157,7 @@
                                             <select class="form-select form-control no-bg border-0" aria-label="Default select example"
 											 id="reporting" onchange="saveEmployeeValidation()">
                                                 <option value="" selected="" >Please Select Manager</option>
-                                                <option value="1">Manager 1</option>
-                                                <option value="2">Manager 2</option>
-                                                <option value="3">Manager 3</option>
+                                            
                                             </select>
                                         </div>
  										<div class="error-msg" id="reportingError" style="color:red"></div>
@@ -194,6 +188,7 @@
                                             </div>
                                         </div>
  										<div class="error-msg" id="residenceError" style="color:red"></div>
+                                    </div>
                                     </div>
                                 </div>
 							
@@ -256,6 +251,8 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 	<script type="text/javascript" src="cotodel-js/employee-onboarding.js"></script>
+	<script type="text/javascript" src="cotodel-js/masterdata.js"></script>
+	
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript">
 	
@@ -269,6 +266,16 @@
 	   });
 	});
 	
+	function showHideDiv(){
+		document.getElementById("empTypeError").textContent="";
+		var id = document.getElementById("employeeType").value;
+		if(id==="1"){
+	     	document.getElementById("employeeDiv").style.display="block";
+		}
+		else{
+			document.getElementById("employeeDiv").style.display="none";
+		}
+	}
 	</script>
 </body>
 

@@ -2,6 +2,7 @@ package com.cotodel.hrms.web.service;
 
 import org.springframework.stereotype.Repository;
 
+import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
 import com.cotodel.hrms.web.response.MccMaster;
@@ -27,5 +28,11 @@ public interface MasterService {
 	String getmccMasterListByPurposeCode(String token, MccMaster mccMaster);
 
 	String getmccMasterDetailsByPurposeCodeAndMcc(String token, MccMaster mccMaster);
+
+	String getEmployeeType(String token, EmployeeMassterRequest employeeMassterRequest);
+
+	String getEmployeeListMaster(String token, EmployeeMassterRequest employeeMassterRequest);
+
+	String getofficeLocationMaster(String token, EmployeeMassterRequest employeeMassterRequest);
 
 }

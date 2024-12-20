@@ -1,3 +1,114 @@
+function getEmployeeType(){
+	
+	$.ajax({
+			type: "GET",
+	        url: "/getEmployeeType",
+	           success: function(data){
+	            newData = data;
+	            console.log(newData);
+				$("#employeeType option").remove();
+	            var obj = jQuery.parseJSON( data );
+	             obj = obj.data;
+	        	 var count=0;
+	         	for (var key in obj) {
+
+	             var values =  obj[key];
+	             var x = document.getElementById("employeeType");
+	             if(count==0){
+	             var option = document.createElement("option");
+	             option.text ="Please Select Employee Type";
+	             option.value = "";
+	             x.add(option);
+	             }
+	             var option = document.createElement("option");
+	             option.text = values.empType;
+	             option.value = values.id;
+	             x.add(option);
+
+	             count++;
+	             }   
+	         },
+	         error: function(e){
+	             alert('Error: ' + e);
+	         }
+	    });	
+}
+
+function getEmployeeMasterList(){
+	var employerId=document.getElementById("employerId").value;
+	$.ajax({
+			type: "GET",
+	        url: "/getEmployeeMasterList",
+			data:{
+				"orgId" : employerId
+			},
+	           success: function(data){
+	            newData = data;
+	            console.log(newData);
+				$("#reporting option").remove();
+	            var obj = jQuery.parseJSON( data );
+	             obj = obj.data;
+	        	 var count=0;
+	         	for (var key in obj) {
+
+	             var values =  obj[key];
+	             var x = document.getElementById("reporting");
+	             if(count==0){
+	             var option = document.createElement("option");
+	             option.text ="Select Reporting";
+	             option.value = "";
+	             x.add(option);
+	             }
+	             var option = document.createElement("option");
+	             option.text = values.username;
+	             option.value = values.id;
+	             x.add(option);
+
+	             count++;
+	             }   
+	         },
+	         error: function(e){
+	             alert('Error: ' + e);
+	         }
+	    });	
+}
+
+function getOfficeLocationMaster(){
+
+	$.ajax({
+			type: "GET",
+	        url: "/getofficeLocationMaster",
+	           success: function(data){
+	            newData = data;
+	            console.log(newData);
+				$("#stateCode option").remove();
+	            var obj = jQuery.parseJSON( data );
+	             obj = obj.data;
+	        	 var count=0;
+	         	for (var key in obj) {
+
+	             var values =  obj[key];
+	             var x = document.getElementById("stateCode");
+	             if(count==0){
+	             var option = document.createElement("option");
+	             option.text ="Select State";
+	             option.value = "";
+	             x.add(option);
+	             }
+	             var option = document.createElement("option");
+	             option.text = values.state_name;
+	             option.value = values.state_code;
+	             x.add(option);
+
+	             count++;
+	             }   
+	         },
+	         error: function(e){
+	             alert('Error: ' + e);
+	         }
+	    });	
+}
+
 function getStateMaster() {
   	$.ajax({
 		type: "GET",

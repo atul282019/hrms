@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
 import com.cotodel.hrms.web.response.MccMaster;
@@ -63,6 +64,24 @@ public class MasterServiceImpl implements MasterService{
 	@Override
 	public String getmccMasterDetailsByPurposeCodeAndMcc(String token, MccMaster mccMaster) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(mccMaster), applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getMCCMasterDeailsByPurposeCodeAndMCC);
+	}
+
+	@Override
+	public String getEmployeeType(String token, EmployeeMassterRequest employeeMassterRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getEmployeeType);
+
+	}
+
+	@Override
+	public String getEmployeeListMaster(String token, EmployeeMassterRequest employeeMassterRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.userServiceBaseUrl +CommonUtils.getEmployeeListMaster);
+
+	}
+
+	@Override
+	public String getofficeLocationMaster(String token, EmployeeMassterRequest employeeMassterRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getofficeLocationMaster);
+
 	}
 
 }

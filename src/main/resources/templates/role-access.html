@@ -447,8 +447,8 @@
 	                    </div>
 
 	                    <div class="d-block text-right">
-	                       <!-- <button class="btn btn-primary mb-1" onclick="getAddOTP()">Submit</button>-->
-						   <button class="btn btn-primary mb-1" onclick="addRole()()">Submit</button>
+	                        <button class="btn btn-primary mb-1" onclick="getAddOTP()">Submit</button>
+						  <!-- <button class="btn btn-primary mb-1" onclick="addRole()()">Submit</button>-->
 	                    </div>
 	                </div>
 	            </div>
@@ -685,7 +685,7 @@
 		        });
 
 		        // Add the action column
-		        headerHTML += `<th>Action</th></tr>`;
+		       // headerHTML += `<th>Action</th></tr>`;
 		        tableHeader.innerHTML = headerHTML;
 
 		        // Return ordered role descriptions for later use
@@ -725,11 +725,11 @@
 					    `;
 					});
 		            // Add action column
-		            rowHTML += `
-		                <td>
-		                    <button class="btn btn-sm btn-primary" onclick="addAction(${user.id})">Add</button>
-		                </td>
-		            `;
+		           // rowHTML += `
+		            //    <td>
+		           //         <button class="btn btn-sm btn-primary" onclick="addAction(${user.id})">Add</button>
+		           //     </td>
+		           // `;
 
 		            row.innerHTML = rowHTML;
 		            tableBody.appendChild(row);
@@ -1212,7 +1212,7 @@
 
 					// Log the collected data (optional)
 					console.log(allRowsData);
-					alert(JSON.stringify(allRowsData, null, 2));
+					//alert(JSON.stringify(allRowsData, null, 2));
 					// AJAX call to send the data
 					document.getElementById("signinLoader").style.display = "flex";
 					$.ajax({
@@ -1223,7 +1223,7 @@
 					    data: JSON.stringify({
 					        orgId: 70,
 					        employerId: 70,
-					        createdby: "atl kumar yadav",
+					        createdby: "atul kumar yadav",
 					        userDTO: allRowsData, // Send all rows as an array
 					    }),
 					    success: function(data) {
@@ -1268,7 +1268,7 @@
 
 							    // Extract roles
 							    const userRole = [];
-							    const roleColumns = Array.from(document.querySelectorAll("thead th"))
+							    const roleColumns = Array.from(document.querySelectorAll("#resultTable thead th"))
 							                             .slice(4, -1); // Adjust for the actual roles column range
 
 							    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
@@ -1291,7 +1291,7 @@
 
 							// Log the collected data (optional)
 							console.log(allRowsData);
-							alert(JSON.stringify(allRowsData, null, 2));
+							//alert(JSON.stringify(allRowsData, null, 2));
 			  					// AJAX call to send the data
 			  					document.getElementById("signinLoader").style.display = "flex";
 			  					$.ajax({
@@ -1307,6 +1307,7 @@
 			  					    }),
 			  					    success: function(data) {
 			  					        console.log("Success:", data);
+										window.location.href = "/roleAccess";
 			  					        document.getElementById("signinLoader").style.display = "none";
 			  					    },
 			  					    error: function(e) {

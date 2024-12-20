@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
 import com.cotodel.hrms.web.response.MccMaster;
@@ -96,6 +97,30 @@ public class MasterController  extends CotoDelBaseController{
 	public @ResponseBody String getmccMasterDetailsByPurposeCodeAndMcc(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
 			,MccMaster mccMaster) {
 		return masterService.getmccMasterDetailsByPurposeCodeAndMcc(tokengeneration.getToken(),mccMaster);
+	}
+	
+	@GetMapping(value="/getEmployeeType")
+	public @ResponseBody String getEmployeeType(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("getEmployeeType");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getEmployeeType(tokengeneration.getToken(),employeeMassterRequest);
+	}
+
+	@GetMapping(value="/getEmployeeMasterList")
+	public @ResponseBody String getEmployeeListMaster(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("getEmployeeType");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getEmployeeListMaster(tokengeneration.getToken(),employeeMassterRequest);
+	}
+	
+	@GetMapping(value="/getofficeLocationMaster")
+	public @ResponseBody String getofficeLocationMaster(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("getEmployeeType");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getofficeLocationMaster(tokengeneration.getToken(),employeeMassterRequest);
 	}
 	
 	

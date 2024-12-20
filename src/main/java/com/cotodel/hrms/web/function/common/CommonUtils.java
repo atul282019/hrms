@@ -137,6 +137,11 @@ public interface CommonUtils {
 	
 	public static String addUserSearch="/userServices/Api/get/userSearch";
 	
+	public static String getEmployeeType="/masterService/Api/get/employeeTypeMasterList";
+	public static String getEmployeeListMaster="/userServices/Api/get/userManagerList";
+	public static String getofficeLocationMaster="/masterService/Api/get/employeeTypeMasterList";
+	
+	
 	
 	
 
