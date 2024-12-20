@@ -118,7 +118,7 @@ public class MasterController  extends CotoDelBaseController{
 	@GetMapping(value="/getofficeLocationMaster")
 	public @ResponseBody String getofficeLocationMaster(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
-		logger.info("getEmployeeType");	
+		logger.info("getofficeLocationMaster");	
 		String token = (String) session.getAttribute("cotodel");
 		return masterService.getofficeLocationMaster(tokengeneration.getToken(),employeeMassterRequest);
 	}

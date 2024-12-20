@@ -139,7 +139,7 @@ public interface CommonUtils {
 	
 	public static String getEmployeeType="/masterService/Api/get/employeeTypeMasterList";
 	public static String getEmployeeListMaster="/userServices/Api/get/userManagerList";
-	public static String getofficeLocationMaster="/masterService/Api/get/employeeTypeMasterList";
+	public static String getofficeLocationMaster="/empService/Api/get/getCompaneyAddress";
 	
 	
 	

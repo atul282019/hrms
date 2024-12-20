@@ -16,7 +16,7 @@ function getEmployeeType(){
 	             var x = document.getElementById("employeeType");
 	             if(count==0){
 	             var option = document.createElement("option");
-	             option.text ="Please Select Employee Type";
+	             option.text ="Select Employee Type";
 	             option.value = "";
 	             x.add(option);
 	             }
@@ -55,7 +55,7 @@ function getEmployeeMasterList(){
 	             var x = document.getElementById("reporting");
 	             if(count==0){
 	             var option = document.createElement("option");
-	             option.text ="Select Reporting";
+	             option.text ="Select Reporting Manager";
 	             option.value = "";
 	             x.add(option);
 	             }
@@ -74,24 +74,27 @@ function getEmployeeMasterList(){
 }
 
 function getOfficeLocationMaster(){
-
+	var employerId=document.getElementById("employerId").value;
 	$.ajax({
 			type: "GET",
 	        url: "/getofficeLocationMaster",
+			data:{
+					"orgId" : employerId
+				},
 	           success: function(data){
 	            newData = data;
 	            console.log(newData);
-				$("#stateCode option").remove();
+				$("#location option").remove();
 	            var obj = jQuery.parseJSON( data );
 	             obj = obj.data;
 	        	 var count=0;
 	         	for (var key in obj) {
 
 	             var values =  obj[key];
-	             var x = document.getElementById("stateCode");
+	             var x = document.getElementById("location");
 	             if(count==0){
 	             var option = document.createElement("option");
-	             option.text ="Select State";
+	             option.text ="Select Office Location";
 	             option.value = "";
 	             x.add(option);
 	             }
@@ -99,7 +102,6 @@ function getOfficeLocationMaster(){
 	             option.text = values.state_name;
 	             option.value = values.state_code;
 	             x.add(option);
-
 	             count++;
 	             }   
 	         },
