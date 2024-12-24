@@ -141,6 +141,7 @@ public interface CommonUtils {
 	public static String getEmployeeListMaster="/userServices/Api/get/userManagerList";
 	public static String getofficeLocationMaster="/empService/Api/get/getCompaneyAddress";
 	
+	public static String getVoucherListWithIcon ="/masterService/Api/get/voucherList"; 
 	
 	
 	

@@ -12,41 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleDTO {
-	private int orgId;
-    private int employerId;
-    private String createdBy;
+	  private Integer orgId;
+	    private Integer id;
+	    private Integer employerId;
+	    private String userName;
+	    private String userMobile;
+	    private String consent;
+	    private String email;
+	    private String mobile;
+	    private String createdby;
+	    
     private List<UserDTO> userDTO;
 
-    // Getters and Setters
-    public int getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(int orgId) {
-        this.orgId = orgId;
-    }
-
-    public int getEmployerId() {
-        return employerId;
-    }
-
-    public void setEmployerId(int employerId) {
-        this.employerId = employerId;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public List<UserDTO> getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(List<UserDTO> userDTO) {
-        this.userDTO = userDTO;
-    }
 }

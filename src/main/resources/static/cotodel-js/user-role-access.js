@@ -1,11 +1,13 @@
   function getUserWithRole() {
 	var employerId = document.getElementById("employerId").value;
+	var userMobile = document.getElementById("userMobile").value;
 	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 		url:"/getUserWithRole",
 		data: {
-			"orgId":70
+			"orgId":employerId,
+			"userMobile":userMobile
 		},
 		success: function(data) {
 			newData = data;
@@ -79,13 +81,17 @@
 }
  
 function editUserRoleWithMoreUser() {
+	
 	var employerId = document.getElementById("employerId").value;
+	var userMobile = document.getElementById("userMobile").value;
 	document.getElementById("signinLoader").style.display="flex";
+	
 	$.ajax({
 		type: "GET",
 		url:"/getUserWithRole",
 		data: {
-			"orgId":70
+			"orgId":employerId,
+			"userMobile":userMobile
 		},
 		success: function(data) {
 			newData = data;
@@ -111,7 +117,7 @@ function editUserRoleWithMoreUser() {
 			        });
 
 			        // Function to create a row
-			        function createRow(user = { id: "", username: "", email: "", mobile: "", userRole: [] }) {
+			            function createRow(user = { id: "", username: "", email: "", mobile: "", userRole: [] }) {
 			            const tableBody = document.getElementById("editUserRole").querySelector("tbody");
 			            const row = document.createElement("tr");
 
@@ -172,62 +178,62 @@ function editUserRoleWithMoreUser() {
 							   
 							   if (confirm("Are you sure you want to delete this user role?")) {
 
-												// Extract roles
-												const rowdelete = deleteButton.parentElement.parentElement;
+							// Extract roles
+							const rowdelete = deleteButton.parentElement.parentElement;
 
-											    // Extract basic user information
-											    const cells = rowdelete.querySelectorAll("td");
-											    const id = cells[0].textContent.trim();
-											    const username = cells[1].textContent.trim();
-											    const email = cells[2].textContent.trim();
-											    const mobile = cells[3].textContent.trim();
-											    const userRoleDelete = [];
-											    const headers = document.querySelectorAll("thead th");
-											    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
-											        const checkbox = cells[i].querySelector("input[type='checkbox']");
-											        if (checkbox && checkbox.checked) {
-											            const roleDesc = headers[i].textContent.trim();
-											            userRoleDelete.push({ roleDesc }); // Add more role details if needed
-											        }
-											    }
+						    // Extract basic user information
+						    const cells = rowdelete.querySelectorAll("td");
+						    const id = cells[0].textContent.trim();
+						    const username = cells[1].textContent.trim();
+						    const email = cells[2].textContent.trim();
+						    const mobile = cells[3].textContent.trim();
+						    const userRoleDelete = [];
+						    const headers = document.querySelectorAll("thead th");
+						    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
+						        const checkbox = cells[i].querySelector("input[type='checkbox']");
+						        if (checkbox && checkbox.checked) {
+						            const roleDesc = headers[i].textContent.trim();
+						            userRoleDelete.push({ roleDesc }); // Add more role details if needed
+						        }
+						    }
 
-											    // Create the row data object
-											    const rowDataDelete = {
-											        id,
-											        username,
-											        email,
-											        mobile,
-											        userRoleDelete,
-											    };					
-												/// for edit user role code
-																var employerId = document.getElementById("employerId").value;
-																var employername = document.getElementById("employerName").value;
-																document.getElementById("signinLoader").style.display = "flex";
-																$.ajax({
-																	type: "POST",
-																	url: "/deleteUserRole",
-																	dataType: 'json',
-																	data: {
-																		"orgId":70,
-																		"createdby":employername,
-																		"id":rowDataDelete.id,
-																		"username":rowDataDelete.username,
-																		"email":rowDataDelete.email,
-																		"mobile":rowDataDelete.mobile,
-																		"roleDesc":  rowDataDelete.userRoleDelete.map(role => role.roleDesc)
-																	},
-																	success: function(data) {
-																		var obj = data;
-																		window.location.href = "/roleAccess";
-																		document.getElementById("signinLoader").style.display = "none";
-																		
-																	},
-																	error: function(e) {
-																		alert('Error: ' + e);
-																	}
-																});
-															/// for edit user role code
-							           alert("Item deleted.");
+						    // Create the row data object
+						    const rowDataDelete = {
+						        id,
+						        username,
+						        email,
+						        mobile,
+						        userRoleDelete,
+						    };					
+							/// for edit user role code
+								var employerId = document.getElementById("employerId").value;
+								var employername = document.getElementById("employerName").value;
+								document.getElementById("signinLoader").style.display = "flex";
+										$.ajax({
+											type: "POST",
+											url: "/deleteUserRole",
+											dataType: 'json',
+											data: {
+												"orgId":70,
+												"createdby":employername,
+												"id":rowDataDelete.id,
+												"username":rowDataDelete.username,
+												"email":rowDataDelete.email,
+												"mobile":rowDataDelete.mobile,
+												"roleDesc":  rowDataDelete.userRoleDelete.map(role => role.roleDesc)
+											},
+											success: function(data) {
+												var obj = data;
+												window.location.href = "/roleAccess";
+												document.getElementById("signinLoader").style.display = "none";
+												
+											},
+											error: function(e) {
+												alert('Error: ' + e);
+											}
+										});
+									/// for edit user role code
+							       alert("Item deleted.");
 							       } else {
 							           // User clicked "No"
 							           alert("deletion canceled.");

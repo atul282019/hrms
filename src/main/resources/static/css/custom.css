@@ -4617,41 +4617,8 @@ table.table-upivouchers thead tr th:last-child {
     color: #1F212C;
 }
 
-.selectvouchers-top {
-    display: flex;
-    background: #fff;
-    border-radius: 10px;
-    margin: 20px 0;
-    justify-content: space-between;
-}
 
-.selectvouchers-topleft {
-    display: flex;
-    width: 17%;
-    padding: 10px 0;
-}
 
-.selectvouchers-topright {
-    width: 83%;
-    padding-left: 2px;
-}
-
-.selectvouchers-topright .selectvouchers-carosel {
-    margin-top: 10px;
-}
-
-.selectvouchers-topleft-primary {
-    max-width: 170px;
-}
-
-.selectvouchers-topleft-cards {
-    width: 100%;
-    background: #2F945A;
-    padding: 10px;
-    margin: 0 10px;
-    display: block !important;
-    border-radius: 10px;
-}
 
 .bnkdetils {
     text-align: right;
@@ -4669,20 +4636,10 @@ table tbody td {
     text-wrap-mode: nowrap;
 }
 
-.selectvouchers-topleft-primary {
-    background: #2F945A;
-    color: #fff;
-}
-
-.selectvouchers-topleft-primary h5 {
-    text-align: center;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
 
 .selectvouchers-carosel {
     display: flex;
-    margin: 25px 0 0;
+    margin: 15px 0 0;
 }
 
 .selectvouchers-carosel-cards h5 {
@@ -4698,16 +4655,7 @@ table tbody td {
     color: #2F945A;
 }
 
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:first-child,
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:nth-child(2),
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:nth-child(3) {
-    background: #9aa1ec;
-    color: #fff;
-    min-width: 150px;
-    padding: 21px;
-    margin: 0 5px;
-    border-radius: 10px;
-}
+
 
 .selectvouchers-topleft-cards.d-flex>div>div img {
     border-radius: 2px;
@@ -4717,20 +4665,6 @@ table tbody td {
     display: flex;
 }
 
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:nth-child(2) {
-    background: #d5e072;
-}
-
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:nth-child(3) {
-    background: #58c085;
-}
-
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:first-child h5,
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:nth-child(2) h5,
-.selectvouchers-topright .selectvouchers-carosel .selectvouchers-carosel-cards:nth-child(3) h5 {
-    text-align: center;
-    margin-bottom: 15px;
-}
 
 .selectvouchers-carosel-cards:last-child {
     border: none;
@@ -5794,4 +5728,300 @@ tr.lasttr {
 .table-input-date .table-dateed{
     width: 100px;
     border: none; margin-top: 5px;
+}
+
+.selectvouchers-carosel {
+    display: flex
+;
+    margin: 25px 0 0;
+}
+.selectvouchers-carosel-cards {
+    min-width: 120px;
+    border-right: 1px solid #e4e1e1;
+    padding-right: 10px;
+}
+
+.selectvouchers-carosel-cards h5 {
+    text-align: center;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.selectvouchers-top {
+    display: flex
+;
+    background: #fff;
+    border-radius: 10px;
+    margin: 15px;
+    justify-content: space-between;
+}
+.selectvouchers-topleft {
+    display: flex
+;
+    border-radius: 10px;
+    background: #EDEDF0;
+    width: 45%;
+    padding: 10px 0;
+}
+.selectvouchers-topleft-cards {
+    width: 65%;
+    background: #fff;
+    padding: 10px;
+    margin: 0 10px;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+.selectvouchers-topleft-primary {
+    background: #2F945A;
+    color: #fff;
+    width: 45%;
+}
+.bnkdetils {
+    text-align: right;
+    color: #000;
+}
+.bnkdetils p {
+    color: #4A4E69;
+    font-size: 15px;
+}
+.selectvouchers-topleft-primary h5 {
+    text-align: right;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.selectvouchers-topleft-cardsdiv {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 10px;
+    position: relative;
+    flex: 0 0 auto;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: var(--secondarysecondary-50);
+  }
+  
+.INDIANB-NS-wrapper {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff;
+    border-radius: 5px;
+  }
+  
+.INDIANB-NS {
+    position: absolute;
+    width: 21px;
+    height: 18px;
+    top: 3px;
+    left: 1px;
+    object-fit: cover;
+  }
+  
+.text-wrapper {
+    position: relative;
+    flex: 1;
+    font-family: var(--body-font-family);
+    font-weight: var(--body-font-weight);
+    color: var(--secondarysecondary-900);
+    font-size: var(--body-font-size);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: var(--body-line-height);
+    font-style: var(--body-font-style);
+  }
+  
+.xxxx {
+    position: relative;
+    flex: 1;
+    font-family: var(--body-font-family);
+    font-weight: var(--body-font-weight);
+    color: var(--secondarysecondary-500);
+    font-size: var(--body-font-size);
+    text-align: right;
+    letter-spacing: var(--body-letter-spacing);
+    line-height: var(--body-line-height);
+    font-style: var(--body-font-style);
+  }
+  
+.dropdown {
+    position: relative;
+    width: 16px;
+    height: 16px;
+  }
+  
+.div-2 {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    position: relative;
+    flex: 0 0 auto;
+    margin: 5px 0;
+  }
+  
+.text-wrapper-2 {
+    position: relative;
+    flex: 1;
+    font-family: var(--body-font-family);
+    font-weight: var(--body-font-weight);
+    color: var(--secondarysecondary-300);
+    font-size: var(--body-font-size);
+    letter-spacing: var(--body-letter-spacing);
+    line-height: var(--body-line-height);
+    font-style: var(--body-font-style);
+  }
+  
+.element {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Open Sans-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 22.4px;
+    margin-bottom: 0;
+  }
+  
+.span {
+    font-family: var(--title-2-bold-font-family);
+    font-weight: var(--title-2-bold-font-weight);
+    color: #000000;
+    font-size: var(--title-2-bold-font-size);
+    letter-spacing: var(--title-2-bold-letter-spacing);
+    line-height: var(--title-2-bold-line-height);
+    font-style: var(--title-2-bold-font-style);
+  }
+  
+.text-wrapper-3 {
+    font-family: var(--title-1-bold-font-family);
+    font-weight: var(--title-1-bold-font-weight);
+    font-size: var(--title-1-bold-font-size);
+    line-height: var(--title-1-bold-line-height);
+    font-style: var(--title-1-bold-font-style);
+    letter-spacing: var(--title-1-bold-letter-spacing);
+  }
+  
+.recall {
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+  
+.last-updated-on {
+    position: relative;
+    align-self: stretch;
+    font-family: "Open Sans-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--secondarysecondary-300);
+    font-size: 8px;
+    text-align: right;
+    letter-spacing: 0;
+    line-height: 11.2px;
+  }
+
+  .frame {
+    display: inline-flex;
+    flex-direction: column;
+    height: 143px;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: var(--primaryprimary-50);
+  }
+
+  .btn-primary{
+    min-width: 150px;
+  }
+
+  table.table-reimbursements.tablestatus-later thead{ 
+    background: #86889B;
+  }
+  .selectvouchers-table tbody tr:last-child {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.tdflex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+table.table-upivouchers tbody td label {
+    background: #eee;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+table.table-upivouchers tbody td{
+    border: 1px solid #EAF4EF;
+}
+
+.customModal .modal-top .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.bg-black{
+    background: #000;
+}
+
+.bg-grey{
+    background: #EAF4EF;
+}
+.bg-green{
+    background: #2F945A;
+}
+
+.modal-inn {
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px; overflow: hidden;
+}
+.modal-inn h6 {
+    font-weight: 600;
+}
+.modal-inn p {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.modal-inn ul {
+    margin-bottom: 0;
+    margin-top: 10px; font-size: 14px;
+}
+
+.modal-inn ul li{
+    width: 50%;
+    float: left;
+}
+
+.selectvouchers-topleft20{
+    width: 20%;
+}
+
+.selectvouchers-topright80{
+    width: 80%;
+}
+
+.headnobg h3 {
+    color: #1F212C;
+    font-size: 22px;
+    font-weight: 600; margin-top: 20px;
+}
+
+table.vcScheduledtable thead {
+    background: #86889B;
+    color: #fff;
 }

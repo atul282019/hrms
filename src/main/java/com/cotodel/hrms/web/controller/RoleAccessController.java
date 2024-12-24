@@ -51,17 +51,6 @@ public class RoleAccessController extends CotoDelBaseController{
 			String token = (String) session.getAttribute("hrms");
 			return roleaccessservice.getUserRole(tokengeneration.getToken(),roleAccessRequest);
 	}
-
-	
-	/*
-	 * @PostMapping(value="/AddUserRole") public @ResponseBody String
-	 * editUserRole(HttpServletRequest request, ModelMap model,Locale locale,
-	 * HttpSession session,RoleAccessRequest roleAccessRequest) {
-	 * logger.info("edit User with Role"); String token = (String)
-	 * session.getAttribute("hrms"); return
-	 * roleaccessservice.editUserRole(tokengeneration.getToken(),roleAccessRequest);
-	 * }
-	 */
 	
 	@PostMapping(value="/editUserRole")
 	public @ResponseBody String editUserRole(HttpServletRequest request, ModelMap model,Locale locale,
@@ -72,7 +61,7 @@ public class RoleAccessController extends CotoDelBaseController{
 			 // Validate or process the data as needed
 	        System.out.println("Org ID: " + requestDTO.getOrgId());
 	        System.out.println("Employer ID: " + requestDTO.getEmployerId());
-	        System.out.println("Created By: " + requestDTO.getCreatedBy());
+	        System.out.println("Created By: " + requestDTO.getCreatedby());
 	        
 	        for (UserDTO user : requestDTO.getUserDTO()) {
 	            System.out.println("User ID: " + user.getId());
