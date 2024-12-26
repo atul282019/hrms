@@ -3,26 +3,55 @@
     fetch('/getvoucherTypeMaster')
         .then(response => response.json())
         .then(data => {
+			console.log(data);
             const tableBody = document.getElementById('voucherMasterTableBody');
             tableBody.innerHTML = ''; // Clear existing rows
 
             if (data && data.data && Array.isArray(data.data)) {
                 data.data.forEach(voucher => {
+					
                     const row = document.createElement('tr');
 
                     row.innerHTML = `
+					<td>${voucher.voucherName || ''}</td>
+					<td>${voucher.purposeCode || ''}</td>
+					<td>${voucher.purposeDesc || ''}</td>
+					<td>${voucher.mcc || ''}</td>
+					<td>${voucher.mccDesc || ''}</td>
+					<td>
+                    <img src="data:image/svg+xml;base64,${voucher.voucherIcon}" 
+                         alt="" style="width: 50px;">
+                	</td>
+					<td>
+                    <img src="data:image/svg+xml;base64,${voucher.mccIcon}" 
+                         alt="" style="width: 50px;">
+                	</td>
+					<td>
+                    <img src="data:image/svg+xml;base64,${voucher.mccMainIcon}" 
+                         alt="" style="width: 50px;">
+                	</td>
+						
                         
-                        <td>${voucher.voucherDesc || ''}</td>
-                        <td>${voucher.voucherType || ''}</td>
-                        <td>${voucher.voucherSubType || ''}</td>
-                        <td>${voucher.purposeCode || ''}</td>
-                        <td>${voucher.status === 1 ? 'Active' : 'Inactive'}</td>
+                        
+                        <td><img src="${voucher.status === 1 ? 'img/check-circle-green.svg' : 'img/close-circle-red.svg'}" 
+	                                alt="${voucher.status === 1 ? 'Active' : 'Inactive'}"
+	                                style="width: 20px; height: 20px;"
+                            >
+						                        </td>
                         <td>
                             <button class="btn btn-${voucher.status === 1 ? 'danger' : 'success'}" 
                                     onclick="toggleStatus(${voucher.id},${voucher.status})">
                                 ${voucher.status === 1 ? 'Deactivate' : 'Activate'}
                             </button>
                         </td>
+						<td>
+						    <a href="/editVoucherMaster?vid=${voucher.id}" 
+						       style="position: relative;" 
+						       title="Edit">
+						        <img src="img/edit.svg" alt="Update" 
+						             style="width: 25px; cursor: pointer;">
+						    </a>
+						</td>             
                     `;
                     tableBody.appendChild(row);
                 });

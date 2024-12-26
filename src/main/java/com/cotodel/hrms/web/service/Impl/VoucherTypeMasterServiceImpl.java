@@ -29,7 +29,7 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 	public String getVoucherTypeMasterList(String token, VoucherTypeMaster voucherTypeMaster) {
 		 return CommonUtility.userRequest(token,
 			        MessageConstant.gson.toJson(voucherTypeMaster),
-			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getvoucherTypeMasterList
+			        applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getvoucherTypeMasterList
 			    );
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cotodel.hrms.web.response.UserDetailsEntity;
+import com.cotodel.hrms.web.response.VoucherTypeMaster;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
 
 @Controller
@@ -642,7 +643,7 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
 
-				return new ModelAndView("display-voucher-master", "command", "");
+				return new ModelAndView("display-voucher-Master", "command", "");
 			}
 		}
 		return new ModelAndView("index", "command", "");
@@ -966,5 +967,20 @@ public class StaticPageController extends CotoDelBaseController{
 			return new ModelAndView("index", "command", "");
 		}
 	
-	
+		@GetMapping("/editVoucherMaster")
+		public ModelAndView editVoucherMaster(@RequestParam int vid, Model model) {
+			String token = (String) session.getAttribute("hrms");
+			Integer id  = (Integer) session.getAttribute("id");
+			if(token!=null) {
+				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+				if(obj!=null) {
+		    //Pass data to the edit page
+		   model.addAttribute("vid", vid);
+		   
+		   
+		    return new ModelAndView("edit-Voucher-Master", "command", ""); // This refers to the Thymeleaf template for editing
+				}
+						}
+			return new ModelAndView("index", "command", "");
+}
 }
