@@ -13,6 +13,7 @@ public class VoucherTypeMaster {
 	//private String voucherType;
 	//private String voucherSubType;
 	private String purposeCode;
+	private String purposeDesc;
 	private String voucherIcon;
 	private Integer status;
 	private String mccIcon; 

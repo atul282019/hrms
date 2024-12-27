@@ -21,7 +21,7 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 		return CommonUtility.userRequest(
 	            token,
 	            MessageConstant.gson.toJson(voucherTypeMaster),
-	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.saveVoucherTypeMasterDetailS
+	            applicationConstantConfig.masterServiceBaseUrl +CommonUtils.saveVoucherTypeMasterDetailS
 	        );
 	}
 

@@ -968,7 +968,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 	
 		@GetMapping("/editVoucherMaster")
-		public ModelAndView editVoucherMaster(@RequestParam int vid, Model model) {
+		public ModelAndView editVoucherMaster(@RequestParam int vid,@RequestParam int status,
+				Model model) {
 			String token = (String) session.getAttribute("hrms");
 			Integer id  = (Integer) session.getAttribute("id");
 			if(token!=null) {
@@ -976,6 +977,7 @@ public class StaticPageController extends CotoDelBaseController{
 				if(obj!=null) {
 		    //Pass data to the edit page
 		   model.addAttribute("vid", vid);
+		   model.addAttribute("status", status);
 		   
 		   
 		    return new ModelAndView("edit-Voucher-Master", "command", ""); // This refers to the Thymeleaf template for editing

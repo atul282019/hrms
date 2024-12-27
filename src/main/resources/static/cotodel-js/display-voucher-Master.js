@@ -19,16 +19,16 @@
 					<td>${voucher.mcc || ''}</td>
 					<td>${voucher.mccDesc || ''}</td>
 					<td>
-                    <img src="data:image/svg+xml;base64,${voucher.voucherIcon}" 
-                         alt="" style="width: 50px;">
+                    <img src="data:image/png;base64,${voucher.voucherIcon}" 
+                         alt="" style="width: 30px;">
                 	</td>
 					<td>
-                    <img src="data:image/svg+xml;base64,${voucher.mccIcon}" 
-                         alt="" style="width: 50px;">
+                    <img src="data:image/png;base64,${voucher.mccIcon}" 
+                         alt="" style="width:  30px;">
                 	</td>
 					<td>
-                    <img src="data:image/svg+xml;base64,${voucher.mccMainIcon}" 
-                         alt="" style="width: 50px;">
+                    <img src="data:image/png;base64,${voucher.mccMainIcon}" 
+                         alt="" style="width:  30px;">
                 	</td>
 						
                         
@@ -45,7 +45,7 @@
                             </button>
                         </td>
 						<td>
-						    <a href="/editVoucherMaster?vid=${voucher.id}" 
+						    <a href="/editVoucherMaster?vid=${voucher.id}&status=${voucher.status}" 
 						       style="position: relative;" 
 						       title="Edit">
 						        <img src="img/edit.svg" alt="Update" 

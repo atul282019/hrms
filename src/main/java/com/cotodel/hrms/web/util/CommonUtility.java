@@ -27,6 +27,7 @@ public class CommonUtility {
 		HttpHeaders headers = new HttpHeaders();
 		try{
 			logger.info(" Request Json for url"+url+"---"+requestJson);
+			System.out.println(" Request Json for url"+url+"---"+requestJson);
 
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			
