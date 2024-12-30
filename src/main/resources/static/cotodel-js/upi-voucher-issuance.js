@@ -28,8 +28,7 @@ function getIssueVoucherList(){
 				{ "mData": "id", "render": function (data2, type, row) {
 				   return ' <div class="table-check"><input type="hidden" class="checkBoxClass" value="'+data2+'" id="'+data2+'" name="revoke"></div>';
 			    }}, 
-				{ "mData": "purposeDesc"},
-                { "mData": "name"},   
+				{ "mData": "name"},
                 { "mData": "mobile"},   
 			    { "mData": "amount"},
 			   // { "mData": "merchanttxnId"},   

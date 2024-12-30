@@ -4636,27 +4636,6 @@ table tbody td {
     text-wrap-mode: nowrap;
 }
 
-
-.selectvouchers-carosel {
-    display: flex;
-    margin: 15px 0 0;
-}
-
-.selectvouchers-carosel-cards h5 {
-    text-align: right;
-    font-size: 1rem;
-    margin: 0;
-}
-
-.selectvouchers-carosel-cards {
-    min-width: 140px;
-    border-right: 1px solid #80e4aa;
-    padding: 10px;
-    color: #2F945A;
-}
-
-
-
 .selectvouchers-topleft-cards.d-flex>div>div img {
     border-radius: 2px;
 }
@@ -5578,12 +5557,12 @@ button.btn-border-custom {
     background: #fff;
     border-radius: 20px;
     padding: 15px 12px;
-    width: 100%;    
-    margin: 10px 0;    
+    width: 100%;
+    margin: 10px 0;
     align-items: center;
 }
 
-button.btn-border-custom a{
+button.btn-border-custom a {
     display: flex;
     justify-content: space-between;
     text-decoration: none;
@@ -5595,13 +5574,13 @@ button.btn-voucher-custom {
     background: rgba(54, 122, 255, 1);
     border-radius: 20px;
     padding: 15px 12px;
-    width: 100%;    
-    margin: 10px 0;    
+    width: 100%;
+    margin: 10px 0;
     min-height: 62px;
     align-items: center;
 }
 
-button.btn-voucher-custom a{
+button.btn-voucher-custom a {
     text-decoration: none;
     color: #fff;
     display: flex;
@@ -5692,7 +5671,7 @@ button.btn-voucher-custom a{
     padding: 1rem .75rem;
 }
 
-.activeupivcmarked td{
+.activeupivcmarked td {
     color: rgba(110, 113, 135, 1);
     font-weight: 400;
     padding: 1rem .75rem;
@@ -5702,16 +5681,26 @@ tr.lasttr {
     background: rgba(234, 244, 239, 1);
 }
 
-.autocomp-input-wrap.table-input .autocomp-input{
+.autocomp-input-wrap.table-input .autocomp-input {
     height: 35px;
     width: 200px !important;
 }
 
-.table-input-voucher{
+.table-input-voucher {
     background: url("../img/voucher-sm.svg") no-repeat 95% center;
 }
 
-.table-input-date{
+.tablevc .table-input-voucher {
+    background: none;
+}
+
+.tablevc a {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.table-input-date {
     background: url("../img/calendar-time.svg") no-repeat 95% center;
     margin-top: 0px;
     width: 100%;
@@ -5725,44 +5714,60 @@ tr.lasttr {
     color: #4A4E69;
 }
 
-.table-input-date .table-dateed{
+.table-input-date .table-dateed {
     width: 100px;
-    border: none; margin-top: 5px;
+    border: none;
+    margin-top: 5px;
 }
 
 .selectvouchers-carosel {
-    display: flex
-;
-    margin: 25px 0 0;
+    margin: 0px 0 0;
+    width: 94%;
+    border: 1px solid #fff;
 }
+
+.slick-track {
+    width: 100%;
+}
+
 .selectvouchers-carosel-cards {
-    min-width: 120px;
     border-right: 1px solid #e4e1e1;
-    padding-right: 10px;
+    padding: 10px 20px;
+    color: #2F945A;
+    max-width: 150px;
+    width: 100%;
 }
 
 .selectvouchers-carosel-cards h5 {
-    text-align: center;
     font-size: 1rem;
     margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .selectvouchers-top {
-    display: flex
-;
+    display: flex;
     background: #fff;
     border-radius: 10px;
     margin: 15px;
     justify-content: space-between;
 }
+
 .selectvouchers-topleft {
-    display: flex
-;
+    display: flex;
     border-radius: 10px;
     background: #EDEDF0;
     width: 45%;
     padding: 10px 0;
 }
+
+.selectvouchers-topright {
+    display: flex;
+    width: 54%;
+    padding: 10px 30px 10px 20px;
+    justify-content: center;
+}
+
 .selectvouchers-topleft-cards {
     width: 65%;
     background: #fff;
@@ -5771,19 +5776,23 @@ tr.lasttr {
     justify-content: space-between;
     border-radius: 10px;
 }
+
 .selectvouchers-topleft-primary {
     background: #2F945A;
     color: #fff;
     width: 45%;
 }
+
 .bnkdetils {
     text-align: right;
     color: #000;
 }
+
 .bnkdetils p {
     color: #4A4E69;
     font-size: 15px;
 }
+
 .selectvouchers-topleft-primary h5 {
     text-align: right;
     font-size: 1rem;
@@ -5802,16 +5811,16 @@ tr.lasttr {
     border-radius: 10px;
     border: 1px solid;
     border-color: var(--secondarysecondary-50);
-  }
-  
+}
+
 .INDIANB-NS-wrapper {
     position: relative;
     width: 24px;
     height: 24px;
     background-color: #ffffff;
     border-radius: 5px;
-  }
-  
+}
+
 .INDIANB-NS {
     position: absolute;
     width: 21px;
@@ -5819,8 +5828,8 @@ tr.lasttr {
     top: 3px;
     left: 1px;
     object-fit: cover;
-  }
-  
+}
+
 .text-wrapper {
     position: relative;
     flex: 1;
@@ -5831,8 +5840,8 @@ tr.lasttr {
     letter-spacing: var(--body-letter-spacing);
     line-height: var(--body-line-height);
     font-style: var(--body-font-style);
-  }
-  
+}
+
 .xxxx {
     position: relative;
     flex: 1;
@@ -5844,14 +5853,14 @@ tr.lasttr {
     letter-spacing: var(--body-letter-spacing);
     line-height: var(--body-line-height);
     font-style: var(--body-font-style);
-  }
-  
+}
+
 .dropdown {
     position: relative;
-    width: 16px;
-    height: 16px;
-  }
-  
+    width: auto;
+    height: auto;
+}
+
 .div-2 {
     display: flex;
     width: 100%;
@@ -5861,8 +5870,8 @@ tr.lasttr {
     position: relative;
     flex: 0 0 auto;
     margin: 5px 0;
-  }
-  
+}
+
 .text-wrapper-2 {
     position: relative;
     flex: 1;
@@ -5873,8 +5882,8 @@ tr.lasttr {
     letter-spacing: var(--body-letter-spacing);
     line-height: var(--body-line-height);
     font-style: var(--body-font-style);
-  }
-  
+}
+
 .element {
     position: relative;
     width: fit-content;
@@ -5886,8 +5895,8 @@ tr.lasttr {
     letter-spacing: 0;
     line-height: 22.4px;
     margin-bottom: 0;
-  }
-  
+}
+
 .span {
     font-family: var(--title-2-bold-font-family);
     font-weight: var(--title-2-bold-font-weight);
@@ -5896,8 +5905,8 @@ tr.lasttr {
     letter-spacing: var(--title-2-bold-letter-spacing);
     line-height: var(--title-2-bold-line-height);
     font-style: var(--title-2-bold-font-style);
-  }
-  
+}
+
 .text-wrapper-3 {
     font-family: var(--title-1-bold-font-family);
     font-weight: var(--title-1-bold-font-weight);
@@ -5905,14 +5914,14 @@ tr.lasttr {
     line-height: var(--title-1-bold-line-height);
     font-style: var(--title-1-bold-font-style);
     letter-spacing: var(--title-1-bold-letter-spacing);
-  }
-  
+}
+
 .recall {
     position: relative;
     width: 20px;
     height: 20px;
-  }
-  
+}
+
 .last-updated-on {
     position: relative;
     align-self: stretch;
@@ -5923,9 +5932,9 @@ tr.lasttr {
     text-align: right;
     letter-spacing: 0;
     line-height: 11.2px;
-  }
+}
 
-  .frame {
+.frame {
     display: inline-flex;
     flex-direction: column;
     height: 143px;
@@ -5938,16 +5947,17 @@ tr.lasttr {
     border-radius: 10px;
     border: 1px solid;
     border-color: var(--primaryprimary-50);
-  }
+}
 
-  .btn-primary{
+.btn-primary {
     min-width: 150px;
-  }
+}
 
-  table.table-reimbursements.tablestatus-later thead{ 
+table.table-reimbursements.tablestatus-later thead {
     background: #86889B;
-  }
-  .selectvouchers-table tbody tr:last-child {
+}
+
+.selectvouchers-table tbody tr:last-child {
     border-bottom: 1px solid #eeeeee;
 }
 
@@ -5956,13 +5966,14 @@ tr.lasttr {
     justify-content: space-between;
     align-items: center;
 }
+
 table.table-upivouchers tbody td label {
     background: #eee;
     padding: 4px 10px;
     border-radius: 20px;
 }
 
-table.table-upivouchers tbody td{
+table.table-upivouchers tbody td {
     border: 1px solid #EAF4EF;
 }
 
@@ -5972,25 +5983,29 @@ table.table-upivouchers tbody td{
     top: 0;
 }
 
-.bg-black{
+.bg-black {
     background: #000;
 }
 
-.bg-grey{
+.bg-grey {
     background: #EAF4EF;
 }
-.bg-green{
+
+.bg-green {
     background: #2F945A;
 }
 
 .modal-inn {
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 15px; overflow: hidden;
+    margin-bottom: 15px;
+    overflow: hidden;
 }
+
 .modal-inn h6 {
     font-weight: 600;
 }
+
 .modal-inn p {
     font-weight: 400;
     font-size: 14px;
@@ -5999,29 +6014,108 @@ table.table-upivouchers tbody td{
 
 .modal-inn ul {
     margin-bottom: 0;
-    margin-top: 10px; font-size: 14px;
+    margin-top: 10px;
+    font-size: 14px;
 }
 
-.modal-inn ul li{
+.modal-inn ul li {
     width: 50%;
     float: left;
 }
 
-.selectvouchers-topleft20{
+.selectvouchers-topleft20 {
     width: 20%;
 }
 
-.selectvouchers-topright80{
+.selectvouchers-topright80 {
     width: 80%;
 }
 
 .headnobg h3 {
     color: #1F212C;
     font-size: 22px;
-    font-weight: 600; margin-top: 20px;
+    font-weight: 600;
+    margin-top: 20px;
 }
 
 table.vcScheduledtable thead {
     background: #86889B;
     color: #fff;
+}
+
+.modal-content button.btn-border-primary,
+.modal-content button.btn-primary {
+    border: 1px solid rgba(54, 122, 255, .50);
+    padding: .375rem .75rem;
+}
+
+.selected {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px;
+}
+
+.span-container {
+    margin: 10px 0;
+}
+
+.span-container span {
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+.slick-dotted.slick-slider {
+    margin-bottom: 0;
+}
+
+.slick-prev,
+.slick-next {
+    width: 41px;
+    height: 41px;
+}
+
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before {
+    opacity: 1;
+}
+
+.slick-prev:before {
+    content: url("../img/slider-left-arrow.png");
+}
+
+.slick-next:before {
+    content: url("../img/slider-right-arrow.png");
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-size: 40px;
+}
+
+.slick-prev {
+    left: -45px;
+}
+
+.slick-next {
+    right: -45px;
+}
+
+.static-top {
+    justify-content: space-between;
+}
+
+.dropdown.dropdown-custom .dropdown-toggle {
+    border: 1px solid #C7C8D1;
+    background: #EDEDF0;
+    border-radius: 10px;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+.dropdown.dropdown-custom .dropdown-toggle span {
+    margin-right: 10px; font-size: .85rem;
 }

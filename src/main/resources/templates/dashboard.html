@@ -116,7 +116,7 @@
                                             <div class="basic-details-input">
                                                 <span>1</span>
                                                 <p>Setup Compliance</p>
-                                                <a class="btn btn-primary" th:href="@{/companyDetails}">Start</a>
+                                                <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>
                                             </div>
 
                                             <div class="basic-details-input no-bg mb-0">

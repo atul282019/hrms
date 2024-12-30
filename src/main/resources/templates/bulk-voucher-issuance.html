@@ -22,17 +22,21 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/custom.css">
+
+	<link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
+
+	    <link rel="stylesheet" href="css/custom.css">
 
 </head>
 
-<body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail(),getVoucherDetailByBoucherCode()" >
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail(),getTotalVoucherCount()" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
 		<!-- Sidebar -->
-		    <div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
+		    <div th:insert="fragments/sidenav.html :: sidevav"></div>
        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -148,7 +152,7 @@
                                         <div class="col-12 col-md-10">
                                             <div class="d-flex align-items-center mb-4">
                                                 <a class="btn btn-outline-green ml-0" th:href="@{/getVoucherTemplate}" >Download Template</a>
-                                                <p class="mb-0">Last updated on 20/02/2023</p>
+                                                <p class="mb-0">Last updated on <span th:text="${session.formattedDate}" ></span></p>
                                             </div>
 
                                             <ul class="bulk-list">
@@ -169,87 +173,6 @@
                                                 <li><span>4.</span>Please do not use all capital letters in address, name, title etc.</li>
                                             </ul>
 											
-											<div class="upi-voucher-wrap">
-																				
-													<div>
-					                                   <h5> Select Linked Bank Account</h5>
-					                                </div>
-															 	
-													<div class="cstm-gensel">
-													<div class="custom-GeneralSelect">
-													  <select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber()">
-														 <option value="" class="test">Select Bank</option>
-					                                     </select>
-
-														 <div class="error-msg" id="banklistError" style="color:red"></div>	 
-													 </div>
-														 
-													  <div class="bnak-dtail-wrap" id="bankDetailView" style="display: none">
-													      <div class="bnk-dtl-wrap-in">
-													          <label>Account Type</label><span id="accTypeView"></span>
-													      </div>
-
-													      <div class="bnk-dtl-wrap-in">
-													          <label>IFSC Code</label><span id="accIfscView"></span>
-													      </div>
-
-								                          <div class="bnk-dtl-wrap-in">
-													          <label>Name</label><span id="accHolderNameView"></span>
-													      </div>
-
-										                  <div class="bnk-dtl-wrap-in">
-													          <label>MID</label><span id="accMidView"></span>
-													      </div>          
-														  
-														  <div class="bnk-dtl-wrap-in">
-													          <label>MCC</label><span id="MccView"></span>
-													      </div>    
-													      <div class="bnk-dtl-wrap-in">
-													          <label>Payerva</label><span id="accPayervaView"></span>
-													      </div>                                
-										             </div>
-													 </div>
-													
-												<div>
-				                                   <h5> Select  Voucher MCC</h5>
-				                                </div>
-												<div class="cstm-gensel">
- 													<div class="custom-GeneralSelect">
- 													  <select class="GeneralSelect" id="voucherTypeMCC" onchange="getmccMasterDetailsByPurposeCodeAndMcc()">
- 														 <option value="" class="test">Select Voucher</option>
- 					                                     </select>
-
- 														 <div class="error-msg" id="voucherTypeMCCError" style="color:red"></div>	 
- 													 </div>
- 														 
- 													  <div class="bnak-dtail-wrap" id="bankDetailView" style="display: none">
- 													      <div class="bnk-dtl-wrap-in">
- 													          <label>Account Type</label><span id="accTypeView"></span>
- 													      </div>
-
- 													      <div class="bnk-dtl-wrap-in">
- 													          <label>IFSC Code</label><span id="accIfscView"></span>
- 													      </div>
-
- 								                          <div class="bnk-dtl-wrap-in">
- 													          <label>Name</label><span id="accHolderNameView"></span>
- 													      </div>
-
- 										                  <div class="bnk-dtl-wrap-in">
- 													          <label>MID</label><span id="accMidView"></span>
- 													      </div>          
- 														  
- 														  <div class="bnk-dtl-wrap-in">
- 													          <label>MCC</label><span id="MccView"></span>
- 													      </div>    
- 													      <div class="bnk-dtl-wrap-in">
- 													          <label>Payerva</label><span id="accPayervaView"></span>
- 													      </div>                                
- 										             </div>
- 													 </div>
-
-				                                 </div>
-	
                                             <div class="form-group choose-file" style="max-width: 600px;">
                                                 <div class="input-group">
                                                   <input type="text" class="form-control" readonly>                                                  
@@ -278,6 +201,7 @@
 									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
 																		
 									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+									<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">
 									
 									<input type="hidden" class="form-input" id="voucherId" name="voucherId"> 
 									<input type="hidden" class="form-input" id="voucherCode" name="voucherCode"> 
@@ -392,8 +316,7 @@
                                                     <th>amount</th>
                                                     <th>startDate</th>
                                                     <th>expDate</th>
-                                                   
-												
+                                                
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -403,9 +326,8 @@
                                     </div>
 
                                     <div class="text-right my-3">
-                                       <!-- <button class="btn btn-outline-download" data-toggle="modal" data-target="#ModalDownload1">Download</button>-->
 										<button class="btn btn-outline-download" id="downloadBtn" data-toggle="modal" data-target="#ModalDownload1">Download</button>
-                                        <!--<button class="btn btn-retry">Retry</button>-->
+                                       
                                     </div>
                                 </div>
 
@@ -415,26 +337,72 @@
                         </div>
                     </div>
 					<div class="tab-content" id="selectvouchers-wrap-issue" style="display: none;">
-					                               <div class="selectvouchers-update">
-					                                   <p>Last updated on</p>
-					                                   <span>10:26:13</span>
-					                                   <span>Mon 17 Dec 2024</span>
-					                               </div>
-					                               <div class="selectvouchers-top">
-					                                   <div class="selectvouchers-topleft">
-					                                       <div class="selectvouchers-topleft-cards d-flex" >
-					                                           <div id="jsonDataBank"></div>
-					                                       </div>
-					                                 
-					                                   </div>
-					                                   <div class="selectvouchers-topright">
-					                                       <div class="selectvouchers-carosel" id="jsonData">
-					                                       </div>
-					                                   </div>
-					                               </div>
+                               <div class="selectvouchers-update">
+                                   <p>Last updated on</p>
+                                   <span th:text="${session.formattedDate}" ></span>
+                               </div>
+                              <!-- <div class="selectvouchers-top">
+                                   <div class="selectvouchers-topleft">
+                                       <div class="selectvouchers-topleft-cards d-flex" >
+                                           <div id="jsonDataBank"></div>
+                                       </div>
+                                 
+                                   </div>
+                                   <div class="selectvouchers-topright">
+                                       <div class="selectvouchers-carosel" id="jsonData">
+                                       </div>
+                                   </div>
+                               </div>-->
+								<div class="selectvouchers-top">
+                               <div class="selectvouchers-topleft">
+                                   <div class="selectvouchers-topleft-cards">
+                                     <!--  <div class="selectvouchers-topleft-cardsdiv">
+                                           <div class="INDIANB-NS-wrapper"><img class="INDIANB-NS" 
+											src="img/indianbank.png" width="16px"></div>
+                                           <div class="text-wrapper">Indian Bank</div>
+                                           <div class="xxxx">xxxx3456</div>
+                                           <img class="dropdown" src="img/arrowdown.svg" width="16px">
+                                       </div>-->
+									   <select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber()">
+										 <option value="" class="test">Select Bank</option>
+	                                     </select>
+
+                                       <div class="div-2">
+                                           <div class="text-wrapper-2">Available Balance</div>
+                                           <p class="element"><span class="span">₹</span> <span
+                                                   class="text-wrapper-3">0,00,000</span></p>
+                                           <img class="recall" src="img/recall.svg">
+                                       </div>
+                                       <p class="last-updated-on">Last Updated on <span th:text="${session.formattedDate}" ></span></p>
+
+                                   </div>
+                                   <div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
+                                       <h5>Total Vouchers</h5>
+                                       <div class="d-flex justify-content-between my-1 mb-3">
+                                           <span>Number</span>
+                                           <span id="totalNumber"></span>
+                                       </div>
+                                       <div class="d-flex justify-content-between my-1">
+                                           <span>Value</span>
+                                           <span id="totalValue"></span>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="selectvouchers-topright">
+                                   <div class="selectvouchers-carosel responsive-content">
+                                    
+									   <div class="selectvouchers-carosel-cards">
+		                                    <div class="selectvouchers-carosel" id="jsonData">
+		                                    </div>
+		                                </div>
+
+                                     
+                                   </div>
+                               </div>
+							 
+                           </div>
+
 					      <div class="upi-voucher-wrap selectvouchers-VerifyDetails" >
-						
-						
                            <h3>Verify Details </h3>
                            <div>
                                <p>Please cross-check the details for the issuance of vouchers.</p>
@@ -481,13 +449,169 @@
 						   						   
                            <div class="w-100 mt-3 text-right">
                                <div class="btn btn-border-primary" onclick="returnTab2()">Back</div>
-                              <!-- <div class="btn btn-primary" data-toggle="modal"
-                                   data-target="#modalissueVouchers">Issue Vouchers</div>-->
 								   
 								   <button  class="btn btn-primary" id="submitButton">Issue Vouchers</button>
                            </div>
 					  </div>
 					</div>
+					
+					
+					<div class="upi-voucher-wrap" id="upi-voucher-wrapThree" style="display: none;">
+						    <div class="selectvouchers-update">
+						        <p>Last updated on</p>
+						        <span th:text="${session.formattedDate}" ></span>
+						    </div>
+						   <!-- <div class="selectvouchers-top">
+						        <div class="selectvouchers-topleft">
+						            <div class="selectvouchers-topleft-cards d-flex" >
+						                <div id="jsonDataBank"></div>
+						            </div>
+						      
+						        </div>
+						        <div class="selectvouchers-topright">
+						            <div class="selectvouchers-carosel" id="jsonData">
+						            </div>
+						        </div>
+						    </div>-->
+							<div class="selectvouchers-top">
+						    <div class="selectvouchers-topleft">
+						        <div class="selectvouchers-topleft-cards">
+						          <!--  <div class="selectvouchers-topleft-cardsdiv">
+						                <div class="INDIANB-NS-wrapper"><img class="INDIANB-NS" 
+										src="img/indianbank.png" width="16px"></div>
+						                <div class="text-wrapper">Indian Bank</div>
+						                <div class="xxxx">xxxx3456</div>
+						                <img class="dropdown" src="img/arrowdown.svg" width="16px">
+						            </div>-->
+								   <select class="GeneralSelect" id="banklist2" onchange="getBankDetailByBankAccountNumber()">
+								
+						              </select>
+
+						            <div class="div-2">
+						                <div class="text-wrapper-2">Available Balance</div>
+						                <p class="element"><span class="span">₹</span> <span
+						                        class="text-wrapper-3">0,00,000</span></p>
+						                <img class="recall" src="img/recall.svg">
+						            </div>
+						            <p class="last-updated-on">Last Updated on <span th:text="${session.formattedDate}" ></span></p>
+
+						        </div>
+						        <div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
+						            <h5>Total Vouchers</h5>
+						            <div class="d-flex justify-content-between my-1 mb-3">
+						                <span>Number</span>
+						                <span id="totalNumber2"></span>
+						            </div>
+						            <div class="d-flex justify-content-between my-1">
+						                <span>Value</span>
+						                <span id="totalValue2"></span>
+						            </div>
+						        </div>
+						    </div>
+						    <div class="selectvouchers-topright">
+						        <div class="selectvouchers-carosel responsive-content">
+						         
+								   <div class="selectvouchers-carosel-cards">
+						                 <div class="selectvouchers-carosel" id="jsonData2">
+						                 </div>
+						             </div>
+
+						          
+						        </div>
+						    </div>
+						 
+						</div>
+					    <div class="d-flex align-items-center justify-content-between">
+					        <div>
+					            <h3>Report for Voucher Issuance</h3>
+					            <p>Please cross-check the details for the issuance of vouchers. </p>
+					        </div>
+					        <div class="rightdownload mb-3">
+					            <div class="download-vc">
+					                <img src="img/download-vouchers.svg" alt="">
+					            </div>
+					        </div>
+					    </div>
+					    <hr>
+
+					    <div class="table-responsive">
+					        <table class="table table-reimbursements selectvouchers-table" id="successFailVoucherTable">
+					            <thead>
+					                <tr>
+					                    <th>Name</th>
+					                    <th>Mobile Number</th>
+					                    <th>Voucher Type</th>
+					                    <th>Redemption Type</th>
+					                    <th>Amount</th>
+					                    <th>Start Date</th>
+					                    <th>Validity</th>
+					                    <th>Status</th>
+					                    <th></th>
+					                </tr>
+					            </thead>
+					            <tbody>
+					                
+					            </tbody>
+					        </table>
+					    </div>
+					   <!-- <p>Below are the details of the vouchers scheduled for issuance on a later date. </p>
+					    <div class="table-responsive">
+					        <table class="table table-reimbursements selectvouchers-table tablestatus-later" >
+					            <thead>
+					                <tr>
+					                    <th>Name</th>
+					                    <th>Mobile Number</th>
+					                    <th>Voucher Type</th>
+					                    <th>Redemption Type</th>
+					                    <th>Amount</th>
+					                    <th>Start Date</th>
+					                    <th>Validity</th>
+					                    <th>Transaction Number</th>
+					                    <th></th>
+					                </tr>
+					            </thead>
+					            <tbody>
+					                <<tr>
+					                    <td>
+					                        Deepika Sudan
+					                    </td>
+					                    <td>
+					                        9910318405
+					                    </td>
+					                    <td>
+					                        <img src="img/food.svg" alt=""> Meal
+					                    </td>
+					                    <td>
+					                        Single
+					                    </td>
+					                    <td>
+					                        &#8377; ₹10,000
+					                    </td>
+					                    <td>
+					                        25/10/2024
+					                    </td>
+					                    <td>
+					                        100 Days
+					                    </td>
+					                    <td>12345678965433456789</td>
+					                    <td>
+					                        <a href="#"><img src="img/status-later.svg" alt=""></a>
+					                    </td>
+					                </tr>
+					            </tbody>
+					        </table>
+					    </div>
+					    -->
+					    <div class="row">
+					        <div class="col-12 text-right my-3">
+					            <a th:href="@{/upiVoucherIssuanceNew}" class="btn btn-primary mb-1">GO TO DASHBOARD</a>
+					        </div>
+					    </div>
+
+
+					</div>
+					
+					
                 </div>
                 <!-- /.container-fluid -->
 
@@ -539,6 +663,8 @@
 	<script src="js/xsls-export.js"></script>
 	<script type="text/javascript" src="cotodel-js/bulk-voucher-issuance.js"></script>
 
+	<script type="text/javascript" src="js/slick/slick.min.js"></script>
+
 
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -549,7 +675,7 @@
 	$(document).ready(function(){
 		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' +'/upiVoucherIssuance"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  $('a[href="' +'/upiVoucherIssuanceNew"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
 	   $(".innernav").click(function(){
 	       $(".dropdownNav").addClass("active");

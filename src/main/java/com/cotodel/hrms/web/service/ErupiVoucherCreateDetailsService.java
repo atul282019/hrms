@@ -6,6 +6,7 @@ import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
+import com.cotodel.hrms.web.response.RoleAccessRequest;
 
 @Repository
 public interface ErupiVoucherCreateDetailsService {
@@ -29,5 +30,9 @@ public interface ErupiVoucherCreateDetailsService {
 	String geterupiVoucherOldList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
 	String exitingUserVoucherCreation(String token,ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest);
+
+	String voucherUserSearch(String token, RoleAccessRequest roleAccessRequest);
+
+	String getTotalVoucherCount(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
 }

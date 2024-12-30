@@ -35,4 +35,8 @@ public interface MasterService {
 
 	String getofficeLocationMaster(String token, EmployeeMassterRequest employeeMassterRequest);
 
+	String getVoucherListWithIcon(String token, EmployeeMassterRequest employeeMassterRequest);
+
+	String getPurposeListByVoucherCode(String token, EmployeeMassterRequest employeeMassterRequest);
+
 }

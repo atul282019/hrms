@@ -11,5 +11,6 @@ public class EmployeeMassterRequest {
 	
 	public Integer employeeId;
 	public Integer orgId;
+	public String purposeCode;
 
 }

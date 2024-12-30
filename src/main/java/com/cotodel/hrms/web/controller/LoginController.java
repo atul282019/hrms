@@ -1,5 +1,7 @@
 package com.cotodel.hrms.web.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +51,15 @@ public class LoginController extends CotoDelBaseController{
 		String profileRes=null;JSONObject profileJsonRes=null;String screenName="index";
 		String message =null; String otpmobile =null; String orderid=null;
 		UserDetailsEntity obj =null;
+		 Date currentDate = new Date();
+	        
+	        // Define the desired date format
+	        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss E d MMM yyyy");
+	        // Format the date
+	        String formattedDate = formatter.format(currentDate);
+	        
+	        // Print the formatted date
+	        System.out.println(formattedDate);
 		try {
 			String password = null;
 			password= userForm.getPassword1()+userForm.getPassword2()+userForm.getPassword3()+userForm.getPassword4()+userForm.getPassword5()+userForm.getPassword6();      
@@ -68,7 +79,7 @@ public class LoginController extends CotoDelBaseController{
 					request.getSession(true).setAttribute("hrms", profileJsonRes.getJSONObject("data").getString("mobile"));
 					request.getSession(true).setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
 					request.getSession(true).setAttribute("user_role",  profileJsonRes.getJSONObject("data").getInt("role_id"));
-					
+					request.getSession(true).setAttribute("formattedDate",  formattedDate);
 					if(profileJsonRes.getJSONObject("data").getInt("role_id") == 1) {
 					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
@@ -104,7 +115,8 @@ public class LoginController extends CotoDelBaseController{
 						String email = profileJsonRes.getJSONObject("data").getString("email");
 						String mobile = profileJsonRes.getJSONObject("data").getString("mobile");
 						String username = profileJsonRes.getJSONObject("data").getString("username");
-						String token	=	JwtTokenGenerator.generateToken(email,mobile,username, MessageConstant.SECRET);
+						Integer user_role = profileJsonRes.getJSONObject("data").getInt("role_id");
+						String token	=	JwtTokenGenerator.generateToken(email,mobile,username,user_role, MessageConstant.SECRET);
 						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
 					    request.getSession(true).setAttribute("hrms", token);
 					    // switch case to identify the user screen login
@@ -117,10 +129,12 @@ public class LoginController extends CotoDelBaseController{
 						screenName="dashboard";
 						break;	
 					case "9":
-						screenName="erupi-dashboard";
+						//screenName="erupi-dashboard";
+						screenName="dashboard";
 						break;	
 					case "2":
-						screenName="employee-dashboard";
+						//screenName="employee-dashboard";
+						screenName="dashboard";
 						model.addAttribute("name",profileJsonRes.getJSONObject("data").getString("email"));
 						break;		
 					}

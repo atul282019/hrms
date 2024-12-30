@@ -16,7 +16,7 @@
 
 		<!-- Sidebar -->
 		      
-		 	  <div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
+		 	  <div th:insert="fragments/sidenav.html :: sidevav"></div>
 		      <!-- End of Sidebar -->
        
         <!-- Content Wrapper -->
@@ -116,7 +116,7 @@
                                                 <div class="funds-mark">-</div>
                                             </div>
                                         </div>
-                                        <div class="linkedAccount-wrap-p"><label>Last updated on</label><span>15:26:13</span><span>Wed 4 Sep 2024</span></div>
+                                        <div class="linkedAccount-wrap-p"><label>Last updated on</label><span th:text="${session.formattedDate}" ></span></div>
                                     </div>
 
                                     <div class="upi-voucher-table">

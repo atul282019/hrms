@@ -89,7 +89,7 @@ public interface CommonUtils {
 	
 	public static String getVoucherDetailByBoucherCode  = "/empService/Api/get/voucherTypeMaster";
 	
-	public static String createSingleVoucher = "/empService/Api/add/erupiVoucherInitiateDetails";
+	public static String createSingleVoucher = "/empService/Api/add/erupiVoucherInitiateDetailsNew";
 	
 	public static String getLinkedDetailByAccountNumber = "/empService/Api/get/erupiLinkAccountDetails";
 	
@@ -97,7 +97,7 @@ public interface CommonUtils {
 	
 	public static String getIssuseVoucherList ="/empService/Api/get/erupiVoucherCreateList";
 	
-	public static String getvoucherSummaryList ="/empService/Api/get/voucherSummaryList";
+	public static String getvoucherSummaryList ="/empService/Api/get/voucherCreateSummaryList";
 	
 	public static String getPrimaryBankDetailByOrgId = "/empService/Api/get/erupiPrimaryAccountDetails";
 	
@@ -113,7 +113,7 @@ public interface CommonUtils {
 	
 	public static String revokeCreatedVoucherOneByOne="/empService/Api/update/erupiVoucherRevokeSingle";
 	public static String resendErupiVoucheSmsSend="/empService/Api/get/erupiVoucherSms";
-	public static String bulkVoucherUpload = "/empService/Api/add/erupiVoucherBulkVoucherUpload";
+	public static String bulkVoucherUpload = "/empService/Api/add/erupiVoucherBulkVoucherUploadNew";
 	
 	public static String createBulkVoucher = "/empService/Api/add/erupiVoucherBulkVoucherCreate";
 	
@@ -142,8 +142,9 @@ public interface CommonUtils {
 	public static String getofficeLocationMaster="/empService/Api/get/getCompaneyAddress";
 	
 	public static String getVoucherListWithIcon ="/masterService/Api/get/voucherList"; 
+	public static String getPurposeListByVoucherCode ="/masterService/Api/get/mccByPurposeCodeList"; 
 	
-	
-	
+	public static String voucherUserSearch="/userServices/Api/get/userSearchWithMobile";
+	public static String getTotalVoucherCount = "/empService/Api/get/voucherSummaryTotalCount";
 
 }

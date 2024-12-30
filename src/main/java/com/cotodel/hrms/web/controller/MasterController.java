@@ -123,6 +123,22 @@ public class MasterController  extends CotoDelBaseController{
 		return masterService.getofficeLocationMaster(tokengeneration.getToken(),employeeMassterRequest);
 	}
 	
+	@GetMapping(value="/getVoucherListWithIcon")
+	public @ResponseBody String getVoucherListWithIcon(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("getofficeLocationMaster");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getVoucherListWithIcon(tokengeneration.getToken(),employeeMassterRequest);
+	}
+	
+	@GetMapping(value="/getPurposeListByVoucherCode")
+	public @ResponseBody String getPurposeListByVoucherCode(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("getofficeLocationMaster");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getPurposeListByVoucherCode(tokengeneration.getToken(),employeeMassterRequest);
+	}
+	
 	
 
 }

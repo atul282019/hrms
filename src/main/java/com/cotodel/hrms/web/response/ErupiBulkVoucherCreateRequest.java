@@ -17,7 +17,7 @@ public class ErupiBulkVoucherCreateRequest {
 	private String voucherType;
 	private String voucherDesc;
 	private String name;	
-	private String bankCode;	
+	private String bankcode;	
 	private String mobile;			
 	private Float amount;	
     private String startDate;			

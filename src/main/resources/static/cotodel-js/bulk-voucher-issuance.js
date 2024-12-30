@@ -46,22 +46,27 @@ $(document).on('change','.up', function(){
    	}
    
 	$(document).ready(function() {
-			    $('#submitButton').click(function() {
-				  const checkbox = document.getElementById('customCheck45');
-			  		 const errorMessage = document.getElementById('errorMessage');
-			  		 if (checkbox.checked) {
-			  		    errorMessage.textContent = "";
-			  		  } else {
-			  		    errorMessage.textContent = "Please check consent"; 
-			  			return false;
-			  		  }
+		    $('#submitButton').click(function() {
+			  const checkbox = document.getElementById('customCheck45');
+		  	  const errorMessage = document.getElementById('errorMessage');
+			  const banklist = document.getElementById('banklist').value;
+			  if(banklist =="" || banklist == null){
+			  				 alert("Please Select Bank");
+			  				 return false;
+			  	  }
+		  		 if (checkbox.checked) {
+		  		    errorMessage.textContent = "";
+		  		  } else {
+		  		    errorMessage.textContent = "Please check consent"; 
+		  			return false;
+		  		  }
 				  document.getElementById('submitButton').disabled=true;
-			      var linkedmobilenumber = document.getElementById("banklinkedMobile").value;
+			      var employerMobile = document.getElementById("employerMobile").value;
 			      $.ajax({
 			        url:"/smsOtpSender",
 			        type: 'POST',
 					data: {
-								"mob": linkedmobilenumber,
+								"mob": employerMobile,
 						  },
 					dataType: 'json',
 					success: function(data) {
@@ -160,26 +165,8 @@ function convertImageToBase64() {
 
 	function saveBulkVoucherclearmessage(){
 		
-		var banklist = document.getElementById("banklist").value;
-		var voucherTypeMCC = document.getElementById("voucherTypeMCC").value;
+	//	var banklist = document.getElementById("banklist").value;
 		var fileInput = document.getElementById("up").value;
-		
-		
-		if(banklist =="" || banklist == null){
-				 document.getElementById("banklistError").innerHTML="Please Select Bank";
-				 return false;
-			}
-			else{
-				document.getElementById("banklistError").innerHTML="";
-			}
-			if(voucherTypeMCC =="" || voucherTypeMCC == null){
-				 document.getElementById("voucherTypeMCCError").innerHTML="Please Select Voucher MCC";
-				 return false;
-			}
-			else{
-				document.getElementById("voucherTypeMCCError").innerHTML="";
-			}
-			
 		if(fileInput =="" || fileInput == null){
 			 document.getElementById("fileInputError").innerHTML="Please Select File";
 			 return false;
@@ -192,47 +179,18 @@ function convertImageToBase64() {
 	
 function saveBulkVoucherUpload(){
 	
-	var banklist = document.getElementById("banklist").value;
-	var voucherTypeMCC = document.getElementById("voucherTypeMCC").value;
 	var fileInput = document.getElementById("up").value;
 	var fileName = document.getElementById("fileName").value;
 	var base64file = document.getElementById("base64Output").value;
-	//var mcc = document.getElementById("up").value;
-	var payerva = document.getElementById("payerva").value;
-	var merchentid = document.getElementById("merchentid").value;
-	var bankcode = document.getElementById("bankCode").value;
-	
-	var mcc = document.getElementById("mcc").value;
-	//var merchantId = document.getElementById("merchentid").value;
-	var submurchentid = document.getElementById("submurchentid").value;
-	var orgId = document.getElementById("employerId").value;
-
-	var voucherId= document.getElementById("voucherId").value;
-	var voucherCode= document.getElementById("voucherCode").value;
-	var voucherType= document.getElementById("voucherType").value;
-	var voucherSubType = document.getElementById("voucherSubType").value;
-	var voucherDesc = document.getElementById("voucherDesc").value;
-	var purposeCode = document.getElementById("purposeCode").value;
-	var activeStatus = document.getElementById("activeStatus").value;
 	var createdby =  document.getElementById("employerName").value;
-	
+	var orgId = document.getElementById("employerId").value;
 	var element = document.getElementById("tab2");
 	 element.classList.add("active");
-	
-	if(banklist =="" || banklist == null){
-			 document.getElementById("banklistError").innerHTML="Please Select Bank";
-			 return false;
-		}
-		else{
-			document.getElementById("banklistError").innerHTML="";
-		}
-		if(voucherTypeMCC =="" || voucherTypeMCC == null){
-			 document.getElementById("voucherTypeMCCError").innerHTML="Please Select Voucher MCC";
-			 return false;
-		}
-		else{
-			document.getElementById("voucherTypeMCCError").innerHTML="";
-		}
+	 
+	var voucherCode = localStorage.getItem("voucherCode");
+	var voucherName = localStorage.getItem("voucherName");
+	var purposeCode = localStorage.getItem("purposeCode");
+	var purposeName = localStorage.getItem("purposeName");
 		
 	if(fileInput =="" || fileInput == null){
 		 document.getElementById("fileInputError").innerHTML="Please Select File";
@@ -250,21 +208,22 @@ function saveBulkVoucherUpload(){
 					"orgId":orgId,
 					"fileName":fileName,
 					"file":base64file,
-					"purposeCode":purposeCode,
+					"purposeCode":"",
 					"accountId":1,
-					 "mcc": mcc,
+					"mcc": purposeCode,
+					"mccDesc": purposeName,
 					"beneficiaryID":"",
-					"payerVA":payerva,
+					"payerVA":"",
 					"type":"CREATE",
-					"bankcode": bankcode,
-					"voucherId": voucherId,
+					"bankcode": "",
+					"voucherId": "",
 				    "voucherCode": voucherCode,
-					"voucherDesc": voucherDesc,
+					"voucherDesc": voucherName,
 					"voucherType": "Bulk",
-					"activeStatus": activeStatus,			
+					"activeStatus": "",			
 					"merchanttxnid": "",
-					"merchantId": merchentid,
-					"subMerchantId": submurchentid,
+					"merchantId": "",
+					"subMerchantId": "",
 					"createdby":createdby,
 				    "otpValidationStatus": "",
 					"consent": "",
@@ -471,7 +430,7 @@ function verfyIssueVoucherOTP() {
   	var password5 = document.getElementById("password5").value;
   	var password6 = document.getElementById("password6").value;
   	var orderId = document.getElementById("orderId").value;
-  	var linkedmobilenumber = document.getElementById("banklinkedMobile").value;
+  	var employerMobile = document.getElementById("employerMobile").value;
   	
   	if (document.getElementById("banklinkedMobile").value == "") {
   		document.getElementById("mobError").innerHTML="Please Enter mobile..";
@@ -561,9 +520,9 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": linkedmobilenumber,
+  				"mob": employerMobile,
   				"orderId": orderId,
-  				"userName":linkedmobilenumber
+  				"userName":employerMobile
   			},
   			success: function(data) {
   				var obj = data;
@@ -642,9 +601,11 @@ function  getLinkedBankDetail(){
 			            newData = data;
 			//            console.log(newData);
 						$("#banklist option").remove();
+						$("#banklist2 option").remove();
 			            var obj = jQuery.parseJSON( data );
 			             obj = obj.data;
 			        	 var count=0;
+						 var count1=0;
 			         	for (var key in obj) {
 
 			             var values =  obj[key];
@@ -662,6 +623,23 @@ function  getLinkedBankDetail(){
 
 			             count++;
 			             }
+						 for (var key in obj) {
+
+	 			             var values =  obj[key];
+	 			             var x = document.getElementById("banklist2");
+	 			             if(count1==0){
+	 			             var option = document.createElement("option");
+	 			             option.text ="Select Bank";
+	 			             option.value = "";
+	 			             x.add(option);
+	 			             }
+	 			             var option = document.createElement("option");
+	 			             option.value = values.acNumber;
+	 			             option.text = values.bankName+" | "+values.acNumber;
+	 			             x.add(option);
+
+	 			             count1++;
+	 			             }
           },
         error: function(e){
             alert('Error: ' + e);
@@ -790,7 +768,7 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
 }
 
 function  getBankDetailByBankAccountNumber(){
-	saveBulkVoucherclearmessage();
+	//saveBulkVoucherclearmessage();
     //document.getElementById("signinLoader").style.display="flex";
  	var accountNumber = document.getElementById("banklist").value;
  	$.ajax({
@@ -807,15 +785,7 @@ function  getBankDetailByBankAccountNumber(){
            //console.log(newData);
            var data1 = jQuery.parseJSON( newData );
 		   //var data2 = data1.data;
-		   
-		    document.getElementById("bankDetailView").style.display="flex";
-			document.getElementById("accTypeView").innerHTML=data1.data.accountType;
-			document.getElementById("accIfscView").innerHTML=data1.data.ifsc;
-			document.getElementById("accHolderNameView").innerHTML=data1.data.accountHolderName;
-			document.getElementById("accMidView").innerHTML=data1.data.merchentIid;
-			document.getElementById("accPayervaView").innerHTML=data1.data.payerva;
-		    document.getElementById("MccView").innerHTML=data1.data.mcc;
-			
+		 
 			document.getElementById("bankName").value=data1.data.bankName; 
 			document.getElementById("bankCode").value=data1.data.bankCode; 
 			document.getElementById("accountHolderName").value=data1.data.accountHolderName; 
@@ -850,6 +820,29 @@ function  getBankDetailByBankAccountNumber(){
 			
 }
 
+function getTotalVoucherCount(){
+			var employerid = document.getElementById("employerId").value;
+			$.ajax({
+				type: "POST",
+				url: "/getTotalVoucherCount",
+				data: {
+					"orgId": employerid,
+					"workflowid":100003
+				},
+				success: function(data) {
+					newData = data;
+					var data1 = jQuery.parseJSON(newData);
+					document.getElementById("totalNumber").innerText=data1.totalCount;
+					document.getElementById("totalValue").innerText="₹"+data1.totalAmount;
+					document.getElementById("totalNumber2").innerText=data1.totalCount;
+					document.getElementById("totalValue2").innerText="₹"+data1.totalAmount;
+					},
+					error: function(e) {
+						alert('Failed to fetch JSON data' + e);
+				}
+			});
+		}
+
 
 function getVoucherSummaryList(){
 			var employerid = document.getElementById("employerId").value;
@@ -867,8 +860,9 @@ function getVoucherSummaryList(){
 					 //console.log(data2);
 					 
 					 const container = document.getElementById('jsonData');	
+					 const container2 = document.getElementById('jsonData2');	
 					 
-					 const statusMessage = document.createElement('div');
+					/* const statusMessage = document.createElement('div');
 					 statusMessage.classList.add('selectvouchers-carosel-cards');
 					 statusMessage.innerHTML = `
  					                 <h5>Total Vouchers</h5>
@@ -876,19 +870,32 @@ function getVoucherSummaryList(){
  					                <div class="d-flex justify-content-between my-1"><span>Value</span> <span>${data1.totalAmount}</span></div>
  					            `;
 					      
-					        container.appendChild(statusMessage);
+					        container.appendChild(statusMessage);*/
 
-					        data1.data.forEach(voucher => {
+							data1.data.forEach(voucher => {
 					            const voucherDiv = document.createElement('div');
 					            voucherDiv.classList.add('selectvouchers-carosel-cards');
 					            voucherDiv.innerHTML = `
-								<h5>${voucher.type}</h5>
+								<h5><img src="data:image/png;base64,${voucher.voucherIcon}" alt="${voucher.voucherIcon}" class="logo" width="30">${voucher.voucherName}</h5>
 										
 						                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
 						                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
 					            `;
 					            container.appendChild(voucherDiv);
 					        });
+							data1.data.forEach(voucher => {
+				            const voucherDiv2 = document.createElement('div');
+				            voucherDiv2.classList.add('selectvouchers-carosel-cards');
+				            voucherDiv2.innerHTML = `
+							<h5><img src="data:image/png;base64,${voucher.voucherIcon}" alt="${voucher.voucherIcon}" class="logo" width="30">${voucher.voucherName}</h5>
+									
+					                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
+					                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
+				            `;
+				            container2.appendChild(voucherDiv2);
+							
+				        });
+							
 					},
 					error: function(e) {
 						alert('Failed to fetch JSON data' + e);
@@ -916,7 +923,7 @@ function getPrimaryBankDetail(){
 					      const dataSection = document.createElement('div');
 					      dataSection.classList.add('bnkdetils');
 						  
-						  const accountSection = document.createElement('div');
+						  /*const accountSection = document.createElement('div');
 							  let logoHTML = '';
 
 						          if (account.bankLogo) {
@@ -937,7 +944,7 @@ function getPrimaryBankDetail(){
 							  
 					 
 					      `;
-					      container.appendChild(dataSection);
+					      container.appendChild(dataSection);*/
 					},
 					error: function(e) {
 						alert('Failed to fetch JSON data' + e);
@@ -957,9 +964,9 @@ function verfyIssueVoucherOTP() {
   	var password5 = document.getElementById("password5").value;
   	var password6 = document.getElementById("password6").value;
   	var orderId = document.getElementById("orderId").value;
-  	var linkedmobilenumber = document.getElementById("banklinkedMobile").value;
+  	var employerMobile = document.getElementById("employerMobile").value;
   	
-  	if (document.getElementById("banklinkedMobile").value == "") {
+  	if (document.getElementById("employerMobile").value == "") {
   		document.getElementById("mobError").innerHTML="Please Enter mobile..";
   		
   		x = false;
@@ -1047,9 +1054,9 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": linkedmobilenumber,
+  				"mob": employerMobile,
   				"orderId": orderId,
-  				"userName":linkedmobilenumber
+  				"userName":employerMobile
   			},
   			success: function(data) {
   				var obj = data;
@@ -1084,14 +1091,12 @@ function verfyIssueVoucherOTP() {
     
   	var banklist = document.getElementById("banklist").value;
   	
-  	var voucher = document.getElementById("voucherId").value;
-  	var voucherCode = document.getElementById("voucherCode").value;
-  	var voucherType = document.getElementById("voucherType").value;;
-  	var voucherSubType = document.getElementById("voucherSubType").value;
-  	var voucherDesc = document.getElementById("voucherDesc").value;
-  	var  purposeCode= document.getElementById("purposeCode").value;
-  	var activeStatus = document.getElementById("activeStatus").value;
   	var createdby = document.getElementById("employerName").value;
+	
+	var voucherCode = localStorage.getItem("voucherCode");
+    var voucherName = localStorage.getItem("voucherName");
+	var purposeCode = localStorage.getItem("purposeCode");
+	var purposeName = localStorage.getItem("purposeName");
 	
 	const table = document.getElementById('issueVoucherTable');
 	      const firstColumnData = [];
@@ -1109,8 +1114,9 @@ function verfyIssueVoucherOTP() {
   	var merchentid = document.getElementById("merchentid").value;
   	var submurchentid = document.getElementById("submurchentid").value;
 	var orgId = document.getElementById("orgId").value;
+	var acNumber = document.getElementById("acNumber").value;
 	document.getElementById("signinLoader").style.display="flex";
-		
+	
    	$.ajax({
   	type: "POST",
   	url:"/issueBulkVoucher",
@@ -1118,18 +1124,19 @@ function verfyIssueVoucherOTP() {
 					"orgId":orgId,
 					"fileName":"",
 					"file":"",
-					"purposeCode":"",
+					"purposeCode":voucherCode,
 					"accountId":1,
-					"mcc":"",
+					"mcc":purposeCode,
 					"beneficiaryID":"",
-					"payerVA":"",
-					"type":"",
-					"bankcode":"",
-					"voucherCode":""
-					,"voucherDesc":"",
-					"merchantId":"",
-					"subMerchantId":"",
-					"createdby":"",
+					"payerVA":payerva,
+					"type":"CREATE",
+					"bankcode":bankCode,
+					"accountNumber":acNumber,
+					"voucherCode":voucherCode,
+					"voucherDesc":voucherName,
+					"merchantId":merchentid,
+					"subMerchantId":submurchentid,
+					"createdby":createdby,
 					"arrayofid":firstColumnData
 			 },  	
         		  beforeSend : function(xhr) {
@@ -1161,9 +1168,46 @@ function verfyIssueVoucherOTP() {
   		   					 document.getElementById("issuemsgdiv").style.display="block";
   		   					 //document.getElementById("getInTouchUser").reset();
   		   					 $('#otmsgdiv').delay(10000).fadeOut(800);
-  							 window.location.href = "/createUpiVoucherIssuance";
+  							 //window.location.href = "/upiVoucherIssuanceNew";
   							 document.getElementById('submitButton').disabled=false;
   							 document.getElementById('authenticate').disabled=false;
+							 document.getElementById("selectvouchers-wrap-issue").style.display="none";
+							 document.getElementById("upi-voucher-wrapThree").style.display="block";
+							
+							 const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
+
+							 data1.data.forEach((item) => {
+							     const row = tableBody.insertRow();
+
+							     row.insertCell().textContent = item.name;
+							     row.insertCell().textContent = item.mobile;
+							     row.insertCell().textContent = item.voucherDesc;
+							     row.insertCell().textContent = item.redemtionType;
+							     row.insertCell().textContent = item.amount;
+							     //row.insertCell().textContent = item.voucherCode;
+								 row.insertCell().textContent = item.startDate;
+								 row.insertCell().textContent = item.expDate;
+								// row.insertCell().textContent = item.response;
+								 
+
+							     // Add the response cell with an image
+							     const responseCell = row.insertCell();
+							     const img = document.createElement("img");
+							     if (item.response === "SUCCESS") {
+							       img.src = "img/status-check.svg"; // Path to the tick image
+							       img.alt = "Success";
+							     } else {
+							       img.src = "img/status-cross.svg"; // Path to the cross image
+							       img.alt = "Failure";
+							     }
+								// img/status-info.svg
+							     img.width = 20; // Optional: Set the size of the image
+							     img.height = 20;
+							     responseCell.appendChild(img);
+
+							    // row.insertCell().textContent = item.voucherDesc;
+							   });
+							 
   							
   		   				}else if(data1.status==false){
   							 document.getElementById('submitButton').disabled=false;

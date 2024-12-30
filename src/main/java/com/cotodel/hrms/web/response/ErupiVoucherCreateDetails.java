@@ -22,6 +22,7 @@ public class ErupiVoucherCreateDetails {
 	private Float amount;	
     private String startDate;			
     private String expDate;	
+    private String validity;
     private String purposeCode;	
     private String consent;	
     private String otpValidationStatus;		 	

@@ -1,22 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en">
 
-<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+<head>
 
-<body id="page-top" onload="getVoucherListWithIcon()">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+    <title>Create UPI Voucher Issuance - Issue Manually</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
+
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList()" >
+
+ <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-		<!-- Sidebar -->
-				      
-		 <div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
-		<!-- End of Sidebar -->
+	<!-- Sidebar -->
+					      
+	 <div th:insert="fragments/sidenav.html :: sidevav"></div>
+	
+	 <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -39,17 +64,43 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span class="mr-2 small">UPI Voucher Issuance</span>
+                                <span class="mr-2 small">UPI Voucher  Issuance</span>
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
                             </a>
                         </li>
-
                     </ul>
+					<ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                              
+                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+							          <i class="fas fa-user-circle"></i> Logout         
+							        </a>
+					          </div> -->  
+                              <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
 
+                   </ul>	
                 </nav>
-
-
-
 
                 <!-- End of Topbar -->
 
@@ -68,117 +119,74 @@
                                                 <span>1</span>
                                                 <label>Enter Voucher Details</label>
                                             </div>
-                                            <div class="breadcrumb-in">
+                                            <div class="breadcrumb-in"  id="lable2">
                                                 <span>2</span>
                                                 <label>Authenticate Issuance</label>
                                             </div>
-                                            <div class="breadcrumb-in">
+                                            <div class="breadcrumb-in" id="lable3">
                                                 <span>3</span>
                                                 <label>Vouchers Issued</label>
                                             </div>
                                         </div>
                                     </div>
-
+										
                                 </div>
                             </div>
 
                             <div class="selectvouchers-update">
                                 <p>Last updated on</p>
-                                <span>15:26:13</span>
-                                <span>Wed 4 Sep 2024</span>
+                                <span th:text="${session.formattedDate}" ></span>
                             </div>
 
                             <div class="selectvouchers-top">
                                 <div class="selectvouchers-topleft">
                                     <div class="selectvouchers-topleft-cards">
-                                        <div class="selectvouchers-topleft-cardsdiv">
-                                            <div class="INDIANB-NS-wrapper"><img class="INDIANB-NS" src="img/indianbank.png" width="16px"></div>
+                                      <!--  <div class="selectvouchers-topleft-cardsdiv">
+                                            <div class="INDIANB-NS-wrapper"><img class="INDIANB-NS"
+                                                    src="img/indianbank.png" width="16px"></div>
                                             <div class="text-wrapper">Indian Bank</div>
                                             <div class="xxxx">xxxx3456</div>
                                             <img class="dropdown" src="img/arrowdown.svg" width="16px">
-                                          </div>
-                                          <div class="div-2">
+                                        </div>-->
+										<select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber()">
+										     <option value="" class="test">Select Bank</option>
+	                                     </select>
+                                        <div class="div-2">
                                             <div class="text-wrapper-2">Available Balance</div>
-                                            <p class="element"><span class="span">₹</span> <span class="text-wrapper-3">2,50,000</span></p>
+                                            <p class="element"><span class="span">₹</span> <span
+                                                    class="text-wrapper-3">0,00,000</span></p>
                                             <img class="recall" src="img/recall.svg">
-                                          </div>
-                                          <p class="last-updated-on">Last Updated on 15:26:13 | Wed 4 Sep 2024</p>
+                                        </div>
+                                        <p class="last-updated-on"><span th:text="${session.formattedDate}" ></span></p>
 
                                     </div>
-                                    <div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
-                                        <h5>Total Vouchers</h5>
-                                        <div class="d-flex justify-content-between my-1 mb-3">
-                                            <span>Number</span>
-                                            <span>18</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between my-1">
-                                            <span>Value</span>
-                                            <span>₹2,10,000</span>
-                                        </div>
-                                    </div>
+									<div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
+                                       <h5>Total Vouchers</h5>
+                                       <div class="d-flex justify-content-between my-1 mb-3">
+                                           <span>Number</span>
+                                           <span id="totalNumber"></span>
+                                       </div>
+                                       <div class="d-flex justify-content-between my-1">
+                                           <span>Value</span>
+                                           <span id="totalValue"></span>
+                                       </div>
+                                   </div>
                                 </div>
-                                <div class="selectvouchers-topright">
-                                    <div class="selectvouchers-carosel">
-                                        <div class="selectvouchers-carosel-cards">
-                                            <h5><img src="img/food-1.svg" alt="">Meal</h5>
-                                            <div class="d-flex justify-content-between my-1 mb-3">
-                                                <span></span>
-                                                <span>2</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between my-1">
-                                                <span></span>
-                                                <span>₹10,000</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="selectvouchers-carosel-cards">
-                                            <h5><img src="img/fuel-1.svg" alt="">Fuel</h5>
-                                            <div class="d-flex justify-content-between my-1 mb-3">
-                                                <span></span>
-                                                <span>2</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between my-1">
-                                                <span></span>
-                                                <span>₹15,000</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="selectvouchers-carosel-cards">
-                                            <h5><img src="img/Travel-1.svg" alt="">Travel</h5>
-                                            <div class="d-flex justify-content-between my-1 mb-3">
-                                                <span></span>
-                                                <span>2</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between my-1">
-                                                <span></span>
-                                                <span>₹1,50,000</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="selectvouchers-carosel-cards">
-                                            <h5><img src="img/cup-1.svg" alt="">Conveyance</h5>
-                                            <div class="d-flex justify-content-between my-1 mb-3">
-                                                <span></span>
-                                                <span>10</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between my-1">
-                                                <span></span>
-                                                <span>₹20,000</span>
-                                            </div>
-                                        </div>
-                                        <div class="selectvouchers-carosel-cards">
-                                            <h5><img src="img/call-1.svg" alt="">Telecom</h5>
-                                            <div class="d-flex justify-content-between my-1 mb-3">
-                                                <span></span>
-                                                <span>2</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between my-1">
-                                                <span></span>
-                                                <span>₹15,000</span>
-                                            </div>
-                                        </div>
+                               <!-- <div class="selectvouchers-topright">
+                                    <div class="selectvouchers-carosel responsive-content" id="jsonData">
+										
+										
+                                        
                                     </div>
-                                </div>
+                                </div>-->
+								<div class="selectvouchers-topright">
+		                              <div class="selectvouchers-carosel responsive-content">
+		                                  <div class="selectvouchers-carosel-cards" id="jsonData">
+		                                    
+		                                  </div>
+		                                  
+		                              </div>
+		                          </div>
                             </div>
 
                             <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
@@ -191,78 +199,214 @@
                                 </div>
 
                                 <div class="table-responsive">
-									<table class="table table-reimbursements selectvouchers-table">
-									    <thead>
-									        <tr>
-									            <th>Name</th>
-									            <th>Mobile Number</th>
-									            <th>Voucher Type</th>
-									            <th>Redemption Type</th>
-									            <th>Amount</th>
-									            <th>Start Date</th>
-									            <th>Validity</th>
-									            <th></th>
-									        </tr>
-									    </thead>
-									    <tbody id="voucher-table-body">
-									        <tr class="voucher-row">
-									            <td>
-									                <div class="autocomp-input-wrap table-input">
-									                    <input type="text" class="autocomp-input" id="search" placeholder="Enter Name" autocomplete="off">
-									                    <div class="autocomplete-dropdown"></div>
-									                </div>
-									            </td>
-									            <td>
-									                <input type="text" class="table-input" placeholder="Enter Mobile Number">
-									            </td>
-									            <td>
-									                <input type="text" class="table-input table-input-voucher" placeholder="Select Voucher">
-									            </td>
-									            <td>
-									                <select class="GeneralSelect">
-									                    <option value="General">Choose Type</option>
-									                    <option value="General1">Single</option>
-									                    <option value="General2">Multi</option>
-									                </select>
-									            </td>
-									            <td>
-									                <input type="text" class="table-input" placeholder="Enter Amount">
-									            </td>
-									            <td>
-									                <div >
-									                    <input type="date" class="table-dateed" placeholder="Select Date">
-									                </div>
-									            </td>
-									            <td>
-									                <select class="GeneralSelect">
-									                    <option value="General">7 days</option>
-									                    <option value="General1">30 days</option>
-									                    <option value="General2">90 days</option>
-									                </select>
-									            </td>
-									            <td>
-									                <a href="#" class="delete-row"><img src="img/delete.svg" alt="Delete"></a>
-									            </td>
-									        </tr>
-									        <tr class="text-center">
-									            <td colspan="8" style="background: #EAF4EF;">
-									                <button class="text-success" id="add-new-voucher">+ Add New Voucher</button>
-									            </td>
-									        </tr>
-									    </tbody>
-									</table>
+                                    <table class="table table-reimbursements selectvouchers-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Mobile Number</th>
+                                                <th>Voucher Type</th>
+                                                <th>Redemption Type</th>
+                                                <th>Amount</th>
+                                                <th>Start Date</th>
+                                                <th>Validity</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="voucherTableBody">
+                                            <tr>
+                                                <td>
+                                                    <div class="autocomp-input-wrap table-input">
+                                                        <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
+                                                            placeholder="Enter Name" autocomplete="off">
+                                                        <div id="autocomplete-suggestions"
+                                                            class="autocomplete-dropdown"></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="table-input" id="mobile"
+                                                        placeholder="Enter Mobile Number">
+                                                </td>
+                                                <td>
+                                                   <!-- <div class="position-relative tablevc">-->
+                                                        <input type="text" class="table-input table-input-voucher selectMCC" id="btnforvccategoryforbulkissuance"
+                                                            placeholder="Select Voucher">
+                                                       <!-- <a href="#" id="btnforvccategoryforbulkissuance"><img
+                                                                src="img/voucher-sm.svg" alt=""></a>-->
+                                                    <!--</div>-->
+                                                </td>
+                                                <td>
+                                                    <select class="GeneralSelect" id="redemptionType">
+                                                        <option value="" class="test">Choose Type </option>
+                                                        <option value="Single">Single</option>
+                                                        <option value="Multi">Multi</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="table-input" id="amount" placeholder="Enter Amount">
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <input type="date" class="table-dateed" id="startDate"
+                                                            placeholder="Salect Date">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <select class="GeneralSelect" id="expiryDate">
+                                                        <option value="7 Days" class="test">7 Days </option>
+                                                        <option value="30 Days">30 Days</option>
+                                                        <option value="90 Days">90 Days</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+                                                </td>
+                                            </tr>
+											<tr>
+                                           <td>
+											  <div class="error-msg" id="beneficiaryNameError" style="color:red"></div>
+										   </td>
+										   <td>
+											<div class="error-msg" id="beneficiaryMobileError" style="color:red"></div>
+
+                                            </td>
+                                           <td>
+											<div class="error-msg" id="voucherError" style="color:red"></div>
+
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="redemptionTypeError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="amountError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="startDateError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="expiryDateError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											
+                                           </td>
+                                       </tr>
+                                       <tr class="text-center">
+                                                <td colspan="8" style="background: #EAF4EF;">
+                                                    <a href="#" class="text-success" onclick="addNewVoucher(event)">+ Add New Voucher</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <div class="w-100 my-3 text-right">
-                                    <button class="btn btn-border-primary" onclick="window.location.href='upi-voucher-issuance.html';">Back</button>
-                                    <button class="btn btn-primary" onclick="window.location.href='upi-voucher-issuance-selectvoucher.html';">Continue</button>
+                                    <button class="btn btn-border-primary"
+                                        onclick="window.location.href='upi-voucher-issuance.html';">Back</button>
+                                    <button type="button" class="btn btn-primary" onclick="singleVoucherValidation()">Continue</button>
                                 </div>
+																
                             </div>
 
+							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap04" style="display: none;">
+	                                <div class="d-flex">
+	                                    <h3>Verify Details </h3>
+	                                </div>
+
+	                                <div>
+	                                    <p>Please Verify the details for the issuance of vouchers.</p>
+	                                </div>
+
+	                                <div class="table-responsive">
+	                                    <table class="table table-reimbursements selectvouchers-table">
+	                                        <thead>
+	                                            <tr>
+	                                                <th>Name</th>
+	                                                <th>Mobile</th>
+	                                                <th>Voucher Type</th>
+	                                                <th>Redemption Type</th>
+	                                                <th>Amount</th>
+	                                                <th>Start Date</th>
+	                                                <th>Validity</th>
+	                                                
+	                                            </tr>
+	                                        </thead>
+												<tbody>
+	                                                <tr>
+	                                                    <td><span id="namelbl"></span></td>
+														<td><span id="mobilelbl"></span></td>
+	                                                    <td><span id="voucherlbl"></span></td>
+	                                                    <td><span id="redemptionLbl"></span></td>
+														<!--<td><span id="vmcclbl"></span></td>-->
+	                                                    <td><span id="amountlbl"></span></td>
+	                                                    <td><span id="startdatelbl"></span></td>
+	                                                    <td><span id="validitylbl"></span></td>
+	                                                           
+	                                                </tr>
+	                                               
+	                                            </tbody>
+	                                    </table>
+	                                </div>
+									<div class="form-group mt-3">
+                                       <div class="custom-control custom-checkbox small">
+                                           <input type="checkbox" class="custom-control-input" id="customCheck45">
+                                           <label class="custom-control-label text-left" for="customCheck45">I confirm
+                                               that the details uploaded above are correct to the best of my knowledge,
+                                               and are approved by the competent authority in my organization.</label>
+                                       </div>
+									<div class="error-msg" id="errorMessage" style="color:red"></div>
+                                   </div>
+								   
+
+								   <div class="clearfix"></div>
+								   <div id="issuemsgdiv" style="display:none" class="alert alert-success text-center">
+								   	<div id="issuesuccmsg"></div>   
+								   </div>
+								   <div id="issuesfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								   	<div id="issuesfailmsg"></div>
+								   </div>	
+								   
+	                                <div class="w-100 my-3 text-right">
+	                                    <button class="btn btn-border-primary" id="verifyDetailBack">Back</button>
+	                                    <button class="btn btn-primary" id="submitButton">Issue Voucher</button>
+	                                </div> 
+									<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}"> 
+									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+									<input type="hidden" class="form-input" id="voucherId" name="voucherId"> 
+									<input type="hidden" class="form-input" id="voucherCode" name="voucherCode"> 
+									<input type="hidden" class="form-input" id="voucherType" name="voucherType"> 
+									<input type="hidden" class="form-input" id="voucherSubType" name="voucherSubType"> 
+									<input type="hidden" class="form-input" id="voucherDesc" name="voucherDesc"> 
+									<input type="hidden" class="form-input" id="purposeCode" name="purposeCode"> 
+									<input type="hidden" class="form-input" id="purposeName" name="purposeName"> 
+									<input type="hidden" class="form-input" id="activeStatus" name="activeStatus"> 
+									<input type="hidden" class="form-input" id="createdby" name="createdby"> 
+									<input type="hidden" class="form-input" id="bankName" name="bankName"> 
+									<input type="hidden" class="form-input" id="bankCode" name="bankCode"> 
+									<input type="hidden" class="form-input" id="accountHolderName" name="accountHolderName"> 
+									<input type="hidden" class="form-input" id="acNumber" name="acNumber">
+									<input type="hidden" class="form-input" id="accountType" name="accountType"> 
+									<input type="hidden" class="form-input" id="ifsc" name="ifsc">
+									
+									<input type="hidden" class="form-input" id="erupiFlag" name="erupiFlag"> 
+									<input type="hidden" class="form-input" id="branchCode" name="branchCode"> 
+									<input type="hidden" class="form-input" id="authStatus" name="authStatus">
+									
+									<input type="hidden" class="form-input" id="authResponse" name="authResponse">
+									<input type="hidden" class="form-input" id="banklinkedMobile" name="mobile"> 
+									<input type="hidden" class="form-input" id="accstatus" name="accstatus"> 
+									
+									<input type="hidden" class="form-input" id="orgId" name="orgId"> 
+									<input type="hidden" class="form-input" id="orgCode" name="orgCode"> 
+									<input type="hidden" class="form-input" id="tid" name="tid"> 
+									<input type="hidden" class="form-input" id="merchentIid" name="merchentIid"> 
+									<input type="hidden" class="form-input" id="mcc" name="mcc"> 
+									<input type="hidden" class="form-input" id="submurchentid" name="submurchentid"> 
+									<input type="hidden" class="form-input" id="merchentid" name="merchentid">
+									<input type="hidden" class="form-input" id="payerva" name="payerva"> 													
+	                            </div>
 
                         </div>
                     </div>
-
 
                 </div>
                 <!-- /.container-fluid -->
@@ -270,6 +414,9 @@
             </div>
             <!-- End of Main Content -->
         </div>
+		
+		<!--<div class="lds-spinner" id="signinLoader" style="display: none">
+		-->	
         <!-- End of Content Wrapper -->
 
     </div>
@@ -296,8 +443,198 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+	<script type="text/javascript" src="js/slick/slick.min.js"></script>
+	
+	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
 
 
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/upiVoucherIssuanceNew"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+
+	</script>
+	<script>
+	  $(document).ready(function() {
+	    $('#submitButton').click(function() {
+	      // Call the AJAX function
+		  document.getElementById('submitButton').disabled=true;
+		  const checkbox = document.getElementById('customCheck45');
+	  		 const errorMessage = document.getElementById('errorMessage');
+	  		 if (checkbox.checked) {
+	  		    errorMessage.textContent = "";
+	  		  } else {
+	  		    errorMessage.textContent = "Please check consent"; 
+	  			return false;
+	  		  }
+	  		
+		  var employerMobile = document.getElementById("employerMobile").value;
+	      $.ajax({
+	        url:"/smsOtpSender",
+	        type: 'POST',
+			data: {
+						"mob": employerMobile,
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj['status'] == "SUCCESS") {
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+								var downloadTimer = setInterval(function() {
+									document.getElementById("countdown").innerHTML = "00:"+timeleft;
+									timeleft -= 1;
+									//document.getElementById("optBtn").style.display = "none";
+									document.getElementById("orderId").value= obj['orderId'];
+									//document.getElementById("verifyotpdiv").style.display = "block";
+									if (timeleft <= 0) {
+										clearInterval(downloadTimer);
+										///document.getElementById("optBtn").disabled = false;
+										///document.getElementById("countdown").innerHTML = " ";
+										//document.getElementById("optBtn").style.display = "none";
+										//document.getElementById("verifyotpdiv").style.display = "none";
+										///$('#loginIdDiv').hide('slow');
+									}
+									//document.getElementById('password').focus();
+								}, 1000);
+	            $('#otpModal').fadeIn();
+	          } else {
+	            alert("Error: " + response.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+	    });
+
+	    // Close the modal when clicking outside the modal content
+	    $(window).on('click', function(event) {
+	      if (event.target.id === 'otpModal') {
+	        $('#otpModal').fadeOut();
+	      }
+	    });
+	  });
+	  
+	  
+	  function bulkIssuePage(){
+	  const groceries = document.getElementById('groceries');
+	  const food = document.getElementById('food');
+	  const petroleum = document.getElementById('petroleum');
+	  const conveyance = document.getElementById('Conveyance');
+	  const uniform = document.getElementById('uniform');
+	  const gadgets = document.getElementById('Gadgets');
+	  const health = document.getElementById('Health');
+	  const telecom = document.getElementById('Telecom');
+	  const entertainment = document.getElementById('Entertainment');
+	  //  const groceries = document.getElementById('Groceries');
+	  const books = document.getElementById('books');
+				  		 
+	       if (groceries.checked) {
+			localStorage.setItem("voucherName", groceries.name);
+			localStorage.setItem("voucherCode",groceries.value);
+		     window.location.href = "/bulkVoucherIssuance";
+	       } 
+		   else if (food.checked) {
+		   		localStorage.setItem("voucherName", food.name);
+		   		localStorage.setItem("voucherCode",food.value);
+		   	     window.location.href = "/bulkVoucherIssuance";
+		    } 
+			 else if (petroleum.checked) {
+		  		localStorage.setItem("voucherName", petroleum.name);
+		  		localStorage.setItem("voucherCode",petroleum.value);
+		  	     window.location.href = "/bulkVoucherIssuance";
+		     } 
+	  	     else if (uniform.checked) {
+	     		localStorage.setItem("voucherName", uniform.name);
+	     		localStorage.setItem("voucherCode",uniform.value);
+	     	     window.location.href = "/bulkVoucherIssuance";
+	          }
+	  	    else if (gadgets.checked) {
+	  	   		localStorage.setItem("voucherName", gadgets.name);
+	  	   		localStorage.setItem("voucherCode",gadgets.value);
+	  	   	     window.location.href = "/bulkVoucherIssuance";
+	  	      } 
+					  
+		   else if (health.checked) {
+		  		localStorage.setItem("voucherName", health.name);
+		  		localStorage.setItem("voucherCode",health.value);
+		  	     window.location.href = "/bulkVoucherIssuance";
+		       } 
+	  	    else if (telecom.checked) {
+	     		localStorage.setItem("voucherName", telecom.name);
+	     		localStorage.setItem("voucherCode",telecom.value);
+	     	     window.location.href = "/bulkVoucherIssuance";
+	           }
+	  	    else if (entertainment.checked) {
+	  	   		localStorage.setItem("voucherName", entertainment.name);
+	  	   		localStorage.setItem("voucherCode",entertainment.value);
+	  	   	    window.location.href = "/bulkVoucherIssuance";
+	  	       
+	  	      } 
+		   else if (groceries.checked) {
+		      localStorage.setItem("voucherName", groceries.name);
+		      localStorage.setItem("voucherCode",groceries.value);
+	          window.location.href = "/bulkVoucherIssuance";
+	        } 
+	      else if (books.checked) {
+	 		 localStorage.setItem("voucherName", books.name);
+	 		 localStorage.setItem("voucherCode",books.value);
+	 	     window.location.href = "/bulkVoucherIssuance";
+	       }			   
+		   else{
+			document.getElementById("confirmationDialog").style.display = "flex";
+		   }
+		   
+	  }
+	</script>
+	<script>
+		$('.responsive-content').slick({
+		            dots: false,
+		            infinite: false,
+		            speed: 300,
+		            slidesToShow: 4,
+		            slidesToScroll: 1,
+		            draggable: false,
+		            responsive: [
+		                {
+		                    breakpoint: 1024,
+		                    settings: {
+		                        slidesToShow: 3,
+		                        slidesToScroll: 1,
+		                        infinite: true
+		                    }
+		                },
+		                {
+		                    breakpoint: 600,
+		                    settings: {
+		                        slidesToShow: 2,
+		                        slidesToScroll: 1
+		                    }
+		                },
+		                {
+		                    breakpoint: 480,
+		                    settings: {
+		                        slidesToShow: 1,
+		                        slidesToScroll: 1
+		                    }
+		                }
+		                // You can unslick at a given breakpoint now by adding:
+		                // settings: "unslick"
+		                // instead of a settings object
+		            ]
+		        });
+	</script>
     <script>
         $(document).ready(function () {
             $("#linkBankAccount").click(function () {
@@ -306,7 +643,6 @@
 
             });
         });
-
         $(document).ready(function () {
 
             $("#selectvouchers").click(function () {
@@ -319,7 +655,16 @@
                 $(".modal").hide();
                 $("#selectvouchers-wrap04").hide();
             });
+			
+			$("#verifyDetailBack").click(function () {
+			    $("#selectvouchers-wrap03").show();
+			    $("#selectvouchers-wrap04").hide();
+			});
+					
 
+            $(".selectMCC").click(function () {
+                $("#modalforvccategoryforbulkissuance").show();
+            });
         });
 
         $(document).ready(function () {
@@ -421,389 +766,438 @@
 
         });
 
-        
-        const searchInput = document.getElementById('search');
-        const suggestionsDropdown = document.getElementById('autocomplete-suggestions');
+        ////////////////////////
+       function userSearchAndPupolate(){
+		const searchInput = document.getElementById('search').value;
+		const searchInput2 = document.getElementById('search');
+		const mobile = document.getElementById('mobile');
+		
+		const suggestionsDropdown = document.getElementById('autocomplete-suggestions');
+	    const employerId = document.getElementById('employerId').value;
+		       // Sample list of users (this can be dynamic)
+			$.ajax({
+				            type: "POST",
+				            url: "/voucherUserSearch",
+				            dataType: 'json',
+				            data: {
+				                "orgId": employerId,
+				                "userName": searchInput
+				            },
+				            success: function (data) {
+				                //document.getElementById("signinLoader").style.display = "none";
+								
+								//data.data
+						     // Event listener to trigger autocomplete
+						      
+						           const query = searchInput2.value.toLowerCase();
+						           if (query) {
+						               const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
+						               displaySuggestions(filteredUsers);
+						           } else {
+						               suggestionsDropdown.style.display = 'none';
+						           }
+						     
+				               
+				            },
+				            error: function (e) {
+				                document.getElementById("signinLoader").style.display = "none";
+				                console.error('Error:', e);
+				                alert('An error occurred while fetching the data.');
+				            }
+				        });
 
-        // Sample list of users (this can be dynamic)
-        const users = [
-            { username: 'amar_soni', name: 'Amar Soni', profilecode: 'CTD001', contact: '+91 9910318564' },
-            { username: 'neel_kumar', name: 'Neel Kumar', profilecode: 'CTD001', contact: '+91 9910318564' },
-            { username: 'prateek_raj', name: 'Prateek Raj', profilecode: 'CTD001', contact: '+91 9910318564' },
-        ];
+		      
 
-        // Event listener to trigger autocomplete
-        searchInput.addEventListener('input', function () {
-            const query = searchInput.value.toLowerCase();
-            if (query) {
-                const filteredUsers = users.filter(user => user.name.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
-                displaySuggestions(filteredUsers);
-            } else {
-                suggestionsDropdown.style.display = 'none';
-            }
-        });
+		       // Function to display the filtered suggestions in the dropdown
+		       function displaySuggestions(userList) {
+		           suggestionsDropdown.innerHTML = ''; // Clear previous suggestions
+		           userList.forEach(user => {
+		               const div = document.createElement('div');
+		               div.classList.add('autocomplete-suggestion');
 
-        // Function to display the filtered suggestions in the dropdown
-        function displaySuggestions(userList) {
-            suggestionsDropdown.innerHTML = ''; // Clear previous suggestions
-            userList.forEach(user => {
-                const div = document.createElement('div');
-                div.classList.add('autocomplete-suggestion');
+		               // Create content with username, profile, and contact number
+		               div.innerHTML = `
+					     <strong>${user.email}</strong>
+					     <span class="user-profile">${user.username}</span>
+					     <span class="user-contact">${user.mobile}</span>
+					   `;
 
-                // Create content with username, profile, and contact number
-                div.innerHTML = `
-			      <strong>${user.name}</strong>
-			      <span class="user-profile">${user.profilecode}</span>
-			      <span class="user-contact">${user.contact}</span>
-			    `;
+		               div.addEventListener('click', function () {
+		                   searchInput2.value = user.username; // Set input value to the selected user
+						   mobile.value = user.mobile; // Set input value to the selected user
+		                   suggestionsDropdown.style.display = 'none'; // Hide dropdown
+		               });
 
-                div.addEventListener('click', function () {
-                    searchInput.value = user.name; // Set input value to the selected user
-                    suggestionsDropdown.style.display = 'none'; // Hide dropdown
-                });
+		               suggestionsDropdown.appendChild(div);
+		           });
 
-                suggestionsDropdown.appendChild(div);
-            });
+		           suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
+		       }
 
-            suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
-        }
-
+	   }
 
     </script>
 
 	<script>
-	    document.getElementById('add-new-voucher').addEventListener('click', function (e) {
-	        e.preventDefault(); // Prevent form submission or unwanted behaviors
+	    function getVoucherListWithIcon() {
+	        const voucherList = document.getElementById('voucherList');
+	        const purposeList = document.getElementById('purposeList');
+	        
+	        $.ajax({
+	            type: "GET",
+	            url: "/getVoucherListWithIcon",
+	            success: function(data) {
+	                const parsedData = jQuery.parseJSON(data);
 
-	        // Get the first voucher row
-	        const firstRow = document.querySelector('.voucher-row');
-	        const newRow = firstRow.cloneNode(true); // Clone the first row
+	                // Populate Voucher List
+	                parsedData.data.forEach(item => {
+	                    const li = document.createElement('li');
+	                    li.classList.add('voucher-item');
+	                    li.setAttribute('data-value', item.purposeCode);
 
-	        // Clear the inputs in the cloned row
-	        newRow.querySelectorAll('input').forEach(input => input.value = '');
-	        newRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+	                    const a = document.createElement('a');
+	                    a.href = "javascript:void(0);";
 
-	        // Add delete functionality to the cloned row
-	        const deleteBtn = newRow.querySelector('.delete-row');
-	        deleteBtn.addEventListener('click', function (e) {
-	            e.preventDefault();
+	                    const img = document.createElement('img');
+	                    img.src = item.voucherIcon
+	                        ? `data:image/png;base64,${item.voucherIcon}`
+	                        : '';
+	                    img.classList.add('img-fluid');
 
-	            // Ensure the first row cannot be deleted
-	            const rows = document.querySelectorAll('.voucher-row');
-	            if (rows.length > 1) {
-	                newRow.remove();
-	            } else {
-	                alert('The first row cannot be deleted.');
+	                    const span = document.createElement('span');
+	                    span.textContent = item.voucherName;
+
+	                    a.appendChild(img);
+	                    a.appendChild(span);
+	                    li.appendChild(a);
+	                    voucherList.appendChild(li);
+	                });
+
+	                // Add click event listener to Voucher List
+	                voucherList.addEventListener('click', event => {
+	                    const clickedItem = event.target.closest('li'); // Get the clicked LI element
+	                    if (clickedItem) {
+	                        const purposeCode = clickedItem.getAttribute('data-value');
+	                        const voucherIcon = clickedItem.querySelector('img').src;
+	                        const voucherName = clickedItem.querySelector('span').textContent;
+
+	                        // Bind the selected image and voucher name to specific elements
+	                        const imageElement = document.getElementById('voucherImageId');
+	                        const textElement = document.getElementById('voucherTextId');
+
+	                        if (imageElement && textElement) {
+	                       //     imageElement.src = voucherIcon;  // Set image
+	                            textElement.textContent = voucherName;  // Set voucher name text
+	                        }
+
+	                        // Clear previous selections
+	                        [...voucherList.children].forEach(item => item.classList.remove('selected'));
+	                        [...purposeList.children].forEach(item => item.remove()); // Clear Purpose List
+
+	                        // Highlight the selected item
+	                        clickedItem.classList.add('selected');
+
+	                        // Fetch Purpose List using the selected purposeCode
+	                        fetchPurposeListByVoucherCode(purposeCode);
+	                    }
+						document.getElementById("mccDiv").style.display="block";
+	                });
+	            },
+	            error: function(e) {
+	                alert('Error: ' + e.responseText);
 	            }
 	        });
+	    }
 
-	        // Append the new row before the "Add New Voucher" row
-	        document.getElementById('voucher-table-body').insertBefore(newRow, document.querySelector('.text-center'));
-	    });
+	    function fetchPurposeListByVoucherCode(purposeCode) {
+	        const purposeList = document.getElementById('purposeList');
 
-	    // Add delete functionality to the initial delete button
-	    document.querySelectorAll('.delete-row').forEach(button => {
-	        button.addEventListener('click', function (e) {
-	            e.preventDefault();
+	        $.ajax({
+	            type: "GET",
+	            url: "/getPurposeListByVoucherCode",
+	            data: { purposeCode },
+	            success: function(data) {
+	                const parsedData = jQuery.parseJSON(data);
 
-	            // Ensure the first row cannot be deleted
-	            const rows = document.querySelectorAll('.voucher-row');
-	            const rowToDelete = this.closest('tr');
-	            if (rows.length > 1 && rowToDelete !== rows[0]) {
-	                rowToDelete.remove();
-	            } else {
-	                alert('The first row cannot be deleted.');
+	                // Populate Purpose List with radio buttons
+	                parsedData.data.forEach(item => {
+	                    const li = document.createElement('li');
+	                    li.classList.add('purpose-item');
+	                    li.setAttribute('data-value', item.mcc);
+
+	                    // Create radio input
+	                    const radioInput = document.createElement('input');
+	                    radioInput.type = 'radio';
+	                    radioInput.classList.add('voucher-radioinput');
+	                    radioInput.name = 'selectvouchers'; // Group radio buttons by name
+
+	                    // Create img element
+	                    const img = document.createElement('img');
+	                    img.src = item.voucherIcon
+	                        ? `data:image/png;base64,${item.mccIcon}`
+	                        : '';
+	                   // img.alt = item.mccDesc;
+	                    img.classList.add('img-fluid');
+
+	                    // Create span element with voucher name
+	                    const span = document.createElement('span');
+	                    span.textContent = item.mccDesc;
+
+	                    // Append elements to li
+	                    li.appendChild(radioInput);
+	                    li.appendChild(img);
+	                    li.appendChild(span);
+	                    purposeList.appendChild(li);
+	                });
+	            },
+	            error: function(e) {
+	                alert('Error: ' + e.responseText);
 	            }
 	        });
-	    });
-	</script>
-	
-	<script>
-	    document.addEventListener('DOMContentLoaded', function () {
-	        let selectedVoucherField = null;
+	    }
 
-	        // Open the modal when clicking on "Select Voucher" field
-	        document.querySelectorAll('.table-input-voucher').forEach(input => {
-	            input.addEventListener('click', function () {
-	                selectedVoucherField = this; // Track the field to populate later
-	                document.getElementById('voucher-modal').style.display = 'flex';
-	            });
-	        });
-
-	        // Handle voucher selection
-	        document.getElementById('select-voucher-btn').addEventListener('click', function () {
-	            const selectedRadio = document.querySelector('input[name="voucher"]:checked');
-	            if (selectedRadio) {
-	                selectedVoucherField.value = selectedRadio.value; // Populate the selected value
-	                document.getElementById('voucher-modal').style.display = 'none'; // Close the modal
-	            } else {
-	                alert('Please select a voucher.');
-	            }
-	        });
-
-	        // Close the modal without selection
-	        document.getElementById('close-voucher-modal').addEventListener('click', function () {
-	            document.getElementById('voucher-modal').style.display = 'none';
-	        });
-	    });
-	</script>
-	
-	<script>
 	    
+
+	    // Initialize
+	   // getVoucherListWithIcon();
+	</script>
+
+	<script>
 		
-		function getVoucherListWithIcon() {
-			//var employerId = document.getElementById("employerId").value;
-			//var userMobile = document.getElementById("userMobile").value;
-			//document.getElementById("signinLoader").style.display="flex";
-			const voucherList = document.getElementById('voucherList');
+		function getVoucherDetail(){
+	        // Get the selected voucher data (image and name)
+	        const selectedVoucherItem = document.querySelector('.voucher-item.selected');
+			
+			var selectedVoucherName=null;
+			var selectedVoucherCode=null;
+			var selectedPurposeCode =null;
+			var selectedPurposeName =null;
+	        if (selectedVoucherItem) {
+				selectedVoucherCode = selectedVoucherItem.getAttribute('data-value');
+			    selectedVoucherName = selectedVoucherItem.querySelector('span').textContent;
+	            console.log("Selected Voucher Code:", selectedVoucherName);
+	        } else {
+	            alert('No voucher selected!');
+	        }
 
-			$.ajax({
-				type: "GET",
-				url:"/getUserWithRole",
-				data: {
-					"orgId":employerId,
-					"userMobile":userMobile
-				},
-				success: function(data) {
-					newData = data;
-					var data1 = jQuery.parseJSON(newData);
-					data1.data.forEach(voucher => {
-						           const listItem = document.createElement('li');
-						           listItem.classList.add('voucher-item');
-
-						           const icon = document.createElement('img');
-						           icon.src = voucher.voucherIcon || 'https://via.placeholder.com/50';
-						           icon.alt = voucher.voucherName;
-
-						           const details = document.createElement('div');
-						           details.classList.add('voucher-details');
-
-						           const name = document.createElement('div');
-						           name.classList.add('voucher-name');
-						           name.textContent = voucher.voucherName;
-
-						           const code = document.createElement('div');
-						           code.classList.add('purpose-code');
-						           code.textContent = `Purpose Code: ${voucher.purposeCode}`;
-
-						           details.appendChild(name);
-						           details.appendChild(code);
-
-						           listItem.appendChild(icon);
-						           listItem.appendChild(details);
-
-						           voucherList.appendChild(listItem);
-						       });
-					
-					},
-					error: function(e) {
-						alert('Error: ' + e);
-					}
-				});
+	        // Get the selected radio button data (Purpose List)
+	        const selectedRadioButton = document.querySelector('input[name="selectvouchers"]:checked');
+	        if (selectedRadioButton) {
+				selectedPurposeCode = selectedRadioButton.closest('li').getAttribute('data-value');
+			    selectedPurposeName = selectedRadioButton.closest('li').querySelector('span').textContent;
+				
+				
+				console.log("Selected Purpose Code:", selectedPurposeCode);
+	        } else {
+	            alert('No purpose selected!');
+				return false;
+	        }
+			
+			// Get the selected voucher data (image and name)
+						   
+			document.getElementById("btnforvccategoryforbulkissuance").value=selectedVoucherName+'|'+selectedPurposeName;
+			document.getElementById("voucherCode").value=selectedVoucherCode;
+			document.getElementById("voucherDesc").value=selectedVoucherName;
+			document.getElementById("purposeCode").value=selectedVoucherCode;
+			document.getElementById("purposeName").value=selectedPurposeName;
+			document.getElementById("mcc").value=selectedPurposeCode;
+			$("#modalforvccategoryforbulkissuance").hide();
+				   
 		}
+		
 
-		
-		
-	     
-	       
-	   </script>
+		function getTotalVoucherCount(){
+					var employerid = document.getElementById("employerId").value;
+					$.ajax({
+						type: "POST",
+						url: "/getTotalVoucherCount",
+						data: {
+							"orgId": employerid,
+							"workflowid":100003
+						},
+						success: function(data) {
+							newData = data;
+							var data1 = jQuery.parseJSON(newData);
+							document.getElementById("totalNumber").innerText=data1.totalCount;
+							document.getElementById("totalValue").innerText="₹"+data1.totalAmount;
+							
+							},
+							error: function(e) {
+								alert('Failed to fetch JSON data' + e);
+						}
+					});
+				}
+
+				
+		function searchEmployee() {
+	        const searchBox = document.getElementById('searchBox').value;
+	        const employerId = document.getElementById('employerId').value;
+			var userMobile = document.getElementById("userMobile").value;
+	        // Show loader
+	        document.getElementById("signinLoader").style.display = "flex";
+			
+	        $.ajax({
+	            type: "POST",
+	            url: "/userSearch",
+	            dataType: 'json',
+	            data: {
+	                "orgId": employerId,
+	                "userName": searchBox,
+					"userMobile": userMobile
+	            },
+	            success: function (data) {
+	                document.getElementById("signinLoader").style.display = "none";
+
+	                if (data && data.status && data.data.length > 0) {
+	                    const roleHeaders = generateHeaders(data.data);
+	                    generateRows(data.data, roleHeaders);
+	                } else {
+	                    alert("No data found for the given search.");
+	                }
+	            },
+	            error: function (e) {
+	                document.getElementById("signinLoader").style.display = "none";
+	                console.error('Error:', e);
+	                alert('An error occurred while fetching the data.');
+	            }
+	        });
+	    }
+	</script>
+
 	
-	<!-- Voucher Selection Modal -->
-	<div id="voucher-modal" class="modal" style="display:none;">
-	    <div class="modal-content">
-			<div class="container-fluid p-0 p-md-1">
-			                  <div class="row">
-			                      <div class="col-12">
-			                          <div class="tab-content">
-			                              <div class="upi-voucher-wrap">
-			                                  <div>
-			                                      <h3>Select Voucher Category for Bulk Issuance </h3>
-			                                      <p>Select Vouchers from the selection provided below, and continue to enter details for issuance. </p>
-			                                  </div>
+	<script>
+	    function addNewVoucher(event) {
+	        event.preventDefault();
 
-			                                  <hr>
+	        const tableBody = document.getElementById('voucherTableBody');
 
-			                                  <div class="row">
-			                                      <div class="col-12 col-md-4">
-			                                          <div class="leftselctVoucehrs">
-			                                              <h4>Vouchers Categories</h4>
-			                                              <ul id="voucherList">
-			                                                 <!-- <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/meal.svg" alt="" class="img-fluid">
-			                                                          <span>Meal </span>
-			                                                      </a>
-			                                                  </li>
+	        // Create a new row
+	        const newRow = document.createElement('tr');
+	        newRow.innerHTML = `
+	            <td>
+					<div class="autocomp-input-wrap table-input">
+                       <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
+                           placeholder="Enter Name" autocomplete="off">
+                       <div id="autocomplete-suggestions"
+                           class="autocomplete-dropdown"></div>
+                   </div>
+	            </td>
+	            <td>
+	                <input type="text" class="table-input" placeholder="Enter Mobile Number">
+	            </td>
+	            <td>
+	                <input type="text" class="table-input table-input-voucher selectMCC" placeholder="Select Voucher" id="btnforvccategoryforbulkissuance">
+	            </td>
+	            <td>
+	                <select class="GeneralSelect">
+	                    <option value="General">Choose Type</option>
+	                    <option value="Single">Single</option>
+	                    <option value="Multi">Multi</option>
+	                </select>
+	            </td>
+	            <td>
+	                <input type="text" class="table-input" placeholder="Enter Amount">
+	            </td>
+	            <td>
+	                <input type="date" class="table-dateed" placeholder="Select Date">
+	            </td>
+	            <td>
+	                <select class="GeneralSelect">
+	                    <option value="7 days">7 days</option>
+	                    <option value="30 days">30 days</option>
+	                    <option value="90 days">90 days</option>
+	                </select>
+	            </td>
+	            <td>
+	                 <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+	            </td>
+	        `;
 
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/fuel-circle.svg" alt="" class="img-fluid">
-			                                                          <span>Fuel </span>
-			                                                      </a>
-			                                                  </li>
+	        // Insert the new row above the last row
+	        tableBody.insertBefore(newRow, tableBody.lastElementChild);
+	    }
 
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/travel-circle.svg" alt="" class="img-fluid">
-			                                                          <span>Travel </span>
-			                                                      </a>
-			                                                  </li>
-
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/conveyance-circle.svg" alt=""
-			                                                              class="img-fluid">
-			                                                          <span>Conveyance </span>
-			                                                      </a>
-			                                                  </li>
-
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/uniform.svg" alt="" class="img-fluid">
-			                                                          <span>Uniform </span>
-			                                                      </a>
-			                                                  </li>
-
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/gadgets.svg" alt="" class="img-fluid">
-			                                                          <span>Gadgets </span>
-			                                                      </a>
-			                                                  </li>
-
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/health.svg" alt="" class="img-fluid">
-			                                                          <span>Health & Wellness </span>
-			                                                      </a>
-			                                                  </li>
-
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/telecom.svg" alt="" class="img-fluid">
-			                                                          <span>Telecom & Entertainment </span>
-			                                                      </a>
-			                                                  </li>
-
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/groceries.svg" alt="" class="img-fluid">
-			                                                          <span>Groceries </span>
-			                                                      </a>
-			                                                  </li>
-
-			                                                  <li>
-			                                                      <a href="javascript:void(0);">
-			                                                          <img src="img/books.svg" alt="" class="img-fluid">
-			                                                          <span>Books & Periodicals </span>
-			                                                      </a>
-			                                                  </li>-->
-			                                              </ul>
-			                                          </div>
-			                                      </div>
-			                                      <div class="col-12 col-md-8 pl-sm-0">
-			                                          <div class="rightselctVoucehrs">
-			                                              <div class="row">
-			                                                  <div class="col-12 col-md-5">
-			                                                      <div class="select-upivouchers">
-			                                                          <img src="img/fuelVouchers.svg" alt="" class="img-fluid">
-			                                                      </div>
-			                                                  </div>
-			                                                  <div class="col-12 col-md-7">
-			                                                      <div class="cards-upivouchers-desc">
-			                                                          <h4>Fuel Vouchers</h4>
-			                                                          <p>To issue e-RUPI Voucher, please select a category, a sub-category or an associated brand: </p>
-			                                                      </div>
-			                                                  </div>
-			                                              </div>
-
-			                                              <div class="row">
-			                                                  <div class="col-12">
-			                                                      <div class="selctedVoucehr">
-			                                                          <ul>
-			                                                              <li class="active"><input type="radio"
-			                                                                      class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img
-			                                                                      src="img/fuel-1.svg" alt=""> <span>Fuel</span>
-			                                                              </li>
-			                                                          </ul>
-			                                                      </div>
-			                                                  </div>
-			                                              </div>
-
-			                                              <hr>
-
-			                                              <div class="row">
-			                                                  <div class="col-12">
-			                                                      <div class="selctedVoucehr">
-			                                                          <ul>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img
-			                                                                      src="img/fuel-1.svg" alt=""> <span>Fuel
-			                                                                      Stations</span> </li>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img src="img/cng.svg"
-			                                                                      alt=""> <span>CNG Stations</span> </li>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img src="img/gas.svg"
-			                                                                      alt=""> <span>Fuel Oil, Coal, Wood & LPG </span>
-			                                                              </li>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img
-			                                                                      src="img/servicestation.svg" alt="">
-			                                                                  <span>Service Stations</span>
-			                                                              </li>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img
-			                                                                      src="img/shell.svg" alt=""> <span>Shell
-			                                                                      Oil</span> </li>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img src="img/rilp.svg"
-			                                                                      alt=""> <span>Reliance Petroleum</span> </li>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img src="img/hpcl.svg"
-			                                                                      alt=""> <span>Hindustan Petroleum</span> </li>
-			                                                              <li><input type="radio" class="voucher-radioinput"
-			                                                                      name="selectvouchers" /> <img src="img/bpcl.svg"
-			                                                                      alt=""> <span>Bharat Petroleum</span> </li>
-			                                                          </ul>
-			                                                      </div>
-			                                                  </div>
-			                                              </div>
-			                                          </div>
-			                                      </div>
-			                                  </div>
-
-			                                  <div class="row">
-			                                      <div class="col-12 text-right my-3">
-			                                          <button class="btn btn-border-primary mb-1" onclick="window.location.href='upi-voucher-issuance-dashboard-new.html';">Back</button>
-			                                          <!--<button class="btn btn-primary mb-1" onclick="window.location.href='bulk-voucher-issuance.html';">Continue</button>-->
-													<a class="btn btn-primary mb-1" th:href="@{/bulkVoucherIssuance}">Continue</a>
-													</div>
-			                                  </div>
-
-<!--
-			                              </div>-->
-			                          </div>
-
-
-			                      </div>
-			                  </div>
-
-
-			              </div>
-	        <!--<h3>Select a Voucher</h3>
-	        <form id="voucher-form">
-	            <label><input type="radio" name="voucher" value="Voucher 1"> Voucher 1</label><br>
-	            <label><input type="radio" name="voucher" value="Voucher 2"> Voucher 2</label><br>
-	            <label><input type="radio" name="voucher" value="Voucher 3"> Voucher 3</label><br>
-	        </form>
-	        <button id="select-voucher-btn">Select</button>
-	        <button id="close-voucher-modal">Cancel</button>-->
-	    </div>
-	</div>
+	    function deleteRow(button) {
+	        const row = button.parentElement.parentElement;
+	        row.remove();
+	    }
+	</script>
+	
+	
+	
     <!-- Modal Issue Vouchers -->
-    <div class="modal fade" id="modalissueVouchers" tabindex="-1" role="dialog"
+    <div class="customModal" id="modalforvccategoryforbulkissuance">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+            <div class="modal-content modal-bulk my-2">                 
+                <div class="modal-body text-left p-0">
+                    <div class="tab-content m-0">
+                        <div class="upi-voucher-wrap m-0 p-0">
+                            <div>
+                                <h3>Select Voucher Category for Bulk Issuance </h3>
+                                <p>Select Vouchers from the selection provided below, and continue to enter details for issuance. </p>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="leftselctVoucehrs">
+                                        <h4>Vouchers Categories</h4>
+                                        <ul id="voucherList">
+                                           
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-8 pl-sm-0">
+                                    <div class="rightselctVoucehrs" id="mccDiv" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-12 col-md-5">
+                                                <div class="select-upivouchers">
+                                                    <img id="voucherImageId" src="img/fuelVouchers.svg" alt="" class="img-fluid">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                <div class="cards-upivouchers-desc">
+                                                    <h4><span id="voucherTextId"></span> Vouchers</h4>
+                                                    <p>To issue e-RUPI Voucher, please select a category, a sub-category or an associated brand: </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="selctedVoucehr">
+                                                    <ul id="purposeList">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 text-right mt-3">
+                                   <!-- <button class="btn btn-border-primary mb-1" onclick="window.location.href='create-upi-voucher-issue-manually.html';">Back</button>-->
+                                   <!-- <button class="btn btn-primary mb-1" id="getVoucherDataButton" >Continue</button>-->
+								   <!-- Button to get selected voucher and purpose data -->
+								   <button class="btn btn-primary mb-1" onclick="getVoucherDetail()">Continue</button>
+						
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Issue Vouchers -->
+ <!--   <div class="modal fade" id="modalissueVouchers" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
             <div class="modal-content modal-bulk">
@@ -829,7 +1223,55 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
+	
+	<div id="otpModal" class="modal customfade">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0 text-center">
+	                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication Bank A/c Linking</h5>
+	            </div>
+	            <div class="modal-body text-center">
+	                <div class="otp-box-onboarding justify-content-center">
+					
+						<input  class="form-control form-control-sm test" type="password" id="password1" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password2" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password3" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password4" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password5" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password6" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+					        name="orderId" >
+	                </div>
+	               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+					<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+	                <div class="tip-wrap justify-content-center">
+	                    <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+	                </div>
+					
+					<div class="error-msg" id="otpError" style="color:red"></div>
+					
+	                <div class="d-flex justify-content-center mt-3">
+						<!--
+	                    <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+						-->
+						<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
+	                </div>
+	            </div>
+	      
 
     <!-- Modal Choose Type of Advance Request -->
     <div class="modal fade" id="Modal-upivouchers-info" tabindex="-1" role="dialog"

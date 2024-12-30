@@ -13,6 +13,7 @@ import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
+import com.cotodel.hrms.web.response.RoleAccessRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
@@ -48,6 +49,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("consent", erupiVoucherCreateDetails.getConsent());
 		data.put("otpValidationStatus", "");
 		data.put("creationDate", "");
+		data.put("validity",erupiVoucherCreateDetails.getValidity());
 		data.put("createdby", erupiVoucherCreateDetails.getCreatedby());
 		data.put("accountId", "");
 		data.put("orgId", erupiVoucherCreateDetails.getOrgId());
@@ -160,7 +162,8 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("extra3", "");
 		data.put("beneficiaryID",erupiVoucherCreateDetails.getMobile());
 		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());
-		data.put("bankcode", erupiVoucherCreateDetails.getBankCode());
+		data.put("bankcode", erupiVoucherCreateDetails.getBankcode());
+		data.put("accountNumber", erupiVoucherCreateDetails.getAccountNumber());
 		data.put("type", "CREATE");
 		data.put("arrayofid", erupiVoucherCreateDetails.getArrayofid());
 		
@@ -231,6 +234,16 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		
 		logger.info(data.toString());
 		return data.toString();
+	}
+
+	@Override
+	public String voucherUserSearch(String token, RoleAccessRequest roleAccessRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(roleAccessRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.voucherUserSearch);
+	}
+
+	@Override
+	public String getTotalVoucherCount(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTotalVoucherCount);
 	}
 
 

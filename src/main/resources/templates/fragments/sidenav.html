@@ -14,206 +14,90 @@
             </a>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active mt-3">
+            <li class="nav-item active mt-3" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 2}">
                 <a class="nav-link" th:href="@{/dashboard}">
                     <img src="img/menu-home.svg" alt="" class="mr-2">
                     <span>Home</span></a>
             </li>
-		<!-- 
-			<li class="nav-item">
-                <a class="nav-link" th:href="@{/companyDetails}">
-                    <img src="img/payroll.png" alt="" class="mr-2">
-                    <span>Company Details</span></a>
-            </li> -->
-            
-			<!--  <li class="nav-item">
-                <a class="nav-link" th:href="@{/addEmployee}">
-                    <img src="img/payroll.png" alt="" class="mr-2">
-                    <span>Add Empolyee</span></a>
-            </li> -->
-         
-            <!-- <li class="nav-item">
-                <a class="nav-link" th:href="@{/employeeSalary}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Employee Salary</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/empPayroll}">
-                    <img src="img/payroll.png" alt="" class="mr-2">
-                    <span>Empolyee Payroll</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/employeeIncentive}">
-                    <img src="img/incentives.png" alt="" class="mr-2">
-                    <span>Empolyee Incentives</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/tdsPayment}">
-                    <img src="img/tds.png" alt="" class="mr-2">
-                    <span>TDS Payment</span></a>
-            </li> -->
-<!-- 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/pfPayment}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>PF Payment</span></a>
-            </li> -->
-            <li class="nav-item">
+			
+			<li class="nav-item" th:if="${session.user_role == 2}">
+               <a class="nav-link" th:href="@{/employeeProfile}">
+                <img src="img/menu-employee-payroll.svg" alt="" class="mr-2"> <span>Employee Profile</span> </a>
+           </li>
+		
+            <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
                 <a class="nav-link" th:href="@{/manageEmployee}">
                     <img src="img/menu-employee-payroll.svg" alt="" class="mr-2">
-                    <span>Employee Payroll</span></a>
+                    <span>Employee Onboard</span></a>
             </li> 
-			<!--<li class="nav-item">
-               <a class="nav-link" th:href="@{/employeeRoleManagement}">
-                   <img src="img/pf.png" alt="" class="mr-2">
-                   <span>Employee Role</span></a>
-           </li> -->
-             <li class="nav-item">
+			
+             <li class="nav-item" th:if="${session.user_role == 1}">
                 <a class="nav-link" th:href="@{/expanceTravel}">
                     <img src="img/menu-workplace.svg" alt="" class="mr-2">
                     <span>Workplace</span></a>
             </li>
 
-			<li class="nav-item">
+			<li class="nav-item" th:if="${session.user_role == 1}">
 			    <a class="nav-link" th:href="@{/expenseReimbursementsCompany}">
 			        <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
-			        <span>Expenses & Advances</span></a>
+			        <span>Expenses & Advances company</span></a>
 			</li>
+			<li class="nav-item" th:if="${session.user_role == 1}">
+	             <a class="nav-link" th:href="@{/expenseReimbursements}">
+	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
+	                 <span>Expenses & Advances employee</span></a>
+	         </li> 
 			<!--<li class="nav-item">
 	           <a class="nav-link" th:href="@{/expenseReimbursements}">
 	               <img src="img/pf.png" alt="" class="mr-2">
 	               <span>Expenses & Advances</span></a>
 			 </li> -->
 				   
-               <li class="nav-item">
+               <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
                 <a class="nav-link" th:href="@{/employeeBand}">
                     <img src="img/menu-admin-settings.svg" alt="" class="mr-2">
                     <span>Admin Settings</span></a>
             </li>
 			 
-			<li class="nav-item">
+			<li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
 			   <a class="nav-link" th:href="@{/roleAccess}">
 			       <img src="img/menu-vehicle-management.svg" alt="" class="mr-2">
 			       <span>Role Access</span></a>
 			</li>
-			<!--<li class="nav-item">
-	               <a class="nav-link" th:href="@{/displaybankMaster}">
-	                   <img src="img/pf.png" alt="" class="mr-2">
-	                   <span>Bank Master</span></a>
-	           </li>
-	          
-	              <li class="nav-item">
-	               <a class="nav-link" th:href="@{/displayvoucherMaster}">
-	                   <img src="img/pf.png" alt="" class="mr-2">
-	                   <span>VoucherType  Master</span></a>
-	           </li>
-	
-			<li class="nav-item">
-                <a class="nav-link" th:href="@{/upiVoucherIssuance}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>UPI Voucher Issuance</span></a>
-            </li> -->
-				<li class="nav-item">
-			                <a class="nav-link" th:href="@{/displaymanagerMaster}">
-			                    <img src="img/pf.png" alt="" class="mr-2">
-			                    <span>Manager Master</span></a>
-			            </li> 
-						
-						<li class="nav-item">
-		                <a class="nav-link" th:href="@{/displayjobTitlemaster}">
-		                    <img src="img/pf.png" alt="" class="mr-2">
-		                    <span>Job Title Master</span></a>
-			            </li> 
-          <!--    <li class="nav-item">
-                <a class="nav-link" th:href="@{/manageEmployeeContractor}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Manage Employee and Contractor</span></a>
-            </li>  -->
-            <!-- 
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/bulkupload}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Bulk Upload</span></a>
-			</li>
 			
-			  <li class="nav-item">
-                <a class="nav-link" th:href="@{/bulkInvite}">
+			<li class="nav-item" th:if="${session.user_role == 10}">
+                <a class="nav-link" th:href="@{/displaymanagerMaster}">
                     <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Bulk Invite</span></a>
-			</li>
-			 -->
-			<!-- <li class="nav-item">
-                <a class="nav-link" th:href="@{/bulkUserList}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Bulk User List</span></a>
-            </li>  -->
-            
-           <!--  <li class="nav-item">
-                <a class="nav-link" th:href="@{/employeeOnboarding}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Employee Onboarding New Design</span></a>
+                    <span>Manager Master</span></a>
             </li> 
-            
-             <li class="nav-item">
-                <a class="nav-link" th:href="@{/employeeOnboarding2}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Employee Onboarding New Design page 2</span></a>
-            </li>  -->
 			
-          <!--   
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/userCreation}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Create Single User</span></a>
+			<li class="nav-item" th:if="${session.user_role == 10}">
+            <a class="nav-link" th:href="@{/displayjobTitlemaster}">
+                <img src="img/pf.png" alt="" class="mr-2">
+                <span>Job Title Master</span></a>
             </li> 
-            
-                 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/peopel}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>People</span></a>
-            </li> 
-            
-                    -->
-           <!--  <li class="nav-item">
-                <a class="nav-link" th:href="@{/dashBoardNew}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Dashboard Old</span></a>
-            </li> 
-                  -->  
-           <!-- <li class="nav-item">
-                <a class="nav-link" th:href="@{/companyDetailNew}">
-                    <img src="img/pf.png" alt="" class="mr-2">
-                    <span>Company New Design</span></a>
-            </li> 
-            
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/employeeDetails}">
-                 <img src="img/pf.png" alt="" class="mr-2"> <span>Employee Details</span> </a>
-            </li> -->
-            <!-- <li class="nav-item dropdownNav" >
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Create User</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                    <ul>
-                    <li class="nav-item dropdown-submenu">
-                        <a class="collapse-item innernav" th:href="@{/userCreation}"> Single User</a>
-                        </li>
-                        <li class="nav-item dropdown-submenu">
-                        <a class="collapse-item innernav" th:href="@{/bulkUser}"> Bulk User</a>
-                        </li>
-                        </ul>
-                    </div>
-                </div>
-            </li> -->
-          
-          
+			<li class="nav-item" th:if="${session.user_role == 10}">
+               <a class="nav-link" th:href="@{/displaybankMaster}">
+                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+                   <span>Bank Master</span></a>
+           </li>
+         			
+              <li class="nav-item" th:if="${session.user_role == 9}">
+                 <a class="nav-link" th:href="@{/linkBankDetail}">
+                     <img src="img/menu-admin-settings.svg" alt="" class="mr-2">
+                     <span>Link Bank Account</span></a>
+             </li>
+
+		  <li class="nav-item" th:if="${session.user_role == 9}">
+		      <a class="nav-link" th:href="@{/userVoucheCreation}">
+		          <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
+		          <span>Existing User</span></a>
+		  </li> 
+		  <li class="nav-item" th:if="${session.user_role == 9}">
+		    <a class="nav-link" th:href="@{/upiVoucherIssuanceNew}">
+		        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
+		        <span>UPI Voucher Issuance</span></a>
+		 </li>
             <!-- Sidebar Toggler (Sidebar) -->
 
         <!--     <li class="nav-item li-btm">               

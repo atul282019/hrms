@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
+import com.cotodel.hrms.web.response.RoleAccessRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 
@@ -63,6 +64,16 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		return profileRes;
 	}
 	
+	@PostMapping(value = "/getTotalVoucherCount")
+	public @ResponseBody String getTotalVoucherCount(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+		String profileRes = null;
+		profileRes = erupiVoucherCreateDetailsService.getTotalVoucherCount(tokengeneration.getToken(),	erupiVoucherCreateDetails);
+
+		return profileRes;
+	}
+	
+	
 	@PostMapping(value = "/getPrimaryBankDetailsByOrgId")
 	public @ResponseBody String getPrimaryBankDetailsByOrgId(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
@@ -108,5 +119,13 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		profileRes = erupiVoucherCreateDetailsService.exitingUserVoucherCreation(tokengeneration.getToken(),existingUserVoucherCreationRequest);
 		
 		return profileRes;
+	}
+	
+	@PostMapping(value="/voucherUserSearch")
+	public @ResponseBody String voucherUserSearch(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,RoleAccessRequest roleAccessRequest) {
+			logger.info("search User");	
+			String token = (String) session.getAttribute("hrms");
+			return erupiVoucherCreateDetailsService.voucherUserSearch(tokengeneration.getToken(),roleAccessRequest);
 	}
 }

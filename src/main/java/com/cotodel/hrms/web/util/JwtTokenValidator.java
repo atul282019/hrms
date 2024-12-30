@@ -46,8 +46,8 @@ public class JwtTokenValidator {
 						u = new UserDetailsEntity();	
 						u.setMobile((String)body.get("mobile"));
 						u.setUsername((String)body.get("user_name"));
-						u.setRoleId((Integer)body.get("role"));
 						u.setName((String)body.get("name"));
+						u.setUser_role((Integer)body.get("user_role"));
 						u.setEmail((String)body.get("email"));
 						u.setOrgName((String)body.get("org"));
 						u.setOrgType((String)body.get("uotyp"));

@@ -7,7 +7,7 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
 
-<body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail()" >
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail(),getTotalVoucherCount()" >
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -15,7 +15,7 @@
     <div id="wrapper">
 
 		<!-- Sidebar -->
-		    <div th:insert="fragments/erupi-sidenav.html :: sidevav"></div>
+		    <div th:insert="fragments/sidenav.html :: sidevav"></div>
        <!-- End of Sidebar -->
   
 
@@ -465,8 +465,7 @@
                             <div class="tab-content" id="selectvouchers-wrap02" style="display: none;">
                                 <div class="selectvouchers-update">
                                     <p>Last updated on</p>
-                                    <span>10:26:13</span>
-                                    <span>Mon 17 Dec 2024</span>
+                                    <span th:text="${session.formattedDate}" ></span>
                                 </div>
                                 <div class="selectvouchers-top">
                                     <div class="selectvouchers-topleft">
