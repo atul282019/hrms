@@ -9,10 +9,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VoucherTypeMaster {
 	private Integer id;
-	private String voucherDesc;
-	private String voucherType;
-	private String voucherSubType;
+	private String voucherName;
+	//private String voucherType;
+	//private String voucherSubType;
 	private String purposeCode;
+	private String purposeDesc;
+	private String voucherIcon;
 	private Integer status;
+	private String mccIcon; 
+	private String mccMainIcon;
+	private String mcc;
+	private String mccDesc;
+	
 	
 }

@@ -103,8 +103,8 @@ public interface CommonUtils {
 	
 	public static String updateErupiLinkAccount = "/empService/Api/update/erupiLinAccPsFlag";
 	public static String delinkErupiLinkAccount = "/empService/Api/update/erupiLinAccDisable";
-	public static String saveVoucherTypeMasterDetailS="/empService/Api/add/voucherTypeMaster";
-	public static String getvoucherTypeMasterList="/empService/Api/get/voucherTypeMasterList";
+	public static String saveVoucherTypeMasterDetailS="/masterService/Api/add/mccMasterupdate";
+	public static String getvoucherTypeMasterList="/masterService/Api/get/mccMasterList";
 	public static String updatevoucherTypeMasterStatus="/empService/Api/update/voucherTypeMasterStatus";
 	public static String saveBankMasterDetailS="/empService/Api/add/bankMasterDetails";
 	public static String getaftersaveBankMasterDetailsList="/empService/Api/get/getBankMasterDetailsList";

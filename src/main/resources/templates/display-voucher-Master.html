@@ -90,7 +90,7 @@
                             <div class="mt-4 bg-white p-3 br-10">
                                 <div class="row">
                                     <div class="col-12 organisation-wrap">
-                                        <h3 class="mb-1 text-center">Voucher Master </h3>
+                                        <h3 class="mb-1 text-center">Voucher Type And MCC Details</h3>
                                        
                                <div class="mt-4 tabs-details-tbl">
                             	<div class="table-responsive">    
@@ -99,12 +99,16 @@
                                                 <thead>
                                                     <tr>
                                                    		<!--<th onclick="sortTable(0)">Id</th>-->
-                                                        <th onclick="sortTable(1)">voucherDesc<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(2)">voucherType<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(3)">voucherSubType<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(4)">purposeCode<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(5)">status<img src="img/Sort.svg" alt=""></th>
-                                                        <th onclick="sortTable(5)">set status<img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(1)">Voucher Name<img src="img/Sort.svg" alt=""></th>
+														<th onclick="sortTable(1)">Purpose Code<img src="img/Sort.svg" alt=""></th>
+														<th onclick="sortTable(1)">Purpose Description<img src="img/Sort.svg" alt=""></th>
+														<th onclick="sortTable(1)">Mcc Code<img src="img/Sort.svg" alt=""></th>
+														<th onclick="sortTable(1)">Mcc Description<img src="img/Sort.svg" alt=""></th>
+														<th onclick="sortTable(4)">Voucher Icon<img src="img/Sort.svg" alt=""></th>
+														<th onclick="sortTable(4)">Mcc Icon<img src="img/Sort.svg" alt=""></th>
+														<th onclick="sortTable(4)">Mcc Main Icon<img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(5)">Status<img src="img/Sort.svg" alt=""></th>
+                                                        <th onclick="sortTable(5)">Action<img src="img/Sort.svg" alt=""></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -114,11 +118,11 @@
                                             </table>
                                         </div>
 										<br>
-										<a class="btn btn-primary" 
+										<!--<a class="btn btn-primary" 
 										                   style="position: absolute; bottom: -25px; right: 0; margin: 10px;" 
 										                   th:href="@{/voucherTypeMaster}">
 										                   Add Voucher
-										                </a>
+										                </a>-->
 
 
                                </div>
@@ -161,7 +165,53 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/display-voucher-master.js"></script>
- 
+	<style>
+		#voucherMasterTable tbody td:nth-child(5) {
+		    text-align: left !important; /* Left-align only this column's data */
+		}
+	    /* Ensure proper padding and spacing for table headers */
+	    #voucherMasterTable th {
+	        white-space: nowrap; /* Prevent text wrapping for headers */
+	        text-align: center; /* Center the text */
+	        padding: 10px; /* Add padding for spacing */
+	    }
+
+	    /* Add padding for table cells */
+		#voucherMasterTable td {
+			        padding: 10px;
+			        text-align: center; /* Center-align content */
+			        vertical-align: middle; /* Align content to the middle */
+			    }
+
+	    /* Ensure responsive behavior */
+	    .table-responsive {
+	        overflow-x: auto; /* Allow horizontal scrolling */
+	    }
+		/* Style for btn-success (Activate button) */
+		.btn-success {
+		    border-radius: 20px;  /* Rounded corners */
+		    padding: 10px 20px;    /* Adjust padding */
+		    border: none;          /* Remove border */
+		    text-align: center;    /* Center text */
+		    font-size: 14px;       /* Font size */
+		    cursor: pointer;      /* Pointer cursor */
+		    width: 100px;          /* Set fixed width */
+		    background-color: #28a745; /* Green background for 'Activate' */
+		}
+
+		/* Style for btn-danger (Deactivate button) */
+		.btn-danger {
+		    border-radius: 20px;  /* Rounded corners */
+		    padding: 10px 20px;    /* Adjust padding */
+		    border: none;          /* Remove border */
+		    text-align: center;    /* Center text */
+		    font-size: 14px;       /* Font size */
+		    cursor: pointer;      /* Pointer cursor */
+		    width: 100px;          /* Set fixed width */
+		    background-color: #dc3545; /* Red background for 'Deactivate' */
+		}
+
+	</style>
     <script type="text/javascript">
 	$(document).ready(function(){
 			
