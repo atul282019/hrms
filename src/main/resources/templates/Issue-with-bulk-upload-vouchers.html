@@ -288,13 +288,13 @@
 	                        const voucherName = clickedItem.querySelector('span').textContent;
 
 	                        // Bind the selected image and voucher name to specific elements
-	                        const imageElement = document.getElementById('voucherImageId');
-	                        const textElement = document.getElementById('VoucherText');
+	                        //const imageElement = document.getElementById('voucherImageId');
+	                        //const textElement = document.getElementById('VoucherText');
 
-	                        if (imageElement && textElement) {
+	                        //if (imageElement && textElement) {
 	                          //  imageElement.src = voucherIcon;  // Set image
-	                            textElement.textContent = voucherName;  // Set voucher name text
-	                        }
+	                         //   textElement.textContent = voucherName;  // Set voucher name text
+	                        //}
 
 	                        // Fetch Purpose List using the selected purposeCode
 	                        fetchPurposeListByVoucherCode(purposeCode);
@@ -318,8 +318,16 @@
 	            success: function(data) {
 	                const parsedData = jQuery.parseJSON(data);
 
-	                // Populate Purpose List with radio buttons
-	                parsedData.data.forEach(item => {
+	                //Populate Purpose List with radio buttons
+					const imageElement = document.getElementById('voucherImageId');
+				    const textElement = document.getElementById('VoucherText');
+
+					imageElement.src = parsedData.mccMainIcon
+					 ? `data:image/png;base64,${parsedData.mccMainIcon}`
+						: 'img/fuelVouchers.svg'; // Set image
+						textElement.textContent = parsedData.mccMainIcon.voucherName ? parsedData.mccMainIcon.voucherName : "";
+
+	                    parsedData.data.forEach(item => {
 	                    const li = document.createElement('li');
 	                    li.classList.add('purpose-item');
 	                    li.setAttribute('data-value', item.mcc);

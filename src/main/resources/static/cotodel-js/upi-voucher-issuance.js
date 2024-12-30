@@ -30,10 +30,11 @@ function getIssueVoucherList(){
 			    }}, 
 				{ "mData": "name"},
                 { "mData": "mobile"},   
-			    { "mData": "amount"},
+			   
 			   // { "mData": "merchanttxnId"},   
-				{ "mData": "purposeCode"},  
+				{ "mData": "purposeDesc"},  
 				{ "mData": "mcc"}, 
+				{ "mData": "amount"},
 				{ "mData": "creationDate"},
 				{ "mData": "expDate"},
 				{ "mData": "redemtionType"},
@@ -48,9 +49,7 @@ function getIssueVoucherList(){
 					//return '<td>  <button class="btn-revoke" data-toggle="modal" data-target="#tableRevoke" value="'+data2+'" id="btnRevoke"  onclick="revoke(this)"> Revoke </button> </td>';
 					return '<td>  <button class="btn-revoke"  value="'+data2+'" id="btnRevoke" onclick="openRevokeDialog(this)" > Revoke </button> </td>';
 														
-					}
-													     
-								
+					}													     								
 			}}, 
 			 { "mData": "id", "render": function (data2, type, row) {
 			 if(row.type==="Revoke" || row.type==="fail" || row.type==="Redeem"){
@@ -60,8 +59,8 @@ function getIssueVoucherList(){
 					//return '<td>  <button class="btn-attach" data-toggle="modal" data-target="#tableSendSms" value="'+data2+'" id="btnSend" onclick="sendsms(this)"> Send SMS  </button> </td>';
 					return '<td>  <button class="btn-attach"  value="'+data2+'" id="btnSend" onclick="openSendDialog(this)"> Send SMS  </button> </td>';
 																					
-				}
-				//return '<td>  <button class="btn-attach"  value="'+data2+'" id="btnSend" onclick="openSendDialog(this)"> Send SMS  </button> </td>';
+				 }
+				 //return '<td>  <button class="btn-attach"  value="'+data2+'" id="btnSend" onclick="openSendDialog(this)"> Send SMS  </button> </td>';
 																
 				 }}, 
     		 	],

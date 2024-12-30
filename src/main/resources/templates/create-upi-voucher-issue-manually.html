@@ -181,7 +181,7 @@
                                 </div>-->
 								<div class="selectvouchers-topright">
 		                              <div class="selectvouchers-carosel responsive-content">
-		                                  <div class="selectvouchers-carosel-cards" id="jsonData">
+		                                  <div class="selectvouchers-carosel-cardsgroup" id="jsonData">
 		                                    
 		                                  </div>
 		                                  
@@ -882,14 +882,7 @@
 	                        const voucherName = clickedItem.querySelector('span').textContent;
 
 	                        // Bind the selected image and voucher name to specific elements
-	                        const imageElement = document.getElementById('voucherImageId');
-	                        const textElement = document.getElementById('voucherTextId');
-
-	                        if (imageElement && textElement) {
-	                       //     imageElement.src = voucherIcon;  // Set image
-	                            textElement.textContent = voucherName;  // Set voucher name text
-	                        }
-
+	                       
 	                        // Clear previous selections
 	                        [...voucherList.children].forEach(item => item.classList.remove('selected'));
 	                        [...purposeList.children].forEach(item => item.remove()); // Clear Purpose List
@@ -920,6 +913,15 @@
 	                const parsedData = jQuery.parseJSON(data);
 
 	                // Populate Purpose List with radio buttons
+					const imageElement = document.getElementById('voucherImageId');
+					const textElement = document.getElementById('voucherTextId');
+
+					
+			       imageElement.src = parsedData.mccMainIcon.mccMainIcon
+						                        ? `data:image/png;base64,${parsedData.mccMainIcon.mccMainIcon}`
+						                        : ''; // Set image
+					textElement.textContent = parsedData.mccMainIcon.voucherName ? parsedData.mccMainIcon.voucherName : "";
+
 	                parsedData.data.forEach(item => {
 	                    const li = document.createElement('li');
 	                    li.classList.add('purpose-item');
