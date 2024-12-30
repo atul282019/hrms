@@ -1,4 +1,45 @@
 
+function  getLinkedBankDetail(){
+	
+    //document.getElementById("signinLoader").style.display="flex";
+ 	var employerid = document.getElementById("employerId").value;
+ 	$.ajax({
+	type: "POST",
+	url:"/getErupiLinkBankAccountDetail",
+       data: {
+			"orgId": employerid
+      		 },
+      		  beforeSend : function(xhr) {
+			//xhr.setRequestHeader(header, token);
+			},
+			   success: function(data){
+	          
+				var obj = jQuery.parseJSON( data );
+				 obj = obj.data;
+				 
+				if (obj && obj.length > 0) {
+				     // Show the div with data
+					 document.getElementById("nolinkBankAccount").style.display="none";
+	 				 document.getElementById("linkedAccount").style.display="block";
+	 				 const issueManually = document.getElementById('issueManually');
+	 				 const issueBulk = document.getElementById('issueBulk');
+	 				 issueManually.disabled =false;
+	 				 issueBulk.disabled =false;
+					 
+				   } else {
+					document.getElementById("nolinkBankAccount").style.display="block";
+					 document.getElementById("linkedAccount").style.display="none";
+				}		
+          },
+        error: function(e){
+            alert('Error: ' + e);
+        }
+   }); 
+			
+}
+
+
+
 function getIssueVoucherList(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;

@@ -919,7 +919,7 @@
 					
 			       imageElement.src = parsedData.mccMainIcon.mccMainIcon
 						                        ? `data:image/png;base64,${parsedData.mccMainIcon.mccMainIcon}`
-						                        : ''; // Set image
+						                        : 'img/fuelVouchers.svg'; // Set image
 					textElement.textContent = parsedData.mccMainIcon.voucherName ? parsedData.mccMainIcon.voucherName : "";
 
 	                parsedData.data.forEach(item => {

@@ -6,7 +6,7 @@
 
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top" onload="getIssueVoucherList()">
+<body id="page-top" onload="getIssueVoucherList(), getLinkedBankDetail()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -123,19 +123,19 @@
                                         </div>
 
                                         <div class="col-12 col-md-3">
-                                            <button class="btn-voucher-custom">
-                                                <div><a th:href="@{/upiVoucherIssuanceManually}">
-                                                        <img src="img/add-voucher.svg" alt="">
-                                                        <span>Issue Manually</span>
-                                                    </a>
-                                                </div>
-                                            </button>
+											<button class="btn-voucher-custom" id="issueManually" disabled>
+											    <div>
+											        <img src="img/add-voucher.svg" alt="">
+											        <span>Issue Manually</span>
+											    </div>
+											</button>
                                         </div>
                                         <div class="col-12 col-md-3">
-                                            <button class="btn-voucher-custom">
-                                                <div><a th:href="@{/issueWithBulkUploadVoucher}">
+                                            <button class="btn-voucher-custom" id="issueBulk" disabled>
+                                                <div><!--<a th:href="@{/issueWithBulkUploadVoucher}">-->
                                                         <img src="img/upload-voucher.svg" alt="">
-                                                        <span>Issue with Bulk Upload</span></a>
+                                                        <span>Issue with Bulk Upload</span>
+														<!--</a>-->
                                                 </div>
                                             </button>
                                         </div>
@@ -143,14 +143,14 @@
                                 </div>
 
                                 <div class="upi-voucher-wrap mb-2">
-                                    <div id="nolinkBankAccount">
+                                    <div id="nolinkBankAccount" style="display: none;">
                                         <div class="d-flex align-items-center upi-voucher-in-wrap p-0 m-0">
                                             <div class="tip-wrap justify-content-start m-0">
                                                 <p class="mb-0">No Bank Account linked till now. Please click on ‘Link
                                                     Bank
                                                     Account Now’ to activate UPI Voucher issuance.</p>
                                             </div>
-                                            <a class="btn btn-primary" id="linkBankAccount">Link Bank Account
+                                            <a class="btn btn-primary" th:href="@{/linkBankDetail}" id="linkBankAccount">Link Bank Account
                                                 Now</a>
                                         </div>
                                     </div>
@@ -165,13 +165,13 @@
                                                 <span>Funds Marked for Active UPI Vouchers <img
                                                         src="img/e-rupi-seeklogo.png" alt=""></span>
                                                 <div class="funds-mark">0 Vouchers <strong>&#8377;0.00</strong></div>
-                                                <div class="fundmarked" id="fundmarked">
+                                                <button class="fundmarked" id="fundmarked">
                                                     <a href="#"><img src="img/fund-expand.svg" alt=""></a>
-                                                </div>
+                                                </button>
                                             </div>
                                         </div>
 
-                                        <div class="activeupivcmarked" style="display: none;">
+                                        <div class="activeupivcmarked" id="myDiv" style="display: block;">
                                             <div class="row">
                                                 <div class="col-12 col-md-3">
                                                     <div class="left-activeupivcmarked active">
@@ -278,7 +278,7 @@
                                                 </tbody>
                                             </table>
 -->											
-<table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
+											<table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
                                                 <thead>
                                                     <tr>
                                                         <th></th>
@@ -310,10 +310,8 @@
                                 </div>
                             </div>
 
-
                         </div>
                     </div>
-
 
                 </div>
                 <!-- /.container-fluid -->
@@ -364,7 +362,6 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/upi-voucher-issuance.js"></script>
-
 
 	<script type="text/javascript">
 
@@ -427,24 +424,65 @@
 
 
         $(document).ready(function () {
-            $("#linkBankAccount").click(function () {
-                $("#linkedAccount").show();
-                $("#nolinkBankAccount").hide();
+           // $("#linkedAccount").click(function () {
+            //    $("#linkedAccount").show();
+           //     $("#nolinkBankAccount").hide();
 
-            });
+           // });
+			//$("#linkedAccount").click(function () {
+           //    $("#linkedAccount").hide();
+              // $("#nolinkBankAccount").hide();
+
+          // });
+		   
         });
 
 
-        $("#fundmarked").click(function () {
-            $(".activeupivcmarked").hide();
-        });
+       // $("#fundmarked").click(function () {
+           // $(".activeupivcmarked").show();
+		   //$("#activeupivcmarked").show();
+		//	activeupivcmarked.classList.toggle('collapsed');
+       // });
+		
+		$("#fundmarked").click(function () {
+		         // $(".activeupivcmarked").show();
+				//$("#activeupivcmarked").hide();
+		       });
 
-        $("#fundmarked").click(function () {
-            $(".activeupivcmarked").show();
-        });
+     ///   $("#fundmarked").click(function () {
+           // $(".activeupivcmarked").hide();
+		//	$("#activeupivcmarked").hide();
+      //  });
 
 
     </script>
+	
+
+	<script>
+	    const button = document.getElementById('fundmarked');
+	    const div = document.getElementById('myDiv');
+
+	    button.addEventListener('click', () => {
+	        div.classList.toggle('collapsed');
+	    });
+	</script>
+	<script>
+	    const issueManually = document.getElementById('issueManually');
+	    issueManually.addEventListener('click', () => {
+	        if (!issueManually.disabled) {
+	            window.location.href = '/upiVoucherIssuanceManually';
+	        }
+	    });
+
+	  
+		const issueBulk = document.getElementById('issueBulk');
+	    issueBulk.addEventListener('click', () => {
+	        if (!issueBulk.disabled) {
+	            window.location.href = '/issueWithBulkUploadVoucher';
+	        }
+	    });
+		
+	</script>
 
 </body>
 

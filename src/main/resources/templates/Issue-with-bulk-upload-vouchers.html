@@ -323,7 +323,7 @@
 				    const textElement = document.getElementById('VoucherText');
 
 					imageElement.src = parsedData.mccMainIcon
-					 ? `data:image/png;base64,${parsedData.mccMainIcon}`
+					 ? `data:image/png;base64,${parsedData.mccMainIcon.mccMainIcon}`
 						: 'img/fuelVouchers.svg'; // Set image
 						textElement.textContent = parsedData.mccMainIcon.voucherName ? parsedData.mccMainIcon.voucherName : "";
 
