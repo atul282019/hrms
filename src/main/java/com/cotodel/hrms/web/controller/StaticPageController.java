@@ -85,7 +85,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9){
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -97,7 +98,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return "redirect:/index";
 	}	
-	
+	return "redirect:/index";
+}	
 //	@GetMapping(value="/erupiCompanyDetails")
 //	public String erupiCompanyDetails(Model model) {
 //		logger.info("opening companyDetailPage");
@@ -124,7 +126,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -137,7 +140,8 @@ public class StaticPageController extends CotoDelBaseController{
 		return "redirect:/index";
 		
 	}
-	
+	return "redirect:/index";	
+}	
 //	@GetMapping(value="/employee-dashboard")
 //	public String employeeDashboard(Model model) {
 //		logger.info("opening dashboardPage");
@@ -165,7 +169,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==2 || obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==2 || obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -177,6 +182,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return "index";
 	}
+	return "index";
+}
 	@GetMapping(value="/tempLogin")
 	public String dashboard1(Model model, @RequestParam("mobile") String mobile,@RequestParam("email") String email) {
 		logger.info("opening dashboardPage");
@@ -185,7 +192,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -197,6 +205,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return "dashboard01";
 	}
+	return "dashboard01";
+}
 	
 	@GetMapping(value="/employeeDetails")
 	public ModelAndView employeeDetails(Model model) {
@@ -206,7 +216,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -216,10 +227,11 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		
 		model.addAttribute("id",id);
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 
 	@GetMapping(value="/bulkInvite")
 	public ModelAndView bulkInvite(Model model) {
@@ -228,7 +240,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -238,10 +251,10 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-			
 		return new ModelAndView("index", "command", "");
-		
 	}
+	return new ModelAndView("index", "command", "");
+}
 	@GetMapping(value="/bulkupload")
 	public ModelAndView bulkUser(Model model) {
 		logger.info("opening dashboard-bulk-emp-details");
@@ -250,7 +263,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -260,9 +274,11 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-			
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
+
 	@GetMapping(value="/bulkUserList")
 	public ModelAndView bulkUserList(Model model) {
 		logger.info("opening bulk-table-invitelist");
@@ -271,7 +287,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -281,10 +298,10 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-			
 		return new ModelAndView("index", "command", "");
-		
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/manageEmployee")
 	public ModelAndView manageEmployee(Model model) {
@@ -294,7 +311,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==1  || obj.getUser_role()==9 ) {
+			if(obj!=null) {
+				if(obj.getUser_role()==1  || obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -305,7 +323,9 @@ public class StaticPageController extends CotoDelBaseController{
 			 return new ModelAndView("error", "command", "");
 		}
 		return new ModelAndView("index", "command", "");
-	}	
+	}
+	return new ModelAndView("index", "command", "");
+}
 		@GetMapping(value="/manageEmployeeContractor")
 		public ModelAndView manageEmployeeContractor(Model model) {
 			logger.info("opening bulk-table-invitelist");
@@ -314,7 +334,8 @@ public class StaticPageController extends CotoDelBaseController{
 			Integer id  = (Integer) session.getAttribute("id");
 			if(token!=null) {
 				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-				if(obj!=null && obj.getUser_role()==9) {
+				if(obj!=null) {
+					if(obj.getUser_role()==9) {
 					model.addAttribute("name",obj.getName());
 					model.addAttribute("org",obj.getOrgName());
 					model.addAttribute("mobile",obj.getMobile());
@@ -324,9 +345,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-				
+			return new ModelAndView("index", "command", "");
+		}
 		return new ModelAndView("index", "command", "");
-		
 	}
 		
 		@GetMapping(value="/employeeOnBoarding")
@@ -337,7 +358,8 @@ public class StaticPageController extends CotoDelBaseController{
 			Integer id  = (Integer) session.getAttribute("id");
 			if(token!=null) {
 				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-				if(obj!=null && obj.getUser_role()==9) {
+				if(obj!=null) {
+					if(obj.getUser_role()==9) {
 					model.addAttribute("name",obj.getName());
 					model.addAttribute("org",obj.getOrgName());
 					model.addAttribute("mobile",obj.getMobile());
@@ -347,10 +369,10 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-				
-		return new ModelAndView("index", "command", "");
-		
+			return new ModelAndView("index", "command", "");
 		}
+		return new ModelAndView("index", "command", "");
+	}
 	
 	@GetMapping(value="/peopel")
 	public ModelAndView getPeopelList(Model model) {
@@ -358,7 +380,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -370,6 +393,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/dashBoardNew")
 	public ModelAndView dashboardNew(Model model) {
@@ -377,7 +402,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==2 || obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==2 || obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -389,6 +415,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/companyDetailNew")
 	public ModelAndView companyDetailNew(Model model) {
@@ -396,7 +424,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -408,6 +437,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/employeeOnboarding")
 	public ModelAndView employeeOnboarding(Model model) {
@@ -415,7 +446,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -427,6 +459,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/employeeOnboarding-full-action")
 	public ModelAndView employeeOnboardingFullAction(Model model) {
@@ -434,7 +468,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -446,6 +481,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/employeeProfile")
 	public ModelAndView employeeOnboarding2(Model model) {
@@ -453,7 +490,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==2) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==2) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -465,6 +503,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/expanceTravel")
 	public ModelAndView expanceTravel(Model model) {
@@ -472,7 +512,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -484,6 +525,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/expenseReimbursements")
 	public ModelAndView expenseReimbursements(Model model) {
@@ -491,7 +534,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -503,13 +547,16 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	@GetMapping(value="/expenseReimbursementsCompany")
 	public ModelAndView expenseReimbursementsCompany(Model model) {
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -521,6 +568,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/employeeBand")
 	public ModelAndView employeeBand(Model model) {
@@ -528,7 +577,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -540,6 +590,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 
 	@GetMapping(value="/employeeBandSetting")
@@ -548,7 +600,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -560,14 +613,16 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
-	
+	return new ModelAndView("index", "command", "");
+}
 	@GetMapping(value="/upiVoucherIssuance")
 	public ModelAndView upiVoucherIssuance(Model model) {
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -579,6 +634,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/createUpiVoucherIssuance")
 	public ModelAndView createUpiVoucherIssuance(Model model) {
@@ -586,7 +643,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -598,6 +656,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/bulkVoucherIssuance")
 	public ModelAndView bulkVoucherIssuance(Model model) {
@@ -605,7 +665,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -617,14 +678,16 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
-	
+	return new ModelAndView("index", "command", "");
+}
 	@GetMapping(value="/expenseReimbursementsNew")
 	public ModelAndView expenseReimbursementsNew(Model model) {
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -636,13 +699,16 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	@GetMapping(value="/displaybankMaster")
 	public ModelAndView displaybankMaster(Model model) {
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -655,6 +721,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
  
 	@GetMapping(value="/displayvoucherMaster")
 	public ModelAndView displayvoucherMaster(Model model) {
@@ -684,7 +752,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -697,6 +766,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/voucherTypeMaster")
 	public ModelAndView voucherTypeMaster(Model model) {
@@ -704,7 +775,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -717,6 +789,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@PostMapping("/editBankMaster")
 	public String editBankMaster(@RequestParam int id,
@@ -741,7 +815,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -753,6 +828,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/displaymanagerMaster")
 	public ModelAndView displaymanagerMaster(Model model) {
@@ -760,7 +837,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -772,6 +850,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/jobTitlemaster")
 	public ModelAndView jobTitlemaster(Model model) {
@@ -779,7 +859,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -791,6 +872,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/displayjobTitlemaster")
 	public ModelAndView displayjobTitlemaster(Model model) {
@@ -798,7 +881,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -810,6 +894,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@PostMapping("/editmanagerMaster")
 	public String editmanagerMaster(@RequestParam int id,
@@ -855,7 +941,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -863,18 +950,20 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("employerId",id);
 				return new ModelAndView("link-bank-account", "command", "");
 			}
-		
-		  return new ModelAndView("error", "command", "");
+			 return new ModelAndView("error", "command", "");
 		}
-		 return new ModelAndView("index", "command", "");
+		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	@GetMapping(value="/error")
 	public ModelAndView error(Model model) {
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -882,11 +971,12 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("employerId",id);
 				return new ModelAndView("error", "command", "");
 			}
-		
-		  return new ModelAndView("error", "command", "");
+			 return new ModelAndView("error", "command", "");
 		}
-		 return new ModelAndView("index", "command", "");
+		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/roleAccess")
 	public ModelAndView roleAccess(Model model) {
@@ -894,7 +984,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==1) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -902,10 +993,12 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("employerId",id);
 				return new ModelAndView("role-access", "command", "");
 			}
-			return new ModelAndView("error", "command", "");
+			 return new ModelAndView("error", "command", "");
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/userVoucheCreation")
 	public ModelAndView userVoucheCreationr(Model model) {
@@ -913,7 +1006,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -925,6 +1019,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/erupiDashboard")
 	public ModelAndView erupiDashboard(Model model) {
@@ -932,7 +1028,8 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9) {
+			if(obj!=null) {
+				if(obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -944,6 +1041,8 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+	return new ModelAndView("index", "command", "");
+}
 	
 	@GetMapping(value="/ProfileInfo")
 	public ModelAndView ProfileInfo(Model model) {
@@ -952,21 +1051,21 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer role_id  = (Integer) session.getAttribute("user_role");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null && obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2) {
-				
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
 				return new ModelAndView("Profile-Info", "command", "");
-			
 			}
 			 return new ModelAndView("error", "command", "");
 		}
 		return new ModelAndView("index", "command", "");
 	}
-		
+	return new ModelAndView("index", "command", "");
+}		
 	@GetMapping(value="/upiVoucherIssuanceNew")
 	public ModelAndView upiVoucherIssuanceNew(Model model) {
 		String token = (String) session.getAttribute("hrms");
@@ -1018,7 +1117,8 @@ public class StaticPageController extends CotoDelBaseController{
 			Integer id  = (Integer) session.getAttribute("id");
 			if(token!=null) {
 				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-				if(obj!=null && obj.getUser_role()==9) {
+				if(obj!=null) {
+					if(obj.getUser_role()==9) {
 					model.addAttribute("name",obj.getName());
 					model.addAttribute("org",obj.getOrgName());
 					model.addAttribute("mobile",obj.getMobile());
@@ -1030,6 +1130,8 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			return new ModelAndView("index", "command", "");
 		}
+		return new ModelAndView("index", "command", "");
+	}
 
 		@GetMapping("/editVoucherMaster")
 		public ModelAndView editVoucherMaster(@RequestParam int vid,@RequestParam int status,
@@ -1042,12 +1144,10 @@ public class StaticPageController extends CotoDelBaseController{
 		    //Pass data to the edit page
 		   model.addAttribute("vid", vid);
 		   model.addAttribute("status", status);
-		   
-		   
 		    return new ModelAndView("edit-Voucher-Master", "command", ""); // This refers to the Thymeleaf template for editing
-				}
-						}
-			return new ModelAndView("index", "command", "");
+		}
+	}
+	return new ModelAndView("index", "command", "");
 }
 
 }

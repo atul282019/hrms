@@ -139,13 +139,11 @@ function convertImageToBase64() {
 			 document.getElementById("fileInputError").innerHTML="Please select file";
 			 return;
            }
-		   document.getElementById('bulksubmit').disabled="false";
            var filePath = fileInput.value;
               // var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.gif)$/i;
 			   var allowedExtensions =  /(\.xlsx)$/i;
                if (!allowedExtensions.exec(filePath)) {
 				  document.getElementById("fileInputError").innerHTML="Invalid file type";
-					
                    fileInput.value = '';
                    return false;
                } 
