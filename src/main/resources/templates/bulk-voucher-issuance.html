@@ -189,13 +189,13 @@
                                             </div> 
 											<div class="error-msg" id="fileInputError" style="color:red"></div>	                                          
                                             <div class="clearfix"></div>
-
+<!--
                                             <div class="form-group mt-3">
                                                 <div class="custom-control custom-checkbox small">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck44">
                                                     <label class="custom-control-label text-left" for="customCheck44">Send welcome emails to new additions </label>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
 									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
@@ -254,7 +254,7 @@
 																												
                                     <div class="w-100 my-3 text-right">
                                         <a class="btn btn-border-primary btn-lg"  th:href="@{/createUpiVoucherIssuance}">Back</a>
-										<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVoucherUpload()" value="Upload & Continue"> </input>
+										<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVoucherUpload()" value="Upload & Continue" disabled> </input>
                                        <!-- <div class="btn btn-primary btn-lg" id="uploadBulkVoucherTable" >Upload & Continue</div>-->
                                     </div>
                                                     

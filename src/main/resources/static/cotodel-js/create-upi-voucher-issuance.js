@@ -722,17 +722,25 @@ function getVoucherSummaryList(){
 					        container.appendChild(statusMessage);*/
 							  
 							data1.data.forEach(voucher => {
-					            const voucherDiv = document.createElement('div');
-					            voucherDiv.classList.add('selectvouchers-carosel-cards');
-					            voucherDiv.innerHTML = `
-								<h5><img src="data:image/png;base64,${voucher.voucherIcon}" alt="${voucher.voucherIcon}" class="logo" width="30">${voucher.voucherName}</h5>
-										
-						                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
-						                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
-					            `;
-					            container.appendChild(voucherDiv);
-								
-					        });
+							    const voucherDiv = document.createElement('div');
+							    voucherDiv.classList.add('selectvouchers-carosel-cards');
+							    voucherDiv.innerHTML = `
+							        <div>
+							            <h5>
+							                <img src="data:image/png;base64,${voucher.voucherIcon}" class="logo" width="30">
+							                ${voucher.voucherName}
+							            </h5>
+							            <div class="d-flex justify-content-between my-1 mb-3">
+							                <span class="info"></span> ${voucher.count}
+							            </div>
+							            <div class="d-flex justify-content-between my-1">
+							                <span></span> ₹${voucher.totalAmount}
+							            </div>
+							        </div>
+							    `;
+							    container.appendChild(voucherDiv);
+							});
+
 													
 																									
 					},

@@ -30,6 +30,7 @@
 
 </head>
 
+
 <body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList()" >
 
  <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
@@ -172,21 +173,102 @@
                                        </div>
                                    </div>
                                 </div>
-                               <!-- <div class="selectvouchers-topright">
-                                    <div class="selectvouchers-carosel responsive-content" id="jsonData">
-										
-										
-                                        
-                                    </div>
-                                </div>-->
-								<div class="selectvouchers-topright">
-		                              <div class="selectvouchers-carosel responsive-content">
-		                                  <div class="selectvouchers-carosel-cardsgroup" id="jsonData">
-		                                    
-		                                  </div>
+								
+							  <div class="selectvouchers-topright">
+		                              <div class="selectvouchers-carosel responsive-content" id="jsonData">
+		                                 
 		                                  
 		                              </div>
 		                          </div>
+								  
+								<!--  <div class="selectvouchers-topright">
+								                                     <div class="selectvouchers-carosel responsive-content">
+								                                         <div class="selectvouchers-carosel-cards">
+								                                             <h5><img src="img/food-1.svg" alt="">Meal</h5>
+								                                             <div class="d-flex justify-content-between my-1 mb-3">
+								                                                 <span></span>
+								                                                 <span>2</span>
+								                                             </div>
+								                                             <div class="d-flex justify-content-between my-1">
+								                                                 <span></span>
+								                                                 <span>₹10,000</span>
+								                                             </div>
+								                                         </div>
+
+								                                         <div class="selectvouchers-carosel-cards">
+								                                             <h5><img src="img/fuel-1.svg" alt="">Fuel</h5>
+								                                             <div class="d-flex justify-content-between my-1 mb-3">
+								                                                 <span></span>
+								                                                 <span>2</span>
+								                                             </div>
+								                                             <div class="d-flex justify-content-between my-1">
+								                                                 <span></span>
+								                                                 <span>₹15,000</span>
+								                                             </div>
+								                                         </div>
+
+								                                         <div class="selectvouchers-carosel-cards">
+								                                             <h5><img src="img/Travel-1.svg" alt="">Travel</h5>
+								                                             <div class="d-flex justify-content-between my-1 mb-3">
+								                                                 <span></span>
+								                                                 <span>2</span>
+								                                             </div>
+								                                             <div class="d-flex justify-content-between my-1">
+								                                                 <span></span>
+								                                                 <span>₹1,50,000</span>
+								                                             </div>
+								                                         </div>
+
+								                                         <div class="selectvouchers-carosel-cards">
+								                                             <h5><img src="img/cup-1.svg" alt="">Conveyance</h5>
+								                                             <div class="d-flex justify-content-between my-1 mb-3">
+								                                                 <span></span>
+								                                                 <span>10</span>
+								                                             </div>
+								                                             <div class="d-flex justify-content-between my-1">
+								                                                 <span></span>
+								                                                 <span>₹20,000</span>
+								                                             </div>
+								                                         </div>
+
+								                                         <div class="selectvouchers-carosel-cards">
+								                                             <h5><img src="img/call-1.svg" alt="">Telecom</h5>
+								                                             <div class="d-flex justify-content-between my-1 mb-3">
+								                                                 <span></span>
+								                                                 <span>2</span>
+								                                             </div>
+								                                             <div class="d-flex justify-content-between my-1">
+								                                                 <span></span>
+								                                                 <span>₹15,000</span>
+								                                             </div>
+								                                         </div>
+
+								                                         <div class="selectvouchers-carosel-cards">
+								                                             <h5><img src="img/Travel-1.svg" alt="">Travel</h5>
+								                                             <div class="d-flex justify-content-between my-1 mb-3">
+								                                                 <span></span>
+								                                                 <span>2</span>
+								                                             </div>
+								                                             <div class="d-flex justify-content-between my-1">
+								                                                 <span></span>
+								                                                 <span>₹1,50,000</span>
+								                                             </div>
+								                                         </div>
+
+								                                         <div class="selectvouchers-carosel-cards">
+								                                             <h5><img src="img/cup-1.svg" alt="">Conveyance</h5>
+								                                             <div class="d-flex justify-content-between my-1 mb-3">
+								                                                 <span></span>
+								                                                 <span>10</span>
+								                                             </div>
+								                                             <div class="d-flex justify-content-between my-1">
+								                                                 <span></span>
+								                                                 <span>₹20,000</span>
+								                                             </div>
+								                                         </div>
+								                                     </div>
+								                                 </div>
+								                             -->
                             </div>
 
                             <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
@@ -427,29 +509,67 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	  <script src="vendor/jquery/jquery.min.js"></script>
+	  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	  <!-- Core plugin JavaScript-->
+	  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+	  <!-- Custom scripts for all pages-->
+	  <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	  <!-- Page level plugins -->
+	  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+	  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-	<script type="text/javascript" src="js/slick/slick.min.js"></script>
-	
+	  <!-- Page level custom scripts -->
+	  <script src="js/demo/datatables-demo.js"></script>
+
+	  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+	  <script type="text/javascript" src="js/slick/slick.min.js"></script>
+
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
-
-
+		
+	<script>
+			$('.responsive-content').slick({
+			            dots: false,
+			            infinite: false,
+			            speed: 300,
+			            slidesToShow: 4,
+			            slidesToScroll: 1,
+			            draggable: false,
+			            responsive: [
+			                {
+			                    breakpoint: 1024,
+			                    settings: {
+			                        slidesToShow: 3,
+			                        slidesToScroll: 1,
+			                        infinite: true
+			                    }
+			                },
+			                {
+			                    breakpoint: 600,
+			                    settings: {
+			                        slidesToShow: 2,
+			                        slidesToScroll: 1
+			                    }
+			                },
+			                {
+			                    breakpoint: 480,
+			                    settings: {
+			                        slidesToShow: 1,
+			                        slidesToScroll: 1
+			                    }
+			                }
+			                // You can unslick at a given breakpoint now by adding:
+			                // settings: "unslick"
+			                // instead of a settings object
+			            ]
+			        });
+		</script>
 	<script type="text/javascript">
 
 	$(document).ready(function(){
@@ -598,43 +718,7 @@
 		   
 	  }
 	</script>
-	<script>
-		$('.responsive-content').slick({
-		            dots: false,
-		            infinite: false,
-		            speed: 300,
-		            slidesToShow: 4,
-		            slidesToScroll: 1,
-		            draggable: false,
-		            responsive: [
-		                {
-		                    breakpoint: 1024,
-		                    settings: {
-		                        slidesToShow: 3,
-		                        slidesToScroll: 1,
-		                        infinite: true
-		                    }
-		                },
-		                {
-		                    breakpoint: 600,
-		                    settings: {
-		                        slidesToShow: 2,
-		                        slidesToScroll: 1
-		                    }
-		                },
-		                {
-		                    breakpoint: 480,
-		                    settings: {
-		                        slidesToShow: 1,
-		                        slidesToScroll: 1
-		                    }
-		                }
-		                // You can unslick at a given breakpoint now by adding:
-		                // settings: "unslick"
-		                // instead of a settings object
-		            ]
-		        });
-	</script>
+	
     <script>
         $(document).ready(function () {
             $("#linkBankAccount").click(function () {

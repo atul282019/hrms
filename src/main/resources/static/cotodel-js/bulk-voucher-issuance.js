@@ -12,6 +12,7 @@ $(document).on('change','.up', function(){
 			else{
 				$(this).closest('.form-group').find('.form-control').attr("value",names);
 			}
+			
    });
 
    $(document).ready(function () {
@@ -138,7 +139,7 @@ function convertImageToBase64() {
 			 document.getElementById("fileInputError").innerHTML="Please select file";
 			 return;
            }
-		     
+		   document.getElementById('bulksubmit').disabled="false";
            var filePath = fileInput.value;
               // var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.gif)$/i;
 			   var allowedExtensions =  /(\.xlsx)$/i;

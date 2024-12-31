@@ -74,7 +74,7 @@ function getIssueVoucherList(){
 			   
 			   // { "mData": "merchanttxnId"},   
 				{ "mData": "purposeDesc"},  
-				{ "mData": "mcc"}, 
+				//{ "mData": "mcc"}, 
 				{ "mData": "amount"},
 				{ "mData": "creationDate"},
 				{ "mData": "expDate"},
@@ -150,13 +150,13 @@ function getIssueVoucherList(){
                      if(type=="fail")
                      {
 						var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
-						 $(row).find('td:eq(9)').html(imgTag);
+						 $(row).find('td:eq(8)').html(imgTag);
                     //  $(row).find('td:eq(10)').addClass('tdactive');
                      }
                      if(type=="Created")
                      {
 						var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
-						 $(row).find('td:eq(9)').html(imgTag);
+						 $(row).find('td:eq(8)').html(imgTag);
                      // $(row).find('td:eq(10)').addClass('tdsubmitted');
                      }
 					 if(type=="Revoke")
@@ -169,7 +169,7 @@ function getIssueVoucherList(){
 					 if(type=="Redeem")
                      {
 						var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
-						 $(row).find('td:eq(9)').html(imgTag);
+						 $(row).find('td:eq(8)').html(imgTag);
                      }
                   }
 			});
