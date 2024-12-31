@@ -1,3 +1,127 @@
+function getBankListWithVocher() {
+    const employerId = document.getElementById("employerId").value;
+
+    $.ajax({
+        type: "POST",
+        url: "/voucherCreateBankList",
+        data: { orgId: employerId },
+        beforeSend: function (xhr) {
+            // You can add headers if needed
+        },
+        success: function (data) {
+            try {
+                const parsedData = jQuery.parseJSON(data);
+                const dataList = document.getElementById('bankListData');
+                const totalIssueCount = document.getElementById('totalIssueCount');
+                const totalIssueAmount = document.getElementById('totalIssueAmount');
+                const redemVCount = document.getElementById('redemVCount');
+                const redemVAmount = document.getElementById('redemVAmount');
+                const expRevokeCount = document.getElementById('expRevokeCount');
+                const expRevokeAmount = document.getElementById('expRevokeAmount');
+                const activeCount = document.getElementById('activeCount');
+                const activeAmount = document.getElementById('activeAmount');
+
+                // Clear previous list
+                dataList.innerHTML = "";
+
+                parsedData.data.forEach((item) => {
+                    const div = document.createElement('div');
+                    div.className = 'left-activeupivcmarked';
+                    div.innerHTML = `
+                        <div class="img-bank">
+                            <img src="data:image/png;base64,${item.bankLogo}" width="18" height="18" alt="Bank Logo">
+                        </div>
+                        <span>${item.bankName}</span>
+                        <input type="hidden" value="${item.bankAccount}" />
+                        <label>${item.bankAccountMask || ''}</label>
+                    `;
+
+                    // Set the default active class for null bank account
+                    if (item.bankAccount === null) {
+                        div.classList.add('active');
+
+                        // Fetch details for null account on page load
+                        $.ajax({
+                            type: "POST",
+                            url: "/voucherCreateSummaryDetailByAccount",
+                            data: {
+                                "orgId": employerId,
+                                "accNumber": null,
+                            },
+                            success: function (data) {
+                                const jsonData = jQuery.parseJSON(data);
+                                totalIssueCount.textContent = jsonData.issueDetail.totalIssueCount || "0";
+                                totalIssueAmount.textContent = jsonData.issueDetail.totalIssueAmount || "0";
+                                redemVCount.textContent = jsonData.issueDetail.redemVCount || "0";
+                                redemVAmount.textContent = jsonData.issueDetail.redemVAmount || "0";
+                                expRevokeCount.textContent = jsonData.issueDetail.expRevokeCount || "0";
+                                expRevokeAmount.textContent = jsonData.issueDetail.expRevokeAmount || "0";
+                                activeCount.textContent = jsonData.issueDetail.activeCount || "0";
+                                activeAmount.textContent = jsonData.issueDetail.activeAmount || "0";
+                            },
+                            error: function (e) {
+                                console.error('Error fetching default account details:', e);
+                            },
+                        });
+                    }
+
+                    // Add a click event listener to the div
+                    div.addEventListener('click', () => {
+                        const activeDiv = dataList.querySelector('.active');
+                        if (activeDiv) activeDiv.classList.remove('active');
+
+                        div.classList.add('active');
+
+                        const bankAccount = item.bankAccount;
+                        
+                            $.ajax({
+                                type: "POST",
+                                url: "/voucherCreateSummaryDetailByAccount",
+                                data: {
+                                    "orgId": employerId,
+                                    "accNumber": bankAccount,
+                                },
+                                success: function (data) {
+                                    const jsonData = jQuery.parseJSON(data);
+                                    totalIssueCount.textContent = jsonData.issueDetail.totalIssueCount || "0";
+                                    totalIssueAmount.textContent = jsonData.issueDetail.totalIssueAmount || "0";
+                                    redemVCount.textContent = jsonData.issueDetail.redemVCount || "0";
+                                    redemVAmount.textContent = jsonData.issueDetail.redemVAmount || "0";
+                                    expRevokeCount.textContent = jsonData.issueDetail.expRevokeCount || "0";
+                                    expRevokeAmount.textContent = jsonData.issueDetail.expRevokeAmount || "0";
+                                    activeCount.textContent = jsonData.issueDetail.activeCount || "0";
+                                    activeAmount.textContent = jsonData.issueDetail.activeAmount || "0";
+                                },
+                                error: function (e) {
+                                    console.error('Error fetching account details:', e);
+                                },
+                            });
+                       
+                    });
+
+                    dataList.appendChild(div);
+                });
+
+                // Update totals with parsed data
+                totalIssueCount.textContent = parsedData.issueDetail.totalIssueCount || "0";
+                totalIssueAmount.textContent = parsedData.issueDetail.totalIssueAmount || "0";
+                redemVCount.textContent = parsedData.issueDetail.redemVCount || "0";
+                redemVAmount.textContent = parsedData.issueDetail.redemVAmount || "0";
+                expRevokeCount.textContent = parsedData.issueDetail.expRevokeCount || "0";
+                expRevokeAmount.textContent = parsedData.issueDetail.expRevokeAmount || "0";
+                activeCount.textContent = parsedData.issueDetail.activeCount || "0";
+                activeAmount.textContent = parsedData.issueDetail.activeAmount || "0";
+            } catch (error) {
+                console.error('Error parsing response:', error);
+                alert('Failed to process the response data.');
+            }
+        },
+        error: function (error) {
+            console.error('Error in AJAX request:', error);
+            alert('Failed to fetch bank list. Please try again.');
+        },
+    });
+}
 
 function  getLinkedBankDetail(){
 	

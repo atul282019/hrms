@@ -95,4 +95,14 @@ public class MasterServiceImpl implements MasterService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getPurposeListByVoucherCode);
 	}
 
+	@Override
+	public String getBankListWithVocher(String token, EmployeeMassterRequest employeeMassterRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getVoucherCreateBankList);
+	}
+
+	@Override
+	public String voucherCreateSummaryDetailByAccount(String token, EmployeeMassterRequest employeeMassterRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getVoucherCreateSummaryDetailByAccount);
+	}
+
 }

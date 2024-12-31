@@ -139,6 +139,21 @@ public class MasterController  extends CotoDelBaseController{
 		return masterService.getPurposeListByVoucherCode(tokengeneration.getToken(),employeeMassterRequest);
 	}
 	
+	@PostMapping(value="/voucherCreateBankList")
+	public @ResponseBody String getBankListWithVocher(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("voucherCreateBankList");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.getBankListWithVocher(tokengeneration.getToken(),employeeMassterRequest);
+	}
+	
+	@PostMapping(value="/voucherCreateSummaryDetailByAccount")
+	public @ResponseBody String voucherCreateSummaryDetailByAccount(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("voucherCreateSummaryDetailByAccount");	
+		String token = (String) session.getAttribute("cotodel");
+		return masterService.voucherCreateSummaryDetailByAccount(tokengeneration.getToken(),employeeMassterRequest);
+	}
 	
 
 }

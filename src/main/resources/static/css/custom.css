@@ -5638,7 +5638,7 @@ button.btn-voucher-custom a {
     background: #fff;
     padding: 10px;
     border-radius: 10px;
-    min-height: 110px;
+    min-height: 70px;
     display: flex;
     align-items: center;
     margin: 10px 0;
@@ -6118,4 +6118,11 @@ table.vcScheduledtable thead {
 }
 .dropdown.dropdown-custom .dropdown-toggle span {
     margin-right: 10px; font-size: .85rem;
+}
+
+.demo-slider {
+    display: flex
+;
+    width: 100%;
+    overflow-x: scroll;
 }

@@ -146,5 +146,8 @@ public interface CommonUtils {
 	
 	public static String voucherUserSearch="/userServices/Api/get/userSearchWithMobile";
 	public static String getTotalVoucherCount = "/empService/Api/get/voucherSummaryTotalCount";
+	public static String getVoucherCreateBankList = "/empService/Api/get/voucherCreateBankList";
+	public static String getVoucherCreateSummaryDetailByAccount = "/empService/Api/get/voucherCreateSummaryDetailByAccount";
+	
 
 }

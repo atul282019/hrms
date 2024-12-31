@@ -39,4 +39,8 @@ public interface MasterService {
 
 	String getPurposeListByVoucherCode(String token, EmployeeMassterRequest employeeMassterRequest);
 
+	String getBankListWithVocher(String token, EmployeeMassterRequest employeeMassterRequest);
+
+	String voucherCreateSummaryDetailByAccount(String token, EmployeeMassterRequest employeeMassterRequest);
+
 }
