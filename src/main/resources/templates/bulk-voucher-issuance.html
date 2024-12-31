@@ -165,7 +165,7 @@
 
                                     <div class="bg-white py-3 px-2 mb-3 w-100 br-10">
                                         <div class="col-12 col-md-12">
-                                            <h5>Template file instruction</h5>
+                                            <h5>Template file instructions</h5>
                                             <ul class="bulk-list">
                                                 <li><span>1.</span>There are two tabs. Please fill in the data accordingly.</li>
                                                 <li><span>2.</span>Please do not add/remove columns.</li>
@@ -253,7 +253,9 @@
 																					
 																												
                                     <div class="w-100 my-3 text-right">
-                                        <a class="btn btn-border-primary btn-lg"  th:href="@{/createUpiVoucherIssuance}">Back</a>
+                                        <a class="btn btn-border-primary btn-lg" 
+										th:href="@{/upiVoucherIssuanceNew}">Back</a>
+										<!-- @{/createUpiVoucherIssuance}-->
 										<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVoucherUpload()" value="Upload & Continue" disabled> </input>
                                        <!-- <div class="btn btn-primary btn-lg" id="uploadBulkVoucherTable" >Upload & Continue</div>-->
                                     </div>
@@ -431,7 +433,7 @@
 
 						   <div class="form-group mt-3">
 						       <div class="custom-control custom-checkbox small">
-						           <input type="checkbox" class="custom-control-input" id="customCheck45" >
+						           <input type="checkbox" class="custom-control-input" id="customCheck45" onchange="toggleSubmitButton()">
 						           <label class="custom-control-label text-left" for="customCheck45">I confirm
 						               that the details uploaded above are correct to the best of my knowledge,
 						               and are approved by the competent authority in my organization.</label>
@@ -450,7 +452,7 @@
                            <div class="w-100 mt-3 text-right">
                                <div class="btn btn-border-primary" onclick="returnTab2()">Back</div>
 								   
-								   <button  class="btn btn-primary" id="submitButton">Issue Vouchers</button>
+								   <button  class="btn btn-primary" id="submitButton" disabled>Issue Vouchers</button>
                            </div>
 					  </div>
 					</div>

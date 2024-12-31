@@ -43,8 +43,16 @@ $(document).on('change','.up', function(){
    	
    		function bulkReject(){
    			     window.location.href = "/createUpiVoucherIssuance";
+				 ///createUpiVoucherIssuance
    		         
    	}
+	function toggleSubmitButton() {
+	       const checkbox = document.getElementById('customCheck45');
+	       const submitButton = document.getElementById('submitButton');
+	       
+	       // Enable the button only if the checkbox is checked
+	       submitButton.disabled = !checkbox.checked;
+	   }
    
 	$(document).ready(function() {
 		    $('#submitButton').click(function() {
@@ -150,7 +158,7 @@ function convertImageToBase64() {
 			   else{
 				document.getElementById("fileInputError").innerHTML="";
 			   }
-
+			  		
            const file = fileInput.files[0];	   
            const reader = new FileReader();
            reader.onload = function(event) {
@@ -160,6 +168,7 @@ function convertImageToBase64() {
 			   outputFileName.value =fileInput.files[0].name;
            };
            reader.readAsDataURL(file);
+		   document.getElementById("bulksubmit").disabled=false;
     }
 
 	function saveBulkVoucherclearmessage(){
