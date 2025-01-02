@@ -42,7 +42,7 @@ $(document).on('change','.up', function(){
    		}
    	
    		function bulkReject(){
-   			     window.location.href = "/createUpiVoucherIssuance";
+   			     window.location.href = "/bulkVoucherIssuance";
 				 ///createUpiVoucherIssuance
    		         
    	}

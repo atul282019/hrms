@@ -797,3 +797,10 @@ function getPrimaryBankDetail(){
 				}
 			});
 		}
+		function toggleSubmitButton() {
+			       const checkbox = document.getElementById('customCheck45');
+			       const submitButton = document.getElementById('submitButton');
+			       
+			       // Enable the button only if the checkbox is checked
+			       submitButton.disabled = !checkbox.checked;
+			   }
