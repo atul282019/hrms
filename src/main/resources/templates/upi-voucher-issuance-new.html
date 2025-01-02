@@ -165,7 +165,7 @@
                                             <div class="linkedAccount-wrap-right">
                                                 <span>Funds Marked for Active UPI Vouchers <img
                                                         src="img/e-rupi-seeklogo.png" alt=""></span>
-                                                <div class="funds-mark">0 Vouchers <strong>&#8377;0.00</strong></div>
+                                                <div class="funds-mark"><div id="totalVoucher"></div>&nbsp; Vouchers &#8377;<strong id="totalvoucherValue">&#8377;0.00</strong></div>
 												<div class="infoo mx-2"><a href="#" id="btnforinfomodal"><img
 												 src="img/infoo.svg" width="34px" alt=""></a></div>
                                                 <button class="fundmarked" id="fundmarked">
@@ -237,15 +237,24 @@
 
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h3 class="mb-3">Details of Vouchers Issued</h3>
-                                        <div class="rightdownload mb-3 d-flex">
-                                            <div class="calender-time">
-                                                <span>Select Time Period</span>
-                                                <img src="img/calendar-time.svg" alt="">
-                                            </div>
-                                            <div class="download-vc">
-                                                <img src="img/download-vouchers.svg" alt="">
-                                            </div>
-                                        </div>
+										<div class="rightdownload mb-3 d-flex">
+										    <!-- Time Period Selection -->
+										    <div class="calender-time d-flex align-items-center">
+										        <span class="mr-2">Select Time Period</span>
+										        <select id="timePeriodDropdown" class="form-select">
+										            <option value="7days">Last 7 Days</option>
+										            <option value="30days">Last 30 Days</option>
+										            <option value="thisMonth">This Month</option>
+										            <option value="lastMonth">Last Month</option>
+										            <option value="custom">Custom Range</option>
+										        </select>
+										        <img src="img/calendar-time.svg" alt="" class="ml-2">
+										    </div>
+										    <!-- Download Button -->
+										    <div class="download-vc ml-3">
+										        <img src="img/download-vouchers.svg" alt="">
+										    </div>
+										</div>
                                     </div>
 
                                     <div class="upi-voucher-table">
@@ -306,7 +315,9 @@
                                                 <tbody id="tableBody">
                                                     
                                                 </tbody>
-											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+											<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">
+											 
 
                                         </div>
                                     </div>
@@ -342,80 +353,6 @@
 
 		
 
-		<!-- Modal Issue Vouchers -->
-		<div class="customModal" id="revokeModal" style="display: none;">
-		    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
-		        <div class="modal-content modal-bulk p-0">
-		            <div class="modal-header pb-0 text-center">
-		                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Are you sure?</h5>
-		            </div>
-		            <hr>
-		            <p class="text-dark">Please confirm if you would like to ‘Revoke’ this UPI Vouchers.</p>
-					
-					<div class="modal-body text-center" >
-					              
-								   <div class="d-flex justify-content-center mt-3">
-			   	                    <button class="btn btn-border w-100" id="btnforrevokevcModal">REVOKE</button>
-			   	                    <button class="btn btn-primary w-100" id="cancelbtn">Cancel</button>
-			   	                </div>
-					           </div>
-		           <!-- <div class="modal-body text-center">
-		                <div class="table-responsive">
-		                    <table class="table table-reimbursements table-upivouchers-popup">
-		                        <thead>
-		                            <tr>
-		                                <th>Name <img src="img/Sort.png" alt=""></th>
-		                                <th>Mobile Number </th>
-		                                <th>Bank A/c </th>
-		                                <th>Voucher &amp; Type <img src="img/Sort.png" alt=""></th>
-		                                <th>Status <img src="img/Sort.png" alt=""></th>
-		                                <th>Issue Date <img src="img/Sort.png" alt=""></th>
-		                                <th>Expiry Date</th>
-		                                <th>Issued</th>
-		                                <th>Redeemed</th>
-
-		                            </tr>
-		                        </thead>
-
-		                        <tbody>
-		                            <tr>
-		                                <td>Deepak Kumar</td>
-		                                <td>9910318405</td>
-		                                <td>
-		                                    <div class="tdflex"><img src="img/indianbank.png" width="16px"
-		                                            alt=""><span>xxx0569</span></div>
-		                                </td>
-		                                <td>
-		                                    <div class="tdflex"><span>Meal</span>
-		                                        <div><img src="img/mealtype.svg" width="16px" alt="" data-toggle="tooltip"
-		                                                data-placement="top" title="Multi Redemption">
-		                                            <img src="img/info.svg" width="16px" alt="" data-toggle="tooltip"
-		                                                data-placement="top" title="Single Redemption">
-		                                        </div>
-		                                    </div>
-		                                </td>
-		                                <td><label>Active</label></td>
-		                                <td>25/10/2024</td>
-		                                <td>25/11/2024</td>
-		                                <td>₹ 5,000</td>
-		                                <td>₹ 2,500</td>
-		                            </tr>
-		                        </tbody>
-		                    </table>
-		                </div>
-
-
-		                <div class="d-flex justify-content-center mt-3">
-		                    <button class="btn btn-border w-100" id="btnforrevokevcModal">REVOKE</button>
-		                    <button class="btn btn-primary w-100" id="cancelbtn">Cancel</button>
-		                </div>
-		            </div>-->
-		        </div>
-		    </div>
-		</div>
-
-		
-		
 		
     </div>
     <!-- End of Page Wrapper -->
@@ -561,6 +498,11 @@
 	                $("#revokeUPIVcAuthenticate").hide();
 	            });
 	        });
+			$(document).ready(function () {
+	            $(".close").click(function () {
+	                $("#smsUPIVcAuthenticate").hide();
+	            });
+	        });
 
 	        $(document).ready(function () {
 	            $("#cancelbtn").click(function () {
@@ -614,11 +556,206 @@
 	    });
 		
 	</script>
+	
+	<script>
+			
+			let revokeValue = null;
 
+			function openRevokeDialog(rowData) {
+				
+				if (typeof rowData === "string") {
+				     rowData = JSON.parse(decodeURIComponent(rowData));
+				  }
+
+				  // Populate your popup/modal with the row data
+				  document.getElementById("revokeId").value = rowData.id; // Example
+				  document.getElementById("popupFieldName").textContent = rowData.name; // Example
+				  document.getElementById("popupFieldMobile").textContent = rowData.mobile; // Example
+				  document.getElementById("popupFieldAmount").textContent = rowData.amount; // Example
+
+			    revokeValue = rowData.value; // Store the button value
+			    document.getElementById("revokeModal").style.display = "flex";
+			}
+			function closeRevokeDialog() {
+			    document.getElementById("revokeModal").style.display = "none";
+			}
+
+			function confirmRevokeDialog() {
+			    console.log("Revoke confirmed for value:", revokeValue);
+			    revoke(revokeValue);
+			    closeRevokeDialog();
+			}
+		//	document.getElementById("confirmButton").addEventListener("click", confirmRevokeDialog);
+		//	document.getElementById("cancelButton").addEventListener("click", closeRevokeDialog);
+		
+		let resendValue = null;
+
+					function sendSMSModal(rowData) {
+						
+						if (typeof rowData === "string") {
+						     rowData = JSON.parse(decodeURIComponent(rowData));
+						  }
+
+						  // Populate your popup/modal with the row data
+						  document.getElementById("resendId").value = rowData.id; // Example
+						  document.getElementById("popupFieldName").textContent = rowData.name; // Example
+						  document.getElementById("popupFieldMobile").textContent = rowData.mobile; // Example
+						  document.getElementById("popupFieldAmount").textContent = rowData.amount; // Example
+
+					    resendValue = rowData.value; // Store the button value
+					    document.getElementById("sendSMSModal").style.display = "flex";
+					}
+					function closeresendDialog() {
+					    document.getElementById("sendSMSModal").style.display = "none";
+					}
+
+					function confirmRevokeDialog() {
+					    console.log("Revoke confirmed for value:", resendValue);
+					    resendsms(resendValue);
+					    closeresendDialog();
+					}
+				//	document.getEle
+</script>
+	
 </body>
 
 </html>
 
+<!-- Modal Issue Vouchers -->
+<div class="customModal" id="revokeModal">
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-header pb-0 text-center">
+                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Are you sure?</h5>
+            </div>
+            <hr>
+            <p class="text-dark">Please confirm if you would like to ‘Revoke’ this UPI Vouchers.</p>
+            <div class="modal-body text-center">
+                <div class="table-responsive">
+					<p><input type="hidden" id="revokeId" name="revokeId" /></p>
+					<p><strong>Name:</strong> <span id="popupFieldName"></span></p>
+					 <p><strong>Mobile:</strong> <span id="popupFieldMobile"></span></p>
+					 <p><strong>Amount:</strong> <span id="popupFieldAmount"></span></p>
+                   <!-- <table class="table table-reimbursements table-upivouchers">
+                        <thead>
+                            <tr>
+                                <th>Name <img src="img/Sort.png" alt=""></th>
+                                <th>Mobile Number </th>
+                                <th>Bank A/c </th>
+                                <th>Voucher &amp; Type <img src="img/Sort.png" alt=""></th>
+                                <th>Status <img src="img/Sort.png" alt=""></th>
+                                <th>Issue Date <img src="img/Sort.png" alt=""></th>
+                                <th>Expiry Date</th>
+                                <th>Issued</th>
+                                <th>Redeemed</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Deepak Kumar</td>
+                                <td>9910318405</td>
+                                <td>
+                                    <div class="tdflex"><img src="img/indianbank.png" width="16px"
+                                            alt=""><span>xxx0569</span></div>
+                                </td>
+                                <td>
+                                    <div class="tdflex"><span>Meal</span>
+                                        <div><img src="img/mealtype.svg" width="16px" alt="" data-toggle="tooltip"
+                                                data-placement="top" title="Multi Redemption">
+                                            <img src="img/info.svg" width="16px" alt="" data-toggle="tooltip"
+                                                data-placement="top" title="Single Redemption">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><label>Active</label></td>
+                                <td>25/10/2024</td>
+                                <td>25/11/2024</td>
+                                <td>₹ 5,000</td>
+                                <td>₹ 2,500</td>
+                            </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-border w-100" id="btnRevoke">REVOKE</button>
+                    <button class="btn btn-primary w-100" id="cancelbtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Issue Vouchers -->
+<div class="customModal" id="sendSMSModal" >
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-header pb-0 text-center">
+                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Are you sure?</h5>
+            </div>
+            <hr>
+            <p class="text-dark">Please confirm if you would like to ‘Re Send SMS’ this UPI Vouchers.</p>
+            <div class="modal-body text-center">
+                <div class="table-responsive">
+					<p><input type="hidden" id="resendId" name="resendId" /></p>
+					<p><strong>Name:</strong> <span id="popupFieldName"></span></p>
+					 <p><strong>Mobile:</strong> <span id="popupFieldMobile"></span></p>
+					 <p><strong>Amount:</strong> <span id="popupFieldAmount"></span></p>
+                   <!-- <table class="table table-reimbursements table-upivouchers">
+                        <thead>
+                            <tr>
+                                <th>Name <img src="img/Sort.png" alt=""></th>
+                                <th>Mobile Number </th>
+                                <th>Bank A/c </th>
+                                <th>Voucher &amp; Type <img src="img/Sort.png" alt=""></th>
+                                <th>Status <img src="img/Sort.png" alt=""></th>
+                                <th>Issue Date <img src="img/Sort.png" alt=""></th>
+                                <th>Expiry Date</th>
+                                <th>Issued</th>
+                                <th>Redeemed</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Deepak Kumar</td>
+                                <td>9910318405</td>
+                                <td>
+                                    <div class="tdflex"><img src="img/indianbank.png" width="16px"
+                                            alt=""><span>xxx0569</span></div>
+                                </td>
+                                <td>
+                                    <div class="tdflex"><span>Meal</span>
+                                        <div><img src="img/mealtype.svg" width="16px" alt="" data-toggle="tooltip"
+                                                data-placement="top" title="Multi Redemption">
+                                            <img src="img/info.svg" width="16px" alt="" data-toggle="tooltip"
+                                                data-placement="top" title="Single Redemption">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><label>Active</label></td>
+                                <td>25/10/2024</td>
+                                <td>25/11/2024</td>
+                                <td>₹ 5,000</td>
+                                <td>₹ 2,500</td>
+                            </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-border w-100" id="btnResend">Send SMS</button>
+                    <button class="btn btn-primary w-100" id="cancelbtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -629,23 +766,47 @@
             <div class="modal-header pb-0 text-center">
                 <h5 class="modal-title w-100" id="exampleModalCenterTitle">Revoke UPI Voucher</h5>
             </div>
-            <div class="modal-body text-center">
-                <div class="otp-box-onboarding justify-content-center">
-                    <input type="text" class="form-control">
-                    <input type="text" class="form-control">
-                    <input type="text" class="form-control">
-                    <input type="text" class="form-control">
-                    <input type="text" class="form-control">
-                </div>
-                <label class="time-otp ml-0 text-dark" for="">00:30</label>
-                <p class="text-dark">Didn’t receive the code? <a href="#">Resend Code</a></p>
-                <div class="tip-wrap justify-content-center">
-                    <p class="mb-0">OTP code has been sent to your phone.</p>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <button class="btn btn-primary w-100" id="issueVouchersModalAuthenticate">Authenticate</button>
-                </div>
-            </div>
+			<div class="modal-body text-center">
+			                <div class="otp-box-onboarding justify-content-center">
+							
+								<input  class="form-control form-control-sm test" type="password" id="password1" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password2" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password3" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password4" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password5" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password6" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+							        name="orderId" >
+			                </div>
+			               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+						  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+							<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+			                <div class="tip-wrap justify-content-center">
+			                    <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+			                </div>
+							
+							<div class="error-msg" id="otpError" style="color:red"></div>
+							
+			                <div class="d-flex justify-content-center mt-3">
+								<!--
+			                    <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+								-->
+								<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
+			                </div>
+			            </div>
+			      
         </div>
     </div>
 </div>
@@ -668,6 +829,41 @@
     </div>
 </div>
 
+
+<!-- Modal UPI Voucher Revoked -->
+<div class="customModal" id="smsUPIVcAuthenticate">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-top text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/modal-close.svg" alt="">
+                </button>
+                <img src="img/modal-success.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <span>SMS Send Successfully</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal UPI Voucher Revoked -->
+<div class="customModal" id="smsUPIVcAuthenticate">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-top text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/modal-close.svg" alt="">
+                </button>
+                <img src="img/modal-success.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <span>SMS Send Successfully</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Explaining Voucher Issuance Statistics -->
 <div class="customModal" id="explainvcIssuanceStatModal">
@@ -732,4 +928,23 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+		<div id="confirmationDialog" style="display: none;">
+			<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+				            <div class="modal-content">
+				                <div class="modal-header pb-0">
+			                    <h5 class="modal-title" id="">Are you sure you want to revoke this? </h5>
+			                    
+			                </div>
+				                <div class="modal-body confirmbox">
+				                    <div class="d-flex justify-content-center mt-4">
+										<button id="confirmButton">Yes</button>
+										<button id="cancelButton">No</button>
+			                    </div>
+				                
+				            </div>
+				        </div>
+			</div>
+		</div>
 

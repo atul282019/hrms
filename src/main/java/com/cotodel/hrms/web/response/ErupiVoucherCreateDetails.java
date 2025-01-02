@@ -49,5 +49,8 @@ public class ErupiVoucherCreateDetails {
 	private String merchantId;
 	private String subMerchantId;
 	
+	private String timePeriod;
+	
+	
 }
 

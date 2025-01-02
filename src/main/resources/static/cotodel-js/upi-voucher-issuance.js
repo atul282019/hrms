@@ -1,3 +1,265 @@
+$(document).ready(function() {
+		    $('#btnRevoke').click(function() {
+			  var employerMobile = document.getElementById("employerMobile").value;
+		      $.ajax({
+		        url:"/smsOtpSender",
+		        type: 'POST',
+				data: {
+							"mob": employerMobile,
+						},
+				dataType: 'json',
+				success: function(data) {
+				var obj = data;
+		        if (obj['status'] == "SUCCESS") {
+		            // If successful, open the OTP modal
+					var timeleft = "60";
+					var downloadTimer = setInterval(function() {
+						document.getElementById("countdown").innerHTML = "00:"+timeleft;
+						timeleft -= 1;
+						document.getElementById("orderId").value= obj['orderId'];
+						if (timeleft <= 0) {
+							clearInterval(downloadTimer);
+						}
+					}, 1000);
+					
+					$("#RevokeUPIVoucherModal").show();
+		              $("#revokeModal").hide();
+		          } else {
+		            alert("Error: " + response.message);
+		          }
+		        },
+		        error: function() {
+				  //$('#otpModal').fadeIn();
+		         // alert("An error occurred. Please try again.");
+		        }
+		      });
+		    });
+
+		    // Close the modal when clicking outside the modal content
+		    $(window).on('click', function(event) {
+		      if (event.target.id === 'revokeModal') {
+		          $("#RevokeUPIVoucherModal").hide();
+		      }
+		    });
+		  });
+		  	
+
+
+function resendVoucherOTP() {
+	
+	var userName = document.getElementById("banklinkedMobile").value;
+	var orderId = document.getElementById("orderId").value;
+	document.getElementById("signinLoader").style.display = "flex";
+	$.ajax({
+		type: "POST",
+		url:"/smsOtpResender",
+		dataType: 'json',
+		data: {
+			"mob": userName,
+			"orderId":orderId
+		},
+		success: function(data) {
+			var obj = data;
+			document.getElementById("signinLoader").style.display = "none";
+			if (obj['status'] == "SUCCESS") {
+				
+				var timeleft = "60";
+				var downloadTimer = setInterval(function() {
+					document.getElementById("countdown").innerHTML = "00."+timeleft;
+					timeleft -= 1;
+					//document.getElementById("optBtn").style.display = "none";
+					document.getElementById("orderId").value= obj['orderId'];
+					document.getElementById("verifyotpdiv").style.display = "block";
+					if (timeleft <= 0) {
+						clearInterval(downloadTimer);
+						//document.getElementById("optBtn").disabled = false;
+						document.getElementById("countdown").innerHTML = " ";
+					}
+				//	document.getElementById('password1').focus();
+				}, 1000);
+				//$('#loginIdDiv').show('slow');
+			}else if (obj['status'] == "FAILURE") {
+
+			
+			} else {
+				
+			}
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+
+function verfyIssueVoucherOTP() {
+	document.getElementById("authenticate").disabled = true;
+  	var password1 = document.getElementById("password1").value;
+  	var password2 = document.getElementById("password2").value;
+  	var password3 = document.getElementById("password3").value;
+  	var password4 = document.getElementById("password4").value;
+  	var password5 = document.getElementById("password5").value;
+  	var password6 = document.getElementById("password6").value;
+  	var orderId = document.getElementById("orderId").value;
+  	var employerMobile = document.getElementById("employerMobile").value;
+  	
+  	if (document.getElementById("employerMobile").value == "") {
+  		document.getElementById("mobError").innerHTML="Please Enter mobile..";
+  		
+  		x = false;
+  	} else if (password1 == "" && password1.length < 1) {
+  		document.getElementById("mobError").innerHTML="";
+  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+  		x = false;
+  	}
+  	 else if (password1.length < 1) {
+  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+  		x = false;
+  	}
+  	else{
+  		document.getElementById("otpError").innerHTML="";
+  	}
+  	 if (password2 == "" && password2.length < 1) {
+  		document.getElementById("mobError").innerHTML="";
+  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+  		x = false;
+  	}
+  	 else if (password2.length < 1) {
+  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+  		x = false;
+  	}
+  	else{
+  		document.getElementById("otpError").innerHTML="";
+  	}
+  	 if (password3 == "" && passwor3.length < 1) {
+  		document.getElementById("mobError").innerHTML="";
+  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+  		x = false;
+  	}
+  	 else if (password3.length < 1) {
+  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+  		x = false;
+  	}
+  	else{
+  		document.getElementById("otpError").innerHTML="";
+  	}
+  	 if (password4 == "" && password4.length < 1) {
+  		document.getElementById("mobError").innerHTML="";
+  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+  		x = false;
+  	}
+  	 else if (password4.length < 1) {
+  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+  		x = false;
+  	}
+  	else{
+  		document.getElementById("otpError").innerHTML="";
+  	}
+  	 if (password5 == "" && password5.length < 1) {
+  		document.getElementById("mobError").innerHTML="";
+  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+  		x = false;
+  	}
+  	 else if (password5.length < 1) {
+  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+  		x = false;
+  	}
+  	else{
+  		document.getElementById("otpError").innerHTML="";
+  	}
+  	 if (password6 == "" && password6.length < 1) {
+  		document.getElementById("mobError").innerHTML="";
+  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+  		x = false;
+  	}
+  	 else if (password6.length < 1) {
+  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+  		x = false;
+  	}
+  	else{
+  		document.getElementById("otpError").innerHTML="";
+  	}
+  	
+  	$.ajax({
+  			type: "POST",
+  			url:"/verifyOTP",
+  			dataType: 'json',
+  			data: {
+  				"password1": password1,
+  				"password2": password2,
+  				"password3": password3,
+  				"password4": password4,	
+  				"password5": password5,
+  				"password6": password6,
+  				"mob": employerMobile,
+  				"orderId": orderId,
+  				"userName":employerMobile
+  			},
+  			success: function(data) {
+  				var obj = data;
+  				if (obj['status']== true) {
+					document.getElementById("password1").value="";
+					document.getElementById("password2").value="";
+					document.getElementById("password3").value="";
+				    document.getElementById("password4").value="";
+					document.getElementById("password5").value="";
+					document.getElementById("password6").value="";
+					document.getElementById("authenticate").disabled = false;
+					$('#revokeUPIVcAuthenticate').show();
+					revoke();
+					$('#RevokeUPIVoucherModal').hide();
+  					$('#errorOtp').hide('slow');
+  				}else if (obj['status'] == false) {
+				
+				} else {
+  				
+  				}
+  			},
+  			error: function(e) {
+  				alert('Error: ' + e);
+  			}
+  		});
+  }
+
+  
+    function focusNext(currentInput) {
+        // Move focus to the next input box
+        var maxLength = parseInt(currentInput.getAttribute("maxlength"));
+        var currentLength = currentInput.value.length;
+
+        if (currentLength >= maxLength) {
+            var nextIndex = Array.from(currentInput.parentElement.children).indexOf(currentInput) + 1;
+            var nextInput = currentInput.parentElement.children[nextIndex];
+
+            if (nextInput) {
+                nextInput.focus();
+            }
+        }
+    }
+
+function focusBack(){
+	  var elts = document.getElementsByClassName('test')
+	  Array.from(elts).forEach(function(elt) {
+	  elt.addEventListener("keydown", function(event) {
+	    // Number 13 is the "Enter" key on the keyboard
+	    if (event.keyCode === 13 ||
+	        event.keyCode !== 8 && elt.value.length === Number(elt.maxLength)
+	    ) {
+	      // Focus on the next sibling
+	      elt.nextElementSibling.focus()
+	    }
+	    if (event.keyCode == 8) {
+	      elt.value = '';
+	      if (elt.previousElementSibling != null) {
+	        elt.previousElementSibling.focus();
+	        event.preventDefault();
+	      }
+	    }
+	  });
+	})
+}
+
+
 function getBankListWithVocher() {
     const employerId = document.getElementById("employerId").value;
 
@@ -21,6 +283,9 @@ function getBankListWithVocher() {
                 const activeCount = document.getElementById('activeCount');
                 const activeAmount = document.getElementById('activeAmount');
 
+				const totalVoucher = document.getElementById('totalVoucher');
+				const totalvoucherValue = document.getElementById('totalvoucherValue');
+								
                 // Clear previous list
                 dataList.innerHTML = "";
 
@@ -58,6 +323,9 @@ function getBankListWithVocher() {
                                 expRevokeAmount.textContent = jsonData.issueDetail.expRevokeAmount || "0";
                                 activeCount.textContent = jsonData.issueDetail.activeCount || "0";
                                 activeAmount.textContent = jsonData.issueDetail.activeAmount || "0";
+								
+								totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
+							    totalvoucherValue.textContent = jsonData.issueDetail.totalIssueAmount || "0";
                             },
                             error: function (e) {
                                 console.error('Error fetching default account details:', e);
@@ -172,7 +440,8 @@ function getIssueVoucherList(){
 		url: "/getIssueVoucherList",
 		data: {
 			//"employeeId": employerid,
-			"orgId": employerid
+			"orgId": employerid,
+			"timePeriod":"LM",
 		},
 		success: function(data) {
 			newData = data;
@@ -206,28 +475,39 @@ function getIssueVoucherList(){
 				{ "mData": "type"},      
 				
 				{ "mData": "id", "render": function (data2, type, row) {
-					
-				if(row.type==="Revoke" || row.type==="fail" || row.type==="Redeem"){
-					return '';
-				}
-				else{
-					//return '<td>  <button class="btn-revoke" data-toggle="modal" data-target="#tableRevoke" value="'+data2+'" id="btnRevoke"  onclick="revoke(this)"> Revoke </button> </td>';
-					return '<td>  <button class="btn-revoke"  value="'+data2+'" id="btnRevoke" onclick="openRevokeDialog(this)" > Revoke </button> </td>';
-														
-					}													     								
-			}}, 
-			 { "mData": "id", "render": function (data2, type, row) {
-			 if(row.type==="Revoke" || row.type==="fail" || row.type==="Redeem"){
-					return '';
-				}
-				else{
-					//return '<td>  <button class="btn-attach" data-toggle="modal" data-target="#tableSendSms" value="'+data2+'" id="btnSend" onclick="sendsms(this)"> Send SMS  </button> </td>';
-					return '<td>  <button class="btn-attach"  value="'+data2+'" id="btnSend" onclick="openSendDialog(this)"> Send SMS  </button> </td>';
-																					
-				 }
-				 //return '<td>  <button class="btn-attach"  value="'+data2+'" id="btnSend" onclick="openSendDialog(this)"> Send SMS  </button> </td>';
-																
-				 }}, 
+				    if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
+				        return '';
+				    } else {
+				        return `
+				            <td>
+				                <div class="dropdown no-arrow ml-2">
+				                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                        <i class="fas fa-ellipsis-v fa-sm"></i>
+				                    </a>
+				                    <br>
+				                    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+				                        <button 
+				                            class="dropdown-item py-2" 
+				                            value="${data2}" 
+				                            id="btnRevoke" 
+				                            onclick="openRevokeDialog('${encodeURIComponent(JSON.stringify(row))}')">
+				                            Revoke
+				                        </button>
+				                        <button 
+				                            class="dropdown-item py-2"  
+				                            data-toggle="modal" 
+				                            data-target="#tableSendSms" 
+				                            value="${data2}" 
+				                            id="btnSend" 
+				                            onclick="sendsms('${encodeURIComponent(JSON.stringify(row))}')">
+				                            Send SMS
+				                        </button>
+				                    </div>
+				                </div>
+				            </td>`;
+						}
+				    }}, 
+			
     		 	],
 				
 				createdRow: function (row, data2, dataIndex) 
@@ -310,21 +590,27 @@ function colosethis(){
 	document.getElementById("tableRevoke").style.display="none";
 }
 
-function sendsms(value){
-		 var row = jQuery(value).closest('tr');
-		 var  id = $(row).find("input[name='revoke']").val();
+function sendsms(rowData){
+		// var row = jQuery(value).closest('tr');
+		// var  id = $(row).find("input[name='revoke']").val();
+		 var employerId = document.getElementById("employerId").value; 
+		 if (typeof rowData === "string") {
+		     rowData = JSON.parse(decodeURIComponent(rowData));
+		  }
 		 document.getElementById("signinLoader").style.display="flex";
 		  	$.ajax({
 		 	type: "POST",
 		 	url:"/erupiVoucheSmsSend",
 		     data: {
-		 			"id": value
+		 			"id": rowData.id,
+					"org":employerId,
 		    		 },
 		    		  beforeSend : function(xhr) {
 		 			//xhr.setRequestHeader(header, token);
 		 			},
 		         success: function(data){
 				 document.getElementById("signinLoader").style.display="none";
+				 $('#smsUPIVcAuthenticate').show();
 		        },
 		      error: function(e){
 		          alert('Error: ' + e);
@@ -332,29 +618,33 @@ function sendsms(value){
 		 }); 
 		 
 		 $(window).on('click', function(event) {
-		       if (event.target.id === 'otpModal') {
-		         $('#otpModal').fadeOut();
-		       }
+		       //if (event.target.id === 'otpModal') {
+		       //  $('#smsUPIVcAuthenticate').fadeOut();
+		      // }
 		     });
 }
 
 
 function revoke(value){
-		 var row = jQuery(value).closest('tr');
-		 var  id = $(row).find("input[name='revoke']").val();
+		// var row = jQuery(value).closest('tr');
+		// var  id = $(row).find("input[name='revoke']").val();
+		var employerId = document.getElementById("employerId").value; 
+		var revokeId = document.getElementById("revokeId").value;
 		 document.getElementById("signinLoader").style.display="flex";
 		  	$.ajax({
 		 	type: "POST",
 		 	url:"/revokeCreatedVoucher",
 		     data: {
-		 			"id": value
+		 			"id": revokeId,
+					"orgId": employerId
 		    		 },
 		    		  beforeSend : function(xhr) {
 		 			//xhr.setRequestHeader(header, token);
 		 			},
 		         success: function(data){
+					document.getElementById("revokeId").value="";
+					document.getElementById("authenticate").disabled = false;
 		         newData = data;
-		         //console.log(newData);
 				 document.getElementById("signinLoader").style.display="none";
 		         var data1 = jQuery.parseJSON( newData );
 		 		var data2 = data1.data;
