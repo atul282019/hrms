@@ -698,7 +698,7 @@ function AutoFillForm() {
 	console.log("inside autofill function")
 	
 	var employerid = document.getElementById("employerId").value;
-	employerid=82;
+	//employerid=82;
         // AJAX request to fetch data based on employerId
         $.ajax({
 			type: "POST",
