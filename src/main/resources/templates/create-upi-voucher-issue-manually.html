@@ -181,94 +181,6 @@
 		                              </div>
 		                          </div>
 								  
-								<!--  <div class="selectvouchers-topright">
-								                                     <div class="selectvouchers-carosel responsive-content">
-								                                         <div class="selectvouchers-carosel-cards">
-								                                             <h5><img src="img/food-1.svg" alt="">Meal</h5>
-								                                             <div class="d-flex justify-content-between my-1 mb-3">
-								                                                 <span></span>
-								                                                 <span>2</span>
-								                                             </div>
-								                                             <div class="d-flex justify-content-between my-1">
-								                                                 <span></span>
-								                                                 <span>₹10,000</span>
-								                                             </div>
-								                                         </div>
-
-								                                         <div class="selectvouchers-carosel-cards">
-								                                             <h5><img src="img/fuel-1.svg" alt="">Fuel</h5>
-								                                             <div class="d-flex justify-content-between my-1 mb-3">
-								                                                 <span></span>
-								                                                 <span>2</span>
-								                                             </div>
-								                                             <div class="d-flex justify-content-between my-1">
-								                                                 <span></span>
-								                                                 <span>₹15,000</span>
-								                                             </div>
-								                                         </div>
-
-								                                         <div class="selectvouchers-carosel-cards">
-								                                             <h5><img src="img/Travel-1.svg" alt="">Travel</h5>
-								                                             <div class="d-flex justify-content-between my-1 mb-3">
-								                                                 <span></span>
-								                                                 <span>2</span>
-								                                             </div>
-								                                             <div class="d-flex justify-content-between my-1">
-								                                                 <span></span>
-								                                                 <span>₹1,50,000</span>
-								                                             </div>
-								                                         </div>
-
-								                                         <div class="selectvouchers-carosel-cards">
-								                                             <h5><img src="img/cup-1.svg" alt="">Conveyance</h5>
-								                                             <div class="d-flex justify-content-between my-1 mb-3">
-								                                                 <span></span>
-								                                                 <span>10</span>
-								                                             </div>
-								                                             <div class="d-flex justify-content-between my-1">
-								                                                 <span></span>
-								                                                 <span>₹20,000</span>
-								                                             </div>
-								                                         </div>
-
-								                                         <div class="selectvouchers-carosel-cards">
-								                                             <h5><img src="img/call-1.svg" alt="">Telecom</h5>
-								                                             <div class="d-flex justify-content-between my-1 mb-3">
-								                                                 <span></span>
-								                                                 <span>2</span>
-								                                             </div>
-								                                             <div class="d-flex justify-content-between my-1">
-								                                                 <span></span>
-								                                                 <span>₹15,000</span>
-								                                             </div>
-								                                         </div>
-
-								                                         <div class="selectvouchers-carosel-cards">
-								                                             <h5><img src="img/Travel-1.svg" alt="">Travel</h5>
-								                                             <div class="d-flex justify-content-between my-1 mb-3">
-								                                                 <span></span>
-								                                                 <span>2</span>
-								                                             </div>
-								                                             <div class="d-flex justify-content-between my-1">
-								                                                 <span></span>
-								                                                 <span>₹1,50,000</span>
-								                                             </div>
-								                                         </div>
-
-								                                         <div class="selectvouchers-carosel-cards">
-								                                             <h5><img src="img/cup-1.svg" alt="">Conveyance</h5>
-								                                             <div class="d-flex justify-content-between my-1 mb-3">
-								                                                 <span></span>
-								                                                 <span>10</span>
-								                                             </div>
-								                                             <div class="d-flex justify-content-between my-1">
-								                                                 <span></span>
-								                                                 <span>₹20,000</span>
-								                                             </div>
-								                                         </div>
-								                                     </div>
-								                                 </div>
-								                             -->
                             </div>
 
                             <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
@@ -305,16 +217,13 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input" id="mobile"
-                                                        placeholder="Enter Mobile Number">
+                                                    <input type="text" class="table-input" id="mobile" maxlength="10"
+													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                     placeholder="Enter Mobile Number">
                                                 </td>
                                                 <td>
-                                                   <!-- <div class="position-relative tablevc">-->
-                                                        <input type="text" class="table-input table-input-voucher selectMCC" id="btnforvccategoryforbulkissuance"
-                                                            placeholder="Select Voucher">
-                                                       <!-- <a href="#" id="btnforvccategoryforbulkissuance"><img
-                                                                src="img/voucher-sm.svg" alt=""></a>-->
-                                                    <!--</div>-->
+                                                    <input type="text" class="table-input table-input-voucher selectMCC" id="btnforvccategoryforbulkissuance"
+                                                     placeholder="Select Voucher">
                                                 </td>
                                                 <td>
                                                     <select class="GeneralSelect" id="redemptionType">
@@ -324,12 +233,12 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input" id="amount" placeholder="Enter Amount">
+                                                    <input type="text" class="table-input" id="amount" placeholder="Enter Amount"
+													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6">
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <input type="date" class="table-dateed" id="startDate"
-                                                            placeholder="Salect Date">
+                                                        <input type="date" class="table-input" id="startDate" placeholder="Salect Date">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -384,15 +293,13 @@
                                     <button class="btn btn-border-primary"
                                         onclick="window.location.href='upi-voucher-issuance.html';">Back</button>
                                     <button type="button" class="btn btn-primary" onclick="singleVoucherValidation()">Continue</button>
-                                </div>
-																
+                                </div>								
                             </div>
 
 							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap04" style="display: none;">
 	                                <div class="d-flex">
 	                                    <h3>Verify Details </h3>
 	                                </div>
-
 	                                <div>
 	                                    <p>Please Verify the details for the issuance of vouchers.</p>
 	                                </div>
@@ -408,7 +315,6 @@
 	                                                <th>Amount</th>
 	                                                <th>Start Date</th>
 	                                                <th>Validity</th>
-	                                                
 	                                            </tr>
 	                                        </thead>
 												<tbody>
@@ -436,7 +342,6 @@
                                        </div>
 									<div class="error-msg" id="errorMessage" style="color:red"></div>
                                    </div>
-								   
 
 								   <div class="clearfix"></div>
 								   <div id="issuemsgdiv" style="display:none" class="alert alert-success text-center">
@@ -497,8 +402,21 @@
             <!-- End of Main Content -->
         </div>
 		
-		<!--<div class="lds-spinner" id="signinLoader" style="display: none">
-		-->	
+
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -564,9 +482,6 @@
 			                        slidesToScroll: 1
 			                    }
 			                }
-			                // You can unslick at a given breakpoint now by adding:
-			                // settings: "unslick"
-			                // instead of a settings object
 			            ]
 			        });
 		</script>
@@ -613,21 +528,14 @@
 								var downloadTimer = setInterval(function() {
 									document.getElementById("countdown").innerHTML = "00:"+timeleft;
 									timeleft -= 1;
-									//document.getElementById("optBtn").style.display = "none";
 									document.getElementById("orderId").value= obj['orderId'];
-									//document.getElementById("verifyotpdiv").style.display = "block";
 									if (timeleft <= 0) {
 										clearInterval(downloadTimer);
-										///document.getElementById("optBtn").disabled = false;
-										///document.getElementById("countdown").innerHTML = " ";
-										//document.getElementById("optBtn").style.display = "none";
-										//document.getElementById("verifyotpdiv").style.display = "none";
-										///$('#loginIdDiv').hide('slow');
 									}
-									//document.getElementById('password').focus();
 								}, 1000);
 	            $('#otpModal').fadeIn();
 	          } else {
+				document.getElementById('submitButton').disabled=false;
 	            alert("Error: " + response.message);
 	          }
 	        },
@@ -647,76 +555,6 @@
 	  });
 	  
 	  
-	  function bulkIssuePage(){
-	  const groceries = document.getElementById('groceries');
-	  const food = document.getElementById('food');
-	  const petroleum = document.getElementById('petroleum');
-	  const conveyance = document.getElementById('Conveyance');
-	  const uniform = document.getElementById('uniform');
-	  const gadgets = document.getElementById('Gadgets');
-	  const health = document.getElementById('Health');
-	  const telecom = document.getElementById('Telecom');
-	  const entertainment = document.getElementById('Entertainment');
-	  //  const groceries = document.getElementById('Groceries');
-	  const books = document.getElementById('books');
-				  		 
-	       if (groceries.checked) {
-			localStorage.setItem("voucherName", groceries.name);
-			localStorage.setItem("voucherCode",groceries.value);
-		     window.location.href = "/bulkVoucherIssuance";
-	       } 
-		   else if (food.checked) {
-		   		localStorage.setItem("voucherName", food.name);
-		   		localStorage.setItem("voucherCode",food.value);
-		   	     window.location.href = "/bulkVoucherIssuance";
-		    } 
-			 else if (petroleum.checked) {
-		  		localStorage.setItem("voucherName", petroleum.name);
-		  		localStorage.setItem("voucherCode",petroleum.value);
-		  	     window.location.href = "/bulkVoucherIssuance";
-		     } 
-	  	     else if (uniform.checked) {
-	     		localStorage.setItem("voucherName", uniform.name);
-	     		localStorage.setItem("voucherCode",uniform.value);
-	     	     window.location.href = "/bulkVoucherIssuance";
-	          }
-	  	    else if (gadgets.checked) {
-	  	   		localStorage.setItem("voucherName", gadgets.name);
-	  	   		localStorage.setItem("voucherCode",gadgets.value);
-	  	   	     window.location.href = "/bulkVoucherIssuance";
-	  	      } 
-					  
-		   else if (health.checked) {
-		  		localStorage.setItem("voucherName", health.name);
-		  		localStorage.setItem("voucherCode",health.value);
-		  	     window.location.href = "/bulkVoucherIssuance";
-		       } 
-	  	    else if (telecom.checked) {
-	     		localStorage.setItem("voucherName", telecom.name);
-	     		localStorage.setItem("voucherCode",telecom.value);
-	     	     window.location.href = "/bulkVoucherIssuance";
-	           }
-	  	    else if (entertainment.checked) {
-	  	   		localStorage.setItem("voucherName", entertainment.name);
-	  	   		localStorage.setItem("voucherCode",entertainment.value);
-	  	   	    window.location.href = "/bulkVoucherIssuance";
-	  	       
-	  	      } 
-		   else if (groceries.checked) {
-		      localStorage.setItem("voucherName", groceries.name);
-		      localStorage.setItem("voucherCode",groceries.value);
-	          window.location.href = "/bulkVoucherIssuance";
-	        } 
-	      else if (books.checked) {
-	 		 localStorage.setItem("voucherName", books.name);
-	 		 localStorage.setItem("voucherCode",books.value);
-	 	     window.location.href = "/bulkVoucherIssuance";
-	       }			   
-		   else{
-			document.getElementById("confirmationDialog").style.display = "flex";
-		   }
-		   
-	  }
 	</script>
 	
     <script>
@@ -860,65 +698,65 @@
 	    const employerId = document.getElementById('employerId').value;
 		       // Sample list of users (this can be dynamic)
 			$.ajax({
-				            type: "POST",
-				            url: "/voucherUserSearch",
-				            dataType: 'json',
-				            data: {
-				                "orgId": employerId,
-				                "userName": searchInput
-				            },
-				            success: function (data) {
-				                //document.getElementById("signinLoader").style.display = "none";
-								
-								//data.data
-						     // Event listener to trigger autocomplete
-						      
-						           const query = searchInput2.value.toLowerCase();
-						           if (query) {
-						               const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
-						               displaySuggestions(filteredUsers);
-						           } else {
-						               suggestionsDropdown.style.display = 'none';
-						           }
-						     
-				               
-				            },
-				            error: function (e) {
-				                document.getElementById("signinLoader").style.display = "none";
-				                console.error('Error:', e);
-				                alert('An error occurred while fetching the data.');
-				            }
-				        });
+            type: "POST",
+            url: "/voucherUserSearch",
+            dataType: 'json',
+            data: {
+                "orgId": employerId,
+                "userName": searchInput
+            },
+            success: function (data) {
+                //document.getElementById("signinLoader").style.display = "none";
+				
+				//data.data
+		     // Event listener to trigger autocomplete
+		      
+		           const query = searchInput2.value.toLowerCase();
+		           if (query) {
+		               const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
+		               displaySuggestions(filteredUsers);
+		           } else {
+		               suggestionsDropdown.style.display = 'none';
+		           }
+		     
+               
+            },
+            error: function (e) {
+                document.getElementById("signinLoader").style.display = "none";
+                console.error('Error:', e);
+                alert('An error occurred while fetching the data.');
+            }
+        });
 
 		      
 
-		       // Function to display the filtered suggestions in the dropdown
-		       function displaySuggestions(userList) {
-		           suggestionsDropdown.innerHTML = ''; // Clear previous suggestions
-		           userList.forEach(user => {
-		               const div = document.createElement('div');
-		               div.classList.add('autocomplete-suggestion');
+	       // Function to display the filtered suggestions in the dropdown
+	       function displaySuggestions(userList) {
+	           suggestionsDropdown.innerHTML = ''; // Clear previous suggestions
+	           userList.forEach(user => {
+	               const div = document.createElement('div');
+	               div.classList.add('autocomplete-suggestion');
 
-		               // Create content with username, profile, and contact number
-		               div.innerHTML = `
-					     <strong>${user.email}</strong>
-					     <span class="user-profile">${user.username}</span>
-					     <span class="user-contact">${user.mobile}</span>
-					   `;
+	               // Create content with username, profile, and contact number
+	               div.innerHTML = `
+				     <strong>${user.email}</strong>
+				     <span class="user-profile">${user.username}</span>
+				     <span class="user-contact">${user.mobile}</span>
+				   `;
 
-		               div.addEventListener('click', function () {
-		                   searchInput2.value = user.username; // Set input value to the selected user
-						   mobile.value = user.mobile; // Set input value to the selected user
-		                   suggestionsDropdown.style.display = 'none'; // Hide dropdown
-		               });
+	               div.addEventListener('click', function () {
+	                   searchInput2.value = user.username; // Set input value to the selected user
+					   mobile.value = user.mobile; // Set input value to the selected user
+	                   suggestionsDropdown.style.display = 'none'; // Hide dropdown
+	               });
 
-		               suggestionsDropdown.appendChild(div);
-		           });
+	               suggestionsDropdown.appendChild(div);
+	           });
 
-		           suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
-		       }
+	           suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
+	       }
 
-	   }
+   }
 
     </script>
 
@@ -1019,7 +857,7 @@
 
 	                    // Create img element
 	                    const img = document.createElement('img');
-	                    img.src = item.voucherIcon
+	                    img.src = item.mccIcon
 	                        ? `data:image/png;base64,${item.mccIcon}`
 	                        : '';
 	                   // img.alt = item.mccDesc;
@@ -1041,11 +879,8 @@
 	            }
 	        });
 	    }
-
-	    
-
-	    // Initialize
-	   // getVoucherListWithIcon();
+    // Initialize
+   // getVoucherListWithIcon();
 	</script>
 
 	<script>
@@ -1090,31 +925,28 @@
 			$("#modalforvccategoryforbulkissuance").hide();
 				   
 		}
-		
-
-		function getTotalVoucherCount(){
-					var employerid = document.getElementById("employerId").value;
-					$.ajax({
-						type: "POST",
-						url: "/getTotalVoucherCount",
-						data: {
-							"orgId": employerid,
-							"workflowid":100003
+	function getTotalVoucherCount(){
+				var employerid = document.getElementById("employerId").value;
+				$.ajax({
+					type: "POST",
+					url: "/getTotalVoucherCount",
+					data: {
+						"orgId": employerid,
+						"workflowid":100003
+					},
+					success: function(data) {
+						newData = data;
+						var data1 = jQuery.parseJSON(newData);
+						document.getElementById("totalNumber").innerText=data1.totalCount;
+						document.getElementById("totalValue").innerText="₹"+data1.totalAmount;
+						
 						},
-						success: function(data) {
-							newData = data;
-							var data1 = jQuery.parseJSON(newData);
-							document.getElementById("totalNumber").innerText=data1.totalCount;
-							document.getElementById("totalValue").innerText="₹"+data1.totalAmount;
-							
-							},
-							error: function(e) {
-								alert('Failed to fetch JSON data' + e);
-						}
-					});
-				}
-
-				
+						error: function(e) {
+							alert('Failed to fetch JSON data' + e);
+					}
+				});
+			}
+			
 		function searchEmployee() {
 	        const searchBox = document.getElementById('searchBox').value;
 	        const employerId = document.getElementById('employerId').value;
@@ -1148,7 +980,32 @@
 	            }
 	        });
 	    }
+		
+		
 	</script>
+	<script>
+	      // Set the min attribute to today's date
+	      const datePicker = document.getElementById('expiryDate');
+	      const today = new Date();
+	      const yyyy = today.getFullYear();
+	      const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	      const dd = String(today.getDate()+1).padStart(2, '0');
+	      const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+	      datePicker.min = formattedDate;
+		  
+		  
+		  const startDatedatePicker = document.getElementById('startDate');
+	      const startDatetoday = new Date();
+	      const startDateyyyy = today.getFullYear();
+	      const startDatemm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	      const startDatedd = String(today.getDate()).padStart(2, '0');
+	      const startDateformattedDate = `${startDateyyyy}-${startDatemm}-${startDatedd}`;
+
+	      startDatedatePicker.min = startDateformattedDate;
+		
+				
+	  </script>
 
 	
 	<script>
@@ -1209,8 +1066,6 @@
 	    }
 	</script>
 	
-	
-	
     <!-- Modal Issue Vouchers -->
     <div class="customModal" id="modalforvccategoryforbulkissuance">
         <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
@@ -1219,7 +1074,7 @@
                     <div class="tab-content m-0">
                         <div class="upi-voucher-wrap m-0 p-0">
                             <div>
-                                <h3>Select Voucher Category for Bulk Issuance </h3>
+                                <h3>Select Voucher Category for Voucher Issuance </h3>
                                 <p>Select Vouchers from the selection provided below, and continue to enter details for issuance. </p>
                             </div>
 
@@ -1267,14 +1122,9 @@
                             <div class="row">
                                 <div class="col-12 text-right mt-3">
                                    <!-- <button class="btn btn-border-primary mb-1" onclick="window.location.href='create-upi-voucher-issue-manually.html';">Back</button>-->
-                                   <!-- <button class="btn btn-primary mb-1" id="getVoucherDataButton" >Continue</button>-->
-								   <!-- Button to get selected voucher and purpose data -->
-								   <button class="btn btn-primary mb-1" onclick="getVoucherDetail()">Continue</button>
-						
-                                </div>
+                       			   <button class="btn btn-primary mb-1" onclick="getVoucherDetail()">Continue</button>
+								 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -1282,35 +1132,6 @@
         </div>
     </div>
 
-    <!-- Modal Issue Vouchers -->
- <!--   <div class="modal fade" id="modalissueVouchers" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
-            <div class="modal-content modal-bulk">
-                <div class="modal-header pb-0 text-center">
-                    <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication Bank A/c Linking</h5>
-                </div>
-                <div class="modal-body text-center">
-                    <div class="otp-box-onboarding justify-content-center">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control">
-                    </div>
-                    <label class="time-otp ml-0 text-dark" for="">00:30</label>
-                    <p class="text-dark">Didn’t receive the code? <a href="#">Resend Code</a></p>
-                    <div class="tip-wrap justify-content-center">
-                        <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
-                    </div>
-                    <div class="d-flex justify-content-center mt-3">
-                        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-	
 	<div id="otpModal" class="modal customfade">
 	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
 	        <div class="modal-content modal-bulk">

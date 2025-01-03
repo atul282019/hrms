@@ -47,7 +47,9 @@ $(document).ready(function() {
 
 function resendVoucherOTP() {
 	
-	var userName = document.getElementById("banklinkedMobile").value;
+	//var userName = document.getElementById("banklinkedMobile").value;
+
+	var employerMobile = document.getElementById("employerMobile").value;
 	var orderId = document.getElementById("orderId").value;
 	document.getElementById("signinLoader").style.display = "flex";
 	$.ajax({
@@ -55,7 +57,7 @@ function resendVoucherOTP() {
 		url:"/smsOtpResender",
 		dataType: 'json',
 		data: {
-			"mob": userName,
+			"mob": employerMobile,
 			"orderId":orderId
 		},
 		success: function(data) {
@@ -67,19 +69,13 @@ function resendVoucherOTP() {
 				var downloadTimer = setInterval(function() {
 					document.getElementById("countdown").innerHTML = "00."+timeleft;
 					timeleft -= 1;
-					//document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
-					document.getElementById("verifyotpdiv").style.display = "block";
 					if (timeleft <= 0) {
 						clearInterval(downloadTimer);
-						//document.getElementById("optBtn").disabled = false;
 						document.getElementById("countdown").innerHTML = " ";
 					}
-				//	document.getElementById('password1').focus();
 				}, 1000);
-				//$('#loginIdDiv').show('slow');
 			}else if (obj['status'] == "FAILURE") {
-
 			
 			} else {
 				
@@ -197,20 +193,21 @@ function verfyIssueVoucherOTP() {
   			},
   			success: function(data) {
   				var obj = data;
+				document.getElementById("password1").value="";
+				document.getElementById("password2").value="";
+				document.getElementById("password3").value="";
+			    document.getElementById("password4").value="";
+				document.getElementById("password5").value="";
+				document.getElementById("password6").value="";
+				document.getElementById("authenticate").disabled = false;
   				if (obj['status']== true) {
-					document.getElementById("password1").value="";
-					document.getElementById("password2").value="";
-					document.getElementById("password3").value="";
-				    document.getElementById("password4").value="";
-					document.getElementById("password5").value="";
-					document.getElementById("password6").value="";
-					document.getElementById("authenticate").disabled = false;
-					$('#revokeUPIVcAuthenticate').show();
-					revoke();
 					$('#RevokeUPIVoucherModal').hide();
-  					$('#errorOtp').hide('slow');
+					revoke();
   				}else if (obj['status'] == false) {
-				
+					document.getElementById("otpError").textContent=obj['message'];
+					document.getElementById("otpError").style.display="block";
+					$('#RevokeUPIVoucherModal').show();
+					//$('#revokeUPIVcAuthenticateFail').show();
 				} else {
   				
   				}
@@ -454,6 +451,7 @@ function getIssueVoucherList(){
 	          destroy: true,	
 			 // "dom": 'rtip',
 			 //dom: 'Bfrtip',
+			 lengthChange: true,
 		     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["csv", "excel"],
              "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
@@ -464,8 +462,12 @@ function getIssueVoucherList(){
 			    }}, 
 				{ "mData": "name"},
                 { "mData": "mobile"},   
-			   
-			   // { "mData": "merchanttxnId"},   
+				/*{ "mData": "accountNumber", "render": function (data2, type, row) {
+					
+				 return '<div class="tdflex"><img src="img/indianbank.png" width="16px" alt=""><span" ></span></div>';
+								  
+				}},*/
+			    { "mData": "accountNumber"},   
 				{ "mData": "purposeDesc"},  
 				//{ "mData": "mcc"}, 
 				{ "mData": "amount"},
@@ -554,13 +556,13 @@ function getIssueVoucherList(){
                      if(type=="fail")
                      {
 						var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
-						 $(row).find('td:eq(8)').html(imgTag);
+						 $(row).find('td:eq(9)').html(imgTag);
                     //  $(row).find('td:eq(10)').addClass('tdactive');
                      }
                      if(type=="Created")
                      {
 						var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
-						 $(row).find('td:eq(8)').html(imgTag);
+						 $(row).find('td:eq(9)').html(imgTag);
                      // $(row).find('td:eq(10)').addClass('tdsubmitted');
                      }
 					 if(type=="Revoke")
@@ -573,7 +575,15 @@ function getIssueVoucherList(){
 					 if(type=="Redeem")
                      {
 						var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
-						 $(row).find('td:eq(8)').html(imgTag);
+						 $(row).find('td:eq(9)').html(imgTag);
+                     }
+					 var bankcode = data2.bankcode;
+					 var bankIcon = data2.bankIcon;
+					 var accountNumber = data2.accountNumber;
+					 if(bankcode=="ICICI")
+                     {	
+	 					 var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt=""] width="16px" height=""16px>';
+	 					 $(row).find('td:eq(3)').html(imgTag+" "+accountNumber);
                      }
                   }
 			});
@@ -625,7 +635,7 @@ function sendsms(rowData){
 }
 
 
-function revoke(value){
+function revoke(){
 		// var row = jQuery(value).closest('tr');
 		// var  id = $(row).find("input[name='revoke']").val();
 		var employerId = document.getElementById("employerId").value; 
@@ -642,17 +652,26 @@ function revoke(value){
 		 			//xhr.setRequestHeader(header, token);
 		 			},
 		         success: function(data){
+					newData = data;
+					var data1 = jQuery.parseJSON(newData);
+					$('#RevokeUPIVoucherModal').hide();
 					document.getElementById("revokeId").value="";
 					document.getElementById("authenticate").disabled = false;
-		         newData = data;
-				 document.getElementById("signinLoader").style.display="none";
-		         var data1 = jQuery.parseJSON( newData );
-		 		var data2 = data1.data;
-				getIssueVoucherList();
-		        },
-		      error: function(e){
-		          alert('Error: ' + e);
-		      }
+					 document.getElementById("signinLoader").style.display="none";
+					
+					if(data1.status==true){
+					$('#revokeUPIVcAuthenticate').show();				
+					$('#RevokeUPIVoucherModal').hide();
+					}
+					else{
+						$('#revokeUPIVcAuthenticateFail').show();		
+					}
+					getIssueVoucherList();
+			        },
+			      error: function(e){
+					$('#revokeUPIVcAuthenticateFail').show();		
+			          alert('Error: ' + e);
+			      }
 		 }); 
 		
 }
@@ -670,3 +689,23 @@ function sortTable(columnIndex) {
            tableBody.innerHTML = "";
            sortedRows.forEach(row => tableBody.appendChild(row));
        }
+
+	   
+	   document.getElementById('downloadBtn').addEventListener('click', function () {
+	       const table = document.getElementById('issueVoucherTable');
+
+	      const clonedTable = table.cloneNode(true);
+	       const columnsToRemove = [0, 9, 10]; 
+	       columnsToRemove.sort((a, b) => b - a);
+
+	       const rows = clonedTable.rows;
+	       for (let i = 0; i < rows.length; i++) {
+	           columnsToRemove.forEach((colIndex) => {
+	               if (rows[i].cells.length > colIndex) {
+	                   rows[i].deleteCell(colIndex);
+	               }
+	           });
+	       }
+	       const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
+	       XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
+	   });

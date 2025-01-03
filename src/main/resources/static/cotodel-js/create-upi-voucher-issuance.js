@@ -568,12 +568,7 @@ function  issueVoucher(){
 	var amount = document.getElementById("amount").value;
 	var startDate = document.getElementById("startDate").value;
 	var validity = document.getElementById("expiryDate").value;
-//	var voucher = document.getElementById("btnforvccategoryforbulkissuance").value;
-//	var parts = voucher.split("|");
-//	var VoucherCode = parts[0]; // "4C"
-//	var PurposeCode = parts[1]; // "5111"
 	
-//	var voucherCode = VoucherCode;
 	var voucherType = document.getElementById("voucherType").value;;
 	var voucherCode = document.getElementById("voucherCode").value;
 	var voucherDesc = document.getElementById("voucherDesc").value;
@@ -590,13 +585,16 @@ function  issueVoucher(){
 	
     var employerId = document.getElementById("employerId").value;
 	var employerName = document.getElementById("employerName").value;
-	//document.getElementById("signinLoader").style.display="flex";
+	
 	var customCheck45 = document.getElementById("customCheck45").checked; 
 	if (customCheck45) {
 	    customCheck45 = "yes"; 
 	} else {
 	    customCheck45 = "no";  
 	}
+	
+	document.getElementById("signinLoader").style.display="flex";
+	
  	$.ajax({
 	type: "POST",
 	url:"/createSingleVoucher",
@@ -639,7 +637,7 @@ function  issueVoucher(){
            //console.log(newData);
            var data1 = jQuery.parseJSON( newData );
 		   //var data2 = data1.data;
-		   //document.getElementById("signinLoader").style.display="none";
+		   document.getElementById("signinLoader").style.display="none";
 		   			
 		   			if(data1.status==true){
 						
@@ -667,24 +665,24 @@ function  issueVoucher(){
 					
    					document.getElementById("issuesuccmsg").innerHTML="Voucher Created Successfully.";
    					document.getElementById("issuemsgdiv").style.display="block";
-   					 //document.getElementById("getInTouchUser").reset();
-   					 $('#otmsgdiv').delay(10000).fadeOut(800);
-					 window.location.href = "/createUpiVoucherIssuance";
+   					//document.getElementById("getInTouchUser").reset();
+   					$('#otmsgdiv').delay(10000).fadeOut(800);
+					window.location.href = "/createUpiVoucherIssuance";
 					document.getElementById('submitButton').disabled=false;
 					document.getElementById('authenticate').disabled=false;
 					
    				}else if(data1.status==false){
 					document.getElementById('submitButton').disabled=false;
 					document.getElementById('authenticate').disabled=false;									
-   					 document.getElementById("issuesfailmsg").innerHTML=data1.message;
-   					 document.getElementById("issuesfailmsgDiv").style.display="block";
-   					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+   					document.getElementById("issuesfailmsg").innerHTML=data1.message;
+   					document.getElementById("issuesfailmsgDiv").style.display="block";
+   					$('#otfailmsgDiv').delay(5000).fadeOut(400);
    				}else{
 					document.getElementById('submitButton').disabled=false;
 					document.getElementById('authenticate').disabled=false;						
-   					 document.getElementById("issuesfailmsg").innerHTML="API Gateway not respond. Please try again.";
-   					 document.getElementById("issuesfailmsgDiv").style.display="block";
-   					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+   					document.getElementById("issuesfailmsg").innerHTML="API Gateway not respond. Please try again.";
+   				    document.getElementById("issuesfailmsgDiv").style.display="block";
+   					$('#otfailmsgDiv').delay(5000).fadeOut(400);
    				}
           },
         error: function(e){

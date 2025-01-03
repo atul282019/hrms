@@ -37,6 +37,9 @@ function singleVoucherValidation(){
 			   	var element = document.getElementById("lable3");
 			   	element.classList.add("active");
 			   	
+				var element = document.getElementById("lable2");
+							   	element.classList.add("active");
+								
 			   	const amountValue = amount.trim();
 			   			  
 			   	if(banklist=="" || banklist==null){
