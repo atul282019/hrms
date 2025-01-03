@@ -102,5 +102,33 @@ public class CompanyDetailController extends CotoDelBaseController{
 		        }       
 		        return jsonResponse;
 	}
+	@PostMapping(value="/getpayrollDetails")
+	public @ResponseBody String getpayrollDetails(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
+		String companyResponse = null;
+        JSONObject companyJsonResponse = null;
+        Map<String, Object> responseMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonResponse = null;	
+		//String token = (String) session.getAttribute("hrms");
+		companyResponse= companyService.getpayrollDetails(tokengeneration.getToken(),employeeProfileRequest);
+		 companyJsonResponse = new JSONObject(companyResponse);      
+		 if(companyJsonResponse.getBoolean("status")) { 
+			 	responseMap.put("status",true);
+				
+				JSONObject dataObject = companyJsonResponse.getJSONObject("data");
+				//List<Object> companyList = companyJsonResponse.getJSONArray("data").toList();
+				responseMap.put("data", dataObject.toMap());
+				//responseMap.put("data", companyList);
+	        }else {
+				//loginsevice.rsendEmailVerificationCompletion(userForm);
+				responseMap.put("status", false);
+			}
+	        try {
+	            jsonResponse = mapper.writeValueAsString(responseMap);
+	        } catch (Exception e) {
+	            e.printStackTrace(); 
+	        }       
+	        return jsonResponse;
+	}
 
 }

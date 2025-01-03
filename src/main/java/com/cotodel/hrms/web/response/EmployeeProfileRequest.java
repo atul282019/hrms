@@ -23,13 +23,14 @@ public class EmployeeProfileRequest {
     private String stateCode;
     private boolean payrollEnabledFlag;
     private String paidDate;
-    private boolean runFayrollFlag;
+    private boolean runPayrollFlag;
     private boolean salaryAdvancesFlag;
     private Integer id;
     private String orgType;
     private String orgDesc;
     private Integer status;
     private Integer orgTypeId;
+    private Integer profileComplete;
     
     
      

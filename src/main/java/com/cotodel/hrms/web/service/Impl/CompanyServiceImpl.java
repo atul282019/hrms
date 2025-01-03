@@ -32,6 +32,12 @@ public class CompanyServiceImpl implements CompanyService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.masterServiceBaseUrl+CommonUtils.getorgsubType);
 		
 	}
+
+	@Override
+	public String getpayrollDetails(String token, EmployeeProfileRequest employeeProfileRequest) {
+		// TODO Auto-generated method stub
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getpayrollDetails);
+	}
 	
 	
 

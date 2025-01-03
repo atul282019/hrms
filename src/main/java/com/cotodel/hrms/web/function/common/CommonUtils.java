@@ -19,6 +19,7 @@ public interface CommonUtils {
 	public static String registerCompany = "/empService/Api/get/saveProfileDetails";
 	public static String companyProfileStatus = "/empService/Api/get/getEmpComplete";
 	public static String getorgsubType = "/masterService/Api/get/orgTypeMasterList";
+	public static String getpayrollDetails = "/empService/Api/get/payrollDetails";
 	public static String saveEmployee = "/empService/Api/add/employeeDetails";
 	public static String getPayrollList = "/userServices/Api/get/payroll-list";
 	public static String savePayrollDetail = "/empService/Api/save/payrollDetails";

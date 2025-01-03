@@ -692,5 +692,60 @@ function validatePayrollAndSubmit(){
          }
     });			
                
-}  
+}
+
+function AutoFillForm() {
+	console.log("inside autofill function")
+	
+	var employerid = document.getElementById("employerId").value;
+	employerid=82;
+        // AJAX request to fetch data based on employerId
+        $.ajax({
+			type: "POST",
+           url:"/getpayrollDetails", 
+		   data: {
+		   					"employerId": employerid,
+		   		      		 },
+            dataType: 'json',
+            success: function (response) {
+				console.log(response)
+				if (response.status) {
+				                const data = response.data;
+					
+				
+                // Auto-fill the form fields with fetched data
+                document.getElementById("gstnNo").value = data.gstnNo || "";
+                document.getElementById("pan").value = data.pan || "";
+                document.getElementById("brandName").value = data.brandName || "";
+                document.getElementById("companyName").value = data.companyName || "";
+                document.getElementById("officeAddress").value = data.officeAddress || "";
+                document.getElementById("addressLine").value = data.addressLine || "";
+                document.getElementById("pinCode").value = data.pinCode || "";
+
+                // Handle dropdowns
+                const orgTypeSelect = document.getElementById("orgType2");
+                if (orgTypeSelect) {
+                    orgTypeSelect.value = data.orgType || "";
+                }
+
+                const stateCodeSelect = document.getElementById("stateCode");
+                if (stateCodeSelect) {
+                    stateCodeSelect.value = data.stateCode || "";
+                }
+				
+				document.getElementById("payrollEnabledFlag").checked = data.payrollEnabledFlag || false;
+				                document.getElementById("runFayrollFlag").checked = data.runFayrollFlag || false;
+				                document.getElementById("salaryAdvancesFlag").checked = data.salaryAdvancesFlag || false;
+
+				                // Handle date field
+				                document.getElementById("paidDate").value = data.paidDate || "";
+          }
+			},
+            error: function ( status, error) {
+                console.error("Failed to fetch data:", status, error);
+                alert("Unable to fetch employer data. Please try again.");
+            }
+        });
+    }
+  
 	
