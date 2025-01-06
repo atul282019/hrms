@@ -626,7 +626,9 @@ function  issueVoucher(){
 			   "bankCode":bankCode,
 			   "voucherId":"",
 			   "accountNumber":acNumber,
-			   "payerVA":payerva
+			   "payerVA":payerva,
+			   "payeeVPA":"",
+			   "mandateType":"01"
 			   
       		 },
       		  beforeSend : function(xhr) {
