@@ -263,95 +263,85 @@ function saveBulkVoucherUpload(){
  				 document.getElementById("failedUploadTotal").innerHTML=data1.data.totalCount;
 				
 				 var table = $('#successUpload').DataTable( {
-				 	          destroy: true,	
-				 			 // "dom": 'rtip',
-				 			 //dom: 'Bfrtip',
-				 		     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-				              "buttons": ["csv", "excel"],
-				              "language": {"emptyTable": "No Data available"  },
-				 	         "aaData": success,
-				       		  "aoColumns": [ 
-				 				/*{ "mData": "voucherType"},*/
-				                { "mData": "beneficiaryName"},   
-				                { "mData": "mobile"},   
-				 			    { "mData": "amount"},
-				 				{ "mData": "startDate"},  
-				 				{ "mData": "expDate"}
-				     		 	],
-				 				
-				 			});
+			      destroy: true,	
+				 // "dom": 'rtip',
+				 //dom: 'Bfrtip',
+			     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+			      "buttons": ["csv", "excel"],
+			      "language": {"emptyTable": "No Data available"  },
+			     "aaData": success,
+				  "aoColumns": [ 
+					/*{ "mData": "voucherType"},*/
+			        { "mData": "beneficiaryName"},   
+			        { "mData": "mobile"},   
+				    { "mData": "amount"},
+					{ "mData": "startDate"},  
+					{ "mData": "expDate"}
+				 	],
+					
+				});
+				
+				var table = $('#issueVoucherTable').DataTable( {
+			          destroy: true,	
+					 // "dom": 'rtip',
+					 //dom: 'Bfrtip',
+				     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+			          "buttons": ["csv", "excel"],
+			          "language": {"emptyTable": "No Data available"  },
+			         "aaData": success,
+			   		  "aoColumns": [ 
+						{ "mData": "id", "render": function (data2, type, row) {
+								 return '<td> <input type="hidden" name="issueId" id="issueId" value="'+data2+'" /> </td>';
+							}}, 								
+						{ "mData": "id"},	
+					/*	{ "mData": "voucherType"},*/
+			            { "mData": "beneficiaryName"},   
+			            { "mData": "mobile"},   
+					    { "mData": "amount"},
+						{ "mData": "startDate"},  
+						{ "mData": "expDate"},
+						{ "mData": "id", "render": function (data2, type, row) {
+						   return '<td> <button value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/delete.svg" alt=""></a> </button> </td>';
+						}}, 
 							
-							var table = $('#issueVoucherTable').DataTable( {
-					 	          destroy: true,	
-					 			 // "dom": 'rtip',
-					 			 //dom: 'Bfrtip',
-					 		     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-					              "buttons": ["csv", "excel"],
-					              "language": {"emptyTable": "No Data available"  },
-					 	         "aaData": success,
-					       		  "aoColumns": [ 
-									{ "mData": "id", "render": function (data2, type, row) {
-											 return '<td> <input type="hidden" name="issueId" id="issueId" value="'+data2+'" /> </td>';
-										}}, 								
-									{ "mData": "id"},	
-					 			/*	{ "mData": "voucherType"},*/
-					                { "mData": "beneficiaryName"},   
-					                { "mData": "mobile"},   
-					 			    { "mData": "amount"},
-					 				{ "mData": "startDate"},  
-					 				{ "mData": "expDate"},
-									{ "mData": "id", "render": function (data2, type, row) {
-									   return '<td> <button value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/delete.svg" alt=""></a> </button> </td>';
-									}}, 
-										
-					     		 	],
-								});
-								
-							var table = $('#failedUpload').DataTable( {
-								          destroy: true,	
-										 // "dom": 'rtip',
-										 //dom: 'Bfrtip',
-									     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-							             "buttons": ["csv", "excel"],
-							             "language": {"emptyTable": "No Data available"  },
-								         "aaData": fail,
-							      		  "aoColumns": [ 
-											/*{ "mData": "redemtionType"},*/
-											{ "mData": "beneficiaryName"},   
-											{ "mData": "mobile"},   
-											 { "mData": "amount"},
-											{ "mData": "startDate"},  
-											{ "mData": "expDate"}
-							    		 	],
-											createdRow: function (row, data2, dataIndex) 
-							                    {
-								                     console.log("row : "+JSON.stringify(data2));
-								                     var regMobile = /^[6-9]\d{9}$/gi;
-								                 	 var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-								                 	//var email = data2.mobile;
-								                	var mobile = data2.mobile;
-								                     if(!mobile.match(regMobile))
-								                     {
-								                       $(row).find('td:eq(2)').addClass("tdactive");
-								                     }
-													else if(mobile.length !==10)
-			 					                     {
-			 					                       $(row).find('td:eq(2)').addClass("tdactive");
-			 					                     }		 
-								                  
-									                 }
-										});
-							      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');	
-				// document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
-				// document.getElementById("otmsgdiv").style.display="block";
-				// document.getElementById("bankMaster1").reset();
-				// document.getElementById("saveBankmaster").disabled=false;
-				 //$('#otmsgdiv').delay(5000).fadeOut(400);
+			 		 	],
+					});
+					
+				var table = $('#failedUpload').DataTable( {
+		          destroy: true,	
+				 // "dom": 'rtip',
+				 //dom: 'Bfrtip',
+			     "responsive": true, searching: false,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+	             "buttons": ["csv", "excel"],
+	             "language": {"emptyTable": "No Data available"  },
+		         "aaData": fail,
+	      		  "aoColumns": [ 
+					/*{ "mData": "redemtionType"},*/
+					{ "mData": "beneficiaryName"},   
+					{ "mData": "mobile"},   
+					 { "mData": "amount"},
+					{ "mData": "startDate"},  
+					{ "mData": "expDate"}
+	    		 	],
+					createdRow: function (row, data2, dataIndex) 
+	                 {
+		                     console.log("row : "+JSON.stringify(data2));
+		                     var regMobile = /^[6-9]\d{9}$/gi;
+		                 	 var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+		                 	//var email = data2.mobile;
+		                	var mobile = data2.mobile;
+		                     if(!mobile.match(regMobile))
+		                     {
+		                       $(row).find('td:eq(1)').addClass("tdactive");
+		                     }
+							else if(mobile.length !==10)
+		                     {
+		                       $(row).find('td:eq(1)').addClass("tdactive");
+		                     }		 
+		                  
+			           }
+				});
 			}else if(data1.status==false){
-				// document.getElementById("otfailmsg").innerHTML=data1.message;
-				// document.getElementById("otfailmsgDiv").style.display="block";
-				// document.getElementById("saveBankmaster1").disabled=false;
-				// $('#otfailmsgDiv').delay(5000).fadeOut(400);
 			}
 	     },
 	     error: function(e){
@@ -605,49 +595,49 @@ function  getLinkedBankDetail(){
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
 			},
-			   success: function(data){
-			            newData = data;
-			//            console.log(newData);
-						$("#banklist option").remove();
-						$("#banklist2 option").remove();
-			            var obj = jQuery.parseJSON( data );
-			             obj = obj.data;
-			        	 var count=0;
-						 var count1=0;
-			         	for (var key in obj) {
+   success: function(data){
+            newData = data;
+//            console.log(newData);
+			$("#banklist option").remove();
+			$("#banklist2 option").remove();
+            var obj = jQuery.parseJSON( data );
+             obj = obj.data;
+        	 var count=0;
+			 var count1=0;
+         	for (var key in obj) {
 
-			             var values =  obj[key];
-			             var x = document.getElementById("banklist");
-			             if(count==0){
-			             var option = document.createElement("option");
-			             option.text ="Select Bank";
-			             option.value = "";
-			             x.add(option);
-			             }
-			             var option = document.createElement("option");
-			             option.value = values.acNumber;
-			             option.text = values.bankName+" | "+values.acNumber;
-			             x.add(option);
+             var values =  obj[key];
+             var x = document.getElementById("banklist");
+             if(count==0){
+             var option = document.createElement("option");
+             option.text ="Select Bank";
+             option.value = "";
+             x.add(option);
+             }
+             var option = document.createElement("option");
+             option.value = values.acNumber;
+             option.text = values.bankName+" | "+values.acNumber;
+             x.add(option);
 
-			             count++;
-			             }
-						 for (var key in obj) {
+             count++;
+             }
+			 for (var key in obj) {
 
-	 			             var values =  obj[key];
-	 			             var x = document.getElementById("banklist2");
-	 			             if(count1==0){
-	 			             var option = document.createElement("option");
-	 			             option.text ="Select Bank";
-	 			             option.value = "";
-	 			             x.add(option);
-	 			             }
-	 			             var option = document.createElement("option");
-	 			             option.value = values.acNumber;
-	 			             option.text = values.bankName+" | "+values.acNumber;
-	 			             x.add(option);
+	             var values =  obj[key];
+	             var x = document.getElementById("banklist2");
+	             if(count1==0){
+	             var option = document.createElement("option");
+	             option.text ="Select Bank";
+	             option.value = "";
+	             x.add(option);
+	             }
+	             var option = document.createElement("option");
+	             option.value = values.acNumber;
+	             option.text = values.bankName+" | "+values.acNumber;
+	             x.add(option);
 
-	 			             count1++;
-	 			             }
+	             count1++;
+	             }
           },
         error: function(e){
             alert('Error: ' + e);
@@ -744,16 +734,6 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
            console.log(newData);
            var data1 = jQuery.parseJSON( newData );
 		   var data2 = data1.data;
-			
-		   /* document.getElementById("voucherId").value=data1.data.id;
-			document.getElementById("voucherCode").value=data1.data.purposeCode;
-			document.getElementById("vmcclbl").value=data1.data.mcc;
-			document.getElementById("voucherSubType").value=data1.data.purposeCode;
-			document.getElementById("voucherDesc").value=data1.data.purposeDesc;
-			document.getElementById("purposeCode").value=data1.data.purposeCode;
-			document.getElementById("activeStatus").value=data1.data.activeStatus;
-			document.getElementById("createdby").value=data1.data.createdby;
-			document.getElementById("mcc").value=data1.data.mcc;*/
 			
 			document.getElementById("voucherId").value=data1.data.id;
 			document.getElementById("voucherCode").value=data1.data.purposeCode;
@@ -884,7 +864,7 @@ function getVoucherSummaryList(){
 					            const voucherDiv = document.createElement('div');
 					            voucherDiv.classList.add('selectvouchers-carosel-cards');
 					            voucherDiv.innerHTML = `
-								<h5><img src="data:image/png;base64,${voucher.voucherIcon}" alt="${voucher.voucherIcon}" class="logo" width="30">${voucher.voucherName}</h5>
+								<h5><img src="data:image/png;base64,${voucher.voucherIcon}" alt="${voucher.voucherIcon}" class="logo" width="20px" height="20px">${voucher.voucherName}</h5>
 										
 						                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
 						                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
@@ -895,7 +875,7 @@ function getVoucherSummaryList(){
 				            const voucherDiv2 = document.createElement('div');
 				            voucherDiv2.classList.add('selectvouchers-carosel-cards');
 				            voucherDiv2.innerHTML = `
-							<h5><img src="data:image/png;base64,${voucher.voucherIcon}" alt="${voucher.voucherIcon}" class="logo" width="30">${voucher.voucherName}</h5>
+							<h5><img src="data:image/png;base64,${voucher.voucherIcon}" alt="${voucher.voucherIcon}" class="logo" width="20px" height="20px">${voucher.voucherName}</h5>
 									
 					                <div class="d-flex justify-content-between my-1 mb-3"><span class="info"></span> ${voucher.count}</div>
 					                <div class="d-flex justify-content-between my-1"><span></span> ₹${voucher.totalAmount}</div>
@@ -1156,80 +1136,79 @@ function verfyIssueVoucherOTP() {
              var data1 = jQuery.parseJSON( newData );
   		   //var data2 = data1.data;
   		   document.getElementById("signinLoader").style.display="none";
-  		   			
-  		   			if(data1.status==true){
-  						
-  						     document.getElementById("banklist").value="";
-							
-  							 document.getElementById("voucherCode").value="";
-  							 document.getElementById("voucherType").value="";
-  							 document.getElementById("voucherSubType").value="";
-  							 document.getElementById("voucherDesc").value="";
-  							 document.getElementById("purposeCode").value="";
-  							 document.getElementById("activeStatus").value="";
-  							 document.getElementById("employerName").value="";
-  							 document.getElementById("bankCode").value="";
-  							 document.getElementById("mcc").value="";
-  							 document.getElementById("payerva").value="";
-  							
-  		   					 document.getElementById("issuesuccmsg").innerHTML="Voucher Created Successfully.";
-  		   					 document.getElementById("issuemsgdiv").style.display="block";
-  		   					 //document.getElementById("getInTouchUser").reset();
-  		   					 $('#otmsgdiv').delay(10000).fadeOut(800);
-  							 //window.location.href = "/upiVoucherIssuanceNew";
-  							 document.getElementById('submitButton').disabled=false;
-  							 document.getElementById('authenticate').disabled=false;
-							 document.getElementById("selectvouchers-wrap-issue").style.display="none";
-							 document.getElementById("upi-voucher-wrapThree").style.display="block";
-							
-							 const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
+		
+		if(data1.status==true){
+			
+			     document.getElementById("banklist").value="";
+				
+				 document.getElementById("voucherCode").value="";
+				 document.getElementById("voucherType").value="";
+				 document.getElementById("voucherSubType").value="";
+				 document.getElementById("voucherDesc").value="";
+				 document.getElementById("purposeCode").value="";
+				 document.getElementById("activeStatus").value="";
+				 document.getElementById("employerName").value="";
+				 document.getElementById("bankCode").value="";
+				 document.getElementById("mcc").value="";
+				 document.getElementById("payerva").value="";
+				
+				 document.getElementById("issuesuccmsg").innerHTML="Voucher Created Successfully.";
+				 document.getElementById("issuemsgdiv").style.display="block";
+				 //document.getElementById("getInTouchUser").reset();
+				 $('#otmsgdiv').delay(10000).fadeOut(800);
+				 //window.location.href = "/upiVoucherIssuanceNew";
+				 document.getElementById('submitButton').disabled=false;
+				 document.getElementById('authenticate').disabled=false;
+				 document.getElementById("selectvouchers-wrap-issue").style.display="none";
+				 document.getElementById("upi-voucher-wrapThree").style.display="block";
+				
+				 const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
 
-							 data1.data.forEach((item) => {
-							     const row = tableBody.insertRow();
+				 data1.data.forEach((item) => {
+				     const row = tableBody.insertRow();
 
-							     row.insertCell().textContent = item.name;
-							     row.insertCell().textContent = item.mobile;
-							     row.insertCell().textContent = item.voucherDesc;
-							     row.insertCell().textContent = item.redemtionType;
-							     row.insertCell().textContent = item.amount;
-							     //row.insertCell().textContent = item.voucherCode;
-								 row.insertCell().textContent = item.startDate;
-								 row.insertCell().textContent = item.expDate;
-								// row.insertCell().textContent = item.response;
-								 
+				     row.insertCell().textContent = item.name;
+				     row.insertCell().textContent = item.mobile;
+				     row.insertCell().textContent = item.voucherDesc;
+				     row.insertCell().textContent = item.redemtionType;
+				     row.insertCell().textContent = item.amount;
+				     //row.insertCell().textContent = item.voucherCode;
+					 row.insertCell().textContent = item.startDate;
+					 row.insertCell().textContent = item.expDate;
+					// row.insertCell().textContent = item.response;
+					 
 
-							     // Add the response cell with an image
-							     const responseCell = row.insertCell();
-							     const img = document.createElement("img");
-							     if (item.response === "SUCCESS") {
-							       img.src = "img/status-check.svg"; // Path to the tick image
-							       img.alt = "Success";
-							     } else {
-							       img.src = "img/status-cross.svg"; // Path to the cross image
-							       img.alt = "Failure";
-							     }
-								// img/status-info.svg
-							     img.width = 20; // Optional: Set the size of the image
-							     img.height = 20;
-							     responseCell.appendChild(img);
+				     // Add the response cell with an image
+				     const responseCell = row.insertCell();
+				     const img = document.createElement("img");
+				     if (item.response === "SUCCESS") {
+				       img.src = "img/status-check.svg"; 
+				       img.alt = "Success";
+				     } else {
+				       img.src = "img/status-cross.svg"; 
+				       img.alt = "Failure";
+				     }
+				     img.width = 20;
+				     img.height = 20;
+				     responseCell.appendChild(img);
 
-							    // row.insertCell().textContent = item.voucherDesc;
-							   });
-							 
-  							
-  		   				}else if(data1.status==false){
-  							 document.getElementById('submitButton').disabled=false;
-  							 document.getElementById('authenticate').disabled=false;									
-  		   					 document.getElementById("issuesfailmsg").innerHTML=data1.message;
-  		   					 document.getElementById("issuesfailmsgDiv").style.display="block";
-  		   					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-  		   				}else{
-  							 document.getElementById('submitButton').disabled=false;
-  							 document.getElementById('authenticate').disabled=false;						
-  		   					 document.getElementById("issuesfailmsg").innerHTML="API Gateway not respond. Please try again.";
-  		   					 document.getElementById("issuesfailmsgDiv").style.display="block";
-  		   					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-  		   				}
+				    // row.insertCell().textContent = item.voucherDesc;
+				   });
+				 
+				
+			}else if(data1.status==false){
+				 document.getElementById('submitButton').disabled=false;
+				 document.getElementById('authenticate').disabled=false;									
+				 document.getElementById("issuesfailmsg").innerHTML=data1.message;
+				 document.getElementById("issuesfailmsgDiv").style.display="block";
+				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+			}else{
+				 document.getElementById('submitButton').disabled=false;
+				 document.getElementById('authenticate').disabled=false;						
+				 document.getElementById("issuesfailmsg").innerHTML="API Gateway not respond. Please try again.";
+				 document.getElementById("issuesfailmsgDiv").style.display="block";
+				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+			}
             },
           error: function(e){
               alert('Error: ' + e);

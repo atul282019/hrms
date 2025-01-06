@@ -667,7 +667,8 @@ function  issueVoucher(){
    					document.getElementById("issuemsgdiv").style.display="block";
    					//document.getElementById("getInTouchUser").reset();
    					$('#otmsgdiv').delay(10000).fadeOut(800);
-					window.location.href = "/createUpiVoucherIssuance";
+					window.location.href = "/upiVoucherIssuanceManually";
+					//window.location.href = "/upiVoucherIssuanceNew";
 					document.getElementById('submitButton').disabled=false;
 					document.getElementById('authenticate').disabled=false;
 					
@@ -725,7 +726,7 @@ function getVoucherSummaryList(){
 							    voucherDiv.innerHTML = `
 							        <div>
 							            <h5>
-							                <img src="data:image/png;base64,${voucher.voucherIcon}" class="logo" width="30">
+							                <img src="data:image/png;base64,${voucher.voucherIcon}" class="logo" width="20px" height="20px">
 							                ${voucher.voucherName}
 							            </h5>
 							            <div class="d-flex justify-content-between my-1 mb-3">
@@ -773,7 +774,7 @@ function getPrimaryBankDetail(){
 							  let logoHTML = '';
 
 						          if (account.bankLogo) {
-						              logoHTML = `<img src="data:image/png;base64,${account.bankLogo}" alt="${account.bankName}" class="logo" width="30">`;
+						              logoHTML = `<img src="data:image/png;base64,${account.bankLogo}" alt="${account.bankName}" class="logo" width="20px" height="20px">`;
 						          }
 								  accountSection.innerHTML = `
 								  ${logoHTML}  

@@ -781,11 +781,12 @@
 	                    a.href = "javascript:void(0);";
 
 	                    const img = document.createElement('img');
-	                    img.src = item.voucherIcon
+	                    img.src = item.voucherIcon 
 	                        ? `data:image/png;base64,${item.voucherIcon}`
 	                        : '';
 	                    img.classList.add('img-fluid');
-
+						img.style.height = '20px';
+						img.style.width = '20px';
 	                    const span = document.createElement('span');
 	                    span.textContent = item.voucherName;
 
@@ -862,7 +863,8 @@
 	                        : '';
 	                   // img.alt = item.mccDesc;
 	                    img.classList.add('img-fluid');
-
+						img.style.height = '20px';
+						img.style.width = '20px';
 	                    // Create span element with voucher name
 	                    const span = document.createElement('span');
 	                    span.textContent = item.mccDesc;
