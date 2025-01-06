@@ -959,7 +959,7 @@ function getBankMaster() {
 		
 		 success: function(data){
             newData = data;
-            console.log(newData);
+            //console.log("Data from bank master",newData);
 			$("#bankName option").remove();
             var obj = jQuery.parseJSON( data );
              obj = obj.data;
@@ -991,6 +991,7 @@ function getBankMaster() {
 
 function  getLinkedBankDetail(){
 	
+	
     document.getElementById("signinLoader").style.display="flex";
  	var employerid = document.getElementById("employerId").value;
  	$.ajax({
@@ -1004,7 +1005,7 @@ function  getLinkedBankDetail(){
 			},
            success: function(data){
            newData = data;
-           //console.log(newData);
+           //console.log("data from getlinkedBankDetail",newData);
         var data1 = jQuery.parseJSON( newData );
 		var data2 = data1.data;
 		if(data2.length ===0 && data2.length <=0){

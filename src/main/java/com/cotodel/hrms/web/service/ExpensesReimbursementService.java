@@ -25,5 +25,6 @@ public interface ExpensesReimbursementService {
 	String updateErupiLinkBankAccountStaus(String token, ErupiLinkBankAccount erupiLinkBankAccount);
 	
 	String delinkErupiAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount);
+	String relinkErupiAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount);
 
 }

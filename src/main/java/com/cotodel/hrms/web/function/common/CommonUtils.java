@@ -103,6 +103,7 @@ public interface CommonUtils {
 	public static String getPrimaryBankDetailByOrgId = "/empService/Api/get/erupiPrimaryAccountDetails";
 	
 	public static String updateErupiLinkAccount = "/empService/Api/update/erupiLinAccPsFlag";
+	public static String reLinkErupiLinkAccount="/empService/Api/update/erupiLinAccEnable";
 	public static String delinkErupiLinkAccount = "/empService/Api/update/erupiLinAccDisable";
 	public static String saveVoucherTypeMasterDetailS="/masterService/Api/add/mccMasterupdate";
 	public static String getvoucherTypeMasterList="/masterService/Api/get/mccMasterList";

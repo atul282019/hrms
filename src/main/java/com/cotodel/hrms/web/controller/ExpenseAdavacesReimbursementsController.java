@@ -155,5 +155,16 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			return profileRes;
 		  
 	}
+	@PostMapping(value="/re-linkErupiaccount")
+	public @ResponseBody String relinkErupiaccount(HttpServletRequest request,
+			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
+	
+			String profileRes=null;
+			
+			profileRes = expensesReimbursementService.relinkErupiAccount(tokengeneration.getToken(),erupiLinkBankAccount);
+			
+			return profileRes;
+		  
+	}
 	
 }

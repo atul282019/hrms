@@ -1047,24 +1047,34 @@ function  getLinkedBankDetail(){
 		           container.appendChild(fieldDiv);
 		       });
 
-		       const editButton = document.createElement('button');
-		       
-			   if(item.psFlag=="Secondary"){
-				editButton.className = 'btn btn-primary';
-				editButton.innerText = 'Set As Primary';
-			   }
-			   else{
-				editButton.className = 'btn btn-green';
-		       editButton.innerText = item.psFlag;
-			   }
-		       editButton.onclick = () => editItem(item.acNumber);
+			   const editButton = document.createElement('button');
+               editButton.className = "btn btn-primary";
+               editButton.innerText = "Set As Primary";
+
+               // Disable "Edit" button if accstatus is 0 (Link Bank A/C shown)
+               if (item.accstatus === 0) {
+                   editButton.disabled = true;
+                   editButton.classList.add("disabled");
+               }
+
+               editButton.onclick = () => {
+                   if (!editButton.disabled) {
+                       editItem(item.acNumber);
+                   }
+               };
 						  
 			   const editButton1 = document.createElement('a');
 			   editButton1.className = '';
 			   editButton1.style.cursor = 'pointer';
-			   editButton1.innerText = 'De-linked Bank A/c';
+			   editButton1.innerText = item.accstatus === 0 ? 'Link Bank A/C' : 'De-Linked Bank A/C';
 			   //editButton1.href = '#';  // Use this if you don't have a specific link
-			   editButton1.onclick = () => dlinkAccount(item.acNumber); 
+			   editButton1.onclick = () => {
+			                       if (item.accstatus === 0) {
+			                           relinkBankAccount(item.acNumber); // Call link function
+			                       } else {
+			                           dlinkAccount(item.acNumber); // Call de-link function
+			                       }
+			                   }; 
 			  
 			   container.appendChild(editButton);
 		       container.appendChild(editButton1);
@@ -1085,7 +1095,8 @@ function  getLinkedBankDetail(){
 					     url:"/updateErupiLinkBankAccountStaus",
 						 data: {
 								"orgId": employerid,
-								"acNumber":accountid
+								"acNumber":accountid,
+								
 						 		},    		 
 				            success: function(data){
 				            newData = data;
@@ -1124,6 +1135,45 @@ function  getLinkedBankDetail(){
    }); 
 			
 }
+function relinkBankAccount(acNumber) {
+    console.log("Inside link bank account function");
+    var employerid = document.getElementById("employerId").value;
+
+    document.getElementById("signinLoader").style.display = "flex";
+
+    $.ajax({
+        type: "POST",
+        url: "/re-linkErupiaccount", // Adjust URL for linking action
+        data: {
+            "orgId": employerid,
+            "acNumber": acNumber
+        },
+        success: function (data) {
+            newData = data;
+            var data1 = jQuery.parseJSON(newData);
+
+            document.getElementById("signinLoader").style.display = "none";
+
+            if (data1.status == true) {
+                document.getElementById("otsuccmsg").innerHTML = "Bank Account re-Linked Successfully.";
+                document.getElementById("otmsgdiv").style.display = "block";
+                $('#otmsgdiv').delay(5000).fadeOut(400);
+                window.location.href = "/linkBankDetail";
+            } else if (data1.status == false) {
+                document.getElementById("otfailmsg").innerHTML = data1.message;
+                document.getElementById("otfailmsgDiv").style.display = "block";
+                $('#otfailmsgDiv').delay(5000).fadeOut(400);
+            } else {
+                document.getElementById("otfailmsg").innerHTML = "API Gateway not responding. Please try again.";
+                document.getElementById("otfailmsgDiv").style.display = "block";
+                $('#otfailmsgDiv').delay(5000).fadeOut(400);
+            }
+        },
+        error: function (e) {
+            alert("Error: " + e);
+        }
+    });
+}
 
 function dlinkAccount(acNumber)
 {console.log("Inside  de-link function");
@@ -1134,7 +1184,7 @@ function dlinkAccount(acNumber)
 		 data: {
 		 			  "orgId": employerid ,
 					  "acNumber":acNumber ,					  
-					
+					  
 		 		}, 
 						 
 	        success: function(data){
@@ -1169,6 +1219,7 @@ function dlinkAccount(acNumber)
 	     }
 	});	
 }
+
 
 function submitLinkBankAccount(){
 	
