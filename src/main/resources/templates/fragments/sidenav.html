@@ -53,16 +53,16 @@
 	               <span>Expenses & Advances</span></a>
 			 </li> -->
 				   
-               <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
+             <!--  <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
                 <a class="nav-link" th:href="@{/employeeBand}">
                     <img src="img/menu-admin-settings.svg" alt="" class="mr-2">
-                    <span>Admin Settings</span></a>
-            </li>
+                    <span>Employee Band Settings</span></a>
+            </li>-->
 			 
 			<li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
 			   <a class="nav-link" th:href="@{/roleAccess}">
-			       <img src="img/menu-vehicle-management.svg" alt="" class="mr-2">
-			       <span>Role Access</span></a>
+			       <img src="img/menu-admin-settings.svg" alt="" class="mr-2">
+			       <span>Admin Settings</span></a>
 			</li>
 			
 			<li class="nav-item" th:if="${session.user_role == 10}">
@@ -82,12 +82,12 @@
                    <span>Bank Master</span></a>
            </li>
          			
-              <li class="nav-item" th:if="${session.user_role == 9}">
+            <!-- <li class="nav-item" th:if="${session.user_role == 9}">
                  <a class="nav-link" th:href="@{/linkBankDetail}">
                      <img src="img/menu-admin-settings.svg" alt="" class="mr-2">
                      <span>Link Bank Account</span></a>
              </li>
-
+-->
 		<!--  <li class="nav-item" th:if="${session.user_role == 9}">
 		      <a class="nav-link" th:href="@{/userVoucheCreation}">
 		          <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
@@ -100,7 +100,7 @@
 		 </li>
 		 <li class="nav-item" th:if="${session.user_role == 9 || session.user_role == 1 || session.user_role == 2}">
  		    <a class="nav-link" th:href="@{/displayvoucherMaster}">
- 		        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
+ 		        <img src="img/pf.png" alt="" class="mr-2">
  		        <span>Voucher Master</span></a>
  		 </li>
             <!-- Sidebar Toggler (Sidebar) -->

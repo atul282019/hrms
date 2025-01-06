@@ -5,10 +5,7 @@
 	$.ajax({
 		type: "GET",
 		url:"/getUserWithRole",
-		data: {
-			"orgId":employerId,
-			"userMobile":userMobile
-		},
+		data: {"mobile":userMobile,"orgId":employerId},
 		success: function(data) {
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
@@ -89,10 +86,7 @@ function editUserRoleWithMoreUser() {
 	$.ajax({
 		type: "GET",
 		url:"/getUserWithRole",
-		data: {
-			"orgId":employerId,
-			"userMobile":userMobile
-		},
+		data: {"mobile":userMobile,"orgId":employerId},
 		success: function(data) {
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
@@ -214,7 +208,7 @@ function editUserRoleWithMoreUser() {
 											url: "/deleteUserRole",
 											dataType: 'json',
 											data: {
-												"orgId":70,
+												"orgId":employerId,
 												"createdby":employername,
 												"id":rowDataDelete.id,
 												"username":rowDataDelete.username,
@@ -258,3 +252,735 @@ function editUserRoleWithMoreUser() {
 		});
 }
 
+
+	    function searchEmployee() {
+	        const searchBox = document.getElementById('searchBox').value;
+	        const employerId = document.getElementById('employerId').value;
+			var userMobile = document.getElementById("userMobile").value;
+	        // Show loader
+	        document.getElementById("signinLoader").style.display = "flex";
+			
+
+	        $.ajax({
+	            type: "POST",
+	            url: "/userSearch",
+	            dataType: 'json',
+	            data: {
+	                "orgId": employerId,
+	                "userName": searchBox,
+					"mobile": userMobile
+	            },
+	            success: function (data) {
+	                document.getElementById("signinLoader").style.display = "none";
+
+	                if (data && data.status && data.data.length > 0) {
+	                    const roleHeaders = generateHeaders(data.data);
+	                    generateRows(data.data, roleHeaders);
+	                } else {
+	                    alert("No data found for the given search.");
+	                }
+	            },
+	            error: function (e) {
+	                document.getElementById("signinLoader").style.display = "none";
+	                console.error('Error:', e);
+	                alert('An error occurred while fetching the data.');
+	            }
+	        });
+	    }
+
+	    // Function to Generate Table Headers Dynamically
+	    function generateHeaders(users) {
+	        const tableHeader = document.getElementById('tableHeader');
+	        tableHeader.innerHTML = "";
+
+	        // Static headers
+	        let headerHTML = `
+	            <tr>
+	                <th>ID</th>
+					<th>Username</th>
+					<th>Email</th>
+	                <th>Mobile</th>
+	        `;
+
+	        // Extract unique role descriptions for dynamic headers
+	        const roleHeaders = new Set();
+	        users.forEach(user => {
+	            user.userRole.forEach(role => roleHeaders.add(role.roleDesc));
+	        });
+
+	        // Add role headers
+	        roleHeaders.forEach(roleDesc => {
+	            headerHTML += `<th>${roleDesc}</th>`;
+	        });
+
+	        // Add the action column
+	       // headerHTML += `<th>Action</th></tr>`;
+	        tableHeader.innerHTML = headerHTML;
+
+	        // Return ordered role descriptions for later use
+	        return Array.from(roleHeaders);
+	    }
+
+	    // Function to Generate Table Rows
+	    function generateRows(users, roleHeaders) {
+	        const tableBody = document.getElementById('tableBody');
+	        tableBody.innerHTML = "";
+
+	        users.forEach(user => {
+	            const row = document.createElement('tr');
+
+	            // Start with basic user details
+	            let rowHTML = `
+	                <td>${user.id}</td>
+					<td>${user.username || '-'}</td>
+					<td>${user.email || '-'}</td>
+	                <td>${user.mobile || '-'}</td>
+	            `;
+
+	            // Generate role checkboxes in columns
+				roleHeaders.forEach(roleHeader => {
+				    const role = user.userRole.find(r => r.roleDesc === roleHeader);
+				    const isChecked = role && role.checked ? 'checked' : '';
+				    const roleId = role ? role.roleId : null;
+
+				    rowHTML += `
+				        <td data-roledesc="${roleHeader}">
+				            <input type="checkbox" 
+				                   class="form-check-input role-checkbox" 
+				                   data-userid="${user.id}" 
+				                   data-roleid="${roleId}" 
+				                   ${isChecked}>
+				        </td>
+				    `;
+				});
+	            // Add action column
+	           // rowHTML += `
+	            //    <td>
+	           //         <button class="btn btn-sm btn-primary" onclick="addAction(${user.id})">Add</button>
+	           //     </td>
+	           // `;
+
+	            row.innerHTML = rowHTML;
+	            tableBody.appendChild(row);
+	        });
+
+	        // Add event listeners for checkboxes
+	        document.querySelectorAll('.role-checkbox').forEach(checkbox => {
+	            checkbox.addEventListener('change', handleCheckboxChange);
+	        });
+	    }
+
+function getOTP(){
+	
+	const checkbox = document.getElementById("styled-checkbox-40");
+	var userMobile = document.getElementById("userMobile").value;
+	  if (checkbox.checked) {
+		$.ajax({
+			type: 'POST',
+	        url:"/smsOtpSender",
+			data: {
+						"mob": userMobile,
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj['status'] == "SUCCESS") {
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+				var downloadTimer = setInterval(function() {
+					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+					timeleft -= 1;
+					//document.getElementById("optBtn").style.display = "none";
+					document.getElementById("orderId").value= obj['orderId'];
+					//document.getElementById("verifyotpdiv").style.display = "block";
+					if (timeleft <= 0) {
+						clearInterval(downloadTimer);	
+					}	
+				}, 1000);
+	            $("#roleAcessOTPModal").show();  
+	          } else {
+	            alert("Error: " + response.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+	 } 		  
+	 else {
+		document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
+		
+	    //alert("Please check consent");
+	  }
+	
+}
+
+// otp for add role
+
+function getAddOTP(){
+	const checkbox = document.getElementById("styled-checkbox-41");
+	var userMobile = document.getElementById("userMobile").value;
+	if (checkbox.checked) {
+		$.ajax({
+			type: 'POST',
+	        url:"/smsOtpSender",
+			data: {
+						"mob": userMobile,
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj['status'] == "SUCCESS") {
+				$(".lastrowaddBtnWrap").hide();
+				$("#addRoleAcessOTPModal").show();
+				//addRoleAcessOTPModal
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+				var downloadTimer = setInterval(function() {
+					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+					timeleft -= 1;
+					//document.getElementById("optBtn").style.display = "none";
+					document.getElementById("orderId").value= obj['orderId'];
+					//document.getElementById("verifyotpdiv").style.display = "block";
+					if (timeleft <= 0) {
+						clearInterval(downloadTimer);	
+					}	
+				}, 1000);
+	            $("#roleAcessOTPModal").show();  
+	          } else {
+	            alert("Error: " + response.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+		  }
+		  else {
+  		    document.getElementById("styled-checkbox-41Error").innerHTML="Please check consent";
+  		  }
+	}
+ // Handle Checkbox State Changes
+	    function handleCheckboxChange(event) {
+	        const checkbox = event.target;
+	        const userId = checkbox.dataset.userid;
+	        const roleId = checkbox.dataset.roleid;
+	        const isChecked = checkbox.checked;
+
+	        console.log(`User ID: ${userId}, Role ID: ${roleId}, Checked: ${isChecked}`);
+	        // Add your backend update logic here if needed
+	    }
+
+	    // Action Button Click Handler
+		function addAction(userId) {
+		    // Find the row containing the clicked button
+		    const orgId = document.getElementById("employerId").value;
+			// Find the row containing the clicked button
+			  const row = event.target.closest('tr');
+
+			  // Extract the static data from the row
+			  const id = row.cells[0].innerText;
+			  const mobile = row.cells[2].innerText;
+			  const username = row.cells[3].innerText;
+
+			  // Collect checked role descriptions
+			  const roleDesc = [];
+			  row.querySelectorAll('.role-checkbox').forEach(checkbox => {
+			      if (checkbox.checked) {
+			          const roleDescription = checkbox.closest('td').getAttribute('data-roledesc');
+			          if (roleDescription) {
+			              roleDesc.push({ roleDesc: roleDescription });
+			          }
+			      }
+			  });
+
+			  // Build the final JSON object
+			  const rowData = {
+			      id: id,
+			      username: username,
+			      mobile: mobile,
+			      roleDesc: roleDesc
+			  };
+
+			  console.log(rowData);
+			  var employerId = document.getElementById("employerId").value;
+		    $.ajax({
+		        url: '/editUserRole',
+		        type: 'POST',
+		        dataType: 'json',
+		        data: {
+		            //orgId: orgId,
+					"orgId":employerId,
+					"id":rowData.id,
+					"username":rowData.username,
+					"mobile":rowData.mobile,
+					"roleDesc": rowData.roleDesc.map(role => role.roleDesc) 
+		        },
+		        success: function(response) {
+					window.location.href = "/roleAccess";
+		        },
+		        error: function(err) {
+		            console.error("Error sending user data:", err);
+		        }
+		    });
+		}
+				 
+		    function focusNext(currentInput) {
+		        // Move focus to the next input box
+		        var maxLength = parseInt(currentInput.getAttribute("maxlength"));
+		        var currentLength = currentInput.value.length;
+
+		        if (currentLength >= maxLength) {
+		            var nextIndex = Array.from(currentInput.parentElement.children).indexOf(currentInput) + 1;
+		            var nextInput = currentInput.parentElement.children[nextIndex];
+
+		            if (nextInput) {
+		                nextInput.focus();
+		            }
+		        }
+		    }
+
+		function focusBack(){
+			  var elts = document.getElementsByClassName('test')
+			  Array.from(elts).forEach(function(elt) {
+			  elt.addEventListener("keydown", function(event) {
+			    // Number 13 is the "Enter" key on the keyboard
+			    if (event.keyCode === 13 ||
+			        event.keyCode !== 8 && elt.value.length === Number(elt.maxLength)
+			    ) {
+			      // Focus on the next sibling
+			      elt.nextElementSibling.focus()
+			    }
+			    if (event.keyCode == 8) {
+			      elt.value = '';
+			      if (elt.previousElementSibling != null) {
+			        elt.previousElementSibling.focus();
+			        event.preventDefault();
+			      }
+			    }
+			  });
+			})
+		}
+		
+
+		function verfyIssueVoucherOTP() {
+			document.getElementById("authenticate").disabled = true;
+		  	var password1 = document.getElementById("password1").value;
+		  	var password2 = document.getElementById("password2").value;
+		  	var password3 = document.getElementById("password3").value;
+		  	var password4 = document.getElementById("password4").value;
+		  	var password5 = document.getElementById("password5").value;
+		  	var password6 = document.getElementById("password6").value;
+		  	var orderId = document.getElementById("orderId").value;
+		  	var userMobile = document.getElementById("userMobile").value;
+		  	 if (password1 == "" && password1.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password1.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password2 == "" && password2.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password2.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password3 == "" && passwor3.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password3.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password4 == "" && password4.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password4.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password5 == "" && password5.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password5.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password6 == "" && password6.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password6.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	
+		  	$.ajax({
+		  			type: "POST",
+		  			url:"/verifyOTP",
+		  			dataType: 'json',
+		  			data: {
+		  				"password1": password1,
+		  				"password2": password2,
+		  				"password3": password3,
+		  				"password4": password4,	
+		  				"password5": password5,
+		  				"password6": password6,
+		  				"mob": userMobile,
+		  				"orderId": orderId,
+		  				"userName":userMobile
+		  			},
+		  			success: function(data) {
+		  				var obj = data;
+
+		  				if (obj['status']== true) {
+							roleUpdate();
+							$("#roleAcessOTPModal").hide();
+							$("#roleAcessModalSuccessful").show();
+							window.location.href="/roleAccess";
+		  				}else if (obj['status'] == false) {
+						
+						} else {
+		  				
+		  				}
+		  			},
+		  			error: function(e) {
+		  				alert('Error: ' + e);
+		  			}
+		  		});
+		  }
+
+		  function verfyAddRoleOTP() {
+			document.getElementById("authenticate").disabled = true;
+		  	var password1 = document.getElementById("password11").value;
+		  	var password2 = document.getElementById("password22").value;
+		  	var password3 = document.getElementById("password33").value;
+		  	var password4 = document.getElementById("password44").value;
+		  	var password5 = document.getElementById("password55").value;
+		  	var password6 = document.getElementById("password66").value;
+		  	var orderId = document.getElementById("orderId").value;
+		  	var userMobile = document.getElementById("userMobile").value;
+		  	 if (password1 == "" && password1.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password1.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password2 == "" && password2.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password2.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password3 == "" && passwor3.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password3.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password4 == "" && password4.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password4.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password5 == "" && password5.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password5.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	 if (password6 == "" && password6.length < 1) {
+		  		document.getElementById("mobError").innerHTML="";
+		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		  		x = false;
+		  	}
+		  	 else if (password6.length < 1) {
+		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		  		x = false;
+		  	}
+		  	else{
+		  		document.getElementById("otpError").innerHTML="";
+		  	}
+		  	
+		  	$.ajax({
+		  			type: "POST",
+		  			url:"/verifyOTP",
+		  			dataType: 'json',
+		  			data: {
+		  				"password1": password1,
+		  				"password2": password2,
+		  				"password3": password3,
+		  				"password4": password4,	
+		  				"password5": password5,
+		  				"password6": password6,
+		  				"mob": userMobile,
+		  				"orderId": orderId,
+		  				"userName":userMobile
+		  			},
+		  			success: function(data) {
+		  				var obj = data;
+
+		  				if (obj['status']== true) {
+							addRole();
+							$("#AddRoleAcessOTPModal").hide();
+							$("#roleAcessModalSuccessful").show();
+							window.location.href="/roleAccess";
+		  				}else if (obj['status'] == false) {
+						
+						} else {
+		  				
+		  				}
+		  			},
+		  			error: function(e) {
+		  				alert('Error: ' + e);
+		  			}
+		  		});
+		  }
+		  			  		  
+		  function  roleUpdate(){
+		  	
+			const employerId = document.getElementById("employerId").value;
+			const employerName = document.getElementById("employerName").value;
+			const userMobile = document.getElementById("userMobile").value;
+			var checkvalue=null;
+			const checkbox = document.getElementById("styled-checkbox-40");
+
+			  if (checkbox.checked) {
+			    checkvalue ="yes";
+			  } else {
+			    checkvalue ="no";
+			  }
+		  	document.getElementById("password1").value="";
+		  	document.getElementById("password2").value="";
+		    document.getElementById("password3").value="";
+		  	document.getElementById("password4").value="";
+		  	document.getElementById("password5").value="";
+		    document.getElementById("password6").value="";
+			
+			// Retrieve all rows from the table body
+				const rows = document.querySelectorAll("#editUserRole tbody tr");
+				const allRowsData = [];
+
+				// Loop through each row to extract data
+				rows.forEach(row => {
+				    // Extract basic user information
+				    const cells = row.querySelectorAll("td");
+				    const id = cells[0].textContent.trim();
+				    const username = cells[1].querySelector("input") 
+				                     ? cells[1].querySelector("input").value.trim() 
+				                     : cells[1].textContent.trim();
+				    const email = cells[2].querySelector("input") 
+				                  ? cells[2].querySelector("input").value.trim() 
+				                  : cells[2].textContent.trim();
+				    const mobile = cells[3].querySelector("input") 
+				                   ? cells[3].querySelector("input").value.trim() 
+				                   : cells[3].textContent.trim();
+
+				    // Extract roles
+				    const userRole = [];
+				    const headers = document.querySelectorAll("thead th");
+				    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
+				        const checkbox = cells[i].querySelector("input[type='checkbox']");
+				        if (checkbox && checkbox.checked) {
+				            const roleDesc = headers[i].textContent.trim();
+				            userRole.push({ roleDesc }); // Add more role details if needed
+				        }
+				    }
+
+				    // Add row data to the array
+				    allRowsData.push({
+				        id,
+				        username,
+				        email,
+				        mobile,
+				        userRole,
+				    });
+				});
+
+				// Log the collected data (optional)
+				console.log(allRowsData);
+				//alert(JSON.stringify(allRowsData, null, 2));
+				// AJAX call to send the data
+				document.getElementById("signinLoader").style.display = "flex";
+				$.ajax({
+				    type: "POST",
+				    url: "/editUserRole",
+				    dataType: 'json',
+					contentType: 'application/json',
+				    data: JSON.stringify({
+						orgId: employerId,
+				        employerId: employerId,
+						userMobile: userMobile,
+						consent: checkvalue,
+				        createdby: employerName,
+				        userDTO: allRowsData, // Send all rows as an array
+				    }),
+				    success: function(data) {
+				        console.log("Success:", data);
+				        document.getElementById("signinLoader").style.display = "none";
+				    },
+				    error: function(e) {
+				        console.error("Error:", e);
+				        alert('Error: ' + e.responseText || e.statusText);
+				        document.getElementById("signinLoader").style.display = "none";
+				    }
+				});
+
+		  }
+		  function  addRole(){
+						
+			const employerId = document.getElementById("employerId").value;
+			const employerName = document.getElementById("employerName").value;
+			const userMobile = document.getElementById("userMobile").value;
+			var checkvalue=null;
+			const checkbox = document.getElementById("styled-checkbox-41");
+
+			  if (checkbox.checked) {
+			    checkvalue ="yes";
+			  } else {
+			    checkvalue ="no";
+			  }
+		  	document.getElementById("password11").value="";
+		  	document.getElementById("password22").value="";
+		    document.getElementById("password33").value="";
+		  	document.getElementById("password44").value="";
+		  	document.getElementById("password55").value="";
+		    document.getElementById("password66").value="";
+			
+			// Retrieve all rows from the table body
+			const rows = document.querySelectorAll("#resultTable tbody tr");
+			const allRowsData = [];
+
+			// Loop through each row to extract data
+			rows.forEach(row => {
+			    // Extract basic user information
+			    const cells = row.querySelectorAll("td");
+			    const id = cells[0].textContent.trim();
+			    const username = cells[1].querySelector("input") 
+			                     ? cells[1].querySelector("input").value.trim() 
+			                     : cells[1].textContent.trim();
+			    const email = cells[2].querySelector("input") 
+			                  ? cells[2].querySelector("input").value.trim() 
+			                  : cells[2].textContent.trim();
+			    const mobile = cells[3].querySelector("input") 
+			                   ? cells[3].querySelector("input").value.trim() 
+			                   : cells[3].textContent.trim();
+
+			    // Extract roles
+			    const userRole = [];
+			    const roleColumns = Array.from(document.querySelectorAll("#resultTable thead th"))
+			                             .slice(4, -1); // Adjust for the actual roles column range
+
+			    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
+			        const checkbox = cells[i].querySelector("input[type='checkbox']");
+			        if (checkbox && checkbox.checked) {
+			            const roleDesc = roleColumns[i - 4].textContent.trim(); // Align headers with role columns
+			            userRole.push({ roleDesc });
+			        }
+			    }
+
+			    // Add row data to the array
+			    allRowsData.push({
+			        id,
+			        username,
+			        email,
+			        mobile,
+			        userRole,
+			    });
+			});
+
+			// Log the collected data (optional)
+			console.log(allRowsData);
+			//alert(JSON.stringify(allRowsData, null, 2));
+				// AJAX call to send the data
+				document.getElementById("signinLoader").style.display = "flex";
+				$.ajax({
+				    type: "POST",
+				    url: "/editUserRole",
+				    dataType: 'json',
+					contentType: 'application/json',
+				    data: JSON.stringify({
+				        orgId: employerId,
+				        employerId: employerId,
+						userMobile: userMobile,
+						consent: checkvalue,
+				        createdby: employerName,
+				        userDTO: allRowsData, // Send all rows as an array
+				    }),
+				    success: function(data) {
+				        console.log("Success:", data);
+						window.location.href = "/roleAccess";
+				        document.getElementById("signinLoader").style.display = "none";
+				    },
+				    error: function(e) {
+				        console.error("Error:", e);
+				        alert('Error: ' + e.responseText || e.statusText);
+				        document.getElementById("signinLoader").style.display = "none";
+				    }
+				});
+  
+		  }

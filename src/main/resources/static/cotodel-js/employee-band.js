@@ -493,7 +493,7 @@ function bindJsonToTable(jsonData) {
      function viewEmployeeBand() {
 
 			var employerId=document.getElementById("employerId").value;
-			document.getElementById("signinLoader2").style.display="flex";
+			//document.getElementById("signinLoader2").style.display="flex";
 			
 			$.ajax({
 				type: "POST",
@@ -512,7 +512,7 @@ function bindJsonToTable(jsonData) {
 						document.getElementById("defaultDiv").style.display="none";
 						bindJsonToTableEmployee(data1);
 					}
-		      	    document.getElementById("signinLoader2").style.display="none";		  
+		      	    //document.getElementById("signinLoader2").style.display="none";		  
 		    		},
 				error: function(e) {
 					alert('Failed to fetch JSON data' + e);

@@ -6,8 +6,7 @@
 
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-
-<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser()">
+<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),viewEmployeeBand()" >
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -41,7 +40,7 @@
                         </li>
 						<li class="nav-item">
                            <a class="nav-link" href="#">
-                               <span class="mr-2 small">Role Access</span>
+                               <span class="mr-2 small">Admin Settings</span>
                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
                            </a>
                        </li>
@@ -90,7 +89,7 @@
                                 <li class="active"><a data-toggle="tab" href="#home1">Role Access</a></li>
                                 <li><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
-                                <li><a data-toggle="tab" href="#menu33">Expenses & Advance</a></li>
+                               <!-- <li><a data-toggle="tab" href="#menu33">Expenses & Advance</a></li>-->
                             </ul>
 
                             <div class="tab-content">
@@ -198,10 +197,253 @@
 
                                 </div>
                                 <div id="menu11" class="tab-pane">
+								
+									<div class="tab-content" id="defaultDiv" style="display: block">
+	                               <div id="home" class="tab-pane in active">
+	                                   <div class="employee-band-wrap">
+	                                       <h4>Employee Bands</h4>
+	                                       <p>For your understanding, Employee Bands are devised to help you segment your organization’s employees 
+	                                           based on work experience, seniority, roles, pay-grade or any other criteria defined by your organization.</p>
+	                                           <h5>Employee Bands are currently ‘Deactivated’</h5>
+	                                           <p><b>By activating Employee Bands,</b> you can introduce segmentation and set guidelines
+	                                            for the administration of employee benefits and expense allowances.</p>
+	                                            <div class="d-flex justify-content-center mt-2 w-50">
+	                                                <a class="btn btn-primary mx-2 w-100" data-toggle="modal" data-target="#ModalEmployeeBandSetting">Activate Employee Bands</a>
+	                                          </div>
+	                                   </div>
+	                               </div>
+								   
+	                           </div>
+	                           
+	                            <div class="tab-content" style="display: none" id="viewBandDiv" >
+	                               <div id="home" class="tab-pane in active">
+	                                   <div class="bandsetting">
+	                                       <h4>Expense Reimbursements </h4>
+	                                       <div class="bandsetting01-wrap">
+	                                           <div class="left-bandsetting d-flex">
+	                                               <div class="table-check">
+	                                                   <input type="checkbox" id="customCheck3" checked>
+	                                               </div>
+	                                               <p>Employee Bands are activated. This helps introduce segmentation and
+	                                                   set guidelines for the administration of employee benefits and
+	                                                   expense allowances.</p>
+	                                           </div>
+	                                           <div class="right-bandsetting">
+	                                               <button type="button" class="btn p-0">
+	                                                   <img src="img/edit.svg" alt="" data-toggle="modal" data-target="#ModalEmployeeBandActivation">
+	                                               </button>
+	                                           </div>
+	                                       </div>
+	                                   </div>
+
+	                                   <div class="bandsetting" >
+	                                       <h4>Employee Band Settings </h4>
+	                                       <div class="bandsetting01-wrap">
+	                                           <div class="left-bandsetting">
+	                                               <div>
+	                                                   <label>Number of Employee Bands</label> <input type="text" id="Noofband" class="num" readonly>
+	                                               </div>
+	                                               <div>
+	                                                   <label>Employee Bands represented by:</label><br>
+		                                                    <div class="band-option">
+		                                                         <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="NumericView"
+		                                                    id="numericFigure">
+		                                                <label class="form-check-label" for="numericView">
+		                                                    Numeric Figures
+		                                                </label>
+		                                            </div>
+		                                            
+		                                            <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="AlphabeticalView"
+		                                                    id="AlphabeticalFigureView" >
+		                                                <label class="form-check-label" for="AlphabeticalFigureView">
+		                                                    Alphabetical Figures
+		                                                </label>
+		                                            </div>
+	                                                   </div>
+	                                               </div>
+	                                               <div>
+	                                                   <label>Starting Employee Band that defines the order of
+	                                                       seniority</label> <input type="text"
+	                                                       placeholder="Employee Band A1" class="employee">
+	                                                   <div class="exclaimation"><img src="img/exclaimation.svg" alt=""
+	                                                           data-toggle="tooltip" data-placement="top"
+	                                                           title="The selected band forms the starting point for the order of seniority. In case A or 1 is selected, the order of seniority will be in a chronological order, with A or 1 as the base, and vice-versa.">
+	                                                   </div>
+	                                               </div>
+
+	                                               <div class="table-responsive">
+	                                                   <table class="table emp_Bnd_Tbl" id="viewEmployeeBandTable">
+	                                                       <thead>
+	                                                           <tr>
+	                                                               <th>Employee Bands</th>
+	                                                               <th colspan="3">Additional Tiers</th>
+	                                                           </tr>
+	                                                       </thead>
+	                                                       <tbody>
+	                                                          
+	                                                       </tbody>
+	                                                   </table>
+	                                               </div>
+
+	                                           </div>
+	                                           <div class="right-bandsetting">
+	                                               <button type="button" class="btn p-0" data-toggle="modal"
+	                                                   data-target="#ModalEmployeeBandSetting">
+	                                                   <img src="img/edit.svg" alt="">
+	                                               </button>
+	                                           </div>
+
+
+	                                       </div>
+	                                   </div>
+
+
+	                               </div>
+	                           </div>
 									
 								 </div>
-                                <div id="menu22" class="tab-pane"> </div>
-                                <div id="menu33" class="tab-pane"> </div>
+                                <div id="menu22" class="tab-pane"> 
+									<div id="menu2" class="tab-pane">
+									    <div class="policies-section-bank" id="linkaccbankform" style="display: none;">
+									        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+									            <div class="text-center">
+									                <h3>Bank A/c Linking</h3>
+									            </div>
+
+									            <div class="form-linkedbank">
+									                <div class="did-floating-label-content mr-2">
+									                    <select class="did-floating-select" id="bankName" onchange="resetErrorMessages()">
+									                       
+									                    </select>
+									                    <label class="did-floating-label">Select Bank</label>
+									                </div>
+													<div class="error-msg" id="bankNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content mr-2">
+								                    <select class="did-floating-select" id="bankAccType" onchange="resetErrorMessages()">
+								                       <option value="SAVING">Saving</option>
+													   <option value="CURRENT">Current</option>
+								                    </select>
+								                    <label class="did-floating-label">Select Account Type</label>
+								                </div>
+												<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " onkeyup="validateBankname()" id="bankingName" onkeypress="resetErrorMessages()">
+									                    <label class="did-floating-label" >Enter Name as on the Bank
+									                        Account</label>
+									                </div>
+													<div class="error-msg" id="bankingNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber" 
+														  minlength="10" maxlength="16" onkeypress="resetErrorMessages()"
+														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+									                    <label class="did-floating-label">Enter Bank A/c Number</label>
+									                </div>
+													<div class="error-msg" id="bankAccNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="bankAccNumberConfirm" onkeyup="validate()" 
+														 onkeypress="resetErrorMessages()" maxlength="16"
+														 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+									                    <label class="did-floating-label">Re-enter Bank A/c Number</label>
+									                </div>
+													<div class="error-msg" id="bankAccNumberConfirmError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+									               <!-- <div class="tip-wrap justify-content-start">
+									                    <p class="mb-0">The bank account numbers entered don't match each
+									                        other. Please try again.</p>
+									                </div>-->
+													
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="bankIfsc"
+														maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase" onkeypress="resetErrorMessages()">
+									                    <label class="did-floating-label">Enter IFSC Code</label>
+									                </div>
+													<div class="error-msg" id="bankIfscError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="moblieLink" onkeypress="resetErrorMessages()"
+														maxlength="10" onkeyup="validateMobile()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+									                    <label class="did-floating-label">Enter Mobile Number</label>
+									                </div>
+													<div class="error-msg" id="moblieLinkError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="tid" maxlength="25"
+														onkeypress="resetErrorMessages()" >
+									                    <label class="did-floating-label">Tid</label>
+								 					</div>
+													<div class="error-msg" id="tidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="merchantId" maxlength="25"
+														onkeypress="resetErrorMessages()" onkeyup="validateMerchantId()">
+									                    <label class="did-floating-label">Merchant Id</label>
+									                </div>
+													<div class="error-msg" id="merchantIdError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													<!--<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="mcc" maxlength="25">
+									                    <label class="did-floating-label">Mcc</label>
+									                </div>
+													<div class="error-msg" id="mccError" style="color:red"></div>-->
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="submerchantid" maxlength="25"
+														onkeypress="resetErrorMessages()" onkeyup="validateSubMerchantId()">
+									                    <label class="did-floating-label"> Sub Merchant Id</label>
+									                </div>
+													<div class="error-msg" id="submerchantidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="payerva" onkeypress="resetErrorMessages()"
+														maxlength="25" onkeyup="validatePayerva()">
+									                    <label class="did-floating-label">Payerva</label>
+									                </div>
+													<div class="clearfix"></div>
+													<div class="error-msg" id="payervaError" style="color:red"></div>
+												
+													<div class="clearfix"></div>
+													<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+										            	<div id="otsuccmsg"></div>   
+										            </div>
+										            
+										            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+										            	<div id="otfailmsg"></div>
+										            </div><br>
+													                        
+									                <div class="d-flex justify-content-center mt-3">
+														<input type="button" class="btn btn-primary w-100" id="linkBankBtn" value="AUTHENTICATE" onclick="submitLinkBankAccount()"> 
+														
+									                   <!-- <button class="btn btn-primary w-100" data-toggle="modal" data-target="#ModalAuthenticate">AUTHENTICATE</button>-->
+									                </div>
+									            </div>
+									        </div>
+									    </div>
+
+
+									    <div class="linked-bank-account-section" id="linkedbnkacntsctn" style="display: block;">
+									            <div class="text-left">
+									                <h3>Linked Bank Account Details</h3>
+									            </div>
+
+									            <div class="linked-bank-account-innersection d-block">
+									               
+													<div id="data-wrapper"> 
+														
+													</div>
+									               
+									            </div>
+
+									            <div class="d-flex justify-content-end">
+									                <button class="btn btn-primary" id="linkedanotheraccount">Link Another Bank Account</button>
+									            </div>
+									    </div>
+
+									</div>
+								</div>
+								
+                                <div id="menu33" class="tab-pane">
+									<h1>Tab pane 3</h1>
+								 </div>
                             </div>
                         </div>
                     </div>
@@ -213,21 +455,20 @@
             <!-- End of Main Content -->
         </div>
 		
-
 		<div class="lds-spinner" id="signinLoader" style="display: none">
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
 			
         <!-- End of Content Wrapper -->
 
@@ -317,26 +558,26 @@
 				<div class="modal-body text-center">
 				    <div class="otp-box-onboarding justify-content-center">
 					
-						<input  class="form-control form-control-sm test" type="password" id="password1" 
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-					        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-					        <input  class="form-control form-control-sm test" type="password" id="password2" 
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-					        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-					        <input  class="form-control form-control-sm test" type="password" id="password3" 
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-					        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-					        <input  class="form-control form-control-sm test" type="password" id="password4" 
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-					        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-					        <input  class="form-control form-control-sm test" type="password" id="password5" 
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-					        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-					        <input  class="form-control form-control-sm test" type="password" id="password6" 
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
-					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
-					        name="orderId" >
+					<input  class="form-control form-control-sm test" type="password" id="password1" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password2" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password3" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password4" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password5" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password6" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+				        name="orderId" >
 				    </div>
 				   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -369,26 +610,26 @@
 					<div class="modal-body text-center">
 					    <div class="otp-box-onboarding justify-content-center">
 						
-							<input  class="form-control form-control-sm test" type="password" id="password11" 
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-						        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password22" 
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-						        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password33" 
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-						        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password44" 
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-						        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password55" 
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-						        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="password" id="password66" 
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-						        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
-						        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
-						        name="orderId" >
+						<input  class="form-control form-control-sm test" type="password" id="password11" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password22" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password33" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password44" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password55" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password66" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+					        name="orderId" >
 					    </div>
 					   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 					  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -483,6 +724,235 @@
             </div>
         </div>
     </div>
+	
+	
+	 <!-- Modal Modal Employee Band Setting -->
+	    <div class="modal fade" id="ModalEmployeeBandSetting" tabindex="-1" role="dialog"
+	        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+	            <div class="modal-content modal-bulk">
+	                <div class="modal-header pb-0">
+	                    <h5 class="modal-title" id="exampleModalCenterTitle">Employee Band Settings</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">×</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <hr class="mt-0">
+	                    <div id="carouselExampleFade" class="carousel slide employeeCarousel" data-ride="carousel" data-touch="false" data-interval="false">
+	                        <div class="carousel-inner">
+	                            <div class="carousel-item active">
+	                            <form id="formtab1" >
+	                                <div class="slide-wrap">
+	                                    <div class="d-flex">
+	                                        <div class="table-check mr-2">
+	                                            <input type="checkbox" id="employeeBandEnabled" checked>
+	                                        </div>
+	                                        <p class="mb-0">Employee bands enabled</p>
+	                                    </div>
+	                                    <div class="error-msg" id="employeeBandEnabledError" style="color:red"></div>
+	                                    <div class="d-flex align-items-center mb-2">
+	                                        <p class="mb-0">Define the number of Employee Bands</p>
+	                                        <!--  <select class="did-floating-select" id="dropdown" onchange="handleDropdownChange()" > -->
+	                                         <select class="did-floating-select" id="dropdown" >
+	                                             <option value="1">1</option>
+	                                             <option value="2">2</option>
+	                                             <option value="3">3</option>
+	                                             <option value="4">4</option>
+	                                             <option value="5">5</option>
+	                                             <option value="6">6</option>
+	                                        </select>
+	                                    </div>
+	                                    <div class="error-msg" id="dropdownError" style="color:red"></div>
+	                                    <div>
+	                                        <p>Choose how the Employee Bands must be represented</p>
+	                                    </div>
+	                                    <div>
+	                                        <div class="band-option">
+	                                            <div class="form-check">
+	                                                <input class="form-check-input" type="radio" name="numericFigure" value="Numeric"
+	                                                    id="numericFigure" onclick="handleDropdownNumeric()">
+	                                                <label class="form-check-label" for="numericFigure">
+	                                                    Numeric Figures
+	                                                </label>
+	                                            </div>
+	                                            
+	                                            <div class="form-check">
+	                                                <input class="form-check-input" type="radio" name="numericFigure" value="Alphabetical" onchange="handleDropdownAlpha()"
+	                                                    id="AlphabeticalFigure" >
+	                                                <label class="form-check-label" for="AlphabeticalFigure">
+	                                                    Alphabetical Figures
+	                                                </label>
+	                                            </div>
+	                                            
+	                                        </div>
+	                                        <div class="" id="numericFigureError" style="color:red"></div> 
+	                                        
+	                                    </div>
+	                                    <div class="my-4">
+	                                        <div class="info-msg">
+	                                            <strong>‘Numerical Figures’ would be showcased as Bands 1, 2, 3... till n,
+	                                                whereas ‘Alphabetical Figures’ would be showcased as Bands A, B, C... till n.</strong>
+	                                        </div>
+	                                    </div>
+	                                    <div class="d-flex align-items-center">
+	                                        <p class="mb-0">Choose the starting Employee Band to define the order of seniority </p>
+	                                        <select class="did-floating-select mx-2 min-w170" id="startingEmployeeAlpha" style="display: block" onchange="change();">
+	                                           <option value="ascending">Ascending</option>
+	                                           <option value="descending">Descending</option>
+	                                        </select>
+	                                        
+	                                        <select class="did-floating-select mx-2 min-w170" id="startingEmployeeNumeric" style="display: none" onchange="change();">
+	                                            <option value="ascending">Ascending</option>
+	                                            <option value="descending">Descending</option>
+	                                        </select>
+	                                        
+	                                        <div class="exclaimation"><img src="img/exclaimation.svg" alt="" data-toggle="tooltip" data-placement="top"
+	                                             title="The selected band forms the starting point for the order of seniority. In case A or 1 is selected, the order of seniority will be in a chronological order, with A or 1 as the base, and vice-versa.">
+	                                        </div>
+	                                        
+	                                    </div>
+	                                   
+	                                    <hr>
+
+	                                    <ul class="custom-slid-bar">
+	                                        <li class="highlight">1</li>
+	                                        <li>2</li>
+	                                        <li>3</li>
+	                                    </ul>
+
+	                                    <div class="d-flex justify-content-center mt-2">
+	                                        <button class="btn btn-primary w-100" type="button" onclick="validateTab1()" id="continewTab1" style="display:block"> Continue </button>
+	                                        <button class="btn btn-primary w-100" data-target="#carouselExampleFade" id="continewTab2" data-slide="next" style="display:none"> Continue </button>
+	                                    </div>
+	                                </div>
+	                                </form>
+	                            </div>
+	                            <div class="carousel-item">
+	                            <form id="formtab2">
+	                                <div class="slide-wrap">
+	                                    <div class="d-flex">
+	                                        <div class="table-check mr-2">
+	                                            <input type="checkbox" id="addtionalTiersCheckBox" onclick="toggleColumn()" class="coupon_question" checked>
+	                                        </div>
+	                                        <p class="mb-0">Introduce additional Tiers to each Employee Band</p>
+	                                    </div>
+	                                    <div class="error-msg" id="gstnNoError" style="color:red"></div>
+	                                    <hr>            
+	                                   	<div class="table-responsive">
+	                                   		<table id="bandTable" class="table no-bordered empolyee-band-head-modal newTable" colpadding="5">
+	                                   			<thead>
+	                                   				<tr>
+	                                   				   <th>Employee Bands</th>
+	                                   				   <th>Additional Tiers</th>
+	                                   				</tr>
+	                                   			</thead>
+		                                   			  <tbody>
+		                                   			  </tbody>
+	                                   		</table>
+	                                   	</div>
+	                                       
+	                                    <ul class="custom-slid-bar">                                    
+	                                        <li class="highlight">1</li>
+	                                        <li class="highlight">2</li>
+	                                        <li>3</li>                                   
+	                                    </ul>
+
+	                                    <div class="d-flex justify-content-center mt-2">
+	                                        <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
+	                                        <button class="btn btn-primary mx-2 w-49" data-target="#carouselExampleFade" data-slide="next" id="continew2" onclick="saveEmployeeBandTab2()">Continue</button>
+	                                        <button class="btn btn-primary mx-2 w-49" data-target="#carouselExampleFade" data-slide="next" id="continewNext" style="display:none" onclick="saveEmployeeBandTab2()">Continue</button>
+	                                    </div>
+	                                </div>
+	                                </form>
+	                            </div>
+	                            <div class="carousel-item">
+	                            <form id="formTab3">
+	                                <div class="slide-wrap">
+	                                    <div class="d-block">
+	                                        <p class="mb-0">Please review and confirm the Employee Bands below</p>
+	                                    </div>
+	                                    <div class="d-flex align-items-center my-2" id="alphaSeniority">
+	                                        <p class="mb-0">Starting Employee Band that defines the order of seniority</p>
+	                                        <select class="did-floating-select mx-2 min-w170" id="reviewDropdown">
+	                                        </select>
+	                                    </div>
+	                                    
+	                                    <hr>
+	                                    
+	                                    <div class="table-responsive">
+	                                    	<table class="table empolyee-band-table" id="dynamicTable">
+	                                    		<thead>
+	                                    			<tr>
+	                                    				<th class="bandlabel">Employee Bands</th>
+	                                    				<th class="bandlabel01" >Additional Tiers</th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    				<th class="bandlabel01"></th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    			</tr>
+	                                    		</thead>
+	                                    		<tbody>
+	                                    			
+	                                    		</tbody>
+	                                    	</table>
+	                                    </div>
+	                                    
+	                                    <ul class="custom-slid-bar">
+	                                        <li class="highlight">1</li>
+	                                        <li class="highlight">2</li>
+	                                        <li class="highlight">3</li>
+	                                    </ul>
+
+	                                    <div class="d-flex justify-content-center mt-2">
+	                                        <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
+	                                        
+						                    <button class="btn btn-primary mx-2 w-49" id="close" onclick="close()">
+						                       <span aria-hidden="true">Confirm</span>
+						                    </button>
+						                    
+	                                    </div>
+	                                    <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> 
+	                                </div>
+	                               </form>
+	                               <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+	                            </div>
+	                        </div>
+	                        
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    
+	     <!-- Modal Choose Type of Advance Request -->
+	   <div class="modal fade" id="ModalEmployeeBandActivation" tabindex="-1" role="dialog"
+	   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	   <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	       <div class="modal-content modal-bulk">
+	           <div class="modal-header pb-0">
+	               <h5 class="modal-title" id="exampleModalCenterTitle">Employee Band Activation</h5>
+	               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                   <span aria-hidden="true">×</span>
+	               </button>
+	           </div>
+	           <div class="modal-body">
+	            <div class="d-flex">
+	                <div class="table-check mr-2">
+	                    <input type="checkbox" id="customCheck2">
+	                </div>
+	                <p class="mb-0">Employee Bands are activated. This helps introduce segmentation and set guidelines for the administration of employee benefits and expense allowances.</p>
+	            </div>
+	               <div class="d-flex justify-content-center mt-3">
+	                   <button class="btn btn-primary w-100">Confirm</button>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+	</div>
+	
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -500,8 +970,38 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/user-role-access.js"></script>
+	<!--
+	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
+	-->
+	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+
+	<script src="cotodel-js/linked-account.js"></script>
+
 	 
 	<script type="text/javascript">
+	
+		function toggleColumn() {
+		    var checkBox = document.getElementById('addtionalTiersCheckBox');
+		    var elements = document.getElementsByClassName('dropdownvalue');
+		    
+		    for (var i = 0; i < elements.length; i++) {
+		        if (checkBox.checked) {
+		            elements[i].style.display = '';
+		        } else {
+		            elements[i].style.display = 'none';
+		        }
+		    }
+		}
+
+		// Initially hide the column
+		document.addEventListener('DOMContentLoaded', function() {
+		    document.getElementById('addtionalTiersCheckBox').checked = true;
+		    toggleColumn();
+		});
+
+		function close(){
+			window.location.href = "http://localhost:9191/roleAccess";
+		}	
 	
 	$(document).ready(function(){
 		
@@ -516,6 +1016,9 @@
 	</script>
 	
     <script>
+		
+
+			   
 		
 		$(document).ready(function () {
            // Show the modal when the button is clicked
@@ -636,743 +1139,6 @@
 
     </script>
 		
-		<script>
-		    // Function to search employee
-		    function searchEmployee() {
-		        const searchBox = document.getElementById('searchBox').value;
-		        const employerId = document.getElementById('employerId').value;
-				var userMobile = document.getElementById("userMobile").value;
-		        // Show loader
-		        document.getElementById("signinLoader").style.display = "flex";
-				
-
-		        $.ajax({
-		            type: "POST",
-		            url: "/userSearch",
-		            dataType: 'json',
-		            data: {
-		                "orgId": employerId,
-		                "userName": searchBox,
-						"userMobile": userMobile
-		            },
-		            success: function (data) {
-		                document.getElementById("signinLoader").style.display = "none";
-
-		                if (data && data.status && data.data.length > 0) {
-		                    const roleHeaders = generateHeaders(data.data);
-		                    generateRows(data.data, roleHeaders);
-		                } else {
-		                    alert("No data found for the given search.");
-		                }
-		            },
-		            error: function (e) {
-		                document.getElementById("signinLoader").style.display = "none";
-		                console.error('Error:', e);
-		                alert('An error occurred while fetching the data.');
-		            }
-		        });
-		    }
-
-		    // Function to Generate Table Headers Dynamically
-		    function generateHeaders(users) {
-		        const tableHeader = document.getElementById('tableHeader');
-		        tableHeader.innerHTML = "";
-
-		        // Static headers
-		        let headerHTML = `
-		            <tr>
-		                <th>ID</th>
-						<th>Username</th>
-						<th>Email</th>
-		                <th>Mobile</th>
-		        `;
-
-		        // Extract unique role descriptions for dynamic headers
-		        const roleHeaders = new Set();
-		        users.forEach(user => {
-		            user.userRole.forEach(role => roleHeaders.add(role.roleDesc));
-		        });
-
-		        // Add role headers
-		        roleHeaders.forEach(roleDesc => {
-		            headerHTML += `<th>${roleDesc}</th>`;
-		        });
-
-		        // Add the action column
-		       // headerHTML += `<th>Action</th></tr>`;
-		        tableHeader.innerHTML = headerHTML;
-
-		        // Return ordered role descriptions for later use
-		        return Array.from(roleHeaders);
-		    }
-
-		    // Function to Generate Table Rows
-		    function generateRows(users, roleHeaders) {
-		        const tableBody = document.getElementById('tableBody');
-		        tableBody.innerHTML = "";
-
-		        users.forEach(user => {
-		            const row = document.createElement('tr');
-
-		            // Start with basic user details
-		            let rowHTML = `
-		                <td>${user.id}</td>
-						<td>${user.username || '-'}</td>
-						<td>${user.email || '-'}</td>
-		                <td>${user.mobile || '-'}</td>
-		            `;
-
-		            // Generate role checkboxes in columns
-					roleHeaders.forEach(roleHeader => {
-					    const role = user.userRole.find(r => r.roleDesc === roleHeader);
-					    const isChecked = role && role.checked ? 'checked' : '';
-					    const roleId = role ? role.roleId : null;
-
-					    rowHTML += `
-					        <td data-roledesc="${roleHeader}">
-					            <input type="checkbox" 
-					                   class="form-check-input role-checkbox" 
-					                   data-userid="${user.id}" 
-					                   data-roleid="${roleId}" 
-					                   ${isChecked}>
-					        </td>
-					    `;
-					});
-		            // Add action column
-		           // rowHTML += `
-		            //    <td>
-		           //         <button class="btn btn-sm btn-primary" onclick="addAction(${user.id})">Add</button>
-		           //     </td>
-		           // `;
-
-		            row.innerHTML = rowHTML;
-		            tableBody.appendChild(row);
-		        });
-
-		        // Add event listeners for checkboxes
-		        document.querySelectorAll('.role-checkbox').forEach(checkbox => {
-		            checkbox.addEventListener('change', handleCheckboxChange);
-		        });
-		    }
-
-	function getOTP(){
-		
-		const checkbox = document.getElementById("styled-checkbox-40");
-		var userMobile = document.getElementById("userMobile").value;
-		  if (checkbox.checked) {
-			$.ajax({
-				type: 'POST',
-		        url:"/smsOtpSender",
-				data: {
-							"mob": userMobile,
-						},
-				dataType: 'json',
-				success: function(data) {
-				var obj = data;
-		        if (obj['status'] == "SUCCESS") {
-		            // If successful, open the OTP modal
-					var timeleft = "60";
-					var downloadTimer = setInterval(function() {
-						document.getElementById("countdown").innerHTML = "00:"+timeleft;
-						timeleft -= 1;
-						//document.getElementById("optBtn").style.display = "none";
-						document.getElementById("orderId").value= obj['orderId'];
-						//document.getElementById("verifyotpdiv").style.display = "block";
-						if (timeleft <= 0) {
-							clearInterval(downloadTimer);	
-						}	
-					}, 1000);
-		            $("#roleAcessOTPModal").show();  
-		          } else {
-		            alert("Error: " + response.message);
-		          }
-		        },
-		        error: function() {
-				  //$('#otpModal').fadeIn();
-		         // alert("An error occurred. Please try again.");
-		        }
-		      });
- 		 } 		  
- 		 else {
-			document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
-			
-		    //alert("Please check consent");
-		  }
-		
-	}
-	
-	// otp for add role
-	
-	function getAddOTP(){
-		const checkbox = document.getElementById("styled-checkbox-41");
-		var userMobile = document.getElementById("userMobile").value;
-		if (checkbox.checked) {
-			$.ajax({
-				type: 'POST',
-		        url:"/smsOtpSender",
-				data: {
-							"mob": userMobile,
-						},
-				dataType: 'json',
-				success: function(data) {
-				var obj = data;
-		        if (obj['status'] == "SUCCESS") {
-					$(".lastrowaddBtnWrap").hide();
-					$("#addRoleAcessOTPModal").show();
-					//addRoleAcessOTPModal
-		            // If successful, open the OTP modal
-					var timeleft = "60";
-					var downloadTimer = setInterval(function() {
-						document.getElementById("countdown").innerHTML = "00:"+timeleft;
-						timeleft -= 1;
-						//document.getElementById("optBtn").style.display = "none";
-						document.getElementById("orderId").value= obj['orderId'];
-						//document.getElementById("verifyotpdiv").style.display = "block";
-						if (timeleft <= 0) {
-							clearInterval(downloadTimer);	
-						}	
-					}, 1000);
-		            $("#roleAcessOTPModal").show();  
-		          } else {
-		            alert("Error: " + response.message);
-		          }
-		        },
-		        error: function() {
-				  //$('#otpModal').fadeIn();
-		         // alert("An error occurred. Please try again.");
-		        }
-		      });
-			  }
-			  else {
-	  		    document.getElementById("styled-checkbox-41Error").innerHTML="Please check consent";
-	  		  }
-		}
-	 // Handle Checkbox State Changes
-		    function handleCheckboxChange(event) {
-		        const checkbox = event.target;
-		        const userId = checkbox.dataset.userid;
-		        const roleId = checkbox.dataset.roleid;
-		        const isChecked = checkbox.checked;
-
-		        console.log(`User ID: ${userId}, Role ID: ${roleId}, Checked: ${isChecked}`);
-		        // Add your backend update logic here if needed
-		    }
-
-		    // Action Button Click Handler
-			function addAction(userId) {
-			    // Find the row containing the clicked button
-			    const orgId = document.getElementById("employerId").value;
-				// Find the row containing the clicked button
-				  const row = event.target.closest('tr');
-
-				  // Extract the static data from the row
-				  const id = row.cells[0].innerText;
-				  const mobile = row.cells[2].innerText;
-				  const username = row.cells[3].innerText;
-
-				  // Collect checked role descriptions
-				  const roleDesc = [];
-				  row.querySelectorAll('.role-checkbox').forEach(checkbox => {
-				      if (checkbox.checked) {
-				          const roleDescription = checkbox.closest('td').getAttribute('data-roledesc');
-				          if (roleDescription) {
-				              roleDesc.push({ roleDesc: roleDescription });
-				          }
-				      }
-				  });
-
-				  // Build the final JSON object
-				  const rowData = {
-				     // orgId: "70", // Static orgId
-				      id: id,
-				      username: username,
-				      mobile: mobile,
-				      roleDesc: roleDesc
-				  };
-
-				  // Output the result in the desired format
-				  console.log(rowData);
-				  //alert("Row Data: " + JSON.stringify(rowData));
-			    // Send data to backend via AJAX
-			    $.ajax({
-			        url: '/editUserRole',
-			        type: 'POST',
-			        dataType: 'json',
-			        data: {
-			            //orgId: orgId,
-						"orgId":70,
-						"id":rowData.id,
-						"username":rowData.username,
-						"mobile":rowData.mobile,
-						"roleDesc": rowData.roleDesc.map(role => role.roleDesc) // Directly send the roleDesc array
-			        },
-			        success: function(response) {
-						window.location.href = "/roleAccess";
-			        },
-			        error: function(err) {
-			            console.error("Error sending user data:", err);
-			        }
-			    });
-			}
-					 
-			    function focusNext(currentInput) {
-			        // Move focus to the next input box
-			        var maxLength = parseInt(currentInput.getAttribute("maxlength"));
-			        var currentLength = currentInput.value.length;
-
-			        if (currentLength >= maxLength) {
-			            var nextIndex = Array.from(currentInput.parentElement.children).indexOf(currentInput) + 1;
-			            var nextInput = currentInput.parentElement.children[nextIndex];
-
-			            if (nextInput) {
-			                nextInput.focus();
-			            }
-			        }
-			    }
-
-			function focusBack(){
-				  var elts = document.getElementsByClassName('test')
-				  Array.from(elts).forEach(function(elt) {
-				  elt.addEventListener("keydown", function(event) {
-				    // Number 13 is the "Enter" key on the keyboard
-				    if (event.keyCode === 13 ||
-				        event.keyCode !== 8 && elt.value.length === Number(elt.maxLength)
-				    ) {
-				      // Focus on the next sibling
-				      elt.nextElementSibling.focus()
-				    }
-				    if (event.keyCode == 8) {
-				      elt.value = '';
-				      if (elt.previousElementSibling != null) {
-				        elt.previousElementSibling.focus();
-				        event.preventDefault();
-				      }
-				    }
-				  });
-				})
-			}
-			
-
-			function verfyIssueVoucherOTP() {
-				document.getElementById("authenticate").disabled = true;
-			  	var password1 = document.getElementById("password1").value;
-			  	var password2 = document.getElementById("password2").value;
-			  	var password3 = document.getElementById("password3").value;
-			  	var password4 = document.getElementById("password4").value;
-			  	var password5 = document.getElementById("password5").value;
-			  	var password6 = document.getElementById("password6").value;
-			  	var orderId = document.getElementById("orderId").value;
-			  	var userMobile = document.getElementById("userMobile").value;
-			  	 if (password1 == "" && password1.length < 1) {
-			  		document.getElementById("mobError").innerHTML="";
-			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-			  		x = false;
-			  	}
-			  	 else if (password1.length < 1) {
-			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-			  		x = false;
-			  	}
-			  	else{
-			  		document.getElementById("otpError").innerHTML="";
-			  	}
-			  	 if (password2 == "" && password2.length < 1) {
-			  		document.getElementById("mobError").innerHTML="";
-			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-			  		x = false;
-			  	}
-			  	 else if (password2.length < 1) {
-			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-			  		x = false;
-			  	}
-			  	else{
-			  		document.getElementById("otpError").innerHTML="";
-			  	}
-			  	 if (password3 == "" && passwor3.length < 1) {
-			  		document.getElementById("mobError").innerHTML="";
-			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-			  		x = false;
-			  	}
-			  	 else if (password3.length < 1) {
-			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-			  		x = false;
-			  	}
-			  	else{
-			  		document.getElementById("otpError").innerHTML="";
-			  	}
-			  	 if (password4 == "" && password4.length < 1) {
-			  		document.getElementById("mobError").innerHTML="";
-			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-			  		x = false;
-			  	}
-			  	 else if (password4.length < 1) {
-			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-			  		x = false;
-			  	}
-			  	else{
-			  		document.getElementById("otpError").innerHTML="";
-			  	}
-			  	 if (password5 == "" && password5.length < 1) {
-			  		document.getElementById("mobError").innerHTML="";
-			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-			  		x = false;
-			  	}
-			  	 else if (password5.length < 1) {
-			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-			  		x = false;
-			  	}
-			  	else{
-			  		document.getElementById("otpError").innerHTML="";
-			  	}
-			  	 if (password6 == "" && password6.length < 1) {
-			  		document.getElementById("mobError").innerHTML="";
-			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-			  		x = false;
-			  	}
-			  	 else if (password6.length < 1) {
-			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-			  		x = false;
-			  	}
-			  	else{
-			  		document.getElementById("otpError").innerHTML="";
-			  	}
-			  	
-			  	$.ajax({
-			  			type: "POST",
-			  			url:"/verifyOTP",
-			  			dataType: 'json',
-			  			data: {
-			  				"password1": password1,
-			  				"password2": password2,
-			  				"password3": password3,
-			  				"password4": password4,	
-			  				"password5": password5,
-			  				"password6": password6,
-			  				"mob": userMobile,
-			  				"orderId": orderId,
-			  				"userName":userMobile
-			  			},
-			  			success: function(data) {
-			  				var obj = data;
-
-			  				if (obj['status']== true) {
-								roleUpdate();
-								$("#roleAcessOTPModal").hide();
-								$("#roleAcessModalSuccessful").show();
-								window.location.href="/roleAccess";
-			  				}else if (obj['status'] == false) {
-							
-							} else {
-			  				
-			  				}
-			  			},
-			  			error: function(e) {
-			  				alert('Error: ' + e);
-			  			}
-			  		});
-			  }
-	
-			  function verfyAddRoleOTP() {
-  				document.getElementById("authenticate").disabled = true;
-  			  	var password1 = document.getElementById("password11").value;
-  			  	var password2 = document.getElementById("password22").value;
-  			  	var password3 = document.getElementById("password33").value;
-  			  	var password4 = document.getElementById("password44").value;
-  			  	var password5 = document.getElementById("password55").value;
-  			  	var password6 = document.getElementById("password66").value;
-  			  	var orderId = document.getElementById("orderId").value;
-  			  	var userMobile = document.getElementById("userMobile").value;
-  			  	 if (password1 == "" && password1.length < 1) {
-  			  		document.getElementById("mobError").innerHTML="";
-  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  			  		x = false;
-  			  	}
-  			  	 else if (password1.length < 1) {
-  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  			  		x = false;
-  			  	}
-  			  	else{
-  			  		document.getElementById("otpError").innerHTML="";
-  			  	}
-  			  	 if (password2 == "" && password2.length < 1) {
-  			  		document.getElementById("mobError").innerHTML="";
-  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  			  		x = false;
-  			  	}
-  			  	 else if (password2.length < 1) {
-  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  			  		x = false;
-  			  	}
-  			  	else{
-  			  		document.getElementById("otpError").innerHTML="";
-  			  	}
-  			  	 if (password3 == "" && passwor3.length < 1) {
-  			  		document.getElementById("mobError").innerHTML="";
-  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  			  		x = false;
-  			  	}
-  			  	 else if (password3.length < 1) {
-  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  			  		x = false;
-  			  	}
-  			  	else{
-  			  		document.getElementById("otpError").innerHTML="";
-  			  	}
-  			  	 if (password4 == "" && password4.length < 1) {
-  			  		document.getElementById("mobError").innerHTML="";
-  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  			  		x = false;
-  			  	}
-  			  	 else if (password4.length < 1) {
-  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  			  		x = false;
-  			  	}
-  			  	else{
-  			  		document.getElementById("otpError").innerHTML="";
-  			  	}
-  			  	 if (password5 == "" && password5.length < 1) {
-  			  		document.getElementById("mobError").innerHTML="";
-  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  			  		x = false;
-  			  	}
-  			  	 else if (password5.length < 1) {
-  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  			  		x = false;
-  			  	}
-  			  	else{
-  			  		document.getElementById("otpError").innerHTML="";
-  			  	}
-  			  	 if (password6 == "" && password6.length < 1) {
-  			  		document.getElementById("mobError").innerHTML="";
-  			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  			  		x = false;
-  			  	}
-  			  	 else if (password6.length < 1) {
-  			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  			  		x = false;
-  			  	}
-  			  	else{
-  			  		document.getElementById("otpError").innerHTML="";
-  			  	}
-  			  	
-  			  	$.ajax({
-  			  			type: "POST",
-  			  			url:"/verifyOTP",
-  			  			dataType: 'json',
-  			  			data: {
-  			  				"password1": password1,
-  			  				"password2": password2,
-  			  				"password3": password3,
-  			  				"password4": password4,	
-  			  				"password5": password5,
-  			  				"password6": password6,
-  			  				"mob": userMobile,
-  			  				"orderId": orderId,
-  			  				"userName":userMobile
-  			  			},
-  			  			success: function(data) {
-  			  				var obj = data;
-
-  			  				if (obj['status']== true) {
-  								addRole();
-  								$("#AddRoleAcessOTPModal").hide();
-  								$("#roleAcessModalSuccessful").show();
-  								window.location.href="/roleAccess";
-  			  				}else if (obj['status'] == false) {
-  							
-  							} else {
-  			  				
-  			  				}
-  			  			},
-  			  			error: function(e) {
-  			  				alert('Error: ' + e);
-  			  			}
-  			  		});
-  			  }
-			  			  		  
-			  function  roleUpdate(){
-			  	
-				const employerId = document.getElementById("employerId").value;
-				const employerName = document.getElementById("employerName").value;
-				const userMobile = document.getElementById("userMobile").value;
-				const checkvalue=null;
-				const checkbox = document.getElementById("styled-checkbox-40");
-
-				  if (checkbox.checked) {
-				    checkvalue =yes;
-				  } else {
-				    checkvalue =no;
-				  }
-			  	document.getElementById("password1").value="";
-			  	document.getElementById("password2").value="";
-			    document.getElementById("password3").value="";
-			  	document.getElementById("password4").value="";
-			  	document.getElementById("password5").value="";
-			    document.getElementById("password6").value="";
-				
-				// Retrieve all rows from the table body
-					const rows = document.querySelectorAll("#editUserRole tbody tr");
-					const allRowsData = [];
-
-					// Loop through each row to extract data
-					rows.forEach(row => {
-					    // Extract basic user information
-					    const cells = row.querySelectorAll("td");
-					    const id = cells[0].textContent.trim();
-					    const username = cells[1].querySelector("input") 
-					                     ? cells[1].querySelector("input").value.trim() 
-					                     : cells[1].textContent.trim();
-					    const email = cells[2].querySelector("input") 
-					                  ? cells[2].querySelector("input").value.trim() 
-					                  : cells[2].textContent.trim();
-					    const mobile = cells[3].querySelector("input") 
-					                   ? cells[3].querySelector("input").value.trim() 
-					                   : cells[3].textContent.trim();
-
-					    // Extract roles
-					    const userRole = [];
-					    const headers = document.querySelectorAll("thead th");
-					    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
-					        const checkbox = cells[i].querySelector("input[type='checkbox']");
-					        if (checkbox && checkbox.checked) {
-					            const roleDesc = headers[i].textContent.trim();
-					            userRole.push({ roleDesc }); // Add more role details if needed
-					        }
-					    }
-
-					    // Add row data to the array
-					    allRowsData.push({
-					        id,
-					        username,
-					        email,
-					        mobile,
-					        userRole,
-					    });
-					});
-
-					// Log the collected data (optional)
-					console.log(allRowsData);
-					//alert(JSON.stringify(allRowsData, null, 2));
-					// AJAX call to send the data
-					document.getElementById("signinLoader").style.display = "flex";
-					$.ajax({
-					    type: "POST",
-					    url: "/editUserRole",
-					    dataType: 'json',
-						contentType: 'application/json',
-					    data: JSON.stringify({
-							orgId: employerId,
-  					        employerId: employerId,
-							userMobile: employerMobile,
-							consent: checkvalue,
-  					        createdby: "employerName",
-					        userDTO: allRowsData, // Send all rows as an array
-					    }),
-					    success: function(data) {
-					        console.log("Success:", data);
-					        document.getElementById("signinLoader").style.display = "none";
-					    },
-					    error: function(e) {
-					        console.error("Error:", e);
-					        alert('Error: ' + e.responseText || e.statusText);
-					        document.getElementById("signinLoader").style.display = "none";
-					    }
-					});
-   
-			  }
-			  function  addRole(){
-							
-				const employerId = document.getElementById("employerId").value;
-				const employerName = document.getElementById("employerName").value;
-				const userMobile = document.getElementById("userMobile").value;
-				const checkvalue=null;
-				const checkbox = document.getElementById("styled-checkbox-41");
-
-				  if (checkbox.checked) {
-				    checkvalue =yes;
-				  } else {
-				    checkvalue =no;
-				  }
-  			  	document.getElementById("password11").value="";
-  			  	document.getElementById("password22").value="";
-  			    document.getElementById("password33").value="";
-  			  	document.getElementById("password44").value="";
-  			  	document.getElementById("password55").value="";
-  			    document.getElementById("password66").value="";
-				
-  				// Retrieve all rows from the table body
-				const rows = document.querySelectorAll("#resultTable tbody tr");
-				const allRowsData = [];
-
-				// Loop through each row to extract data
-				rows.forEach(row => {
-				    // Extract basic user information
-				    const cells = row.querySelectorAll("td");
-				    const id = cells[0].textContent.trim();
-				    const username = cells[1].querySelector("input") 
-				                     ? cells[1].querySelector("input").value.trim() 
-				                     : cells[1].textContent.trim();
-				    const email = cells[2].querySelector("input") 
-				                  ? cells[2].querySelector("input").value.trim() 
-				                  : cells[2].textContent.trim();
-				    const mobile = cells[3].querySelector("input") 
-				                   ? cells[3].querySelector("input").value.trim() 
-				                   : cells[3].textContent.trim();
-
-				    // Extract roles
-				    const userRole = [];
-				    const roleColumns = Array.from(document.querySelectorAll("#resultTable thead th"))
-				                             .slice(4, -1); // Adjust for the actual roles column range
-
-				    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
-				        const checkbox = cells[i].querySelector("input[type='checkbox']");
-				        if (checkbox && checkbox.checked) {
-				            const roleDesc = roleColumns[i - 4].textContent.trim(); // Align headers with role columns
-				            userRole.push({ roleDesc });
-				        }
-				    }
-
-				    // Add row data to the array
-				    allRowsData.push({
-				        id,
-				        username,
-				        email,
-				        mobile,
-				        userRole,
-				    });
-				});
-
-				// Log the collected data (optional)
-				console.log(allRowsData);
-				//alert(JSON.stringify(allRowsData, null, 2));
-  					// AJAX call to send the data
-  					document.getElementById("signinLoader").style.display = "flex";
-  					$.ajax({
-  					    type: "POST",
-  					    url: "/editUserRole",
-  					    dataType: 'json',
-  						contentType: 'application/json',
-  					    data: JSON.stringify({
-  					        orgId: employerId,
-  					        employerId: employerId,
-							userMobile: employerMobile,
-							consent: checkvalue,
-  					        createdby: "employerName",
-  					        userDTO: allRowsData, // Send all rows as an array
-  					    }),
-  					    success: function(data) {
-  					        console.log("Success:", data);
-							window.location.href = "/roleAccess";
-  					        document.getElementById("signinLoader").style.display = "none";
-  					    },
-  					    error: function(e) {
-  					        console.error("Error:", e);
-  					        alert('Error: ' + e.responseText || e.statusText);
-  					        document.getElementById("signinLoader").style.display = "none";
-  					    }
-  					});
-     
-  			  }
-		</script>
 </body>
 
 </html>
