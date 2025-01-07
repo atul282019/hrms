@@ -21,6 +21,7 @@ function validateAmount(amount) {
   	    const onlySpace = /^$|.*\S+.*/;
   	    const regMobile = /^[6-9]\d{9}$/gi;
   	    const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		const regex_alphanumeric=/^[a-zA-Z0-9]+$/;
 
   	    let namespace = name.replace(/\s+/g, ' ').trim();
   	    let emailspace = email.replace(/\s+/g, ' ').trim();
@@ -75,7 +76,12 @@ function validateAmount(amount) {
 		            ? "Only single spaces are allowed."
 		            : "Please enter job title";
 		        return false;
-		    } else {
+		    }
+			else if (!regex_alphanumeric.test(jobTitle)){
+				document.getElementById("jobTitleError").textContent = "Only Alpha Numeric Values Are Allowed in Name";
+				return false;
+				
+			} else {
 		        document.getElementById("jobTitleError").textContent = "";
 		    }
 
@@ -84,7 +90,14 @@ function validateAmount(amount) {
 		            ? "Only single spaces are allowed."
 		            : "Please enter department";
 		        return false;
-		    } else {
+		    } 			
+			else if (!regex_alphanumeric.test(department)){
+			document.getElementById("departmentError").textContent = "Only Alpha Numeric Values Are Allowed in Department";
+			return false;
+			
+				}
+			
+			else {
 		        document.getElementById("departmentError").textContent = "";
 		    }
 
@@ -162,6 +175,7 @@ function saveEmployeeOnboarding(){
 	    const onlySpace = /^$|.*\S+.*/;
 	    const regMobile = /^[6-9]\d{9}$/gi;
 	    const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		const regex_alphanumeric=/^[a-zA-Z0-9]+$/;
 
 	    let namespace = name.replace(/\s+/g, ' ').trim();
 	    let emailspace = email.replace(/\s+/g, ' ').trim();
@@ -214,25 +228,35 @@ function saveEmployeeOnboarding(){
 		        document.getElementById("hireDateError").textContent = "";
 		    }
 
-		    if (jobTitle === "" || jobTitlespace !== jobTitle) {
+				if (jobTitle === "" || jobTitlespace !== jobTitle) {
 		        document.getElementById("jobTitleError").textContent = jobTitlespace !== jobTitle 
 		            ? "Only single spaces are allowed."
 		            : "Please enter job title";
-		        document.getElementById("jobTitle").focus();
 		        return false;
-		    } else {
-		        document.getElementById("jobTitleError").textContent = "";
-		    }
+			    }
+				else if (!regex_alphanumeric.test(jobTitle)){
+					document.getElementById("jobTitleError").textContent = "Only Alpha Numeric Values Are Allowed in Name";
+					return false;
+					
+				} else {
+			        document.getElementById("jobTitleError").textContent = "";
+			    }
 
-		    if (department === "" || departmentspace !== department) {
-		        document.getElementById("departmentError").textContent = departmentspace !== department 
-		            ? "Only single spaces are allowed."
-		            : "Please enter department";
-		        document.getElementById("department").focus();
-		        return false;
-		    } else {
-		        document.getElementById("departmentError").textContent = "";
-		    }
+			    if (department === "" || departmentspace !== department) {
+			        document.getElementById("departmentError").textContent = departmentspace !== department 
+			            ? "Only single spaces are allowed."
+			            : "Please enter department";
+			        return false;
+			    } 			
+				else if (!regex_alphanumeric.test(department)){
+				document.getElementById("departmentError").textContent = "Only Alpha Numeric Values Are Allowed in Department";
+				return false;
+				
+					}
+				
+				else {
+			        document.getElementById("departmentError").textContent = "";
+			    }
 
 		    if (managerName === "") {
 		        document.getElementById("reportingError").textContent = "Please select manager name";
