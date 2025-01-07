@@ -538,9 +538,10 @@ function validatePayrollAndSubmit(){
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
-				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
+				 document.getElementById("payrollsuccessmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
 				 $("#tab3").addClass("active");
+				  //window.location.href = "/dashboard";
 				 //$('#successmsgdiv').delay(5000).fadeOut(400);
 				// $("#form5").show();
 				//document.getElementById("saveNext").style.display="None";

@@ -387,14 +387,18 @@ function getOTP(){
 	        if (obj['status'] == "SUCCESS") {
 	            // If successful, open the OTP modal
 				var timeleft = "60";
+				var resendCodeElement = document.getElementById("resendCode");
+	               // Hide the "Resend OTP" link initially
+	               resendCodeElement.style.display = "none";
 				var downloadTimer = setInterval(function() {
 					document.getElementById("countdown").innerHTML = "00:"+timeleft;
 					timeleft -= 1;
 					//document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
 					//document.getElementById("verifyotpdiv").style.display = "block";
-					if (timeleft <= 0) {
-						clearInterval(downloadTimer);	
+					if (timeleft < 0) {
+						clearInterval(downloadTimer);
+						resendCodeElement.style.display = "block";	
 					}	
 				}, 1000);
 	            $("#roleAcessOTPModal").show();  
@@ -415,12 +419,63 @@ function getOTP(){
 	  }
 	
 }
-
+function resendVoucherOTP(){
+	
+	const checkbox = document.getElementById("styled-checkbox-40");
+	var userMobile = document.getElementById("userMobile").value;
+	var orderId = document.getElementById("orderId").value;
+	  if (checkbox.checked) {
+		$.ajax({
+			type: 'POST',
+	        url:"/smsOtpResender",
+			data: {
+						"mob": userMobile,
+						"orderId": orderId
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj['status'] == "SUCCESS") {
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+				var resendCodeElement = document.getElementById("resendCode");
+	               // Hide the "Resend OTP" link initially
+	               resendCodeElement.style.display = "none";
+				var downloadTimer = setInterval(function() {
+					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+					timeleft -= 1;
+					//document.getElementById("optBtn").style.display = "none";
+					document.getElementById("orderId").value= obj['orderId'];
+					//document.getElementById("verifyotpdiv").style.display = "block";
+					if (timeleft < 0) {
+						clearInterval(downloadTimer);
+						resendCodeElement.style.display = "block";	
+					}	
+				}, 1000);
+	            $("#roleAcessOTPModal").show();  
+	          } else {
+	            alert("Error: " + response.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+	 } 		  
+	 else {
+		document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
+		
+	    //alert("Please check consent");
+	  }
+	
+}
 // otp for add role
 
 function getAddOTP(){
 	const checkbox = document.getElementById("styled-checkbox-41");
 	var userMobile = document.getElementById("userMobile").value;
+
 	if (checkbox.checked) {
 		$.ajax({
 			type: 'POST',
@@ -437,6 +492,7 @@ function getAddOTP(){
 				//addRoleAcessOTPModal
 	            // If successful, open the OTP modal
 				var timeleft = "60";
+				
 				var downloadTimer = setInterval(function() {
 					document.getElementById("countdown").innerHTML = "00:"+timeleft;
 					timeleft -= 1;
@@ -444,7 +500,9 @@ function getAddOTP(){
 					document.getElementById("orderId").value= obj['orderId'];
 					//document.getElementById("verifyotpdiv").style.display = "block";
 					if (timeleft <= 0) {
-						clearInterval(downloadTimer);	
+						clearInterval(downloadTimer);
+						
+						
 					}	
 				}, 1000);
 	            $("#roleAcessOTPModal").show();  
@@ -566,7 +624,7 @@ function getAddOTP(){
 		
 
 		function verfyIssueVoucherOTP() {
-			document.getElementById("authenticate").disabled = true;
+			
 		  	var password1 = document.getElementById("password1").value;
 		  	var password2 = document.getElementById("password2").value;
 		  	var password3 = document.getElementById("password3").value;
@@ -576,7 +634,7 @@ function getAddOTP(){
 		  	var orderId = document.getElementById("orderId").value;
 		  	var userMobile = document.getElementById("userMobile").value;
 		  	 if (password1 == "" && password1.length < 1) {
-		  		document.getElementById("mobError").innerHTML="";
+		  		//document.getElementById("mobError").innerHTML="";
 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
 		  		x = false;
 		  	}
@@ -588,7 +646,7 @@ function getAddOTP(){
 		  		document.getElementById("otpError").innerHTML="";
 		  	}
 		  	 if (password2 == "" && password2.length < 1) {
-		  		document.getElementById("mobError").innerHTML="";
+		  		//document.getElementById("mobError").innerHTML="";
 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
 		  		x = false;
 		  	}
@@ -600,7 +658,7 @@ function getAddOTP(){
 		  		document.getElementById("otpError").innerHTML="";
 		  	}
 		  	 if (password3 == "" && passwor3.length < 1) {
-		  		document.getElementById("mobError").innerHTML="";
+		  		//document.getElementById("mobError").innerHTML="";
 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
 		  		x = false;
 		  	}
@@ -612,7 +670,7 @@ function getAddOTP(){
 		  		document.getElementById("otpError").innerHTML="";
 		  	}
 		  	 if (password4 == "" && password4.length < 1) {
-		  		document.getElementById("mobError").innerHTML="";
+		  		//document.getElementById("mobError").innerHTML="";
 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
 		  		x = false;
 		  	}
@@ -624,7 +682,7 @@ function getAddOTP(){
 		  		document.getElementById("otpError").innerHTML="";
 		  	}
 		  	 if (password5 == "" && password5.length < 1) {
-		  		document.getElementById("mobError").innerHTML="";
+		  		//document.getElementById("mobError").innerHTML="";
 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
 		  		x = false;
 		  	}
@@ -636,7 +694,7 @@ function getAddOTP(){
 		  		document.getElementById("otpError").innerHTML="";
 		  	}
 		  	 if (password6 == "" && password6.length < 1) {
-		  		document.getElementById("mobError").innerHTML="";
+		  		//document.getElementById("mobError").innerHTML="";
 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
 		  		x = false;
 		  	}
@@ -647,7 +705,7 @@ function getAddOTP(){
 		  	else{
 		  		document.getElementById("otpError").innerHTML="";
 		  	}
-		  	
+			document.getElementById("authenticate").disabled = true;
 		  	$.ajax({
 		  			type: "POST",
 		  			url:"/verifyOTP",
@@ -672,7 +730,12 @@ function getAddOTP(){
 							$("#roleAcessModalSuccessful").show();
 							window.location.href="/roleAccess";
 		  				}else if (obj['status'] == false) {
-						
+							document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+							roleUpdate();
+							$("#roleAcessOTPModal").show();
+							$("#roleAcessModalSuccessful").hide();
+							
+							document.getElementById("authenticate").disabled = false;
 						} else {
 		  				
 		  				}
