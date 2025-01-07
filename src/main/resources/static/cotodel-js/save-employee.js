@@ -84,7 +84,7 @@ function getEmployeeCertificateDetail() {
 }
 */
 
-
+/*
 function getEmployeeExperienceDetail() {
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
@@ -116,8 +116,8 @@ function getEmployeeExperienceDetail() {
 					{ "mData": "company"},
 					{ "mData": "country"},
 					{ "mData": "referenceEmail"},
-					/*{ "mData": "referenceMobile"},*/
-				/*	{ "mData": "remarks"}*/
+					{ "mData": "referenceMobile"},
+					{ "mData": "remarks"}
 					
 				]
 			}).buttons().container().appendTo('#experienceTable_wrapper .col-md-6:eq(0)');
@@ -126,7 +126,7 @@ function getEmployeeExperienceDetail() {
 			alert('Error: ' + e);
 		}
 	});
-}
+}*/
 
 
 /*function getEmployeeQualificationDetail() {
@@ -465,7 +465,7 @@ function SaveFmailyDetail(){
 }*/
 
 
-function validateEmployeeAndSubmit(){
+//function validateEmployeeAndSubmit(){
 	
 	/* var firstName = document.getElementById("firstName").value;
 	 var lastName = document.getElementById("lastName").value;
@@ -494,8 +494,8 @@ function validateEmployeeAndSubmit(){
 	 var salaryAmount = document.getElementById("salaryAmount").value;   
 	 */
 
-	 var regName = /^[a-zA-Z\s]*$/;
-	 var onlySpace = /^$|.*\S+.*/;
+	// var regName = /^[a-zA-Z\s]*$/;
+	// var onlySpace = /^$|.*\S+.*/;
 	 
 /*
 	if(pname==""){
@@ -539,7 +539,7 @@ function validateEmployeeAndSubmit(){
 		document.getElementById("overlay").style.display = "none";
 	}
 	*/
-	var employerId = document.getElementById("employerId").value;  
+/*	var employerId = document.getElementById("employerId").value;  
 	var formData = new FormData(empdetailForm);
 	formData.append("employerId",employerId);
 	document.getElementById("signinLoader").style.display="flex";
@@ -578,7 +578,7 @@ function validateEmployeeAndSubmit(){
          }
     });			
 }
-
+*/
     
 	function checkGstNumber() {
 				var gstnNo = document.getElementById("gstnNo").value;

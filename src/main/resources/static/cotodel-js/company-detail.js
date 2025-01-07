@@ -1,62 +1,7 @@
 
-
-/* working 
-function initializeOrgTypeDropdown() {
-    console.log("Inside initializeOrgTypeDropdown()");
-	var orgId=1;
-    $.ajax({
-        type: "GET",
-        url: "/getorgsubType", 
-        dataType: "json",
-		data: {
-					"orgTypeId": orgId,
-					
-					
-		      		 },dataType: "json",
-        success: function (response) {
-            console.log("Response received:", response);
-
-            if (response.status === true) {
-                const orgTypeDropdown = document.getElementById("organizationsubType");
-
-                // Clear existing dropdown options
-                orgTypeDropdown.innerHTML = "";
-
-                // Add a default disabled option
-                const defaultOption = document.createElement("option");
-                defaultOption.value = "";
-                defaultOption.textContent = "Select Organization Sub Type*";
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                orgTypeDropdown.appendChild(defaultOption);
-
-                // Populate dropdown with response data
-                response.data.forEach((item) => {
-                    const option = document.createElement("option");
-                    option.value = item.id; // Use 'id' as the value
-                    option.textContent = item.orgType; // Display 'orgType'
-                    orgTypeDropdown.appendChild(option);
-                });
-
-                // Clear any existing error message
-                document.getElementById("organizationsubTypeError").textContent = "";
-            } else {
-                console.error("Failed to fetch organization types:", response.message);
-                document.getElementById("organizationsubTypeError").textContent = "Failed to load organization types.";
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error fetching organization types:", status, error);
-            document.getElementById("organizationsubTypeError").textContent = "Error loading organization types.";
-        },
-    });
-}
-*/
 function initializeOrgTypeDropdown() {
     const orgTypeDropdown = document.getElementById("orgType2");
     const selectedOrgType = orgTypeDropdown.value;
-
-    // Clear the sub-type dropdown immediately
     const subTypeDropdown = document.getElementById("organizationsubType");
     subTypeDropdown.innerHTML = "";
     const defaultOption = document.createElement("option");
@@ -69,26 +14,11 @@ function initializeOrgTypeDropdown() {
     // Clear any previous error message
     document.getElementById("organizationsubTypeError").textContent = "";
 
-    // Determine orgId based on selected organization type
-    let orgId = null;
-    if (selectedOrgType === "Private") {
-        orgId = 1;
-    } else if (selectedOrgType === "Government") {
-        orgId = 2;
-    } else {
-        console.log("Invalid Organization Type selected.");
-        document.getElementById("organizationsubTypeError").textContent = "Please select a valid organization type.";
-        return;
-    }
-
-    console.log("Selected Organization Type:", selectedOrgType, "| orgId:", orgId);
-
-    // Fetch organization sub types based on orgId
     $.ajax({
         type: "GET",
         url: "/getorgsubType",
         data: {
-            orgTypeId: orgId,
+            orgTypeId: selectedOrgType,
         },
         dataType: "json",
         success: function (response) {
@@ -120,62 +50,6 @@ function openBrandPage(){
      $("#form1").hide();
 }
 
-function validateFormAndSubmit(){
-	
-	 var gstnNo = document.getElementById("gstnNo").value;
-	 var organizationType = document.getElementById("organizationType").value;
-	 var pan = document.getElementById("pan").value; 
-	// var brnadName = document.getElementById("brnadName").value; 
-	 
-	// var brnadName = document.getElementById("brnadName").value; 
-     var orgType2 = document.getElementById("orgType2").value; 
-	 var panDetails = document.getElementById("panDetails").value; 
-	 var companyName = document.getElementById("companyName").value; 
-	 
-	 var officeAddress = document.getElementById("officeAddress").value;
-	  var addressLine = document.getElementById("addressLine").value;
-	       
-	 var pinCode = document.getElementById("pinCode").value; 
-	 //var companyPan2 = document.getElementById("companyPan2").value; 
-	 var stateCode = document.getElementById("stateCode").value;  
-	 var orgsubType = document.getElementById("organizationsubType").value;
-	 
-	 var regName = /^[a-zA-Z\s]*$/;
-	 var onlySpace = /^$|.*\S+.*/;
-
-	var formData = new FormData(saveCompany);
-	 	$.ajax({
-		type: "POST",
-	     url:"/saveCompanyDetail",
-         data: formData,
-         processData: false,
-         contentType: false,       		 
-            success: function(data){
-            newData = data;
-			var data1 = jQuery.parseJSON(newData);
-			//console.log(data1)
-			if(data1.status==true){
-				 document.getElementById("successmsg").innerHTML="Data Saved Successfully";
-				 document.getElementById("successmsgdiv").style.display="block";
-				 //document.getElementById("saveorg").reset();
-				 $('#successmsgdiv').delay(5000).fadeOut(400);
-			}else if(data1.status==false){
-				 document.getElementById("failmsg").innerHTML=data1.message;
-				 document.getElementById("failmsgDiv").style.display="block";
-				 $('#failmsgDiv').delay(5000).fadeOut(400);
-			}else{
-				 document.getElementById("failmsgDiv").style.display="none";
-				 document.getElementById("successmsgdiv").style.display="none";
-				 //document.getElementById("FailedError").innerHTML="API Gateway not respond. Please try again.";
-			}
-         },
-         error: function(e){
-             alert('Error: ' + e);
-         }
-    });			
-}
-
-    
 	function checkGstNumber() {
 				var gstnNo = document.getElementById("gstnNo").value;
                 var gstinformat = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;   
@@ -438,9 +312,9 @@ function validateDate() {
 		}
 function validateFormAndSubmit() {
 				var paidDate = document.getElementById("paidDate").value;
-             	var runFayrollFlag = document.getElementById("runFayrollFlag").value;
+             	var runPayrollFlag = document.getElementById("runPayrollFlag").value;
              	var salaryAdvancesFlag = document.getElementById("salaryAdvancesFlag").value;
-             	
+			
                 if (paidDate =="") {    
 					document.getElementById("paidDateError").innerHTML="Please Select Date";
                     ///document.getElementById("paidDateError").innerHTML="Please Select Date";
@@ -450,13 +324,13 @@ function validateFormAndSubmit() {
                    document.getElementById("paidDateError").innerHTML="";
 					document.getElementById("paidDate").focus();   
                 }  
-                 if (runFayrollFlag =="") {    
-                    document.getElementById("runFayrollFlagError").innerHTML="Please Checked Automatically run payroll on selected date";
-					document.getElementById("runFayrollFlag").focus();
+                 if (runPayrollFlag =="") {    
+                    document.getElementById("runPayrollFlagError").innerHTML="Please Checked Automatically run payroll on selected date";
+					document.getElementById("runPayrollFlag").focus();
 					return false;   
                 } else {    
-                   document.getElementById("runFayrollFlagError").innerHTML="";
-					document.getElementById("runFayrollFlag").focus();   
+                   document.getElementById("runPayrollFlagError").innerHTML="";
+					document.getElementById("runPayrollFlag").focus();   
                 }   
                  if (salaryAdvancesFlag =="") {    
                     document.getElementById("salaryAdvancesFlagError").innerHTML="Please Checked employees request salary advances";
@@ -469,10 +343,18 @@ function validateFormAndSubmit() {
       
         var employerid = document.getElementById("employerId").value;
 		var tableid = document.getElementById("tableid").value;
+		
+		var orgType2 = document.getElementById("orgType2").value; 
+		var organizationType = document.getElementById("organizationType").value; 
+	    var orgsubType = document.getElementById("organizationsubType").value;
+		 
+		 
         var formData = new FormData(saveCompany);
         formData.append("employerId",employerid);
 		formData.append("id",tableid);
-       
+		formData.append("orgType",orgType2);
+		formData.append("orgsubType",orgsubType);
+			
        document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
@@ -642,12 +524,9 @@ function validatePayrollAndSubmit(){
 	      var rowvalue=component+"@"+percentage+"@"+per+"@"+taxable;
 	       allInputValues.push(rowvalue);
 	    });  
-   // console.log(allInputValues);
-   // get dynamic table data start
     
     formData.append("listArray", allInputValues);
-    
- 
+   
 	 	$.ajax({
 		type: "POST",
 	     url:"/saveCompanyPayroll",
@@ -657,13 +536,11 @@ function validatePayrollAndSubmit(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
-			//console.log(data1);
-			//console.log(data.status);
 			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
 				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
 				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
-				 //document.getElementById("saveorg").reset();
+				 $("#tab3").addClass("active");
 				 //$('#successmsgdiv').delay(5000).fadeOut(400);
 				// $("#form5").show();
 				//document.getElementById("saveNext").style.display="None";
@@ -697,11 +574,9 @@ function validatePayrollAndSubmit(){
 }
 
 function AutoFillForm() {
-	console.log("inside autofill function")
-	
 	var employerid = document.getElementById("employerId").value;
-	//employerid=82;
-        // AJAX request to fetch data based on employerId
+	document.getElementById("signinLoader").style.display="flex";
+		
         $.ajax({
 			type: "POST",
            url:"/getpayrollDetails", 
@@ -710,11 +585,11 @@ function AutoFillForm() {
 	      		 },
             dataType: 'json',
             success: function (response) {
-				console.log(response)
+				console.log("company Data"+response)
+				document.getElementById("signinLoader").style.display="none";
+					
 				if (response.status) {
 				    const data = response.data;
-					
-				
                 // Auto-fill the form fields with fetched data
                 document.getElementById("gstnNo").value = data.gstnNo || "";
                 document.getElementById("pan").value = data.pan || "";
@@ -724,11 +599,23 @@ function AutoFillForm() {
                 document.getElementById("addressLine").value = data.addressLine || "";
                 document.getElementById("pinCode").value = data.pinCode || "";
 				document.getElementById("tableid").value = data.id;
-
-                // Handle dropdowns
+				
                 const orgTypeSelect = document.getElementById("orgType2");
                 if (orgTypeSelect) {
+					
                     orgTypeSelect.value = data.orgType || "";
+					initializeOrgTypeDropdown();
+					
+                }
+				
+				const organizationType = document.getElementById("organizationType");
+                if (organizationType) {
+                    organizationType.value = data.organizationType || "";
+                }
+				
+				const organizationsubType = document.getElementById("organizationsubType");
+                if (organizationsubType) {
+                    organizationsubType.value = data.orgsubType || "";
                 }
 
                 const stateCodeSelect = document.getElementById("stateCode");
@@ -737,10 +624,9 @@ function AutoFillForm() {
                 }
 				
 				document.getElementById("payrollEnabledFlag").checked = data.payrollEnabledFlag || false;
-                document.getElementById("runFayrollFlag").checked = data.runFayrollFlag || false;
+                document.getElementById("runPayrollFlag").checked = data.runPayrollFlag || false;
                 document.getElementById("salaryAdvancesFlag").checked = data.salaryAdvancesFlag || false;
 
-                // Handle date field
                 document.getElementById("paidDate").value = data.paidDate || "";
           }
 			},

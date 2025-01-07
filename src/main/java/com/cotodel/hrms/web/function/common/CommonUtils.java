@@ -30,7 +30,7 @@ public interface CommonUtils {
 	public static String getSingleUser  = "/userServices/Api/get/userList";
 	public static String getBulkEmail  = "/userServices/Api/get/sendBulkEmail";
 	
-	public static String empDetails  = "/empService/Api/add/empDetails";
+	//public static String empDetails  = "/empService/Api/add/empDetails";
 	public static String empFamilyDetails  = "/empService/Api/add/empFamilyDetails";
 	public static String getEmployeeDetails  = "/empService/Api/get/empAllDetails";
 	public static String getEmployeeFamilyDetails  = "/empService/Api/get/empFamilyAllDetails";
@@ -86,6 +86,7 @@ public interface CommonUtils {
 	
 	//public static String getErupiLinkAccountDetail ="/empService/Api/get/erupiLinkAccount";
 	public static String getErupiLinkAccountDetail  ="/empService/Api/get/erupiLinkAccountList";
+	public static String getErupiLinkAccountDetailWithStatus  ="/empService/Api/get/erupiLinkAccountListWithStatus";
 	public static String getBankMaster  = "/empService/Api/get/getBankMasterDetailsList";
 	
 	public static String getVoucherDetailByBoucherCode  = "/empService/Api/get/voucherTypeMaster";

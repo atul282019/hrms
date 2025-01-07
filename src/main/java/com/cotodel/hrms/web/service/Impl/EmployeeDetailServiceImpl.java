@@ -30,35 +30,31 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 
-	@Override
-	public String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest) {
-		
-		EmployeeDetailsNewRequest employeeDetailsNewRequest=new EmployeeDetailsNewRequest();
-		CopyUtility.copyProperties(employeeDetailRequest, employeeDetailsNewRequest);
-		 String docfile ="";
-		 String signfile ="";
-		try {			
-			byte[] byt = employeeDetailRequest.getDocfile().getBytes();
-			docfile = DatatypeConverter.printBase64Binary(byt);
-			byte[] bytSign = employeeDetailRequest.getSigfile().getBytes();
-			signfile= DatatypeConverter.printBase64Binary(bytSign);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		String docfilename=employeeDetailRequest.getDocfile().getOriginalFilename();
-		String signfilename=employeeDetailRequest.getSigfile().getOriginalFilename();
-		employeeDetailsNewRequest.setDocfile(docfile);
-		employeeDetailsNewRequest.setDocFileName(docfilename);
-		employeeDetailsNewRequest.setSigfile(signfile);
-		employeeDetailsNewRequest.setSigFileName(signfilename);
-		
-		// return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-		
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailsNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-		//return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-		//return CommonUtility.userRequestforMultipartfile(token,employeeDetailRequest, applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-
-	}
+//	@Override
+//	public String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest) {
+//		
+//		EmployeeDetailsNewRequest employeeDetailsNewRequest=new EmployeeDetailsNewRequest();
+//		CopyUtility.copyProperties(employeeDetailRequest, employeeDetailsNewRequest);
+//		 String docfile ="";
+//		 String signfile ="";
+//		try {			
+//			byte[] byt = employeeDetailRequest.getDocfile().getBytes();
+//			docfile = DatatypeConverter.printBase64Binary(byt);
+//			byte[] bytSign = employeeDetailRequest.getSigfile().getBytes();
+//			signfile= DatatypeConverter.printBase64Binary(bytSign);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		String docfilename=employeeDetailRequest.getDocfile().getOriginalFilename();
+//		String signfilename=employeeDetailRequest.getSigfile().getOriginalFilename();
+//		employeeDetailsNewRequest.setDocfile(docfile);
+//		employeeDetailsNewRequest.setDocFileName(docfilename);
+//		employeeDetailsNewRequest.setSigfile(signfile);
+//		employeeDetailsNewRequest.setSigFileName(signfilename);
+//		
+//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailsNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
+//		
+//	}
 
 	@Override
 	public String saveFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {

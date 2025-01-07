@@ -99,8 +99,8 @@ function getOfficeLocationMaster(){
 	             x.add(option);
 	             }
 	             var option = document.createElement("option");
-	             option.text = values.state_name;
-	             option.value = values.state_code;
+	             option.text = values.officeAddress;
+	             option.value = values.id;
 	             x.add(option);
 	             count++;
 	             }   
@@ -169,7 +169,7 @@ function getOrgMaster() {
              }
              var option = document.createElement("option");
              option.text = values.org_type;
-             option.value = values.org_type;
+             option.value = values.id;
              x.add(option);
 
              count++;
@@ -204,7 +204,7 @@ function getOrgMaster2() {
              }
              var option = document.createElement("option");
              option.text = values.org_type;
-             option.value = values.org_type;
+             option.value = values.id;
              x.add(option);
 
              count++;

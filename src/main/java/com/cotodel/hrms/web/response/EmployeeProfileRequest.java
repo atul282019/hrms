@@ -27,9 +27,11 @@ public class EmployeeProfileRequest {
     private boolean salaryAdvancesFlag;
     private Integer id;
     private String orgType;
+    private String orgsubType;
     private String orgDesc;
     private Integer status;
     private Integer orgTypeId;
+    
     private Integer profileComplete;
     
     

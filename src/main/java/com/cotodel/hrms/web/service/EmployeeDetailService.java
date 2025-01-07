@@ -16,7 +16,7 @@ import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 @Repository
 public interface EmployeeDetailService {
 
-	String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest);
+	//String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest);
 
 	String saveFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest);
 
