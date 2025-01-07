@@ -43,7 +43,8 @@ public class CompanyDetailController extends CotoDelBaseController{
 	TokenGenerationImpl tokengeneration;
 	
 	@PostMapping(value="/saveCompanyDetail")
-	public @ResponseBody String saveCompanyDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
+	public @ResponseBody String saveCompanyDetail(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
 		String profileRes=null;JSONObject profileJsonRes=null;
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();

@@ -468,8 +468,10 @@ function validateFormAndSubmit() {
                 }   
       
         var employerid = document.getElementById("employerId").value;
+		var tableid = document.getElementById("tableid").value;
         var formData = new FormData(saveCompany);
         formData.append("employerId",employerid);
+		formData.append("id",tableid);
        
        document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
@@ -704,13 +706,13 @@ function AutoFillForm() {
 			type: "POST",
            url:"/getpayrollDetails", 
 		   data: {
-		   					"employerId": employerid,
-		   		      		 },
+				"employerId": employerid,
+	      		 },
             dataType: 'json',
             success: function (response) {
 				console.log(response)
 				if (response.status) {
-				                const data = response.data;
+				    const data = response.data;
 					
 				
                 // Auto-fill the form fields with fetched data
@@ -721,6 +723,7 @@ function AutoFillForm() {
                 document.getElementById("officeAddress").value = data.officeAddress || "";
                 document.getElementById("addressLine").value = data.addressLine || "";
                 document.getElementById("pinCode").value = data.pinCode || "";
+				document.getElementById("tableid").value = data.id;
 
                 // Handle dropdowns
                 const orgTypeSelect = document.getElementById("orgType2");
@@ -734,11 +737,11 @@ function AutoFillForm() {
                 }
 				
 				document.getElementById("payrollEnabledFlag").checked = data.payrollEnabledFlag || false;
-				                document.getElementById("runFayrollFlag").checked = data.runFayrollFlag || false;
-				                document.getElementById("salaryAdvancesFlag").checked = data.salaryAdvancesFlag || false;
+                document.getElementById("runFayrollFlag").checked = data.runFayrollFlag || false;
+                document.getElementById("salaryAdvancesFlag").checked = data.salaryAdvancesFlag || false;
 
-				                // Handle date field
-				                document.getElementById("paidDate").value = data.paidDate || "";
+                // Handle date field
+                document.getElementById("paidDate").value = data.paidDate || "";
           }
 			},
             error: function ( status, error) {

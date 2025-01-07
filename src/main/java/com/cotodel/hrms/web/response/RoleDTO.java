@@ -20,7 +20,7 @@ public class RoleDTO {
 	    private String consent;
 	    private String email;
 	    private String mobile;
-	    private String createdby;
+	    private String createdBy;
 	    
     private List<UserDTO> userDTO;
 

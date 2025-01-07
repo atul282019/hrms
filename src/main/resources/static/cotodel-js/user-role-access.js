@@ -209,7 +209,7 @@ function editUserRoleWithMoreUser() {
 											dataType: 'json',
 											data: {
 												"orgId":employerId,
-												"createdby":employername,
+												"createdBy":employername,
 												"id":rowDataDelete.id,
 												"username":rowDataDelete.username,
 												"email":rowDataDelete.email,
@@ -876,7 +876,7 @@ function getAddOTP(){
 				        employerId: employerId,
 						userMobile: userMobile,
 						consent: checkvalue,
-				        createdby: employerName,
+				        createdBy: employerName,
 				        userDTO: allRowsData, // Send all rows as an array
 				    }),
 				    success: function(data) {
@@ -968,7 +968,7 @@ function getAddOTP(){
 				        employerId: employerId,
 						userMobile: userMobile,
 						consent: checkvalue,
-				        createdby: employerName,
+				        createdBy: employerName,
 				        userDTO: allRowsData, // Send all rows as an array
 				    }),
 				    success: function(data) {
