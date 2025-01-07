@@ -40,12 +40,12 @@
 			<li class="nav-item" th:if="${session.user_role == 1}">
 			    <a class="nav-link" th:href="@{/expenseReimbursementsCompany}">
 			        <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
-			        <span>Expenses & Advances company</span></a>
+			        <span>Expenses & Advances</span></a>
 			</li>
-			<li class="nav-item" th:if="${session.user_role == 1}">
+			<li class="nav-item" th:if="${session.user_role == 2}">
 	             <a class="nav-link" th:href="@{/expenseReimbursements}">
 	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
-	                 <span>Expenses & Advances employee</span></a>
+	                 <span>Expenses & Advances</span></a>
 	         </li> 
 			<!--<li class="nav-item">
 	           <a class="nav-link" th:href="@{/expenseReimbursements}">
@@ -98,7 +98,7 @@
 		        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
 		        <span>UPI Voucher Issuance</span></a>
 		 </li>
-		 <li class="nav-item" th:if="${session.user_role == 9 || session.user_role == 1 || session.user_role == 2}">
+		 <li class="nav-item" th:if="${session.user_role == 9}">
  		    <a class="nav-link" th:href="@{/displayvoucherMaster}">
  		        <img src="img/pf.png" alt="" class="mr-2">
  		        <span>Voucher Master</span></a>
