@@ -517,6 +517,12 @@
 	        });
 			
 			$(document).ready(function () {
+            $(".close").click(function () {
+                $("#smsUPIVcAuthenticateFail").hide();
+            });
+        });
+
+			$(document).ready(function () {
 	            $(".close").click(function () {
 	                $("#revokeUPIVcAuthenticateFail").hide();
 	            });
@@ -1098,17 +1104,17 @@
 
 
 <!-- Modal UPI Voucher Revoked -->
-<div class="customModal" id="smsUPIVcAuthenticate">
+<div class="customModal" id="smsUPIVcAuthenticateFail">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bulk p-0">
             <div class="modal-top text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="img/modal-close.svg" alt="">
                 </button>
-                <img src="img/modal-success.svg" alt="">
+                <img src="img/modal-close.svg" alt="">
             </div>
             <div class="modal-bottom">
-                <span>SMS Send Successfully</span>
+                <span>SMS could not be Send</span>
             </div>
         </div>
     </div>

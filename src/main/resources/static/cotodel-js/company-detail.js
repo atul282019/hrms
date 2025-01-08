@@ -487,7 +487,7 @@ function getPayrollMaster()  {
 
 function validatePayrollAndSubmit(){
 	
-	      
+	      console.log("validatePayrollAndSubmit clicked");
 	//calculating textbox value to 100
 	 let total = 0;
       const textBoxes = document.querySelectorAll('.percent');
@@ -538,7 +538,7 @@ function validatePayrollAndSubmit(){
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
-				 document.getElementById("payrollsuccessmsg").innerHTML="Data Saved Successfully.";
+				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
 				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
 				 $("#tab3").addClass("active");
 				  //window.location.href = "/dashboard";

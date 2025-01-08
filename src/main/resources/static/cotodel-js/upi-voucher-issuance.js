@@ -1,6 +1,7 @@
 $(document).ready(function() {
 		    $('#btnRevoke').click(function() {
 			  var employerMobile = document.getElementById("employerMobile").value;
+			  document.getElementById("authenticate").disabled = false;
 		      $.ajax({
 		        url:"/smsOtpSender",
 		        type: 'POST',
@@ -13,12 +14,17 @@ $(document).ready(function() {
 		        if (obj['status'] == "SUCCESS") {
 		            // If successful, open the OTP modal
 					var timeleft = "60";
+					var resendCodeElement = document.getElementById("resendCode");
+		               // Hide the "Resend OTP" link initially
+		               resendCodeElement.style.display = "none";
 					var downloadTimer = setInterval(function() {
 						document.getElementById("countdown").innerHTML = "00:"+timeleft;
 						timeleft -= 1;
 						document.getElementById("orderId").value= obj['orderId'];
-						if (timeleft <= 0) {
+						if (timeleft < 0) {
 							clearInterval(downloadTimer);
+							resendCodeElement.style.display = "block";
+							document.getElementById("authenticate").disabled = true;
 						}
 					}, 1000);
 					
@@ -52,6 +58,7 @@ function resendVoucherOTP() {
 	var employerMobile = document.getElementById("employerMobile").value;
 	var orderId = document.getElementById("orderId").value;
 	document.getElementById("signinLoader").style.display = "flex";
+	document.getElementById("authenticate").disabled = false;
 	$.ajax({
 		type: "POST",
 		url:"/smsOtpResender",
@@ -66,13 +73,18 @@ function resendVoucherOTP() {
 			if (obj['status'] == "SUCCESS") {
 				
 				var timeleft = "60";
+				var resendCodeElement = document.getElementById("resendCode");
+	               // Hide the "Resend OTP" link initially
+	               resendCodeElement.style.display = "none";
 				var downloadTimer = setInterval(function() {
 					document.getElementById("countdown").innerHTML = "00."+timeleft;
 					timeleft -= 1;
 					document.getElementById("orderId").value= obj['orderId'];
-					if (timeleft <= 0) {
+					if (timeleft < 0) {
 						clearInterval(downloadTimer);
 						document.getElementById("countdown").innerHTML = " ";
+						resendCodeElement.style.display = "block";
+						document.getElementById("authenticate").disabled = true;
 					}
 				}, 1000);
 			}else if (obj['status'] == "FAILURE") {
@@ -89,7 +101,7 @@ function resendVoucherOTP() {
 
 
 function verfyIssueVoucherOTP() {
-	document.getElementById("authenticate").disabled = true;
+	//document.getElementById("authenticate").disabled = true;
   	var password1 = document.getElementById("password1").value;
   	var password2 = document.getElementById("password2").value;
   	var password3 = document.getElementById("password3").value;
@@ -199,7 +211,7 @@ function verfyIssueVoucherOTP() {
 			    document.getElementById("password4").value="";
 				document.getElementById("password5").value="";
 				document.getElementById("password6").value="";
-				document.getElementById("authenticate").disabled = false;
+				//document.getElementById("authenticate").disabled = false;
   				if (obj['status']== true) {
 					$('#RevokeUPIVoucherModal').hide();
 					revoke();
@@ -619,8 +631,18 @@ function sendsms(rowData){
 		 			//xhr.setRequestHeader(header, token);
 		 			},
 		         success: function(data){
+					var newdata=data;
+					var data1 = jQuery.parseJSON(newdata);
 				 document.getElementById("signinLoader").style.display="none";
-				 $('#smsUPIVcAuthenticate').show();
+				 if(data1.status==true){
+					$('#smsUPIVcAuthenticate').show();
+					$('#smsUPIVcAuthenticateFail').hide();
+				 }
+				 else{
+					$('#smsUPIVcAuthenticateFail').show();
+					$('#smsUPIVcAuthenticate').hide();
+				 }
+				
 		        },
 		      error: function(e){
 		          alert('Error: ' + e);
