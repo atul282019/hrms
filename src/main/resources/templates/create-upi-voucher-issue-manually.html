@@ -25,7 +25,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
-
+	<script type="text/javascript" src="js/xsls-export.js"></script>
     <link rel="stylesheet" href="css/custom.css">
 
 </head>
@@ -217,7 +217,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input" id="mobile" maxlength="10"
+                                                    <input type="text" class="table-input" id="mobile" maxlength="10" readonly
 													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                                      placeholder="Enter Mobile Number">
                                                 </td>
@@ -280,11 +280,11 @@
 											
                                            </td>
                                        </tr>
-                                       <tr class="text-center">
+                                      <!-- <tr class="text-center">
                                                 <td colspan="8" style="background: #EAF4EF;">
                                                     <a href="#" class="text-success" onclick="addNewVoucher(event)">+ Add New Voucher</a>
                                                 </td>
-                                            </tr>
+                                            </tr>-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -390,8 +390,52 @@
 									<input type="hidden" class="form-input" id="submurchentid" name="submurchentid"> 
 									<input type="hidden" class="form-input" id="merchentid" name="merchentid">
 									<input type="hidden" class="form-input" id="payerva" name="payerva"> 													
-	                            </div>
+	                        </div>
+							
+							<div class="upi-voucher-wrap" id="upi-voucher-wrapThree" style="display: none;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3>Report for Voucher Issuance</h3>
+                                        <p>Please cross-check the details for the issuance of vouchers. </p>
+                                    </div>
+                                    <div class="rightdownload mb-3">
+                                        <button class="download-vc" id="downloadBtn">
+                                            <img src="img/download-vouchers.svg" alt="">
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr>
 
+								<div class="table-responsive">
+						        <table class="table table-reimbursements selectvouchers-table" id="successFailVoucherTable">
+						            <thead>
+						                <tr>
+						                    <th>Name</th>
+						                    <th>Mobile Number</th>
+						                    <th>Voucher Type</th>
+						                    <th>Redemption Type</th>
+						                    <th>Amount</th>
+						                    <th>Start Date</th>
+						                    <th>Validity</th>
+						                    <th>Status</th>
+						                    <th></th>
+						                </tr>
+						            </thead>
+						            <tbody>
+						                
+						            </tbody>
+						        </table>
+						    </div>
+                      
+                                <div class="row">
+                                    <div class="col-12 text-right my-3">
+                                        <a th:href="@{/upiVoucherIssuanceNew}" class="btn btn-primary mb-1">GO TO DASHBOARD</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+							
                         </div>
                     </div>
 

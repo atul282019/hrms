@@ -452,9 +452,6 @@ function  createSingleVoucherValidation(){
 	var employerName = document.getElementById("employerName").value;
 	var voucherTypeMCC = $("#voucherTypeMCC option:selected").val();
 	
-	var element = document.getElementById("lable3");
-	element.classList.add("active");
-	
 	const amountValue = amount.trim();
 			  
 	if(banklist=="" || banklist==null){
@@ -669,8 +666,47 @@ function  issueVoucher(){
    					document.getElementById("issuemsgdiv").style.display="block";
    					//document.getElementById("getInTouchUser").reset();
    					$('#otmsgdiv').delay(10000).fadeOut(800);
-					window.location.href = "/upiVoucherIssuanceManually";
-					//window.location.href = "/upiVoucherIssuanceNew";
+					
+					document.getElementById("selectvouchers-wrap03").style.display="none";
+					document.getElementById("selectvouchers-wrap04").style.display="none";
+					document.getElementById("upi-voucher-wrapThree").style.display="block";
+					
+					//window.location.href = "/upiVoucherIssuanceManually";
+					var element = document.getElementById("lable3");
+				    element.classList.add("active");
+					
+					const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
+
+					 data1.data
+					     const row = tableBody.insertRow();
+
+					     row.insertCell().textContent = data1.data.name;
+					     row.insertCell().textContent = data1.data.mobile;
+					     row.insertCell().textContent = data1.data.voucherDesc;
+					     row.insertCell().textContent = data1.data.redemtionType;
+					     row.insertCell().textContent = data1.data.amount;
+					     //row.insertCell().textContent = item.voucherCode;
+						 row.insertCell().textContent = data1.data.startDate;
+						 row.insertCell().textContent = data1.data.expDate;
+						// row.insertCell().textContent = item.response;
+						 
+
+					     // Add the response cell with an image
+					     const responseCell = row.insertCell();
+					     const img = document.createElement("img");
+					     if (data1.data.response === "SUCCESS") {
+					       img.src = "img/status-check.svg"; 
+					       img.alt = "Success";
+					     } else {
+					       img.src = "img/status-cross.svg"; 
+					       img.alt = "Failure";
+					     }
+					     img.width = 20;
+					     img.height = 20;
+					     responseCell.appendChild(img);
+
+					    // row.insertCell().textContent = item.voucherDesc;
+					   
 					document.getElementById('submitButton').disabled=false;
 					document.getElementById('authenticate').disabled=false;
 					
@@ -805,3 +841,22 @@ function getPrimaryBankDetail(){
 			       // Enable the button only if the checkbox is checked
 			       submitButton.disabled = !checkbox.checked;
 			   }
+
+			   document.getElementById('downloadBtn').addEventListener('click', function () {
+			          const table = document.getElementById('successFailVoucherTable');
+
+			         const clonedTable = table.cloneNode(true);
+			          const columnsToRemove = [8,9]; 
+			          columnsToRemove.sort((a, b) => b - a);
+
+			          const rows = clonedTable.rows;
+			          for (let i = 0; i < rows.length; i++) {
+			              columnsToRemove.forEach((colIndex) => {
+			                  if (rows[i].cells.length > colIndex) {
+			                      rows[i].deleteCell(colIndex);
+			                  }
+			              });
+			          }
+			          const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
+			          XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
+			      });
