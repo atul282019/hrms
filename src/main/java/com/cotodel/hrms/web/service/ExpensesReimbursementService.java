@@ -27,4 +27,6 @@ public interface ExpensesReimbursementService {
 	String delinkErupiAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount);
 	String relinkErupiAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount);
 
+	String getErupiLinkDlinkAccountDetail(String token, ErupiLinkBankAccount erupiLinkBankAccount);
+
 }

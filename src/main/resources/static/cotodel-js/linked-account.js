@@ -55,7 +55,7 @@ function  getLinkedBankDetail(){
  	var employerid = document.getElementById("employerId").value;
  	$.ajax({
 	type: "POST",
-	url:"/getErupiLinkBankAccountDetail",
+	url:"/getErupiLinkDlinkAccountDetail",
        data: {
 			"orgId": employerid
       		 },
@@ -108,15 +108,22 @@ function  getLinkedBankDetail(){
 		       });
 
 			   const editButton = document.createElement('button');
-               editButton.className = "btn btn-primary";
-               editButton.innerText = "Set As Primary";
+             //  editButton.className = "btn btn-primary";
+              // editButton.innerText = "Set As Primary";
 
                // Disable "Edit" button if accstatus is 0 (Link Bank A/C shown)
                if (item.accstatus === 0) {
                    editButton.disabled = true;
                    editButton.classList.add("disabled");
                }
-
+			   if(item.psFlag=="Secondary"){ 				
+			   editButton.className = 'btn btn-primary'; 				
+			   editButton.innerText = 'Set As Primary'; 			  
+			    }  else{ 	
+			    editButton.className = 'btn btn-green'; 		       
+			    editButton.innerText = item.psFlag; 	
+			    }
+				
                editButton.onclick = () => {
                    if (!editButton.disabled) {
                        editItem(item.acNumber);
