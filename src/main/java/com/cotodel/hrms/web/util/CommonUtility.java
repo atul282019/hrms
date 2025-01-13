@@ -23,6 +23,7 @@ public class CommonUtility {
 	
 	public static String userRequest(String sAccessToken,String requestJson,String url){
 		String returnStr=null;
+		String companyId = "HRMS00001";
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		try{
@@ -30,6 +31,7 @@ public class CommonUtility {
 			System.out.println(" Request Json for url"+url+"---"+requestJson);
 
 			headers.setContentType(MediaType.APPLICATION_JSON);
+			headers.set("companyId", companyId);
 			
 			if(sAccessToken!=null && !sAccessToken.isEmpty()) {
 				headers.setBearerAuth(sAccessToken);
@@ -60,7 +62,7 @@ public class CommonUtility {
 			logger.info(" Request URL---"+url);
 			logger.info(" Request header---"+companyId);
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			//headers.set("companyId", companyId);
+			headers.set("companyId", companyId);
 			if(sAccessToken!=null && !sAccessToken.isEmpty()) {
 				headers.setBearerAuth(sAccessToken);
 			}
@@ -81,12 +83,13 @@ public class CommonUtility {
 	
 	public static String userRequestforMultipartfile(String sAccessToken,EmployeeQualificationRequest requestJson,String url){
 		RestTemplate restTemplate = new RestTemplate();
+		String companyId = "HRMS00001";
 		HttpHeaders headers = new HttpHeaders();
 		try{
 			logger.info(" Request Json for url"+url+"---"+requestJson);
 			
 			headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
+			headers.set("companyId", companyId);
 			if(sAccessToken!=null && !sAccessToken.isEmpty()) {
 				headers.setBearerAuth(sAccessToken);
 			}
@@ -133,4 +136,6 @@ public class CommonUtility {
 			restTemplate=null;headers=null;	
 		}		
 	}
+	
+
 }

@@ -120,7 +120,7 @@ function userRegistration(){
 	var orgname = document.getElementById("orgname").value;
 	var regMobile = /^[6-9]\d{9}$/gi;
 	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-	
+	var captcha= document.getElementById("captcha").value;
 	var noofEmp = document.getElementById("noofEmp").value;
 	var privacyCheck = document.getElementById("privacyCheck").checked;
 	var whatsupCheck = document.getElementById("whatsupCheck").checked;
@@ -187,8 +187,15 @@ function userRegistration(){
 		document.getElementById("whatsupCheckError1").innerHTML="";
 		
 	}
+	if(captcha==""){
+			document.getElementById("captchaError").innerHTML="Captcha is Required";
+			//document.getElementById("mobileu").focus();
+			return false;
+		}
+	
 	document.getElementById("signinLoader").style.display="flex";
     var formData = new FormData(registerUser);
+	console.log("form data",formData);
 	 	$.ajax({
 		type: "POST",
 	     url:"/registerUser",
@@ -200,7 +207,12 @@ function userRegistration(){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
-			if(data1.status==true){
+			if(data1.status==true ){
+				if(data1.message==="Invalid Captcha")
+				{
+					document.getElementById("captchaError").innerHTML=data1.message;
+				}
+				
 				 document.getElementById("otsuccmsg").innerHTML="Our Team Will Contact you soon, Thanks for Registration.";
 				 document.getElementById("otmsgdiv").style.display="block";
 				 //document.getElementById("getInTouchUser").reset();
@@ -208,15 +220,16 @@ function userRegistration(){
 				//window.location.href = "http://localhost:9191/hrms/tempLogin?mobile="+mobile+"&email="+email;
 				 var mobile=document.getElementById("mobile").value;
     			 localStorage.setItem("userName", mobile);
-    			 window.location.href = "/signin";
+    			 //window.location.href = "/signin";
 			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-			}else{
-				 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
-				 document.getElementById("otfailmsgDiv").style.display="block";
-				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+			}			 
+			
+			else{
+				 document.getElementById("captchaError").innerHTML=data1.message;
+				
 			}
          },
          error: function(e){

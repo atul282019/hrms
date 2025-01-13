@@ -152,5 +152,8 @@ public interface CommonUtils {
 	public static String getVoucherCreateBankList = "/empService/Api/get/voucherCreateBankList";
 	public static String getVoucherCreateSummaryDetailByAccount = "/empService/Api/get/voucherCreateSummaryDetailByAccount";
 	
+	
+	public static String getcaptcha = "/userServices/Api/get/captcha";
+	
 
 }

@@ -26,6 +26,16 @@ public class UserRegistrationRequest implements Serializable{
 	
 	private boolean eRupiStatus ;
 	
+	private String captcha;
+	
+	public String getcaptcha() {
+		return captcha;
+	}
+
+	public void setcaptcha(String captcha) {
+		this.captcha = captcha;
+	}
+	
 	public boolean geteRupiStatus()
 	{
 		return eRupiStatus;
