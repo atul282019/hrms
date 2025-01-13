@@ -82,23 +82,23 @@
                 <div class="container-fluid p-0 p-md-1">
                      <div class="row px-2">
                         <div class="col-12">
-                            <div class="mt-4 bg-white p-3">
+                            <div class="mt-4 bg-white p-3" th:if="${session.user_role == 1 or session.user_role == 9}">
                             <div class="row">
-                                <!-- <div class="col-12 col-sm-4 organisation-wrap">
+                                 <div class="col-12 col-sm-4 organisation-wrap" >
                                     <h3>Let’s set up your organisation!</h3>
                                    <div class="w3-border">
 										  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
 										</div>
-                                    <p><span id="profileComplete"></span> of 7 completed</p>
+                                    <p><span id="profileComplete"></span> of 6 completed</p>
                                     
-                                    <a href="#"><img src="img/question-mark.png" alt="" class="mr-2">Need help with setup?</a>
-                                </div> -->
-                                <div class="col-12 col-sm-4 organisation-wrap">
+                                   <!-- <a href="#"><img src="img/question-mark.png" alt="" class="mr-2">Need help with setup?</a>-->
+                                </div>
+                             <!--   <div class="col-12 col-sm-4 organisation-wrap">
                                     <h3>Let’s set up your organisation!</h3>
                                     <div class="stepper"></div>
-                                    <p>0 of 7 completed</p>
+                                    <p>0 of 5 completed</p>
                                     <a href="files/pdf/Setup Compliance Form Demo 1.pdf" target="_blank"><img src="img/question-mark.png" alt="" class="mr-2">Need help with setup?</a>
-                                </div>
+                                </div>-->
                                 <div class="col-12 col-sm-8">
 
                                     <div class="details-wrap">
@@ -126,7 +126,7 @@
                                             </div>
                                        
                                     </div>                                    
-
+									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
                                     <div class="details-wrap mb-0">
                                         <div class="basic-details-wrap">
                                             <h4>KYC verification</h4>

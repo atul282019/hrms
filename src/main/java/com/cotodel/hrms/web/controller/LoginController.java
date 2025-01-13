@@ -83,14 +83,18 @@ public class LoginController extends CotoDelBaseController{
 					if(profileJsonRes.getJSONObject("data").getInt("role_id") == 1) {
 					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+					model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
 					}
 					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 9) {
 						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
-						}
+						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+						
+					}
 					else {
 						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
 						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("employerid"));
 					}
 					//request.getSession(true).setAttribute("cotodel", profileJsonRes.getString("token"));
 					
@@ -120,6 +124,7 @@ public class LoginController extends CotoDelBaseController{
 						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
 					    request.getSession(true).setAttribute("hrms", token);
 					    // switch case to identify the user screen login
+					    
 					switch (String.valueOf(profileJsonRes.getJSONObject("data").getInt("role_id"))) {	
 					case "0":
 						screenName="index";
