@@ -109,7 +109,15 @@
 						             style="position: absolute; top: 50%; right: 40px; transform: translateY(-50%); cursor: pointer;" 
 						             onclick="reCaptcha()">
 						    </div>
-						    <input type="text" class="form-control mt-2" id="captcha" name="captcha" placeholder="Enter CAPTCHA" required>
+						    <input type="text" 
+							class="form-control mt-2" 
+							id="captcha" name="captcha" 
+							placeholder="Enter CAPTCHA" 
+							required
+							oncopy="return false;" 
+				            onpaste="return false;" 
+				            oncut="return false;" 
+				            autocomplete="off">
 						    <div class="custom-errormsg" id="captchaError" style="color:red"></div>
 						</div>
 						

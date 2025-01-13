@@ -208,11 +208,6 @@ function userRegistration(){
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true ){
-				if(data1.message==="Invalid Captcha")
-				{
-					document.getElementById("captchaError").innerHTML=data1.message;
-				}
-				
 				 document.getElementById("otsuccmsg").innerHTML="Our Team Will Contact you soon, Thanks for Registration.";
 				 document.getElementById("otmsgdiv").style.display="block";
 				 //document.getElementById("getInTouchUser").reset();
@@ -220,7 +215,7 @@ function userRegistration(){
 				//window.location.href = "http://localhost:9191/hrms/tempLogin?mobile="+mobile+"&email="+email;
 				 var mobile=document.getElementById("mobile").value;
     			 localStorage.setItem("userName", mobile);
-    			 //window.location.href = "/signin";
+    			 window.location.href = "/signin";
 			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
