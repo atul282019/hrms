@@ -156,7 +156,7 @@ public class ReCaptchaController extends CotoDelBaseController{
  
 	   private String generateCaptcha(int captchaLength) {
  
-		   String saltChars = "ABCDEFGHJKLMNPQRSTUVWXYZ123456789";
+		   String saltChars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789";
 		   StringBuffer captchaStrBuffer = new StringBuffer();
 		   Random rnd = new Random();
  

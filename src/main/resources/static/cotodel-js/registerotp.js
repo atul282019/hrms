@@ -217,6 +217,7 @@ function userRegistration(){
     			 localStorage.setItem("userName", mobile);
     			 window.location.href = "/signin";
 			}else if(data1.status==false){
+				reCaptcha();
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);
@@ -232,7 +233,13 @@ function userRegistration(){
          }
     });
  }
- 
+ function reCaptcha() {
+   	document.getElementById("captcha").value = "";
+    // var requestUri = $('#ctx').attr('content');
+     document.getElementById("captcha_id").src = "" + "/captcha";
+     document.getElementById("captcha").focus();
+  
+   }
 /* function validateRegistrationForm(){
 	var name =document.getElementById("username").value;  
 	
