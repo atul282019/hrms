@@ -69,20 +69,20 @@
 		document.getElementById("noofEmpError1").innerHTML="";
 	}
 	if(privacyCheck==false){
-		document.getElementById("privacyCheckError1").innerHTML="Please Checked Terms And Condition";
+		document.getElementById("privacyCheckError1").innerHTML="Please agree to the privacy policy and terms of use.";
 		document.getElementById("privacyCheck").focus();
 		return false;
 	}else{
 		document.getElementById("privacyCheckError1").innerHTML="";
 	}
-	if(whatsupCheck==false){
+	/*if(whatsupCheck==false){
 		document.getElementById("whatsupCheckError1").innerHTML="Please Checked Terms And Condition";
 		document.getElementById("whatsupCheck").focus();
 		return false;
 	}else{
 		document.getElementById("whatsupCheckError1").innerHTML="";
 		return true;
-	}
+	}*/
 	
 }	
 function validateemail()  {  
@@ -173,20 +173,20 @@ function userRegistration(){
 		document.getElementById("noofEmpError1").innerHTML="";
 	}
 	if(privacyCheck==false){
-		document.getElementById("privacyCheckError1").innerHTML="Please Checked Terms And Condition";
+		document.getElementById("privacyCheckError1").innerHTML="Please agree to the privacy policy and terms of use.";
 		document.getElementById("privacyCheck").focus();
 		return false;
 	}else{
 		document.getElementById("privacyCheckError1").innerHTML="";
 	}
-	if(whatsupCheck==false){
+	/*if(whatsupCheck==false){
 		document.getElementById("whatsupCheckError1").innerHTML="Please Checked Terms And Condition";
 		document.getElementById("whatsupCheck").focus();
 		return false;
 	}else{
 		document.getElementById("whatsupCheckError1").innerHTML="";
 		
-	}
+	}*/
 	if(captcha==""){
 			document.getElementById("captchaError").innerHTML="Captcha is Required";
 			//document.getElementById("mobileu").focus();
