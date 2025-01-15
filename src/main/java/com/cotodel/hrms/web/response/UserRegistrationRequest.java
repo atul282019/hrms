@@ -24,7 +24,7 @@ public class UserRegistrationRequest implements Serializable{
 	
 	private Integer employerId;
 	
-	private boolean eRupiStatus ;
+	private boolean erupistatus ;
 	
 	private String captcha;
 	
@@ -36,16 +36,25 @@ public class UserRegistrationRequest implements Serializable{
 		this.captcha = captcha;
 	}
 	
-	public boolean geteRupiStatus()
-	{
-		return eRupiStatus;
-	}
-	public void seteRupiStatus(boolean eRupiStatus) {
-		this.eRupiStatus = eRupiStatus;
-	}
 	
 	public Integer getEmployerId() {
 		return employerId;
+	}
+
+	public boolean isErupistatus() {
+		return erupistatus;
+	}
+
+	public void setErupistatus(boolean erupistatus) {
+		this.erupistatus = erupistatus;
+	}
+
+	public String getCaptcha() {
+		return captcha;
+	}
+
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
 	}
 
 	public void setEmployerId(Integer employerId) {

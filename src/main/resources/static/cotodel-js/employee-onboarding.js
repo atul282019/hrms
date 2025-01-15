@@ -29,6 +29,7 @@ function validateAmount(amount) {
   	    let departmentspace = department.replace(/\s+/g, ' ').trim();
 
 		const employeeType = document.getElementById("employeeType").value;
+		const employeeTypeText = document.getElementById("employeeType").text;
 				
 	    if (employeeType==1) {
 			
@@ -182,9 +183,13 @@ function saveEmployeeOnboarding(){
 	    let jobTitlespace = jobTitle.replace(/\s+/g, ' ').trim();
 	    let departmentspace = department.replace(/\s+/g, ' ').trim();
 
-	    let empOrCont = null;
+	   
 		const employeeType = document.getElementById("employeeType").value;
 		
+		const dropdown = document.getElementById("employeeType");
+		  const emporcount = dropdown.options[dropdown.selectedIndex].text;
+		  
+	
 	    if (employeeType==1) {
 			
 			if (name === "" || namespace !== name) {
@@ -323,7 +328,7 @@ function saveEmployeeOnboarding(){
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employeeId);
 	
-	formData.append("empOrCont",empOrCont);
+	//formData.append("empOrCont",empOrCont);
 	formData.append("name",name);
 	
 	formData.append("email",email);
@@ -333,11 +338,13 @@ function saveEmployeeOnboarding(){
 	formData.append("jobTitle",jobTitle);
 	formData.append("depratment",department);
 	
-	formData.append("managerName",managerName);
+	formData.append("managerId",managerName);
 	formData.append("ctc",ctc);
 	
 	formData.append("location",location);
 	formData.append("residentOfIndia",residentOfIndia);
+	formData.append("empOrCont",emporcount);
+	
 	
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
@@ -406,8 +413,8 @@ function getEmployeeOnboarding() {
       		  "aoColumns": [ 
 				{ "mData": "id"},
       		    { "mData": "name"},          
-      		    { "mData": "depratment"},
-      		    { "mData": "jobTitle"},
+      		    { "mData": "mobile"},
+      		   // { "mData": "jobTitle"},
       		    { "mData": "empOrCont"},
       		  	{ "mData": "id", "render": function (data1, type, row) {
                     return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
@@ -447,7 +454,7 @@ function getEmployeeOnboarding() {
 			var data2 = data1.data;
 			//console.log(newData);
 			//document.getElementById("empployeecount").innerHTML=data2.length; 
-           var table = $('#employee').DataTable( {	
+           var table = $('#getEmployeeMasterList').DataTable( {	
 		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
              "language": {"emptyTable": "No Data available"  },
@@ -456,7 +463,7 @@ function getEmployeeOnboarding() {
       		  "aoColumns": [ 
 				{ "mData": "id"},
       		    { "mData": "name"},          
-      		    { "mData": "depratment"},
+      		    { "mData": "mobile"},
       		    { "mData": "jobTitle"},
       		    { "mData": "empOrCont"},
       		  	{ "mData": "id", "render": function (data1, type, row) {

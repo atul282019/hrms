@@ -59,8 +59,9 @@ public class BulkUserController extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null; String userRes = null;
-		
-		
+		int orgid=(int)request.getSession(true).getAttribute("id");
+		Long emplrid=(long)orgid;
+		bulkEmployeeRequest.setEmployerId(emplrid);
 		profileRes = bulkEmployeeService.saveBulkDetail(tokengeneration.getToken(),bulkEmployeeRequest);
 		profileJsonRes= new JSONObject(profileRes);
 		if(profileJsonRes.getString("status").equalsIgnoreCase("SUCCESS")) { 

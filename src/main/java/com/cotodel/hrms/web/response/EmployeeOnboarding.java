@@ -19,7 +19,7 @@ public class EmployeeOnboarding {
 	private String herDate;
 	private String jobTitle;		
 	private String depratment;
-	private String managerName;
+	private Integer managerId;
 	private String ctc;
 	private String location;
 	private String residentOfIndia;

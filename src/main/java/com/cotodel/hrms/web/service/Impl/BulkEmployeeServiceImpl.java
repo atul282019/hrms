@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -78,7 +79,9 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				UserRequest userRequest = new UserRequest();
 				boolean toprint = false;
 				XSSFRow row = worksheet.getRow(i);				
-				
+				if (isRowEmpty(row)) {
+			        break; // Exit the while loop if the row is blank
+			    }
 				Cell cl1 = row.getCell(1);
 				if(cl1==null) {
 					//return ContollerResponse.returnResponse(saveMap); 
@@ -86,30 +89,36 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				String str2="";	
 				
 				str2=cl1.getStringCellValue().replaceAll("\\s", ""); 
-					
-				userRequest.setFirst_name(str2);
-				userRequest.setLast_name(formatter.formatCellValue(row.getCell(2)));
-				userRequest.setEmail(formatter.formatCellValue(row.getCell(3)));
-				userRequest.setMobile(formatter.formatCellValue(row.getCell(4)));
-				userRequest.setUsername(formatter.formatCellValue(row.getCell(5)));
+				String userType=str2;
+				String name=formatter.formatCellValue(row.getCell(2));
+				String mobile=formatter.formatCellValue(row.getCell(3));
+				userRequest.setFirst_name(name);
+				userRequest.setEmpOrCont(userType);
+				userRequest.setRole_id(2);
+				userRequest.setEmployerid(bulkEmployeeRequest.getEmployerId().intValue());
+				userRequest.setOrgId(bulkEmployeeRequest.getEmployerId().intValue());
+				//userRequest.setLast_name();
+				//userRequest.setEmail(formatter.formatCellValue(row.getCell(3)));
+				userRequest.setMobile(mobile);
+				userRequest.setUsername(name);
 				boolean CustomCheckEmail=false;
 				boolean CustomCheckUpdate=false;
-				if(bulkEmployeeRequest.getCustomCheckEmail()!= null && bulkEmployeeRequest.getCustomCheckEmail().equals("on")) {
-					CustomCheckEmail=true;
-				}
+//				if(bulkEmployeeRequest.getCustomCheckEmail()!= null && bulkEmployeeRequest.getCustomCheckEmail().equals("on")) {
+//					CustomCheckEmail=true;
+//				}
 				if(bulkEmployeeRequest.getCustomCheckUpdate()!= null && bulkEmployeeRequest.getCustomCheckUpdate().equals("on")) {
 					CustomCheckUpdate=true;
 				}
 				userRequest.setUpdateStatus(CustomCheckUpdate);
 				userRequest.setEmailStatus(CustomCheckEmail);
 				boolean validmobile=isValidMobile(userRequest.getMobile());				
-				boolean validEmail= isValidEmail(userRequest.getEmail());
+				//boolean validEmail= isValidEmail(userRequest.getEmail());
 				logger.info(userRequest.getMobile() +" : "+ validmobile+"\n"); 
-	            logger.info(userRequest.getEmail() +" : "+ validEmail+"\n"); 
+	          //  logger.info(userRequest.getEmail() +" : "+ validEmail+"\n"); 
 	                        
 				try {
 					logger.info("userRequest::"+userRequest.toString());					
-					if(validmobile && validEmail) {
+					if(validmobile) {
 						response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.regiUserBulk);
 						if(!ObjectUtils.isEmpty(response)) {
 							JSONObject demoRes= new JSONObject(response);
@@ -179,6 +188,14 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 	     Matcher matcher = pattern.matcher(email);
 	     return matcher.matches();
     }
-	
+	private boolean isRowEmpty(Row row) {
+	    for (int i = row.getFirstCellNum(); i < row.getLastCellNum(); i++) {
+	        Cell cell = row.getCell(i);
+	        if (cell != null && !cell.toString().trim().isEmpty()) {
+	            return false; // Row is not empty if at least one cell has content
+	        }
+	    }
+	    return true; // Row is empty
+	}
 	
 }

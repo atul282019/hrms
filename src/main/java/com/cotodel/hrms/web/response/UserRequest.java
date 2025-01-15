@@ -32,4 +32,6 @@ public class UserRequest {
     private String response;
     private boolean updateStatus ;
     private boolean emailStatus ;
+    private String empOrCont;
+    private int orgId ;
 }

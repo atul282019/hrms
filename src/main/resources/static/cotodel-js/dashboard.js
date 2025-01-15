@@ -19,7 +19,7 @@ function getProfileStatus(){
 			$('#profileComplete').html(data1.profile);
 			
 			//var e1 = document.getElementById("profile");
-			document.getElementById("profile").style.width = 40*data1.profile+"px";
+			document.getElementById("profile").style.width = 66*data1.profile+"px";
         	//e1.style.width = data1.profile+""+px;
 			//document.getElementById("perCtcBasic").value="5"data2[0].per_ctc;
 			

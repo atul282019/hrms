@@ -128,7 +128,7 @@
                                                     <th>Name</th>
                                                     <!--<th>Email</th>-->
                                                     <th>Mobile</th>
-                                                   <!--  <th>Username</th> -->
+                                                   <th>Error Msg</th>
                                                 </tr>
                                             </thead>
                                             <tbody>                                                                                             
@@ -292,11 +292,11 @@
 					"aoColumns": [
 						/* { "mData": "id"}, */
 						{ "render": function(data2,type,full,meta){return i++;}   }, 
-						{ "mData": "first_name"},
-						{ "mData": "last_name" },
+						{ "mData": "empOrCont"},
+						{ "mData": "username" },
 						//{ "mData": "email" },
 						{ "mData": "mobile" },
-						/* { "mData": "username"}	 */				
+						/* { "mData": "response"}	 */				
 					]
 				});	
 			
@@ -321,28 +321,27 @@
               "aaData": data2,			
 					"aoColumns": [
 						{ "render": function(data2,type,full,meta){return i++;}   }, 
-						{ "mData": "first_name"},
-						{ "mData": "last_name"},
-						{ "mData": "email"},
-						//{ "mData": "mobile"},
-						
-					/* 	{ "mData": "username"}		 */			
+						{ "mData": "empOrCont"},
+						{ "mData": "username"},
+						//{ "mData": "email"},
+						{ "mData": "mobile"},						
+						{ "mData": "response"}		 		
 					],
 					createdRow: function (row, data2, dataIndex) 
                     {
                      console.log("row : "+JSON.stringify(data2));
                      var regMobile = /^[6-9]\d{9}$/gi;
                  	 var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-                 	var email = data2.email;
+                 	//var email = data2.email;
                 	var mobile = data2.mobile;
                      if(!mobile.match(regMobile))
                      {
-                       $(row).find('td:eq(4)').addClass("tdactive");
-                     }
-                     if(!email.match(regEmail))
-                     {
                        $(row).find('td:eq(3)').addClass("tdactive");
                      }
+                     //if(!email.match(regEmail))
+                    // {
+                    //   $(row).find('td:eq(3)').addClass("tdactive");
+                    // }
                     }
 				});	
 			
