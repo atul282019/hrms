@@ -650,7 +650,7 @@
 	document.addEventListener("DOMContentLoaded", function () {
 
 	    function callAPI(period) {
-					  
+			//period="AH";		  
 	        if (period === "currentMonth") {
 			period="CM" ;
 	        } else if (period === "lastMonth") {
@@ -660,7 +660,7 @@
 			period="CY";
 	           }
 		   else if (period === "lastMonthYear") {
-			period="LM";
+			period="LMY";
 		   	}
 			else if (period === "currentFY") {
 			period="CFY";
@@ -671,6 +671,9 @@
 			else if (period === "allHistory") {
 			period="AH";
 		   	}
+			else{
+				period="AH";
+			}
 
 		document.getElementById("signinLoader").style.display="flex";
 		var employerid = document.getElementById("employerId").value;
@@ -679,7 +682,7 @@
 			url: "/getIssueVoucherList",
 			data: {
 				"orgId": employerid,
-				"timePeriod":"CM",
+				"timePeriod":period,
 			},
 			success: function(data) {
 				newData = data;

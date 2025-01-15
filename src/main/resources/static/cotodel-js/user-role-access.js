@@ -1047,3 +1047,11 @@ function getAddOTP(){
 				});
   
 		  }
+		  
+		  function toggleSubmitButton() {
+		  	       const checkbox = document.getElementById('styled-checkbox-40');
+		  	       const submitButton = document.getElementById('editRole');
+		  	       
+		  	       // Enable the button only if the checkbox is checked
+		  	       submitButton.disabled = !checkbox.checked;
+		  	   }

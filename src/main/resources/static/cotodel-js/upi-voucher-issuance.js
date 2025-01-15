@@ -450,7 +450,7 @@ function getIssueVoucherList(){
 		data: {
 			//"employeeId": employerid,
 			"orgId": employerid,
-			"timePeriod":"LM",
+			"timePeriod":"AH",
 		},
 		success: function(data) {
 			newData = data;
