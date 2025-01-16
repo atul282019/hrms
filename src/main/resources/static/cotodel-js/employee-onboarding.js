@@ -285,7 +285,7 @@ function saveEmployeeOnboarding(){
 			        document.getElementById("jobTitleError").textContent = "Please enter job title";
 			        return false;
 				}
-				else if (!regNamec.test(jobTitle)){
+				else if (!regName.test(jobTitle)){
 					document.getElementById("jobTitleError").textContent = "Only Alphabets Are Allowed in jobTitle";
 					return false;
 					

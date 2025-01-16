@@ -113,12 +113,13 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				userRequest.setEmailStatus(CustomCheckEmail);
 				boolean validmobile=isValidMobile(userRequest.getMobile());				
 				//boolean validEmail= isValidEmail(userRequest.getEmail());
+				boolean validName= isValidName(name);
 				logger.info(userRequest.getMobile() +" : "+ validmobile+"\n"); 
-	          //  logger.info(userRequest.getEmail() +" : "+ validEmail+"\n"); 
+	            logger.info(name +" : "+ validName+"\n"); 
 	                        
 				try {
 					logger.info("userRequest::"+userRequest.toString());					
-					if(validmobile) {
+					if(validmobile && validName) {
 						response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.regiUserBulk);
 						if(!ObjectUtils.isEmpty(response)) {
 							JSONObject demoRes= new JSONObject(response);
@@ -133,7 +134,7 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 								
 							}
 					}else {
-						userRequest.setResponse(MessageConstant.EMAIL_MOBILE_INVALID);
+						userRequest.setResponse(MessageConstant.NAME_MOBILE_INVALID);
 						userInCorrectList.add(userRequest);
 					}
 					
@@ -179,6 +180,19 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
         Matcher m = p.matcher(mobile); 
         return (m.matches());
     }
+	
+	public static boolean isValidName(String name) {
+	    if (name == null || name.trim().isEmpty()) {
+	        return false;
+	    }
+
+	    // Regular expression that allows only alphabets and spaces
+	    String regex = "^[A-Za-z]+(\\s[A-Za-z]+)*$";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(name);
+
+	    return matcher.matches();  // Returns true if the name matches the pattern
+	}
 	
 	public static boolean isValidEmail(String email)
     {       

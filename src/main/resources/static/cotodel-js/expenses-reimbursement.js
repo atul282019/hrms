@@ -766,86 +766,6 @@ function getExpanceCategoryList(){
                   }
       		});		
 			
-			
-			var table = $('#reimbursementTable').DataTable( {
-			  destroy: true,	
-			 "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-			 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-			 "language": {"emptyTable": "No Data available"  },
-
-			 "aaData": data2,
-			  "aoColumns": [ 
-				
-			    { "mData": "id", "render": function (data2, type, row) {
-					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck3" name="customCheck3" ></div>';
-			     }}, 
-			    { "mData": "sequenceId"},   
-			    { "mData": "created_date"},   
-			    { "mData": "expenseCategory"},
-			    { "mData": "expenseTitle"},   
-			 	//{ "mData": "amount"},    
-			 	{ "mData": function (data1, type, row) {
-			        return data1.currency + " " + data1.amount;
-			    }},
-				{ "mData": "statusMessage"},
-				{ "mData": "modeOfPayment"},        
-			  	{ "mData": "id", "render": function (data1, type, row) {
-			        return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
-			     }}, 
-			 	],
-			 	createdRow: function (row, data2, dataIndex) 
-			        {
-			         //console.log("row : "+JSON.stringify(data2));
-			       
-			     	var expenseCategory = data2.expenseCategory;
-			     	var statusMessage = data2.statusMessage;
-			    	
-			         if(expenseCategory=="Conveyance")
-			         {
-					 var imgTag = '<img src="img/taxi.svg" alt="" class="mr-2">'+expenseCategory;
-			          $(row).find('td:eq(3)').html(imgTag);
-			         }
-			         if(expenseCategory=="Miscellaneous")
-			         {
-					 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+expenseCategory;
-					
-			          $(row).find('td:eq(3)').html(imgTag);
-			         }
-			         
-			         if(expenseCategory=="Food")
-			         {
-						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+expenseCategory;
-						 $(row).find('td:eq(3)').html(imgTag);
-			         }
-			         
-			         if(expenseCategory=="Cash Advance")
-			         {
-					 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+expenseCategory;
-			          $(row).find('td:eq(4)').html(imgTag);
-			         }
-			         if(expenseCategory=="Travel")
-			         {
-					 var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+expenseCategory;
-					
-			          $(row).find('td:eq(3)').html(imgTag);
-			         }
-			         if(expenseCategory=="Stay")
-			         {
-					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
-			          $(row).find('td:eq(4)').html(imgTag);
-			         }
-			         
-			         if(statusMessage=="Draft")
-			         {
-			          $(row).find('td:eq(6)').addClass('td-btn draft');
-			         }
-			         if(statusMessage=="Submitted")
-			         {
-			          $(row).find('td:eq(6)').addClass('td-btn submitted');
-			         }
-			      }
-			});		
-			
 		},
 		error: function(e) {
 			alert('Failed to fetch JSON data' + e);
@@ -853,6 +773,114 @@ function getExpanceCategoryList(){
 	});
 }
 
+
+
+function getExpanceCategoryApprovalList(){
+	document.getElementById("signinLoader").style.display="flex";
+	var employerid = document.getElementById("employerId").value;
+	var empId = document.getElementById("empId").value;
+	$.ajax({
+		type: "GET",
+		url: "/getExpanseReimbursementApprovalList",
+		data: {
+			"employeeId": empId,
+			"employerId": employerid
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.list;
+			 //console.log(data2);
+			document.getElementById("signinLoader").style.display="none";
+			
+			var table = $('#tableApprovalFlow').DataTable( {
+	          destroy: true,	
+		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+             "language": {"emptyTable": "No Data available"  },
+	        
+	         "aaData": data2,
+      		  "aoColumns": [ 
+				
+                { "mData": "id", "render": function (data2, type, row) {
+					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck4" name="customCheck4" ></div>';
+                 }}, 
+                { "mData": "sequenceId"},   
+				{ "mData": "expenseCategory"},
+				{ "mData": "name"}, 
+				{ "mData": "depratment"}, 
+               // { "mData": "createationDate"},   
+			    { "mData": "expenseTitle"},   
+				   
+			 	{ "mData": "amount"},    
+			 	//{ "mData": function (data1, type, row) {
+			   //     return data1.currency + " " + data1.amount;
+			   // }},
+				{ "mData": "statusMessage"},
+				{ "mData": "modeOfPayment"},        
+      		  	{ "mData": "id", "render": function (data1, type, row) {
+                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpanceApproval(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                 }}, 
+    		 	],
+    		 	createdRow: function (row, data2, dataIndex) 
+                    {
+                     //console.log("row : "+JSON.stringify(data2));
+                   
+                 	var expenseCategory = data2.expenseCategory;
+                 	//var statusMessage = data2.statusMessage;
+                	
+                     if(expenseCategory=="Conveyance")
+                     {
+					 var imgTag = '<img src="img/taxi.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Miscellaneous")
+                     {
+					 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+expenseCategory;
+ 					
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                     if(expenseCategory=="Food")
+                     {
+						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+expenseCategory;
+	 					 $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                     if(expenseCategory=="Cash Advance")
+                     {
+					 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Travel")
+                     {
+					 var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+expenseCategory;
+ 					
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Stay")
+                     {
+					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                  //   if(statusMessage=="Draft")
+                  //   {
+                  //    $(row).find('td:eq(6)').addClass('td-btn draft');
+                  //   }
+                  //   if(statusMessage=="Submitted")
+                  //   {
+                  //    $(row).find('td:eq(6)').addClass('td-btn submitted');
+                  //   }
+                  }
+      		});		
+			
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
 
  function  viewExpance(value){
 	 var row = jQuery(value).closest('tr');
@@ -908,6 +936,59 @@ function getExpanceCategoryList(){
 				
  }
 
+ function  viewExpanceApproval(value){
+  var row = jQuery(value).closest('tr');
+  var  id = $(row).find("input[name='customCheck4']").val();
+  document.getElementById("signinLoader").style.display="flex";
+  	$.ajax({
+ 	type: "POST",
+ 	url:"/viewExpenseReimbursement",
+        data: {
+ 			"id": id
+       		 },
+       		  beforeSend : function(xhr) {
+ 			//xhr.setRequestHeader(header, token);
+ 			},
+            success: function(data){
+            newData = data;
+            //console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
+ 		var data2 = data1.data;
+ 		
+ 		//console.log(newData);
+  		document.getElementById("approvalExpense").value= data2.expenseCategory;
+ 		document.getElementById("approvalExpenseDate").value = data2.dateOfExpense;
+ 		document.getElementById("approvalExpenseTitle").value = data2.expenseTitle;
+ 		document.getElementById("approvalExpenseVenderName").value =data2.vendorName;
+ 		document.getElementById("approvalExpenseInviceNumber").value = data2.invoiceNumber;
+ 		document.getElementById("approvalExpenseCurrency").value = data2.currency;
+ 		document.getElementById("approvalExpenseAmount").value = data2.amount;
+ 	    document.getElementById("viewModeofPayment").value = data2.modeOfPayment;
+ 		document.getElementById("approvalExpensePaymentMode").value =data2.remarks;
+ 		document.getElementById("viewStatus").value =data2.expenseTitle;
+ 		//document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
+ 		if(data2.fileType =="application/pdf"){
+ 		
+ 			document.getElementById("imagePDFViewApproval").style="display: block";
+ 			document.getElementById("ApprovalImageView").style="display: none";
+ 			document.getElementById("imagePDFViewApproval").src="data:application/pdf;base64,"+data2.file;
+ 		}
+ 		else{
+ 			document.getElementById("imageViewApproval").style="display: block";
+ 			document.getElementById("imagePDFViewApproval").style="display: none";
+ 			document.getElementById("imageViewApproval").src="data:image/jpeg;base64,"+data2.file;
+ 		}
+ 		//document.getElementById("").value =data2.expenseTitle;
+ 		document.getElementById("signinLoader").style.display="none";
+ 		var modal = document.getElementById("ModalViewPendingExp");
+ 		  modal.style.display = "block";
+           },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    }); 
+ 			
+ }
 function deleteExpance(value){
 	
 	var result = confirm("Are you sure you want to delete?");

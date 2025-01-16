@@ -6,9 +6,7 @@
 
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<!-- <body id="page-top" onload="getExpanceCategoryList()"> -->
-<body id="page-top"
-	onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),getLinkedBankDetail(),getBankMaster()">
+<body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),getExpanceCategoryApprovalList()">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -299,13 +297,14 @@
                                                             <th>CATEGORY</th>
                                                             <th>EMPLOYEE</th>
                                                             <th>DEPARTMENT</th>
+															<th>TITLE</th>
                                                             <th>AMOUNT</th>
                                                             <th>LAST APPROVED</th>
                                                             <th>PAYMENT MODE</th>
                                                             <th>ACTIONS</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                  <!--  <tbody>
                                                         <tr>
                                                             <td>
                                                                 <div class="table-check">
@@ -339,7 +338,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -348,7 +347,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -394,7 +393,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -403,7 +402,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -449,7 +448,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -458,7 +457,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -506,7 +505,7 @@
                                                                     <button class="btn-attach" data-toggle="modal"
                                                                         data-target="#ModalViewPendingExp">View <img
                                                                             src="img/attached.svg" alt=""></button>
-                                                                    <!-- ellipsis Information -->
+                                                                     ellipsis Information 
                                                                     <div class="dropdown no-arrow ml-2">
                                                                         <a class="dropdown-toggle" href="#"
                                                                             id="userDropdown" role="button"
@@ -515,7 +514,7 @@
                                                                             <i class="fas fa-ellipsis-v fa-sm"></i>
                                                                         </a>
                                                                         <br>
-                                                                        <!-- Dropdown - User Information -->
+                                                                         Dropdown - User Information 
                                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                                             aria-labelledby="userDropdown">
                                                                             <a class="dropdown-item py-2"
@@ -528,7 +527,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    </tbody>
+                                                    </tbody>-->
                                                 </table>
                                             </div>
                                         </div>
@@ -1433,8 +1432,7 @@
 			role="document">
 			<div class="modal-content">
 				<div class="modal-header pb-0">
-					<h5 class="modal-title" id="exampleModalCenterTitle">Submitted
-						Expense Reimbursements</h5>
+					<h5 class="modal-title" id="exampleModalCenterTitle">Submitted Expense Reimbursements</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close" id="btnCloseView" onclick="close()">
 						<span aria-hidden="true">&times;</span>
@@ -2026,8 +2024,11 @@
 <!-- Start model for Pending Approval -->
     <!-- Modal View Pending Expense -->
 
-    <div class="modal fade" id="ModalViewPendingExp" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <!-- <div class="modal fade" id="ModalViewPendingExp" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+		<div class="modalView" id="ModalViewPendingExp"
+				tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+				aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
             <div class="modal-content">
                 <div class="modal-header pb-0">
@@ -2038,7 +2039,7 @@
                 </div>
                 <div class="d-flex justify-content-between border-btm modal-head-secd">
                     <div>
-                        <p><span>Submitted By</span><label>Deepak Yadav | COTO1</label></p>
+                        <p><span>Submitted By</span><label id="submittedBy"></label></p>
                     </div>
                     <div>
                         <a href="#" class="mx-1"><img src="img/calendar.svg" alt=""></a>
@@ -2047,57 +2048,59 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-12 col-md-7">
-                            <div class="add-files no-border padd-8">
-                                <img src="img/bill.svg" alt="">
-                            </div>
-                        </div>
+                      
+						<div class="col-12 col-md-7">
+							<div class="add-files no-border padd-8">
+								<div class="img-scrollbar">
+									<img src="img/bill.svg" alt=" " id="imageViewApproval">
+								</div>
+								<embed id="imagePDFViewApproval" height="480 px" width="500 px"
+									type="application/pdf"></embed>
+							</div>
+						</div>
                         <div class="col-12 col-md-5">
                             <form action=""
                                 style="max-height: 545px; overflow-y: scroll; padding-top: 5px; padding-bottom: 5px;">
                                 <div class="form-grp-half">
 
                                     <div class="did-floating-label-content mr-2">
-                                        <input class="did-floating-input" type="text" placeholder="" value="Food">
-                                        <label class="did-floating-label">Food</label>
+                                        <input class="did-floating-input" type="text" placeholder="" id="approvalExpense">
+                                        <label class="did-floating-label">Expense</label>
                                     </div>
 
                                     <div class="did-floating-label-content">
                                         <input class="did-floating-input" type="text" placeholder=" "
-                                            value="15/04/2024">
-                                        <label class="did-floating-label">Expense Title</label>
+                                            id="approvalExpenseDate" >
+                                        <label class="did-floating-label">Expense Date</label>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="did-floating-label-content">
                                     <input class="did-floating-input" type="text" placeholder=" "
-                                        value="Field visit lunch">
+                                        id="approvalExpenseTitle">
                                     <label class="did-floating-label">Expense Title</label>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="did-floating-label-content">
-                                    <input class="did-floating-input" type="text" placeholder=" " value="McDonalds">
+                                    <input class="did-floating-input" type="text" placeholder=" " id="approvalExpenseVenderName">
                                     <label class="did-floating-label">Vendor Name</label>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="did-floating-label-content">
                                     <input class="did-floating-input" type="text" placeholder=" "
-                                        value="011401200022804">
+                                        id="approvalExpenseInviceNumber">
                                     <label class="did-floating-label">Invoice Number</label>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-grp-half">
                                     <div class="did-floating-label-content mr-2">
-                                        <select class="did-floating-select"
-                                            onclick="this.setAttribute('value', this.value);"
-                                            onchange="this.setAttribute('value', this.value);" value="INR">
-                                            <option value=""></option>
-                                            <option value="1">INR</option>
+										<input class="did-floating-input" type="text"
+										     id="approvalExpenseCurrency">
                                         </select>
                                         <label class="did-floating-label">Currency</label>
                                     </div>
                                     <div class="did-floating-label-content ml-2">
-                                        <input class="did-floating-input" type="text" placeholder=" " value="131">
+                                        <input class="did-floating-input" type="text" placeholder=" " id="approvalExpenseAmount">
                                         <label class="did-floating-label">Amount</label>
                                     </div>
                                 </div>
@@ -2110,12 +2113,12 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="did-floating-label-content">
-                                    <input class="did-floating-input" type="text" placeholder=" " value="Bank Account">
+                                    <input class="did-floating-input" type="text" placeholder=" " id="approvalExpensePaymentMode">
                                     <label class="did-floating-label">Preferred Mode of Payment</label>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="did-floating-label-content">
-                                    <input class="did-floating-input" type="text" placeholder=" ">
+                                    <input class="did-floating-input" type="text" placeholder=" " id="approvalExpenseRemark">
                                     <label class="did-floating-label">No additional remarks added</label>
                                 </div>
                                 <div id="accordion" class="accordion">

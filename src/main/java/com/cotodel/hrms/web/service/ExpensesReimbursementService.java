@@ -29,4 +29,6 @@ public interface ExpensesReimbursementService {
 
 	String getErupiLinkDlinkAccountDetail(String token, ErupiLinkBankAccount erupiLinkBankAccount);
 
+	String getExpanseReimbursementApprovalList(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+
 }
