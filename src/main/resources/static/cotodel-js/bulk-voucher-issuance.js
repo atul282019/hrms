@@ -279,6 +279,7 @@ function saveBulkVoucherUpload(){
 				    { "mData": "amount"},
 					{ "mData": "startDate"},  
 					{ "mData": "expDate"}
+					
 				 	],
 					
 				});
@@ -302,6 +303,7 @@ function saveBulkVoucherUpload(){
 					    { "mData": "amount"},
 						{ "mData": "startDate"},  
 						{ "mData": "expDate"},
+						
 						{ "mData": "id", "render": function (data2, type, row) {
 						   return '<td> <button value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/delete.svg" alt=""></a> </button> </td>';
 						}}, 
@@ -323,7 +325,8 @@ function saveBulkVoucherUpload(){
 					{ "mData": "mobile"},   
 					 { "mData": "amount"},
 					{ "mData": "startDate"},  
-					{ "mData": "expDate"}
+					{ "mData": "expDate"},
+					{ "mData": "message"}
 	    		 	],
 					createdRow: function (row, data2, dataIndex) 
 	                 {
