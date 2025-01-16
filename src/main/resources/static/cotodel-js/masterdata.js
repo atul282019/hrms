@@ -215,3 +215,38 @@ function getOrgMaster2() {
          }
     });
 } 
+function getDepartmentMasterList(){
+	
+	$.ajax({
+			type: "GET",
+	        url: "/getDepartmentMaster",
+	           success: function(data){
+	            newData = data;
+	            console.log("Department master",newData);
+				$("#department option").remove();
+	            var obj = jQuery.parseJSON( data );
+	             obj = obj.data;
+	        	 var count=0;
+	         	for (var key in obj) {
+
+	             var values =  obj[key];
+	             var x = document.getElementById("department");
+	             if(count==0){
+	             var option = document.createElement("option");
+	             option.text ="Select Department";
+	             option.value = "";
+	             x.add(option);
+	             }
+	             var option = document.createElement("option");
+	             option.text = values.departmentName;
+	             option.value = values.id;
+	             x.add(option);
+
+	             count++;
+	             }   
+	         },
+	         error: function(e){
+	             alert('Error: ' + e);
+	         }
+	    });	
+}

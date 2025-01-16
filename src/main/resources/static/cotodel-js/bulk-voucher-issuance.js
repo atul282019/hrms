@@ -71,6 +71,7 @@ $(document).on('change','.up', function(){
 		  		  }
 				  document.getElementById('submitButton').disabled=true;
 			      var employerMobile = document.getElementById("employerMobile").value;
+				  document.getElementById("authenticate").disabled = false;
 			      $.ajax({
 			        url:"/smsOtpSender",
 			        type: 'POST',
@@ -83,14 +84,20 @@ $(document).on('change','.up', function(){
 			        if (obj['status'] == "SUCCESS") {
 			            // If successful, open the OTP modal
 						var timeleft = "60";
+						var resendCodeElement = document.getElementById("resendCode");
+						resendCodeElement.style.display = "none";
 							var downloadTimer = setInterval(function() {
 								document.getElementById("countdown").innerHTML = "00:"+timeleft;
 								timeleft -= 1;
 								//document.getElementById("optBtn").style.display = "none";
 								document.getElementById("orderId").value= obj['orderId'];
 								//document.getElementById("verifyotpdiv").style.display = "block";
-								if (timeleft <= 0) {
+								if (timeleft < 0) {
 									clearInterval(downloadTimer);
+									resendCodeElement.style.display = "block";
+									document.getElementById("authenticate").disabled = true;
+									
+									 
 									///document.getElementById("optBtn").disabled = false;
 									///document.getElementById("countdown").innerHTML = " ";
 									//document.getElementById("optBtn").style.display = "none";
@@ -312,6 +319,7 @@ function saveBulkVoucherUpload(){
 					});
 					
 				var table = $('#failedUpload').DataTable( {
+					
 		          destroy: true,	
 				 // "dom": 'rtip',
 				 //dom: 'Bfrtip',
@@ -345,8 +353,10 @@ function saveBulkVoucherUpload(){
 		                     }		 
 		                  
 			           }
+					   
 				});
 			}else if(data1.status==false){
+				
 			}
 	     },
 	     error: function(e){
@@ -368,7 +378,7 @@ function saveBulkVoucherUpload(){
    }
 
 function resendVoucherOTP() {
-	
+	document.getElementById("authenticate").disabled = false;
 	var userName = document.getElementById("banklinkedMobile").value;
 	var orderId = document.getElementById("orderId").value;
 	
@@ -392,16 +402,22 @@ function resendVoucherOTP() {
 				//$('#errorOtp').hide('slow');
 				//$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
+				var resendCodeElement = document.getElementById("resendCode");
+	               // Hide the "Resend OTP" link initially
+	               resendCodeElement.style.display = "none";
 				var downloadTimer = setInterval(function() {
 					document.getElementById("countdown").innerHTML = "00."+timeleft;
 					timeleft -= 1;
 					//document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
-					document.getElementById("verifyotpdiv").style.display = "block";
-					if (timeleft <= 0) {
+					//document.getElementById("verifyotpdiv").style.display = "block";
+					if (timeleft < 0) {
 						clearInterval(downloadTimer);
 						//document.getElementById("optBtn").disabled = false;
 						document.getElementById("countdown").innerHTML = " ";
+						resendCodeElement.style.display = "block";
+						
+						 
 						//document.getElementById("optBtn").style.display = "none";
 						//document.getElementById("verifyotpdiv").style.display = "none";
 						
@@ -425,7 +441,7 @@ function resendVoucherOTP() {
 
 
 function verfyIssueVoucherOTP() {
-	document.getElementById("authenticate").disabled = true;
+	
   	var password1 = document.getElementById("password1").value;
   	var password2 = document.getElementById("password2").value;
   	var password3 = document.getElementById("password3").value;
@@ -511,7 +527,7 @@ function verfyIssueVoucherOTP() {
   	else{
   		document.getElementById("otpError").innerHTML="";
   	}
-  	
+	document.getElementById("authenticate").disabled = true;
   	$.ajax({
   			type: "POST",
   			url:"/verifyOTP",
@@ -536,7 +552,8 @@ function verfyIssueVoucherOTP() {
 					issueVoucher();
   					$('#errorOtp').hide('slow');
   				}else if (obj['status'] == false) {
-				
+					document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+					document.getElementById("authenticate").disabled = false;
 				} else {
   				
   				}
@@ -949,7 +966,7 @@ function getPrimaryBankDetail(){
 
 
 function verfyIssueVoucherOTP() {
-	document.getElementById("authenticate").disabled = true;
+	
   	var password1 = document.getElementById("password1").value;
   	var password2 = document.getElementById("password2").value;
   	var password3 = document.getElementById("password3").value;
@@ -1035,7 +1052,7 @@ function verfyIssueVoucherOTP() {
   	else{
   		document.getElementById("otpError").innerHTML="";
   	}
-  	
+	document.getElementById("authenticate").disabled = true;
   	$.ajax({
   			type: "POST",
   			url:"/verifyOTP",
@@ -1060,7 +1077,9 @@ function verfyIssueVoucherOTP() {
 					issueBulkVoucher();
   					$('#errorOtp').hide('slow');
   				}else if (obj['status'] == false) {
-				
+					document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+
+					document.getElementById("authenticate").disabled = false;
 				} else {
   				
   				}

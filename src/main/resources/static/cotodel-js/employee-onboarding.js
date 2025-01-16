@@ -56,7 +56,13 @@ function validateAmount(amount) {
 		            : "Please enter name";
 		        //document.getElementById("name").focus();
 		        return false;
-		    } else {
+		    }
+			else if(!regName.test(name))
+			{
+				document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
+				return false;
+			} 
+					 else {
 		        document.getElementById("nameError").textContent = "";
 		    }
 			if (mobile === "" || !mobile.match(regMobile)) {
@@ -166,8 +172,14 @@ function validateAmount(amount) {
 		        ? "Only single spaces are allowed." 
 		        : "Please enter name";
 		    return false;
-		} else {
-		    document.getElementById("nameError").textContent = "";
+		}
+		else if(!regName.test(name))
+		{
+			document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
+			return false;
+		} 
+		 else {
+    		document.getElementById("nameError").textContent = "";
 		}
 		if (mobile === "" || !mobile.match(regMobile)) {
 		        document.getElementById("mobileError").textContent = 
@@ -239,7 +251,13 @@ function saveEmployeeOnboarding(){
 		            : "Please enter name";
 		        document.getElementById("name").focus();
 		        return false;
-		    } else {
+		    }
+			else if(!regName.test(name))
+			{
+				document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
+				return false;
+			} 
+			 else {
 		        document.getElementById("nameError").textContent = "";
 		    }
 			if (mobile === "" || !mobile.match(regMobile)) {
@@ -356,7 +374,13 @@ function saveEmployeeOnboarding(){
 		        : "Please enter name";
 		    document.getElementById("name").focus();
 		    return false;
-		} else {
+		}		
+		else if(!regName.test(name))
+		{
+			document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
+			return false;
+		} 
+		 else {
 		    document.getElementById("nameError").textContent = "";
 		}
 		if (mobile === "" || !mobile.match(regMobile)) {

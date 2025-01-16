@@ -1,8 +1,10 @@
 
  function getVoucherData() {
+	document.getElementById("signinLoader").style.display="flex";
     fetch('/getvoucherTypeMaster')
         .then(response => response.json())
         .then(data => {
+			document.getElementById("signinLoader").style.display="none";
 			console.log(data);
             const tableBody = document.getElementById('voucherMasterTableBody');
             tableBody.innerHTML = ''; // Clear existing rows

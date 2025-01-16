@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.DepartmentMaster;
 import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
 import com.cotodel.hrms.web.response.MccMaster;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.service.DepartmentMasterService;
 import com.cotodel.hrms.web.service.MasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 
@@ -37,6 +39,9 @@ public class MasterController  extends CotoDelBaseController{
 	
 	@Autowired
 	public MasterService masterService;
+	
+	@Autowired
+	DepartmentMasterService departmentMasterService;
 	
 
 	@Autowired
@@ -155,5 +160,9 @@ public class MasterController  extends CotoDelBaseController{
 		return masterService.voucherCreateSummaryDetailByAccount(tokengeneration.getToken(),employeeMassterRequest);
 	}
 	
-
+	@GetMapping(value="/getDepartmentMaster")
+	public @ResponseBody String getDepartmentMaster(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+			,DepartmentMaster departmentMaster) {
+		return departmentMasterService.getDepartmentMaster(tokengeneration.getToken(),departmentMaster);
+	}
 }
