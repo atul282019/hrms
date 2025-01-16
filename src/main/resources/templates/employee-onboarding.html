@@ -109,7 +109,7 @@
 									<div class="error-msg" id="empTypeError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Name</label>
-                                            <input type="text" class="form-input" id="name" maxlength="50" oninput="sanitizeInput(this)" onkeypress="saveEmployeeValidation()">
+                                            <input type="text" class="form-input" id="name" maxlength="50" oninput="sanitizeInput(this)" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
                                         </div>
  										<div class="error-msg" id="nameError" style="color:red"></div>
                                         <!--<div class="tip-wrap justify-content-start">
@@ -120,12 +120,12 @@
 										  <div class="card-form my-3">
                                             <label for="">mobile</label>
                                             <input type="text" class="form-input" id="mobile" maxlength="10"
-                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeypress="saveEmployeeValidation()">
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
                                         </div>
 										 <div class="error-msg" id="mobileError" style="color:red"></div>
 										 <div class="card-form my-3">
                                         <label for="">Email</label>
-                                        <input type="email" class="form-input" id="email" maxlength="50" oninput="sanitizeInput(this)" onkeypress="saveEmployeeValidation()">
+                                        <input type="email" class="form-input" id="email" maxlength="50" oninput="sanitizeInput(this)" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
 	                                    </div>
 									 <div class="error-msg" id="emailError" style="color:red"></div>
 								 
@@ -136,7 +136,7 @@
 									<div id="employeeDiv" style="display: none;">
                                         <div class="card-form my-3">
                                             <label for="">Joining Date</label>
-                                            <input type="date" class="form-input" id="hireDate" onchange="saveEmployeeValidation()">
+                                            <input type="date" class="form-input" id="hireDate" onchange="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
                                         </div>
  										<div class="error-msg" id="hireDateError" style="color:red"></div>
                                         <div class="tip-wrap justify-content-start">
@@ -145,12 +145,12 @@
 
                                         <div class="card-form my-3">
                                             <label for="">Job Title</label>
-                                            <input type="text" class="form-input" id="jobTitle" maxlength="50" oninput="sanitizeInput(this)" onkeypress="saveEmployeeValidation()" >
+                                            <input type="text" class="form-input" id="jobTitle" maxlength="50" oninput="sanitizeInput(this)" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
                                         </div>
  										<div class="error-msg" id="jobTitleError" style="color:red"></div>
                                         <div class="card-form my-3">
                                             <label for="">Depratment</label>
-                                            <input type="text" class="form-input" id="department" maxlength="50" oninput="sanitizeInput(this)" onkeypress="saveEmployeeValidation()" >
+                                            <input type="text" class="form-input" id="department" maxlength="50" oninput="sanitizeInput(this)" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()" >
                                         </div>
                                          <div class="error-msg" id="departmentError" style="color:red"></div>
                                         <div class="card-form">
@@ -164,7 +164,7 @@
                                         <div class="card-form my-3">
                                             <span><img src="img/rupees.svg" alt=""></span>
                                             <input style="width: 95%; margin: 0; border-left: 1px solid #d9d9d9;
-                                             margin-left: 5px;" type="text" class="form-input" placeholder="0" id="salary" maxlength="6" onkeypress="saveEmployeeValidation()"
+                                             margin-left: 5px;" type="text" class="form-input" placeholder="0" id="salary" maxlength="6" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()"
                                              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
  										<div class="error-msg" id="salaryError" style="color:red"></div>
@@ -173,7 +173,7 @@
                                         </div>
 
                                         <div class="card-form">
-                                            <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="location" onchange="saveEmployeeValidation()" >
+                                            <select class="form-select form-control no-bg border-0" aria-label="Default select example" id="location" onchange="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
                                                 <option value="">Select Office Location</option>
                                                 
                                             </select>
@@ -181,7 +181,7 @@
  										<div class="error-msg" id="locationError" style="color:red"></div>
                                         <div class="form-group float-left">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="residence" onchange="saveEmployeeValidation()">
+                                                <input type="checkbox" class="custom-control-input" id="residence" onchange="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
                                                 <label class="custom-control-label text-left" for="residence">Resident of India </label>
                                             </div>
                                         </div>
@@ -201,7 +201,7 @@
                                 <div class="row">
                                     <div class="col-10 col-sm-8 col-md-7 col-lg-5 mx-auto company-dtl-wrap">
                                         <div class="text-center text-md-center my-3">
-                                        	<input type="hidden" name="employeeId" id="employeeId">
+                                        	<input type="hidden" class="form-input" name="employeeId" id="employeeId">
                                             <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
                                             <input type="button" id="empOnboarding" class="btn btn-primary next d-block" onclick ="saveEmployeeOnboarding()" value="Save"> 
                                         </div>

@@ -3,7 +3,24 @@ function validateAmount(amount) {
            const amountRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
            return amountRegex.test(amount);
   }
+  function resetErrorMessages() {
+        const errorFields = [
+            "nameError",
+            "mobileError",
+            "emailError",
+            "hireDateError",
+            "jobTitleError",
+            "departmentError",
+            "reportingError",
+            "salaryError",
+            "locationError",
+            "residenceError"
+        ];
 
+        errorFields.forEach((field) => {
+            document.getElementById(field).textContent = "";
+        });
+    }
   function saveEmployeeValidation(){
   	    
   	    const name = document.getElementById("name").value;
@@ -72,28 +89,38 @@ function validateAmount(amount) {
 		        document.getElementById("hireDateError").textContent = "";
 		    }
 
-		    if (jobTitle === "" || jobTitlespace !== jobTitle) {
+		    /*if (jobTitle === "" || jobTitlespace !== jobTitle) {
 		        document.getElementById("jobTitleError").textContent = jobTitlespace !== jobTitle 
 		            ? "Only single spaces are allowed."
 		            : "Please enter job title";
 		        return false;
-		    }
-			else if (!regex_alphanumeric.test(jobTitle)){
-				document.getElementById("jobTitleError").textContent = "Only Alpha Numeric Values Are Allowed in Name";
+		    }*/
+			if (jobTitle === "" ) 
+			{
+		        document.getElementById("jobTitleError").textContent = "Please enter job title";
+		        return false;
+			}
+			else if (!regName.test(jobTitle)){
+				document.getElementById("jobTitleError").textContent = "Only Alphabets Are Allowed in jobTitle";
 				return false;
 				
 			} else {
 		        document.getElementById("jobTitleError").textContent = "";
 		    }
 
-		    if (department === "" || departmentspace !== department) {
+		    /*if (department === "" || departmentspace !== department) {
 		        document.getElementById("departmentError").textContent = departmentspace !== department 
 		            ? "Only single spaces are allowed."
 		            : "Please enter department";
 		        return false;
-		    } 			
-			else if (!regex_alphanumeric.test(department)){
-			document.getElementById("departmentError").textContent = "Only Alpha Numeric Values Are Allowed in Department";
+		    }*/
+			if (department === "" ) 
+			{
+			        document.getElementById("departmentError").textContent = "Please enter department";
+			        return false;
+		    }	 			
+			else if (!regName.test(department)){
+			document.getElementById("departmentError").textContent = "Only Alphabets Are Allowed in Department";
 			return false;
 			
 				}
@@ -149,7 +176,21 @@ function validateAmount(amount) {
 		    } else {
 		        document.getElementById("mobileError").textContent = "";
 		    }
-		
+			
+			
+			if (email === "" || !email.match(regEmail) || emailspace !== email) 
+			{
+		        document.getElementById("emailError").textContent = 
+	            emailspace !== email 
+	                ? "Only single spaces are allowed."
+	                : !email.match(regEmail) 
+	                    ? "Please enter a valid email" 
+	                    : "Please enter email";
+	        document.getElementById("email").focus();
+	        return false;
+		    } else {
+		        document.getElementById("emailError").textContent = "";
+		    }
 	     
 	    } else {
 	        document.getElementById("empTypeError").textContent = "Please select employee type";
@@ -233,27 +274,37 @@ function saveEmployeeOnboarding(){
 		        document.getElementById("hireDateError").textContent = "";
 		    }
 
-				if (jobTitle === "" || jobTitlespace !== jobTitle) {
+				/*if (jobTitle === "" || jobTitlespace !== jobTitle) {
 		        document.getElementById("jobTitleError").textContent = jobTitlespace !== jobTitle 
 		            ? "Only single spaces are allowed."
 		            : "Please enter job title";
 		        return false;
-			    }
-				else if (!regex_alphanumeric.test(jobTitle)){
-					document.getElementById("jobTitleError").textContent = "Only Alpha Numeric Values Are Allowed in Name";
+			    }*/
+				if (jobTitle === "" ) 
+				{
+			        document.getElementById("jobTitleError").textContent = "Please enter job title";
+			        return false;
+				}
+				else if (!regNamec.test(jobTitle)){
+					document.getElementById("jobTitleError").textContent = "Only Alphabets Are Allowed in jobTitle";
 					return false;
 					
 				} else {
 			        document.getElementById("jobTitleError").textContent = "";
 			    }
 
-			    if (department === "" || departmentspace !== department) {
+			    /*if (department === "" || departmentspace !== department) {
 			        document.getElementById("departmentError").textContent = departmentspace !== department 
 			            ? "Only single spaces are allowed."
 			            : "Please enter department";
 			        return false;
-			    } 			
-				else if (!regex_alphanumeric.test(department)){
+			    }*/
+				if (department === "" ) 
+				{
+			        document.getElementById("departmentError").textContent = "Please enter department";
+			        return false;
+			    }	  			
+				else if (!regName.test(department)){
 				document.getElementById("departmentError").textContent = "Only Alpha Numeric Values Are Allowed in Department";
 				return false;
 				
@@ -316,7 +367,20 @@ function saveEmployeeOnboarding(){
 		    } else {
 		        document.getElementById("mobileError").textContent = "";
 		    }
-		
+			
+			if (email === "" || !email.match(regEmail) || emailspace !== email) 
+				{
+			        document.getElementById("emailError").textContent = 
+		            emailspace !== email 
+		                ? "Only single spaces are allowed."
+		                : !email.match(regEmail) 
+		                    ? "Please enter a valid email" 
+		                    : "Please enter email";
+		        document.getElementById("email").focus();
+		        return false;
+		    } else {
+		        document.getElementById("emailError").textContent = "";
+		    }
 	     
 	    } else {
 	        document.getElementById("empTypeError").textContent = "Please select employee type";
@@ -417,7 +481,7 @@ function getEmployeeOnboarding() {
       		   // { "mData": "jobTitle"},
       		    { "mData": "empOrCont"},
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
                  }}, 
     		 	]
       		});
