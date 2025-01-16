@@ -227,6 +227,7 @@ function submitExpenseDraft(){
 function submitExpenseMultiple(){
 	
 	var employerId= document.getElementById("employerId").value; 
+	var empId= document.getElementById("empId").value; 
 	var expenseCategory=  document.getElementById("expenseCategory").value ;
 	var dateofExpense = document.getElementById("dateofExpense").value;
 	var expenseTitle = document.getElementById("expenseTitle").value;
@@ -330,7 +331,7 @@ function submitExpenseMultiple(){
 	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
-	formData.append("employeeId",employerId);
+	formData.append("employeeId",empId);
 	//formData.append("employeeId",employeeId);
 	formData.append("expenseCategory",expenseCategory);
 	formData.append("dateOfExpense",dateofExpense);
@@ -371,6 +372,7 @@ function submitExpenseMultiple(){
 function submitExpenseSingleDraft(){
 	
 	var employerId= document.getElementById("employerId").value; 
+	var empId= document.getElementById("empId").value; 
 	var expenseCategory=  document.getElementById("expenseCategorySingle").value ;
 	var dateofExpense = document.getElementById("dateSingle").value;
 	var expenseTitle = document.getElementById("expenseTitleSingle").value;
@@ -473,7 +475,7 @@ function submitExpenseSingleDraft(){
 	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
-	formData.append("employeeId",employerId);
+	formData.append("employeeId",empId);
 	//formData.append("employeeId",employeeId);
 	formData.append("expenseCategory",expenseCategory);
 	formData.append("dateOfExpense",dateofExpense);
@@ -519,7 +521,8 @@ function submitExpenseSingleDraft(){
 
 function submitExpenseSingle(){
 	
-	var employerId= document.getElementById("employerId").value; 
+	var employerId= document.getElementById("employerId").value;
+	var empId= document.getElementById("empId").value; 
 	var expenseCategory=  document.getElementById("expenseCategorySingle").value ;
 	var dateofExpense = document.getElementById("dateSingle").value;
 	var expenseTitle = document.getElementById("expenseTitleSingle").value;
@@ -622,7 +625,7 @@ function submitExpenseSingle(){
 	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
-	formData.append("employeeId",employerId);
+	formData.append("employeeId",empId);
 	//formData.append("employeeId",employeeId);
 	formData.append("expenseCategory",expenseCategory);
 	formData.append("dateOfExpense",dateofExpense);
@@ -669,11 +672,12 @@ function submitExpenseSingle(){
 function getExpanceCategoryList(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;
+	var empId = document.getElementById("empId").value;
 	$.ajax({
 		type: "GET",
 		url: "/getExpanseReimbursement",
 		data: {
-			"employeeId": employerid,
+			"employeeId": empId,
 			"employerId": employerid
 		},
 		success: function(data) {
@@ -761,6 +765,86 @@ function getExpanceCategoryList(){
                      }
                   }
       		});		
+			
+			
+			var table = $('#reimbursementTable').DataTable( {
+			  destroy: true,	
+			 "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+			 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+			 "language": {"emptyTable": "No Data available"  },
+
+			 "aaData": data2,
+			  "aoColumns": [ 
+				
+			    { "mData": "id", "render": function (data2, type, row) {
+					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck3" name="customCheck3" ></div>';
+			     }}, 
+			    { "mData": "sequenceId"},   
+			    { "mData": "created_date"},   
+			    { "mData": "expenseCategory"},
+			    { "mData": "expenseTitle"},   
+			 	//{ "mData": "amount"},    
+			 	{ "mData": function (data1, type, row) {
+			        return data1.currency + " " + data1.amount;
+			    }},
+				{ "mData": "statusMessage"},
+				{ "mData": "modeOfPayment"},        
+			  	{ "mData": "id", "render": function (data1, type, row) {
+			        return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+			     }}, 
+			 	],
+			 	createdRow: function (row, data2, dataIndex) 
+			        {
+			         //console.log("row : "+JSON.stringify(data2));
+			       
+			     	var expenseCategory = data2.expenseCategory;
+			     	var statusMessage = data2.statusMessage;
+			    	
+			         if(expenseCategory=="Conveyance")
+			         {
+					 var imgTag = '<img src="img/taxi.svg" alt="" class="mr-2">'+expenseCategory;
+			          $(row).find('td:eq(3)').html(imgTag);
+			         }
+			         if(expenseCategory=="Miscellaneous")
+			         {
+					 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+expenseCategory;
+					
+			          $(row).find('td:eq(3)').html(imgTag);
+			         }
+			         
+			         if(expenseCategory=="Food")
+			         {
+						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+expenseCategory;
+						 $(row).find('td:eq(3)').html(imgTag);
+			         }
+			         
+			         if(expenseCategory=="Cash Advance")
+			         {
+					 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+expenseCategory;
+			          $(row).find('td:eq(4)').html(imgTag);
+			         }
+			         if(expenseCategory=="Travel")
+			         {
+					 var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+expenseCategory;
+					
+			          $(row).find('td:eq(3)').html(imgTag);
+			         }
+			         if(expenseCategory=="Stay")
+			         {
+					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
+			          $(row).find('td:eq(4)').html(imgTag);
+			         }
+			         
+			         if(statusMessage=="Draft")
+			         {
+			          $(row).find('td:eq(6)').addClass('td-btn draft');
+			         }
+			         if(statusMessage=="Submitted")
+			         {
+			          $(row).find('td:eq(6)').addClass('td-btn submitted');
+			         }
+			      }
+			});		
 			
 		},
 		error: function(e) {

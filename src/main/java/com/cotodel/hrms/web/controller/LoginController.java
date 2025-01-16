@@ -84,17 +84,26 @@ public class LoginController extends CotoDelBaseController{
 					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 					model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+					
+					session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
+					model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
 					}
 					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 9) {
 						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
 						
+						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
+						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
+						
 					}
 					else {
 						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
 						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
 						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("employerid"));
+						
+						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
+						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
 					}
 					//request.getSession(true).setAttribute("cotodel", profileJsonRes.getString("token"));
 					
