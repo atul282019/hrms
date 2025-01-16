@@ -2,6 +2,7 @@ function validateFileUpload() {
     const fileInput = document.getElementById("up");
     const fileError = document.getElementById("fileError");
     const allowedExtensions = ["csv","xlsx"]; // Allowed file extensions
+	const uploadButton = document.getElementById("bulksubmit");
     const maxSizeInMB = 5; // Max file size in MB
 
     // Clear any previous errors
@@ -10,6 +11,7 @@ function validateFileUpload() {
     // Check if a file is selected
     if (fileInput.files.length === 0) {
         fileError.innerText = "Please select a file to upload.";
+		uploadButton.disabled = true;
         return false;
     }
 	else{
@@ -24,17 +26,20 @@ function validateFileUpload() {
     // Validate file extension
     if (!allowedExtensions.includes(fileExtension)) {
         fileError.innerText = `Invalid file type. Allowed types: ${allowedExtensions.join(", ")}`;
-        return false;
+		uploadButton.disabled = true;
+		return false;
     }
 
     // Validate file size
     if (fileSizeInMB > maxSizeInMB) {
         fileError.innerText = `File size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`;
-        return false;
+		uploadButton.disabled = true;
+		return false;
     }
 
     // If validation passes
     fileError.innerText = "";
+	uploadButton.disabled = false;
     return true;
 }
   

@@ -155,5 +155,7 @@ public interface CommonUtils {
 	
 	public static String getcaptcha = "/userServices/Api/get/captcha";
 	
+	public static String getDepartmentMaster = "/masterService/Api/get/departmentMasterList";
+	
 
 }
