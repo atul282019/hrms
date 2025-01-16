@@ -158,4 +158,5 @@ public interface CommonUtils {
 	public static String getDepartmentMaster = "/masterService/Api/get/departmentMasterList";
 	
 
+	public static String getExpensesReimbursementDetailById ="/empService/Api/get/expenseReimbFileById"; 
 }
