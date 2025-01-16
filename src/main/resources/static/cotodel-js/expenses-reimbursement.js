@@ -942,7 +942,7 @@ function getExpanceCategoryApprovalList(){
   document.getElementById("signinLoader").style.display="flex";
   	$.ajax({
  	type: "POST",
- 	url:"/viewExpenseReimbursement",
+ 	url:"/getExpensesReimbursementDetailById",
         data: {
  			"id": id
        		 },

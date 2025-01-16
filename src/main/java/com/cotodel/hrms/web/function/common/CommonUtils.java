@@ -157,4 +157,5 @@ public interface CommonUtils {
 	
 	public static String getExpensesReimbursementApprovalList ="/empService/Api/get/expenseReimbFileByEmpId";
 
+	public static String getExpensesReimbursementDetailById ="/empService/Api/get/expenseReimbFileById"; 
 }

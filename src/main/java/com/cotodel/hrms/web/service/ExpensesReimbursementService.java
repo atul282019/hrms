@@ -31,4 +31,6 @@ public interface ExpensesReimbursementService {
 
 	String getExpanseReimbursementApprovalList(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
 
+	String getExpensesReimbursementDetailById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+
 }
