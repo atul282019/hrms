@@ -86,6 +86,16 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		return profileRes;
 	}
 	
+	@GetMapping(value = "/getExpanseReimbursementApprovalList")
+	public @ResponseBody String getExpanseReimbursementApprovalList(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
+		String profileRes = null;
+		profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
+				expensesReimbursementRequest);
+
+		return profileRes;
+	}
+	
 	@PostMapping(value = "/viewExpenseReimbursement")
 	public @ResponseBody String viewExpenseReimbursement(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {

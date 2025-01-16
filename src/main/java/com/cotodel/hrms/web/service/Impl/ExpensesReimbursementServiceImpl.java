@@ -97,4 +97,10 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetail);
 	}
 
+	@Override
+	public String getExpanseReimbursementApprovalList(String token,
+			ExpensesReimbursementRequest expensesReimbursementRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpensesReimbursementApprovalList);
+	}
+
 }
