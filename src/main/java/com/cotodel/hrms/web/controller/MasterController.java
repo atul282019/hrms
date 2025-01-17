@@ -1,10 +1,14 @@
 package com.cotodel.hrms.web.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +26,11 @@ import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
 import com.cotodel.hrms.web.response.MccMaster;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.response.VoucherTypeMaster;
 import com.cotodel.hrms.web.service.DepartmentMasterService;
 import com.cotodel.hrms.web.service.MasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -41,7 +47,7 @@ public class MasterController  extends CotoDelBaseController{
 	public MasterService masterService;
 	
 	@Autowired
-	DepartmentMasterService departmentMasterService;
+	public DepartmentMasterService departmentMasterService;
 	
 
 	@Autowired
@@ -163,6 +169,36 @@ public class MasterController  extends CotoDelBaseController{
 	@GetMapping(value="/getDepartmentMaster")
 	public @ResponseBody String getDepartmentMaster(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
 			,DepartmentMaster departmentMaster) {
+		logger.info("getDepartmentMaster");	
 		return departmentMasterService.getDepartmentMaster(tokengeneration.getToken(),departmentMaster);
 	}
+	
+//	@GetMapping(value="/getDepartmentMaster")
+//	public @ResponseBody String getDepartmentMaster(ModelMap model, Locale locale, HttpSession session,DepartmentMaster departmentMaster) {
+//        String departmentResponse = null;
+//        JSONObject departmentJsonResponse = null;
+//        Map<String, Object> responseMap = new HashMap<>();
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonResponse = null;
+//        // Call the service to save the departmentResponse object
+//        departmentResponse = departmentMasterService.getDepartmentMaster(tokengeneration.getToken(),departmentMaster);
+//        logger.debug(departmentResponse);  // Logging the response
+//        departmentJsonResponse = new JSONObject(departmentResponse);      
+//        if(departmentJsonResponse.getBoolean("status")) { 
+//			
+////			responseMap.put("data", departmentJsonResponse.getJSONArray("data"));
+//			List<Object> departmentList = departmentJsonResponse.getJSONArray("data").toList();
+//			responseMap.put("status",true);
+//			responseMap.put("data", departmentList);
+//        }else {
+//			//loginsevice.rsendEmailVerificationCompletion(userForm);
+//			responseMap.put("status", false);
+//		}
+//        try {
+//            jsonResponse = mapper.writeValueAsString(responseMap);
+//        } catch (Exception e) {
+//            e.printStackTrace(); 
+//        }       
+//        return jsonResponse;
+//    }
 }

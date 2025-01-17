@@ -137,5 +137,32 @@ public class CommonUtility {
 		}		
 	}
 	
+	public static String getuserRequest(String sAccessToken,String requestJson,String url){
+		String returnStr=null;
+		String companyId = "HRMS00001";
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		try{
+			logger.info(" Request URL---"+url);
+			//logger.info(" Request header---"+companyId);
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			headers.set("companyId", companyId);
+			if(sAccessToken!=null && !sAccessToken.isEmpty()) {
+				headers.setBearerAuth(sAccessToken);
+			}
+
+			HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
+			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+	        returnStr = response.getBody();
+			logger.info(" response Json---"+returnStr);
+			return returnStr;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}finally {
+			restTemplate=null;headers=null;	
+		}		
+	}
+	
 
 }

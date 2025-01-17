@@ -122,14 +122,14 @@ function validateAmount(amount) {
 		    }*/
 			if (department === "" ) 
 			{
-			        document.getElementById("departmentError").textContent = "Please enter department";
+			        document.getElementById("departmentError").textContent = "Please select department";
 			        return false;
 		    }	 			
-			else if (!regName.test(department)){
-			document.getElementById("departmentError").textContent = "Only Alphabets Are Allowed in Department";
-			return false;
-			
-				}
+			/*else if (!regName.test(department)){
+							document.getElementById("departmentError").textContent = "Only Alpha Numeric Values Are Allowed in Department";
+							return false;
+							
+								}*/
 			
 			else {
 		        document.getElementById("departmentError").textContent = "";
@@ -219,7 +219,8 @@ function saveEmployeeOnboarding(){
 	    const mobile = document.getElementById("mobile").value;
 	    const hireDate = document.getElementById("hireDate").value;
 	    const jobTitle = document.getElementById("jobTitle").value;
-	    const department = document.getElementById("department").value;
+		const departmentDropdown = document.getElementById("department");
+		const department = departmentDropdown.options[departmentDropdown.selectedIndex].text;
 	    const managerName = document.getElementById("reporting").value;
 	    const ctc = document.getElementById("salary").value;
 	    const location = document.getElementById("location").value;
@@ -319,14 +320,14 @@ function saveEmployeeOnboarding(){
 			    }*/
 				if (department === "" ) 
 				{
-			        document.getElementById("departmentError").textContent = "Please enter department";
+			        document.getElementById("departmentError").textContent = "Please select department";
 			        return false;
 			    }	  			
-				else if (!regName.test(department)){
+				/*else if (!regName.test(department)){
 				document.getElementById("departmentError").textContent = "Only Alpha Numeric Values Are Allowed in Department";
 				return false;
 				
-					}
+					}*/
 				
 				else {
 			        document.getElementById("departmentError").textContent = "";
@@ -487,7 +488,7 @@ function getEmployeeOnboarding() {
 				},
             success: function(data){
             newData = data;
-           // console.log(newData);
+            console.log("Emp onboarding data",newData);
             var data1 = jQuery.parseJSON( newData );
 			var data2 = data1.data;
 			//console.log(newData);
@@ -504,6 +505,9 @@ function getEmployeeOnboarding() {
       		    { "mData": "mobile"},
       		   // { "mData": "jobTitle"},
       		    { "mData": "empOrCont"},
+				{ "mData": "status", "render": function(data, type, row) {
+				                        return data === 1 ? 'Active' : 'Inactive';
+				                    }},
       		  	{ "mData": "id", "render": function (data1, type, row) {
                     return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
                  }}, 

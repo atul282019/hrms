@@ -220,11 +220,13 @@ function getDepartmentMasterList(){
 	$.ajax({
 			type: "GET",
 	        url: "/getDepartmentMaster",
+			dataType: "json",
 	           success: function(data){
 	            newData = data;
 	            console.log("Department master",newData);
 				$("#department option").remove();
-	            var obj = jQuery.parseJSON( data );
+	            //var obj = jQuery.parseJSON( data );
+				var obj = newData;
 	             obj = obj.data;
 	        	 var count=0;
 	         	for (var key in obj) {
@@ -246,7 +248,7 @@ function getDepartmentMasterList(){
 	             }   
 	         },
 	         error: function(e){
-	             alert('Error: ' + e);
+	             console.log('Error: ' + e);
 	         }
 	    });	
 }
