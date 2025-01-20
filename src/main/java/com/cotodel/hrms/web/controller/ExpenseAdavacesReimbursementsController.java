@@ -201,4 +201,28 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		  
 	}
 	
+	@PostMapping(value="/approveExpensesById")
+	public @ResponseBody String approveExpensesById(HttpServletRequest request,
+		 ExpensesReimbursementRequest expensesReimbursementRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
+	
+		String profileRes=null;
+		
+		profileRes = expensesReimbursementService.approveExpensesById(tokengeneration.getToken(),expensesReimbursementRequest);
+		
+		  return profileRes;
+		  
+	}
+	
+	@PostMapping(value="/rejectExpensesById")
+	public @ResponseBody String rejectExpensesById(HttpServletRequest request,
+		 ExpensesReimbursementRequest expensesReimbursementRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
+	
+		String profileRes=null;
+		
+		profileRes = expensesReimbursementService.rejectExpensesById(tokengeneration.getToken(),expensesReimbursementRequest);
+		
+		  return profileRes;
+		  
+	}
+	
 }

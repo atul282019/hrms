@@ -43,35 +43,35 @@
 					</ul>
 					
 					<ul class="navbar-nav ml-auto">
-					                        <li class="nav-item dropdown no-arrow">
-					                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
-					                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-					                            </a>
-					                            <!-- Dropdown - User Information -->
-					                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-					                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
-					                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-					                                    Profile
-					                                </a>
-					                                <a class="dropdown-item" href="#">
-					                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-					                                    Settings
-					                                </a>
-					                              
-					                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-										            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-												          <i class="fas fa-user-circle"></i> Logout         
-												        </a>
-										          </div> -->  
-					                              <div class="dropdown-divider"></div>
-					                                <a class="dropdown-item" th:href="@{/logout}">
-					                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
-					                                    Logout
-					                                </a>
-					                            </div>
-					                        </li>
-					                   </ul>		
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" th:href="@{/ProfileInfo}">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Settings
+                            </a>
+                          
+                           <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+				            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+						          <i class="fas fa-user-circle"></i> Logout         
+						        </a>
+				          </div> -->  
+                          <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+               </ul>		
 				</nav>
 
 				<!-- End of Topbar -->
@@ -105,7 +105,6 @@
 												</div>
 											</div>
 
-
 											<div class="policies-wrap-in-table">
 												<div class="table-responsive">
 													<table class="table table-reimbursements"
@@ -134,8 +133,7 @@
 													<div class="last-add">
 														<div colspan="9" style="padding: .75rem;">
 															<a href="#" class="add-ctgry" data-toggle="modal"
-																data-target="#ModalAddExpenseReimbursement">+ Add
-																Expense Reimbursements</a>
+															data-target="#ModalAddExpenseReimbursement">+ Add Expense Reimbursements</a>
 														</div>
 													</div>
 												</div>
@@ -304,230 +302,6 @@
                                                             <th>ACTIONS</th>
                                                         </tr>
                                                     </thead>
-                                                  <!--  <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="table-check">
-                                                                    <input type="checkbox" id="customCheck00">
-                                                                </div>
-                                                            </td>
-                                                            <td><span>CDL-0424-001</span></td>
-                                                            <td class="d-flex align-items-center">
-                                                                <div><img src="img/Travel.svg" alt="" class="mr-2">
-                                                                </div>
-                                                                <div><span>Travel</span><br><label>17:57:13</label>
-                                                                </div>
-                                                            </td>
-                                                            <td><button class="no-bg no-border p-0 name-btn"
-                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
-                                                                    aria-expanded="false"
-                                                                    aria-controls="bs-canvas-right">Deepak
-                                                                    Yadav</button><br><label>CTD001 | Product
-                                                                    Lead</label></td>
-                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-between color-third">
-                                                                    <span>INR</span><span>16,680</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
-                                                            </td>
-                                                            <td><span>Bank Transfer</span></td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <button class="btn-attach" data-toggle="modal"
-                                                                        data-target="#ModalViewPendingExp">View <img
-                                                                            src="img/attached.svg" alt=""></button>
-                                                                     ellipsis Information 
-                                                                    <div class="dropdown no-arrow ml-2">
-                                                                        <a class="dropdown-toggle" href="#"
-                                                                            id="userDropdown" role="button"
-                                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="false">
-                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
-                                                                        </a>
-                                                                        <br>
-                                                                         Dropdown - User Information 
-                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
-                                                                            aria-labelledby="userDropdown">
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Delete</a>
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Download</a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="table-check">
-                                                                    <input type="checkbox" id="customCheck00">
-                                                                </div>
-                                                            </td>
-                                                            <td><span>CDL-0424-001</span></td>
-                                                            <td class="d-flex align-items-center">
-                                                                <div><img src="img/food.svg" alt="" class="mr-2"></div>
-                                                                <div><span>Trip - Client
-                                                                        Lunch</span><br><label>17:57:13</label></div>
-                                                            </td>
-                                                            <td><button class="no-bg no-border p-0 name-btn"
-                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
-                                                                    aria-expanded="false"
-                                                                    aria-controls="bs-canvas-right">Deepak
-                                                                    Yadav</button><br><label>CTD001</label>
-                                                            </td>
-                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-between color-third">
-                                                                    <span>INR</span><span>16,680</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
-                                                            </td>
-                                                            <td><span>Bank Transfer</span></td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <button class="btn-attach" data-toggle="modal"
-                                                                        data-target="#ModalViewPendingExp">View <img
-                                                                            src="img/attached.svg" alt=""></button>
-                                                                     ellipsis Information 
-                                                                    <div class="dropdown no-arrow ml-2">
-                                                                        <a class="dropdown-toggle" href="#"
-                                                                            id="userDropdown" role="button"
-                                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="false">
-                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
-                                                                        </a>
-                                                                        <br>
-                                                                         Dropdown - User Information 
-                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
-                                                                            aria-labelledby="userDropdown">
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Delete</a>
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Download</a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="table-check">
-                                                                    <input type="checkbox" id="customCheck00">
-                                                                </div>
-                                                            </td>
-                                                            <td><span>CDL-0424-001</span></td>
-                                                            <td class="d-flex align-items-center">
-                                                                <div><img src="img/taxi.svg" alt="" class="mr-2"></div>
-                                                                <div><span>Convenience</span><br><label>17:57:13</label>
-                                                                </div>
-                                                            </td>
-                                                            <td><button class="no-bg no-border p-0 name-btn"
-                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
-                                                                    aria-expanded="false"
-                                                                    aria-controls="bs-canvas-right">Deepak
-                                                                    Yadav</button><br><label>CTD001</label>
-                                                            </td>
-                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-between color-third">
-                                                                    <span>INR</span><span>16,680</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
-                                                            </td>
-                                                            <td><span>Bank Transfer</span></td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <button class="btn-attach" data-toggle="modal"
-                                                                        data-target="#ModalViewPendingExp">View <img
-                                                                            src="img/attached.svg" alt=""></button>
-                                                                     ellipsis Information 
-                                                                    <div class="dropdown no-arrow ml-2">
-                                                                        <a class="dropdown-toggle" href="#"
-                                                                            id="userDropdown" role="button"
-                                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="false">
-                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
-                                                                        </a>
-                                                                        <br>
-                                                                         Dropdown - User Information 
-                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
-                                                                            aria-labelledby="userDropdown">
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Delete</a>
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Download</a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="table-check">
-                                                                    <input type="checkbox" id="customCheck00">
-                                                                </div>
-                                                            </td>
-                                                            <td><span>CDL-0424-001</span></td>
-                                                            <td class="d-flex align-items-center">
-                                                                <div><img src="img/Miscellaneous.svg" alt=""
-                                                                        class="mr-2"></div>
-                                                                <div>
-                                                                    <span>Miscellaneous</span><br><label>17:57:13</label>
-                                                                </div>
-                                                            </td>
-                                                            <td><button class="no-bg no-border p-0 name-btn"
-                                                                    data-toggle="canvas" data-target="#bs-canvas-right"
-                                                                    aria-expanded="false"
-                                                                    aria-controls="bs-canvas-right">Deepak
-                                                                    Yadav</button><br><label>CTD001</label>
-                                                            </td>
-                                                            <td><span>Product</span><br><label>Gurgaon</label></td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-between color-third">
-                                                                    <span>INR</span><span>16,680</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span>Neha Desai</span><br><label>21/04/2024</label>
-                                                            </td>
-                                                            <td><span>Bank Transfer</span></td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <button class="btn-attach" data-toggle="modal"
-                                                                        data-target="#ModalViewPendingExp">View <img
-                                                                            src="img/attached.svg" alt=""></button>
-                                                                     ellipsis Information 
-                                                                    <div class="dropdown no-arrow ml-2">
-                                                                        <a class="dropdown-toggle" href="#"
-                                                                            id="userDropdown" role="button"
-                                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="false">
-                                                                            <i class="fas fa-ellipsis-v fa-sm"></i>
-                                                                        </a>
-                                                                        <br>
-                                                                         Dropdown - User Information 
-                                                                        <div class="dropdown-menu dropdown-menu-right shadow"
-                                                                            aria-labelledby="userDropdown">
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Delete</a>
-                                                                            <a class="dropdown-item py-2"
-                                                                                href="#">Download</a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>-->
                                                 </table>
                                             </div>
                                         </div>
@@ -549,139 +323,6 @@
                                     </div>
 
                                 </div>
-							
-								<div id="menu2" class="tab-pane">
-								    <div class="policies-section-bank" id="linkaccbankform" style="display: none;">
-								        <div class="col-12 col-md-8 col-lg-6 mx-auto">
-								            <div class="text-center">
-								                <h3>Bank A/c Linking</h3>
-								            </div>
-
-								            <div class="form-linkedbank">
-								                <div class="did-floating-label-content mr-2">
-								                    <select class="did-floating-select" id="bankName" onclick="this.setAttribute('value', this.value);" onchange="this.setAttribute('value', this.value);" value="1">
-								                       
-								                    </select>
-								                    <label class="did-floating-label">Select Bank</label>
-								                </div>
-												<div class="error-msg" id="bankNameError" style="color:red"></div>
-												
-												<div class="did-floating-label-content mr-2">
-							                    <select class="did-floating-select" id="bankAccType" onclick="this.setAttribute('value', this.value);" onchange="this.setAttribute('value', this.value);" value="1">
-							                       <option value="SAVING">Saving</option>
-												   <option value="CURRENT">Current</option>
-							                    </select>
-							                    <label class="did-floating-label">Select Account Type</label>
-							                </div>
-											<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
-								                <div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="bankingName">
-								                    <label class="did-floating-label">Enter Name on the Bank
-								                        Account</label>
-								                </div>
-												<div class="error-msg" id="bankingNameError" style="color:red"></div>
-												
-												
-								                <div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber"  onkeyup="validate()" minlength="10" maxlength="16"
-													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
-								                    <label class="did-floating-label">Enter Bank A/c Number</label>
-								                </div>
-												<div class="error-msg" id="bankAccNumberError" style="color:red"></div>
-								                <div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="bankAccNumberConfirm" onkeyup="validate()" maxlength="16"
-													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-								                    <label class="did-floating-label">Re-enter Bank A/c Name</label>
-								                </div>
-												<div class="error-msg" id="bankAccNumberConfirmError" style="color:red"></div>
-								               <!-- <div class="tip-wrap justify-content-start">
-								                    <p class="mb-0">The bank account numbers entered don't match each
-								                        other. Please try again.</p>
-								                </div>-->
-												
-								                <div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="bankIfsc"
-													maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase">
-								                    <label class="did-floating-label">Enter IFSC Code</label>
-								                </div>
-												<div class="error-msg" id="bankIfscError" style="color:red"></div>
-												
-												<div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="moblieLink"
-													maxlength="10" onkeyup="validateMobile()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
-								                    <label class="did-floating-label">Enter Mobile Number</label>
-								                </div>
-												<div class="error-msg" id="moblieLinkError" style="color:red"></div>
-	
-												<div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="tid" maxlength="25">
-								                    <label class="did-floating-label">Tid</label>
-							 					</div>
-												<div class="error-msg" id="tidError" style="color:red"></div>
-												<div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="merchentIid" maxlength="25">
-								                    <label class="did-floating-label">Merchent id</label>
-								                </div>
-												<div class="error-msg" id="merchentIidError" style="color:red"></div>
-												<div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="mcc" maxlength="25">
-								                    <label class="did-floating-label">Mcc</label>
-								                </div>
-												<div class="error-msg" id="mccError" style="color:red"></div>
-												<div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="submurchentid" maxlength="25">
-								                    <label class="did-floating-label">Submurchent id</label>
-								                </div>
-												<div class="error-msg" id="submurchentidError" style="color:red"></div>
-												<div class="did-floating-label-content">
-								                    <input class="did-floating-input" type="text" placeholder=" " id="payerva" 
-													maxlength="25" onkeyup="validatePayerva()">
-								                    <label class="did-floating-label">Payerva</label>
-								                </div>
-												<div class="clearfix"></div>
-												<div class="error-msg" id="payervaError" style="color:red"></div>
-											
-												<div class="clearfix"></div>
-												<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
-									            	<div id="otsuccmsg"></div>   
-									            </div>
-									            
-									            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
-									            	<div id="otfailmsg"></div>
-									            </div>
-												                        
-								                <div class="d-flex justify-content-center mt-3">
-													<input class="btn btn-primary w-100" id="linkBankBtn" value="AUTHENTICATE" onclick="submitLinkBankAccount()"> 
-													
-								                   <!-- <button class="btn btn-primary w-100" data-toggle="modal" data-target="#ModalAuthenticate">AUTHENTICATE</button>-->
-								                </div>
-								            </div>
-								        </div>
-								    </div>
-
-
-								    <div class="linked-bank-account-section" id="linkedbnkacntsctn" style="display: block;">
-								            <div class="text-left">
-								                <h3>Linked Bank Account</h3>
-								            </div>
-
-								            <div class="linked-bank-account-innersection d-block">
-								               
-												<div id="data-wrapper"> 
-													
-												</div>
-								               
-								            </div>
-
-								            <div class="d-flex justify-content-end">
-								                <button class="btn btn-primary" id="linkedanotheraccount">Link Another Bank Account</button>
-								            </div>
-								    </div>
-
-
-
-								</div>
-									
 							</div>
 						</div>
 					</div>
@@ -735,25 +376,22 @@
 	<!-- Page level custom scripts -->
 	<script src="js/demo/datatables-demo.js"></script>
 
-	<script type="text/javascript"
-		src="cotodel-js/expenses-reimbursement.js"></script>
+	<script type="text/javascript" src="cotodel-js/expenses-reimbursement.js"></script>
 		
-		<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-		
-		<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
-		
-
+	<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	
+	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
    
 	<script>
 		
-		$(document).ready(function () {
-		           $("#linkedanotheraccount").click(function () {
-		               $("#linkaccbankform").show();
-		               $("#linkedbnkacntsctn").hide();
+	///	$(document).ready(function () {
+	//	           $("#linkedanotheraccount").click(function () {
+	//	               $("#linkaccbankform").show();
+	//	               $("#linkedbnkacntsctn").hide();
 
-		           });
-		       });
+	//	           });
+	//	       });
 			   
         $(document).ready(function () {
             $("#hide").click(function () {
@@ -1124,8 +762,6 @@
 
     });
 	
-	
-	
 </script>
 
 	<!-- Modal Add Expense Reimbursements -->
@@ -1386,7 +1022,10 @@
 										<img src="img/save.svg" alt="">
 									</button>
 									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.name}">
 									<input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
+									<input type="hidden" class="form-input" id="expenseId" name="expenseId" >
+									
 									 <input class="btn btn-border mx-2" type="button" onclick="submitExpenseDraft()" value="Save & Next" />
 										<!--  <a class="btn btn-primary mx-2 d-flex align-items-center"
 										data-toggle="modal" data-target="#ModalExpensesSubmitted"
@@ -1419,8 +1058,6 @@
 			</div>
 		</div>
 	</div>
-
-
 
 	<!-- Modal Add Expense Reimbursements 01 -->
 
@@ -1632,10 +1269,7 @@
 	</div>
 
 
-
 	<!-- Modal Add Expense Reimbursements 01 -->
-
-
 
 	<!-- Modal Add Expense Reimbursements 01 -->
 
@@ -1896,8 +1530,6 @@
 		</div>
 	</div>
 
-
-
 	<!-- Modal Choose Type of Advance Request -->
 	<div class="modal fade" id="ModalmergeReimbursement" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -2028,7 +1660,7 @@
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
 		<div class="modalView" id="ModalViewPendingExp"
 				tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-				aria-hidden="true">
+				>
         <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
             <div class="modal-content">
                 <div class="modal-header pb-0">
@@ -2058,8 +1690,7 @@
 								<div class="img-scrollbar">
 									<img src="img/bill.svg" alt=" " id="imageViewApproval">
 								</div>
-								<embed id="imagePDFViewApproval" height="480 px" width="500 px"
-									type="application/pdf"></embed>
+								<embed id="imagePDFViewApproval" height="480 px" width="380 px" type="application/pdf"></embed>
 							</div>
 						</div>
                         <div class="col-12 col-md-5">
@@ -2214,21 +1845,20 @@
                             <div class="btm-vender-right"><a href="#"><img src="img/right-arow.svg" alt=""></a></div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center justify-content-md-end">
-                        <button class="btn btn-border mx-2" data-toggle="modal"
-                            data-target="#ModalRejectRemarkReimbursement">Reject</button>
-                        <button class="btn btn-primary mx-2" data-toggle="modal"
-                            data-target="#ModalViewPendingExpSubmit">Approve</button>
-                        <button class="btn p-0 mx-2" type="button" style="min-width: auto;"><i
-                                class="fas fa-ellipsis-v fa-sm"></i></button>
-                    </div>
+	                <div class="d-flex justify-content-center justify-content-md-end">
+						
+	                   <button class="btn btn-border mx-2" data-toggle="modal" data-target="#ModalRejectRemarkReimbursement">Reject</button>
+					   <button class="btn btn-primary mx-2" id="approveBtn" onclick="approveExpenses()">Approve</button> 
+					   <!--<button class="btn btn-primary mx-2" data-toggle="modal" data-target="#ModalViewPendingExpSubmit">Approve</button>-->
+	                    <button class="btn p-0 mx-2" type="button" style="min-width: auto;"><i class="fas fa-ellipsis-v fa-sm"></i></button>
+	                </div>
                 </div>
             </div>
         </div>
     </div>
 
 	 <!-- Modal View Pending Expense Submit -->
-    <div class="modal fade" id="ModalViewPendingExpSubmit" tabindex="-1" role="dialog"
+   <!-- <div class="modal fade" id="ModalViewPendingExpSubmit" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-bulk">
@@ -2245,7 +1875,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 
     <!-- Modal Add remark for Rejection -->
@@ -2298,9 +1928,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <!-- Modal Approved Remark Reimbursement -->
     <div class="modal fade" id="ModalApprovedRemarkReimbursement" tabindex="-1" role="dialog"
@@ -2407,29 +2034,26 @@
         </div>
     </div>
 
-
+	
     <!-- Modal Reimbursement Approved -->
-    <div class="modal fade" id="modalReimbursementApproved" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modalView" id="modalReimbursementApproved" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" >
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-bulk">
                 <div class="modal-top text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" onclick="approvedClose()">
                         <img src="img/modal-close.svg" alt="">
                     </button>
                     <img src="img/modal-success.svg" alt="">
                 </div>
                 <div class="modal-bottom">
-                    <div class="count"><span>4</span><strong>5</strong></div>
+                    <!--<div class="count"><span>4</span><strong>5</strong></div>-->
                     <br>
                     <span>Reimbursement Approved</span>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 
     <!-- Modal Reject Remark Reimbursement -->
     <div class="modal fade" id="ModalRejectRemarkReimbursement" tabindex="-1" role="dialog"
@@ -2536,7 +2160,6 @@
         </div>
     </div>
 
-
     <!-- Modal Reimbursement Rejected -->
     <div class="modal fade" id="ModalReimbursementRejected" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -2558,62 +2181,6 @@
     </div>
 	<!-- End Content For Tab 2 -->
 
-	
-	
-
-	 <!--- Modal AUTHENTICATE --->
-	    
-	 <div class="modal fade" id="ModalAuthenticate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-	 aria-hidden="true">
-	 <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
-	     <div class="modal-content modal-bulk">
-	         <div class="modal-header pb-0 text-center">
-	             <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication Bank A/c Linking</h5>             
-	         </div>
-	         <div class="modal-body text-center">
-	            <div class="otp-box-onboarding justify-content-center">
-	                <input type="text" class="form-control">
-	                <input type="text" class="form-control">
-	                <input type="text" class="form-control">
-	                <input type="text" class="form-control">
-	                <input type="text" class="form-control">
-	            </div>
-	            <label class="time-otp ml-0 text-dark" for="">00:30</label>
-	            <p class="text-dark">Didn’t receive the code? <a href="#">Resend Code</a></p>
-	             <div class="tip-wrap justify-content-center">
-	                 <p class="mb-0">OTP code has been sent to your phone. Enter OTP to authenticate linking.</p>
-	             </div>
-	             <div class="d-flex justify-content-center mt-3">
-	                 <button class="btn btn-primary w-100" data-toggle="modal"
-	                 data-target="#Modalbankaclinked">Authenticate</button>
-	             </div>
-	         </div>
-	     </div>
-	 </div>
-	</div>
-	   
-
-	  <!-- Modal Bank Account Linked -->
-	  <div class="modal fade" id="successModal" style="display: none;">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-	      <div class="modal-content modal-bulk">
-	          <div class="modal-top text-center">
-	              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                  <img src="img/modal-close.svg" alt="">
-	              </button>
-	              <img src="img/modal-success.svg" alt="">
-	          </div>
-	          <div class="modal-bottom">             
-	              <span>Bank Account Linked Successfully</span>
-	          </div>
-	      </div>
-	  </div>
-	</div>
-
-
-	
-	
-	
 </body>
 
 </html>

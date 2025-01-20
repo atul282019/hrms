@@ -27,6 +27,9 @@ public class ExpensesReimbursementRequest{
 	private String amount;
 	private String modeOfPayment;
 	private String remarks;
+	private String username;
+	private String approvedOrRejected;
+	private String rejectedRemarks;
 	
 	public  String fileInput;
 

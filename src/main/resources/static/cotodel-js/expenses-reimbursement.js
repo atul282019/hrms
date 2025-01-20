@@ -956,21 +956,23 @@ function getExpanceCategoryApprovalList(){
  		var data2 = data1.data;
  		
  		//console.log(newData);
+		document.getElementById("expenseId").value= data2.id;
   		document.getElementById("approvalExpense").value= data2.expenseCategory;
- 		document.getElementById("approvalExpenseDate").value = data2.dateOfExpense;
+ 		document.getElementById("approvalExpenseDate").value = data2.createationDate;
  		document.getElementById("approvalExpenseTitle").value = data2.expenseTitle;
  		document.getElementById("approvalExpenseVenderName").value =data2.vendorName;
  		document.getElementById("approvalExpenseInviceNumber").value = data2.invoiceNumber;
  		document.getElementById("approvalExpenseCurrency").value = data2.currency;
  		document.getElementById("approvalExpenseAmount").value = data2.amount;
- 	    document.getElementById("viewModeofPayment").value = data2.modeOfPayment;
- 		document.getElementById("approvalExpensePaymentMode").value =data2.remarks;
+ 	    document.getElementById("approvalExpensePaymentMode").value = data2.modeOfPayment;
+ 		document.getElementById("approvalExpenseRemark").value =data2.remarks;
+		document.getElementById("submittedBy").innerHTML =data2.name;
  		document.getElementById("viewStatus").value =data2.expenseTitle;
  		//document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
  		if(data2.fileType =="application/pdf"){
  		
  			document.getElementById("imagePDFViewApproval").style="display: block";
- 			document.getElementById("ApprovalImageView").style="display: none";
+ 			document.getElementById("imageViewApproval").style="display: none";
  			document.getElementById("imagePDFViewApproval").src="data:application/pdf;base64,"+data2.file;
  		}
  		else{
@@ -1039,8 +1041,6 @@ function deleteExpance(value){
  }
  
  
- 
- 
   var modalfirst = document.getElementById("ModalAddExpenseReimbursement");
   // Close the modal if the user clicks outside of it
    window.onclick = function(event) {
@@ -1068,20 +1068,11 @@ var modal2 = document.getElementById("ModalAddfreshexpContinew");
       modal2.style.display = "none";
     }
  }
-  
    btnCloseFresh.onclick = function() {
    modal2.style.display = "none";
   
-  }
- 
-  
-  
-  
+  }  
 });
-
-////
-
-
 
 function openModelPopup(){
 	 var modal2 = document.getElementById("ModalAddfreshexpContinew");
@@ -1093,7 +1084,6 @@ function openModelPopup(){
 	
 	 
 }
-
 
 function extractBase64Info(base64String) {
     const regex = /^data:(.*);base64,(.*)$/;
@@ -1111,449 +1101,84 @@ function extractBase64Info(base64String) {
     }
 }
 
-
-function getBankMaster() {
-	document.getElementById("signinLoader").style.display="flex";
-	//var employerid = document.getElementById("employerId").value;
-	$.ajax({
-		type: "POST",
-		url: "/getBankMaster",
-		data: {
-			//"employerId": employerid
-		},
-		
-		 success: function(data){
-            newData = data;
-            //console.log("Data from bank master",newData);
-			$("#bankName option").remove();
-            var obj = jQuery.parseJSON( data );
-             obj = obj.data;
-        	 var count=0;
-         	for (var key in obj) {
-
-             var values =  obj[key];
-             var x = document.getElementById("bankName");
-             if(count==0){
-             var option = document.createElement("option");
-             option.text ="Select Bank";
-             option.value = "";
-             x.add(option);
-             }
-             var option = document.createElement("option");
-             option.text = values.bankName;
-             option.value = values.bankCode;
-             x.add(option);
-
-             count++;
-             }   
-         },
-		error: function(e) {
-			alert('Failed to fetch JSON data' + e);
-		}
-	});
-}
-
-
-function  getLinkedBankDetail(){
+function approveExpenses(){
 	
-	
-    document.getElementById("signinLoader").style.display="flex";
- 	var employerid = document.getElementById("employerId").value;
- 	$.ajax({
-	type: "POST",
-	url:"/getErupiLinkBankAccountDetail",
-       data: {
-			"orgId": employerid
-      		 },
-      		  beforeSend : function(xhr) {
-			//xhr.setRequestHeader(header, token);
+	    document.getElementById("signinLoader").style.display="flex";
+		var employerid = document.getElementById("employerId").value;
+		var empId = document.getElementById("empId").value;
+		var expenseId = document.getElementById("expenseId").value;
+		var employerName = document.getElementById("employerName").value;
+		$.ajax({
+			type: "POST",
+			url: "approveExpensesById",
+			data:{
+				"id":expenseId,
+				"employeeId":empId,
+				"employerId":employerid,
+				"username":employerName,
+				"approvedOrRejected":"Approved",
+				"rejectedRemarks":""
 			},
-           success: function(data){
-           newData = data;
-           //console.log("data from getlinkedBankDetail",newData);
-        var data1 = jQuery.parseJSON( newData );
-		var data2 = data1.data;
-		if(data2.length ===0 && data2.length <=0){
-			$("#linkaccbankform").show();
-			$("#linkedbnkacntsctn").hide();
-		}
-		else{
-			$("#linkaccbankform").hide();
-			$("#linkedbnkacntsctn").show();
-
-		}
-		  const wrapper = document.getElementById('data-wrapper');
-
-		   // Render only specific fields with Edit button
-		   data1.data.forEach(item => {
-		       const container = document.createElement('div');
-		       container.className = 'data-container';
-
-		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile","merchentIid","submurchentid","mcc","payerva"];
-			   
-			   const fieldLabels = {
-			          
-			           bankName: "Bank Name",
-			           accountHolderName: "Account Holder Name",
-			           acNumber: "Account Number",
-					   accountType: "Account Type",
-					   ifsc: "ifsc",
-					   mobile: "Mobile",
-					   merchentIid: "Merchent Iid",
-					   submurchentid:"Sub Murchent Id",
-   					   mcc: "MCC",
-   					   payerva: "Payerva",
-			       };
-				   
-		       fieldsToDisplay.forEach(key => {
-		           const fieldDiv = document.createElement('div');
-		           fieldDiv.className = 'field';
-		           fieldDiv.innerHTML = `<span class="label">${fieldLabels[key]}:</span> ${item[key] ?? 'N/A'}`;
-		           container.appendChild(fieldDiv);
-		       });
-
-		       const editButton = document.createElement('button');
-		       
-			   if(item.psFlag=="Secondary"){
-				editButton.className = 'btn btn-primary';
-				editButton.innerText = 'Set As Primary';
-			   }
-			   else{
-				editButton.className = 'btn btn-green';
-		       editButton.innerText = item.psFlag;
-			   }
-		       editButton.onclick = () => editItem(item.acNumber);
-						  
-			   const editButton1 = document.createElement('a');
-			   editButton1.className = '';
-			   editButton1.innerText = 'De-linked Bank A/c';
-			   editButton1.href = '#';  // Use this if you don't have a specific link
-			   editButton1.onclick = () => dlinkAccount(item.id); 
-			  
-			   container.appendChild(editButton);
-		       container.appendChild(editButton1);
-
-		       wrapper.appendChild(container);
-		   });
-
-		   function editItem(acNumber) {
-			   //alert(`Are You Sure you want to de link this Account`);
-		        //alert(`Are You Sure  de link this Account: ${acNumber}`);
-				var accountid= acNumber;
-				document.getElementById("linkBankBtn").disabled = true;
-					document.getElementById("signinLoader").style.display="flex";
-					
-
-					 	$.ajax({
-						type: "POST",
-					     url:"/updateErupiLinkBankAccountStaus",
-						 data: {
-								"orgId": employerid,
-								"acNumber":accountid
-						 		},    		 
-				            success: function(data){
-				            newData = data;
-							var data1 = jQuery.parseJSON(newData);
-
-							document.getElementById("signinLoader").style.display="none";
-							
-							if(data1.status==true){
-									 document.getElementById("otsuccmsg").innerHTML="Bank Account Linked Successfully.";
-									 document.getElementById("otmsgdiv").style.display="block";
-									 //document.getElementById("getInTouchUser").reset();
-									 $('#otmsgdiv').delay(5000).fadeOut(400);
-					    			 window.location.href = "/expenseReimbursements";
-								}else if(data1.status==false){
-									 document.getElementById("otfailmsg").innerHTML=data1.message;
-									 document.getElementById("otfailmsgDiv").style.display="block";
-									 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-								}else{
-									 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
-									 document.getElementById("otfailmsgDiv").style.display="block";
-									 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-								}
-							
-				         },
-				         error: function(e){
-				             alert('Error: ' + e);
-				         }
-				    });	
-					
-		       // Implement actual edit functionality here
-		   }
-          },
-        error: function(e){
-            alert('Error: ' + e);
-        }
-   }); 
-			
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				var data2 = data1.list;
+				getExpanceCategoryApprovalList();
+				var modalfirst = document.getElementById("modalReimbursementApproved");
+				modalfirst.style.display = "block";
+				document.getElementById("signinLoader").style.display="none";	
+			},
+			error: function(e) {
+				alert('Failed to fetch JSON data' + e);
+			}
+		});
 }
-
-
-function submitLinkBankAccount(){
+function approvedClose(){
+	var modalfirst = document.getElementById("modalReimbursementApproved");
+	modalfirst.style.display = "none";
+	var modalfirst2 = document.getElementById("ModalViewPendingExp");
+    modalfirst2.style.display = "none";
+	getExpanceCategoryApprovalList();
+}
+function closeApproval(){
+	var modalfirst = document.getElementById("ModalViewPendingExp");
+	modalfirst.style.display = "none";
+	getExpanceCategoryApprovalList();
+}
+function rejectExpenses(){
 	
-	document.getElementById("linkBankBtn").disabled = true;
-	
-	var employerId= document.getElementById("employerId").value; 
-	var bankCode=  $("#bankName option:selected").val();
-	var bankName=  $("#bankName option:selected").text();
-	var bankingName = document.getElementById("bankingName").value;
-	var bankAccNumber = document.getElementById("bankAccNumber").value;
-	var bankAccNumberConfirm= document.getElementById("bankAccNumberConfirm").value;
-	var accountType= document.getElementById("bankAccType").value;
-	var bankIfsc = document.getElementById("bankIfsc").value;
-	
-	var tid = document.getElementById("tid").value;
-	var merchentIid = document.getElementById("merchentIid").value;
-	var mcc = document.getElementById("mcc").value;
-	var submurchentid = document.getElementById("submurchentid").value;
-	var payerva = document.getElementById("payerva").value;
-	var moblieLink = document.getElementById("moblieLink").value;
-	
-	
-	if(bankCode=="" || bankCode==null){
-			document.getElementById("bankNameError").innerHTML="Please Select Bank";
-			return false;
-		}
-		else{
-			document.getElementById("bankNameError").innerHTML="";
-		}
-		if(accountType=="" || accountType==null){
-			document.getElementById("bankAccTypeError").innerHTML="Please Select Account Type";
-			return false;
-		}
-		else{
-			document.getElementById("bankAccTypeError").innerHTML="";
-		}
-		if(bankingName=="" || bankingName==null){
-			document.getElementById("bankingNameError").innerHTML="Please Enter Account Holder Name";
-			return false;
-		}
-		else{
-			document.getElementById("bankingNameError").innerHTML="";
-		}
+	    document.getElementById("signinLoader").style.display="flex";
+		var employerid = document.getElementById("employerId").value;
+		var empId = document.getElementById("empId").value;
+		var expenseId = document.getElementById("expenseId").value;
+		var employerName = document.getElementById("employerName").value;
+		$.ajax({
+			type: "POST",
+			url: "approveExpensesById",
+			data:{
+				"id":expenseId,
+				"employeeId":empId,
+				"employerId":employerid,
+				"username":employerName,
+				"approvedOrRejected":"Reject",
+				"rejectedRemarks":"Incomplete information"
+			},
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				var data2 = data1.list;
+				getExpanceCategoryApprovalList();
+				var modalfirst = document.getElementById("modalReimbursementApproved");
+				modalfirst.style.display = "block";
+				document.getElementById("signinLoader").style.display="none";
 				
-		if(bankAccNumber=="" || bankAccNumber==null){
-			document.getElementById("bankAccNumberError").innerHTML="Please Enter Account Number";
-			return false;
-		}
-		else{
-			document.getElementById("bankAccNumberError").innerHTML="";
-		}
-		
-		if(bankAccNumberConfirm=="" || bankAccNumberConfirm==null){
-			document.getElementById("bankAccNumberConfirmError").innerHTML="Please Enter Confirm Account Number";
-			return false;
-		}
-		else{
-			document.getElementById("bankAccNumberConfirmError").innerHTML="";
-		}
-		if(bankIfsc=="" || bankIfsc==null){
-			document.getElementById("bankIfscError").innerHTML="Please Enter IFSC Code";
-			return false;
-		}
-		else{
-			document.getElementById("bankIfscError").innerHTML="";
-		}
-		
-		if(moblieLink=="" || moblieLink==null){
-			document.getElementById("moblieLinkError").innerHTML="Please Enter Mobile Number";
-			return false;
-		}
-		else{
-			document.getElementById("moblieLinkError").innerHTML="";
-		}
-		
-		if(tid=="" || tid==null){
-			document.getElementById("tidError").innerHTML="Please Enter Tid";
-			return false;
-		}
-		else{
-			document.getElementById("tidError").innerHTML="";
-		}
-		
-		if(merchentIid=="" || merchentIid==null){
-			document.getElementById("merchentIidError").innerHTML="Please Enter Merchent Id";
-			return false;
-		}
-		else{
-			document.getElementById("merchentIidError").innerHTML="";
-		}
-		if(mcc=="" || mcc==null){
-					document.getElementById("mccError").innerHTML="Please Enter MCC";
-			return false;
-		}
-		else{
-			document.getElementById("mccError").innerHTML="";
-		}
-		if(submurchentid=="" || submurchentid==null){
-		document.getElementById("submurchentidError").innerHTML="Please Enter Sub Merchent Id";
-				return false;
+				
+			},
+			error: function(e) {
+				alert('Failed to fetch JSON data' + e);
 			}
-			else{
-				document.getElementById("submurchentidError").innerHTML="";
-			}
-
-			if(payerva=="" || payerva==null){
-				document.getElementById("payervaError").innerHTML="Please Enter Payer va";
-				return false;
-			}
-			else{
-				document.getElementById("payervaError").innerHTML="";
-			}
-			document.getElementById("signinLoader").style.display="flex";
-
-	 	$.ajax({
-		type: "POST",
-	     url:"/addErupiLinkBankAccount",
-		 data: {
-		 			  "employeeId": employerId,
-					  "bank": {
-						"id": employerId
-					  },
-					  "bankCode": bankCode,
-					  "bankName": bankName,
-					  "accountHolderName": bankingName,
-					  "acNumber": bankAccNumber,
-					  "conirmAccNumber": bankAccNumberConfirm,
-					  "accountType":accountType,
-					  "ifsc": bankIfsc,
-					  "erupiFlag": "Y",
-					  "createdby": "",
-					  "updateDate": "",
-					  "updatedby": "",
-					  "branchCode": "",
-					  "orgId": employerId,
-					  "orgCode": "",
-					  "employeCode": "",
-					  "authStatus":"Y",
-					  "authResponse": "",
-					  "mobile": moblieLink,
-					  "accstatus":1,
-					  "tid": tid,
-					  "merchentIid": merchentIid,
-					  //"mcc": mcc,
-					  "submurchentid": submurchentid,
-					  "payerva": payerva
-					
-		 		},    		 
-            success: function(data){
-            newData = data;
-			var data1 = jQuery.parseJSON(newData);
-
-			document.getElementById("signinLoader").style.display="none";
-			
-			if(data1.status==true){
-					 document.getElementById("otsuccmsg").innerHTML="Bank Account Linked Successfully.";
-					 document.getElementById("otmsgdiv").style.display="block";
-					 //document.getElementById("getInTouchUser").reset();
-					 $('#otmsgdiv').delay(5000).fadeOut(400);
-	    			 window.location.href = "/expenseReimbursements";
-				}else if(data1.status==false){
-					 document.getElementById("otfailmsg").innerHTML=data1.message;
-					 document.getElementById("otfailmsgDiv").style.display="block";
-					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-				}else{
-					 document.getElementById("otfailmsg").innerHTML="API Gateway not respond. Please try again.";
-					 document.getElementById("otfailmsgDiv").style.display="block";
-					 $('#otfailmsgDiv').delay(5000).fadeOut(400);
-				}
-			
-         },
-         error: function(e){
-             alert('Error: ' + e);
-         }
-    });	
-	
+		});
 }
 
 
-function updateLinkBankAccount(){
-	
-	
-}
-
-function validate() {
-	var x= document.getElementById("bankAccNumber").value;
-    var y= document.getElementById("bankAccNumberConfirm").value;
-    var message = document.getElementById('bankAccNumberConfirmError');
-
-    if (x === y) {
-        message.innerHTML = '';
-        message.style.color = 'green';
-    } else {
-        message.innerHTML = "The bank account numbers entered don't match each other. Please try again.";
-        message.style.color = 'red';
-    }
-}
-
-function validateIFSC(){
-	var x= document.getElementById("bankIfsc").value;
-    var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
-    if(x==""){
-    	document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
-		document.getElementById("bankIfsc").focus();
-		return false;
-    }
-    else if(!x.match(ifscRegex)){
-		document.getElementById("bankIfscError").innerHTML="Please Enter Valid IFSC Code";
-		document.getElementById("bankIfsc").focus();
-		return false;
-	}
-    else{
-    	document.getElementById("bankIfscError").innerHTML="";
-    }
-  
-}
-
-function validateMobile(){
-	
-	var regMobile = /^[6-9]\d{9}$/gi;
-		var moblieLink = document.getElementById("moblieLink").value;
-		if (moblieLink == "") {
-			document.getElementById("moblieLink").focus();
-			document.getElementById("moblieLinkError").innerHTML="Please Enter Mobile Number";
-			return false;
-		}
-		else if(moblieLink.length < 10){
-				document.getElementById("moblieLinkError").innerHTML="Please Enter Valid Mobile Number";
-				document.getElementById("moblieLink").focus();
-				return false;
-		}
-		
-		else if(!moblieLink.match(regMobile)){
-				document.getElementById("moblieLinkError").innerHTML="Please Enter Valid Mobile Number";
-				document.getElementById("moblieLink").focus();
-				return false;
-		}
-		else{
-			document.getElementById("moblieLinkError").innerHTML="";
-		}
-}
-
-
-function validatePayerva(){
-	
-	var regEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
-	
-		var payerva = document.getElementById("payerva").value;
-		if(payerva==""){
-				document.getElementById("payervaError").innerHTML="Please Enter payerva";
-				document.getElementById("payerva").focus();
-				return false;
-			}else{
-				document.getElementById("payervaError").innerHTML="";
-			}
-			
-			if (!payerva.match(regEmail)) {    
-		        document.getElementById("payervaError").innerHTML="Please Enter Valid payerva";
-		        document.getElementById("payerva").focus();
-		        return false;  
-		        
-		    } else {    
-		       document.getElementById("payervaError").innerHTML="";
-				   
-		    }
-			
-}
 
