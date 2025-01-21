@@ -1113,8 +1113,25 @@
 	    }
 
 	    function deleteRow(button) {
-	        const row = button.parentElement.parentElement;
-	        row.remove();
+			// Get the table body and its rows
+			   const tableBody = document.getElementById("voucherTableBody");
+			   const rows = tableBody.querySelectorAll("tr");
+
+			   // Log the number of rows
+			   console.log("Number of rows before deletion:", rows.length);
+
+			   // Check if only one row is present
+			   if (rows.length <= 2) {
+			       alert("Cannot delete the first row.");
+			       return;
+			   }
+
+			   // Delete the selected row
+			   const row = button.parentElement.parentElement;
+			   tableBody.removeChild(row);
+
+			   // Log the number of rows after deletion
+			   console.log("Number of rows after deletion:", tableBody.querySelectorAll("tr").length);
 	    }
 	</script>
 	
