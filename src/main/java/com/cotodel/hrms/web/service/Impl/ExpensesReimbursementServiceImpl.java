@@ -114,11 +114,4 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.expensesReimbursementUpdate);
 
 	}
-
-	@Override
-	public String rejectExpensesById(String token, ExpensesReimbursementRequest expensesReimbursementRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.expensesReimbursementUpdate);
-
-	}
-
 }

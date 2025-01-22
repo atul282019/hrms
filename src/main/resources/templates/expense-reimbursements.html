@@ -82,7 +82,7 @@
 						<div class="col-12">
 							<ul class="nav nav-tabs expense-tabs">
                                 <li class="active"><a data-toggle="tab" href="#home">Expenses & Advances</a></li>
-                                <li><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
+                                <li th:if="${session.user_role == 1}"><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
                                <!-- <li><a data-toggle="tab" href="#menu2">Linked Bank Account</a></li>-->
                             </ul>
 
@@ -1507,29 +1507,7 @@
 	</div>
 
 
-	<!-- Modal Confirm -->
-	<div class="modal fade" id="ModalExpensesSubmitted" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content modal-bulk">
-				<div class="modal-top text-center">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<img src="img/modal-close.svg" alt="">
-					</button>
-					<img src="img/modal-success.svg" alt="">
-				</div>
-				<div class="modal-bottom">
-					<div class="count">
-						<span>4</span><strong>10</strong>
-					</div>
-					<br> <span>Expenses submitted Successfully!</span>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	
 	<!-- Modal Choose Type of Advance Request -->
 	<div class="modal fade" id="ModalmergeReimbursement" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -1835,22 +1813,24 @@
                         <div class="btm-vender btm-vender-dark m-0">
                             <div class="btm-vender-left"><a href="#"><img src="img/left-arow.svg" alt=""></a></div>
                             <div class="btm-vender-mid">
-                                <div class="vendor-num">1/10</div>
-                                <strong>Vendor Name</strong>
+                                <!--<div class="vendor-num">1/10</div>-->
+                                <!--<strong>Vendor Name</strong>-->
                                 <div class="vender-amount">
                                     <span>INR</span>
-                                    <input type="text" placeholder="Amount">
+                                    <input type="text" placeholder="Amount" id="approveAmmount">
+									
                                 </div>
                             </div>
                             <div class="btm-vender-right"><a href="#"><img src="img/right-arow.svg" alt=""></a></div>
                         </div>
+						<div class="error-msg" id="approveAmmountError" style="color: red"></div>
                     </div>
 	                <div class="d-flex justify-content-center justify-content-md-end">
 						
 	                   <button class="btn btn-border mx-2" data-toggle="modal" data-target="#ModalRejectRemarkReimbursement">Reject</button>
 					   <button class="btn btn-primary mx-2" id="approveBtn" onclick="approveExpenses()">Approve</button> 
 					   <!--<button class="btn btn-primary mx-2" data-toggle="modal" data-target="#ModalViewPendingExpSubmit">Approve</button>-->
-	                    <button class="btn p-0 mx-2" type="button" style="min-width: auto;"><i class="fas fa-ellipsis-v fa-sm"></i></button>
+<!--	                    <button class="btn p-0 mx-2" type="button" style="min-width: auto;"><i class="fas fa-ellipsis-v fa-sm"></i></button>-->
 	                </div>
                 </div>
             </div>
@@ -1921,7 +1901,7 @@
                     <img src="img/reject.svg" alt="">
                 </div>
                 <div class="modal-bottom">
-                    <div class="count"><span>1</span><strong>5</strong></div>
+                    <!--<div class="count"><span>1</span><strong>5</strong></div>-->
                     <br>
                     <span>Reimbursement Rejected</span>
                 </div>
@@ -2056,14 +2036,14 @@
     </div>
 
     <!-- Modal Reject Remark Reimbursement -->
-    <div class="modal fade" id="ModalRejectRemarkReimbursement" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modalView" id="ModalRejectRemarkReimbursement" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle">
         <div class="modal-dialog modal-xl modal-xxl modal-dialog-centered modal-approval-wrap" role="document">
             <div class="modal-content">
                 <div class="modal-header pb-0">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Review and enter Remarks for Rejected
                         Reimbursements </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReject()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -2083,76 +2063,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><span>CDL-0424-001</span></td>
-                                        <td><span>21/04/2024</span></td>
-                                        <td><span><img src="img/Travel.svg" alt="" class="mr-2">Travel</span></td>
-                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
-                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
-                                        <td>
-                                            <div class="d-flex justify-content-between color-third">
-                                                <span>INR</span><span>16,680</span>
-                                            </div>
-                                        </td>
-                                        <td><span>Salary Bank A/c</span></td>
-                                        <td><input type="text" class="form-control-custom"
-                                                placeholder="Add Remark (Compulsory)"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>CDL-0424-001</span></td>
-                                        <td><span>21/04/2024</span></td>
-                                        <td><span><img src="img/food.svg" alt="" class="mr-2">Trip - Client Lunch</span>
-                                        </td>
-                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
-                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
-                                        <td>
-                                            <div class="d-flex justify-content-between color-third">
-                                                <span>INR</span><span>16,680</span>
-                                            </div>
-                                        </td>
-                                        <td><span>Salary Bank A/c</span></td>
-                                        <td><input type="text" class="form-control-custom"
-                                                placeholder="Add Remark (Compulsory)"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>CDL-0424-001</span></td>
-                                        <td><span>21/04/2024</span></td>
-                                        <td><span><img src="img/taxi.svg" alt="" class="mr-2">Convenience</span></td>
-                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
-                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
-                                        <td>
-                                            <div class="d-flex justify-content-between color-third">
-                                                <span>INR</span><span>16,680</span>
-                                            </div>
-                                        </td>
-                                        <td><span>Salary Bank A/c</span></td>
-                                        <td><input type="text" class="form-control-custom"
-                                                placeholder="Add Remark (Compulsory)"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>CDL-0424-001</span></td>
-                                        <td><span>21/04/2024</span></td>
-                                        <td><span><img src="img/Miscellaneous.svg" alt=""
-                                                    class="mr-2">Miscellaneous</span></td>
-                                        <td><button class="no-bg no-border p-0 name-btn">Deepak
-                                                Yadav</button><br><label>CTD001 | Product Lead</label></td>
-                                        <td>
-                                            <div class="d-flex justify-content-between color-third">
-                                                <span>INR</span><span>16,680</span>
-                                            </div>
-                                        </td>
-                                        <td><span>Salary Bank A/c</span></td>
-                                        <td><input type="text" class="form-control-custom"
-                                                placeholder="Add Remark (Compulsory)"></td>
-                                    </tr>
+									<tr>
+	                                     <td><span id="idReject"></span></td>
+	                                     <td><span id="submittedDateReject"></span></td>
+	                                     <td><span id="categoryReject"><img src="img/Travel.svg" alt="" class="mr-2"></span></td>
+	                                     <td> <span id="nameReject"></span></td>
+	                                     <td>
+	                                         <div class="d-flex justify-content-between color-third">
+	                                             <span id="currencyReject"></span><span id="amountReject"></span>
+	                                         </div>
+	                                     </td>
+	                                     <td><span id="bankAccount"></span></td>
+	                                     <td><input type="text" class="form-control-custom" id="rejectRemark"
+	                                             placeholder="Add Remark (Optional)">
+										 <div class="error-msg" id="rejectedRemarksError" style="color: red"></div>
+									     </td>
+	                                 </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
 
                         <div class="d-flex justify-content-center justify-content-md-end">
-                            <button class="btn btn-border mx-2">Back</button>
-                            <button class="btn btn-primary mx-2" data-toggle="modal"
-                                data-target="#ModalReimbursementRejected">Submit</button>
+                            <button class="btn btn-border mx-2" onclick="backReject()">Back</button>
+                            <!--<button class="btn btn-primary mx-2" data-toggle="modal"
+                                data-target="#ModalReimbursementRejected">Submit</button>-->
+								<button class="btn btn-primary mx-2" id="rejectExpenseBtn" onclick="rejectExpenses()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -2161,18 +2097,18 @@
     </div>
 
     <!-- Modal Reimbursement Rejected -->
-    <div class="modal fade" id="ModalReimbursementRejected" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modalView" id="ModalReimbursementRejected" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-bulk">
                 <div class="modal-top text-center" style="background: #FFEBE6;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReject()">
                         <img src="img/modal-close.svg" alt="">
                     </button>
                     <img src="img/reject.svg" alt="">
                 </div>
                 <div class="modal-bottom">
-                    <div class="count"><span>4</span><strong>5</strong></div>
+                    <!--<div class="count"><span>4</span><strong>5</strong></div>-->
                     <br>
                     <span>Reimbursement Rejected</span>
                 </div>
@@ -2180,6 +2116,263 @@
         </div>
     </div>
 	<!-- End Content For Tab 2 -->
+
+
+	<!-- Modal Choose Type of Advance Request -->
+	<div class="modal fade" id="ModalChooseAdvanceRequest" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0">
+	                <h5 class="modal-title" id="exampleModalCenterTitle">Choose Type of Advance Request</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form action="" class="advancerequestform">
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+	                        <label class="form-check-label" for="flexRadioDefault1">
+	                            Travel Request
+	                        </label>
+	                    </div>
+	                    <div class="form-check">
+	                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+	                            checked>
+	                        <label class="form-check-label" for="flexRadioDefault2">
+	                            Cash Advance
+	                        </label>
+	                    </div>
+	                </form>
+	                <div class="d-flex justify-content-center mt-3">
+	                    <button class="btn btn-primary w-100" data-toggle="modal"
+	                        data-target="#ModalCashAdvanceRequest">Continue</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- Modal Cash Advance Request -->
+	<div class="modal fade" id="ModalCashAdvanceRequest" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0">
+	                <h5 class="modal-title" id="exampleModalCenterTitle">Cash Advance Request</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form action="">
+	                    <div class="did-floating-label-content">
+	                        <select class="did-floating-select" onclick="this.setAttribute('value', this.value);"
+	                            onchange="this.setAttribute('value', this.value);" value="">
+	                            <option value=""></option>
+	                            <option value="1">15/04/2024</option>
+	                        </select>
+	                        <label class="did-floating-label">Date of Cash Advance Request</label>
+	                    </div>
+	                    <div class="clearfix"></div>
+	                    <div class="did-floating-label-content">
+	                        <input class="did-floating-input" type="text" placeholder=" ">
+	                        <label class="did-floating-label">Enter Expense Title</label>
+	                    </div>
+	                    <div class="clearfix"></div>
+	                    <div class="form-grp-half">
+	                        <div class="did-floating-label-content mr-2">
+	                            <select class="did-floating-select" onclick="this.setAttribute('value', this.value);"
+	                                onchange="this.setAttribute('value', this.value);" value="">
+	                                <option value=""></option>
+	                                <option value="1">INR</option>
+	                            </select>
+	                            <label class="did-floating-label">Select Currency</label>
+	                        </div>
+	                        <div class="did-floating-label-content ml-2">
+	                            <input class="did-floating-input" type="text" placeholder=" ">
+	                            <label class="did-floating-label">Enter Amount</label>
+	                        </div>
+	                    </div>
+	                    <div class="clearfix"></div>
+	                    <div class="form-grp">
+	                        <div class="form-grp-card-form-right">
+	                            <label for="">Periodic Limit: </label>
+	                            <div class="ntdfnd">Not Defined </div>
+	                        </div>
+	                    </div>
+	                    <div class="did-floating-label-content">
+	                        <select class="did-floating-select" onclick="this.setAttribute('value', this.value);"
+	                            onchange="this.setAttribute('value', this.value);" value="">
+	                            <option value=""></option>
+	                            <option value="1">Cash</option>
+	                        </select>
+	                        <label class="did-floating-label">Select Preferred Mode of Payment</label>
+	                    </div>
+	                    <div class="clearfix"></div>
+	                    <div class="clearfix"></div>
+	                    <div class="did-floating-label-content">
+	                        <input class="did-floating-input" type="text" placeholder=" ">
+	                        <label class="did-floating-label">Enter Additional Remarks</label>
+	                    </div>
+	                    <div class="clearfix"></div>
+	                    <div class="d-flex justify-content-between mt-4 form-btns">
+	                        <div class="lef">
+	                            <button class="btn btn-border mx-2"><img src="img/del.svg" alt=""></button>
+	                        </div>
+	                        <div class="righ d-flex">
+	                            <button class="btn btn-border mx-2 w-78">Back</button>
+	                            <a class="btn btn-primary mx-2 d-flex align-items-center" data-toggle="modal"
+	                                data-target="#ModalExpensesSubmitted">Submit</a>
+	                        </div>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- Modal Travel Request -->
+	<div class="modal fade" id="ModalTravelRequest" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0">
+	                <h5 class="modal-title" id="exampleModalCenterTitle">Travel Request</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <div class="travelrequest-wrap">
+	                    <h5>Select category of expenses for your Travel Request</h5>
+	                    <ul>
+	                        <li class="active">
+	                            <img src="img/plane-green.svg" alt="">
+	                            <span>Travel</span>
+	                            <label class="checkbox-container">O
+	                                <input type="checkbox" checked="checked">
+	                                <span class="checkmark"></span>
+	                            </label>
+	                        </li>
+	                        <li>
+	                            <img src="img/accommodation-green.svg" alt="">
+	                            <span>Accommodation</span>
+	                            <label class="checkbox-container">O
+	                                <input type="checkbox">
+	                                <span class="checkmark"></span>
+	                            </label>
+	                        </li>
+	                        <li>
+	                            <img src="img/citycabs.svg" alt="">
+	                            <span>In-City Cabs</span>
+	                            <label class="checkbox-container">O
+	                                <input type="checkbox">
+	                                <span class="checkmark"></span>
+	                            </label>
+	                        </li>
+	                        <li>
+	                            <img src="img/food-green.svg" alt="">
+	                            <span>Food</span>
+	                            <label class="checkbox-container">O
+	                                <input type="checkbox">
+	                                <span class="checkmark"></span>
+	                            </label>
+	                        </li>
+	                        <li>
+	                            <img src="img/miscellaneous-green.svg" alt="">
+	                            <span>Miscellaneous</span>
+	                            <label class="checkbox-container">O
+	                                <input type="checkbox">
+	                                <span class="checkmark"></span>
+	                            </label>
+	                        </li>
+	                    </ul>
+	                </div>
+	                <div class="d-flex justify-content-center mt-3">
+	                    <button class="btn btn-primary w-100">Continue</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
+	<!-- Modal Choose Type of Advance Request -->
+	<div class="modal fade" id="ModalmergeReimbursement" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0">
+	                <h5 class="modal-title" id="exampleModalCenterTitle">Merge Uploads</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <hr class="mt-0">
+	                <div class="d-flex">
+	                    <p class="mb-0 text-center secondary-900">Please confirm that you would like to merge the
+	                        uploaded documents as part of multiple pages/documents of one expense.</p>
+	                </div>
+	                <div class="d-flex justify-content-center mt-3">
+	                    <button class="btn btn-border mx-2 w-100">Cancel</button>
+	                    <button class="btn btn-primary mx-2 w-100">Merge</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
+	<!-- Modal Add Remarks -->
+	<div class="modal fade" id="Modaladdremarks" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0">
+	                <h5 class="modal-title" id="exampleModalCenterTitle">Add remark!</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <hr class="mt-0">
+	                <div class="d-flex">
+	                    <p class="mb-0 text-center secondary-900">Please add a remark to this expense since the expense amount exceeds the limit prescribed for you.</p>
+	                </div>
+	                <div class="d-flex justify-content-center mt-3">
+	                    <button class="btn btn-primary w-100">Got it!</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- Modal Confirm -->
+		<div class="modal fade" id="ModalExpensesSubmitted" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalCenterTitle"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content modal-bulk">
+					<div class="modal-top text-center">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<img src="img/modal-close.svg" alt="">
+						</button>
+						<img src="img/modal-success.svg" alt="">
+					</div>
+					<div class="modal-bottom">
+						<div class="count">
+							<span>4</span><strong>10</strong>
+						</div>
+						<br> <span>Expenses submitted Successfully!</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 </body>
 

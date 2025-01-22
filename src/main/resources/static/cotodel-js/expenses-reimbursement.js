@@ -819,7 +819,7 @@ function getExpanceCategoryApprovalList(){
 				{ "mData": "statusMessage"},
 				{ "mData": "modeOfPayment"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpanceApproval(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                    return '<td> <div  class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpanceApproval(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -968,6 +968,22 @@ function getExpanceCategoryApprovalList(){
  		document.getElementById("approvalExpenseRemark").value =data2.remarks;
 		document.getElementById("submittedBy").innerHTML =data2.name;
  		document.getElementById("viewStatus").value =data2.expenseTitle;
+		
+		// Reject Popup value
+		
+		document.getElementById("idReject").innerHTML= data2.id;
+  		document.getElementById("categoryReject").innerHTML= data2.expenseCategory;
+ 		document.getElementById("submittedDateReject").innerHTML = data2.createationDate;
+ 		//document.getElementById("approvalExpenseTitle").value = data2.expenseTitle;
+ 		document.getElementById("nameReject").innerHTML =data2.name;
+ 		//document.getElementById("approvalExpenseInviceNumber").value = data2.invoiceNumber;
+ 		document.getElementById("currencyReject").innerHTML = data2.currency;
+ 		document.getElementById("amountReject").innerHTML = data2.amount;
+ 	    document.getElementById("bankAccount").innerHTML = data2.modeOfPayment;
+ 		////document.getElementById("approvalExpenseRemark").value =data2.remarks;
+		//document.getElementById("submittedBy").innerHTML =data2.name;
+		
+		
  		//document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
  		if(data2.fileType =="application/pdf"){
  		
@@ -1103,20 +1119,30 @@ function extractBase64Info(base64String) {
 
 function approveExpenses(){
 	
-	    document.getElementById("signinLoader").style.display="flex";
 		var employerid = document.getElementById("employerId").value;
 		var empId = document.getElementById("empId").value;
 		var expenseId = document.getElementById("expenseId").value;
 		var employerName = document.getElementById("employerName").value;
+		var approveAmmount = document.getElementById("approveAmmount").value;
+		if(approveAmmount=="" || approveAmmount==null){
+				document.getElementById("approveAmmountError").innerHTML="Please Enter Approved Amount";
+				return false;
+			}
+			else{
+				document.getElementById("approveAmmountError").innerHTML="";
+			}
+
+			document.getElementById("signinLoader").style.display="flex";		
 		$.ajax({
 			type: "POST",
-			url: "approveExpensesById",
+			url: "/updateStatusExpensesById",
 			data:{
 				"id":expenseId,
 				"employeeId":empId,
 				"employerId":employerid,
-				"username":employerName,
+				"username":"employerName",
 				"approvedOrRejected":"Approved",
+				"approvedAmount":approveAmmount,
 				"rejectedRemarks":""
 			},
 			success: function(data) {
@@ -1143,35 +1169,75 @@ function approvedClose(){
 function closeApproval(){
 	var modalfirst = document.getElementById("ModalViewPendingExp");
 	modalfirst.style.display = "none";
-	getExpanceCategoryApprovalList();
+	//getExpanceCategoryApprovalList();
+	window.location.reload();
 }
+
+
+function closeReject(){
+	var modalfirst = document.getElementById("ModalReimbursementRejected");
+	modalfirst.style.display = "none";
+	
+	var modalfirst1 = document.getElementById("ModalRejectRemarkReimbursement");
+	modalfirst1.style.display = "none";
+	
+	var modalfirst2 = document.getElementById("modalReimbursementApproved");
+	modalfirst2.style.display = "none";
+	
+	var modalfirst3 = document.getElementById("ModalViewPendingExp");
+    modalfirst3.style.display = "none";
+	
+	//getExpanceCategoryApprovalList();
+	window.location.reload();
+}
+
+
+function backReject(){
+	var modalfirst = document.getElementById("ModalReimbursementRejected");
+	modalfirst.style.display = "none";
+	
+	var modalfirst1 = document.getElementById("ModalRejectRemarkReimbursement");
+	modalfirst1.style.display = "none";
+	
+}
+
 function rejectExpenses(){
 	
-	    document.getElementById("signinLoader").style.display="flex";
 		var employerid = document.getElementById("employerId").value;
 		var empId = document.getElementById("empId").value;
 		var expenseId = document.getElementById("expenseId").value;
 		var employerName = document.getElementById("employerName").value;
+		var rejectedRemarks = document.getElementById("rejectRemark").value;
+		if(rejectedRemarks=="" || rejectedRemarks==null){
+			document.getElementById("rejectedRemarksError").innerHTML="Please Enter Reject Remark";
+			return false;
+		}
+		else{
+			document.getElementById("rejectedRemarksError").innerHTML="";
+		}
+		document.getElementById("signinLoader").style.display="flex";				
 		$.ajax({
 			type: "POST",
-			url: "approveExpensesById",
+			url: "updateStatusExpensesById",
 			data:{
 				"id":expenseId,
 				"employeeId":empId,
 				"employerId":employerid,
-				"username":employerName,
+				"username":"atul yadav",
 				"approvedOrRejected":"Reject",
-				"rejectedRemarks":"Incomplete information"
+				"approvedAmount":"",
+				"rejectedRemarks":rejectedRemarks
 			},
 			success: function(data) {
 				newData = data;
 				var data1 = jQuery.parseJSON(newData);
 				var data2 = data1.list;
 				getExpanceCategoryApprovalList();
-				var modalfirst = document.getElementById("modalReimbursementApproved");
-				modalfirst.style.display = "block";
-				document.getElementById("signinLoader").style.display="none";
 				
+				var modalfirst = document.getElementById("ModalReimbursementRejected");
+			    modalfirst.style.display = "block";
+				
+				document.getElementById("signinLoader").style.display="none";
 				
 			},
 			error: function(e) {

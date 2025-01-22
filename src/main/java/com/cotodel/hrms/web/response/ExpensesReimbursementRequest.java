@@ -30,7 +30,7 @@ public class ExpensesReimbursementRequest{
 	private String username;
 	private String approvedOrRejected;
 	private String rejectedRemarks;
-	
+	private String approvedAmount;
 	public  String fileInput;
 
 }

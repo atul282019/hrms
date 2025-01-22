@@ -34,7 +34,4 @@ public interface ExpensesReimbursementService {
 	String getExpensesReimbursementDetailById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
 
 	String approveExpensesById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
-
-	String rejectExpensesById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
-
 }
