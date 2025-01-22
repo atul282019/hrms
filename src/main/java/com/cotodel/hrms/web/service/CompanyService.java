@@ -13,4 +13,6 @@ public interface CompanyService {
 	String getorgsubType(String token, EmployeeProfileRequest employeeProfileRequest);
 	String getpayrollDetails(String token, EmployeeProfileRequest employeeProfileRequest);
 
+	String getGSTDetailsByGSTNumber(String token, EmployeeProfileRequest employeeProfileRequest);
+
 }

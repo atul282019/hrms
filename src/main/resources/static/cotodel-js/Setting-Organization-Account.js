@@ -71,6 +71,8 @@ function fetchOrgDetails(type) {
 	            errorElement.textContent = 'Invalid GST Number. Please enter a valid GST.';
 	            gstContainer.style.borderColor = errorColor;
 	            isValid = false;
+				
+				getDetailByGSTNo(gstValue);
 	        }
 	    } else if (selectedRadio === 'PAN') {
 	        const panValue = panInput.value.trim();
@@ -182,3 +184,43 @@ function fetchOrgDetails(type) {
 			    form1.style.display = 'block';
 				otpsection.style.display = 'none';
 			}
+			
+function getDetailByGSTNo(gstValue){
+	
+
+	$.ajax({
+		type: "POST",
+	   url:"/getpayrollDetails", 
+	   data: {
+			"gstnNo": gstValue,
+	  		 },
+	    dataType: 'json',
+	    success: function (response) {
+			console.log("company Data"+response)
+			document.getElementById("signinLoader").style.display="none";
+				
+			if (response.status) {
+			    const data = response.data;
+	        // Auto-fill the form fields with fetched data
+	       // document.getElementById("gstnNo").value = data.gstnNo || "";
+
+			if (type === "GST") {
+				gstContainer.style.display = 'block';
+				panContainer.style.display = 'none';
+	            document.getElementById("gstnNo").value = data.gstnNo || "";
+	        } else if (type === "PAN") {
+				gstContainer.style.display = 'none';
+				        panContainer.style.display = 'block';
+	            document.getElementById("panNo").value = data.pan || "";
+	        }
+
+	  }
+
+		},
+	    error: function ( status, error) {
+	        console.error("Failed to fetch data:", status, error);
+	        alert("Unable to fetch employer data. Please try again.");
+	    }
+	});
+	
+}

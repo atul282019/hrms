@@ -162,4 +162,5 @@ public interface CommonUtils {
 	
 	public static String expensesReimbursementUpdate ="/empService/Api/update/expenseReimbursementUpdate"; 
 	
+	public static String gstDetailService ="/gstPanService/Api/get/gstDetails";
 }

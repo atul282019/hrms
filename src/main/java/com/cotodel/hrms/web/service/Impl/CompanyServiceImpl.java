@@ -38,6 +38,11 @@ public class CompanyServiceImpl implements CompanyService{
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getpayrollDetails);
 	}
+
+	@Override
+	public String getGSTDetailsByGSTNumber(String token, EmployeeProfileRequest employeeProfileRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.gstDetailService);
+	}
 	
 	
 
