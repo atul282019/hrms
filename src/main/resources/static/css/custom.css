@@ -6166,3 +6166,38 @@ table.vcScheduledtable thead {
     padding: 4px 10px;
     border-radius: 20px;
 }
+
+/* custom css made by anish*/
+.custom-width-backbtn{
+			        width: 200px !important;
+			    }
+
+			    .custom-width-contbtn {
+			        width: 199px !important;
+			    }
+			
+
+
+			/* For static icon fields, the icon will always show */
+			.input-with-static-icon {
+			    background-image: url('/img/check-circle-fullgreen.png'); /* Replace with your SVG path */
+			    background-repeat: no-repeat;
+			    background-position: 5px center; /* Adjust as needed */
+			    background-size: 20px; /* Adjust size */
+			    padding-left: 30px; /* Add padding to avoid overlap with text */
+			}
+
+			/* For dynamic icon fields, initially no icon */
+			.input-with-dynamic-icon {
+			    background-image: none; /* No image when empty */
+			    padding-left: 30px; /* Add padding for icon space */
+			}
+
+			/* Add the icon when the input is filled */
+			.input-with-dynamic-icon.filled {
+			    background-image: url('/img/check-circle-fullgreen.png'); /* Replace with your SVG path */
+			    background-repeat: no-repeat;
+			    background-position: 5px center;
+			    background-size: 20px;
+			}
+/* ends here*/

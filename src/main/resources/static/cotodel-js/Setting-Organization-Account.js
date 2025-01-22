@@ -111,6 +111,7 @@ function fetchOrgDetails(type) {
 
 	    // Show Form 1 (GST/PAN input form)
 	    form1.style.display = 'block';
+		//window.location.href="/Setting-Organization-Account";
 	}
 	
 	// Function to toggle visibility of PAN text box based on selected radio button
@@ -145,6 +146,7 @@ function fetchOrgDetails(type) {
 	    const currentForm1 = document.getElementById('Form1');
 	    const currentForm2 = document.getElementById('Form2');
 	    const nextForm3 = document.getElementById('Form3'); // Assuming you have Form3 defined
+		const checkboxsection = document.getElementById('checkboxsection');
 
 	    // Hide both Form1 and Form2
 	    currentForm1.style.display = 'none';
@@ -152,5 +154,31 @@ function fetchOrgDetails(type) {
 
 	    // Show Form3
 	    nextForm3.style.display = 'block';
+		checkboxsection.display = 'block';
+		
+		
 	}
 	
+	function showOtpSection() {
+	        // Hide the Back and Authenticate buttons
+	        document.getElementById('backButton').style.display = 'none';
+	        document.getElementById('authButton').style.display = 'none';
+	        
+	        // Show the OTP section
+	        document.getElementById('otpsection').style.display = 'block';
+	    }
+	
+		function goBackToForm2() {
+			    const currentForm = document.getElementById('Form3');
+			    const form1 = document.getElementById('Form2');
+				const otpsection = document.getElementById('otpsection');
+				document.getElementById('backButton').style.display = 'block';
+		        document.getElementById('authButton').style.display = 'block';
+
+			    // Hide Form 2 (Additional Form)
+			    currentForm.style.display = 'none';otpsection
+
+			    // Show Form 1 (GST/PAN input form)
+			    form1.style.display = 'block';
+				otpsection.style.display = 'none';
+			}
