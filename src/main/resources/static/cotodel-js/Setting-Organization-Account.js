@@ -18,8 +18,6 @@ function fetchOrgDetails(type) {
 					
 				if (response.status) {
 				    const data = response.data;
-                // Auto-fill the form fields with fetched data
-               // document.getElementById("gstnNo").value = data.gstnNo || "";
 
 				if (type === "GST") {
 					gstContainer.style.display = 'block';
@@ -182,3 +180,10 @@ function fetchOrgDetails(type) {
 			    form1.style.display = 'block';
 				otpsection.style.display = 'none';
 			}
+			
+			
+			function validateAndShowModal() {
+
+			        // Show the modal if validation passes
+			        $('#ModalConfirm').modal('show');
+			    			}
