@@ -18,8 +18,6 @@ function fetchOrgDetails(type) {
 					
 				if (response.status) {
 				    const data = response.data;
-                // Auto-fill the form fields with fetched data
-               // document.getElementById("gstnNo").value = data.gstnNo || "";
 
 				if (type === "GST") {
 					gstContainer.style.display = 'block';
@@ -224,3 +222,11 @@ function getDetailByGSTNo(gstValue){
 	});
 	
 }
+
+
+function validateAndShowModal() {
+
+        // Show the modal if validation passes
+        $('#ModalConfirm').modal('show');
+    }
+
