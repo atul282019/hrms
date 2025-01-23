@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.CompanyProfileDetail;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
 import com.cotodel.hrms.web.service.CompanyService;
 import com.cotodel.hrms.web.util.CommonUtility;
@@ -24,7 +25,7 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public String getCompanyProfileStatus(String token, EmployeeProfileRequest employeeProfileRequest) {
 		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.companyProfileStatus);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.companyProfileStatus);
 	}
 
 	@Override
@@ -41,7 +42,12 @@ public class CompanyServiceImpl implements CompanyService{
 
 	@Override
 	public String getGSTDetailsByGSTNumber(String token, EmployeeProfileRequest employeeProfileRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.gstDetailService);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.gstServiceBaseUrl+CommonUtils.gstDetailService);
+	}
+
+	@Override
+	public String saveOrganizationDetail(String token, CompanyProfileDetail companyProfileDetail) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(companyProfileDetail), applicationConstantConfig.userServiceBaseUrl+CommonUtils.saveCompanyDetail);
 	}
 	
 	

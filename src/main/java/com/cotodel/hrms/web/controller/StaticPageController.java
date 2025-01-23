@@ -1047,8 +1047,8 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	return new ModelAndView("index", "command", "");
 }
-		@GetMapping(value="/Setting-Organization-Account")
-		public ModelAndView SettingOrganizationAccount(Model model) {
+		@GetMapping(value="/settingOrganizationAccount")
+		public ModelAndView settingOrganizationAccount(Model model) {
 			String token = (String) session.getAttribute("hrms");
 			Integer id  = (Integer) session.getAttribute("id");
 			Integer role_id  = (Integer) session.getAttribute("user_role");
@@ -1061,7 +1061,7 @@ public class StaticPageController extends CotoDelBaseController{
 					model.addAttribute("mobile",obj.getMobile());
 					model.addAttribute("email",obj.getEmail());
 					model.addAttribute("employerId",id);
-					return new ModelAndView("Setting-Organization-Account", "command", "");
+					return new ModelAndView("setting-organization-account", "command", "");
 				}
 				 return new ModelAndView("error", "command", "");
 			}

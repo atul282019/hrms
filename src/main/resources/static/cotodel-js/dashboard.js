@@ -16,10 +16,10 @@ function getProfileStatus(){
 			var data1 = jQuery.parseJSON(newData);
 			//var data2 = data1.data;
 			//$('#profile').html(data1.profile);
-			$('#profileComplete').html(data1.profile);
+			$('#profileComplete').html(data1.data.profileComplete);
 			
 			//var e1 = document.getElementById("profile");
-			document.getElementById("profile").style.width = 66*data1.profile+"px";
+			document.getElementById("profile").style.width = 132*data1.data.profileComplete+"px";
         	//e1.style.width = data1.profile+""+px;
 			//document.getElementById("perCtcBasic").value="5"data2[0].per_ctc;
 			

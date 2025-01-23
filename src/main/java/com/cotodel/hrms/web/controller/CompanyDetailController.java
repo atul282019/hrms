@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.CompanyProfileDetail;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
-import com.cotodel.hrms.web.response.PayrollRequest;
 import com.cotodel.hrms.web.service.CompanyService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.MessageConstant;
@@ -161,4 +161,53 @@ public class CompanyDetailController extends CotoDelBaseController{
 	        return jsonResponse;
 	}
 
+	@PostMapping(value="/saveOrganizationDetail")
+	public @ResponseBody String saveOrganizationDetail(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,CompanyProfileDetail companyProfileDetail) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		String res = null;String userRes = null;
+		profileRes = companyService.saveOrganizationDetail(tokengeneration.getToken(),companyProfileDetail);
+		profileJsonRes= new JSONObject(profileRes);
+		
+		if(profileJsonRes.getBoolean("status")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return profileRes;
+	}
+	
+	@PostMapping(value="/updateOrganizationDetail")
+	public @ResponseBody String updateOrganizationDetail(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,CompanyProfileDetail companyProfileDetail) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		ObjectMapper mapper = new ObjectMapper();
+		String res = null;String userRes = null;
+		profileRes = companyService.saveOrganizationDetail(tokengeneration.getToken(),companyProfileDetail);
+		profileJsonRes= new JSONObject(profileRes);
+		
+		if(profileJsonRes.getBoolean("status")) { 
+			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+		}else {
+			//loginservice.sendEmailVerificationCompletion(userForm);
+			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+		}
+		try {
+			res = mapper.writeValueAsString(otpMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return profileRes;
+	}
 }

@@ -25,4 +25,7 @@ public class ApplicationConstantConfig {
 	@Value("${master.service.base.url}")
 	public String masterServiceBaseUrl;
 	
+	@Value("${gst.service.base.url}")
+	public String gstServiceBaseUrl;
+	
 }

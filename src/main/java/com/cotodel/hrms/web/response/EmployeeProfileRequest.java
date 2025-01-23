@@ -31,6 +31,7 @@ public class EmployeeProfileRequest {
     private String orgDesc;
     private Integer status;
     private Integer orgTypeId;
+    private String gst;
     
     private Integer profileComplete;
     

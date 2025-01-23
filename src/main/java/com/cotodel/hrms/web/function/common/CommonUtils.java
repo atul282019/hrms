@@ -17,7 +17,7 @@ public interface CommonUtils {
 	public static String stateMaster = "/userServices/Api/get/state-list";
 	public static String orgMaster = "/userServices/Api/get/Organization";
 	public static String registerCompany = "/empService/Api/get/saveProfileDetails";
-	public static String companyProfileStatus = "/empService/Api/get/getEmpComplete";
+	public static String companyProfileStatus = "/userServices/Api/get/getEmployerComplete";
 	public static String getorgsubType = "/masterService/Api/get/orgTypeMasterList";
 	public static String getpayrollDetails = "/empService/Api/get/payrollDetails";
 	public static String saveEmployee = "/empService/Api/add/employeeDetails";
@@ -163,4 +163,5 @@ public interface CommonUtils {
 	public static String expensesReimbursementUpdate ="/empService/Api/update/expenseReimbursementUpdate"; 
 	
 	public static String gstDetailService ="/gstPanService/Api/get/gstDetails";
+	public static String saveCompanyDetail = "/userServices/Api/add/saveEmployerDetails";
 }

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -131,9 +130,6 @@
                             </div>
                         </div>
 
-                            
-
-                            
 
                             <div class="upi-voucher-wrap selectvouchers-bottom" id="Form1">
                                 <div class="d-flex">
@@ -195,21 +191,14 @@
 							    <!-- Legal, Address and other details fields -->
 							    <div class="col-12 col-md-6 col-lg-4 pl-0 mt-3">
 									<div class="did-floating-label-content" id="gstInputContainer1">
-									   <input type="text" 
-									           class="did-floating-input input-with-static-icon" 
-									           id="gstnNo1"
-											    
-									           onchange="resetErrorMessages()"
-											   >
+									   <input type="text"  class="did-floating-input input-with-static-icon" 
+									    id="gstnNo1" onchange="resetErrorMessages()" >
 									    <label class="did-floating-label">Enter GST Number</label>
 										
 									</div>
 									<div id="panInputContainer1" class="did-floating-label-content" >
-								    <input type="text" 
-								           class="did-floating-input input-with-static-icon" 
-								           id="panNo1" 
-								           onchange="resetErrorMessages()"
-										   >
+								    <input type="text"   class="did-floating-input input-with-static-icon"  
+									id="panNo1" onchange="resetErrorMessages()">
 								    <label class="did-floating-label">Enter PAN Number</label>
 									
 								</div>
@@ -253,104 +242,100 @@
 							            <input type="text" class="did-floating-input input-with-dynamic-icon" id="state"  oninput="addDynamicIcon(this)" autocomplete="off">
 							            <label class="did-floating-label">State Name</label>
 							        </div>
-
+									<div id="status" style="color: red;"></div>
 							        <div class="w-100 my-3 text-left">
 							            <button class="btn btn-border-primary custom-width-backbtn" onclick="goBackToForm1()">Back</button>
 							            <button type="button" class="btn btn-primary custom-width-contbtn" onclick="continueToForm3()">Continue</button>
 							        </div>
 							    </div>
 							</div><!-- form 2 complete-->
-												<div id="Form3" class="upi-voucher-wrap selectvouchers-bottom" style="display: none;">
-													<div id="checkboxsection">
-														    <div class="d-flex">
-														        <h3>Authenticate Confirmation</h3>
-														    </div>
-								
-															<div class="tip-wrap justify-content-start">
-															    <!-- Checkbox for agreement -->
-															    <div class="form-check">
-															        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-															        <label class="form-check-label" for="flexCheckDefault">
-															            <b>I agree to the following statements.</b>
-															        </label>
-															    <div>
-															    	
-															    <!-- Horizontal line before the list -->
-															    <hr>
-																
-															    <!-- Unordered list of statements -->
-																
-															    <ul class="mb-0">
-															        <li>I, hereby, certify that I am authorized by the competent authority of the organization concerned to register the organization.</li>
-															        <li>The GST Identification Number / PAN furnished is of the organization that I have been authorized to represent.</li>
-															        <li>I bear complete responsibility for the same, and would be liable for any consequences arising due to any misrepresentations or falsifications.</li>
-															    </ul>
-																
-															</div>
-															
-												        	</div>
-															
-															</div>
-															
-																	<div class="w-100 my-3 ">
-														            <button class="btn btn-border-primary custom-width-backbtn" id="backButton" onclick="goBackToForm2()">Back</button>
-														            <button type="button" class="btn btn-primary custom-width-contbtn" id="authButton" onclick="showOtpSection()" >Authenticate</button>
-																	</div>
-															</div>
-															               
-															<div class="modal-body text-left justify-content-start" id="otpsection" style="display: none;">
-																<div class="d-flex">
-														        <h3>Please enter one time password to complete authentication</h3>
-														    	</div>
-																    <div class="otp-box-onboarding d-flex justify-content-start">
-																	
-																	<input  class="form-control form-control-sm test" type="password" id="password1" 
-																		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-																        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-																        <input  class="form-control form-control-sm test" type="password" id="password2" 
-																		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-																        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-																        <input  class="form-control form-control-sm test" type="password" id="password3" 
-																		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-																        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-																        <input  class="form-control form-control-sm test" type="password" id="password4" 
-																		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-																        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-																        <input  class="form-control form-control-sm test" type="password" id="password5" 
-																		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-																        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-																        <input  class="form-control form-control-sm test" type="password" id="password6" 
-																		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-																        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
-																        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
-																        name="orderId" >
-																    </div>
-																   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
-																  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
-																	<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend Code</a></p>
-																	
-																	<div class="error-msg" id="otpError" style="color:red"></div>
-																    
-																	<div class="tip-wrap justify-content-start" style="width: 40%; margin-right: 0;">
-																        <p class="mb-0">OTP code has been sent to your phone.</p>
-																    </div>
-																	
-																	
-																	<div class="w-100 my-3 ">
-														            <button class="btn btn-border-primary custom-width-backbtn" onclick="goBackToForm2()">Back</button>
-														            <button type="button" class="btn btn-primary custom-width-contbtn"  onclick="validateAndShowModal()" >Authenticate</button>
-														        	</div>
-																   
-																</div>
-															
-
-
-														        
-														   
-														</div>
-	
-
-
+						<div id="Form3" class="upi-voucher-wrap selectvouchers-bottom" style="display: none;">
+							<div id="checkboxsection">
+								    <div class="d-flex">
+								        <h3>Authenticate Confirmation</h3>
+								    </div>
+		
+									<div class="tip-wrap justify-content-start">
+									    <!-- Checkbox for agreement -->
+									    <div class="form-check">
+									        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+									        <label class="form-check-label" for="flexCheckDefault">
+									            <b>I agree to the following statements.</b>
+									        </label>
+									    <div>
+									    	
+									    <!-- Horizontal line before the list -->
+									    <hr>
+										
+									    <!-- Unordered list of statements -->
+										
+									    <ul class="mb-0">
+									        <li>I, hereby, certify that I am authorized by the competent authority of the organization concerned to register the organization.</li>
+									        <li>The GST Identification Number / PAN furnished is of the organization that I have been authorized to represent.</li>
+									        <li>I bear complete responsibility for the same, and would be liable for any consequences arising due to any misrepresentations or falsifications.</li>
+									    </ul>
+										
+									</div>
+									
+						        	</div>
+									
+									</div>
+									<div class="w-100 my-3 ">
+								            <button class="btn btn-border-primary custom-width-backbtn" id="backButton" onclick="goBackToForm2()">Back</button>
+								            <button type="button" class="btn btn-primary custom-width-contbtn" id="authButton" onclick="getOTP()" disabled>Authenticate</button>
+											</div>
+									</div>
+									               
+									<div class="modal-body text-left justify-content-start" id="otpsection" style="display: none;">
+										<div class="d-flex">
+								        <h3>Please enter one time password to complete authentication</h3>
+								    	</div>
+										    <div class="otp-box-onboarding d-flex justify-content-start">
+											
+											<input  class="form-control form-control-sm test" id="password1" 
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+										        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+										        <input  class="form-control form-control-sm test" id="password2" 
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+										        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+										        <input  class="form-control form-control-sm test" id="password3" 
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+										        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+										        <input  class="form-control form-control-sm test" id="password4" 
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+										        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+										        <input  class="form-control form-control-sm test"  id="password5" 
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+										        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+										        <input  class="form-control form-control-sm test" id="password6" 
+												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+										        name="password6" maxlength="1" autocomplete="off" onkeyup="enableButton(this)" onkeydown="focusBack()">
+										        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+										        name="orderId" >
+										    </div>
+										   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+										  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+											<p id="resendOTPText">Didn’t receive the code?  <a href="#" onclick="resendOTP()">Resend Code</a></p>
+											
+											<div class="error-msg" id="otpError" style="color:red"></div>
+										    
+											<div class="tip-wrap justify-content-start" style="width: 40%; margin-right: 0;">
+										        <p class="mb-0">OTP code has been sent to your phone.</p>
+										    </div>
+											
+											
+											<div class="w-100 my-3 ">
+											<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+											<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+								            <button class="btn btn-border-primary custom-width-backbtn" onclick="goBackToForm2()">Back</button>
+								            <!--<button type="button" class="btn btn-primary custom-width-contbtn"  onclick="validateAndShowModal()" >Authenticate</button>-->
+											<button type="button" class="btn btn-primary custom-width-contbtn" id="otpVerifyBtn"  onclick="verfyIssueVoucherOTP()" disabled>Authenticate</button>
+												
+										</div>
+										   
+										</div>	   
+								</div>
                             </div>
 							
                         </div>
@@ -383,11 +368,11 @@
     </div>
     <!-- End of Page Wrapper -->
 	<!-- Modal Confirm -->
-	    <div class="modal fade" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modalView" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
 	        <div class="modal-dialog modal-dialog-centered" role="document">
 	        <div class="modal-content modal-bulk">
 	            <div class="modal-top text-center">          
-	            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closePopup()">
 	                <img src="img/modal-close.svg" alt="">
 	            </button>        
 	            <img src="img/modal-success.svg" alt="">
@@ -416,6 +401,8 @@
 	        </div>
 	    </div>
 
+		
+
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -443,7 +430,7 @@
 
 	<!--<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>-->
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
-	<script type="text/javascript" src="cotodel-js/Setting-Organization-Account.js"></script>
+	<script type="text/javascript" src="cotodel-js/setting-company-account.js"></script>
 		
 	<script>
 			$('.responsive-content').slick({

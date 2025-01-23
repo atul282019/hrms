@@ -89,7 +89,7 @@
                                    <div class="w3-border">
 										  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
 										</div>
-                                    <p><span id="profileComplete"></span> of 6 completed</p>
+                                    <p><span id="profileComplete"></span> of 3 completed</p>
                                     
                                    <!-- <a href="#"><img src="img/question-mark.png" alt="" class="mr-2">Need help with setup?</a>-->
                                 </div>
@@ -111,12 +111,13 @@
                                     <div class="details-wrap">
                                         <div class="basic-details-wrap mb-2">
                                             <h4>Compliance and people</h4>
-                                            <div class="time">2 steps | 10 mins</div>
+                                            <div class="time">3 steps | 10 mins</div>
                                         </div>
                                             <div class="basic-details-input">
                                                 <span>1</span>
                                                 <p>Setup Compliance</p>
-                                                <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>
+                                              <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+												<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a>
                                             </div>
 
                                             <div class="basic-details-input no-bg mb-0">
