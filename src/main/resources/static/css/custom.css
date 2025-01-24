@@ -6200,4 +6200,63 @@ table.vcScheduledtable thead {
 			    background-position: 5px center;
 			    background-size: 20px;
 			}
+			
+			
+			
+			.custom-btn {
+					    display: inline-flex; /* Ensures it's treated like the button element */
+					    align-items: center; /* Centers content vertically */
+					    justify-content: center; /* Centers content horizontally */
+					    width: 78px; /* Matches the width of the button */
+					    height: 38px; /* Matches the height of the button (adjust as needed) */
+					    padding: 0; /* Removes any extra padding that may affect dimensions */
+					    text-align: center; /* Ensures text alignment is consistent */
+					    line-height: 1; /* Matches line height with the button */
+					}
+					.img-button {
+					    background-color: white;    /* Set background color to white */
+					    border: 1px solid #367AFF80;     /* Set border color to blue */
+					    border-radius: 10px;         /* Optional: Add border radius for rounded corners */
+					    padding: 10px;               /* Optional: Add padding to ensure image doesn't touch the border */
+						gap:6px;
+					}
+					.table-reimbursements thead tr:nth-child(2) {
+					    background-color: #EAF4EF; /* Second header row background */
+					    color: #28a745; /* Text color for the second header row */
+					    font-weight: bold;
+					    text-align: center;
+					}
+					#travelDetailsTable {
+					    width: 1728px;
+					    height:1117px;
+					    position: absolute;
+					    top: 4260px;
+					    left: 24947px;
+					    padding: 40px 30px 40px 30px;
+					    gap: 20px;
+					    border-radius: 1px 0 0 0;
+						
+						
+					    opacity: 1; /* Make visible (adjust as needed) */
+					    
+					    z-index: 1050; /* Ensures it's above other elements */
+					    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for effect */
+					}
+
+					#travelDetailsTable .modal-dialog {
+					    max-width: 100%; /* Ensures the modal fits the specified width */
+					    margin: 0; /* Remove default centering margins */
+					}
+
+					#travelDetailsTable .modal-content {
+					    border-radius: inherit; /* Ensure content follows the modal's rounded corners */
+					}
+
+					#travelDetailsTable .table-reimbursements th,
+					#travelDetailsTable .table-reimbursements td {
+					    text-align: center;
+					    vertical-align: middle;
+					    padding: 10px;
+					}
+
 /* ends here*/

@@ -325,6 +325,7 @@
                                 </div>
 							</div>
 						</div>
+
 					</div>
 
 				</div>
@@ -382,7 +383,27 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
-   
+	
+   <script> 
+	document.addEventListener("DOMContentLoaded", function () {
+	    const continueButton = document.getElementById("continueButton");
+
+	    continueButton.addEventListener("click", function () {
+	        const travelRequestRadio = document.getElementById("flexRadioDefault1");
+
+	        if (travelRequestRadio.checked) {
+	            // Hide the current modal
+	            //$('#ModalChooseAdvanceRequest').modal('hide');
+	            // Show the Travel Request modal
+	            $('#travelDetailsTable').modal('show');
+				//$('#ModalTravelRequest').modal('show');
+	        } else {
+	            // Default behavior or actions for Cash Advance
+	            $('#ModalCashAdvanceRequest').modal('show');
+	        }
+	    });
+	});
+   </script>
 	<script>
 		
 	///	$(document).ready(function () {
@@ -2132,22 +2153,21 @@
 	            <div class="modal-body">
 	                <form action="" class="advancerequestform">
 	                    <div class="form-check">
-	                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+	                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
 	                        <label class="form-check-label" for="flexRadioDefault1">
 	                            Travel Request
 	                        </label>
 	                    </div>
 	                    <div class="form-check">
 	                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-	                            checked>
+	                            >
 	                        <label class="form-check-label" for="flexRadioDefault2">
 	                            Cash Advance
 	                        </label>
 	                    </div>
 	                </form>
 	                <div class="d-flex justify-content-center mt-3">
-	                    <button class="btn btn-primary w-100" data-toggle="modal"
-	                        data-target="#ModalCashAdvanceRequest">Continue</button>
+	                    <button class="btn btn-primary w-100" id="continueButton">Continue</button>
 	                </div>
 	            </div>
 	        </div>
@@ -2218,12 +2238,12 @@
 	                    </div>
 	                    <div class="clearfix"></div>
 	                    <div class="d-flex justify-content-between mt-4 form-btns">
-	                        <div class="lef">
+	                        <!--<div class="lef">
 	                            <button class="btn btn-border mx-2"><img src="img/del.svg" alt=""></button>
-	                        </div>
+	                        </div>-->
 	                        <div class="righ d-flex">
 	                            <button class="btn btn-border mx-2 w-78">Back</button>
-	                            <a class="btn btn-primary mx-2 d-flex align-items-center" data-toggle="modal"
+	                            <a class="btn btn-primary mx-2 d-flex align-items-center custom-btn mt-1" data-toggle="modal"
 	                                data-target="#ModalExpensesSubmitted">Submit</a>
 	                        </div>
 	                    </div>
@@ -2291,7 +2311,7 @@
 	                    </ul>
 	                </div>
 	                <div class="d-flex justify-content-center mt-3">
-	                    <button class="btn btn-primary w-100">Continue</button>
+	                    <button class="btn btn-primary w-100" data-toggle="modal" data-target="#travelDetailsTable">Continue</button>
 	                </div>
 	            </div>
 	        </div>
@@ -2373,6 +2393,219 @@
 			</div>
 		</div>
 
+		<!-- Modal Travel Request -->
+		<div class="modal fade" id="travelDetailsTable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+		        <div class="modal-content modal-bulk">
+					<div class="modal-header pb-0 text-left">
+						<h5 class="modal-title">Travel Request</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                    <span aria-hidden="true">×</span>
+			                </button>
+					</div><hr><br>
+					<div class="text-left">
+
+					        <div class="flex items-center space-x-4 mb-4">
+					            <button class="flex items-center btn-attach px-4 py-2 rounded">
+					                <img src="img/plane-white.svg">Travel <span class="ml-2 bg-green text-white rounded-full px-2">3</span>
+					            </button>
+					            <button class="flex items-center btn-attach px-4 py-2 rounded">
+					                <i class="fas fa-bed mr-2"></i>Accommodation <span class="ml-2 bg-green text-white rounded-full px-2">3</span>
+					            </button>
+								<div class="btn-group">
+								    <button class="flex items-center btn-attach px-4 py-2 rounded dropdown-toggle " 
+								        style="border: 1px solid green; color: green; background-color: white;" 
+								        type="button" 
+								        id="dropdownMenuButton" 
+								        data-bs-toggle="dropdown" 
+										data-bs-display="static"
+								        aria-expanded="false">
+								        Add More
+								    </button>
+								    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
+								        <li><a class="dropdown-item" href="#">Option 1</a></li>
+								        <li><a class="dropdown-item" href="#">Option 2</a></li>
+								        <li><a class="dropdown-item" href="#">Option 3</a></li>
+								    </ul>
+									</div>
+								
+							
+								
+					        </div>
+							</div>
+		            <div class="policies-wrap-in-table">
+		                <div class="table-responsive">
+		                    <table class="table table-reimbursements">
+		                        <thead >
+									<tr>
+										<th>
+					                            <img src="img/plane-white.svg" alt="Plane Icon">
+					                    </th>
+									<th>  Travel</th>
+									<th></th>
+									<th></th>
+	                                <th></th>
+	                                <th></th>
+	                                <th></th>
+	                                <th></th>
+									<th></th>
+									<th>
+				                            <img src="img/delete-white.svg" alt="Plane Icon">
+				                    </th>	                                
+		                            </tr>
+									
+		                            <tr>
+										<th>
+										<div class="table-check">
+											<input type="checkbox" id="customCheck3">
+										</div>
+										</th>
+		                                <th>Mode</th>
+		                                <th>To-Be-Booked-By</th>
+		                                <th>Date</th>
+		                                <th>Location</th>
+		                                <th>Preferred Time</th>
+		                                <th>Carrier Details</th>
+		                                <th>Mode of Payment</th>
+		                                <th>Remark</th>
+										<th></th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+								
+		                                <td>
+											<div class="table-check">
+												<input type="checkbox" id="customCheck3">
+											</div>
+		                                </td>
+		                    
+		                                <td>
+		                                    <select name="mode" class="form-control">
+		                                        <option value="flights">Flights</option>
+		                                    </select>
+		                                </td>
+		                                <td>
+		                                    <select name="toBeBookedBy" class="form-control">
+		                                        <option value="company">Company</option>
+		                                    </select>
+		                                </td>
+		                                <td>
+		                                    <input type="date" name="date" class="form-control">
+		                                </td>
+		                                <td>
+		                                   
+												
+		                                      <input type="text" name="departure" placeholder="Departure" class="form-control mb-2">
+											
+											  
+		                                        <input type="text" name="arrival" placeholder="Arrival" class="form-control">
+		                                    
+		                                </td>
+		                                <td>
+		                                    <div>
+		                                        <select name="Before6am" class="form-control">
+		                                            <option value="Before6am">Before 6 am</option>
+		                                        </select>
+		                                    </div>
+		                                    <br>
+		                                    <div>
+		                                        <select name="ArrivalPreference" class="form-control">
+		                                            <option value="ArrivalPreference">Arrival Preference</option>
+		                                        </select>
+		                                    </div>
+		                                </td>
+		                                <td>
+											<div>
+		                                        <select name="PremiumEconomy" class="form-control">
+		                                            <option value="PremiumEconomy">PremiumEconomy</option>
+		                                        </select>
+		                                    </div>
+											<br>
+											<input type="text" name="arrival" placeholder="Arrival" value="INN 777"class="form-control">
+											
+		                                </td>
+										<td>
+											<div style="margin-bottom: 28px;">
+		                                        <select name="NA" class="form-control">
+		                                            <option value="NA">NA</option>
+		                                        </select>
+		                                    </div>
+										    
+										    <div class="mt-0" >
+										        <span class="text-muted">Limit:</span>
+										        <span 
+										            class="border rounded px-3 py-1 bg-gray-200" 
+										            style="border-color: darkgray; display: inline-block;">
+										            INR 8,000
+										        </span>
+										    </div>
+										</td>
+		                                <td>
+		                                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"style="width: 120%; height: 100px;"></textarea>
+		                                </td>
+		                            </tr>
+		                            <tr class="last-add">
+		                                <td colspan="10">
+		                                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
+		                                </td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+							<div class="w-100 my-3 d-flex justify-content-between">
+							    <!-- Delete button on the left -->
+							    <div class="w-50 text-left">
+							        <span>
+							            <img src="img/del.svg" class="img-button"> 
+							        </span>
+							    </div>
+							    
+							    <!-- Save & Next button on the right -->
+							    <div class="w-50 text-right">
+							        <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>
+							    </div>
+							</div>
+		                </div>
+						
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		<!-- Modal Confirm -->
+			    <div class="modalView" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+			        <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content modal-bulk">
+			            <div class="modal-top text-center">          
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closePopup()">
+			                <img src="img/modal-close.svg" alt="">
+			            </button>        
+			            <img src="img/modal-success.svg" alt="">
+			            </div>
+			            <div class="modal-bottom">
+			                <span class="modal-title"><strong>Travel Request</strong></span><br>
+							<span class="modal-subtitle">Your Travel Request Form has been submitted.</span>
+			            </div>
+						
+			        </div>
+			        </div>
+			    </div>
+
+			    <!-- Modal Reject -->
+			    <div class="modal fade" id="ModalReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			        <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content modal-bulk">
+			            <div class="modal-top text-center">          
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+			                <img src="img/modal-close.svg" alt="">
+			            </button>        
+			            <img src="img/modal-reject.svg" alt="">
+			            </div>
+			            <div class="modal-bottom">
+			                <span<strong>Travel Request</strong></span>
+			            </div>
+			        </div>
+			        </div>
+			    </div>
 
 </body>
 
