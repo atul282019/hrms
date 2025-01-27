@@ -39,6 +39,7 @@ function fetchOrgDetails(type) {
         });
     }
 	function validateInput() {
+		
 	    const selectedRadio = document.querySelector('input[name="orgRadio"]:checked').value;
 	    const gstInput = document.getElementById('gstnNo');
 	    const panInput = document.getElementById('panNo');
@@ -69,8 +70,9 @@ function fetchOrgDetails(type) {
 	            errorElement.textContent = 'Invalid GST Number. Please enter a valid GST.';
 	            gstContainer.style.borderColor = errorColor;
 	            isValid = false;
-		   }
-		   getDetailByGSTNo(gstValue);
+		   }			else {
+			            getDetailByGSTNo(gstValue); // Only call if valid
+			        }
 	    } else if (selectedRadio === 'PAN') {
 	        const panValue = panInput.value.trim();
 	        const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
@@ -83,12 +85,13 @@ function fetchOrgDetails(type) {
 	            errorElement.textContent = 'Invalid PAN Number. Please enter a valid PAN.';
 	            panContainer.style.borderColor = errorColor;
 	            isValid = false;
-	        }
-			
-			getDetailByPanNo(panValue);
+	        }			else {
+			            getDetailByPanNo(panValue); // Only call if valid
+			        }
 	    }
 
 	    if (isValid) {
+			
 	        // Reset border color to default (if any)
 			
 	        gstContainer.style.borderColor = '';
@@ -101,6 +104,7 @@ function fetchOrgDetails(type) {
 			$("#tab2").addClass("active");
 	        //alert('Validation successful!');
 	        // Proceed to the next step (submit form or any other action)
+			
 	    }
 	}
 	function goBackToForm1() {
@@ -117,6 +121,7 @@ function fetchOrgDetails(type) {
 	
 	// Function to toggle visibility of PAN text box based on selected radio button
 	function toggleVisibility() {
+		document.getElementById("signinLoader").style.display="none";
 	    const selectedRadio = document.querySelector('input[name="orgRadio"]:checked').value;
 	    const gstContainer = document.getElementById('gstInputContainer1');
 	    const panContainer = document.getElementById('panInputContainer1');
@@ -509,9 +514,9 @@ document.getElementById("signinLoader").style.display="flex";
 				document.getElementById("legalName").classList.remove('input-with-dynamic-icon');
 				document.getElementById("legalName").classList.add('input-with-static-icon');
 				}
-				else{
-					document.getElementById("legalName").remove('did-floating-input input-with-dynamic-icon');
-				}
+				//else{
+			//		document.getElementById("legalName").remove('did-floating-input input-with-dynamic-icon');
+				//}
 				if(data.tradeName!==null){
 				document.getElementById("tradeName").value = data.tradeName || "";
 				document.getElementById("tradeName").classList.remove('input-with-dynamic-icon');
