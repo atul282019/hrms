@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
@@ -112,6 +113,17 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	@Override
 	public String approveExpensesById(String token, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.expensesReimbursementUpdate);
+
+	}
+
+	@Override
+	public String cashAdvanceRequest(String token, AdvanceTravelRequest advanceTravelRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.cashAdvanceTravelRequest);
+	}
+
+	@Override
+	public String getCashAdanceRequestData(String token, AdvanceTravelRequest advanceTravelRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getAdvanceTravelRequestData);
 
 	}
 }

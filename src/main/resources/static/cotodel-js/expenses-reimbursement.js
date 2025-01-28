@@ -1218,7 +1218,7 @@ function rejectExpenses(){
 		document.getElementById("signinLoader").style.display="flex";				
 		$.ajax({
 			type: "POST",
-			url: "updateStatusExpensesById",
+			url: "/updateStatusExpensesById",
 			data:{
 				"id":expenseId,
 				"employeeId":empId,
@@ -1246,5 +1246,192 @@ function rejectExpenses(){
 		});
 }
 
+//////////////////////////////////////////////////////////////Advance Cash Travel Request script
 
+
+
+function cashAdvanceSubmit(){
+	
+		var employerid = document.getElementById("employerId").value;
+		var empId = document.getElementById("empId").value;
+		var cashDate = document.getElementById("cashDate").value;
+		var cashExpenseTitle = document.getElementById("cashExpenseTitle").value;
+		var cashCurrency = document.getElementById("cashCurrency").value;
+		
+		var cashAmmount = document.getElementById("cashAmmount").value;
+		var cashModeOfPayment = document.getElementById("cashModeOfPayment").value;
+		var cashRemark = document.getElementById("cashRemark").value;
+		var employerName = document.getElementById("employerName").value;
+		//var requestType = document.getElementById("employerName").value;
+		document.getElementById("signinLoader").style.display="flex";				
+		$.ajax({
+			type: "POST",
+			url: "/cashAdvanceRequest",
+			data:{
+				
+				"employeeId":empId,
+				"employerId":employerid,
+				"username":employerName,
+				"requestType":"Cash",
+				"cashDate":cashDate,
+				"approvedAmount":cashExpenseTitle,
+				"currency":cashCurrency,
+				"amount":cashAmmount,
+				"modeOfPayment":cashModeOfPayment,
+				"remarks":cashRemark,
+				
+			},
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				var data2 = data1.list;
+				var modalfirst = document.getElementById("ModalExpensesSubmitted");
+			    modalfirst.style.display = "block";
+				document.getElementById("signinLoader").style.display="none";
+			},
+			error: function(e) {
+				alert('Failed to fetch JSON data' + e);
+			}
+		});
+}
+
+function closeCashSuccess(){
+	var modalfirst = document.getElementById("ModalExpensesSubmitted");
+	modalfirst.style.display = "none";
+	
+	var modalfirst2 = document.getElementById("ModalCashAdvanceRequest");
+	modalfirst2.style.display = "none";
+	
+	var modalfirst3 = document.getElementById("ModalChooseAdvanceRequest");
+	modalfirst3.style.display = "none";
+	
+	
+	
+}
+
+function saveTravelRequest(){
+	
+
+	var employerid = document.getElementById("employerId").value;
+	var empId = document.getElementById("empId").value;
+	var tavelByMode = document.getElementById("tavelByMode").value;
+	var travelBookedBy = document.getElementById("travelBookedBy").value;
+	var travelDate = document.getElementById("travelDate").value;
+
+	var travelDepartureFrom = document.getElementById("travelDepartureFrom").value;
+	var travelArrivalTo = document.getElementById("travelArrivalTo").value;
+	var travelTime = document.getElementById("travelTime").value;
+	
+	var travelPreference = document.getElementById("travelPreference").value;
+	var travelClass = document.getElementById("travelClass").value;
+	var travelAmount = document.getElementById("travelAmount").value;
+	var travelAmountPayment = document.getElementById("travelAmountPayment").value;
+	var travelRemarks = document.getElementById("travelRemarks").value;
+	var employerName = document.getElementById("employerName").value;
+	document.getElementById("signinLoader").style.display="flex";				
+	$.ajax({
+		type: "POST",
+		url: "/cashAdvanceRequest",
+		data:{
+			
+			"employeeId":empId,
+			"employerId":employerid,
+			"username":employerName,
+			"toBeBookedBy":travelBookedBy,
+			"travelDate":travelDate,
+			"departureLocation":travelDepartureFrom,
+			"arrivalLocation":travelArrivalTo,
+			"preferredTimeBefore":travelTime,
+			"modeOfPayment":travelPreference,
+			"carrierDetails":travelClass,
+			"modeOfPayment":travelAmountPayment,
+			"remarks":travelRemarks,			
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.list;
+			var modalfirst = document.getElementById("ModalConfirm");
+		    modalfirst.style.display = "block";
+			document.getElementById("signinLoader").style.display="none";
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+	
+}
+
+function closePopup(){
+	var modalfirst = document.getElementById("ModalConfirm");
+	modalfirst.style.display = "none";
+	
+	var modalfirst2 = document.getElementById("travelDetailsTable");
+	modalfirst2.style.display = "none";
+	
+	var modalfirst3 = document.getElementById("ModalChooseAdvanceRequest");
+	modalfirst3.style.display = "none";
+	
+	window.location.reload();
+	
+}
+function getCashAdvanceRequestList(){
+	document.getElementById("signinLoader").style.display="flex";
+	var employerid = document.getElementById("employerId").value;
+	var empId = document.getElementById("empId").value;	
+	$.ajax({
+		type: "GET",
+		url: "/getCashAdanceRequestData",
+		data: {
+			"employeeId": empId,
+			"employerId": employerid
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			 //console.log(data2);
+			document.getElementById("signinLoader").style.display="none";
+			
+			var table = $('#tblCashAdvanceTravel').DataTable( {
+	          destroy: true,	
+		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+             "language": {"emptyTable": "No Data available"  },
+	        
+	         "aaData": data2,
+      		  "aoColumns": [ 
+				
+                { "mData": "id", "render": function (data2, type, row) {
+					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck4" name="customCheck4" ></div>';
+                 }}, 
+				//{ "mData": "sequeneId"},  
+				{ "mData": "createdDate"},   
+                { "mData": "createdDate"},   
+				{ "mData": "requestType"},
+				{ "mData": "mode"}, 
+				{ "mData": "amount"}, 
+               // { "mData": "createationDate"},   
+			   // { "mData": ""},   
+				   
+			 	//{ "mData": ""},    
+			 	//{ "mData": function (data1, type, row) {
+			   //     return data1.currency + " " + data1.amount;
+			   // }},
+			   //{ "mData": "statusMessage"},
+			   { "mData": "requestType"},
+				{ "mData": "modeOfPayment"},        
+      		  	{ "mData": "id", "render": function (data1, type, row) {
+                    return '<td> <div  class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpanceApproval(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                 }}, 
+    		 	],
+    		 	
+      		});		
+			
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
 

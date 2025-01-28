@@ -4,9 +4,62 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+<!--<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>-->
+<head th:fragment="headerlibs">
+       
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta id="ctx" name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
 
-<body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),getExpanceCategoryApprovalList()">
+	
+    <title>Dashboard</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
+	 <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
+	 <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
+    <link rel="stylesheet" href="css/custom.css">
+    <script type="text/javascript" src="js/xsls-export.js"></script>
+    
+     <style>
+        .hidden {
+            display: none;
+        }
+        .button {
+            cursor: pointer;
+            padding: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+		#myDiv {
+		            transition: max-height 0.3s ease-out;
+		            
+		            overflow: hidden;
+		        }
+		        #myDiv.collapsed {
+		            max-height: 0;
+		            padding: 0;
+		        }
+    </style>
+</head>
+	
+<body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),
+getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -158,10 +211,11 @@
 
 											<div class="policies-wrap-in-table">
 												<div class="table-responsive">
-													<table class="table table-reimbursements">
+													<table class="table table-reimbursements" id="tblCashAdvanceTravel">
 														<thead>
 															<tr>
-																<th colspan="2">EXPENSE ID</th>
+																<th><input type="checkbox" id="customCheck88"></th>
+																<th >EXPENSE ID</th>
 																<th>DATE & TIME</th>
 																<th>CATEGORY</th>
 																<th>TITLE</th>
@@ -172,7 +226,7 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
+															<!--<tr>
 																<td>
 																	<div class="table-check">
 																		<input type="checkbox" id="customCheck3">
@@ -234,14 +288,24 @@
 																	</div>
 																</td>
 															</tr>
-															<tr class="last-add">
+															-->
+															<!--<tr class="last-add">
 																<td colspan="9"><a href="#" class="add-ctgry"
 																	data-toggle="modal"
 																	data-target="#ModalChooseAdvanceRequest">+ Request
 																		Advance</a></td>
-															</tr>
+															</tr>-->
 														</tbody>
 													</table>
+													
+													<div class="last-add">
+														<div colspan="9" style="padding: .75rem;">
+															<a href="#" class="add-ctgry"
+															data-toggle="modal"
+															data-target="#ModalChooseAdvanceRequest">+ Request Advance</a>
+														</div>
+													</div>
+																										
 												</div>
 											</div>
 
@@ -378,8 +442,11 @@
 	<script src="js/demo/datatables-demo.js"></script>
 
 	<script type="text/javascript" src="cotodel-js/expenses-reimbursement.js"></script>
+	
+<!--	<script type="text/javascript" src="cotodel-js/cash-advance-request.js"></script>-->
 		
 	<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+	
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
@@ -2188,30 +2255,27 @@
 	            <div class="modal-body">
 	                <form action="">
 	                    <div class="did-floating-label-content">
-	                        <select class="did-floating-select" onclick="this.setAttribute('value', this.value);"
-	                            onchange="this.setAttribute('value', this.value);" value="">
-	                            <option value=""></option>
-	                            <option value="1">15/04/2024</option>
-	                        </select>
+							<input class="did-floating-input" type="date" placeholder=" " id="cashDate">
 	                        <label class="did-floating-label">Date of Cash Advance Request</label>
 	                    </div>
 	                    <div class="clearfix"></div>
 	                    <div class="did-floating-label-content">
-	                        <input class="did-floating-input" type="text" placeholder=" ">
+	                        <input class="did-floating-input" type="text" placeholder=" " id="cashExpenseTitle">
 	                        <label class="did-floating-label">Enter Expense Title</label>
 	                    </div>
 	                    <div class="clearfix"></div>
 	                    <div class="form-grp-half">
 	                        <div class="did-floating-label-content mr-2">
 	                            <select class="did-floating-select" onclick="this.setAttribute('value', this.value);"
-	                                onchange="this.setAttribute('value', this.value);" value="">
+	                                onchange="this.setAttribute('value', this.value);" id="cashCurrency">
 	                                <option value=""></option>
-	                                <option value="1">INR</option>
+	                                <option value="INR">INR</option>
+									<option value="Dollar">Dollar</option>
 	                            </select>
 	                            <label class="did-floating-label">Select Currency</label>
 	                        </div>
 	                        <div class="did-floating-label-content ml-2">
-	                            <input class="did-floating-input" type="text" placeholder=" ">
+	                            <input class="did-floating-input" type="text" placeholder=" " id="cashAmmount">
 	                            <label class="did-floating-label">Enter Amount</label>
 	                        </div>
 	                    </div>
@@ -2224,16 +2288,18 @@
 	                    </div>
 	                    <div class="did-floating-label-content">
 	                        <select class="did-floating-select" onclick="this.setAttribute('value', this.value);"
-	                            onchange="this.setAttribute('value', this.value);" value="">
+	                            onchange="this.setAttribute('value', this.value);" id="cashModeOfPayment">
 	                            <option value=""></option>
-	                            <option value="1">Cash</option>
-	                        </select>
+	                            <option value="Cash">Cash</option>
+								<option value="Cheque">Cheque</option>
+							 <option value="eRUPI">eRUPI Voucher</option>	                        
+						  </select>
 	                        <label class="did-floating-label">Select Preferred Mode of Payment</label>
 	                    </div>
 	                    <div class="clearfix"></div>
 	                    <div class="clearfix"></div>
 	                    <div class="did-floating-label-content">
-	                        <input class="did-floating-input" type="text" placeholder=" ">
+	                        <input class="did-floating-input" type="text" placeholder=" " id="cashRemark">
 	                        <label class="did-floating-label">Enter Additional Remarks</label>
 	                    </div>
 	                    <div class="clearfix"></div>
@@ -2243,8 +2309,8 @@
 	                        </div>-->
 	                        <div class="righ d-flex">
 	                            <button class="btn btn-border mx-2 w-78">Back</button>
-	                            <a class="btn btn-primary mx-2 d-flex align-items-center custom-btn mt-1" data-toggle="modal"
-	                                data-target="#ModalExpensesSubmitted">Submit</a>
+	                            <a class="btn btn-primary mx-2 d-flex align-items-center custom-btn mt-1" 
+	                                id="cashBtnSubmit" onclick="cashAdvanceSubmit()">Submit</a>
 	                        </div>
 	                    </div>
 	                </form>
@@ -2371,13 +2437,16 @@
 	</div>
 
 	<!-- Modal Confirm -->
-		<div class="modal fade" id="ModalExpensesSubmitted" tabindex="-1"
+		<!--<div class="modal fade" id="ModalExpensesSubmitted" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalCenterTitle"
-			aria-hidden="true">
+			aria-hidden="true">-->
+			<div class="modalView" id="ModalExpensesSubmitted" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalCenterTitle"
+					aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content modal-bulk">
 					<div class="modal-top text-center">
-						<button type="button" class="close" data-dismiss="modal"
+						<button type="button" class="close" data-dismiss="modal" onclick="closeCashSuccess()"
 							aria-label="Close">
 							<img src="img/modal-close.svg" alt="">
 						</button>
@@ -2480,55 +2549,65 @@
 		                                </td>
 		                    
 		                                <td>
-		                                    <select name="mode" class="form-control">
+		                                    <select name="mode" class="form-control" id="tavelByMode">
 		                                        <option value="flights">Flights</option>
+												<option value="train">train</option>
+												<option value="bus">Bus</option>
 		                                    </select>
 		                                </td>
 		                                <td>
-		                                    <select name="toBeBookedBy" class="form-control">
+		                                    <select name="toBeBookedBy" class="form-control" id="travelBookedBy">
 		                                        <option value="company">Company</option>
+												<option value="self">Self</option>
 		                                    </select>
 		                                </td>
 		                                <td>
-		                                    <input type="date" name="date" class="form-control">
+		                                    <input type="date" name="date" class="form-control" id="travelDate">
 		                                </td>
 		                                <td>
-		                                   
-												
-		                                      <input type="text" name="departure" placeholder="Departure" class="form-control mb-2">
-											
-											  
-		                                        <input type="text" name="arrival" placeholder="Arrival" class="form-control">
+											 <input type="text" name="departure" placeholder="Departure" 
+											 class="form-control mb-2" id="travelDepartureFrom">
+											 <input type="text" name="arrival" placeholder="Arrival" 
+											 class="form-control" id="travelArrivalTo">
 		                                    
 		                                </td>
 		                                <td>
 		                                    <div>
-		                                        <select name="Before6am" class="form-control">
-		                                            <option value="Before6am">Before 6 am</option>
-		                                        </select>
+												<select class="form-control" id="travelTime">
+							                       <option value="Before 6 am">Before 6 am</option>
+							                       <option value="6 am - 12 pm">6 am - 12 pm</option>
+							                       <option value="12 pm - 6 pm">12 pm - 6 pm</option>
+							                       <option value="After 6 pm">After 6 pm</option>
+							                   </select>
 		                                    </div>
 		                                    <br>
 		                                    <div>
-		                                        <select name="ArrivalPreference" class="form-control">
+		                                        <select name="ArrivalPreference" class="form-control" id="travelPreference">
 		                                            <option value="ArrivalPreference">Arrival Preference</option>
+													<option value="DeparturePreference">Departure Preference</option>
 		                                        </select>
 		                                    </div>
 		                                </td>
 		                                <td>
 											<div>
-		                                        <select name="PremiumEconomy" class="form-control">
-		                                            <option value="PremiumEconomy">PremiumEconomy</option>
-		                                        </select>
+												<select class="form-control" id="travelClass">
+						                        <option value="PremiumEco">PremiumEco</option>
+						                        <option value="Economy">Economy</option>
+						                        <option value="Business">Business</option>
+						                    </select>
 		                                    </div>
 											<br>
-											<input type="text" name="arrival" placeholder="Arrival" value="INN 777"class="form-control">
+											<input type="text" name="arrival" placeholder="Arrival" value="INN 777"
+											class="form-control" id="travelAmount">
 											
 		                                </td>
 										<td>
 											<div style="margin-bottom: 28px;">
-		                                        <select name="NA" class="form-control">
-		                                            <option value="NA">NA</option>
-		                                        </select>
+												<select class="form-control" id="travelAmountPayment">
+							                       <option value="NA">NA</option>
+							                       <option value="Credit Card">Credit Card</option>
+							                       <option value="Cash">Cash</option>
+							                   </select>
 		                                    </div>
 										    
 										    <div class="mt-0" >
@@ -2541,7 +2620,8 @@
 										    </div>
 										</td>
 		                                <td>
-		                                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"style="width: 120%; height: 100px;"></textarea>
+		                                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+											style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
 		                                </td>
 		                            </tr>
 		                            <tr class="last-add">
@@ -2561,7 +2641,8 @@
 							    
 							    <!-- Save & Next button on the right -->
 							    <div class="w-50 text-right">
-							        <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>
+									<button class="btn btn-primary" id="btnSaveTravelRequest" onclick="saveTravelRequest()" >Save & Next</button>
+							       <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
 							    </div>
 							</div>
 		                </div>

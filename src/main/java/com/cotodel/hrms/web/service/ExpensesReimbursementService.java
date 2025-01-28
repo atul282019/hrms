@@ -2,6 +2,7 @@ package com.cotodel.hrms.web.service;
 
 import org.springframework.stereotype.Repository;
 
+import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 
@@ -34,4 +35,8 @@ public interface ExpensesReimbursementService {
 	String getExpensesReimbursementDetailById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
 
 	String approveExpensesById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+
+	String cashAdvanceRequest(String token, AdvanceTravelRequest advanceTravelRequest);
+
+	String getCashAdanceRequestData(String token, AdvanceTravelRequest advanceTravelRequest);
 }

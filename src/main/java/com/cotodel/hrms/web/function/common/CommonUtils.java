@@ -164,4 +164,8 @@ public interface CommonUtils {
 	
 	public static String gstDetailService ="/gstPanService/Api/get/gstDetails";
 	public static String saveCompanyDetail = "/userServices/Api/add/saveEmployerDetails";
+	public static String cashAdvanceTravelRequest = "/empService/Api/add/advanceTravelRequest";
+	public static String getAdvanceTravelRequestData = "/empService/Api/get/advanceTravelRequest";
+	
+	
 }
