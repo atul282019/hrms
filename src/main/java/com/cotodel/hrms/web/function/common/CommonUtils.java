@@ -142,7 +142,7 @@ public interface CommonUtils {
 	
 	public static String getEmployeeType="/masterService/Api/get/employeeTypeMasterList";
 	public static String getEmployeeListMaster="/userServices/Api/get/userManagerList";
-	public static String getofficeLocationMaster="/empService/Api/get/getCompaneyAddress";
+	public static String getofficeLocationMaster="/userServices/Api/get/getCompaneyAddress";
 	
 	public static String getVoucherListWithIcon ="/masterService/Api/get/voucherList"; 
 	public static String getPurposeListByVoucherCode ="/masterService/Api/get/mccByPurposeCodeList"; 

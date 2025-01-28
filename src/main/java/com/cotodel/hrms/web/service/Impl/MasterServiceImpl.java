@@ -80,7 +80,7 @@ public class MasterServiceImpl implements MasterService{
 
 	@Override
 	public String getofficeLocationMaster(String token, EmployeeMassterRequest employeeMassterRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getofficeLocationMaster);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.userServiceBaseUrl +CommonUtils.getofficeLocationMaster);
 
 	}
 
