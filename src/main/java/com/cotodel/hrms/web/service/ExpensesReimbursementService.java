@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
+import com.cotodel.hrms.web.response.TravelRequest;
 
 @Repository
 public interface ExpensesReimbursementService {
@@ -39,4 +40,6 @@ public interface ExpensesReimbursementService {
 	String cashAdvanceRequest(String token, AdvanceTravelRequest advanceTravelRequest);
 
 	String getCashAdanceRequestData(String token, AdvanceTravelRequest advanceTravelRequest);
+
+	String travelAdvanceRequest(String token, TravelRequest travelRequest);
 }

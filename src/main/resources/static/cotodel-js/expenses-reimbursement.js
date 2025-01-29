@@ -1366,13 +1366,13 @@ function closePopup(){
 	var modalfirst = document.getElementById("ModalConfirm");
 	modalfirst.style.display = "none";
 	
-	var modalfirst2 = document.getElementById("travelDetailsTable");
-	modalfirst2.style.display = "none";
+	//var modalfirst2 = document.getElementById("travelDetailsTable");
+	//modalfirst2.style.display = "none";
 	
-	var modalfirst3 = document.getElementById("ModalChooseAdvanceRequest");
-	modalfirst3.style.display = "none";
+	//var modalfirst3 = document.getElementById("ModalChooseAdvanceRequest");
+	//modalfirst3.style.display = "none";
 	
-	window.location.reload();
+	//window.location.reload();
 	
 }
 function getCashAdvanceRequestList(){

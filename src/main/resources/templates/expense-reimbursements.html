@@ -2597,10 +2597,12 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							                </div>
 							            </td>
 							            <td>
-							                <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)" style="width: 120%; height: 100px;"></textarea>
+							                <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)" style="height: 100px;"></textarea>
+											<input type="hidden" class="border rounded px-2 py-1 w-full" name="travelSubType" value="travel"></input>
 							            </td>
 							            <td>
-							                <button class="btn btn-danger btn-sm remove-row">Delete</button>
+							                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
+											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row" alt="Delete Icon">
 							            </td>
 							        </tr>
 							        
@@ -2611,16 +2613,18 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 									 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addTravelRow()">+ ADD</button>
 								</div>
 							</div>
-							
+							<div class="w-100 text-right">
+							   	  <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="getTableDataTravel()">Save & Next</button>
+							  </div>	
 		                </div>
 						<!-- Accommodation Table -->
 						<div class="table-responsive" id="accommodationTable" style="display: none;">
 						    <table class="table table-reimbursements">
 						        <thead >
 									<tr>
-										<th>
-						                        <img src="img/accommodation-white.svg" >
-						                </th>
+									<th>
+					                        <img src="img/accommodation-white.svg" >
+					                </th>
 									<th>  Accommodation</th>
 									<th></th>
 									<th></th>
@@ -2630,7 +2634,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						            <th></th>
 									<th></th>
 									<th>
-						                    <img src="img/delete-white.svg" alt="Plane Icon">
+						             <img src="img/delete-white.svg" alt="Plane Icon">
 						            </th>	                                
 						            </tr>
 									
@@ -2651,8 +2655,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										<th></th>
 						            </tr>
 						        </thead>
-						        <tbody>
-								
+						        <tbody id="reimbursementsBodyAccomodation">
+									<tr class="template-row-accomodation">
 						                <td>
 											<div class="table-check" style="margin-bottom: 60px;">
 												<input type="checkbox" id="customCheck3">
@@ -2728,22 +2732,36 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										</td>
 						                <td>
 						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="width: 120%; height: 100px;" id="accommodationRemarks"></textarea>
+											style="height: 100px;" id="accommodationRemarks"></textarea>
+											<input type="hidden" class="border rounded px-2 py-1 w-full" name="travelSubType" value="travel"></input>
 						                </td>
-						            </tr>
-						            <tr class="last-add">
+						           
+									<td>
+						                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
+										<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-acomodation" alt="Delete Icon">
+						            </td>
+									</tr>
+						           <!-- <tr class="last-add">
 						                <td colspan="10">
 						                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
 						                </td>
-						            </tr>
+						            </tr>-->
 						        </tbody>
 						    </table>
-							
+							<div class="last-add">
+								<div colspan="10" style="padding: .75rem;">
+									 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addTravelRowAcomodation()">+ ADD</button>
+								</div>
+							</div>
+							<div class="w-100 text-right">
+							   	  <button class="btn btn-primary" id="btnSaveAcomodationRequest" onclick="getaddTableRowAcomodation()"  >Save & Next</button>
+							   		 <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
+						    </div>	
 						</div>
 						<!-- In-City Cabs Table -->
 						<div class="table-responsive" id="inCityCabsTable" style="display: none;">
 						    <table class="table table-reimbursements">
-						        <thead >
+								<thead>
 									<tr>
 										<th>
 						                        <img src="img/citycabs-white.svg" >
@@ -2776,9 +2794,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                <th>Mode of Payment</th>
 						                <th>Remark</th>
 										<th></th>
+										<th></th>
 						            </tr>
 						        </thead>
-						        <tbody>
+								<tbody id="reimbursementsBodyInCityCab">
+									<tr class="template-row-incitycab">
 								
 						                <td>
 											<div class="table-check">
@@ -2842,22 +2862,35 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										</td>
 						                <td>
 						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="width: 120%; height: 100px;" id="cabsRemarks"></textarea>
+											style="height: 100px;" id="cabsRemarks"></textarea>
 						                </td>
+										<td>
+						                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
+										<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-incitycab" alt="Delete Icon">
+						            </td>
 						            </tr>
-						            <tr class="last-add">
+						            <!--<tr class="last-add">
 						                <td colspan="10">
 						                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
 						                </td>
-						            </tr>
+						            </tr>-->
 						        </tbody>
 						    </table>
+							<div class="last-add">
+								<div colspan="10" style="padding: .75rem;">
+									 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addInCityCab()">+ ADD</button>
+								</div>
+							</div>
+							
+							<div class="w-100 text-right">
+							   <button class="btn btn-primary" id="btnSaveIncityCabRequest" onclick="getTableDataIncity()" >Save & Next</button>
+							   </div>						
 							
 						</div>
 						<!-- Food Table -->
 						<div class="table-responsive" id="foodTable" style="display: none;">
 						    <table class="table table-reimbursements">
-						        <thead >
+						        <thead>
 									<tr>
 										<th>
 						                        <img src="img/food-white.svg" >
@@ -2869,6 +2902,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						            <th></th>
 						            <th></th>
 						            <th></th>
+									<th></th>
 									<th></th>
 									<th>
 						                    <img src="img/delete-white.svg" alt="Plane Icon">
@@ -2892,9 +2926,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										<th></th>
 										<th></th>
 										<th></th>
+										<th></th>
 						            </tr>
 						        </thead>
-						        <tbody>
+								<tbody id="reimbursementsBodyFood">
+								  <tr class="template-row-food">
 								
 						                <td>
 											<div class="table-check">
@@ -2947,17 +2983,32 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										</td>
 						                <td>
 						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
+											style="height: 100px;" id="travelRemarks"></textarea>
 						                </td>
+										<td>
+							                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
+											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-food" alt="Delete Icon">
+							            </td>
 										
 						            </tr>
-						            <tr class="last-add">
+						          <!--  <tr class="last-add">
 						                <td colspan="10">
 						                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
 						                </td>
-						            </tr>
+						            </tr>-->
 						        </tbody>
 						    </table>
+							<div class="last-add">
+								<div colspan="10" style="padding: .75rem;">
+									 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addFood()">+ ADD</button>
+								</div>
+							</div>
+						
+							<div class="w-100 text-right">
+							   <button class="btn btn-primary" id="btnSaveFoodRequest" onclick="getTableDataFood()">Save & Next</button>
+							 				   						      
+							    <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
+						    </div>
 							
 						</div>
 						<!-- Miscellaneous Table -->
@@ -2998,8 +3049,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										<th></th>
 						            </tr>
 						        </thead>
-						        <tbody>
-								
+								<tbody id="reimbursementsBodyMiscellaneous">
+								 <tr class="template-row-miscellaneous">
 						                <td>
 											<div class="table-check">
 												<input type="checkbox" id="customCheck3">
@@ -3050,32 +3101,26 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										</td>
 						                <td>
 						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
+											style="height: 100px;" id="travelRemarks"></textarea>
 						                </td>
+										<td>
+							                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
+											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-miscellaneous" alt="Delete Icon">
+							            </td>
 						            </tr>
-						            <tr class="last-add">
-						                <td colspan="10">
-						                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
-						                </td>
-						            </tr>
+						            
 						        </tbody>
 						    </table>
-							
-						</div>
-						<div class="w-100 my-3 d-flex justify-content-between">
-						    <!-- Delete button on the left -->
-						    <div class="w-50 text-left">
-						        <span>
-						            <img src="img/del.svg" class="img-button"> 
-						        </span>
+							<div class="last-add">
+				                <div colspan="10">
+									<button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addmiscellaneous()">+ ADD</button>
+				                </div>
+				            </div>
+							<div class="w-100 text-right">
+							   <button class="btn btn-primary" id="btnSaveMiscellaneousRequest" onclick="getTableDataMiscellaneous()" >Save & Next</button>
+							    <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
 						    </div>
-						    
-						    <!-- Save & Next button on the right -->
-						    <div class="w-50 text-right">
-								<button class="btn btn-primary" id="btnSaveTravelRequest" onclick="saveTravelRequest()" >Save & Next</button>
-						       <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
-						    </div>
-						</div>
+						</div>						
 						
 		            </div>
 		        </div>

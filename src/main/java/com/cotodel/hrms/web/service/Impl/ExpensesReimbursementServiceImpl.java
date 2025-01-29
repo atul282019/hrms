@@ -12,6 +12,7 @@ import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequestNew;
+import com.cotodel.hrms.web.response.TravelRequest;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.CopyUtility;
@@ -125,5 +126,10 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	public String getCashAdanceRequestData(String token, AdvanceTravelRequest advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getAdvanceTravelRequestData);
 
+	}
+
+	@Override
+	public String travelAdvanceRequest(String token, TravelRequest travelRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(travelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.cashAdvanceTravelRequest);
 	}
 }
