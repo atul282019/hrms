@@ -250,7 +250,7 @@ function saveBulkVoucherUpload(){
 			 },  		 
 	        success:function(data){
 	        var data1 = data;
-	       // console.log(data);
+	       console.log(data);
 			//var data1 = jQuery.parseJSON(data);
 			var success = data1.data.success;
 			var fail = data1.data.fail;
@@ -356,6 +356,7 @@ function saveBulkVoucherUpload(){
 					   
 				});
 			}else if(data1.status==false){
+				document.getElementById("signinLoader").style.display="none";
 				
 			}
 	     },

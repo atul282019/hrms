@@ -310,6 +310,7 @@ function submitLinkBankAccount(){
 	var banknameregex=/^[A-Za-z]+( [A-Za-z]+)?$/;
 	var merchantidregex=/^[A-Za-z0-9]+$/;
 	var submerchantidregex=/^[A-Za-z0-9]+$/;
+	var onlyNumeric=/^\d+$/;
 	
 	if(bankCode=="" || bankCode==null){
 			document.getElementById("bankNameError").innerHTML="Please Select Bank";
@@ -372,6 +373,12 @@ function submitLinkBankAccount(){
 		if(tid=="" || tid==null){
 			document.getElementById("tidError").innerHTML="Please Enter Tid";
 			return false;
+		}
+		else if(!tid.match(onlyNumeric))
+		{
+			document.getElementById("tidError").innerHTML="Only numbers are allowed in Tid";
+					document.getElementById("tid").focus();
+					return false;
 		}
 		else{
 			document.getElementById("tidError").innerHTML="";

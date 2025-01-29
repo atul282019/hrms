@@ -169,12 +169,14 @@
 	    document.getElementById("optBtn").style.display="block";
 	    }
 		else if(error==="Incorrect OTP ||"){
-			  startCountdown();
+			
+			  //startCountdown();
 			  document.getElementById("mob").value=mo;
 			  document.getElementById("orderId").value=orderid;
 			  document.getElementById("loginIdDiv").style.display="block";
 			  document.getElementById("optBtn").style.display = "none";
 			  document.getElementById("verifyotpdiv").style.display = "block";
+			 // window.location.href="/login";
 		}
 		else if(error==="No Role assigned to User. Please contact to Organisation Admin !!"){
 			document.getElementById("loginIdDiv").style.display="none";

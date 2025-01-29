@@ -330,7 +330,7 @@
 								                </div>
 												<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
 									                <div class="did-floating-label-content">
-									                    <input class="did-floating-input" type="text" placeholder=" " onkeyup="validateBankname()" id="bankingName" onkeypress="resetErrorMessages()">
+									                    <input class="did-floating-input" type="text" placeholder=" " onkeyup="validateBankname()" id="bankingName" oninput="sanitizeInput(this)" onkeypress="resetErrorMessages()">
 									                    <label class="did-floating-label" >Enter Name as on the Bank
 									                        Account</label>
 									                </div>
@@ -979,6 +979,7 @@
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
 
 	<script src="cotodel-js/linked-account.js"></script>
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 
 	 
 	<script type="text/javascript">

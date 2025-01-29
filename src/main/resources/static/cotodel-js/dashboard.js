@@ -28,5 +28,35 @@ function getProfileStatus(){
 			alert('Error: ' + e);
 		}
 	});
-}
+} 
 
+/* try executing this function if above dosent work
+function getProfileStatus() { 
+    var employerId = document.getElementById("employerId").value;
+    var employeeId = "2";  // You can change this to dynamically fetch employeeId if necessary
+    $.ajax({
+        type: "POST",
+        url: "/getCompanyProfileStatus",
+        data: {
+            "employerId": employerId,
+            "employeeId": employeeId
+        },
+        beforeSend: function(xhr) {
+            // Optional: Show loading indicator
+        },
+        success: function(data) {
+            var data1 = jQuery.parseJSON(data); // Parse the response
+            var profileComplete = data1.data.profileComplete;
+
+            // Update the profile completion text
+            document.getElementById("profileComplete").innerText = profileComplete ;
+
+            // Calculate progress bar width (assuming 3 steps)
+            var progressPercentage = (profileComplete / 3) * 100; // 3 is the total number of steps
+            document.getElementById("profile").style.width = progressPercentage + "%"; // Set the width in percentage
+        },
+        error: function(e) {
+            alert('Error: ' + e);  // Handle error
+        }
+    });
+}*/
