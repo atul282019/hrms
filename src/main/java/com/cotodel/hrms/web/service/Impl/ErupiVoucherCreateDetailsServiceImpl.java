@@ -77,7 +77,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("beneficiaryID",erupiVoucherCreateDetails.getMobile());
 		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());
 		data.put("bankcode", erupiVoucherCreateDetails.getBankCode());
-		data.put("type", "CREATE");
+		data.put("type", "");
 		
 		logger.info(data.toString());
 		return data.toString();
@@ -164,7 +164,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());
 		data.put("bankcode", erupiVoucherCreateDetails.getBankcode());
 		data.put("accountNumber", erupiVoucherCreateDetails.getAccountNumber());
-		data.put("type", "CREATE");
+		data.put("type", "");
 		data.put("arrayofid", erupiVoucherCreateDetails.getArrayofid());
 		
 		logger.info(data.toString());
@@ -229,7 +229,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		//data.put("beneficiaryID",existingUserVoucherCreationRequest.get);
 		data.put("payerVA", existingUserVoucherCreationRequest.getPayerVA());
 		data.put("bankcode", existingUserVoucherCreationRequest.getBankCode());
-		data.put("type", "CREATE");
+		data.put("type", "");
 		data.put("arrayofnamemobile", existingUserVoucherCreationRequest.getArrayofnamemobile());
 		
 		logger.info(data.toString());

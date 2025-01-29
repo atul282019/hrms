@@ -33,8 +33,6 @@
 	 <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
     <link rel="stylesheet" href="css/custom.css">
     <script type="text/javascript" src="js/xsls-export.js"></script>
-    
-     
 </head>
 	
 <body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),
@@ -422,7 +420,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 
 	<script type="text/javascript" src="cotodel-js/expenses-reimbursement.js"></script>
 	
-<!--	<script type="text/javascript" src="cotodel-js/cash-advance-request.js"></script>-->
+	<script type="text/javascript" src="cotodel-js/cash-advance-request.js"></script>
 		
 	<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 	
@@ -2498,7 +2496,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 		                   <table class="table table-reimbursements">
 							    <thead>
 							        <tr>
+			  
 							            <th><img src="img/plane-white.svg" alt="Plane Icon"></th>
+							  
 							            <th>Travel</th>
 							            <th></th>
 							            <th></th>
@@ -2507,8 +2507,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            <th></th>
 							            <th></th>
 							            <th></th>
+			 
 							            <th><img src="img/delete-white.svg" alt="Delete Icon"></th>
+															  
 							        </tr>
+		 
 							        <tr>
 							            <th>
 							                <div class="table-check">
@@ -2533,6 +2536,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							                    <input type="checkbox" class="row-check">
 							                </div>
 							            </td>
+					  
 							            <td>
 							                <select name="mode" class="form-control">
 							                    <option value="flights">Flights</option>
@@ -2551,39 +2555,57 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            </td>
 							            <td>
 							                <input type="text" name="departure" placeholder="Departure" class="form-control mb-2">
+															   
 							                <input type="text" name="arrival" placeholder="Arrival" class="form-control">
+													  
+									  
 							            </td>
 							            <td>
+										   
 							                <select class="form-control">
 							                    <option value="Before 6 am">Before 6 am</option>
 							                    <option value="6 am - 12 pm">6 am - 12 pm</option>
 							                    <option value="12 pm - 6 pm">12 pm - 6 pm</option>
 							                    <option value="After 6 pm">After 6 pm</option>
 							                </select>
+											
 							                <br>
+										   
 							                <select class="form-control">
 							                    <option value="ArrivalPreference">Arrival Preference</option>
 							                    <option value="DeparturePreference">Departure Preference</option>
 							                </select>
+											
 							            </td>
 							            <td>
+				
 							                <select class="form-control">
 							                    <option value="PremiumEco">PremiumEco</option>
 							                    <option value="Economy">Economy</option>
 							                    <option value="Business">Business</option>
 							                </select>
+											
 							                <br>
 							                <input type="text" name="carrierDetails" placeholder="Carrier Details" class="form-control">
+												  
+		   
 							            </td>
 							            <td>
+											 
 							                <select class="form-control">
 							                    <option value="NA">NA</option>
 							                    <option value="Credit Card">Credit Card</option>
 							                    <option value="Cash">Cash</option>
 							                </select>
+											
+			  
 							                <div class="mt-2">
 							                    <span class="text-muted">Limit:</span>
+						
 							                    <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray;">INR 8,000</span>
+																			 
+							   
+						 
 							                </div>
 							            </td>
 							            <td>
@@ -2606,134 +2628,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							<div class="w-100 text-right">
 							   	  <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="getTableDataTravel()">Save & Next</button>
 							  </div>	
-		                <div class="table-responsive" id="travelTable" style="display: none;">
-		                    <table class="table table-reimbursements">
-		                        <thead >
-									<tr>
-										<th>
-					                            <img src="img/plane-white.svg" alt="Plane Icon">
-					                    </th>
-									<th>  Travel</th>
-									<th></th>
-									<th></th>
-	                                <th></th>
-	                                <th></th>
-	                                <th></th>
-	                                <th></th>
-									<th></th>
-									<th>
-				                            <img src="img/delete-white.svg" alt="Plane Icon">
-				                    </th>	                                
-		                            </tr>
-									
-		                            <tr>
-										<th>
-										<div class="table-check">
-											<input type="checkbox" id="customCheck3">
-										</div>
-										</th>
-		                                <th>Mode</th>
-		                                <th>To-Be-Booked-By</th>
-		                                <th>Date</th>
-		                                <th>Location</th>
-		                                <th>Preferred Time</th>
-		                                <th>Carrier Details</th>
-		                                <th>Mode of Payment</th>
-		                                <th>Remark</th>
-										<th></th>
-		                            </tr>
-		                        </thead>
-		                        <tbody>
-								
-		                                <td>
-											<div class="table-check">
-												<input type="checkbox" id="customCheck3">
-											</div>
-		                                </td>
-		                    
-		                                <td>
-		                                    <select name="mode" class="form-control" id="tavelByMode">
-		                                        <option value="flights">Flights</option>
-												<option value="train">train</option>
-												<option value="bus">Bus</option>
-		                                    </select>
-		                                </td>
-		                                <td>
-		                                    <select name="toBeBookedBy" class="form-control" id="travelBookedBy">
-		                                        <option value="company">Company</option>
-												<option value="self">Self</option>
-		                                    </select>
-		                                </td>
-		                                <td>
-		                                    <input type="date" name="date" class="form-control" id="travelDate">
-		                                </td>
-		                                <td>
-											 <input type="text" name="departure" placeholder="Departure" 
-											 class="form-control mb-2" id="travelDepartureFrom">
-											 <input type="text" name="arrival" placeholder="Arrival" 
-											 class="form-control" id="travelArrivalTo">
-		                                    
-		                                </td>
-		                                <td>
-		                                    <div>
-												<select class="form-control" id="travelTime">
-							                       <option value="Before 6 am">Before 6 am</option>
-							                       <option value="6 am - 12 pm">6 am - 12 pm</option>
-							                       <option value="12 pm - 6 pm">12 pm - 6 pm</option>
-							                       <option value="After 6 pm">After 6 pm</option>
-							                   </select>
-		                                    </div>
-		                                    <br>
-		                                    <div>
-		                                        <select name="ArrivalPreference" class="form-control" id="travelPreference">
-		                                            <option value="ArrivalPreference">Arrival Preference</option>
-													<option value="DeparturePreference">Departure Preference</option>
-		                                        </select>
-		                                    </div>
-		                                </td>
-		                                <td>
-											<div>
-												<select class="form-control" id="travelClass">
-						                        <option value="PremiumEco">PremiumEco</option>
-						                        <option value="Economy">Economy</option>
-						                        <option value="Business">Business</option>
-						                    </select>
-		                                    </div>
-											<br>
-											<input type="text" name="arrival" placeholder="Arrival" value="INN 777"
-											class="form-control" id="travelAmount">
-											
-		                                </td>
-										<td>
-											<div style="margin-bottom: 28px;">
-												<select class="form-control" id="travelAmountPayment">
-							                       <option value="NA">NA</option>
-							                       <option value="Credit Card">Credit Card</option>
-							                       <option value="Cash">Cash</option>
-							                   </select>
-		                                    </div>
-										    
-										    <div class="mt-0" >
-										        <span class="text-muted">Limit:</span>
-										        <span 
-										            class="border rounded px-3 py-1 bg-gray-200" 
-										            style="border-color: darkgray; display: inline-block;">
-										            INR 8,000
-										        </span>
-										    </div>
-										</td>
-		                                <td>
-		                                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
-		                                </td>
-		                            </tr>
-		                            <tr class="last-add">
-		                                <td colspan="10">
-		                                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
-		                                </td>
-		                            </tr>
-		                        </tbody>
-		                    </table>
+	   
 		                </div>
 						<!-- Accommodation Table -->
 						<div class="table-responsive" id="accommodationTable" style="display: none;">
@@ -3227,8 +3122,14 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            </td>
 						            </tr>
 						            
+									   
+																								   
+						   
+					   
 						        </tbody>
 						    </table>
+	   
+			
 							<div class="last-add">
 				                <div colspan="10">
 									<button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addmiscellaneous()">+ ADD</button>
@@ -3236,16 +3137,16 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 				            </div>
 							<div class="w-100 text-right">
 							   <button class="btn btn-primary" id="btnSaveMiscellaneousRequest" onclick="getTableDataMiscellaneous()" >Save & Next</button>
-							    <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
+							    <button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">View Edit</button>
+					 
 						    </div>
-						</div>			
-						    
-						    <!-- Save & Next button on the right -->
-						    <div class="w-50 text-right">
-								<!--<button class="btn btn-primary" id="btnSaveTravelRequest" onclick="saveTravelRequest()" >Save & Next</button>-->
-						        <button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">Save & Next</button>
-						    </div>
-						</div>
+		  
+												  
+									   
+																															
+																														 
+						</div>						
+			
 						
 		            </div>
 		        </div>
@@ -3287,7 +3188,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			        </div>
 			        </div>
 			    </div>
-				<!-- new-->
+			   <!-- new-->
 				<div class="modal fade" id="travelDetailsTable1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 						    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
 						        <div class="modal-content modal-bulk">
@@ -3300,7 +3201,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 									<div class="background-wrap">
 										<span><h3>Review and Submit Request</h3></span><br>
 						            <div class="policies-wrap-in-table">
-						                <div class="table-responsive" id="travelTable1" >
+						                <div class="table-responsive-2" id="travelTableView" >
 						                    <table class="table table-reimbursements">
 						                        <thead >
 													<tr>
@@ -3420,7 +3321,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 											
 						                </div>
 										<!-- Accommodation Table -->
-										<div class="table-responsive" id="accommodationTable1" >
+										<div class="table-responsive-2" id="accommodationTable1" >
 										    <table class="table table-reimbursements">
 										        <thead >
 													<tr>
@@ -3535,7 +3436,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 											
 										</div>
 										<!-- In-City Cabs Table -->
-										<div class="table-responsive" id="inCityCabsTable1" >
+										<div class="table-responsive-2" id="inCityCabsTable1" >
 										    <table class="table table-reimbursements">
 										        <thead >
 													<tr>
@@ -3638,7 +3539,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 											
 										</div>
 										<!-- Food Table -->
-										<div class="table-responsive" id="foodTable1" >
+										<div class="table-responsive-2" id="foodTable1" >
 										    <table class="table table-reimbursements">
 										        <thead >
 													<tr>
@@ -3735,7 +3636,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 											
 										</div>
 										<!-- Miscellaneous Table -->
-										<div class="table-responsive" id="miscellaneousTable1" >
+										<div class="table-responsive-2" id="miscellaneousTable1" >
 										    <table class="table table-reimbursements">
 										        <thead >
 													<tr>

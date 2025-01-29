@@ -231,7 +231,7 @@ function saveBulkVoucherUpload(){
 					"payerVA":"",
 					"payeeVPA":"",
 					"mandateType":"01",
-					"type":"CREATE",
+					"type":"",
 					"bankcode": "",
 					"voucherId": "",
 				    "voucherCode": voucherCode,
