@@ -6258,5 +6258,41 @@ table.vcScheduledtable thead {
 					    vertical-align: middle;
 					    padding: 10px;
 					}
+					
+					.custom-btn1 {
+							    background-color: white !important;
+							    color: rgba(54, 122, 255, 1) !important;
+							    border: 2px rgba(54, 122, 255, 0.5) !important;
+								padding: 5px 12px !important; /* Adjust padding for height */
+								box-shadow: 0 0 0 2px rgba(54, 122, 255, 0.5); /* Blue outline effect on the radius */
+								}
+							.background-wrap {
+							    background-color: rgba(234, 244, 239, 1);
+							    padding: 15px;
+							}
 
-/* ends here*/
+							.custom-modal-width {
+							    max-width: 90% !important; /* Adjust the percentage or use a fixed value like 800px */
+							}
+					        .hidden {
+					            display: none;
+					        }
+					        .button {
+					            cursor: pointer;
+					            padding: 5px;
+					            border: none;
+					            background-color: #007BFF;
+					            color: white;
+					            border-radius: 5px;
+					        }
+							#myDiv {
+							            transition: max-height 0.3s ease-out;
+							            
+							            overflow: hidden;
+							        }
+							        #myDiv.collapsed {
+							            max-height: 0;
+							            padding: 0;
+							        }
+
+/* made by anish ends here*/

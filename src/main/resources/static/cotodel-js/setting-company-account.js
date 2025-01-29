@@ -40,6 +40,7 @@ function fetchOrgDetails(type) {
     }
 	function validateInput() {
 		
+		
 	    const selectedRadio = document.querySelector('input[name="orgRadio"]:checked').value;
 	    const gstInput = document.getElementById('gstnNo');
 	    const panInput = document.getElementById('panNo');
@@ -176,6 +177,9 @@ function fetchOrgDetails(type) {
 		var userMobile = document.getElementById('userMobile').value;
 		
 		var panNoFormat = new RegExp('[A-Z]{5}[0-9]{4}[A-Z]{1}');
+		var onlyAlphabets=/^[A-Za-z\s]+$/;
+		var alphanumeric=/^[A-Za-z0-9][A-Za-z0-9 ]*[A-Za-z0-9]$/;
+		var onlyNumeric=/^\d+$/;
 		
 		const radio1 = document.getElementById("gst");
 		const radio2 = document.getElementById("pan");
@@ -191,7 +195,8 @@ function fetchOrgDetails(type) {
 	        }  
 	        if (panNoFormat.test(panNo1)) {    
 	            status.textContent="";
-	        } else {    
+	        }
+			 else {    
 	            status.textContent="Please Enter Valid Pan Number";
 				document.getElementById("panNo1").focus();
 				return false;     
@@ -200,56 +205,100 @@ function fetchOrgDetails(type) {
 	            status.textContent="Please Enter Legal Name for Business";
 				document.getElementById("legalName").focus();
 				return false;
-	        } else {    
+	        }
+			else if(!legalName.match(alphanumeric)){
+				document.getElementById("LegalNameError").innerHTML="Only AlphaNumerics are allowed in Legal Name for Business";
+				document.getElementById("legalName").focus();
+				return false;
+			} 
+			else {    
 				status.textContent="";
 	        }
 			if (tradeName =="") {    
 	            status.textContent="Please Enter Trade Name";
 				document.getElementById("tradeName").focus();
 				return false;
-	        } else {    
-				status.textContent="";
+	        }
+			else if(!tradeName.match(alphanumeric)){
+				document.getElementById("tradeNameError").innerHTML="Only AlphaNumerics are allowed in Trade Name";
+				document.getElementById("tradeName").focus();
+				return false;
+				} 
+						
+			 else {    
+			status.textContent="";
 	        }     
 			if (orgType =="") {    
 	            status.textContent="Please Enter Organization Type";
 				document.getElementById("orgType").focus();
 				return false;
-	        } else {    
+	        } 
+			else if(!orgType.match(onlyAlphabets))
+				{
+						document.getElementById("orgTypeError").innerHTML="Only Alphabets are allowed in Organization Type";
+						document.getElementById("orgType").focus();
+						return false;
+				} 
+			else {    
 				status.textContent="";
 	        }    	 
 			if (address1 =="") {    
 	            status.textContent="Please Enter Address Line 1";
 				document.getElementById("address1").focus();
 				return false;
-	        } else {    
+	        }
+			
+			 else {    
 				status.textContent="";
 	        } 
 			if (address2 =="") {    
 	            status.textContent="Please Enter Address Line 2";
 				document.getElementById("address2").focus();
 				return false;
-	        } else {    
+	        }
+			
+			 else {    
 				status.textContent="";
 	        } 
 			if (district =="") {    
 	            status.textContent="Please Enter District";
 				document.getElementById("district").focus();
 				return false;
-	        } else {    
+	        }			
+			else if(!district.match(onlyAlphabets))
+				{
+						document.getElementById("districtError").innerHTML="Only Alphabets are allowed";
+						document.getElementById("district").focus();
+						return false;
+				} 
+			 else {    
 				status.textContent="";
 	        } 
-			if (pincode =="") {    
+			if (pincode =="") {   
 	            status.textContent="Please Enter Pincode";
 				document.getElementById("Pincode").focus();
 				return false;
-	        } else {    
+	        }
+			else if(!pincode.match(onlyNumeric))
+				{
+						document.getElementById("PincodeError").innerHTML="Only Numbers are allowed";
+						document.getElementById("Pincode").focus();
+						return false;
+				} 
+			 else {    
 				status.textContent="";
 	        } 
 			if (state =="") {    
 	            status.textContent="Please Enter State";
 				document.getElementById("state").focus();
 				return false;
-	        } else {    
+	        }
+			else if(!state.match(onlyAlphabets))
+							{
+									document.getElementById("stateError").innerHTML="Only Alphabets are allowed in District Name";
+									document.getElementById("state").focus();
+									return false;
+							}  else {    
 				status.textContent="";
 	        } 
 												
@@ -266,59 +315,100 @@ function fetchOrgDetails(type) {
 					            status.textContent="Please Enter Legal Name for Business";
 								document.getElementById("legalName").focus();
 								return false;
-					        } else {    
+					        }
+							else if(!legalName.match(alphanumeric)){
+								document.getElementById("LegalNameError").innerHTML="Only AlphaNumerics are allowed in Legal Name for Business";
+								document.getElementById("legalName").focus();
+								return false;
+							} 
+							else {    
 								status.textContent="";
 					        }
 							if (tradeName =="") {    
 					            status.textContent="Please Enter Trade Name";
 								document.getElementById("tradeName").focus();
 								return false;
-					        } else {    
-								status.textContent="";
+					        }
+							else if(!tradeName.match(alphanumeric)){
+								document.getElementById("tradeNameError").innerHTML="Only AlphaNumerics are allowed in Trade Name";
+								document.getElementById("tradeName").focus();
+								return false;
+								} 
+										
+							 else {    
+							status.textContent="";
 					        }     
 							if (orgType =="") {    
 					            status.textContent="Please Enter Organization Type";
 								document.getElementById("orgType").focus();
 								return false;
-					        } else {    
+					        } 
+							else if(!orgType.match(onlyAlphabets))
+								{
+										document.getElementById("orgTypeError").innerHTML="Only Alphabets are allowed in Organization Type";
+										document.getElementById("orgType").focus();
+										return false;
+								} 
+							else {    
 								status.textContent="";
 					        }    	 
 							if (address1 =="") {    
 					            status.textContent="Please Enter Address Line 1";
 								document.getElementById("address1").focus();
 								return false;
-					        } else {    
+					        }
+							
+							 else {    
 								status.textContent="";
 					        } 
-							
 							if (address2 =="") {    
 					            status.textContent="Please Enter Address Line 2";
 								document.getElementById("address2").focus();
 								return false;
-					        } else {    
+					        }
+							
+							 else {    
 								status.textContent="";
 					        } 
 							if (district =="") {    
 					            status.textContent="Please Enter District";
 								document.getElementById("district").focus();
 								return false;
-					        } else {    
+					        }			
+							else if(!district.match(onlyAlphabets))
+								{
+										document.getElementById("districtError").innerHTML="Only Alphabets are allowed";
+										document.getElementById("district").focus();
+										return false;
+								} 
+							 else {    
 								status.textContent="";
 					        } 
-							
-							
-							if (pincode =="") {    
+							if (pincode =="") {   
 					            status.textContent="Please Enter Pincode";
 								document.getElementById("Pincode").focus();
 								return false;
-					        } else {    
+					        }
+							else if(!pincode.match(onlyNumeric))
+								{
+										document.getElementById("PincodeError").innerHTML="Only Numbers are allowed";
+										document.getElementById("Pincode").focus();
+										return false;
+								} 
+							 else {    
 								status.textContent="";
 					        } 
 							if (state =="") {    
 					            status.textContent="Please Enter State";
 								document.getElementById("state").focus();
 								return false;
-					        } else {    
+					        }
+							else if(!state.match(onlyAlphabets))
+											{
+													document.getElementById("stateError").innerHTML="Only Alphabets are allowed in District Name";
+													document.getElementById("state").focus();
+													return false;
+											}  else {    
 								status.textContent="";
 					        } 
 		    } else {
@@ -975,23 +1065,19 @@ document.getElementById('flexCheckDefault').addEventListener('change', function(
 	 button.disabled = !this.checked; // Enable button when checkbox is checked
  });
 	
-function resetErrorMessages(){
-	
-	const errorFields = [
-	          "nameError",
-	          "mobileError",
-	          "emailError",
-	          "hireDateError",
-	          "jobTitleError",
-	          "departmentError",
-	          "reportingError",
-	          "salaryError",
-	          "locationError",
-	          "residenceError"
-	      ];
+ function resetErrorMessages() {
+     const errorFields = [
+         "LegalNameError",
+         "tradeNameError",
+         "orgTypeError",
+         "address1Error",
+         "address2Error",
+         "districtError",
+         "PincodeError",
+         "stateError"
+     ];
 
-	      errorFields.forEach((field) => {
-	          document.getElementById(field).textContent = "";
-	      });
-	
-}
+     errorFields.forEach((field) => {
+         document.getElementById(field).textContent = ""; // Reset each error message
+     });
+ }
