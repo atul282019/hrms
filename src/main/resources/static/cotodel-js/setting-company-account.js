@@ -295,7 +295,7 @@ function fetchOrgDetails(type) {
 	        }
 			else if(!state.match(onlyAlphabets))
 							{
-									document.getElementById("stateError").innerHTML="Only Alphabets are allowed in District Name";
+									document.getElementById("stateError").innerHTML="Only Alphabets are allowed in State Name";
 									document.getElementById("state").focus();
 									return false;
 							}  else {    
@@ -405,7 +405,7 @@ function fetchOrgDetails(type) {
 					        }
 							else if(!state.match(onlyAlphabets))
 											{
-													document.getElementById("stateError").innerHTML="Only Alphabets are allowed in District Name";
+													document.getElementById("stateError").innerHTML="Only Alphabets are allowed in State Name";
 													document.getElementById("state").focus();
 													return false;
 											}  else {    
