@@ -195,7 +195,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 																<th >EXPENSE ID</th>
 																<th>DATE & TIME</th>
 																<th>CATEGORY</th>
-																<th>TITLE</th>
+																<!--<th>TITLE</th>-->
 																<th>AMOUNT</th>
 																<th>STATUS</th>
 																<th>MODE OF PAYMENT</th>
@@ -2488,7 +2488,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 								<button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('miscellaneousTable')">
 				                <img src="img/miscellaneous-white.svg" style="margin-right: 20px; margin-bottom:5px" ></i></i>Miscellaneous<span class="ml-2 bg-green text-white rounded-full px-2">3</span>
 				            	</button>
-								
+								<!--
+								<button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">Review and Submit</button>
+									-->	
+								<button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">Review and Submit</button>
+												 
 					        </div>
 							</div>
 		            <div class="policies-wrap-in-table">
@@ -3127,9 +3131,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						   
 					   
 						        </tbody>
-						    </table>
-	   
-			
+						    </table>			
 							<div class="last-add">
 				                <div colspan="10">
 									<button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addmiscellaneous()">+ ADD</button>
@@ -3137,17 +3139,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 				            </div>
 							<div class="w-100 text-right">
 							   <button class="btn btn-primary" id="btnSaveMiscellaneousRequest" onclick="getTableDataMiscellaneous()" >Save & Next</button>
-							    <button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">View Edit</button>
-					 
-						    </div>
-		  
-												  
-									   
-																															
-																														 
-						</div>						
-			
-						
+						    </div>																									 
+						</div>							
 		            </div>
 		        </div>
 		    </div>
@@ -3580,37 +3573,37 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										               
 										    
 										                <td>
-										                    <select name="mode" class="form-control" id="typeOfMeals">
+										                    <select name="mode" class="form-control typeOfMeals" id="typeOfMeals">
 										                        <option value="Daily Meals">Daily Meals</option>
 																
 										                    </select>
+															<div class="error-message" id="error-typeOfMeals"></div>
 										                </td>
 										               
 										                <td>
-										                    <input type="date" name="date" class="form-control" id="mealDate">
+										                    <input type="date" name="date" class="form-control mealDate" id="mealDate">
 										                </td>
 										                <td>
-															<select name="mode" class="form-control" id="noOfDays">
+															<select name="mode" class="form-control noOfDays" id="noOfDays">
 										                        <option value="1">1</option>
 																
 										                    </select>
-										                    
+															<div class="error-message" id="error-noOfDays"></div>
 										                </td>
 										                <td>
-															<input type="text" name="arrival" placeholder="Arrival" value="Home"
+															<input type="text" name="arrival mealLocation" placeholder="Arrival" value="Home"
 																class="form-control" id="mealLocation">
-										                    
-										                    
+																<div class="error-message" id="error-mealLocation"></div>
 										                </td>
 														
-										                
 														<td>
 															<div style="margin-bottom: 28px;">
-																<select class="form-control" id="travelAmountPayment">
+																<select class="form-control travelAmountPayment" id="travelAmountPayment">
 											                       <option value="NA">NA</option>
 											                       <option value="Credit Card">Credit Card</option>
 											                       <option value="Cash">Cash</option>
 											                   </select>
+															   <div class="error-message" id="error-travelAmountPayment"></div>
 										                    </div>
 														    
 														    <div class="mt-0" >
@@ -3623,8 +3616,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 														    </div>
 														</td>
 										                <td>
-										                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+										                    <textarea class="border rounded px-2 py-1 w-full travelRemarks" placeholder="Add Remarks (Optional)"
 															style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
+															<div class="error-message" id="error-travelRemarks"></div>
 										                </td>
 														<td></td>
 														<td></td>

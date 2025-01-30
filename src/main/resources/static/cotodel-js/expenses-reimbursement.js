@@ -1405,22 +1405,12 @@ function getCashAdvanceRequestList(){
                 { "mData": "id", "render": function (data2, type, row) {
 					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck4" name="customCheck4" ></div>';
                  }}, 
-				//{ "mData": "sequeneId"},  
-				{ "mData": "createdDate"},   
+				{ "mData": "sequenceId"},   
                 { "mData": "createdDate"},   
 				{ "mData": "requestType"},
-				{ "mData": "mode"}, 
-				{ "mData": "amount"}, 
-               // { "mData": "createationDate"},   
-			   // { "mData": ""},   
-				   
-			 	//{ "mData": ""},    
-			 	//{ "mData": function (data1, type, row) {
-			   //     return data1.currency + " " + data1.amount;
-			   // }},
-			   //{ "mData": "statusMessage"},
-			   { "mData": "requestType"},
-				{ "mData": "modeOfPayment"},        
+			    { "mData": "carrierDetails"},
+			    { "mData": "statusRemarks"},
+				{ "mData": "paymentMode"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
                     return '<td> <div  class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpanceApproval(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
                  }}, 

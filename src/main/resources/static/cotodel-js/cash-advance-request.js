@@ -318,8 +318,22 @@ document.querySelectorAll('.remove-row-miscellaneous').forEach(button => {
         }
     });
 });
-
+//////////////////////////////////////////////////////////////////////
 function getTableDataTravel() {
+	
+	let allValid = true;
+    document.querySelectorAll(".template-row").forEach(row => {
+        if (!validateRowTravel(row)) {
+            allValid = false;
+        }
+    });
+
+    if (!allValid) {
+         preventDefault();
+        //alert("Please correct the errors before submitting.");
+		return false;
+    }
+		
     const tableRows = document.querySelectorAll("#reimbursementsBody tr");
     let tableData = [];
 
@@ -374,7 +388,27 @@ function getTableDataTravel() {
 		const travelSubType = row.querySelector('td:nth-child(9) input');
 		rowData.travelSubType = travelSubType ? travelSubType.value : "";
 		
-
+		const hotelDetails="";
+		rowData.hotelDetails=hotelDetails ? hotelDetails:"";
+		const location="";
+		rowData.location=location ?location:"";
+		const checkoutDate="";
+		rowData.checkoutDate=checkoutDate ? checkoutDate:"";
+		const checkinDate="";
+		rowData.checkinDate=checkinDate ? checkinDate:"";
+		const type="";
+		rowData.type=type ?type:"";
+		const fromLocation="";
+		rowData.fromLocation=fromLocation ? fromLocation:"";
+		const toLocation="";
+		rowData.toLocation=toLocation ?toLocation:"";
+		const typeOfMeal="";
+		rowData.typeOfMeal=typeOfMeal ?typeOfMeal:"";
+		const startDate="";
+		rowData.startDate = startDate ?startDate:"";
+		const numberOfDays="";
+		numberOfDays.numberOfDays =numberOfDays ?numberOfDays:"";;
+				
         tableData.push(rowData);
     });
 
@@ -407,9 +441,66 @@ function getTableDataTravel() {
    	});
    	
    }
+   
+   
+   function validateRowTravel(row) {
+       let isValid = true;
+       let mode = row.querySelector('select[name="mode"]');
+       let date = row.querySelector('input[name="date"]');
+       let departure = row.querySelector('input[name="departure"]');
+       let arrival = row.querySelector('input[name="arrival"]');
+
+       // Clear previous errors
+       row.querySelectorAll(".error-msg").forEach(el => el.remove());
+
+       if (!mode.value) {
+           showError(mode, "Mode is required");
+           isValid = false;
+       }
+
+       if (!date.value || new Date(date.value) < new Date()) {
+           showError(date, "Please select a valid future date");
+           isValid = false;
+       }
+
+       if (!departure.value.trim()) {
+           showError(departure, "Departure location is required");
+           isValid = false;
+       }
+
+       if (!arrival.value.trim()) {
+           showError(arrival, "Arrival location is required");
+           isValid = false;
+       }
+	   if (departure.value.trim().toLowerCase() === arrival.value.trim().toLowerCase()) {
+	              showError(arrival, "Arrival location cannot be the same as Departure");
+	              isValid = false;
+	          }
+       return isValid;
+   }
+
+   function showError(element, message) {
+       let error = document.createElement("div");
+       error.className = "error-msg";
+       error.style.color = "red";
+       error.style.fontSize = "12px";
+       error.innerText = message;
+       element.parentNode.appendChild(error);
+   }
+
+   document.querySelectorAll(".template-row").forEach(row => {
+       row.addEventListener("change", function () {
+           validateRowTravel(row);
+       });
+   });
+/////////////////////////////////////////////////////////////////////////
 function getaddTableRowAcomodation(){
 	
-
+	if (!validateTable()) {
+	     preventDefault();
+		  // Prevent form submission if validation fails
+		  return false;
+	 }
 	const tableBody = document.getElementById("reimbursementsBodyAccomodation");
 	const rows = tableBody.querySelectorAll("tr");
 	let tableData = [];
@@ -490,62 +581,239 @@ function getaddTableRowAcomodation(){
 	  	
 }
 
+    function showError(input, message) {
+        let errorSpan = input.parentElement.querySelector(".error-message");
+        if (!errorSpan) {
+            errorSpan = document.createElement("span");
+            errorSpan.classList.add("error-message");
+            errorSpan.style.color = "red";
+            errorSpan.style.display = "block";
+            errorSpan.style.fontSize = "12px";
+            input.parentElement.appendChild(errorSpan);
+        }
+        errorSpan.textContent = message;
+    }
 
+    function clearErrors(row) {
+        row.querySelectorAll(".error-message").forEach(error => error.remove());
+    }
 
-function getTableDataIncity(){
-	const tableBody = document.getElementById('reimbursementsBodyInCityCab');
-	    const rows = tableBody.querySelectorAll('tr'); // Get all rows in tbody
-	    let tableData = [];
+    function validateTable() {
+        let isValid = true;
+        let rows = document.querySelectorAll("#reimbursementsBodyAccomodation .template-row-accomodation");
 
-	    rows.forEach(row => {
-	        let rowData = {};
+        rows.forEach((row) => {
+            clearErrors(row);
 
-	        rowData.checked = row.querySelector('input[type="checkbox"]')?.checked || false;
-	        rowData.mode = row.querySelector('#cabsByMode')?.value || '';
-	        rowData.toBeBookedBy = row.querySelector('#cabsBookedBy')?.value || '';
-	        rowData.date = row.querySelector('#cabsDate')?.value || '';
-	        rowData.timePreference = row.querySelector('#cabsTime')?.value || '';
-	        rowData.fromLocation = row.querySelector('#cabsFrom')?.value || '';
-	        rowData.toLocation = row.querySelector('#cabsTo')?.value || '';
-	        rowData.paymentMode = row.querySelector('#cabsPayment')?.value || '';
-	        rowData.remarks = row.querySelector('#cabsRemarks')?.value || '';
+            let checkin = row.querySelector("#accommodationCheckinDate");
+            let checkout = row.querySelector("#accommodationCheckoutDate");
+            let location = row.querySelector("#accommodationDepartureFrom");
+            let hotelDetails = row.querySelector("#accommodationDetails");
+            let paymentMode = row.querySelector("#accommodationAmountPayment");
 
-	        tableData.push(rowData);
-	    });
+            if (!checkin.value) {
+                showError(checkin, "Check-in date is required.");
+                isValid = false;
+            }
 
+            if (!checkout.value) {
+                showError(checkout, "Check-out date is required.");
+                isValid = false;
+            }
 
-	   var employerid = document.getElementById("employerId").value;
-	   var empId = document.getElementById("empId").value;
-	   document.getElementById("signinLoader").style.display="flex";
+            if (checkin.value && checkout.value && new Date(checkin.value) >= new Date(checkout.value)) {
+                showError(checkout, "Check-out date must be after Check-in date.");
+                isValid = false;
+            }
 
-	    console.log(tableData);
+            if (!location.value.trim()) {
+                showError(location, "Location is required.");
+                isValid = false;
+            }
 
-	  $.ajax({
-	  		type: "POST",
-	  		url: "/travelAdvanceRequest",
-		contentType: "application/json",
-	  		data:JSON.stringify({
-	  			
-	  			"employeeId":empId,
-	  			"employerId":employerid,
-			    "requestType":"In-City-Cab",
-	  			"travelReimbursement":tableData
-	  		}),
-	  		success: function(data) {
-	  			var modalfirst = document.getElementById("ModalConfirm");
-	  		    modalfirst.style.display = "block";
-	  			document.getElementById("signinLoader").style.display="none";
-	  		},
-	  		error: function(e) {
-	  			alert('Failed to fetch JSON data' + e);
-	  		}
-	  	});
-	
+            if (!hotelDetails.value.trim()) {
+                showError(hotelDetails, "Hotel details are required.");
+                isValid = false;
+            }
+
+            if (!paymentMode.value || paymentMode.value === "NA") {
+                showError(paymentMode, "Please select a valid mode of payment.");
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    document.querySelectorAll(".remove-row-acomodation").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            this.closest("tr").remove();
+        });
+    });
+///////////////////////////////////////////////////////////
+
+function getTableDataIncity() {
+    const rows2 = document.querySelectorAll(".template-row-incitycab");
+
+    // Function to show error message without duplication
+    function showError(input, message) {
+        let errorDiv = input.parentNode.querySelector(".error-message"); // Look inside parent
+        if (!errorDiv) {
+            errorDiv = document.createElement("div");
+            errorDiv.className = "error-message text-danger";
+            input.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.innerText = message;
+        input.classList.add("is-invalid");
+    }
+
+    // Function to remove error message only when field is corrected
+    function removeError(input) {
+        let errorDiv = input.parentNode.querySelector(".error-message"); // Look inside parent
+        if (input.value.trim() !== "" && errorDiv) {
+            errorDiv.remove();
+            input.classList.remove("is-invalid");
+        }
+    }
+
+    // Validation function
+    function validateRow(row2) {
+        let isValid = true;
+
+        const dateInput = row2.querySelector("#cabsDate");
+        const timeInput = row2.querySelector("#cabsTime");
+        const fromInput = row2.querySelector("#cabsFrom");
+        const toInput = row2.querySelector("#cabsTo");
+        const paymentMode = row2.querySelector("#cabsPayment");
+        const bookedBy = row2.querySelector("#cabsBookedBy");
+
+        // Date Validation (Cannot be in the past)
+        const today = new Date().toISOString().split("T")[0];
+        if (dateInput.value < today) {
+            showError(dateInput, "Date cannot be in the past.");
+            isValid = false;
+        } else {
+            removeError(dateInput);
+        }
+
+        // Time Validation (HH:mm format)
+        const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+        if (!timePattern.test(timeInput.value)) {
+            showError(timeInput, "Invalid time format (HH:mm required).");
+            isValid = false;
+        } else {
+            removeError(timeInput);
+        }
+
+        // Location Validation
+        if (fromInput.value.trim() === "") {
+            showError(fromInput, "From location is required.");
+            isValid = false;
+        } else {
+            removeError(fromInput);
+        }
+
+        if (toInput.value.trim() === "") {
+            showError(toInput, "To location is required.");
+            isValid = false;
+        } else {
+            removeError(toInput);
+        }
+
+        // Prevent "From" and "To" from being the same
+        if (fromInput.value.trim() !== "" && toInput.value.trim() !== "" && fromInput.value.trim().toLowerCase() === toInput.value.trim().toLowerCase()) {
+            showError(toInput, "From and To locations cannot be the same.");
+            showError(fromInput, "From and To locations cannot be the same.");
+            isValid = false;
+        } else {
+            removeError(toInput);
+            removeError(fromInput);
+        }
+
+        // Payment Mode Validation
+        if (bookedBy.value === "self" && paymentMode.value === "NA") {
+            showError(paymentMode, "Payment mode cannot be 'NA' when booked by self.");
+            isValid = false;
+        } else {
+            removeError(paymentMode);
+        }
+
+        return isValid;
+    }
+
+    // Real-time validation (Prevent error duplication)
+    rows2.forEach(row => {
+        row.querySelectorAll("input, select").forEach(input => {
+            input.addEventListener("input", function () {
+                validateRow(row);
+            });
+        });
+    });
+
+    let allValid = true;
+    rows2.forEach(row => {
+        if (!validateRow(row)) {
+            allValid = false;
+        }
+    });
+
+    if (!allValid) {
+        event.preventDefault(); // Prevent form submission if validation fails
+        return;
+    }
+
+    const tableBody = document.getElementById('reimbursementsBodyInCityCab');
+    const rows = tableBody.querySelectorAll('tr');
+    let tableData = [];
+
+    rows.forEach(row => {
+        let rowData = {};
+
+        rowData.checked = row.querySelector('input[type="checkbox"]')?.checked || false;
+        rowData.mode = row.querySelector('#cabsByMode')?.value || '';
+        rowData.toBeBookedBy = row.querySelector('#cabsBookedBy')?.value || '';
+        rowData.date = row.querySelector('#cabsDate')?.value || '';
+        rowData.timePreference = row.querySelector('#cabsTime')?.value || '';
+        rowData.fromLocation = row.querySelector('#cabsFrom')?.value || '';
+        rowData.toLocation = row.querySelector('#cabsTo')?.value || '';
+        rowData.paymentMode = row.querySelector('#cabsPayment')?.value || '';
+        rowData.remarks = row.querySelector('#cabsRemarks')?.value || '';
+
+        tableData.push(rowData);
+    });
+
+    var employerid = document.getElementById("employerId").value;
+    var empId = document.getElementById("empId").value;
+    document.getElementById("signinLoader").style.display = "flex";
+
+    console.log(tableData);
+
+    $.ajax({
+        type: "POST",
+        url: "/travelAdvanceRequest",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "employeeId": empId,
+            "employerId": employerid,
+            "requestType": "In-City-Cab",
+            "travelReimbursement": tableData
+        }),
+        success: function (data) {
+            var modalfirst = document.getElementById("ModalConfirm");
+            modalfirst.style.display = "block";
+            document.getElementById("signinLoader").style.display = "none";
+        },
+        error: function (e) {
+            alert('Failed to fetch JSON data' + e);
+        }
+    });
 }
 
 
+///////////////////////////////////////////////
+
 function getTableDataFood(){
-		
+
 		const tableRows = document.querySelectorAll("#reimbursementsBodyFood tr");
 		    let tableData = [];
 	
@@ -592,6 +860,7 @@ function getTableDataFood(){
 	
 }
 
+//////////////////////////////////////////////
 function getTableDataMiscellaneous(){
 		const tableRows = document.querySelectorAll("#reimbursementsBodyFood tr");
 		let tableData = [];
