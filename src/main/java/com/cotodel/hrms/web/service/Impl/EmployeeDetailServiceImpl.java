@@ -186,8 +186,13 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	@Override
 	public String saveEmployeeProfile(String token, EmployeeOnboarding employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeProfile);
+		
+		
 	}
 
-	
+	@Override
+	public String getEmployeeOnboardingByManagerId(String token, EmployeeOnboarding employeeOnboarding) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingByIdManagerId);
+	}
 	
 }

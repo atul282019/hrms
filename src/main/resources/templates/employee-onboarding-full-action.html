@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top">
+<body id="page-top" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -72,7 +72,10 @@
                     </ul>			
                 </nav>
                 <!-- End of Topbar -->
-
+				<!--<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">-->
+				<input type="hidden" class="form-input" name="employeeId" id="employeeId" value="26">
+				<input type="hidden" class="form-input" name="reportingManagerid" id="reportingManagerid" value="561">
+				<!--<input type="hidden" class="form-input" id="reportingManagerid" name="reportingManagerid" th:value="${reportingManagerid}">-->
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
@@ -112,31 +115,31 @@
                                                         </div>                                                         
                                                         
                                                         <div class="profile-add-wrap">
-                                                             <div class="profile-add"><img src="img/mail.svg" alt=""> <span th:text="${email}"></span></div>
-                                                            <div class="profile-add"><img src="img/call.svg" alt="">+91 <span th:text="${mobile}"></span></div>
-                                                            <div class="profile-add"><img src="img/location.svg" alt="">India, Gurgaon</div>
+                                                             <div class="profile-add"><img src="img/mail.svg" alt="">  <span id="profileEmail">Loading...</span></div>
+                                                            <div class="profile-add"><img src="img/call.svg" alt="">+91 <span id="mobile"></span></div>
+                                                            <div class="profile-add"><img src="img/location.svg" alt=""><span id="location">India, Gurgaon</span></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="profile-info-wrap">
                                                             <div class="profile-info">
                                                                 <label for="">Designation</label>
-                                                                <p>Product Manager</p>
+                                                               <p id="designation">Software Engineer</p>
                                                             </div>
 
                                                             <div class="profile-info">
                                                                 <label for="">Department</label>
-                                                                <p>Product</p>
+                                                                <p id="depratment"></p>
                                                             </div>
 
                                                             <div class="profile-info">
                                                                 <label for="">Reporting Manager</label>
-                                                                <p>Jhon Wik</p>
+                                                                <p id="mngrName">Jhon Wik</p>
                                                             </div>
 
                                                             <div class="profile-info">
                                                                 <label for="">Employment Type</label>
-                                                                <p>Full Time</p>
+                                                                <p id="empType">Full Time</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -165,47 +168,48 @@
                                                 <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
                                                     <h5>Primary Details</h5>
                                                     <div class="primary-Details-wrap">
-                                                        <div class="Primary-details-info">
-                                                            <label for="">First Name</label>
-                                                            <p>Nitin</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Middle Name</label>
-                                                            <p>Narendra Kumar</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Last Name</label>
-                                                            <p>Jariwal</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Gender</label>
-                                                            <p>Male</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Date of Birth</label>
-                                                            <p>02 Sept. 2001</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Martial Status</label>
-                                                            <p>Single</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Physically Handicapped</label>
-                                                            <p>No</p>
-                                                        </div>
+														<div class="Primary-details-info">
+														                  <label>Name</label>
+														                  <p id="firstName"></p>
+														              </div>
+														              <!--<div class="Primary-details-info">
+														                  <label>Middle Name</label>
+														                  <p id="middleName"></p>
+														              </div>
+														              <div class="Primary-details-info">
+														                  <label>Last Name</label>
+														                  <p id="lastName"></p>
+														              </div>-->
+														              <div class="Primary-details-info">
+														                  <label>Gender</label>
+														                  <p id="gender"></p>
+														              </div>
+														              <div class="Primary-details-info">
+														                  <label>Date of Birth</label>
+														                  <p id="dob"></p>
+														              </div>
+														              <div class="Primary-details-info">
+														                  <label>Marital Status</label>
+														                  <p id="maritalStatus"></p>
+														              </div>
+														              <div class="Primary-details-info">
+														                  <label>Physically Handicapped</label>
+														                  <p id="handicapped"></p>
+														              </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
-                                                    <h5>Reporting Team (12)</h5>
+                                                   <!-- <h5>Reporting Team (<span id="teamCount">0</span>)</h5> if more than one employee-->
+												    <h5>Reporting Team (12)</h5>
                                                     <div class="Reporting-team-wrap">
                                                         <div class="Reporting-team-info row">
                                                             <div class="col-3 text-center">
                                                                 <img src="img/sm-profile.svg" alt="">
                                                             </div>
                                                             <div class="col-9">
-                                                                <p>Victor Pacho</p>
-                                                                <label for="">Senior Engineer</label>
+                                                                <p id="reportingName1">N/A</p>
+                                                                <label for="" id="mngrPosition">N/A</label>
                                                             </div>
                                                         </div>
 
@@ -279,7 +283,7 @@
                                                             </div>
                                                             <div class="col-10 col-md-11">
                                                                 <label for="">Work Anniversary - 3rd</label>
-                                                                <p>Jan 24,2020</p>
+                                                                <p id="workAniv">Jan 24,2020</p>
                                                             </div>
                                                         </div>
                                                         <div class="timeline-detl-info timeline-line row">
@@ -288,7 +292,7 @@
                                                             </div>
                                                             <div class="col-10 col-md-11">
                                                                 <label for="">Pay Increase</label>
-                                                                <p>Jan 24,2020</p>
+                                                                <p id="payIncrease">Jan 24,2020</p>
                                                             </div>
                                                         </div>
                                                         <div class="timeline-detl-info row">
@@ -297,9 +301,9 @@
                                                             </div>
                                                             <div class="col-10 col-md-11">
                                                                 <label for="">Praise - Super Start Worker</label>
-                                                                <p>Jan 24,2020</p>
+                                                               <p id="praise">Jan 24,2020</p>
                                                                 <div class="info-msg">
-                                                                    <strong>Raj Kumar Srinath</strong>
+                                                                    <strong id="fullName">Raj Kumar Srinath</strong>
                                                                     <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
                                                                 </div>
                                                             </div>
@@ -1107,7 +1111,13 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
+	<script type="text/javascript" src="cotodel-js/employee-onboarding-full-action.js"></script>
+	<script>
+		window.onload = function () {
+		    getEmployeeOnboardingById();
+			getEmployeeOnboardingByManagerId();
+		};
+	</script>
     <script>
         $(document).on('change','.up', function(){
 		   	var names = [];
