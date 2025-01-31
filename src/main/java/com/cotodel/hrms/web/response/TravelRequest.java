@@ -14,6 +14,6 @@ public class TravelRequest {
 	private Integer employeeId;
 	private Integer employerId;
 	private String requestType;
-	private List<TravelReimbursement> travelReimbursement;
+	private List<TravelAddRequest> travelReimbursement;
 
 }

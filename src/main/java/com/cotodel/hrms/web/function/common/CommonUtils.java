@@ -167,5 +167,5 @@ public interface CommonUtils {
 	public static String cashAdvanceTravelRequest = "/empService/Api/add/advanceTravelRequest";
 	public static String getAdvanceTravelRequestData = "/empService/Api/get/advanceTravelRequest";
 	
-	
+	public static String getTravelReviewData = "/empService/Api/get/advanceTravelRequestStatus";
 }

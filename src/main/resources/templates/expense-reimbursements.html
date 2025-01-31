@@ -2471,30 +2471,30 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			                    <span aria-hidden="true">×</span>
 			                </button>
 					</div><hr><br>
-					<div class="text-left">					
-					        <div class="flex items-center space-x-4 mb-4">
-					            <button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('travelTable')">
-					                <img src="img/plane-white.svg">Travel <span class="ml-2 bg-green text-white rounded-full px-2">3</span>
-					            </button>
-					            <button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('accommodationTable')">
-					                <i class="fas fa-bed mr-2"></i>Accommodation <span class="ml-2 bg-green text-white rounded-full px-2">3</span>
-					            </button>
-								<button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('inCityCabsTable')">
-				                <i class="fas fa-taxi mr-2"></i></i></i>In-City Cabs<span class="ml-2 bg-green text-white rounded-full px-2">3</span>
-				            	</button>
-								<button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('foodTable')">
-				                <i class="fas fa-food mr-2"></i><img src="img/food-white.svg" style=" margin-bottom:3px" ></i></i>Food<span class="ml-2 bg-green text-white rounded-full px-2">3</span>
-				            	</button>
-								<button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('miscellaneousTable')">
-				                <img src="img/miscellaneous-white.svg" style="margin-right: 20px; margin-bottom:5px" ></i></i>Miscellaneous<span class="ml-2 bg-green text-white rounded-full px-2">3</span>
-				            	</button>
-								<!--
-								<button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">Review and Submit</button>
-									-->	
-								<button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">Review and Submit</button>
-												 
-					        </div>
-							</div>
+		<div class="text-left">					
+		        <div class="flex items-center space-x-4 mb-4">
+		            <button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('travelTable')">
+		                <img src="img/plane-white.svg">Travel <span class="ml-2 bg-green text-white rounded-full px-2">3</span>
+		            </button>
+		            <button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('accommodationTable')">
+		                <i class="fas fa-bed mr-2"></i>Accommodation <span class="ml-2 bg-green text-white rounded-full px-2">3</span>
+		            </button>
+					<button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('inCityCabsTable')">
+	                <i class="fas fa-taxi mr-2"></i></i></i>In-City Cabs<span class="ml-2 bg-green text-white rounded-full px-2">3</span>
+	            	</button>
+					<button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('foodTable')">
+	                <i class="fas fa-food mr-2"></i><img src="img/food-white.svg" style=" margin-bottom:3px" ></i></i>Food<span class="ml-2 bg-green text-white rounded-full px-2">3</span>
+	            	</button>
+					<button class="flex items-center btn-attach px-4 py-2 rounded" onclick="showTable('miscellaneousTable')">
+	                <img src="img/miscellaneous-white.svg" style="margin-right: 20px; margin-bottom:5px" ></i></i>Miscellaneous<span class="ml-2 bg-green text-white rounded-full px-2">3</span>
+	            	</button>
+					<!--
+					<button class="btn btn-primary" data-toggle="modal" data-target="#travelDetailsTable1">Review and Submit</button>
+				    -->
+					<button type="button" class="btn btn-primary" id="reviewAndSubmit" onclick="ReviewandSybmit()">Review and Submit</button>
+									 
+		        </div>
+				</div>
 		            <div class="policies-wrap-in-table">
 		                <div class="table-responsive" id="travelTable" style="display: block;">
 		                   <table class="table table-reimbursements">
@@ -2973,7 +2973,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                    
 						                </td>
 						                <td>
-											<input type="text" name="arrival" placeholder="Arrival" value="Home"
+											<input type="text" name="arrival" placeholder="Arrival" 
 												class="form-control" id="mealLocation">
 						                    
 						                    
@@ -3181,561 +3181,558 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			        </div>
 			        </div>
 			    </div>
-			   <!-- new-->
-				<div class="modal fade" id="travelDetailsTable1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
-						        <div class="modal-content modal-bulk">
-									<div class="modal-header pb-0 text-left">
-										<h5 class="modal-title">Travel Request</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							                    <span aria-hidden="true">×</span>
-							                </button>
-									</div><hr><br>
-									<div class="background-wrap">
-										<span><h3>Review and Submit Request</h3></span><br>
-						            <div class="policies-wrap-in-table">
-						                <div class="table-responsive-2" id="travelTableView" >
-						                    <table class="table table-reimbursements">
-						                        <thead >
-													<tr>
-														<th>
-									                            <img src="img/plane-white.svg" alt="Plane Icon">
-									                    </th>
-													<th>  Travel</th>
-													<th></th>
-													<th></th>
-					                                <th></th>
-					                                <th></th>
-					                                <th></th>
-					                                <th></th>
-													
-													<th>
-								                            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-								                    </th>	                                
-						                            </tr>
-													
-						                            <tr>
-														
-						                                <th>Mode</th>
-						                                <th>To-Be-Booked-By</th>
-						                                <th>Date</th>
-						                                <th>Location</th>
-						                                <th>Preferred Time</th>
-						                                <th>Carrier Details</th>
-						                                <th>Mode of Payment</th>
-						                                <th>Remark</th>
-														<th></th>
-						                            </tr>
-						                        </thead>
-						                        <tbody>
-												
-						                                
-						                    
-						                                <td>
-						                                    <select name="mode" class="form-control" id="tavelByMode">
-						                                        <option value="flights">Flights</option>
-																<option value="train">train</option>
-																<option value="bus">Bus</option>
-						                                    </select>
-						                                </td>
-						                                <td>
-						                                    <select name="toBeBookedBy" class="form-control" id="travelBookedBy">
-						                                        <option value="company">Company</option>
-																<option value="self">Self</option>
-						                                    </select>
-						                                </td>
-						                                <td>
-						                                    <input type="date" name="date" class="form-control" id="travelDate">
-						                                </td>
-						                                <td>
-															 <input type="text" name="departure" placeholder="Departure" 
-															 class="form-control mb-2" id="travelDepartureFrom">
-															 <input type="text" name="arrival" placeholder="Arrival" 
-															 class="form-control" id="travelArrivalTo">
-						                                    
-						                                </td>
-						                                <td>
-						                                    <div>
-																<select class="form-control" id="travelTime">
-											                       <option value="Before 6 am">Before 6 am</option>
-											                       <option value="6 am - 12 pm">6 am - 12 pm</option>
-											                       <option value="12 pm - 6 pm">12 pm - 6 pm</option>
-											                       <option value="After 6 pm">After 6 pm</option>
-											                   </select>
-						                                    </div>
-						                                    <br>
-						                                    <div>
-						                                        <select name="ArrivalPreference" class="form-control" id="travelPreference">
-						                                            <option value="ArrivalPreference">Arrival Preference</option>
-																	<option value="DeparturePreference">Departure Preference</option>
-						                                        </select>
-						                                    </div>
-						                                </td>
-						                                <td>
-															<div>
-																<select class="form-control" id="travelClass">
-										                        <option value="PremiumEco">PremiumEco</option>
-										                        <option value="Economy">Economy</option>
-										                        <option value="Business">Business</option>
-										                    </select>
-						                                    </div>
-															<br>
-															<input type="text" name="arrival" placeholder="Arrival" value="INN 777"
-															class="form-control" id="travelAmount">
-															
-						                                </td>
-														<td>
-															<div style="margin-bottom: 28px;">
-																<select class="form-control" id="travelAmountPayment">
-											                       <option value="NA">NA</option>
-											                       <option value="Credit Card">Credit Card</option>
-											                       <option value="Cash">Cash</option>
-											                   </select>
-						                                    </div>
-														    
-														    <div class="mt-0" >
-														        <span class="text-muted">Limit:</span>
-														        <span 
-														            class="border rounded px-3 py-1 bg-gray-200" 
-														            style="border-color: darkgray; display: inline-block;">
-														            INR 8,000
-														        </span>
-														    </div>
-														</td>
-						                                <td>
-						                                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-															style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
-						                                </td>
-														<td></td>
-						                            </tr>
-						                           
-						                        </tbody>
-						                    </table>
-											
-						                </div>
-										<!-- Accommodation Table -->
-										<div class="table-responsive-2" id="accommodationTable1" >
-										    <table class="table table-reimbursements">
-										        <thead >
-													<tr>
-														<th>
-										                        <img src="img/accommodation-white.svg" >
-										                </th>
-													<th>  Accommodation</th>
-													<th></th>
-													<th></th>
-										            <th></th>
-										            <th></th>
-										            <th></th>
-										            <th></th>
-													
-													<th>
-										                    <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-										            </th>	                                
-										            </tr>
-													
-										            <tr>
-														
-										                <th>Type</th>
-										                <th>To-Be-Booked-By</th>
-										                <th>Date</th>
-										                <th>Location</th>
-										                <th>Hotel Details</th>
-										                <th>Preferences</th>
-										                <th>Mode of Payment</th>
-										                <th>Remark</th>
-														<th></th>
-										            </tr>
-										        </thead>
-										        <tbody>
-												
-										                
-										                <td> 
-															<div style="margin-bottom: 60px;">
-										                    <select name="mode" class="form-control" id="accommodationByMode">
-										                        <option value="Hotels">Hotels</option>
-																
-										                    </select>
-															</div>
-										                </td>
-										                <td>
-															<div style="margin-bottom: 60px;">
-										                    <select name="toBeBookedBy" class="form-control" id="accommodationBookedBy">
-										                        <option value="company">Company</option>
-																<option value="self">Self</option>
-										                    </select>
-															</div>
-										                </td>
-										                <td>
-															<div style="margin-bottom: 60px;">
-															<label for="accommodationCheckinDate">Check-in</label>
-															    <input type="date" name="checkinDate" class="form-control" id="accommodationCheckinDate">
-															    
-															    <label for="accommodationCheckoutDate">Check-out</label>
-															    <input type="date" name="checkoutDate" class="form-control" id="accommodationCheckoutDate">
-																</div>
-															
-										                </td>
-										                <td>
-															<div style="margin-bottom: 60px;">
-															 <input type="text" name="location" placeholder="Banglore" 
-															 class="form-control mb-2" id="accommodationDepartureFrom">
-															</div>
-										                    
-										                </td>
-										                <td>
-															<div style="margin-bottom: 60px;">
-															<input type="text" name="location" placeholder="Treebo Hotels" 
-															 class="form-control mb-2" id="accommodationDetails">
-															</div>
-										                    
-										                </td>
-										                <td>
-															<div style="margin-bottom: 60px;">
-										                        <select  class="form-control" id="accommodationPreference">
-										                            
-																	<option value="14:00 Hrs">14:00 Hrs</option>
-										                        </select>
-										                    </div>
-															
-										                </td>
-														<td>
-															<div style="margin-bottom: 28px;">
-																<select class="form-control" id="accommodationAmountPayment">
-											                       <option value="NA">NA</option>
-											                       <option value="Credit Card">Credit Card</option>
-											                       <option value="Cash">Cash</option>
-											                   </select>
-										                    </div>
-														    
-														    <div class="mt-0" >
-														        <span class="text-muted">Limit:</span>
-														        <span 
-														            class="border rounded px-3 py-1 bg-gray-200" 
-														            style="border-color: darkgray; display: inline-block;">
-														            INR 8,000
-														        </span>
-														    </div>
-														</td>
-										                <td>
-										                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-															style="width: 140%; height: 100px;" id="accommodationRemarks"></textarea>
-										                </td>
-														<td></td>
-										            </tr>
-										           
-										        </tbody>
-										    </table>
-											
-										</div>
-										<!-- In-City Cabs Table -->
-										<div class="table-responsive-2" id="inCityCabsTable1" >
-										    <table class="table table-reimbursements">
-										        <thead >
-													<tr>
-														<th>
-										                        <img src="img/citycabs-white.svg" >
-										                </th>
-													<th style="white-space: nowrap;"> In-City Cabs</th>
-													<th></th>
-													<th></th>
-										            <th></th>
-										            <th></th>
-										            <th></th>
-										           
-													
-													<th>
-										                    <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-										            </th>	                                
-										            </tr>
-													
-										            <tr>
-														
-										                <th>Type</th>
-										                <th>To-Be-Booked-By</th>
-										                <th>Date</th>
-										                <th>Time</th>
-										                <th>Location</th>
-										               
-										                <th>Mode of Payment</th>
-										                <th>Remark</th>
-														<th></th>
-										            </tr>
-										        </thead>
-										        <tbody>
-												
-										                
-										    
-										                <td>
-										                    <select name="mode" class="form-control" id="cabsByMode">
-										                        <option value="flights">Flights</option>
-																<option value="train">train</option>
-																<option value="bus">Bus</option>
-										                    </select>
-										                </td>
-										                <td>
-										                    <select name="toBeBookedBy" class="form-control" id="cabsBookedBy">
-										                        <option value="company">Company</option>
-																<option value="self">Self</option>
-										                    </select>
-										                </td>
-										                <td>
-										                    <input type="date" name="date" class="form-control" id="cabsDate">
-										                </td>
-										                <td>
-															 
-															 <input type="text" name="arrival" placeholder="14:00 Hrs" 
-															 class="form-control" id="cabsTime">
-										                    
-										                </td>
-										                <td>
-															<div style="margin-bottom: -5px;">
-															<input type="text" name="location" placeholder="From" 
-															 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;">
-															 <br>
-															 <input type="text" name="location" placeholder="To" 
-				  											 class="form-control mb-2" id="cabsTo">
-															
-															 
-															 </div>
-										                    
-															
-										                </td>
-										                
-														<td>
-															<div style="margin-bottom: 28px;">
-																<select class="form-control" id="cabsPayment">
-											                       <option value="NA">NA</option>
-											                       <option value="Credit Card">Credit Card</option>
-											                       <option value="Cash">Cash</option>
-											                   </select>
-										                    </div>
-														    
-														    <div class="mt-0" >
-														        <span class="text-muted">Limit:</span>
-														        <span 
-														            class="border rounded px-3 py-1 bg-gray-200" 
-														            style="border-color: darkgray; display: inline-block;">
-														            INR 8,000
-														        </span>
-														    </div>
-														</td>
-										                <td>
-										                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-															style="width: 120%; height: 100px;" id="cabsRemarks"></textarea>
-										                </td>
-														<td></td>
-										            </tr>
-										            
-										        </tbody>
-										    </table>
-											
-										</div>
-										<!-- Food Table -->
-										<div class="table-responsive-2" id="foodTable1" >
-										    <table class="table table-reimbursements">
-										        <thead >
-													<tr>
-														<th>
-										                        <img src="img/food-white.svg" >
-										                </th>
-													<th style="white-space: nowrap;"> Food</th>
-													<th></th>
-													<th></th>
-										            <th></th>
-										            <th></th>
-										            <th></th>
-										            <th></th>
-													
-													<th>
-										                    <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-										            </th>	                                
-										            </tr>
-													
-										            <tr>
-														
-										                <th>Type of Meal</th>
-										                
-										                <th>Start Date</th>
-										                <th>Number of Days</th>
-										                <th>Location</th>
-														
-										                <th>Mode of Payment</th>
-														
-										                <th>Remark</th>
-														<th></th>
-														<th></th>
-														<th></th>
-										            </tr>
-										        </thead>
-										        <tbody>
-												
-										               
-										    
-										                <td>
-										                    <select name="mode" class="form-control typeOfMeals" id="typeOfMeals">
-										                        <option value="Daily Meals">Daily Meals</option>
-																
-										                    </select>
-															<div class="error-message" id="error-typeOfMeals"></div>
-										                </td>
-										               
-										                <td>
-										                    <input type="date" name="date" class="form-control mealDate" id="mealDate">
-										                </td>
-										                <td>
-															<select name="mode" class="form-control noOfDays" id="noOfDays">
-										                        <option value="1">1</option>
-																
-										                    </select>
-															<div class="error-message" id="error-noOfDays"></div>
-										                </td>
-										                <td>
-															<input type="text" name="arrival mealLocation" placeholder="Arrival" value="Home"
-																class="form-control" id="mealLocation">
-																<div class="error-message" id="error-mealLocation"></div>
-										                </td>
-														
-														<td>
-															<div style="margin-bottom: 28px;">
-																<select class="form-control travelAmountPayment" id="travelAmountPayment">
-											                       <option value="NA">NA</option>
-											                       <option value="Credit Card">Credit Card</option>
-											                       <option value="Cash">Cash</option>
-											                   </select>
-															   <div class="error-message" id="error-travelAmountPayment"></div>
-										                    </div>
-														    
-														    <div class="mt-0" >
-														        <span class="text-muted">Limit:</span>
-														        <span 
-														            class="border rounded px-3 py-1 bg-gray-200" 
-														            style="border-color: darkgray; display: inline-block;">
-														            INR 8,000
-														        </span>
-														    </div>
-														</td>
-										                <td>
-										                    <textarea class="border rounded px-2 py-1 w-full travelRemarks" placeholder="Add Remarks (Optional)"
-															style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
-															<div class="error-message" id="error-travelRemarks"></div>
-										                </td>
-														<td></td>
-														<td></td>
-														
-										            </tr>
-										            
-										        </tbody>
-										    </table>
-											
-										</div>
-										<!-- Miscellaneous Table -->
-										<div class="table-responsive-2" id="miscellaneousTable1" >
-										    <table class="table table-reimbursements">
-										        <thead >
-													<tr>
-														<th>
-										                        <img src="img/miscellaneous-white.svg" class="align-start">
-										                </th>
-													<th style="white-space: nowrap;">Miscellaneous </th>
-													<th></th>
-													<th></th>
-										            <th></th>
-										            <th></th>
-										            <th></th>
-										            <th></th>
-													
-													<th>
-										                    <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-										            </th>	                                
-										            </tr>
-													
-										            <tr>
-														
-										                <th>Title</th>
-										                <th>To-Be-Booked-By</th>
-										                <th>Date</th>
-										                <th>Tentative Amount</th>
-										                <th></th>
-										                <th></th>
-										                <th>Mode of Payment</th>
-										                <th>Remarks (Compulsory)</th>
-														<th></th>
-										            </tr>
-										        </thead>
-										        <tbody>
-												
-										                
-										    
-										                <td>
-										                   
-															<input type="text" name="" placeholder="Product Samples - 10 Pieces" 
-															 class="form-control mb-2" id="miscTitle">
-										                </td>
-										                <td>
-										                    <select name="toBeBookedBy" class="form-control" id="miscBookedBy">
-										                        <option value="company">Company</option>
-																<option value="self">Self</option>
-										                    </select>
-										                </td>
-										                <td>
-										                    <input type="date" name="date" class="form-control" id="miscDate">
-										                </td>
-										                <td>
-															 <input type="text" name="departure" placeholder="INR 5000" 
-															 class="form-control mb-2" id="miscAmount">
-															 
-										                    
-										                </td>
-										                <td>  
-										                </td>
-										                <td>
-										                </td>
-														<td>
-															<div style="margin-bottom: 28px;">
-																<select class="form-control" id="travelAmountPayment">
-											                       <option value="NA">NA</option>
-											                       <option value="Credit Card">Credit Card</option>
-											                       <option value="Cash">Cash</option>
-											                   </select>
-										                    </div>
-														    
-														    <div class="mt-0" >
-														        <span class="text-muted">Limit:</span>
-														        <span 
-														            class="border rounded px-3 py-1 bg-gray-200" 
-														            style="border-color: darkgray; display: inline-block;">
-														            INR 8,000
-														        </span>
-														    </div>
-														</td>
-										                <td>
-										                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-															style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
-										                </td>
-														<td></td>
-										            </tr>
-										            
-										        </tbody>
-										    </table>
-											
-										</div>
-										<div class="w-100 my-3 d-flex justify-content-end">
-										    <!-- Delete button on the left -->
-										    
-										    <!-- Save & Next button on the right -->
-										    <div class="w-50 text-right">
-												<!--<button class="btn btn-primary" id="btnSaveTravelRequest" onclick="saveTravelRequest()" >Save & Next</button>-->
-												<button class="btn custom-btn1" id="btnBackTravelRequest" >Back</button>
-										        <button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="showConfirmModal()">Submit</button>
-										    </div>
-										</div>
+   <!-- new-->
+	<!--<div class="modal fade" id="travelDetailsTable1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+		<div class="modalView"  id="travelDetailsTable1" tabindex="-1" role="dialog"
+		       aria-labelledby="exampleModalCenterTitle">
+			    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
+			        <div class="modal-content modal-bulk">
+						<div class="modal-header pb-0 text-left">
+							<h5 class="modal-title">Travel Request</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReviewEdit()">
+				                    <span aria-hidden="true">×</span>
+				                </button>
+						</div><hr><br>
+						<div class="background-wrap">
+							<span><h3>Review and Submit Request</h3></span><br>
+			            <div class="policies-wrap-in-table">
+			                <div class="table-responsive-2" id="travelTableView" >
+			                    <table class="table table-reimbursements" id="travelTableViewMode">
+			                        <thead >
+										<tr>
+											<th>
+						                            <img src="img/plane-white.svg" alt="Plane Icon">
+						                    </th>
+										<th>  Travel</th>
+										<th></th>
+										<th></th>
+		                                <th></th>
+		                                <th></th>
+		                                <th></th>
+		                                <th></th>
 										
-						            </div>
-									</div><!-- custom background-wrap close-->
-						        </div>
-						    </div>
-						</div>
+										<th>
+					                            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+					                    </th>	 
+										<th></th>                               
+			                            </tr>
+										
+			                            <tr>
+											   <th></th>
+							                   <th>Mode</th>
+							                   <th>To-Be-Booked-By</th>
+							                   <th>Date</th>
+							                   <th>location</th>
+							                   <th>Preferred Time</th>
+							                   <th>Carrier Details</th>
+							                   <th>Mode of Payment</th>
+							                   <th>Remarks</th>
+											   <th></th>
+											   
+			                            </tr>
+			                        </thead>
+			                        <tbody>
+									
+			                                
+			                    
+			                               <!-- <td>
+			                                    <select name="mode" class="form-control" id="tavelByMode">
+			                                        <option value="flights">Flights</option>
+													<option value="train">train</option>
+													<option value="bus">Bus</option>
+			                                    </select>
+			                                </td>
+			                                <td>
+			                                    <select name="toBeBookedBy" class="form-control" id="travelBookedBy">
+			                                        <option value="company">Company</option>
+													<option value="self">Self</option>
+			                                    </select>
+			                                </td>
+			                                <td>
+			                                    <input type="date" name="date" class="form-control" id="travelDate">
+			                                </td>
+			                                <td>
+												 <input type="text" name="departure" placeholder="Departure" 
+												 class="form-control mb-2" id="travelDepartureFrom">
+												 <input type="text" name="arrival" placeholder="Arrival" 
+												 class="form-control" id="travelArrivalTo">
+			                                    
+			                                </td>
+			                                <td>
+			                                    <div>
+													<select class="form-control" id="travelTime">
+								                       <option value="Before 6 am">Before 6 am</option>
+								                       <option value="6 am - 12 pm">6 am - 12 pm</option>
+								                       <option value="12 pm - 6 pm">12 pm - 6 pm</option>
+								                       <option value="After 6 pm">After 6 pm</option>
+								                   </select>
+			                                    </div>
+			                                    <br>
+			                                    <div>
+			                                        <select name="ArrivalPreference" class="form-control" id="travelPreference">
+			                                            <option value="ArrivalPreference">Arrival Preference</option>
+														<option value="DeparturePreference">Departure Preference</option>
+			                                        </select>
+			                                    </div>
+			                                </td>
+			                                <td>
+												<div>
+													<select class="form-control" id="travelClass">
+							                        <option value="PremiumEco">PremiumEco</option>
+							                        <option value="Economy">Economy</option>
+							                        <option value="Business">Business</option>
+							                    </select>
+			                                    </div>
+												<br>
+												<input type="text" name="arrival" placeholder="Arrival" value="INN 777"
+												class="form-control" id="travelAmount">
+												
+			                                </td>
+											<td>
+												<div style="margin-bottom: 28px;">
+													<select class="form-control" id="travelAmountPayment">
+								                       <option value="NA">NA</option>
+								                       <option value="Credit Card">Credit Card</option>
+								                       <option value="Cash">Cash</option>
+								                   </select>
+			                                    </div>
+											    
+											    <div class="mt-0" >
+											        <span class="text-muted">Limit:</span>
+											        <span 
+											            class="border rounded px-3 py-1 bg-gray-200" 
+											            style="border-color: darkgray; display: inline-block;">
+											            INR 8,000
+											        </span>
+											    </div>
+											</td>
+			                                <td>
+			                                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+												style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
+			                                </td>
+											<td></td>
+			                            </tr>
+			                           -->
+			                        </tbody>
+			                    </table>
+								
+			                </div>
+							<!-- Accommodation Table -->
+							<div class="table-responsive-2" id="accommodationTable1" >
+							    <table class="table table-reimbursements" id="accommodationTableViewMode">
+							        <thead >
+										<tr>
+										<th>
+						                <img src="img/accommodation-white.svg" >
+						                </th>
+										<th>  Accommodation</th>
+										<th></th>
+										<th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+										<th>
+							             <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+							            </th>	                                
+							            </tr>
+										
+							            <tr>
+											<th></th>
+							                <th>Type</th>
+							                <th>To-Be-Booked-By</th>
+							                <th>Date</th>
+							                <th>Location</th>
+							                <th>Hotel Details</th>
+							                <th>Preferences</th>
+							                <th>Mode of Payment</th>
+							                <th>Remark</th>
+							            </tr>
+							        </thead>
+							        <tbody>
+									
+							                <!--
+							                <td> 
+												<div style="margin-bottom: 60px;">
+							                    <select name="mode" class="form-control" id="accommodationByMode">
+							                        <option value="Hotels">Hotels</option>
+													
+							                    </select>
+												</div>
+							                </td>
+							                <td>
+												<div style="margin-bottom: 60px;">
+							                    <select name="toBeBookedBy" class="form-control" id="accommodationBookedBy">
+							                        <option value="company">Company</option>
+													<option value="self">Self</option>
+							                    </select>
+												</div>
+							                </td>
+							                <td>
+												<div style="margin-bottom: 60px;">
+												<label for="accommodationCheckinDate">Check-in</label>
+												    <input type="date" name="checkinDate" class="form-control" id="accommodationCheckinDate">
+												    
+												    <label for="accommodationCheckoutDate">Check-out</label>
+												    <input type="date" name="checkoutDate" class="form-control" id="accommodationCheckoutDate">
+													</div>
+												
+							                </td>
+							                <td>
+												<div style="margin-bottom: 60px;">
+												 <input type="text" name="location" placeholder="Banglore" 
+												 class="form-control mb-2" id="accommodationDepartureFrom">
+												</div>
+							                    
+							                </td>
+							                <td>
+												<div style="margin-bottom: 60px;">
+												<input type="text" name="location" placeholder="Treebo Hotels" 
+												 class="form-control mb-2" id="accommodationDetails">
+												</div>
+							                    
+							                </td>
+							                <td>
+												<div style="margin-bottom: 60px;">
+							                        <select  class="form-control" id="accommodationPreference">
+							                            
+														<option value="14:00 Hrs">14:00 Hrs</option>
+							                        </select>
+							                    </div>
+												
+							                </td>
+											<td>
+												<div style="margin-bottom: 28px;">
+													<select class="form-control" id="accommodationAmountPayment">
+								                       <option value="NA">NA</option>
+								                       <option value="Credit Card">Credit Card</option>
+								                       <option value="Cash">Cash</option>
+								                   </select>
+							                    </div>
+											    
+											    <div class="mt-0" >
+											        <span class="text-muted">Limit:</span>
+											        <span 
+											            class="border rounded px-3 py-1 bg-gray-200" 
+											            style="border-color: darkgray; display: inline-block;">
+											            INR 8,000
+											        </span>
+											    </div>
+											</td>
+							                <td>
+							                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+												style="width: 140%; height: 100px;" id="accommodationRemarks"></textarea>
+							                </td>
+											<td></td>
+							            </tr>-->
+							           
+							        </tbody>
+							    </table>
+								
+							</div>
+							<!-- In-City Cabs Table -->
+							<div class="table-responsive-2" id="inCityCabsTable1" >
+							    <table class="table table-reimbursements" id="inCityCabsTableView">
+							        <thead >
+										<tr>
+										<th>
+						                <img src="img/citycabs-white.svg" >
+						                </th>
+										<th style="white-space: nowrap;"> In-City Cabs</th>
+										<th></th>
+										<th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+										<th></th>          
+										<th>
+							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+							            </th>	                
+							            </tr>
+							            <tr>
+											<th></th>
+							                <th>Type</th>
+							                <th>To-Be-Booked-By</th>
+							                <th>Date</th>
+							                <th>Time</th>
+							                <th>Location</th>
+							                <th>Mode of Payment</th>
+							                <th>Remark</th>
+											<th></th>
+							            </tr>
+							        </thead>
+							        <tbody>
+									<!--
+							                
+							    
+							                <td>
+							                    <select name="mode" class="form-control" id="cabsByMode">
+							                        <option value="flights">Flights</option>
+													<option value="train">train</option>
+													<option value="bus">Bus</option>
+							                    </select>
+							                </td>
+							                <td>
+							                    <select name="toBeBookedBy" class="form-control" id="cabsBookedBy">
+							                        <option value="company">Company</option>
+													<option value="self">Self</option>
+							                    </select>
+							                </td>
+							                <td>
+							                    <input type="date" name="date" class="form-control" id="cabsDate">
+							                </td>
+							                <td>
+												 
+												 <input type="text" name="arrival" placeholder="14:00 Hrs" 
+												 class="form-control" id="cabsTime">
+							                    
+							                </td>
+							                <td>
+												<div style="margin-bottom: -5px;">
+												<input type="text" name="location" placeholder="From" 
+												 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;">
+												 <br>
+												 <input type="text" name="location" placeholder="To" 
+	  											 class="form-control mb-2" id="cabsTo">
+												
+												 
+												 </div>
+							                    
+												
+							                </td>
+							                
+											<td>
+												<div style="margin-bottom: 28px;">
+													<select class="form-control" id="cabsPayment">
+								                       <option value="NA">NA</option>
+								                       <option value="Credit Card">Credit Card</option>
+								                       <option value="Cash">Cash</option>
+								                   </select>
+							                    </div>
+											    
+											    <div class="mt-0" >
+											        <span class="text-muted">Limit:</span>
+											        <span 
+											            class="border rounded px-3 py-1 bg-gray-200" 
+											            style="border-color: darkgray; display: inline-block;">
+											            INR 8,000
+											        </span>
+											    </div>
+											</td>
+							                <td>
+							                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+												style="width: 120%; height: 100px;" id="cabsRemarks"></textarea>
+							                </td>
+											<td></td>
+							            </tr>
+							            -->
+							        </tbody>
+							    </table>
+								
+							</div>
+							<!-- Food Table -->
+							<div class="table-responsive-2" id="foodTable1" >
+							    <table class="table table-reimbursements" id="foodTableView">
+							        <thead >
+										<tr>
+										<th>
+						                   <img src="img/food-white.svg" >
+						                </th>
+										<th style="white-space: nowrap;"> Food</th>
+										<th></th>
+										<th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+										<th></th>          
+										<th>
+							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+							            </th>	
+										
+										<th></th>                                
+							            </tr>
+							            <tr>
+											<th></th>
+							                <th>Type of Meal</th>
+											<!--<th>To-Be-Booked-By</th>-->
+							                <th>Start Date</th>
+							                <th>Number of Days</th>
+							                <th>Location</th>
+							                <th>Mode of Payment</th>
+							                <th>Remark</th>
+											<th></th>
+											<th></th>
+											<th></th>
+							            </tr>
+							        </thead>
+							        <tbody>
+							    <!--
+							                <td>
+							                    <select name="mode" class="form-control typeOfMeals" id="typeOfMeals">
+							                        <option value="Daily Meals">Daily Meals</option>
+													
+							                    </select>
+												<div class="error-message" id="error-typeOfMeals"></div>
+							                </td>
+							               
+							                <td>
+							                    <input type="date" name="date" class="form-control mealDate" id="mealDate">
+							                </td>
+							                <td>
+												<select name="mode" class="form-control noOfDays" id="noOfDays">
+							                        <option value="1">1</option>
+													
+							                    </select>
+												<div class="error-message" id="error-noOfDays"></div>
+							                </td>
+							                <td>
+												<input type="text" name="arrival mealLocation" placeholder="Arrival" value="Home"
+													class="form-control" id="mealLocation">
+													<div class="error-message" id="error-mealLocation"></div>
+							                </td>
+											
+											<td>
+												<div style="margin-bottom: 28px;">
+													<select class="form-control travelAmountPayment" id="travelAmountPayment">
+								                       <option value="NA">NA</option>
+								                       <option value="Credit Card">Credit Card</option>
+								                       <option value="Cash">Cash</option>
+								                   </select>
+												   <div class="error-message" id="error-travelAmountPayment"></div>
+							                    </div>
+											    
+											    <div class="mt-0" >
+											        <span class="text-muted">Limit:</span>
+											        <span 
+											            class="border rounded px-3 py-1 bg-gray-200" 
+											            style="border-color: darkgray; display: inline-block;">
+											            INR 8,000
+											        </span>
+											    </div>
+											</td>
+							                <td>
+							                    <textarea class="border rounded px-2 py-1 w-full travelRemarks" placeholder="Add Remarks (Optional)"
+												style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
+												<div class="error-message" id="error-travelRemarks"></div>
+							                </td>
+											<td></td>
+											<td></td>
+											
+							            </tr>-->
+							            
+							        </tbody>
+							    </table>
+								
+							</div>
+							<!-- Miscellaneous Table -->
+							<div class="table-responsive-2" id="miscellaneousTable1" >
+							    <table class="table table-reimbursements" id="miscellaneousTableView">
+							        <thead >
+										<tr>
+										<th>
+						                        <img src="img/miscellaneous-white.svg" class="align-start">
+						                </th>
+										<th style="white-space: nowrap;">Miscellaneous </th>
+										<th></th>
+										<th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+							            <th></th>
+										<th>
+							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+							            </th>	
+										<th></th>                                
+							            </tr>
+							            <tr>
+											<th></th>
+							                <th>Title</th>
+							                <th>To-Be-Booked-By</th>
+							                <th>Date</th>
+							                <th>Tentative Amount</th>
+							                <th></th>
+							                <th></th>
+							                <th>Mode of Payment</th>
+							                <th>Remarks (Compulsory)</th>
+											<th></th>
+							            </tr>
+							        </thead>
+							        <tbody>
+									
+							        <!--        
+							    
+							                <td>
+							                   
+												<input type="text" name="" placeholder="Product Samples - 10 Pieces" 
+												 class="form-control mb-2" id="miscTitle">
+							                </td>
+							                <td>
+							                    <select name="toBeBookedBy" class="form-control" id="miscBookedBy">
+							                        <option value="company">Company</option>
+													<option value="self">Self</option>
+							                    </select>
+							                </td>
+							                <td>
+							                    <input type="date" name="date" class="form-control" id="miscDate">
+							                </td>
+							                <td>
+												 <input type="text" name="departure" placeholder="INR 5000" 
+												 class="form-control mb-2" id="miscAmount">
+												 
+							                    
+							                </td>
+							                <td>  
+							                </td>
+							                <td>
+							                </td>
+											<td>
+												<div style="margin-bottom: 28px;">
+													<select class="form-control" id="travelAmountPayment">
+								                       <option value="NA">NA</option>
+								                       <option value="Credit Card">Credit Card</option>
+								                       <option value="Cash">Cash</option>
+								                   </select>
+							                    </div>
+											    
+											    <div class="mt-0" >
+											        <span class="text-muted">Limit:</span>
+											        <span 
+											            class="border rounded px-3 py-1 bg-gray-200" 
+											            style="border-color: darkgray; display: inline-block;">
+											            INR 8,000
+											        </span>
+											    </div>
+											</td>
+							                <td>
+							                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+												style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
+							                </td>
+											<td></td>
+							            </tr>
+							            -->
+							        </tbody>
+							    </table>
+								
+							</div>
+							<div class="w-100 my-3 d-flex justify-content-end">
+							    <!-- Delete button on the left -->
+							    
+							    <!-- Save & Next button on the right -->
+							    <div class="w-50 text-right">
+									<!--<button class="btn btn-primary" id="btnSaveTravelRequest" onclick="saveTravelRequest()" >Save & Next</button>-->
+									<button class="btn custom-btn1" id="btnBackTravelRequest" >Back</button>
+									
+									<button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="getAllTablesData()">Submit</button>
+							        <!--<button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="showConfirmModal()">Submit</button>-->
+							    </div>
+							</div>
+							
+			            </div>
+						</div><!-- custom background-wrap close-->
+			        </div>
+			    </div>
+			</div>
 
 
 </body>

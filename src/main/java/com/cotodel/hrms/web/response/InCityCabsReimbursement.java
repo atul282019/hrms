@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TravelReimbursement {
-	    private Integer id;
+public class InCityCabsReimbursement {
+	
 	    private String travelSubType;
 	    private String mode;
 	    private String toBeBookedBy;

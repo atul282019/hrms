@@ -813,6 +813,18 @@ function getTableDataIncity() {
 ///////////////////////////////////////////////
 
 function getTableDataFood(){
+	       let isTableValid = true;
+	        const rows = document.querySelectorAll(".template-row-food");
+
+	        rows.forEach(row => {
+	            if (!validateRow(row)) {
+	                isTableValid = false;
+	            }
+	        });
+
+	        if (!isTableValid) {
+				return false;
+	        }
 
 		const tableRows = document.querySelectorAll("#reimbursementsBodyFood tr");
 		    let tableData = [];
@@ -859,9 +871,95 @@ function getTableDataFood(){
 		  	});
 	
 }
+function showErrorMessage(element, message) {
+       let errorSpan = element.parentElement.querySelector(".error-message");
+       if (!errorSpan) {
+           errorSpan = document.createElement("span");
+           errorSpan.className = "error-message";
+           errorSpan.style.color = "red";
+           errorSpan.style.fontSize = "12px";
+           element.parentElement.appendChild(errorSpan);
+       }
+       errorSpan.textContent = message;
+   }
 
+   function clearErrorMessage(element) {
+       let errorSpan = element.parentElement.querySelector(".error-message");
+       if (errorSpan) {
+           errorSpan.remove();
+       }
+   }
+
+   function validateRow(row) {
+       let isValid = true;
+
+       const mealType = row.querySelector("#typeOfMeals");
+       const mealDate = row.querySelector("#mealDate");
+       const noOfDays = row.querySelector("#noOfDays");
+       const mealLocation = row.querySelector("#mealLocation");
+       const paymentMode = row.querySelector("#travelAmountPayment");
+
+       if (!mealType.value) {
+           isValid = false;
+           showErrorMessage(mealType, "Meal type is required.");
+       } else {
+           clearErrorMessage(mealType);
+       }
+
+       if (!mealDate.value) {
+           isValid = false;
+           showErrorMessage(mealDate, "Meal date is required.");
+       } else {
+           const today = new Date().toISOString().split("T")[0]; // Get today's date
+           if (mealDate.value < today) {
+               isValid = false;
+               showErrorMessage(mealDate, "Meal date cannot be in the past.");
+           } else {
+               clearErrorMessage(mealDate);
+           }
+       }
+
+       if (!noOfDays.value) {
+           isValid = false;
+           showErrorMessage(noOfDays, "Number of days is required.");
+       } else {
+           clearErrorMessage(noOfDays);
+       }
+
+       if (!mealLocation.value.trim()) {
+           isValid = false;
+           showErrorMessage(mealLocation, "Location is required.");
+       } else {
+           clearErrorMessage(mealLocation);
+       }
+
+       if (!paymentMode.value) {
+           isValid = false;
+           showErrorMessage(paymentMode, "Payment mode is required.");
+       } else {
+           clearErrorMessage(paymentMode);
+       }
+
+       return isValid;
+   }
+
+   
 //////////////////////////////////////////////
 function getTableDataMiscellaneous(){
+	
+	let isTableValid = true;
+	       const rows = document.querySelectorAll(".template-row-miscellaneous");
+
+	       rows.forEach(row => {
+	           if (!validateRow(row)) {
+	               isTableValid = false;
+	           }
+	       });
+
+	       if (!isTableValid) {
+	          return false;
+	       }
+
 		const tableRows = document.querySelectorAll("#reimbursementsBodyFood tr");
 		let tableData = [];
 		    tableRows.forEach(row => {
@@ -902,4 +1000,472 @@ function getTableDataMiscellaneous(){
 		  		}
 		  	});
 	
+}
+
+function showErrorMessage(element, message) {
+      let errorSpan = element.parentElement.querySelector(".error-message");
+      if (!errorSpan) {
+          errorSpan = document.createElement("span");
+          errorSpan.className = "error-message";
+          errorSpan.style.color = "red";
+          errorSpan.style.fontSize = "12px";
+          element.parentElement.appendChild(errorSpan);
+      }
+      errorSpan.textContent = message;
+  }
+
+  function clearErrorMessage(element) {
+      let errorSpan = element.parentElement.querySelector(".error-message");
+      if (errorSpan) {
+          errorSpan.remove();
+      }
+  }
+
+  function validateRow(row) {
+      let isValid = true;
+
+      const miscTitle = row.querySelector("#miscTitle");
+      const miscBookedBy = row.querySelector("#miscBookedBy");
+      const miscDate = row.querySelector("#miscDate");
+      const miscAmount = row.querySelector("#miscAmount");
+      const paymentMode = row.querySelector("#travelAmountPayment");
+      const remarks = row.querySelector("#travelRemarks");
+
+      if (!miscTitle.value.trim()) {
+          isValid = false;
+          showErrorMessage(miscTitle, "Title is required.");
+      } else {
+          clearErrorMessage(miscTitle);
+      }
+
+      if (!miscBookedBy.value) {
+          isValid = false;
+          showErrorMessage(miscBookedBy, "Please select who will book.");
+      } else {
+          clearErrorMessage(miscBookedBy);
+      }
+
+      if (!miscDate.value) {
+          isValid = false;
+          showErrorMessage(miscDate, "Date is required.");
+      } else {
+          const today = new Date().toISOString().split("T")[0]; // Get today's date
+          if (miscDate.value < today) {
+              isValid = false;
+              showErrorMessage(miscDate, "Date cannot be in the past.");
+          } else {
+              clearErrorMessage(miscDate);
+          }
+      }
+
+      if (!miscAmount.value.trim() || isNaN(miscAmount.value) || parseFloat(miscAmount.value) <= 0) {
+          isValid = false;
+          showErrorMessage(miscAmount, "Valid amount is required.");
+      } else {
+          clearErrorMessage(miscAmount);
+      }
+
+      if (!paymentMode.value) {
+          isValid = false;
+          showErrorMessage(paymentMode, "Payment mode is required.");
+      } else {
+          clearErrorMessage(paymentMode);
+      }
+
+      if (!remarks.value.trim()) {
+          isValid = false;
+          showErrorMessage(remarks, "Remarks are required.");
+      } else {
+          clearErrorMessage(remarks);
+      }
+
+      return isValid;
+  }
+  
+////////////////////////////////////////
+function ReviewandSybmit(){
+	
+	    document.getElementById("signinLoader").style.display="flex";
+		var employerid = document.getElementById("employerId").value;
+		var empId = document.getElementById("empId").value;	
+		$.ajax({
+		type: "GET",
+		url: "/getTravelReviewData",
+		data:{
+			"employeeId":empId,
+			"employerId":employerid,
+			"status":0
+			},
+		        success:function(data){
+		       // var data1 = data;
+		       console.log(data);
+			   var data1 = jQuery.parseJSON(data);
+				
+				var travelReimbursement = data1.data.travelReimbursement;
+				var mealReimbursement = data1.data.mealReimbursement;
+				var miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
+				var inCityCabReimbursement = data1.data.inCityCabReimbursement;
+				var accomodationReimbursement = data1.data.accomodationReimbursement;
+				document.getElementById("signinLoader").style.display="none";
+				
+				if(data1.status==true){
+					const tableBody = document.querySelector("#travelTableViewMode tbody");
+		           data1.data.travelReimbursement.forEach(item => {
+		               const row = document.createElement("tr");
+		               row.innerHTML = `
+						   <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
+		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
+		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
+		                       </select>
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                       </select>
+		                   </td>
+		                   <td><input type="date" class="form-control" value="${item.date}"></td>
+		                   <td>
+						<input type="text"class="form-control mb-2" value="${item.departure}">
+						<input type="text" class="form-control mb-2" value="${item.arrival}">
+						</td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="6 am - 12 pm" ${item.preferredTime === "6 am - 12 pm" ? "selected" : ""}>6 am - 12 pm</option>
+		                           <option value="Before 6 am">Before 6 am</option>
+		                           <option value="12 pm - 6 pm">12 pm - 6 pm</option>
+		                           <option value="After 6 pm">After 6 pm</option>
+		                       </select>
+		                   </td>
+		                   <td><input type="text" class="form-control" value="${item.carrierDetails}"></td>
+		                   <td>
+						   <div style="margin-bottom: 28px;">
+		                       <select class="form-control">
+		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                       </select>
+							   </div>								    
+							    <div class="mt-0" >
+							        <span class="text-muted">Limit:</span>
+							        <span 
+							            class="border rounded px-3 py-1 bg-gray-200" 
+							            style="border-color: darkgray; display: inline-block;">
+							            INR 8,000
+							        </span>
+							    </div>
+		                   </td>
+		                   <td><textarea class="form-control">${item.remarks}</textarea></td>
+						   <td></td>
+		               `;
+		               tableBody.appendChild(row);
+		           });
+					//////////////////////////////////////////
+					
+					const tableBodyAccomodation = document.querySelector("#accommodationTableViewMode tbody");
+		            data1.data.accomodationReimbursement.forEach(item => {
+		               const row = document.createElement("tr");
+		               row.innerHTML = `
+					      <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
+		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
+		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
+		                       </select>
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                       </select>
+		                   </td>
+		                   <td>
+						      <label for="accommodationCheckinDate">Check-in</label>
+						      <input type="date" class="form-control" value="${item.checkinDate}">
+						      <label for="accommodationCheckoutDate">Check-out</label>
+						      <input type="date" class="form-control" value="${item.checkoutDate}">
+						   </td>
+		                   <td>
+						<input type="text" class="form-control" value="${item.location}">
+						</td>
+		                   <td>
+		                      <input type="text" class="form-control" value="${item.hotelDetails}">
+		                   </td>
+		                   <td><input type="text" class="form-control" value="${item.preferredTime}"></td>
+		                   <td>
+						   <div style="margin-bottom: 28px;">
+		                       <select class="form-control">
+		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                       </select>
+							   </div>
+							   <div class="mt-0">
+						        <span class="text-muted">Limit:</span>
+						        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+						            INR 8,000
+						        </span>
+						    </div>
+		                   </td>
+		                   <td><textarea class="form-control">${item.remarks}</textarea></td>
+		               `;
+		               tableBodyAccomodation.appendChild(row);
+		           });
+					//////////////////////////////////////////////////////
+					const tableBodyInCityCab = document.querySelector("#inCityCabsTableView tbody");
+		            data1.data.accomodationReimbursement.forEach(item => {
+		               const row = document.createElement("tr");
+		               row.innerHTML = `
+					      <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+		                   <td>
+		                       <select  class="form-control">
+		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
+		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
+		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
+		                       </select>
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                       </select>
+		                   </td>
+		                   <td>
+						      <input type="date" class="form-control" value="${item.date}">
+						      
+						   </td>
+		                 
+		                   <td>
+						   <input type="text" name="location" placeholder="From" 
+						   	 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;" value="${item.preferredTime}">
+		                   </td>
+		                   <td>
+						   <div style="margin-bottom: -5px;">
+							<input type="text" name="location" placeholder="From" 
+							 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;" value="${item.fromLocation}">
+							 <br>
+							 <input type="text" name="location" placeholder="To" value="${item.toLocation}"
+							 class="form-control mb-2" id="cabsTo">
+						   </td>
+		                   <td>
+						   <div style="margin-bottom: 28px;">
+		                       <select class="form-control">
+		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                       </select>
+							   </div>
+							   <div class="mt-0">
+						        <span class="text-muted">Limit:</span>
+						        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+						            INR 8,000
+						        </span>
+						    </div>
+		                   </td>
+		                   <td><textarea class="border rounded px-2 py-1 w-full" style="width: 120%; height: 100px;" >${item.remarks}</textarea></td>
+						   <td></td>
+		               `;
+		               tableBodyInCityCab.appendChild(row);
+		           });
+				   //////////////////////////////////////////////////
+				   const foodTableView = document.querySelector("#foodTableView tbody");
+	   	            data1.data.mealReimbursement.forEach(item => {
+	   	               const row = document.createElement("tr");
+	   	               row.innerHTML = `
+					      <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+	   	                   <td>
+	   	                       <select class="form-control typeOfMeals">
+	   	                           <option value="train" ${item.typeOfMeal === "Daily Meals" ? "selected" : ""}>Daily Meals</option>
+	   	                           <option value="bus" ${item.typeOfMeal === "Weak Meals" ? "selected" : ""}>Weak Meals</option>
+	   	                           <option value="flights" ${item.typeOfMeal === "Month Meals" ? "selected" : ""}>Month Meals</option>
+	   	                       </select>
+							   <div class="error-message" id="error-typeOfMeals"></div>
+	   	                   </td>
+	   	                  
+	   	                   <td>
+	   					      <input type="date" class="form-control mealDate" value="${item.date}">
+	   					      
+	   					   </td>
+	   	                   <td>
+		   					<input type="text" class="form-control noOfDays" value="${item.numberOfDays}">
+							<div class="error-message" id="error-noOfDays"></div>
+	   					</td>
+	   	                   <td>
+	   	                      <input type="text" class="form-control" value="${item.location}">
+							  <div class="error-message" id="error-mealLocation"></div>
+	   	                   </td>
+	   	                   <td>
+	   					   <div style="margin-bottom: 28px;">
+	   	                       <select class="form-control">
+	   	                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+	   	                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+	   	                       </select>
+	   						   </div>
+	   						   <div class="mt-0">
+	   					        <span class="text-muted">Limit:</span>
+	   					        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+	   					            INR 8,000
+	   					        </span>
+	   					    </div>
+	   	                   </td>
+	   	                   <td><textarea class="border rounded px-2 py-1 w-full" style="width: 130%; height: 100px;" >${item.remarks}</textarea></td>
+						   <td></td>
+						   <td></td>
+						   <td></td>
+						   <td></td>
+	   	               `;
+	   	               foodTableView.appendChild(row);
+	   	           });
+					///////////////////////////////////////////////////////
+					const miscellaneousTableView = document.querySelector("#miscellaneousTableView tbody");
+	   	            data1.data.miscellaneousReimbursement.forEach(item => {
+	   	               const row = document.createElement("tr");
+	   	               row.innerHTML = `
+					       <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+	   	                   <td>
+						   
+						   <input type="text" name="" placeholder="Product Samples - 10 Pieces" 
+						   	 class="form-control mb-2" id="miscTitle">
+	   	                       
+	   	                   </td>
+	   	                   <td>
+	   	                       <select class="form-control">
+	   	                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+	   	                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+	   	                       </select>
+	   	                   </td>
+	   	                   <td>
+	   					      <input type="date" class="form-control" value="${item.date}">
+	   					      
+	   					   </td>
+	   	                   <td>
+	   					<input type="text" class="form-control mb-2" value="${item.amount}">
+	   					</td>
+						</td>
+		                <td>  
+		                </td>
+		                <td>
+		                </td>
+	   	                   <td>
+	   					   <div style="margin-bottom: 28px;">
+	   	                       <select class="form-control">
+	   	                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+	   	                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+	   	                       </select>
+	   						   </div>
+	   						   <div class="mt-0">
+	   					        <span class="text-muted">Limit:</span>
+	   					        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+	   					            INR 8,000
+	   					        </span>
+	   					    </div>
+	   	                   </td>
+	   	                   <td><textarea  class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+						   	style="width: 100%; height: 100px;" >${item.remarks}</textarea></td>
+							<td></td>
+	   	               `;
+	   	               miscellaneousTableView.appendChild(row);
+	   	           });
+				   
+				   var modalfirst = document.getElementById("travelDetailsTable1");
+				   modalfirst.style.display = "block";
+				}
+				else if(data1.status==false){
+				document.getElementById("signinLoader").style.display="none";
+			
+			}
+	     },
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+
+}
+
+
+function closeReviewEdit(){
+	var modalfirst = document.getElementById("travelDetailsTable1");
+	modalfirst.style.display = "none";
+}
+
+/////////////////////////////////////////////
+
+function getAllTablesData(){
+	
+	let travelData = getTableData("travelTableViewMode", ["id","mode", "toBeBookedBy", "date", "locationFrom", "locationTo", "preferredTime", "carrierDetails", "modeOfPayment", "remarks"]);
+	let accommodationData = getTableData("accommodationTableViewMode", ["id","type", "toBeBookedBy", "checkinDate", "checkoutDate", "location", "hotelDetails", "preferencesTime", "modeOfPayment", "remarks"]);
+	let inCityCabsData = getTableData("inCityCabsTableView", ["id","mode", "toBeBookedBy", "date", "Time", "location", "modeOfPayment", "remarks"]);
+	let foodTableView = getTableData("foodTableView", ["id","typeOfMeal","date","noofDays", "modeOfPayment", "remarks"]);
+	let miscellaneousTableView = getTableData("miscellaneousTableView", ["id","title", "toBeBookedBy", "date", "tentativeAmount","modeOfPayment", "remarks"]);
+	
+	let requestData = {
+	    travelReimbursement: travelData,
+	    accommodationReimbursement: accommodationData,
+	    inCityCabsReimbursement: inCityCabsData,
+		miscellaneousReimbursement: miscellaneousTableView,
+		mealReimbursement: foodTableView
+
+	};
+	console.log("Request Payload:", requestData);
+	var employerid = document.getElementById("employerId").value;
+	var empId = document.getElementById("empId").value;
+    document.getElementById("signinLoader").style.display = "flex";
+	$.ajax({
+	  		type: "POST",
+	  		url: "/travelAdvanceRequestUpdate",
+		    contentType: "application/json",
+	  		data:JSON.stringify({
+	  			
+	  			"employeeId":empId,
+	  			"employerId":employerid,
+	  			"travelRequestUpdate":requestData,
+	  		}),
+	  		success: function(data) {
+	  			//newData = data;
+	  			//var data1 = jQuery.parseJSON(newData);
+	  			//var data2 = data1.list;
+	  			var modalfirst = document.getElementById("ModalConfirm");
+	  		    modalfirst.style.display = "block";
+	  			document.getElementById("signinLoader").style.display="none";
+	  		},
+	  		error: function(e) {
+	  			alert('Failed to fetch JSON data' + e);
+	  		}
+	  	});
+	  	
+}
+function getTableData(tableId, columnNames) {
+    let table = document.getElementById(tableId);
+    let data = [];
+
+    if (table) {
+        let rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+        for (let row of rows) {
+            let rowData = {};
+            let inputs = row.querySelectorAll("input, select, textarea");
+
+            inputs.forEach((input, index) => {
+                if (input.tagName === "SELECT") {
+                    rowData[columnNames[index]] = input.options[input.selectedIndex].value;
+                } else {
+                    rowData[columnNames[index]] = input.value;
+                }
+            });
+
+            data.push(rowData);
+        }
+    }
+
+    return data;
 }
