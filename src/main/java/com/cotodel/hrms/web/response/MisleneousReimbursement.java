@@ -10,34 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MisleneousReimbursement {
-	    private Integer id;
-	    private String travelSubType;
-	    private String mode;
-	    private String toBeBookedBy;
-	    private String date;
-	    private String departure;
-	    private String arrival;
-	    private String preferredTime;
-	    private String timePreference;
-	    private String carrierClass;
-	    private String carrierDetails;
-	    private String paymentMode;
-	    private String remarks;
-	    
-	    private String hotelDetails;
-	    private String location;
-	    private String  checkoutDate;
-	    private String checkinDate;
-	    private String type;
-	    
-	    private String fromLocation;
-	    private String toLocation;
-	    
-	    private String typeOfMeal;
-	    private String startDate;
-	    private String numberOfDays;
-	    
-	    
-	   
-
+	 private Integer id;
+	 private String title;
+	 private String toBeBookedBy;
+	 private String date;
+	 private String amount;
+	 private String paymentMode;
+	 private String limitAmount;
+	 private String remarks;
 }
