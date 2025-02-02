@@ -570,13 +570,18 @@ function getEmployeeOnboarding() {
          }
     });
 }
-  
+  var empid="";
+  function settingEmpMngrId()
+  {
+	sessionStorage.setItem("employeeId",empid);
+  }
   
   function pupolateData(id) {
-	 
+	 empid=id;
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
 	//document.getElementById("signinLoader").style.display="flex";
+	
 		$.ajax({
 		type: "GET",
 		url:"/getEmployeeOnboardingById",
@@ -601,7 +606,8 @@ function getEmployeeOnboarding() {
   			document.getElementById("empType").innerHTML=data2.empOrCont;
   			document.getElementById("herDate").innerHTML=data2.herDate;
   			document.getElementById("emailid").innerHTML=data2.email;
-  			
+			
+			settingEmpMngrId();
            },
          error: function(e){
              alert('Error: ' + e);

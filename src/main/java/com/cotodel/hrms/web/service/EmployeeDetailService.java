@@ -51,6 +51,8 @@ public interface EmployeeDetailService {
 	String confirmBulkEmplOnboarding(String token, BulkConfirmationRequest[] employeeOnboarding);
 
 	String saveEmployeeProfile(String token, EmployeeOnboarding employeeOnboarding);
+	
+	String getEmployeeOnboardingByManagerId(String token, EmployeeOnboarding employeeOnboarding);
 
 
 }
