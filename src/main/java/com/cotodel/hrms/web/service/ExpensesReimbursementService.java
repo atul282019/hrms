@@ -6,6 +6,7 @@ import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
+import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
 import com.cotodel.hrms.web.response.TravelRequestUpdate;
 
@@ -48,4 +49,6 @@ public interface ExpensesReimbursementService {
 	String getTravelReviewData(String token, AdvanceTravelRequest advanceTravelRequest);
 
 	String travelAdvanceRequestUpdate(String token, TravelAdvanceRequestUpdate travelAdvanceRequestUpdate);
+
+	String deleteAdvanceTravel(String token, TravelReimbursement travelReimbursement);
 }

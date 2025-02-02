@@ -318,6 +318,97 @@ document.querySelectorAll('.remove-row-miscellaneous').forEach(button => {
         }
     });
 });
+
+//////////////////////////////////////////////////////////////Advance Cash Travel Request script
+
+
+
+function cashAdvanceSubmit(){
+	
+	   var employerid = document.getElementById("employerId").value.trim();
+	   var empId = document.getElementById("empId").value.trim();
+	   var cashDate = document.getElementById("cashDate").value.trim();
+	   var cashExpenseTitle = document.getElementById("cashExpenseTitle").value.trim();
+	   var cashCurrency = document.getElementById("cashCurrency").value.trim();
+	   var cashAmmount = document.getElementById("cashAmmount").value.trim();
+	   var cashModeOfPayment = document.getElementById("cashModeOfPayment").value.trim();
+	   var cashRemark = document.getElementById("cashRemark").value.trim();
+	   var employerName = document.getElementById("employerName").value.trim();
+		document.querySelectorAll(".error-message").forEach(el => el.remove());
+		
+		var errorMessage = document.getElementById("error-message"); // Get error span
+
+		  // Clear previous error messages
+		  errorMessage.innerText = "";
+
+		  // Validation
+		  if (!employerid || !empId || !cashDate || !cashExpenseTitle || !cashCurrency || !cashAmmount || !cashModeOfPayment) {
+		      errorMessage.innerText = "All fields are required. Please fill in all fields.";
+		      return;
+		  }
+
+		  // Date validation (should not be empty)
+		  if (!cashDate) {
+		      errorMessage.innerText = "Please select a valid date.";
+		      return;
+		  }
+
+		  // Amount validation (should be a positive number)
+		  if (isNaN(cashAmmount) || parseFloat(cashAmmount) <= 0) {
+		      errorMessage.innerText = "Please enter a valid amount greater than zero.";
+		      return;
+		  }
+
+		  // Mode of payment validation
+		  if (cashModeOfPayment !== "Credit Card" && cashModeOfPayment !== "Cash") {
+		      errorMessage.innerText = "Please select a valid mode of payment.";
+		      return;
+		  }
+		 
+		document.getElementById("signinLoader").style.display="flex";				
+		$.ajax({
+			type: "POST",
+			url: "/cashAdvanceRequest",
+			data:{
+				
+				"employeeId":empId,
+				"employerId":employerid,
+				"username":employerName,
+				"requestType":"Cash",
+				"cashDate":cashDate,
+				"approvedAmount":cashExpenseTitle,
+				"currency":cashCurrency,
+				"amount":cashAmmount,
+				"modeOfPayment":cashModeOfPayment,
+				"remarks":cashRemark,
+				
+			},
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				var data2 = data1.list;
+				var modalfirst = document.getElementById("ModalExpensesSubmitted");
+			    modalfirst.style.display = "block";
+				document.getElementById("signinLoader").style.display="none";
+			},
+			error: function(e) {
+				alert('Failed to fetch JSON data' + e);
+			}
+		});
+}
+
+function closeCashSuccess(){
+	var modalfirst = document.getElementById("ModalExpensesSubmitted");
+	modalfirst.style.display = "none";
+	
+	var modalfirst2 = document.getElementById("ModalCashAdvanceRequest");
+	modalfirst2.style.display = "none";
+	
+	var modalfirst3 = document.getElementById("ModalChooseAdvanceRequest");
+	modalfirst3.style.display = "none";
+	
+}
+
 //////////////////////////////////////////////////////////////////////
 function getTableDataTravel() {
 	
@@ -377,8 +468,11 @@ function getTableDataTravel() {
         rowData.carrierClass = carrierSelect ? carrierSelect.value : "";
         rowData.carrierDetails = carrierDetailsInput ? carrierDetailsInput.value : "";
 
+		const amount = row.querySelector('input[name="amount"]');
+		rowData.amount = amount ? amount.value : "";
+
         // Get Mode of Payment (Select Dropdown)
-        const paymentModeSelect = row.querySelector('td:nth-child(8) select');
+        const paymentModeSelect = row.querySelector('td:nth-child(9) select');
         rowData.paymentMode = paymentModeSelect ? paymentModeSelect.value : "";
 
         // Get Remarks (Textarea)
@@ -538,7 +632,9 @@ function getaddTableRowAcomodation(){
 	    // Get preference dropdown value
 	    const preferenceSelect = row.querySelector('select[id="accommodationPreference"]');
 	    rowData["preferredTime"] = preferenceSelect ? preferenceSelect.value : "";
-
+		
+		const amount = row.querySelector('input[id="accomodationAmount"]');
+		rowData["amount"] = amount ? amount.value : "";
 	    // Get mode of payment
 	    const paymentSelect = row.querySelector('select[id="accommodationAmountPayment"]');
 	    rowData["paymentMode"] = paymentSelect ? paymentSelect.value : "";
@@ -776,6 +872,7 @@ function getTableDataIncity() {
         rowData.timePreference = row.querySelector('#cabsTime')?.value || '';
         rowData.fromLocation = row.querySelector('#cabsFrom')?.value || '';
         rowData.toLocation = row.querySelector('#cabsTo')?.value || '';
+		rowData.amount = row.querySelector('#cabAmount')?.value || '';
         rowData.paymentMode = row.querySelector('#cabsPayment')?.value || '';
         rowData.remarks = row.querySelector('#cabsRemarks')?.value || '';
 
@@ -835,6 +932,7 @@ function getTableDataFood(){
 		            startDate: row.querySelector("#mealDate")?.value || "",
 		            numberOfDays: row.querySelector("#noOfDays")?.value || "",
 		            location: row.querySelector("#mealLocation")?.value || "",
+					amount: row.querySelector("#foodAmount")?.value || "",
 		            modeOfPayment: row.querySelector("#travelAmountPayment")?.value || "",
 		            remark: row.querySelector("#travelRemarks")?.value || "",
 		            checked: row.querySelector("input[type='checkbox']")?.checked || false
@@ -964,10 +1062,10 @@ function getTableDataMiscellaneous(){
 		let tableData = [];
 		    tableRows.forEach(row => {
 		        let rowData = {
-		            typeOfMeal: row.querySelector("#typeOfMeals")?.value || "",
-		            startDate: row.querySelector("#mealDate")?.value || "",
-		            numberOfDays: row.querySelector("#noOfDays")?.value || "",
-		            location: row.querySelector("#mealLocation")?.value || "",
+		            title: row.querySelector("#miscTitle")?.value || "",
+		            toBeBookedBy: row.querySelector("#miscBookedBy")?.value || "",
+		            date: row.querySelector("#miscDate")?.value || "",
+		            amount: row.querySelector("#miscAmount")?.value || "",
 		            modeOfPayment: row.querySelector("#travelAmountPayment")?.value || "",
 		            remark: row.querySelector("#travelRemarks")?.value || "",
 		            checked: row.querySelector("input[type='checkbox']")?.checked || false
@@ -1024,52 +1122,52 @@ function showErrorMessage(element, message) {
   function validateRow(row) {
       let isValid = true;
 
-      const miscTitle = row.querySelector("#miscTitle");
+      const typeOfMeals = row.querySelector("#typeOfMeals");
       const miscBookedBy = row.querySelector("#miscBookedBy");
-      const miscDate = row.querySelector("#miscDate");
-      const miscAmount = row.querySelector("#miscAmount");
-      const paymentMode = row.querySelector("#travelAmountPayment");
-      const remarks = row.querySelector("#travelRemarks");
+      const mealDate = row.querySelector("#mealDate");
+      const foodAmount = row.querySelector("#foodAmount");
+      const foodPayment = row.querySelector("#foodPayment");
+      const remarks = row.querySelector("#foodRemarks");
 
-      if (!miscTitle.value.trim()) {
+      if (!typeOfMeals.value.trim()) {
           isValid = false;
-          showErrorMessage(miscTitle, "Title is required.");
+          showErrorMessage(typeOfMeals, "Title is required.");
       } else {
-          clearErrorMessage(miscTitle);
+          clearErrorMessage(typeOfMeals);
       }
 
-      if (!miscBookedBy.value) {
+     /* if (!miscBookedBy.value) {
           isValid = false;
           showErrorMessage(miscBookedBy, "Please select who will book.");
       } else {
           clearErrorMessage(miscBookedBy);
-      }
+      }*/
 
-      if (!miscDate.value) {
+      if (!mealDate.value) {
           isValid = false;
-          showErrorMessage(miscDate, "Date is required.");
+          showErrorMessage(mealDate, "Date is required.");
       } else {
           const today = new Date().toISOString().split("T")[0]; // Get today's date
-          if (miscDate.value < today) {
+          if (mealDate.value < today) {
               isValid = false;
-              showErrorMessage(miscDate, "Date cannot be in the past.");
+              showErrorMessage(mealDate, "Date cannot be in the past.");
           } else {
-              clearErrorMessage(miscDate);
+              clearErrorMessage(mealDate);
           }
       }
 
-      if (!miscAmount.value.trim() || isNaN(miscAmount.value) || parseFloat(miscAmount.value) <= 0) {
+      if (!foodAmount.value.trim() || isNaN(foodAmount.value) || parseFloat(foodAmount.value) <= 0) {
           isValid = false;
-          showErrorMessage(miscAmount, "Valid amount is required.");
+          showErrorMessage(foodAmount, "Valid amount is required.");
       } else {
-          clearErrorMessage(miscAmount);
+          clearErrorMessage(foodAmount);
       }
 
-      if (!paymentMode.value) {
+      if (!foodPayment.value) {
           isValid = false;
-          showErrorMessage(paymentMode, "Payment mode is required.");
+          showErrorMessage(foodPayment, "Payment mode is required.");
       } else {
-          clearErrorMessage(paymentMode);
+          clearErrorMessage(foodPayment);
       }
 
       if (!remarks.value.trim()) {
@@ -1110,6 +1208,7 @@ function ReviewandSybmit(){
 				
 				if(data1.status==true){
 					const tableBody = document.querySelector("#travelTableViewMode tbody");
+					tableBody.innerHTML = "";
 		           data1.data.travelReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1143,6 +1242,7 @@ function ReviewandSybmit(){
 		                       </select>
 		                   </td>
 		                   <td><input type="text" class="form-control" value="${item.carrierDetails}"></td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
 		                   <td>
 						   <div style="margin-bottom: 28px;">
 		                       <select class="form-control">
@@ -1167,6 +1267,7 @@ function ReviewandSybmit(){
 					//////////////////////////////////////////
 					
 					const tableBodyAccomodation = document.querySelector("#accommodationTableViewMode tbody");
+					tableBodyAccomodation.innerHTML = "";
 		            data1.data.accomodationReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1175,9 +1276,7 @@ function ReviewandSybmit(){
 		                   </td>
 		                   <td>
 		                       <select class="form-control">
-		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
-		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
-		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
+		                           <option value="train" ${item.type === "Hotels" ? "selected" : ""}>Hotels</option>
 		                       </select>
 		                   </td>
 		                   <td>
@@ -1193,13 +1292,15 @@ function ReviewandSybmit(){
 						      <input type="date" class="form-control" value="${item.checkoutDate}">
 						   </td>
 		                   <td>
-						<input type="text" class="form-control" value="${item.location}">
-						</td>
+							<input type="text" class="form-control" value="${item.location}">
+							</td>
 		                   <td>
 		                      <input type="text" class="form-control" value="${item.hotelDetails}">
 		                   </td>
 		                   <td><input type="text" class="form-control" value="${item.preferredTime}"></td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
 		                   <td>
+						  
 						   <div style="margin-bottom: 28px;">
 		                       <select class="form-control">
 		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
@@ -1219,6 +1320,7 @@ function ReviewandSybmit(){
 		           });
 					//////////////////////////////////////////////////////
 					const tableBodyInCityCab = document.querySelector("#inCityCabsTableView tbody");
+					tableBodyInCityCab.innerHTML = "";
 		            data1.data.accomodationReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1255,6 +1357,7 @@ function ReviewandSybmit(){
 							 <input type="text" name="location" placeholder="To" value="${item.toLocation}"
 							 class="form-control mb-2" id="cabsTo">
 						   </td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
 		                   <td>
 						   <div style="margin-bottom: 28px;">
 		                       <select class="form-control">
@@ -1276,6 +1379,7 @@ function ReviewandSybmit(){
 		           });
 				   //////////////////////////////////////////////////
 				   const foodTableView = document.querySelector("#foodTableView tbody");
+				   foodTableView.innerHTML = "";
 	   	            data1.data.mealReimbursement.forEach(item => {
 	   	               const row = document.createElement("tr");
 	   	               row.innerHTML = `
@@ -1285,8 +1389,8 @@ function ReviewandSybmit(){
 	   	                   <td>
 	   	                       <select class="form-control typeOfMeals">
 	   	                           <option value="train" ${item.typeOfMeal === "Daily Meals" ? "selected" : ""}>Daily Meals</option>
-	   	                           <option value="bus" ${item.typeOfMeal === "Weak Meals" ? "selected" : ""}>Weak Meals</option>
-	   	                           <option value="flights" ${item.typeOfMeal === "Month Meals" ? "selected" : ""}>Month Meals</option>
+	   	                           <option value="bus" ${item.typeOfMeal === "Weekly Meals" ? "selected" : ""}>Weekly Meals</option>
+	   	                           <option value="flights" ${item.typeOfMeal === "Monthly Meals" ? "selected" : ""}>Monthly Meals</option>
 	   	                       </select>
 							   <div class="error-message" id="error-typeOfMeals"></div>
 	   	                   </td>
@@ -1303,6 +1407,7 @@ function ReviewandSybmit(){
 	   	                      <input type="text" class="form-control" value="${item.location}">
 							  <div class="error-message" id="error-mealLocation"></div>
 	   	                   </td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
 	   	                   <td>
 	   					   <div style="margin-bottom: 28px;">
 	   	                       <select class="form-control">
@@ -1327,6 +1432,7 @@ function ReviewandSybmit(){
 	   	           });
 					///////////////////////////////////////////////////////
 					const miscellaneousTableView = document.querySelector("#miscellaneousTableView tbody");
+					miscellaneousTableView.innerHTML = "";
 	   	            data1.data.miscellaneousReimbursement.forEach(item => {
 	   	               const row = document.createElement("tr");
 	   	               row.innerHTML = `
@@ -1403,11 +1509,11 @@ function closeReviewEdit(){
 
 function getAllTablesData(){
 	
-	let travelData = getTableData("travelTableViewMode", ["id","mode", "toBeBookedBy", "date", "locationFrom", "locationTo", "preferredTime", "carrierDetails", "modeOfPayment", "remarks"]);
-	let accommodationData = getTableData("accommodationTableViewMode", ["id","type", "toBeBookedBy", "checkinDate", "checkoutDate", "location", "hotelDetails", "preferencesTime", "modeOfPayment", "remarks"]);
-	let inCityCabsData = getTableData("inCityCabsTableView", ["id","mode", "toBeBookedBy", "date", "Time", "location", "modeOfPayment", "remarks"]);
-	let foodTableView = getTableData("foodTableView", ["id","typeOfMeal","date","noofDays", "modeOfPayment", "remarks"]);
-	let miscellaneousTableView = getTableData("miscellaneousTableView", ["id","title", "toBeBookedBy", "date", "tentativeAmount","modeOfPayment", "remarks"]);
+	let travelData = getTableData("travelTableViewMode", ["id","mode", "toBeBookedBy", "date", "fromLocation", "toLocation", "preferredTime", "carrierDetails", "amount","paymentMode", "remarks"]);
+	let accommodationData = getTableData("accommodationTableViewMode", ["id","type", "toBeBookedBy", "checkinDate", "checkoutDate", "location", "hotelDetails", "preferencesTime", "amount","paymentMode", "remarks"]);
+	let inCityCabsData = getTableData("inCityCabsTableView", ["id","mode", "toBeBookedBy", "date", "preferredTime", "location","amount", "paymentMode", "remarks"]);
+	let foodTableView = getTableData("foodTableView", ["id","typeOfMeal","date","numberOfDays","amount", "paymentMode", "remarks"]);
+	let miscellaneousTableView = getTableData("miscellaneousTableView", ["id","title", "toBeBookedBy", "date", "amount","paymentMode", "remarks"]);
 	
 	let requestData = {
 	    travelReimbursement: travelData,
@@ -1435,7 +1541,7 @@ function getAllTablesData(){
 	  			//newData = data;
 	  			//var data1 = jQuery.parseJSON(newData);
 	  			//var data2 = data1.list;
-	  			var modalfirst = document.getElementById("ModalConfirm");
+	  			var modalfirst = document.getElementById("modalTravelUpdated");
 	  		    modalfirst.style.display = "block";
 	  			document.getElementById("signinLoader").style.display="none";
 	  		},
@@ -1445,6 +1551,14 @@ function getAllTablesData(){
 	  	});
 	  	
 }
+
+
+function traveUpdateClose(){
+	var modalfirst = document.getElementById("modalTravelUpdated");
+	modalfirst.style.display = "none";
+}
+
+
 function getTableData(tableId, columnNames) {
     let table = document.getElementById(tableId);
     let data = [];
@@ -1469,3 +1583,370 @@ function getTableData(tableId, columnNames) {
 
     return data;
 }
+//////////////////////////////////////////////////////
+
+
+
+function deleteAdvanceTravel(value){
+	
+	var result = confirm("Are you sure you want to delete?");
+	if (result) {
+		 document.getElementById("signinLoader").style.display="flex";
+	}
+	else{
+		return false;
+	}
+	 var row = jQuery(value).closest('tr');
+	 var  id = $(row).find("input[name='customCheck4']").val();
+	
+	 	$.ajax({
+		type: "POST",
+		url:"/deleteAdvanceTravel",
+        data: {
+				"id": id
+       		 },
+       		  beforeSend : function(xhr) {
+				//xhr.setRequestHeader(header, token);
+				},
+            success: function(data){
+            newData = data;
+            //console.log(newData);
+            var data1 = jQuery.parseJSON( newData );
+			var data2 = data1.data;
+			document.getElementById("signinLoader").style.display="none";
+			getCashAdvanceRequestList();
+			//console.log(newData);
+           },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    }); 
+}
+
+/////////////////////////////////////////////////////////////
+
+function viewAdvanceTravel(value){
+	
+	    document.getElementById("signinLoader").style.display="flex";
+		var employerid = document.getElementById("employerId").value;
+		var empId = document.getElementById("empId").value;	
+		$.ajax({
+		type: "GET",
+		url: "/getTravelReviewData",
+		data:{
+			"employeeId":empId,
+			"employerId":employerid,
+			"status":0
+			},
+		        success:function(data){
+		       // var data1 = data;
+		       console.log(data);
+			   var data1 = jQuery.parseJSON(data);
+				
+				var travelReimbursement = data1.data.travelReimbursement;
+				var mealReimbursement = data1.data.mealReimbursement;
+				var miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
+				var inCityCabReimbursement = data1.data.inCityCabReimbursement;
+				var accomodationReimbursement = data1.data.accomodationReimbursement;
+				document.getElementById("signinLoader").style.display="none";
+				
+				if(data1.status==true){
+					const tableBody = document.querySelector("#viewTravelRequest tbody");
+					tableBody.innerHTML = "";
+		           data1.data.travelReimbursement.forEach(item => {
+		               const row = document.createElement("tr");
+		               row.innerHTML = `
+						   <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
+		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
+		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
+		                       </select>
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                       </select>
+		                   </td>
+		                   <td><input type="date" class="form-control" value="${item.date}"></td>
+		                   <td>
+						<input type="text"class="form-control mb-2" value="${item.departure}">
+						<input type="text" class="form-control mb-2" value="${item.arrival}">
+						</td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="6 am - 12 pm" ${item.preferredTime === "6 am - 12 pm" ? "selected" : ""}>6 am - 12 pm</option>
+		                           <option value="Before 6 am">Before 6 am</option>
+		                           <option value="12 pm - 6 pm">12 pm - 6 pm</option>
+		                           <option value="After 6 pm">After 6 pm</option>
+		                       </select>
+		                   </td>
+		                   <td><input type="text" class="form-control" value="${item.carrierDetails}"></td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
+		                   <td>
+						   <div style="margin-bottom: 28px;">
+		                       <select class="form-control">
+		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                       </select>
+							   </div>								    
+							    <div class="mt-0" >
+							        <span class="text-muted">Limit:</span>
+							        <span 
+							            class="border rounded px-3 py-1 bg-gray-200" 
+							            style="border-color: darkgray; display: inline-block;">
+							            INR 8,000
+							        </span>
+							    </div>
+		                   </td>
+		                   <td><textarea class="form-control">${item.remarks}</textarea></td>
+						   <td></td>
+		               `;
+		               tableBody.appendChild(row);
+		           });
+					//////////////////////////////////////////
+					
+					const tableBodyAccomodation = document.querySelector("#viewAccomodationOnly tbody");
+					tableBodyAccomodation.innerHTML = "";
+		            data1.data.accomodationReimbursement.forEach(item => {
+		               const row = document.createElement("tr");
+		               row.innerHTML = `
+					      <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
+		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
+		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
+		                       </select>
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                       </select>
+		                   </td>
+		                   <td>
+						      <label for="accommodationCheckinDate">Check-in</label>
+						      <input type="date" class="form-control" value="${item.checkinDate}">
+						      <label for="accommodationCheckoutDate">Check-out</label>
+						      <input type="date" class="form-control" value="${item.checkoutDate}">
+						   </td>
+		                   <td>
+							<input type="text" class="form-control" value="${item.location}">
+							</td>
+		                   <td>
+		                      <input type="text" class="form-control" value="${item.hotelDetails}">
+		                   </td>
+		                   <td><input type="text" class="form-control" value="${item.preferredTime}"></td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
+		                   <td>
+						  
+						   <div style="margin-bottom: 28px;">
+		                       <select class="form-control">
+		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                       </select>
+							   </div>
+							   <div class="mt-0">
+						        <span class="text-muted">Limit:</span>
+						        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+						            INR 8,000
+						        </span>
+						    </div>
+		                   </td>
+		                   <td><textarea class="form-control">${item.remarks}</textarea></td>
+		               `;
+		               tableBodyAccomodation.appendChild(row);
+		           });
+					//////////////////////////////////////////////////////
+					const tableBodyInCityCab = document.querySelector("#viewIncityCabOnly tbody");
+					tableBodyInCityCab.innerHTML = "";
+		            data1.data.accomodationReimbursement.forEach(item => {
+		               const row = document.createElement("tr");
+		               row.innerHTML = `
+					      <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+		                   <td>
+		                       <select  class="form-control">
+		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
+		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
+		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
+		                       </select>
+		                   </td>
+		                   <td>
+		                       <select class="form-control">
+		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                       </select>
+		                   </td>
+		                   <td>
+						      <input type="date" class="form-control" value="${item.date}">
+						      
+						   </td>
+		                 
+		                   <td>
+						   <input type="text" name="location" placeholder="From" 
+						   	 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;" value="${item.preferredTime}">
+		                   </td>
+		                   <td>
+						   <div style="margin-bottom: -5px;">
+							<input type="text" name="location" placeholder="From" 
+							 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;" value="${item.fromLocation}">
+							 <br>
+							 <input type="text" name="location" placeholder="To" value="${item.toLocation}"
+							 class="form-control mb-2" id="cabsTo">
+						   </td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
+		                   <td>
+						   <div style="margin-bottom: 28px;">
+		                       <select class="form-control">
+		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                       </select>
+							   </div>
+							   <div class="mt-0">
+						        <span class="text-muted">Limit:</span>
+						        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+						            INR 8,000
+						        </span>
+						    </div>
+		                   </td>
+		                   <td><textarea class="border rounded px-2 py-1 w-full" style="width: 120%; height: 100px;" >${item.remarks}</textarea></td>
+						   <td></td>
+		               `;
+		               tableBodyInCityCab.appendChild(row);
+		           });
+				   //////////////////////////////////////////////////
+				   const foodTableView = document.querySelector("#viewFoodOnly tbody");
+				   foodTableView.innerHTML = "";
+	   	            data1.data.mealReimbursement.forEach(item => {
+	   	               const row = document.createElement("tr");
+	   	               row.innerHTML = `
+					      <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+	   	                   <td>
+	   	                       <select class="form-control typeOfMeals">
+	   	                           <option value="train" ${item.typeOfMeal === "Daily Meals" ? "selected" : ""}>Daily Meals</option>
+	   	                           <option value="bus" ${item.typeOfMeal === "Weekly Meals" ? "selected" : ""}>Weekly Meals</option>
+	   	                           <option value="flights" ${item.typeOfMeal === "Monthly Meals" ? "selected" : ""}>Monthly Meals</option>
+	   	                       </select>
+							   <div class="error-message" id="error-typeOfMeals"></div>
+	   	                   </td>
+	   	                  
+	   	                   <td>
+	   					      <input type="date" class="form-control mealDate" value="${item.date}">
+	   					      
+	   					   </td>
+	   	                   <td>
+		   					<input type="text" class="form-control noOfDays" value="${item.numberOfDays}">
+							<div class="error-message" id="error-noOfDays"></div>
+	   					</td>
+	   	                   <td>
+	   	                      <input type="text" class="form-control" value="${item.location}">
+							  <div class="error-message" id="error-mealLocation"></div>
+	   	                   </td>
+						   <td><input type="text" class="form-control" value="${item.amount}"></td>
+	   	                   <td>
+	   					   <div style="margin-bottom: 28px;">
+	   	                       <select class="form-control">
+	   	                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+	   	                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+	   	                       </select>
+	   						   </div>
+	   						   <div class="mt-0">
+	   					        <span class="text-muted">Limit:</span>
+	   					        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+	   					            INR 8,000
+	   					        </span>
+	   					    </div>
+	   	                   </td>
+	   	                   <td><textarea class="border rounded px-2 py-1 w-full" style="width: 130%; height: 100px;" >${item.remarks}</textarea></td>
+						   <td></td>
+						   <td></td>
+						   <td></td>
+						   <td></td>
+	   	               `;
+	   	               foodTableView.appendChild(row);
+	   	           });
+					///////////////////////////////////////////////////////
+					const miscellaneousTableView = document.querySelector("#viewMiscellaneousOnly tbody");
+					miscellaneousTableView.innerHTML = "";
+	   	            data1.data.miscellaneousReimbursement.forEach(item => {
+	   	               const row = document.createElement("tr");
+	   	               row.innerHTML = `
+					       <td>
+						   <input type="hidden" class="form-control" value="${item.id}">
+		                   </td>
+	   	                   <td>
+						   
+						   <input type="text" name="" placeholder="Product Samples - 10 Pieces" 
+						   	 class="form-control mb-2" id="miscTitle">
+	   	                       
+	   	                   </td>
+	   	                   <td>
+	   	                       <select class="form-control">
+	   	                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+	   	                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+	   	                       </select>
+	   	                   </td>
+	   	                   <td>
+	   					      <input type="date" class="form-control" value="${item.date}">
+	   					      
+	   					   </td>
+	   	                   <td>
+	   					<input type="text" class="form-control mb-2" value="${item.amount}">
+	   					</td>
+						</td>
+		                <td>  
+		                </td>
+		                <td>
+		                </td>
+	   	                   <td>
+	   					   <div style="margin-bottom: 28px;">
+	   	                       <select class="form-control">
+	   	                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+	   	                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+	   	                       </select>
+	   						   </div>
+	   						   <div class="mt-0">
+	   					        <span class="text-muted">Limit:</span>
+	   					        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+	   					            INR 8,000
+	   					        </span>
+	   					    </div>
+	   	                   </td>
+	   	                   <td><textarea  class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+						   	style="width: 100%; height: 100px;" >${item.remarks}</textarea></td>
+							<td></td>
+	   	               `;
+	   	               miscellaneousTableView.appendChild(row);
+	   	           });
+				   
+				   var modalfirst = document.getElementById("travelRequestView");
+				   modalfirst.style.display = "block";
+				}
+				else if(data1.status==false){
+				document.getElementById("signinLoader").style.display="none";
+			
+			}
+	     },
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+
+}
+
+function closeView(){
+	var modalfirst = document.getElementById("travelRequestView");
+	modalfirst.style.display = "none";
+}
+

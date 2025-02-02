@@ -36,8 +36,9 @@ public class TravelAddRequest {
 	    private String typeOfMeal;
 	    private String startDate;
 	    private String numberOfDays;
-	    
-	    
-	   
-
+	    private String arrivalPreference;
+	  
+	    private String limitAmount;
+	    private String amount;
+	 
 }

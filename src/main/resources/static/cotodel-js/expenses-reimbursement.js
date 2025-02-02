@@ -1246,69 +1246,6 @@ function rejectExpenses(){
 		});
 }
 
-//////////////////////////////////////////////////////////////Advance Cash Travel Request script
-
-
-
-function cashAdvanceSubmit(){
-	
-		var employerid = document.getElementById("employerId").value;
-		var empId = document.getElementById("empId").value;
-		var cashDate = document.getElementById("cashDate").value;
-		var cashExpenseTitle = document.getElementById("cashExpenseTitle").value;
-		var cashCurrency = document.getElementById("cashCurrency").value;
-		
-		var cashAmmount = document.getElementById("cashAmmount").value;
-		var cashModeOfPayment = document.getElementById("cashModeOfPayment").value;
-		var cashRemark = document.getElementById("cashRemark").value;
-		var employerName = document.getElementById("employerName").value;
-		//var requestType = document.getElementById("employerName").value;
-		document.getElementById("signinLoader").style.display="flex";				
-		$.ajax({
-			type: "POST",
-			url: "/cashAdvanceRequest",
-			data:{
-				
-				"employeeId":empId,
-				"employerId":employerid,
-				"username":employerName,
-				"requestType":"Cash",
-				"cashDate":cashDate,
-				"approvedAmount":cashExpenseTitle,
-				"currency":cashCurrency,
-				"amount":cashAmmount,
-				"modeOfPayment":cashModeOfPayment,
-				"remarks":cashRemark,
-				
-			},
-			success: function(data) {
-				newData = data;
-				var data1 = jQuery.parseJSON(newData);
-				var data2 = data1.list;
-				var modalfirst = document.getElementById("ModalExpensesSubmitted");
-			    modalfirst.style.display = "block";
-				document.getElementById("signinLoader").style.display="none";
-			},
-			error: function(e) {
-				alert('Failed to fetch JSON data' + e);
-			}
-		});
-}
-
-function closeCashSuccess(){
-	var modalfirst = document.getElementById("ModalExpensesSubmitted");
-	modalfirst.style.display = "none";
-	
-	var modalfirst2 = document.getElementById("ModalCashAdvanceRequest");
-	modalfirst2.style.display = "none";
-	
-	var modalfirst3 = document.getElementById("ModalChooseAdvanceRequest");
-	modalfirst3.style.display = "none";
-	
-	
-	
-}
-
 function saveTravelRequest(){
 	
 
@@ -1412,9 +1349,51 @@ function getCashAdvanceRequestList(){
 			    { "mData": "statusRemarks"},
 				{ "mData": "paymentMode"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td> <div  class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpanceApproval(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                    return '<td> <div  class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewAdvanceTravel(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
                  }}, 
     		 	],
+				createdRow: function (row, data2, dataIndex) 
+				   {
+				    //console.log("row : "+JSON.stringify(data2));
+				  
+					var requestType = data2.requestType;
+					//var statusMessage = data2.statusMessage;
+
+				    if(requestType=="Accomodation")
+				    {
+					var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+requestType;
+					 $(row).find('td:eq(3)').html(imgTag);
+				    }
+				    if(requestType=="In-City-Cab")
+				    {
+				      var imgTag = ' <img src="img/citycabs.svg" alt="" class="mr-2">'+requestType;
+					  $(row).find('td:eq(3)').html(imgTag);
+				    }
+				    
+				    if(requestType=="Miscellaneous")
+				    {
+					 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+requestType;
+						 $(row).find('td:eq(3)').html(imgTag);
+				    }
+				    
+				    if(requestType=="Travel")
+				    {
+					var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+requestType;
+				     $(row).find('td:eq(3)').html(imgTag);
+				    }
+				    if(requestType=="Meal")
+				    {
+				     var imgTag = '<img src="img/food.svg" alt="" class="mr-2">'+requestType;
+					
+				     $(row).find('td:eq(3)').html(imgTag);
+				    }
+					if(requestType=="Cash")
+				    {
+				     var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+requestType;
+					
+				     $(row).find('td:eq(3)').html(imgTag);
+				    }
+		     	 }
     		 	
       		});		
 			

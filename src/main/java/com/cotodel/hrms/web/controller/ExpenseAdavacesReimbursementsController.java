@@ -22,6 +22,7 @@ import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
+import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -253,4 +254,17 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		profileRes = expensesReimbursementService.travelAdvanceRequestUpdate(tokengeneration.getToken(),travelAdvanceRequestUpdate);	
 		return profileRes;  
 	}
+	
+	
+	@PostMapping(value = "/deleteAdvanceTravel")
+	public @ResponseBody String deleteAdvanceTravel(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, TravelReimbursement travelReimbursement) {
+		String profileRes = null;
+	
+		profileRes = expensesReimbursementService.deleteAdvanceTravel(tokengeneration.getToken(),
+				travelReimbursement);
+
+		return profileRes;
+	}
+	
 }

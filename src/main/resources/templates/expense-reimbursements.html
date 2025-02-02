@@ -2301,11 +2301,13 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 	                        <input class="did-floating-input" type="text" placeholder=" " id="cashRemark">
 	                        <label class="did-floating-label">Enter Additional Remarks</label>
 	                    </div>
+						
 	                    <div class="clearfix"></div>
+						
+						<span id="error-message" class="text-danger"></span>		
+						
 	                    <div class="d-flex justify-content-between mt-4 form-btns">
-	                        <!--<div class="lef">
-	                            <button class="btn btn-border mx-2"><img src="img/del.svg" alt=""></button>
-	                        </div>-->
+	                      
 	                        <div class="righ d-flex">
 	                            <button class="btn btn-border mx-2 w-78">Back</button>
 	                            <a class="btn btn-primary mx-2 d-flex align-items-center custom-btn mt-1" 
@@ -2511,7 +2513,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            <th></th>
 							            <th></th>
 							            <th></th>
-			 
+										<th></th>
 							            <th><img src="img/delete-white.svg" alt="Delete Icon"></th>
 															  
 							        </tr>
@@ -2528,6 +2530,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            <th>Location</th>
 							            <th>Preferred Time</th>
 							            <th>Carrier Details</th>
+										<th>Tentative Amount</th>
 							            <th>Mode of Payment</th>
 							            <th>Remark</th>
 							            <th></th>
@@ -2559,10 +2562,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            </td>
 							            <td>
 							                <input type="text" name="departure" placeholder="Departure" class="form-control mb-2">
-															   
 							                <input type="text" name="arrival" placeholder="Arrival" class="form-control">
-													  
-									  
 							            </td>
 							            <td>
 										   
@@ -2594,6 +2594,12 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 												  
 		   
 							            </td>
+										<td>
+											
+						                <input type="text" name="amount" placeholder="INR 5000" class="form-control">
+											  
+	   
+						            </td>
 							            <td>
 											 
 							                <select class="form-control">
@@ -2605,12 +2611,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			  
 							                <div class="mt-2">
 							                    <span class="text-muted">Limit:</span>
-						
 							                    <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray;">INR 8,000</span>
-																			 
-							   
-						 
-							                </div>
+											 </div>
 							            </td>
 							            <td>
 							                <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)" style="height: 100px;"></textarea>
@@ -2650,6 +2652,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						            <th></th>
 						            <th></th>
 									<th></th>
+									<th></th>
 									<th>
 						             <img src="img/delete-white.svg" alt="Plane Icon">
 						            </th>	                                
@@ -2667,6 +2670,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                <th>Location</th>
 						                <th>Hotel Details</th>
 						                <th>Preferences</th>
+										<th>Tentative Amount</th>
 						                <th>Mode of Payment</th>
 						                <th>Remark</th>
 										<th></th>
@@ -2730,6 +2734,10 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 											
 						                </td>
 										<td>
+																					
+						                <input type="text" id="accomodationAmount" name="amount" placeholder="INR 5000" class="form-control">
+										 </td>
+										<td>
 											<div style="margin-bottom: 28px;">
 												<select class="form-control" id="accommodationAmountPayment">
 							                       <option value="NA">NA</option>
@@ -2791,6 +2799,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						            <th></th>
 						            <th></th>
 									<th></th>
+									<th></th>
 									<th>
 						                    <img src="img/delete-white.svg" alt="Plane Icon">
 						            </th>	                                
@@ -2807,7 +2816,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                <th>Date</th>
 						                <th>Time</th>
 						                <th>Location</th>
-						               
+						               <th>Tentative Amount</th>
 						                <th>Mode of Payment</th>
 						                <th>Remark</th>
 										<th></th>
@@ -2825,9 +2834,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						    
 						                <td>
 						                    <select name="mode" class="form-control" id="cabsByMode">
-						                        <option value="flights">Flights</option>
-												<option value="train">train</option>
-												<option value="bus">Bus</option>
+						                        <option value="In-city-cab">In-City-Cab</option>
+												<option value="Airport-Cab">Airport Cab</option>
+												<option value="mylti-Stop">Multi Stop</option>
 						                    </select>
 						                </td>
 						                <td>
@@ -2858,7 +2867,10 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                    
 											
 						                </td>
-						                
+										<td>
+																					
+						                <input type="text" id="cabAmount" name="amount" placeholder="INR 5000" class="form-control">
+										 </td>
 										<td>
 											<div style="margin-bottom: 28px;">
 												<select class="form-control" id="cabsPayment">
@@ -2886,11 +2898,6 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-incitycab" alt="Delete Icon">
 						            </td>
 						            </tr>
-						            <!--<tr class="last-add">
-						                <td colspan="10">
-						                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
-						                </td>
-						            </tr>-->
 						        </tbody>
 						    </table>
 							<div class="last-add">
@@ -2921,6 +2928,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						            <th></th>
 									<th></th>
 									<th></th>
+									<th></th>
 									<th>
 						                    <img src="img/delete-white.svg" alt="Plane Icon">
 						            </th>	                                
@@ -2937,7 +2945,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                <th>Start Date</th>
 						                <th>Number of Days</th>
 						                <th>Location</th>
-										
+										<th>Tentative Amount</th>
 						                <th>Mode of Payment</th>
 						                <th>Remark</th>
 										<th></th>
@@ -2958,7 +2966,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                <td>
 						                    <select name="mode" class="form-control" id="typeOfMeals">
 						                        <option value="Daily Meals">Daily Meals</option>
-												
+												<option value="Daily Meals">weekly Meals</option>
+												<option value="Daily Meals">Montly Meals</option>
 						                    </select>
 						                </td>
 						               
@@ -2968,21 +2977,27 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                <td>
 											<select name="mode" class="form-control" id="noOfDays">
 						                        <option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
 												
 						                    </select>
 						                    
 						                </td>
 						                <td>
 											<input type="text" name="arrival" placeholder="Arrival" 
-												class="form-control" id="mealLocation">
-						                    
-						                    
+												class="form-control" id="mealLocation">    
 						                </td>
 										
-						                
+										<td>										
+						                <input type="text" id="foodAmount" name="amount" placeholder="INR 5000" class="form-control">
+									   </td>
 										<td>
 											<div style="margin-bottom: 28px;">
-												<select class="form-control" id="travelAmountPayment">
+												<select class="form-control" id="foodPayment">
 							                       <option value="NA">NA</option>
 							                       <option value="Credit Card">Credit Card</option>
 							                       <option value="Cash">Cash</option>
@@ -3000,19 +3015,13 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 										</td>
 						                <td>
 						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="height: 100px;" id="travelRemarks"></textarea>
+											style="height: 100px;" id="foodRemarks"></textarea>
 						                </td>
 										<td>
-							                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
 											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-food" alt="Delete Icon">
 							            </td>
 										
 						            </tr>
-						          <!--  <tr class="last-add">
-						                <td colspan="10">
-						                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
-						                </td>
-						            </tr>-->
 						        </tbody>
 						    </table>
 							<div class="last-add">
@@ -3023,9 +3032,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						
 							<div class="w-100 text-right">
 							   <button class="btn btn-primary" id="btnSaveFoodRequest" onclick="getTableDataFood()">Save & Next</button>
-							 				   						      
-							    <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
-						    </div>
+						  </div>
 							
 						</div>
 						<!-- Miscellaneous Table -->
@@ -3090,9 +3097,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 						                </td>
 						                <td>
 											 <input type="text" name="departure" placeholder="INR 5000" 
-											 class="form-control mb-2" id="miscAmount">
-											 
-						                    
+											 class="form-control mb-2" id="miscAmount">    
 						                </td>
 						                <td>  
 						                </td>
@@ -3125,12 +3130,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-miscellaneous" alt="Delete Icon">
 							            </td>
 						            </tr>
-						            
-									   
-																								   
-						   
-					   
-						        </tbody>
+						          </tbody>
 						    </table>			
 							<div class="last-add">
 				                <div colspan="10">
@@ -3182,7 +3182,6 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			        </div>
 			    </div>
    <!-- new-->
-	<!--<div class="modal fade" id="travelDetailsTable1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
 		<div class="modalView"  id="travelDetailsTable1" tabindex="-1" role="dialog"
 		       aria-labelledby="exampleModalCenterTitle">
 			    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
@@ -3194,7 +3193,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 				                </button>
 						</div><hr><br>
 						<div class="background-wrap">
-							<span><h3>Review and Submit Request</h3></span><br>
+							<span><h3>Review and Submit Advance Travel Request</h3></span><br>
 			            <div class="policies-wrap-in-table">
 			                <div class="table-responsive-2" id="travelTableView" >
 			                    <table class="table table-reimbursements" id="travelTableViewMode">
@@ -3210,7 +3209,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 		                                <th></th>
 		                                <th></th>
 		                                <th></th>
-										
+										<th></th>
 										<th>
 					                            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
 					                    </th>	 
@@ -3225,6 +3224,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							                   <th>location</th>
 							                   <th>Preferred Time</th>
 							                   <th>Carrier Details</th>
+											   <th>Tentative Amount</th>
 							                   <th>Mode of Payment</th>
 							                   <th>Remarks</th>
 											   <th></th>
@@ -3232,87 +3232,6 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			                            </tr>
 			                        </thead>
 			                        <tbody>
-									
-			                                
-			                    
-			                               <!-- <td>
-			                                    <select name="mode" class="form-control" id="tavelByMode">
-			                                        <option value="flights">Flights</option>
-													<option value="train">train</option>
-													<option value="bus">Bus</option>
-			                                    </select>
-			                                </td>
-			                                <td>
-			                                    <select name="toBeBookedBy" class="form-control" id="travelBookedBy">
-			                                        <option value="company">Company</option>
-													<option value="self">Self</option>
-			                                    </select>
-			                                </td>
-			                                <td>
-			                                    <input type="date" name="date" class="form-control" id="travelDate">
-			                                </td>
-			                                <td>
-												 <input type="text" name="departure" placeholder="Departure" 
-												 class="form-control mb-2" id="travelDepartureFrom">
-												 <input type="text" name="arrival" placeholder="Arrival" 
-												 class="form-control" id="travelArrivalTo">
-			                                    
-			                                </td>
-			                                <td>
-			                                    <div>
-													<select class="form-control" id="travelTime">
-								                       <option value="Before 6 am">Before 6 am</option>
-								                       <option value="6 am - 12 pm">6 am - 12 pm</option>
-								                       <option value="12 pm - 6 pm">12 pm - 6 pm</option>
-								                       <option value="After 6 pm">After 6 pm</option>
-								                   </select>
-			                                    </div>
-			                                    <br>
-			                                    <div>
-			                                        <select name="ArrivalPreference" class="form-control" id="travelPreference">
-			                                            <option value="ArrivalPreference">Arrival Preference</option>
-														<option value="DeparturePreference">Departure Preference</option>
-			                                        </select>
-			                                    </div>
-			                                </td>
-			                                <td>
-												<div>
-													<select class="form-control" id="travelClass">
-							                        <option value="PremiumEco">PremiumEco</option>
-							                        <option value="Economy">Economy</option>
-							                        <option value="Business">Business</option>
-							                    </select>
-			                                    </div>
-												<br>
-												<input type="text" name="arrival" placeholder="Arrival" value="INN 777"
-												class="form-control" id="travelAmount">
-												
-			                                </td>
-											<td>
-												<div style="margin-bottom: 28px;">
-													<select class="form-control" id="travelAmountPayment">
-								                       <option value="NA">NA</option>
-								                       <option value="Credit Card">Credit Card</option>
-								                       <option value="Cash">Cash</option>
-								                   </select>
-			                                    </div>
-											    
-											    <div class="mt-0" >
-											        <span class="text-muted">Limit:</span>
-											        <span 
-											            class="border rounded px-3 py-1 bg-gray-200" 
-											            style="border-color: darkgray; display: inline-block;">
-											            INR 8,000
-											        </span>
-											    </div>
-											</td>
-			                                <td>
-			                                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-												style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
-			                                </td>
-											<td></td>
-			                            </tr>
-			                           -->
 			                        </tbody>
 			                    </table>
 								
@@ -3332,6 +3251,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            <th></th>
 							            <th></th>
 							            <th></th>
+										<th></th>
 										<th>
 							             <img src="img/edit-pencil-white.svg" alt="Plane Icon">
 							            </th>	                                
@@ -3345,87 +3265,13 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							                <th>Location</th>
 							                <th>Hotel Details</th>
 							                <th>Preferences</th>
+											<th>Tentative Amount</th>
 							                <th>Mode of Payment</th>
 							                <th>Remark</th>
 							            </tr>
 							        </thead>
 							        <tbody>
 									
-							                <!--
-							                <td> 
-												<div style="margin-bottom: 60px;">
-							                    <select name="mode" class="form-control" id="accommodationByMode">
-							                        <option value="Hotels">Hotels</option>
-													
-							                    </select>
-												</div>
-							                </td>
-							                <td>
-												<div style="margin-bottom: 60px;">
-							                    <select name="toBeBookedBy" class="form-control" id="accommodationBookedBy">
-							                        <option value="company">Company</option>
-													<option value="self">Self</option>
-							                    </select>
-												</div>
-							                </td>
-							                <td>
-												<div style="margin-bottom: 60px;">
-												<label for="accommodationCheckinDate">Check-in</label>
-												    <input type="date" name="checkinDate" class="form-control" id="accommodationCheckinDate">
-												    
-												    <label for="accommodationCheckoutDate">Check-out</label>
-												    <input type="date" name="checkoutDate" class="form-control" id="accommodationCheckoutDate">
-													</div>
-												
-							                </td>
-							                <td>
-												<div style="margin-bottom: 60px;">
-												 <input type="text" name="location" placeholder="Banglore" 
-												 class="form-control mb-2" id="accommodationDepartureFrom">
-												</div>
-							                    
-							                </td>
-							                <td>
-												<div style="margin-bottom: 60px;">
-												<input type="text" name="location" placeholder="Treebo Hotels" 
-												 class="form-control mb-2" id="accommodationDetails">
-												</div>
-							                    
-							                </td>
-							                <td>
-												<div style="margin-bottom: 60px;">
-							                        <select  class="form-control" id="accommodationPreference">
-							                            
-														<option value="14:00 Hrs">14:00 Hrs</option>
-							                        </select>
-							                    </div>
-												
-							                </td>
-											<td>
-												<div style="margin-bottom: 28px;">
-													<select class="form-control" id="accommodationAmountPayment">
-								                       <option value="NA">NA</option>
-								                       <option value="Credit Card">Credit Card</option>
-								                       <option value="Cash">Cash</option>
-								                   </select>
-							                    </div>
-											    
-											    <div class="mt-0" >
-											        <span class="text-muted">Limit:</span>
-											        <span 
-											            class="border rounded px-3 py-1 bg-gray-200" 
-											            style="border-color: darkgray; display: inline-block;">
-											            INR 8,000
-											        </span>
-											    </div>
-											</td>
-							                <td>
-							                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-												style="width: 140%; height: 100px;" id="accommodationRemarks"></textarea>
-							                </td>
-											<td></td>
-							            </tr>-->
-							           
 							        </tbody>
 							    </table>
 								
@@ -3444,7 +3290,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            <th></th>
 							            <th></th>
 							            <th></th>
-										<th></th>          
+										<th></th>  
+										<th></th>        
 										<th>
 							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
 							            </th>	                
@@ -3456,76 +3303,14 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							                <th>Date</th>
 							                <th>Time</th>
 							                <th>Location</th>
+											<th>Tentative Amount</th>
 							                <th>Mode of Payment</th>
 							                <th>Remark</th>
 											<th></th>
 							            </tr>
 							        </thead>
 							        <tbody>
-									<!--
-							                
-							    
-							                <td>
-							                    <select name="mode" class="form-control" id="cabsByMode">
-							                        <option value="flights">Flights</option>
-													<option value="train">train</option>
-													<option value="bus">Bus</option>
-							                    </select>
-							                </td>
-							                <td>
-							                    <select name="toBeBookedBy" class="form-control" id="cabsBookedBy">
-							                        <option value="company">Company</option>
-													<option value="self">Self</option>
-							                    </select>
-							                </td>
-							                <td>
-							                    <input type="date" name="date" class="form-control" id="cabsDate">
-							                </td>
-							                <td>
-												 
-												 <input type="text" name="arrival" placeholder="14:00 Hrs" 
-												 class="form-control" id="cabsTime">
-							                    
-							                </td>
-							                <td>
-												<div style="margin-bottom: -5px;">
-												<input type="text" name="location" placeholder="From" 
-												 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;">
-												 <br>
-												 <input type="text" name="location" placeholder="To" 
-	  											 class="form-control mb-2" id="cabsTo">
-												
-												 
-												 </div>
-							                    
-												
-							                </td>
-							                
-											<td>
-												<div style="margin-bottom: 28px;">
-													<select class="form-control" id="cabsPayment">
-								                       <option value="NA">NA</option>
-								                       <option value="Credit Card">Credit Card</option>
-								                       <option value="Cash">Cash</option>
-								                   </select>
-							                    </div>
-											    
-											    <div class="mt-0" >
-											        <span class="text-muted">Limit:</span>
-											        <span 
-											            class="border rounded px-3 py-1 bg-gray-200" 
-											            style="border-color: darkgray; display: inline-block;">
-											            INR 8,000
-											        </span>
-											    </div>
-											</td>
-							                <td>
-							                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-												style="width: 120%; height: 100px;" id="cabsRemarks"></textarea>
-							                </td>
-											<td></td>
-							            </tr>
-							            -->
+									
 							        </tbody>
 							    </table>
 								
@@ -3546,6 +3331,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            <th></th>
 							            <th></th>
 										<th></th>          
+										<th></th>
 										<th>
 							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
 							            </th>	
@@ -3559,6 +3345,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							                <th>Start Date</th>
 							                <th>Number of Days</th>
 							                <th>Location</th>
+											<th>Tentative Amount</th>
 							                <th>Mode of Payment</th>
 							                <th>Remark</th>
 											<th></th>
@@ -3567,60 +3354,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							            </tr>
 							        </thead>
 							        <tbody>
-							    <!--
-							                <td>
-							                    <select name="mode" class="form-control typeOfMeals" id="typeOfMeals">
-							                        <option value="Daily Meals">Daily Meals</option>
-													
-							                    </select>
-												<div class="error-message" id="error-typeOfMeals"></div>
-							                </td>
-							               
-							                <td>
-							                    <input type="date" name="date" class="form-control mealDate" id="mealDate">
-							                </td>
-							                <td>
-												<select name="mode" class="form-control noOfDays" id="noOfDays">
-							                        <option value="1">1</option>
-													
-							                    </select>
-												<div class="error-message" id="error-noOfDays"></div>
-							                </td>
-							                <td>
-												<input type="text" name="arrival mealLocation" placeholder="Arrival" value="Home"
-													class="form-control" id="mealLocation">
-													<div class="error-message" id="error-mealLocation"></div>
-							                </td>
-											
-											<td>
-												<div style="margin-bottom: 28px;">
-													<select class="form-control travelAmountPayment" id="travelAmountPayment">
-								                       <option value="NA">NA</option>
-								                       <option value="Credit Card">Credit Card</option>
-								                       <option value="Cash">Cash</option>
-								                   </select>
-												   <div class="error-message" id="error-travelAmountPayment"></div>
-							                    </div>
-											    
-											    <div class="mt-0" >
-											        <span class="text-muted">Limit:</span>
-											        <span 
-											            class="border rounded px-3 py-1 bg-gray-200" 
-											            style="border-color: darkgray; display: inline-block;">
-											            INR 8,000
-											        </span>
-											    </div>
-											</td>
-							                <td>
-							                    <textarea class="border rounded px-2 py-1 w-full travelRemarks" placeholder="Add Remarks (Optional)"
-												style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
-												<div class="error-message" id="error-travelRemarks"></div>
-							                </td>
-											<td></td>
-											<td></td>
-											
-							            </tr>-->
-							            
+							   
 							        </tbody>
 							    </table>
 								
@@ -3660,57 +3394,6 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 							        </thead>
 							        <tbody>
 									
-							        <!--        
-							    
-							                <td>
-							                   
-												<input type="text" name="" placeholder="Product Samples - 10 Pieces" 
-												 class="form-control mb-2" id="miscTitle">
-							                </td>
-							                <td>
-							                    <select name="toBeBookedBy" class="form-control" id="miscBookedBy">
-							                        <option value="company">Company</option>
-													<option value="self">Self</option>
-							                    </select>
-							                </td>
-							                <td>
-							                    <input type="date" name="date" class="form-control" id="miscDate">
-							                </td>
-							                <td>
-												 <input type="text" name="departure" placeholder="INR 5000" 
-												 class="form-control mb-2" id="miscAmount">
-												 
-							                    
-							                </td>
-							                <td>  
-							                </td>
-							                <td>
-							                </td>
-											<td>
-												<div style="margin-bottom: 28px;">
-													<select class="form-control" id="travelAmountPayment">
-								                       <option value="NA">NA</option>
-								                       <option value="Credit Card">Credit Card</option>
-								                       <option value="Cash">Cash</option>
-								                   </select>
-							                    </div>
-											    
-											    <div class="mt-0" >
-											        <span class="text-muted">Limit:</span>
-											        <span 
-											            class="border rounded px-3 py-1 bg-gray-200" 
-											            style="border-color: darkgray; display: inline-block;">
-											            INR 8,000
-											        </span>
-											    </div>
-											</td>
-							                <td>
-							                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-												style="width: 120%; height: 100px;" id="travelRemarks"></textarea>
-							                </td>
-											<td></td>
-							            </tr>
-							            -->
 							        </tbody>
 							    </table>
 								
@@ -3733,8 +3416,250 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			        </div>
 			    </div>
 			</div>
+	
+			<div class="modalView"  id="travelRequestView" tabindex="-1" role="dialog"
+				       aria-labelledby="exampleModalCenterTitle">
+					    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
+					        <div class="modal-content modal-bulk">
+								<div class="modal-header pb-0 text-left">
+									<h5 class="modal-title">Advance Travel Request</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeView()">
+						                    <span aria-hidden="true">×</span>
+						                </button>
+								</div><hr><br>
+								<div class="background-wrap">
+									<span><h3>View Advance Travel Request</h3></span><br>
+					            <div class="policies-wrap-in-table">
+					                <div class="table-responsive-2" id="travelTableView" >
+					                    <table class="table table-reimbursements" id="viewTravelRequest">
+					                        <thead >
+												<tr>
+													<th>
+								                            <img src="img/plane-white.svg" alt="Plane Icon">
+								                    </th>
+												<th>  Travel</th>
+												<th></th>
+												<th></th>
+				                                <th></th>
+				                                <th></th>
+				                                <th></th>
+				                                <th></th>
+												<th></th>
+												<th>
+							                            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+							                    </th>	 
+												<th></th>                               
+					                            </tr>
+												
+					                            <tr>
+													   <th></th>
+									                   <th>Mode</th>
+									                   <th>To-Be-Booked-By</th>
+									                   <th>Date</th>
+									                   <th>location</th>
+									                   <th>Preferred Time</th>
+									                   <th>Carrier Details</th>
+													   <th>Tentative Amount</th>
+									                   <th>Mode of Payment</th>
+									                   <th>Remarks</th>
+													   <th></th>
+													   
+					                            </tr>
+					                        </thead>
+					                        <tbody>
+											
+					                        </tbody>
+					                    </table>
+										
+					                </div>
+									<!-- Accommodation Table -->
+									<div class="table-responsive-2" id="accommodationTable1" >
+									    <table class="table table-reimbursements" id="viewAccomodationOnly">
+									        <thead >
+												<tr>
+												<th>
+								                <img src="img/accommodation-white.svg" >
+								                </th>
+												<th>  Accommodation</th>
+												<th></th>
+												<th></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+												<th></th>
+												<th>
+									             <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+									            </th>	                                
+									            </tr>
+												
+									            <tr>
+													<th></th>
+									                <th>Type</th>
+									                <th>To-Be-Booked-By</th>
+									                <th>Date</th>
+									                <th>Location</th>
+									                <th>Hotel Details</th>
+									                <th>Preferences</th>
+													<th>Tentative Amount</th>
+									                <th>Mode of Payment</th>
+									                <th>Remark</th>
+									            </tr>
+									        </thead>
+									        <tbody>
+											
+									        </tbody>
+									    </table>
+										
+									</div>
+									<!-- In-City Cabs Table -->
+									<div class="table-responsive-2" id="inCityCabsTable1" >
+									    <table class="table table-reimbursements" id="viewIncityCabOnly">
+									        <thead >
+												<tr>
+												<th>
+								                <img src="img/citycabs-white.svg" >
+								                </th>
+												<th style="white-space: nowrap;"> In-City Cabs</th>
+												<th></th>
+												<th></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+												<th></th>  
+												<th></th>        
+												<th>
+									            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+									            </th>	                
+									            </tr>
+									            <tr>
+													<th></th>
+									                <th>Type</th>
+									                <th>To-Be-Booked-By</th>
+									                <th>Date</th>
+									                <th>Time</th>
+									                <th>Location</th>
+													<th>Tentative Amount</th>
+									                <th>Mode of Payment</th>
+									                <th>Remark</th>
+													<th></th>
+									            </tr>
+									        </thead>
+									        <tbody>
+											
+									        </tbody>
+									    </table>
+										
+									</div>
+									<!-- Food Table -->
+									<div class="table-responsive-2" id="foodTable1" >
+									    <table class="table table-reimbursements" id="viewFoodOnly">
+									        <thead >
+												<tr>
+												<th>
+								                   <img src="img/food-white.svg" >
+								                </th>
+												<th style="white-space: nowrap;"> Food</th>
+												<th></th>
+												<th></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+												<th></th>          
+												<th></th>
+												<th>
+									            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+									            </th>	
+												
+												<th></th>                                
+									            </tr>
+									            <tr>
+													<th></th>
+									                <th>Type of Meal</th>
+													<!--<th>To-Be-Booked-By</th>-->
+									                <th>Start Date</th>
+									                <th>Number of Days</th>
+									                <th>Location</th>
+													<th>Tentative Amount</th>
+									                <th>Mode of Payment</th>
+									                <th>Remark</th>
+													<th></th>
+													<th></th>
+													<th></th>
+									            </tr>
+									        </thead>
+									        <tbody>
+									    
+									        </tbody>
+									    </table>
+										
+									</div>
+									<!-- Miscellaneous Table -->
+									<div class="table-responsive-2" id="miscellaneousTable1" >
+									    <table class="table table-reimbursements" id="viewMiscellaneousOnly">
+									        <thead >
+												<tr>
+												<th>
+								                        <img src="img/miscellaneous-white.svg" class="align-start">
+								                </th>
+												<th style="white-space: nowrap;">Miscellaneous </th>
+												<th></th>
+												<th></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+									            <th></th>
+												<th>
+									            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+									            </th>	
+												<th></th>                                
+									            </tr>
+									            <tr>
+													<th></th>
+									                <th>Title</th>
+									                <th>To-Be-Booked-By</th>
+									                <th>Date</th>
+									                <th>Tentative Amount</th>
+									                <th></th>
+									                <th></th>
+									                <th>Mode of Payment</th>
+									                <th>Remarks (Compulsory)</th>
+													<th></th>
+									            </tr>
+									        </thead>
+									        <tbody>
+											
+									       </tbody>
+									    </table>
+										
+									</div>
+								
+					            </div>
+								</div><!-- custom background-wrap close-->
+					        </div>
+					    </div>
+					</div>
 
-
+			<!-- Modal Reimbursement Approved -->
+			   <div class="modalView" id="modalTravelUpdated" tabindex="-1" role="dialog"
+			       aria-labelledby="exampleModalCenterTitle" >
+			       <div class="modal-dialog modal-dialog-centered" role="document">
+			           <div class="modal-content modal-bulk">
+			               <div class="modal-top text-center">
+			                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" onclick="traveUpdateClose()">
+			                       <img src="img/modal-close.svg" alt="">
+			                   </button>
+			                   <img src="img/modal-success.svg" alt="">
+			               </div>
+			               <div class="modal-bottom">
+			                   <!--<div class="count"><span>4</span><strong>5</strong></div>-->
+			                   <br>
+			                   <span>Travel Request updated Successfully</span>
+			               </div>
+			           </div>
+			       </div>
+			   </div>
 </body>
 
 </html>

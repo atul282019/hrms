@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InCityCabsReimbursement {
 	
-	 private Integer id;
+	    private Integer id;
 	    private String mode;
 	    private String toBeBookedBy;
 	    private String date;
@@ -22,11 +22,4 @@ public class InCityCabsReimbursement {
 	    private String amount;
 	    private String limitAmount;
 	    private String remarks;
-	   
-	    
-	   
-	    
-	    
-	   
-
 }
