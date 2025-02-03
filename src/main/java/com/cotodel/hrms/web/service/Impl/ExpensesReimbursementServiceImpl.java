@@ -133,7 +133,7 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 
 	@Override
 	public String travelAdvanceRequest(String token, TravelRequest travelRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(travelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.cashAdvanceTravelRequest);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(travelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.travelAdvanceTravelRequest);
 	}
 
 	@Override
