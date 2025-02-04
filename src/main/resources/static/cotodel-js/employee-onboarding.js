@@ -1,3 +1,4 @@
+let profilePhoto="";
 function validateAmount(amount) {
            // Regex to allow positive numbers with up to 2 decimal places
            const amountRegex = /^[0-9]+(\.[0-9]{1,2})?$/;
@@ -221,9 +222,12 @@ function saveEmployeeOnboarding(){
 	    const jobTitle = document.getElementById("jobTitle").value;
 		const departmentDropdown = document.getElementById("department");
 		const department = departmentDropdown.options[departmentDropdown.selectedIndex].text;
-	    const managerName = document.getElementById("reporting").value;
+	   const reporting = document.getElementById("reporting");
+		const managerName1 = reporting.options[reporting.selectedIndex].text;
+		const managerName = document.getElementById("reporting").value;
 	    const ctc = document.getElementById("salary").value;
-	    const location = document.getElementById("location").value;
+	    const locationDropdown = document.getElementById("location");
+		const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].text; 
 	    const residentOfIndia = document.getElementById("residence").value;
 
 	    const regName = /^[a-zA-Z\s]*$/;
@@ -428,11 +432,14 @@ function saveEmployeeOnboarding(){
 	formData.append("depratment",department);
 	
 	formData.append("managerId",managerName);
+	formData.append("managerName",managerName1);
 	formData.append("ctc",ctc);
 	
-	formData.append("location",location);
+	formData.append("location",selectedLocation);
 	formData.append("residentOfIndia",residentOfIndia);
 	formData.append("empOrCont",emporcount);
+	formData.append("empPhoto",profilePhoto);
+	
 	
 	
 	document.getElementById("signinLoader").style.display="flex";
@@ -602,10 +609,26 @@ function getEmployeeOnboarding() {
   			document.getElementById("mobile").innerHTML=data2.mobile;
   			document.getElementById("designation").innerHTML=data2.jobTitle;
   			document.getElementById("empname").innerHTML=data2.name;
-  			document.getElementById("reportingManager").innerHTML=data2.managerName;
+  			document.getElementById("reportingManager").innerHTML=data2.managerName || 'N/A';
   			document.getElementById("empType").innerHTML=data2.empOrCont;
   			document.getElementById("herDate").innerHTML=data2.herDate;
   			document.getElementById("emailid").innerHTML=data2.email;
+			document.getElementById("location").innerHTML=data2.location;
+			
+			
+			var profileImageBase64 = data2.empPhoto; // Assuming API returns this field
+			            var defaultImage = "img/no-image-available.png"; // Default profile picture
+
+						if (profileImageBase64) {
+						    let profileImg = document.querySelector(".bs-canvas-top-img img");
+						    profileImg.src = "data:image/png;base64," + profileImageBase64;
+						    profileImg.style.width = "100px";
+						    profileImg.style.height = "100px";
+						    profileImg.style.objectFit = "cover"; // Ensures no distortion
+						    //profileImg.style.borderRadius = "50%"; // Optional for a circular look
+						} else {
+						    document.querySelector(".bs-canvas-top-img img").src = defaultImage;
+						}
 			
 			settingEmpMngrId();
            },
@@ -614,3 +637,34 @@ function getEmployeeOnboarding() {
          }
     });
 }
+
+function validateAndConvertImageToBase64() {
+        const fileInput = document.getElementById('profilePhoto');
+        const file = fileInput.files[0];
+
+        // Validate file input
+        /*if (!file) {
+            alert('No file selected. Please choose a file.');
+           return;
+        }*/ 
+
+        const allowedTypes = ['image/jpeg', 'image/png'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Invalid file type. Please upload a JPG or PNG image.');
+            fileInput.value = ''; // Clear the input
+            return;
+        }
+
+        // Convert to Base64
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64String = event.target.result.split(',')[1];
+			console.log(base64String);
+            profilePhoto=base64String;
+            // You can now use the Base64 string as needed
+        };
+        reader.onerror = function() {
+            console.log('Error reading file.');
+        };
+        reader.readAsDataURL(file);
+    }

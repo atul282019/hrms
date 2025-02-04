@@ -31,5 +31,8 @@ public class EmployeeOnboarding {
     private String ifscCode;
     private String beneficiaryName;    
 	private String response;
+	private String empPhoto;
+	private String managerName;
+	
 	
 }
