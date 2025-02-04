@@ -267,4 +267,34 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		return profileRes;
 	}
 	
+	@GetMapping(value = "/getAdanceCashTravelApprpvalList")
+	public @ResponseBody String getAdanceCashTravelApprpvalList(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
+		String profileRes = null;
+		profileRes = expensesReimbursementService.getAdanceCashTravelApprpvalList(tokengeneration.getToken(),
+				advanceTravelRequest);
+
+		return profileRes;
+	}
+	
+	@PostMapping(value = "/approveAdvanceTravelRequest")
+	public @ResponseBody String approveAdvanceTravelRequest(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
+		String profileRes = null;
+		profileRes = expensesReimbursementService.approveAdvanceTravelRequest(tokengeneration.getToken(),
+				advanceTravelRequest);
+
+		return profileRes;
+	}
+	
+	@PostMapping(value = "/getCashAdvanceDetailById")
+	public @ResponseBody String getCashAdvanceDetailById(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
+		String profileRes = null;
+		profileRes = expensesReimbursementService.getCashAdvanceDetailById(tokengeneration.getToken(),
+				advanceTravelRequest);
+
+		return profileRes;
+	}
+	
 }

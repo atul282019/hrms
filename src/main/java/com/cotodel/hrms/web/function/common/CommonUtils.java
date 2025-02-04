@@ -173,4 +173,8 @@ public interface CommonUtils {
 	
 	public static String updateTraveRequestData ="/empService/Api/update/advanceTravelRequestUpdate";
 	public static String deleteTravelReimbursement = "/empService/Api/delete/advanceTravelRequestDelete";
+	public static String getAdanceCashTravelApprpvalList = "/empService/Api/get/advanceTravelApprovalRequest";
+	public static String  approveAdvanceTravelRequest = "/empService/Api/update/advanceTravelRequestApproved";
+	public static String  getCashAdvanceDetailById = "/empService/Api/update/getCashAdvanceDetailById";
+	
 }

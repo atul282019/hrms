@@ -1312,6 +1312,7 @@ function closePopup(){
 	//window.location.reload();
 	
 }
+
 function getCashAdvanceRequestList(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;
@@ -1343,9 +1344,14 @@ function getCashAdvanceRequestList(){
 					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck4" name="customCheck4" ></div>';
                  }}, 
 				{ "mData": "sequenceId"},   
-                { "mData": "createdDate"},   
+                { "mData": "createdDate"}, 
+				//{ "mData": function (data2, type, row) {
+			   //     return data2.date + " " + data2.time;
+			   // }},  
 				{ "mData": "requestType"},
-			    { "mData": "carrierDetails"},
+				{ "mData": function (data2, type, row) {
+			        return 'INR' + " " + data2.amount;
+			    }},
 			    { "mData": "statusRemarks"},
 				{ "mData": "paymentMode"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {

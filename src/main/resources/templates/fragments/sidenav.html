@@ -81,7 +81,13 @@
                    <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                    <span>Bank Master</span></a>
            </li>
-         			
+		   
+		  <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
+             <a class="nav-link" href="http://13.201.7.92/helpdesk/" target="_blank">
+                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+                 <span>Help Desk</span></a>
+         </li>
+		           	
             <!-- <li class="nav-item" th:if="${session.user_role == 9}">
                  <a class="nav-link" th:href="@{/linkBankDetail}">
                      <img src="img/menu-admin-settings.svg" alt="" class="mr-2">
@@ -114,5 +120,5 @@
         </ul>
         
        
-	
+
 </div>

@@ -51,4 +51,10 @@ public interface ExpensesReimbursementService {
 	String travelAdvanceRequestUpdate(String token, TravelAdvanceRequestUpdate travelAdvanceRequestUpdate);
 
 	String deleteAdvanceTravel(String token, TravelReimbursement travelReimbursement);
+
+	String getAdanceCashTravelApprpvalList(String token, AdvanceTravelRequest advanceTravelRequest);
+
+	String approveAdvanceTravelRequest(String token, AdvanceTravelRequest advanceTravelRequest);
+
+	String getCashAdvanceDetailById(String token, AdvanceTravelRequest advanceTravelRequest);
 }

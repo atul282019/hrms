@@ -36,7 +36,7 @@
 </head>
 	
 <body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),
-getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
+getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTravelApprovalList()">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -347,7 +347,66 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
                                             </div>
                                         </div>
                                     </div>
+								<!--cash Travel Request Advace-->
+								
+								<div class="policies-section">
 
+                                <div class="policies-wrap">
+                                    <div
+                                        class="d-flex justify-content-between border-btm modal-head-secd px-0 py-3">
+                                        <div>
+                                            <h4 class="mb-0">Approve Pending Advance & Travel Requests </h4>
+                                        </div>
+                                        <div class="d-flex">
+                                            <button class="custom-dd-btn approveIcon"></button>
+                                            <button class="custom-dd-btn rejectIcon ml-2"></button>
+                                            <div class="dropdown no-arrow ml-2">
+                                                <a class="dropdown-toggle custom-dd-btn sortIcon" href="#"
+                                                    id="userDropdown" role="button" data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false"> Sort by
+                                                    <img src="img/Short.svg" alt="" class="ml-2">
+                                                </a>
+                                                <!-- Dropdown - User Information -->
+                                                <div class="dropdown-menu dropdown-menu-right shadow"
+                                                    aria-labelledby="userDropdown">
+                                                    <a class="dropdown-item py-2" href="#">Category</a>
+                                                    <a class="dropdown-item py-2" href="#">Employee name</a>
+                                                    <a class="dropdown-item py-2" href="#">Department</a>
+                                                    <a class="dropdown-item py-2" href="#">Location</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="policies-wrap-in-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-approval-flow" id="tableCashAdvacceTravelApprovalFlow">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="table-check">
+                                                            <input type="checkbox" id="customCheck0">
+                                                        </div>
+                                                    </th>
+													
+                                                    <th>EXPENSE ID</th>
+                                                 <!--   <th>DATE & TIME</th>-->
+                                                    <th>CATEGORY</th>
+                                                    <th>AMOUNT</th>
+                                                    <th>LAST APPROVED</th>
+                                                    <th>PAYMENT MODE</th>
+													<th>APPROVED AMOUNT</th>
+                                                    <th>ACTIONS</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+								
+								<!--Cansh Travel Advance Request end-->
                                     <div class="policies-section">
                                         <div class="policies-wrap">
                                             <div class="d-flex justify-content-between px-0 py-3">
@@ -3660,6 +3719,242 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList()">
 			           </div>
 			       </div>
 			   </div>
+			   
+			   
+			   <div class="modalView"  id="TravelRequestApprove" tabindex="-1" role="dialog"
+			   	       aria-labelledby="exampleModalCenterTitle">
+			   		    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
+			   		        <div class="modal-content modal-bulk">
+			   					<div class="modal-header pb-0 text-left">
+			   						<h5 class="modal-title">Advance Travel Request</h5>
+			   							<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeApproveView()">
+			   			                    <span aria-hidden="true">×</span>
+			   			                </button>
+			   					</div><hr><br>
+			   					<div class="background-wrap">
+			   						<span><h3>View Advance Travel Request</h3></span><br>
+			   		            <div class="policies-wrap-in-table">
+			   		                <div class="table-responsive-2" id="travelTableView" >
+			   		                    <table class="table table-reimbursements" id="viewTravelRequest">
+			   		                        <thead >
+			   									<tr>
+			   										<th>
+			   					                            <img src="img/plane-white.svg" alt="Plane Icon">
+			   					                    </th>
+			   									<th>  Travel</th>
+			   									<th></th>
+			   									<th></th>
+			   	                                <th></th>
+			   	                                <th></th>
+			   	                                <th></th>
+			   	                                <th></th>
+			   									<th></th>
+			   									<th>
+			   				                            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+			   				                    </th>	 
+			   									<th></th>                               
+			   		                            </tr>
+			   									
+			   		                            <tr>
+			   										   <th></th>
+			   						                   <th>Mode</th>
+			   						                   <th>To-Be-Booked-By</th>
+			   						                   <th>Date</th>
+			   						                   <th>location</th>
+			   						                   <th>Preferred Time</th>
+			   						                   <th>Carrier Details</th>
+			   										   <th>Tentative Amount</th>
+			   						                   <th>Mode of Payment</th>
+			   						                   <th>Remarks</th>
+			   										   <th></th>
+			   										   
+			   		                            </tr>
+			   		                        </thead>
+			   		                        <tbody>
+			   								
+			   		                        </tbody>
+			   		                    </table>
+			   							
+			   		                </div>
+			   						<!-- Accommodation Table -->
+			   						<div class="table-responsive-2" id="accommodationTable1" >
+			   						    <table class="table table-reimbursements" id="viewAccomodationOnly">
+			   						        <thead >
+			   									<tr>
+			   									<th>
+			   					                <img src="img/accommodation-white.svg" >
+			   					                </th>
+			   									<th>  Accommodation</th>
+			   									<th></th>
+			   									<th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   									<th></th>
+			   									<th>
+			   						             <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+			   						            </th>	                                
+			   						            </tr>
+			   									
+			   						            <tr>
+			   										<th></th>
+			   						                <th>Type</th>
+			   						                <th>To-Be-Booked-By</th>
+			   						                <th>Date</th>
+			   						                <th>Location</th>
+			   						                <th>Hotel Details</th>
+			   						                <th>Preferences</th>
+			   										<th>Tentative Amount</th>
+			   						                <th>Mode of Payment</th>
+			   						                <th>Remark</th>
+			   						            </tr>
+			   						        </thead>
+			   						        <tbody>
+			   								
+			   						        </tbody>
+			   						    </table>
+			   							
+			   						</div>
+			   						<!-- In-City Cabs Table -->
+			   						<div class="table-responsive-2" id="inCityCabsTable1" >
+			   						    <table class="table table-reimbursements" id="viewIncityCabOnly">
+			   						        <thead >
+			   									<tr>
+			   									<th>
+			   					                <img src="img/citycabs-white.svg" >
+			   					                </th>
+			   									<th style="white-space: nowrap;"> In-City Cabs</th>
+			   									<th></th>
+			   									<th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   									<th></th>  
+			   									<th></th>        
+			   									<th>
+			   						            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+			   						            </th>	                
+			   						            </tr>
+			   						            <tr>
+			   										<th></th>
+			   						                <th>Type</th>
+			   						                <th>To-Be-Booked-By</th>
+			   						                <th>Date</th>
+			   						                <th>Time</th>
+			   						                <th>Location</th>
+			   										<th>Tentative Amount</th>
+			   						                <th>Mode of Payment</th>
+			   						                <th>Remark</th>
+			   										<th></th>
+			   						            </tr>
+			   						        </thead>
+			   						        <tbody>
+			   								
+			   						        </tbody>
+			   						    </table>
+			   							
+			   						</div>
+			   						<!-- Food Table -->
+			   						<div class="table-responsive-2" id="foodTable1" >
+			   						    <table class="table table-reimbursements" id="viewFoodOnly">
+			   						        <thead >
+			   									<tr>
+			   									<th>
+			   					                   <img src="img/food-white.svg" >
+			   					                </th>
+			   									<th style="white-space: nowrap;"> Food</th>
+			   									<th></th>
+			   									<th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   									<th></th>          
+			   									<th></th>
+			   									<th>
+			   						            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+			   						            </th>	
+			   									
+			   									<th></th>                                
+			   						            </tr>
+			   						            <tr>
+			   										<th></th>
+			   						                <th>Type of Meal</th>
+			   										<!--<th>To-Be-Booked-By</th>-->
+			   						                <th>Start Date</th>
+			   						                <th>Number of Days</th>
+			   						                <th>Location</th>
+			   										<th>Tentative Amount</th>
+			   						                <th>Mode of Payment</th>
+			   						                <th>Remark</th>
+			   										<th></th>
+			   										<th></th>
+			   										<th></th>
+			   						            </tr>
+			   						        </thead>
+			   						        <tbody>
+			   						    
+			   						        </tbody>
+			   						    </table>
+			   							
+			   						</div>
+			   						<!-- Miscellaneous Table -->
+			   						<div class="table-responsive-2" id="miscellaneousTable1" >
+			   						    <table class="table table-reimbursements" id="viewMiscellaneousOnly">
+			   						        <thead >
+			   									<tr>
+			   									<th>
+			   					                        <img src="img/miscellaneous-white.svg" class="align-start">
+			   					                </th>
+			   									<th style="white-space: nowrap;">Miscellaneous </th>
+			   									<th></th>
+			   									<th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   						            <th></th>
+			   									<th>
+			   						            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
+			   						            </th>	
+			   									<th></th>                                
+			   						            </tr>
+			   						            <tr>
+			   										<th></th>
+			   						                <th>Title</th>
+			   						                <th>To-Be-Booked-By</th>
+			   						                <th>Date</th>
+			   						                <th>Tentative Amount</th>
+			   						                <th></th>
+			   						                <th></th>
+			   						                <th>Mode of Payment</th>
+			   						                <th>Remarks (Compulsory)</th>
+			   										<th></th>
+			   						            </tr>
+			   						        </thead>
+			   						        <tbody>
+			   								
+			   						       </tbody>
+			   						    </table>
+			   							
+										<div class="w-100 text-right">
+										   	  <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="getTableDataTravel()">Approve</button>
+										  </div>	
+									
+
+										  <div class="w-100 text-right">
+										     	  <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="getTableDataTravel()">Reject</button>
+										    </div>	
+										  	   
+										 
+			   						</div>
+			   					
+			   		            </div>
+			   					</div><!-- custom background-wrap close-->
+			   		        </div>
+			   		    </div>
+			   		</div>
+
 </body>
 
 </html>
