@@ -1058,7 +1058,7 @@ function getTableDataMiscellaneous(){
 	          return false;
 	       }
 
-		const tableRows = document.querySelectorAll("#reimbursementsBodyFood tr");
+		const tableRows = document.querySelectorAll("#reimbursementsBodyMiscellaneous tr");
 		let tableData = [];
 		    tableRows.forEach(row => {
 		        let rowData = {
@@ -1122,12 +1122,12 @@ function showErrorMessage(element, message) {
   function validateRow(row) {
       let isValid = true;
 
-      const typeOfMeals = row.querySelector("#typeOfMeals");
+      const typeOfMeals = row.querySelector("#miscTitle");
       const miscBookedBy = row.querySelector("#miscBookedBy");
-      const mealDate = row.querySelector("#mealDate");
-      const foodAmount = row.querySelector("#foodAmount");
-      const foodPayment = row.querySelector("#foodPayment");
-      const remarks = row.querySelector("#foodRemarks");
+      const mealDate = row.querySelector("#miscDate");
+      const foodAmount = row.querySelector("#miscAmount");
+      const foodPayment = row.querySelector("#travelAmountPayment");
+      const remarks = row.querySelector("#travelRemarks");
 
       if (!typeOfMeals.value.trim()) {
           isValid = false;
@@ -1986,10 +1986,11 @@ function getCashAdvacceTravelApprovalList(){
                // { "mData": "cashDate"},   
 				{ "mData": "requestType"},
 				{ "mData": function (data2, type, row) {
-			        return data2.currency + " " + data2.amount;
+			        //return data2.currency + " " + data2.amount;
+					return 'INR' + " " + data2.amount;
 			    }},
 				{ "mData": "statusRemarks"},
-				{ "mData": "modeOfPayment"}, 
+				{ "mData": "paymentMode"}, 
 				{ "mData": "approvedAmount"},
 				
       		  	{ "mData": "id", "render": function (data1, type, row) {
@@ -2054,308 +2055,412 @@ function getCashAdvacceTravelApprovalList(){
 function viewAdvanceTravelApprove(value){
 	
 	    document.getElementById("signinLoader").style.display="flex";
+		
+		var row = jQuery(value).closest('tr');
+		var  id = $(row).find("input[name='customCheck4']").val();
+		
 		var employerid = document.getElementById("employerId").value;
 		var empId = document.getElementById("empId").value;	
 		$.ajax({
 		type: "GET",
-		url: "/getTravelReviewData",
+		url: "/getCashAdvanceDetailById",
 		data:{
 			"employeeId":empId,
 			"employerId":employerid,
-			"status":0
+			"id": id
 			},
 		        success:function(data){
 		       // var data1 = data;
 		       console.log(data);
 			   var data1 = jQuery.parseJSON(data);
-				
-				var travelReimbursement = data1.data.travelReimbursement;
-				var mealReimbursement = data1.data.mealReimbursement;
-				var miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
-				var inCityCabReimbursement = data1.data.inCityCabReimbursement;
-				var accomodationReimbursement = data1.data.accomodationReimbursement;
-				document.getElementById("signinLoader").style.display="none";
+			   document.getElementById("signinLoader").style.display="none";
 				
 				if(data1.status==true){
-					const tableBody = document.querySelector("#viewTravelRequest tbody");
-					tableBody.innerHTML = "";
-		           data1.data.travelReimbursement.forEach(item => {
-		               const row = document.createElement("tr");
-		               row.innerHTML = `
-						   <td>
-						   <input type="hidden" class="form-control" value="${item.id}">
-		                   </td>
-		                   <td>
-		                       <select class="form-control">
-		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
-		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
-		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
-		                       </select>
-		                   </td>
-		                   <td>
-		                       <select class="form-control">
-		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
-		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
-		                       </select>
-		                   </td>
-		                   <td><input type="date" class="form-control" value="${item.date}"></td>
-		                   <td>
-						<input type="text"class="form-control mb-2" value="${item.departure}">
-						<input type="text" class="form-control mb-2" value="${item.arrival}">
-						</td>
-		                   <td>
-		                       <select class="form-control">
-		                           <option value="6 am - 12 pm" ${item.preferredTime === "6 am - 12 pm" ? "selected" : ""}>6 am - 12 pm</option>
-		                           <option value="Before 6 am">Before 6 am</option>
-		                           <option value="12 pm - 6 pm">12 pm - 6 pm</option>
-		                           <option value="After 6 pm">After 6 pm</option>
-		                       </select>
-		                   </td>
-		                   <td><input type="text" class="form-control" value="${item.carrierDetails}"></td>
-						   <td><input type="text" class="form-control" value="${item.amount}"></td>
-		                   <td>
-						   <div style="margin-bottom: 28px;">
-		                       <select class="form-control">
-		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
-		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
-		                       </select>
-							   </div>								    
-							    <div class="mt-0" >
-							        <span class="text-muted">Limit:</span>
-							        <span 
-							            class="border rounded px-3 py-1 bg-gray-200" 
-							            style="border-color: darkgray; display: inline-block;">
-							            INR 8,000
-							        </span>
-							    </div>
-		                   </td>
-		                   <td><textarea class="form-control">${item.remarks}</textarea></td>
-						   <td></td>
-		               `;
-		               tableBody.appendChild(row);
-		           });
+					if(data1.data.requestType=="Travel"){
+
+						document.getElementById("approveAccomodation").style.display="None";
+						document.getElementById("approveIncityCab").style.display="none";
+						document.getElementById("approveCash").style.display="none";
+						document.getElementById("approveMiscellaneous").style.display="none";
+						document.getElementById("approveFood").style.display="none";
+						
+						document.getElementById("approveTravel").style.display="block";
+					    document.getElementById("requestTypeT").innerHTML=data1.data.requestType;
+		                 const miscellaneousTableView = document.querySelector("#viewTravelRequestApprove tbody");
+		                 if (!miscellaneousTableView) {
+		                     console.error("Table body not found");
+		                     return;
+		                 }
+		                 miscellaneousTableView.innerHTML = "";
+		                 const item = data1.data;
+						 document.getElementById("approvalId").value=item.id;
+		                 const row = document.createElement("tr");
+		                 row.innerHTML = `
+		                     <td>
+		                         <input type="hidden" class="form-control" value="${item.id}" >
+		                     </td>
+		                     <td>
+		                         <input type="text" name="miscTitle"
+		                                class="form-control mb-2" value="${item.mode || ''}" disabled>
+		                     </td>
+		                     <td>
+		                         <select class="form-control" disabled>
+		                             <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                             <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                         </select>
+		                     </td>
+		                     <td>
+		                         <input type="date" class="form-control" value="${item.cashDate || ''}" disabled >
+		                     </td>
+		                     <td>
+		                         <input type="text" class="form-control mb-2" value="${item.location || ""}" disabled >
+		                     </td>
+		                     <td>
+							 <input type="text" class="form-control mb-2" value="${item.amount || 0}" disabled>
+							 </td>
+		                    
+		                     <td>
+		                         <div style="margin-bottom: 28px;">
+		                             <select class="form-control" disabled>
+		                                 <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                                 <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                             </select>
+		                         </div>
+		                         <div class="mt-0">
+		                             <span class="text-muted">Limit:</span>
+		                             <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+		                                 INR 8,000
+		                             </span>
+		                         </div>
+		                     </td>
+		                     <td>
+		                         <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+		                                   style="width: 100%; height: 100px;" disabled>${item.remarks || ''}</textarea>
+		                     </td>
+		                     <td></td>
+		                 `;
+		                 miscellaneousTableView.appendChild(row);
+		   	           
+				   }
 					//////////////////////////////////////////
+					else if(data1.data.requestType=="Accomodation"){
+						
+						document.getElementById("approveTravel").style.display="none";
+						document.getElementById("approveIncityCab").style.display="none";
+						document.getElementById("approveCash").style.display="none";
+						document.getElementById("approveMiscellaneous").style.display="none";
+						document.getElementById("approveFood").style.display="none";
+						document.getElementById("approveAccomodation").style.display="block";
+						 document.getElementById("requestTypeA").innerHTML=data1.data.requestType;
+		                 const miscellaneousTableView = document.querySelector("#viewAccomodationOnlyApprove tbody");
+		                 if (!miscellaneousTableView) {
+		                     console.error("Table body not found");
+		                     return;
+		                 }
+		                 miscellaneousTableView.innerHTML = "";
+		                 const item = data1.data;
+						 document.getElementById("approvalId").value=item.id;
+		                 const row = document.createElement("tr");
+		                 row.innerHTML = `
+		                     <td>
+		                         <input type="hidden" class="form-control" value="${item.id}">
+		                     </td>
+		                     <td>
+		                         <input type="text" name="miscTitle" class="form-control mb-2" value="${item.type || ''}">
+		                     </td>
+		                     <td>
+		                         <select class="form-control">
+		                             <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+		                             <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+		                         </select>
+		                     </td>
+		                     <td>
+		                         <input type="date" class="form-control" value="${item.checkinDate || ''}">
+								 <input type="date" class="form-control" value="${item.checkoutDate || ''}">
+		                     </td>
+		                     <td>
+		                         <input type="text" class="form-control mb-2" value="${item.location || 0}">
+		                     </td>
+		                     <td>
+							  <input type="text" class="form-control mb-2" value="${item.hotelDetails || 0}">
+							  </td>
+		                     <td> <input type="text" class="form-control mb-2" value="${item.preferredTime || 0}">
+							 </td>
+							 <td> <input type="text" class="form-control mb-2" value="${item.amount || 0}">
+							  </td>
+		                     <td>
+		                         <div style="margin-bottom: 28px;">
+		                             <select class="form-control">
+		                                 <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                                 <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                             </select>
+		                         </div>
+		                         <div class="mt-0">
+		                             <span class="text-muted">Limit:</span>
+		                             <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+		                                 INR 8,000
+		                             </span>
+		                         </div>
+		                     </td>
+		                     <td>
+		                         <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+		                                   style="width: 100%; height: 100px;">${item.remarks || ''}</textarea>
+		                     </td>
+		                     <td></td>
+		                 `;
+		                 miscellaneousTableView.appendChild(row);
+		   	           
+				   }
+				   else if(data1.data.requestType=="In-City-Cab"){
 					
-					const tableBodyAccomodation = document.querySelector("#viewAccomodationOnly tbody");
-					tableBodyAccomodation.innerHTML = "";
-		            data1.data.accomodationReimbursement.forEach(item => {
-		               const row = document.createElement("tr");
-		               row.innerHTML = `
-					      <td>
-						   <input type="hidden" class="form-control" value="${item.id}">
-		                   </td>
-		                   <td>
-		                       <select class="form-control">
-		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
-		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
-		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
-		                       </select>
-		                   </td>
-		                   <td>
-		                       <select class="form-control">
-		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
-		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
-		                       </select>
-		                   </td>
-		                   <td>
-						      <label for="accommodationCheckinDate">Check-in</label>
-						      <input type="date" class="form-control" value="${item.checkinDate}">
-						      <label for="accommodationCheckoutDate">Check-out</label>
-						      <input type="date" class="form-control" value="${item.checkoutDate}">
-						   </td>
-		                   <td>
-							<input type="text" class="form-control" value="${item.location}">
-							</td>
-		                   <td>
-		                      <input type="text" class="form-control" value="${item.hotelDetails}">
-		                   </td>
-		                   <td><input type="text" class="form-control" value="${item.preferredTime}"></td>
-						   <td><input type="text" class="form-control" value="${item.amount}"></td>
-		                   <td>
-						  
-						   <div style="margin-bottom: 28px;">
-		                       <select class="form-control">
-		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
-		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
-		                       </select>
-							   </div>
-							   <div class="mt-0">
-						        <span class="text-muted">Limit:</span>
-						        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
-						            INR 8,000
-						        </span>
-						    </div>
-		                   </td>
-		                   <td><textarea class="form-control">${item.remarks}</textarea></td>
-		               `;
-		               tableBodyAccomodation.appendChild(row);
-		           });
-					//////////////////////////////////////////////////////
-					const tableBodyInCityCab = document.querySelector("#viewIncityCabOnly tbody");
-					tableBodyInCityCab.innerHTML = "";
-		            data1.data.accomodationReimbursement.forEach(item => {
-		               const row = document.createElement("tr");
-		               row.innerHTML = `
-					      <td>
-						   <input type="hidden" class="form-control" value="${item.id}">
-		                   </td>
-		                   <td>
-		                       <select  class="form-control">
-		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
-		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
-		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
-		                       </select>
-		                   </td>
-		                   <td>
-		                       <select class="form-control">
-		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
-		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
-		                       </select>
-		                   </td>
-		                   <td>
-						      <input type="date" class="form-control" value="${item.date}">
-						      
-						   </td>
-		                 
-		                   <td>
-						   <input type="text" name="location" placeholder="From" 
-						   	 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;" value="${item.preferredTime}">
-		                   </td>
-		                   <td>
-						   <div style="margin-bottom: -5px;">
-							<input type="text" name="location" placeholder="From" 
-							 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;" value="${item.fromLocation}">
-							 <br>
-							 <input type="text" name="location" placeholder="To" value="${item.toLocation}"
-							 class="form-control mb-2" id="cabsTo">
-						   </td>
-						   <td><input type="text" class="form-control" value="${item.amount}"></td>
-		                   <td>
-						   <div style="margin-bottom: 28px;">
-		                       <select class="form-control">
-		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
-		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
-		                       </select>
-							   </div>
-							   <div class="mt-0">
-						        <span class="text-muted">Limit:</span>
-						        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
-						            INR 8,000
-						        </span>
-						    </div>
-		                   </td>
-		                   <td><textarea class="border rounded px-2 py-1 w-full" style="width: 120%; height: 100px;" >${item.remarks}</textarea></td>
-						   <td></td>
-		               `;
-		               tableBodyInCityCab.appendChild(row);
-		           });
+
+					document.getElementById("approveTravel").style.display="none";
+					document.getElementById("approveAccomodation").style.display="None";
+					document.getElementById("approveCash").style.display="none";
+					document.getElementById("approveMiscellaneous").style.display="none";
+					document.getElementById("approveFood").style.display="none";
+					document.getElementById("approveIncityCab").style.display="block";
+					 document.getElementById("requestTypeI").innerHTML=data1.data.requestType;
+	                 const miscellaneousTableView = document.querySelector("#viewIncityCabOnlyApprove tbody");
+	                 if (!miscellaneousTableView) {
+	                     console.error("Table body not found");
+	                     return;
+	                 }
+	                 miscellaneousTableView.innerHTML = "";
+	                 const item = data1.data;
+					 document.getElementById("approvalId").value=item.id;
+	                 const row = document.createElement("tr");
+	                 row.innerHTML = `
+	                     <td>
+	                         <input type="hidden" class="form-control" value="${item.id}">
+	                     </td>
+	                     <td>
+	                         <input type="text" name="miscTitle" disabled
+	                                class="form-control mb-2" value="${item.type || ''}">
+	                     </td>
+	                     <td>
+	                         <select class="form-control" disabled>
+	                             <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+	                             <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+	                         </select>
+	                     </td>
+	                     <td>
+	                         <input type="date" class="form-control" value="${item.cashDate || ''}" disabled>
+	                     </td>
+	                     <td>
+	                         <input type="text" class="form-control mb-2" value="${item.fromLocation || 0}" disabled>
+	                     </td>
+	                     <td>
+						 <input type="text" class="form-control mb-2" value="${item.toLocation || 0}" disabled>
+						 </td>
+	                     <td><input type="text" class="form-control mb-2" value="${item.amount || 0}" disabled> </td>
+	                     <td>
+	                         <div style="margin-bottom: 28px;">
+	                             <select class="form-control" disabled>
+	                                 <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+	                                 <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+	                             </select>
+	                         </div>
+	                         <div class="mt-0">
+	                             <span class="text-muted">Limit:</span>
+	                             <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+	                                 INR 8,000
+	                             </span>
+	                         </div>
+	                     </td>
+	                     <td>
+	                         <textarea class="border rounded px-2 py-1 w-full" disabled
+	                                   style="width: 100%; height: 100px;">${item.remarks || ''}</textarea>
+	                     </td>
+	                     <td></td>
+	                 `;
+	                 miscellaneousTableView.appendChild(row);
+						   	           
+				   }
 				   //////////////////////////////////////////////////
-				   const foodTableView = document.querySelector("#viewFoodOnly tbody");
-				   foodTableView.innerHTML = "";
-	   	            data1.data.mealReimbursement.forEach(item => {
-	   	               const row = document.createElement("tr");
-	   	               row.innerHTML = `
-					      <td>
-						   <input type="hidden" class="form-control" value="${item.id}">
-		                   </td>
-	   	                   <td>
-	   	                       <select class="form-control typeOfMeals">
-	   	                           <option value="train" ${item.typeOfMeal === "Daily Meals" ? "selected" : ""}>Daily Meals</option>
-	   	                           <option value="bus" ${item.typeOfMeal === "Weekly Meals" ? "selected" : ""}>Weekly Meals</option>
-	   	                           <option value="flights" ${item.typeOfMeal === "Monthly Meals" ? "selected" : ""}>Monthly Meals</option>
-	   	                       </select>
-							   <div class="error-message" id="error-typeOfMeals"></div>
-	   	                   </td>
-	   	                  
-	   	                   <td>
-	   					      <input type="date" class="form-control mealDate" value="${item.date}">
-	   					      
-	   					   </td>
-	   	                   <td>
-		   					<input type="text" class="form-control noOfDays" value="${item.numberOfDays}">
-							<div class="error-message" id="error-noOfDays"></div>
-	   					</td>
-	   	                   <td>
-	   	                      <input type="text" class="form-control" value="${item.location}">
-							  <div class="error-message" id="error-mealLocation"></div>
-	   	                   </td>
-						   <td><input type="text" class="form-control" value="${item.amount}"></td>
-	   	                   <td>
-	   					   <div style="margin-bottom: 28px;">
-	   	                       <select class="form-control">
-	   	                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
-	   	                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
-	   	                       </select>
-	   						   </div>
-	   						   <div class="mt-0">
-	   					        <span class="text-muted">Limit:</span>
-	   					        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
-	   					            INR 8,000
-	   					        </span>
-	   					    </div>
-	   	                   </td>
-	   	                   <td><textarea class="border rounded px-2 py-1 w-full" style="width: 130%; height: 100px;" >${item.remarks}</textarea></td>
-						   <td></td>
-						   <td></td>
-						   <td></td>
-						   <td></td>
-	   	               `;
-	   	               foodTableView.appendChild(row);
-	   	           });
-					///////////////////////////////////////////////////////
-					const miscellaneousTableView = document.querySelector("#viewMiscellaneousOnly tbody");
-					miscellaneousTableView.innerHTML = "";
-	   	            data1.data.miscellaneousReimbursement.forEach(item => {
-	   	               const row = document.createElement("tr");
-	   	               row.innerHTML = `
-					       <td>
-						   <input type="hidden" class="form-control" value="${item.id}">
-		                   </td>
-	   	                   <td>
-						   
-						   <input type="text" name="" placeholder="Product Samples - 10 Pieces" 
-						   	 class="form-control mb-2" id="miscTitle">
-	   	                       
-	   	                   </td>
-	   	                   <td>
-	   	                       <select class="form-control">
-	   	                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
-	   	                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
-	   	                       </select>
-	   	                   </td>
-	   	                   <td>
-	   					      <input type="date" class="form-control" value="${item.date}">
-	   					      
-	   					   </td>
-	   	                   <td>
-	   					<input type="text" class="form-control mb-2" value="${item.amount}">
-	   					</td>
-						</td>
-		                <td>  
-		                </td>
-		                <td>
-		                </td>
-	   	                   <td>
-	   					   <div style="margin-bottom: 28px;">
-	   	                       <select class="form-control">
-	   	                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
-	   	                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
-	   	                       </select>
-	   						   </div>
-	   						   <div class="mt-0">
-	   					        <span class="text-muted">Limit:</span>
-	   					        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
-	   					            INR 8,000
-	   					        </span>
-	   					    </div>
-	   	                   </td>
-	   	                   <td><textarea  class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-						   	style="width: 100%; height: 100px;" >${item.remarks}</textarea></td>
-							<td></td>
-	   	               `;
-	   	               miscellaneousTableView.appendChild(row);
-	   	           });
+				   else if(data1.data.requestType=="Meal"){
+
+					document.getElementById("approveTravel").style.display="none";
+					document.getElementById("approveAccomodation").style.display="None";
+					document.getElementById("approveIncityCab").style.display="none";
+					document.getElementById("approveCash").style.display="none";
+					document.getElementById("approveMiscellaneous").style.display="none";
+					document.getElementById("approveFood").style.display="block";
+					 document.getElementById("requestTypeF").innerHTML=data1.data.requestType;
+	                 const miscellaneousTableView = document.querySelector("#viewFoodOnlyApprove tbody");
+	                 if (!miscellaneousTableView) {
+	                     console.error("Table body not found");
+	                     return;
+	                 }
+	                 miscellaneousTableView.innerHTML = "";
+	                 const item = data1.data;
+					 document.getElementById("approvalId").value=item.id;
+	                 const row = document.createElement("tr");
+	                 row.innerHTML = `
+	                     <td>
+	                         <input type="hidden" class="form-control" value="${item.id}">
+	                     </td>
+	                     <td>
+	                         <input type="text" name="miscTitle"
+	                                class="form-control mb-2" value="${item.typeOfMeal || ''}" disabled>
+	                     </td>
+	                     <td>
+	                         <select class="form-control" disabled>
+	                             <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+	                             <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+	                         </select>
+	                     </td>
+	                     <td>
+	                         <input type="date" class="form-control" value="${item.cashDate || ''}" disabled>
+	                     </td>
+	                     <td>
+	                         <input type="text" class="form-control mb-2" value="${item.location || 0}" disabled> 
+	                     </td>
+	                     <td>
+						 <input type="text" class="form-control mb-2" value="${item.amount || 0}" disabled> 
+						 </td>
+	                    
+	                     <td>
+	                         <div style="margin-bottom: 28px;">
+	                             <select class="form-control">
+	                                 <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+	                                 <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+	                             </select>
+	                         </div>
+	                         <div class="mt-0">
+	                             <span class="text-muted">Limit:</span>
+	                             <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+	                                 INR 8,000
+	                             </span>
+	                         </div>
+	                     </td>
+						 <td></td>
+	                     <td>
+	                         <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+	                          style="width: 100%; height: 100px;"  disabled>${item.remarks || ''}</textarea>
+	                     </td>
+	                     <td></td>
+	                 `;
+	                 miscellaneousTableView.appendChild(row);
+						   	           
+				   }
+				   else if(data1.data.requestType=="Miscellaneous"){
+					
+					document.getElementById("approveTravel").style.display="none";
+					document.getElementById("approveAccomodation").style.display="None";
+					document.getElementById("approveIncityCab").style.display="none";
+					document.getElementById("approveFood").style.display="none";
+		            document.getElementById("approveCash").style.display="none";
+					document.getElementById("approveMiscellaneous").style.display="block";
+				    document.getElementById("requestTypeM").innerHTML=data1.data.requestType;
+	               
+				    const miscellaneousTableView = document.querySelector("#viewMiscellaneousOnlyApprove tbody");
+	                 if (!miscellaneousTableView) {
+	                     console.error("Table body not found");
+	                     return;
+	                 }
+	                 miscellaneousTableView.innerHTML = "";
+	                 const item = data1.data;
+					 document.getElementById("approvalId").value=item.id;
+	                 const row = document.createElement("tr");
+	                 row.innerHTML = `
+	                     <td>
+	                         <input type="hidden" class="form-control" value="${item.id}">
+	                     </td>
+	                     <td>
+	                         <input type="text" name="miscTitle" class="form-control mb-2" value="${item.title || ''}">
+	                     </td>
+	                     <td>
+	                         <select class="form-control">
+	                             <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
+	                             <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
+	                         </select>
+	                     </td>
+	                     <td>
+	                         <input type="date" class="form-control" value="${item.cashDate || ''}">
+	                     </td>
+	                     <td>
+	                         <input type="text" class="form-control mb-2" value="${item.amount || 0}">
+	                     </td>
+	                    
+	                     <td>
+	                         <div style="margin-bottom: 28px;">
+	                             <select class="form-control">
+	                                 <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+	                                 <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+	                             </select>
+	                         </div>
+	                         <div class="mt-0">
+	                             <span class="text-muted">Limit:</span>
+	                             <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+	                                 INR 8,000
+	                             </span>
+	                         </div>
+	                     </td>
+	                     <td>
+	                         <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+	                                   style="width: 100%; height: 100px;">${item.remarks || ''}</textarea>
+	                     </td>
+	                     <td></td>
+	                 `;
+	                 miscellaneousTableView.appendChild(row);
+	   	           
+				   }
 				   
+				   else if (data1.data.requestType === "Cash") {
+					
+	                    document.getElementById("approveTravel").style.display="none";
+						document.getElementById("approveMiscellaneous").style.display="none";
+						document.getElementById("approveAccomodation").style.display="None";
+						document.getElementById("approveIncityCab").style.display="none";
+						document.getElementById("approveFood").style.display="none";
+			            document.getElementById("approveCash").style.display="block";
+					    document.getElementById("requestTypeC").innerHTML=data1.data.requestType;
+		                 
+						const miscellaneousTableView = document.querySelector("#viewCashOnlyApprove tbody");
+		                 if (!miscellaneousTableView) {
+		                     console.error("Table body not found");
+		                     return;
+		                 }
+		                 miscellaneousTableView.innerHTML = "";
+		                 const item = data1.data;
+						 
+						 document.getElementById("approvalId").value=item.id;
+		                 const row = document.createElement("tr");
+		                 row.innerHTML = `
+		                     <td>
+		                         <input type="hidden" class="form-control" value="${item.id}">
+		                     </td>
+		                     <td>
+		                         <input type="text" name="miscTitle" class="form-control mb-2" value="${item.title || ''}" disabled>
+		                     </td>
+		                    
+		                     <td>
+		                         <input type="date" class="form-control" value="${item.cashDate || ''}" disabled>
+		                     </td>
+		                     <td>
+		                         <input type="text" class="form-control mb-2" value="${item.amount || 0}" disabled>
+		                     </td>
+		                     <td></td>
+		                     <td></td>
+		                     <td>
+		                         <div style="margin-bottom: 28px;">
+		                             <select class="form-control" disabled>
+		                                 <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+		                                 <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+		                             </select>
+		                         </div>
+		                
+		                     </td>
+		                     <td>
+		                         <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)" 
+		                          style="width: 100%; height: 100px;" disabled >${item.remarks || ''}</textarea>
+		                     </td>
+							 
+							 
+		                 `;
+		                 miscellaneousTableView.appendChild(row);
+		             }
 				   var modalfirst = document.getElementById("TravelRequestApprove");
 				   modalfirst.style.display = "block";
 				}
@@ -2377,3 +2482,87 @@ function closeApproveView(){
 }
 
 
+
+function approveCashAvance(){
+	
+		var employerid = document.getElementById("employerId").value;
+		var empId = document.getElementById("empId").value;
+		var employerName = document.getElementById("employerName").value;
+		var approveRemark = document.getElementById("approveRemark").value;
+		var approveAmount = document.getElementById("approveAmount").value;
+        const id = document.getElementById("approvalId").value;  
+		document.getElementById("signinLoader").style.display="flex";				
+		$.ajax({
+			type: "POST",
+			url: "/approveAdvanceTravelRequest",
+			data:{
+				"id":id,
+				"employeeId":empId,
+				"employerId":employerid,
+				"approvedBy":"atul yadav",
+				"approvalRemarks":approveRemark,
+				"approvalAmount":approveAmount,
+				"approvedOrRejected":""
+			},
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				var data2 = data1.list;
+				
+				var travelRequestApprove = document.getElementById("TravelRequestApprove");
+							    
+				travelRequestApprove.style.display = "none";
+				
+				var modalfirst = document.getElementById("modalTravelUpdated");
+			    modalfirst.style.display = "block";
+				
+				document.getElementById("signinLoader").style.display="none";
+				
+			},
+			error: function(e) {
+				alert('Failed to fetch JSON data' + e);
+			}
+		});
+}
+
+
+function rejectCashAvance(){
+	
+
+	var employerid = document.getElementById("employerId").value;
+	var empId = document.getElementById("empId").value;
+	var employerName = document.getElementById("employerName").value;
+	var approveRemark = document.getElementById("approveRemark").value;
+	var approveAmount = document.getElementById("approveAmount").value;
+	
+	const id = document.getElementById("approvalId").value;
+
+	document.getElementById("signinLoader").style.display="flex";				
+	$.ajax({
+		type: "POST",
+		url: "/approveAdvanceTravelRequest",
+		data:{
+			"id":id,
+			"employeeId":empId,
+			"employerId":employerid,
+			"approvedBy":"atul yadav",
+			"approvalRemarks":approveRemark,
+			"approvalAmount":approveAmount,
+			"approvedOrRejected":"approveRemark"
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.list;
+			var modalfirst = document.getElementById("ModalReimbursementApproved");
+		    modalfirst.style.display = "block";
+			
+			document.getElementById("signinLoader").style.display="none";
+			
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+	
+}

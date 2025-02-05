@@ -287,7 +287,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		return profileRes;
 	}
 	
-	@PostMapping(value = "/getCashAdvanceDetailById")
+	@GetMapping(value = "/getCashAdvanceDetailById")
 	public @ResponseBody String getCashAdvanceDetailById(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
