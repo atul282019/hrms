@@ -460,6 +460,9 @@ function saveEmployeeOnboarding(){
 				 document.getElementById("employeeOnboarding").reset();
 				 document.getElementById("empOnboarding").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
+				 setTimeout(() => {
+				             window.location.href="/employeeOnBoarding";
+				         }, 400);
 			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
@@ -660,6 +663,12 @@ function validateAndConvertImageToBase64() {
         reader.onload = function(event) {
             const base64String = event.target.result.split(',')[1];
 			console.log(base64String);
+			if(profilePhoto===base64String)
+				{
+					alert('Please re upload new image');
+					profilePhoto="";
+					return;
+				}
             profilePhoto=base64String;
             // You can now use the Base64 string as needed
         };

@@ -1091,5 +1091,10 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+		
+		@GetMapping(value="/cotodel-Waitlist")
+		public ModelAndView cotodelWaitlist(Model model) {
+			return new ModelAndView("cotodel-Waitlist", "command", "");
+		}	
 
 }

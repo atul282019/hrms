@@ -157,6 +157,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("captcha");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/cotodel-WaitList")){
+				RequestDispatcher rd = request.getRequestDispatcher("cotodelWaitList");
+				rd.forward(request, response);
+			}
 			else{
 				RequestDispatcher rd = request.getRequestDispatcher("index");
 				rd.forward(request, response);

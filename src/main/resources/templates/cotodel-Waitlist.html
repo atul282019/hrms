@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cotodel Waitlist</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body >
+	
+	<header class="navbar-transparent navbar-sticky-bg-white navbar-sticky">
+
+			<!-- Logo Nav START -->
+			<nav class="navbar navbar-expand-lg">
+				<div class="container ">
+					<!-- Logo START -->
+					<a class="navbar-brand me-auto" >
+						<img src="img/logo.svg" class="navbar-brand-item" alt="">
+					</a>
+					<!-- Logo END -->
+
+					<!-- Responsive navbar toggler -->
+					<button class="navbar-toggler ms-auto ">
+						<a class="nav-link pe-0" data-bs-toggle="offcanvas" href="#offcanvasEnd" role="button"
+							aria-controls="offcanvasEnd">
+							<span class="navbar-toggler-icon" data-bs-target="#offcanvasEnd"> </span>
+						</a>
+					</button>
+
+					<!-- Main Menu START -->
+					<div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+						<ul class="navbar-nav navbar-nav-scroll navbar-nav-scroll ms-auto">
+							<li class="nav-item"> <a class="nav-link" href="/index">Home</a></li>
+							<li class="nav-item"> <a class="nav-link" href="#Solutions">Solutions</a></li>
+							<li class="nav-item"> <a class="nav-link" href="#About">About Us</a></li>
+							<!-- <li class="nav-item"> <a class="nav-link" href="#Services">Services</a></li> -->
+							<li class="nav-item"> <a class="nav-link" href="#FAQs">FAQs</a></li>
+							<!-- <li class="nav-item"> <a class="nav-link" href="#Blogs">Blogs</a></li> -->
+						</ul>
+					</div>
+					<!-- Main Menu END -->
+				</div>
+			</nav>
+			<!-- Logo Nav END -->
+		</header>
+		
+		 <!-- Begin Page Content -->
+		 <div class="last-add">
+		 <div class="container ">
+		      <div class="waitlist-form">
+		          <div class="form-header">Cotodel Waitlist</div>
+		          <p class="form-description">Be the first to get exclusive access to our market-defining product.</p>
+		          <form>
+		              <div class="mb-4">
+		                  <label for="companyName" class="form-label">Company Name</label>
+		                  <input type="text" class="form-control" id="companyName"  required>
+		              </div>
+		              <div class="mb-4 ">
+		                  <label class="form-label d-block">Company Size</label>
+		                  <div class="form-check-group">
+		                      <div class="form-check">
+		                          <input class="form-check-input" type="radio" name="companySize" id="size1" value="Less than 100 Employees" required>
+		                          <label class="form-check-label" for="size1">Less than 100 Employees</label>
+		                      </div>
+		                      <div class="form-check">
+		                          <input class="form-check-input" type="radio" name="companySize" id="size2" value="100 to 500 Employees">
+		                          <label class="form-check-label" for="size2">100 to 500 Employees</label>
+		                      </div>
+		                      <div class="form-check">
+		                          <input class="form-check-input" type="radio" name="companySize" id="size3" value="More than 500 Employees">
+		                          <label class="form-check-label" for="size3">More than 500 Employees</label>
+		                      </div>
+		                  </div>
+		              </div>
+					  
+					  <div class="mb-4">
+		                     <label class="form-label">Industry</label>
+		                     <div class="form-check-group">
+		                         <div class="form-check">
+		                             <input class="form-check-input" type="radio" name="industry" id="size4" value="Retail & Trade" required>
+		                             <label class="form-check-label" for="size4">Retail & Trade</label>
+		                         </div>
+		                         <div class="form-check">
+		                             <input class="form-check-input" type="radio" name="industry" id="size5" value="Transport & Logistics">
+		                             <label class="form-check-label" for="size5">Transport & Logistics</label>
+		                         </div>
+		                         <div class="form-check">
+		                             <input class="form-check-input" type="radio" name="industry" id="size6" value="Consulting & Advisory">
+		                             <label class="form-check-label" for="size6">Consulting & Advisory</label>
+		                         </div>
+		                         <div class="form-check">
+		                             <input class="form-check-input" type="radio" name="industry" id="size7" value="Healthcare & Pharmaceuticals">
+		                             <label class="form-check-label" for="size7">Healthcare & Pharmaceuticals</label>
+		                         </div>
+		                         <div class="form-check">
+		                             <input type="radio" class="form-check-input" name="industry" value="Other"> 
+		                             <input type="text" name="other_reason" placeholder="Others"/>
+		                         </div>
+		                     </div>
+		                 </div>
+						  <div class="mb-4">
+  		  		                  <label for="Contact Person Name" class="form-label">Contact Person Name</label>
+  		  		                  <input type="text" class="form-control" id="companyName"  required>
+  		  		              </div>
+  							  <div class="mb-4">
+  			  		                  <label for="Contact Number" class="form-label">Contact Number</label>
+  			  		                  <input type="number" class="form-control" id="Contact Number"  required>
+  			  		              </div>
+  							  <div class="mb-4">
+  		  		                  <label for="Email ID" class="form-label">Email ID</label>
+  		  		                  <input type="email" class="form-control" id="Contact Number"  required>
+  		  		              </div>
+					  
+		              <button type="submit" class="btn btn-submit w-100" 							  data-toggle="modal"
+							                                  data-target="#waitlistApproved">Join Waitlist</button>
+		          </form>
+		      </div>
+		  </div>
+		  </div>
+		  <!-- Success Modal -->
+		  <div class="modalView" id="waitlistApproved" tabindex="-1" role="dialog"
+		          aria-labelledby="exampleModalCenterTitle" >
+		          <div class="modal-dialog modal-dialog-centered" role="document">
+		              <div class="modal-content modal-bulk">
+		                  <div class="modal-top text-center">
+		                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" >
+		                          <img src="img/modal-close.svg" alt="">
+		                      </button>
+		                      <img src="img/modal-success.svg" alt="">
+		                  </div>
+		                  <div class="modal-bottom">
+		                      <!--<div class="count"><span>4</span><strong>5</strong></div>-->
+		                      <br>
+		                      <span>Waitlist Approved</span>
+		                  </div>
+		              </div>
+		          </div>
+		      </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+	
+	<style>
+		.form-check-label
+		{
+			color: black;
+		}
+		
+		.last-add {
+		    background: #eaf4ef;
+		    color: #2f945a;
+		    text-align: center;
+			width: 100%;
+			height: 100%;
+		}
+		
+		      .waitlist-form {
+		          max-width: 600px;
+		          margin: 50px auto;
+		          padding: 40px;
+		          background: #ffffff;
+		          border-radius: 10px;
+		          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+		      }
+		      .form-header {
+		          font-size: 24px;
+		          font-weight: bold;
+		          text-align: center;
+		      }
+		      .form-description {
+		          font-size: 14px;
+		          text-align: center;
+		          margin-bottom: 20px;
+		          color: rgb(0, 0, 0);
+		      }
+		      .form-control, .form-check-input {
+		          border-radius: 8px;
+				  text-align: left;
+		      }
+		      .btn-submit {
+		          background-color: rgba(47, 148, 90, 1);
+		          color: white;
+		          font-weight: bold;
+		          border-radius: 8px;
+		      }
+		      .form-check-group {
+		          padding: 10px;
+		          background: #f1f3f4;
+		          border-radius: 8px;
+				  text-align: left;
+		      }
+			  .form-label {
+				
+			      display: block;
+			      font-weight: bold;
+			      text-align: left;
+			  }
+			  .f
+	    </style>
+	<script>
+
+	$( document ).ready(function() {
+		var error = document.getElementById("errorMessage").value;
+		var mo = document.getElementById("mo").value;
+		var orderid = document.getElementById("orderid").value;
+		
+		if(error==="Invalid Request !!"){
+	    document.getElementById("loginIdDiv").style.display="none";
+	    document.getElementById("optBtn").style.display="block";
+	    }
+		else if(error==="Incorrect OTP ||"){
+			
+			  //startCountdown();
+			  document.getElementById("mob").value=mo;
+			  document.getElementById("orderId").value=orderid;
+			  document.getElementById("loginIdDiv").style.display="block";
+			  document.getElementById("optBtn").style.display = "none";
+			  document.getElementById("verifyotpdiv").style.display = "block";
+			 // window.location.href="/login";
+		}
+		else if(error==="No Role assigned to User. Please contact to Organisation Admin !!"){
+			document.getElementById("loginIdDiv").style.display="none";
+		    document.getElementById("optBtn").style.display="block";
+		}else{
+			
+		}
+	});
+
+
+	  $(document).ready(function() {
+	    $('#successError').delay(5000).fadeOut(600);
+	});
+
+	</script>
+	<style>#toggleOtpVisibility {
+	    color: #007bff; /* Primary color for the icon */
+	    position: relative;
+	    z-index: 1;
+	    font-size: 18px;
+	}
+	#toggleOtpVisibility:hover {
+	    color: #0056b3; /* Darker shade on hover */
+	}
+	</style>
+	</body>
+
+	</html>
