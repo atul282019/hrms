@@ -23,6 +23,7 @@ public class TravelAddRequest {
 	    private String carrierDetails;
 	    private String paymentMode;
 	    private String remarks;
+	    private String title;
 	    
 	    private String hotelDetails;
 	    private String location;

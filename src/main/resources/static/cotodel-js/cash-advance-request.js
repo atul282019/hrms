@@ -476,7 +476,7 @@ function getTableDataTravel() {
         rowData.paymentMode = paymentModeSelect ? paymentModeSelect.value : "";
 
         // Get Remarks (Textarea)
-        const remarksTextarea = row.querySelector('td:nth-child(9) textarea');
+        const remarksTextarea = row.querySelector('td:nth-child(10) textarea');
         rowData.remarks = remarksTextarea ? remarksTextarea.value : "";
 		
 		const travelSubType = row.querySelector('td:nth-child(9) input');
@@ -1066,8 +1066,8 @@ function getTableDataMiscellaneous(){
 		            toBeBookedBy: row.querySelector("#miscBookedBy")?.value || "",
 		            date: row.querySelector("#miscDate")?.value || "",
 		            amount: row.querySelector("#miscAmount")?.value || "",
-		            modeOfPayment: row.querySelector("#travelAmountPayment")?.value || "",
-		            remark: row.querySelector("#travelRemarks")?.value || "",
+		            paymentMode: row.querySelector("#travelAmountPayment")?.value || "",
+		            remarks: row.querySelector("#missRemarks")?.value || "",
 		            checked: row.querySelector("input[type='checkbox']")?.checked || false
 		        };
 	
@@ -1127,7 +1127,7 @@ function showErrorMessage(element, message) {
       const mealDate = row.querySelector("#miscDate");
       const foodAmount = row.querySelector("#miscAmount");
       const foodPayment = row.querySelector("#travelAmountPayment");
-      const remarks = row.querySelector("#travelRemarks");
+      const remarks = row.querySelector("#missRemarks");
 
       if (!typeOfMeals.value.trim()) {
           isValid = false;
@@ -1216,14 +1216,14 @@ function ReviewandSybmit(){
 						   <input type="hidden" class="form-control" value="${item.id}">
 		                   </td>
 		                   <td>
-		                       <select class="form-control">
+		                       <select class="form-control" style="width:100px">
 		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
 		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
 		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
 		                       </select>
 		                   </td>
 		                   <td>
-		                       <select class="form-control">
+		                       <select class="form-control" style="width:100px">
 		                           <option value="company" ${item.toBeBookedBy === "company" ? "selected" : ""}>Company</option>
 		                           <option value="self" ${item.toBeBookedBy === "self" ? "selected" : ""}>Self</option>
 		                       </select>
@@ -1275,7 +1275,7 @@ function ReviewandSybmit(){
 						   <input type="hidden" class="form-control" value="${item.id}">
 		                   </td>
 		                   <td>
-		                       <select class="form-control">
+		                       <select class="form-control" style="width:100px">
 		                           <option value="train" ${item.type === "Hotels" ? "selected" : ""}>Hotels</option>
 		                       </select>
 		                   </td>
@@ -1302,7 +1302,7 @@ function ReviewandSybmit(){
 		                   <td>
 						  
 						   <div style="margin-bottom: 28px;">
-		                       <select class="form-control">
+		                       <select class="form-control" >
 		                           <option value="Credit Card" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
 		                           <option value="Cash" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
 		                       </select>
@@ -1321,14 +1321,14 @@ function ReviewandSybmit(){
 					//////////////////////////////////////////////////////
 					const tableBodyInCityCab = document.querySelector("#inCityCabsTableView tbody");
 					tableBodyInCityCab.innerHTML = "";
-		            data1.data.accomodationReimbursement.forEach(item => {
+		            data1.data.inCityCabReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
 					      <td>
 						   <input type="hidden" class="form-control" value="${item.id}">
 		                   </td>
 		                   <td>
-		                       <select  class="form-control">
+		                       <select  class="form-control" style="width:100px">
 		                           <option value="train" ${item.mode === "train" ? "selected" : ""}>Train</option>
 		                           <option value="bus" ${item.mode === "bus" ? "selected" : ""}>Bus</option>
 		                           <option value="flights" ${item.mode === "flights" ? "selected" : ""}>Flights</option>
@@ -1442,7 +1442,7 @@ function ReviewandSybmit(){
 	   	                   <td>
 						   
 						   <input type="text" name="" placeholder="Product Samples - 10 Pieces" 
-						   	 class="form-control mb-2" id="miscTitle">
+						   	 class="form-control mb-2" id="miscTitle" value="${item.title}">
 	   	                       
 	   	                   </td>
 	   	                   <td>

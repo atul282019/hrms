@@ -2604,14 +2604,14 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 							            </td>
 					  
 							            <td>
-							                <select name="mode" class="form-control">
+							                <select name="mode" class="form-control" style="width:100px">
 							                    <option value="flights">Flights</option>
 							                    <option value="train">Train</option>
 							                    <option value="bus">Bus</option>
 							                </select>
 							            </td>
 							            <td>
-							                <select name="toBeBookedBy" class="form-control">
+							                <select name="toBeBookedBy" class="form-control" style="width:100px" >
 							                    <option value="company">Company</option>
 							                    <option value="self">Self</option>
 							                </select>
@@ -2656,29 +2656,22 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										<td>
 											
 						                <input type="text" name="amount" placeholder="INR 5000" class="form-control">
-											  
-	   
 						            </td>
 							            <td>
-											 
 							                <select class="form-control">
 							                    <option value="NA">NA</option>
 							                    <option value="Credit Card">Credit Card</option>
 							                    <option value="Cash">Cash</option>
 							                </select>
-											
-			  
 							                <div class="mt-2">
 							                    <span class="text-muted">Limit:</span>
 							                    <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray;">INR 8,000</span>
 											 </div>
 							            </td>
 							            <td>
-							                <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)" style="height: 100px;"></textarea>
-											<input type="hidden" class="border rounded px-2 py-1 w-full" name="travelSubType" value="travel"></input>
-							            </td>
+							                <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)" style="width:100px; height: 100px;"></textarea>
+										</td>
 							            <td>
-							                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
 											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row" alt="Delete Icon">
 							            </td>
 							        </tr>
@@ -2695,15 +2688,772 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 							</div>	
 	   
 		                </div>
+	<!-- Accommodation Table -->
+	<div class="table-responsive" id="accommodationTable" style="display: none;">
+	    <table class="table table-reimbursements">
+	        <thead >
+				<tr>
+				<th>
+                        <img src="img/accommodation-white.svg" >
+                </th>
+				<th>  Accommodation</th>
+				<th></th>
+				<th></th>
+	            <th></th>
+	            <th></th>
+	            <th></th>
+	            <th></th>
+				<th></th>
+				<th></th>
+				<th>
+	             <img src="img/delete-white.svg" alt="Plane Icon">
+	            </th>	                                
+	            </tr>
+				
+	            <tr>
+					<th>
+					<div class="table-check">
+						<input type="checkbox" id="customCheck3">
+					</div>
+					</th>
+	                <th>Type</th>
+	                <th>Booked-By</th>
+	                <th>Date</th>
+	                <th>Location</th>
+	                <th>Hotel Details</th>
+	                <th>Preferences</th>
+					<th>Tentative Amount</th>
+	                <th>Mode of Payment</th>
+	                <th>Remark</th>
+					<th></th>
+	            </tr>
+	        </thead>
+	        <tbody id="reimbursementsBodyAccomodation">
+				<tr class="template-row-accomodation">
+	                <td>
+						<div class="table-check" style="margin-bottom: 60px;">
+							<input type="checkbox" id="customCheck3">
+						</div>
+	                </td>
+	    
+	                <td> 
+						<div style="margin-bottom: 60px;">
+	                    <select name="mode" class="form-control" id="accommodationByMode">
+	                        <option value="Hotels">Hotels</option>
+							
+	                    </select>
+						</div>
+	                </td>
+	                <td>
+						<div style="margin-bottom: 60px;">
+	                    <select name="toBeBookedBy" class="form-control" id="accommodationBookedBy">
+	                        <option value="company">Company</option>
+							<option value="self">Self</option>
+	                    </select>
+						</div>
+	                </td>
+	                <td>
+						<div style="margin-bottom: 60px;">
+						<label for="accommodationCheckinDate">Check-in</label>
+						    <input type="date" name="checkinDate" class="form-control" id="accommodationCheckinDate">
+						    
+						    <label for="accommodationCheckoutDate">Check-out</label>
+						    <input type="date" name="checkoutDate" class="form-control" id="accommodationCheckoutDate">
+							</div>
+						
+	                </td>
+	                <td>
+						<div style="margin-bottom: 60px;">
+						 <input type="text" name="location" placeholder="Banglore" class="form-control mb-2" id="accommodationDepartureFrom">
+						</div>
+	                    
+	                </td>
+	                <td>
+						<div style="margin-bottom: 60px;">
+						<input type="text" name="location" placeholder="Treebo Hotels" class="form-control mb-2" id="accommodationDetails">
+						</div>
+	                    
+	                </td>
+	                <td>
+						<div style="margin-bottom: 60px;">
+	                        <select  class="form-control" id="accommodationPreference">
+	                         <option value="14:00 Hrs">14:00 Hrs</option>
+	                        </select>
+	                    </div>
+						
+	                </td>
+					<td>
+																
+	                <input type="text" id="accomodationAmount" name="amount" placeholder="INR 5000" class="form-control">
+					 </td>
+					<td>
+						<div style="margin-bottom: 28px;">
+							<select class="form-control" id="accommodationAmountPayment">
+		                       <option value="NA">NA</option>
+		                       <option value="Credit Card">Credit Card</option>
+		                       <option value="Cash">Cash</option>
+		                   </select>
+	                    </div>
+					    
+					    <div class="mt-0" >
+					        <span class="text-muted">Limit:</span>
+					        <span 
+					            class="border rounded px-3 py-1 bg-gray-200" 
+					            style="border-color: darkgray; display: inline-block;">
+					            INR 8,000
+					        </span>
+					    </div>
+					</td>
+	                <td>
+	                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+						style="width:100px; height: 100px;" id="accommodationRemarks"></textarea>
+						<input type="hidden" class="border rounded px-2 py-1 w-full" name="travelSubType" value="travel"></input>
+	                </td>
+	           
+				<td>
+					<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-acomodation" alt="Delete Icon">
+	            </td>
+				</tr>
+	        </tbody>
+	    </table>
+		<div class="last-add">
+			<div colspan="10" style="padding: .75rem;">
+				 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addTravelRowAcomodation()">+ ADD</button>
+			</div>
+		</div>
+		<div class="w-100 text-right">
+		   	  <button class="btn btn-primary" id="btnSaveAcomodationRequest" onclick="getaddTableRowAcomodation()"  >Save & Next</button>
+		 </div>	
+	</div>
+				<!-- In-City Cabs Table -->
+				<div class="table-responsive" id="inCityCabsTable" style="display: none;">
+				    <table class="table table-reimbursements">
+						<thead>
+							<tr>
+							<th> <img src="img/citycabs-white.svg" > </th>
+							<th style="white-space: nowrap;"> In-City Cabs</th>
+							<th></th>
+							<th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+							<th></th>
+							<th></th>
+							<th> <img src="img/delete-white.svg" alt="Plane Icon"> </th>	                                
+				            </tr>
+							
+				            <tr>
+								<th>
+								<div class="table-check"> <input type="checkbox" id="customCheck3"> </div>
+								</th>
+				                <th>Type</th>
+				                <th>Booked-By</th>
+				                <th>Date</th>
+				                <th>Time</th>
+				                <th>Location</th>
+				               <th>Tentative Amount</th>
+				                <th>Mode of Payment</th>
+				                <th>Remark</th>
+								<th></th>
+								<th></th>
+				            </tr>
+				        </thead>
+						<tbody id="reimbursementsBodyInCityCab">
+							<tr class="template-row-incitycab">
+						
+				                <td>
+									<div class="table-check"> <input type="checkbox" id="customCheck3"> </div>
+				                </td>
+				    
+				                <td>
+				                    <select name="mode" class="form-control" id="cabsByMode">
+				                        <option value="In-city-cab">In-City-Cab</option>
+										<option value="Airport-Cab">Airport Cab</option>
+										<option value="mylti-Stop">Multi Stop</option>
+				                    </select>
+				                </td>
+				                <td>
+				                    <select name="toBeBookedBy" class="form-control" id="cabsBookedBy">
+				                        <option value="company">Company</option>
+										<option value="self">Self</option>
+				                    </select>
+				                </td>
+				                <td> <input type="date" name="date" class="form-control" id="cabsDate"> </td>
+				                <td>
+								 <input type="text" name="arrival" placeholder="14:00 Hrs" class="form-control" id="cabsTime">
+				                    
+				                </td>
+				                <td>
+									<div style="margin-bottom: -5px;">
+									<input type="text" name="location" placeholder="From" 
+									 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;">
+									 <br>
+									 <input type="text" name="location" placeholder="To" class="form-control mb-2" id="cabsTo">
+									 </div>
+				                </td>
+								<td>
+																			
+				                <input type="text" id="cabAmount" name="amount" placeholder="INR 5000" class="form-control">
+								 </td>
+								<td>
+									<div style="margin-bottom: 28px;">
+										<select class="form-control" id="cabsPayment">
+					                       <option value="NA">NA</option>
+					                       <option value="Credit Card">Credit Card</option>
+					                       <option value="Cash">Cash</option>
+					                   </select>
+				                    </div>
+								    
+								    <div class="mt-0" >
+								        <span class="text-muted">Limit:</span>
+								        <span 
+								            class="border rounded px-3 py-1 bg-gray-200" 
+								            style="border-color: darkgray; display: inline-block;">
+								            INR 8,000
+								        </span>
+								    </div>
+								</td>
+				                <td>
+				                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+									style="width:100px; height: 100px;" id="cabsRemarks"></textarea>
+				                </td>
+								<td>
+								<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-incitycab" alt="Delete Icon">
+				            </td>
+				            </tr>
+				        </tbody>
+				    </table>
+					<div class="last-add">
+						<div colspan="10" style="padding: .75rem;">
+							 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addInCityCab()">+ ADD</button>
+						</div>
+					</div>
+					
+					<div class="w-100 text-right">
+					   <button class="btn btn-primary" id="btnSaveIncityCabRequest" onclick="getTableDataIncity()" >Save & Next</button>
+					   </div>						
+					
+				</div>
+				<!-- Food Table -->
+				<div class="table-responsive" id="foodTable" style="display: none;">
+				    <table class="table table-reimbursements">
+				        <thead>
+							<tr>
+							<th> <img src="img/food-white.svg" > </th>
+							<th style="white-space: nowrap;"> Food</th>
+							<th></th>
+							<th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th> <img src="img/delete-white.svg" alt="Plane Icon"> </th>	                                
+				            </tr>
+							
+				            <tr>
+								<th>
+								<div class="table-check"> <input type="checkbox" id="customCheck3"> </div>
+								</th>
+				                <th>Type of Meal</th>
+				                <th>Start Date</th>
+				                <th>Number of Days</th>
+				                <th>Location</th>
+								<th>Tentative Amount</th>
+				                <th>Mode of Payment</th>
+				                <th>Remark</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+				            </tr>
+				        </thead>
+						<tbody id="reimbursementsBodyFood">
+						  <tr class="template-row-food">
+				                <td>
+									<div class="table-check"> <input type="checkbox" id="customCheck3"> </div>
+				                </td>
+				    
+				                <td>
+				                    <select name="mode" class="form-control" id="typeOfMeals">
+				                        <option value="Daily Meals">Daily Meals</option>
+										<option value="Daily Meals">weekly Meals</option>
+										<option value="Daily Meals">Montly Meals</option>
+				                    </select>
+				                </td>
+				               
+				                <td>
+				                    <input type="date" name="date" class="form-control" id="mealDate">
+				                </td>
+				                <td>
+									<select name="mode" class="form-control" id="noOfDays">
+				                        <option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										
+				                    </select>
+				                    
+				                </td>
+				                <td>
+									<input type="text" name="arrival" placeholder="Arrival" class="form-control" id="mealLocation">    
+				                </td>
+								
+								<td>										
+				                <input type="text" id="foodAmount" name="amount" placeholder="INR 5000" class="form-control">
+							   </td>
+								<td>
+									<div style="margin-bottom: 28px;">
+										<select class="form-control" id="foodPayment">
+					                       <option value="NA">NA</option>
+					                       <option value="Credit Card">Credit Card</option>
+					                       <option value="Cash">Cash</option>
+					                   </select>
+				                    </div>
+								    
+								    <div class="mt-0" >
+								        <span class="text-muted">Limit:</span>
+								        <span 
+								            class="border rounded px-3 py-1 bg-gray-200" 
+								            style="border-color: darkgray; display: inline-block;">
+								            INR 8,000
+								        </span>
+								    </div>
+								</td>
+				                <td>
+				                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+									style="width:100px; height: 100px;" id="foodRemarks"></textarea>
+				                </td>
+								<td>
+									<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-food" alt="Delete Icon">
+					            </td>
+								
+				            </tr>
+				        </tbody>
+				    </table>
+					<div class="last-add">
+						<div colspan="10" style="padding: .75rem;">
+							 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addFood()">+ ADD</button>
+						</div>
+					</div>
+				
+					<div class="w-100 text-right">
+					   <button class="btn btn-primary" id="btnSaveFoodRequest" onclick="getTableDataFood()">Save & Next</button>
+				  </div>
+					
+				</div>
+				<!-- Miscellaneous Table -->
+				<div class="table-responsive" id="miscellaneousTable" style="display: none;">
+				    <table class="table table-reimbursements">
+				        <thead >
+							<tr>
+							<th><img src="img/miscellaneous-white.svg" > </th>
+							<th style="white-space: nowrap;">Miscellaneous </th>
+							<th></th>
+							<th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+							<th></th>
+							<th> <img src="img/delete-white.svg" alt="Plane Icon"> </th>	                                
+				            </tr>
+				            <tr>
+								<th>
+								<div class="table-check"> <input type="checkbox" id="customCheck3"> </div>
+								</th>
+				                <th>Title</th>
+				                <th>Booked-By</th>
+				                <th>Date</th>
+				                <th>Tentative Amount</th>
+				                <th></th>
+				                <th></th>
+				                <th>Mode of Payment</th>
+				                <th>Remarks (Compulsory)</th>
+								<th></th>
+				            </tr>
+				        </thead>
+						<tbody id="reimbursementsBodyMiscellaneous">
+						 <tr class="template-row-miscellaneous">
+				                <td>
+									<div class="table-check"> <input type="checkbox" id="customCheck3"> </div>
+				                </td>
+				    
+				                <td>
+				                 <input type="text" name="" placeholder="Product Samples - 10 Pieces" class="form-control mb-2" id="miscTitle">
+				                </td>
+				                <td>
+				                    <select name="toBeBookedBy" class="form-control" id="miscBookedBy">
+				                        <option value="company">Company</option>
+										<option value="self">Self</option>
+				                    </select>
+				                </td>
+				                <td>
+				                 <input type="date" name="date" class="form-control" id="miscDate">
+				                </td>
+				                <td>
+								<input type="text" name="departure" placeholder="INR 5000" class="form-control mb-2" id="miscAmount">    
+				                </td>
+				                <td>  
+				                </td>
+				                <td>
+				                </td>
+								<td>
+									<div style="margin-bottom: 28px;">
+										<select class="form-control" id="travelAmountPayment">
+					                       <option value="NA">NA</option>
+					                       <option value="Credit Card">Credit Card</option>
+					                       <option value="Cash">Cash</option>
+					                   </select>
+				                    </div>
+								    
+								    <div class="mt-0" >
+								        <span class="text-muted">Limit:</span>
+								        <span 
+								            class="border rounded px-3 py-1 bg-gray-200" 
+								            style="border-color: darkgray; display: inline-block;">
+								            INR 8,000
+								        </span>
+								    </div>
+								</td>
+				                <td>
+				                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+									style="height: 100px;" id="missRemarks"></textarea>
+				                </td>
+								<td>
+									<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-miscellaneous" alt="Delete Icon">
+					            </td>
+				            </tr>
+				          </tbody>
+				    </table>			
+					<div class="last-add">
+		                <div colspan="10">
+							<button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addmiscellaneous()">+ ADD</button>
+		                </div>
+		            </div>
+					<div class="w-100 text-right">
+					   <button class="btn btn-primary" id="btnSaveMiscellaneousRequest" onclick="getTableDataMiscellaneous()" >Save & Next</button>
+				    </div>																									 
+				</div>							
+            </div>
+        </div>
+    </div>
+</div>
+
+	<!-- Modal Confirm -->
+		    <div class="modalView" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+		        <div class="modal-dialog modal-dialog-centered" role="document">
+		        <div class="modal-content modal-bulk">
+		            <div class="modal-top text-center">          
+		            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closePopup()">
+		                <img src="img/modal-close.svg" alt="">
+		            </button>        
+		            <img src="img/modal-success.svg" alt="">
+		            </div>
+		            <div class="modal-bottom">
+		                <span class="modal-title"><strong>Travel Request</strong></span><br>
+						<span class="modal-subtitle">Your Travel Request Form has been submitted.</span>
+		            </div>
+					
+		        </div>
+		        </div>
+		    </div>
+
+	    <!-- Modal Reject -->
+	    <div class="modal fade" id="ModalReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	        <div class="modal-dialog modal-dialog-centered" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-top text-center">          
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+	                <img src="img/modal-close.svg" alt="">
+	            </button>        
+	            <img src="img/modal-reject.svg" alt="">
+	            </div>
+	            <div class="modal-bottom">
+	                <span<strong>Travel Request</strong></span>
+	            </div>
+	        </div>
+	        </div>
+	    </div>
+<!-- new-->
+ <div class="modalView"  id="travelDetailsTable1" tabindex="-1" role="dialog"
+   aria-labelledby="exampleModalCenterTitle">
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
+        <div class="modal-content modal-bulk">
+			<div class="modal-header pb-0 text-left">
+				<h5 class="modal-title">Travel Request</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReviewEdit()">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+			</div><hr><br>
+			<div class="background-wrap">
+				<span><h3>Review and Submit Advance Travel Request</h3></span><br>
+            <div class="policies-wrap-in-table">
+                <div class="table-responsive-2" id="travelTableView" >
+                    <table class="table table-reimbursements" id="travelTableViewMode">
+                        <thead >
+							<tr>
+							<th><img src="img/plane-white.svg" alt="Plane Icon"></th>
+							<th>  Travel </th>
+							<th></th>
+							<th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+							<th></th>
+							<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"></th>	 
+							<th></th>                               
+                            </tr>
+							
+                            <tr>
+								   <th></th>
+				                   <th>Mode</th>
+				                   <th>Booked-By</th>
+				                   <th>Date</th>
+				                   <th>location</th>
+				                   <th>Preferred Time</th>
+				                   <th>Carrier Details</th>
+								   <th>Tentative Amount</th>
+				                   <th>Mode of Payment</th>
+				                   <th>Remarks</th>
+								   <th></th>
+								   
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+					
+                </div>
+				<!-- Accommodation Table -->
+				<div class="table-responsive-2" id="accommodationTable1" >
+				    <table class="table table-reimbursements" id="accommodationTableViewMode">
+				        <thead >
+							<tr>
+							<th> <img src="img/accommodation-white.svg" > </th>
+							<th>  Accommodation </th>
+							<th></th>
+							<th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+							<th></th>
+							<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	                                
+				            </tr>
+							
+				            <tr>
+								<th></th>
+				                <th>Type</th>
+				                <th>Booked-By</th>
+				                <th>Date</th>
+				                <th>Location</th>
+				                <th>Hotel Details</th>
+				                <th>Preferences</th>
+								<th>Tentative Amount</th>
+				                <th>Mode of Payment</th>
+				                <th>Remark</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+						
+				        </tbody>
+				    </table>
+					
+				</div>
+				<!-- In-City Cabs Table -->
+				<div class="table-responsive-2" id="inCityCabsTable1" >
+				    <table class="table table-reimbursements" id="inCityCabsTableView">
+				        <thead >
+							<tr>
+							<th> <img src="img/citycabs-white.svg" ></th>
+							<th style="white-space: nowrap;"> In-City Cabs </th>
+							<th></th>
+							<th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+							<th></th>  
+							<th></th>        
+							<th><img src="img/edit-pencil-white.svg" alt="Plane Icon"></th>	                
+				            </tr>
+				            <tr>
+								<th></th>
+				                <th>Type</th>
+				                <th>Booked-By</th>
+				                <th>Date</th>
+				                <th>Time</th>
+				                <th>Location</th>
+								<th>Tentative Amount</th>
+				                <th>Mode of Payment</th>
+				                <th>Remark</th>
+								<th></th>
+				            </tr>
+				        </thead>
+				        <tbody>
+						
+				        </tbody>
+				    </table>
+					
+				</div>
+				<!-- Food Table -->
+				<div class="table-responsive-2" id="foodTable1" >
+				    <table class="table table-reimbursements" id="foodTableView">
+				        <thead >
+							<tr>
+							<th> <img src="img/food-white.svg" > </th>
+							<th style="white-space: nowrap;"> Food </th>
+							<th></th>
+							<th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+							<th></th>          
+							<th></th>
+							<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	
+							<th></th>                                
+				            </tr>
+				            <tr>
+								<th></th>
+				                <th>Type of Meal</th>
+								<!--<th>Booked-By</th>-->
+				                <th>Start Date</th>
+				                <th>Number of Days</th>
+				                <th>Location</th>
+								<th>Tentative Amount</th>
+				                <th>Mode of Payment</th>
+				                <th>Remark</th>
+								<th></th>
+								<th></th>
+								<th></th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				   
+				        </tbody>
+				    </table>
+					
+				</div>
+				<!-- Miscellaneous Table -->
+				<div class="table-responsive-2" id="miscellaneousTable1" >
+				    <table class="table table-reimbursements" id="miscellaneousTableView">
+				        <thead >
+							<tr>
+							<th> <img src="img/miscellaneous-white.svg" class="align-start">  </th>
+							<th style="white-space: nowrap;"> Miscellaneous </th>
+							<th></th>
+							<th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+				            <th></th>
+							<th>  <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	
+							<th></th>                                
+				            </tr>
+				            <tr>
+								<th></th>
+				                <th>Title</th>
+				                <th>Booked-By</th>
+				                <th>Date</th>
+				                <th>Tentative Amount</th>
+				                <th></th>
+				                <th></th>
+				                <th>Mode of Payment</th>
+				                <th>Remarks (Compulsory)</th>
+								<th></th>
+				            </tr>
+				        </thead>
+				        <tbody>
+						
+				        </tbody>
+				    </table>
+					
+				</div>
+				<div class="w-100 my-3 d-flex justify-content-end">
+				    <!-- Delete button on the left -->
+				    
+				    <!-- Save & Next button on the right -->
+				    <div class="w-50 text-right">
+						<!--<button class="btn btn-primary" id="btnSaveTravelRequest" onclick="saveTravelRequest()" >Save & Next</button>-->
+						<button class="btn custom-btn1" id="btnBackTravelRequest" >Back</button>
+						
+						<button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="getAllTablesData()">Submit</button>
+				        <!--<button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="showConfirmModal()">Submit</button>-->
+				    </div>
+				</div>
+				
+            </div>
+			</div><!-- custom background-wrap close-->
+        </div>
+    </div>
+</div>
+
+<div class="modalView"  id="travelRequestView" tabindex="-1" role="dialog"
+	       aria-labelledby="exampleModalCenterTitle">
+		    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
+		        <div class="modal-content modal-bulk">
+					<div class="modal-header pb-0 text-left">
+						<h5 class="modal-title">Advance Travel Request</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeView()">
+			                    <span aria-hidden="true">×</span>
+			                </button>
+					</div><hr><br>
+					<div class="background-wrap">
+						<span><h3>View Advance Travel Request</h3></span><br>
+		            <div class="policies-wrap-in-table">
+		                <div class="table-responsive-2" id="travelTableView" >
+		                    <table class="table table-reimbursements" id="viewTravelRequest">
+		                        <thead >
+									<tr>
+									<th> <img src="img/plane-white.svg" alt="Plane Icon"> </th>
+									<th> Travel </th>
+									<th></th>
+									<th></th>
+	                                <th></th>
+	                                <th></th>
+	                                <th></th>
+	                                <th></th>
+									<th></th>
+									<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	 
+									<th></th>                               
+		                            </tr>
+									
+		                            <tr>
+										   <th></th>
+						                   <th>Mode</th>
+						                   <th>Booked-By</th>
+						                   <th>Date</th>
+						                   <th>location</th>
+						                   <th>Preferred Time</th>
+						                   <th>Carrier Details</th>
+										   <th>Tentative Amount</th>
+						                   <th>Mode of Payment</th>
+						                   <th>Remarks</th>
+										   <th></th>
+										   
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+								
+		                        </tbody>
+		                    </table>
+							
+		                </div>
 						<!-- Accommodation Table -->
-						<div class="table-responsive" id="accommodationTable" style="display: none;">
-						    <table class="table table-reimbursements">
+						<div class="table-responsive-2" id="accommodationTable1" >
+						    <table class="table table-reimbursements" id="viewAccomodationOnly">
 						        <thead >
 									<tr>
-									<th>
-					                        <img src="img/accommodation-white.svg" >
-					                </th>
-									<th>  Accommodation</th>
+									<th> <img src="img/accommodation-white.svg" > </th>
+									<th> Accommodation </th>
 									<th></th>
 									<th></th>
 						            <th></th>
@@ -2711,18 +3461,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 						            <th></th>
 						            <th></th>
 									<th></th>
-									<th></th>
-									<th>
-						             <img src="img/delete-white.svg" alt="Plane Icon">
-						            </th>	                                
+									<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	                                
 						            </tr>
 									
 						            <tr>
-										<th>
-										<div class="table-check">
-											<input type="checkbox" id="customCheck3">
-										</div>
-										</th>
+										<th></th>
 						                <th>Type</th>
 						                <th>Booked-By</th>
 						                <th>Date</th>
@@ -2732,275 +3475,71 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										<th>Tentative Amount</th>
 						                <th>Mode of Payment</th>
 						                <th>Remark</th>
-										<th></th>
 						            </tr>
 						        </thead>
-						        <tbody id="reimbursementsBodyAccomodation">
-									<tr class="template-row-accomodation">
-						                <td>
-											<div class="table-check" style="margin-bottom: 60px;">
-												<input type="checkbox" id="customCheck3">
-											</div>
-						                </td>
-						    
-						                <td> 
-											<div style="margin-bottom: 60px;">
-						                    <select name="mode" class="form-control" id="accommodationByMode">
-						                        <option value="Hotels">Hotels</option>
-												
-						                    </select>
-											</div>
-						                </td>
-						                <td>
-											<div style="margin-bottom: 60px;">
-						                    <select name="toBeBookedBy" class="form-control" id="accommodationBookedBy">
-						                        <option value="company">Company</option>
-												<option value="self">Self</option>
-						                    </select>
-											</div>
-						                </td>
-						                <td>
-											<div style="margin-bottom: 60px;">
-											<label for="accommodationCheckinDate">Check-in</label>
-											    <input type="date" name="checkinDate" class="form-control" id="accommodationCheckinDate">
-											    
-											    <label for="accommodationCheckoutDate">Check-out</label>
-											    <input type="date" name="checkoutDate" class="form-control" id="accommodationCheckoutDate">
-												</div>
-											
-						                </td>
-						                <td>
-											<div style="margin-bottom: 60px;">
-											 <input type="text" name="location" placeholder="Banglore" 
-											 class="form-control mb-2" id="accommodationDepartureFrom">
-											</div>
-						                    
-						                </td>
-						                <td>
-											<div style="margin-bottom: 60px;">
-											<input type="text" name="location" placeholder="Treebo Hotels" 
-											 class="form-control mb-2" id="accommodationDetails">
-											</div>
-						                    
-						                </td>
-						                <td>
-											<div style="margin-bottom: 60px;">
-						                        <select  class="form-control" id="accommodationPreference">
-						                            
-													<option value="14:00 Hrs">14:00 Hrs</option>
-						                        </select>
-						                    </div>
-											
-						                </td>
-										<td>
-																					
-						                <input type="text" id="accomodationAmount" name="amount" placeholder="INR 5000" class="form-control">
-										 </td>
-										<td>
-											<div style="margin-bottom: 28px;">
-												<select class="form-control" id="accommodationAmountPayment">
-							                       <option value="NA">NA</option>
-							                       <option value="Credit Card">Credit Card</option>
-							                       <option value="Cash">Cash</option>
-							                   </select>
-						                    </div>
-										    
-										    <div class="mt-0" >
-										        <span class="text-muted">Limit:</span>
-										        <span 
-										            class="border rounded px-3 py-1 bg-gray-200" 
-										            style="border-color: darkgray; display: inline-block;">
-										            INR 8,000
-										        </span>
-										    </div>
-										</td>
-						                <td>
-						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="height: 100px;" id="accommodationRemarks"></textarea>
-											<input type="hidden" class="border rounded px-2 py-1 w-full" name="travelSubType" value="travel"></input>
-						                </td>
-						           
-									<td>
-						                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
-										<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-acomodation" alt="Delete Icon">
-						            </td>
-									</tr>
-						           <!-- <tr class="last-add">
-						                <td colspan="10">
-						                    <a href="#" class="last-add" data-toggle="modal" data-target="">+ ADD</a>
-						                </td>
-						            </tr>-->
+						        <tbody>
 						        </tbody>
 						    </table>
-							<div class="last-add">
-								<div colspan="10" style="padding: .75rem;">
-									 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addTravelRowAcomodation()">+ ADD</button>
-								</div>
-							</div>
-							<div class="w-100 text-right">
-							   	  <button class="btn btn-primary" id="btnSaveAcomodationRequest" onclick="getaddTableRowAcomodation()"  >Save & Next</button>
-							   		 <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#ModalConfirm">Save & Next</button>-->
-						    </div>	
+							
 						</div>
 						<!-- In-City Cabs Table -->
-						<div class="table-responsive" id="inCityCabsTable" style="display: none;">
-						    <table class="table table-reimbursements">
-								<thead>
+						<div class="table-responsive-2" id="inCityCabsTable1" >
+						    <table class="table table-reimbursements" id="viewIncityCabOnly">
+						        <thead >
 									<tr>
-										<th>
-						                        <img src="img/citycabs-white.svg" >
-						                </th>
-									<th style="white-space: nowrap;"> In-City Cabs</th>
+									<th> <img src="img/citycabs-white.svg" > </th>
+									<th style="white-space: nowrap;"> In-City Cabs </th>
 									<th></th>
 									<th></th>
 						            <th></th>
 						            <th></th>
 						            <th></th>
-						            <th></th>
-									<th></th>
-									<th></th>
-									<th>
-						                    <img src="img/delete-white.svg" alt="Plane Icon">
-						            </th>	                                
+									<th></th>  
+									<th></th>        
+									<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	                
 						            </tr>
-									
 						            <tr>
-										<th>
-										<div class="table-check">
-											<input type="checkbox" id="customCheck3">
-										</div>
-										</th>
+										<th></th>
 						                <th>Type</th>
 						                <th>Booked-By</th>
 						                <th>Date</th>
 						                <th>Time</th>
 						                <th>Location</th>
-						               <th>Tentative Amount</th>
+										<th>Tentative Amount</th>
 						                <th>Mode of Payment</th>
 						                <th>Remark</th>
 										<th></th>
-										<th></th>
 						            </tr>
 						        </thead>
-								<tbody id="reimbursementsBodyInCityCab">
-									<tr class="template-row-incitycab">
+						        <tbody>
 								
-						                <td>
-											<div class="table-check">
-												<input type="checkbox" id="customCheck3">
-											</div>
-						                </td>
-						    
-						                <td>
-						                    <select name="mode" class="form-control" id="cabsByMode">
-						                        <option value="In-city-cab">In-City-Cab</option>
-												<option value="Airport-Cab">Airport Cab</option>
-												<option value="mylti-Stop">Multi Stop</option>
-						                    </select>
-						                </td>
-						                <td>
-						                    <select name="toBeBookedBy" class="form-control" id="cabsBookedBy">
-						                        <option value="company">Company</option>
-												<option value="self">Self</option>
-						                    </select>
-						                </td>
-						                <td>
-						                    <input type="date" name="date" class="form-control" id="cabsDate">
-						                </td>
-						                <td>
-											 
-											 <input type="text" name="arrival" placeholder="14:00 Hrs" 
-											 class="form-control" id="cabsTime">
-						                    
-						                </td>
-						                <td>
-											<div style="margin-bottom: -5px;">
-											<input type="text" name="location" placeholder="From" 
-											 class="form-control mb-2" id="cabsFrom" style="margin-top: 10px;">
-											 <br>
-											 <input type="text" name="location" placeholder="To" 
-  											 class="form-control mb-2" id="cabsTo">
-											
-											 
-											 </div>
-						                    
-											
-						                </td>
-										<td>
-																					
-						                <input type="text" id="cabAmount" name="amount" placeholder="INR 5000" class="form-control">
-										 </td>
-										<td>
-											<div style="margin-bottom: 28px;">
-												<select class="form-control" id="cabsPayment">
-							                       <option value="NA">NA</option>
-							                       <option value="Credit Card">Credit Card</option>
-							                       <option value="Cash">Cash</option>
-							                   </select>
-						                    </div>
-										    
-										    <div class="mt-0" >
-										        <span class="text-muted">Limit:</span>
-										        <span 
-										            class="border rounded px-3 py-1 bg-gray-200" 
-										            style="border-color: darkgray; display: inline-block;">
-										            INR 8,000
-										        </span>
-										    </div>
-										</td>
-						                <td>
-						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="height: 100px;" id="cabsRemarks"></textarea>
-						                </td>
-										<td>
-						                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
-										<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-incitycab" alt="Delete Icon">
-						            </td>
-						            </tr>
 						        </tbody>
 						    </table>
-							<div class="last-add">
-								<div colspan="10" style="padding: .75rem;">
-									 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addInCityCab()">+ ADD</button>
-								</div>
-							</div>
-							
-							<div class="w-100 text-right">
-							   <button class="btn btn-primary" id="btnSaveIncityCabRequest" onclick="getTableDataIncity()" >Save & Next</button>
-							   </div>						
 							
 						</div>
 						<!-- Food Table -->
-						<div class="table-responsive" id="foodTable" style="display: none;">
-						    <table class="table table-reimbursements">
-						        <thead>
+						<div class="table-responsive-2" id="foodTable1" >
+						    <table class="table table-reimbursements" id="viewFoodOnly">
+						        <thead >
 									<tr>
-										<th>
-						                        <img src="img/food-white.svg" >
-						                </th>
-									<th style="white-space: nowrap;"> Food</th>
+									<th> <img src="img/food-white.svg" > </th>
+									<th style="white-space: nowrap;"> Food </th>
 									<th></th>
 									<th></th>
 						            <th></th>
 						            <th></th>
 						            <th></th>
 						            <th></th>
+									<th></th>          
 									<th></th>
-									<th></th>
-									<th></th>
-									<th>
-						                    <img src="img/delete-white.svg" alt="Plane Icon">
-						            </th>	                                
-						            </tr>
+									<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	
 									
+									<th></th>                                
+						            </tr>
 						            <tr>
-										<th>
-										<div class="table-check">
-											<input type="checkbox" id="customCheck3">
-										</div>
-										</th>
+										<th></th>
 						                <th>Type of Meal</th>
-						                
+										<!--<th>Booked-By</th>-->
 						                <th>Start Date</th>
 						                <th>Number of Days</th>
 						                <th>Location</th>
@@ -3010,98 +3549,20 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										<th></th>
 										<th></th>
 										<th></th>
-										<th></th>
 						            </tr>
 						        </thead>
-								<tbody id="reimbursementsBodyFood">
-								  <tr class="template-row-food">
-								
-						                <td>
-											<div class="table-check">
-												<input type="checkbox" id="customCheck3">
-											</div>
-						                </td>
+						        <tbody>
 						    
-						                <td>
-						                    <select name="mode" class="form-control" id="typeOfMeals">
-						                        <option value="Daily Meals">Daily Meals</option>
-												<option value="Daily Meals">weekly Meals</option>
-												<option value="Daily Meals">Montly Meals</option>
-						                    </select>
-						                </td>
-						               
-						                <td>
-						                    <input type="date" name="date" class="form-control" id="mealDate">
-						                </td>
-						                <td>
-											<select name="mode" class="form-control" id="noOfDays">
-						                        <option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												
-						                    </select>
-						                    
-						                </td>
-						                <td>
-											<input type="text" name="arrival" placeholder="Arrival" 
-												class="form-control" id="mealLocation">    
-						                </td>
-										
-										<td>										
-						                <input type="text" id="foodAmount" name="amount" placeholder="INR 5000" class="form-control">
-									   </td>
-										<td>
-											<div style="margin-bottom: 28px;">
-												<select class="form-control" id="foodPayment">
-							                       <option value="NA">NA</option>
-							                       <option value="Credit Card">Credit Card</option>
-							                       <option value="Cash">Cash</option>
-							                   </select>
-						                    </div>
-										    
-										    <div class="mt-0" >
-										        <span class="text-muted">Limit:</span>
-										        <span 
-										            class="border rounded px-3 py-1 bg-gray-200" 
-										            style="border-color: darkgray; display: inline-block;">
-										            INR 8,000
-										        </span>
-										    </div>
-										</td>
-						                <td>
-						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="height: 100px;" id="foodRemarks"></textarea>
-						                </td>
-										<td>
-											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-food" alt="Delete Icon">
-							            </td>
-										
-						            </tr>
 						        </tbody>
 						    </table>
-							<div class="last-add">
-								<div colspan="10" style="padding: .75rem;">
-									 <button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addFood()">+ ADD</button>
-								</div>
-							</div>
-						
-							<div class="w-100 text-right">
-							   <button class="btn btn-primary" id="btnSaveFoodRequest" onclick="getTableDataFood()">Save & Next</button>
-						  </div>
 							
 						</div>
 						<!-- Miscellaneous Table -->
-						<div class="table-responsive" id="miscellaneousTable" style="display: none;">
-						    <table class="table table-reimbursements">
+						<div class="table-responsive-2" id="miscellaneousTable1" >
+						    <table class="table table-reimbursements" id="viewMiscellaneousOnly">
 						        <thead >
 									<tr>
-										<th>
-						                        <img src="img/miscellaneous-white.svg" >
-						                </th>
+									<th> <img src="img/miscellaneous-white.svg" class="align-start"> </th>
 									<th style="white-space: nowrap;">Miscellaneous </th>
 									<th></th>
 									<th></th>
@@ -3109,18 +3570,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 						            <th></th>
 						            <th></th>
 						            <th></th>
-									<th></th>
-									<th>
-						                    <img src="img/delete-white.svg" alt="Plane Icon">
-						            </th>	                                
+									<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	
+									<th></th>                                
 						            </tr>
-									
 						            <tr>
-										<th>
-										<div class="table-check">
-											<input type="checkbox" id="customCheck3">
-										</div>
-										</th>
+										<th></th>
 						                <th>Title</th>
 						                <th>Booked-By</th>
 						                <th>Date</th>
@@ -3132,866 +3586,291 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										<th></th>
 						            </tr>
 						        </thead>
-								<tbody id="reimbursementsBodyMiscellaneous">
-								 <tr class="template-row-miscellaneous">
-						                <td>
-											<div class="table-check">
-												<input type="checkbox" id="customCheck3">
-											</div>
-						                </td>
-						    
-						                <td>
-						                   
-											<input type="text" name="" placeholder="Product Samples - 10 Pieces" 
-											 class="form-control mb-2" id="miscTitle">
-						                </td>
-						                <td>
-						                    <select name="toBeBookedBy" class="form-control" id="miscBookedBy">
-						                        <option value="company">Company</option>
-												<option value="self">Self</option>
-						                    </select>
-						                </td>
-						                <td>
-						                    <input type="date" name="date" class="form-control" id="miscDate">
-						                </td>
-						                <td>
-											 <input type="text" name="departure" placeholder="INR 5000" 
-											 class="form-control mb-2" id="miscAmount">    
-						                </td>
-						                <td>  
-						                </td>
-						                <td>
-						                </td>
-										<td>
-											<div style="margin-bottom: 28px;">
-												<select class="form-control" id="travelAmountPayment">
-							                       <option value="NA">NA</option>
-							                       <option value="Credit Card">Credit Card</option>
-							                       <option value="Cash">Cash</option>
-							                   </select>
-						                    </div>
-										    
-										    <div class="mt-0" >
-										        <span class="text-muted">Limit:</span>
-										        <span 
-										            class="border rounded px-3 py-1 bg-gray-200" 
-										            style="border-color: darkgray; display: inline-block;">
-										            INR 8,000
-										        </span>
-										    </div>
-										</td>
-						                <td>
-						                    <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
-											style="height: 100px;" id="travelRemarks"></textarea>
-						                </td>
-										<td>
-							                <!--<button class="btn btn-danger btn-sm remove-row">Delete</button>-->
-											<img src="img/delete-white.svg" class="btn btn-danger btn-sm remove-row-miscellaneous" alt="Delete Icon">
-							            </td>
-						            </tr>
-						          </tbody>
-						    </table>			
-							<div class="last-add">
-				                <div colspan="10">
-									<button type="button" class="last-add" id="addRow" value="+ ADD" onclick="addmiscellaneous()">+ ADD</button>
-				                </div>
-				            </div>
-							<div class="w-100 text-right">
-							   <button class="btn btn-primary" id="btnSaveMiscellaneousRequest" onclick="getTableDataMiscellaneous()" >Save & Next</button>
-						    </div>																									 
-						</div>							
+						        <tbody>
+								
+						       </tbody>
+						    </table>
+						</div>
 		            </div>
+					</div><!-- custom background-wrap close-->
 		        </div>
 		    </div>
 		</div>
 
-		<!-- Modal Confirm -->
-			    <div class="modalView" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
-			        <div class="modal-dialog modal-dialog-centered" role="document">
-			        <div class="modal-content modal-bulk">
-			            <div class="modal-top text-center">          
-			            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closePopup()">
-			                <img src="img/modal-close.svg" alt="">
-			            </button>        
-			            <img src="img/modal-success.svg" alt="">
-			            </div>
-			            <div class="modal-bottom">
-			                <span class="modal-title"><strong>Travel Request</strong></span><br>
-							<span class="modal-subtitle">Your Travel Request Form has been submitted.</span>
-			            </div>
+	<!-- Modal Reimbursement Approved -->
+	   <div class="modalView" id="modalTravelUpdated" tabindex="-1" role="dialog"
+	       aria-labelledby="exampleModalCenterTitle" >
+	       <div class="modal-dialog modal-dialog-centered" role="document">
+	           <div class="modal-content modal-bulk">
+	               <div class="modal-top text-center">
+	                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" onclick="traveUpdateClose()">
+	                       <img src="img/modal-close.svg" alt="">
+	                   </button>
+	                   <img src="img/modal-success.svg" alt="">
+	               </div>
+	               <div class="modal-bottom">
+	                   <!--<div class="count"><span>4</span><strong>5</strong></div>-->
+	                   <br>
+	                   <span>Travel Request updated Successfully</span>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+			   
+   <div class="modalView"  id="TravelRequestApprove" tabindex="-1" role="dialog"
+   	       aria-labelledby="exampleModalCenterTitle">
+   		    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
+   		        <div class="modal-content modal-bulk">
+   					<div class="modal-header pb-0 text-left">
+   						<h5 class="modal-title">Approve-Reject Advance Travel Request</h5>
+   							<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeApproveView()">
+   			                    <span aria-hidden="true">×</span>
+   			                </button>
+   					</div><hr><br>
+   					<div class="background-wrap">
+   						<span><h3>Approve-Reject  Advance Travel Request</h3></span><br>
+   		            <div class="policies-wrap-in-table">
+   		                <div class="table-responsive-2" id="approveTravel" style="display: none;">
+   		                    <table class="table table-reimbursements" id="viewTravelRequestApprove">
+   		                        <thead >
+   									<tr>
+									<th><img src="img/plane-white.svg" alt="Plane Icon"> </th>
+   									<th> <div id="requestTypeT"></div></th>
+   									<th></th>
+   									<th></th>
+   	                                <th></th>
+   	                                <th></th>
+   	                                <th></th>
+   	                                <th></th>
+   									<th></th>
+   									<th></th>	 
+   									<th></th>                               
+   		                            </tr>
+   		                            <tr>
+									   <th></th>
+					                   <th>Mode</th>
+					                   <th>Booked-By</th>
+					                   <th>Date</th>
+					                   <th>location</th>
+					                   <th>amount</th>
+					                   <th>Mode of Payment</th>
+					                   <th>Remarks</th>
+									   <th></th>
+   										   
+   		                            </tr>
+   		                        </thead>
+   		                        <tbody>
+   								
+   		                        </tbody>
+   		                    </table>
+   							
+   		                </div>
+   						<!-- Accommodation Table -->
+   						<div class="table-responsive-2" id="approveAccomodation" style="display: none;">
+   						    <table class="table table-reimbursements" id="viewAccomodationOnlyApprove">
+   						        <thead >
+   									<tr>
+   									<th>  <img src="img/accommodation-white.svg" > </th>
+   									<th><div id="requestTypeA"></div></th>
+   									<th></th>
+   									<th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   									<th></th>
+   									<th>
+   						            </th>	                                
+   						            </tr>
+   									
+   						            <tr>
+   										<th></th>
+   						                <th>Type</th>
+   						                <th>Booked-By</th>
+   						                <th>Date</th>
+   						                <th>Location</th>
+   						                <th>Hotel Details</th>
+   						                <th>Preferences</th>
+   										<th>Amount</th>
+   						                <th>Mode of Payment</th>
+   						                <th>Remark</th>
+   						            </tr>
+   						        </thead>
+   						        <tbody>
+   								
+   						        </tbody>
+   						    </table>
+   							
+   						</div>
+   						<!-- In-City Cabs Table -->
+   						<div class="table-responsive-2" id="approveIncityCab" style="display: none;">
+   						    <table class="table table-reimbursements" id="viewIncityCabOnlyApprove">
+   						        <thead >
+   									<tr>
+   									<th>
+   					                <img src="img/citycabs-white.svg" ></th>
+   									<th> <div id="requestTypeI"></div></th>
+   									<th></th>
+   									<th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   									<th></th>  
+   									<th></th>        
+   									<th>
+   						            </th>	                
+   						            </tr>
+   						            <tr>
+   										<th></th>
+   						                <th>Type</th>
+   						                <th>Booked-By</th>
+   						                <th>Date</th>
+   						                <th>Time</th>
+   						                <th>Location</th>
+   										<th>Tentative Amount</th>
+   						                <th>Mode of Payment</th>
+   						                <th>Remark</th>
+   										<th></th>
+   						            </tr>
+   						        </thead>
+   						        <tbody>
+   								
+   						        </tbody>
+   						    </table>
+   							
+   						</div>
+   						<!-- Food Table -->
+   						<div class="table-responsive-2" id="approveFood" style="display: none;">
+   						    <table class="table table-reimbursements" id="viewFoodOnlyApprove">
+   						        <thead >
+   									<tr>
+   									<th> <img src="img/food-white.svg" ></th>
+   									<th><div id="requestTypeF"> </div></th>
+   									<th></th>
+   									<th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   									<th></th>          
+   									<th></th>
+   									<th> </th>	
+   									<th></th>                                
+   						            </tr>
+   						            <tr>
+   										<th></th>
+   						                <th>Type of Meal</th>
+   						                <th>Start Date</th>
+   						                <th>Number of Days</th>
+   						                <th>Location</th>
+   										<th>Tentative Amount</th>
+   						                <th>Mode of Payment</th>
+   						                <th>Remark</th>
+   										<th></th>
+   										<th></th>
+   										<th></th>
+   						            </tr>
+   						        </thead>
+   						        <tbody>
+   						    
+   						        </tbody>
+   						    </table>
+   							
+   						</div>
 						
-			        </div>
-			        </div>
-			    </div>
-
-			    <!-- Modal Reject -->
-			    <div class="modal fade" id="ModalReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			        <div class="modal-dialog modal-dialog-centered" role="document">
-			        <div class="modal-content modal-bulk">
-			            <div class="modal-top text-center">          
-			            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-			                <img src="img/modal-close.svg" alt="">
-			            </button>        
-			            <img src="img/modal-reject.svg" alt="">
-			            </div>
-			            <div class="modal-bottom">
-			                <span<strong>Travel Request</strong></span>
-			            </div>
-			        </div>
-			        </div>
-			    </div>
-   <!-- new-->
-		<div class="modalView"  id="travelDetailsTable1" tabindex="-1" role="dialog"
-		       aria-labelledby="exampleModalCenterTitle">
-			    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
-			        <div class="modal-content modal-bulk">
-						<div class="modal-header pb-0 text-left">
-							<h5 class="modal-title">Travel Request</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReviewEdit()">
-				                    <span aria-hidden="true">×</span>
-				                </button>
-						</div><hr><br>
-						<div class="background-wrap">
-							<span><h3>Review and Submit Advance Travel Request</h3></span><br>
-			            <div class="policies-wrap-in-table">
-			                <div class="table-responsive-2" id="travelTableView" >
-			                    <table class="table table-reimbursements" id="travelTableViewMode">
-			                        <thead >
-										<tr>
-											<th>
-						                            <img src="img/plane-white.svg" alt="Plane Icon">
-						                    </th>
-										<th>  Travel</th>
-										<th></th>
-										<th></th>
-		                                <th></th>
-		                                <th></th>
-		                                <th></th>
-		                                <th></th>
-										<th></th>
-										<th>
-					                            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-					                    </th>	 
-										<th></th>                               
-			                            </tr>
-										
-			                            <tr>
-											   <th></th>
-							                   <th>Mode</th>
-							                   <th>Booked-By</th>
-							                   <th>Date</th>
-							                   <th>location</th>
-							                   <th>Preferred Time</th>
-							                   <th>Carrier Details</th>
-											   <th>Tentative Amount</th>
-							                   <th>Mode of Payment</th>
-							                   <th>Remarks</th>
-											   <th></th>
-											   
-			                            </tr>
-			                        </thead>
-			                        <tbody>
-			                        </tbody>
-			                    </table>
-								
-			                </div>
-							<!-- Accommodation Table -->
-							<div class="table-responsive-2" id="accommodationTable1" >
-							    <table class="table table-reimbursements" id="accommodationTableViewMode">
-							        <thead >
-										<tr>
-										<th>
-						                <img src="img/accommodation-white.svg" >
-						                </th>
-										<th>  Accommodation</th>
-										<th></th>
-										<th></th>
-							            <th></th>
-							            <th></th>
-							            <th></th>
-							            <th></th>
-										<th></th>
-										<th>
-							             <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-							            </th>	                                
-							            </tr>
-										
-							            <tr>
-											<th></th>
-							                <th>Type</th>
-							                <th>Booked-By</th>
-							                <th>Date</th>
-							                <th>Location</th>
-							                <th>Hotel Details</th>
-							                <th>Preferences</th>
-											<th>Tentative Amount</th>
-							                <th>Mode of Payment</th>
-							                <th>Remark</th>
-							            </tr>
-							        </thead>
-							        <tbody>
-									
-							        </tbody>
-							    </table>
-								
-							</div>
-							<!-- In-City Cabs Table -->
-							<div class="table-responsive-2" id="inCityCabsTable1" >
-							    <table class="table table-reimbursements" id="inCityCabsTableView">
-							        <thead >
-										<tr>
-										<th>
-						                <img src="img/citycabs-white.svg" >
-						                </th>
-										<th style="white-space: nowrap;"> In-City Cabs</th>
-										<th></th>
-										<th></th>
-							            <th></th>
-							            <th></th>
-							            <th></th>
-										<th></th>  
-										<th></th>        
-										<th>
-							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-							            </th>	                
-							            </tr>
-							            <tr>
-											<th></th>
-							                <th>Type</th>
-							                <th>Booked-By</th>
-							                <th>Date</th>
-							                <th>Time</th>
-							                <th>Location</th>
-											<th>Tentative Amount</th>
-							                <th>Mode of Payment</th>
-							                <th>Remark</th>
-											<th></th>
-							            </tr>
-							        </thead>
-							        <tbody>
-									
-							        </tbody>
-							    </table>
-								
-							</div>
-							<!-- Food Table -->
-							<div class="table-responsive-2" id="foodTable1" >
-							    <table class="table table-reimbursements" id="foodTableView">
-							        <thead >
-										<tr>
-										<th>
-						                   <img src="img/food-white.svg" >
-						                </th>
-										<th style="white-space: nowrap;"> Food</th>
-										<th></th>
-										<th></th>
-							            <th></th>
-							            <th></th>
-							            <th></th>
-							            <th></th>
-										<th></th>          
-										<th></th>
-										<th>
-							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-							            </th>	
-										
-										<th></th>                                
-							            </tr>
-							            <tr>
-											<th></th>
-							                <th>Type of Meal</th>
-											<!--<th>Booked-By</th>-->
-							                <th>Start Date</th>
-							                <th>Number of Days</th>
-							                <th>Location</th>
-											<th>Tentative Amount</th>
-							                <th>Mode of Payment</th>
-							                <th>Remark</th>
-											<th></th>
-											<th></th>
-											<th></th>
-							            </tr>
-							        </thead>
-							        <tbody>
-							   
-							        </tbody>
-							    </table>
-								
-							</div>
-							<!-- Miscellaneous Table -->
-							<div class="table-responsive-2" id="miscellaneousTable1" >
-							    <table class="table table-reimbursements" id="miscellaneousTableView">
-							        <thead >
-										<tr>
-										<th>
-						                        <img src="img/miscellaneous-white.svg" class="align-start">
-						                </th>
-										<th style="white-space: nowrap;">Miscellaneous </th>
-										<th></th>
-										<th></th>
-							            <th></th>
-							            <th></th>
-							            <th></th>
-							            <th></th>
-										<th>
-							            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-							            </th>	
-										<th></th>                                
-							            </tr>
-							            <tr>
-											<th></th>
-							                <th>Title</th>
-							                <th>Booked-By</th>
-							                <th>Date</th>
-							                <th>Tentative Amount</th>
-							                <th></th>
-							                <th></th>
-							                <th>Mode of Payment</th>
-							                <th>Remarks (Compulsory)</th>
-											<th></th>
-							            </tr>
-							        </thead>
-							        <tbody>
-									
-							        </tbody>
-							    </table>
-								
-							</div>
-							<div class="w-100 my-3 d-flex justify-content-end">
-							    <!-- Delete button on the left -->
-							    
-							    <!-- Save & Next button on the right -->
-							    <div class="w-50 text-right">
-									<!--<button class="btn btn-primary" id="btnSaveTravelRequest" onclick="saveTravelRequest()" >Save & Next</button>-->
-									<button class="btn custom-btn1" id="btnBackTravelRequest" >Back</button>
-									
-									<button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="getAllTablesData()">Submit</button>
-							        <!--<button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="showConfirmModal()">Submit</button>-->
-							    </div>
-							</div>
-							
-			            </div>
-						</div><!-- custom background-wrap close-->
-			        </div>
-			    </div>
-			</div>
-	
-			<div class="modalView"  id="travelRequestView" tabindex="-1" role="dialog"
-				       aria-labelledby="exampleModalCenterTitle">
-					    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
-					        <div class="modal-content modal-bulk">
-								<div class="modal-header pb-0 text-left">
-									<h5 class="modal-title">Advance Travel Request</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeView()">
-						                    <span aria-hidden="true">×</span>
-						                </button>
-								</div><hr><br>
-								<div class="background-wrap">
-									<span><h3>View Advance Travel Request</h3></span><br>
-					            <div class="policies-wrap-in-table">
-					                <div class="table-responsive-2" id="travelTableView" >
-					                    <table class="table table-reimbursements" id="viewTravelRequest">
-					                        <thead >
-												<tr>
-													<th>
-								                            <img src="img/plane-white.svg" alt="Plane Icon">
-								                    </th>
-												<th>  Travel</th>
-												<th></th>
-												<th></th>
-				                                <th></th>
-				                                <th></th>
-				                                <th></th>
-				                                <th></th>
-												<th></th>
-												<th>
-							                            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-							                    </th>	 
-												<th></th>                               
-					                            </tr>
-												
-					                            <tr>
-													   <th></th>
-									                   <th>Mode</th>
-									                   <th>Booked-By</th>
-									                   <th>Date</th>
-									                   <th>location</th>
-									                   <th>Preferred Time</th>
-									                   <th>Carrier Details</th>
-													   <th>Tentative Amount</th>
-									                   <th>Mode of Payment</th>
-									                   <th>Remarks</th>
-													   <th></th>
-													   
-					                            </tr>
-					                        </thead>
-					                        <tbody>
-											
-					                        </tbody>
-					                    </table>
-										
-					                </div>
-									<!-- Accommodation Table -->
-									<div class="table-responsive-2" id="accommodationTable1" >
-									    <table class="table table-reimbursements" id="viewAccomodationOnly">
-									        <thead >
-												<tr>
-												<th>
-								                <img src="img/accommodation-white.svg" >
-								                </th>
-												<th>  Accommodation</th>
-												<th></th>
-												<th></th>
-									            <th></th>
-									            <th></th>
-									            <th></th>
-									            <th></th>
-												<th></th>
-												<th>
-									             <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-									            </th>	                                
-									            </tr>
-												
-									            <tr>
-													<th></th>
-									                <th>Type</th>
-									                <th>Booked-By</th>
-									                <th>Date</th>
-									                <th>Location</th>
-									                <th>Hotel Details</th>
-									                <th>Preferences</th>
-													<th>Tentative Amount</th>
-									                <th>Mode of Payment</th>
-									                <th>Remark</th>
-									            </tr>
-									        </thead>
-									        <tbody>
-											
-									        </tbody>
-									    </table>
-										
-									</div>
-									<!-- In-City Cabs Table -->
-									<div class="table-responsive-2" id="inCityCabsTable1" >
-									    <table class="table table-reimbursements" id="viewIncityCabOnly">
-									        <thead >
-												<tr>
-												<th>
-								                <img src="img/citycabs-white.svg" >
-								                </th>
-												<th style="white-space: nowrap;"> In-City Cabs</th>
-												<th></th>
-												<th></th>
-									            <th></th>
-									            <th></th>
-									            <th></th>
-												<th></th>  
-												<th></th>        
-												<th>
-									            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-									            </th>	                
-									            </tr>
-									            <tr>
-													<th></th>
-									                <th>Type</th>
-									                <th>Booked-By</th>
-									                <th>Date</th>
-									                <th>Time</th>
-									                <th>Location</th>
-													<th>Tentative Amount</th>
-									                <th>Mode of Payment</th>
-									                <th>Remark</th>
-													<th></th>
-									            </tr>
-									        </thead>
-									        <tbody>
-											
-									        </tbody>
-									    </table>
-										
-									</div>
-									<!-- Food Table -->
-									<div class="table-responsive-2" id="foodTable1" >
-									    <table class="table table-reimbursements" id="viewFoodOnly">
-									        <thead >
-												<tr>
-												<th>
-								                   <img src="img/food-white.svg" >
-								                </th>
-												<th style="white-space: nowrap;"> Food</th>
-												<th></th>
-												<th></th>
-									            <th></th>
-									            <th></th>
-									            <th></th>
-									            <th></th>
-												<th></th>          
-												<th></th>
-												<th>
-									            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-									            </th>	
-												
-												<th></th>                                
-									            </tr>
-									            <tr>
-													<th></th>
-									                <th>Type of Meal</th>
-													<!--<th>Booked-By</th>-->
-									                <th>Start Date</th>
-									                <th>Number of Days</th>
-									                <th>Location</th>
-													<th>Tentative Amount</th>
-									                <th>Mode of Payment</th>
-									                <th>Remark</th>
-													<th></th>
-													<th></th>
-													<th></th>
-									            </tr>
-									        </thead>
-									        <tbody>
-									    
-									        </tbody>
-									    </table>
-										
-									</div>
-									<!-- Miscellaneous Table -->
-									<div class="table-responsive-2" id="miscellaneousTable1" >
-									    <table class="table table-reimbursements" id="viewMiscellaneousOnly">
-									        <thead >
-												<tr>
-												<th>
-								                        <img src="img/miscellaneous-white.svg" class="align-start">
-								                </th>
-												<th style="white-space: nowrap;">Miscellaneous </th>
-												<th></th>
-												<th></th>
-									            <th></th>
-									            <th></th>
-									            <th></th>
-									            <th></th>
-												<th>
-									            <img src="img/edit-pencil-white.svg" alt="Plane Icon">
-									            </th>	
-												<th></th>                                
-									            </tr>
-									            <tr>
-													<th></th>
-									                <th>Title</th>
-									                <th>Booked-By</th>
-									                <th>Date</th>
-									                <th>Tentative Amount</th>
-									                <th></th>
-									                <th></th>
-									                <th>Mode of Payment</th>
-									                <th>Remarks (Compulsory)</th>
-													<th></th>
-									            </tr>
-									        </thead>
-									        <tbody>
-											
-									       </tbody>
-									    </table>
-										
-									</div>
-								
-					            </div>
-								</div><!-- custom background-wrap close-->
-					        </div>
-					    </div>
-					</div>
-
-			<!-- Modal Reimbursement Approved -->
-			   <div class="modalView" id="modalTravelUpdated" tabindex="-1" role="dialog"
-			       aria-labelledby="exampleModalCenterTitle" >
-			       <div class="modal-dialog modal-dialog-centered" role="document">
-			           <div class="modal-content modal-bulk">
-			               <div class="modal-top text-center">
-			                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" onclick="traveUpdateClose()">
-			                       <img src="img/modal-close.svg" alt="">
-			                   </button>
-			                   <img src="img/modal-success.svg" alt="">
-			               </div>
-			               <div class="modal-bottom">
-			                   <!--<div class="count"><span>4</span><strong>5</strong></div>-->
-			                   <br>
-			                   <span>Travel Request updated Successfully</span>
-			               </div>
-			           </div>
-			       </div>
-			   </div>
-			   
-			   
-			   <div class="modalView"  id="TravelRequestApprove" tabindex="-1" role="dialog"
-			   	       aria-labelledby="exampleModalCenterTitle">
-			   		    <div class="modal-dialog modal-dialog-centered modal-approval-wrap custom-modal-width" role="document">
-			   		        <div class="modal-content modal-bulk">
-			   					<div class="modal-header pb-0 text-left">
-			   						<h5 class="modal-title">Approve-Reject Advance Travel Request</h5>
-			   							<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeApproveView()">
-			   			                    <span aria-hidden="true">×</span>
-			   			                </button>
-			   					</div><hr><br>
-			   					<div class="background-wrap">
-			   						<span><h3>Approve-Reject  Advance Travel Request</h3></span><br>
-			   		            <div class="policies-wrap-in-table">
-			   		                <div class="table-responsive-2" id="approveTravel" style="display: none;">
-			   		                    <table class="table table-reimbursements" id="viewTravelRequestApprove">
-			   		                        <thead >
-			   									<tr>
-		   										<th>
-		   					                    <img src="img/plane-white.svg" alt="Plane Icon">
-		   					                    </th>
-			   									<th> <div id="requestTypeT"></div></th>
-			   									<th></th>
-			   									<th></th>
-			   	                                <th></th>
-			   	                                <th></th>
-			   	                                <th></th>
-			   	                                <th></th>
-			   									<th></th>
-			   									<th></th>	 
-			   									<th></th>                               
-			   		                            </tr>
-			   									
-			   		                            <tr>
-		   										   <th></th>
-		   						                   <th>Mode</th>
-		   						                   <th>Booked-By</th>
-		   						                   <th>Date</th>
-		   						                   <th>location</th>
-		   						                   <th>amount</th>
-		   						                   <th>Mode of Payment</th>
-		   						                   <th>Remarks</th>
-		   										   <th></th>
-			   										   
-			   		                            </tr>
-			   		                        </thead>
-			   		                        <tbody>
-			   								
-			   		                        </tbody>
-			   		                    </table>
-			   							
-			   		                </div>
-			   						<!-- Accommodation Table -->
-			   						<div class="table-responsive-2" id="approveAccomodation" style="display: none;">
-			   						    <table class="table table-reimbursements" id="viewAccomodationOnlyApprove">
-			   						        <thead >
-			   									<tr>
-			   									<th>
-			   					                <img src="img/accommodation-white.svg" >
-			   					                </th>
-			   									<th><div id="requestTypeA"></div></th>
-			   									<th></th>
-			   									<th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   									<th></th>
-			   									<th>
-			   						            </th>	                                
-			   						            </tr>
-			   									
-			   						            <tr>
-			   										<th></th>
-			   						                <th>Type</th>
-			   						                <th>Booked-By</th>
-			   						                <th>Date</th>
-			   						                <th>Location</th>
-			   						                <th>Hotel Details</th>
-			   						                <th>Preferences</th>
-			   										<th>Amount</th>
-			   						                <th>Mode of Payment</th>
-			   						                <th>Remark</th>
-			   						            </tr>
-			   						        </thead>
-			   						        <tbody>
-			   								
-			   						        </tbody>
-			   						    </table>
-			   							
-			   						</div>
-			   						<!-- In-City Cabs Table -->
-			   						<div class="table-responsive-2" id="approveIncityCab" style="display: none;">
-			   						    <table class="table table-reimbursements" id="viewIncityCabOnlyApprove">
-			   						        <thead >
-			   									<tr>
-			   									<th>
-			   					                <img src="img/citycabs-white.svg" >
-			   					                </th>
-			   									<th> <div id="requestTypeI"></div></th>
-			   									<th></th>
-			   									<th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   									<th></th>  
-			   									<th></th>        
-			   									<th>
-			   						            </th>	                
-			   						            </tr>
-			   						            <tr>
-			   										<th></th>
-			   						                <th>Type</th>
-			   						                <th>Booked-By</th>
-			   						                <th>Date</th>
-			   						                <th>Time</th>
-			   						                <th>Location</th>
-			   										<th>Tentative Amount</th>
-			   						                <th>Mode of Payment</th>
-			   						                <th>Remark</th>
-			   										<th></th>
-			   						            </tr>
-			   						        </thead>
-			   						        <tbody>
-			   								
-			   						        </tbody>
-			   						    </table>
-			   							
-			   						</div>
-			   						<!-- Food Table -->
-			   						<div class="table-responsive-2" id="approveFood" style="display: none;">
-			   						    <table class="table table-reimbursements" id="viewFoodOnlyApprove">
-			   						        <thead >
-			   									<tr>
-			   									<th>
-			   					                   <img src="img/food-white.svg" >
-			   					                </th>
-			   									<th><div id="requestTypeF"> </div></th>
-			   									<th></th>
-			   									<th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   									<th></th>          
-			   									<th></th>
-			   									<th> </th>	
-			   									<th></th>                                
-			   						            </tr>
-			   						            <tr>
-			   										<th></th>
-			   						                <th>Type of Meal</th>
-			   										<!--<th>Booked-By</th>-->
-			   						                <th>Start Date</th>
-			   						                <th>Number of Days</th>
-			   						                <th>Location</th>
-			   										<th>Tentative Amount</th>
-			   						                <th>Mode of Payment</th>
-			   						                <th>Remark</th>
-			   										<th></th>
-			   										<th></th>
-			   										<th></th>
-			   						            </tr>
-			   						        </thead>
-			   						        <tbody>
-			   						    
-			   						        </tbody>
-			   						    </table>
-			   							
-			   						</div>
-									
-									<!-- Food Table -->
-			   						<div class="table-responsive-2" id="approveCash" style="display: none;">
-			   						    <table class="table table-reimbursements" id="viewCashOnlyApprove">
-			   						        <thead >
-			   									<tr>
-			   									<th>
-			   					                   <img src="img/food-white.svg" >
-			   					                </th>
-			   									<th style="white-space: nowrap;"> <div id="requestTypeC"></div></th>
-			   									<th></th>
-			   									<th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   									<th></th>          
-			   									<th></th>
-			   									<th></th>	
-			   									<th></th>                                
-			   						            </tr>
-			   						            <tr>
-			   										<th></th>
-			   						                <th>Type of Meal</th>
-			   										<!--<th>Booked-By</th>-->
-			   						                <th>Start Date</th>
-			   						                <th>Number of Days</th>
-			   						                <th>Location</th>
-			   										<th>Tentative Amount</th>
-			   						                <th>Mode of Payment</th>
-			   						                <th>Remark</th>
-			   										<th></th>
-			   										<th></th>
-			   										<th></th>
-			   						            </tr>
-			   						        </thead>
-			   						        <tbody>
-			   						    
-			   						        </tbody>
-			   						    </table>
-			   							
-			   						</div>
-			   						<!-- Miscellaneous Table -->
-			   						<div class="table-responsive-2" id="approveMiscellaneous" style="display: none;" >
-			   						    <table class="table table-reimbursements" id="viewMiscellaneousOnlyApprove">
-			   						        <thead >
-			   									<tr>
-			   									<th>
-			   					                        <img src="img/miscellaneous-white.svg" class="align-start">
-			   					                </th>
-			   									<th style="white-space: nowrap;"><div id="requestTypeM"></div> </th>
-			   									<th></th>
-			   									<th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   						            <th></th>
-			   									<th></th>	
-			   									<th></th>                                
-			   						            </tr>
-			   						            <tr>
-			   										<th></th>
-			   						                <th>Title</th>
-			   						                <th>Booked-By</th>
-			   						                <th>Date</th>
-			   						                <th>Tentative Amount</th>
-			   						                <th>Mode of Payment</th>
-			   						                <th>Remarks (Compulsory)</th>
-			   										<th></th>
-			   						            </tr>
-			   						        </thead>
-			   						        <tbody>
-			   								
-			   						       </tbody>
-			   						    </table>
-			   							
-										
-			   						</div>
-									<div>
-				 						Enter Approve Amount <input class="border rounded px-2 py-1 w-full" placeholder="Approved Amount" id="approveAmount" >
-				 					 </div>		
-									 </br>			 
-				                     <div>
-									Enter Remark <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks" id="approveRemark"
-									   > </textarea>
-									 </div>
-									<div class="table-responsive-2">
-									
-									 <input type="hidden" class="border rounded px-2 py-1 w-full" placeholder="Approved Amount" id="approvalId" >
-														 					
-								   	 <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="approveCashAvance()">Approve</button>
-									 
-									 <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="rejectCashAvance()">Reject</button>
-									  								    
-								     </div>	
-									<div class="w-100 text-right">
-								   </div>	
-			   		            </div>
-			   					</div><!-- custom background-wrap close-->
-			   		        </div>
-			   		    </div>
-			   		</div>
+						<!-- Food Table -->
+   						<div class="table-responsive-2" id="approveCash" style="display: none;">
+   						    <table class="table table-reimbursements" id="viewCashOnlyApprove">
+   						        <thead >
+   									<tr>
+   									<th>  <img src="img/food-white.svg"> </th>
+   									<th style="white-space: nowrap;"> <div id="requestTypeC"></div></th>
+   									<th></th>
+   									<th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   									<th></th>          
+   									<th></th>
+   									<th></th>	
+   									<th></th>                                
+   						            </tr>
+   						            <tr>
+   										<th></th>
+   						                <th>Type of Meal</th>
+   						                <th>Start Date</th>
+   						                <th>Number of Days</th>
+   						                <th>Location</th>
+   										<th>Tentative Amount</th>
+   						                <th>Mode of Payment</th>
+   						                <th>Remark</th>
+   										<th></th>
+   										<th></th>
+   										<th></th>
+   						            </tr>
+   						        </thead>
+   						        <tbody>
+   						    
+   						        </tbody>
+   						    </table>
+   							
+   						</div>
+   						<!-- Miscellaneous Table -->
+   						<div class="table-responsive-2" id="approveMiscellaneous" style="display: none;" >
+   						    <table class="table table-reimbursements" id="viewMiscellaneousOnlyApprove">
+   						        <thead >
+   									<tr>
+   									<th> <img src="img/miscellaneous-white.svg" class="align-start"> </th>
+   									<th style="white-space: nowrap;"><div id="requestTypeM"></div> </th>
+   									<th></th>
+   									<th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   						            <th></th>
+   									<th></th>	
+   									<th></th>                                
+   						            </tr>
+   						            <tr>
+   										<th></th>
+   						                <th>Title</th>
+   						                <th>Booked-By</th>
+   						                <th>Date</th>
+   						                <th>Tentative Amount</th>
+   						                <th>Mode of Payment</th>
+   						                <th>Remarks (Compulsory)</th>
+   										<th></th>
+   						            </tr>
+   						        </thead>
+   						        <tbody>
+   						      </tbody>
+   						    </table>
+   						</div>
+						<div>
+	 						Enter Approve Amount <input class="border rounded px-2 py-1 w-full" placeholder="Approved Amount" id="approveAmount" >
+	 					 </div>		
+						 </br>			 
+	                     <div>
+						Enter Remark <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks" id="approveRemark"
+						   > </textarea>
+						 </div>
+						<div class="table-responsive-2">
+						
+						 <input type="hidden" class="border rounded px-2 py-1 w-full" placeholder="Approved Amount" id="approvalId" >
+											 					
+					   	 <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="approveCashAvance()">Approve</button>
+						 
+						 <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="rejectCashAvance()">Reject</button>
+						  								    
+					     </div>	
+						<div class="w-100 text-right">
+					   </div>	
+   		            </div>
+   					</div><!-- custom background-wrap close-->
+   		        </div>
+   		    </div>
+   		</div>
 
 </body>
 
