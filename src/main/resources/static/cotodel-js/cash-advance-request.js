@@ -2571,7 +2571,7 @@ function approveCashAvance(){
 				"id":id,
 				"employeeId":empId,
 				"employerId":employerid,
-				"approvedBy":"atul yadav",
+				"approvedBy":employerName,
 				"approvalRemarks":approveRemark,
 				"approvalAmount":approveAmount,
 				"approvedOrRejected":"Approved"
@@ -2626,7 +2626,7 @@ function rejectCashAvance(){
 			"id":id,
 			"employeeId":empId,
 			"employerId":employerid,
-			"approvedBy":"atul yadav",
+			"approvedBy":employerName,
 			"approvalRemarks":approveRemark,
 			"approvalAmount":approveAmount,
 			"approvedOrRejected":"Reject"
