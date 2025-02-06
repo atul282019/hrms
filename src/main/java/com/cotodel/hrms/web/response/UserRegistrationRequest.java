@@ -49,13 +49,13 @@ public class UserRegistrationRequest implements Serializable{
 		this.erupistatus = erupistatus;
 	}
 
-	public String getCaptcha() {
-		return captcha;
-	}
-
-	public void setCaptcha(String captcha) {
-		this.captcha = captcha;
-	}
+//	public String getCaptcha() {
+//		return captcha;
+//	}
+//
+//	public void setCaptcha(String captcha) {
+//		this.captcha = captcha;
+//	}
 
 	public void setEmployerId(Integer employerId) {
 		this.employerId = employerId;

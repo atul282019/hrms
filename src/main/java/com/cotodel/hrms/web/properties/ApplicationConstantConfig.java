@@ -28,4 +28,10 @@ public class ApplicationConstantConfig {
 	@Value("${gst.service.base.url}")
 	public String gstServiceBaseUrl;
 	
+	@Value("${api.signature.keystore.public.path}")
+	public String apiSignaturePublicPath;
+	
+	@Value("${api.signature.keystore.private.path}")
+	public String apiSignaturePrivatePath;
+	
 }

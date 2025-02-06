@@ -9,6 +9,7 @@ import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.response.UserWaitList;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -17,6 +18,10 @@ public class SingleUserCreationServiceImpl implements SingleUserCreationService{
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 
+	@Override
+	public String singleUserCreationEncript(String token, EncriptResponse userForm) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl+CommonUtils.registerUserUrl);
+	}
 	
 	@Override
 	public String singleUserCreation(String token, UserRegistrationRequest userForm) {
