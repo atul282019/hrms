@@ -914,7 +914,7 @@ function getTableDataFood(){
 	        const rows = document.querySelectorAll(".template-row-food");
 
 	        rows.forEach(row => {
-	            if (!validateRow(row)) {
+	            if (!validateRowFood(row)) {
 	                isTableValid = false;
 	            }
 	        });
@@ -929,12 +929,12 @@ function getTableDataFood(){
 		    tableRows.forEach(row => {
 		        let rowData = {
 		            typeOfMeal: row.querySelector("#typeOfMeals")?.value || "",
-		            startDate: row.querySelector("#mealDate")?.value || "",
+		            date: row.querySelector("#mealDate")?.value || "",
 		            numberOfDays: row.querySelector("#noOfDays")?.value || "",
 		            location: row.querySelector("#mealLocation")?.value || "",
 					amount: row.querySelector("#foodAmount")?.value || "",
-		            modeOfPayment: row.querySelector("#travelAmountPayment")?.value || "",
-		            remark: row.querySelector("#travelRemarks")?.value || "",
+		            paymentMode: row.querySelector("#foodPayment")?.value || "",
+		            remarks: row.querySelector("#foodRemarks")?.value || "",
 		            checked: row.querySelector("input[type='checkbox']")?.checked || false
 		        };
 	
@@ -988,6 +988,60 @@ function showErrorMessage(element, message) {
        }
    }
 
+   function validateRowFood(row) {
+          let isValid = true;
+
+          const mealType = row.querySelector("#typeOfMeals");
+          const mealDate = row.querySelector("#mealDate");
+          const noOfDays = row.querySelector("#noOfDays");
+          const mealLocation = row.querySelector("#mealLocation");
+          const paymentMode = row.querySelector("#foodPayment");
+
+          if (!mealType.value) {
+              isValid = false;
+              showErrorMessage(mealType, "Meal type is required.");
+          } else {
+              clearErrorMessage(mealType);
+          }
+
+          if (!mealDate.value) {
+              isValid = false;
+              showErrorMessage(mealDate, "Meal date is required.");
+          } else {
+              const today = new Date().toISOString().split("T")[0]; // Get today's date
+              if (mealDate.value < today) {
+                  isValid = false;
+                  showErrorMessage(mealDate, "Meal date cannot be in the past.");
+              } else {
+                  clearErrorMessage(mealDate);
+              }
+          }
+
+          if (!noOfDays.value) {
+              isValid = false;
+              showErrorMessage(noOfDays, "Number of days is required.");
+          } else {
+              clearErrorMessage(noOfDays);
+          }
+
+          if (!mealLocation.value.trim()) {
+              isValid = false;
+              showErrorMessage(mealLocation, "Location is required.");
+          } else {
+              clearErrorMessage(mealLocation);
+          }
+
+          if (!paymentMode.value) {
+              isValid = false;
+              showErrorMessage(paymentMode, "Payment mode is required.");
+          } else {
+              clearErrorMessage(paymentMode);
+          }
+
+          return isValid;
+      }
+ 
+  
    function validateRow(row) {
        let isValid = true;
 
@@ -1388,9 +1442,9 @@ function ReviewandSybmit(){
 		                   </td>
 	   	                   <td>
 	   	                       <select class="form-control typeOfMeals">
-	   	                           <option value="train" ${item.typeOfMeal === "Daily Meals" ? "selected" : ""}>Daily Meals</option>
-	   	                           <option value="bus" ${item.typeOfMeal === "Weekly Meals" ? "selected" : ""}>Weekly Meals</option>
-	   	                           <option value="flights" ${item.typeOfMeal === "Monthly Meals" ? "selected" : ""}>Monthly Meals</option>
+	   	                           <option value="daily Meals" ${item.typeOfMeal === "Daily Meals" ? "selected" : ""}>Daily Meals</option>
+	   	                           <option value="weekly Meals" ${item.typeOfMeal === "Weekly Meals" ? "selected" : ""}>Weekly Meals</option>
+	   	                           <option value="monthly Meals" ${item.typeOfMeal === "Monthly Meals" ? "selected" : ""}>Monthly Meals</option>
 	   	                       </select>
 							   <div class="error-message" id="error-typeOfMeals"></div>
 	   	                   </td>
@@ -1511,10 +1565,10 @@ function getAllTablesData(){
 	
 	let travelData = getTableData("travelTableViewMode", ["id","mode", "toBeBookedBy", "date", "fromLocation", "toLocation", "preferredTime", "carrierDetails", "amount","paymentMode", "remarks"]);
 	let accommodationData = getTableData("accommodationTableViewMode", ["id","type", "toBeBookedBy", "checkinDate", "checkoutDate", "location", "hotelDetails", "preferencesTime", "amount","paymentMode", "remarks"]);
-	let inCityCabsData = getTableData("inCityCabsTableView", ["id","mode", "toBeBookedBy", "date", "preferredTime", "location","amount", "paymentMode", "remarks"]);
-	let foodTableView = getTableData("foodTableView", ["id","typeOfMeal","date","numberOfDays","amount", "paymentMode", "remarks"]);
 	let miscellaneousTableView = getTableData("miscellaneousTableView", ["id","title", "toBeBookedBy", "date", "amount","paymentMode", "remarks"]);
-	
+	let inCityCabsData = getTableData("inCityCabsTableView", ["id","type", "toBeBookedBy", "date", "preferredTime", "fromlocation","tolocation","amount", "paymentMode", "remarks"]);
+	let foodTableView = getTableData("foodTableView", ["id","typeOfMeal","date","numberOfDays","location","amount", "paymentMode", "remarks"]);
+		
 	let requestData = {
 	    travelReimbursement: travelData,
 	    accommodationReimbursement: accommodationData,
@@ -2491,6 +2545,24 @@ function approveCashAvance(){
 		var approveRemark = document.getElementById("approveRemark").value;
 		var approveAmount = document.getElementById("approveAmount").value;
         const id = document.getElementById("approvalId").value;  
+		
+		  if (approveAmount === "" || isNaN(approveAmount) || Number(approveAmount) <= 0) {
+			  document.getElementById("approveAmountError").innerText = "Please enter a valid positive amount.";
+		      return false;
+		  }
+		  else{
+		  		document.getElementById("approveAmountError").innerText = "";
+		  				    
+		  	  }
+	     if (approveRemark === "") {
+	  			document.getElementById("approveAmountError").innerText = "Approval remark cannot be empty.";
+	  		    
+	  		      return false;
+	  		  }
+	  		  else{
+	  			document.getElementById("approveAmountError").innerText = "";
+	  					    
+	  		  }
 		document.getElementById("signinLoader").style.display="flex";				
 		$.ajax({
 			type: "POST",
@@ -2502,7 +2574,7 @@ function approveCashAvance(){
 				"approvedBy":"atul yadav",
 				"approvalRemarks":approveRemark,
 				"approvalAmount":approveAmount,
-				"approvedOrRejected":""
+				"approvedOrRejected":"Approved"
 			},
 			success: function(data) {
 				newData = data;
@@ -2510,7 +2582,8 @@ function approveCashAvance(){
 				var data2 = data1.list;
 				
 				var travelRequestApprove = document.getElementById("TravelRequestApprove");
-							    
+				document.getElementById("approveRemark").value="";
+				document.getElementById("approveAmount").value="";
 				travelRequestApprove.style.display = "none";
 				
 				var modalfirst = document.getElementById("modalTravelUpdated");
@@ -2536,7 +2609,15 @@ function rejectCashAvance(){
 	var approveAmount = document.getElementById("approveAmount").value;
 	
 	const id = document.getElementById("approvalId").value;
-
+	  if (approveRemark === "") {
+		document.getElementById("approveAmountError").innerText = "Approval remark cannot be empty.";
+	    
+	      return false;
+	  }
+	  else{
+		document.getElementById("approveAmountError").innerText = "";
+				    
+	  }
 	document.getElementById("signinLoader").style.display="flex";				
 	$.ajax({
 		type: "POST",
@@ -2548,7 +2629,7 @@ function rejectCashAvance(){
 			"approvedBy":"atul yadav",
 			"approvalRemarks":approveRemark,
 			"approvalAmount":approveAmount,
-			"approvedOrRejected":"approveRemark"
+			"approvedOrRejected":"Reject"
 		},
 		success: function(data) {
 			newData = data;
@@ -2556,7 +2637,8 @@ function rejectCashAvance(){
 			var data2 = data1.list;
 			var modalfirst = document.getElementById("ModalReimbursementApproved");
 		    modalfirst.style.display = "block";
-			
+			document.getElementById("approveRemark").value="";
+			document.getElementById("approveAmount").value="";
 			document.getElementById("signinLoader").style.display="none";
 			
 		},

@@ -33,6 +33,31 @@
 	 <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
     <link rel="stylesheet" href="css/custom.css">
     <script type="text/javascript" src="js/xsls-export.js"></script>
+	
+	<style>
+	    .abc-container {
+	        display: flex;
+	        align-items: center; /* Align items vertically */
+	        gap: 10px; /* Space between inputs */
+	    }
+	    
+	    .abc-container label {
+	        font-size: 14px;
+	        color: #666;
+	        min-width: 150px; /* Adjust label width if needed */
+	    }
+	    
+	    .abc-container input, .abc-container textarea {
+	        flex: 1; /* Make inputs flexible */
+	        padding: 8px;
+			width: 100 px;
+	        border: 1px solid #ccc;
+	        border-radius: 4px;
+	    }
+
+	</style>
+
+
 </head>
 	
 <body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),
@@ -203,75 +228,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 															</tr>
 														</thead>
 														<tbody>
-															<!--<tr>
-																<td>
-																	<div class="table-check">
-																		<input type="checkbox" id="customCheck3">
-																	</div>
-																</td>
-																<td><span>CDL-0424-001</span></td>
-																<td><span>21/04/2024</span><br>
-																<label>17:57:13</label></td>
-																<td><span><img src="img/Travel.svg" alt=""
-																		class="mr-2">Travel</span></td>
-																<td><span class="color-third">Hyderabad
-																		Flights</span></td>
-																<td>
-																	<div class="d-flex justify-content-between color-third">
-																		<span>INR</span><span>9,120</span>
-																	</div>
-																</td>
-																<td  class="td-btn draft">Draft </td>
-																<td><span class="color-third">Bank Account</span></td>
-																<td>
-																	<div>
-																		<button class="btn-attach" data-toggle="modal"
-																			data-target="#ModalTravelRequest">View</button>
-																		<button class="btn-ellipsis">
-																			<i class="fas fa-ellipsis-v fa-sm"></i>
-																		</button>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<div class="table-check">
-																		<input type="checkbox" id="customCheck3">
-																	</div>
-																</td>
-																<td><span>CDL-0424-004</span></td>
-																<td><span>15/04/2024</span><br>
-																<label>17:57:13</label></td>
-																<td><span><img src="img/dollar.svg" alt=""
-																		class="mr-2">Cash</span></td>
-																<td><span class="color-third">Office Admin
-																		Expenses</span></td>
-																<td>
-																	<div class="d-flex justify-content-between color-third">
-																		<span>INR</span><span>10,000</span>
-																	</div>
-																</td>
-																<td class="td-btn draft">Disbursed 
-																</td>
-																<td><span class="color-third"><a href="#">Bank
-																			Account</a></span></td>
-																<td>
-																	<div>
-																		<button class="btn-attach" data-toggle="modal"
-																			data-target="#ModalTravelRequest">View</button>
-																		<button class="btn-ellipsis">
-																			<i class="fas fa-ellipsis-v fa-sm"></i>
-																		</button>
-																	</div>
-																</td>
-															</tr>
-															-->
-															<!--<tr class="last-add">
-																<td colspan="9"><a href="#" class="add-ctgry"
-																	data-toggle="modal"
-																	data-target="#ModalChooseAdvanceRequest">+ Request
-																		Advance</a></td>
-															</tr>-->
+															
 														</tbody>
 													</table>
 													
@@ -499,13 +456,13 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 		</script>
 	<script>
 		function showTable(tableId) {
-							    // Hide all tables
-							    document.querySelectorAll('.table-responsive').forEach(table => {
-							        table.style.display = 'none';
-							    });
-							    // Show the selected table
-							    document.getElementById(tableId).style.display = 'block';
-							}
+		    // Hide all tables
+		    document.querySelectorAll('.table-responsive').forEach(table => {
+		        table.style.display = 'none';
+		    });
+		    // Show the selected table
+		    document.getElementById(tableId).style.display = 'block';
+		}
 
 	</script>
    <script> 
@@ -2655,7 +2612,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 							            </td>
 										<td>
 											
-						                <input type="text" name="amount" placeholder="INR 5000" class="form-control">
+						                <input type="text" name="amount" placeholder="INR 5000" class="form-control"
+										maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 						            </td>
 							            <td>
 							                <select class="form-control">
@@ -2784,7 +2742,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 	                </td>
 					<td>
 																
-	                <input type="text" id="accomodationAmount" name="amount" placeholder="INR 5000" class="form-control">
+	                <input type="text" id="accomodationAmount" name="amount" placeholder="INR 5000" 
+					class="form-control" maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 					 </td>
 					<td>
 						<div style="margin-bottom: 28px;">
@@ -2894,7 +2853,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 				                </td>
 								<td>
 																			
-				                <input type="text" id="cabAmount" name="amount" placeholder="INR 5000" class="form-control">
+				                <input type="text" id="cabAmount" name="amount" placeholder="INR 5000" class="form-control"
+								maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 								 </td>
 								<td>
 									<div style="margin-bottom: 28px;">
@@ -3006,7 +2966,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 				                </td>
 								
 								<td>										
-				                <input type="text" id="foodAmount" name="amount" placeholder="INR 5000" class="form-control">
+				                <input type="text" id="foodAmount" name="amount" placeholder="INR 5000" class="form-control" 
+								maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 							   </td>
 								<td>
 									<div style="margin-bottom: 28px;">
@@ -3098,7 +3059,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 				                 <input type="date" name="date" class="form-control" id="miscDate">
 				                </td>
 				                <td>
-								<input type="text" name="departure" placeholder="INR 5000" class="form-control mb-2" id="miscAmount">    
+								<input type="text" name="departure" placeholder="INR 5000" class="form-control mb-2" id="miscAmount"
+								maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">    
 				                </td>
 				                <td>  
 				                </td>
@@ -3427,19 +3389,19 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 		                            </tr>
 									
 		                            <tr>
-										   <th></th>
-						                   <th>Mode</th>
-						                   <th>Booked-By</th>
-						                   <th>Date</th>
-						                   <th>location</th>
-						                   <th>Preferred Time</th>
-						                   <th>Carrier Details</th>
-										   <th>Tentative Amount</th>
-						                   <th>Mode of Payment</th>
-						                   <th>Remarks</th>
-										   <th></th>
+								   <th></th>
+				                   <th>Mode</th>
+				                   <th>Booked-By</th>
+				                   <th>Date</th>
+				                   <th>location</th>
+				                   <th>Preferred Time</th>
+				                   <th>Carrier Details</th>
+								   <th>Tentative Amount</th>
+				                   <th>Mode of Payment</th>
+				                   <th>Remarks</th>
+								   <th></th>
 										   
-		                            </tr>
+		                           </tr>
 		                        </thead>
 		                        <tbody>
 								
@@ -3465,16 +3427,16 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 						            </tr>
 									
 						            <tr>
-										<th></th>
-						                <th>Type</th>
-						                <th>Booked-By</th>
-						                <th>Date</th>
-						                <th>Location</th>
-						                <th>Hotel Details</th>
-						                <th>Preferences</th>
-										<th>Tentative Amount</th>
-						                <th>Mode of Payment</th>
-						                <th>Remark</th>
+									<th></th>
+					                <th>Type</th>
+					                <th>Booked-By</th>
+					                <th>Date</th>
+					                <th>Location</th>
+					                <th>Hotel Details</th>
+					                <th>Preferences</th>
+									<th>Tentative Amount</th>
+					                <th>Mode of Payment</th>
+					                <th>Remark</th>
 						            </tr>
 						        </thead>
 						        <tbody>
@@ -3499,16 +3461,16 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 									<th> <img src="img/edit-pencil-white.svg" alt="Plane Icon"> </th>	                
 						            </tr>
 						            <tr>
-										<th></th>
-						                <th>Type</th>
-						                <th>Booked-By</th>
-						                <th>Date</th>
-						                <th>Time</th>
-						                <th>Location</th>
-										<th>Tentative Amount</th>
-						                <th>Mode of Payment</th>
-						                <th>Remark</th>
-										<th></th>
+									<th></th>
+					                <th>Type</th>
+					                <th>Booked-By</th>
+					                <th>Date</th>
+					                <th>Time</th>
+					                <th>Location</th>
+									<th>Tentative Amount</th>
+					                <th>Mode of Payment</th>
+					                <th>Remark</th>
+									<th></th>
 						            </tr>
 						        </thead>
 						        <tbody>
@@ -3537,18 +3499,18 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 									<th></th>                                
 						            </tr>
 						            <tr>
-										<th></th>
-						                <th>Type of Meal</th>
-										<!--<th>Booked-By</th>-->
-						                <th>Start Date</th>
-						                <th>Number of Days</th>
-						                <th>Location</th>
-										<th>Tentative Amount</th>
-						                <th>Mode of Payment</th>
-						                <th>Remark</th>
-										<th></th>
-										<th></th>
-										<th></th>
+									<th></th>
+					                <th>Type of Meal</th>
+									<!--<th>Booked-By</th>-->
+					                <th>Start Date</th>
+					                <th>Number of Days</th>
+					                <th>Location</th>
+									<th>Tentative Amount</th>
+					                <th>Mode of Payment</th>
+					                <th>Remark</th>
+									<th></th>
+									<th></th>
+									<th></th>
 						            </tr>
 						        </thead>
 						        <tbody>
@@ -3574,16 +3536,16 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 									<th></th>                                
 						            </tr>
 						            <tr>
-										<th></th>
-						                <th>Title</th>
-						                <th>Booked-By</th>
-						                <th>Date</th>
-						                <th>Tentative Amount</th>
-						                <th></th>
-						                <th></th>
-						                <th>Mode of Payment</th>
-						                <th>Remarks (Compulsory)</th>
-										<th></th>
+									<th></th>
+					                <th>Title</th>
+					                <th>Booked-By</th>
+					                <th>Date</th>
+					                <th>Tentative Amount</th>
+					                <th></th>
+					                <th></th>
+					                <th>Mode of Payment</th>
+					                <th>Remarks (Compulsory)</th>
+									<th></th>
 						            </tr>
 						        </thead>
 						        <tbody>
@@ -3647,17 +3609,17 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
    									<th></th>                               
    		                            </tr>
    		                            <tr>
-									   <th></th>
-					                   <th>Mode</th>
-					                   <th>Booked-By</th>
-					                   <th>Date</th>
-					                   <th>location</th>
-					                   <th>amount</th>
-					                   <th>Mode of Payment</th>
-					                   <th>Remarks</th>
-									   <th></th>
+								   <th></th>
+				                   <th>Mode</th>
+				                   <th>Booked-By</th>
+				                   <th>Date</th>
+				                   <th>location</th>
+				                   <th>amount</th>
+				                   <th>Mode of Payment</th>
+				                   <th>Remarks</th>
+								   <th></th>
    										   
-   		                            </tr>
+   		                           </tr>
    		                        </thead>
    		                        <tbody>
    								
@@ -3684,16 +3646,16 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
    						            </tr>
    									
    						            <tr>
-   										<th></th>
-   						                <th>Type</th>
-   						                <th>Booked-By</th>
-   						                <th>Date</th>
-   						                <th>Location</th>
-   						                <th>Hotel Details</th>
-   						                <th>Preferences</th>
-   										<th>Amount</th>
-   						                <th>Mode of Payment</th>
-   						                <th>Remark</th>
+									<th></th>
+					                <th>Type</th>
+					                <th>Booked-By</th>
+					                <th>Date</th>
+					                <th>Location</th>
+					                <th>Hotel Details</th>
+					                <th>Preferences</th>
+									<th>Amount</th>
+					                <th>Mode of Payment</th>
+					                <th>Remark</th>
    						            </tr>
    						        </thead>
    						        <tbody>
@@ -3721,16 +3683,16 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
    						            </th>	                
    						            </tr>
    						            <tr>
-   										<th></th>
-   						                <th>Type</th>
-   						                <th>Booked-By</th>
-   						                <th>Date</th>
-   						                <th>Time</th>
-   						                <th>Location</th>
-   										<th>Tentative Amount</th>
-   						                <th>Mode of Payment</th>
-   						                <th>Remark</th>
-   										<th></th>
+									<th></th>
+					                <th>Type</th>
+					                <th>Booked-By</th>
+					                <th>Date</th>
+					                <th>Time</th>
+					                <th>Location</th>
+									<th>Tentative Amount</th>
+					                <th>Mode of Payment</th>
+					                <th>Remark</th>
+									<th></th>
    						            </tr>
    						        </thead>
    						        <tbody>
@@ -3758,17 +3720,17 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
    									<th></th>                                
    						            </tr>
    						            <tr>
-   										<th></th>
-   						                <th>Type of Meal</th>
-   						                <th>Start Date</th>
-   						                <th>Number of Days</th>
-   						                <th>Location</th>
-   										<th>Tentative Amount</th>
-   						                <th>Mode of Payment</th>
-   						                <th>Remark</th>
-   										<th></th>
-   										<th></th>
-   										<th></th>
+									<th></th>
+					                <th>Type of Meal</th>
+					                <th>Start Date</th>
+					                <th>Number of Days</th>
+					                <th>Location</th>
+									<th>Tentative Amount</th>
+					                <th>Mode of Payment</th>
+					                <th>Remark</th>
+									<th></th>
+									<th></th>
+									<th></th>
    						            </tr>
    						        </thead>
    						        <tbody>
@@ -3797,17 +3759,17 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
    									<th></th>                                
    						            </tr>
    						            <tr>
-   										<th></th>
-   						                <th>Type of Meal</th>
-   						                <th>Start Date</th>
-   						                <th>Number of Days</th>
-   						                <th>Location</th>
-   										<th>Tentative Amount</th>
-   						                <th>Mode of Payment</th>
-   						                <th>Remark</th>
-   										<th></th>
-   										<th></th>
-   										<th></th>
+									<th></th>
+					                <th>Expense Title</th>
+					                <th>Start Date</th>
+					                <th>Amount</th>
+					                <th></th>
+									<th></th>
+					                <th>Mode of Payment</th>
+					                <th>Remark</th>
+									<th></th>
+									<th></th>
+									<th></th>
    						            </tr>
    						        </thead>
    						        <tbody>
@@ -3833,28 +3795,28 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
    									<th></th>                                
    						            </tr>
    						            <tr>
-   										<th></th>
-   						                <th>Title</th>
-   						                <th>Booked-By</th>
-   						                <th>Date</th>
-   						                <th>Tentative Amount</th>
-   						                <th>Mode of Payment</th>
-   						                <th>Remarks (Compulsory)</th>
-   										<th></th>
+									<th></th>
+					                <th>Title</th>
+					                <th>Booked-By</th>
+					                <th>Date</th>
+					                <th>Tentative Amount</th>
+					                <th>Mode of Payment</th>
+					                <th>Remarks (Compulsory)</th>
+									<th></th>
    						            </tr>
    						        </thead>
    						        <tbody>
    						      </tbody>
    						    </table>
    						</div>
-						<div>
-	 						Enter Approve Amount <input class="border rounded px-2 py-1 w-full" placeholder="Approved Amount" id="approveAmount" >
-	 					 </div>		
-						 </br>			 
-	                     <div>
-						Enter Remark <textarea class="border rounded px-2 py-1 w-full" placeholder="Add Remarks" id="approveRemark"
-						   > </textarea>
-						 </div>
+						<div class="abc-container">
+						        <label for="approveAmount">Enter Approve Amount:</label>
+						        <input type="text" id="approveAmount" name="approveAmount" placeholder="Approved Amount">
+								
+						        <label for="approveRemark">Enter Remark:</label>
+						        <textarea id="approveRemark" name="approveRemark" style="width: 100 px;"></textarea>
+						    </div>
+							<div class="error-msg" id="approveAmountError" style="color: red"></div>
 						<div class="table-responsive-2">
 						
 						 <input type="hidden" class="border rounded px-2 py-1 w-full" placeholder="Approved Amount" id="approvalId" >
