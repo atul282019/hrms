@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cotodel.hrms.web.controller.ErupiSingleVoucherCreationController;
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkVoucherRequest;
@@ -16,6 +15,7 @@ import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
 import com.cotodel.hrms.web.response.RoleAccessRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -84,18 +84,18 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	}
 
 	@Override
-	public String getIssueVoucherList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+	public String getIssueVoucherList(String token, EncriptResponse erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getIssuseVoucherList);
 	}
 
 	@Override
-	public String getVoucherSummaryList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+	public String getVoucherSummaryList(String token, EncriptResponse erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getvoucherSummaryList);
 
 	}
 
 	@Override
-	public String getPrimaryBankDetailsByOrgId(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+	public String getPrimaryBankDetailsByOrgId(String token, EncriptResponse erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getPrimaryBankDetailByOrgId);
 	}
 
@@ -106,7 +106,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	}
 
 	@Override
-	public String erupiVoucheSmsSend(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+	public String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherCreateDetails) {
 		
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.resendErupiVoucheSmsSend);
 
@@ -172,7 +172,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	}
 
 	@Override
-	public String beneficiaryDeleteFromVoucherList(String token, BulkVoucherRequest bulkVoucherRequest) {
+	public String beneficiaryDeleteFromVoucherList(String token, EncriptResponse bulkVoucherRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(bulkVoucherRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.beneficiaryDeleteFromVoucherList);
 
 	}
@@ -237,12 +237,12 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	}
 
 	@Override
-	public String voucherUserSearch(String token, RoleAccessRequest roleAccessRequest) {
+	public String voucherUserSearch(String token, EncriptResponse roleAccessRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(roleAccessRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.voucherUserSearch);
 	}
 
 	@Override
-	public String getTotalVoucherCount(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+	public String getTotalVoucherCount(String token, EncriptResponse erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTotalVoucherCount);
 	}
 

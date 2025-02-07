@@ -7,32 +7,33 @@ import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
 import com.cotodel.hrms.web.response.RoleAccessRequest;
+import com.cotodel.hrms.web.util.EncriptResponse;
 
 @Repository
 public interface ErupiVoucherCreateDetailsService {
 
 	String createSingleVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
-	String getIssueVoucherList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+	String getIssueVoucherList(String token, EncriptResponse erupiVoucherCreateDetails);
 
-	String getVoucherSummaryList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+	String getVoucherSummaryList(String token, EncriptResponse erupiVoucherCreateDetails);
 
-	String getPrimaryBankDetailsByOrgId(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+	String getPrimaryBankDetailsByOrgId(String token, EncriptResponse erupiVoucherCreateDetails);
 
 	String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
-	String erupiVoucheSmsSend(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+	String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherCreateDetails);
 
 	String issueBulkVoucher(String token, ErupiBulkVoucherCreateRequest erupiBulkVoucherCreateRequest);
 
-	String beneficiaryDeleteFromVoucherList(String token, BulkVoucherRequest bulkVoucherRequest);
+	String beneficiaryDeleteFromVoucherList(String token, EncriptResponse bulkVoucherRequest);
 
 	String geterupiVoucherOldList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
 	String exitingUserVoucherCreation(String token,ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest);
 
-	String voucherUserSearch(String token, RoleAccessRequest roleAccessRequest);
+	String voucherUserSearch(String token, EncriptResponse roleAccessRequest);
 
-	String getTotalVoucherCount(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+	String getTotalVoucherCount(String token, EncriptResponse erupiVoucherCreateDetails);
 
 }

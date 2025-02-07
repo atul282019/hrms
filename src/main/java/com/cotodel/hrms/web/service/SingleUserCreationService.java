@@ -10,10 +10,10 @@ import com.cotodel.hrms.web.util.EncriptResponse;
 public interface SingleUserCreationService {
 
 	String singleUserCreationEncript(String token, EncriptResponse userForm);
-	String singleUserCreation(String token, UserRegistrationRequest userForm);
+	String singleUserCreation(String token, EncriptResponse userForm);
 
-	String getUser(String token, UserRegistrationRequest userForm);
+	String getUser(String token, EncriptResponse userForm);
 
-	String userWaitList(String token, UserWaitList userWaitList);
+	String userWaitList(String token, EncriptResponse userWaitList);
 
 }

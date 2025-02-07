@@ -24,19 +24,19 @@ public class SingleUserCreationServiceImpl implements SingleUserCreationService{
 	}
 	
 	@Override
-	public String singleUserCreation(String token, UserRegistrationRequest userForm) {
+	public String singleUserCreation(String token, EncriptResponse userForm) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl+CommonUtils.registerUserUrl);
 	}
 
 
 	@Override
-	public String getUser(String token, UserRegistrationRequest userForm) {
+	public String getUser(String token, EncriptResponse userForm) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl+CommonUtils.getSingleUser);
 	}
 
 
 	@Override
-	public String userWaitList(String token, UserWaitList userWaitList) {
+	public String userWaitList(String token, EncriptResponse userWaitList) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userWaitList), applicationConstantConfig.userServiceBaseUrl+CommonUtils.saveWaitlist);
 	}
 

@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmployeeMassterRequest {
 	
-	public Integer employeeId;
-	public Integer orgId;
-	public String purposeCode;
-	public String accNumber;
-
+	private Long id;
+	private Integer employeeId;
+	private Integer orgId;
+	private String  purposeCode;
+	private String  accNumber;
+	private String timePeriod;
+	private String userName;
 }

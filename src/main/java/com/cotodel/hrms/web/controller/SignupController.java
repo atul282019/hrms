@@ -96,11 +96,26 @@ public class SignupController  extends CotoDelBaseController{
 	public @ResponseBody String userWaitList(HttpServletRequest request,UserWaitList userWaitList) {
 		String profileRes=null;JSONObject profileJsonRes=null;
 		
-		profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
-		profileJsonRes= new JSONObject(profileRes);
-		if(profileJsonRes.getBoolean("status")) { 
+		//profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(userWaitList);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = usercreationService.userWaitList(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return profileRes;
+		
+	
 	}
 	@SuppressWarnings("unchecked")
 	protected boolean validateCaptcha(HttpServletRequest request, String captcha,String sessioncaptcha) throws Exception {

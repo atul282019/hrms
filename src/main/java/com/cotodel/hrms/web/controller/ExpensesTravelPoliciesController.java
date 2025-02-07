@@ -25,6 +25,8 @@ import com.cotodel.hrms.web.response.ExpanceTravelAdvanceRequest;
 import com.cotodel.hrms.web.response.ExpenseCategoryRequest;
 import com.cotodel.hrms.web.service.ExpensesTravelService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -91,22 +93,40 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		 
 
 		expenseCategoryRequest.setList(list);
-		profileRes = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
-		profileJsonRes = new JSONObject(profileRes);
-
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		profileRes = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
+//		profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	@PostMapping(value = "/updateExpensesCategory")
@@ -160,21 +180,39 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		     list.add(bandDetailRequest); }
 		  
 			expenseCategoryRequest.setList(list);
-			profileRes = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
-			profileJsonRes = new JSONObject(profileRes);
+//			profileRes = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
+//			profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//
+//		return profileRes;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
 
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
+				String encriptResponse = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
 		return profileRes;
 	}
 	
@@ -187,22 +225,42 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;
 		String userRes = null;
-		profileRes = expensesTravelService.getExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
-		profileJsonRes = new JSONObject(profileRes);
-
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		profileRes = expensesTravelService.getExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
+//		profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			 loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			
+//		}
+//
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesTravelService.getExpensesCategory(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	
+	
 	}
 
 	@GetMapping(value = "/editExpensesCategory")
@@ -214,22 +272,40 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;
 		String userRes = null;
-		profileRes = expensesTravelService.getEditExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
-		profileJsonRes = new JSONObject(profileRes);
-
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		profileRes = expensesTravelService.getEditExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
+//		profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			
+//		}
+//
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesTravelService.getEditExpensesCategory(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	@PostMapping(value = "/saveExpanceTravelAdvance")
@@ -241,23 +317,41 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;
 		String userRes = null;
-		profileRes = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(),
-				expanceTravelAdvanceRequest);
-		profileJsonRes = new JSONObject(profileRes);
-
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		profileRes = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(),
+//				expanceTravelAdvanceRequest);
+//		profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			 loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			 TODO: handle exception
+//		}
+//
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			String json = EncryptionDecriptionUtil.convertToJson(expanceTravelAdvanceRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	@GetMapping(value = "/getExpanseTravelAdvance")
@@ -269,23 +363,41 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;
 		String userRes = null;
-		profileRes = expensesTravelService.getExpanseTravelAdvance(tokengeneration.getToken(),
-				expanceTravelAdvanceRequest);
-		profileJsonRes = new JSONObject(profileRes);
-
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		profileRes = expensesTravelService.getExpanseTravelAdvance(tokengeneration.getToken(),
+//				expanceTravelAdvanceRequest);
+//		profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			 loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			
+//		}
+//
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			String json = EncryptionDecriptionUtil.convertToJson(expanceTravelAdvanceRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesTravelService.getExpanseTravelAdvance(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	@GetMapping(value = "/deleteExpanseTravelAdvance")
@@ -297,23 +409,41 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;
 		String userRes = null;
-		profileRes = expensesTravelService.deletetExpanseTravelAdvance(tokengeneration.getToken(),
-				expenseCategoryRequest);
-		profileJsonRes = new JSONObject(profileRes);
-
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		profileRes = expensesTravelService.deletetExpanseTravelAdvance(tokengeneration.getToken(),
+//				expenseCategoryRequest);
+//		profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			 loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			
+//		}
+//
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesTravelService.deletetExpanseTravelAdvance(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	@GetMapping(value = "/getExpenseBandList")
@@ -325,22 +455,40 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;
 		String userRes = null;
-		profileRes = expensesTravelService.getExpenseBandList(tokengeneration.getToken(), expanceTravelAdvanceRequest);
-		profileJsonRes = new JSONObject(profileRes);
-
-		if (profileJsonRes.getBoolean("status")) {
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		} else {
-			// loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		profileRes = expensesTravelService.getExpenseBandList(tokengeneration.getToken(), expanceTravelAdvanceRequest);
+//		profileJsonRes = new JSONObject(profileRes);
+//
+//		if (profileJsonRes.getBoolean("status")) {
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		} else {
+//			 loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//		}
+//
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			String json = EncryptionDecriptionUtil.convertToJson(expanceTravelAdvanceRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesTravelService.getExpenseBandList(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	
 	}
 
 }

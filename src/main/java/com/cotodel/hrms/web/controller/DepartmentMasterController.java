@@ -40,15 +40,4 @@ public class DepartmentMasterController extends CotoDelBaseController{
 	
 	@Autowired
 	DepartmentMasterService departmentMasterService;
-	
-//	@GetMapping(value="/getDepartmentMaster")
-//	public @ResponseBody String getDepartmentMaster(HttpServletRequest request, ModelMap model,Locale locale,
-//			HttpSession session,DepartmentMaster departmentMaster) {
-//		logger.info("getDepartmentMaster");	
-//		String token = (String) session.getAttribute("cotodel");
-//		return departmentMasterService.getDepartmentMaster(tokengeneration.getToken(),departmentMaster);
-//	}
-	
-	
-
 }

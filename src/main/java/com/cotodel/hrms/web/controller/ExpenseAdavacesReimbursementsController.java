@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.AdvanceTravelRequest;
+import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
@@ -26,6 +27,8 @@ import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 
 @Controller
 @CrossOrigin
@@ -127,9 +130,27 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 		String profileRes=null;
 		
-		profileRes = expensesReimbursementService.erupiLinkBankAccount(tokengeneration.getToken(),erupiLinkBankAccount);
+	//	profileRes = expensesReimbursementService.erupiLinkBankAccount(tokengeneration.getToken(),erupiLinkBankAccount);
 		
-		  return profileRes;
+		//  return profileRes;
+		
+
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.erupiLinkBankAccount(tokengeneration.getToken(),jsonObject);
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
+		return profileRes;
 		  
 	}
 	
@@ -139,22 +160,61 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 		String profileRes=null;
 		
-		profileRes = expensesReimbursementService.updateErupiLinkBankAccountStaus(tokengeneration.getToken(),erupiLinkBankAccount);
+		//profileRes = expensesReimbursementService.updateErupiLinkBankAccountStaus(tokengeneration.getToken(),erupiLinkBankAccount);
 		
-		  return profileRes;
+		//  return profileRes;
+		
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =   expensesReimbursementService.updateErupiLinkBankAccountStaus(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 		  
 	}
 	
 	@PostMapping(value="/getErupiLinkBankAccountDetail")
 	public @ResponseBody String getErupiLinkBankAccountDetail(HttpServletRequest request,
-			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
+			EmployeeMassterRequest erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
-			String profileRes=null;
+			//String profileRes=null;
 			
-			profileRes = expensesReimbursementService.getErupiLinkBankAccountDetail(tokengeneration.getToken(),erupiLinkBankAccount);
+			//profileRes = expensesReimbursementService.getErupiLinkBankAccountDetail(tokengeneration.getToken(),erupiLinkBankAccount);
 			
-			return profileRes;
-		  
+			//return profileRes;
+		
+		String profileRes=null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.getErupiLinkBankAccountDetail(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+		
 	}
 	
 	@PostMapping(value="/getErupiLinkDlinkAccountDetail")
@@ -163,9 +223,27 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 			String profileRes=null;
 			
-			profileRes = expensesReimbursementService.getErupiLinkDlinkAccountDetail(tokengeneration.getToken(),erupiLinkBankAccount);
+			//profileRes = expensesReimbursementService.getErupiLinkDlinkAccountDetail(tokengeneration.getToken(),erupiLinkBankAccount);
 			
-			return profileRes;
+			///return profileRes;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  expensesReimbursementService.getErupiLinkDlinkAccountDetail(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 		  
 	}
 	
@@ -176,9 +254,27 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 			String profileRes=null;
 			
-			profileRes = expensesReimbursementService.delinkErupiAccount(tokengeneration.getToken(),erupiLinkBankAccount);
+			//profileRes = expensesReimbursementService.delinkErupiAccount(tokengeneration.getToken(),erupiLinkBankAccount);
 			
-			return profileRes;
+			//return profileRes;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  expensesReimbursementService.delinkErupiAccount(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 		  
 	}
 	@PostMapping(value="/re-linkErupiaccount")
@@ -187,9 +283,27 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 			String profileRes=null;
 			
-			profileRes = expensesReimbursementService.relinkErupiAccount(tokengeneration.getToken(),erupiLinkBankAccount);
+			//profileRes = expensesReimbursementService.relinkErupiAccount(tokengeneration.getToken(),erupiLinkBankAccount);
 			
-			return profileRes;
+			//return profileRes;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  expensesReimbursementService.relinkErupiAccount(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 		  
 	}
 	

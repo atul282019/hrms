@@ -27,6 +27,8 @@ import com.cotodel.hrms.web.response.UserDTO;
 import com.cotodel.hrms.web.response.UserRoleDTO;
 import com.cotodel.hrms.web.service.RoleAccessService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 
 @Controller
 @CrossOrigin
@@ -49,7 +51,27 @@ public class RoleAccessController extends CotoDelBaseController{
 			HttpSession session,RoleAccessRequest roleAccessRequest) {
 			logger.info("get User With Role");	
 			String token = (String) session.getAttribute("hrms");
-			return roleaccessservice.getUserRole(tokengeneration.getToken(),roleAccessRequest);
+			//return roleaccessservice.getUserRole(tokengeneration.getToken(),roleAccessRequest);
+			
+			String profileRes=null;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(roleAccessRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  roleaccessservice.getUserRole(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 	}
 	
 	@PostMapping(value="/editUserRole")
@@ -83,7 +105,26 @@ public class RoleAccessController extends CotoDelBaseController{
 			HttpSession session,RoleAccessRequest roleAccessRequest) {
 			logger.info("delete User with Role");	
 			String token = (String) session.getAttribute("hrms");
-			return roleaccessservice.deleteUserRole(tokengeneration.getToken(),roleAccessRequest);
+			//return roleaccessservice.deleteUserRole(tokengeneration.getToken(),roleAccessRequest);
+           String profileRes=null;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(roleAccessRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  roleaccessservice.deleteUserRole(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 	}
 	
 	@PostMapping(value="/userSearch")
@@ -91,7 +132,27 @@ public class RoleAccessController extends CotoDelBaseController{
 			HttpSession session,RoleAccessRequest roleAccessRequest) {
 			logger.info("search User");	
 			String token = (String) session.getAttribute("hrms");
-			return roleaccessservice.userSearch(tokengeneration.getToken(),roleAccessRequest);
+			//return roleaccessservice.userSearch(tokengeneration.getToken(),roleAccessRequest);
+			
+			String profileRes=null;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(roleAccessRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  roleaccessservice.userSearch(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 	}
 	
 	

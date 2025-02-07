@@ -2,7 +2,6 @@ package com.cotodel.hrms.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,6 +25,8 @@ import com.cotodel.hrms.web.response.EmployeePayrollRequest;
 import com.cotodel.hrms.web.response.PayrollRequest;
 import com.cotodel.hrms.web.service.PayrollService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -49,7 +50,28 @@ public class PayrollController extends CotoDelBaseController{
 			HttpSession session,PayrollRequest payrollRequest) {
 			logger.info("getPayrollMaster");	
 			String token = (String) session.getAttribute("hrms");
-			return payrollService.getPayrollMaster(tokengeneration.getToken(),payrollRequest);
+			String profileRes=null;
+			//return payrollService.getPayrollMaster(tokengeneration.getToken(),payrollRequest);
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(payrollRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse = payrollService.getPayrollMaster(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
+			  
+			
 	}
 	
 
@@ -74,22 +96,40 @@ public class PayrollController extends CotoDelBaseController{
 		}
 		
 		employeePayrollRequest.setList(list);
-		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
-		profileJsonRes= new JSONObject(profileRes);
-			
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+//		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//			
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			
+//		}
+//		
+//		return profileRes;
 		
-		return profileRes;
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeePayrollRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  payrollService.savePayrollDetail(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 

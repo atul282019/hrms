@@ -743,7 +743,7 @@ function getVoucherSummaryList(){
 				url: "/getVoucherSummaryList",
 				data: {
 					"orgId": employerid,
-					"workflowid":100003
+					//"workflowid":100003
 				},
 				success: function(data) {
 					newData = data;

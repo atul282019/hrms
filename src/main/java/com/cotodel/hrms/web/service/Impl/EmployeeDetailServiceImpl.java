@@ -10,7 +10,6 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateNewRequest;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
-import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceNewRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
@@ -22,6 +21,7 @@ import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.CopyUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -29,32 +29,6 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
-
-//	@Override
-//	public String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest) {
-//		
-//		EmployeeDetailsNewRequest employeeDetailsNewRequest=new EmployeeDetailsNewRequest();
-//		CopyUtility.copyProperties(employeeDetailRequest, employeeDetailsNewRequest);
-//		 String docfile ="";
-//		 String signfile ="";
-//		try {			
-//			byte[] byt = employeeDetailRequest.getDocfile().getBytes();
-//			docfile = DatatypeConverter.printBase64Binary(byt);
-//			byte[] bytSign = employeeDetailRequest.getSigfile().getBytes();
-//			signfile= DatatypeConverter.printBase64Binary(bytSign);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		String docfilename=employeeDetailRequest.getDocfile().getOriginalFilename();
-//		String signfilename=employeeDetailRequest.getSigfile().getOriginalFilename();
-//		employeeDetailsNewRequest.setDocfile(docfile);
-//		employeeDetailsNewRequest.setDocFileName(docfilename);
-//		employeeDetailsNewRequest.setSigfile(signfile);
-//		employeeDetailsNewRequest.setSigFileName(signfilename);
-//		
-//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeDetailsNewRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empDetails);
-//		
-//	}
 
 	@Override
 	public String saveFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest) {
@@ -158,23 +132,23 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	}
 
 	@Override
-	public String saveEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding) {
+	public String saveEmployeeOnboarding(String token, EncriptResponse employeeOnboarding) {
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmpOnboarding);
 	}
 
 	@Override
-	public String getEmployeeOnboarding(String token, EmployeeOnboarding employeeOnboarding) {
+	public String getEmployeeOnboarding(String token, EncriptResponse employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboarding);
 	}
 
 	@Override
-	public String getEmployeeOnboardingFailList(String token, EmployeeOnboarding employeeOnboarding) {
+	public String getEmployeeOnboardingFailList(String token, EncriptResponse employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingFailList);
 	}
 
 	@Override
-	public String getEmployeeOnboardingById(String token, EmployeeOnboarding employeeOnboarding) {
+	public String getEmployeeOnboardingById(String token, EncriptResponse employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingById);
 	}
 
@@ -184,14 +158,14 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	}
 
 	@Override
-	public String saveEmployeeProfile(String token, EmployeeOnboarding employeeOnboarding) {
+	public String saveEmployeeProfile(String token, EncriptResponse employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveEmployeeProfile);
 		
 		
 	}
 
 	@Override
-	public String getEmployeeOnboardingByManagerId(String token, EmployeeOnboarding employeeOnboarding) {
+	public String getEmployeeOnboardingByManagerId(String token, EncriptResponse employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingByIdManagerId);
 	}
 	

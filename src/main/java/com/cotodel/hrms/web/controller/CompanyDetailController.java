@@ -24,6 +24,8 @@ import com.cotodel.hrms.web.response.CompanyProfileDetail;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
 import com.cotodel.hrms.web.service.CompanyService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -49,22 +51,40 @@ public class CompanyDetailController extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;String userRes = null;
-		profileRes = companyService.saveCompany(tokengeneration.getToken(),employeeProfileRequest);
-		profileJsonRes= new JSONObject(profileRes);
+//		profileRes = companyService.saveCompany(tokengeneration.getToken(),employeeProfileRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			
+//		}
+//		
+//		return profileRes;
 		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
 		try {
-			res = mapper.writeValueAsString(otpMap);
+			String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = companyService.saveCompany(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		return profileRes;
+   
+	return profileRes;
 	}
 	
 	@PostMapping(value="/getCompanyProfileStatus")
@@ -72,7 +92,26 @@ public class CompanyDetailController extends CotoDelBaseController{
 			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
 			logger.info("getPayrollMaster");	
 			String token = (String) session.getAttribute("hrms");
-			return companyService.getCompanyProfileStatus(tokengeneration.getToken(),employeeProfileRequest);
+			String profileRes=null;
+			//return companyService.getCompanyProfileStatus(tokengeneration.getToken(),employeeProfileRequest);
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse = companyService.getCompanyProfileStatus(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 	}
 	
 	@GetMapping(value="/getorgsubType")
@@ -83,25 +122,42 @@ public class CompanyDetailController extends CotoDelBaseController{
 	        Map<String, Object> responseMap = new HashMap<>();
 	        ObjectMapper mapper = new ObjectMapper();
 	        String jsonResponse = null;	
+	        String profileRes=null;
 			//String token = (String) session.getAttribute("hrms");
-			companyResponse= companyService.getorgsubType(tokengeneration.getToken(),employeeProfileRequest);
-			 companyJsonResponse = new JSONObject(companyResponse);      
-		        if(companyJsonResponse.getBoolean("status")) { 
-					
-					//responseMap.put("data", companyJsonResponse.getJSONArray("data"));
-					List<Object> companyList = companyJsonResponse.getJSONArray("data").toList();
-					responseMap.put("status",true);
-					responseMap.put("data", companyList);
-		        }else {
-					//loginsevice.rsendEmailVerificationCompletion(userForm);
-					responseMap.put("status", false);
-				}
-		        try {
-		            jsonResponse = mapper.writeValueAsString(responseMap);
-		        } catch (Exception e) {
-		            e.printStackTrace(); 
-		        }       
-		        return jsonResponse;
+//			companyResponse= companyService.getorgsubType(tokengeneration.getToken(),employeeProfileRequest);
+//			 companyJsonResponse = new JSONObject(companyResponse);      
+//		        if(companyJsonResponse.getBoolean("status")) { 
+//					
+//					List<Object> companyList = companyJsonResponse.getJSONArray("data").toList();
+//					responseMap.put("status",true);
+//					responseMap.put("data", companyList);
+//		        }else {
+//					responseMap.put("status", false);
+//				}
+//		        try {
+//		            jsonResponse = mapper.writeValueAsString(responseMap);
+//		        } catch (Exception e) {
+//		            e.printStackTrace(); 
+//		        }       
+//		        return jsonResponse;
+	        
+	    	try {
+				String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse = companyService.getorgsubType(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
 	}
 	@PostMapping(value="/getpayrollDetails")
 	public @ResponseBody String getpayrollDetails(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
@@ -110,26 +166,42 @@ public class CompanyDetailController extends CotoDelBaseController{
         Map<String, Object> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;	
+        String profileRes=null;
 		//String token = (String) session.getAttribute("hrms");
-		companyResponse= companyService.getpayrollDetails(tokengeneration.getToken(),employeeProfileRequest);
-		 companyJsonResponse = new JSONObject(companyResponse);      
-		 if(companyJsonResponse.getBoolean("status")) { 
-			 	responseMap.put("status",true);
-				
-				JSONObject dataObject = companyJsonResponse.getJSONObject("data");
-				//List<Object> companyList = companyJsonResponse.getJSONArray("data").toList();
-				responseMap.put("data", dataObject.toMap());
-				//responseMap.put("data", companyList);
-	        }else {
-				//loginsevice.rsendEmailVerificationCompletion(userForm);
-				responseMap.put("status", false);
-			}
-	        try {
-	            jsonResponse = mapper.writeValueAsString(responseMap);
-	        } catch (Exception e) {
-	            e.printStackTrace(); 
-	        }       
-	        return jsonResponse;
+//		companyResponse= companyService.getpayrollDetails(tokengeneration.getToken(),employeeProfileRequest);
+//		 companyJsonResponse = new JSONObject(companyResponse);      
+//		 if(companyJsonResponse.getBoolean("status")) { 
+//			 	responseMap.put("status",true);
+//				
+//				JSONObject dataObject = companyJsonResponse.getJSONObject("data");
+//				responseMap.put("data", dataObject.toMap());
+//	        }else {
+//				responseMap.put("status", false);
+//			}
+//	        try {
+//	            jsonResponse = mapper.writeValueAsString(responseMap);
+//	        } catch (Exception e) {
+//	            e.printStackTrace(); 
+//	        }       
+//	        return jsonResponse;
+        
+        try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = companyService.getpayrollDetails(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	@PostMapping(value="/getGSTDetailsByGSTNumber")
@@ -139,26 +211,43 @@ public class CompanyDetailController extends CotoDelBaseController{
         Map<String, Object> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;	
+        String profileRes=null;
 		//String token = (String) session.getAttribute("hrms");
-		companyResponse= companyService.getGSTDetailsByGSTNumber(tokengeneration.getToken(),employeeProfileRequest);
-		 companyJsonResponse = new JSONObject(companyResponse);      
-		 if(companyJsonResponse.getBoolean("status")) { 
-			 	responseMap.put("status",true);
-				
-				JSONObject dataObject = companyJsonResponse.getJSONObject("data");
-				//List<Object> companyList = companyJsonResponse.getJSONArray("data").toList();
-				responseMap.put("data", dataObject.toMap());
-				//responseMap.put("data", companyList);
-	        }else {
-				//loginsevice.rsendEmailVerificationCompletion(userForm);
-				responseMap.put("status", false);
-			}
-	        try {
-	            jsonResponse = mapper.writeValueAsString(responseMap);
-	        } catch (Exception e) {
-	            e.printStackTrace(); 
-	        }       
-	        return jsonResponse;
+//		companyResponse= companyService.getGSTDetailsByGSTNumber(tokengeneration.getToken(),employeeProfileRequest);
+//		 companyJsonResponse = new JSONObject(companyResponse);      
+//		 if(companyJsonResponse.getBoolean("status")) { 
+//			 	responseMap.put("status",true);
+//				
+//				JSONObject dataObject = companyJsonResponse.getJSONObject("data");
+//				responseMap.put("data", dataObject.toMap());
+//	        }else {
+//				responseMap.put("status", false);
+//			}
+//	        try {
+//	            jsonResponse = mapper.writeValueAsString(responseMap);
+//	        } catch (Exception e) {
+//	            e.printStackTrace(); 
+//	        }       
+//	        return jsonResponse;
+        
+        
+        try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = companyService.getGSTDetailsByGSTNumber(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	@PostMapping(value="/saveOrganizationDetail")
@@ -168,22 +257,39 @@ public class CompanyDetailController extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;String userRes = null;
-		profileRes = companyService.saveOrganizationDetail(tokengeneration.getToken(),companyProfileDetail);
-		profileJsonRes= new JSONObject(profileRes);
+//		profileRes = companyService.saveOrganizationDetail(tokengeneration.getToken(),companyProfileDetail);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//		}
+//		
+//		return profileRes;
 		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
 		try {
-			res = mapper.writeValueAsString(otpMap);
+			String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = companyService.saveOrganizationDetail(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		return profileRes;
+   
+	return profileRes;
+	
 	}
 	
 	@PostMapping(value="/updateOrganizationDetail")
@@ -193,21 +299,39 @@ public class CompanyDetailController extends CotoDelBaseController{
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();
 		ObjectMapper mapper = new ObjectMapper();
 		String res = null;String userRes = null;
-		profileRes = companyService.saveOrganizationDetail(tokengeneration.getToken(),companyProfileDetail);
-		profileJsonRes= new JSONObject(profileRes);
+//		profileRes = companyService.saveOrganizationDetail(tokengeneration.getToken(),companyProfileDetail);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//		}
+//		
+//		return profileRes;
 		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+
 		try {
-			res = mapper.writeValueAsString(otpMap);
+			String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = companyService.saveOrganizationDetail(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		return profileRes;
+   
+	return profileRes;
+	
 	}
 }

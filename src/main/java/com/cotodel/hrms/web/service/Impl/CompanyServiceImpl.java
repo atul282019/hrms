@@ -9,6 +9,7 @@ import com.cotodel.hrms.web.response.CompanyProfileDetail;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
 import com.cotodel.hrms.web.service.CompanyService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -18,35 +19,35 @@ public class CompanyServiceImpl implements CompanyService{
 	public ApplicationConstantConfig applicationConstantConfig;
 	
 	@Override
-	public String saveCompany(String token, EmployeeProfileRequest employeeProfileRequest) {
+	public String saveCompany(String token, EncriptResponse employeeProfileRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.registerCompany);
 	}
 
 	@Override
-	public String getCompanyProfileStatus(String token, EmployeeProfileRequest employeeProfileRequest) {
+	public String getCompanyProfileStatus(String token, EncriptResponse employeeProfileRequest) {
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.companyProfileStatus);
 	}
 
 	@Override
-	public String getorgsubType(String token, EmployeeProfileRequest employeeProfileRequest) {
+	public String getorgsubType(String token, EncriptResponse employeeProfileRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.masterServiceBaseUrl+CommonUtils.getorgsubType);
 		
 	}
 
 	@Override
-	public String getpayrollDetails(String token, EmployeeProfileRequest employeeProfileRequest) {
+	public String getpayrollDetails(String token, EncriptResponse employeeProfileRequest) {
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getpayrollDetails);
 	}
 
 	@Override
-	public String getGSTDetailsByGSTNumber(String token, EmployeeProfileRequest employeeProfileRequest) {
+	public String getGSTDetailsByGSTNumber(String token, EncriptResponse employeeProfileRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.gstServiceBaseUrl+CommonUtils.gstDetailService);
 	}
 
 	@Override
-	public String saveOrganizationDetail(String token, CompanyProfileDetail companyProfileDetail) {
+	public String saveOrganizationDetail(String token, EncriptResponse companyProfileDetail) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(companyProfileDetail), applicationConstantConfig.userServiceBaseUrl+CommonUtils.saveCompanyDetail);
 	}
 	

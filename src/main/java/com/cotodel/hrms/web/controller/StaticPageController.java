@@ -59,7 +59,7 @@ public class StaticPageController extends CotoDelBaseController{
 	
 	@GetMapping(value="/loginNew")
 	public ModelAndView loginNew(Model model) {
-		logger.info("opening login Page");
+		logger.info("opening loginNew");
 		return new ModelAndView("login-FleetManagment", "command", "");
 	}	
 
@@ -68,13 +68,6 @@ public class StaticPageController extends CotoDelBaseController{
 		logger.info("opening signupPage");
 		return new ModelAndView("signup", "command", "");
 	}	
-	/*
-	 * @GetMapping(value="/addEmployee") public ModelAndView addEmployee(Model
-	 * model) { logger.info("opening signupPage"); return new
-	 * ModelAndView("add-emp", "command", ""); }
-	 */
-	
-	
 	
 	@GetMapping(value="/companyDetails")
 	public String companyDetail(Model model) {
@@ -125,7 +118,7 @@ public class StaticPageController extends CotoDelBaseController{
 
 	@GetMapping(value="/dashboard1")
 	public String dashboard1(Model model) {
-		logger.info("opening dashboardPage");
+		logger.info("opening dashboard1");
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
@@ -147,7 +140,7 @@ public class StaticPageController extends CotoDelBaseController{
 }
 	@GetMapping(value="/tempLogin")
 	public String dashboard1(Model model, @RequestParam("mobile") String mobile,@RequestParam("email") String email) {
-		logger.info("opening dashboardPage");
+		logger.info("opening tempLogin");
 		System.out.println("getting token"+mobile);
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
@@ -172,7 +165,7 @@ public class StaticPageController extends CotoDelBaseController{
 	@GetMapping(value="/employeeDetails")
 	public ModelAndView employeeDetails(Model model) {
 		
-		logger.info("opening companyDetailPage");
+		logger.info("opening employeeDetails");
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
@@ -196,7 +189,7 @@ public class StaticPageController extends CotoDelBaseController{
 
 	@GetMapping(value="/bulkInvite")
 	public ModelAndView bulkInvite(Model model) {
-		logger.info("opening dashboard-bulk-emp-details");
+		logger.info("opening bulkInvite");
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
@@ -218,7 +211,7 @@ public class StaticPageController extends CotoDelBaseController{
 }
 	@GetMapping(value="/bulkupload")
 	public ModelAndView bulkUser(Model model) {
-		logger.info("opening dashboard-bulk-emp-details");
+		logger.info("opening bulkupload");
 		//return new ModelAndView("bulk-emp-details", "command", "");
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
@@ -242,7 +235,7 @@ public class StaticPageController extends CotoDelBaseController{
 
 	@GetMapping(value="/bulkUserList")
 	public ModelAndView bulkUserList(Model model) {
-		logger.info("opening bulk-table-invitelist");
+		logger.info("opening bulkUserList");
 		//return new ModelAndView("bulk-emp-details", "command", "");
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
@@ -266,7 +259,7 @@ public class StaticPageController extends CotoDelBaseController{
 	
 	@GetMapping(value="/manageEmployee")
 	public ModelAndView manageEmployee(Model model) {
-		logger.info("opening bulk-table-invitelist");
+		logger.info("opening manageEmployee");
 		//return new ModelAndView("bulk-emp-details", "command", "");
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
@@ -289,7 +282,7 @@ public class StaticPageController extends CotoDelBaseController{
 }
 		@GetMapping(value="/manageEmployeeContractor")
 		public ModelAndView manageEmployeeContractor(Model model) {
-			logger.info("opening bulk-table-invitelist");
+			logger.info("opening manageEmployeeContractor");
 			//return new ModelAndView("bulk-emp-details", "command", "");
 			String token = (String) session.getAttribute("hrms");
 			Integer id  = (Integer) session.getAttribute("id");
@@ -313,7 +306,7 @@ public class StaticPageController extends CotoDelBaseController{
 		
 		@GetMapping(value="/employeeOnBoarding")
 		public ModelAndView employeeOnBoarding(Model model) {
-			logger.info("opening bulk-table-invitelist");
+			logger.info("opening employeeOnBoarding");
 			//return new ModelAndView("bulk-emp-details", "command", "");
 			String token = (String) session.getAttribute("hrms");
 			Integer id  = (Integer) session.getAttribute("id");

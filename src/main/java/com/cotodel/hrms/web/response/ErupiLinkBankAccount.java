@@ -35,5 +35,9 @@ public class ErupiLinkBankAccount {
 	private String mcc;
 	private String submurchentid;
 	private String payerva;
+	private String extra1;
+	private String psFlag;
+	private byte[] bankLogo;
+	private String response;
 		  
 }

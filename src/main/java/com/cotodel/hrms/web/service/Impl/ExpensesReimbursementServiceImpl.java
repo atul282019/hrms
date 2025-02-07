@@ -1,24 +1,21 @@
 package com.cotodel.hrms.web.service.Impl;
 
-import javax.xml.bind.DatatypeConverter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.AdvanceTravelRequest;
-import com.cotodel.hrms.web.response.EmployeeDetailsNewRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequestNew;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
 import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
-import com.cotodel.hrms.web.response.TravelRequestUpdate;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.CopyUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -72,33 +69,33 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	}
 
 	@Override
-	public String erupiLinkBankAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+	public String erupiLinkBankAccount(String token, EncriptResponse erupiLinkBankAccount) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addErupiLinkAccount);
 
 	}
 
 	@Override
-	public String getErupiLinkBankAccountDetail(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+	public String getErupiLinkBankAccountDetail(String token, EncriptResponse erupiLinkBankAccount) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetailWithStatus);
 	}
 
 	@Override
-	public String updateErupiLinkBankAccountStaus(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+	public String updateErupiLinkBankAccountStaus(String token, EncriptResponse erupiLinkBankAccount) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.updateErupiLinkAccount);
 
 	}
 
 	@Override
-	public String delinkErupiAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+	public String delinkErupiAccount(String token, EncriptResponse erupiLinkBankAccount) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.delinkErupiLinkAccount);
 	}
 	@Override
-	public String relinkErupiAccount(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+	public String relinkErupiAccount(String token, EncriptResponse erupiLinkBankAccount) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.reLinkErupiLinkAccount);
 	}
 
 	@Override
-	public String getErupiLinkDlinkAccountDetail(String token, ErupiLinkBankAccount erupiLinkBankAccount) {
+	public String getErupiLinkDlinkAccountDetail(String token, EncriptResponse erupiLinkBankAccount) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkBankAccount), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetail);
 	}
 

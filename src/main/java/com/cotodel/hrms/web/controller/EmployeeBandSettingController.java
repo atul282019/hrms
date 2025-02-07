@@ -26,6 +26,8 @@ import com.cotodel.hrms.web.response.EmployeePayrollRequest;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
 import com.cotodel.hrms.web.service.EmployeeBandSettingService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -46,7 +48,25 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
 	
 	@PostMapping(value="/saveEmployeeBandTierTab3")
 	public @ResponseBody String getEmployeeBandTier(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeBandSettingResponse employeeBandSettingResponse) {
-		return empBandSettingService.getEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
+		String profileRes=null;
+		//return empBandSettingService.getEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeeBandSettingResponse);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  empBandSettingService.getEmployeeBandTier(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	
@@ -68,8 +88,24 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
 		}
 		
 		employeeBandSettingResponse.setList(list);
-		return profileRes = empBandSettingService.saveEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
-		
+		//return profileRes = empBandSettingService.saveEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeeBandSettingResponse);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  empBandSettingService.saveEmployeeBandTier(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 

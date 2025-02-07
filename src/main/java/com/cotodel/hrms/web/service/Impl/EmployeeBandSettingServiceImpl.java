@@ -8,6 +8,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeBandSettingResponse;
 import com.cotodel.hrms.web.service.EmployeeBandSettingService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 
@@ -19,13 +20,13 @@ public class EmployeeBandSettingServiceImpl implements EmployeeBandSettingServic
 
 	
 	@Override
-	public String getEmployeeBandTier(String token, EmployeeBandSettingResponse employeeBandSettingResponse) {
+	public String getEmployeeBandTier(String token, EncriptResponse employeeBandSettingResponse) {
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeBandSettingResponse), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeBandWithTier);
 	}
 
 	@Override
-	public String saveEmployeeBandTier(String token, EmployeeBandSettingResponse employeeBandSettingResponse) {
+	public String saveEmployeeBandTier(String token, EncriptResponse employeeBandSettingResponse) {
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeBandSettingResponse), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addEmployeeBandTier);
 	}
