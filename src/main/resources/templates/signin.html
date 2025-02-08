@@ -57,7 +57,7 @@
                                 <button class="btn btn-outline-primary btn-user btn-block">Signup</button>
                             </form>-->
 							<form autocomplete="of" id="loginForm" name="loginForm">
-							                        <input class="form-control" placeholder="Enter Your Email or Mobile No." type="text" id="mob" name="mob"
+							                        <input class="form-control" placeholder="Enter Your Email or Mobile No." type="text" id="mobile" name="mobile"
 							                        autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							                        <div class="error-msg" id="mobError" style="color:red"></div>
 							                        <div  id="loginIdDiv" style="display: none" >
@@ -160,7 +160,7 @@
 	<script>
 		$( document ).ready(function() {
 			var newUser = localStorage.getItem("userName");
-			$('#mob').val(newUser);
+			$('#mobile').val(newUser);
 			getOTP();
 			});
 			
@@ -175,7 +175,7 @@
 	    }
 		else if(error==="Incorrect OTP !!"){
 			  //startCountdown();
-			  document.getElementById("mob").value=mo;
+			  document.getElementById("mobile").value=mo;
 			  document.getElementById("orderId").value=orderid;
 			  document.getElementById("loginIdDiv").style.display="block";
 			  document.getElementById("optBtn").style.display = "none";

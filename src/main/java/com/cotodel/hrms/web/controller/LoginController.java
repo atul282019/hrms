@@ -28,6 +28,8 @@ import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Controller
@@ -61,9 +63,21 @@ public class LoginController extends CotoDelBaseController{
 	        // Print the formatted date
 	        System.out.println(formattedDate);
 		try {
-			String password = null;
-			password= userForm.getPassword1()+userForm.getPassword2()+userForm.getPassword3()+userForm.getPassword4()+userForm.getPassword5()+userForm.getPassword6();      
-			profileRes =loginservice.verifyOtp(tokengeneration.getToken(),userForm.getUserName(),userForm.getMob(),password,userForm.getOrderId());
+			String otp = null;
+			  
+			otp= userForm.getPassword1()+userForm.getPassword2()+userForm.getPassword3()+userForm.getPassword4()+userForm.getPassword5()+userForm.getPassword6();      
+			
+			   userForm.setOtp(otp);
+				String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse = loginservice.verifyOtp(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 			
 			logger.info(profileRes);
 			
@@ -155,7 +169,7 @@ public class LoginController extends CotoDelBaseController{
 					return screenName;
 				}else if(profileJsonRes.getString("message").equalsIgnoreCase("Invalid Request")){
 					    session.setAttribute("message", "Incorrect OTP ||");
-					    session.setAttribute("mobile", userForm.getMob());
+					    session.setAttribute("mobile", userForm.getMobile());
 					    session.setAttribute("orderid", userForm.getOrderId());
 						return "redirect:/FleetLogin";
 				}

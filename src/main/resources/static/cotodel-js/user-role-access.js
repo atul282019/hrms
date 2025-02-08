@@ -379,7 +379,7 @@ function getOTP(){
 			type: 'POST',
 	        url:"/smsOtpSender",
 			data: {
-						"mob": userMobile,
+						"mobile": userMobile,
 					},
 			dataType: 'json',
 			success: function(data) {
@@ -481,7 +481,7 @@ function getAddOTP(){
 			type: 'POST',
 	        url:"/smsOtpSender",
 			data: {
-						"mob": userMobile,
+						"mobile": userMobile,
 					},
 			dataType: 'json',
 			success: function(data) {

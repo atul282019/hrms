@@ -27,7 +27,7 @@ function getOTP() {
 		url: "/smsOtpSender",
 		dataType: 'json',
 		data: {
-			"mob": userName,
+			"mobile": userName,
 		},
 		success: function(data) {
 			var obj = data;

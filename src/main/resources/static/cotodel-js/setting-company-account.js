@@ -722,13 +722,13 @@ function getOTP() {
         url: "/smsOtpSender",
         dataType: 'json',
         data: {
-			 "mob": userMobile
+			 "mobile": userMobile
 		},
         success: function (data) {
             var obj = data;
             document.getElementById("signinLoader").style.display = "none";
 
-            if (obj['status'] == "SUCCESS") {
+            if (obj.status === true) {
 				// Hide the Back and Authenticate buttons
 				document.getElementById("orderId").value = obj['orderId'];
 		        document.getElementById('backButton').style.display = 'none';
@@ -750,7 +750,7 @@ function getOTP() {
                         document.getElementById("countdown").innerHTML = " ";
 				       }
 				   }, 1000); 
-            } else if (obj['status'] == "FAILURE") {
+            } else if (obj.status === false) {
 				document.getElementById("orderId").value = obj['orderId'];
 		        document.getElementById('backButton').style.display = 'block';
 		        document.getElementById('authButton').style.display = 'block';
@@ -792,7 +792,7 @@ function resendOTP() {
         success: function (data) {
             var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
-            if (obj['status'] == "SUCCESS") {
+            if (obj.status === true) {
 				const button = document.getElementById('otpVerifyBtn');
 				button.disabled = false; 
                 $('#errorOtp').hide('slow');
@@ -906,26 +906,19 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": employerMobile,
+  				"mobile": employerMobile,
   				"orderId": orderId,
   				"userName":employerMobile
   			},
   			success: function(data) {
   				var obj = data;
 
-  				if (obj['status']== true) {
+  				if (obj.status=== true) {
 					
 					$('#ModalConfirm').modal('show');
 					$("#tab3").addClass("active");
 					changeOtpStatus();
-					//document.getElementById("password1").value="";
-					//document.getElementById("password2").value="";
-					//document.getElementById("password3").value="";
-					//document.getElementById("password4").value="";
-				    //document.getElementById("password5").value="";
-					//document.getElementById("password6").value="";
-					
-  				}else if (obj['status'] == false) {
+  				}else if (obj.status === false) {
 					$('#ModalReject').modal('show');
 					 document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
 					 document.getElementById("otpVerifyBtn").disabled = true;

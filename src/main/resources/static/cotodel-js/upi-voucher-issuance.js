@@ -6,7 +6,7 @@ $(document).ready(function() {
 		        url:"/smsOtpSender",
 		        type: 'POST',
 				data: {
-							"mob": employerMobile,
+							"mobile": employerMobile,
 						},
 				dataType: 'json',
 				success: function(data) {

@@ -9,29 +9,11 @@ public class UserForm {
 	private String password4;
 	private String password5;
 	private String password6;
-	private String sResult;
+	private String password;
+	private String sresult;
 	private String otp;
-	private String mob;
+	private String mobile;
 	private String orderId;
-	
-	public String getOrderId() {
-		return orderId;
-	}
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-	public String getOtp() {
-		return otp;
-	}
-	public void setOtp(String otp) {
-		this.otp = otp;
-	}
-	public String getsResult() {
-		return sResult;
-	}
-	public void setsResult(String sResult) {
-		this.sResult = sResult;
-	}
 	public String getUserName() {
 		return userName;
 	}
@@ -74,18 +56,48 @@ public class UserForm {
 	public void setPassword6(String password6) {
 		this.password6 = password6;
 	}
-	public String getMob() {
-		return mob;
+	
+	public String getSresult() {
+		return sresult;
 	}
-	public void setMob(String mob) {
-		this.mob = mob;
+	public void setSresult(String sresult) {
+		this.sresult = sresult;
 	}
+	public String getOtp() {
+		return otp;
+	}
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "UserForm [userName=" + userName + ", password1=" + password1 + ", password2=" + password2
 				+ ", password3=" + password3 + ", password4=" + password4 + ", password5=" + password5 + ", password6="
-				+ password6 + ", sResult=" + sResult + ", otp=" + otp + ", mob=" + mob + "]";
+				+ password6 + ", sresult=" + sresult + ", otp=" + otp + ", mobile=" + mobile + ", orderId=" + orderId
+				+ "]";
 	}
+	
+	
+	
 	
 	
 

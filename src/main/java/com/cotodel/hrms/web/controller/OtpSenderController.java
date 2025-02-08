@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,68 +38,53 @@ public class OtpSenderController extends CotoDelBaseController{
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
+	@Autowired
+	public ApplicationConstantConfig applicationConstantConfig;
+	
 	@PostMapping(value="/smsOtpSender")
 	public @ResponseBody String sendOtp(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+		String profileRes=null;
+
 		try {
-			userRes=loginservice.sendOtp(tokengeneration.getToken(), userForm.getUserName(),userForm.getMob());
-			
-			if(!ObjectUtils.isEmpty(userRes)) {	
-				JSONObject userJson= new JSONObject(userRes);
-				if(userJson.getBoolean("status")) {
-					otpMap.put("msg", userJson.getString("message"));
-					otpMap.put("orderId", userJson.getString("orderId"));
-					otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-				}else {
-					otpMap.put("msg", userJson.getString("message"));
-					otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-				}
-			}else { 
-				otpMap.put("msg", "System not responding, Please try again later..!"); 
-				otpMap.put("status",  MessageConstant.RESPONSE_FAILED); 
-			}
-			res = mapper.writeValueAsString(otpMap);
-			logger.info("response for smsOtpSender *****-----"+res);
+			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = loginservice.sendOtp(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 		} catch (Exception e) {
-			logger.error("error in smsOtpSender =============="+e);
-		}finally {
-			mapper=null;otpMap=null;userRes=null;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return res;
+		
+		return profileRes;
 	}	
 	
 	@PostMapping(value="/smsOtpResender")
 	public @ResponseBody String resendOTP(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		try {
-			userRes=loginservice.resendOtp(tokengeneration.getToken(), userForm.getUserName(),userForm.getMob(),userForm.getOrderId());
-			
-			if(!ObjectUtils.isEmpty(userRes)) {	
-				JSONObject userJson= new JSONObject(userRes);
-				if(userJson.getBoolean("status")) {
-					otpMap.put("msg", userJson.getString("message"));
-					otpMap.put("orderId", userJson.getString("orderId"));
-					otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-				}else {
-					otpMap.put("msg", userJson.getString("message"));
-					otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-				}
-			}else { 
-				otpMap.put("msg", "System not responding, Please try again later..!"); 
-				otpMap.put("status",  MessageConstant.RESPONSE_FAILED); 
-			}
-			res = mapper.writeValueAsString(otpMap);
-			logger.info("response for smsOtpSender *****-----"+res);
-		} catch (Exception e) {
-			logger.error("error in smsOtpSender =============="+e);
-		}finally {
-			mapper=null;otpMap=null;userRes=null;
-		}
-		return res;
-	}	
+		String profileRes=null;
 
+		//	userRes=loginservice.resendOtp(tokengeneration.getToken(), userForm.getUserName(),userForm.getMobile(),userForm.getOrderId());
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse = loginservice.resendOtp(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return profileRes;
+	}
 }

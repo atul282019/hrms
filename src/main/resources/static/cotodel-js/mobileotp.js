@@ -1,10 +1,10 @@
 function getOTP() {
 	console.log("get otp called");
     var regMobile = /^[6-9]\d{9}$/gi;
-    var userName = document.getElementById("mob").value;
+    var userName = document.getElementById("mobile").value;
 
     if (userName == "") {
-        document.getElementById("mob").focus();
+        document.getElementById("mobile").focus();
         document.getElementById("mobError").innerHTML = "Please Enter Mobile Number";
         return false;
     } else if (userName.length < 10) {
@@ -25,12 +25,12 @@ function getOTP() {
         type: "POST",
         url: "/smsOtpSender",
         dataType: 'json',
-        data: { "mob": userName },
+        data: { "mobile": userName },
         success: function (data) {
             var obj = data;
             document.getElementById("loginLoader").style.display = "none";
 
-            if (obj['status'] == "SUCCESS") {
+            if (obj.status === true) {
                 $('#errorOtp').hide('slow');
                 $('#loginIdDiv').hide('slow');
 				var timeleft = 60; // 3 minutes in seconds
@@ -61,7 +61,7 @@ function getOTP() {
 				   }, 1000); 
 
                 $('#loginIdDiv').show('slow');
-            } else if (obj['status'] == "FAILURE") {
+            } else if (obj.status===false) {
                 $('#errorOtp').html("Registration is mandatory for login");
                 $('#successmessage').hide('slow');
                 document.getElementById("optBtn").style.display = "block";
@@ -91,16 +91,16 @@ function resendOTP() {
 	document.getElementById("password5").value = "";
 	document.getElementById("password6").value = "";
     var regMobile = /^[6-9]\d{9}$/gi;
-    var userName = document.getElementById("mob").value;
+    var userName = document.getElementById("mobile").value;
     var orderId = document.getElementById("orderId").value;
 
     if (userName == "") {
-        document.getElementById("mob").focus();
+        document.getElementById("mobile").focus();
         document.getElementById("mobError").innerHTML = "Please Enter Mobile Number";
         return false;
     } else if (userName.length < 10) {
         document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
-        document.getElementById("mob").focus();
+        document.getElementById("mobile").focus();
         return false;
     } else if (!userName.match(regMobile)) {
         document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
@@ -118,7 +118,7 @@ function resendOTP() {
         type: "POST",
         url: "/smsOtpResender",
         dataType: 'json',
-        data: { "mob": userName, "orderId": orderId },
+        data: { "mobile": userName, "orderId": orderId },
         success: function (data) {
             var obj = data;
             document.getElementById("loginLoader").style.display = "none";
@@ -362,7 +362,7 @@ function submitAction() {
 	var password6 = document.getElementById("password1").value;
 	var orderId = document.getElementById("orderId").value;
 	
-	if (document.getElementById("mob").value == "") {
+	if (document.getElementById("mobile").value == "") {
 		document.getElementById("mobError").innerHTML="Please Enter mobile..";
 		
 		x = false;

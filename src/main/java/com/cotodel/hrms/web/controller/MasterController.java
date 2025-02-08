@@ -55,109 +55,109 @@ public class MasterController  extends CotoDelBaseController{
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
-	@GetMapping(value="/getStateMaster")
-	public @ResponseBody String getStateMaster(HttpServletRequest request, ModelMap model,Locale locale,
-			HttpSession session,UserRegistrationRequest userForm) {
-		logger.info("getStateMaster");	
-		String token = (String) session.getAttribute("cotodel");
-		//return masterService.getStateMaster(tokengeneration.getToken(),userForm);
-		
-		String profileRes=null;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+//	@GetMapping(value="/getStateMaster")
+//	public @ResponseBody String getStateMaster(HttpServletRequest request, ModelMap model,Locale locale,
+//			HttpSession session,UserRegistrationRequest userForm) {
+//		logger.info("getStateMaster");	
+//		String token = (String) session.getAttribute("cotodel");
+//		//return masterService.getStateMaster(tokengeneration.getToken(),userForm);
+//		
+//		String profileRes=null;
+//		
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =  masterService.getStateMaster(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+//	}
 
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =  masterService.getStateMaster(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-	}
-
-	@GetMapping(value="/getOrgMaster")
-	public @ResponseBody String getOrgMaster(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
-			,UserRegistrationRequest userForm) {
-		//return masterService.getOrgMaster(tokengeneration.getToken(),userForm);
-		String profileRes=null;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(userForm);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =  masterService.getOrgMaster(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-	}
-	
-	@GetMapping(value="/getPermission")
-	public @ResponseBody String getPermission(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
-			,UserRegistrationRequest userForm) {
-		//return masterService.getPermission(tokengeneration.getToken(),userForm);
-		String profileRes=null;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(userForm);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =   masterService.getPermission(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-	}
-	
-	@GetMapping(value="/getRole")
-	public @ResponseBody String getRole(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
-			,UserRegistrationRequest userForm) {
-		//return masterService.getRole(tokengeneration.getToken(),userForm);
-		String profileRes=null;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(userForm);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =   masterService.getRole(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-	}
-	
+//	@GetMapping(value="/getOrgMaster")
+//	public @ResponseBody String getOrgMaster(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+//			,UserRegistrationRequest userForm) {
+//		//return masterService.getOrgMaster(tokengeneration.getToken(),userForm);
+//		String profileRes=null;
+//		
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =  masterService.getOrgMaster(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+//	}
+//	
+//	@GetMapping(value="/getPermission")
+//	public @ResponseBody String getPermission(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+//			,UserRegistrationRequest userForm) {
+//		//return masterService.getPermission(tokengeneration.getToken(),userForm);
+//		String profileRes=null;
+//		
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =   masterService.getPermission(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+//	}
+//	
+//	@GetMapping(value="/getRole")
+//	public @ResponseBody String getRole(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session
+//			,UserRegistrationRequest userForm) {
+//		//return masterService.getRole(tokengeneration.getToken(),userForm);
+//		String profileRes=null;
+//		
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =   masterService.getRole(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+//	}
+//	
 	
 	  @PostMapping(value="/getBankMaster") public @ResponseBody String getBankMaster(HttpServletRequest request, ModelMap model,Locale
 	  locale,HttpSession session ,UserRegistrationRequest userForm) {

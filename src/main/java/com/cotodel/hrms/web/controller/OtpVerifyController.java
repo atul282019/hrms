@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 
 @Controller
 @CrossOrigin
@@ -32,6 +35,9 @@ public class OtpVerifyController extends CotoDelBaseController{
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
+	@Autowired
+	public ApplicationConstantConfig applicationConstantConfig;
+	
 	@PostMapping(value="/verifyOTP")
 	public @ResponseBody String validateLogin(HttpServletResponse response, HttpServletRequest request,
 			UserForm userForm, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
@@ -39,8 +45,24 @@ public class OtpVerifyController extends CotoDelBaseController{
 			
 				String password = null;
 				password= userForm.getPassword1()+userForm.getPassword2()+userForm.getPassword3()+userForm.getPassword4()+userForm.getPassword5()+userForm.getPassword6();      
-				profileRes =loginservice.verifyVoucherIssueOTP(tokengeneration.getToken(),userForm.getUserName(),userForm.getMob(),password,userForm.getOrderId());
-			
+				//profileRes =loginservice.verifyVoucherIssueOTP(tokengeneration.getToken(),userForm.getUserName(),userForm.getMobile(),password,userForm.getOrderId());
+				userForm.setOtp(password);
+				userForm.setPassword(password);
+				try {
+					String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+					EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+					String encriptResponse = loginservice.verifyVoucherIssueOTP(tokengeneration.getToken(), jsonObject);
+
+		   
+					EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+					profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			return profileRes;
 		}
 

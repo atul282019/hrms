@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CompanyProfileDetail {
 	
 	private String pan;
-	private Long Id;
+	private Long id;
 	private Long employerId;
 	private String createdBy;
 	private String gstIdentificationNumber;

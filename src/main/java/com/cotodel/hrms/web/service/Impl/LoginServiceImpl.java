@@ -26,6 +26,8 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -36,31 +38,31 @@ public class LoginServiceImpl implements LoginService {
 	//private static final Logger logger = LogManager.getLogger(LoginServiceImpl.class);
 	
 	@Override
-	public String sendOtp(String token, String userName, String mobile) {	
-		return CommonUtility.userRequest(token,sendOtpRequest(mobile),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendOtpNew);
+	public String sendOtp(String token, EncriptResponse userForm) {	
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendOtpNew);
 	}
 	
-	public static String sendOtpRequest(String mobile) {
-		JSONObject request= new JSONObject();
-		request.put("mobile", mobile);	
-		return request.toString();
-	}
-	
-	@Override
-	public String resendOtp(String token, String userName, String mobile,String orderId) {	
-		return CommonUtility.userRequest(token,sendOtpRequest(mobile,orderId),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.resendOtpNew);
-	}
-	
-	public static String sendOtpRequest(String mobile,String orderId) {
-		JSONObject request= new JSONObject();
-		request.put("mobile", mobile);	
-		request.put("orderId", orderId);	
-		return request.toString();
-	}
+//	public static String sendOtpRequest(String mobile) {
+//		JSONObject request= new JSONObject();
+//		request.put("mobile", mobile);	
+//		return request.toString();
+//	}
 	
 	@Override
-	public String verifyOtp(String token,String userName, String mob, String otp,String orderId) {
-		return CommonUtility.userRequest(token,verifyOtpOrLoginRequest(mob,otp,orderId), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtpNew);
+	public String resendOtp(String token, EncriptResponse userForm) {	
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.resendOtpNew);
+	}
+	
+//	public static String sendOtpRequest(String mobile,String orderId) {
+//		JSONObject request= new JSONObject();
+//		request.put("mobile", mobile);	
+//		request.put("orderId", orderId);	
+//		return request.toString();
+//	}
+//	
+	@Override
+	public String verifyOtp(String token,EncriptResponse userForm) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtpNew);
 	}
 	
 	
@@ -202,8 +204,8 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String verifyVoucherIssueOTP(String token, String userName, String mob, String otp, String orderId) {
-		return CommonUtility.userRequest(token,verifyOtpOrLoginRequest(mob,otp,orderId), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyVoucherIssueOTP);
+	public String verifyVoucherIssueOTP(String token, EncriptResponse userForm) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyVoucherIssueOTP);
 	}
 	
 }
