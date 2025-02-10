@@ -11,6 +11,8 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkInviteRequest;
 import com.cotodel.hrms.web.service.BulkInviteService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
 public class BulkInviteServiceImpl implements BulkInviteService {
@@ -22,15 +24,8 @@ public class BulkInviteServiceImpl implements BulkInviteService {
 	public ApplicationConstantConfig applicationConstantConfig;
 
 	@Override
-	public String bulkInvite(String token, BulkInviteRequest bulkInviteRequest) {
+	public String bulkInvite(String token, EncriptResponse bulkInviteRequest) {
 		// TODO Auto-generated method stub
-		 return CommonUtility.userRequest(token,emailSendRequest(bulkInviteRequest), applicationConstantConfig.userServiceBaseUrl +CommonUtils.getBulkEmail);
+		 return CommonUtility.userRequest(token,MessageConstant.gson.toJson(bulkInviteRequest), applicationConstantConfig.userServiceBaseUrl +CommonUtils.getBulkEmail);
 	}
-	public static String emailSendRequest(BulkInviteRequest req) {
-		JSONObject request= new JSONObject();		
-		request.put("inviteEmployee", req.getInviteEmployee());	
-		request.put("inviteContractor", req.getInviteContractor());	
-		return request.toString();
-	}
-		
 }

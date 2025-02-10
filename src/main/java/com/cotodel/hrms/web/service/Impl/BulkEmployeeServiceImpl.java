@@ -120,7 +120,8 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				try {
 					logger.info("userRequest::"+userRequest.toString());					
 					if(validmobile && validName) {
-						response=CommonUtility.userRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.regiUserBulk);
+						response=CommonUtility.bulkUserRequest(token,MessageConstant.gson.toJson(userRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.regiUserBulk,
+								applicationConstantConfig.apiSignaturePublicPath, applicationConstantConfig.apiSignaturePrivatePath);
 						if(!ObjectUtils.isEmpty(response)) {
 							JSONObject demoRes= new JSONObject(response);
 							boolean status = demoRes.getBoolean("status");

@@ -51,28 +51,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	
 	@PostMapping(value="/employeeOnboarding")
 	public @ResponseBody String saveEmployeeOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		
-//		profileRes = employeeDetailService.saveEmployeeOnboarding(tokengeneration.getToken(),employeeOnboarding);
-//		logger.info(profileRes);
-//		profileJsonRes= new JSONObject(profileRes);
-//		
-//		if(profileJsonRes.getBoolean("status")) { 
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			loginsevice.rsendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//		}
-//		
-//		return profileRes;
-		
+		String profileRes=null;
+
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
 
@@ -95,27 +75,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	
 	@GetMapping(value="/getEmployeeOnboarding")
 	public @ResponseBody String getEmployeeOnboardingSuccessList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null; String userRes = null;
-		
-//		profileRes = employeeDetailService.getEmployeeOnboarding(tokengeneration.getToken(),employeeOnboarding);
-//		profileJsonRes= new JSONObject(profileRes);
-//		
-//		if(profileJsonRes.getBoolean("status")) { 
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//			
-//		}
-//		
-//		return profileRes;
+		String profileRes=null;
 		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
@@ -137,55 +97,35 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		
 	}
 	
-	@GetMapping(value="/getEmployeeOnboardingFailList")
-	public @ResponseBody String getEmployeeOnboardingFailList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null; String userRes = null;
-//		profileRes = employeeDetailService.getEmployeeOnboardingFailList(tokengeneration.getToken(),employeeOnboarding);
-//		profileJsonRes= new JSONObject(profileRes);
+//	@GetMapping(value="/getEmployeeOnboardingFailList")
+//	public @ResponseBody String getEmployeeOnboardingFailList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
+//		String profileRes=null;
+//
 //		
-//		if(profileJsonRes.getBoolean("status")) { 
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
 //		try {
-//			res = mapper.writeValueAsString(otpMap);
+//			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =   employeeDetailService.getEmployeeOnboardingFailList(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 //		} catch (Exception e) {
-//			 
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
-//		
-//		return profileRes;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =   employeeDetailService.getEmployeeOnboardingFailList(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-	
-	}
+//   
+//	return profileRes;
+//	
+//	}
 	
 	@GetMapping(value="/getEmployeeOnboardingById")
 	public @ResponseBody String getEmployeeOnboardingById(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null; String userRes = null;
+		String profileRes=null;
+		
 //		profileRes = employeeDetailService.getEmployeeOnboardingById(tokengeneration.getToken(),employeeOnboarding);
 //		profileJsonRes= new JSONObject(profileRes);
 //		
@@ -233,7 +173,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		 * (JsonProcessingException e1) { // TODO Auto-generated catch block
 		 * e1.printStackTrace(); }
 		 */
-		String res = null; String userRes = null;
+		String res = null; 
 		profileRes = employeeDetailService.confirmBulkEmplOnboarding(tokengeneration.getToken(),bulkConfirmationRequest);
 		profileJsonRes= new JSONObject(profileRes);
 		
@@ -254,11 +194,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	
 	@PostMapping(value="/saveEmployeeProfile")
 	public @ResponseBody String saveEmployeeProfile(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		
+		String profileRes=null;
 //		profileRes = employeeDetailService.saveEmployeeProfile(tokengeneration.getToken(),employeeOnboarding);
 //		logger.info(profileRes);
 //		profileJsonRes= new JSONObject(profileRes);
@@ -297,10 +233,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	}
 	@GetMapping(value="/getEmployeeOnboardingByManagerId")
 	public @ResponseBody String getEmployeeOnboardingByManagerId(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null; String userRes = null;
+		String profileRes=null;
+		
 //		profileRes = employeeDetailService.getEmployeeOnboardingByManagerId(tokengeneration.getToken(),employeeOnboarding);
 //		profileJsonRes= new JSONObject(profileRes);
 //		

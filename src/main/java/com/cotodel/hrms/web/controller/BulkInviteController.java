@@ -20,6 +20,8 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkInviteRequest;
 import com.cotodel.hrms.web.service.BulkInviteService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -39,16 +41,25 @@ public class BulkInviteController extends CotoDelBaseController{
 	
 	
 	@PostMapping(value="/sendInviteEmail")
-	public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkInviteRequest bulkEmployeeRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-				
-		profileRes = bulkInviteService.bulkInvite(tokengeneration.getToken(),bulkEmployeeRequest);
+	public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkInviteRequest bulkInviteRequest) {
+		String profileRes=null;
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(bulkInviteRequest);
 
-		
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = bulkInviteService.bulkInvite(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 
 	}

@@ -53,7 +53,6 @@ public class BulkUserController extends CotoDelBaseController{
 	@PostMapping(value="/saveBulkFile")
 	public String saveEmployeeDetail(HttpServletResponse response, HttpServletRequest request,
 			@ModelAttribute("formData") BulkEmployeeRequest bulkEmployeeRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
-	//public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkEmployeeRequest bulkEmployeeRequest) {
 		
 		String profileRes=null;JSONObject profileJsonRes=null;
 		HashMap<String, String> otpMap = new  HashMap<String, String> ();

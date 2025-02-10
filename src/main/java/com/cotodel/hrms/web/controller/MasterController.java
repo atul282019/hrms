@@ -315,7 +315,7 @@ public class MasterController  extends CotoDelBaseController{
 	@GetMapping(value="/getEmployeeMasterList")
 	public @ResponseBody String getEmployeeListMaster(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
-		logger.info("getEmployeeType");	
+ 		logger.info("getEmployeeType");	
 		String token = (String) session.getAttribute("cotodel");
 		//return masterService.getEmployeeListMaster(tokengeneration.getToken(),employeeMassterRequest);
 		String profileRes=null;

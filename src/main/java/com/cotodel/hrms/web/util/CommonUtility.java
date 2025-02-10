@@ -54,6 +54,40 @@ public class CommonUtility {
 	}
 	
 	
+	public static String bulkUserRequest(String sAccessToken,String requestJson,String url,String publicPath,String privatePath){
+		String returnStr=null;
+		String decript=null;
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		try{
+			
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			
+			if(sAccessToken!=null && !sAccessToken.isEmpty()) {
+				headers.setBearerAuth(sAccessToken);
+			}
+			EncriptResponse jsonEncriptObject=EncryptionDecriptionUtil.encriptResponse(requestJson, publicPath);
+			String jsonEncript =  EncryptionDecriptionUtil.convertToJson(jsonEncriptObject);
+			logger.info(" Request Json for url"+url+"---"+jsonEncript);
+			 
+			HttpEntity<String> entity = new HttpEntity<String>(jsonEncript,headers);
+ 
+			returnStr = restTemplate.postForObject(url, entity, String.class);
+			EncriptResponse enResponse= EncryptionDecriptionUtil.convertFromJson(returnStr, EncriptResponse.class);
+			decript=EncryptionDecriptionUtil.decriptResponse(enResponse.getEncriptData(), enResponse.getEncriptKey(), privatePath);
+			logger.info(" response Json---"+returnStr);
+			return decript;
+		}catch(HttpStatusCodeException e) {
+			logger.error("HttpStatusCodeException error in---"+url+"-"+e.getResponseBodyAsString());
+			return e.getResponseBodyAsString();
+		}catch(Exception e){
+			logger.error(" error in---"+url+"-"+e);
+			return null;
+		}finally {
+			restTemplate=null;headers=null;sAccessToken=null;requestJson=null;url=null;	
+		}		
+	}
+
 	public static String getTokenRequest(String sAccessToken,String requestJson,String companyId,String url){
 		String returnStr=null;
 		RestTemplate restTemplate = new RestTemplate();
