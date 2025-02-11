@@ -48,7 +48,7 @@ public interface EmployeeDetailService {
 
 	String getEmployeeOnboardingById(String token, EncriptResponse employeeOnboarding);
 
-	String confirmBulkEmplOnboarding(String token, BulkConfirmationRequest[] employeeOnboarding);
+	String confirmBulkEmplOnboarding(String token, EncriptResponse employeeOnboarding);
 
 	String saveEmployeeProfile(String token, EncriptResponse employeeOnboarding);
 	

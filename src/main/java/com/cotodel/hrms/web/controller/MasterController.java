@@ -1,14 +1,10 @@
 package com.cotodel.hrms.web.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +21,13 @@ import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ErupiVoucherMaster;
 import com.cotodel.hrms.web.response.MccMaster;
+import com.cotodel.hrms.web.response.PurposeMasterRequest;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
-import com.cotodel.hrms.web.response.VoucherTypeMaster;
 import com.cotodel.hrms.web.service.DepartmentMasterService;
 import com.cotodel.hrms.web.service.MasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -396,7 +391,7 @@ public class MasterController  extends CotoDelBaseController{
 	
 	@GetMapping(value="/getPurposeListByVoucherCode")
 	public @ResponseBody String getPurposeListByVoucherCode(HttpServletRequest request, ModelMap model,Locale locale,
-			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+			HttpSession session,PurposeMasterRequest employeeMassterRequest) {
 		logger.info("getofficeLocationMaster");	
 		String token = (String) session.getAttribute("cotodel");
 		//return masterService.getPurposeListByVoucherCode(tokengeneration.getToken(),employeeMassterRequest);
