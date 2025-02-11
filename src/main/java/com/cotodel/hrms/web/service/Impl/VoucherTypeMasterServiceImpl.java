@@ -8,6 +8,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.VoucherTypeMaster;
 import com.cotodel.hrms.web.service.VoucherTypeMasterService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -17,7 +18,7 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 	public ApplicationConstantConfig applicationConstantConfig;
 	
 	@Override
-	public String saveVoucherTypeMaster(String token, VoucherTypeMaster voucherTypeMaster) {
+	public String saveVoucherTypeMaster(String token, EncriptResponse voucherTypeMaster) {
 		return CommonUtility.userRequest(
 	            token,
 	            MessageConstant.gson.toJson(voucherTypeMaster),
@@ -26,7 +27,7 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 	}
 
 	@Override
-	public String getVoucherTypeMasterList(String token, VoucherTypeMaster voucherTypeMaster) {
+	public String getVoucherTypeMasterList(String token, EncriptResponse voucherTypeMaster) {
 		 return CommonUtility.userRequest(token,
 			        MessageConstant.gson.toJson(voucherTypeMaster),
 			        applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getvoucherTypeMasterList
@@ -34,7 +35,7 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 	}
 
 	@Override
-	public String updatevoucherTypeMasterStatus(String token, VoucherTypeMaster voucherTypeMaster) {
+	public String updatevoucherTypeMasterStatus(String token, EncriptResponse voucherTypeMaster) {
 		 return CommonUtility.userRequest(token,
 			        MessageConstant.gson.toJson(voucherTypeMaster),
 			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.updatevoucherTypeMasterStatus

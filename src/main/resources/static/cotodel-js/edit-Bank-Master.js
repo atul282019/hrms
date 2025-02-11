@@ -15,7 +15,7 @@ function saveEditedBankMaster()
         bankLogo=oldbankLogo;
      }
 	*/
-	var bankNameRegex=/^[A-Za-z]+( [A-Za-z]+)?$/;
+	var bankNameRegex=/^[A-Za-z]+( [A-Za-z]+)*$/;
 	var bankCodeRegex=/^[a-zA-Z0-9]+$/;
 	var bankId = document.getElementById("bankId").value;
 
@@ -83,7 +83,8 @@ function saveEditedBankMaster()
             console.log(data);
 			//var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
-			if(data1.status=='SUCCESS'){
+			//if(data1.status=='SUCCESS'){
+				if(data1.status==true){
 				 document.getElementById("otsuccmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("otmsgdiv").style.display="block";
 	
@@ -93,7 +94,7 @@ function saveEditedBankMaster()
                  setTimeout(function() {
                     window.location.href = "/displaybankMaster"; // Update with your previous page URL
                 }, 1000);
-			}else if(data1.status=='FAILURE'){
+			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
 				 document.getElementById("saveBankmaster1").disabled=false;

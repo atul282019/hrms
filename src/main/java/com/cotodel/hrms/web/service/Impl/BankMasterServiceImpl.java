@@ -10,6 +10,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BankMaster;
 import com.cotodel.hrms.web.service.BankMasterService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 
 @Service
 public class BankMasterServiceImpl implements BankMasterService {
@@ -19,7 +20,7 @@ public class BankMasterServiceImpl implements BankMasterService {
 	public ApplicationConstantConfig applicationConstantConfig; 
 	
 	@Override
-	public String saveBankMaster(String token,BankMaster bankMasterRequest) {
+	public String saveBankMaster(String token,EncriptResponse bankMasterRequest) {
 		{
 	        // Convert the BankMaster object to JSON and make the request
 	        return CommonUtility.userRequest(
@@ -35,7 +36,7 @@ public class BankMasterServiceImpl implements BankMasterService {
 	
 
 	@Override
-	public String getBankMasterList(String token, BankMaster bankMasterRequest) {
+	public String getBankMasterList(String token, EncriptResponse bankMasterRequest) {
 		 return CommonUtility.userRequest(token,
         MessageConstant.gson.toJson(bankMasterRequest),
         applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getbankNameMasterList
@@ -46,7 +47,7 @@ public class BankMasterServiceImpl implements BankMasterService {
 
 
 	@Override
-	public String getaftersaveBankMasterDetailsList(String token, BankMaster bankMaster) {
+	public String getaftersaveBankMasterDetailsList(String token, EncriptResponse bankMaster) {
 		return CommonUtility.userRequest(token,
 		        MessageConstant.gson.toJson(bankMaster),
 		        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getaftersaveBankMasterDetailsList
@@ -57,11 +58,16 @@ public class BankMasterServiceImpl implements BankMasterService {
 
 
 	@Override
-	public String updatebankMasterDetailStatus(String token, BankMaster bankMaster) {
+	public String updatebankMasterDetailStatus(String token, EncriptResponse bankMaster) {
 		return CommonUtility.userRequest(token,
 		        MessageConstant.gson.toJson(bankMaster),
 		        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.updatebankMasterDetailStatus
 		    );
 	}
+
+
+
+
+	
 }
 

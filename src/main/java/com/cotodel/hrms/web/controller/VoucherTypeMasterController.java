@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BankMaster;
 import com.cotodel.hrms.web.response.VoucherTypeMaster;
 import com.cotodel.hrms.web.service.VoucherTypeMasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +41,9 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	@Autowired
 	VoucherTypeMasterService voucherTypeMasterService;
 	
+	@Autowired
+	public ApplicationConstantConfig applicationConstantConfig;
+	
 	@PostMapping(value="/savevoucherTypeMaster")
 	public @ResponseBody String saveBankMaster(ModelMap model, Locale locale, HttpSession session,VoucherTypeMaster voucherTypeMaster) {
         String voucherResponse = null;
@@ -47,20 +53,36 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         String jsonResponse = null;
 
         // Call the service to save the BankMaster object
-        voucherResponse = voucherTypeMasterService.saveVoucherTypeMaster(tokengeneration.getToken(), voucherTypeMaster);
-        System.out.println(voucherResponse);  // Logging the response
-        voucherJsonResponse = new JSONObject(voucherResponse);
-
-       
-		if(voucherJsonResponse.getBoolean("status")) { 
-			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginsevice.rsendEmailVerificationCompletion(userForm);
-			responseMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//        voucherResponse = voucherTypeMasterService.saveVoucherTypeMaster(tokengeneration.getToken(), voucherTypeMaster);
+//        System.out.println(voucherResponse);  // Logging the response
+//        voucherJsonResponse = new JSONObject(voucherResponse);
+//
+//       
+//		if(voucherJsonResponse.getBoolean("status")) { 
+//			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginsevice.rsendEmailVerificationCompletion(userForm);
+//			responseMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
         
         try {
+           // jsonResponse = mapper.writeValueAsString(responseMap);
+        	String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster);
+            EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            String encryptedResponse = voucherTypeMasterService.saveVoucherTypeMaster(tokengeneration.getToken(), encryptedRequest);
+            EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+            String voucherResponse1 = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
+            if (voucherJsonResponse1.getBoolean("status")) {
+                responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+            } else {
+                responseMap.put("status", MessageConstant.RESPONSE_FAILED);
+            }
+            
             jsonResponse = mapper.writeValueAsString(responseMap);
+        
         } catch (Exception e) {
             e.printStackTrace(); 
         }
@@ -76,21 +98,39 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
         // Call the service to save the voucherResponse object
-        voucherResponse = voucherTypeMasterService.getVoucherTypeMasterList(tokengeneration.getToken(), voucherTypeMaster);
-        System.out.println(voucherResponse);  // Logging the response
-        voucherJsonResponse = new JSONObject(voucherResponse);      
-        if(voucherJsonResponse.getBoolean("status")) { 
-			
-			//responseMap.put("data", voucherJsonResponse.getJSONArray("data"));
-			List<Object> voucherList = voucherJsonResponse.getJSONArray("data").toList();
-			responseMap.put("status",true);
-			responseMap.put("data", voucherList);
-        }else {
-			//loginsevice.rsendEmailVerificationCompletion(userForm);
-			responseMap.put("status", false);
-		}
+//        voucherResponse = voucherTypeMasterService.getVoucherTypeMasterList(tokengeneration.getToken(), voucherTypeMaster);
+//        System.out.println(voucherResponse);  // Logging the response
+//        voucherJsonResponse = new JSONObject(voucherResponse);      
+//        if(voucherJsonResponse.getBoolean("status")) { 
+//			
+//			//responseMap.put("data", voucherJsonResponse.getJSONArray("data"));
+//			List<Object> voucherList = voucherJsonResponse.getJSONArray("data").toList();
+//			responseMap.put("status",true);
+//			responseMap.put("data", voucherList);
+//        }else {
+//			//loginsevice.rsendEmailVerificationCompletion(userForm);
+//			responseMap.put("status", false);
+//		}
         try {
+            //jsonResponse = mapper.writeValueAsString(responseMap);
+        	String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster);
+            EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            String encryptedResponse = voucherTypeMasterService.getVoucherTypeMasterList(tokengeneration.getToken(), encryptedRequest);
+            EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+            String voucherResponse1 = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
+            if (voucherJsonResponse1.getBoolean("status")) {
+                List<Object> voucherList = voucherJsonResponse1.getJSONArray("data").toList();
+                responseMap.put("status", true);
+                responseMap.put("data", voucherList);
+            } else {
+                responseMap.put("status", false);
+            }
+            
             jsonResponse = mapper.writeValueAsString(responseMap);
+        
         } catch (Exception e) {
             e.printStackTrace(); 
         }       
@@ -109,22 +149,44 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
 
-        // Call the service to save the BankMaster object
-        voucherResponse = voucherTypeMasterService.updatevoucherTypeMasterStatus(tokengeneration.getToken(), voucherTypeMaster);
-        System.out.println(voucherResponse);  // Logging the response
+//        // Call the service to save the BankMaster object
+//        voucherResponse = voucherTypeMasterService.updatevoucherTypeMasterStatus(tokengeneration.getToken(), voucherTypeMaster);
+//        System.out.println(voucherResponse);  // Logging the response
+//        
+//        voucherJsonResponse = new JSONObject(voucherResponse);
+//
+//        
+//
+//		if(voucherJsonResponse.getBoolean("status")) { 
+//			responseMap.put("status","SUCCESS");
+//		}else {
+//			//loginsevice.rsendEmailVerificationCompletion(userForm);
+//			responseMap.put("status","FAILURE");
+//		}
+// 
+//		return new ObjectMapper().writeValueAsString(responseMap);
+        try {
+            String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster);
+            EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            String encryptedResponse = voucherTypeMasterService.updatevoucherTypeMasterStatus(tokengeneration.getToken(), encryptedRequest);
+            EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+            String voucherResponse1 = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
+            if (voucherJsonResponse1.getBoolean("status")) {
+                responseMap.put("status", "SUCCESS");
+            } else {
+                responseMap.put("status", "FAILURE");
+            }
+            
+            jsonResponse = mapper.writeValueAsString(responseMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
-        voucherJsonResponse = new JSONObject(voucherResponse);
-
+        return jsonResponse;
         
-
-		if(voucherJsonResponse.getBoolean("status")) { 
-			responseMap.put("status","SUCCESS");
-		}else {
-			//loginsevice.rsendEmailVerificationCompletion(userForm);
-			responseMap.put("status","FAILURE");
-		}
- 
-		return new ObjectMapper().writeValueAsString(responseMap);
 		}
 
 
