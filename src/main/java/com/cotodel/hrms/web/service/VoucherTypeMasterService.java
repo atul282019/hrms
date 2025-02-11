@@ -14,3 +14,4 @@ public interface VoucherTypeMasterService {
 	public String updatevoucherTypeMasterStatus(String token,EncriptResponse voucherTypeMaster);
 	
 }
+  

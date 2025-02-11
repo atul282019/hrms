@@ -119,7 +119,7 @@ public class BankMasterController extends CotoDelBaseController{
             String json = EncryptionDecriptionUtil.convertToJson(bankMaster);
             EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
             
-            String encryptedResponse = bankMasterService.getBankMasterList(tokengeneration.getToken(), encryptedRequest);
+             String encryptedResponse = bankMasterService.getBankMasterList(tokengeneration.getToken(), encryptedRequest);
             EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
             bankResponse = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
             

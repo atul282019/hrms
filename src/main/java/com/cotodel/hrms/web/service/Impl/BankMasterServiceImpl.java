@@ -51,7 +51,7 @@ public class BankMasterServiceImpl implements BankMasterService {
 		return CommonUtility.userRequest(token,
 		        MessageConstant.gson.toJson(bankMaster),
 		        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getaftersaveBankMasterDetailsList
-		    );
+		    ); 
 	}
 
 

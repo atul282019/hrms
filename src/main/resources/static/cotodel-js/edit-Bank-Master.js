@@ -94,7 +94,7 @@ function saveEditedBankMaster()
                  setTimeout(function() {
                     window.location.href = "/displaybankMaster"; // Update with your previous page URL
                 }, 1000);
-			}else if(data1.status==false){
+			}else if(data1.status==false){ 
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
 				 document.getElementById("saveBankmaster1").disabled=false;

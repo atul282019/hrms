@@ -67,7 +67,7 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         
         try {
            // jsonResponse = mapper.writeValueAsString(responseMap);
-        	String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster);
+        	String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster); 
             EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
             
             String encryptedResponse = voucherTypeMasterService.saveVoucherTypeMaster(tokengeneration.getToken(), encryptedRequest);

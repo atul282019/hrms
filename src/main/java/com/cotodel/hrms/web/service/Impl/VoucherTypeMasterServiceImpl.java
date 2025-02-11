@@ -19,7 +19,7 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 	
 	@Override
 	public String saveVoucherTypeMaster(String token, EncriptResponse voucherTypeMaster) {
-		return CommonUtility.userRequest(
+		return CommonUtility.userRequest( 
 	            token,
 	            MessageConstant.gson.toJson(voucherTypeMaster),
 	            applicationConstantConfig.masterServiceBaseUrl +CommonUtils.saveVoucherTypeMasterDetailS
