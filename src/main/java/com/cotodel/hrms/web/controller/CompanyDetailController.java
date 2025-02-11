@@ -73,8 +73,7 @@ public class CompanyDetailController extends CotoDelBaseController{
 			logger.info("getPayrollMaster");	
 			String token = (String) session.getAttribute("hrms");
 			String profileRes=null;
-			//return companyService.getCompanyProfileStatus(tokengeneration.getToken(),employeeProfileRequest);
-			
+		
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
 

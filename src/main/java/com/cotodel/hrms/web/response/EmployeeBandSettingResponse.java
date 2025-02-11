@@ -20,5 +20,8 @@ public class EmployeeBandSettingResponse {
 	
 	private String[] listArray;
     private List<EmployeeBandTiersResponse> list;
+    private String response;
+	private String introAddTierFlag;
+
 	
 }

@@ -75,7 +75,7 @@ public class CommonUtility {
 			returnStr = restTemplate.postForObject(url, entity, String.class);
 			EncriptResponse enResponse= EncryptionDecriptionUtil.convertFromJson(returnStr, EncriptResponse.class);
 			decript=EncryptionDecriptionUtil.decriptResponse(enResponse.getEncriptData(), enResponse.getEncriptKey(), privatePath);
-			logger.info(" response Json---"+returnStr);
+			logger.info(" response Json---"+decript);
 			return decript;
 		}catch(HttpStatusCodeException e) {
 			logger.error("HttpStatusCodeException error in---"+url+"-"+e.getResponseBodyAsString());

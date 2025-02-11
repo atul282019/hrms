@@ -159,7 +159,7 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": employerMobile,
+  				"mobile": employerMobile,
   				"orderId": orderId,
   				"userName":employerMobile
   			},
@@ -625,7 +625,7 @@ function  issueVoucher(){
 			   "voucherCode": voucherCode,
 			   "voucherDesc": voucherDesc,
 			   "activeStatus": activeStatus,
-			   "bankCode":bankCode,
+			   "bankcode":bankCode,
 			   "voucherId":"",
 			   "accountNumber":acNumber,
 			   "payerVA":payerva,

@@ -81,7 +81,7 @@ $(document).on('change','.up', function(){
 					dataType: 'json',
 					success: function(data) {
 					var obj = data;
-			        if (obj['status'] == "SUCCESS") {
+			        if (obj.status === true) {
 			            // If successful, open the OTP modal
 						var timeleft = "60";
 						var resendCodeElement = document.getElementById("resendCode");
@@ -252,11 +252,11 @@ function saveBulkVoucherUpload(){
 	        var data1 = data;
 	       console.log(data);
 			//var data1 = jQuery.parseJSON(data);
-			var success = data1.data.success;
-			var fail = data1.data.fail;
+		
 			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
-				
+				 var success = data1.data.success;
+				 var fail = data1.data.fail;
 				 document.getElementById("BulkVoucherIssuanceTable").style.display="block";
 				 document.getElementById("BulkVoucherIssuance-wrap").style.display="none";
 				 
@@ -440,7 +440,7 @@ function resendVoucherOTP() {
 	});
 }
 
-
+/*
 function verfyIssueVoucherOTP() {
 	
   	var password1 = document.getElementById("password1").value;
@@ -540,7 +540,7 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": employerMobile,
+  				"mobile": employerMobile,
   				"orderId": orderId,
   				"userName":employerMobile
   			},
@@ -564,7 +564,7 @@ function verfyIssueVoucherOTP() {
   			}
   		});
   }
-
+*/
   
     function focusNext(currentInput) {
         // Move focus to the next input box
@@ -1065,7 +1065,7 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": employerMobile,
+  				"mobile": employerMobile,
   				"orderId": orderId,
   				"userName":employerMobile
   			},

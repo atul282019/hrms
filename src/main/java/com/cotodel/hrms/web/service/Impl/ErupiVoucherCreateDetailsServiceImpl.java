@@ -28,8 +28,10 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 
 	@Override
 	public String createSingleVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
-		return CommonUtility.userRequest(token,createVoucherRequestJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucher);
-
+		return CommonUtility.bulkUserRequest(token,createVoucherRequestJson(erupiVoucherCreateDetails), 
+				applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucher,applicationConstantConfig.apiSignaturePublicPath,
+				applicationConstantConfig.apiSignaturePrivatePath);
+		
 	}
 	
 	public  String createVoucherRequestJson(ErupiVoucherCreateDetails erupiVoucherCreateDetails){
@@ -49,35 +51,37 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("consent", erupiVoucherCreateDetails.getConsent());
 		data.put("otpValidationStatus", "");
 		data.put("creationDate", "");
-		data.put("validity",erupiVoucherCreateDetails.getValidity());
 		data.put("createdby", erupiVoucherCreateDetails.getCreatedby());
 		data.put("accountId", "");
 		data.put("orgId", erupiVoucherCreateDetails.getOrgId());
+
 		data.put("accountNumber", erupiVoucherCreateDetails.getAccountNumber());
-		data.put("voucherCode", erupiVoucherCreateDetails.getVoucherCode());
-		data.put("voucherType", erupiVoucherCreateDetails.getVoucherType());
-		data.put("voucherDesc", erupiVoucherCreateDetails.getVoucherDesc());
-		
-		
-		JSONObject entrymodeIdPk= new JSONObject();
-		entrymodeIdPk.put("id", "");
-		data.put("entrymodeIdPk", entrymodeIdPk);
-		
-		data.put("response", erupiVoucherCreateDetails.getResponse());
+		data.put("response", "");
+		data.put("responseApi","" );
 		data.put("merchanttxnid", erupiVoucherCreateDetails.getMerchanttxnid());
 		data.put("creationmode", "");
-		//data.put("bulktblId", erupiVoucherCreateDetails.getBeneficiaryID());
+		data.put("bulktblId","" );
 		data.put("redemtionType", "SINGLE");
 		data.put("mcc", erupiVoucherCreateDetails.getMcc());
-		data.put("merchantId", erupiVoucherCreateDetails.getMerchantId());
-		data.put("subMerchantId", erupiVoucherCreateDetails.getSubMerchantId());
 		data.put("extra1", "");
 		data.put("extra2","");
 		data.put("extra3", "");
+
 		data.put("beneficiaryID",erupiVoucherCreateDetails.getMobile());
 		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());
-		data.put("bankcode", erupiVoucherCreateDetails.getBankCode());
+		data.put("bankcode", erupiVoucherCreateDetails.getBankcode());
 		data.put("type", "");
+		data.put("voucherCode", erupiVoucherCreateDetails.getVoucherCode());
+		data.put("voucherType", erupiVoucherCreateDetails.getVoucherType());
+		data.put("voucherDesc", erupiVoucherCreateDetails.getVoucherDesc());
+		data.put("merchantId", erupiVoucherCreateDetails.getMerchantId());
+		data.put("subMerchantId", erupiVoucherCreateDetails.getSubMerchantId());
+		
+		data.put("mandateType","");
+		data.put("mandateType","");
+		data.put("payeeVPA","");
+	
+		data.put("validity",erupiVoucherCreateDetails.getValidity());
 		
 		logger.info(data.toString());
 		return data.toString();
@@ -114,59 +118,58 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 
 	@Override
 	public String issueBulkVoucher(String token, ErupiBulkVoucherCreateRequest erupiBulkVoucherCreateRequest) {
-		return CommonUtility.userRequest(token,createBulkVoucherRequestJson(erupiBulkVoucherCreateRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createBulkVoucher);
+		return CommonUtility.bulkUserRequest(token,createBulkVoucherRequestJson(erupiBulkVoucherCreateRequest), 
+				applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createBulkVoucher,
+				applicationConstantConfig.apiSignaturePublicPath,
+				applicationConstantConfig.apiSignaturePrivatePath);
 
 	}
 	
 
 	public  String createBulkVoucherRequestJson(ErupiBulkVoucherCreateRequest erupiVoucherCreateDetails){
 		JSONObject data= new JSONObject();
-
-		JSONObject voucherId= new JSONObject();
-		voucherId.put("id", erupiVoucherCreateDetails.getVoucherId());
-		
-		data.put("voucherId", voucherId);
-		
-		data.put("name", erupiVoucherCreateDetails.getName());
-		data.put("mobile", erupiVoucherCreateDetails.getMobile());
-		data.put("amount", erupiVoucherCreateDetails.getAmount());
-		data.put("startDate", erupiVoucherCreateDetails.getStartDate());
-		data.put("expDate",erupiVoucherCreateDetails.getExpDate() );
-		data.put("purposeCode", erupiVoucherCreateDetails.getPurposeCode());
-		data.put("consent", erupiVoucherCreateDetails.getConsent());
-		data.put("otpValidationStatus", "");
-		data.put("creationDate", "");
+		//JSONObject voucherId= new JSONObject();
+		//voucherId.put("id", erupiVoucherCreateDetails.getVoucherId());
+		data.put("subMerchantId", erupiVoucherCreateDetails.getSubMerchantId());
+		data.put("mcc", erupiVoucherCreateDetails.getMcc());
+		data.put("merchantId", erupiVoucherCreateDetails.getMerchantId());
+		data.put("type", "");
 		data.put("createdby", erupiVoucherCreateDetails.getCreatedby());
-		data.put("accountId", "");
-		data.put("orgId", erupiVoucherCreateDetails.getOrgId());
-		data.put("accountNumber", erupiVoucherCreateDetails.getAccountNumber());
+	    data.put("redemtionType", "SINGLE");
+		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());
+		data.put("bankcode", erupiVoucherCreateDetails.getBankcode());
+		data.put("purposeCode", erupiVoucherCreateDetails.getPurposeCode());
+		
 		data.put("voucherCode", erupiVoucherCreateDetails.getVoucherCode());
 		data.put("voucherType", erupiVoucherCreateDetails.getVoucherType());
 		data.put("voucherDesc", erupiVoucherCreateDetails.getVoucherDesc());
-		
-		
-		JSONObject entrymodeIdPk= new JSONObject();
-		entrymodeIdPk.put("id", "");
-		data.put("entrymodeIdPk", entrymodeIdPk);
-		
+		data.put("creationDate", "");
+		data.put("accountId", "");
+		data.put("orgId", erupiVoucherCreateDetails.getOrgId());
+		data.put("accountNumber", erupiVoucherCreateDetails.getAccountNumber());
 		data.put("response", erupiVoucherCreateDetails.getResponse());
+		data.put("responseApi","");
+		
 		data.put("merchanttxnid", erupiVoucherCreateDetails.getMerchanttxnid());
 		data.put("creationmode", "");
-		//data.put("bulktblId", erupiVoucherCreateDetails.getBeneficiaryID());
-		data.put("redemtionType", "SINGLE");
-		data.put("mcc", erupiVoucherCreateDetails.getMcc());
-		data.put("merchantId", erupiVoucherCreateDetails.getMerchantId());
-		data.put("subMerchantId", erupiVoucherCreateDetails.getSubMerchantId());
+		data.put("bulktblId", erupiVoucherCreateDetails.getBeneficiaryID());
+		data.put("beneficiaryID",erupiVoucherCreateDetails.getMobile());
+			
+		data.put("arrayofid", erupiVoucherCreateDetails.getArrayofid());
+		//data.put("voucherId", voucherId);
+		
+		//data.put("name", erupiVoucherCreateDetails.getName());
+		//data.put("mobile", erupiVoucherCreateDetails.getMobile());
+		//data.put("amount", erupiVoucherCreateDetails.getAmount());
+		//data.put("startDate", erupiVoucherCreateDetails.getStartDate());
+		//data.put("expDate",erupiVoucherCreateDetails.getExpDate() );
+		
+		data.put("consent", erupiVoucherCreateDetails.getConsent());
+		data.put("otpValidationStatus", "");
+		
 		data.put("extra1", "");
 		data.put("extra2","");
 		data.put("extra3", "");
-		data.put("beneficiaryID",erupiVoucherCreateDetails.getMobile());
-		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());
-		data.put("bankcode", erupiVoucherCreateDetails.getBankcode());
-		data.put("accountNumber", erupiVoucherCreateDetails.getAccountNumber());
-		data.put("type", "");
-		data.put("arrayofid", erupiVoucherCreateDetails.getArrayofid());
-		
 		logger.info(data.toString());
 		return data.toString();
 	}
@@ -196,7 +199,6 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("voucherId", voucherId);
 		
 		data.put("name", existingUserVoucherCreationRequest.getName());
-		//data.put("mobile", existingUserVoucherCreationRequest);
 		data.put("amount", existingUserVoucherCreationRequest.getAmount());
 		data.put("startDate", existingUserVoucherCreationRequest.getStartDate());
 		data.put("expDate",existingUserVoucherCreationRequest.getExpDate() );

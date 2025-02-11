@@ -11,28 +11,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ErupiVoucherCreateDetails {
 	
-    private Integer id;
 	private Integer voucherId;
-	private String voucherCode;
-	private String voucherType;
-	private String voucherDesc;
 	private String name;	
-	private String bankCode;	
 	private String mobile;			
 	private Float amount;	
     private String startDate;			
     private String expDate;	
-    private String validity;
     private String purposeCode;	
     private String consent;	
     private String otpValidationStatus;		 	
     private String creationDate;
 	private String createdby;	
-	private Long accountId;	
+	private Long accountId;
 	private Long orgId;	
 	private String accountNumber;			
-	private Integer entrymodeIdPk;
-	private String response;	
+	private String response;
+	private String responseApi;
 	private String merchanttxnid;
 	private String creationmode;	
 	private Long bulktblId;
@@ -44,13 +38,15 @@ public class ErupiVoucherCreateDetails {
 	private String beneficiaryID;
 	private String payerVA;
 	private String type;
-	private Integer workflowid;
-	
+	private String bankcode;
+	private String voucherCode;
+	private String voucherType;
+	private String voucherDesc;
 	private String merchantId;
 	private String subMerchantId;
-	
-	private String timePeriod;
-	
+	private String mandateType;
+	private String payeeVPA;
+	private String validity;
 	
 }
 
