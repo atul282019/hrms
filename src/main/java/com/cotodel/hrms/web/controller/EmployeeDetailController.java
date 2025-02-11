@@ -164,32 +164,47 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	
 	@PostMapping(value="/confirmBulkEmplOnboarding")
 	public String confirmBulkEmplOnboarding( @RequestBody BulkConfirmationRequest[] bulkConfirmationRequest , HttpSession session) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
+		String profileRes=null;
 		/*
 		 * BulkConfirmationRequest[] jsonObj = null; try { jsonObj =
 		 * mapper.readValue(employeeOnboarding,BulkConfirmationRequest[].class); } catch
 		 * (JsonProcessingException e1) { // TODO Auto-generated catch block
 		 * e1.printStackTrace(); }
 		 */
-		String res = null; 
-		profileRes = employeeDetailService.confirmBulkEmplOnboarding(tokengeneration.getToken(),bulkConfirmationRequest);
-		profileJsonRes= new JSONObject(profileRes);
+//		String res = null; 
+//		profileRes = employeeDetailService.confirmBulkEmplOnboarding(tokengeneration.getToken(),bulkConfirmationRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		
+//		if(profileJsonRes.getBoolean("status")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		
-		if(profileJsonRes.getBoolean("status")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
+//		return profileRes;
+		
 		try {
-			res = mapper.writeValueAsString(otpMap);
+			String json = EncryptionDecriptionUtil.convertToJson(bulkConfirmationRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = employeeDetailService.confirmBulkEmplOnboarding(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 		return profileRes;
+		
 	}
 	
 	@PostMapping(value="/saveEmployeeProfile")

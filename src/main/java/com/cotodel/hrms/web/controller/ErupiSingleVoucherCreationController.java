@@ -53,9 +53,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	public @ResponseBody String getIssueVoucherList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, EmployeeMassterRequest erupiVoucherCreateDetails) {
 		String profileRes = null;
-		//profileRes = erupiVoucherCreateDetailsService.getIssueVoucherList(tokengeneration.getToken(), erupiVoucherCreateDetails);
-
-		//return profileRes;
+		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
 
@@ -202,34 +200,31 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
    
 	return profileRes;
 	}
-	
-	@PostMapping(value="/geterupiVoucherOldList")
-	public @ResponseBody String geterupiVoucherOldList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
-			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
-		String profileRes=null;
-		
-		profileRes = erupiVoucherCreateDetailsService.geterupiVoucherOldList(tokengeneration.getToken(),erupiVoucherCreateDetails);
-		
-		return profileRes;
-	}
-	
-	@PostMapping(value="/exitingUserVoucherCreation")
-	public @ResponseBody String exitingUserVoucherCreation(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
-			ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest) {
-		String profileRes=null;
-		
-		profileRes = erupiVoucherCreateDetailsService.exitingUserVoucherCreation(tokengeneration.getToken(),existingUserVoucherCreationRequest);
-		
-		return profileRes;
-	}
-	
+//	
+//	@PostMapping(value="/geterupiVoucherOldList")
+//	public @ResponseBody String geterupiVoucherOldList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
+//			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+//		String profileRes=null;
+//		
+//		profileRes = erupiVoucherCreateDetailsService.geterupiVoucherOldList(tokengeneration.getToken(),erupiVoucherCreateDetails);
+//		
+//		return profileRes;
+//	}
+//	
+//	@PostMapping(value="/exitingUserVoucherCreation")
+//	public @ResponseBody String exitingUserVoucherCreation(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
+//			ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest) {
+//		String profileRes=null;
+//		
+//		profileRes = erupiVoucherCreateDetailsService.exitingUserVoucherCreation(tokengeneration.getToken(),existingUserVoucherCreationRequest);
+//		
+//		return profileRes;
+//	}
+//	
 	@PostMapping(value="/voucherUserSearch")
 	public @ResponseBody String voucherUserSearch(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,EmployeeMassterRequest roleAccessRequest) {
-			//logger.info("search User");	
-			//String token = (String) session.getAttribute("hrms");
-			//return erupiVoucherCreateDetailsService.voucherUserSearch(tokengeneration.getToken(),roleAccessRequest);
-		
+			
 		String profileRes=null;
 		
 		try {

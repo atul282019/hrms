@@ -153,7 +153,7 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	}
 
 	@Override
-	public String confirmBulkEmplOnboarding(String token, BulkConfirmationRequest[] employeeOnboarding) {
+	public String confirmBulkEmplOnboarding(String token, EncriptResponse employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.confirmBulkEmplOnboarding);
 	}
 
