@@ -75,20 +75,50 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getExpanseReimbursement(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
-		profileRes = expensesReimbursementService.getExpanseReimbursement(tokengeneration.getToken(),
-				expensesReimbursementRequest);
+		//profileRes = expensesReimbursementService.getExpanseReimbursement(tokengeneration.getToken(),
+		//		expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.getExpanseReimbursement(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	@GetMapping(value = "/getExpanseReimbursementApprovalList")
 	public @ResponseBody String getExpanseReimbursementApprovalList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
-		profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
-				expensesReimbursementRequest);
+		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
+		//		expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	@PostMapping(value = "/viewExpenseReimbursement")
@@ -96,10 +126,25 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
 	
-		profileRes = expensesReimbursementService.viewExpenseReimbursement(tokengeneration.getToken(),
-				expensesReimbursementRequest);
+		//profileRes = expensesReimbursementService.viewExpenseReimbursement(tokengeneration.getToken(), expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.viewExpenseReimbursement(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+
 	}
 	
 	@PostMapping(value = "/getExpensesReimbursementDetailById")
@@ -107,10 +152,24 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
 	
-		profileRes = expensesReimbursementService.getExpensesReimbursementDetailById(tokengeneration.getToken(),
-				expensesReimbursementRequest);
+		//profileRes = expensesReimbursementService.getExpensesReimbursementDetailById(tokengeneration.getToken(), expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.getExpensesReimbursementDetailById(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	   return profileRes;
 	}
 	
 	@PostMapping(value = "/deleteExpanseReimbursement")
@@ -118,10 +177,24 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
 	
-		profileRes = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(),
-				expensesReimbursementRequest);
+		//profileRes = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	   return profileRes;
 	}
 	
 	@PostMapping(value="/addErupiLinkBankAccount")
@@ -313,9 +386,25 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 		String profileRes=null;
 		
-		profileRes = expensesReimbursementService.approveExpensesById(tokengeneration.getToken(),expensesReimbursementRequest);
-		
-		  return profileRes;
+		//profileRes = expensesReimbursementService.approveExpensesById(tokengeneration.getToken(),expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.approveExpensesById(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	
 		  
 	}
 	
@@ -325,9 +414,25 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 		String profileRes=null;
 		
-		profileRes = expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(),advanceTravelRequest);
-		
-	   return profileRes;
+		//profileRes = expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(),advanceTravelRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	
 		  
 	}
 	
@@ -335,10 +440,26 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getCashAdanceRequestData(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		profileRes = expensesReimbursementService.getCashAdanceRequestData(tokengeneration.getToken(),
-				advanceTravelRequest);
+		//profileRes = expensesReimbursementService.getCashAdanceRequestData(tokengeneration.getToken(),
+		//		advanceTravelRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.getCashAdanceRequestData(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	
 	}
 	
 	@PostMapping(value="/travelAdvanceRequest")
@@ -346,18 +467,48 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			@RequestBody TravelRequest travelRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 
 		String profileRes=null;
-		profileRes = expensesReimbursementService.travelAdvanceRequest(tokengeneration.getToken(),travelRequest);	
-		return profileRes;  
+		//profileRes = expensesReimbursementService.travelAdvanceRequest(tokengeneration.getToken(),travelRequest);	
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(travelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.travelAdvanceRequest(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	@GetMapping(value = "/getTravelReviewData")
 	public @ResponseBody String getTravelReviewData(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),
-				advanceTravelRequest);
+		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	@PostMapping(value="/travelAdvanceRequestUpdate")
@@ -365,8 +516,24 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			@RequestBody TravelAdvanceRequestUpdate travelAdvanceRequestUpdate,BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 
 		String profileRes=null;
-		profileRes = expensesReimbursementService.travelAdvanceRequestUpdate(tokengeneration.getToken(),travelAdvanceRequestUpdate);	
-		return profileRes;  
+		//profileRes = expensesReimbursementService.travelAdvanceRequestUpdate(tokengeneration.getToken(),travelAdvanceRequestUpdate);	
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(travelAdvanceRequestUpdate);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.travelAdvanceRequestUpdate(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	
@@ -375,40 +542,99 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			HttpSession session, TravelReimbursement travelReimbursement) {
 		String profileRes = null;
 	
-		profileRes = expensesReimbursementService.deleteAdvanceTravel(tokengeneration.getToken(),
-				travelReimbursement);
+		//profileRes = expensesReimbursementService.deleteAdvanceTravel(tokengeneration.getToken(),travelReimbursement);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(travelReimbursement);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.deleteAdvanceTravel(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+
 	}
 	
 	@GetMapping(value = "/getAdanceCashTravelApprpvalList")
 	public @ResponseBody String getAdanceCashTravelApprpvalList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		profileRes = expensesReimbursementService.getAdanceCashTravelApprpvalList(tokengeneration.getToken(),
-				advanceTravelRequest);
+		//profileRes = expensesReimbursementService.getAdanceCashTravelApprpvalList(tokengeneration.getToken(),advanceTravelRequest);
 
-		return profileRes;
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =   expensesReimbursementService.getAdanceCashTravelApprpvalList(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	@PostMapping(value = "/approveAdvanceTravelRequest")
 	public @ResponseBody String approveAdvanceTravelRequest(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		profileRes = expensesReimbursementService.approveAdvanceTravelRequest(tokengeneration.getToken(),
-				advanceTravelRequest);
+		//profileRes = expensesReimbursementService.approveAdvanceTravelRequest(tokengeneration.getToken(),advanceTravelRequest);
 
-		return profileRes;
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =    expensesReimbursementService.approveAdvanceTravelRequest(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 	@GetMapping(value = "/getCashAdvanceDetailById")
 	public @ResponseBody String getCashAdvanceDetailById(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		profileRes = expensesReimbursementService.getCashAdvanceDetailById(tokengeneration.getToken(),
-				advanceTravelRequest);
+		//profileRes = expensesReimbursementService.getCashAdvanceDetailById(tokengeneration.getToken(),advanceTravelRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
-		return profileRes;
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.getCashAdvanceDetailById(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 	}
 	
 }

@@ -752,7 +752,7 @@ function getExpanceCategoryList(){
                      if(expenseCategory=="Stay")
                      {
 					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
-                      $(row).find('td:eq(4)').html(imgTag);
+                      $(row).find('td:eq(3)').html(imgTag);
                      }
                      
                      if(statusMessage=="Draft")

@@ -11,9 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TravelRequest {
 	
+	private Long id;
 	private Integer employeeId;
 	private Integer employerId;
 	private String requestType;
 	private List<TravelAddRequest> travelReimbursement;
-
+	private int status;
+	private String response;
 }

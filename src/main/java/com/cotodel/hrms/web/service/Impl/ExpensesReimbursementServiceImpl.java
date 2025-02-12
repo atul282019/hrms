@@ -34,22 +34,26 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		  expensesReimbursementRequestNew.setFileName(expensesReimbursementRequest.getFileName());
 		  expensesReimbursementRequestNew.setFileType(expensesReimbursementRequest.getFileType());
 		 
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursement);
+		return CommonUtility.expenseRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew),
+				applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursement,
+				applicationConstantConfig.apiSignaturePublicPath,
+				applicationConstantConfig.apiSignaturePrivatePath);
+		
 		
 	}
 
 	@Override
-	public String getExpanseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest) {
+	public String getExpanseReimbursement(String token, EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpensesReimbursement);
 	}
 
 	@Override
-	public String viewExpenseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest) {
+	public String viewExpenseReimbursement(String token, EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.viewExpensesReimbursement);
 	}
 
 	@Override
-	public String deleteExpanseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest) {
+	public String deleteExpanseReimbursement(String token, EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.deleteExpenseReimbursement);
 	}
 
@@ -64,7 +68,10 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		  expensesReimbursementRequestNew.setFileName(expensesReimbursementRequest.getFileName());
 		  expensesReimbursementRequestNew.setFileType(expensesReimbursementRequest.getFileType());
 		 
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursementDraft);
+		return CommonUtility.expenseRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequestNew), 
+				applicationConstantConfig.employerServiceBaseUrl+CommonUtils.addExpensesReimbursementDraft,
+				applicationConstantConfig.apiSignaturePublicPath,
+				applicationConstantConfig.apiSignaturePrivatePath);
 		
 	}
 
@@ -101,65 +108,65 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 
 	@Override
 	public String getExpanseReimbursementApprovalList(String token,
-			ExpensesReimbursementRequest expensesReimbursementRequest) {
+			EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpensesReimbursementApprovalList);
 	}
 
 	@Override
 	public String getExpensesReimbursementDetailById(String token,
-			ExpensesReimbursementRequest expensesReimbursementRequest) {
+			EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpensesReimbursementDetailById);
 	}
 
 	@Override
-	public String approveExpensesById(String token, ExpensesReimbursementRequest expensesReimbursementRequest) {
+	public String approveExpensesById(String token, EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.expensesReimbursementUpdate);
 
 	}
 
 	@Override
-	public String cashAdvanceRequest(String token, AdvanceTravelRequest advanceTravelRequest) {
+	public String cashAdvanceRequest(String token, EncriptResponse advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.cashAdvanceTravelRequest);
 	}
 
 	@Override
-	public String getCashAdanceRequestData(String token, AdvanceTravelRequest advanceTravelRequest) {
+	public String getCashAdanceRequestData(String token, EncriptResponse advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getAdvanceTravelRequestData);
 
 	}
 
 	@Override
-	public String travelAdvanceRequest(String token, TravelRequest travelRequest) {
+	public String travelAdvanceRequest(String token, EncriptResponse travelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(travelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.travelAdvanceTravelRequest);
 	}
 
 	@Override
-	public String getTravelReviewData(String token, AdvanceTravelRequest advanceTravelRequest) {
+	public String getTravelReviewData(String token, EncriptResponse advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTravelReviewData);
 	}
 
 	@Override
-	public String travelAdvanceRequestUpdate(String token, TravelAdvanceRequestUpdate travelAdvanceRequestUpdate) {
+	public String travelAdvanceRequestUpdate(String token, EncriptResponse travelAdvanceRequestUpdate) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(travelAdvanceRequestUpdate), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.updateTraveRequestData);
 	}
 
 	@Override
-	public String deleteAdvanceTravel(String token, TravelReimbursement travelReimbursement) {
+	public String deleteAdvanceTravel(String token, EncriptResponse travelReimbursement) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(travelReimbursement), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.deleteTravelReimbursement);
 	}
 
 	@Override
-	public String getAdanceCashTravelApprpvalList(String token, AdvanceTravelRequest advanceTravelRequest) {
+	public String getAdanceCashTravelApprpvalList(String token, EncriptResponse advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getAdanceCashTravelApprpvalList);
 	}
 
 	@Override
-	public String approveAdvanceTravelRequest(String token, AdvanceTravelRequest advanceTravelRequest) {
+	public String approveAdvanceTravelRequest(String token, EncriptResponse advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.approveAdvanceTravelRequest);
 	}
 
 	@Override
-	public String getCashAdvanceDetailById(String token, AdvanceTravelRequest advanceTravelRequest) {
+	public String getCashAdvanceDetailById(String token, EncriptResponse advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getCashAdvanceDetailById);
 	}
 	

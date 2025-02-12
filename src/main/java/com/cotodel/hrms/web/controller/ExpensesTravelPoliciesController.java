@@ -49,11 +49,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String saveExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+		
 		List<BandDetailRequest> list = new ArrayList<BandDetailRequest>();
 		String data[] = expenseCategoryRequest.getListArray();
 		
@@ -133,11 +129,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String updateExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+		
 		List<BandDetailRequest> list = new ArrayList<BandDetailRequest>();
 		String data[] = expenseCategoryRequest.getListArray();
 		
@@ -220,11 +212,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String getExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+	
 //		profileRes = expensesTravelService.getExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
 //		profileJsonRes = new JSONObject(profileRes);
 //
@@ -267,11 +255,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String editExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+		
 //		profileRes = expensesTravelService.getEditExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
 //		profileJsonRes = new JSONObject(profileRes);
 //
@@ -312,11 +296,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String saveExpanceTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+		
 //		profileRes = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(),
 //				expanceTravelAdvanceRequest);
 //		profileJsonRes = new JSONObject(profileRes);
@@ -358,11 +338,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String getExpanseTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+		
 //		profileRes = expensesTravelService.getExpanseTravelAdvance(tokengeneration.getToken(),
 //				expanceTravelAdvanceRequest);
 //		profileJsonRes = new JSONObject(profileRes);
@@ -404,11 +380,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String deleteExpanseTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+	
 //		profileRes = expensesTravelService.deletetExpanseTravelAdvance(tokengeneration.getToken(),
 //				expenseCategoryRequest);
 //		profileJsonRes = new JSONObject(profileRes);
@@ -450,11 +422,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String getExpenseBandList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
 		String profileRes = null;
-		JSONObject profileJsonRes = null;
-		HashMap<String, String> otpMap = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null;
-		String userRes = null;
+		
 //		profileRes = expensesTravelService.getExpenseBandList(tokengeneration.getToken(), expanceTravelAdvanceRequest);
 //		profileJsonRes = new JSONObject(profileRes);
 //

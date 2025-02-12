@@ -15,11 +15,11 @@ public interface ExpensesReimbursementService {
 
 	String saveExpensesReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
 
-	String getExpanseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+	String getExpanseReimbursement(String token, EncriptResponse expensesReimbursementRequest);
 
-	String viewExpenseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+	String viewExpenseReimbursement(String token, EncriptResponse expensesReimbursementRequest);
 
-	String deleteExpanseReimbursement(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+	String deleteExpanseReimbursement(String token, EncriptResponse jsonObject);
 
 	String saveExpensesReimbursementDraft(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
 
@@ -34,27 +34,27 @@ public interface ExpensesReimbursementService {
 
 	String getErupiLinkDlinkAccountDetail(String token, EncriptResponse erupiLinkBankAccount);
 
-	String getExpanseReimbursementApprovalList(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+	String getExpanseReimbursementApprovalList(String token, EncriptResponse expensesReimbursementRequest);
 
-	String getExpensesReimbursementDetailById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+	String getExpensesReimbursementDetailById(String token, EncriptResponse expensesReimbursementRequest);
 
-	String approveExpensesById(String token, ExpensesReimbursementRequest expensesReimbursementRequest);
+	String approveExpensesById(String token, EncriptResponse jsonObject);
 
-	String cashAdvanceRequest(String token, AdvanceTravelRequest advanceTravelRequest);
+	String cashAdvanceRequest(String token, EncriptResponse jsonObject);
 
-	String getCashAdanceRequestData(String token, AdvanceTravelRequest advanceTravelRequest);
+	String getCashAdanceRequestData(String token, EncriptResponse jsonObject);
 
-	String travelAdvanceRequest(String token, TravelRequest travelRequest);
+	String travelAdvanceRequest(String token, EncriptResponse travelRequest);
 
-	String getTravelReviewData(String token, AdvanceTravelRequest advanceTravelRequest);
+	String getTravelReviewData(String token, EncriptResponse jsonObject);
 
-	String travelAdvanceRequestUpdate(String token, TravelAdvanceRequestUpdate travelAdvanceRequestUpdate);
+	String travelAdvanceRequestUpdate(String token, EncriptResponse jsonObject);
 
-	String deleteAdvanceTravel(String token, TravelReimbursement travelReimbursement);
+	String deleteAdvanceTravel(String token, EncriptResponse jsonObject);
 
-	String getAdanceCashTravelApprpvalList(String token, AdvanceTravelRequest advanceTravelRequest);
+	String getAdanceCashTravelApprpvalList(String token, EncriptResponse jsonObject);
 
-	String approveAdvanceTravelRequest(String token, AdvanceTravelRequest advanceTravelRequest);
+	String approveAdvanceTravelRequest(String token, EncriptResponse jsonObject);
 
-	String getCashAdvanceDetailById(String token, AdvanceTravelRequest advanceTravelRequest);
+	String getCashAdvanceDetailById(String token, EncriptResponse jsonObject);
 }
