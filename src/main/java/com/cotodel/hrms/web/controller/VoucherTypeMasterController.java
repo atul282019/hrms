@@ -9,19 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
-import com.cotodel.hrms.web.response.BankMaster;
 import com.cotodel.hrms.web.response.VoucherTypeMaster;
 import com.cotodel.hrms.web.service.VoucherTypeMasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -46,8 +41,7 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	
 	@PostMapping(value="/savevoucherTypeMaster")
 	public @ResponseBody String saveBankMaster(ModelMap model, Locale locale, HttpSession session,VoucherTypeMaster voucherTypeMaster) {
-        String voucherResponse = null;
-        JSONObject voucherJsonResponse = null;
+ 
         Map<String, String> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
@@ -92,8 +86,7 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
     }
 	@GetMapping(value="/getvoucherTypeMaster")
 	public @ResponseBody String getVoucherTypeMasterList(ModelMap model, Locale locale, HttpSession session,VoucherTypeMaster voucherTypeMaster) {
-        String voucherResponse = null;
-        JSONObject voucherJsonResponse = null;
+    
         Map<String, Object> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
@@ -143,8 +136,7 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	public @ResponseBody String updateVoucherTypeMasterStatus(ModelMap model, Locale locale, 
 			HttpSession session, VoucherTypeMaster voucherTypeMaster) throws JsonProcessingException {
 
-		String voucherResponse = null;
-        JSONObject voucherJsonResponse = null;
+	
         Map<String, String> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;

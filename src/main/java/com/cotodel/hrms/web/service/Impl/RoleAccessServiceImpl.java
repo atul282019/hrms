@@ -41,7 +41,7 @@ public class RoleAccessServiceImpl implements RoleAccessService{
 	}
 
 	@Override
-	public String editUserRoleDTO(String token, RoleDTO requestDTO) {
+	public String editUserRoleDTO(String token, EncriptResponse requestDTO) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(requestDTO), applicationConstantConfig.userServiceBaseUrl+CommonUtils.editUserListWithRole);
 	}
 }

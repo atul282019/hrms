@@ -78,6 +78,7 @@ public class RoleAccessController extends CotoDelBaseController{
 	public @ResponseBody String editUserRole(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,@RequestBody RoleDTO requestDTO) {
 			logger.info("edit User with Role");	
+			String profileRes=null;
 			String token = (String) session.getAttribute("hrms");
 			
 			 // Validate or process the data as needed
@@ -96,8 +97,23 @@ public class RoleAccessController extends CotoDelBaseController{
 	        }
 
 			
-			return roleaccessservice.editUserRoleDTO(tokengeneration.getToken(),requestDTO);
-			//return new ResponseEntity<>("User roles updated successfully.", HttpStatus.OK);
+		//	return roleaccessservice.editUserRoleDTO(tokengeneration.getToken(),requestDTO);
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(requestDTO);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  roleaccessservice.editUserRoleDTO(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return profileRes;
 	}
 	
 	@PostMapping(value="/deleteUserRole")

@@ -161,8 +161,12 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("waitList");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/Terms&Conditions")){
-				RequestDispatcher rd = request.getRequestDispatcher("Terms&Conditions");
+			else if(requestURI.contains("/termsConditions")){
+				RequestDispatcher rd = request.getRequestDispatcher("termsConditions");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/refundPolicy")){
+				RequestDispatcher rd = request.getRequestDispatcher("refundPolicy");
 				rd.forward(request, response);
 			}
 			else{

@@ -52,10 +52,7 @@ public class BankMasterController extends CotoDelBaseController{
 	
 	@PostMapping(value="/savebankMaster")// saving details form bank master form
 	public @ResponseBody String saveBankMaster(ModelMap model, Locale locale, HttpSession session,BankMaster bankMaster) {
-        String bankResponse = null;
-        JSONObject bankJsonResponse = null;
-        Map<String, String> responseMap = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
+      
         String jsonResponse = null;
 
         // Call the service to save the BankMaster object

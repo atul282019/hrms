@@ -17,6 +17,6 @@ public interface RoleAccessService {
 
 	String userSearch(String token, EncriptResponse roleAccessRequest);
 
-	String editUserRoleDTO(String token, RoleDTO requestDTO);
+	String editUserRoleDTO(String token, EncriptResponse requestDTO);
 
 }
