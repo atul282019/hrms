@@ -74,7 +74,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	}
 	
 	@GetMapping(value="/getEmployeeOnboarding")
-	public @ResponseBody String getEmployeeOnboardingSuccessList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
+	public @ResponseBody String getEmployeeOnboardingSuccessList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) 
+	{
 		String profileRes=null;
 		
 		try {

@@ -8,6 +8,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.managerMaster;
 import com.cotodel.hrms.web.service.managerMasterService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -17,7 +18,7 @@ public class managerMasterServiceImpl implements managerMasterService{
 	public ApplicationConstantConfig applicationConstantConfig; 
 	
 	@Override
-	public String savemanagerMaster(String token, managerMaster managermasterRequest) {
+	public String savemanagerMaster(String token, EncriptResponse managermasterRequest) {
 		{
 	        // Convert the BankMaster object to JSON and make the request
 	        return CommonUtility.userRequest(
@@ -30,7 +31,7 @@ public class managerMasterServiceImpl implements managerMasterService{
 }
 
 	@Override
-	public String getmanagerMasterWithId(String token, managerMaster managermasterRequest)  {
+	public String getmanagerMasterWithId(String token, EncriptResponse managermasterRequest)  {
 		{
 	        // Convert the BankMaster object to JSON and make the request
 	        return CommonUtility.userRequest(

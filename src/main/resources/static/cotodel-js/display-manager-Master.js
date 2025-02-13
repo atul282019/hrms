@@ -3,7 +3,7 @@ function submitOrgId() {
     var orgIdInput = document.getElementById('orgIdInput');
     var orgId = orgIdInput.value.trim();
 	console.log("org id=",orgId);
-	orgId=65;
+	//orgId=65;
 
     // Validate that the orgId is a two-digit number
     if (/^\d{2}$/.test(orgId)) {
@@ -86,12 +86,12 @@ function toggleBankStatus(id, currentStatus) {
 		console.log("inside toggle status");
         $.ajax({
             type: "POST",
-            url: "/togglebankmasterStatus",
+           // url: "/togglebankmasterStatus",
             data: bankData,
             success: function(data) {
 				var response = jQuery.parseJSON(data);
                 if (response.status ===true) {
-                    loadBankMasterTable(); // Refresh the table data after updating
+                    submitOrgId(); // Refresh the table data after updating
                 } else {
                     console.log("Failed to update status");
                 }

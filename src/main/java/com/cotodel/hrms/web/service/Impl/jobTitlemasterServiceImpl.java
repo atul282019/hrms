@@ -8,6 +8,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.jobTitlemaster;
 import com.cotodel.hrms.web.service.jobTitlemasterService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -18,7 +19,7 @@ public class jobTitlemasterServiceImpl implements  jobTitlemasterService{
 	public ApplicationConstantConfig applicationConstantConfig; 
 
 	@Override
-	public String savejobTitlemaster(String token, jobTitlemaster jobtitlemasterRequest) {
+	public String savejobTitlemaster(String token, EncriptResponse jobtitlemasterRequest) {
 		{
 	        // Convert the BankMaster object to JSON and make the request
 	        return CommonUtility.userRequest(
@@ -31,7 +32,7 @@ public class jobTitlemasterServiceImpl implements  jobTitlemasterService{
 }
 
 	@Override
-	public String getjobTitlemaster(String token, jobTitlemaster jobtitlemasterRequest) {
+	public String getjobTitlemaster(String token, EncriptResponse jobtitlemasterRequest) {
 		{
 	        // Convert the BankMaster object to JSON and make the request
 	        return CommonUtility.userRequest(

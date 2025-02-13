@@ -31,7 +31,8 @@ public class AdvanceTravelRequest {
 	private String  remarks;
 	private String  cashDate;
 	private String  statusMessage;
-	
+	private String response;
+	private int status;
     private String approvalRemarks;
     private String approvedBy;
 	private Float approvalAmount;

@@ -179,6 +179,7 @@ function fetchOrgDetails(type) {
 		var panNoFormat = new RegExp('[A-Z]{5}[0-9]{4}[A-Z]{1}');
 		var onlyAlphabets=/^[A-Za-z\s]+$/;
 		var alphanumeric=/^[A-Za-z0-9][A-Za-z0-9 ]*[A-Za-z0-9]$/;
+		var tradename_regex=/^(?:\/?[A-Za-z0-9]+(?:\/[A-Za-z0-9]+)*)(?: [A-Za-z0-9]+(?:\/[A-Za-z0-9]+)*|\.)*\.?$/;
 		var onlyNumeric=/^\d+$/;
 		
 		const radio1 = document.getElementById("gst");
@@ -219,7 +220,7 @@ function fetchOrgDetails(type) {
 				document.getElementById("tradeName").focus();
 				return false;
 	        }
-			else if(!tradeName.match(alphanumeric)){
+			else if(!tradeName.match(tradename_regex)){
 				document.getElementById("tradeNameError").innerHTML="Only AlphaNumerics are allowed in Trade Name";
 				document.getElementById("tradeName").focus();
 				return false;
@@ -329,7 +330,7 @@ function fetchOrgDetails(type) {
 								document.getElementById("tradeName").focus();
 								return false;
 					        }
-							else if(!tradeName.match(alphanumeric)){
+							else if(!tradeName.match(tradename_regex)){
 								document.getElementById("tradeNameError").innerHTML="Only AlphaNumerics are allowed in Trade Name";
 								document.getElementById("tradeName").focus();
 								return false;

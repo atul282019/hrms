@@ -16,16 +16,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BankMaster;
 import com.cotodel.hrms.web.response.jobTitlemaster;
 import com.cotodel.hrms.web.service.jobTitlemasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @CrossOrigin
-public class jobTitlemasterController {
+/*public class jobTitlemasterController {
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
@@ -91,4 +94,80 @@ public class jobTitlemasterController {
         }       
         return jsonResponse;
     }
+}*/
+public class jobTitlemasterController {
+    
+    @Autowired
+    TokenGenerationImpl tokenGeneration;
+    
+    @Autowired
+	jobTitlemasterService jobTitlemasterservice;
+    
+    @Autowired
+	public ApplicationConstantConfig applicationConstantConfig;
+    
+    @PostMapping(value = "/savejobTitlemaster")
+    public @ResponseBody String saveJobTitleMaster(ModelMap model, Locale locale, HttpSession session, jobTitlemaster jobTitleMaster) {
+        String jobTitleResponse = null;
+        String jsonResponse = null;
+        Map<String, String> responseMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        
+        try {
+            // Encrypt request
+            String json = EncryptionDecriptionUtil.convertToJson(jobTitleMaster);
+            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            // Call the service with encrypted data
+            jobTitleResponse = jobTitlemasterservice.savejobTitlemaster(tokenGeneration.getToken(), jsonObject);
+            
+            // Decrypt response
+            EncriptResponse responseEnc = EncryptionDecriptionUtil.convertFromJson(jobTitleResponse, EncriptResponse.class);
+            String decryptedResponse = EncryptionDecriptionUtil.decriptResponse(responseEnc.getEncriptData(), responseEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject jobTitleJsonResponse = new JSONObject(decryptedResponse);
+            responseMap.put("status", jobTitleJsonResponse.getBoolean("status") ? MessageConstant.RESPONSE_SUCCESS : MessageConstant.RESPONSE_FAILED);
+            jsonResponse = mapper.writeValueAsString(responseMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return jsonResponse;
+    }
+    
+    @PostMapping(value = "/getjobMasterWithId")
+    public @ResponseBody String getJobTitleMaster(ModelMap model, Locale locale, HttpSession session,jobTitlemaster jobTitleMaster) {
+        String jobTitleResponse = null;
+        String jsonResponse = null;
+        Map<String, Object> responseMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        
+        try {
+            // Encrypt request
+            String json = EncryptionDecriptionUtil.convertToJson(jobTitleMaster);
+            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            // Call the service with encrypted data
+            jobTitleResponse = jobTitlemasterservice.getjobTitlemaster(tokenGeneration.getToken(), jsonObject);
+            
+            // Decrypt response
+            EncriptResponse responseEnc = EncryptionDecriptionUtil.convertFromJson(jobTitleResponse, EncriptResponse.class);
+            String decryptedResponse = EncryptionDecriptionUtil.decriptResponse(responseEnc.getEncriptData(), responseEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject jobTitleJsonResponse = new JSONObject(decryptedResponse);
+            if (jobTitleJsonResponse.getBoolean("status")) {
+                List<Object> jobList = jobTitleJsonResponse.getJSONArray("data").toList();
+                responseMap.put("status", true);
+                responseMap.put("data", jobList);
+            } else {
+                responseMap.put("status", false);
+            }
+            jsonResponse = mapper.writeValueAsString(responseMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return jsonResponse;
+    }
 }
+
