@@ -118,6 +118,11 @@
                 <a href="#" class="float-right mt-1"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
             </li>
  		-->
+		<li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 10}">
+		               <a class="nav-link" th:href="@{/requestVoucher}">
+		                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+		                   <span>Request Voucher</span></a>
+		           </li>
         </ul>
         
        

@@ -13,5 +13,8 @@ public interface VoucherTypeMasterService {
 	public String getVoucherTypeMasterList(String token,EncriptResponse voucherTypeMaster);
 	public String updatevoucherTypeMasterStatus(String token,EncriptResponse voucherTypeMaster);
 	
+	public String createVoucher(String token,EncriptResponse VoucherCreateRequest);
+	public String getRequestedVoucherList(String token,EncriptResponse VoucherGetRequest);
+	
 }
   
