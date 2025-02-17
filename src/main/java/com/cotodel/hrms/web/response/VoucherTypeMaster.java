@@ -22,4 +22,6 @@ public class VoucherTypeMaster {
 	private String mccDesc;
 	
 	
+	
+	
 }

@@ -42,7 +42,21 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 			    );
 	}
 
+	@Override
+	public String createVoucher(String token, EncriptResponse VoucherCreateRequest) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(VoucherCreateRequest),
+		        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.createVoucher
+		    );
+	}
 
+	@Override
+	public String getRequestedVoucherList(String token, EncriptResponse voucherTypeMaster) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(voucherTypeMaster),
+			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getRequestedVoucherList
+			    );
+	}
 	
 
 }

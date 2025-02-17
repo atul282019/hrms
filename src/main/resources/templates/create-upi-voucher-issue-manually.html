@@ -820,7 +820,7 @@
 	            url: "/getVoucherListWithIcon",
 	            success: function(data) {
 	                const parsedData = jQuery.parseJSON(data);
-
+					console.log("Get voucher list with data : ",parsedData);
 	                // Populate Voucher List
 	                parsedData.data.forEach(item => {
 	                    const li = document.createElement('li');
@@ -884,7 +884,7 @@
 	            data: { purposeCode },
 	            success: function(data) {
 	                const parsedData = jQuery.parseJSON(data);
-
+					console.log("fetchPurposeListByVoucherCode : ",parsedData);
 	                // Populate Purpose List with radio buttons
 					const imageElement = document.getElementById('voucherImageId');
 					const textElement = document.getElementById('voucherTextId');
