@@ -238,7 +238,7 @@
 			var employeeId = document.getElementById("empId").value.trim();
 			
 			var employerId = document.getElementById("employerId").value.trim();
-		    var voucherQuantity = document.getElementById("VoucherQuantity").value.trim();
+		    var mobno = document.getElementById("mobno").value.trim();
 		    var amount = document.getElementById("VoucherAmount").value.trim();
 		    var remarks = document.getElementById("VoucherRemarks").value.trim();
 
@@ -262,7 +262,7 @@
 		            "name": Name,
 		            "voucherType": voucherTypeText, // Selected text of Voucher Type
 		            "voucherSubType": voucherSubTypeText, // Selected text of Voucher Sub Type
-		            "voucherQuantity": voucherQuantity,
+		            "voucherQuantity": mobno,
 		            "amount": amount,
 		            "remarks": remarks,
 		            

@@ -26,7 +26,7 @@
 			    const th = document.createElement("th");
 			    th.textContent = role;
 			    tableHeadRow.appendChild(th);
-			});
+			}); 
 
 			// Populate table body
 			const tableBody = document.getElementById("userTable").querySelector("tbody");
@@ -486,7 +486,7 @@ function getAddOTP(){
 			dataType: 'json',
 			success: function(data) {
 			var obj = data;
-	        if (obj['status'] == "SUCCESS") {
+	        if (obj['status'] == true) {
 				$(".lastrowaddBtnWrap").hide();
 				$("#addRoleAcessOTPModal").show();
 				//addRoleAcessOTPModal
@@ -507,7 +507,7 @@ function getAddOTP(){
 				}, 1000);
 	            $("#roleAcessOTPModal").show();  
 	          } else {
-	            alert("Error: " + response.message);
+	            alert("Error: " + obj.message);
 	          }
 	        },
 	        error: function() {

@@ -122,6 +122,12 @@
 		                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
 		                   <span>Request Voucher</span></a>
 		           </li>
+				   
+	   <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 10}">
+	   		               <a class="nav-link" th:href="@{/directorOnboarding}">
+	   		                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+	   		                   <span>Director Onboarding</span></a>
+       </li>
         </ul>
         
        

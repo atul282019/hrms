@@ -39,7 +39,7 @@
                        </li>
                        <li class="nav-item">
                            <a class="nav-link" href="#">
-                               <span class="mr-2 small">Request Voucher</span>
+                               <span class="mr-2 small">Director Onboarding</span>
                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
                            </a>
                        </li>
@@ -88,12 +88,11 @@
 								<thead>
 									<tr>
 										<th>Name</th>
-										<th>Employee Id</th>
-										<th>Voucher Type</th>
-										<th>Voucher Sub Type</th>
+										<th> Id</th>
+										
 										<th>Mobile No</th>
-										<th>Voucher Amount</th>
-										<th>Creation Date</th>
+										
+										<th>Joining Date</th>
 										<th>Remarks</th>
 										<th>Status</th>
 									</tr>
@@ -106,7 +105,7 @@
 							<div class="last-add">
 								<div colspan="9" style="padding: .75rem;">
 									<a href="#" class="add-ctgry" data-toggle="modal"
-									data-target="#ModalRequestVoucher">+ Request Voucher</a>
+									data-target="#ModalRequestVoucher">+ Add Director</a>
 								</div>
 							</div>
 						</div>
@@ -152,7 +151,7 @@
 	$(document).ready(function(){
 		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' +'/requestVoucher"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  $('a[href="' +'/directorOnboarding"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
 	   $(".innernav").click(function(){
 	       $(".dropdownNav").addClass("active");
@@ -161,44 +160,13 @@
 	
 	</script>
 	
-	<script>
-	    function getVoucherSubTypes() {
-	        const selectedVoucherCode = document.getElementById('VoucherType').value;
-	        const subTypeDropdown = document.getElementById('VoucherSubType');
-	        
-	        if (!selectedVoucherCode) {
-	            subTypeDropdown.innerHTML = '<option value="">Select Voucher Sub Type</option>';
-	            return;
-	        }
-
-	        $.ajax({
-	            type: "GET",
-	            url: "/getPurposeListByVoucherCode",
-	            data: { purposeCode: selectedVoucherCode },
-	            success: function (data) {
-	                const parsedData = jQuery.parseJSON(data);
-	                
-	                subTypeDropdown.innerHTML = '<option value="">Select Voucher Sub Type</option>';
-	                
-	                parsedData.data.forEach(item => {
-	                    const option = document.createElement('option');
-	                    option.value = item.mcc;
-	                    option.textContent = item.mccDesc;
-	                    subTypeDropdown.appendChild(option);
-	                });
-	            },
-	            error: function (e) {
-	                alert('Error: ' + e.responseText);
-	            }
-	        });
-	    }
-	</script>
+	
 
 			<div class="modal fade" id="ModalRequestVoucher" tabindex="-1" role="dialog" aria-labelledby="ModalRequestVoucherTitle" aria-hidden="true">
 			    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" >
 			        <div class="modal-content" >
 			            <div class="modal-header pb-0">
-			                <h5 class="modal-title" id="ModalRequestVoucherTitle">Request Voucher</h5>
+			                <h5 class="modal-title" id="ModalRequestVoucherTitle">Director Onboarding</h5>
 			                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			                    <span aria-hidden="true">&times;</span>
 			                </button>
@@ -211,34 +179,25 @@
 			                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
 			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
 
-			                        <div class="card-form my-3">
-			                           
-			                            <select class="form-select form-control no-bg border-0" id="VoucherType" name="VoucherType" onchange="getVoucherSubTypes()">
-			                                <option value="">Select Voucher Type</option>
-			                            </select>
-			                        </div>
-			                        <div class="error-msg" id="VoucherTypeerror" style="color:red"></div>
-
-			                        <div class="card-form my-3">
-			                            
-			                            <select class="form-select form-control no-bg border-0" id="VoucherSubType" name="VoucherSubType" >
-			                                <option value="">Select Voucher Sub Type</option>
-			                            </select>
-			                        </div>
-			                        <div class="error-msg" id="VoucherSubTypeerror" style="color:red"></div>
-
 									<div class="card-form my-3">
-                                         <label for="mobno">Mobile Number</label>
-                                         <input type="text" class="form-input" id="mobno" name="mobno"  th:value="${session.mobile}" readonly>
+			                            <label for="DirectorName">Name</label>
+			                            <input type="text" class="form-input" id="DirectorName" name="DirectorName">
+			                        </div>
+			                        <div class="error-msg" id="VoucherRemarksError" style="color:red"></div>
 
-                                     </div>
+			                        
+									<div class="card-form my-3">
+                                        <label for="">Mobile</label>
+                                        <input type="text" class="form-input" id="mobno" maxlength="10"
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+                                    </div>
  										 <div class="error-msg" id="mobnoError" style="color:red"></div>
 										 
-			                        <div class="card-form my-3">
-			                            <label for="VoucherAmount">Voucher Amount</label>
-			                            <input type="number" class="form-input" id="VoucherAmount" name="VoucherAmount">
-			                        </div>
-			                        <div class="error-msg" id="VoucherAmountError" style="color:red"></div>
+										 <div class="card-form my-3">
+                                             <label for="">Joining Date</label>
+                                             <input type="date" class="form-input" id="hireDate" >
+                                         </div>
+  										<div class="error-msg" id="hireDateError" style="color:red"></div>
 
 			                        <div class="card-form my-3">
 			                            <label for="VoucherRemarks">Remarks</label>

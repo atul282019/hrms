@@ -44,7 +44,7 @@ function getOTP() {
 				           (seconds < 10 ? "0" + seconds : seconds);
 
 				       timeleft -= 1;
-					   
+					    
 					   document.getElementById("optBtn").style.display = "none";
 					   document.getElementById("orderId").value = obj['orderId'];
 					   document.getElementById("verifyotpdiv").style.display = "block";
@@ -123,7 +123,7 @@ function resendOTP() {
             var obj = data;
             document.getElementById("loginLoader").style.display = "none";
 
-            if (obj['status'] == "SUCCESS") {
+            if (obj['status'] == true) {
                 $('#errorOtp').hide('slow');
                 document.getElementById("countdown").innerHTML = "00:60"; // Reset countdown
                 startCountdown(); // Restart the countdown logic
