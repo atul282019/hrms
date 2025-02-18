@@ -120,7 +120,8 @@ function getEmployeeOnboardingByManagerId(managerId) {
 						            $(".profile-pic01").attr("src", defaultImage);
 						        }
 
-						        getEmployeeOnboardingByManagerId(data.managerId);
+						        //getEmployeeOnboardingByManagerId(data.managerId);
+								getEmployeeOnboardingByManagerId(employeeId);
 						    } else {
 						        console.log("No data found for the given Employee ID");
 						    }
