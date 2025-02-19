@@ -112,24 +112,23 @@
 		                         <div class="form-check">
 		                             <input type="radio" class="form-check-input" name="industry" value="Other"> 
 		                             <input type="text" name="other_reason" placeholder="Others"/>
-		                         </div>
+		                         </div>  
 		                     </div>
-		                 </div>
+		                 </div> 
 						  <div class="mb-4">
-  		  		                  <label for="Contact Person Name" class="form-label">Contact Person Name</label>
-  		  		                  <input type="text" class="form-control" id="companyName"  required>
+  		  		                  <label for="contactPerson" class="form-label">Contact Person Name</label>
+  		  		                  <input type="text" class="form-control" id="contactPerson"  required>
   		  		              </div>
   							  <div class="mb-4">
-  			  		                  <label for="Contact Number" class="form-label">Contact Number</label>
-  			  		                  <input type="number" class="form-control" id="Contact Number"  required>
+  			  		                  <label for="contactNumber" class="form-label">Contact Number</label>
+  			  		                  <input type="number" class="form-control" id="contactNumber" maxlength="10" required>
   			  		              </div>
   							  <div class="mb-4">
-  		  		                  <label for="Email ID" class="form-label">Email ID</label>
-  		  		                  <input type="email" class="form-control" id="Contact Number"  required>
+  		  		                  <label for="emailId" class="form-label">Email ID</label>
+  		  		                  <input type="email" class="form-control" id="emailId"  required>
   		  		              </div>
 					  
-		              <button type="submit" class="btn btn-submit w-100" 							  data-toggle="modal"
-							                                  data-target="#waitlistApproved">Join Waitlist</button>
+		              <button type="submit" class="btn btn-submit w-100" onclick="saveWaitlistData()">Join Waitlist</button>
 		          </form>
 		      </div>
 		  </div>
@@ -163,7 +162,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+	<script type="text/javascript" src="cotodel-js/cotodel-Waitlist.js"></script>
 	
 	<style>
 		.form-check-label
@@ -222,41 +221,7 @@
 			  }
 			  .f
 	    </style>
-	<script>
-
-	$( document ).ready(function() {
-		var error = document.getElementById("errorMessage").value;
-		var mo = document.getElementById("mo").value;
-		var orderid = document.getElementById("orderid").value;
-		
-		if(error==="Invalid Request !!"){
-	    document.getElementById("loginIdDiv").style.display="none";
-	    document.getElementById("optBtn").style.display="block";
-	    }
-		else if(error==="Incorrect OTP ||"){
-			
-			  //startCountdown();
-			  document.getElementById("mob").value=mo;
-			  document.getElementById("orderId").value=orderid;
-			  document.getElementById("loginIdDiv").style.display="block";
-			  document.getElementById("optBtn").style.display = "none";
-			  document.getElementById("verifyotpdiv").style.display = "block";
-			 // window.location.href="/login";
-		}
-		else if(error==="No Role assigned to User. Please contact to Organisation Admin !!"){
-			document.getElementById("loginIdDiv").style.display="none";
-		    document.getElementById("optBtn").style.display="block";
-		}else{
-			
-		}
-	});
-
-
-	  $(document).ready(function() {
-	    $('#successError').delay(5000).fadeOut(600);
-	});
-
-	</script>
+	
 	<style>#toggleOtpVisibility {
 	    color: #007bff; /* Primary color for the icon */
 	    position: relative;

@@ -62,7 +62,7 @@
 							                        <div class="error-msg" id="mobError" style="color:red"></div>
 							                        <div  id="loginIdDiv" style="display: none" >
 							                        <span>We have sent you an email with OTP</span>
-
+  
 							                        
 							                        <div class="otp-box d-flex" id="otpInputBox" >
 							                           <!--  <input  class="form-control form-control-sm" type="password" id="password" 
@@ -171,11 +171,12 @@
 		else if(error==="Incorrect OTP ||"){
 			
 			  //startCountdown();
-			  document.getElementById("mob").value=mo;
+			  document.getElementById("mobile").value=mo;
 			  document.getElementById("orderId").value=orderid;
 			  document.getElementById("loginIdDiv").style.display="block";
 			  document.getElementById("optBtn").style.display = "none";
 			  document.getElementById("verifyotpdiv").style.display = "block";
+			 
 			 // window.location.href="/login";
 		}
 		else if(error==="No Role assigned to User. Please contact to Organisation Admin !!"){

@@ -1,7 +1,9 @@
 package com.cotodel.hrms.web.controller;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,8 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.ReputeCompanyDetails;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
-import com.cotodel.hrms.web.response.VoucherTypeMaster;
+import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.service.SingleUserCreationService;
+import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
+import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
 
 @Controller
@@ -20,6 +29,14 @@ public class StaticPageController extends CotoDelBaseController{
 
 	private static final Logger logger = LoggerFactory.getLogger(StaticPageController.class);
 	
+	@Autowired
+	ApplicationConstantConfig applicationConstantConfig;
+	
+	@Autowired
+	SingleUserCreationService usercreationService;
+	
+	@Autowired
+	TokenGenerationImpl tokengeneration;
 	
 	@GetMapping(value="/index")
 	public ModelAndView firstPage(Model model) {
@@ -30,9 +47,48 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("signin", "command", "");
 	}	
 	@GetMapping(value="/login")
-	public ModelAndView loginPage(Model model) {
+
+	public ModelAndView loginPage(Model model,@RequestParam(defaultValue = "") String code,
+            @RequestParam(defaultValue = "") String vault_url,
+            @RequestParam(defaultValue = "") String hrms_id,
+            @RequestParam(defaultValue = "") String hrms_name,
+            @RequestParam(defaultValue = "") String hrms_logo_url,
+            @RequestParam(defaultValue = "") String company_id,
+            @RequestParam(defaultValue = "") String role) {
+
 		logger.info("opening login Page");
-	    String mobile  = (String) session.getAttribute("mobile");
+		ReputeCompanyDetails repute=CommonUtility.getReputeToken(code, vault_url, applicationConstantConfig.tokenRedirectUrl);
+		logger.info("opening login Page::"+repute.getEmail());
+		logger.info("opening login Page::"+repute.getPhoneNumber());
+		String profileRes=null;
+		JSONObject profileJsonRes=null;
+		UserRegistrationRequest userForm=new UserRegistrationRequest();
+		try {
+			
+		
+		userForm.setEmail(repute.getEmail());
+		String mobileNumber= repute.getPhoneNumber();
+        String mobile1 = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
+        userForm.setMobile(mobile1);
+		 String json = EncryptionDecriptionUtil.convertToJson(userForm);
+         //2-json string data encript
+         EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+		
+         String encriptResponse = usercreationService.singleUserCreationEncript(tokengeneration.getToken(),jsonObject);
+         //3-decript data convert to object            
+         EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+         //4-object data to decript to json
+         profileRes=EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+         profileJsonRes= new JSONObject(profileRes);
+ 		if(profileJsonRes.getBoolean("status")) { 
+ 		//loginservice.sendEmailToEmployee(userForm);
+ 			
+ 		}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		logger.info("opening login Page::"+repute.getEmail());
+		String mobile  = (String) session.getAttribute("mobile");
 		if(mobile!=null) {
 			model.addAttribute("message","");
 			model.addAttribute("mobile","");
@@ -1166,5 +1222,27 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+		
+		@GetMapping(value="/directorOnboarding")
+		public ModelAndView directorOnboarding(Model model) {
+			String token = (String) session.getAttribute("hrms");
+			Integer id  = (Integer) session.getAttribute("id");
+			if(token!=null) {
+				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+				if(obj!=null) {
+					if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+					model.addAttribute("name",obj.getName());
+					model.addAttribute("org",obj.getOrgName());
+					model.addAttribute("mobile",obj.getMobile());
+					model.addAttribute("email",obj.getEmail());
+					model.addAttribute("employerId",id);
 
+					return new ModelAndView("directorOnboarding", "command", "");
+				}
+				 return new ModelAndView("error", "command", "");
+			}
+			return new ModelAndView("index", "command", "");
+		}
+		return new ModelAndView("index", "command", "");
+	}
 }

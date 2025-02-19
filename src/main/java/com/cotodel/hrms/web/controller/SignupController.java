@@ -40,7 +40,7 @@ public class SignupController  extends CotoDelBaseController{
 	SingleUserCreationService usercreationService;
 	
 	@Autowired
-	TokenGenerationImpl tokengeneration;
+	TokenGenerationImpl tokengeneration; 
 	
 	@PostMapping(value="/registerUser")
 	public @ResponseBody String registerUser(HttpServletRequest request,UserRegistrationRequest userForm) {
@@ -109,6 +109,7 @@ public class SignupController  extends CotoDelBaseController{
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

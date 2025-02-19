@@ -14,9 +14,11 @@ public class ErupiVoucherCreateRequest {
 	private String name;
 	private String voucherType;
 	private String voucherSubType;
-	private int voucherQuantity;
+	private Integer voucherQuantity;
 	private Float amount;
-	private String remarks;
+	private String remarks; 
 	private String response;
+	private Integer mobno;
+	private String status;
 
 }
