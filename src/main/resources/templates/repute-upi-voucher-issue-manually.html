@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Create UPI Voucher Issuance - Issue Manually</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
+	<script type="text/javascript" src="js/xsls-export.js"></script>
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList()" >
+
+ <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+	<!-- Sidebar -->
+					      
+	 <div th:insert="fragments/sidenav.html :: sidevav"></div>
+	
+	 <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">UPI Voucher  Issuance</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+					<ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                              
+                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+							          <i class="fas fa-user-circle"></i> Logout         
+							        </a>
+					          </div> -->  
+                              <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                   </ul>	
+                </nav>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <div class="upi-voucher-wrap">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <h3 class="mb-0">UPI Voucher Issuance </h3>
+                                    </div>
+                                    <div class="col-12 col-md-8 mx-auto">
+                                        <div class="breadcrumb-wrap">
+                                            <div class="breadcrumb-in active">
+                                                <span>1</span>
+                                                <label>Enter Voucher Details</label>
+                                            </div>
+                                            <div class="breadcrumb-in"  id="lable2">
+                                                <span>2</span>
+                                                <label>Authenticate Issuance</label>
+                                            </div>
+                                            <div class="breadcrumb-in" id="lable3">
+                                                <span>3</span>
+                                                <label>Vouchers Issued</label>
+                                            </div>
+                                        </div>
+                                    </div>
+										
+                                </div>
+                            </div>
+
+                            <div class="selectvouchers-update">
+                                <p>Last updated on</p>
+                                <span th:text="${session.formattedDate}" ></span>
+                            </div>
+
+                            <div class="selectvouchers-top">
+                                <div class="selectvouchers-topleft">
+                                    <div class="selectvouchers-topleft-cards">
+                                      <!--  <div class="selectvouchers-topleft-cardsdiv">
+                                            <div class="INDIANB-NS-wrapper"><img class="INDIANB-NS"
+                                                    src="img/indianbank.png" width="16px"></div>
+                                            <div class="text-wrapper">Indian Bank</div>
+                                            <div class="xxxx">xxxx3456</div>
+                                            <img class="dropdown" src="img/arrowdown.svg" width="16px">
+                                        </div>-->
+										<select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber()">
+										     <option value="" class="test">Select Bank</option>
+	                                     </select>
+                                        <div class="div-2">
+                                            <div class="text-wrapper-2">Available Balance</div>
+                                            <p class="element"><span class="span">₹</span> <span
+                                                    class="text-wrapper-3">0,00,000</span></p>
+                                            <img class="recall" src="img/recall.svg">
+                                        </div>
+                                        <p class="last-updated-on"><span th:text="${session.formattedDate}" ></span></p>
+
+                                    </div>
+									<div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
+                                       <h5>Total Vouchers</h5>
+                                       <div class="d-flex justify-content-between my-1 mb-3">
+                                           <span>Number</span>
+                                           <span id="totalNumber"></span>
+                                       </div>
+                                       <div class="d-flex justify-content-between my-1">
+                                           <span>Value</span>
+                                           <span id="totalValue"></span>
+                                       </div>
+                                   </div>
+                                </div>
+								
+							  <div class="selectvouchers-topright">
+		                              <div class="selectvouchers-carosel responsive-content-demo" >
+		                                 <div id="jsonData" class="demo-slider"></div>
+		                                  
+		                              </div>
+		                          </div>
+								  
+                            </div>
+							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
+							                              <div class="d-flex">
+							                                  <h3>Employee List </h3>
+							                              </div>
+
+							                              <div>
+							                                  <p>Please input the details for the issuance of vouchers.</p>
+							                              </div>
+
+							                              <div class="table-responsive">
+							                                  <table class="table table-reimbursements selectvouchers-table">
+							                                      <thead>
+							                                          <tr>
+							                                              <th>Employee Name</th>
+																		  <th>Mobile Number</th>
+							                                              <th>DOB</th>
+							                                              <th>GENDER</th>
+							                                              <th>DEPARTMENT</th>
+							                                              <th>eMPLOYMENT TYPE</th>
+							                                              <th>DESIGNATION</th>
+							                                              <th>DOJ</th>
+							                                              <th>EMAIL</th>
+																		  <th>EMPLOYMENTS STATUS</th>
+																		  
+							                                          </tr>
+							                                      </thead>
+							                                      <tbody id="voucherTableBody">
+																	<tr>
+						                                              <th>Employee Name</th>
+																	  <th>Mobile Number</th>
+						                                              <th>DOB</th>
+						                                              <th>GENDER</th>
+						                                              <th>DEPARTMENT</th>
+						                                              <th>eMPLOYMENT TYPE</th>
+						                                              <th>DESIGNATION</th>
+						                                              <th>DOJ</th>
+						                                              <th>EMAIL</th>
+																	  <th>EMPLOYMENTS STATUS</th>
+																	  
+						                                          </tr>
+							                                      </tbody>
+							                                  </table>
+							                              </div>
+
+							                          							
+							                          </div>
+
+                            <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
+                                <div class="d-flex">
+                                    <h3>Enter Details </h3>
+                                </div>
+
+                                <div>
+                                    <p>Please input the details for the issuance of vouchers.</p>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-reimbursements selectvouchers-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Mobile Number</th>
+                                                <th>Voucher Type</th>
+                                                <th>Redemption Type</th>
+                                                <th>Amount</th>
+                                                <th>Start Date</th>
+                                                <th>Validity</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="voucherTableBody">
+                                            <tr>
+                                                <td>
+                                                    <div class="autocomp-input-wrap table-input">
+                                                        <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
+                                                            placeholder="Enter Name" autocomplete="off">
+                                                        <div id="autocomplete-suggestions"
+                                                            class="autocomplete-dropdown"></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="table-input" id="mobile" maxlength="10" readonly
+													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                     placeholder="Enter Mobile Number">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="table-input table-input-voucher selectMCC" id="btnforvccategoryforbulkissuance"
+                                                     placeholder="Select Voucher">
+                                                </td>
+                                                <td>
+                                                    <select class="GeneralSelect" id="redemptionType">
+                                                        <option value="" class="test">Choose Type </option>
+                                                        <option value="Single">Single</option>
+                                                        <option value="Multi">Multi</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="table-input" id="amount" placeholder="Enter Amount"
+													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6">
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <input type="date" class="table-input" id="startDate" placeholder="Salect Date">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <select class="GeneralSelect" id="expiryDate">
+                                                        <option value="7 Days" class="test">7 Days </option>
+                                                        <option value="30 Days">30 Days</option>
+                                                        <option value="90 Days">90 Days</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+                                                </td>
+                                            </tr>
+											<tr>
+                                           <td>
+											  <div class="error-msg" id="beneficiaryNameError" style="color:red"></div>
+										   </td>
+										   <td>
+											<div class="error-msg" id="beneficiaryMobileError" style="color:red"></div>
+
+                                            </td>
+                                           <td>
+											<div class="error-msg" id="voucherError" style="color:red"></div>
+
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="redemptionTypeError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="amountError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="startDateError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											<div class="error-msg" id="expiryDateError" style="color:red"></div>
+                                           </td>
+                                           <td>
+											
+                                           </td>
+                                       </tr>
+                                      <!-- <tr class="text-center">
+                                                <td colspan="8" style="background: #EAF4EF;">
+                                                    <a href="#" class="text-success" onclick="addNewVoucher(event)">+ Add New Voucher</a>
+                                                </td>
+                                            </tr>-->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="w-100 my-3 text-right">
+                                    <button class="btn btn-border-primary"
+                                        onclick="window.location.href='/upiVoucherIssuanceNew';">Back</button>
+                                    <button type="button" class="btn btn-primary" onclick="singleVoucherValidation()">Continue</button>
+                                </div>								
+                            </div>
+
+							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap04" style="display: none;">
+	                                <div class="d-flex">
+	                                    <h3>Verify Details </h3>
+	                                </div>
+	                                <div>
+	                                    <p>Please Verify the details for the issuance of vouchers.</p>
+	                                </div>
+
+	                                <div class="table-responsive">
+	                                    <table class="table table-reimbursements selectvouchers-table">
+	                                        <thead>
+	                                            <tr>
+	                                                <th>Name</th>
+	                                                <th>Mobile</th>
+	                                                <th>Voucher Type</th>
+	                                                <th>Redemption Type</th>
+	                                                <th>Amount</th>
+	                                                <th>Start Date</th>
+	                                                <th>Validity</th>
+	                                            </tr>
+	                                        </thead>
+												<tbody>
+	                                                <tr>
+	                                                    <td><span id="namelbl"></span></td>
+														<td><span id="mobilelbl"></span></td>
+	                                                    <td><span id="voucherlbl"></span></td>
+	                                                    <td><span id="redemptionLbl"></span></td>
+														<!--<td><span id="vmcclbl"></span></td>-->
+	                                                    <td><span id="amountlbl"></span></td>
+	                                                    <td><span id="startdatelbl"></span></td>
+	                                                    <td><span id="validitylbl"></span></td>
+	                                                           
+	                                                </tr>
+	                                               
+	                                            </tbody>
+	                                    </table>
+	                                </div>
+									<div class="form-group mt-3">
+                                       <div class="custom-control custom-checkbox small">
+                                           <input type="checkbox" class="custom-control-input" id="customCheck45" onchange="toggleSubmitButton()">
+                                           <label class="custom-control-label text-left" for="customCheck45">I confirm
+                                               that the details uploaded above are correct to the best of my knowledge,
+                                               and are approved by the competent authority in my organization.</label>
+                                       </div>
+									<div class="error-msg" id="errorMessage" style="color:red"></div>
+                                   </div>
+
+								   <div class="clearfix"></div>
+								   <div id="issuemsgdiv" style="display:none" class="alert alert-success text-center">
+								   	<div id="issuesuccmsg"></div>   
+								   </div>
+								   <div id="issuesfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+								   	<div id="issuesfailmsg"></div>
+								   </div>	
+								   
+	                                <div class="w-100 my-3 text-right">
+	                                    <button class="btn btn-border-primary" id="verifyDetailBack">Back</button>
+	                                    <button class="btn btn-primary" id="submitButton"  disabled >Issue Voucher</button>
+	                                </div> 
+									<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}"> 
+									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+									<input type="hidden" class="form-input" id="voucherId" name="voucherId"> 
+									<input type="hidden" class="form-input" id="voucherCode" name="voucherCode"> 
+									<input type="hidden" class="form-input" id="voucherType" name="voucherType"> 
+									<input type="hidden" class="form-input" id="voucherSubType" name="voucherSubType"> 
+									<input type="hidden" class="form-input" id="voucherDesc" name="voucherDesc"> 
+									<input type="hidden" class="form-input" id="purposeCode" name="purposeCode"> 
+									<input type="hidden" class="form-input" id="purposeName" name="purposeName"> 
+									<input type="hidden" class="form-input" id="activeStatus" name="activeStatus"> 
+									<input type="hidden" class="form-input" id="createdby" name="createdby"> 
+									<input type="hidden" class="form-input" id="bankName" name="bankName"> 
+									<input type="hidden" class="form-input" id="bankCode" name="bankCode"> 
+									<input type="hidden" class="form-input" id="accountHolderName" name="accountHolderName"> 
+									<input type="hidden" class="form-input" id="acNumber" name="acNumber">
+									<input type="hidden" class="form-input" id="accountType" name="accountType"> 
+									<input type="hidden" class="form-input" id="ifsc" name="ifsc">
+									
+									<input type="hidden" class="form-input" id="erupiFlag" name="erupiFlag"> 
+									<input type="hidden" class="form-input" id="branchCode" name="branchCode"> 
+									<input type="hidden" class="form-input" id="authStatus" name="authStatus">
+									
+									<input type="hidden" class="form-input" id="authResponse" name="authResponse">
+									<input type="hidden" class="form-input" id="banklinkedMobile" name="mobile"> 
+									<input type="hidden" class="form-input" id="accstatus" name="accstatus"> 
+									
+									<input type="hidden" class="form-input" id="orgId" name="orgId"> 
+									<input type="hidden" class="form-input" id="orgCode" name="orgCode"> 
+									<input type="hidden" class="form-input" id="tid" name="tid"> 
+									<input type="hidden" class="form-input" id="merchentIid" name="merchentIid"> 
+									<input type="hidden" class="form-input" id="mcc" name="mcc"> 
+									<input type="hidden" class="form-input" id="submurchentid" name="submurchentid"> 
+									<input type="hidden" class="form-input" id="merchentid" name="merchentid">
+									<input type="hidden" class="form-input" id="payerva" name="payerva"> 													
+	                        </div>
+							
+							<div class="upi-voucher-wrap" id="upi-voucher-wrapThree" style="display: none;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <h3>Report for Voucher Issuance</h3>
+                                        <p>Please cross-check the details for the issuance of vouchers. </p>
+                                    </div>
+                                    <div class="rightdownload mb-3">
+                                        <button class="download-vc" id="downloadBtn">
+                                            <img src="img/download-vouchers.svg" alt="">
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr>
+
+								<div class="table-responsive">
+						        <table class="table table-reimbursements selectvouchers-table" id="successFailVoucherTable">
+						            <thead>
+						                <tr>
+						                    <th>Name</th>
+						                    <th>Mobile Number</th>
+						                    <th>Voucher Type</th>
+						                    <th>Redemption Type</th>
+						                    <th>Amount</th>
+						                    <th>Start Date</th>
+						                    <th>Validity</th>
+						                    <th>Status</th>
+						                    <th></th>
+						                </tr>
+						            </thead>
+						            <tbody>
+						                
+						            </tbody>
+						        </table>
+						    </div>
+                      
+                                <div class="row">
+                                    <div class="col-12 text-right my-3">
+                                        <a th:href="@{/upiVoucherIssuanceNew}" class="btn btn-primary mb-1">GO TO DASHBOARD</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+							
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+		
+
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+	<!-- Bootstrap core JavaScript-->
+	  <script src="vendor/jquery/jquery.min.js"></script>
+	  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	  <!-- Core plugin JavaScript-->
+	  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	  <!-- Custom scripts for all pages-->
+	  <script src="js/sb-admin-2.min.js"></script>
+
+	  <!-- Page level plugins -->
+	  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+	  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+	  <!-- Page level custom scripts -->
+	  <script src="js/demo/datatables-demo.js"></script>
+
+	  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+	  <script type="text/javascript" src="js/slick/slick.min.js"></script>
+
+	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+		
+	<script>
+			$('.responsive-content').slick({
+			            dots: false,
+			            infinite: false,
+			            speed: 300,
+			            slidesToShow: 4,
+			            slidesToScroll: 1,
+			            draggable: false,
+			            responsive: [
+			                {
+			                    breakpoint: 1024,
+			                    settings: {
+			                        slidesToShow: 3,
+			                        slidesToScroll: 1,
+			                        infinite: true
+			                    }
+			                },
+			                {
+			                    breakpoint: 600,
+			                    settings: {
+			                        slidesToShow: 2,
+			                        slidesToScroll: 1
+			                    }
+			                },
+			                {
+			                    breakpoint: 480,
+			                    settings: {
+			                        slidesToShow: 1,
+			                        slidesToScroll: 1
+			                    }
+			                }
+			            ]
+			        });
+		</script>
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/reputeUpiVoucherIssuance"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+
+	</script>
+	<script>
+	  $(document).ready(function() {
+	    $('#submitButton').click(function() {
+	      // Call the AJAX function
+		  document.getElementById('submitButton').disabled=true;
+		  const checkbox = document.getElementById('customCheck45');
+	  		 const errorMessage = document.getElementById('errorMessage');
+	  		 if (checkbox.checked) {
+	  		    errorMessage.textContent = "";
+	  		  } else {
+	  		    errorMessage.textContent = "Please check consent"; 
+	  			return false;
+	  		  }
+	  		
+		  var employerMobile = document.getElementById("employerMobile").value;
+		  document.getElementById("authenticate").disabled = false;
+	      $.ajax({
+	        url:"/smsOtpSender",
+	        type: 'POST',
+			data: {
+						"mobile": employerMobile,
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj.status=== true) {
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+				var resendCodeElement = document.getElementById("resendCode");
+	               // Hide the "Resend OTP" link initially
+	               resendCodeElement.style.display = "none";
+				var downloadTimer = setInterval(function() {
+					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+					timeleft -= 1;
+					document.getElementById("orderId").value= obj['orderId'];
+					if (timeleft < 0) {
+						clearInterval(downloadTimer);
+						resendCodeElement.style.display = "block";
+						document.getElementById("authenticate").disabled = true;
+					}
+								}, 1000);
+	            $('#otpModal').fadeIn();
+	          } else {
+				document.getElementById('submitButton').disabled=false;
+	            alert("Error: " + response.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+	    });
+
+	    // Close the modal when clicking outside the modal content
+	    $(window).on('click', function(event) {
+	      if (event.target.id === 'otpModal') {
+	        $('#otpModal').fadeOut();
+	      }
+	    });
+	  });
+	  
+	  
+	</script>
+	
+    <script>
+        $(document).ready(function () {
+            $("#linkBankAccount").click(function () {
+                $("#linkedAccount").show();
+                $("#nolinkBankAccount").hide();
+
+            });
+        });
+        $(document).ready(function () {
+
+            $("#selectvouchers").click(function () {
+                $("#selectvouchers-wrap02").show();
+                $("#selectvouchers-wrap01").hide();
+            });
+
+            $("#authenticatereport").click(function () {
+                $("#selectvouchers-wrap05").show();
+                $(".modal").hide();
+                $("#selectvouchers-wrap04").hide();
+            });
+			
+			$("#verifyDetailBack").click(function () {
+			    $("#selectvouchers-wrap03").show();
+			    $("#selectvouchers-wrap04").hide();
+			});
+					
+
+            $(".selectMCC").click(function () {
+                $("#modalforvccategoryforbulkissuance").show();
+            });
+        });
+
+        $(document).ready(function () {
+            $('.vouchers-checkbox1').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers1').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers1').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox2').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers2').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers2').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox3').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers3').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers3').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox4').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers4').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers4').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox5').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers5').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers5').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox6').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers6').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers6').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox7').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers7').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers7').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox8').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers8').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers8').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox9').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers9').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers9').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox10').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers10').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers10').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox11').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers11').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers11').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+            $('.vouchers-checkbox12').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.cards-upivouchers12').addClass('highlight'); // Add class when checked
+                } else {
+                    $('.cards-upivouchers12').removeClass('highlight'); // Remove class when unchecked
+                }
+            });
+
+        });
+
+        ////////////////////////
+       function userSearchAndPupolate(){
+		const searchInput = document.getElementById('search').value;
+		const searchInput2 = document.getElementById('search');
+		const mobile = document.getElementById('mobile');
+		
+		const suggestionsDropdown = document.getElementById('autocomplete-suggestions');
+	    const employerId = document.getElementById('employerId').value;
+		       // Sample list of users (this can be dynamic)
+			$.ajax({
+            type: "POST",
+            url: "/voucherUserSearch",
+            dataType: 'json',
+            data: {
+                "orgId": employerId,
+                "userName": searchInput
+            },
+            success: function (data) {
+                //document.getElementById("signinLoader").style.display = "none";
+				
+				//data.data
+		     // Event listener to trigger autocomplete
+		      
+		           const query = searchInput2.value.toLowerCase();
+		           if (query) {
+		               const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
+		               displaySuggestions(filteredUsers);
+		           } else {
+		               suggestionsDropdown.style.display = 'none';
+		           }
+		     
+               
+            },
+            error: function (e) {
+                document.getElementById("signinLoader").style.display = "none";
+                console.error('Error:', e);
+                alert('An error occurred while fetching the data.');
+            }
+        });
+
+		      
+
+	       // Function to display the filtered suggestions in the dropdown
+	       function displaySuggestions(userList) {
+	           suggestionsDropdown.innerHTML = ''; // Clear previous suggestions
+	           userList.forEach(user => {
+	               const div = document.createElement('div');
+	               div.classList.add('autocomplete-suggestion');
+
+	               // Create content with username, profile, and contact number
+	               div.innerHTML = `
+				     <strong>${user.email}</strong>
+				     <span class="user-profile">${user.username}</span>
+				     <span class="user-contact">${user.mobile}</span>
+				   `;
+
+	               div.addEventListener('click', function () {
+	                   searchInput2.value = user.username; // Set input value to the selected user
+					   mobile.value = user.mobile; // Set input value to the selected user
+	                   suggestionsDropdown.style.display = 'none'; // Hide dropdown
+	               });
+
+	               suggestionsDropdown.appendChild(div);
+	           });
+
+	           suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
+	       }
+
+   }
+
+    </script>
+
+	<script>
+	    function getVoucherListWithIcon() {
+	        const voucherList = document.getElementById('voucherList');
+	        const purposeList = document.getElementById('purposeList');
+	        
+	        $.ajax({
+	            type: "GET",
+	            url: "/getVoucherListWithIcon",
+	            success: function(data) {
+	                const parsedData = jQuery.parseJSON(data);
+					console.log("Get voucher list with data : ",parsedData);
+	                // Populate Voucher List
+	                parsedData.data.forEach(item => {
+	                    const li = document.createElement('li');
+	                    li.classList.add('voucher-item');
+	                    li.setAttribute('data-value', item.purposeCode);
+
+	                    const a = document.createElement('a');
+	                    a.href = "javascript:void(0);";
+
+	                    const img = document.createElement('img');
+	                    img.src = item.voucherIcon 
+	                        ? `data:image/png;base64,${item.voucherIcon}`
+	                        : '';
+	                    img.classList.add('img-fluid');
+						img.style.height = '20px';
+						img.style.width = '20px';
+	                    const span = document.createElement('span');
+	                    span.textContent = item.voucherName;
+
+	                    a.appendChild(img);
+	                    a.appendChild(span);
+	                    li.appendChild(a);
+	                    voucherList.appendChild(li);
+	                });
+
+	                // Add click event listener to Voucher List
+	                voucherList.addEventListener('click', event => {
+	                    const clickedItem = event.target.closest('li'); // Get the clicked LI element
+	                    if (clickedItem) {
+	                        const purposeCode = clickedItem.getAttribute('data-value');
+	                        const voucherIcon = clickedItem.querySelector('img').src;
+	                        const voucherName = clickedItem.querySelector('span').textContent;
+
+	                        // Bind the selected image and voucher name to specific elements
+	                       
+	                        // Clear previous selections
+	                        [...voucherList.children].forEach(item => item.classList.remove('selected'));
+	                        [...purposeList.children].forEach(item => item.remove()); // Clear Purpose List
+
+	                        // Highlight the selected item
+	                        clickedItem.classList.add('selected');
+
+	                        // Fetch Purpose List using the selected purposeCode
+	                        fetchPurposeListByVoucherCode(purposeCode);
+	                    }
+						document.getElementById("mccDiv").style.display="block";
+	                });
+	            },
+	            error: function(e) {
+	                alert('Error: ' + e.responseText);
+	            }
+	        });
+	    }
+
+	    function fetchPurposeListByVoucherCode(purposeCode) {
+	        const purposeList = document.getElementById('purposeList');
+
+	        $.ajax({
+	            type: "GET",
+	            url: "/getPurposeListByVoucherCode",
+	            data: { purposeCode },
+	            success: function(data) {
+	                const parsedData = jQuery.parseJSON(data);
+					console.log("fetchPurposeListByVoucherCode : ",parsedData);
+	                // Populate Purpose List with radio buttons
+					const imageElement = document.getElementById('voucherImageId');
+					const textElement = document.getElementById('voucherTextId');
+
+					
+			       imageElement.src = parsedData.mccMainIcon.mccMainIcon
+						                        ? `data:image/png;base64,${parsedData.mccMainIcon.mccMainIcon}`
+						                        : 'img/fuelVouchers.svg'; // Set image
+					textElement.textContent = parsedData.mccMainIcon.voucherName ? parsedData.mccMainIcon.voucherName : "";
+
+	                parsedData.data.forEach(item => {
+	                    const li = document.createElement('li');
+	                    li.classList.add('purpose-item');
+	                    li.setAttribute('data-value', item.mcc);
+
+	                    // Create radio input
+	                    const radioInput = document.createElement('input');
+	                    radioInput.type = 'radio';
+	                    radioInput.classList.add('voucher-radioinput');
+	                    radioInput.name = 'selectvouchers'; // Group radio buttons by name
+
+	                    // Create img element
+	                    const img = document.createElement('img');
+	                    img.src = item.mccIcon
+	                        ? `data:image/png;base64,${item.mccIcon}`
+	                        : '';
+	                   // img.alt = item.mccDesc;
+	                    img.classList.add('img-fluid');
+						img.style.height = '20px';
+						img.style.width = '20px';
+	                    // Create span element with voucher name
+	                    const span = document.createElement('span');
+	                    span.textContent = item.mccDesc;
+
+	                    // Append elements to li
+	                    li.appendChild(radioInput);
+	                    li.appendChild(img);
+	                    li.appendChild(span);
+	                    purposeList.appendChild(li);
+	                });
+	            },
+	            error: function(e) {
+	                alert('Error: ' + e.responseText);
+	            }
+	        });
+	    }
+    // Initialize
+   // getVoucherListWithIcon();
+	</script>
+
+	<script>
+		
+		function getVoucherDetail(){
+	        // Get the selected voucher data (image and name)
+	        const selectedVoucherItem = document.querySelector('.voucher-item.selected');
+			
+			var selectedVoucherName=null;
+			var selectedVoucherCode=null;
+			var selectedPurposeCode =null;
+			var selectedPurposeName =null;
+	        if (selectedVoucherItem) {
+				selectedVoucherCode = selectedVoucherItem.getAttribute('data-value');
+			    selectedVoucherName = selectedVoucherItem.querySelector('span').textContent;
+	            console.log("Selected Voucher Code:", selectedVoucherName);
+	        } else {
+	            alert('No voucher selected!');
+	        }
+
+	        // Get the selected radio button data (Purpose List)
+	        const selectedRadioButton = document.querySelector('input[name="selectvouchers"]:checked');
+	        if (selectedRadioButton) {
+				selectedPurposeCode = selectedRadioButton.closest('li').getAttribute('data-value');
+			    selectedPurposeName = selectedRadioButton.closest('li').querySelector('span').textContent;
+				
+				
+				console.log("Selected Purpose Code:", selectedPurposeCode);
+	        } else {
+	            alert('No purpose selected!');
+				return false;
+	        }
+			
+			// Get the selected voucher data (image and name)
+						   
+			document.getElementById("btnforvccategoryforbulkissuance").value=selectedVoucherName+'|'+selectedPurposeName;
+			document.getElementById("voucherCode").value=selectedVoucherCode;
+			document.getElementById("voucherDesc").value=selectedVoucherName;
+			document.getElementById("purposeCode").value=selectedVoucherCode;
+			document.getElementById("purposeName").value=selectedPurposeName;
+			document.getElementById("mcc").value=selectedPurposeCode;
+			$("#modalforvccategoryforbulkissuance").hide();
+				   
+		}
+	function getTotalVoucherCount(){
+				var employerid = document.getElementById("employerId").value;
+				$.ajax({
+					type: "POST",
+					url: "/getTotalVoucherCount",
+					data: {
+						"orgId": employerid,
+						"workflowid":100003
+					},
+					success: function(data) {
+						newData = data;
+						var data1 = jQuery.parseJSON(newData);
+						document.getElementById("totalNumber").innerText=data1.totalCount;
+						document.getElementById("totalValue").innerText="₹"+data1.totalAmount;
+						
+						},
+						error: function(e) {
+							alert('Failed to fetch JSON data' + e);
+					}
+				});
+			}
+			
+		function searchEmployee() {
+	        const searchBox = document.getElementById('searchBox').value;
+	        const employerId = document.getElementById('employerId').value;
+			var userMobile = document.getElementById("userMobile").value;
+	        // Show loader
+	        document.getElementById("signinLoader").style.display = "flex";
+			
+	        $.ajax({
+	            type: "POST",
+	            url: "/userSearch",
+	            dataType: 'json',
+	            data: {
+	                "orgId": employerId,
+	                "userName": searchBox,
+					"userMobile": userMobile
+	            },
+	            success: function (data) {
+	                document.getElementById("signinLoader").style.display = "none";
+
+	                if (data && data.status && data.data.length > 0) {
+	                    const roleHeaders = generateHeaders(data.data);
+	                    generateRows(data.data, roleHeaders);
+	                } else {
+	                    alert("No data found for the given search.");
+	                }
+	            },
+	            error: function (e) {
+	                document.getElementById("signinLoader").style.display = "none";
+	                console.error('Error:', e);
+	                alert('An error occurred while fetching the data.');
+	            }
+	        });
+	    }
+		
+		
+	</script>
+	<script>
+	      // Set the min attribute to today's date
+	      const datePicker = document.getElementById('expiryDate');
+	      const today = new Date();
+	      const yyyy = today.getFullYear();
+	      const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	      const dd = String(today.getDate()+1).padStart(2, '0');
+	      const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+	      datePicker.min = formattedDate;
+		  
+		  
+		  const startDatedatePicker = document.getElementById('startDate');
+	      const startDatetoday = new Date();
+	      const startDateyyyy = today.getFullYear();
+	      const startDatemm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	      const startDatedd = String(today.getDate()).padStart(2, '0');
+	      const startDateformattedDate = `${startDateyyyy}-${startDatemm}-${startDatedd}`;
+
+	      startDatedatePicker.min = startDateformattedDate;
+		
+				
+	  </script>
+
+	
+	<script>
+	    function addNewVoucher(event) {
+	        event.preventDefault();
+
+	        const tableBody = document.getElementById('voucherTableBody');
+
+	        // Create a new row
+	        const newRow = document.createElement('tr');
+	        newRow.innerHTML = `
+	            <td>
+					<div class="autocomp-input-wrap table-input">
+                       <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
+                           placeholder="Enter Name" autocomplete="off">
+                       <div id="autocomplete-suggestions"
+                           class="autocomplete-dropdown"></div>
+                   </div>
+	            </td>
+	            <td>
+	                <input type="text" class="table-input" placeholder="Enter Mobile Number">
+	            </td>
+	            <td>
+	                <input type="text" class="table-input table-input-voucher selectMCC" placeholder="Select Voucher" id="btnforvccategoryforbulkissuance">
+	            </td>
+	            <td>
+	                <select class="GeneralSelect">
+	                    <option value="General">Choose Type</option>
+	                    <option value="Single">Single</option>
+	                    <option value="Multi">Multi</option>
+	                </select>
+	            </td>
+	            <td>
+	                <input type="text" class="table-input" placeholder="Enter Amount">
+	            </td>
+	            <td>
+	                <input type="date" class="table-dateed" placeholder="Select Date">
+	            </td>
+	            <td>
+	                <select class="GeneralSelect">
+	                    <option value="7 days">7 days</option>
+	                    <option value="30 days">30 days</option>
+	                    <option value="90 days">90 days</option>
+	                </select>
+	            </td>
+	            <td>
+	                 <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+	            </td>
+	        `;
+
+	        // Insert the new row above the last row
+	        tableBody.insertBefore(newRow, tableBody.lastElementChild);
+	    }
+
+	    function deleteRow(button) {
+			// Get the table body and its rows
+			   const tableBody = document.getElementById("voucherTableBody");
+			   const rows = tableBody.querySelectorAll("tr");
+
+			   // Log the number of rows
+			   console.log("Number of rows before deletion:", rows.length);
+
+			   // Check if only one row is present
+			   if (rows.length <= 2) {
+			       alert("Cannot delete the first row.");
+			       return;
+			   }
+
+			   // Delete the selected row
+			   const row = button.parentElement.parentElement;
+			   tableBody.removeChild(row);
+
+			   // Log the number of rows after deletion
+			   console.log("Number of rows after deletion:", tableBody.querySelectorAll("tr").length);
+	    }
+	</script>
+	
+    <!-- Modal Issue Vouchers -->
+    <div class="customModal" id="modalforvccategoryforbulkissuance">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+            <div class="modal-content modal-bulk my-2">                 
+                <div class="modal-body text-left p-0">
+                    <div class="tab-content m-0">
+                        <div class="upi-voucher-wrap m-0 p-0">
+                            <div>
+                                <h3>Select Voucher Category for Voucher Issuance </h3>
+                                <p>Select Vouchers from the selection provided below, and continue to enter details for issuance. </p>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="leftselctVoucehrs">
+                                        <h4>Vouchers Categories</h4>
+                                        <ul id="voucherList">
+                                           
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-8 pl-sm-0">
+                                    <div class="rightselctVoucehrs" id="mccDiv" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-12 col-md-3">
+                                                <div class="select-upivouchers">
+                                                    <img id="voucherImageId" src="img/fuelVouchers.svg" alt="" class="img-fluid" height="150px" width="200px">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                <div class="cards-upivouchers-desc">
+                                                    <h4><span id="voucherTextId"></span> Vouchers</h4>
+                                                    <p>To issue e-RUPI Voucher, please select a category, a sub-category or an associated brand: </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="selctedVoucehr">
+                                                    <ul id="purposeList">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 text-right mt-3">
+                                   <!-- <button class="btn btn-border-primary mb-1" onclick="window.location.href='create-upi-voucher-issue-manually.html';">Back</button>-->
+                       			   <button class="btn btn-primary mb-1" onclick="getVoucherDetail()">Continue</button>
+								 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div id="otpModal" class="modal customfade">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0 text-center">
+	                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication Bank A/c Linking</h5>
+	            </div>
+	            <div class="modal-body text-center">
+	                <div class="otp-box-onboarding justify-content-center">
+					
+						<input  class="form-control form-control-sm test" type="password" id="password1" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password2" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password3" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password4" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password5" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password6" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+					        name="orderId" >
+	                </div>
+	               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+					<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+					
+					<div class="error-msg" id="otpError" style="color:red"></div>
+					
+	                <div class="tip-wrap justify-content-center">
+	                    <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+	                </div>
+					
+					
+					
+	                <div class="d-flex justify-content-center mt-3">
+						<!--
+	                    <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+						-->
+						<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
+	                </div>
+	            </div>
+	      
+
+    <!-- Modal Choose Type of Advance Request -->
+    <div class="modal fade" id="Modal-upivouchers-info" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+            <div class="modal-content modal-bulk">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Voucher Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-block">
+                        <p>These are e-RUPI Vouchers that are person and purpose specific. They can be redeemed using
+                            UPI Apps. To learn more, <a href="#"><b>click here.</b></a></p>
+                    </div>
+                    <div class="specificDetails">
+                        <h4>Voucher Specific Details</h4>
+                        <p>Category: <strong>Meal</strong></p>
+                        <p class="mb-0">Eligible Merchants: <strong>Restaurants, Food Ordering Platforms, Fast
+                                Food</strong></p>
+                    </div>
+
+                    <div class="specificDetails-white">
+                        <h4>Brands Available</h4>
+                        <hr>
+                        <div class="d-flex">
+                            <img src="img/zomato.svg" alt="">
+                            <img src="img/swiggy.svg" alt="">
+                            <img src="img/dominos.svg" alt="">
+                            <img src="img/freshmenu.svg" alt="">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-primary w-100">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

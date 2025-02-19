@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+
+<body id="page-top" onload="getIssueVoucherList(), getLinkedBankDetail(),getBankListWithVocher()">
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+		<!-- Sidebar -->
+				      
+ 	   <div th:insert="fragments/sidenav.html :: sidevav"></div>
+       <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="mr-2 small">UPI Voucher Issuance</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+					<ul class="navbar-nav ml-auto">
+	                    <li class="nav-item dropdown no-arrow">
+	                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                           <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+	                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+	                        </a>
+	                        <!-- Dropdown - User Information -->
+	                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+	                            <a class="dropdown-item" th:href="@{/ProfileInfo}">
+	                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+	                                Profile
+	                            </a>
+	                            <a class="dropdown-item" href="#">
+	                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+	                                Settings
+	                            </a>
+	                          
+	                           <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+							          <i class="fas fa-user-circle"></i> Logout         
+							        </a>
+					          </div> -->  
+	                          <div class="dropdown-divider"></div>
+	                            <a class="dropdown-item" th:href="@{/logout}">
+	                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+	                                Logout
+	                            </a>
+	                        </div>
+	                    </li>
+	
+	               </ul>	
+
+                </nav>
+
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <div class="upi-voucher-wrap">
+                                    <div class="d-block">
+                                        <h3>UPI Voucher Issuance</h3>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-md-3">
+                                           <!-- <button class="btn-border-custom">
+                                                <a href="#">
+                                                    <div>
+                                                        <img src="img/user-voucher.svg" alt="">
+                                                        <span>Vouchers Requested</span>
+                                                    </div>
+                                                    <div>
+                                                        <strong>-</strong>
+                                                        <img src="img/arrow-voucher.svg" alt="">
+                                                    </div>
+                                                </a>
+                                            </button>-->
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <!--<button class="btn-border-custom">
+                                                <a href="#">
+                                                    <div>
+                                                        <img src="img/calendar-voucher.svg" alt="">
+                                                        <span>Vouchers Scheduled</span>
+                                                    </div>
+                                                    <div>
+                                                        <strong>-</strong>
+                                                        <img src="img/arrow-voucher.svg" alt="">
+                                                    </div>
+                                                </a>
+                                            </button>-->
+                                        </div>
+
+                                        
+                                       <div class="col-12 col-md-3">
+                                            <!--<button class="btn-voucher-custom" id="issueBulk" disabled>
+                                                <div><a href="#">
+                                                        <img src="img/upload-voucher.svg" alt="">
+                                                        <span>Issue with Bulk Upload</span>
+														</a>
+                                                </div>
+                                            </button>-->
+                                        </div>
+										<div class="col-12 col-md-3">
+										<button class="btn-voucher-custom" id="issueManually" disabled>
+										    <div><a href="#">
+										        <img src="img/add-voucher.svg" alt="">
+										        <span>Issue Manually</span>
+												</a>
+										    </div>
+										</button>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="upi-voucher-wrap mb-2">
+                                    <div id="nolinkBankAccount" style="display: none;">
+                                        <div class="d-flex align-items-center upi-voucher-in-wrap p-0 m-0">
+                                            <div class="tip-wrap justify-content-start m-0">
+                                                <p class="mb-0">No Bank Account linked till now. Please click on ‘Link
+                                                    Bank
+                                                    Account Now’ to activate UPI Voucher issuance.</p>
+                                            </div>
+                                            <a class="btn btn-primary" th:href="@{/roleAccess}" id="linkBankAccount">Link Bank Account
+                                                Now</a>
+                                        </div>
+                                    </div>
+
+                                    <div id="linkedAccount" style="display:none;">
+                                        <div class="linkedAccount-wrap m-0">
+                                            <div class="linkedAccount-wrap-left-btn">
+                                                <img src="img/allbank.svg" alt="">
+                                                <span>All Linked Bank Accounts</span>
+                                            </div>
+                                            <div class="linkedAccount-wrap-right">
+                                                <span>Funds Marked for Active UPI Vouchers <img
+                                                        src="img/e-rupi-seeklogo.png" alt=""></span>
+                                                <div class="funds-mark"><div id="totalVoucher"></div>&nbsp; Vouchers &#8377;<strong id="totalvoucherValue">&#8377;0.00</strong></div>
+												<div class="infoo mx-2"><a href="#" id="btnforinfomodal"><img
+												 src="img/infoo.svg" width="34px" alt=""></a></div>
+                                                <button class="fundmarked" id="fundmarked">
+                                                    <a href="#"><img src="img/fund-expand.svg" alt=""></a>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="activeupivcmarked" id="myDiv" style="display: block;">
+                                            <div class="row">
+                                                <div class="col-12 col-md-3" id="bankListData">
+                                                    <div class="left-activeupivcmarked active">
+                                                        <div class="img-bank">
+                                                            <img src="img/allbankblk.svg" alt="">
+                                                        </div>
+                                                        <span>All Banks</span>
+
+                                                    </div>
+
+                                                   <!-- <div class="left-activeupivcmarked" >
+                                                      
+														<div class="img-bank">
+		                                                      <img src="img/indianbank.png" width="18" height="18">
+		                                                  </div>
+		                                                  <span>Indian Bank</span>
+		                                                  <label class="mb-0">xxx0569</label>
+                                                    </div>-->
+                                                </div>
+
+                                                <div class="col-12 col-md-9">
+                                                    <div class="table-responsive mt-2">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Total Vouchers Issued (A)</th>
+                                                                    <th id="totalIssueCount"></th>
+                                                                    <th id="totalIssueAmount"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Redeemed Vouchers (B)</td>
+                                                                    <td id="redemVCount"></td>
+                                                                    <td id="redemVAmount"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Expired & Revoked Vouchers (C)</td>
+                                                                    <td id="expRevokeCount"></td>
+                                                                    <td id="expRevokeAmount"></td>
+                                                                </tr>
+                                                                <tr class="lasttr">
+                                                                    <td>Active Vouchers (D)</td>
+                                                                    <td id="activeCount"></td>
+                                                                    <td id="activeAmount"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="linkedAccount-wrap-p"><img src="img/recall.svg" alt="" class="mr-1">
+									<label class="mb-0">Last updated on</label><span th:text="${session.formattedDate}" ></span></div>
+
+                                <div class="upi-voucher-wrap">
+									<div class="d-flex align-items-center justify-content-between">
+									                                        <h3 class="mb-3">Details of Vouchers Issued</h3>
+									                                        <!-- <div class="rightdownload mb-3 d-flex">
+									                                            <div class="calender-time">
+									                                                <span>Select Time Period</span>
+									                                                <img src="img/calendar-time.svg" alt="">
+									                                            </div>
+									                                            <div class="download-vc">
+									                                                <img src="img/download-vouchers.svg" alt="">
+									                                            </div>
+									                                        </div> -->
+
+									                                        <div class="rightdownload mb-3 d-flex">                                            
+									                                            <div class="dropdown no-arrow ml-2">                                                       
+									                                                <a class="dropdown-toggle calender-time" href="#" id="userDropdown"
+									                                                    role="button" data-toggle="dropdown"
+									                                                    aria-haspopup="true" aria-expanded="false">
+									                                                    <span>Select Time Period</span>
+									                                                    <img src="img/calendar-time.svg" alt="">
+									                                                </a>
+									                                                <!-- Dropdown - User Information -->
+									                                                <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+																						<a class="dropdown-item py-2" id="currentMonth" href="#">Current Month</a>
+																			            <a class="dropdown-item py-2" id="lastMonth" href="#">Last Month</a>
+																			            <a class="dropdown-item py-2" id="currentFY" href="#">Current Financial Year</a>
+																			            <a class="dropdown-item py-2" id="lastFY" href="#">Last Financial Year</a>
+																			            <a class="dropdown-item py-2" id="allHistory" href="#">All History</a>
+									                                                </div>
+									                                            </div>
+																				<button class="download-vc" id="downloadBtn">
+																				    <img src="img/download-vouchers.svg" alt="Download Vouchers">
+																				</button>
+									                                        </div>
+									                                    </div>
+
+                                    <div class="upi-voucher-table">
+                                       <!-- <div class="upi-voucher-in-head"><i class="fa fa-filter"></i>
+                                            <p>Quick Filters</p>
+                                        </div>-->
+                                        <div class="table-responsive">
+                                           <!-- <table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
+                                                <thead>
+                                                    <tr>
+														<th> </th>
+                                                        <th>Name <img src="img/Sort.png" alt=""></th>
+                                                        <th>Mobile Number </th>
+                                                        <th>Voucher & Type <img src="img/Sort.png" alt=""></th>
+                                                        <th>Status <img src="img/Sort.png" alt=""></th>
+                                                        <th>Issue Date <img src="img/Sort.png" alt=""></th>
+                                                        <th>Expiry Date</th>
+                                                        <th>Issued</th>
+                                                        <th>Redeemed</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="tableBody">
+                                                    <tr>
+                                                        <td colspan="9">
+                                                            <div class="upi-voucher-tbody">
+                                                                <p>UPI Vouchers section is currently not enabled. </p>
+                                                                <p>Please link your bank account to enable this section.
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+-->											
+											<table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+														<th onclick="sortTable(0)">Name <img src="img/Sort.png" alt=""></th>
+                                                        <th onclick="sortTable(0)">Mobile <img src="img/Sort.png" alt=""></th>
+														<th>Bank A/c </th>
+                                                        <th onclick="sortTable(0)">Voucher & Type<img src="img/Sort.png" alt=""></th>
+                                                       <!-- <th onclick="sortTable(0)">merchant txnId </th>-->
+                                                       <!-- <th onclick="sortTable(0)">Purpose Code</th>-->
+													<!--	<th onclick="sortTable(0)">MCC Code</th>-->
+                                                        <!--<th onclick="sortTable(0)">MCC</th>-->
+														<th onclick="sortTable(0)">Amount <img src="img/Sort.png" alt=""></th>
+														<th onclick="sortTable(0)">Creation Date</th>
+														<th onclick="sortTable(0)">Expiry Date</th>
+														<th onclick="sortTable(0)">Redemtion Type</th>
+														<th onclick="sortTable(0)">Status</th>
+                                                       
+														<th onclick="sortTable(0)" colspan="2">Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="tableBody">
+                                                    
+                                                </tbody>
+											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+											<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">
+											 
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+		
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+					
+        <!-- End of Content Wrapper -->
+
+		
+
+		
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	<script type="text/javascript" src="cotodel-js/upi-voucher-issuance.js"></script>
+
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/reputeUpiVoucherIssuance"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+
+	</script>
+	
+    <script>
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $(".ftr-content").hide();
+            });
+            $("#show").click(function () {
+                $(".ftr-content").show();
+            });
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+        jQuery(document).ready(function ($) {
+            var bsOverlay = $('.bs-canvas-overlay');
+            $('[data-toggle="canvas"]').on('click', function () {
+                var ctrl = $(this),
+                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+                $(elm).addClass('mr-0');
+                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+                if (bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+                var elm;
+                if ($(this).hasClass('bs-canvas-close')) {
+                    elm = $(this).closest('.bs-canvas');
+                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+                } else {
+                    elm = $('.bs-canvas')
+                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");
+                }
+                elm.removeClass('mr-0');
+                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+                if (bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+
+
+        $(document).ready(function () {
+           // $("#linkedAccount").click(function () {
+            //    $("#linkedAccount").show();
+           //     $("#nolinkBankAccount").hide();
+
+           // });
+			//$("#linkedAccount").click(function () {
+           //    $("#linkedAccount").hide();
+              // $("#nolinkBankAccount").hide();
+
+          // });
+		   
+        });
+
+
+       // $("#fundmarked").click(function () {
+           // $(".activeupivcmarked").show();
+		   //$("#activeupivcmarked").show();
+		//	activeupivcmarked.classList.toggle('collapsed');
+       // });
+		
+		$("#fundmarked").click(function () {
+		         // $(".activeupivcmarked").show();
+				//$("#activeupivcmarked").hide();
+		       });
+
+     ///   $("#fundmarked").click(function () {
+           // $(".activeupivcmarked").hide();
+		//	$("#activeupivcmarked").hide();
+      //  });
+
+
+	  $(document).ready(function () {
+	            $("#btnforrevokeModal").click(function () {
+	               $("#revokeModal").show();
+	            });
+	        });
+
+	        $(document).ready(function () {
+	            $("#btnforrevokevcModal").click(function () {
+	                $("#RevokeUPIVoucherModal").show();
+	                $("#revokeModal").hide();
+	            });
+	        });
+
+	        $(document).ready(function () {
+	            $("#issueVouchersModalAuthenticate").click(function () {
+	                $("#RevokeUPIVoucherModal").hide();
+	                $("#revokeUPIVcAuthenticate").show();
+	            });
+	        });
+
+
+	        $(document).ready(function () {
+	            $(".close").click(function () {
+	                $("#revokeUPIVcAuthenticate").hide();
+	            });
+	        });
+			$(document).ready(function () {
+	            $(".close").click(function () {
+	                $("#smsUPIVcAuthenticate").hide();
+	            });
+	        });
+			
+			$(document).ready(function () {
+            $(".close").click(function () {
+                $("#smsUPIVcAuthenticateFail").hide();
+            });
+        });
+
+			$(document).ready(function () {
+	            $(".close").click(function () {
+	                $("#revokeUPIVcAuthenticateFail").hide();
+	            });
+	        });
+
+	        $(document).ready(function () {
+	            $("#cancelbtn").click(function () {
+	                $("#revokeModal").hide();
+	            });
+	        });
+
+	        $(document).ready(function () {
+	            $("#btnforinfomodal").click(function () {
+	                $("#explainvcIssuanceStatModal").show();
+	            });
+	        });
+
+	        $(document).ready(function () {
+	            $("#vcIssuanStatok").click(function () {
+	                $("#explainvcIssuanceStatModal").hide();
+	            });
+	        });
+
+	        $(document).ready(function () {
+	            $(".close").click(function () {
+	                $("#explainvcIssuanceStatModal").hide();
+	            });
+	        });
+
+    </script>
+	
+
+	<script>
+	    const button = document.getElementById('fundmarked');
+	    const div = document.getElementById('myDiv');
+
+	    button.addEventListener('click', () => {
+	        div.classList.toggle('collapsed');
+	    });
+	</script>
+	<script>
+	    const issueManually = document.getElementById('issueManually');
+	    issueManually.addEventListener('click', () => {
+	        if (!issueManually.disabled) {
+	            window.location.href = '/reputeUpiVoucherIssuanceManually';
+	        }
+	    });
+
+	  
+		const issueBulk = document.getElementById('issueBulk');
+	    issueBulk.addEventListener('click', () => {
+	        if (!issueBulk.disabled) {
+	            window.location.href = '/issueWithBulkUploadVoucher';
+	        }
+	    });
+		
+	</script>
+	
+	<script>
+			
+			let revokeValue = null;
+
+			function openRevokeDialog(rowData) {
+				
+				if (typeof rowData === "string") {
+				     rowData = JSON.parse(decodeURIComponent(rowData));
+				  }
+
+				  // Populate your popup/modal with the row data
+				  document.getElementById("revokeId").value = rowData.id; // Example
+				  document.getElementById("popupFieldName").textContent = rowData.name; 
+				  document.getElementById("popupFieldMobile").textContent = rowData.mobile; 
+				  document.getElementById("popupFieldAmount").textContent = rowData.amount; 
+				  document.getElementById("popupFieldpurposeDesc").textContent = rowData.purposeDesc; 
+				  
+				  document.getElementById("popupFieldStartDate").textContent = rowData.creationDate; // Example
+				  document.getElementById("popupFieldExpiryDate").textContent = rowData.expDate; // Example
+
+			      revokeValue = rowData.value; // Store the button value
+			      document.getElementById("revokeModal").style.display = "flex";
+			}
+			function closeRevokeDialog() {
+			    document.getElementById("revokeModal").style.display = "none";
+			}
+
+			function confirmRevokeDialog() {
+			    console.log("Revoke confirmed for value:", revokeValue);
+			    revoke(revokeValue);
+			    closeRevokeDialog();
+			}
+		//	document.getElementById("confirmButton").addEventListener("click", confirmRevokeDialog);
+		//	document.getElementById("cancelButton").addEventListener("click", closeRevokeDialog);
+		
+		let resendValue = null;
+
+					function sendSMSModal(rowData) {
+						
+						if (typeof rowData === "string") {
+						     rowData = JSON.parse(decodeURIComponent(rowData));
+						  }
+
+						  // Populate your popup/modal with the row data
+						 
+						 // document.getElementById("popupField").textContent = rowData.amount; // Example
+
+
+					    resendValue = rowData.value; // Store the button value
+					    document.getElementById("sendSMSModal").style.display = "flex";
+					}
+					function closeresendDialog() {
+					    document.getElementById("sendSMSModal").style.display = "none";
+					}
+
+					function confirmRevokeDialog() {
+					    console.log("Revoke confirmed for value:", resendValue);
+					    resendsms(resendValue);
+					    closeresendDialog();
+					}
+				//	document.getEle
+</script>
+	
+<script>
+	
+
+	document.addEventListener("DOMContentLoaded", function () {
+
+	    function callAPI(period) {
+			//period="AH";		  
+	        if (period === "currentMonth") {
+			period="CM" ;
+	        } else if (period === "lastMonth") {
+			period="LM" ;
+	        }
+		   else if (period === "currentYear") {
+			period="CY";
+	           }
+		   else if (period === "lastMonthYear") {
+			period="LMY";
+		   	}
+			else if (period === "currentFY") {
+			period="CFY";
+		   	}
+			else if (period === "lastFY") {
+			period="LFY";
+		   	}
+			else if (period === "allHistory") {
+			period="AH";
+		   	}
+			else{
+				period="AH";
+			}
+
+		document.getElementById("signinLoader").style.display="flex";
+		var employerid = document.getElementById("employerId").value;
+		$.ajax({
+			type: "POST",
+			url: "/getIssueVoucherList",
+			data: {
+				"orgId": employerid,
+				"timePeriod":period,
+			},
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				var data2 = data1.data;
+				 //console.log(data2);
+				document.getElementById("signinLoader").style.display="none";
+				
+				var table = $('#issueVoucherTable').DataTable( {
+		          destroy: true,	
+				 // "dom": 'rtip',
+				 //dom: 'Bfrtip',
+			     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+		         "buttons": ["csv", "excel"],
+		         "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
+		         "aaData": data2,
+		  		  "aoColumns": [ 
+					{ "mData": "id", "render": function (data2, type, row) {
+					   return ' <div class="table-check"><input type="hidden" class="checkBoxClass" value="'+data2+'" id="'+data2+'" name="revoke"></div>';
+				    }}, 
+					{ "mData": "name"},
+		            { "mData": "mobile"},   
+					/*{ "mData": "accountNumber", "render": function (data2, type, row) {
+						
+					 return '<div class="tdflex"><img src="img/indianbank.png" width="16px" alt=""><span" ></span></div>';
+									  
+					}},*/
+				    { "mData": "accountNumber"},   
+					{ "mData": "purposeDesc"},  
+					//{ "mData": "mcc"}, 
+					{ "mData": "amount"},
+					{ "mData": "creationDate"},
+					{ "mData": "expDate"},
+					{ "mData": "redemtionType"},
+					{ "mData": "type"},      
+					
+					{ "mData": "id", "render": function (data2, type, row) {
+					    if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
+					        return '';
+					    } else {
+					        return `
+					            <td>
+					                <div class="dropdown no-arrow ml-2">
+					                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					                        <i class="fas fa-ellipsis-v fa-sm"></i>
+					                    </a>
+					                    <br>
+					                    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+					                        <button 
+					                            class="dropdown-item py-2" 
+					                            value="${data2}" 
+					                            id="btnRevoke" 
+					                            onclick="openRevokeDialog('${encodeURIComponent(JSON.stringify(row))}')">
+					                            Revoke
+					                        </button>
+					                        <button 
+					                            class="dropdown-item py-2"  
+					                            data-toggle="modal" 
+					                            data-target="#tableSendSms" 
+					                            value="${data2}" 
+					                            id="btnSend" 
+					                            onclick="sendsms('${encodeURIComponent(JSON.stringify(row))}')">
+					                            Send SMS
+					                        </button>
+					                    </div>
+					                </div>
+					            </td>`;
+							}
+					    }}, 
+				
+				 	],
+					
+					createdRow: function (row, data2, dataIndex) 
+		                {
+		               
+		             	var voucherDesc = data2.voucherDesc;
+		             	var type = data2.type;
+						
+		                 if(voucherDesc=="Meal")
+		                 {
+						 var imgTag = '<img src="img/food.svg" alt="" class="mr-2">'+voucherDesc;
+		                  $(row).find('td:eq(1)').html(imgTag);
+		                 }
+		                 if(voucherDesc=="Miscellaneous")
+		                 {
+						 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+voucherDesc;
+						
+		                  $(row).find('td:eq(1)').html(imgTag);
+		                 }
+		                 
+		                 if(voucherDesc=="Food")
+		                 {
+							 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+voucherDesc;
+		 					 $(row).find('td:eq(1)').html(imgTag);
+		                 }
+		                 
+		                 if(voucherDesc=="Cash Advance")
+		                 {
+						 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+voucherDesc;
+		                  $(row).find('td:eq(1)').html(imgTag);
+		                 }
+		                 if(voucherDesc=="Travel")
+		                 {
+						 var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+voucherDesc;
+						
+		                  $(row).find('td:eq(1)').html(imgTag);
+		                 }
+		                 if(voucherDesc=="Stay")
+		                 {
+						 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+voucherDesc;
+		                  $(row).find('td:eq(1)').html(imgTag);
+		                 }
+		                 
+		                 if(type=="fail")
+		                 {
+							var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
+							 $(row).find('td:eq(9)').html(imgTag);
+		                //  $(row).find('td:eq(10)').addClass('tdactive');
+		                 }
+		                 if(type=="Created")
+		                 {
+							var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
+							 $(row).find('td:eq(9)').html(imgTag);
+		                 // $(row).find('td:eq(10)').addClass('tdsubmitted');
+		                 }
+						 if(type=="Revoke")
+		                 {
+					
+							var imgTag = ' <img src="img/Revoke.svg" alt="" class="mr-2">';
+						    $(row).find('td:eq(9)').html(imgTag);
+						 
+		                 }
+						 if(type=="Redeem")
+		                 {
+							var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
+							 $(row).find('td:eq(9)').html(imgTag);
+		                 }
+						 var bankcode = data2.bankcode;
+						 var bankIcon = data2.bankIcon;
+						 var accountNumber = data2.accountNumber;
+						 if(bankcode=="ICICI")
+		                 {	
+		 					 var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt=""] width="16px" height=""16px>';
+		 					 $(row).find('td:eq(3)').html(imgTag+" "+accountNumber);
+		                 }
+		              }
+				});
+		  		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');		
+				
+			},
+			error: function(e) {
+				alert('Failed to fetch JSON data' + e);
+			}
+		});  
+	       
+	    }
+		
+		function updateSelectedLabel(label) {
+		        const dropdownLabel = document.querySelector(".dropdown-toggle.calender-time span");
+		        dropdownLabel.textContent = label;
+		    }
+			
+	    // Add event listeners for dropdown items
+	    document.getElementById("currentMonth").addEventListener("click", function () {
+			updateSelectedLabel("Current Month");
+	        callAPI("currentMonth");
+	    });
+
+	    document.getElementById("lastMonth").addEventListener("click", function () {
+			updateSelectedLabel("Last Month");
+	        callAPI("lastMonth");
+	    });
+		document.getElementById("currentFY").addEventListener("click", function () {
+			updateSelectedLabel("Current Financial Year");
+		        callAPI("currentFY");
+		 });
+	    document.getElementById("lastFY").addEventListener("click", function () {
+			updateSelectedLabel("Last Financial Year");
+	        callAPI("lastFY");
+	    });
+		document.getElementById("allHistory").addEventListener("click", function () {
+			updateSelectedLabel("All History");
+			        callAPI("allHistory");
+		});
+		
+	});
+	
+</script>
+</body>
+
+</html>
+
+<!-- Modal Issue Vouchers -->
+<div class="customModal" id="revokeModal">
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-header pb-0 text-center">
+                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Are you sure?</h5>
+            </div>
+            <hr>
+            <p class="text-dark">Please confirm if you would like to ‘Revoke’ this UPI Vouchers.</p>
+            <div class="modal-body text-center">
+              
+				<div class="table-responsive">
+				                <div class="table table-reimbursements table-upivouchers">
+				                    <div class="tablehead">
+										<input type="hidden" id="revokeId">
+				                        <div class="tabletheadtr">
+				                            <span>Name <img src="img/Sort.png" alt=""></span>
+											<span></span>
+				                            <span>Mobile</span>
+											<span>Amount </span>
+				                           <!-- <span>Bank A/c </span>-->
+				                            <span>Voucher &amp; Type <img src="img/Sort.png" alt=""></span>
+				                            <span>Status <img src="img/Sort.png" alt=""></span>
+				                            <span>Issue Date <img src="img/Sort.png" alt=""></span>
+				                            <span>Expiry Date</span>
+				                        </div>
+				                    </div>
+
+				                    <div class="tablebody">
+				                        <div class="tablebodytr">
+				                            <span id="popupFieldName"></span>
+				                            <span id="popupFieldMobile"></span>
+											<span id="popupFieldAmount"></span>
+				                            <!--<span>
+				                                <div class="tdflex"><img src="img/indianbank.png" width="16px"
+				                                        alt=""><span id="popupFieldBankId"></span></div>
+				                            </span>-->
+				                            <span id="popupFieldpurposeDesc">
+				                                <!--<div class="tdflex"><span id="popupFieldpurposeDesc"></span>
+				                                    <div><img src="img/mealtype.svg" width="16px" alt="" data-toggle="tooltip"
+				                                            data-placement="top" title="Multi Redemption">
+				                                        <img src="img/info.svg" width="16px" alt="" data-toggle="tooltip"
+				                                            data-placement="top" title="Single Redemption">
+				                                    </div>
+				                                </div>-->
+				                            </span>
+				                            <span><label>Active</label></span>
+				                            <span id="popupFieldStartDate"></span>
+				                            <span  id="popupFieldExpiryDate"></span>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-border w-100" id="btnRevoke">REVOKE</button>
+                    <button class="btn btn-primary w-100" id="cancelbtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Issue Vouchers -->
+<div class="customModal" id="sendSMSModal" >
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-header pb-0 text-center">
+                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Are you sure?</h5>
+            </div>
+            <hr>
+            <p class="text-dark">Please confirm if you would like to ‘Re Send SMS’ this UPI Vouchers.</p>
+            <div class="modal-body text-center">
+                <div class="table-responsive">
+					<p><input type="hidden" id="resendId" name="resendId" /></p>
+					<p><strong>Name:</strong> <span id="popupFieldName"></span></p>
+					 <p><strong>Mobile:</strong> <span id="popupFieldMobile"></span></p>
+					 <p><strong>Amount:</strong> <span id="popupFieldAmount"></span></p>
+                   <!-- <table class="table table-reimbursements table-upivouchers">
+                        <thead>
+                            <tr>
+                                <th>Name <img src="img/Sort.png" alt=""></th>
+                                <th>Mobile Number </th>
+                                <th>Bank A/c </th>
+                                <th>Voucher &amp; Type <img src="img/Sort.png" alt=""></th>
+                                <th>Status <img src="img/Sort.png" alt=""></th>
+                                <th>Issue Date <img src="img/Sort.png" alt=""></th>
+                                <th>Expiry Date</th>
+                                <th>Issued</th>
+                                <th>Redeemed</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Deepak Kumar</td>
+                                <td>9910318405</td>
+                                <td>
+                                    <div class="tdflex"><img src="img/indianbank.png" width="16px"
+                                            alt=""><span>xxx0569</span></div>
+                                </td>
+                                <td>
+                                    <div class="tdflex"><span>Meal</span>
+                                        <div><img src="img/mealtype.svg" width="16px" alt="" data-toggle="tooltip"
+                                                data-placement="top" title="Multi Redemption">
+                                            <img src="img/info.svg" width="16px" alt="" data-toggle="tooltip"
+                                                data-placement="top" title="Single Redemption">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><label>Active</label></td>
+                                <td>25/10/2024</td>
+                                <td>25/11/2024</td>
+                                <td>₹ 5,000</td>
+                                <td>₹ 2,500</td>
+                            </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-border w-100" id="btnResend">Send SMS</button>
+                    <button class="btn btn-primary w-100" id="cancelbtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Issue Vouchers -->
+<div class="customModal" id="RevokeUPIVoucherModal">
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-header pb-0 text-center">
+                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Revoke UPI Voucher</h5>
+            </div>
+			<div class="modal-body text-center">
+			                <div class="otp-box-onboarding justify-content-center">
+							
+								<input  class="form-control form-control-sm test" type="password" id="password1" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password2" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password3" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password4" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password5" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password6" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+							        name="orderId" >
+			                </div>
+			               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+						  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+							<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+							<p class="error-msg" id="otpError" style="color:red"></p>
+			                    <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+			                </div>
+			                <div class="d-flex justify-content-center mt-3">
+								<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
+			                </div>
+			            </div>
+			      
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal UPI Voucher Revoked -->
+<div class="customModal" id="revokeUPIVcAuthenticate">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-top text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/modal-close.svg" alt="">
+                </button>
+                <img src="img/modal-success.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <span>UPI Voucher Revoked</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal UPI Voucher Revoked -->
+<div class="customModal" id="revokeUPIVcAuthenticateFail">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-top text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/modal-close.svg" alt="">
+                </button>
+                <img src="img/table-fail.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <span>UPI Voucher Revoked Failed</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal UPI Voucher Revoked -->
+<div class="customModal" id="smsUPIVcAuthenticate">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-top text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/modal-close.svg" alt="">
+                </button>
+                <img src="img/modal-success.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <span>SMS Send Successfully</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal UPI Voucher Revoked -->
+<div class="customModal" id="smsUPIVcAuthenticateFail">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-top text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/modal-close.svg" alt="">
+                </button>
+                <img src="img/modal-close.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <span>SMS could not be Send</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Explaining Voucher Issuance Statistics -->
+<div class="customModal" id="explainvcIssuanceStatModal">
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xl" role="document">
+        <div class="modal-content modal-bulk text-left p-0">
+            <div class="modal-header pb-0">
+                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Explaining Voucher Issuance Statistics</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/modal-close.svg" alt="">
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><i>Below is an explanation to each tile in the analytics dashboard. </i></p>
+                <p>Sum of number of vouchers in A, B & C may not be equal to T, as partially redeemed vouchers are
+                    counted twice. Amounts will always follow: T = A + B + C. Click Download to get a complete break-up
+                    of the figures till date.</p>
+                <div class="text-white modal-inn bg-black">
+                    <h6>Total Vouchers Issued (A)</h6>
+                    <p>All Vouchers Issued for the defined time period.</p>
+                </div>
+
+                <div class="text-dark modal-inn bg-grey">
+                    <h6>Redeemed Vouchers (B)</h6>
+                    <hr>
+                    <p>Sum of the following:</p>
+                    <ul>
+                        <li>Exhausted Vouchers: Completely redeemed</li>
+                        <li>Expired Vouchers: Partially redeemed</li>
+                        <li>Active Vouchers: Partially redeemed</li>
+                        <li>Revoked Vouchers: Partially redeemed</li>
+                    </ul>
+                </div>
+
+                <div class="text-dark modal-inn bg-grey">
+                    <h6>Revoked & Expired Vouchers (C)</h6>
+                    <hr>
+                    <p>Sum of the following:</p>
+                    <ul>
+                        <li>Expired Vouchers: Partially not redeemed</li>
+                        <li>Revoked Vouchers: Partially not redeemed</li>
+                        <li>Expired Vouchers: Completely not redeemed</li>
+                        <li>Revoked Vouchers: Completely not redeemed</li>
+                    </ul>
+                </div>
+
+                <div class="text-white modal-inn bg-green">
+                    <h6>Active Vouchers (D) | D = A - B - C</h6>
+                    <hr class="bg-white">
+                    <p><b>Active Vouchers (D) = Total Vouchers Issued (A) - Redeemed Vouchers (B) - Revoked & Expired Vouchers (C)</b></p>
+                    <p>Sum of the following:</p>
+                    <ul>
+                        <li>Active Vouchers: Issued and not redeemed</li>
+                        <li>Active Vouchers: Issued and partially redeemed</li>
+                    </ul>
+                </div>
+
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-primary w-100" id="vcIssuanStatok">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+		<div id="confirmationDialog" style="display: none;">
+			<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+				            <div class="modal-content">
+				                <div class="modal-header pb-0">
+			                    <h5 class="modal-title" id="">Are you sure you want to revoke this? </h5>
+			                    
+			                </div>
+				                <div class="modal-body confirmbox">
+				                    <div class="d-flex justify-content-center mt-4">
+										<button id="confirmButton">Yes</button>
+										<button id="cancelButton">No</button>
+			                    </div>
+				                
+				            </div>
+				        </div>
+			</div>
+		</div>
+
