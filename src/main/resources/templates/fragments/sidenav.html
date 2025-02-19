@@ -105,6 +105,11 @@
  		        <img src="img/pf.png" alt="" class="mr-2">
  		        <span>Voucher Master</span></a>
  		 </li>
+		 <li class="nav-item" th:if="${session.user_role == 9}">
+	 	    <a class="nav-link" th:href="@{/reputeUpiVoucherIssuance}">
+	 	        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
+	 	        <span>Repute Voucher Issuance</span></a>
+	 	 </li>
 		 <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
              <a class="nav-link" href="http://13.201.7.92/helpdesk/" target="_blank">
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">

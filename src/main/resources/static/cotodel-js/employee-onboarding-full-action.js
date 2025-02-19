@@ -19,40 +19,6 @@
     }
  
 
-	
-	
-
- 
-/*function working for single employee
-function getEmployeeOnboardingByManagerId(managerId) {
-	   // var reportingManagerid = document.getElementById("reportingManagerid").value;
-		//managerId=561;
-	    $.ajax({
-	        type: "GET",
-	        url: "/getEmployeeOnboardingByManagerId",
-	        data: { "managerId": managerId },
-	        success: function(response) {
-				
-				var data1 = jQuery.parseJSON(response);
-				console.log(data1);
-				
-	            if (data1.status && data1.data) {           
-					var data3 = data1.data[0];
-					console.log(data3);
-				document.getElementById("reportingName1").textContent = data3.managerName ;
-				document.getElementById("mngrPosition").textContent = data3.jobTitle ;
-	           
-					
-	            } else {
-	                console.log("No data found for the given Manager ID");
-	            }
-	        },
-	        error: function(error) {
-	            console.log("Error fetching data: " + error.responseText);
-	        }
-	    });
-	}
-	*/
 	function getEmployeeOnboardingById() {
 		   // var employeeId = document.getElementById("employeeId").value;
 			const employeeId = sessionStorage.getItem("employeeId");
