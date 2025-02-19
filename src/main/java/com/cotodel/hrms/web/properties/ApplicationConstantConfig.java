@@ -34,4 +34,6 @@ public class ApplicationConstantConfig {
 	@Value("${api.signature.keystore.private.path}")
 	public String apiSignaturePrivatePath;
 	
+	@Value("${repute.token.redirect.url}")
+	public String tokenRedirectUrl;
 }
