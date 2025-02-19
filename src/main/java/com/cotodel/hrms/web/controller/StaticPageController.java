@@ -47,6 +47,7 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("signin", "command", "");
 	}	
 	@GetMapping(value="/login")
+
 	public ModelAndView loginPage(Model model,@RequestParam(defaultValue = "") String code,
             @RequestParam(defaultValue = "") String vault_url,
             @RequestParam(defaultValue = "") String hrms_id,
@@ -54,6 +55,7 @@ public class StaticPageController extends CotoDelBaseController{
             @RequestParam(defaultValue = "") String hrms_logo_url,
             @RequestParam(defaultValue = "") String company_id,
             @RequestParam(defaultValue = "") String role) {
+
 		logger.info("opening login Page");
 		ReputeCompanyDetails repute=CommonUtility.getReputeToken(code, vault_url, applicationConstantConfig.tokenRedirectUrl);
 		logger.info("opening login Page::"+repute.getEmail());
@@ -1175,5 +1177,27 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+		
+		@GetMapping(value="/directorOnboarding")
+		public ModelAndView directorOnboarding(Model model) {
+			String token = (String) session.getAttribute("hrms");
+			Integer id  = (Integer) session.getAttribute("id");
+			if(token!=null) {
+				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+				if(obj!=null) {
+					if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+					model.addAttribute("name",obj.getName());
+					model.addAttribute("org",obj.getOrgName());
+					model.addAttribute("mobile",obj.getMobile());
+					model.addAttribute("email",obj.getEmail());
+					model.addAttribute("employerId",id);
 
+					return new ModelAndView("directorOnboarding", "command", "");
+				}
+				 return new ModelAndView("error", "command", "");
+			}
+			return new ModelAndView("index", "command", "");
+		}
+		return new ModelAndView("index", "command", "");
+	}
 }
