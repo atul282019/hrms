@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ReputeCompanyDetails;
+import com.cotodel.hrms.web.response.ReputeTokenRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
@@ -47,7 +48,6 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("signin", "command", "");
 	}	
 	@GetMapping(value="/login")
-
 	public ModelAndView loginPage(Model model,@RequestParam(defaultValue = "") String code,
             @RequestParam(defaultValue = "") String vault_url,
             @RequestParam(defaultValue = "") String hrms_id,
@@ -62,6 +62,8 @@ public class StaticPageController extends CotoDelBaseController{
 		logger.info("opening login Page::"+repute.getPhoneNumber());
 		String profileRes=null;
 		JSONObject profileJsonRes=null;
+		String profileResIdtoken=null;
+		JSONObject profileJsonResIdtoken=null;
 		UserRegistrationRequest userForm=new UserRegistrationRequest();
 		try {
 			
@@ -81,9 +83,41 @@ public class StaticPageController extends CotoDelBaseController{
          profileRes=EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
          profileJsonRes= new JSONObject(profileRes);
  		if(profileJsonRes.getBoolean("status")) { 
- 		//loginservice.sendEmailToEmployee(userForm);
- 			
+ 			 try {
+				String encriptReputeTokenRequest = usercreationService.reputeRequestSave(tokengeneration.getToken(),jsonObject);
+				        
+				 EncriptResponse userencriptReputeTokenRequest =EncryptionDecriptionUtil.convertFromJson(encriptReputeTokenRequest, EncriptResponse.class);
+				
+				 profileResIdtoken=EncryptionDecriptionUtil.decriptResponse(userencriptReputeTokenRequest.getEncriptData(), userencriptReputeTokenRequest.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+				
+				 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+ 	         
  		}
+ 		else if(!profileJsonRes.getBoolean("status") && profileJsonRes.getString("message").equals("User Already exist with this email or mobile number !!")) {
+ 			try {
+ 				ReputeTokenRequest token = new ReputeTokenRequest();
+ 				//token.setAccessToken(repute.)
+ 				 String json2 = EncryptionDecriptionUtil.convertToJson(token);
+ 				
+ 				EncriptResponse jsonObjectIdToken =EncryptionDecriptionUtil.encriptResponse(json2, applicationConstantConfig.apiSignaturePublicPath);
+ 				
+				String encriptReputeTokenRequest = usercreationService.reputeRequestSave(tokengeneration.getToken(),jsonObjectIdToken);
+				        
+				 EncriptResponse userencriptReputeTokenRequest =EncryptionDecriptionUtil.convertFromJson(encriptReputeTokenRequest, EncriptResponse.class);
+				
+				 profileResIdtoken=EncryptionDecriptionUtil.decriptResponse(userencriptReputeTokenRequest.getEncriptData(), userencriptReputeTokenRequest.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+				
+				 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+ 		}
+ 		
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -1064,7 +1098,7 @@ public class StaticPageController extends CotoDelBaseController{
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
-				if(obj.getUser_role()==9) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==3) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -1109,7 +1143,7 @@ public class StaticPageController extends CotoDelBaseController{
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
-				if(obj.getUser_role()==9) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==3) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());

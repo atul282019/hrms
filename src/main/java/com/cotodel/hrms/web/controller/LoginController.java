@@ -164,7 +164,12 @@ public class LoginController extends CotoDelBaseController{
 						//screenName="employee-dashboard";
 						screenName="dashboard";
 						model.addAttribute("name",profileJsonRes.getJSONObject("data").getString("email"));
-						break;		
+						break;
+					case "3":
+						//screenName="employee-dashboard";
+						screenName="dashboard";
+						model.addAttribute("name",profileJsonRes.getJSONObject("data").getString("email"));
+						break;
 					}
 					return screenName;
 				}else if(profileJsonRes.getString("message").equalsIgnoreCase("Invalid Request")){
