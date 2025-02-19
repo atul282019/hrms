@@ -43,28 +43,27 @@ function saveWaitlistData() {
         return;
     }
 
-    // Prepare request data
-    var formData = {
-        companyName: companyName,
-        contactPerson: contactPerson,
-        contactNumber: contactNumber,
-        emailId: emailId,
-        companySize: companySizeValue,
-        industry: industryValue
-    };
-
-    // Send AJAX request
     $.ajax({
         type: "POST",
         url: "/userWaitList", // Backend API endpoint
-        data: { formData },
-        
+        data: { 		
+			"companyName": companyName,
+		        "contactPersonName": contactPerson,
+		        "contactNumber": contactNumber,
+		        "email": emailId,
+		        "companySize": companySizeValue,
+		        "industry": industryValue, 
+			},
+			dataType: "json",
         success: function (response) {
+			console.log(response);
             if (response.status === true) {
-                document.querySelector("form").reset(); // Reset form
-                $("#waitlistApproved").modal("show"); // Show success modal
+                
+                $("#waitlistApproved").show(); // Show success modal
+				//alert("waitlistApproved!");
+				document.querySelector("form").reset(); // Reset form
             } else {
-                alert("Error: " + response.msg);
+                alert("Error: " + response.message);
             }
         },
         error: function (error) {

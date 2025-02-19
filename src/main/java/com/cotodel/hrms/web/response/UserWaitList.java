@@ -14,12 +14,14 @@ public class UserWaitList implements Serializable{
 	private static final long serialVersionUID = 4615208660281419839L;
 
 	
-	private String compnayName;
-	private String companySize;
-	private String industry;
-	private String name;
-	private String mobile;
-	private String email; 
+	private Long id ;	
+	private String companyName;	
+	private String companySize;	
+	private String industry;	
+	private String contactPersonName;	
+	private String contactNumber;  
+	private String email;
+	private String response;
 	
 	
 	

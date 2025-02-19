@@ -53,6 +53,8 @@ public interface EmployeeDetailService {
 	String saveEmployeeProfile(String token, EncriptResponse employeeOnboarding);
 	
 	String getEmployeeOnboardingByManagerId(String token, EncriptResponse employeeOnboarding);
+	
+	String saveDirectorOnboarding(String token, EncriptResponse directorOnboarding);
 
 
 }

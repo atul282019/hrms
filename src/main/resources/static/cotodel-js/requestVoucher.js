@@ -114,17 +114,20 @@
 		            // Populate the table dynamically
 		            vouchers.forEach(voucher => {
 						const formattedDate = voucher.creationDate ? voucher.creationDate.split("T")[0] : "N/A";
-
+						const maskedMobile = voucher.mobile 
+						                    ? `XXX-XXX-${voucher.mobile.slice(-4)}` 
+						                    : "N/A";
 		                const row = `
 		                    <tr>
 		                        <td>${voucher.name}</td>
 								<td>${voucher.employeeId}</td>
 		                        <td>${voucher.voucherType}</td>
 		                        <td>${voucher.voucherSubType}</td>
-		                        <td>${voucher.voucherQuantity}</td>
+		                        <td>${maskedMobile}</td>
 		                        <td>${voucher.amount}</td>
 		                        <td>${formattedDate }</td>
 								<td>${voucher.remarks || "N/A"}</td>
+								<td>${voucher.statusMessage || "N/A"}</td>
 		                        
 		                    </tr>
 		                `;
@@ -262,7 +265,7 @@
 		            "name": Name,
 		            "voucherType": voucherTypeText, // Selected text of Voucher Type
 		            "voucherSubType": voucherSubTypeText, // Selected text of Voucher Sub Type
-		            "voucherQuantity": mobno,
+		            "mobile": mobno,
 		            "amount": amount,
 		            "remarks": remarks,
 		            

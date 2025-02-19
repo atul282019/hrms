@@ -384,7 +384,7 @@ function getOTP(){
 			dataType: 'json',
 			success: function(data) {
 			var obj = data;
-	        if (obj['status'] == "SUCCESS") {
+	        if (obj['status'] == true) {
 	            // If successful, open the OTP modal
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
@@ -429,13 +429,13 @@ function resendVoucherOTP(){
 			type: 'POST',
 	        url:"/smsOtpResender",
 			data: {
-						"mob": userMobile,
+						"mobile": userMobile,
 						"orderId": orderId
 					},
 			dataType: 'json',
 			success: function(data) {
 			var obj = data;
-	        if (obj['status'] == "SUCCESS") {
+	        if (obj['status'] == true) {
 	            // If successful, open the OTP modal
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
@@ -717,7 +717,7 @@ function getAddOTP(){
 		  				"password4": password4,	
 		  				"password5": password5,
 		  				"password6": password6,
-		  				"mob": userMobile,
+		  				"mobile": userMobile,
 		  				"orderId": orderId,
 		  				"userName":userMobile
 		  			},
@@ -840,7 +840,7 @@ function getAddOTP(){
 		  				"password4": password4,	
 		  				"password5": password5,
 		  				"password6": password6,
-		  				"mob": userMobile,
+		  				"mobile": userMobile,
 		  				"orderId": orderId,
 		  				"userName":userMobile
 		  			},

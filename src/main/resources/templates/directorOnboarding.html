@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="getVoucherList(),getSavedVoucherList()">
+<body id="page-top" onload="">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -105,7 +105,7 @@
 							<div class="last-add">
 								<div colspan="9" style="padding: .75rem;">
 									<a href="#" class="add-ctgry" data-toggle="modal"
-									data-target="#ModalRequestVoucher">+ Add Director</a>
+									data-target="#ModalAddDirector">+ Add Director</a>
 								</div>
 							</div>
 						</div>
@@ -145,7 +145,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-	<script type="text/javascript" src="cotodel-js/requestVoucher.js"></script>
+	<script type="text/javascript" src="cotodel-js/directorOnboarding.js"></script>
 	<script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -162,11 +162,11 @@
 	
 	
 
-			<div class="modal fade" id="ModalRequestVoucher" tabindex="-1" role="dialog" aria-labelledby="ModalRequestVoucherTitle" aria-hidden="true">
+			<div class="modal fade" id="ModalAddDirector" tabindex="-1" role="dialog" aria-labelledby="ModalAddDirectorTitle" aria-hidden="true">
 			    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" >
 			        <div class="modal-content" >
 			            <div class="modal-header pb-0">
-			                <h5 class="modal-title" id="ModalRequestVoucherTitle">Director Onboarding</h5>
+			                <h5 class="modal-title" id="ModalAddDirectorTitle">Director Onboarding</h5>
 			                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			                    <span aria-hidden="true">&times;</span>
 			                </button>
@@ -174,7 +174,7 @@
 			            <div class="modal-body" >
 			                
 			                <div class="container-fluid p-0 p-md-1">
-			                    <form id="requestVoucher" name="requestVoucher" method="post">
+			                    <form id="AddDirector" name="AddDirector" method="post">
 			                        <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
 			                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
 			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
@@ -223,7 +223,7 @@
 			        </div>
 			    </div>
 			</div>
-			<div class="modalView" id="VoucherRequestSuccess" tabindex="-1" role="dialog"
+			<div class="modalView" id="AddDirectorSuccess" tabindex="-1" role="dialog"
 			       aria-labelledby="exampleModalCenterTitle" >
 			       <div class="modal-dialog modal-dialog-centered" role="document">
 			           <div class="modal-content modal-bulk">
