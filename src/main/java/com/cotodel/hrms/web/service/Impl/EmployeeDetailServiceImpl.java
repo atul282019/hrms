@@ -172,7 +172,8 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	@Override
 	public String saveDirectorOnboarding(String token, EncriptResponse directorOnboarding) {
 		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(directorOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveDirectorOnboarding);
+		//return CommonUtility.userRequest(token,MessageConstant.gson.toJson(directorOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveDirectorOnboarding);
+		return null;
 	}
 	
 }

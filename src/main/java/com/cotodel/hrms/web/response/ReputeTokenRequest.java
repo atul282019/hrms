@@ -19,4 +19,11 @@ public class ReputeTokenRequest {
 	private String expiresIn;
 	private String response;
 	
+	private String vault_url;
+	private String hrms_id;
+	private String hrms_name;
+	private String company_id;
+	private String role;
+	
+	
 }

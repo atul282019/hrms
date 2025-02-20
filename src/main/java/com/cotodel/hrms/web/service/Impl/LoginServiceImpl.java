@@ -207,5 +207,12 @@ public class LoginServiceImpl implements LoginService {
 	public String verifyVoucherIssueOTP(String token, EncriptResponse userForm) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyVoucherIssueOTP);
 	}
+
+	@Override
+	public String getReputeToken(String token, EncriptResponse jsonObjectRepute) {
+		// TODO Auto-generated method stub
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObjectRepute), applicationConstantConfig.userServiceBaseUrl+CommonUtils.getReputeToken);
+
+	}
 	
 }

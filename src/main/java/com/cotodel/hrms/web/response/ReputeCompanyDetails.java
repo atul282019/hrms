@@ -29,4 +29,6 @@ public class ReputeCompanyDetails {
 	private String auth_time;
 	private String exp;
 	private String iat;
+	
+	
 }

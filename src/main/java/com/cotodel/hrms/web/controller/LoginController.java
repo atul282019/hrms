@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cotodel.hrms.web.jwt.util.JwtTokenGenerator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.ReputeTokenRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.service.LoginService;
@@ -51,6 +52,8 @@ public class LoginController extends CotoDelBaseController{
 	public String validateLogin(HttpServletResponse response, HttpServletRequest request,
 			@ModelAttribute("userForm") UserForm userForm, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 		String profileRes=null;JSONObject profileJsonRes=null;String screenName="index";
+		String profileResRepute=null; 
+		JSONObject profileResJsonRepute=null;
 		String message =null; String otpmobile =null; String orderid=null;
 		UserDetailsEntity obj =null;
 		 Date currentDate = new Date();
@@ -85,9 +88,33 @@ public class LoginController extends CotoDelBaseController{
 				
 				profileJsonRes= new JSONObject(profileRes);
 				
-				if(profileJsonRes.getBoolean("status") 
-						&& profileJsonRes.getString("message").equalsIgnoreCase(MessageConstant.RESPONSE_SUCCESS)) {
+				if(profileJsonRes.getBoolean("status") && profileJsonRes.getString("message").equalsIgnoreCase(MessageConstant.RESPONSE_SUCCESS)) {
+				 
+					// repute token
+					
+					try {
+						ReputeTokenRequest reputeTokenRequest = new ReputeTokenRequest();
+						reputeTokenRequest.setMobile(userForm.getMobile());
+						String jsonRepute = EncryptionDecriptionUtil.convertToJson(reputeTokenRequest);
+
+						EncriptResponse jsonObjectRepute=EncryptionDecriptionUtil.encriptResponse(jsonRepute, applicationConstantConfig.apiSignaturePublicPath);
+
+						String encriptResponseRepute = loginservice.getReputeToken(tokengeneration.getToken(), jsonObjectRepute);
+
+   
+						EncriptResponse userReqEncRepute =EncryptionDecriptionUtil.convertFromJson(encriptResponseRepute, EncriptResponse.class);
+
+						profileResRepute =  EncryptionDecriptionUtil.decriptResponse(userReqEncRepute.getEncriptData(), userReqEncRepute.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+						logger.info(profileResRepute);
+						profileResJsonRepute= new JSONObject(profileResRepute);
+
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				
+					session.setAttribute("reputeAccessToken", profileResJsonRepute.getJSONObject("data").getString("accessToken"));
 					//set token in session
 					request.getSession(true).setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));									  
 					request.getSession(true).setAttribute("hrms", profileJsonRes.getJSONObject("data").getString("mobile"));

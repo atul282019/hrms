@@ -15,5 +15,6 @@ public interface LoginService {
 	String getToken(String companyId);
 	String resendOtp(String token, EncriptResponse userForm);
 	String verifyVoucherIssueOTP(String token, EncriptResponse userForm);
+	String getReputeToken(String token, EncriptResponse jsonObjectRepute);
 
 }

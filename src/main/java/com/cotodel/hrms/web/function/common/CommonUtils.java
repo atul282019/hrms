@@ -179,6 +179,8 @@ public interface CommonUtils {
 	public static String  approveAdvanceTravelRequest = "/empService/Api/update/advanceTravelRequestApproved";
 	public static String  getCashAdvanceDetailById = "/empService/Api/get/advanceTravelById";
 	
-	public static String  saveReputeIdTokenData = "userServices/Api/add/saveRepute";
+	public static String  saveReputeIdTokenData = "/userServices/Api/add/saveRepute";
+	
+	public static String getReputeToken = "/userServices/Api/get/reputeToken";
 	
 }

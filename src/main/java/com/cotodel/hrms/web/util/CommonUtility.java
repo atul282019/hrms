@@ -5,9 +5,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.json.JSONObject;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,9 +18,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
-import java.util.Base64;
+
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.response.ReputeCompanyDetails;
+import com.cotodel.hrms.web.response.ReputeTokenRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -239,10 +241,10 @@ public class CommonUtility {
 		}		
 	}
 
-	public static ReputeCompanyDetails getReputeToken(String code,String url,String redirectUri) {
+	public static ReputeTokenRequest getReputeToken(String code,String url,String redirectUri) {
 		
 		//String redirectUri="http://43.205.206.102:8088/repute_marketplace/";
-		ReputeCompanyDetails reputeCompanyDetails=new ReputeCompanyDetails();
+		ReputeTokenRequest reputeCompanyDetails=new ReputeTokenRequest();
 		try {
 			 // Set up the body data
 			//String redirectUri=applicationConstantConfig.tokenRedirectUrl;
@@ -255,15 +257,23 @@ public class CommonUtility {
 	        	JSONObject jsonObject = new JSONObject(response);
 	        	accessToken = jsonObject.getString("access_token");
 	        	idToken = jsonObject.getString("id_token");
+	        	reputeCompanyDetails.setAccessToken(accessToken);
+	        	reputeCompanyDetails.setIdToken(idToken);
+	        	reputeCompanyDetails.setScope(jsonObject.getString("scope"));
+	        	//reputeCompanyDetails.setExpiresIn(jsonObject.getString("expires_in"));
+	        	reputeCompanyDetails.setRefreshToken(jsonObject.getString("refresh_token"));
+	        	//reputeCompanyDetails.setResponse(jsonObject.getString("scope"));
+	        	//reputeCompanyDetails.setTokenType(jsonObject.getString("scope"));
+	        	//reputeCompanyDetails.setMobile(idToken)
 	        }
-	        String[] jwtParts = idToken.split("\\.");
-	        String payload = jwtParts[1];  // This is the middle part (payload)
+	        //String[] jwtParts = idToken.split("\\.");
+	       // String payload = jwtParts[1];  // This is the middle part (payload)
 	        
 	        // Decode the payload from Base64
-	        String value=new String(Base64.getDecoder().decode(payload));
-	        System.out.println("value: " + value);
+	       // String value=new String(Base64.getDecoder().decode(payload));
+	       // System.out.println("value: " + value);
 	        // Print the access token
-	        reputeCompanyDetails=parseJson(value);
+	       // reputeCompanyDetails=parseJson(value);
 //	        if(reputeCompanyDetails!=null) {
 //				UserRequest userRequest = new UserRequest();
 //				String mobileNumber= reputeCompanyDetails.getPhoneNumber();

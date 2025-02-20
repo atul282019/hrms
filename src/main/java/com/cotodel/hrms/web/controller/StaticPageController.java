@@ -23,6 +23,9 @@ import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Base64;
 
 @Controller
 @CrossOrigin
@@ -55,11 +58,23 @@ public class StaticPageController extends CotoDelBaseController{
             @RequestParam(defaultValue = "") String hrms_logo_url,
             @RequestParam(defaultValue = "") String company_id,
             @RequestParam(defaultValue = "") String role) {
-
+		if(code=="") {
 		logger.info("opening login Page");
-		ReputeCompanyDetails repute=CommonUtility.getReputeToken(code, vault_url, applicationConstantConfig.tokenRedirectUrl);
-		logger.info("opening login Page::"+repute.getEmail());
-		logger.info("opening login Page::"+repute.getPhoneNumber());
+		ReputeTokenRequest repute=CommonUtility.getReputeToken(code, vault_url, applicationConstantConfig.tokenRedirectUrl);
+		
+	    String[] jwtParts = repute.getIdToken().split("\\.");
+        String payload = jwtParts[1];  // This is the middle part (payload)
+        
+        // Decode the payload from Base64
+        String value=new String(Base64.getDecoder().decode(payload));
+        System.out.println("value: " + value);
+        // Print the access token
+       
+        ReputeCompanyDetails reputeCompanyDetails=new ReputeCompanyDetails();
+        reputeCompanyDetails=parseJson(value);
+		logger.info("opening login Page::"+reputeCompanyDetails.getEmail());
+		logger.info("opening login Page::"+reputeCompanyDetails.getPhoneNumber());
+		
 		String profileRes=null;
 		JSONObject profileJsonRes=null;
 		String profileResIdtoken=null;
@@ -68,10 +83,16 @@ public class StaticPageController extends CotoDelBaseController{
 		try {
 			
 		
-		userForm.setEmail(repute.getEmail());
-		String mobileNumber= repute.getPhoneNumber();
+		userForm.setEmail(reputeCompanyDetails.getEmail());
+		String mobileNumber= reputeCompanyDetails.getPhoneNumber();
         String mobile1 = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
         userForm.setMobile(mobile1);
+        repute.setMobile(mobile1);
+        repute.setVault_url(vault_url);
+        repute.setCompany_id(company_id);
+        repute.setHrms_id(hrms_id);
+        repute.setHrms_name(hrms_name);
+        repute.setRole(role);
 		 String json = EncryptionDecriptionUtil.convertToJson(userForm);
          //2-json string data encript
          EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
@@ -81,6 +102,16 @@ public class StaticPageController extends CotoDelBaseController{
          EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
          //4-object data to decript to json
          profileRes=EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+         
+         //String[] jwtParts = idToken.split("\\.");
+	       // String payload = jwtParts[1];  // This is the middle part (payload)
+	        
+	        // Decode the payload from Base64
+	       // String value=new String(Base64.getDecoder().decode(payload));
+	       // System.out.println("value: " + value);
+	        // Print the access token
+	       // reputeCompanyDetails=parseJson(value);
+         
          profileJsonRes= new JSONObject(profileRes);
  		if(profileJsonRes.getBoolean("status")) { 
  			 try {
@@ -99,9 +130,9 @@ public class StaticPageController extends CotoDelBaseController{
  		}
  		else if(!profileJsonRes.getBoolean("status") && profileJsonRes.getString("message").equals("User Already exist with this email or mobile number !!")) {
  			try {
- 				ReputeTokenRequest token = new ReputeTokenRequest();
+ 				
  				//token.setAccessToken(repute.)
- 				 String json2 = EncryptionDecriptionUtil.convertToJson(token);
+ 				 String json2 = EncryptionDecriptionUtil.convertToJson(repute);
  				
  				EncriptResponse jsonObjectIdToken =EncryptionDecriptionUtil.encriptResponse(json2, applicationConstantConfig.apiSignaturePublicPath);
  				
@@ -121,7 +152,9 @@ public class StaticPageController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		logger.info("opening login Page::"+repute.getEmail());
+		
+		logger.info("opening login Page::"+reputeCompanyDetails.getEmail());
+		}
 		String mobile  = (String) session.getAttribute("mobile");
 		if(mobile!=null) {
 			model.addAttribute("message","");
@@ -1094,11 +1127,13 @@ public class StaticPageController extends CotoDelBaseController{
 	@GetMapping(value="/reputeUpiVoucherIssuance")
 	public ModelAndView reputeUpiVoucherIssuance(Model model) {
 		String token = (String) session.getAttribute("hrms");
+		String reputeAccessToken = (String) session.getAttribute("reputeAccessToken");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
 				if(obj.getUser_role()==9 || obj.getUser_role()==3) {
+				
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -1279,4 +1314,14 @@ public class StaticPageController extends CotoDelBaseController{
 		}
 		return new ModelAndView("index", "command", "");
 	}
+		
+	public static ReputeCompanyDetails parseJson(String json) {
+    	ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(json, ReputeCompanyDetails.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
