@@ -183,4 +183,6 @@ public interface CommonUtils {
 	
 	public static String getReputeToken = "/userServices/Api/get/reputeToken";
 	
+	public static String getReputeEmployeeList = "/repute_marketplace/Api/get/employeeList";
+	
 }

@@ -58,8 +58,9 @@ public class StaticPageController extends CotoDelBaseController{
             @RequestParam(defaultValue = "") String hrms_logo_url,
             @RequestParam(defaultValue = "") String company_id,
             @RequestParam(defaultValue = "") String role) {
-		if(code=="") {
 		logger.info("opening login Page");
+		if(code!="") {
+		logger.info("opening login Page"); 
 		ReputeTokenRequest repute=CommonUtility.getReputeToken(code, vault_url, applicationConstantConfig.tokenRedirectUrl);
 		
 	    String[] jwtParts = repute.getIdToken().split("\\.");

@@ -36,4 +36,7 @@ public class ApplicationConstantConfig {
 	
 	@Value("${repute.token.redirect.url}")
 	public String tokenRedirectUrl;
+	
+	@Value("${repute.service.base.url}")
+	public String reputeServiceBaseUrl;
 }
