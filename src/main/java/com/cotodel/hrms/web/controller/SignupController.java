@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -149,6 +150,33 @@ public class SignupController  extends CotoDelBaseController{
 			csotp.setCaptchaValidated(false);
 			return false;
 		
+	}
+	
+	@GetMapping(value="/getuserWaitList")
+	public @ResponseBody String getuserWaitList(HttpServletRequest request,UserWaitList userWaitList) {
+		String profileRes=null;JSONObject profileJsonRes=null;
+		
+		//profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(userWaitList);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = usercreationService.getuserWaitList(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return profileRes;
+		
+	
 	}
 	
 }

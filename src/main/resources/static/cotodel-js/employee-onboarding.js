@@ -510,7 +510,9 @@ function getEmployeeOnboarding() {
 	        
 	         "aaData": data2,
       		  "aoColumns": [ 
-				{ "mData": "id"},
+				//{ "mData": "id"},id from server
+				{ "mData": null, "render": function (data, type, row, meta) { return meta.row + 1; } },//id for every fetch request starting from 1
+				{ "mData": "userDetailsId"},
       		    { "mData": "name"},          
       		    { "mData": "mobile"},
       		   // { "mData": "jobTitle"},
@@ -518,8 +520,8 @@ function getEmployeeOnboarding() {
 				{ "mData": "status", "render": function(data, type, row) {
 				                        return data === 1 ? 'Active' : 'Inactive';
 				                    }},
-      		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+      		  	{ "mData": "userDetailsId", "render": function (data1, type, row) {
+                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this, \'' + row.userDetailsId + '\')" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
                  }}, 
     		 	]
       		});
@@ -564,12 +566,13 @@ function getEmployeeOnboarding() {
 	         "aaData": data2,
       		  "aoColumns": [ 
 				{ "mData": "id"},
+				{ "mData": "userDetailsId"},
       		    { "mData": "name"},          
       		    { "mData": "mobile"},
       		    { "mData": "jobTitle"},
       		    { "mData": "empOrCont"},
-      		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+      		  	{ "mData": "userDetailsId", "render": function (data1, type, row) {
+                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right" onclick="viewData(this)"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
                  }}, 
     		 	]
       		});
@@ -581,13 +584,16 @@ function getEmployeeOnboarding() {
     });
 }
   var empid="";
+  var userDetailsId="";
   function settingEmpMngrId()
   {
 	sessionStorage.setItem("employeeId",empid);
+	sessionStorage.setItem("userDetailsId",userDetailsId);
   }
   
-  function pupolateData(id) {
+  function pupolateData(id,userDetailsid) {
 	 empid=id;
+	 userDetailsId=userDetailsid;
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
 	//document.getElementById("signinLoader").style.display="flex";

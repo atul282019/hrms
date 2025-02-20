@@ -71,3 +71,52 @@ function saveWaitlistData() {
         }
     });
 }
+
+function getWaitlist() {
+		    const employerId = document.getElementById('employerId').value;
+
+		    $.ajax({
+		        type: "GET",
+		        url: "/getuserWaitList",
+		        data: { employerId },
+		        success: function(data) {
+		            const parseddata = JSON.parse(data);
+		            console.log(data);
+					var employer=parseddata.data;
+
+		            // Get the table body
+		            const tableBody = $("#reimbursementTable tbody");
+
+		            // Clear existing table rows
+		            tableBody.empty();
+
+		            // Check if vouchers exist
+		            if (employer.length === 0) {
+		                tableBody.append(`<tr><td colspan="9" class="text-center">No Vouchers Found</td></tr>`);
+		                return;
+		            }
+
+		            // Populate the table dynamically
+		            employer.forEach(employer => {
+						const formattedDate = employer.createdDate ? employer.createdDate.split("T")[0] : "N/A";
+		                const row = `
+						<tr>
+						            <td>${employer.id}</td>
+						            <td>${employer.companyName}</td>
+						            <td>${employer.companySize}</td>
+						            <td>${employer.industry}</td>
+						            <td>${employer.contactPersonName}</td>
+						            <td>${employer.contactNumber}</td>
+						            <td>${employer.email}</td>
+						            <td>${formattedDate}</td>
+						        </tr>
+		                `;
+
+		                tableBody.append(row);
+		            });
+		        },
+		        error: function(e) {
+		            alert('Error: ' + e.responseText);
+		        }
+		    });
+		}	

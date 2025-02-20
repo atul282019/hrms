@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkConfirmationRequest;
+import com.cotodel.hrms.web.response.DirectorOnboarding;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
@@ -288,11 +289,11 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	}
 	
 	@PostMapping(value="/saveDirectorOnboarding")
-	public @ResponseBody String saveDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
+	public @ResponseBody String saveDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,DirectorOnboarding directorOnboarding) {
 		String profileRes=null;
 
 		try {
-			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
+			String json = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 

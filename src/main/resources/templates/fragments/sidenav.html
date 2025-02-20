@@ -134,6 +134,12 @@
 	   		                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
 	   		                   <span>Director Onboarding</span></a>
        </li>
+	   
+	   <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
+	                <a class="nav-link" th:href="@{/displayWaitlist}">
+	                    <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+	                    <span>Waitlist</span></a>
+	            </li>
         </ul>
         
        

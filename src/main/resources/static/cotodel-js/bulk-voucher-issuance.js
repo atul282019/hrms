@@ -393,13 +393,13 @@ function resendVoucherOTP() {
 		url:"/smsOtpResender",
 		dataType: 'json',
 		data: {
-			"mob": userName,
+			"mobile": userName,
 			"orderId":orderId
 		},
 		success: function(data) {
 			var obj = data;
 			//document.getElementById("loginLoader").style.display = "none";
-			if (obj['status'] == "SUCCESS") {
+			if (obj['status'] == true) {
 				//$('#errorOtp').hide('slow');
 				//$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
@@ -427,7 +427,7 @@ function resendVoucherOTP() {
 				//	document.getElementById('password1').focus();
 				}, 1000);
 				//$('#loginIdDiv').show('slow');
-			}else if (obj['status'] == "FAILURE") {
+			}else if (obj['status'] ==false) {
 
 			
 			} else {

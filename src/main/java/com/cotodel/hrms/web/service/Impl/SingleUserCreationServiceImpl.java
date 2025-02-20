@@ -39,6 +39,10 @@ public class SingleUserCreationServiceImpl implements SingleUserCreationService{
 	public String userWaitList(String token, EncriptResponse userWaitList) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userWaitList), applicationConstantConfig.userServiceBaseUrl+CommonUtils.saveWaitlist);
 	}
+	@Override
+	public String getuserWaitList(String token, EncriptResponse userWaitList) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userWaitList), applicationConstantConfig.userServiceBaseUrl+CommonUtils.getsaveWaitlist);
+	}
 
 	@Override
 	public String reputeRequestSave(String token, EncriptResponse jsonObject) {

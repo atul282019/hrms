@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="">
+<body id="page-top" onload="getWaitlist()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -39,7 +39,7 @@
                        </li>
                        <li class="nav-item">
                            <a class="nav-link" href="#">
-                               <span class="mr-2 small">Director Onboarding</span>
+                               <span class="mr-2 small">Display Waitlist</span>
                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
                            </a>
                        </li>
@@ -89,27 +89,22 @@
 									<tr>
 										
 										<th>Id</th>
-										<th>Name</th>
+										<th>Company Name</th>
+										<th>Company Size</th>
+										<th>Industry</th>
+										<th>Contact Person Name</th>
+										<th>Mobile</th>
 										<th>Email</th>
-										<th>Mobile No</th>
-										<th>Din</th>
-										<th>Designation</th>
-										<th>Address</th>
-										<th>Created By</th>
-										<th>Response</th>
+										<th>Date</th>
 									</tr>
 								</thead>
 								<tbody>
 									<td></td>
 
 								</tbody>
+			
 							</table>
-							<div class="last-add">
-								<div colspan="9" style="padding: .75rem;">
-									<a href="#" class="add-ctgry" data-toggle="modal"
-									data-target="#ModalAddDirector">+ Add Director</a>
-								</div>
-							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -147,14 +142,13 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-	<script type="text/javascript" src="cotodel-js/directorOnboarding.js"></script>
-	<script type="text/javascript"src="cotodel-js/sanitize-input.js"></script>
-	<script>
+	<script type="text/javascript" src="cotodel-js/cotodel-Waitlist.js"></script>
+	<script type="text/javascript">
 	
 	$(document).ready(function(){
 		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' +'/directorOnboarding"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  $('a[href="' +'/displayWaitlist"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
 	   $(".innernav").click(function(){
 	       $(".dropdownNav").addClass("active");
@@ -165,11 +159,11 @@
 	
 	
 
-			<div class="modal fade" id="ModalAddDirector" tabindex="-1" role="dialog" aria-labelledby="ModalAddDirectorTitle" aria-hidden="true">
+			<div class="modal fade" id="ModalRequestVoucher" tabindex="-1" role="dialog" aria-labelledby="ModalRequestVoucherTitle" aria-hidden="true">
 			    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" >
 			        <div class="modal-content" >
 			            <div class="modal-header pb-0">
-			                <h5 class="modal-title" id="ModalAddDirectorTitle">Director Onboarding</h5>
+			                <h5 class="modal-title" id="ModalRequestVoucherTitle">Request Voucher</h5>
 			                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			                    <span aria-hidden="true">&times;</span>
 			                </button>
@@ -177,50 +171,45 @@
 			            <div class="modal-body" >
 			                
 			                <div class="container-fluid p-0 p-md-1">
-			                    <form id="AddDirector" name="AddDirector" method="post">
-			                        <!--<input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
+			                    <form id="requestVoucher" name="requestVoucher" method="post">
+			                        <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
 			                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">-->
-
-									<div class="card-form my-3">
-			                            <label for="DirectorName">Name</label>
-			                            <input type="text" class="form-input" id="DirectorName" name="DirectorName">
-			                        </div>
-			                        <div class="error-msg" id="VoucherRemarksError" style="color:red"></div>
-
-			                        
-									<div class="card-form my-3">
-                                        <label for="mobno">Mobile</label>
-                                        <input type="text" class="form-input" id="mobno" maxlength="10"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
-                                    </div>
- 										 <div class="error-msg" id="mobnoError" style="color:red"></div>
-										 
-										 <div class="card-form my-3">
-	                                         <label for="email">Email</label>
-	                                         <input type="email" class="form-input" id="email" maxlength="50" oninput="sanitizeInput(this)"  onkeypress="resetErrorMessages()">
-	 	                                    </div>
-	 									 <div class="error-msg" id="emailError" style="color:red"></div>
-										 
-										 <div class="card-form my-3">
-		                                         <label for="Din">Din</label>
-		                                         <input type="text" class="form-input" id="Din" maxlength="10"
-		                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
-		                                     </div>
-		  										 <div class="error-msg" id="DinError" style="color:red"></div>
+			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
 
 			                        <div class="card-form my-3">
-			                            <label for="Designation">Designation</label>
-			                            <input type="text" class="form-input" id="Designation" name="Designation">
+			                           
+			                            <select class="form-select form-control no-bg border-0" id="VoucherType" name="VoucherType" onchange="getVoucherSubTypes()">
+			                                <option value="">Select Voucher Type</option>
+			                            </select>
 			                        </div>
-			                        <div class="error-msg" id="DesignationError" style="color:red"></div>
-									
+			                        <div class="error-msg" id="VoucherTypeerror" style="color:red"></div>
+
+			                        <div class="card-form my-3">
+			                            
+			                            <select class="form-select form-control no-bg border-0" id="VoucherSubType" name="VoucherSubType" >
+			                                <option value="">Select Voucher Sub Type</option>
+			                            </select>
+			                        </div>
+			                        <div class="error-msg" id="VoucherSubTypeerror" style="color:red"></div>
+
 									<div class="card-form my-3">
-                                         <label for="Address">Address</label>
-                                         <input type="text" class="form-input" id="Address" 
-                                         >
+                                         <label for="mobno">Mobile Number</label>
+                                         <input type="text" class="form-input" id="mobno" name="mobno"  th:value="${session.mobile}" readonly>
+
                                      </div>
-  										 <div class="error-msg" id="AddressError" style="color:red"></div>
+ 										 <div class="error-msg" id="mobnoError" style="color:red"></div>
+										 
+			                        <div class="card-form my-3">
+			                            <label for="VoucherAmount">Voucher Amount</label>
+			                            <input type="number" class="form-input" id="VoucherAmount" name="VoucherAmount">
+			                        </div>
+			                        <div class="error-msg" id="VoucherAmountError" style="color:red"></div>
+
+			                        <div class="card-form my-3">
+			                            <label for="VoucherRemarks">Remarks</label>
+			                            <input type="text" class="form-input" id="VoucherRemarks" name="VoucherRemarks">
+			                        </div>
+			                        <div class="error-msg" id="VoucherRemarksError" style="color:red"></div>
 
 			                        <div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
 			                            <div id="otsuccmsg"></div>
@@ -231,7 +220,7 @@
 			                        </div>
 
 									<div class="modal-footer d-flex justify-content-between ">
-									                <button type="button" class="btn btn-primary"  onclick="saveDirectorData()">Save</button>
+									                <button type="button" class="btn btn-primary"  onclick="saveVoucherData()">Save</button>
 									                <button type="button" class="btn btn-border"  data-dismiss="modal">Cancel</button>
 						            </div>
 			                    </form>
@@ -240,7 +229,7 @@
 			        </div>
 			    </div>
 			</div>
-			<div class="modalView" id="AddDirectorSuccess" tabindex="-1" role="dialog"
+			<div class="modalView" id="VoucherRequestSuccess" tabindex="-1" role="dialog"
 			       aria-labelledby="exampleModalCenterTitle" >
 			       <div class="modal-dialog modal-dialog-centered" role="document">
 			           <div class="modal-content modal-bulk">

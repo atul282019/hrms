@@ -9,11 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DirectorOnboarding {
 	
-private String name;
-private String id;
-private String mobile;
-private String joingDate;
-private String remark;
-private String status;
+	   	private Long id;	
+		private Long orgId;	
+		private String name;	
+		private String email;	
+		private String mobile;	
+		private String din;	
+		private String designation;		
+		private String address;
+		private String createdby;
+		private String response;
 
 }

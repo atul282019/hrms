@@ -124,6 +124,7 @@
                                                 <thead>
                                                     <tr>
                                                    		<th onclick="sortTable(0)">Id</th>
+														<th onclick="sortTable(0)">Emp Id</th>
                                                         <th onclick="sortTable(1)">Name <img src="img/Sort.svg" alt=""></th>
                                                         <th onclick="sortTable(2)">Mobile <img src="img/Sort.svg" alt=""></th>
                                                         <!--<th onclick="sortTable(3)">Designation <img src="img/Sort.svg" alt=""></th>-->
@@ -401,11 +402,11 @@
 		        });
 		    });
 		    
-		 function viewData(value){
+		 function viewData(value,userDetailsId){
 			
 			 var row = jQuery(value).closest('tr');
 			 var id = row[0].children[0].innerHTML;
-			 pupolateData(id);
+			 pupolateData(id,userDetailsId);
 			
 			 jQuery(document).ready(function($){
 		            var bsOverlay = $('.bs-canvas-overlay');

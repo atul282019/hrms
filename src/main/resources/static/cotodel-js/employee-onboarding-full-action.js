@@ -22,6 +22,7 @@
 	function getEmployeeOnboardingById() {
 		   // var employeeId = document.getElementById("employeeId").value;
 			const employeeId = sessionStorage.getItem("employeeId");
+			const userDetailsId = sessionStorage.getItem("userDetailsId");
 		    $.ajax({
 		        type: "GET",
 		        url: "/getEmployeeOnboardingById",
@@ -87,7 +88,7 @@
 						        }
 
 						        //getEmployeeOnboardingByManagerId(data.managerId);
-								getEmployeeOnboardingByManagerId(employeeId);
+								getEmployeeOnboardingByManagerId(userDetailsId);
 						    } else {
 						        console.log("No data found for the given Employee ID");
 						    }

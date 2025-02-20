@@ -19,7 +19,7 @@ function getBankMaster() {
 		
 		 success: function(data){
             newData = data;
-            console.log(newData);
+            //console.log(newData);
 			$("#bankName option").remove();
             var obj = jQuery.parseJSON( data );
              obj = obj.data;
@@ -64,7 +64,7 @@ function  getLinkedBankDetail(){
 			},
            success: function(data){
            newData = data;
-           console.log("Linked bank account data : ",newData);
+           //console.log("Linked bank account data : ",newData);
         var data1 = jQuery.parseJSON( newData );
 		var data2 = data1.data;
 		if(data2.length ===0 && data2.length <=0){
@@ -204,7 +204,7 @@ function  getLinkedBankDetail(){
 			
 }
 function relinkBankAccount(acNumber) {
-    console.log("Inside link bank account function");
+    //console.log("Inside link bank account function");
     var employerid = document.getElementById("employerId").value;
 
     document.getElementById("signinLoader").style.display = "flex";
@@ -245,7 +245,8 @@ function relinkBankAccount(acNumber) {
 }
 
 function dlinkAccount(acNumber)
-{console.log("Inside  de-link function");
+{
+	//console.log("Inside  de-link function");
 	var employerid = document.getElementById("employerId").value;
 	 	$.ajax({
 		type: "POST",
@@ -497,7 +498,8 @@ function submitLinkBankAccount(){
 }
 
 function validateBankname()
-{ console.log("Inside validateBankname");
+{ 
+	//console.log("Inside validateBankname");
 	var banknameregex=/^[A-Za-z]+( [A-Za-z]+)?$/;
 	var bankingName = document.getElementById("bankingName").value;
 	
