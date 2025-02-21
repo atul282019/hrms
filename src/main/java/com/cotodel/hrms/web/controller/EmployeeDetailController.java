@@ -311,5 +311,28 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	return profileRes;
 		
 	}
+	@GetMapping(value="/getDirectorOnboarding")
+	public @ResponseBody String getDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,DirectorOnboarding directorOnboarding) {
+		String profileRes=null;
+
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  employeeDetailService.getDirectorOnboarding(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+		
+	}
 	
 }

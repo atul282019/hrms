@@ -11,7 +11,7 @@ $(document).ready(function() {
 				dataType: 'json',
 				success: function(data) {
 				var obj = data;
-		        if (obj['status'] == "SUCCESS") {
+		        if (obj['status'] == true) {
 		            // If successful, open the OTP modal
 					var timeleft = "60";
 					var resendCodeElement = document.getElementById("resendCode");
@@ -70,7 +70,7 @@ function resendVoucherOTP() {
 		success: function(data) {
 			var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
-			if (obj['status'] == "SUCCESS") {
+			if (obj['status'] == true) {
 				
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");

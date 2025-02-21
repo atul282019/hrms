@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
+import com.cotodel.hrms.web.response.ErupiVoucherStatusSmsRequest;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
 import com.cotodel.hrms.web.response.RoleAccessRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
@@ -175,7 +176,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	
 	@PostMapping(value = "/erupiVoucheSmsSend")
 	public @ResponseBody String erupiVoucheSmsSend(HttpServletRequest request, ModelMap model, Locale locale,
-			HttpSession session, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+			HttpSession session, ErupiVoucherStatusSmsRequest erupiVoucherStatusSmsRequest) {
 		String profileRes = null;
 		//profileRes = erupiVoucherCreateDetailsService.erupiVoucheSmsSend(tokengeneration.getToken(),	erupiVoucherCreateDetails);
 
@@ -183,7 +184,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		
 		
 		try {
-			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
+			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherStatusSmsRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 

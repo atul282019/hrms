@@ -8,9 +8,26 @@
 		data: {"mobile":userMobile,"orgId":employerId},
 		success: function(data) {
 			newData = data;
+			//var newData = '{"data": []}';for checking with empty data
 			var data1 = jQuery.parseJSON(newData);
 
 			document.getElementById("signinLoader").style.display = "none";
+			
+			
+			var checkboxContainer = document.getElementById("checkboxContainer");
+
+		    if (!data1.data || data1.data.length === 0) {
+		        console.log("Hiding checkbox container due to empty data.");
+		        if (checkboxContainer) {
+		            checkboxContainer.style.setProperty("display", "none", "important");
+		        }
+		        return;
+		    } else {
+		        console.log("Showing checkbox container.");
+		        if (checkboxContainer) {
+		            checkboxContainer.style.setProperty("display", "flex", "important");
+		        }
+		    }
 
 			// Get unique role descriptions
 			const roleDescriptions = [...new Set(
@@ -89,10 +106,28 @@ function editUserRoleWithMoreUser() {
 		data: {"mobile":userMobile,"orgId":employerId},
 		success: function(data) {
 			newData = data;
+			//var newData = '{"data": []}'; for checking with empty data
 			var data1 = jQuery.parseJSON(newData);
 			//var data2 = data1.data;
 			
 			document.getElementById("signinLoader").style.display="none";
+			
+			var checkboxContainer = document.getElementById("checkboxContainer");
+
+			    if (!data1.data || data1.data.length === 0) {
+			        console.log("Hiding checkbox container due to empty data.");
+			        if (checkboxContainer) {
+			            checkboxContainer.style.setProperty("display", "none", "important");
+			        }
+			        return;
+			    } else {
+			        console.log("Showing checkbox container.");
+			        if (checkboxContainer) {
+			            checkboxContainer.style.setProperty("display", "flex", "important");
+			        }
+			    }
+			
+			
 			
 			  // Get unique role descriptions
 			        const roleDescriptions = [...new Set(

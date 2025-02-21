@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="">
+<body id="page-top" onload="getDiretctorList()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -88,7 +88,7 @@
 								<thead>
 									<tr>
 										
-										<th>Id</th>
+										<th>Org Id</th>
 										<th>Name</th>
 										<th>Email</th>
 										<th>Mobile No</th>
@@ -96,7 +96,7 @@
 										<th>Designation</th>
 										<th>Address</th>
 										<th>Created By</th>
-										<th>Response</th>
+										<th>Creation Date</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -178,9 +178,9 @@
 			                
 			                <div class="container-fluid p-0 p-md-1">
 			                    <form id="AddDirector" name="AddDirector" method="post">
-			                        <!--<input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
+			                        <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
 			                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">-->
+			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
 
 									<div class="card-form my-3">
 			                            <label for="DirectorName">Name</label>

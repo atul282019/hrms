@@ -55,6 +55,7 @@ public interface EmployeeDetailService {
 	String getEmployeeOnboardingByManagerId(String token, EncriptResponse employeeOnboarding);
 	
 	String saveDirectorOnboarding(String token, EncriptResponse directorOnboarding);
+	String getDirectorOnboarding(String token, EncriptResponse directorOnboarding);
 
 
 }

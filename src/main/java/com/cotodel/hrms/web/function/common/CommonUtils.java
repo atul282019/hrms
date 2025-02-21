@@ -185,6 +185,7 @@ public interface CommonUtils {
 	
 	public static String getReputeEmployeeList = "/repute_marketplace/Api/get/employeeList";
 	public static String saveDirectorOnboarding = "/empService/Api/add/directorOnboarding";
+	public static String getDirectorOnboarding = "/empService/Api/get/directorOnboarding";
 	public static String getsaveWaitlist = "/userServices/Api/get/waitingListUsers";
 	
 }

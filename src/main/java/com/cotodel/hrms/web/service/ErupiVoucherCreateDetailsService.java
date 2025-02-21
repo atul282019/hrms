@@ -22,7 +22,7 @@ public interface ErupiVoucherCreateDetailsService {
 
 	String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
-	String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherCreateDetails);
+	String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherStatusSmsRequest);
 
 	String issueBulkVoucher(String token, ErupiBulkVoucherCreateRequest erupiBulkVoucherCreateRequest);
 

@@ -110,9 +110,9 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	}
 
 	@Override
-	public String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherCreateDetails) {
+	public String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherStatusSmsRequest) {
 		
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.resendErupiVoucheSmsSend);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherStatusSmsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.resendErupiVoucheSmsSend);
 
 	}
 
