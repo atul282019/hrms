@@ -324,7 +324,7 @@
 
                                 <div class="w-100 my-3 text-right">
                                     <button class="btn btn-border-primary"
-                                        onclick="window.location.href='/upiVoucherIssuanceNew';">Back</button>
+                                        onclick="backEmployeeList()">Back</button>
                                     <button type="button" class="btn btn-primary" onclick="singleVoucherValidation()">Continue</button>
                                 </div>								
                             </div>
@@ -530,6 +530,7 @@
 	<script>
 		
 		function getReputeEmployeeList(){
+			document.getElementById("signinLoader").style.display="flex";
 			$.ajax({
 				type: "POST",
 				url: "/getReputeEmployeeList",
@@ -550,7 +551,7 @@
 					 lengthChange: true,
 				     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
 		             "buttons": ["csv", "excel"],
-		             "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
+		             "language": {"emptyTable": "Records Not Available."  },
 			         "aaData": data2,
 		      		  "aoColumns": [ 
 						///{ "mData": "id", "render": function (data2, type, row) {
@@ -615,6 +616,11 @@
 	    //alert("Selected Employee: " + rowData.employeeName);
 	    document.getElementById("search").value=rowData.employeeName;
    	    document.getElementById("mobile").value=rowData.mobileNumber;
+	}
+	function backEmployeeList(){
+
+		$("#selectvouchers-wrap03").hide();
+		$("#selectemployee-wrap03").show();
 	}
 	</script>
 	<script>
@@ -751,6 +757,10 @@
             });
 			
 			$("#verifyDetailBack").click(function () {
+				
+				document.getElementById("issuesfailmsg").innerText="";
+				document.getElementById("issuesfailmsgDiv").style.display="none";
+				
 			    $("#selectvouchers-wrap03").show();
 			    $("#selectvouchers-wrap04").hide();
 			});

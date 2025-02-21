@@ -11,7 +11,7 @@ $(document).ready(function() {
 				dataType: 'json',
 				success: function(data) {
 				var obj = data;
-		        if (obj['status'] == "SUCCESS") {
+		        if (obj['status'] == true) {
 		            // If successful, open the OTP modal
 					var timeleft = "60";
 					var resendCodeElement = document.getElementById("resendCode");
@@ -64,7 +64,7 @@ function resendVoucherOTP() {
 		url:"/smsOtpResender",
 		dataType: 'json',
 		data: {
-			"mob": employerMobile,
+			"mobile": employerMobile,
 			"orderId":orderId
 		},
 		success: function(data) {
@@ -199,7 +199,7 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": employerMobile,
+  				"mobile": employerMobile,
   				"orderId": orderId,
   				"userName":employerMobile
   			},
