@@ -182,7 +182,7 @@
 		                          </div>
 								  
                             </div>
-							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
+							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectemployee-wrap03">
 							                              <div class="d-flex">
 							                                  <h3>Employee List </h3>
 							                              </div>
@@ -216,7 +216,7 @@
 							                          							
 							                          </div>
 
-                            <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
+                            <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03" style="display: none;">
                                 <div class="d-flex">
                                     <h3>Enter Details </h3>
                                 </div>
@@ -243,14 +243,14 @@
                                             <tr>
                                                 <td>
                                                     <div class="autocomp-input-wrap table-input">
-                                                        <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
+                                                        <input type="text" class="autocomp-input " id="search"
                                                             placeholder="Enter Name" autocomplete="off">
                                                         <div id="autocomplete-suggestions"
                                                             class="autocomplete-dropdown"></div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input" id="mobile" maxlength="10" readonly
+                                                    <input type="text" class="table-input" id="mobile" maxlength="10" 
 													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                                      placeholder="Enter Mobile Number">
                                                 </td>
@@ -462,7 +462,7 @@
                       
                                 <div class="row">
                                     <div class="col-12 text-right my-3">
-                                        <a th:href="@{/upiVoucherIssuanceNew}" class="btn btn-primary mb-1">GO TO DASHBOARD</a>
+                                        <a th:href="@{/reputeUpiVoucherIssuance}" class="btn btn-primary mb-1">GO TO DASHBOARD</a>
                                     </div>
                                 </div>
 
@@ -558,24 +558,18 @@
 					  //  }}, 
 						{ "mData": "employeeName"},
 		                { "mData": "mobileNumber"},   
-						/*{ "mData": "accountNumber", "render": function (data2, type, row) {
-							
-						 return '<div class="tdflex"><img src="img/indianbank.png" width="16px" alt=""><span" ></span></div>';
-										  
-						}},*/
+						
 					   // { "mData": "dob"},   
 						{ "mData": "gender"},  
 						//{ "mData": "mcc"}, 
 						{ "mData": "department"},
 						{ "mData": "designation"},
 						//{ "mData": "doj"},
-						<!--{ "mData": "officialEmailId"},-->
+						//{ "mData": "officialEmailId"},
 						{ "mData": "employmentStatus"},      
 						
 						{ "mData": "id", "render": function (data2, type, row) {
-						   // if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
-						    //    return '';
-						   // } else {
+						   
 						        return `
 						            <td>
 						                <div class="dropdown no-arrow ml-2">
@@ -587,30 +581,20 @@
 						                        <button 
 						                            class="dropdown-item py-2" 
 						                            value="${data2}" 
-						                            id="btnRevoke" 
-						                            onclick="openRevokeDialog('${encodeURIComponent(JSON.stringify(row))}')">
+						                            id="btnIssue" 
+						                            onclick="getRowData(this)">
 						                            Issue Voucher
 						                        </button>
-						                      <!--  <button 
-						                            class="dropdown-item py-2"  
-						                            data-toggle="modal" 
-						                            data-target="#tableSendSms" 
-						                            value="${data2}" 
-						                            id="btnSend" 
-						                            onclick="sendsms('${encodeURIComponent(JSON.stringify(row))}')">
-						                            Send SMS
-						                        </button>-->
+						                     
 						                    </div>
 						                </div>
 						            </td>`;
-							//	}
 						    }}, 
 					
 		    		 	],
 						
 						
-					});
-		      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');		
+					});	
 					
 				},
 				error: function(e) {
@@ -619,6 +603,19 @@
 			});
 		}
 		
+	function getRowData(btnIssue){
+		
+		$("#selectvouchers-wrap03").show();
+		$("#selectemployee-wrap03").hide();
+		
+		var table = $('#employeelist').DataTable();
+	    var row = $(btnIssue).closest('tr');
+	    var rowData = table.row(row).data();
+		//console.log(rowData); // Logs the row data to the console
+	    //alert("Selected Employee: " + rowData.employeeName);
+	    document.getElementById("search").value=rowData.employeeName;
+   	    document.getElementById("mobile").value=rowData.mobileNumber;
+	}
 	</script>
 	<script>
 			$('.responsive-content').slick({
