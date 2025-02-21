@@ -108,14 +108,14 @@ public class LoginController extends CotoDelBaseController{
 
 						logger.info(profileResRepute);
 						profileResJsonRepute= new JSONObject(profileResRepute);
-
+						session.setAttribute("reputeAccessToken", profileResJsonRepute.getJSONObject("data").getString("accessToken"));
+						session.setAttribute("endpoint", profileResJsonRepute.getJSONObject("data").getString("vault_url"));
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				
-					session.setAttribute("reputeAccessToken", profileResJsonRepute.getJSONObject("data").getString("accessToken"));
-					session.setAttribute("endpoint", profileResJsonRepute.getJSONObject("data").getString("endpoint"));
+				
 					//set token in session
 					request.getSession(true).setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));									  
 					request.getSession(true).setAttribute("hrms", profileJsonRes.getJSONObject("data").getString("mobile"));

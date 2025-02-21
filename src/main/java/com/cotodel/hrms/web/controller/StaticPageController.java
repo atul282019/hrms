@@ -59,7 +59,7 @@ public class StaticPageController extends CotoDelBaseController{
             @RequestParam(defaultValue = "") String company_id,
             @RequestParam(defaultValue = "") String role) {
 		logger.info("opening login Page");
-		if(code!="") {
+		if(code != null && !code.isEmpty() && code != "") {
 		logger.info("opening login Page"); 
 		ReputeTokenRequest repute=CommonUtility.getReputeToken(code, vault_url, applicationConstantConfig.tokenRedirectUrl);
 		

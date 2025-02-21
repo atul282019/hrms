@@ -446,11 +446,11 @@ function getIssueVoucherList(){
 	var employerid = document.getElementById("employerId").value;
 	$.ajax({
 		type: "POST",
-		url: "/getReputeEmployeeList",
+		url: "/getIssueVoucherList",
 		data: {
 			//"employeeId": employerid,
-			//"orgId": employerid,
-			//"timePeriod":"AH",
+			"orgId": employerid,
+			"timePeriod":"AH",
 		},
 		success: function(data) {
 			newData = data;

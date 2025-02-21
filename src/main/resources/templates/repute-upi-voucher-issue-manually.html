@@ -31,7 +31,7 @@
 </head>
 
 
-<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList()" >
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList(),getReputeEmployeeList()" >
 
  <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -192,36 +192,23 @@
 							                              </div>
 
 							                              <div class="table-responsive">
-							                                  <table class="table table-reimbursements selectvouchers-table">
+							                                  <table class="table table-reimbursements selectvouchers-table" id="employeelist">
 							                                      <thead>
 							                                          <tr>
 							                                              <th>Employee Name</th>
 																		  <th>Mobile Number</th>
-							                                              <th>DOB</th>
+							                                              <!-- <th>DOB</th>-->
 							                                              <th>GENDER</th>
 							                                              <th>DEPARTMENT</th>
-							                                              <th>eMPLOYMENT TYPE</th>
+							                                              <!--   <th>eMPLOYMENT TYPE</th>-->
 							                                              <th>DESIGNATION</th>
-							                                              <th>DOJ</th>
-							                                              <th>EMAIL</th>
+							                                              <!--  <th>DOJ</th>-->
+							                                            <!--  <th>EMAIL</th>-->
 																		  <th>EMPLOYMENTS STATUS</th>
-																		  
 							                                          </tr>
 							                                      </thead>
-							                                      <tbody id="voucherTableBody">
-																	<tr>
-						                                              <th>Employee Name</th>
-																	  <th>Mobile Number</th>
-						                                              <th>DOB</th>
-						                                              <th>GENDER</th>
-						                                              <th>DEPARTMENT</th>
-						                                              <th>eMPLOYMENT TYPE</th>
-						                                              <th>DESIGNATION</th>
-						                                              <th>DOJ</th>
-						                                              <th>EMAIL</th>
-																	  <th>EMPLOYMENTS STATUS</th>
-																	  
-						                                          </tr>
+							                                      <tbody>
+																	
 							                                      </tbody>
 							                                  </table>
 							                              </div>
@@ -540,7 +527,99 @@
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+	<script>
 		
+		function getReputeEmployeeList(){
+			$.ajax({
+				type: "POST",
+				url: "/getReputeEmployeeList",
+				data: {
+				
+				},
+				success: function(data) {
+					newData = data;
+					var data1 = jQuery.parseJSON(newData);
+					var data2 = data1.data;
+					 //console.log(data2);
+					document.getElementById("signinLoader").style.display="none";
+					
+					var table = $('#employeelist').DataTable( {
+			          destroy: true,	
+					 // "dom": 'rtip',
+					 //dom: 'Bfrtip',
+					 lengthChange: true,
+				     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+		             "buttons": ["csv", "excel"],
+		             "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
+			         "aaData": data2,
+		      		  "aoColumns": [ 
+						///{ "mData": "id", "render": function (data2, type, row) {
+						//   return ' <div class="table-check"><input type="hidden" class="checkBoxClass" value="'+data2+'" id="'+data2+'" name="revoke"></div>';
+					  //  }}, 
+						{ "mData": "employeeName"},
+		                { "mData": "mobileNumber"},   
+						/*{ "mData": "accountNumber", "render": function (data2, type, row) {
+							
+						 return '<div class="tdflex"><img src="img/indianbank.png" width="16px" alt=""><span" ></span></div>';
+										  
+						}},*/
+					   // { "mData": "dob"},   
+						{ "mData": "gender"},  
+						//{ "mData": "mcc"}, 
+						{ "mData": "department"},
+						{ "mData": "designation"},
+						//{ "mData": "doj"},
+						<!--{ "mData": "officialEmailId"},-->
+						{ "mData": "employmentStatus"},      
+						
+						{ "mData": "id", "render": function (data2, type, row) {
+						   // if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
+						    //    return '';
+						   // } else {
+						        return `
+						            <td>
+						                <div class="dropdown no-arrow ml-2">
+						                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						                        <i class="fas fa-ellipsis-v fa-sm"></i>
+						                    </a>
+						                    <br>
+						                    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+						                        <button 
+						                            class="dropdown-item py-2" 
+						                            value="${data2}" 
+						                            id="btnRevoke" 
+						                            onclick="openRevokeDialog('${encodeURIComponent(JSON.stringify(row))}')">
+						                            Issue Voucher
+						                        </button>
+						                      <!--  <button 
+						                            class="dropdown-item py-2"  
+						                            data-toggle="modal" 
+						                            data-target="#tableSendSms" 
+						                            value="${data2}" 
+						                            id="btnSend" 
+						                            onclick="sendsms('${encodeURIComponent(JSON.stringify(row))}')">
+						                            Send SMS
+						                        </button>-->
+						                    </div>
+						                </div>
+						            </td>`;
+							//	}
+						    }}, 
+					
+		    		 	],
+						
+						
+					});
+		      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');		
+					
+				},
+				error: function(e) {
+					alert('Failed to fetch JSON data' + e);
+				}
+			});
+		}
+		
+	</script>
 	<script>
 			$('.responsive-content').slick({
 			            dots: false,
