@@ -406,9 +406,15 @@
 			
 			 var row = jQuery(value).closest('tr');
 			 
-			 var id = row[0].children[0].innerHTML;
-			 var userDetailsId= row[0].children[1].innerHTML;
-			 alert("id =",id,"userDetailid=",userDetailsId);
+			 //var id = row[0].children[0].innerHTML;
+			 //var userDetailsId= row[0].children[1].innerHTML;
+			 var id = row.find('input[name="id"]').val();
+			    var userDetailsId = row.find('input[name="userDetailsId"]').val();
+
+			    // Debugging output
+			    console.log("Extracted ID:", id, "Extracted userDetailsId:", userDetailsId);
+			    
+			    //alert("id = " + id + " userDetailsId = " + userDetailsId);
 			 pupolateData(id,userDetailsId);
 			
 			 jQuery(document).ready(function($){

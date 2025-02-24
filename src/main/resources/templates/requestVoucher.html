@@ -243,9 +243,12 @@
 
 									<div class="card-form my-3">
                                          <label for="mobno">Mobile Number</label>
-										 <input type="text" class="form-input" id="mobno" name="mobno"  
-										        th:value="${#strings.length(session.mobile) > 6 ? 'XXXXXX' + session.mobile.substring(6) : session.mobile}" 
-										        readonly>
+										 <input type="text" class="form-input" id="maskedMobno"  
+										            th:value="${#strings.length(session.mobile) > 6 ? 'XXXXXX' + session.mobile.substring(6) : session.mobile}" 
+										            readonly>
+
+										     <!-- Hidden input to store the actual mobile number for form submission -->
+										     <input type="hidden" id="mobno" name="mobno" th:value="${session.mobile}">
 
                                      </div>
  										 <div class="error-msg" id="mobnoError" style="color:red"></div>
