@@ -74,16 +74,16 @@
 
 			var nameRegex = /^[A-Za-z\s]+$/;  // Only letters & spaces
 			    var mobileRegex = /^\d{10}$/;  // Exactly 10 digits
-			    var dinRegex = /^[A-Za-z0-9]{8}$/;  // Exactly 8 alphanumeric characters
-			    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Valid email format
+			    var dinRegex = /^[A-Za-z0-9]{1,8}$/;  // Exactly 8 alphanumeric characters
+			    var emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Valid email format
 
 			    // Validation for Director Name
 			    if (DirectorName === "" || !nameRegex.test(DirectorName)) {
-			        document.getElementById("VoucherRemarksError").innerHTML = "Please enter a valid Name (only letters and spaces are allowed)";
+			        document.getElementById("DirectorNameError").innerHTML = "Please enter a valid Name (only letters and spaces are allowed)";
 			        document.getElementById("DirectorName").focus();
 			        return false;
 			    } else {
-			        document.getElementById("VoucherRemarksError").innerHTML = "";
+			        document.getElementById("DirectorNameError").innerHTML = "";
 			    }
 
 			    // Validation for Mobile Number
@@ -109,7 +109,13 @@
 			        document.getElementById("emailError").innerHTML = "Please enter a valid Email Address";
 			        document.getElementById("email").focus();
 			        return false;
-			    } else {
+			    }
+				else if(email=="")
+				{					
+					document.getElementById("emailError").innerHTML = "Please enter Email Address";
+					        document.getElementById("email").focus();
+					        return false;} 
+				else {
 			        document.getElementById("emailError").innerHTML = "";
 			    }
 
