@@ -69,6 +69,7 @@
 		        url: "/getVoucherListWithIcon",
 		        success: function(data) {
 		            const parsedData = jQuery.parseJSON(data);
+					console.log("parsed data for /getVoucherListWithIcon",parsedData);
 		            
 		            // Clear existing options
 		            voucherDropdown.innerHTML = '<option value="">Select Voucher Type</option>';
@@ -96,8 +97,10 @@
 		        data: { employerId },
 		        success: function(data) {
 		            const parseddata = JSON.parse(data);
-		            console.log(data);
+		            
 					var vouchers=parseddata.data;
+					console.log("getSavedVoucherList()",vouchers);
+					
 
 		            // Get the table body
 		            const tableBody = $("#reimbursementTable tbody");
@@ -123,6 +126,8 @@
 								<td>${voucher.employeeId}</td>
 		                        <td>${voucher.voucherType}</td>
 		                        <td>${voucher.voucherSubType}</td>
+								<td>${voucher.purposeCode}</td>
+								<td>${voucher.mcc}</td>
 		                        <td>${maskedMobile}</td>
 		                        <td>${voucher.amount}</td>
 		                        <td>${formattedDate }</td>
@@ -244,6 +249,12 @@
 		    var mobno = document.getElementById("mobno").value.trim();
 		    var amount = document.getElementById("VoucherAmount").value.trim();
 		    var remarks = document.getElementById("VoucherRemarks").value.trim();
+			
+			var voucherTypeDropdown = document.getElementById("VoucherType");
+			 var purposeCode = voucherTypeDropdown.value; // Getting the purposeCode
+
+			 var voucherSubTypeDropdown = document.getElementById("VoucherSubType");
+			 var mcc = voucherSubTypeDropdown.value; // Getting the mcc
 
 		    // Fetch selected text for Voucher Type
 		    var voucherTypeDropdown = document.getElementById("VoucherType");
@@ -252,7 +263,44 @@
 		    // Fetch selected text for Voucher Sub Type
 		    var voucherSubTypeDropdown = document.getElementById("VoucherSubType");
 		    var voucherSubTypeText = voucherSubTypeDropdown.options[voucherSubTypeDropdown.selectedIndex].text;
+			
+			if (purposeCode === "") {
+			        document.getElementById("VoucherTypeerror").innerHTML = "Please select a Voucher Type";
+			        voucherTypeDropdown.focus();
+			        return false;
+			    } else {
+			        document.getElementById("VoucherTypeerror").innerHTML = "";
+			    }
 
+			    // Validation for Voucher Sub Type
+			    if (mcc === "") {
+			        document.getElementById("VoucherSubTypeerror").innerHTML = "Please select a Voucher Sub Type";
+			        voucherSubTypeDropdown.focus();
+			        return false;
+			    } else {
+			        document.getElementById("VoucherSubTypeerror").innerHTML = "";
+			    }
+
+			    // Validation for Voucher Amount
+			    if (amount === "" || isNaN(amount) || Number(amount) <= 0) {
+			        document.getElementById("VoucherAmountError").innerHTML = "Please enter a valid Voucher Amount";
+			        document.getElementById("VoucherAmount").focus();
+			        return false;
+			    } else {
+			        document.getElementById("VoucherAmountError").innerHTML = "";
+			    }
+
+			    // Validation for Remarks
+			    if (remarks === "") {
+			        document.getElementById("VoucherRemarksError").innerHTML = "Please enter Remarks";
+			        document.getElementById("VoucherRemarks").focus();
+			        return false;
+			    } else {
+			        document.getElementById("VoucherRemarksError").innerHTML = "";
+			    }
+
+			
+			
 		    // Send the AJAX request
 		    $.ajax({
 		        type: "POST",
@@ -261,7 +309,8 @@
 		            
 					"employerId":employerId,
 					"employeeId":employeeId,
-		           
+					"purposeCode":	purposeCode,
+					"mcc": mcc,
 		            "name": Name,
 		            "voucherType": voucherTypeText, // Selected text of Voucher Type
 		            "voucherSubType": voucherSubTypeText, // Selected text of Voucher Sub Type

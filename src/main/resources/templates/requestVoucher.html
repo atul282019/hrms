@@ -91,6 +91,8 @@
 										<th>Employee Id</th>
 										<th>Voucher Type</th>
 										<th>Voucher Sub Type</th>
+										<th>Purpose Code</th>
+										<th>MCC</th>
 										<th>Mobile No</th>
 										<th>Voucher Amount</th>
 										<th>Creation Date</th>
@@ -104,7 +106,7 @@
 								</tbody>
 								<tfoot>
 								                <tr>
-								                    <td colspan="9">
+								                    <td colspan="12">
 								                        <div class="last-add" style="padding: .75rem;">
 								                            <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalRequestVoucher">
 								                                + Request Voucher
@@ -188,6 +190,7 @@
 	            data: { purposeCode: selectedVoucherCode },
 	            success: function (data) {
 	                const parsedData = jQuery.parseJSON(data);
+					console.log("parsed data for /getPurposeListByVoucherCode",parsedData);
 	                
 	                subTypeDropdown.innerHTML = '<option value="">Select Voucher Sub Type</option>';
 	                
@@ -240,7 +243,9 @@
 
 									<div class="card-form my-3">
                                          <label for="mobno">Mobile Number</label>
-                                         <input type="text" class="form-input" id="mobno" name="mobno"  th:value="${session.mobile}" readonly>
+										 <input type="text" class="form-input" id="mobno" name="mobno"  
+										        th:value="${#strings.length(session.mobile) > 6 ? 'XXXXXX' + session.mobile.substring(6) : session.mobile}" 
+										        readonly>
 
                                      </div>
  										 <div class="error-msg" id="mobnoError" style="color:red"></div>

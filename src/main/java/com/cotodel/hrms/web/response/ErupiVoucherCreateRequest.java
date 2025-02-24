@@ -29,5 +29,7 @@ public class ErupiVoucherCreateRequest {
 	private Float amount;
 	private String remarks;
 	private String response;
+	private String purposeCode;	
+	private String mcc;
 
 }

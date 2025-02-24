@@ -72,7 +72,65 @@
 		    var Designation = document.getElementById("Designation").value.trim();
 		    var Address = document.getElementById("Address").value.trim();
 
-		    
+			var nameRegex = /^[A-Za-z\s]+$/;  // Only letters & spaces
+			    var mobileRegex = /^\d{10}$/;  // Exactly 10 digits
+			    var dinRegex = /^[A-Za-z0-9]{8}$/;  // Exactly 8 alphanumeric characters
+			    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Valid email format
+
+			    // Validation for Director Name
+			    if (DirectorName === "" || !nameRegex.test(DirectorName)) {
+			        document.getElementById("VoucherRemarksError").innerHTML = "Please enter a valid Name (only letters and spaces are allowed)";
+			        document.getElementById("DirectorName").focus();
+			        return false;
+			    } else {
+			        document.getElementById("VoucherRemarksError").innerHTML = "";
+			    }
+
+			    // Validation for Mobile Number
+			    if (!mobileRegex.test(mobno)) {
+			        document.getElementById("mobnoError").innerHTML = "Please enter a valid 10-digit Mobile Number";
+			        document.getElementById("mobno").focus();
+			        return false;
+			    } else {
+			        document.getElementById("mobnoError").innerHTML = "";
+			    }
+
+			    // Validation for DIN (Director Identification Number) - 8 alphanumeric characters
+			    if (!dinRegex.test(Din)) {
+			        document.getElementById("DinError").innerHTML = "DIN must be exactly 8 alphanumeric characters";
+			        document.getElementById("Din").focus();
+			        return false;
+			    } else {
+			        document.getElementById("DinError").innerHTML = "";
+			    }
+
+			    // Validation for Email
+			    if (!emailRegex.test(email)) {
+			        document.getElementById("emailError").innerHTML = "Please enter a valid Email Address";
+			        document.getElementById("email").focus();
+			        return false;
+			    } else {
+			        document.getElementById("emailError").innerHTML = "";
+			    }
+
+			    // Validation for Designation
+			    if (Designation === "" || !nameRegex.test(Designation)) {
+			        document.getElementById("DesignationError").innerHTML = "Please enter a valid Designation (only letters and spaces are allowed)";
+			        document.getElementById("Designation").focus();
+			        return false;
+			    } else {
+			        document.getElementById("DesignationError").innerHTML = "";
+			    }
+
+			    // Validation for Address
+			    if (Address === "") {
+			        document.getElementById("AddressError").innerHTML = "Please enter an Address";
+			        document.getElementById("Address").focus();
+			        return false;
+			    } else {
+			        document.getElementById("AddressError").innerHTML = "";
+			    }
+
 		   
 		    // Send the AJAX request
 		    $.ajax({
