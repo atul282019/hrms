@@ -115,7 +115,7 @@
 		            }
 
 		            // Populate the table dynamically
-		            vouchers.forEach((voucher, index) => {
+		            vouchers.forEach(voucher => {
 						const formattedDate = voucher.creationDate ? voucher.creationDate.split("T")[0] : "N/A";
 						//const maskedMobile = voucher.mobile 
 						 //                   ? `XXX-XXX-${voucher.mobile.slice(-4)}` 
@@ -133,34 +133,7 @@
 		                        <td>${formattedDate }</td>
 								<td>${voucher.remarks || "N/A"}</td>
 								<td>${voucher.statusMessage || "N/A"}</td>
-								<td> 
-								                            <div class="dropdown no-arrow ml-2">
-								                                <a class="dropdown-toggle" href="#" id="dropdownMenu${index}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								                                    <i class="fas fa-ellipsis-v fa-sm"></i>
-								                                </a>
-								                                <br>
-								                                <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenu${index}">
-								                                    <button 
-								                                        class="dropdown-item py-2" 
-								                                        value="${voucher.id}" 
-								                                        onclick="updateStatus('${voucher.id}', 'Approved')">
-								                                        Approve
-								                                    </button>
-								                                    <button 
-								                                        class="dropdown-item py-2" 
-								                                        value="${voucher.id}" 
-								                                        onclick="updateStatus('${voucher.id}', 'Rejected')">
-								                                        Reject
-								                                    </button>
-								                                    <button 
-								                                        class="dropdown-item py-2"  
-								                                        value="${voucher.id}" 
-								                                        onclick="updateStatus('${voucher.id}', 'Hold')">
-								                                        Hold
-								                                    </button>
-								                                </div>
-								                            </div>
-								                        </td>
+								
 		                        
 		                    </tr>
 		                `;

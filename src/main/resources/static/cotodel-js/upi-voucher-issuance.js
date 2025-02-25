@@ -64,7 +64,7 @@ function resendVoucherOTP() {
 		url:"/smsOtpResender",
 		dataType: 'json',
 		data: {
-			"mob": employerMobile,
+			"mobile": employerMobile,
 			"orderId":orderId
 		},
 		success: function(data) {

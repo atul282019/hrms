@@ -187,5 +187,6 @@ public interface CommonUtils {
 	public static String saveDirectorOnboarding = "/empService/Api/add/directorOnboarding";
 	public static String getDirectorOnboarding = "/empService/Api/get/directorOnboarding";
 	public static String getsaveWaitlist = "/userServices/Api/get/waitingListUsers";
+	public static String updateWaitlist = "/userServices/Api/update/waitListUsers";
 	
 }

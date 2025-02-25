@@ -6,6 +6,7 @@ function saveWaitlistData() {
     var contactPerson = document.getElementById("contactPerson").value;
     var contactNumber = document.getElementById("contactNumber").value;
     var emailId = document.getElementById("emailId").value;
+	var eRupiStatus = document.getElementById("eRupiStatus").checked;
     
     var companySizeValue = companySize ? companySize.value : "";
     var industryValue = industry ? industry.value : "";
@@ -52,12 +53,14 @@ function saveWaitlistData() {
 		        "contactNumber": contactNumber,
 		        "email": emailId,
 		        "companySize": companySizeValue,
-		        "industry": industryValue, 
+		        "industry": industryValue,
+				
+				erupistatus:eRupiStatus, 
 			},
 			dataType: "json",
         success: function (response) {
 			console.log(response);
-            if (response.status === true) {
+            if (response.status == true) {
                 
                 $("#waitlistApproved").show(); // Show success modal
 				//alert("waitlistApproved!");
@@ -97,8 +100,9 @@ function getWaitlist() {
 		            }
 
 		            // Populate the table dynamically
-		            employer.forEach(employer => {
+		            employer.forEach((employer, index) => {
 						const formattedDate = employer.createdDate ? employer.createdDate.split("T")[0] : "N/A";
+						//const employerData = encodeURIComponent(JSON.stringify(employer)); // Encode to pass safely
 		                const row = `
 						<tr>
 						            <td>${employer.id}</td>
@@ -109,6 +113,29 @@ function getWaitlist() {
 						            <td>${employer.contactNumber}</td>
 						            <td>${employer.email}</td>
 						            <td>${formattedDate}</td>
+									<td>${employer.statusRemarks}</td>
+									<td> 
+		                            <div class="dropdown no-arrow ml-2">
+		                                <a class="dropdown-toggle" href="#" id="dropdownMenu${index}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                                    <i class="fas fa-ellipsis-v fa-sm"></i>
+		                                </a>
+		                                <br>
+		                                <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenu${index}">
+		                                    <button 
+		                                        class="dropdown-item py-2" 
+		                                        data-employer='${JSON.stringify(employer)}' 
+		                                        onclick="updateStatus(this, 'Approved')">
+		                                        Approve
+		                                    </button>
+		                                    <button 
+		                                        class="dropdown-item py-2" 
+		                                        data-employer='${JSON.stringify(employer)}' 
+		                                        onclick="updateStatus(this, 'Rejected')">
+		                                        Reject
+		                                    </button>
+		                                </div>
+		                            </div>
+		                        </td>
 						        </tr>
 		                `;
 
@@ -117,6 +144,41 @@ function getWaitlist() {
 		        },
 		        error: function(e) {
 		            alert('Error: ' + e.responseText);
+		        }
+		    });
+		}
+		
+		function updateStatus(button, status) {
+		    const employerData = JSON.parse(button.getAttribute("data-employer")); // Decode the employer object
+		    //console.log("employer data in update status",employer);
+			//employer.status = status; // Update status
+			
+
+		    $.ajax({
+		        type: "POST",
+		        url: "/updateuserWaitList",
+				data: { 		
+					"id": employerData.id, // Keeping the ID to identify the employer
+							        "companyName": employerData.companyName,
+							        "contactPersonName": employerData.contactPersonName,
+							        "contactNumber": employerData.contactNumber,
+							        "email": employerData.email,
+							        "companySize": employerData.companySize,
+							        "industry": employerData.industry,
+							        "erupistatus": employerData.erupistatus, // Assuming this is needed
+							        "status": status // Update the status (Approved/Rejected)
+						},
+						dataType: "json",
+		        success: function(response) {
+					if(response.status==true)
+						{
+							
+									            window.location.href="/displayWaitlist"; 
+						}
+		            
+		        },
+		        error: function(error) {
+		            console.log('Error updating status: ' + error.responseText);
 		        }
 		    });
 		}	

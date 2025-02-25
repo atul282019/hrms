@@ -127,6 +127,13 @@
   		  		                  <label for="emailId" class="form-label">Email ID</label>
   		  		                  <input type="email" class="form-control" id="emailId"  required>
   		  		              </div>
+							  <div class="mb-4">
+	  		                       <div class="custom-control custom-checkbox small">
+	  		                           <input type="checkbox" class="custom-control-input" id="eRupiStatus" name="erupistatus" >
+	  		                           <label class="custom-control-label text-left" for="eRupiStatus" >Enable eRupi for Voucher creation</label>
+	  		                           
+	  		                       </div>
+	  		                   </div>
 					  
 		              <button type="submit" class="btn btn-submit w-100" onclick="saveWaitlistData()">Join Waitlist</button>
 		          </form>
@@ -165,6 +172,24 @@
 	<script type="text/javascript" src="cotodel-js/cotodel-Waitlist.js"></script>
 	
 	<style>
+		.custom-control {
+			
+		    display: flex;
+		    align-items: center;
+		}
+
+		.custom-control-input {
+		    margin-right: 10px; /* Adjust spacing between checkbox and label */
+			width: 18px;
+			   height: 18px;
+		}
+
+		.custom-control-label {
+			font-size: 16px;
+		    text-align: left;
+		    color: black;
+		}
+
 		.form-check-label
 		{
 			color: black;

@@ -22,6 +22,8 @@ public class UserWaitList implements Serializable{
 	private String contactNumber;  
 	private String email;
 	private String response;
+	private String status;
+	private boolean erupistatus ;
 	
 	
 	

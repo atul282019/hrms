@@ -789,7 +789,7 @@ function resendOTP() {
         type: "POST",
         url: "/smsOtpResender",
         dataType: 'json',
-        data: { "mob": userMobile, "orderId": orderId },
+        data: { "mobile": userMobile, "orderId": orderId },
         success: function (data) {
             var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
