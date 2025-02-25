@@ -510,16 +510,16 @@ function getEmployeeOnboarding() {
 	        
 	         "aaData": data2,
       		  "aoColumns": [ 
+				{ "mData": null, "render": function (data, type, row, meta) { return meta.row + 1; } },
 				{ "mData": "id","render": function (data1, type, row) {
-				                    return '<input type="hidden" class="form-input" id="id" name="id" value="'+data1+'">';
-				                 }}, 
-				//{ "mData": null, "render": function (data, type, row, meta) { return meta.row + 1; } },//id for every fetch request starting from 1
-			{ "mData": "userDetailsId","render": function (data1, type, row) {
-								                    return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="'+data1+'">';
-								                 }},
+                    return '<input type="hidden" class="form-input" id="id" name="id" value="'+data1+'">';
+                 }}, 
+			    { "mData": "userDetailsId","render": function (data1, type, row) {
+	                return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="'+data1+'">';
+	             }},
       		    { "mData": "name"},          
       		    { "mData": "mobile"},
-      		   // { "mData": "jobTitle"},
+      		    { "mData": "email"},
       		    { "mData": "empOrCont"},
 				{ "mData": "status", "render": function(data, type, row) {
 				                        return data === 1 ? 'Active' : 'Inactive';

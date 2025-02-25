@@ -1117,6 +1117,17 @@
 		    getEmployeeOnboardingById();
 			getEmployeeOnboardingByManagerId();
 		};
+		
+		$(document).ready(function(){
+			    	
+			    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+					  $('a[href="/manageEmployee"]').closest('li').addClass('active').attr('aria-current', 'page');   
+					  
+			        $(".innernav").click(function(){
+			            $(".dropdownNav").addClass("active");
+			        });
+			    });
+			    
 	</script>
     <script>
         $(document).on('change','.up', function(){
