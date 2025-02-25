@@ -32,7 +32,7 @@
 </head>
 
 
-<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList()" >
+<body id="page-top" onload="getLinkedBankDetail(),getTotalVoucherCount(),getVoucherSummaryList(),getRequestedEmployeeList()" >
 
  <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -183,8 +183,42 @@
 		                          </div>
 								  
                             </div>
+							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectemployee-wrap03">
+							                              <div class="d-flex">
+							                                  <h3>Employee List </h3>
+							                              </div>
 
-                            <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03">
+							                              <div>
+							                                  <p>Please input the details for the issuance of vouchers.</p>
+							                              </div>
+
+							                              <div class="table-responsive">
+							                                  <table class="table table-reimbursements selectvouchers-table" id="employeelist">
+							                                      <thead>
+							                                          <tr>
+							                                              <th>Employee Name</th>
+																		  <th>Mobile Number</th>
+							                                              <!-- <th>DOB</th>-->
+							                                              <th>VOUCHER CATEGORY</th>
+							                                              <th>PURPOSE CODE</th>
+							                                              <!--   <th>eMPLOYMENT TYPE</th>-->
+							                                              <th>AMOUNT</th>
+							                                              <!--  <th>DOJ</th>-->
+							                                            <!--  <th>EMAIL</th>-->
+																		  <th>EMPLOYEE REMARK</th>
+																		  <th>ACTION</th>
+							                                          </tr>
+							                                      </thead>
+							                                      <tbody>
+																	
+							                                      </tbody>
+							                                  </table>
+							                              </div>
+
+							                          							
+							                          </div>
+
+                            <div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03" style="display: none;">
                                 <div class="d-flex">
                                     <h3>Enter Details </h3>
                                 </div>
@@ -211,19 +245,19 @@
                                             <tr>
                                                 <td>
                                                     <div class="autocomp-input-wrap table-input">
-                                                        <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
+                                                        <input type="text" class="autocomp-input " id="search"
                                                             placeholder="Enter Name" autocomplete="off">
                                                         <div id="autocomplete-suggestions"
                                                             class="autocomplete-dropdown"></div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input" id="mobile" maxlength="10" readonly
+                                                    <input type="text" class="table-input" id="mobile" maxlength="10" 
 													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                                      placeholder="Enter Mobile Number">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input table-input-voucher selectMCC" id="btnforvccategoryforbulkissuance"
+                                                    <input type="text" class="table-input" id="btnforvccategoryforbulkissuance"
                                                      placeholder="Select Voucher">
                                                 </td>
                                                 <td>
@@ -292,7 +326,7 @@
 
                                 <div class="w-100 my-3 text-right">
                                     <button class="btn btn-border-primary"
-                                        onclick="window.location.href='/upiVoucherIssuanceNew';">Back</button>
+                                        onclick="backEmployeeList()">Back</button>
                                     <button type="button" class="btn btn-primary" onclick="singleVoucherValidation()">Continue</button>
                                 </div>								
                             </div>
@@ -495,45 +529,137 @@
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+	<script>
 		
+		function getRequestedEmployeeList(){
+			document.getElementById("signinLoader").style.display="flex";
+			const employerId = document.getElementById('employerId').value;
+
+		    $.ajax({
+		        type: "GET",
+		        url: "/getRequestedVoucherList",
+		        data: { employerId },
+				success: function(data) {
+					newData = data;
+					var data1 = jQuery.parseJSON(newData);
+					var data2 = data1.data;
+					 //console.log(data2);
+					document.getElementById("signinLoader").style.display="none";
+					
+					var table = $('#employeelist').DataTable( {
+			          destroy: true,	
+					 // "dom": 'rtip',
+					 //dom: 'Bfrtip',
+					 lengthChange: true,
+				     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+		             "buttons": ["csv", "excel"],
+		             "language": {"emptyTable": "Records Not Available."  },
+			         "aaData": data2,
+		      		  "aoColumns": [ 
+						{ "mData": "name"},
+		                { "mData": "mobile"},   
+						{ "mData": "voucherType"},
+						{ "mData": "voucherSubType"},
+						{ "mData": "amount"},
+						{ "mData": "remarks"},      
+						{ "mData": "id", "render": function (data2, type, row) {
+					   
+					        return `
+					            <td>
+					                <div class="dropdown no-arrow ml-2">
+					                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					                        <i class="fas fa-ellipsis-v fa-sm"></i>
+					                    </a>
+					                    <br>
+					                    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+					                        <button 
+					                            class="dropdown-item py-2" 
+					                            value="${data2}" 
+					                            id="btnIssue" 
+					                            onclick="getRowData(this)">
+					                            Issue Voucher
+					                        </button>
+					                     
+					                    </div>
+					                </div>
+					            </td>`;
+					    }}, 
+					
+		    		 	],
+						
+						
+					});	
+					
+				},
+				error: function(e) {
+					alert('Failed to fetch JSON data' + e);
+				}
+			});
+		}
+		
+	function getRowData(btnIssue){
+		
+		var table = $('#employeelist').DataTable();
+	    var row = $(btnIssue).closest('tr');
+	    var rowData = table.row(row).data();
+	    document.getElementById("search").value=rowData.name;
+   	    document.getElementById("mobile").value=rowData.mobile;
+		document.getElementById("btnforvccategoryforbulkissuance").value=rowData.voucherType+"|"+rowData.voucherSubType;
+		document.getElementById("amount").value=rowData.amount;
+		
+		document.getElementById("voucherCode").value=rowData.purposeCode;
+		document.getElementById("purposeCode").value=rowData.mcc;
+		document.getElementById("voucherType").value=rowData.voucherType;
+		document.getElementById("voucherSubType").value=rowData.voucherSubType;
+		document.getElementById("mcc").value=rowData.mcc;
+		
+		$("#selectvouchers-wrap03").show();
+		$("#selectemployee-wrap03").hide();
+				
+	}
+	function backEmployeeList(){
+
+		$("#selectvouchers-wrap03").hide();
+		$("#selectemployee-wrap03").show();
+	}
+	</script>
 	<script>
 			$('.responsive-content').slick({
-			            dots: false,
-			            infinite: false,
-			            speed: 300,
-			            slidesToShow: 4,
-			            slidesToScroll: 1,
-			            draggable: false,
-			            responsive: [
-			                {
-			                    breakpoint: 1024,
-			                    settings: {
-			                        slidesToShow: 3,
-			                        slidesToScroll: 1,
-			                        infinite: true
-			                    }
-			                },
-			                {
-			                    breakpoint: 600,
-			                    settings: {
-			                        slidesToShow: 2,
-			                        slidesToScroll: 1
-			                    }
-			                },
-			                {
-			                    breakpoint: 480,
-			                    settings: {
-			                        slidesToShow: 1,
-			                        slidesToScroll: 1
-			                    }
-			                }
-			            ]
-			        });
-		</script>
+            dots: false,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            draggable: false,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        infinite: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+	</script>
 	<script type="text/javascript">
 
-	$(document).ready(function(){
-		
+	$(document).ready(function(){	
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
 		  $('a[href="' +'/upiVoucherIssuanceNew"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
@@ -604,8 +730,6 @@
 	      }
 	    });
 	  });
-	  
-	  
 	</script>
 	
     <script>
@@ -630,6 +754,10 @@
             });
 			
 			$("#verifyDetailBack").click(function () {
+				
+				document.getElementById("issuesfailmsg").innerText="";
+				document.getElementById("issuesfailmsgDiv").style.display="none";
+				
 			    $("#selectvouchers-wrap03").show();
 			    $("#selectvouchers-wrap04").hide();
 			});
@@ -640,344 +768,11 @@
             });
         });
 
-        $(document).ready(function () {
-            $('.vouchers-checkbox1').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers1').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers1').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox2').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers2').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers2').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox3').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers3').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers3').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox4').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers4').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers4').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox5').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers5').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers5').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox6').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers6').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers6').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox7').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers7').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers7').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox8').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers8').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers8').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox9').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers9').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers9').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox10').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers10').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers10').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox11').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers11').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers11').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-            $('.vouchers-checkbox12').change(function () {
-                if ($(this).is(':checked')) {
-                    $('.cards-upivouchers12').addClass('highlight'); // Add class when checked
-                } else {
-                    $('.cards-upivouchers12').removeClass('highlight'); // Remove class when unchecked
-                }
-            });
-
-        });
-
-        ////////////////////////
-       function userSearchAndPupolate(){
-		const searchInput = document.getElementById('search').value;
-		const searchInput2 = document.getElementById('search');
-		const mobile = document.getElementById('mobile');
-		
-		const suggestionsDropdown = document.getElementById('autocomplete-suggestions');
-	    const employerId = document.getElementById('employerId').value;
-		       // Sample list of users (this can be dynamic)
-			$.ajax({
-            type: "POST",
-            url: "/voucherUserSearch",
-            dataType: 'json',
-            data: {
-                "orgId": employerId,
-                "userName": searchInput
-            },
-            success: function (data) {
-                //document.getElementById("signinLoader").style.display = "none";
-				
-				//data.data
-		     // Event listener to trigger autocomplete
-		      
-		           const query = searchInput2.value.toLowerCase();
-		           if (query) {
-		               const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
-		               displaySuggestions(filteredUsers);
-		           } else {
-		               suggestionsDropdown.style.display = 'none';
-		           }
-		     
-               
-            },
-            error: function (e) {
-                document.getElementById("signinLoader").style.display = "none";
-                console.error('Error:', e);
-                alert('An error occurred while fetching the data.');
-            }
-        });
-
-		      
-
-	       // Function to display the filtered suggestions in the dropdown
-	       function displaySuggestions(userList) {
-	           suggestionsDropdown.innerHTML = ''; // Clear previous suggestions
-	           userList.forEach(user => {
-	               const div = document.createElement('div');
-	               div.classList.add('autocomplete-suggestion');
-
-	               // Create content with username, profile, and contact number
-	               div.innerHTML = `
-				     <strong>${user.email}</strong>
-				     <span class="user-profile">${user.username}</span>
-				     <span class="user-contact">${user.mobile}</span>
-				   `;
-
-	               div.addEventListener('click', function () {
-	                   searchInput2.value = user.username; // Set input value to the selected user
-					   mobile.value = user.mobile; // Set input value to the selected user
-	                   suggestionsDropdown.style.display = 'none'; // Hide dropdown
-	               });
-
-	               suggestionsDropdown.appendChild(div);
-	           });
-
-	           suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
-	       }
-
-   }
-
+     
     </script>
 
 	<script>
-	    function getVoucherListWithIcon() {
-	        const voucherList = document.getElementById('voucherList');
-	        const purposeList = document.getElementById('purposeList');
-	        
-	        $.ajax({
-	            type: "GET",
-	            url: "/getVoucherListWithIcon",
-	            success: function(data) {
-	                const parsedData = jQuery.parseJSON(data);
-					console.log("Get voucher list with data : ",parsedData);
-	                // Populate Voucher List
-	                parsedData.data.forEach(item => {
-	                    const li = document.createElement('li');
-	                    li.classList.add('voucher-item');
-	                    li.setAttribute('data-value', item.purposeCode);
-
-	                    const a = document.createElement('a');
-	                    a.href = "javascript:void(0);";
-
-	                    const img = document.createElement('img');
-	                    img.src = item.voucherIcon 
-	                        ? `data:image/png;base64,${item.voucherIcon}`
-	                        : '';
-	                    img.classList.add('img-fluid');
-						img.style.height = '20px';
-						img.style.width = '20px';
-	                    const span = document.createElement('span');
-	                    span.textContent = item.voucherName;
-
-	                    a.appendChild(img);
-	                    a.appendChild(span);
-	                    li.appendChild(a);
-	                    voucherList.appendChild(li);
-	                });
-
-	                // Add click event listener to Voucher List
-	                voucherList.addEventListener('click', event => {
-	                    const clickedItem = event.target.closest('li'); // Get the clicked LI element
-	                    if (clickedItem) {
-	                        const purposeCode = clickedItem.getAttribute('data-value');
-	                        const voucherIcon = clickedItem.querySelector('img').src;
-	                        const voucherName = clickedItem.querySelector('span').textContent;
-
-	                        // Bind the selected image and voucher name to specific elements
-	                       
-	                        // Clear previous selections
-	                        [...voucherList.children].forEach(item => item.classList.remove('selected'));
-	                        [...purposeList.children].forEach(item => item.remove()); // Clear Purpose List
-
-	                        // Highlight the selected item
-	                        clickedItem.classList.add('selected');
-
-	                        // Fetch Purpose List using the selected purposeCode
-	                        fetchPurposeListByVoucherCode(purposeCode);
-	                    }
-						document.getElementById("mccDiv").style.display="block";
-	                });
-	            },
-	            error: function(e) {
-	                alert('Error: ' + e.responseText);
-	            }
-	        });
-	    }
-
-	    function fetchPurposeListByVoucherCode(purposeCode) {
-	        const purposeList = document.getElementById('purposeList');
-
-	        $.ajax({
-	            type: "GET",
-	            url: "/getPurposeListByVoucherCode",
-	            data: { purposeCode },
-	            success: function(data) {
-	                const parsedData = jQuery.parseJSON(data);
-					console.log("fetchPurposeListByVoucherCode : ",parsedData);
-	                // Populate Purpose List with radio buttons
-					const imageElement = document.getElementById('voucherImageId');
-					const textElement = document.getElementById('voucherTextId');
-
-					
-			       imageElement.src = parsedData.mccMainIcon.mccMainIcon
-						                        ? `data:image/png;base64,${parsedData.mccMainIcon.mccMainIcon}`
-						                        : 'img/fuelVouchers.svg'; // Set image
-					textElement.textContent = parsedData.mccMainIcon.voucherName ? parsedData.mccMainIcon.voucherName : "";
-
-	                parsedData.data.forEach(item => {
-	                    const li = document.createElement('li');
-	                    li.classList.add('purpose-item');
-	                    li.setAttribute('data-value', item.mcc);
-
-	                    // Create radio input
-	                    const radioInput = document.createElement('input');
-	                    radioInput.type = 'radio';
-	                    radioInput.classList.add('voucher-radioinput');
-	                    radioInput.name = 'selectvouchers'; // Group radio buttons by name
-
-	                    // Create img element
-	                    const img = document.createElement('img');
-	                    img.src = item.mccIcon
-	                        ? `data:image/png;base64,${item.mccIcon}`
-	                        : '';
-	                   // img.alt = item.mccDesc;
-	                    img.classList.add('img-fluid');
-						img.style.height = '20px';
-						img.style.width = '20px';
-	                    // Create span element with voucher name
-	                    const span = document.createElement('span');
-	                    span.textContent = item.mccDesc;
-
-	                    // Append elements to li
-	                    li.appendChild(radioInput);
-	                    li.appendChild(img);
-	                    li.appendChild(span);
-	                    purposeList.appendChild(li);
-	                });
-	            },
-	            error: function(e) {
-	                alert('Error: ' + e.responseText);
-	            }
-	        });
-	    }
-    // Initialize
-   // getVoucherListWithIcon();
-	</script>
-
-	<script>
-		
-		function getVoucherDetail(){
-	        // Get the selected voucher data (image and name)
-	        const selectedVoucherItem = document.querySelector('.voucher-item.selected');
-			
-			var selectedVoucherName=null;
-			var selectedVoucherCode=null;
-			var selectedPurposeCode =null;
-			var selectedPurposeName =null;
-	        if (selectedVoucherItem) {
-				selectedVoucherCode = selectedVoucherItem.getAttribute('data-value');
-			    selectedVoucherName = selectedVoucherItem.querySelector('span').textContent;
-	            console.log("Selected Voucher Code:", selectedVoucherName);
-	        } else {
-	            alert('No voucher selected!');
-	        }
-
-	        // Get the selected radio button data (Purpose List)
-	        const selectedRadioButton = document.querySelector('input[name="selectvouchers"]:checked');
-	        if (selectedRadioButton) {
-				selectedPurposeCode = selectedRadioButton.closest('li').getAttribute('data-value');
-			    selectedPurposeName = selectedRadioButton.closest('li').querySelector('span').textContent;
-				
-				
-				console.log("Selected Purpose Code:", selectedPurposeCode);
-	        } else {
-	            alert('No purpose selected!');
-				return false;
-	        }
-			
-			// Get the selected voucher data (image and name)
-						   
-			document.getElementById("btnforvccategoryforbulkissuance").value=selectedVoucherName+'|'+selectedPurposeName;
-			document.getElementById("voucherCode").value=selectedVoucherCode;
-			document.getElementById("voucherDesc").value=selectedVoucherName;
-			document.getElementById("purposeCode").value=selectedVoucherCode;
-			document.getElementById("purposeName").value=selectedPurposeName;
-			document.getElementById("mcc").value=selectedPurposeCode;
-			$("#modalforvccategoryforbulkissuance").hide();
-				   
-		}
+	
 	function getTotalVoucherCount(){
 				var employerid = document.getElementById("employerId").value;
 				$.ajax({
@@ -999,42 +794,7 @@
 					}
 				});
 			}
-			
-		function searchEmployee() {
-	        const searchBox = document.getElementById('searchBox').value;
-	        const employerId = document.getElementById('employerId').value;
-			var userMobile = document.getElementById("userMobile").value;
-	        // Show loader
-	        document.getElementById("signinLoader").style.display = "flex";
-			
-	        $.ajax({
-	            type: "POST",
-	            url: "/userSearch",
-	            dataType: 'json',
-	            data: {
-	                "orgId": employerId,
-	                "userName": searchBox,
-					"userMobile": userMobile
-	            },
-	            success: function (data) {
-	                document.getElementById("signinLoader").style.display = "none";
-
-	                if (data && data.status && data.data.length > 0) {
-	                    const roleHeaders = generateHeaders(data.data);
-	                    generateRows(data.data, roleHeaders);
-	                } else {
-	                    alert("No data found for the given search.");
-	                }
-	            },
-	            error: function (e) {
-	                document.getElementById("signinLoader").style.display = "none";
-	                console.error('Error:', e);
-	                alert('An error occurred while fetching the data.');
-	            }
-	        });
-	    }
-		
-		
+				
 	</script>
 	<script>
 	      // Set the min attribute to today's date
@@ -1136,72 +896,6 @@
 	    }
 	</script>
 	
-    <!-- Modal Issue Vouchers -->
-    <div class="customModal" id="modalforvccategoryforbulkissuance">
-        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
-            <div class="modal-content modal-bulk my-2">                 
-                <div class="modal-body text-left p-0">
-                    <div class="tab-content m-0">
-                        <div class="upi-voucher-wrap m-0 p-0">
-                            <div>
-                                <h3>Select Voucher Category for Voucher Issuance </h3>
-                                <p>Select Vouchers from the selection provided below, and continue to enter details for issuance. </p>
-                            </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div class="leftselctVoucehrs">
-                                        <h4>Vouchers Categories</h4>
-                                        <ul id="voucherList">
-                                           
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-8 pl-sm-0">
-                                    <div class="rightselctVoucehrs" id="mccDiv" style="display: none;">
-                                        <div class="row">
-                                            <div class="col-12 col-md-3">
-                                                <div class="select-upivouchers">
-                                                    <img id="voucherImageId" src="img/fuelVouchers.svg" alt="" class="img-fluid" height="150px" width="200px">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-7">
-                                                <div class="cards-upivouchers-desc">
-                                                    <h4><span id="voucherTextId"></span> Vouchers</h4>
-                                                    <p>To issue e-RUPI Voucher, please select a category, a sub-category or an associated brand: </p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <hr>
-
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="selctedVoucehr">
-                                                    <ul id="purposeList">
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12 text-right mt-3">
-                                   <!-- <button class="btn btn-border-primary mb-1" onclick="window.location.href='create-upi-voucher-issue-manually.html';">Back</button>-->
-                       			   <button class="btn btn-primary mb-1" onclick="getVoucherDetail()">Continue</button>
-								 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 	<div id="otpModal" class="modal customfade">
 	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
 	        <div class="modal-content modal-bulk">
@@ -1241,8 +935,6 @@
 	                <div class="tip-wrap justify-content-center">
 	                    <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
 	                </div>
-					
-					
 					
 	                <div class="d-flex justify-content-center mt-3">
 						<!--

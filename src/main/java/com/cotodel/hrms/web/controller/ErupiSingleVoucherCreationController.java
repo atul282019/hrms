@@ -19,6 +19,7 @@ import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ErupiVoucherStatusSmsRequest;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
+import com.cotodel.hrms.web.response.ReputeEmployeeRequest;
 import com.cotodel.hrms.web.response.RoleAccessRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -246,4 +247,5 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
    
 	return profileRes;
 	}
+	
 }

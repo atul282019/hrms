@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 	<title>Cotodel - Business Payments</title>
@@ -921,10 +923,6 @@ JS libraries, plugins and custom scripts -->
 
 		document.getElementById('whatsappButton').addEventListener('click', function () {
 			window.open('https://wa.me/919910558848', '_blank'); // Open the URL in a new tab
-		});
-
-		document.getElementById('submitButton').addEventListener('click', function () {
-			window.open('https://docs.google.com/forms/d/e/1FAIpQLSes1rFnUatsW696Q-6VZ7uYUq1c_ceEfV6b3Kyjb-DqsB3IiA/viewform?usp=sf_link', '_blank'); // Open the URL in a new tab
 		});
 
 		document.getElementById('submitButton01').addEventListener('click', function () {

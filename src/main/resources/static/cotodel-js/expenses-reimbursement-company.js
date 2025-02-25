@@ -1517,7 +1517,7 @@ function validateSubMerchantId()
 	var submerchantId = document.getElementById("submerchantid").value;
 	var submerchantidregex=/^[A-Za-z0-9]+$/;
 	if(submerchantId==""){
-				document.getElementById("submerchantidError").innerHTML="Please Enter Merchant Id";
+				document.getElementById("submerchantidError").innerHTML="Please Enter Sub Merchant Id";
 				document.getElementById("submerchantid").focus();
 				return false;
 			}

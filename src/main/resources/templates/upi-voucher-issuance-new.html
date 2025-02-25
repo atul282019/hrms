@@ -94,7 +94,7 @@
 
                                     <div class="row">
                                         <div class="col-12 col-md-3">
-                                            <button class="btn-border-custom">
+                                            <button class="btn-border-custom" id="requestedVoucher">
                                                 <a href="#">
                                                     <div>
                                                         <img src="img/user-voucher.svg" alt="">
@@ -564,6 +564,14 @@
 	    });
 	</script>
 	<script>
+		
+		const requestedVoucher = document.getElementById('requestedVoucher');
+			    requestedVoucher.addEventListener('click', () => {
+			        if (!requestedVoucher.disabled) {
+			            window.location.href = '/requestedUpiVoucherIssuance';
+			        }
+			    });
+				
 	    const issueManually = document.getElementById('issueManually');
 	    issueManually.addEventListener('click', () => {
 	        if (!issueManually.disabled) {

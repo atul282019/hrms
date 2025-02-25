@@ -181,11 +181,11 @@ public class StaticPageController extends CotoDelBaseController{
 
 	}	
 	
-	@GetMapping(value="/loginNew")
-	public ModelAndView loginNew(Model model) {
-		logger.info("opening loginNew");
-		return new ModelAndView("login-FleetManagment", "command", "");
-	}	
+//	@GetMapping(value="/loginNew")
+//	public ModelAndView loginNew(Model model) {
+//		logger.info("opening loginNew");
+//		return new ModelAndView("login-FleetManagment", "command", "");
+//	}	
 
 	@GetMapping(value="/signup")
 	public ModelAndView SignupPage(Model model) {
@@ -1110,7 +1110,7 @@ public class StaticPageController extends CotoDelBaseController{
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
-				if(obj.getUser_role()==9) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==3) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -1186,6 +1186,28 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
 				return new ModelAndView("repute-upi-voucher-issue-manually", "command", "");
+				}
+				 return new ModelAndView("error", "command", "");
+			}
+			return new ModelAndView("index", "command", "");
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	
+	@GetMapping(value="/requestedUpiVoucherIssuance")
+	public ModelAndView requestedUpiVoucherIssuance(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==3) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("requested-upi-voucher-issue", "command", "");
 				}
 				 return new ModelAndView("error", "command", "");
 			}
@@ -1277,7 +1299,7 @@ public class StaticPageController extends CotoDelBaseController{
 			if(token!=null) {
 				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 				if(obj!=null) {
-					if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+					if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
 					model.addAttribute("name",obj.getName());
 					model.addAttribute("org",obj.getOrgName());
 					model.addAttribute("mobile",obj.getMobile());

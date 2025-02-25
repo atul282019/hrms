@@ -89,9 +89,9 @@
 														
 														<div>
 															
-																<input type="hidden" id="errorMessage" th:value="${message}" ></input>
-																<input type="hidden" id="mo" th:value="${mobile}" ></input>
-																<input type="hidden" id="orderid" th:value="${orderid}" ></input>
+														<input type="hidden" id="errorMessage" th:value="${message}" ></input>
+														<input type="hidden" id="mo" th:value="${mobile}" ></input>
+														<input type="hidden" id="orderid" th:value="${orderid}" ></input>
 															
 													   </div>
 							                            <span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" style="font-size: 14px; cursor: pointer; display: inline-block; margin-bottom: 5px;">
@@ -190,6 +190,7 @@
 
 	  $(document).ready(function() {
 	    $('#successError').delay(5000).fadeOut(600);
+		// window.location.href="/login";
 	});
 
 	</script>
