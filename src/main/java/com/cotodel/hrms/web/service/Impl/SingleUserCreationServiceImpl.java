@@ -53,4 +53,10 @@ public class SingleUserCreationServiceImpl implements SingleUserCreationService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userWaitList), applicationConstantConfig.userServiceBaseUrl+CommonUtils.updateWaitlist);
 	}
 
+	@Override
+	public String saveReputeUserDetailEncript(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl+CommonUtils.registerReputeUserDetail);
+
+	}
+
 }

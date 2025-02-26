@@ -18,5 +18,6 @@ public interface SingleUserCreationService {
 	String getuserWaitList(String token, EncriptResponse userWaitList);
 	String reputeRequestSave(String token, EncriptResponse jsonObject);
 	String updateuserWaitList(String token, EncriptResponse userWaitList);
+	String saveReputeUserDetailEncript(String token, EncriptResponse jsonObject);
 
 }

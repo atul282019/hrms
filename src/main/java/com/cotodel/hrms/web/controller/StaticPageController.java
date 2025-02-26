@@ -85,6 +85,8 @@ public class StaticPageController extends CotoDelBaseController{
 			
 		
 		userForm.setEmail(reputeCompanyDetails.getEmail());
+		userForm.setUsername(reputeCompanyDetails.getPhoneNumber());
+		
 		String mobileNumber= reputeCompanyDetails.getPhoneNumber();
         String mobile1 = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
         userForm.setMobile(mobile1);
@@ -98,7 +100,7 @@ public class StaticPageController extends CotoDelBaseController{
          //2-json string data encript
          EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 		
-         String encriptResponse = usercreationService.singleUserCreationEncript(tokengeneration.getToken(),jsonObject);
+         String encriptResponse = usercreationService.saveReputeUserDetailEncript(tokengeneration.getToken(),jsonObject);
          //3-decript data convert to object            
          EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
          //4-object data to decript to json
