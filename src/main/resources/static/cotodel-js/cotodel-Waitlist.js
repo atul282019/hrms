@@ -1,10 +1,28 @@
+function resetErrorMessages() {
+    const errorFields = [
+        "companyNameError",
+        "companySizeError",
+        "IndustryError",
+        "contactPersonError",
+        "contactNumberError",
+        "emailIdError"
+    ];
+
+    errorFields.forEach((field) => {
+        const element = document.getElementById(field);
+        if (element) {
+            element.textContent = "";
+        }
+    });
+}
+
 function saveWaitlistData() {
     // Collect form values
     var companyName = document.getElementById("companyName").value;
     var companySize = document.querySelector("input[name='companySize']:checked");
     var industry = document.querySelector("input[name='industry']:checked");
     var contactPerson = document.getElementById("contactPerson").value;
-    var contactNumber = document.getElementById("contactNumber").value;
+    var contactNumber = document.getElementById("mobno").value;
     var emailId = document.getElementById("emailId").value;
 	var eRupiStatus = document.getElementById("eRupiStatus").checked;
     
@@ -17,32 +35,53 @@ function saveWaitlistData() {
     var contactNumberPattern = /^[6-9]\d{9}$/; // Indian mobile number validation (10 digits, starts with 6-9)
     var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Standard email format
     
-    // Validate required fields
-    if (!companyName || !contactPerson || !contactNumber || !emailId || !companySizeValue || !industryValue) {
-        alert("Please fill all required fields.");
-        return;
-    }
-     
-    // Apply validation rules
-    if (!companyNamePattern.test(companyName)) {
-        alert("Company Name can only contain letters, numbers, spaces, and '/'");
-        return;
-    }
-    
-    if (!namePattern.test(contactPerson)) {
-        alert("Contact Person Name can only contain letters and spaces.");
-        return;
-    }
-    
-    if (!contactNumberPattern.test(contactNumber)) {
-        alert("Please enter a valid 10-digit Contact Number starting with 6-9.");
-        return;
-    }
-    
-    if (!emailPattern.test(emailId)) {
-        alert("Please enter a valid Email ID.");
-        return;
-    }
+	
+
+	    // Validate required fields
+	    if (companyName=="") {
+	        document.getElementById("companyNameError").textContent = "Company Name is required.";
+			return false;
+	  
+	    } else if (!companyNamePattern.test(companyName)) {
+	        document.getElementById("companyNameError").textContent = "Invalid Company Name.";
+	        return false;
+	    }
+
+	    if (companySizeValue=="") {
+	        document.getElementById("companySizeError").textContent = "Please select a Company Size.";
+	       return false;
+	    }
+
+	    if (industryValue=="") {
+	        document.getElementById("IndustryError").textContent = "Please select an Industry.";
+	        return false;
+	    }
+
+	    if (contactPerson=="") {
+	        document.getElementById("contactPersonError").textContent = "Contact Person Name is required.";
+	        return false;
+	    } else if (!namePattern.test(contactPerson)) {
+	        document.getElementById("contactPersonError").textContent = "Only letters and spaces are allowed.";
+	        return false;
+	    }
+
+	    if (contactNumber=="") {
+	        document.getElementById("mobnoError").textContent = "Contact Number is required.";
+	       return false;
+	    } else if (!contactNumberPattern.test(contactNumber)) {
+	        document.getElementById("mobnoError").textContent = "Enter a valid 10-digit number starting with 6-9.";
+	        return false;
+	    }
+
+	    if (emailId=="") {
+	        document.getElementById("emailIdError").textContent = "Email ID is required.";
+	        return false;
+	    } else if (!emailPattern.test(emailId)) {
+	        document.getElementById("emailIdError").textContent = "Enter a valid Email ID.";
+	        return false;
+	    }
+
+	    alert("Before ajax call");
 
     $.ajax({
         type: "POST",
@@ -55,18 +94,23 @@ function saveWaitlistData() {
 		        "companySize": companySizeValue,
 		        "industry": industryValue,
 				
-				erupistatus:eRupiStatus, 
+				"erupistatus":eRupiStatus, 
 			},
-			dataType: "json",
+			
         success: function (response) {
 			console.log(response);
-            if (response.status == true) {
+			const parseddata = JSON.parse(response);
+			//response.status=true;
+            if (parseddata.status == true) {
                 
                 $("#waitlistApproved").show(); // Show success modal
-				//alert("waitlistApproved!");
-				document.querySelector("form").reset(); // Reset form
+				alert("Your form has been successfully submitted! Thank you for reaching out to cotodel.");
+				//document.querySelector("form").reset(); // Reset form
+				setTimeout(() => {
+					             window.location.href="/index";
+					         }, 400);
             } else {
-                alert("Error: " + response.message);
+                alert("Error: " + parseddata.message);
             }
         },
         error: function (error) {
@@ -174,6 +218,10 @@ function getWaitlist() {
 						{
 							
 									            window.location.href="/displayWaitlist"; 
+						}
+						else
+						{
+							window.location.href="/displayWaitlist"; 
 						}
 		            
 		        },
