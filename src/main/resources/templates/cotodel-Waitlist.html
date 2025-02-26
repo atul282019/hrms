@@ -24,7 +24,7 @@
 </head>
 
 <body >
-	
+	<div id="content"> 
 	<header class="navbar-transparent navbar-sticky-bg-white navbar-sticky">
 
 			<!-- Logo Nav START -->
@@ -125,7 +125,7 @@
 							  <div class="error-msg" id="contactPersonError" style="color:red"></div>
   							  <div class="mb-4">
   			  		                  <label for="mobno" class="form-label">Contact Number</label>
-  			  		                  <input type="number" class="form-control" id="mobno" maxlength="10" required>
+  			  		                  <input type="number" class="form-control" id="mobno" maxlength="10" oninput="validateMobileNumber(this)" required>
   			  		              </div>
 								  <div class="error-msg" id="mobnoError" style="color:red"></div>
   							  <div class="mb-4">
@@ -135,18 +135,33 @@
 							  <div class="error-msg" id="emailIdError" style="color:red"></div>
 							  <div class="mb-4">
 	  		                       <div class="custom-control custom-checkbox small">
-	  		                           <input type="checkbox" class="custom-control-input" id="eRupiStatus" name="erupistatus" >
-	  		                           <label class="custom-control-label text-left" for="eRupiStatus" >Enable eRupi for Voucher creation</label>
-	  		                           
-	  		                       </div>
-	  		                   </div>
-							  
+		  		                           <input type="checkbox" class="custom-control-input" id="eRupiStatus" name="erupistatus" >
+		  		                           <label class="custom-control-label text-left" for="eRupiStatus" >Enable eRupi for Voucher creation</label>
+		  		                           
+		  		                       </div>
+		  		                   </div>
+								  
 					  
 		              <button type="button" class="btn btn-submit w-100" onclick="resetErrorMessages(),saveWaitlistData()">Join Waitlist</button>
 		          </form>
 		      </div>
 		  </div>
 		  </div>
+		  <div class="lds-spinner" id="signinLoader" style="display: none">
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  													<div></div>
+		  												</div>
+	</div>
 		  <!-- Success Modal -->
 		  <div class="modalView" id="waitlistApproved" tabindex="-1" role="dialog"
 		          aria-labelledby="exampleModalCenterTitle" >
@@ -177,6 +192,21 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 	<script type="text/javascript" src="cotodel-js/cotodel-Waitlist.js"></script>
+	<script>
+	    function validateMobileNumber(input) {
+	        let mobnoField = input;
+	        let mobnoError = document.getElementById("mobnoError");
+
+	        let mobnoValue = mobnoField.value.replace(/\D/g, ""); // Ensure only digits
+	        if (mobnoValue.length > 10) {
+	            mobnoField.value = mobnoValue.slice(0, 10); // Restrict input to 10 digits
+	            mobnoError.textContent = "Mobile number cannot exceed 10 digits.";
+	        } else {
+	            mobnoError.textContent = "";
+	        }
+	    }
+	</script>
+	
 	
 	<style>
 		.custom-control {

@@ -63,11 +63,12 @@
 	    }*/
 		function getVoucherList() {
 		    const voucherDropdown = document.getElementById('VoucherType');
-		    
+			document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
 		        type: "GET",
 		        url: "/getVoucherListWithIcon",
 		        success: function(data) {
+					document.getElementById("signinLoader").style.display="none";
 		            const parsedData = jQuery.parseJSON(data);
 					console.log("parsed data for /getVoucherListWithIcon",parsedData);
 		            
@@ -90,12 +91,13 @@
 		}	
 		function getSavedVoucherList() {
 		    const employerId = document.getElementById('employerId').value;
-
+			document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
 		        type: "GET",
 		        url: "/getRequestedVoucherList",
 		        data: { employerId },
 		        success: function(data) {
+					document.getElementById("signinLoader").style.display="none";
 		            const parseddata = JSON.parse(data);
 		            
 					var vouchers=parseddata.data;
@@ -308,7 +310,7 @@
 				       document.getElementById("VoucherAmountError").innerHTML = "";
 				   }
 			
-			
+				   document.getElementById("signinLoader").style.display="flex";
 		    // Send the AJAX request
 		    $.ajax({
 		        type: "POST",
@@ -329,6 +331,7 @@
 		        },
 		        dataType: "json",
 		        success: function (response) {
+					document.getElementById("signinLoader").style.display="none";
 		            if (response.status === "SUCCESS") {
 		               $("#VoucherRequestSuccess").show();
 					   setTimeout(function () {

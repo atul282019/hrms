@@ -77,6 +77,7 @@ function saveWaitlistData() {
 	        document.getElementById("emailIdError").textContent = "Enter a valid Email ID.";
 	        return false;
 	    }
+		document.getElementById("signinLoader").style.display="flex";
     $.ajax({
         type: "POST",
         url: "/userWaitList", // Backend API endpoint
@@ -92,6 +93,7 @@ function saveWaitlistData() {
 			},
 			
         success: function (response) {
+			document.getElementById("signinLoader").style.display="none";
 			console.log(response);
 			const parseddata = JSON.parse(response);
 			//response.status=true;
@@ -112,12 +114,13 @@ function saveWaitlistData() {
 
 function getWaitlist() {
 		    const employerId = document.getElementById('employerId').value;
-
+			document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
 		        type: "GET",
 		        url: "/getuserWaitList",
 		        data: { employerId },
 		        success: function(data) {
+					document.getElementById("signinLoader").style.display="none";
 		            const parseddata = JSON.parse(data);
 		            console.log(data);
 					var employer=parseddata.data;
@@ -188,7 +191,7 @@ function getWaitlist() {
 		    //console.log("employer data in update status",employer);
 			//employer.status = status; // Update status
 			
-
+			document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
 		        type: "POST",
 		        url: "/updateuserWaitList",
@@ -205,6 +208,7 @@ function getWaitlist() {
 						},
 						dataType: "json",
 		        success: function(response) {
+					document.getElementById("signinLoader").style.display="none";
 					if(response.status==true)
 						{
 							

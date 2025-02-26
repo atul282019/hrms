@@ -1,12 +1,13 @@
 	
 		function getDiretctorList() {
 		    const employerId = document.getElementById('employerId').value;
-
+			document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
 		        type: "GET",
 		        url: "/getDirectorOnboarding",
 		        data: { "orgId": employerId },
 		        success: function(data) {
+					document.getElementById("signinLoader").style.display="none";
 		            const parseddata = JSON.parse(data);
 		            console.log(data);
 					var director=parseddata.data;
@@ -137,7 +138,7 @@
 			        document.getElementById("AddressError").innerHTML = "";
 			    }
 
-		   
+				document.getElementById("signinLoader").style.display="flex";
 		    // Send the AJAX request
 		    $.ajax({
 		        type: "POST",
@@ -155,6 +156,7 @@
 		        },
 		        dataType: "json",
 		        success: function (response) {
+					document.getElementById("signinLoader").style.display="none";
 		            if (response.status ===true) {
 		               $("#AddDirectorSuccess").show();
 					   setTimeout(function () {
