@@ -35,9 +35,6 @@ function saveWaitlistData() {
     var contactNumberPattern = /^[6-9]\d{9}$/; // Indian mobile number validation (10 digits, starts with 6-9)
     var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Standard email format
     
-	
-
-	    // Validate required fields
 	    if (companyName=="") {
 	        document.getElementById("companyNameError").textContent = "Company Name is required.";
 			return false;
@@ -80,9 +77,6 @@ function saveWaitlistData() {
 	        document.getElementById("emailIdError").textContent = "Enter a valid Email ID.";
 	        return false;
 	    }
-
-	    alert("Before ajax call");
-
     $.ajax({
         type: "POST",
         url: "/userWaitList", // Backend API endpoint
@@ -102,13 +96,10 @@ function saveWaitlistData() {
 			const parseddata = JSON.parse(response);
 			//response.status=true;
             if (parseddata.status == true) {
-                
-                $("#waitlistApproved").show(); // Show success modal
-				alert("Your form has been successfully submitted! Thank you for reaching out to cotodel.");
-				//document.querySelector("form").reset(); // Reset form
+                $("#waitlistApproved").show(); 
 				setTimeout(() => {
-					             window.location.href="/index";
-					         }, 400);
+		             window.location.href="/";
+		         }, 400);
             } else {
                 alert("Error: " + parseddata.message);
             }
