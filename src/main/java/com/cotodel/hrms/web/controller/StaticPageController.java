@@ -85,7 +85,7 @@ public class StaticPageController extends CotoDelBaseController{
 			
 		
 		userForm.setEmail(reputeCompanyDetails.getEmail());
-		userForm.setUsername(reputeCompanyDetails.getPhoneNumber());
+		userForm.setUsername(hrms_name);
 		
 		String mobileNumber= reputeCompanyDetails.getPhoneNumber();
         String mobile1 = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
@@ -118,7 +118,12 @@ public class StaticPageController extends CotoDelBaseController{
          profileJsonRes= new JSONObject(profileRes);
  		if(profileJsonRes.getBoolean("status")) { 
  			 try {
-				String encriptReputeTokenRequest = usercreationService.reputeRequestSave(tokengeneration.getToken(),jsonObject);
+ 				//token.setAccessToken(repute.)
+ 				 String json2 = EncryptionDecriptionUtil.convertToJson(repute);
+ 				
+ 				EncriptResponse jsonObjectIdToken =EncryptionDecriptionUtil.encriptResponse(json2, applicationConstantConfig.apiSignaturePublicPath);
+ 				
+				String encriptReputeTokenRequest = usercreationService.reputeRequestSave(tokengeneration.getToken(),jsonObjectIdToken);
 				        
 				 EncriptResponse userencriptReputeTokenRequest =EncryptionDecriptionUtil.convertFromJson(encriptReputeTokenRequest, EncriptResponse.class);
 				

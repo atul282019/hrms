@@ -1,15 +1,18 @@
 package com.cotodel.hrms.web.controller;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.CaptchaSession;
+import com.cotodel.hrms.web.response.CompanyProfileDetail;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.response.UserWaitList;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
@@ -92,10 +96,10 @@ public class SignupController  extends CotoDelBaseController{
 		
 	}
 
-	
 	@PostMapping(value="/userWaitList")
-	public @ResponseBody String userWaitList(HttpServletRequest request,UserWaitList userWaitList) {
-		String profileRes=null;JSONObject profileJsonRes=null;
+	public @ResponseBody String userWaitList(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,UserWaitList userWaitList) {
+			String profileRes=null;
 		
 		//profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
 		
