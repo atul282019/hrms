@@ -76,7 +76,10 @@
 				<!--<input type="hidden" class="form-input" name="employeeId" id="employeeId" value="26">
 				<input type="hidden" class="form-input" name="reportingManagerid" id="reportingManagerid" value="561">-->
 				<!--<input type="hidden" class="form-input" id="reportingManagerid" name="reportingManagerid" th:value="${reportingManagerid}">-->
-                <!-- Begin Page Content -->
+				<input type="hidden" class="form-input" name="employerId" id="employerId" >
+				<input type="hidden" class="form-input" name="Id" id="Id" >
+				<input type="hidden" class="form-input" name="userDetailsId" id="userDetailsId" >
+				<!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
                         <div class="col-12 col-md-12">
@@ -104,10 +107,10 @@
                                                                     <a class="dropdown-item py-2" href="#">
                                                                         Revise Position
                                                                     </a>
-																	<a class="dropdown-item py-2" href="/employeeOnBoarding">
+																	<a class="dropdown-item py-2" href="/employeeOnBoarding?status=true">
                                                                         Edit
                                                                     </a>
-                                                                    <a class="dropdown-item py-2" href="#">
+                                                                    <a class="dropdown-item py-2" href="#" onclick="deactivateEmployee()">
                                                                         Deactivate
                                                                     </a>
                                                                 </div>

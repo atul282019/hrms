@@ -78,7 +78,7 @@ function saveVoucher()
 	 	$.ajax({
 		type: "POST",
 	     url:"/savevoucherTypeMaster",
-          data: {
+         data: { 
 			  "id": voucherId, 
 			"voucherDesc": voucherDesc,
 			"voucherType": voucherType,

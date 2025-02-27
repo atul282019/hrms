@@ -163,6 +163,12 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 		
 		
 	}
+	@Override
+	public String deactiveEmployee(String token, EncriptResponse employeeOnboarding) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.deactiveEmployeeProfile);
+		
+		
+	}
 
 	@Override
 	public String getEmployeeOnboardingByManagerId(String token, EncriptResponse employeeOnboarding) {

@@ -229,6 +229,9 @@ function saveEmployeeOnboarding(){
 	    const locationDropdown = document.getElementById("location");
 		const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].text; 
 	    const residentOfIndia = document.getElementById("residence").value;
+		const Id = document.getElementById("Id").value;
+		const profilePhotoBase64 = document.getElementById("profilePhotoBase64").value;
+		
 
 	    const regName = /^[a-zA-Z\s]*$/;
 	    const onlySpace = /^$|.*\S+.*/;
@@ -415,9 +418,17 @@ function saveEmployeeOnboarding(){
 	        document.getElementById("empTypeError").textContent = "Please select employee type";
 	        return false;
 	    }
+		if(!profilePhotoBase64=="")
+			{
+				profilePhoto=profilePhotoBase64;
+			}
+			else if(profilePhoto!=profilePhotoBase64)//if user changes the photo while editing
+				{
+					profilePhoto=this.profilePhoto;
+				}
 
 	var formData = new FormData(employeeOnboarding);
-	
+	formData.append("Id",Id);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employeeId);
 	
@@ -461,7 +472,7 @@ function saveEmployeeOnboarding(){
 				 document.getElementById("empOnboarding").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
 				 setTimeout(() => {
-				             window.location.href="/employeeOnBoarding";
+				             window.location.href="/manageEmployee";
 				         }, 400);
 			}else if(data1.status==false){
 				 document.getElementById("otfailmsg").innerHTML=data1.message;

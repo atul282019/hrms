@@ -438,7 +438,7 @@ function getOTP(){
 				}, 1000);
 	            $("#roleAcessOTPModal").show();  
 	          } else {
-	            alert("Error: " + response.message);
+	            alert("Error: " + obj.message);
 	          }
 	        },
 	        error: function() {
@@ -456,10 +456,10 @@ function getOTP(){
 }
 function resendVoucherOTP(){
 	
-	const checkbox = document.getElementById("styled-checkbox-40");
+	//const checkbox = document.getElementById("styled-checkbox-40");
 	var userMobile = document.getElementById("userMobile").value;
 	var orderId = document.getElementById("orderId").value;
-	  if (checkbox.checked) {
+	//  if (checkbox.checked) {
 		$.ajax({
 			type: 'POST',
 	        url:"/smsOtpResender",
@@ -489,7 +489,7 @@ function resendVoucherOTP(){
 				}, 1000);
 	            $("#roleAcessOTPModal").show();  
 	          } else {
-	            alert("Error: " + response.message);
+	            alert("Error: " + obj.message);
 	          }
 	        },
 	        error: function() {
@@ -497,12 +497,12 @@ function resendVoucherOTP(){
 	         // alert("An error occurred. Please try again.");
 	        }
 	      });
-	 } 		  
-	 else {
-		document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
+	// } 		  
+	// else {
+	//	document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
 		
 	    //alert("Please check consent");
-	  }
+	//  }
 	
 }
 // otp for add role

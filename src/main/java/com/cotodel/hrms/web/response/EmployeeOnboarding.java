@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class EmployeeOnboarding {
 	
 	private Integer id;
+	//private Integer userDetailsId;
 	private Integer employerId;
 	private Integer employeeId;	
 	private String empOrCont;

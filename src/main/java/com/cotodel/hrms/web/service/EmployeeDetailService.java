@@ -51,6 +51,7 @@ public interface EmployeeDetailService {
 	String confirmBulkEmplOnboarding(String token, EncriptResponse employeeOnboarding);
 
 	String saveEmployeeProfile(String token, EncriptResponse employeeOnboarding);
+	String deactiveEmployee(String token, EncriptResponse employeeOnboarding);
 	
 	String getEmployeeOnboardingByManagerId(String token, EncriptResponse employeeOnboarding);
 	

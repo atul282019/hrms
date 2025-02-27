@@ -30,7 +30,7 @@
 		        success: function(response) {
 					//console.log(response);
 					var data1 = jQuery.parseJSON(response);
-							
+							console.log("data 1  getEmployeeOnboardingById()",data1);
 		            if (data1.status && data1.data) {
 		                var data = data1.data;
 		                
@@ -86,6 +86,9 @@
 						        } else {
 						            $(".profile-pic01").attr("src", defaultImage);
 						        }
+						$("#Id").val(data.id);
+						$("#employerId").val(data.employerId);
+						$("#userDetailsId").val(data.userDetailsId);
 
 						        //getEmployeeOnboardingByManagerId(data.managerId);
 								getEmployeeOnboardingByManagerId(userDetailsId);
@@ -151,4 +154,78 @@
 			            console.log("Error fetching data: " + error.responseText);
 			        }
 			    });
+			}
+			function autoFillEmployeeForm() {
+			    const employeeId = sessionStorage.getItem("employeeId");
+				$("#Id").val(employeeId);
+
+			    if (!employeeId) {
+			        console.log("No Employee ID found in session.");
+			        return;
+			    }
+
+			    $.ajax({
+			        type: "GET",
+			        url: "/getEmployeeOnboardingById",
+			        data: { "id": employeeId },
+			        success: function(response) {
+			            var data1 = jQuery.parseJSON(response);
+
+			            if (data1.status && data1.data) {
+			                var data = data1.data;
+
+			                // Fill form fields
+			                $("#name").val(data.name || "");
+                            $("#mobile").val(data.mobile || "").prop("readonly", data.mobile ? true : false);
+			                $("#email").val(data.email || "");
+			               // $("#hireDate").val(data.herDate || "");
+			                $("#jobTitle").val(data.jobTitle || "");
+			                $("#salary").val(data.salary || "");
+							$("#profilePhotoBase64").val(data.empPhoto);
+			                // Populate dropdowns
+			                //$("#department").val(data.department || "");
+			                //$("#reporting").val(data.managerId || "");
+			                //$("#location").val(data.location || "");
+
+			                
+			                
+			            } else {
+			                console.log("No data found for the given Employee ID.");
+			            }
+			        },
+			        error: function(error) {
+			            console.log("Error fetching data: " + error.responseText);
+			        }
+			    });
+			}
+			function deactivateEmployee() {
+			    const employerId = document.getElementById("employerId").value;
+			    const Id = document.getElementById("Id").value;
+			    const userDetailsId = document.getElementById("userDetailsId").value;
+
+			    if (!Id) {
+			        alert("Employee ID is missing.");
+			        return;
+			    }
+
+			    if (confirm("Are you sure you want to deactivate this employee?")) {
+			        $.ajax({
+			            type: "POST",
+			            url: "/deactiveEmployee",  // Change to the actual API endpoint
+			            data: {
+			                "employerId": employerId,
+			                "id": Id,
+			                "userDetailsId": userDetailsId,
+			                "status": "Deactive"
+			            },
+			             dataType: "json", 
+			            success: function(response) {
+			                alert("Employee deactivated successfully!");
+			                window.location.href="/manageEmployee"; // Reload the page to reflect changes
+			            },
+			            error: function(error) {
+			                alert("Error deactivating employee: " + error.responseText);
+			            }
+			        });
+			    }
 			}

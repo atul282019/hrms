@@ -22,6 +22,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.DirectorOnboarding;
 import com.cotodel.hrms.web.response.EmployeeCertificateRequest;
+import com.cotodel.hrms.web.response.EmployeeDeactiveRequest;
 import com.cotodel.hrms.web.response.EmployeeDetailsRequest;
 import com.cotodel.hrms.web.response.EmployeeExperienceRequest;
 import com.cotodel.hrms.web.response.EmployeeFamilyDetailRequest;
@@ -332,6 +333,29 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		}
    
 	return profileRes;
+		
+	}
+	@PostMapping(value="/deactiveEmployee")//de activating employee from emp-onboarding-full-action
+	public @ResponseBody String deactiveEmployee(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeDeactiveRequest employeeDeactiveRequest) {
+		String profileRes=null;
+
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeeDeactiveRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = employeeDetailService.deactiveEmployee(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return profileRes;
 		
 	}
 	
