@@ -110,6 +110,17 @@
                                                 <p>Add employee and contractors</p>
                                                 <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
                                             </div>
+											<!--<div class="basic-details-input no-bg mb-0">
+                                                <span>3</span>
+                                                <p>Director Onboarding</p>
+                                                <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
+                                            </div>-->
+											<div class="basic-details-input">
+                                               <span>3</span>
+                                               <p>Director Onboarding</p>
+                                             <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+											<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
+                                           </div>
                                        
                                     </div>                                    
 									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">

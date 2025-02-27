@@ -95,7 +95,7 @@
 		          <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
 		          <span>Existing User</span></a>
 		  </li> -->
-		  <li class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}">
+		  <li class="nav-item" th:if="${session.user_role == 9}">
 		    <a class="nav-link" th:href="@{/upiVoucherIssuanceNew}">
 		        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
 		        <span>UPI Voucher Issuance</span></a>
@@ -110,6 +110,16 @@
 	 	        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
 	 	        <span>Repute Voucher Issuance</span></a>
 	 	 </li>
+		 <li class="nav-item" th:if="${session.user_role == 2}">
+            <a class="nav-link" th:href="@{/requestVoucher}">
+                <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+                <span>Request Voucher</span></a>
+        </li>
+		 <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
+             <a class="nav-link" th:href="@{/displayWaitlist}">
+                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+                 <span>Waitlist</span></a>
+         </li>
 		 <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
              <a class="nav-link" href="http://13.201.7.92/helpdesk/" target="_blank">
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
@@ -123,24 +133,15 @@
                 <a href="#" class="float-right mt-1"><i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
             </li>
  		-->
-		<li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 3}">
-		               <a class="nav-link" th:href="@{/requestVoucher}">
-		                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
-		                   <span>Request Voucher</span></a>
-		           </li>
 				   
-	   <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 10}">
-	   		               <a class="nav-link" th:href="@{/directorOnboarding}">
-	   		                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
-	   		                   <span>Director Onboarding</span></a>
-       </li>
+	 <!--  <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 10}">
+           <a class="nav-link" th:href="@{/directorOnboarding}">
+               <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+               <span>Director Onboarding</span></a>
+       </li>-->
 	   
-	   <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
-	                <a class="nav-link" th:href="@{/displayWaitlist}">
-	                    <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
-	                    <span>Waitlist</span></a>
-	            </li>
-        </ul>
+	   
+     </ul>
         
        
 
