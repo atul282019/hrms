@@ -1412,18 +1412,18 @@ public class StaticPageController extends CotoDelBaseController{
 	return new ModelAndView("index", "command", "");
 }
 	
-    @GetMapping(value = "/transportAndLogistics")
+    @GetMapping(value = "/transport")
     public ModelAndView transportAndLogistics(Model model) {
-        return new ModelAndView("transportAndLogistics", "command", "");
+        return new ModelAndView("transport", "command", "");
     }
 
-    @GetMapping(value = "/retailAndTrade")
+    @GetMapping(value = "/retail")
     public ModelAndView retailAndTrade(Model model) {
-        return new ModelAndView("retailAndTrade", "command", "");
+        return new ModelAndView("retail", "command", "");
     }
 
-    @GetMapping(value = "/consultingAndAdvisory")
+    @GetMapping(value = "/consulting")
     public ModelAndView consultingAndAdvisory(Model model) {
-        return new ModelAndView("consultingAndAdvisory", "command", "");
+        return new ModelAndView("consulting", "command", "");
     }
 }
