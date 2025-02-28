@@ -46,6 +46,18 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView firstPage(Model model) {
 		return new ModelAndView("home", "command", "");
 	}	
+	@GetMapping(value="/solutions")
+	public ModelAndView soultions(Model model) {
+		return new ModelAndView("solutions", "command", "");
+	}	
+	@GetMapping(value="/about")
+	public ModelAndView about(Model model) {
+		return new ModelAndView("about", "command", "");
+	}	
+	@GetMapping(value="/faqs")
+	public ModelAndView faqs(Model model) {
+		return new ModelAndView("faqs", "command", "");
+	}	
 	@GetMapping(value="/signin")
 	public ModelAndView directSignin(Model model) {
 		return new ModelAndView("signin", "command", "");
