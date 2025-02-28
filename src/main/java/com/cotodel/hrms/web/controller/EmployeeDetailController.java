@@ -335,7 +335,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	return profileRes;
 		
 	}
-	@PostMapping(value="/deactiveEmployee")//de activating employee from emp-onboarding-full-action
+	@PostMapping(value="/toggleEmployee")//de activating employee from emp-onboarding-full-action
 	public @ResponseBody String deactiveEmployee(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeDeactiveRequest employeeDeactiveRequest) {
 		String profileRes=null;
 

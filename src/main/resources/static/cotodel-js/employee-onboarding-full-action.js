@@ -211,7 +211,7 @@
 			    if (confirm("Are you sure you want to deactivate this employee?")) {
 			        $.ajax({
 			            type: "POST",
-			            url: "/deactiveEmployee",  // Change to the actual API endpoint
+			            url: "/toggleEmployee",  // Change to the actual API endpoint
 			            data: {
 			                "employerId": employerId,
 			                "id": Id,

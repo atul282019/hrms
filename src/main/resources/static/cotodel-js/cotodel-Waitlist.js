@@ -100,7 +100,7 @@ function saveWaitlistData() {
             if (parseddata.status == true) {
                 $("#waitlistApproved").show(); 
 				setTimeout(() => {
-		             window.location.href="/";
+		             window.location.href="/index";
 		         }, 400);
             } else {
                 alert("Error: " + parseddata.message);

@@ -108,7 +108,7 @@
 
                                     <div class="text-right my-3">
                                         <button class="btn btn-outline-reject" data-toggle="modal" data-target="#ModalReject" onclick="reject()">Reject</button>
-                                        <button class="btn btn-confirm" data-toggle="modal" data-target="#ModalConfirm" onclick="confirmSuccess()">Confirm</button>
+                                        <button class="btn btn-confirm" data-toggle="modal" data-target="#ModalConfirm" onclick="confirmSuccess()" id="continueButton" disabled>Confirm</button>
                                     </div>
                                 </div>
 
@@ -284,6 +284,11 @@
 		if(data.status=="SUCCESS"){
 			var data1=data.correct;		
 			var data2 = jQuery.parseJSON(data1);	
+			if (data2.length === 0 && data2.length === 0) {
+			         document.getElementById("continueButton").disabled = true;
+			     } else {
+			         document.getElementById("continueButton").disabled = false;
+			     }	
 			 var i=1;
 			var table1 = $('#example1').DataTable( {
           "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
@@ -313,6 +318,11 @@
 			var data1=data.incorrect;
 			//console.log(data1);
 			var data2 = jQuery.parseJSON(data1);
+			if (data2.length === 0 && data2.length === 0) {
+			         document.getElementById("continueButton").disabled = true;
+			     } else {
+			         document.getElementById("continueButton").disabled = false;
+			     }	
 			//console.log("1st.......:"+data2);			
 			var i=1;
 			var table1 = $('#example2').DataTable( {

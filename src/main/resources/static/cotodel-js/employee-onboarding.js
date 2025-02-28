@@ -492,7 +492,7 @@ function saveEmployeeOnboarding(){
 }
 
 
-function getEmployeeOnboarding() {
+/*function getEmployeeOnboarding() {
 
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
@@ -533,7 +533,7 @@ function getEmployeeOnboarding() {
       		    { "mData": "email"},
       		    { "mData": "empOrCont"},
 				{ "mData": "status", "render": function(data, type, row) {
-				                        return data === 1 ? 'Active' : 'Inactive';
+				                        return data === 1 ? 'Active' : 'Deactive';
 				                    }},
       		  	{ "mData": "userDetailsId", "render": function (data1, type, row) {
                     return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
@@ -546,6 +546,75 @@ function getEmployeeOnboarding() {
 			alert('Failed to fetch JSON data' + e);
 		}
 	});
+}*/
+
+function getEmployeeOnboarding() {
+	document.getElementById("signinLoader").style.display="flex";
+    var employeeId = document.getElementById("employeeId").value;
+    var employerId = document.getElementById("employerId").value;
+    
+    $.ajax({
+        type: "GET",
+        url: "/getEmployeeOnboarding",
+        data: {
+            "employeeId": employeeId,
+            "employerId": employerId,
+        },
+        beforeSend: function(xhr) {
+            //xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+			document.getElementById("signinLoader").style.display="none";
+            newData = data;
+            console.log("Emp onboarding data", newData);
+            var data1 = jQuery.parseJSON(newData);
+            var data2 = data1.data;
+            
+            // Filter employees with status 1 (Active)
+            var filteredData = data2.filter(function(employee) {
+                return employee.status === 1;
+            });
+            
+            var table = $('#employeeTable').DataTable({
+                destroy: true,
+                "responsive": true,
+                searching: false,
+                bInfo: false,
+                paging: false,
+                "lengthChange": true,
+                "autoWidth": false,
+                "pagingType": "full_numbers",
+                "pageLength": 50,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "language": {"emptyTable": "No Active Employees Found"},
+                
+                // Use the filtered data instead of original data
+                "aaData": filteredData,
+                "aoColumns": [
+                    { "mData": null, "render": function(data, type, row, meta) { return meta.row + 1; } },
+                    { "mData": "id", "render": function(data1, type, row) {
+                        return '<input type="hidden" class="form-input" id="id" name="id" value="' + data1 + '">';
+                    }},
+                    { "mData": "userDetailsId", "render": function(data1, type, row) {
+                        return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="' + data1 + '">';
+                    }},
+                    { "mData": "name" },
+                    { "mData": "mobile" },
+                    { "mData": "email" },
+                    { "mData": "empOrCont" },
+                    { "mData": "status", "render": function(data, type, row) {
+                        return 'Active'; // Since we're only showing Active employees
+                    }},
+                    { "mData": "userDetailsId", "render": function(data1, type, row) {
+                        return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+                    }},
+                ]
+            });
+        },
+        error: function(e) {
+            alert('Failed to fetch JSON data' + e);
+        }
+    });
 }
   
 
@@ -698,3 +767,175 @@ function validateAndConvertImageToBase64() {
         };
         reader.readAsDataURL(file);
     }
+	
+	/*function getEmployeeOnboardingDeactive() {
+	    var employeeId = document.getElementById("employeeId").value;
+	    var employerId = document.getElementById("employerId").value;
+	    
+	    $.ajax({
+	        type: "GET",
+	        url: "/getEmployeeOnboarding",
+	        data: {
+	            "employeeId": employeeId,
+	            "employerId": employerId,
+	        },
+	        beforeSend: function(xhr) {
+	            //xhr.setRequestHeader(header, token);
+	        },
+	        success: function(data) {
+	            newData = data;
+	            console.log("Emp onboarding data", newData);
+	            var data1 = jQuery.parseJSON(newData);
+	            var data2 = data1.data;
+	            
+	            // Filter employees with status 1 (Active)
+	            var filteredData = data2.filter(function(employee) {
+	                return employee.status === 0;
+	            });
+	            
+	            var table = $('#employeeTable').DataTable({
+	                destroy: true,
+	                "responsive": true,
+	                searching: false,
+	                bInfo: false,
+	                paging: false,
+	                "lengthChange": true,
+	                "autoWidth": false,
+	                "pagingType": "full_numbers",
+	                "pageLength": 50,
+	                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+	                "language": {"emptyTable": "No Active Employees Found"},
+	                
+	                // Use the filtered data instead of original data
+	                "aaData": filteredData,
+	                "aoColumns": [
+	                    { "mData": null, "render": function(data, type, row, meta) { return meta.row + 1; } },
+	                    { "mData": "id", "render": function(data1, type, row) {
+	                        return '<input type="hidden" class="form-input" id="id" name="id" value="' + data1 + '">';
+	                    }},
+	                    { "mData": "userDetailsId", "render": function(data1, type, row) {
+	                        return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="' + data1 + '">';
+	                    }},
+	                    { "mData": "name" },
+	                    { "mData": "mobile" },
+	                    { "mData": "email" },
+	                    { "mData": "empOrCont" },
+	                    { "mData": "status", "render": function(data, type, row) {
+	                        return 'DeActive'; // Since we're only showing Active employees
+	                    }},
+	                    { "mData": "userDetailsId", "render": function(data1, type, row) {
+	                        return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+	                    }},
+	                ]
+	            });
+	        },
+	        error: function(e) {
+	            alert('Failed to fetch JSON data' + e);
+	        }
+	    });
+	}*/
+	
+	// Function to display only deactive employees with an activate option
+	function getDeactiveEmployees() {
+		document.getElementById("signinLoader").style.display="flex";
+	    var employeeId = document.getElementById("employeeId").value;
+	    var employerId = document.getElementById("employerId").value;
+	    
+	    $.ajax({
+	        type: "GET",
+	        url: "/getEmployeeOnboarding",
+	        data: {
+	            "employeeId": employeeId,
+	            "employerId": employerId,
+	        },
+	        beforeSend: function(xhr) {
+	            //xhr.setRequestHeader(header, token);
+	        },
+	        success: function(data) {
+				document.getElementById("signinLoader").style.display="none";
+	            newData = data;
+	            console.log("Emp onboarding data", newData);
+	            var data1 = jQuery.parseJSON(newData);
+	            var data2 = data1.data;
+	            
+	            // Filter only deactive employees (status = 0)
+	            var filteredData = data2.filter(function(employee) {
+	                return employee.status === 0;
+	            });
+	            
+	            var table = $('#employeeTable').DataTable({
+	                destroy: true,
+	                "responsive": true,
+	                searching: false,
+	                bInfo: false,
+	                paging: false,
+	                "lengthChange": true,
+	                "autoWidth": false,
+	                "pagingType": "full_numbers",
+	                "pageLength": 50,
+	                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+	                "language": {"emptyTable": "No Deactive Employees Found"},
+	                
+	                "aaData": filteredData,
+	                "aoColumns": [
+	                    { "mData": null, "render": function(data, type, row, meta) { return meta.row + 1; } },
+	                    { "mData": "id", "render": function(data1, type, row) {
+	                        return '<input type="hidden" class="form-input" id="id" name="id" value="' + data1 + '">';
+	                    }},
+	                    { "mData": "userDetailsId", "render": function(data1, type, row) {
+	                        return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="' + data1 + '">';
+	                    }},
+	                    { "mData": "name" },
+	                    { "mData": "mobile" },
+	                    { "mData": "email" },
+	                    { "mData": "empOrCont" },
+	                    { "mData": "status", "render": function(data, type, row) {
+	                        return 'Deactive'; // All employees in this table are deactive
+	                    }},
+	                    { "mData": null, "render": function(data, type, row) {
+	                        // Show only Activate option for these deactive employees
+	                        return '<div class="dropdown">' +
+	                               '<button class="btn p-0" type="button" data-toggle="dropdown" aria-expanded="false" title="Options">' +
+	                               '<i class="fas fa-ellipsis-v fa-sm"></i></button>' +
+	                               '<div class="dropdown-menu dropdown-menu-right">' +
+	                               
+	                               '<a class="dropdown-item " href="#" onclick="activateEmployee(' + row.id + ', ' + row.userDetailsId + ')">Activate</a>' +
+	                               '</div></div>';
+	                    }}
+	                ]
+	            });
+	        },
+	        error: function(e) {
+	            alert('Failed to fetch JSON data' + e);
+	        }
+	    });
+	}
+
+	// Function specifically for activating employees
+	function activateEmployee(id, userDetailsId) {
+	    const employerId = document.getElementById("employerId").value;
+	    
+	    if (confirm("Are you sure you want to activate this employee?")) {
+	        $.ajax({
+	            type: "POST",
+	            url: "/toggleEmployee", // Endpoint for activation
+	            data: {
+	                "employerId": employerId,
+	                "id": id,
+	                "userDetailsId": userDetailsId,
+	                "status": "Active" // Or use 1 if your backend expects numeric status
+	            },
+	            dataType: "json",
+	            success: function(response) {
+					console.log("activateEmployee ",response);
+					if(response.status==true)
+	                {alert("Employee activated successfully!");
+	                //getDeactiveEmployees(); // Refresh the table of deactive employees
+					window.location.href="/manageEmployee";}
+	            },
+	            error: function(error) {
+	                alert("Error activating employee: " + error.responseText);
+	            }
+	        });
+	    }
+	}
