@@ -454,6 +454,55 @@ function getOTP(){
 	  }
 	
 }
+function getOTPforCotodel(){
+	
+	const checkbox = document.getElementById("confirmAmount");
+	var userMobile = document.getElementById("userMobile").value;
+	  if (checkbox.checked) {
+		$.ajax({
+			type: 'POST',
+	        url:"/smsOtpSender",
+			data: {
+						"mobile": userMobile,
+					},
+			dataType: 'json',
+			success: function(data) {
+			var obj = data;
+	        if (obj['status'] == true) {
+	            // If successful, open the OTP modal
+				var timeleft = "60";
+				var resendCodeElement = document.getElementById("resendCode");
+	               // Hide the "Resend OTP" link initially
+	               resendCodeElement.style.display = "none";
+				var downloadTimer = setInterval(function() {
+					document.getElementById("countdown1").innerHTML = "00:"+timeleft;
+					timeleft -= 1;
+					//document.getElementById("optBtn").style.display = "none";
+					document.getElementById("orderId").value= obj['orderId'];
+					//document.getElementById("verifyotpdiv").style.display = "block";
+					if (timeleft < 0) {
+						clearInterval(downloadTimer);
+						resendCodeElement.style.display = "block";	
+					}	
+				}, 1000);
+	            $("#cotodelAmountOTPModal").show();  
+	          } else {
+	            alert("Error: " + obj.message);
+	          }
+	        },
+	        error: function() {
+			  //$('#otpModal').fadeIn();
+	         // alert("An error occurred. Please try again.");
+	        }
+	      });
+	 } 		  
+	 else {
+		document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
+		
+	    //alert("Please check consent");
+	  }
+	
+}
 function resendVoucherOTP(){
 	
 	//const checkbox = document.getElementById("styled-checkbox-40");
@@ -772,7 +821,7 @@ function getAddOTP(){
 							
 							document.getElementById("authenticate").disabled = false;
 						} else {
-		  				
+							
 		  				}
 		  			},
 		  			error: function(e) {
@@ -1090,3 +1139,307 @@ function getAddOTP(){
 		  	       // Enable the button only if the checkbox is checked
 		  	       submitButton.disabled = !checkbox.checked;
 		  	   }
+			   
+			   
+			   function cotodelLinkedBankDetail() {
+			       document.getElementById("signinLoader").style.display = "flex";
+			       
+			       $.ajax({
+			           type: "POST",
+			           url: "/getErupiLinkAccountDetails",
+			           data: {
+			               "acNumber": "12345678912345"
+			           },
+			           beforeSend: function(xhr) {
+			               //xhr.setRequestHeader(header, token);
+			           },
+			           success: function(data) {
+			               console.log("Linked bank account data:", data);
+			               
+			               var parsedData = typeof data === "string" ? JSON.parse(data) : data;
+			               if (parsedData.status === true && parsedData.data) {
+			                   var item = parsedData.data;
+							    $("#CId").val(item.id);
+		   						$("#CbankCode").val(item.bankCode);
+		   						$("#CbankName").val(item.bankName);
+								$("#CaccountHolderName").val(item.accountHolderName);
+								$("#CacNumber").val(item.acNumber);
+		   						$("#CaccountType").val(item.accountType);
+								$("#CifscCode").val(item.ifsc);
+								//$("#Cbalance").val(item.balance);
+								
+			                   console.log("cotodelLinkedBankDetail()", item);
+			                   
+			                   const wrapper = document.getElementById('data-wrapper1');
+			                   wrapper.innerHTML = '';
+			                   
+			                   const container = document.createElement('div');
+			                   container.className = 'data-container';
+			                   
+			                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc", "mobile", "merchentIid", "submurchentid", "payerva"];
+			                   
+			                   const fieldLabels = {
+			                       bankName: "Bank Name",
+			                       accountHolderName: "Account Holder Name",
+			                       acNumber: "Account Number",
+			                       accountType: "Account Type",
+			                       ifsc: "IFSC",
+			                       mobile: "Mobile",
+			                       merchentIid: "Merchant Id",
+			                       submurchentid: "Sub Merchant Id",
+			                       payerva: "Payerva",
+			                   };
+			                   
+			                   fieldsToDisplay.forEach(key => {
+			                       const fieldDiv = document.createElement('div');
+			                       fieldDiv.className = 'field';
+			                       fieldDiv.innerHTML = `<span class="label">${fieldLabels[key]}:</span> ${item[key] ?? 'N/A'}`;
+			                       container.appendChild(fieldDiv);
+			                   });
+			                   
+			                   wrapper.appendChild(container);
+			               }
+			               
+			               document.getElementById("signinLoader").style.display = "none";
+			           },
+			           error: function(error) {
+			               console.error("Error fetching bank details:", error);
+			               document.getElementById("signinLoader").style.display = "none";
+			           }
+			       });
+			   }
+
+			   function resendCotodelOTP(){
+			   	
+			   	//const checkbox = document.getElementById("styled-checkbox-40");
+			   	var userMobile = document.getElementById("userMobile").value;
+			   	var orderId = document.getElementById("orderId").value;
+			   	//  if (checkbox.checked) {
+			   		$.ajax({
+			   			type: 'POST',
+			   	        url:"/smsOtpResender",
+			   			data: {
+			   						"mobile": userMobile,
+			   						"orderId": orderId
+			   					},
+			   			dataType: 'json',
+			   			success: function(data) {
+			   			var obj = data;
+			   	        if (obj['status'] == true) {
+			   	            // If successful, open the OTP modal
+			   				var timeleft = "60";
+			   				var resendCodeElement = document.getElementById("resendCode");
+			   	               // Hide the "Resend OTP" link initially
+			   	               resendCodeElement.style.display = "none";
+			   				var downloadTimer = setInterval(function() {
+			   					document.getElementById("countdown1").innerHTML = "00:"+timeleft;
+			   					timeleft -= 1;
+			   					//document.getElementById("optBtn").style.display = "none";
+			   					document.getElementById("orderId").value= obj['orderId'];
+			   					//document.getElementById("verifyotpdiv").style.display = "block";
+			   					if (timeleft < 0) {
+			   						clearInterval(downloadTimer);
+			   						resendCodeElement.style.display = "block";	
+			   					}	
+			   				}, 1000);
+			   	            $("#cotodelAmountOTPModal").show();  
+			   	          } else {
+			   	            alert("Error: " + obj.message);
+			   	          }
+			   	        },
+			   	        error: function() {
+			   			  //$('#otpModal').fadeIn();
+			   	         // alert("An error occurred. Please try again.");
+			   	        }
+			   	      });
+			   	// } 		  
+			   	// else {
+			   	//	document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
+			   		
+			   	    //alert("Please check consent");
+			   	//  }
+			   	
+			   }
+			   function verfyCotodelOTP() {
+			   		//document.getElementById("authenticate").disabled = true;
+			   	  	var password1 = document.getElementById("password111").value;
+			   	  	var password2 = document.getElementById("password222").value;
+			   	  	var password3 = document.getElementById("password333").value;
+			   	  	var password4 = document.getElementById("password444").value;
+			   	  	var password5 = document.getElementById("password555").value;
+			   	  	var password6 = document.getElementById("password666").value;
+			   	  	var orderId = document.getElementById("orderId").value;
+			   	  	var userMobile = document.getElementById("userMobile").value;
+			   	  	 if (password1 == "" && password1.length < 1) {
+			   	  		document.getElementById("mobError").innerHTML="";
+			   	  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	 else if (password1.length < 1) {
+			   	  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	else{
+			   	  		document.getElementById("otpError").innerHTML="";
+			   	  	}
+			   	  	 if (password2 == "" && password2.length < 1) {
+			   	  		document.getElementById("mobError").innerHTML="";
+			   	  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	 else if (password2.length < 1) {
+			   	  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	else{
+			   	  		document.getElementById("otpError").innerHTML="";
+			   	  	}
+			   	  	 if (password3 == "" && passwor3.length < 1) {
+			   	  		document.getElementById("mobError").innerHTML="";
+			   	  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	 else if (password3.length < 1) {
+			   	  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	else{
+			   	  		document.getElementById("otpError").innerHTML="";
+			   	  	}
+			   	  	 if (password4 == "" && password4.length < 1) {
+			   	  		document.getElementById("mobError").innerHTML="";
+			   	  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	 else if (password4.length < 1) {
+			   	  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	else{
+			   	  		document.getElementById("otpError").innerHTML="";
+			   	  	}
+			   	  	 if (password5 == "" && password5.length < 1) {
+			   	  		document.getElementById("mobError").innerHTML="";
+			   	  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	 else if (password5.length < 1) {
+			   	  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	else{
+			   	  		document.getElementById("otpError").innerHTML="";
+			   	  	}
+			   	  	 if (password6 == "" && password6.length < 1) {
+			   	  		document.getElementById("mobError").innerHTML="";
+			   	  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	 else if (password6.length < 1) {
+			   	  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			   	  		x = false;
+			   	  	}
+			   	  	else{
+			   	  		document.getElementById("otpError").innerHTML="";
+			   	  	}
+			   	  	
+			   	  	$.ajax({
+			   	  			type: "POST",
+			   	  			url:"/verifyOTP",
+			   	  			dataType: 'json',
+			   	  			data: {
+			   	  				"password1": password1,
+			   	  				"password2": password2,
+			   	  				"password3": password3,
+			   	  				"password4": password4,	
+			   	  				"password5": password5,
+			   	  				"password6": password6,
+			   	  				"mobile": userMobile,
+			   	  				"orderId": orderId,
+			   	  				"userName":userMobile
+			   	  			},
+			   	  			success: function(data) {
+			   	  				var obj = data;
+
+			   	  				if (obj['status']== true) {
+									
+			   						$("#cotodelAmountOTPModal").hide();
+									submitCotodelBankDetails();
+			   						
+									
+			   						//window.location.href="/roleAccess";
+			   	  				}else if (obj['status'] == false) {
+									document.getElementById("otpError").innerHTML=data.message;
+			   					} else {
+			   	  				
+			   	  				}
+			   	  			},
+			   	  			error: function(e) {
+			   	  				alert('Error: ' + e);
+			   	  			}
+			   	  		});
+			   	  }
+				  function submitCotodelBankDetails() {
+				      document.getElementById("signinLoader").style.display = "flex";
+					  var employerId = document.getElementById("employerId").value;
+					  var userMobile = document.getElementById("userMobile").value;
+				      var CId = document.getElementById("CId").value;
+				      var ClinkId = document.getElementById("ClinkId").value;
+				      var CbankCode = document.getElementById("CbankCode").value;
+				      var CbankName = document.getElementById("CbankName").value;
+				      var CaccountHolderName = document.getElementById("CaccountHolderName").value;
+				      var CacNumber = document.getElementById("CacNumber").value;
+				      var CaccountType = document.getElementById("CaccountType").value.trim();;
+				      var CifscCode = document.getElementById("CifscCode").value;
+				      
+				      //var Cbalance = document.getElementById("Cbalance").value;
+					  var CnewAmount = document.getElementById("advanceAmount").value;
+					  var createdby = document.getElementById("employerName").value;
+					  //let CaccountTypeobj = CaccountType.toUpperCase() === "SAVING" 
+					   //   ? { saving: "SAVING", current: null } 
+					    //  : { saving: null, current: "CURRENT" };   
+					      
+				      $.ajax({
+				          type: "POST",
+				          url: "/submitCotodelDetails",
+						  // Update with the correct endpoint
+				          data:{
+				              "linkId": CId,
+							  "orgId": employerId,
+				              "mobile":userMobile,
+				              //"linkId": ClinkId,
+				              "bankCode": CbankCode,
+				              "bankName": CbankName,
+				              "accountHolderName": CaccountHolderName,
+				              "acNumber": CacNumber,
+				              "accountType": CaccountType,
+				              "ifscCode": CifscCode,				         
+				              //"balance": Cbalance,
+							  "createdby":createdby,
+							  "amountLimit":CnewAmount,
+				              
+				          },
+						  				          
+						  success: function(data) {
+							newData = data;
+							var data1 = jQuery.parseJSON(newData);
+							if(data1.status==true){
+							$("#amountApproved").show();
+				              //console.log("Bank details submitted successfully:", response);
+				              
+							  setTimeout(function() {
+							        window.location.href = "/roleAccess";
+							    }, 900);
+							  }
+							  else{
+								alert("Failed to save data ",data1.message);
+							  }
+							
+				          },
+						  error: function(e){
+							
+						              alert('Error: ' + e);
+						          }
+				      });
+					  document.getElementById("signinLoader").style.display = "none";
+				  }		  		  

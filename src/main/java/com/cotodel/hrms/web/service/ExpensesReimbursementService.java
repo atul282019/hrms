@@ -35,6 +35,9 @@ public interface ExpensesReimbursementService {
 	String getErupiLinkDlinkAccountDetail(String token, EncriptResponse erupiLinkBankAccount);
 
 	String getExpanseReimbursementApprovalList(String token, EncriptResponse expensesReimbursementRequest);
+	
+	String getErupiLinkAccountDetails(String token, EncriptResponse ErupiLinkAccountDetailsRequest);
+	String SaveCotodelbankDetails(String token, EncriptResponse ErupiLinkAccountDetailsRequest);
 
 	String getExpensesReimbursementDetailById(String token, EncriptResponse expensesReimbursementRequest);
 

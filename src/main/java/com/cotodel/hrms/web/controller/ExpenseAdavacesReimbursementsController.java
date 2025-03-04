@@ -22,6 +22,7 @@ import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
+import com.cotodel.hrms.web.response.LinkMultipleAccountRequest;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
 import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
@@ -624,6 +625,56 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  expensesReimbursementService.getCashAdvanceDetailById(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
+	@PostMapping(value = "/getErupiLinkAccountDetails")
+	public @ResponseBody String getErupiLinkAccountDetails(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ErupiLinkBankAccount erupiLinkBankAccount) {
+		String profileRes = null;
+		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
+		//		expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.getErupiLinkAccountDetails(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
+	@PostMapping(value = "/submitCotodelDetails")
+	public @ResponseBody String saveCotodelbankDetails(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session,  LinkMultipleAccountRequest linkMultipleAccountRequest) {
+		String profileRes = null;
+		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
+		//		expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(linkMultipleAccountRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.SaveCotodelbankDetails(tokengeneration.getToken(), jsonObject);
 
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
