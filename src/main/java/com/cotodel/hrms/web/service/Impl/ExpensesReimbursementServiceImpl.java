@@ -111,6 +111,16 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 			EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpensesReimbursementApprovalList);
 	}
+	@Override
+	public String getErupiLinkAccountDetails(String token,
+			EncriptResponse erupiLinkAccountDetailsRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetails);
+	}
+	@Override
+	public String SaveCotodelbankDetails(String token,
+			EncriptResponse erupiLinkAccountDetailsRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveCotodelbankdetails);
+	}
 
 	@Override
 	public String getExpensesReimbursementDetailById(String token,

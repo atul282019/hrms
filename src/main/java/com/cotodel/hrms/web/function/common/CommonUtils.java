@@ -160,6 +160,8 @@ public interface CommonUtils {
 	
 	public static String getDepartmentMaster = "/masterService/Api/get/departmentMasterList";
 	public static String getExpensesReimbursementApprovalList ="/empService/Api/get/expenseReimbFileByEmpId"; 
+	public static String getErupiLinkAccountDetails ="/empService/Api/get/erupiLinkAccountDetails"; 
+	public static String saveCotodelbankdetails ="/empService/Api/add/linkMultipleAccount"; 
 	
 	public static String getExpensesReimbursementDetailById ="/empService/Api/get/expenseReimbFileById"; 
 	

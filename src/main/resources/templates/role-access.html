@@ -6,7 +6,7 @@
 
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),viewEmployeeBand()" >
+<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),viewEmployeeBand(),cotodelLinkedBankDetail()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -89,6 +89,7 @@
                                 <li class="active" th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#home1">Role Access</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
+								<li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu33"> Cotodel Linked Account</a></li>
                                <!-- <li><a data-toggle="tab" href="#menu33">Expenses & Advance</a></li>-->
                             </ul>
 
@@ -442,7 +443,49 @@
 								</div>
 								
                                 <div id="menu33" class="tab-pane">
-									<h1>Tab pane 3</h1>
+									<div id="menu3" class="tab-pane">
+																	    <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
+																	        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+																	            <div class="text-center">
+																	                <h3>Cotodel Linked Account</h3>
+																	            </div>
+
+																	           
+																	        </div>
+																	    </div>
+
+
+																	    <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
+																	            <div class="text-left">
+																	                <h3>Cotodel Bank Account Details</h3>
+																	            </div>
+
+																	            <div class="linked-bank-account-innersection d-block">
+																	               
+																					<div id="data-wrapper1"> 
+																						
+																					</div>
+																	               
+																	            </div>
+
+																	            <div class="d-flex justify-content-end">
+																	                <button class="btn btn-primary" id="continuebtn">Continue</button>
+																	            </div>
+																	    </div>
+
+																	</div>
+								<input type="hidden" class="form-input" id="CId" name="CId" > 
+								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+								<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+								<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+								<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+								
+								
+								
+								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
 								 </div>
                             </div>
                         </div>
@@ -655,6 +698,58 @@
 	            </div>
 	        </div>
 	    </div>
+		
+		<div class="customModal modal" id="cotodelAmountOTPModal">
+			        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
+			            <div class="modal-content modal-bulk p-0">
+			                <div class="modal-header text-center">
+			                    <h5 class="modal-title w-100">Confirm Taking Given Amount from Cotodel</h5>
+			                </div>				
+							<div class="modal-body text-center">
+							    <div class="otp-box-onboarding justify-content-center">
+								
+								<input  class="form-control form-control-sm test" type="password" id="password111" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password222" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password333" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password444" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password555" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password666" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+							        name="orderId" >
+							    </div>
+							   <label class="time-otp ml-0 text-dark" for="" id="countdown1" style="color: green;"></label>
+							  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+								<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendCotodelOTP()">Resend OTP</a></p>
+							    <div class="tip-wrap justify-content-center">
+							        <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+							    </div>
+								
+								<div class="error-msg" id="otpError" style="color:red"></div>
+								
+							    <div class="d-flex justify-content-center mt-3">
+									<!--
+							        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
+									-->
+									<button class="btn btn-primary w-100" type="button" id="authenticateAddctdl"  onclick="verfyCotodelOTP()">Authenticate</button>
+							    </div>
+							</div>
+
+							
+			            </div>
+			        </div>
+			    </div>
 
 	<!--<div id="popup">
 	        <h3>Employee Details</h3>
@@ -727,6 +822,21 @@
             </div>
         </div>
     </div>
+	<div class="customModal modal" id="amountApproved">
+	       <div class="modal-dialog modal-dialog-centered">
+	           <div class="modal-content modal-bulk p-0">
+	               <div class="modal-top text-center">
+	                   <button type="button" class="close p-0" id="roleAcessSuccessfulClose" data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+	                       <img src="img/modal-close.svg" alt="">
+	                   </button>
+	                   <img src="img/modal-success.svg" alt="">
+	               </div>
+	               <div class="modal-bottom">
+	                   <span>Amount Approved</span>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
 	
 	
 	 <!-- Modal Modal Employee Band Setting -->
@@ -956,6 +1066,39 @@
 	   </div>
 	</div>
 	
+	<!-- Modal Choose Type of Advance Request -->
+	<div class="modal fade" id="cotodelAmountRequest" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0">
+	                <h5 class="modal-title" id="CnewAmount">Please Enter Amount</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form action="" class="advancerequestform">
+	                    <div class="form-group">
+	                        <!--<label for="advanceAmount">Advance Amount</label>-->
+	                        <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
+	                    </div>
+						<div class="unstyled centered d-flex mt-2"  id="checkboxContainer">
+                           <input class="styled-checkbox" id="confirmAmount" type="checkbox"
+                               value="value1">
+                           <label for="confirmAmount"></label>
+                           <p class="d-inline mb-0 ml-2">I confirm the changes</p>
+                       </div>
+					<div class="error-msg" id="confirmAmountError" style="color:red"></div>
+	                </form>
+	                <div class="d-flex justify-content-center mt-3">
+	                    <button class="btn btn-primary w-100" id="continueButton" onclick="getOTPforCotodel()">Continue</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -980,6 +1123,56 @@
 
 	<script src="cotodel-js/linked-account.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	<script>
+		
+		document.addEventListener('DOMContentLoaded', function() {
+		    // Get the continue button
+		    const continueButton = document.getElementById('continuebtn');
+		    
+		    // Add click event listener to open the modal
+		    continueButton.addEventListener('click', function() {
+		        // Open the modal
+		        $('#cotodelAmountRequest').modal('show');
+		    });
+		    
+		    // Optional: Add event listener for the modal's continue button
+		    const modalContinueButton = document.getElementById('continueButton');
+		    if (modalContinueButton) {
+		        modalContinueButton.addEventListener('click', function() {
+		            // Get the amount value
+		            const amount = document.getElementById('advanceAmount').value;
+		            // Get the confirmation checkbox status
+		            const isConfirmed = document.getElementById('confirmAmount').checked;
+		            
+		            // Validate inputs
+		            /*if (!amount) {
+		                alert('Please enter an amount');
+		                return;
+		            }
+		            
+		            if (!isConfirmed) {
+		                alert('Please confirm the amount');
+		                return;
+		            }*/
+		            
+		            // Process the confirmed amount here
+		            console.log('Confirmed amount:', amount);
+		            
+		            // Close the modal
+		           $('#cotodelAmountRequest').modal('hide');
+		            
+		            // Add your code to proceed with the confirmed amount
+		        });
+		    }
+		});
+		$('#cotodelAmountRequest').on('show.bs.modal', function () {
+				    $(this).removeAttr('aria-hidden').removeAttr('inert');
+				});
+
+				$('#cotodelAmountRequest').on('hidden.bs.modal', function () {
+				    $(this).attr('inert', '');
+				});
+	</script>
 	<style>	
 		@media (min-width: 1200px) {
 	  .modal-xl {
