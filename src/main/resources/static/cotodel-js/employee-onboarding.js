@@ -418,14 +418,19 @@ function saveEmployeeOnboarding(){
 	        document.getElementById("empTypeError").textContent = "Please select employee type";
 	        return false;
 	    }
-		if(!profilePhotoBase64=="")
+		console.log("profile photo in base 64 before check",profilePhoto);
+		//if(profilePhoto=="")
+			//if(profilePhoto!="")
+		//if(!profilePhotoBase64=="")
+			if(profilePhoto=="")
 			{
 				profilePhoto=profilePhotoBase64;
 			}
-			else if(profilePhoto!=profilePhotoBase64)//if user changes the photo while editing
+			/*else if(profilePhoto!=profilePhotoBase64)//if user changes the photo while editing
 				{
 					profilePhoto=this.profilePhoto;
-				}
+				}*/
+				console.log("profile photo in base 64 after check",profilePhoto);
 
 	var formData = new FormData(employeeOnboarding);
 	formData.append("Id",Id);
@@ -753,13 +758,15 @@ function validateAndConvertImageToBase64() {
         reader.onload = function(event) {
             const base64String = event.target.result.split(',')[1];
 			console.log(base64String);
-			if(profilePhoto===base64String)
+			profilePhoto=base64String;
+			/*if(profilePhoto===base64String)
 				{
 					alert('Please re upload new image');
 					profilePhoto="";
 					return;
-				}
-            profilePhoto=base64String;
+				}*/
+            
+			//$("#profilePhotoBase64").val(profilePhoto);
             // You can now use the Base64 string as needed
         };
         reader.onerror = function() {
