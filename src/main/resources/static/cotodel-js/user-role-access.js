@@ -1429,7 +1429,7 @@ function getAddOTP(){
 				              
 							  setTimeout(function() {
 							        window.location.href = "/roleAccess";
-							    }, 900);
+							    }, 1100);
 							  }
 							  else{
 								alert("Failed to save data ",data1.message);

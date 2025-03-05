@@ -37,7 +37,12 @@ public interface ExpensesReimbursementService {
 	String getExpanseReimbursementApprovalList(String token, EncriptResponse expensesReimbursementRequest);
 	
 	String getErupiLinkAccountDetails(String token, EncriptResponse ErupiLinkAccountDetailsRequest);
+	
+	String getSavedCBankDetails(String token, EncriptResponse ErupiLinkAccountDetailsRequest);
+	
 	String SaveCotodelbankDetails(String token, EncriptResponse ErupiLinkAccountDetailsRequest);
+	
+	String cApproveReject(String token, EncriptResponse ErupiLinkAccountDetailsRequest);
 
 	String getExpensesReimbursementDetailById(String token, EncriptResponse expensesReimbursementRequest);
 

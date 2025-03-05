@@ -34,6 +34,7 @@ function getEmployeeOnboarding() {
 			
 				if(data.status=="SUCCESS"){
 				var data1=data.correct;		
+				Console.log("correct data",data1);
 				var data2 = jQuery.parseJSON(data1);			
 				var table1 = $('#example1').DataTable( {
 	          "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,

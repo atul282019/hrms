@@ -282,17 +282,21 @@
 		$('#incorrecttotReview').html(total);
 				
 		if(data.status=="SUCCESS"){
-			var data1=data.correct;		
+			var data1=data.correct;	
+			console.log("data.correct",data1)	;
 			var data2 = jQuery.parseJSON(data1);	
-			if (data2.length === 0 && data2.length === 0) {
-			         document.getElementById("continueButton").disabled = true;
-			     } else {
-			         document.getElementById("continueButton").disabled = false;
-			     }	
+			    if (data2 && data2.length >=1) {
+			        $("#continueButton").prop("disabled", false); // Enable button
+			    } else {
+			        $("#continueButton").prop("disabled", true);  // Disable button
+			    }
+			
+				
 			 var i=1;
 			var table1 = $('#example1').DataTable( {
           "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
            "language": {"emptyTable": "No Data available"  },
+		   
               "aaData": data2,			
 					"aoColumns": [
 						/* { "mData": "id"}, */
@@ -316,13 +320,12 @@
 		//console.log(data);		
         if(data.status=="SUCCESS"){
 			var data1=data.incorrect;
-			//console.log(data1);
+			console.log("data.incorrect",data1);
 			var data2 = jQuery.parseJSON(data1);
-			if (data2.length === 0 && data2.length === 0) {
-			         document.getElementById("continueButton").disabled = true;
-			     } else {
-			         document.getElementById("continueButton").disabled = false;
-			     }	
+			
+			
+			         
+			    
 			//console.log("1st.......:"+data2);			
 			var i=1;
 			var table1 = $('#example2').DataTable( {
