@@ -258,7 +258,6 @@ function saveBulkVoucherUpload(){
 				//document.getElementById("continueButton").disabled = false;
 				 var success = data1.data.success;
 				 var fail = data1.data.fail;
-				 
 				 if (success.length === 0 ) {
 				         document.getElementById("continueButton").disabled = true;
 				     } else {

@@ -578,7 +578,7 @@ function getAddOTP(){
 				var timeleft = "60";
 				
 				var downloadTimer = setInterval(function() {
-					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+					document.getElementById("countdownadd").innerHTML = "00:"+timeleft;
 					timeleft -= 1;
 					//document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
@@ -1079,16 +1079,15 @@ function getAddOTP(){
 
 			    // Extract roles
 			    const userRole = [];
-			    const roleColumns = Array.from(document.querySelectorAll("#resultTable thead th"))
-			                             .slice(4, -1); // Adjust for the actual roles column range
-
-			    for (let i = 4; i < cells.length - 1; i++) { // Skip ID, username, email, mobile, and actions
-			        const checkbox = cells[i].querySelector("input[type='checkbox']");
-			        if (checkbox && checkbox.checked) {
-			            const roleDesc = roleColumns[i - 4].textContent.trim(); // Align headers with role columns
-			            userRole.push({ roleDesc });
-			        }
-			    }
+				const roleColumns = Array.from(document.querySelectorAll("#resultTable thead th"))
+	             .slice(4);
+				 for (let i = 4; i < cells.length; i++) { // Ensures last role column is included
+				             const checkbox = cells[i].querySelector("input[type='checkbox']");
+				             const roleIndex = i - 4; // Align with roleColumns
+				             if (checkbox && checkbox.checked && roleColumns[roleIndex]) {
+				                 userRole.push({ roleDesc: roleColumns[roleIndex].textContent.trim() });
+				             }
+				         }
 
 			    // Add row data to the array
 			    allRowsData.push({
