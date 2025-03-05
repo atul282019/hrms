@@ -1186,6 +1186,15 @@ input:focus {
     padding: 10px 30px;
 }
 
+.bs-canvas-right button.test {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 10px 30px;
+}
 .bs-canvas-top {
     display: block;
     padding: 10px 30px;
