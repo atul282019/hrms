@@ -117,9 +117,21 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetails);
 	}
 	@Override
+	public String cApproveReject(String token,
+			EncriptResponse erupiLinkAccountDetailsRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.cApproveReject);
+	}
+	
+	@Override
 	public String SaveCotodelbankDetails(String token,
 			EncriptResponse erupiLinkAccountDetailsRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.saveCotodelbankdetails);
+	}
+	
+	@Override
+	public String getSavedCBankDetails(String token,
+			EncriptResponse erupiLinkAccountDetailsRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getSavedCBankDetails);
 	}
 
 	@Override
