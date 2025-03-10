@@ -716,6 +716,7 @@ function getAddOTP(){
 		    }
 
 		function focusBack(){
+			document.getElementById("otpError1").innerHTML="";
 			  var elts = document.getElementsByClassName('test')
 			  Array.from(elts).forEach(function(elt) {
 			  elt.addEventListener("keydown", function(event) {
@@ -862,6 +863,7 @@ function getAddOTP(){
 		  }
 
 		  function verfyAddRoleOTP() {
+			
 			document.getElementById("authenticate").disabled = true;
 		  	var password1 = document.getElementById("password11").value;
 		  	var password2 = document.getElementById("password22").value;
@@ -943,7 +945,7 @@ function getAddOTP(){
 		  	else{
 		  		document.getElementById("otpError").innerHTML="";
 		  	}
-		  	
+			
 		  	$.ajax({
 		  			type: "POST",
 		  			url:"/verifyOTP",
@@ -968,7 +970,7 @@ function getAddOTP(){
 							$("#roleAcessModalSuccessful").show();
 							window.location.href="/roleAccess";
 		  				}else if (obj['status'] == false) {
-						
+							document.getElementById("otpError1").innerHTML="Please Enter Valid OTP..";
 						} else {
 		  				
 		  				}
