@@ -918,7 +918,7 @@ function getPrimaryBankDetail(){
 
 				      return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
 				  }
-				  function validateAmount() {
+				  /*function validateAmount() {
 				      // Get available balance (removing currency symbols & commas)
 				      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
 				      let amountInput = document.getElementById("amount");
@@ -944,5 +944,5 @@ function getPrimaryBankDetail(){
 				          errorMessage.style.display = "none"; // Hide error message
 				          continueButton.disabled = false; // Enable button when valid
 				      }
-				  }
+				  }*/
 
