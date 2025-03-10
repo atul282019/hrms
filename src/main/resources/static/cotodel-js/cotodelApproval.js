@@ -304,6 +304,7 @@
 		            }else if(response.status==false)
 						{
 							alert(response.message);
+							window.location.href="/cotodelApproval"; 
 						}
 					 else {
 		                window.location.href="/cotodelApproval"; 
