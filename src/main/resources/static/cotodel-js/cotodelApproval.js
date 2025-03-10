@@ -143,12 +143,12 @@
 		}	*/
 		
 		function getWaitlist() {
-		    const employerId = document.getElementById('employerId').value;
+		    const orgId = document.getElementById('employerId').value;//send orgid
 		    document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
 		        type: "GET",
 		        url: "/getsubmitedCDetails",
-		        data: { employerId },
+		        data: { orgId },
 		        success: function(data) {
 		            document.getElementById("signinLoader").style.display="none";
 		            const parseddata = JSON.parse(data);
@@ -301,7 +301,11 @@
 		            
 		            if(response.status==true) {
 		                window.location.href="/cotodelApproval"; 
-		            } else {
+		            }else if(response.status==false)
+						{
+							alert(response.message);
+						}
+					 else {
 		                window.location.href="/cotodelApproval"; 
 		            }
 		        },

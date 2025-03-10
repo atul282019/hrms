@@ -34,11 +34,8 @@ function singleVoucherValidation(){
 			     var employerId = document.getElementById("employerId").value;
 			     var employerName = document.getElementById("employerName").value;
 			  
-			   	var element = document.getElementById("lable3");
-			   	element.classList.add("active");
-			   	
-				var element = document.getElementById("lable2");
-							   	element.classList.add("active");
+			  
+				
 								
 			   	const amountValue = amount.trim();
 			   			  
@@ -115,7 +112,11 @@ function singleVoucherValidation(){
 		   		 else {
 		          	 document.getElementById("expiryDateError").innerHTML="";
 		           }*/
-   
+				   var element = document.getElementById("lable2");
+				   							   	element.classList.add("active");
+				   var element = document.getElementById("lable3");
+				   	   	element.classList.add("active");
+				   	   	
 					$("#selectvouchers-wrap04").show();
 					$("#selectvouchers-wrap03").hide();
 					
