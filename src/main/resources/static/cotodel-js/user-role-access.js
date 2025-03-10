@@ -456,9 +456,40 @@ function getOTP(){
 }
 function getOTPforCotodel(){
 	
-	const checkbox = document.getElementById("confirmAmount");
+	//const checkbox = document.getElementById("confirmAmount");
 	var userMobile = document.getElementById("userMobile").value;
-	  if (checkbox.checked) {
+	const amount = document.getElementById("advanceAmount").value.trim();
+	  const isConfirmed = document.getElementById("confirmAmount").checked;
+	  
+	  // Get both error elements
+	  const amountErrorElement = document.getElementById("advanceAmountError");
+	  const confirmErrorElement = document.getElementById("confirmAmountError");
+	  
+	  // Clear any previous error messages
+	  amountErrorElement.textContent = "";
+	  confirmErrorElement.textContent = "";
+	  
+	  // Initialize a flag to track validation status
+	  let isValid = true;
+	  
+	  // Check if amount is empty
+	  if (amount === "") {
+	    amountErrorElement.textContent = "Please enter an amount.";
+	    isValid = false;
+	  }
+	  
+	  // Check if checkbox is not checked
+	  if (!isConfirmed) {
+	    confirmErrorElement.textContent = "Please select the confirmation checkbox.";
+	    isValid = false;
+	  }
+	  
+	  // If validation fails, return false
+	  if (!isValid) {
+	    return false;
+	  }
+	
+	  //if (checkbox.checked) {
 		$.ajax({
 			type: 'POST',
 	        url:"/smsOtpSender",
@@ -495,12 +526,12 @@ function getOTPforCotodel(){
 	         // alert("An error occurred. Please try again.");
 	        }
 	      });
-	 } 		  
-	 else {
-		document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
+	// } 		  
+	// else {
+	//	document.getElementById("confirmAmountError").innerHTML="Please check consent";
 		
 	    //alert("Please check consent");
-	  }
+	  //}
 	
 }
 function resendVoucherOTP(){
@@ -1175,7 +1206,7 @@ function getAddOTP(){
 			                   const container = document.createElement('div');
 			                   container.className = 'data-container';
 			                   
-			                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc", "mobile", "merchentIid", "submurchentid", "payerva"];
+			                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc"];
 			                   
 			                   const fieldLabels = {
 			                       bankName: "Bank Name",
@@ -1183,10 +1214,7 @@ function getAddOTP(){
 			                       acNumber: "Account Number",
 			                       accountType: "Account Type",
 			                       ifsc: "IFSC",
-			                       mobile: "Mobile",
-			                       merchentIid: "Merchant Id",
-			                       submurchentid: "Sub Merchant Id",
-			                       payerva: "Payerva",
+			                       
 			                   };
 			                   
 			                   fieldsToDisplay.forEach(key => {

@@ -115,11 +115,18 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	public String getErupiLinkAccountDetails(String token,
 			EncriptResponse erupiLinkAccountDetailsRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getErupiLinkAccountDetails);
-	}
+	} 
+	
 	@Override
 	public String cApproveReject(String token,
 			EncriptResponse erupiLinkAccountDetailsRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.cApproveReject);
+	}
+	
+	@Override
+	public String showLinkedAccAmount(String token,
+			EncriptResponse erupiLinkAccountDetailsRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiLinkAccountDetailsRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.showLinkedAccAmount);
 	}
 	
 	@Override

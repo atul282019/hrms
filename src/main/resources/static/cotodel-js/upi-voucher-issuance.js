@@ -441,6 +441,8 @@ function  getLinkedBankDetail(){
 
 
 
+
+
 function getIssueVoucherList(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;

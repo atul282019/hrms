@@ -101,7 +101,7 @@ function submitExpenseDraft(){
 	var fileBase64=null;
 	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategoryError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategoryError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{
@@ -245,7 +245,7 @@ function submitExpenseMultiple(){
 	var fileBase64=null;
 	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategoryError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategoryError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{
@@ -388,7 +388,7 @@ function submitExpenseSingleDraft(){
 	var fileBase64=null;
 	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{
@@ -537,7 +537,7 @@ function submitExpenseSingle(){
 	var fileBase64=null;
 	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{

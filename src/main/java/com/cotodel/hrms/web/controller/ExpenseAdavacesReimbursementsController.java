@@ -738,4 +738,28 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	return profileRes;
 	}
 	
+	@PostMapping(value = "/showLinkedAccAmount")
+	public @ResponseBody String showLinkedAccAmount(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session,  LinkMultipleAccountRequest linkMultipleAccountRequest) {
+		String profileRes = null;
+		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
+		//		expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(linkMultipleAccountRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.showLinkedAccAmount(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
 }

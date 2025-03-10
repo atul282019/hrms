@@ -33,6 +33,7 @@
 	 <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
     <link rel="stylesheet" href="css/custom.css">
     <script type="text/javascript" src="js/xsls-export.js"></script>
+
 	
 	<style>
 	    .abc-container {
@@ -1065,7 +1066,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 											<select class="did-floating-select" id="currency">
 												<option value="">Select Currency</option>
 												<option value="INR">INR</option>
-												<option value="INR">Dallar</option>
+												<option value="INR">Dollar</option>
 											</select> <label class="did-floating-label">Select Currency</label>
 										</div>
 										<div class="error-msg" id="currencyError" style="color: red"></div>
@@ -1466,8 +1467,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										<div class="did-floating-label-content mb-0">
 											<select class="did-floating-select"
 												id="expenseCategorySingle">
-											</select> <label class="did-floating-label">Select Expense
-												Category</label>
+											</select> <label class="did-floating-label">Select Category</label>
 										</div>
 										<div class="error-msg" id="expenseCategorySingleError"
 											style="color: red"></div>
@@ -1476,10 +1476,10 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 									<div class="ml-2 w-100 mb-2">
 										<div class="did-floating-label-content mb-0">
 											<input type="date" id="dateSingle"
-												class="did-floating-select"> <label
-												class="did-floating-label">Date of Expense</label>
+												class="did-floating-select" onchange="validateDate()"> <label
+												class="did-floating-label" >Date of Expense</label>
 										</div>
-										<div class="error-msg" id="dateSingleError" style="color: red"></div>
+										<div class="error-msg" id="dateSingleError" style="color: red"></div><br>
 									</div>
 								</div>
 
@@ -1489,8 +1489,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										id="expenseTitleSingle"> <label
 										class="did-floating-label">Enter Expense Title</label>
 								</div>
-								<div class="error-msg" id="expenseTitleSingleError"
-									style="color: red"></div>
+								<div class="error-msg" id="expenseTitleSingleError"style="color: red"></div><br>
+								
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
 									<input class="did-floating-input" type="text"
@@ -1498,7 +1498,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										class="did-floating-label">Enter Vendor Name</label>
 								</div>
 								<div class="error-msg" id="vendorNameSingleError"
-									style="color: red"></div>
+									style="color: red"></div><br>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
 									<input class="did-floating-input" type="text" 
@@ -1506,7 +1506,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										class="did-floating-label">Enter Invoice Number</label>
 								</div>
 								<div class="error-msg" id="invoiceNumberSingleError"
-									style="color: red"></div>
+									style="color: red"></div><br>
 								<div class="clearfix"></div>
 
 								<div class="form-grp-half">
@@ -1515,11 +1515,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 											<select class="did-floating-select" id="currencySingle">
 												<option value="">Select Currency</option>
 												<option value="INR">INR</option>
-												<option value="Dallor">Dallor</option>
+												<option value="Dollar">Dollar</option>
 											</select> <label class="did-floating-label">Select Currency</label>
 										</div>
 										<div class="error-msg" id="currencySingleError"
-											style="color: red"></div>
+											style="color: red"></div><br>
 									</div>
 									<div class="ml-2 w-100 mb-2">
 										<div class="did-floating-label-content mb-0">
@@ -1528,7 +1528,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 												class="did-floating-label">Enter Amount</label>
 										</div>
 										<div class="error-msg" id="amountSingleError"
-											style="color: red"></div>
+											style="color: red"></div><br>
 									</div>
 								</div>
 								<div class="clearfix"></div>
@@ -1551,7 +1551,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										Mode of Payment</label>
 								</div>
 								<div class="error-msg" id="modeofpaymentSingleError"
-									style="color: red"></div>
+									style="color: red"></div><br>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
 									<input class="did-floating-input" type="text"

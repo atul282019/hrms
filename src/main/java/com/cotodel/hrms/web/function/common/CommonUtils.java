@@ -164,6 +164,7 @@ public interface CommonUtils {
 	public static String saveCotodelbankdetails ="/empService/Api/add/linkMultipleAccount"; 
 	public static String getSavedCBankDetails ="/empService/Api/get/linkMultipleAccountList";
 	public static String cApproveReject ="/empService/Api/update/linkMultipleAccountUpdate"; 
+	public static String showLinkedAccAmount ="/empService/Api/get/linkMultipleAccountAmount";
 	
 	public static String getExpensesReimbursementDetailById ="/empService/Api/get/expenseReimbFileById"; 
 	

@@ -101,7 +101,7 @@ function submitExpenseDraft(){
 	var fileBase64=null;
 	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategoryError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategoryError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{
@@ -246,7 +246,7 @@ function submitExpenseMultiple(){
 	var fileBase64=null;
 	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategoryError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategoryError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{
@@ -390,7 +390,7 @@ function submitExpenseSingleDraft(){
 	var fileBase64=null;
 	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{
@@ -539,8 +539,13 @@ function submitExpenseSingle(){
 	var fileType = null;
 	var fileBase64=null;
 	
+	var expenseTitleRegex = /^[A-Za-z]+( [A-Za-z]+)*$/;  // Alphanumeric with spaces between words
+    var vendorNameRegex = /^[A-Za-z0-9]+( [A-Za-z0-9]+)*$/; // Alphanumeric, only spaces between words
+    var invoiceNumberRegex = /^[A-Za-z0-9]+$/; // Only alphanumeric
+    var amountRegex = /^(?:[1-9][0-9]{0,3}|9999)$/; // Numeric, max 9999
+	
 	if(expenseCategory=="" || expenseCategory==null){
-		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expence Category";
+		document.getElementById("expenseCategorySingleError").innerHTML="Please Select Expense Category";
 		return false;
 	}
 	else{
@@ -556,50 +561,70 @@ function submitExpenseSingle(){
 	}
 	
 	if(expenseTitle=="" || expenseTitle==null){
-		document.getElementById("expenseTitleError").innerHTML="Please Enter Expense Title";
+		document.getElementById("expenseTitleSingleError").innerHTML="Please Enter Expense Title";
 		return false;
-	}
+	}	
+	else if (!expenseTitle.match(expenseTitleRegex)) {
+	        document.getElementById("expenseTitleSingleError").innerHTML = "Invalid Expense Title";
+	        document.getElementById("expenseTitleSingle").focus();
+	        return false;
+	    }
 	else{
-		document.getElementById("expenseTitleError").innerHTML="";
+		document.getElementById("expenseTitleSingleError").innerHTML="";
 	}
 	
 	if(venderName=="" || venderName==null){
-		document.getElementById("venderNameError").innerHTML="Please Enter Vender Name";
+		document.getElementById("vendorNameSingleError").innerHTML="Please Enter Vender Name";
 		return false;
 	}
+	else if (!venderName.match(vendorNameRegex)) {
+	       document.getElementById("vendorNameSingleError").innerHTML = "Special Characters Not Allowed in Vendor Name";
+	       document.getElementById("vendorNameSingle").focus();
+	       return false;
+	   } 
 	else{
-		document.getElementById("venderNameError").innerHTML="";
+		document.getElementById("vendorNameSingleError").innerHTML="";
 	}
 	if(invoiceNumber=="" || invoiceNumber==null){
-		document.getElementById("invoiceNumberError").innerHTML="Please Enter Invoice Number";
+		document.getElementById("invoiceNumberSingleError").innerHTML="Please Enter Invoice Number";
 		return false;
 	}
+	else if (!invoiceNumber.match(invoiceNumberRegex)) {
+	        document.getElementById("invoiceNumberSingleError").innerHTML = "Invalid Invoice Number (Only Alphanumeric Allowed)";
+	        document.getElementById("invoiceNumberSingle").focus();
+	        return false;
+	    }
 	else{
-		document.getElementById("invoiceNumberError").innerHTML="";
+		document.getElementById("invoiceNumberSingleError").innerHTML="";
 	}
 	
 	if(currency=="" || currency==null){
-		document.getElementById("currencyError").innerHTML="Please Select Currency";
+		document.getElementById("currencySingleError").innerHTML="Please Select Currency";
 		return false;
 	}
 	else{
-		document.getElementById("currencyError").innerHTML="";
+		document.getElementById("currencySingleError").innerHTML="";
 	}
 	
 	if(amount=="" || amount==null){
-		document.getElementById("amountError").innerHTML="Please Enter Amount";
+		document.getElementById("amountSingleError").innerHTML="Please Enter Amount";
 		return false;
 	}
+	else if (!amount.match(amountRegex)) {
+	       document.getElementById("amountSingleError").innerHTML = "Invalid Amount (Allowed Range: 1 - 9999)";
+	       document.getElementById("amountSingle").focus();
+	       return false;
+	   }
 	else{
-		document.getElementById("amountError").innerHTML="";
+		document.getElementById("amountSingleError").innerHTML="";
 	}
 	
 	if(modeofPayment=="" || modeofPayment==null){
-		document.getElementById("modeofPaymentError").innerHTML="Please Select Mode of Payment";
+		document.getElementById("modeofpaymentSingleError").innerHTML="Please Select Mode of Payment";
 		return false;
 	}
 	else{
-		document.getElementById("modeofPaymentError").innerHTML="";
+		document.getElementById("modeofpaymentSingleError").innerHTML="";
 	}
 
 	//const base64String = imageAdd;
@@ -656,7 +681,8 @@ function submitExpenseSingle(){
 			document.getElementById("ModalAddfreshexpContinew").style.display = "none";;
 			
 		   document.getElementById("ModalAddExpenseReimbursement").style.display = "none";;
-	
+			
+		   	resetFormFields();
   			// Get the <span> element that closes the modal
 			getExpanceCategoryList();
 			
@@ -667,7 +693,28 @@ function submitExpenseSingle(){
     });	
 	
 }
+function resetFormFields() {
+    // Clear all input fields
+    document.getElementById("expenseCategorySingle").value = "";
+    document.getElementById("dateSingle").value = "";
+    document.getElementById("expenseTitleSingle").value = "";
+    document.getElementById("vendorNameSingle").value = "";
+    document.getElementById("invoiceNumberSingle").value = "";
+    document.getElementById("currencySingle").value = "";
+    document.getElementById("amountSingle").value = "";
+    document.getElementById("modeofpaymentSingle").value = "";
+    document.getElementById("remarkSingle").value = "";
 
+    // Clear error messages
+    let errorFields = document.querySelectorAll(".error-msg");
+    errorFields.forEach((field) => {
+        field.innerHTML = "";
+    });
+
+    // Reset image and PDF inputs if applicable
+    document.getElementById("imageAddSingle").src = "";
+    document.getElementById("base64PDFSingle").value = "";
+}
 
 function getExpanceCategoryList(){
 	document.getElementById("signinLoader").style.display="flex";
@@ -1408,5 +1455,27 @@ function getCashAdvanceRequestList(){
 			alert('Failed to fetch JSON data' + e);
 		}
 	});
+}
+function validateDate() {
+    let dateInput = document.getElementById("dateSingle").value;
+    let errorElement = document.getElementById("dateSingleError");
+
+    if (!dateInput) {
+        errorElement.innerHTML = "Please select a date.";
+        return false;
+    }
+
+    let selectedDate = new Date(dateInput);
+    let today = new Date();
+    today.setHours(0, 0, 0, 0); // Remove time for accurate comparison
+
+    if (selectedDate > today) {
+        errorElement.innerHTML = "Please select the date before today";
+        document.getElementById("dateSingle").value = ""; // Clear invalid date instantly
+        return false;
+    } else {
+        errorElement.innerHTML = ""; // Clear error if valid
+        return true;
+    }
 }
 

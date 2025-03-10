@@ -90,17 +90,18 @@
 										
 										<th>Id</th>
 										<th>Bank Name</th>
-										<th>Bank Code</th>
+										
 										<th>Account Holder Name</th>
 										<th>A/C Number</th>
-										<th>Account Type</th>
+										
 										<th>IFSC</th>
-										<th>Createdby</th>
-										<th>Mobile</th>
-										<th>Amount Limit</th>
+										<th>Requestedby</th>
+										
+										<th>Requested Amount</th>
 										<th>Balance</th>
-										<th>Approved By</th>
-										<th>Rejected By</th>
+										<th>Status</th>
+										<th>Approved/Rejected By</th>
+										
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -149,6 +150,20 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 	<script type="text/javascript" src="cotodel-js/cotodelApproval.js"></script>
+	<script>
+		// Event handlers for modal buttons
+		$(document).ready(function() {
+		    // Confirm button click handler
+		    $("#btnConfirm").on("click", function() {
+		        updateStatus();
+		    });
+		    
+		    // Cancel button click handler
+		    $("#btnCancel").on("click", function() {
+		        $("#confirmationModal").modal('hide');
+		    });
+		});
+	</script>
 	<script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -272,6 +287,64 @@
 			           </div>
 			       </div>
 			   </div>
+			   
+			   <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+			     <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+			       <div class="modal-content modal-bulk p-0">
+			         <div class="modal-header pb-0 text-center">
+			           <h5 class="modal-title w-100" id="modalTitle">Confirm Action</h5>
+			         </div>
+			         <hr>
+			         <p class="text-dark text-center" id="modalMessage">Are you sure you want to approve/reject this request?</p>
+			         <div class="modal-body text-center">
+			           <div class="table-responsive">
+			             <div class="table table-reimbursements">
+			               <div class="tablehead">
+			                 <div class="tabletheadtr">
+			                   <span>Account Holder</span>
+			                   <span>Bank Name</span>
+			                  <!--<span>Account Number</span>
+			                   <span>IFSC Code</span>--> 
+			                   <span>Requested By</span>
+			                   <span>Requested Amount</span>
+			                   <span>Balance</span>
+			                 </div>
+			               </div>
+			               <div class="tablebody">
+			                 <div class="tablebodytr">
+			                   <span id="popupFieldName"></span>
+			                   <span id="popupFieldBankName"></span>
+			                  <!-- <span id="popupFieldAccountNumber"></span>
+			                   <span id="popupFieldIfscCode"></span>--> 
+			                   <span id="popupFieldCreatedBy"></span>
+			                   <span id="popupFieldAmount"></span>
+			                   <span id="popupFieldBalance"></span>
+			                 </div>
+			               </div>
+			             </div>
+			           </div>
+			           <div class="d-flex justify-content-center mt-3">
+			             <button class="btn btn-success w-100 mr-2" id="btnConfirm">CONFIRM</button>
+			             <button class="btn btn-secondary w-100" id="btnCancel">Cancel</button>
+			           </div>
+			         </div>
+			       </div>
+			     </div>
+			   </div>
+			   <style>
+	.tabletheadtr, .tablebodytr {
+	    display: flex;
+	    justify-content: space-between;
+	    gap: 20px; /* Adjust spacing between columns */
+	    padding: 10px 0; /* Adds vertical spacing */
+	}
+
+	.tabletheadtr span, .tablebodytr span {
+	    flex: 1;
+	    text-align: center;
+	    padding: 5px; /* Adds space inside each span */
+	}
+   </style>
 </body>
 
 </body>

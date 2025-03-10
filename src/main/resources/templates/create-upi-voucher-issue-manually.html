@@ -150,14 +150,15 @@
                                             <div class="xxxx">xxxx3456</div>
                                             <img class="dropdown" src="img/arrowdown.svg" width="16px">
                                         </div>-->
-										<select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber()">
+										<select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber(),showLinkedAccAmount(this.value)">
 										     <option value="" class="test">Select Bank</option>
 	                                     </select>
                                         <div class="div-2">
                                             <div class="text-wrapper-2">Available Balance</div>
-                                            <p class="element"><span class="span">₹</span> <span
+                                            <p class="element"><span class="span">₹</span> 
+												<span
                                                     class="text-wrapper-3">0,00,000</span></p>
-                                            <img class="recall" src="img/recall.svg">
+                                            <img class="recall" id="recallBalance" src="img/recall.svg">
                                         </div>
                                         <p class="last-updated-on"><span th:text="${session.formattedDate}" ></span></p>
 
@@ -235,7 +236,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="table-input" id="amount" placeholder="Enter Amount"
-													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6">
+													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');validateAmount();" maxlength="6">
                                                 </td>
                                                 <td>
                                                     <div>
@@ -293,7 +294,7 @@
                                 <div class="w-100 my-3 text-right">
                                     <button class="btn btn-border-primary"
                                         onclick="window.location.href='/upiVoucherIssuanceNew';">Back</button>
-                                    <button type="button" class="btn btn-primary" onclick="singleVoucherValidation()">Continue</button>
+                                    <button type="button" class="btn btn-primary"id="continueButton1" onclick="singleVoucherValidation()">Continue</button>
                                 </div>								
                             </div>
 
@@ -495,6 +496,39 @@
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+	<style>	@keyframes rotate360 {
+	    from {
+	        transform: rotate(360deg);
+	    }
+	    to {
+	        transform: rotate(0deg);
+	    }
+	}
+
+	.rotate {
+	    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
+	} </style>
+	<script>		document.getElementById("recallBalance").addEventListener("click", function() {
+	    var recallIcon = this;
+	    var selectedBankAccount = document.getElementById("banklist").value;
+
+	    // Add rotation class
+	    recallIcon.classList.add("rotate");
+
+	    // Remove rotation class after animation completes (so it can be retriggered)
+	    setTimeout(() => {
+	        recallIcon.classList.remove("rotate");
+	    }, 600); // Match the animation duration
+
+	    // Call the function to refresh balance if a bank is selected
+	    if (selectedBankAccount) {
+	        showLinkedAccAmount(selectedBankAccount);
+	    } else {
+	        alert("Please select a bank account first.");
+	    }
+	});
+
+</script>
 		
 	<script>
 			$('.responsive-content').slick({

@@ -89,7 +89,7 @@
                                 <li class="active" th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#home1">Role Access</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
-								<li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu33"> Cotodel Linked Account</a></li>
+								<li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu33">Prepaid Account</a></li>
                                <!-- <li><a data-toggle="tab" href="#menu33">Expenses & Advance</a></li>-->
                             </ul>
 
@@ -443,7 +443,7 @@
 								</div>
 								
                                 <div id="menu33" class="tab-pane">
-									<div id="menu3" class="tab-pane">
+									<!--<div id="menu3" class="tab-pane">
 																	    <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
 																	        <div class="col-12 col-md-8 col-lg-6 mx-auto">
 																	            <div class="text-center">
@@ -457,7 +457,7 @@
 
 																	    <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
 																	            <div class="text-left">
-																	                <h3>Cotodel Bank Account Details</h3>
+																	                <h3>Prepaid Account Details</h3>
 																	            </div>
 
 																	            <div class="linked-bank-account-innersection d-block">
@@ -472,7 +472,60 @@
 																	                <button class="btn btn-primary" id="continuebtn">Continue</button>
 																	            </div>
 																	    </div>
+																		
 
+																	</div>-->
+																	<div id="menu3" class="tab-pane">
+																	  <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
+																	    <div class="col-12 col-md-8 col-lg-6 mx-auto">
+																	      <div class="text-center">
+																	        <h3>Cotodel Linked Account</h3>
+																	      </div>
+																	    </div>
+																	  </div>
+
+																	  <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
+																	    <div class="text-left">
+																	      <h3>Prepaid Account Details</h3>
+																	    </div>
+
+																	    <div class="linked-bank-account-innersection d-block">
+																	      <div id="data-wrapper1">
+																	      </div>
+																	    </div>
+
+																	    <div class="d-flex justify-content-end">
+																	      <button class="btn btn-primary" id="continuebtn1">Continue</button>
+																	    </div>
+																	  </div>
+
+																	  <!-- Amount Request Section (converted from modal) -->
+																	  <div class="amount-request-section col-md-8" id="cotodelAmountRequest" style="display: none;">
+																	    <div class="card">
+																	      <div class="card-header">
+																	        <h5 class="card-title" id="CnewAmount"><strong> Enter Prepaid Amount</strong></h5>
+																	      </div>
+																	      <div class="card-body">
+																	        <form action="" class="advancerequestform">
+																	          <div class="form-group">
+																	            <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
+																	          </div>
+																			  <div class="error-msg" id="advanceAmountError" style="color:red"></div>
+																			  <br>
+																	          <div class="unstyled centered d-flex mt-2" id="checkboxContainer">
+																	            <input class="styled-checkbox" id="confirmAmount" type="checkbox" value="value1">
+																	            <label for="confirmAmount"></label>
+																	            <p class="d-inline mb-0 ml-2">I confirm the changes</p>
+																	          </div>
+																	          <div class="error-msg" id="confirmAmountError" style="color:red"></div>
+																			  
+																	        </form>
+																	        <div class="d-flex justify-content-center mt-3">
+																	          <button class="btn btn-primary w-100" id="continueButton" onclick="getOTPforCotodel()">Continue</button>
+																	        </div>
+																	      </div>
+																	    </div>
+																	  </div>
 																	</div>
 								<input type="hidden" class="form-input" id="CId" name="CId" > 
 								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
@@ -482,9 +535,6 @@
 								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
 								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
 								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
-								
-								
-								
 								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
 								 </div>
                             </div>
@@ -832,7 +882,7 @@
 	                   <img src="img/modal-success.svg" alt="">
 	               </div>
 	               <div class="modal-bottom">
-	                   <span>Amount Approved</span>
+	                   <span>Amount Requested</span>
 	               </div>
 	           </div>
 	       </div>
@@ -1083,6 +1133,7 @@
 	                        <!--<label for="advanceAmount">Advance Amount</label>-->
 	                        <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
 	                    </div>
+						
 						<div class="unstyled centered d-flex mt-2"  id="checkboxContainer">
                            <input class="styled-checkbox" id="confirmAmount" type="checkbox"
                                value="value1">
@@ -1124,55 +1175,30 @@
 	<script src="cotodel-js/linked-account.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script>
-		
-		document.addEventListener('DOMContentLoaded', function() {
-		    // Get the continue button
-		    const continueButton = document.getElementById('continuebtn');
-		    
-		    // Add click event listener to open the modal
-		    continueButton.addEventListener('click', function() {
-		        // Open the modal
-		        $('#cotodelAmountRequest').modal('show');
-		    });
-		    
-		    // Optional: Add event listener for the modal's continue button
-		    const modalContinueButton = document.getElementById('continueButton');
-		    if (modalContinueButton) {
-		        modalContinueButton.addEventListener('click', function() {
-		            // Get the amount value
-		            const amount = document.getElementById('advanceAmount').value;
-		            // Get the confirmation checkbox status
-		            const isConfirmed = document.getElementById('confirmAmount').checked;
-		            
-		            // Validate inputs
-		            /*if (!amount) {
-		                alert('Please enter an amount');
-		                return;
-		            }
-		            
-		            if (!isConfirmed) {
-		                alert('Please confirm the amount');
-		                return;
-		            }*/
-		            
-		            // Process the confirmed amount here
-		            console.log('Confirmed amount:', amount);
-		            
-		            // Close the modal
-		           $('#cotodelAmountRequest').modal('hide');
-		            
-		            // Add your code to proceed with the confirmed amount
-		        });
-		    }
+		document.getElementById("continuebtn1").addEventListener("click", function() {
+		  // Hide all other divs in menu3
+		  document.getElementById("cotodellinkaccbankform").style.display = "none";
+		  document.getElementById("cotodellinkedbnkacntsctn").style.display = "none";
+		  
+		  // Show only the cotodelAmountRequest div
+		  document.getElementById("cotodelAmountRequest").style.display = "block";
 		});
-		$('#cotodelAmountRequest').on('show.bs.modal', function () {
-				    $(this).removeAttr('aria-hidden').removeAttr('inert');
-				});
-
-				$('#cotodelAmountRequest').on('hidden.bs.modal', function () {
-				    $(this).attr('inert', '');
-				});
 	</script>
+	<script>	document.addEventListener('DOMContentLoaded', function() {
+	  // Clear amount error when user types in the input
+	  document.getElementById("advanceAmount").addEventListener('input', function() {
+	    if(this.value.trim() !== "") {
+	      document.getElementById("advanceAmountError").textContent = "";
+	    }
+	  });
+
+	  // Clear checkbox error when user checks the box
+	  document.getElementById("confirmAmount").addEventListener('change', function() {
+	    if(this.checked) {
+	      document.getElementById("confirmAmountError").textContent = "";
+	    }
+	  });
+	});</script>
 	<style>	
 		@media (min-width: 1200px) {
 	  .modal-xl {

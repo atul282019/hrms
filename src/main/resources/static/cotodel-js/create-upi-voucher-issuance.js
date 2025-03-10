@@ -866,3 +866,83 @@ function getPrimaryBankDetail(){
 			          const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
 			          XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
 			      });
+				  
+				  
+				  function  showLinkedAccAmount(accountNumber){
+				  	
+				      //document.getElementById("signinLoader").style.display="flex";
+				   	//var employerid = document.getElementById("employerId").value;
+					//var accountNumber = document.getElementById("banklist").value;
+					var employerid = document.getElementById("employerId").value;
+					console.log("accountNumber,employerid ",accountNumber,employerid);
+				   	$.ajax({
+				  	type: "POST",
+				  	url:"/showLinkedAccAmount",
+				         data: {
+				  			"acNumber": accountNumber,
+							"orgId":employerid 
+				        		 },
+				        		
+				  			   success: function(data){
+								console.log("showLinkedAccAmount",data);
+				  	          
+								var obj = jQuery.parseJSON(data);
+								   // obj = obj.data;
+
+									if (obj.status==true) {
+									            // Update the balance in the HTML
+									            document.querySelector(".text-wrapper-3").textContent = obj.balance ? obj.balance:"Amount Not Available";
+												
+												document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
+									        }
+											// Format and display timestamp if available
+						            			
+				            },
+				          error: function(e){
+				              alert('Error: ' + e);
+				          }
+				     }); 
+				  			
+				  }
+				  function formatTimestamp(timestamp) {
+				      let dateObj = new Date(timestamp.replace(" ", "T")); // Ensure proper parsing
+
+				      let hours = dateObj.getHours().toString().padStart(2, '0');
+				      let minutes = dateObj.getMinutes().toString().padStart(2, '0');
+				      let seconds = dateObj.getSeconds().toString().padStart(2, '0');
+
+				      let day = dateObj.getDate();
+				      let month = dateObj.toLocaleString('en-US', { month: 'short' }); // "Mar"
+				      let year = dateObj.getFullYear();
+				      let weekday = dateObj.toLocaleString('en-US', { weekday: 'short' }); // "Fri"
+
+				      return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
+				  }
+				  function validateAmount() {
+				      // Get available balance (removing currency symbols & commas)
+				      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
+				      let amountInput = document.getElementById("amount");
+				      let continueButton = document.getElementById("continueButton1"); // Target the specific button
+				      let errorMessage = document.getElementById("amountError");
+
+				      // Convert values to float (handle decimal values correctly)
+				      let balance = parseFloat(availableBalance);
+				      let amount = parseFloat(amountInput.value.trim());
+
+				      // Disable button by default
+				      continueButton.disabled = true;
+
+				      // Ensure valid numbers before comparison
+				     
+
+				      // Validation: Ensure entered amount is <= available balance
+				      if (amount > balance || !balance) {
+				          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
+				          errorMessage.style.display = "inline"; // Show error message
+				          amountInput.value = balance; // Auto-trim input value
+				      } else {
+				          errorMessage.style.display = "none"; // Hide error message
+				          continueButton.disabled = false; // Enable button when valid
+				      }
+				  }
+
