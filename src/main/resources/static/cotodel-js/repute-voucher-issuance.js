@@ -423,11 +423,11 @@ function  getLinkedBankDetail(){
 					 document.getElementById("nolinkBankAccount").style.display="none";
 	 				 document.getElementById("linkedAccount").style.display="block";
 	 				 const issueManually = document.getElementById('issueManually');
-	 				 const issueBulk = document.getElementById('issueBulk');
 	 				 issueManually.disabled =false;
-	 				 issueBulk.disabled =false;
 					 
 				   } else {
+					const issueManually = document.getElementById('issueManually');
+					issueManually.disabled =true;
 					document.getElementById("nolinkBankAccount").style.display="block";
 					 document.getElementById("linkedAccount").style.display="none";
 				}		

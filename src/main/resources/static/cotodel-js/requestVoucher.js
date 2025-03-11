@@ -90,12 +90,12 @@
 		    });
 		}	
 		function getSavedVoucherList() {
-		    const employerId = document.getElementById('employerId').value;
+		    const employeeId = document.getElementById('empId').value;
 			document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
 		        type: "GET",
 		        url: "/getRequestedVoucherList",
-		        data: { employerId },
+		        data: { employeeId },
 		        success: function(data) {
 					document.getElementById("signinLoader").style.display="none";
 		            const parseddata = JSON.parse(data);

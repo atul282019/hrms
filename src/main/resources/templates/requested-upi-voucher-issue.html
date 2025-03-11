@@ -264,7 +264,7 @@
                                                     <select class="GeneralSelect" id="redemptionType">
                                                         <option value="" class="test">Choose Type </option>
                                                         <option value="Single">Single</option>
-                                                        <option value="Multi">Multi</option>
+                                                        <option value="Multi" selected>Multi</option>
                                                     </select>
                                                 </td>
                                                 <td>
@@ -529,6 +529,7 @@
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+	
 	<script>
 		
 		function getRequestedEmployeeList(){
@@ -797,28 +798,21 @@
 				
 	</script>
 	<script>
-	      // Set the min attribute to today's date
-	      const datePicker = document.getElementById('expiryDate');
-	      const today = new Date();
-	      const yyyy = today.getFullYear();
-	      const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-	      const dd = String(today.getDate()+1).padStart(2, '0');
-	      const formattedDate = `${yyyy}-${mm}-${dd}`;
+	    // Function to format date as YYYY-MM-DD
+	    function getFormattedDate(offsetDays = 0) {
+	        const date = new Date();
+	        date.setDate(date.getDate() + offsetDays); // Adjust for offset days
+	        const yyyy = date.getFullYear();
+	        const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	        const dd = String(date.getDate()).padStart(2, '0');
+	        return `${yyyy}-${mm}-${dd}`;
+	    }
 
-	      datePicker.min = formattedDate;
-		  
-		  
-		  const startDatedatePicker = document.getElementById('startDate');
-	      const startDatetoday = new Date();
-	      const startDateyyyy = today.getFullYear();
-	      const startDatemm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-	      const startDatedd = String(today.getDate()).padStart(2, '0');
-	      const startDateformattedDate = `${startDateyyyy}-${startDatemm}-${startDatedd}`;
-
-	      startDatedatePicker.min = startDateformattedDate;
-		
-				
-	  </script>
+	    // Set minimum and default values
+	    document.getElementById('expiryDate').min = getFormattedDate(1);
+	    document.getElementById('startDate').min = getFormattedDate();
+	    document.getElementById('startDate').value = getFormattedDate(); // Set default value to current date
+	</script>
 
 	
 	<script>

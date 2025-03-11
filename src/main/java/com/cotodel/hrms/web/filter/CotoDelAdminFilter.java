@@ -197,6 +197,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("consulting");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/whatsapp/send")){
+				RequestDispatcher rd = request.getRequestDispatcher("send");
+				rd.forward(request, response);
+			}
 			else{
 				RequestDispatcher rd = request.getRequestDispatcher("index");
 				rd.forward(request, response);

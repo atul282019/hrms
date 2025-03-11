@@ -25,7 +25,7 @@
 
 <body>
 
-    <div class="loginNew-wrap">
+    <div class="loginNew-wrap" id="loginWrap">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-md-8 logoNewLeft">
@@ -57,11 +57,11 @@
                                 <button class="btn btn-outline-primary btn-user btn-block">Signup</button>
                             </form>-->
 							<form autocomplete="of" id="loginForm" name="loginForm">
-							                        <input class="form-control" placeholder="Enter Your Email or Mobile No." type="text" id="mobile" name="mobile"
+							                        <input class="form-control" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
 							                        autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							                        <div class="error-msg" id="mobError" style="color:red"></div>
 							                        <div  id="loginIdDiv" style="display: none" >
-							                        <span>We have sent you an email with OTP</span>
+							                        <span>We have sent you an message with OTP</span>
   
 							                        
 							                        <div class="otp-box d-flex" id="otpInputBox" >
@@ -126,7 +126,7 @@
 							                        <div class="d-grid">
 							                            <button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn btn-primary btn-user btn-block">Verify OTP and Sign In</button>
 							                        </div>
-							                        
+													<input id="loginRepute" th:value="${reputeUser}" type="hidden" />
 							                         <div class="or text-center"><span>or</span></div>
 							                        <p class="text-center">New to <a href="#">Cotodel?</a></p>
 							                        <div class="d-grid">
@@ -158,7 +158,14 @@
 	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
 
 	<script>
-
+		$(document).ready(function() {
+		    var loginuser = document.getElementById("loginRepute").value;
+		    if (loginuser === "reputeUser") {
+		        var loginWrap = document.getElementById("loginWrap");
+		        loginWrap.classList.remove("loginNew-wrap");
+		        loginWrap.classList.add("loginNew-wrap-repute");
+		    }
+		});
 	$( document ).ready(function() {
 		var error = document.getElementById("errorMessage").value;
 		var mo = document.getElementById("mo").value;
