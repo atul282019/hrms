@@ -153,8 +153,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 													<h4 class="mb-0">Expense Reimbursements</h4>
 												</div>
 												<div>
-													<a href="#" class="mx-1"><img
-														src="img/download-black.svg" alt=""></a> <a href="#"
+													<a href="#" id="downloadExcel" class="mx-1">
+													    <img src="img/download-black.svg" alt="Download">
+													</a><a href="#"
 														class="mx-1"><img src="img/delete-black.svg" alt=""></a>
 													<a href="#" class="mx-1"><img src="img/info-black.svg"
 														alt=""></a>
@@ -204,8 +205,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 													<h4 class="mb-0">Advance & Travel Requests</h4>
 												</div>
 												<div>
-													<a href="#" class="mx-1"><img
-														src="img/download-black.svg" alt=""></a> <a href="#"
+													<a href="#" id="downloadExcel2" class="mx-1">
+													    <img src="img/download-black.svg" alt="Download">
+													</a> <a href="#"
 														class="mx-1"><img src="img/delete-black.svg" alt=""></a>
 													<a href="#" class="mx-1"><img src="img/info-black.svg"
 														alt=""></a>
@@ -444,6 +446,177 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
+	
+	<!-- Include SheetJS for XLSX file generation -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+	
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+		    function preventRedirect(event) {
+		        event.preventDefault();
+		        event.stopPropagation();
+		        console.log("Button click prevented from redirecting.");
+		    }
+
+		    // Prevent redirect for delete button
+		    let deleteBtn = document.querySelector(".col-12 form .btn img[src='img/del.svg']");
+		    if (deleteBtn) {
+		        deleteBtn.parentElement.addEventListener("click", preventRedirect);
+				//deleteSelectedPDFs();
+		    }
+
+		    // Prevent redirect for save button
+		    let saveBtn = document.querySelector(".col-12 form .btn img[src='img/save.svg']");
+		    if (saveBtn) {
+		        saveBtn.parentElement.addEventListener("click", preventRedirect);
+		    }
+
+		    // Download Single Form Data as Excel
+		    let downloadBtn = document.querySelector(".col-12 form .btn img[src='img/download.svg']");
+		    if (downloadBtn) {
+		        downloadBtn.parentElement.addEventListener("click", function (event) {
+		            preventRedirect(event);
+		            downloadSingleExpenseExcel();
+		        });
+		    }
+
+		    function downloadSingleExpenseExcel() {
+		        // Ensure all form elements exist
+		        const getValue = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
+
+		        // Define headers and values
+		        const headers = [
+		            "Expense Category", "Date of Expense", "Expense Title",
+		            "Vendor Name", "Invoice Number", "Currency",
+		            "Amount", "Mode of Payment", "Additional Remarks"
+		        ];
+
+		        const rowData = [
+		            getValue("expenseCategorySingle"),
+		            getValue("dateSingle"),
+		            getValue("expenseTitleSingle"),
+		            getValue("vendorNameSingle"),
+		            getValue("invoiceNumberSingle"),
+		            getValue("currencySingle"),
+		            getValue("amountSingle"),
+		            getValue("modeofpaymentSingle"),
+		            getValue("remarkSingle")
+		        ];
+
+		        // Format as a table: Headers in first row, data in second row
+		        const sheetData = [headers, rowData];
+
+		        // Create a new worksheet and workbook
+		        let ws = XLSX.utils.aoa_to_sheet(sheetData);
+		        let wb = XLSX.utils.book_new();
+		        XLSX.utils.book_append_sheet(wb, ws, "Single Expense Data");
+
+		        // Apply column width formatting (optional)
+		        ws['!cols'] = headers.map(() => ({ width: 20 }));
+
+		        // Export the XLSX file
+		        XLSX.writeFile(wb, "single_expense_data.xlsx");
+		    }
+		});
+
+
+	</script>
+
+	<script>		document.addEventListener("DOMContentLoaded", function () {
+	    function preventRedirect(event) {
+	        event.preventDefault();
+	        event.stopPropagation();
+	        console.log("Button click prevented from redirecting.");
+	    }
+
+	    // Prevent redirect on Delete button click
+	    let deleteBtn = document.querySelector(".btn img[src='img/del.svg']");
+	    if (deleteBtn) {
+	        deleteBtn.parentElement.addEventListener("click", preventRedirect);
+			//deleteSelectedPDFs();
+	    }
+
+	    // Prevent redirect on Save button click
+	    let saveBtn = document.querySelector(".btn img[src='img/save.svg']");
+	    if (saveBtn) {
+	        saveBtn.parentElement.addEventListener("click", preventRedirect);
+	    }
+
+	    // Download All Form Data as Excel
+	    let downloadBtn = document.querySelector(".btn img[src='img/download.svg']");
+	    if (downloadBtn) {
+	        downloadBtn.parentElement.addEventListener("click", function (event) {
+	            preventRedirect(event);
+	            downloadExcel();
+	        });
+	    }
+
+	    function downloadExcel() {
+	        // Function to safely get input values (avoid errors if elements are missing)
+	        const getValue = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
+
+	        // Define headers and values for Excel
+	        const headers = [
+	            "Expense Category", "Date of Expense", "Expense Title",
+	            "Vendor Name", "Invoice Number", "Currency",
+	            "Amount", "Mode of Payment", "Additional Remarks"
+	        ];
+
+	        const rowData = [
+	            getValue("expenseCategory"),
+	            getValue("dateofExpense"),
+	            getValue("expenseTitle"),
+	            getValue("venderName"),
+	            getValue("invoiceNumber"),
+	            getValue("currency"),
+	            getValue("amount"),
+	            getValue("modeofPayment"),
+	            getValue("additionalRemark")
+	        ];
+
+	        // Format as a table: Headers in first row, data in second row
+	        const sheetData = [headers, rowData];
+
+	        // Create a new worksheet and workbook
+	        let ws = XLSX.utils.aoa_to_sheet(sheetData);
+	        let wb = XLSX.utils.book_new();
+	        XLSX.utils.book_append_sheet(wb, ws, "Expense Data");
+
+	        // Apply column width formatting for better visibility
+	        ws['!cols'] = headers.map(() => ({ width: 20 }));
+
+	        // Export the Excel file
+	        XLSX.writeFile(wb, "expense_data.xlsx");
+	    }
+	});
+
+</script>
+	<script>		document.getElementById("downloadExcel").addEventListener("click", function () {
+	        exportToExcel("reimbursementTable", ".policies-wrap:first-of-type h4");
+	    });
+
+	    document.getElementById("downloadExcel2").addEventListener("click", function () {
+	        exportToExcel("tblCashAdvanceTravel", ".policies-wrap:nth-of-type(2) h4");
+	    });;</script>
+	<script>		document.addEventListener("DOMContentLoaded", function () {
+	    function handleCheckboxToggle(headerCheckboxId, tableId) {
+	        const headerCheckbox = document.getElementById(headerCheckboxId);
+
+	        if (headerCheckbox) {
+	            headerCheckbox.addEventListener("change", function () {
+	                const checkboxes = document.querySelectorAll(`#${tableId} tbody input[type='checkbox']`);
+	                checkboxes.forEach(checkbox => {
+	                    checkbox.checked = this.checked;
+	                });
+	            });
+	        }
+	    }
+
+	    // Apply to both tables
+	    handleCheckboxToggle("customCheck3", "reimbursementTable");
+	    handleCheckboxToggle("customCheck88", "tblCashAdvanceTravel");
+	});</script>
 	<script>
 			function showConfirmModal() {
 			    $('#travelDetailsTable1').modal('hide'); // Close the current modal
@@ -967,12 +1140,16 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 					class="d-flex justify-content-between border-btm modal-head-secd">
 
 					<div class="d-flex add-topbadge" id="selected-files">
-						<div class="top-badge mr-2">
+						<!--<div class="top-badge mr-2">
 							<div class="table-check">
 								 <input type="checkbox" id="customCheck3" class="mr-2">
 							</div>
 
 							<a href="#"> <img src="img/attach.svg" alt="">
+							</a>
+						</div> old-->
+						<div class="top-badge">
+							Expense 2 <a href="#"> <img src="img/attach.svg" alt="">
 							</a>
 						</div>
 						
@@ -1020,9 +1197,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 									<div class="mr-2 w-100 mb-2">
 										<div class="did-floating-label-content mb-0">
 											<select class="did-floating-select" id="expenseCategory">
-											</select> <label class="did-floating-label">Select Expense
-												Category</label>
-										</div>
+											</select> <label class="did-floating-label">Select Category</label>
+										</div><br>
 										<div class="error-msg" id="expenseCategoryError"
 											style="color: red"></div>
 									</div>
@@ -1032,7 +1208,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 											<input type="date" id="dateofExpense"
 												class="did-floating-select"> <label
 												class="did-floating-label">Date of Expense</label>
-										</div>
+										</div><br>
 										<div class="error-msg" id="dateofExpenseError"
 											style="color: red"></div>
 									</div>
@@ -1042,21 +1218,21 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 									<input class="did-floating-input" type="text" 
 										id="expenseTitle"> <label class="did-floating-label">Enter
 										Expense Title</label>
-								</div>
+								</div><br>
 								<div class="error-msg" id="expenseTitleError" style="color: red"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
 									<input class="did-floating-input" type="text" 
 										id="venderName"> <label class="did-floating-label">Enter
 										Vendor Name</label>
-								</div>
+								</div><br>
 								<div class="error-msg" id="venderNameError" style="color: red"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
 									<input class="did-floating-input" type="text" 
 										id="invoiceNumber"> <label class="did-floating-label">Enter
 										Invoice Number</label>
-								</div>
+								</div><br>
 								<div class="error-msg" id="invoiceNumberError"
 									style="color: red"></div>
 								<div class="clearfix"></div>
@@ -1068,7 +1244,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 												<option value="INR">INR</option>
 												<option value="INR">Dollar</option>
 											</select> <label class="did-floating-label">Select Currency</label>
-										</div>
+										</div><br>
 										<div class="error-msg" id="currencyError" style="color: red"></div>
 									</div>
 									<div class="ml-2 w-100 mb-2">
@@ -1076,7 +1252,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 											<input class="did-floating-input" type="text"
 												id="amount"> <label class="did-floating-label">Enter
 												Amount</label>
-										</div>
+										</div><br>
 										<div class="error-msg" id="amountError" style="color: red"></div>
 									</div>
 								</div>
@@ -1093,7 +1269,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
                                     <label class="did-floating-label">Select Preferred Mode of Payment</label> -->
 
 									<select class="did-floating-select" id="modeofPayment">
-										<option value="">Select Preferred Mode of Payment</option>
+										<option value=""> Mode of Payment</option>
 										<option value="Cash">Cash</option>
 										<option value="Cheque">Cheque</option>
 										<option value="e-RUPI Voucher">e-RUPI Voucher</option>
@@ -1101,7 +1277,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 									</select> <label class="did-floating-label">Select Preferred
 										Mode of Payment</label>
 
-								</div>
+								</div><br>
 								<div class="error-msg" id="modeofPaymentError"
 									style="color: red"></div>
 								<div class="clearfix"></div>
@@ -1542,13 +1718,13 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 								<div class="did-floating-label-content">
 
 									<select class="did-floating-select" id="modeofpaymentSingle">
-										<option value="">Select Currency</option>
+										<option value="">Mode of Payment</option>
 										<option value="Cash">Cash</option>
 										<option value="Cheque">Cheque</option>
 										<option value="e-RUPI Voucher">e-RUPI Voucher</option>
 										<option value="Bank Account">Bank Account</option>
-									</select> <label class="did-floating-label">Select Preferred
-										Mode of Payment</label>
+									</select> <label class="did-floating-label">
+										Select Preferred Mode of Payment</label>
 								</div>
 								<div class="error-msg" id="modeofpaymentSingleError"
 									style="color: red"></div><br>
@@ -1830,7 +2006,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
                                 <div class="clearfix"></div>
                                 <div class="did-floating-label-content">
                                     <input class="did-floating-input" type="text" placeholder=" " id="approvalExpensePaymentMode">
-                                    <label class="did-floating-label">Preferred Mode of Payment</label>
+                                    <label class="did-floating-label">Select Preferred Mode of Payment</label>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="did-floating-label-content">

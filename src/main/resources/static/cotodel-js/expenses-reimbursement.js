@@ -125,7 +125,7 @@ function submitExpenseDraft(){
 	}
 	
 	if(venderName=="" || venderName==null){
-		document.getElementById("venderNameError").innerHTML="Please Enter Vender Name";
+		document.getElementById("venderNameError").innerHTML="Please Enter Vendor Name";
 		return false;
 	}
 	else{
@@ -245,6 +245,11 @@ function submitExpenseMultiple(){
 	var fileType = null;
 	var fileBase64=null;
 	
+	var expenseTitleRegex = /^[A-Za-z]+( [A-Za-z]+)*$/;  // Alphanumeric with spaces between words
+    var vendorNameRegex = /^[A-Za-z0-9]+( [A-Za-z0-9]+)*$/; // Alphanumeric, only spaces between words
+    var invoiceNumberRegex = /^[A-Za-z0-9]+$/; // Only alphanumeric
+    var amountRegex = /^(?:[1-9][0-9]{0,3}|9999)$/; // Numeric, max 9999
+	
 	if(expenseCategory=="" || expenseCategory==null){
 		document.getElementById("expenseCategoryError").innerHTML="Please Select Expense Category";
 		return false;
@@ -265,21 +270,35 @@ function submitExpenseMultiple(){
 		document.getElementById("expenseTitleError").innerHTML="Please Enter Expense Title";
 		return false;
 	}
+	else if (!expenseTitle.match(expenseTitleRegex)) {
+		        document.getElementById("expenseTitleError").innerHTML = "Invalid Expense Title";
+		        document.getElementById("expenseTitle").focus();
+		        return false;
+		    }
 	else{
 		document.getElementById("expenseTitleError").innerHTML="";
 	}
 	
 	if(venderName=="" || venderName==null){
-		document.getElementById("venderNameError").innerHTML="Please Enter Vender Name";
+		document.getElementById("venderNameError").innerHTML="Please Enter Vendor Name";
 		return false;
 	}
+	else if (!venderName.match(vendorNameRegex)) {
+		       document.getElementById("venderNameError").innerHTML = "Special Characters Not Allowed in Vendor Name";
+		       document.getElementById("venderName").focus();
+		       return false;
+		   } 
 	else{
 		document.getElementById("venderNameError").innerHTML="";
 	}
 	if(invoiceNumber=="" || invoiceNumber==null){
 		document.getElementById("invoiceNumberError").innerHTML="Please Enter Invoice Number";
 		return false;
-	}
+	}	else if (!invoiceNumber.match(invoiceNumberRegex)) {
+		        document.getElementById("invoiceNumberError").innerHTML = "Special Symbols Not Allowed";
+		        document.getElementById("invoiceNumber").focus();
+		        return false;
+		    }
 	else{
 		document.getElementById("invoiceNumberError").innerHTML="";
 	}
@@ -296,6 +315,11 @@ function submitExpenseMultiple(){
 		document.getElementById("amountError").innerHTML="Please Enter Amount";
 		return false;
 	}
+	else if (!amount.match(amountRegex)) {
+		       document.getElementById("amountError").innerHTML = "Invalid Amount(Allowed Range: 1 - 9999)";
+		       document.getElementById("amount").focus();
+		       return false;
+		   }
 	else{
 		document.getElementById("amountError").innerHTML="";
 	}
@@ -361,6 +385,28 @@ function submitExpenseMultiple(){
 		    document.getElementById("ModalAddExpenseReimbursement").style.display = "none";
   			// Get the <span> element that closes the modal
 			getExpanceCategoryList();
+			// Reset all form fields
+
+			// Reset the form fields
+			document.getElementById("expenseReimbursement").reset();
+
+			// Clear file input manually
+			document.getElementById("fileInput").value = "";
+
+			// Hide the uploaded documents section
+			document.getElementById("docViewDiv").style.display = "none";
+			
+			
+			
+
+			// Clear the uploaded document list
+			document.getElementById("show-list").innerHTML = "";
+
+			// Optionally, clear any displayed error messages
+			var errorFields = document.querySelectorAll('[id$="Error"]');
+			errorFields.forEach(function(field) {
+			    field.innerHTML = "";
+			});
          },
          error: function(e){
              alert('Error: ' + e);
@@ -414,7 +460,7 @@ function submitExpenseSingleDraft(){
 	}
 	
 	if(venderName=="" || venderName==null){
-		document.getElementById("venderNameError").innerHTML="Please Enter Vender Name";
+		document.getElementById("venderNameError").innerHTML="Please Enter Vendor Name";
 		return false;
 	}
 	else{
@@ -574,7 +620,7 @@ function submitExpenseSingle(){
 	}
 	
 	if(venderName=="" || venderName==null){
-		document.getElementById("vendorNameSingleError").innerHTML="Please Enter Vender Name";
+		document.getElementById("vendorNameSingleError").innerHTML="Please Enter Vendor Name";
 		return false;
 	}
 	else if (!venderName.match(vendorNameRegex)) {
@@ -590,7 +636,7 @@ function submitExpenseSingle(){
 		return false;
 	}
 	else if (!invoiceNumber.match(invoiceNumberRegex)) {
-	        document.getElementById("invoiceNumberSingleError").innerHTML = "Invalid Invoice Number (Only Alphanumeric Allowed)";
+	        document.getElementById("invoiceNumberSingleError").innerHTML = "Special Symbols Not Allowed";
 	        document.getElementById("invoiceNumberSingle").focus();
 	        return false;
 	    }
@@ -1478,4 +1524,58 @@ function validateDate() {
         return true;
     }
 }
+
+function exportToExcel(tableId, headingSelector) {
+        const table = document.getElementById(tableId);
+        const checkboxes = table.querySelectorAll("tbody input[type='checkbox']");
+        const selectedRows = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+        if (selectedRows.length === 0) {
+            alert("Please select at least one record to download.");
+            return;
+        }
+
+        let data = [];
+        const headers = [];
+        const thElements = table.querySelectorAll("thead th");
+
+        // Exclude the last column ("Actions")
+        for (let i = 0; i < thElements.length - 1; i++) {
+            headers.push(thElements[i].textContent.trim());
+        }
+
+        selectedRows.forEach(checkbox => {
+            const row = checkbox.closest("tr");
+            const rowData = [];
+            const tdElements = row.querySelectorAll("td");
+
+            for (let i = 0; i < tdElements.length - 1; i++) {
+                rowData.push(tdElements[i].textContent.trim());
+            }
+
+            data.push(rowData);
+        });
+
+        const worksheet = XLSX.utils.aoa_to_sheet([headers, ...data]);
+
+        // Apply bold style to header row
+        const headerRange = XLSX.utils.decode_range(worksheet["!ref"]);
+        for (let col = headerRange.s.c; col <= headerRange.e.c; col++) {
+            const cellRef = XLSX.utils.encode_cell({ r: 0, c: col });
+            if (!worksheet[cellRef]) continue;
+            worksheet[cellRef].s = { font: { bold: true } }; // Make header bold
+        }
+
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, tableId);
+
+        // Extract filename from h4 heading text
+        const headingElement = document.querySelector(headingSelector);
+        const fileName = headingElement ? `${headingElement.textContent.trim()}.xlsx` : `${tableId}.xlsx`;
+
+        XLSX.writeFile(workbook, fileName);
+    }
+
+
+
 
