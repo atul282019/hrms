@@ -50,6 +50,10 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView soultions(Model model) {
 		return new ModelAndView("solutions", "command", "");
 	}	
+	@GetMapping(value="/blogs")
+	public ModelAndView blogs(Model model) {
+		return new ModelAndView("blogs", "command", "");
+	}	
 	@GetMapping(value="/about")
 	public ModelAndView about(Model model) {
 		return new ModelAndView("about", "command", "");
@@ -74,6 +78,7 @@ public class StaticPageController extends CotoDelBaseController{
 		if(code != null && !code.isEmpty() && code != "") {
 		
 		model.addAttribute("reputeUser","reputeUser");
+		session.setAttribute("reputeUser", "reputeUser");
 		ReputeTokenRequest repute=CommonUtility.getReputeToken(code, vault_url, applicationConstantConfig.tokenRedirectUrl);
 		
 	    String[] jwtParts = repute.getIdToken().split("\\.");

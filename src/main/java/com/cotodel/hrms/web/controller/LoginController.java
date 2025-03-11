@@ -217,7 +217,13 @@ public class LoginController extends CotoDelBaseController{
 					    session.setAttribute("message", "Incorrect OTP ||");
 					    session.setAttribute("mobile", userForm.getMobile());
 					    session.setAttribute("orderid", userForm.getOrderId());
-						return "redirect:/FleetLogin";
+					    ///for repute user case
+					    model.addAttribute("reputeUser",(String)session.getAttribute("reputeUser"));
+					    //end
+						model.addAttribute("message",(String)session.getAttribute("message"));
+						model.addAttribute("mobile",(String) session.getAttribute("mobile"));
+						model.addAttribute("orderid",(String) session.getAttribute("orderid"));
+						return "index";
 				}
 				else if(profileJsonRes.getString("message").equalsIgnoreCase("Expired")){
 					  model.addAttribute("message", "OTP Expired");
