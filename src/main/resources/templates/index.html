@@ -35,10 +35,10 @@
                     <div class="logoNewBtm">
                        <h2><span>Business Payments</span> made seamless like <br>your UPI spends</h2>
                        <ul>
-                        <li><img src="img/loginCheck.svg" alt="">Issue UPI-enabled vouchers on driver's UPI app</li>
-                        <li><img src="img/loginCheck.svg" alt="">Lock purpose of spend at Fuel stations</li>
-                        <li><img src="img/loginCheck.svg" alt="">Trace money flow digitally without transferring Capital</li>
-                        <li><img src="img/loginCheck.svg" alt="">Existing QR-code network of merchants to be used</li>
+                        <li><img src="img/Frame.svg" alt=""><span id="qr1">UPI-enabled vouchers on driver's UPI app</span> </li>
+                        <li><img src="img/Frame.svg" alt=""><span id="qr2">Lock purpose of spend at Fuel stations</span></li>
+                        <li><img src="img/Frame.svg" alt=""><span id="qr3">Trace money flow digitally without transferring Capital</span></li>
+                        <li><img src="img/Frame.svg" alt=""><span id="qr4">Existing QR-code network of merchants to be used</span></li>
                        </ul>
                     </div>
                 </div>
@@ -165,6 +165,11 @@
 		        var loginWrap = document.getElementById("loginWrap");
 		        loginWrap.classList.remove("loginNew-wrap");
 		        loginWrap.classList.add("loginNew-wrap-repute");
+				
+				document.getElementById("qr1").innerHTML="Issue vouchers on-demand without transferring Capital";
+				document.getElementById("qr2").innerHTML="Trace money flow digitally from issuance to redemption";
+				document.getElementById("qr3").innerHTML="Lock purpose of spend at Category/Brand level";
+				document.getElementById("qr4").innerHTML="Extend vouchers for administering Flexi-Tax Benefits";
 		    }
 		});
 	$( document ).ready(function() {
