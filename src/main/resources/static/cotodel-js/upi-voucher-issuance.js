@@ -139,7 +139,7 @@ function verfyIssueVoucherOTP() {
   	else{
   		document.getElementById("otpError").innerHTML="";
   	}
-  	 if (password3 == "" && passwor3.length < 1) {
+  	 if (password3 == "" && password3.length < 1) {
   		document.getElementById("mobError").innerHTML="";
   		document.getElementById("otpError").innerHTML="Please Enter OTP..";
   		x = false;
@@ -199,7 +199,7 @@ function verfyIssueVoucherOTP() {
   				"password4": password4,	
   				"password5": password5,
   				"password6": password6,
-  				"mob": employerMobile,
+  				"mobile": employerMobile,
   				"orderId": orderId,
   				"userName":employerMobile
   			},

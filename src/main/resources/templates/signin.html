@@ -158,6 +158,22 @@
 	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
 
 	<script>
+		
+		$(document).ready(function() {
+		    var loginuser = document.getElementById("loginRepute").value;
+		    if (loginuser === "reputeUser") {
+				document.title = "Expence Management";
+		        var loginWrap = document.getElementById("loginWrap");
+		        loginWrap.classList.remove("loginNew-wrap");
+		        loginWrap.classList.add("loginNew-wrap-repute");
+				
+				document.getElementById("qr1").innerHTML="Issue vouchers on-demand without transferring Capital";
+				document.getElementById("qr2").innerHTML="Trace money flow digitally from issuance to redemption";
+				document.getElementById("qr3").innerHTML="Lock purpose of spend at Category/Brand level";
+				document.getElementById("qr4").innerHTML="Extend vouchers for administering Flexi-Tax Benefits";
+		    }
+		});
+				
 		$( document ).ready(function() {
 			var newUser = localStorage.getItem("userName");
 			$('#mobile').val(newUser);
