@@ -26647,3 +26647,63 @@ section.faq-wrap {
   font-size: 11px;
   color: var(--bs-body-color);
 }
+
+.solution-detail {
+    padding: 80px 0;
+}
+.solution-image {
+    display: flex;
+    justify-content: center;
+}
+.solution-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.solution-content {
+    padding-right: 30px;
+}
+.feature-item {
+    margin-bottom: 20px;
+    display: flex;
+}
+.feature-icon {
+    height: 60px;
+    margin-right: 15px;
+}
+.feature-icon img {
+    max-width: 100%;
+}
+.cta-section {
+    padding: 30px;
+    background: #EAF4EF;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+.solution-features {
+    margin-top: 30px;
+}
+.upi-modal {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.upi-modal img {
+    margin-right: 15px;
+}
+.upi-modal p {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+@media (max-width: 767px) {
+    .solution-content {
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+    .solution-image {
+        order: 1;
+    }
+    .solution-content-wrapper {
+        order: 2;
+    }
+}
