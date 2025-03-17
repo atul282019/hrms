@@ -609,6 +609,10 @@
 			success: function(data) {
 			var obj = data;
 	        if (obj.status=== true) {
+				// Mask the mobile number (show only last 4 digits)
+				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
+				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+				
 	            // If successful, open the OTP modal
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
@@ -1271,7 +1275,7 @@
 					<div class="error-msg" id="otpError" style="color:red"></div>
 					
 	                <div class="tip-wrap justify-content-center">
-	                    <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+	                    <p class="mb-0" id="maskedMobileDisplay"></p>
 	                </div>
 					
 					

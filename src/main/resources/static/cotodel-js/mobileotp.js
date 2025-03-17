@@ -31,6 +31,12 @@ function getOTP() {
             document.getElementById("loginLoader").style.display = "none";
 
             if (obj.status === true) {
+				
+
+				// Mask the mobile number (show only last 4 digits)
+				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
+				document.getElementById("maskedMobileDisplay").innerHTML = `We have sent you a message with OTP ${maskedMobile}`;
+
                 $('#errorOtp').hide('slow');
                 $('#loginIdDiv').hide('slow');
 				var timeleft = 60; // 3 minutes in seconds

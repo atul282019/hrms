@@ -736,6 +736,11 @@ function getOTP() {
 		        document.getElementById('authButton').style.display = 'none';
 		        // Show the OTP section
 		        document.getElementById('otpsection').style.display = 'block';
+				
+				// Mask the mobile number (show only last 4 digits)
+				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
+                document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}`;
+
 				var timeleft = 60; // 3 minutes in seconds
 				   var downloadTimer = setInterval(function () {
 				       var minutes = Math.floor(timeleft / 60); 
@@ -794,6 +799,11 @@ function resendOTP() {
             var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
             if (obj.status === true) {
+				
+				// Mask the mobile number (show only last 4 digits)
+				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
+                document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}`;
+
 				const button = document.getElementById('otpVerifyBtn');
 				button.disabled = false; 
                 $('#errorOtp').hide('slow');

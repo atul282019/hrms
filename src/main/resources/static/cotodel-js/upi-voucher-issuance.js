@@ -12,7 +12,12 @@ $(document).ready(function() {
 				success: function(data) {
 				var obj = data;
 		        if (obj['status'] == true) {
+					// Mask the mobile number (show only last 4 digits)
+					var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
+				    document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+										
 		            // If successful, open the OTP modal
+										
 					var timeleft = "60";
 					var resendCodeElement = document.getElementById("resendCode");
 		               // Hide the "Resend OTP" link initially
@@ -71,7 +76,10 @@ function resendVoucherOTP() {
 			var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
 			if (obj['status'] == true) {
-				
+				// Mask the mobile number (show only last 4 digits)
+				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
+				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+									
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
 	               // Hide the "Resend OTP" link initially

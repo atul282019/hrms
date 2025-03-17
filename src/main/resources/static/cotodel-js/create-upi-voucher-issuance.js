@@ -22,6 +22,10 @@ function resendVoucherOTP() {
 			var obj = data;
 			//document.getElementById("loginLoader").style.display = "none";
 			if (obj['status'] == true) {
+				// Mask the mobile number (show only last 4 digits)
+				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
+				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+										
 				//$('#errorOtp').hide('slow');
 				//$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
@@ -757,10 +761,10 @@ function getVoucherSummaryList(){
 					/* const statusMessage = document.createElement('div');
 					 statusMessage.classList.add('selectvouchers-carosel-cards');
 					 statusMessage.innerHTML = `
- 					                 <h5>Total Vouchers</h5>
- 					                <div class="d-flex justify-content-between my-1 mb-3"><span >Number</span><span> ${data1.totalCount}</span></div>
- 					                <div class="d-flex justify-content-between my-1"><span>Value</span> <span> ₹${data1.totalAmount}</span></div>
- 					            `;
+		                 <h5>Total Vouchers</h5>
+		                <div class="d-flex justify-content-between my-1 mb-3"><span >Number</span><span> ${data1.totalCount}</span></div>
+		                <div class="d-flex justify-content-between my-1"><span>Value</span> <span> ₹${data1.totalAmount}</span></div>
+		            `;
 					      
 					        container.appendChild(statusMessage);*/
 							  
