@@ -598,6 +598,7 @@ document.getElementById("signinLoader").style.display="flex";
 	       // document.getElementById("gstnNo").value = data.gstnNo || "";
 
 			//if (type === "GST") {
+				
 				//gstContainer.style.display = 'block';
 				//panContainer.style.display = 'none';
 	            document.getElementById("gstnNo").value = data.gstnNo || "";
