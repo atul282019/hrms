@@ -1,4 +1,21 @@
- function validateRegistrationForm(){
+function resetErrorMessages() {
+    const errorFields = [
+        "usernameError1",
+        "orgnameError1",
+        "emailError1",
+        "mobileError1",
+        "noofEmpError1"
+    ];
+
+    errorFields.forEach((field) => {
+        document.getElementById(field).innerHTML = "";
+    });
+} 
+function validateRegistrationForm(){
+	
+	let errorFields = ["usernameError1", "orgnameError1", "emailError1", "mobileError1", "noofEmpError1", "privacyCheckError1"];
+	   errorFields.forEach(errorId => document.getElementById(errorId).innerText = "");
+	   
 	var name =document.getElementById("username").value;
 	var email = document.getElementById("email").value;
 		 email = email.toLowerCase();
@@ -68,13 +85,13 @@
 	}else{
 		document.getElementById("noofEmpError1").innerHTML="";
 	}
-	if(privacyCheck==false){
+	/*if(privacyCheck==false){
 		document.getElementById("privacyCheckError1").innerHTML="Please agree to the privacy policy and terms of use.";
 		document.getElementById("privacyCheck").focus();
 		return false;
 	}else{
 		document.getElementById("privacyCheckError1").innerHTML="";
-	}
+	}*/
 	/*if(whatsupCheck==false){
 		document.getElementById("whatsupCheckError1").innerHTML="Please Checked Terms And Condition";
 		document.getElementById("whatsupCheck").focus();

@@ -592,6 +592,7 @@ document.getElementById("signinLoader").style.display="flex";
 	    success: function (response) {
 			console.log("company Data"+response)
 			if (response.status) {
+				document.getElementById("btnToform3").disabled = false;
 			    const data = response.data;
 	        // Auto-fill the form fields with fetched data
 	       // document.getElementById("gstnNo").value = data.gstnNo || "";
@@ -664,6 +665,10 @@ document.getElementById("signinLoader").style.display="flex";
 	      //      document.getElementById("panNo").value = data.pan || "";
 	     //   }
 	     }
+		 else if(!response.status)
+			{
+				alert("Please go back and enter a valid GSTN Number");
+			}
 
 		},
 	    error: function ( status, error) {
