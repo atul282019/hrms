@@ -14,7 +14,7 @@ $(document).ready(function() {
 		        if (obj['status'] == true) {
 					// Mask the mobile number (show only last 4 digits)
 					var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
-				    document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+				    document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Revoke.`;				
 										
 		            // If successful, open the OTP modal
 										
@@ -78,7 +78,7 @@ function resendVoucherOTP() {
 			if (obj['status'] == true) {
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
-				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Revoke.`;				
 									
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
