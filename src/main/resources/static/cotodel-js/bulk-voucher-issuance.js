@@ -82,6 +82,11 @@ $(document).on('change','.up', function(){
 					success: function(data) {
 					var obj = data;
 			        if (obj.status === true) {
+						
+						// Mask the mobile number (show only last 4 digits)
+						var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
+						document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+										
 			            // If successful, open the OTP modal
 						var timeleft = "60";
 						var resendCodeElement = document.getElementById("resendCode");
@@ -407,6 +412,10 @@ function resendVoucherOTP() {
 			var obj = data;
 			//document.getElementById("loginLoader").style.display = "none";
 			if (obj['status'] == true) {
+				// Mask the mobile number (show only last 4 digits)
+				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
+				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
+								
 				//$('#errorOtp').hide('slow');
 				//$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
@@ -447,132 +456,6 @@ function resendVoucherOTP() {
 	});
 }
 
-/*
-function verfyIssueVoucherOTP() {
-	
-  	var password1 = document.getElementById("password1").value;
-  	var password2 = document.getElementById("password2").value;
-  	var password3 = document.getElementById("password3").value;
-  	var password4 = document.getElementById("password4").value;
-  	var password5 = document.getElementById("password5").value;
-  	var password6 = document.getElementById("password6").value;
-  	var orderId = document.getElementById("orderId").value;
-  	var employerMobile = document.getElementById("employerMobile").value;
-  	
-  	if (document.getElementById("banklinkedMobile").value == "") {
-  		document.getElementById("mobError").innerHTML="Please Enter mobile..";
-  		
-  		x = false;
-  	} else if (password1 == "" && password1.length < 1) {
-  		document.getElementById("mobError").innerHTML="";
-  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  		x = false;
-  	}
-  	 else if (password1.length < 1) {
-  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  		x = false;
-  	}
-  	else{
-  		document.getElementById("otpError").innerHTML="";
-  	}
-  	 if (password2 == "" && password2.length < 1) {
-  		document.getElementById("mobError").innerHTML="";
-  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  		x = false;
-  	}
-  	 else if (password2.length < 1) {
-  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  		x = false;
-  	}
-  	else{
-  		document.getElementById("otpError").innerHTML="";
-  	}
-  	 if (password3 == "" && passwor3.length < 1) {
-  		document.getElementById("mobError").innerHTML="";
-  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  		x = false;
-  	}
-  	 else if (password3.length < 1) {
-  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  		x = false;
-  	}
-  	else{
-  		document.getElementById("otpError").innerHTML="";
-  	}
-  	 if (password4 == "" && password4.length < 1) {
-  		document.getElementById("mobError").innerHTML="";
-  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  		x = false;
-  	}
-  	 else if (password4.length < 1) {
-  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  		x = false;
-  	}
-  	else{
-  		document.getElementById("otpError").innerHTML="";
-  	}
-  	 if (password5 == "" && password5.length < 1) {
-  		document.getElementById("mobError").innerHTML="";
-  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  		x = false;
-  	}
-  	 else if (password5.length < 1) {
-  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  		x = false;
-  	}
-  	else{
-  		document.getElementById("otpError").innerHTML="";
-  	}
-  	 if (password6 == "" && password6.length < 1) {
-  		document.getElementById("mobError").innerHTML="";
-  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
-  		x = false;
-  	}
-  	 else if (password6.length < 1) {
-  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-  		x = false;
-  	}
-  	else{
-  		document.getElementById("otpError").innerHTML="";
-  	}
-	document.getElementById("authenticate").disabled = true;
-  	$.ajax({
-  			type: "POST",
-  			url:"/verifyOTP",
-  			dataType: 'json',
-  			data: {
-  				"password1": password1,
-  				"password2": password2,
-  				"password3": password3,
-  				"password4": password4,	
-  				"password5": password5,
-  				"password6": password6,
-  				"mobile": employerMobile,
-  				"orderId": orderId,
-  				"userName":employerMobile
-  			},
-  			success: function(data) {
-  				var obj = data;
-
-  				if (obj['status']== true) {
-					
-					$('#otpModal').fadeOut();
-					issueVoucher();
-  					$('#errorOtp').hide('slow');
-  				}else if (obj['status'] == false) {
-					document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-					document.getElementById("authenticate").disabled = false;
-				} else {
-  				
-  				}
-  			},
-  			error: function(e) {
-  				alert('Error: ' + e);
-  			}
-  		});
-  }
-*/
-  
     function focusNext(currentInput) {
         // Move focus to the next input box
         var maxLength = parseInt(currentInput.getAttribute("maxlength"));
@@ -693,25 +576,7 @@ function  getVoucherDetailByBoucherCode(){
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
 			},
-          /* success: function(data){
-           newData = data;
-           //console.log(newData);
-           var data1 = jQuery.parseJSON( newData );
-		   //var data2 = data1.data;
-			
-		    document.getElementById("voucherId").value=data1.data.id;
-			document.getElementById("voucherCode").value=data1.data.voucherCode;
-			document.getElementById("voucherType").value=data1.data.voucherType;
-			document.getElementById("voucherSubType").value=data1.data.voucherSubType;
-			document.getElementById("voucherDesc").value=data1.data.voucherDesc;
-			document.getElementById("purposeCode").value=data1.data.purposeCode;
-			document.getElementById("activeStatus").value=data1.data.activeStatus;
-			document.getElementById("createdby").value=data1.data.createdby;
-          },
-        error: function(e){
-            alert('Error: ' + e);
-        }*/
-		
+         
 		success: function(data){
 	           newData = data;
 	           console.log(newData);
