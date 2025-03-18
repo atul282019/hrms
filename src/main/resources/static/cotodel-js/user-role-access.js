@@ -419,6 +419,7 @@ function getOTP(){
 			dataType: 'json',
 			success: function(data) {
 			var obj = data;
+			Console.log("obj",obj);
 	        if (obj['status'] == true) {
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
@@ -505,7 +506,7 @@ function getOTPforCotodel(){
 			var obj = data;
 	        if (obj['status'] == true) {
 				// Mask the mobile number (show only last 4 digits)
-				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
+				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;				
 										
 	            // If successful, open the OTP modal

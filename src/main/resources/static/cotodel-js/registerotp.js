@@ -1,20 +1,7 @@
-function resetErrorMessages() {
-    const errorFields = [
-        "usernameError1",
-        "orgnameError1",
-        "emailError1",
-        "mobileError1",
-        "noofEmpError1"
-    ];
-
-    errorFields.forEach((field) => {
-        document.getElementById(field).innerHTML = "";
-    });
-} 
+ 
 function validateRegistrationForm(){
 	
-	let errorFields = ["usernameError1", "orgnameError1", "emailError1", "mobileError1", "noofEmpError1", "privacyCheckError1"];
-	   errorFields.forEach(errorId => document.getElementById(errorId).innerText = "");
+	
 	   
 	var name =document.getElementById("username").value;
 	var email = document.getElementById("email").value;
