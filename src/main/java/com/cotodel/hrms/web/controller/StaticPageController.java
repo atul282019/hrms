@@ -1439,7 +1439,7 @@ public class StaticPageController extends CotoDelBaseController{
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
+			if(obj!=null) { 
 				if(obj.getUser_role()==9 || obj.getUser_role()==1) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
