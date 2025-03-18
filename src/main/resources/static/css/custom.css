@@ -2625,6 +2625,19 @@ button.btn-attach {
     font-size: 15px;
     padding: 2px 10px 4px;
     margin-right: 10px;
+	
+}
+
+button.btn-attach-travel {
+    background: none;
+    border: 2px solid #2F945A;
+    border-radius: 6px;
+    color: #fff;
+    background: #2F945A;
+    font-size: 15px;
+    padding: 2px 10px 4px;
+    margin-right: 10px;
+	width: 200px;
 }
 
 button.btn-revoke {

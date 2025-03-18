@@ -35,7 +35,7 @@ function getOTP() {
 
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
-				document.getElementById("maskedMobileDisplay").innerHTML = `We have sent you a message with OTP ${maskedMobile}`;
+				document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
 
                 $('#errorOtp').hide('slow');
                 $('#loginIdDiv').hide('slow');
