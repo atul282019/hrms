@@ -1,7 +1,7 @@
 function singleVoucherValidation(){
 				
-            	var banklist = document.getElementById("banklist").value
-				var voucher = document.getElementById("btnforvccategoryforbulkissuance").value
+            	var banklist = document.getElementById("banklist").value; 
+				var voucher = document.getElementById("btnforvccategoryforbulkissuance").value;
 				var parts = voucher.split("|");
 				var voucherName = parts[0]; // "4C"
 				//var PurposeCode = parts[1]; // "5111"

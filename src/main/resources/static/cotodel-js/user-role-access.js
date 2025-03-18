@@ -16,7 +16,7 @@
 			
 			var checkboxContainer = document.getElementById("checkboxContainer");
 
-		    if (!data1.data || data1.data.length === 0) {
+		    if (!data1.data || data1.data.length === 0) { 
 		        console.log("Hiding checkbox container due to empty data.");
 		        if (checkboxContainer) {
 		            checkboxContainer.style.setProperty("display", "none", "important");

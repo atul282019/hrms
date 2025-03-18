@@ -430,6 +430,7 @@ function validateAmount(amount) {
 function  createSingleVoucherValidation(){
 	
     //document.getElementById("signinLoader").style.display="flex";
+	
 	var banklist = document.getElementById("banklist").value;
 	
 	var voucher = $("#selectedOptionsDropdown option:selected").val(); //document.getElementById("voucherId").value;

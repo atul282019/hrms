@@ -13,7 +13,7 @@ $(document).ready(function() {
 				var obj = data;
 		        if (obj['status'] == true) {
 		            
-					// Mask the mobile number (show only last 4 digits)
+					// Mask the mobile number (show only last 4 digits) 
 					var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
 					document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
 					// If successful, open the OTP modal
