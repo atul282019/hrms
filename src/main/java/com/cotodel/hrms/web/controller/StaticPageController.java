@@ -1433,8 +1433,8 @@ public class StaticPageController extends CotoDelBaseController{
         return new ModelAndView("consulting", "command", "");
     }
     
-    @GetMapping(value="/cotodelApproval")
-	public ModelAndView cotodelApproval(Model model) {
+    @GetMapping(value="/payment")
+	public ModelAndView payment(Model model) {
 		String token = (String) session.getAttribute("hrms");
 		Integer id  = (Integer) session.getAttribute("id");
 		if(token!=null) {
@@ -1447,7 +1447,7 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
  
-				return new ModelAndView("cotodelApproval", "command", "");
+				return new ModelAndView("paynow", "command", "");
 			}
 			 return new ModelAndView("error", "command", "");
 		}
@@ -1455,4 +1455,7 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	return new ModelAndView("index", "command", "");
 }
+
+    
+    
 }
