@@ -781,13 +781,14 @@
 							        name="orderId" >
 							    </div>
 							   <label class="time-otp ml-0 text-dark" for="" id="countdown1" style="color: green;"></label>
+							   <div class="error-msg" id="otpError2" style="color:red"></div>
 							  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
 								<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendCotodelOTP()">Resend OTP</a></p>
 							    <div class="tip-wrap justify-content-center">
 							        <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
 							    </div>
 								
-								<div class="error-msg" id="otpError" style="color:red"></div>
+								
 								
 							    <div class="d-flex justify-content-center mt-3">
 									<!--
@@ -1172,9 +1173,127 @@
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>				// Get reference to the amount input field
+		const advanceAmountInput = document.getElementById('advanceAmount');
+		const advanceAmountError = document.getElementById('advanceAmountError');
+		const continueButton = document.getElementById('continueButton');
+		const confirmAmountCheckbox = document.getElementById('confirmAmount');
+		const confirmAmountError = document.getElementById('confirmAmountError');
+
+		// Prevent invalid characters and leading zero
+		advanceAmountInput.addEventListener('keypress', function(event) {
+		    const currentValue = advanceAmountInput.value;
+
+		    // Allow only numbers and a single decimal point
+		    if (!/[\d.]/.test(event.key)) {
+		        event.preventDefault();
+		        return;
+		    }
+
+		    // Prevent leading zero unless followed by a decimal (e.g., "0." is allowed)
+		    if (currentValue.length === 0 && event.key === '0') {
+		        event.preventDefault();
+		        return;
+		    }
+
+		    // Prevent more than 8 digits before the decimal
+		    const parts = currentValue.split('.');
+		    if (parts[0].length >= 8 && event.key !== '.') {
+		        event.preventDefault();
+		        return;
+		    }
+
+		    // Ensure only one decimal point is allowed
+		    if (event.key === '.' && currentValue.includes('.')) {
+		        event.preventDefault();
+		    }
+		});
+
+		// Additional validation on paste
+		advanceAmountInput.addEventListener('paste', function(event) {
+		    const clipboardData = event.clipboardData || window.clipboardData;
+		    const pastedText = clipboardData.getData('text');
+
+		    // Allow only positive numbers with up to 8 digits before decimal
+		    if (!/^[1-9]\d{0,7}(\.\d{1,2})?$/.test(pastedText)) {
+		        event.preventDefault();
+		        advanceAmountError.textContent = 'Invalid input: Max 8 digits, no leading zero';
+		        setTimeout(() => {
+		            advanceAmountError.textContent = '';
+		        }, 2000);
+		    }
+		});
+
+		// Final validation on blur (when field loses focus)
+		advanceAmountInput.addEventListener('blur', function() {
+		    validateAmount();
+		});
+
+		// Validate on continue button click
+		continueButton.addEventListener('click', function(event) {
+		    if (!validateAmount() || !validateConfirmation()) {
+		        event.preventDefault();
+		    }
+		});
+
+		// Function to validate the amount
+		function validateAmount() {
+		    let amount = advanceAmountInput.value.trim();
+
+		    // Check for empty value
+		    if (amount === '' || isNaN(amount)) {
+		        advanceAmountError.textContent = 'Please enter a valid amount';
+		        return false;
+		    }
+
+		    // Prevent leading zero (except "0.")
+		    if (/^0\d/.test(amount)) {
+		        advanceAmountError.textContent = 'Invalid input: No leading zeros';
+		        return false;
+		    }
+
+		    // Ensure amount is greater than zero
+		    amount = parseFloat(amount);
+		    if (amount <= 0) {
+		        advanceAmountError.textContent = 'Amount must be greater than zero';
+		        return false;
+		    }
+
+		    // Ensure max 8 digits before decimal
+		    const parts = advanceAmountInput.value.split('.');
+		    if (parts[0].length > 8) {
+		        advanceAmountError.textContent = 'Max 8 digits before decimal';
+		        return false;
+		    }
+
+		    advanceAmountError.textContent = '';
+		    return true;
+		}
+
+		// Function to validate confirmation checkbox
+		function validateConfirmation() {
+		    if (!confirmAmountCheckbox.checked) {
+		        confirmAmountError.textContent = 'Please confirm the changes';
+		        return false;
+		    }
+		    confirmAmountError.textContent = '';
+		    return true;
+		}
+
+</script>
 
 	<script src="cotodel-js/linked-account.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	<script>	document.addEventListener("DOMContentLoaded", function() {
+	    var activeTab = localStorage.getItem("activeTab");
+	    
+	    if (activeTab) {
+	        $('.nav-tabs a[href="' + activeTab + '"]').tab('show'); // Bootstrap tabs
+	        $(activeTab).addClass("active show"); // Ensure it's visible
+	        localStorage.removeItem("activeTab"); // Clear after setting
+	    }
+	});
+</script>
 	<script>
 		document.getElementById("continuebtn1").addEventListener("click", function() {
 		  // Hide all other divs in menu3

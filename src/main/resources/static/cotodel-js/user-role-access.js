@@ -419,7 +419,7 @@ function getOTP(){
 			dataType: 'json',
 			success: function(data) {
 			var obj = data;
-			Console.log("obj",obj);
+			
 	        if (obj['status'] == true) {
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
@@ -561,7 +561,7 @@ function resendVoucherOTP(){
 			var obj = data;
 	        if (obj['status'] == true) {
 				// Mask the mobile number (show only last 4 digits)
-				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
+				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;				
 										
 	            // If successful, open the OTP modal
@@ -631,7 +631,7 @@ function getAddOTP(){
 					//document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
 					//document.getElementById("verifyotpdiv").style.display = "block";
-					if (timeleft <= 0) {
+					if (timeleft <0) {
 						clearInterval(downloadTimer);
 						
 						
@@ -1419,7 +1419,7 @@ function getAddOTP(){
 									
 			   						//window.location.href="/roleAccess";
 			   	  				}else if (obj['status'] == false) {
-									document.getElementById("otpError").innerHTML=data.message;
+									document.getElementById("otpError2").innerHTML=data.message;
 			   					} else {
 			   	  				
 			   	  				}
@@ -1473,16 +1473,17 @@ function getAddOTP(){
 						  success: function(data) {
 							newData = data;
 							var data1 = jQuery.parseJSON(newData);
+							console.log("parsed data",data1);
 							if(data1.status==true){
 							$("#amountApproved").show();
 				              //console.log("Bank details submitted successfully:", response);
-				              
+							  localStorage.setItem("activeTab", "#menu33");
 							  setTimeout(function() {
 							        window.location.href = "/roleAccess";
 							    }, 1100);
 							  }
-							  else{
-								alert("Failed to save data ",data1.message);
+							  else if(data1.status==false){
+								alert(data1.message);
 							  }
 							
 				          },

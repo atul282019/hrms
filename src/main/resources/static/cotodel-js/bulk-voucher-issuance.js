@@ -111,7 +111,7 @@ $(document).on('change','.up', function(){
 								}
 								//document.getElementById('password').focus();
 							}, 1000);
-			            $('#otpModal').fadeIn();
+			            $('#otpModal1').fadeIn();
 			          } else {
 			            alert("Error: " + response.message);
 			          }
@@ -126,7 +126,7 @@ $(document).on('change','.up', function(){
 			    // Close the modal when clicking outside the modal content
 			    $(window).on('click', function(event) {
 			      if (event.target.id === 'otpModal') {
-			        $('#otpModal').fadeOut();
+			        $('#otpModal1').fadeOut();
 			      }
 			    });
 			  });
@@ -394,7 +394,7 @@ function resendVoucherOTP() {
 	document.getElementById("authenticate").disabled = false;
 	var userName = document.getElementById("banklinkedMobile").value;
 	var orderId = document.getElementById("orderId").value;
-	
+	var employerMobile = document.getElementById("employerMobile").value;
 	
 	//document.getElementById("optBtn").disabled = true;
 	//document.getElementById("mobError").innerHTML="";
@@ -413,7 +413,7 @@ function resendVoucherOTP() {
 			//document.getElementById("loginLoader").style.display = "none";
 			if (obj['status'] == true) {
 				// Mask the mobile number (show only last 4 digits)
-				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
+				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
 								
 				//$('#errorOtp').hide('slow');
@@ -946,7 +946,7 @@ function verfyIssueVoucherOTP() {
 
   				if (obj['status']== true) {
 					
-					$('#otpModal').fadeOut();
+					$('#otpModal1').fadeOut();
 					issueBulkVoucher();
   					$('#errorOtp').hide('slow');
   				}else if (obj['status'] == false) {
