@@ -507,7 +507,7 @@ function getOTPforCotodel(){
 	        if (obj['status'] == true) {
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
-				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;				
+				document.getElementById("maskedMobileDisplay2").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Amount.`;				
 										
 	            // If successful, open the OTP modal
 				var timeleft = "60";
@@ -1274,7 +1274,7 @@ function getAddOTP(){
 			   	        if (obj['status'] == true) {
 							// Mask the mobile number (show only last 4 digits)
 							var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
-							document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;				
+							document.getElementById("maskedMobileDisplay2").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Amount.`;				
 											
 			   	            // If successful, open the OTP modal
 			   				var timeleft = "60";
@@ -1475,16 +1475,20 @@ function getAddOTP(){
 							var data1 = jQuery.parseJSON(newData);
 							console.log("parsed data",data1);
 							if(data1.status==true){
-							$("#amountApproved").show();
+							//$("#amountApproved").show();
 				              //console.log("Bank details submitted successfully:", response);
-							  localStorage.setItem("activeTab", "#menu33");
-							  setTimeout(function() {
-							        window.location.href = "/roleAccess";
-							    }, 1100);
+							  $("#amountApproved").show();
+							  //setTimeout(function() {
+							    //    window.location.href = "/roleAccess";
+								
+							   //}, 1100);
+							   localStorage.setItem("activeTab", "#menu33");
 							  }
 							  else if(data1.status==false){
 								alert(data1.message);
 							  }
+							  document.getElementById("advanceAmount").value="";
+							  $("#confirmAmount").prop("checked", false);
 							
 				          },
 						  error: function(e){

@@ -785,7 +785,7 @@
 							  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
 								<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendCotodelOTP()">Resend OTP</a></p>
 							    <div class="tip-wrap justify-content-center">
-							        <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+							        <p class="mb-0" id="maskedMobileDisplay2"></p>
 							    </div>
 								
 								
@@ -878,7 +878,8 @@
 	       <div class="modal-dialog modal-dialog-centered">
 	           <div class="modal-content modal-bulk p-0">
 	               <div class="modal-top text-center">
-	                   <button type="button" class="close p-0" id="roleAcessSuccessfulClose" data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+	                   <button type="button" class="close p-0" id="roleAcessSuccessfulClose1" 
+					   data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
 	                       <img src="img/modal-close.svg" alt="">
 	                   </button>
 	                   <img src="img/modal-success.svg" alt="">
@@ -889,6 +890,9 @@
 	           </div>
 	       </div>
 	   </div>
+	   
+	   
+
 	
 	
 	 <!-- Modal Modal Employee Band Setting -->
@@ -1173,6 +1177,73 @@
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>				// Method 1: Direct jQuery approach
+	$(document).ready(function() {
+	    // Make sure the close button works
+	    $('#roleAcessSuccessfulClose1').on('click', function() {
+	        $('#amountApproved').modal('hide');
+	        // Alternative approaches if the above doesn't work
+	        $('.customModal').modal('hide');
+	        // Or hiding via direct CSS manipulation
+	        $('#amountApproved').hide();
+	    });
+	    
+	    // Also add the data-dismiss attribute functionality manually
+	    $('[data-dismiss="modal"]').on('click', function() {
+	        $(this).closest('.modal').modal('hide');
+	    });
+	});
+
+	// Method 2: Plain JavaScript approach
+	document.addEventListener('DOMContentLoaded', function() {
+	    const closeButton = document.getElementById('roleAcessSuccessfulClose1');
+	    if (closeButton) {
+	        closeButton.addEventListener('click', function() {
+	            // Try multiple approaches
+	            $('#amountApproved').modal('hide'); // jQuery/Bootstrap
+	            
+	            // Plain JS fallback
+	            const modal = document.getElementById('amountApproved');
+	            if (modal) {
+	                modal.style.display = 'none';
+	                modal.classList.remove('show');
+	                document.body.classList.remove('modal-open');
+	                // Remove modal backdrop if present
+	                const backdrop = document.querySelector('.modal-backdrop');
+	                if (backdrop) {
+	                    backdrop.remove();
+	                }
+	            }
+	        });
+	    }
+	});
+</script>
+	<script>
+		$(document).ready(function () {
+		    // Handle tab clicks
+		    $('.expense-tabs a').on('click', function (e) {
+		        e.preventDefault();
+		        $('.expense-tabs li').removeClass('active');
+		        $(this).parent().addClass('active');
+		        $(this).tab('show');
+		    });
+		    
+		    // Initialize all tabs properly
+		    $('[data-toggle="tab"]').tab();
+		
+		    
+		    // Force Bootstrap to properly initialize the first tab
+			
+		    $('.expense-tabs li.active a').tab('show');
+			
+		    
+			
+		    // Alternative approach - trigger a click on the first tab
+		    // Uncomment this if the above doesn't work
+		    // $('.expense-tabs li.active a').trigger('click');
+		});
+	</script>
+	
 	<script>				// Get reference to the amount input field
 		const advanceAmountInput = document.getElementById('advanceAmount');
 		const advanceAmountError = document.getElementById('advanceAmountError');
