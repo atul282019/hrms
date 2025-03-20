@@ -39,4 +39,7 @@ public class ApplicationConstantConfig {
 	
 	@Value("${repute.service.base.url}")
 	public String reputeServiceBaseUrl;
+	
+	@Value("${cashfree.payment.base.url}")
+	public String cashfreePaymentBaseUrl;
 }

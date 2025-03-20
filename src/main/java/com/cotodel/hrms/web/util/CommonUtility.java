@@ -246,10 +246,7 @@ public class CommonUtility {
 		//String redirectUri="http://43.205.206.102:8088/repute_marketplace/";
 		ReputeTokenRequest reputeCompanyDetails=new ReputeTokenRequest();
 		try {
-			 // Set up the body data
-			//String redirectUri=applicationConstantConfig.tokenRedirectUrl;
 	        String body = "code="+code+ "&grant_type=authorization_code&redirect_uri="+ redirectUri;
-			//String response=CommonUtility.userRequestForRepute(body, url);
 	        String response=CommonUtility.getAccessToken(code,redirectUri,url+"/oauth2/token");
 	        String accessToken ="";
 	        String idToken ="";
@@ -260,45 +257,10 @@ public class CommonUtility {
 	        	reputeCompanyDetails.setAccessToken(accessToken);
 	        	reputeCompanyDetails.setIdToken(idToken);
 	        	reputeCompanyDetails.setScope(jsonObject.getString("scope"));
-	        	//reputeCompanyDetails.setExpiresIn(jsonObject.getString("expires_in"));
 	        	reputeCompanyDetails.setRefreshToken(jsonObject.getString("refresh_token"));
-	        	//reputeCompanyDetails.setResponse(jsonObject.getString("scope"));
-	        	//reputeCompanyDetails.setTokenType(jsonObject.getString("scope"));
-	        	//reputeCompanyDetails.setMobile(idToken)
+	        	
 	        }
-	        //String[] jwtParts = idToken.split("\\.");
-	       // String payload = jwtParts[1];  // This is the middle part (payload)
 	        
-	        // Decode the payload from Base64
-	       // String value=new String(Base64.getDecoder().decode(payload));
-	       // System.out.println("value: " + value);
-	        // Print the access token
-	       // reputeCompanyDetails=parseJson(value);
-//	        if(reputeCompanyDetails!=null) {
-//				UserRequest userRequest = new UserRequest();
-//				String mobileNumber= reputeCompanyDetails.getPhoneNumber();
-//		        String mobile = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
-//		        String email= reputeCompanyDetails.getEmail();
-//		        String name= reputeCompanyDetails.getEmployeeName();
-//		        userRequest.setMobile(mobile);
-//		        userRequest.setEmail(email);
-//		        userRequest.setUsername(name);
-//				TokenGeneration token = new TokenGeneration();
-//				String tokenvalue = token.getToken(applicationConstantConfig.authTokenApiUrl + CommonUtils.getToken);
-//				String response1 = CommonUtility.userRequest(tokenvalue,MessageConstant.gson.toJson(userRequest),
-//						applicationConstantConfig.userServiceApiUrl + CommonUtils.saveUser,applicationConstantConfig.apiSignaturePublicPath,applicationConstantConfig.apiSignaturePrivatePath);
-//				if (!ObjectUtils.isEmpty(response1)) {
-//					JSONObject demoRes = new JSONObject(response1);
-//					boolean status = demoRes.getBoolean("status");
-//					if (status) {
-//						if (demoRes.has("userEntity")) {
-//							JSONObject userEntity = demoRes.getJSONObject("userEntity");
-//							if (userEntity != null && userEntity.has("username")) {
-//							}
-//						}
-//					}
-//				}
-//	        }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
