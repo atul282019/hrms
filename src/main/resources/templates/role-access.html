@@ -524,7 +524,7 @@
 																			  
 																	        </form>
 																	        <div class="d-flex justify-content-center mt-3">
-																				<button id="renderBtn2" onclick="getSessionId()">Pay Now</button>
+																				<button class="btn btn-primary w-100" id="renderBtn2" onclick="getSessionId()">Pay Now</button>
 																									
 																	          <!--<button class="btn btn-primary w-100" id="continueButton" onclick="getOTPforCotodel()">Continue</button>-->
 																	        </div>
@@ -1182,6 +1182,20 @@
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>	$(document).ready(function () {
+	    // Initially disable the button
+	    $("#renderBtn2").prop("disabled", true);
+
+	    // Add event listener to checkbox
+	    $("#confirmAmount").on("change", function () {
+	        if ($(this).is(":checked")) {
+	            $("#renderBtn2").prop("disabled", false);
+	        } else {
+	            $("#renderBtn2").prop("disabled", true);
+	        }
+	    });
+	});
+</script>
 	<script>				// Method 1: Direct jQuery approach
 	$(document).ready(function() {
 	    // Make sure the close button works
@@ -1427,7 +1441,7 @@
 		});
 
 		function close(){
-			window.location.href = "http://localhost:9191/roleAccess";
+			//window.location.href = "http://localhost:9191/roleAccess";
 		}	
 	
 	$(document).ready(function(){

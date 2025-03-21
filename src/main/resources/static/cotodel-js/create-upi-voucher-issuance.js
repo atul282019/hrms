@@ -924,30 +924,31 @@ function getPrimaryBankDetail(){
 				      return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
 				  }
 				  function validateAmount() {
-				      // Get available balance (removing currency symbols & commas)
-				      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
-				      let amountInput = document.getElementById("amount");
-				      let continueButton = document.getElementById("continueButton1"); // Target the specific button
-				      let errorMessage = document.getElementById("amountError");
+				  	   				      // Get available balance (removing currency symbols & commas)
+				  	   				      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
+				  	   				      let amountInput = document.getElementById("amount");
+				  	   				      let continueButton = document.getElementById("continueButton1"); // Target the specific button
+				  	   				      let errorMessage = document.getElementById("amountError");
 
-				      // Convert values to float (handle decimal values correctly)
-				      let balance = parseFloat(availableBalance);
-				      let amount = parseFloat(amountInput.value.trim());
+				  	   				      // Convert values to float (handle decimal values correctly)
+				  	   				      let balance = parseFloat(availableBalance);
+				  	   				      let amount = parseFloat(amountInput.value.trim());
 
-				      // Disable button by default
-				      continueButton.disabled = true;
+				  	   				      // Disable button by default
+				  	   				      continueButton.disabled = true;
 
-				      // Ensure valid numbers before comparison
-				     
+				  	   				      // Ensure valid numbers before comparison
+				  	   				     
 
-				      // Validation: Ensure entered amount is <= available balance
-				      if (amount > balance || !balance) {
-				          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
-				          errorMessage.style.display = "inline"; // Show error message
-				          amountInput.value = balance; // Auto-trim input value
-				      } else {
-				          errorMessage.style.display = "none"; // Hide error message
-				          continueButton.disabled = false; // Enable button when valid
-				      }
-				  }
+				  	   				      // Validation: Ensure entered amount is <= available balance
+				  	   				      if (amount > balance || !balance) {
+				  	   				          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
+				  	   				          errorMessage.style.display = "inline"; // Show error message
+				  	   				          amountInput.value = balance; // Auto-trim input value
+				  	   				      } else {
+				  	   				          errorMessage.style.display = "none"; // Hide error message
+				  	   				          continueButton.disabled = false; // Enable button when valid
+				  	   				      }
+				  	   				  }
+				  	
 

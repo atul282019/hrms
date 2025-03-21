@@ -176,7 +176,7 @@ function  getLinkedBankDetail(){
 									 document.getElementById("otmsgdiv").style.display="block";
 									 //document.getElementById("getInTouchUser").reset();
 									 $('#otmsgdiv').delay(5000).fadeOut(400);
-					    			 window.location.href = "/roleAccess";
+					    			 //window.location.href = "/roleAccess";
 									 $('a[href="#menu22"]').tab('show');
 								}else if(data1.status==false){
 									 document.getElementById("otfailmsg").innerHTML=data1.message;
@@ -226,7 +226,7 @@ function relinkBankAccount(acNumber) {
                 document.getElementById("otsuccmsg").innerHTML = "Bank Account re-Linked Successfully.";
                 document.getElementById("otmsgdiv").style.display = "block";
                 $('#otmsgdiv').delay(5000).fadeOut(400);
-                window.location.href = "/roleAccess";
+                //window.location.href = "/roleAccess";
 				$('a[href="#menu22"]').tab('show');
             } else if (data1.status == false) {
                 document.getElementById("otfailmsg").innerHTML = data1.message;
@@ -269,7 +269,7 @@ function dlinkAccount(acNumber)
 					 //document.getElementById("getInTouchUser").reset();
 					 $('#otmsgdiv').delay(5000).fadeOut(400);
 					 document.getElementById("linkBankBtn").disabled = false;
-	    			 window.location.href = "/roleAccess";
+	    			 //window.location.href = "/roleAccess";
 					 $('a[href="#menu22"]').tab('show');
 					 //getLinkedBankDetail();
 				}else if(data1.status==false){
@@ -476,7 +476,7 @@ function submitLinkBankAccount(){
 					 //document.getElementById("getInTouchUser").reset();
 					 $('#otmsgdiv').delay(5000).fadeOut(400);
 					 document.getElementById("linkBankBtn").disabled = false;
-	    			 window.location.href = "/roleAccess";
+	    			 //window.location.href = "/roleAccess";
 				}else if(data1.status==false){
 					 document.getElementById("otfailmsg").innerHTML=data1.message;
 					 document.getElementById("otfailmsgDiv").style.display="block";

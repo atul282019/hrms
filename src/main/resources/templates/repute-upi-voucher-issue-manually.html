@@ -270,7 +270,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="table-input" id="amount" placeholder="Enter Amount"
-													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6">
+													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');validateAmount()" maxlength="6">
                                                 </td>
                                                 <td>
                                                     <div>
@@ -328,7 +328,7 @@
                                 <div class="w-100 my-3 text-right">
                                     <button class="btn btn-border-primary"
                                         onclick="backEmployeeList()">Back</button>
-                                    <button type="button" class="btn btn-primary" onclick="singleVoucherValidation()">Continue</button>
+                                    <button type="button" class="btn btn-primary" id="continueButton1" onclick="singleVoucherValidation()" >Continue</button>
                                 </div>								
                             </div>
 
