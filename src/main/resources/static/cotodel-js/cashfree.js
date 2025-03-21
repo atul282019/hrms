@@ -1,16 +1,16 @@
-//const cashfree = Cashfree({
-  //  mode:"sandbox" //or production
-//});
+const cashfree = Cashfree({
+   mode:"sandbox" //or production
+});
 
 function getSessionId(){
 //	document.getElementById("signinLoader").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
-	var orderAmount = document.getElementById("orderAmount").value;
+	var orderAmount = document.getElementById("advanceAmount").value;
 	//var orderCurrency = document.getElementById("employerId").value;
 	var customerId = document.getElementById("employerId").value;
 	var customerName = document.getElementById("employerName").value;
 	var customerEmail = document.getElementById("employerId").value;
-	var customerPhone = document.getElementById("employerMobile").value;
+	var customerPhone = document.getElementById("userMobile").value;
 	//var payment_session_id = document.getElementById("employerId").value;
 
 	$.ajax({

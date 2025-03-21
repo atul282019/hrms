@@ -188,6 +188,9 @@
 											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
 											<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
 											<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+											
+											<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+																	
                                             <div class="d-block text-right">
                                                 <button class="btn btn-border-primary mr-1 mb-1" id="BackroleAcess">Back</button>
 												<!--	<button class="btn btn-primary mb-1" onclick="roleUpdate()">Confirm Changes</button>
@@ -521,22 +524,24 @@
 																			  
 																	        </form>
 																	        <div class="d-flex justify-content-center mt-3">
-																	          <button class="btn btn-primary w-100" id="continueButton" onclick="getOTPforCotodel()">Continue</button>
+																				<button id="renderBtn2" onclick="getSessionId()">Pay Now</button>
+																									
+																	          <!--<button class="btn btn-primary w-100" id="continueButton" onclick="getOTPforCotodel()">Continue</button>-->
 																	        </div>
 																	      </div>
 																	    </div>
 																	  </div>
 																	</div>
-								<input type="hidden" class="form-input" id="CId" name="CId" > 
-								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
-								<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
-								<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
-								<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
-								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
-								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
-								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
-								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
-								 </div>
+																	<input type="hidden" class="form-input" id="CId" name="CId" > 
+																	<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+																	<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+																	<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+																	<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+																	<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+																	<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+																	<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+																	<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+																	 </div>
                             </div>
                         </div>
                     </div>
@@ -1355,6 +1360,8 @@
 
 	<script src="cotodel-js/linked-account.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	<script type="text/javascript" src="cotodel-js/cashfree.js"></script>
+	
 	<script>	document.addEventListener("DOMContentLoaded", function() {
 	    var activeTab = localStorage.getItem("activeTab");
 	    
