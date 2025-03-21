@@ -1025,7 +1025,9 @@ public class StaticPageController extends CotoDelBaseController{
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
-				if(obj.getUser_role()==9) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==2 ||
+						obj.getUser_role()==3 || obj.getUser_role()==5 || obj.getUser_role()== 6||
+						obj.getUser_role()==1 || obj.getUser_role()==10) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());

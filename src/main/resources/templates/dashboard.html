@@ -73,8 +73,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
                      <div class="row px-2">
-                        <div class="col-12">
-                            <div class="mt-4 bg-white p-3" th:if="${session.user_role == 1 or session.user_role == 9}">
+                        <div class="col-12" th:if="${session.user_role == 1 or session.user_role == 9}">
+                            <div class="mt-4 bg-white p-3" >
                             <div class="row">
                                  <div class="col-12 col-sm-4 organisation-wrap" >
                                     <h3>Let’s set up your organisation!</h3>
@@ -134,30 +134,45 @@
                             </div>
                         </div>
                         </div>
+						<div class="col-12" th:unless="${session.user_role == 1 or session.user_role == 9}">
+						                          <div class="mt-4 bg-white p-3" >
+						                          <div class="row">
+						                               <div class="col-12 col-sm-4 organisation-wrap" >
+						                                  <h3></h3>
+						                                 <div class="w3-border">
+															 
+						                                  <p></p>
+						                              </div>
+													
+						                          </div>
+						                      </div>
+						                      </div>
 
-                        <!--<div class="col-12">
-                            <div class="welcome-wrap">
-                                <div class="welcome-wrap-left">
-                                    <div class="welcome-wrap-in">
-                                        <h4>Welcome</h4>
-                                        <p>XYZ</p>
-                                    </div>
-                                    <div class="welcome-wrap-in">
-                                        <span class="mt-0">NEXT PAYROLL</span>
-                                        <b>NA</b>
-                                    </div>
-                                    <div class="welcome-wrap-in">
-                                        <span class="mt-0">ACCOUNT BALANCE</span>
-                                        <b>&#8377;0.00</b>
-                                    </div>
-                                </div>
-                                
-                                <div class="welcome-wrap-btn">
-                                    <button class="btn bg-white btn-block">UPDATE BALANCE</button>
-                                </div>                                
-                            </div>
-                            
-                        </div>-->
+											  <div class="mt-4 bg-white p-3" >
+  						                          <div class="row">
+  						                               <div class="col-12 col-sm-4 organisation-wrap" >
+  						                                  <h3></h3>
+  						                                 <div class="w3-border">
+  															 
+  						                                  <p></p>
+  						                              </div>
+  													
+  						                          </div>
+  						                      </div>
+  						                      </div>
+											  <div class="mt-4 bg-white p-3" >
+					                          <div class="row">
+					                               <div class="col-12 col-sm-4 organisation-wrap" >
+					                                  <h3></h3>
+					                                 <div class="w3-border">
+														 
+					                                  <p></p>
+					                              </div>
+												
+					                          </div>
+					                      </div>
+					                      </div>
+                       
                      </div>
 
                 </div>
