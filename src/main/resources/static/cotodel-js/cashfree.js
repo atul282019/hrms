@@ -75,6 +75,18 @@ function getOrderDetail(){
 				   document.getElementById("name").innerHTML=parsedData.data.customerName;
 				   document.getElementById("amount").innerHTML =parsedData.data.orderAmount;
 				   document.getElementById("currency").innerHTML=parsedData.data.orderCurrency;
+				   
+				   
+
+				   document.getElementById("customerId").innerHTML=parsedData.data.customerId;
+				   document.getElementById("customerPhone").innerHTML =parsedData.data.customerPhone;
+				   document.getElementById("customerEmail1").innerHTML=parsedData.data.customerEmail1;
+				   
+				   document.getElementById("order_status").innerHTML=parsedData.data.order_status;
+				   document.getElementById("created_at").innerHTML =parsedData.data.created_at;
+	 			   document.getElementById("cf_order_id").innerHTML=parsedData.data.cf_order_id;
+				   			   
+				   
 	           } catch (error) {
 	               console.error("Error parsing JSON:", error);
 	           }
