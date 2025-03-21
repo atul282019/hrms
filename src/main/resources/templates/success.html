@@ -82,7 +82,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
-               <h5>Payment Status</h5>
+               <!--<h5>Payment Status</h5>
 			   
 			       <div style="text-align: center;">
 					
@@ -97,8 +97,58 @@
 					  <div>Payment Confirmation Id : <span id="cf_order_id"></span></div>
 					  <div>Customer Order Id : <span id="orderId"></span></div>
 					 
-			      </div>
+			      </div>-->
 				<input type="hidden" id="order_id" th:value="${order_id}">
+				<div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+						                                                   <h5>Payment Receipt</h5>
+						                                                   <div class="primary-Details-wrap">
+																			<div class="Primary-details-info">
+																                  <label> Customer ID</label>
+																                  <p id="customerId"></p>
+																              </div>
+																			<div class="Primary-details-info">
+																			                  <label>Name</label>
+																			                  <p id="name"></p>
+																			              </div>
+																			              
+																			              <div class="Primary-details-info">
+																			                  <label>Order Amount</label>
+																			                  <p id="amount"></p>
+																			              </div>
+																						  <div class="Primary-details-info">
+  																			                  <label>Order Status</label>
+  																			                  <p id="order_status"></p>
+  																			              </div>
+																			              <div class="Primary-details-info">
+																			                  <label>order Currency</label>
+																			                  <p id="currency"></p>
+																			              </div>
+																			              <div class="Primary-details-info">
+																			                  <label>Customer Email</label>
+																			                  <p id="customerEmail1"></p>
+																			              </div>
+																			              <div class="Primary-details-info">
+																			                  <label>Payment Date</label>
+																			                  <p id="created_at"></p>
+																			              </div>
+																						  <div class="Primary-details-info">
+																			                  <label>Payment Confirmation Id </label>
+																			                  <p id="cf_order_id"></p>
+																			              </div>
+																						  <div class="Primary-details-info">
+																			                  <label>Payment Methods</label>
+																			                  <p id="payment_methods"></p>
+																			              </div>
+																						  <div class="Primary-details-info">
+																			                  <label>Customer Phone Number</label>
+																			                  <p id="customerPhone"></p>
+																			              </div>
+																						  <div class="Primary-details-info">
+	  																			                  <label>Customer Order Id</label>
+	  																			                  <p id="orderId"></p>
+	  																			              </div>
+																							 </div>
+						                                               </div>
                </div>
               <!-- /.container-fluid -->
 

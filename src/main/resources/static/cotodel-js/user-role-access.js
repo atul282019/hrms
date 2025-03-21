@@ -1418,11 +1418,13 @@ function getAddOTP(){
 			   						
 									
 			   						//window.location.href="/roleAccess";
-			   	  				}else if (obj['status'] == false) {
-									document.getElementById("otpError2").innerHTML=data.message;
+			   	  				}else if (obj['status'] == false) { 
+									//document.getElementById("otpError2").innerHTML=data.message;
+									document.getElementById("otpError2").innerHTML="Incorrect Otp!!";
 			   					} else {
 			   	  				
 			   	  				}
+								$(".otp-box-onboarding input[type='password']").val("");//clearing all input feilds
 			   	  			},
 			   	  			error: function(e) {
 			   	  				alert('Error: ' + e);

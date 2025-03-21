@@ -80,13 +80,13 @@ function getOrderDetail(){
 
 				   document.getElementById("customerId").innerHTML=parsedData.data.customerId;
 				   document.getElementById("customerPhone").innerHTML =parsedData.data.customerPhone;
-				   document.getElementById("customerEmail1").innerHTML=parsedData.data.customerEmail1;
+				   document.getElementById("customerEmail1").innerHTML=parsedData.data.customerEmail;
 				   
 				   document.getElementById("order_status").innerHTML=parsedData.data.order_status;
 				   document.getElementById("created_at").innerHTML =parsedData.data.created_at;
 	 			   document.getElementById("cf_order_id").innerHTML=parsedData.data.cf_order_id;
 				   			   
-				   
+				   document.getElementById("payment_methods").innerHTML=parsedData.data.payment_methods;
 	           } catch (error) {
 	               console.error("Error parsing JSON:", error);
 	           }

@@ -195,13 +195,16 @@
 		// Function to show the confirmation modal
 		function showConfirmationModal(button, status) {
 		    const employerData = JSON.parse(button.getAttribute("data-employer"));
-		    
+			let modalStatus = status === "Approved" ? "Approve" : status === "Rejected" ? "Reject" : status;
+		
 		    // Store the data and status for use when the confirm button is clicked
 		    $("#confirmationModal").data("employerData", employerData);
 		    $("#confirmationModal").data("status", status);
 		    
 		    // Update modal title and content based on status
-		    $("#modalTitle").text(`Confirm ${status}`);
+		    //$("#modalTitle").text(`Confirm ${status}`);
+			$("#modalTitle").text(`Confirm ${modalStatus}`);
+			
 		    $("#modalMessage").text(`Are you sure you want to ${status === 'Approved' ? 'approve' : 'reject'} this request?`);
 		    
 		    // Fill in the data for the selected row
