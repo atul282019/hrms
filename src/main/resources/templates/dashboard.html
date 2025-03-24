@@ -2,7 +2,6 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
 <body id="page-top" onload="getProfileStatus()">
@@ -74,7 +73,7 @@
 				<div th:switch="${session.user_role}">
                 <div class="container-fluid p-0 p-md-1">
                      <div class="row px-2">
-                        <div class="col-12" th:case="1,9">
+                        <div class="col-12" th:case="9">
                             <div class="mt-4 bg-white p-3" >
                             <div class="row">
                                  <div class="col-12 col-sm-4 organisation-wrap" >
@@ -135,22 +134,73 @@
                             </div>
                         </div>
                         </div>
+						<div class="col-12" th:case="1">
+						                        <div class="mt-4 bg-white p-3" >
+						                        <div class="row">
+						                             <div class="col-12 col-sm-4 organisation-wrap" >
+						                                <h3>Let’s set up your organisation!</h3>
+						                               <div class="w3-border">
+															  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
+															</div>
+						                                <p><span id="profileComplete">0</span> of 3 completed</p>
+						                            </div>
+													
+						                            <div class="col-12 col-sm-8">
+
+						                                <div class="details-wrap">
+						                                    <div class="basic-details-wrap">
+						                                        <h4>Basic Details</h4>
+						                                        <div class="time">COMPLETED</div>                                            
+						                                    </div>
+						                                </div>
+
+						                                <div class="details-wrap">
+						                                    <div class="basic-details-wrap mb-2">
+						                                        <h4>Compliance and people</h4>
+						                                        <div class="time">3 steps | 5 mins</div>
+						                                    </div>
+						                                        <div class="basic-details-input">
+						                                            <span>1</span>
+						                                            <p>Setup Compliance</p>
+						                                          <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+																	<div id="btnsetupStart"><a class="btn btn-primary" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a></div>
+						                                        </div>
+
+						                                        <div class="basic-details-input no-bg mb-0">
+						                                            <span>2</span>
+						                                            <p>Add employee and contractors</p>
+						                                            <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
+						                                        </div>
+																<!--<div class="basic-details-input no-bg mb-0">
+						                                            <span>3</span>
+						                                            <p>Director Onboarding</p>
+						                                            <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
+						                                        </div>-->
+																<div class="basic-details-input">
+						                                           <span>3</span>
+						                                           <p>Director Onboarding</p>
+						                                         <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+																<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
+						                                       </div>
+						                                   
+						                                </div>                                    
+														<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
+						                                <div class="details-wrap mb-0">
+						                                    <div class="basic-details-wrap">
+						                                        <h4>KYC verification</h4>
+						                                        <div class="time">2 steps | 10 mins</div>                                            
+						                                    </div>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </div>
+						                    </div>
 						<div class="col-12" th:case="3">
 
 							<div class="upi-voucher-wrap mb-2" >
-                             <div id="nolinkBankAccount" style="display: none;">
-                                 <div class="d-flex align-items-center upi-voucher-in-wrap p-0 m-0">
-                                     <div class="tip-wrap justify-content-start m-0">
-                                         <p class="mb-0">No Bank Account linked till now. Please click on ‘Link
-                                             Bank
-                                             Account Now’ to activate UPI Voucher issuance.</p>
-                                     </div>
-                                     <a class="btn btn-primary" th:href="@{/roleAccess}" id="linkBankAccount">Link Bank Account
-                                         Now</a>
-                                 </div>
-                             </div>
+                           
 
-                             <div id="linkedAccount" style="display:none;">
+                             <div id="linkedAccount">
                                  <div class="linkedAccount-wrap m-0">
                                      <div class="linkedAccount-wrap-left-btn">
                                          <img src="img/allbank.svg" alt="">

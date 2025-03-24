@@ -244,7 +244,7 @@ function  getLinkedBankDetail(){
 			},
 			   success: function(data){
 			            newData = data;
-			//            console.log(newData);
+			            console.log(newData);
 						$("#banklist option").remove();
 			            var obj = jQuery.parseJSON( data );
 			             obj = obj.data;
