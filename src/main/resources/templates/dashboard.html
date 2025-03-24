@@ -71,9 +71,10 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
+				<div th:switch="${session.user_role}">
                 <div class="container-fluid p-0 p-md-1">
                      <div class="row px-2">
-                        <div class="col-12" th:if="${session.user_role == 1 or session.user_role == 9}">
+                        <div class="col-12" th:case="1,9">
                             <div class="mt-4 bg-white p-3" >
                             <div class="row">
                                  <div class="col-12 col-sm-4 organisation-wrap" >
@@ -134,7 +135,96 @@
                             </div>
                         </div>
                         </div>
-						<div class="col-12" th:unless="${session.user_role == 1 or session.user_role == 9}">
+						<div class="col-12" th:case="3">
+
+							<div class="upi-voucher-wrap mb-2" >
+                             <div id="nolinkBankAccount" style="display: none;">
+                                 <div class="d-flex align-items-center upi-voucher-in-wrap p-0 m-0">
+                                     <div class="tip-wrap justify-content-start m-0">
+                                         <p class="mb-0">No Bank Account linked till now. Please click on ‘Link
+                                             Bank
+                                             Account Now’ to activate UPI Voucher issuance.</p>
+                                     </div>
+                                     <a class="btn btn-primary" th:href="@{/roleAccess}" id="linkBankAccount">Link Bank Account
+                                         Now</a>
+                                 </div>
+                             </div>
+
+                             <div id="linkedAccount" style="display:none;">
+                                 <div class="linkedAccount-wrap m-0">
+                                     <div class="linkedAccount-wrap-left-btn">
+                                         <img src="img/allbank.svg" alt="">
+                                         <span>All Linked Bank Accounts</span>
+                                     </div>
+                                     <div class="linkedAccount-wrap-right">
+                                         <span>Funds Marked for Active UPI Vouchers <img
+                                                 src="img/e-rupi-seeklogo.png" alt=""></span>
+                                         <div class="funds-mark"><div id="totalVoucher"></div>&nbsp; Vouchers &#8377;<strong id="totalvoucherValue">&#8377;0.00</strong></div>
+										<div class="infoo mx-2"><a href="#" id="btnforinfomodal"><img
+										 src="img/infoo.svg" width="34px" alt=""></a></div>
+                                         <button class="fundmarked" id="fundmarked">
+                                             <a href="#"><img src="img/fund-expand.svg" alt=""></a>
+                                         </button>
+                                     </div>
+                                 </div>
+
+                                 <div class="activeupivcmarked" id="myDiv" style="display: block;">
+                                     <div class="row">
+                                         <div class="col-12 col-md-3" id="bankListData">
+                                             <div class="left-activeupivcmarked active">
+                                                 <div class="img-bank">
+                                                     <img src="img/allbankblk.svg" alt="">
+                                                 </div>
+                                                 <span>All Banks</span>
+
+                                             </div>
+
+                                            <!-- <div class="left-activeupivcmarked" >
+                                               
+												<div class="img-bank">
+                                                      <img src="img/indianbank.png" width="18" height="18">
+                                                  </div>
+                                                  <span>Indian Bank</span>
+                                                  <label class="mb-0">xxx0569</label>
+                                             </div>-->
+                                         </div>
+
+                                         <div class="col-12 col-md-9">
+                                             <div class="table-responsive mt-2">
+                                                 <table class="table table-bordered">
+                                                     <thead>
+                                                         <tr>
+                                                             <th>Total Vouchers Issued (A)</th>
+                                                             <th id="totalIssueCount"></th>
+                                                             <th id="totalIssueAmount"></th>
+                                                         </tr>
+                                                     </thead>
+                                                     <tbody>
+                                                         <tr>
+                                                             <td>Redeemed Vouchers (B)</td>
+                                                             <td id="redemVCount"></td>
+                                                             <td id="redemVAmount"></td>
+                                                         </tr>
+                                                         <tr>
+                                                             <td>Expired & Revoked Vouchers (C)</td>
+                                                             <td id="expRevokeCount"></td>
+                                                             <td id="expRevokeAmount"></td>
+                                                         </tr>
+                                                         <tr class="lasttr">
+                                                             <td>Active Vouchers (D)</td>
+                                                             <td id="activeCount"></td>
+                                                             <td id="activeAmount"></td>
+                                                         </tr>
+                                                     </tbody>
+                                                 </table>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+             				</div>
+						</div>
+						<div class="col-12" th:case="*">
 							<div class="container-fluid p-0 p-md-1">
 											
 											<div class="col-12">
@@ -182,12 +272,20 @@
 							           </div>
                        
                      </div>
+					 
+					
+																									 
+																									
+					 
 
                 </div>
                 <!-- /.container-fluid -->
+				
 
             </div>
             <!-- End of Main Content -->
+			
+				</div><!-- ending switchcase-->
         </div>
         <!-- End of Content Wrapper -->
 
