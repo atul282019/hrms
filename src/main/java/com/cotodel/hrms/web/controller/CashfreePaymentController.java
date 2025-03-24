@@ -68,7 +68,7 @@ public class CashfreePaymentController extends CotoDelBaseController{
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			logger.info("Inside Object" + obj.toString());
 			logger.info("Inside Object" + obj.getName());
-			if (obj.getUser_role() == 9 || obj.getUser_role() == 1) {
+			if (obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) {
 				logger.info("Inside Role" + obj.getName());
 				model.addAttribute("name", obj.getName());
 				model.addAttribute("org", obj.getOrgName());
