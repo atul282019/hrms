@@ -12,7 +12,13 @@ function getSessionId(){
 	var customerEmail = document.getElementById("employerId").value;
 	var customerPhone = document.getElementById("userMobile").value;
 	//var payment_session_id = document.getElementById("employerId").value;
-
+	
+	var bankCode = document.getElementById("CbankCode").value;
+	var bankName = document.getElementById("CbankName").value;
+	var acNumber = document.getElementById("CacNumber").value;
+	var createdBy = document.getElementById("employerName").value;
+	var createdBy = document.getElementById("employerName").value;
+	
 	$.ajax({
 		type: "POST",
 		url: "/getCashfreePaymentSession",
@@ -24,8 +30,11 @@ function getSessionId(){
 				"customerName": customerName,
 				"customerEmail" :customerEmail,
 				"customerPhone" : customerPhone,
-				"payment_session_id" :""
-
+				"payment_session_id" :"",
+				"bankCode":bankCode,
+				"bankName":bankName,
+				"acNumber":acNumber,
+				"createdBy":createdBy	
 		},
 		beforeSend: function(xhr) {
 		},
