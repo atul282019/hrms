@@ -94,8 +94,8 @@
                             </ul>
 
                             <div class="tab-content">
-                                <div id="home1" class="tab-pane in active">
-                                    <div class="role-access-wrap" id="RoleAaccessWrap01">
+                                <div id="home1" class="tab-pane in active" th:if="${session.user_role == 9 or session.user_role == 1}">
+                                    <div class="role-access-wrap" id="RoleAaccessWrap01" >
                                         <div class="role-access-wrapin-top">
                                             <div class="role-access-wrapin-topflex d-flex justify-content-between py-3">
                                                 <div>
@@ -185,11 +185,7 @@
                                             </div>
 											<div class="error-msg" id="styled-checkbox-40Error" style="color:red"></div>
                                             <hr>
-											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
-											<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
-											<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
 											
-											<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
 																	
                                             <div class="d-block text-right">
                                                 <button class="btn btn-border-primary mr-1 mb-1" id="BackroleAcess">Back</button>
@@ -200,7 +196,7 @@
                                     </div>
 
                                 </div>
-                                <div id="menu11" class="tab-pane">
+                                <div id="menu11" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1}">
 								
 									<div class="tab-content" id="defaultDiv" style="display: block">
 	                               <div id="home" class="tab-pane in active">
@@ -308,7 +304,7 @@
 	                           </div>
 									
 								 </div>
-                                <div id="menu22" class="tab-pane"> 
+                                <div id="menu22" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}"> 
 									<div id="menu2" class="tab-pane">
 									    <div class="policies-section-bank" id="linkaccbankform" style="display: none;">
 									        <div class="col-12 col-md-8 col-lg-6 mx-auto">
@@ -445,7 +441,7 @@
 									</div>
 								</div>
 								
-                                <div id="menu33" class="tab-pane">
+                                <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}">
 									<!--<div id="menu3" class="tab-pane">
 																	    <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
 																	        <div class="col-12 col-md-8 col-lg-6 mx-auto">
@@ -532,6 +528,11 @@
 																	    </div>
 																	  </div>
 																	</div>
+																	<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+																	<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+																	<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+																	
+																	<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
 																	<input type="hidden" class="form-input" id="CId" name="CId" > 
 																	<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
 																	<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
@@ -541,7 +542,7 @@
 																	<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
 																	<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
 																	<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
-																	 </div>
+								 </div>
                             </div>
                         </div>
                     </div>
