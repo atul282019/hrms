@@ -1034,7 +1034,9 @@
 						  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
 							<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
 							<p class="error-msg" id="otpError" style="color:red"></p>
-			                    <p class="mb-0">OTP code has been sent to your phone. Enter OTP to validate issuance.</p>
+							
+							<p class="mb-0" id="maskedMobileDisplay"></p>
+							               
 			                </div>
 			                <div class="d-flex justify-content-center mt-3">
 								<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
