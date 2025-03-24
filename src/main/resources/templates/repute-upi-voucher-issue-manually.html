@@ -530,6 +530,7 @@
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+	
 	<style>	@keyframes rotate360 {
 				    from {
 				        transform: rotate(360deg);
@@ -803,7 +804,7 @@
 						document.getElementById("authenticate").disabled = true;
 					}
 								}, 1000);
-	            $('#otpModal').fadeIn();
+	            $('#otpModal1').fadeIn();
 	          } else {
 				document.getElementById('submitButton').disabled=false;
 	            alert("Error: " + response.message);
@@ -817,11 +818,11 @@
 	    });
 
 	    // Close the modal when clicking outside the modal content
-	    $(window).on('click', function(event) {
-	      if (event.target.id === 'otpModal') {
-	        $('#otpModal').fadeOut();
-	      }
-	    });
+	   // $(window).on('click', function(event) {
+	    // if (event.target.id === 'otpModal') {
+	      //  $('#otpModal').fadeOut();
+	      //}
+	    //});
 	  });
 	  
 	  
@@ -1418,7 +1419,7 @@
         </div>
     </div>
 
-	<div id="otpModal" class="modal customfade">
+	<div id="otpModal1" class="modal customfade">
 	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
 	        <div class="modal-content modal-bulk">
 	            <div class="modal-header pb-0 text-center">

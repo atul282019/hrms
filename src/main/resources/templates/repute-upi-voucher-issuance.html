@@ -392,6 +392,41 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/repute-voucher-issuance.js"></script>
+	<script>	function sortTable(columnIndex) {
+		           const rows = Array.from(tableBody.rows);
+		           const sortedRows = rows.sort((a, b) => {
+		               const cellA = a.cells[columnIndex].innerText;
+		               const cellB = b.cells[columnIndex].innerText;
+		               if (!isNaN(cellA) && !isNaN(cellB)) {
+		                   return Number(cellA) - Number(cellB);
+		               }
+		               return cellA.localeCompare(cellB);
+		           });
+
+		           tableBody.innerHTML = "";
+		           sortedRows.forEach(row => tableBody.appendChild(row));
+		       }
+
+			   
+			   document.getElementById('downloadBtn').addEventListener('click', function () {
+			       const table = document.getElementById('issueVoucherTable');
+
+			      const clonedTable = table.cloneNode(true);
+			       const columnsToRemove = [0, 9, 10]; 
+			       columnsToRemove.sort((a, b) => b - a);
+
+			       const rows = clonedTable.rows;
+			       for (let i = 0; i < rows.length; i++) {
+			           columnsToRemove.forEach((colIndex) => {
+			               if (rows[i].cells.length > colIndex) {
+			                   rows[i].deleteCell(colIndex);
+			               }
+			           });
+			       }
+			       const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
+			       XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
+			   });
+	</script>
 
 	<script type="text/javascript">
 
