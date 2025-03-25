@@ -156,10 +156,9 @@
 		                const row = `
 		                <tr>
 		                    <td>${employer.id}</td>
-		                    <td>${employer.bankName}</td>
+							<td>${employer.orderId}</td>
 		                    <td>${employer.accountHolderName}</td>
-		                    <td>${employer.acNumber}</td>
-		                    <td>${employer.ifscCode}</td>
+		                   
 		                    <td>${employer.createdby}</td>
 							<td>${formatDate(employer.creationDate)}</td>
 		                    <td>${employer.amountLimit}</td>
@@ -179,57 +178,86 @@
 		    });
 		}
 
-		function formatDate(dateString) {
-		    if (!dateString) return "N/A"; // Handle empty/null dates
-		    const date = new Date(dateString);
-		    
-		    const day = String(date.getDate()).padStart(2, "0");
-		    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-		    const year = date.getFullYear(); // Full 4-digit year
-		    
-		    return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
-		}
-
-
+		
 
 		// Function to show the confirmation modal
 		function showConfirmationModal(button, status) {
 		    const employerData = JSON.parse(button.getAttribute("data-employer"));
-			let modalStatus = status === "Approved" ? "Approve" : status === "Rejected" ? "Reject" : status;
-		
+		    const orderId = employerData.orderId;
+		    let modalStatus = status === "Approved" ? "Approve" : status === "Rejected" ? "Reject" : status;
+
 		    // Store the data and status for use when the confirm button is clicked
 		    $("#confirmationModal").data("employerData", employerData);
 		    $("#confirmationModal").data("status", status);
 		    
 		    // Update modal title and content based on status
-		    //$("#modalTitle").text(`Confirm ${status}`);
-			$("#modalTitle").text(`Confirm ${modalStatus}`);
-			
+		    $("#modalTitle").text(`Confirm ${modalStatus}`);
 		    $("#modalMessage").text(`Are you sure you want to ${status === 'Approved' ? 'approve' : 'reject'} this request?`);
 		    
-		    // Fill in the data for the selected row
-		    $("#popupFieldName").text(employerData.accountHolderName);
-		    $("#popupFieldMobile").text(employerData.mobile || "N/A");
-		    $("#popupFieldAmount").text(employerData.amountLimit);
-		    $("#popupFieldBankName").text(employerData.bankName);
-		    $("#popupFieldAccountNumber").text(employerData.acNumber);
-		    $("#popupFieldIfscCode").text(employerData.ifscCode);
-		    $("#popupFieldCreatedBy").text(employerData.createdby);
-		    $("#popupFieldBalance").text(employerData.balance);
+		    // Show loader while fetching order details
+		    $("#modalLoader").show();
+		    $("#modalDetailsContainer").hide();
+
+		    // Fetch order details using the order ID
+		    $.ajax({
+		        type: "POST",
+		        url: "/getOrderDetailByOrderId",
+		        data: {
+		            "orderId": orderId
+		        },
+		        success: function(data) {
+		            try {
+		                let parsedData = typeof data === "string" ? JSON.parse(data) : data;
+		                console.log("showConfirmationModal",parsedData);
+		                // Populate modal fields with order details
+		                $("#popupFieldCustomerName").text(parsedData.data.customerName);
+		                $("#popupFieldOrderAmount").text(parsedData.data.orderAmount);
+		                $("#popupFieldOrderCurrency").text(parsedData.data.orderCurrency);
+		                $("#popupFieldCustomerId").text(parsedData.data.customerId);
+		                $("#popupFieldCustomerPhone").text(parsedData.data.customerPhone);
+		                $("#popupFieldCustomerEmail").text(parsedData.data.customerEmail);
+		                $("#popupFieldOrderStatus").text(parsedData.data.order_status);
+		                $("#popupFieldCreatedAt").text(parsedData.data.created_at);
+		                $("#popupFieldCfOrderId").text(parsedData.data.cf_order_id);
+		                $("#popupFieldOrderId").text(orderId);
+		                $("#popupFieldPaymentMethods").text(parsedData.data.payment_methods);
+
+		                // Hide loader and show details
+		                $("#modalLoader").hide();
+		                $("#modalDetailsContainer").show();
+		            } catch (error) {
+		                console.error("Error parsing JSON:", error);
+		                $("#modalLoader").hide();
+		                $("#modalDetailsContainer").html("<p>Error loading order details</p>").show();
+		            }
+		        },
+		        error: function(e) {
+		            console.error('Error fetching order details:', e);
+		            $("#modalLoader").hide();
+		            $("#modalDetailsContainer").html("<p>Failed to load order details</p>").show();
+		        }
+		    });
 		    
-		    // Set the confirm button text based on status
-		    $("#btnConfirm").text(status === 'Approved' ? 'APPROVE' : 'REJECT');
-		    
-		    // Update button class for visual differentiation
-		    if (status === 'Approved') {
-		        $("#btnConfirm").removeClass("btn-danger").addClass("btn-primary");
-		    } else {
-		        $("#btnConfirm").removeClass("btn-primary").addClass("btn-danger");
-		    }
+		    // Set the confirm button text and style based on status
+		    $("#btnConfirm").text(status === 'Approved' ? 'APPROVE' : 'REJECT')
+		        .removeClass("btn-danger btn-primary")
+		        .addClass(status === 'Approved' ? 'btn-primary' : 'btn-danger');
 		    
 		    // Show the modal
 		    $("#confirmationModal").modal('show');
 		}
+		
+		function formatDate(dateString) {
+				    if (!dateString) return "N/A"; // Handle empty/null dates
+				    const date = new Date(dateString);
+				    
+				    const day = String(date.getDate()).padStart(2, "0");
+				    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+				    const year = date.getFullYear(); // Full 4-digit year
+				    
+				    return `${day}-${month}-${year}`; // Format: DD-MM-YYYY
+				}
+
 
 		// Function to actually update the status (called from modal confirmation)
 		function updateStatus() {
@@ -258,7 +286,8 @@
 		            "balance": employerData.balance,
 		            "approvedby": (status === "Approved") ? sessionUser : employerData.approvedby,
 		            "rejectedby": (status === "Rejected") ? sessionUser : employerData.rejectedby,               
-		            "status": status  // Approved/Rejected
+		            "status": status,  // Approved/Rejected
+					"orderId":employerData.orderId
 		        },
 		        dataType: "json",
 		        success: function(response) {

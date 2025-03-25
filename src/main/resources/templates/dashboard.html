@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="getProfileStatus()">
+<body id="page-top" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -136,6 +136,12 @@
                                 </div>
                             </div>
                         </div>
+						<script>
+				        document.addEventListener("DOMContentLoaded", function () {
+				            console.log("Calling the getProfileStatus() function...");
+				            getProfileStatus();
+				        });
+				    	</script>
 						</div>
 						<div class="col-12" th:case="1">
 													

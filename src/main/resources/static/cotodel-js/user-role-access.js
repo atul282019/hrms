@@ -570,7 +570,7 @@ function resendVoucherOTP(){
 	               // Hide the "Resend OTP" link initially
 	               resendCodeElement.style.display = "none";
 				var downloadTimer = setInterval(function() {
-					document.getElementById("countdownadd").innerHTML = "00:"+timeleft;
+					document.getElementById("countdown").innerHTML = "00:"+timeleft;
 					timeleft -= 1;
 					//document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
