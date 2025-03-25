@@ -89,12 +89,13 @@
 									<tr>
 										
 										<th>Id</th>
-										<th>Bank Name</th>
+										<th>orderId</th>
+										<!--<th>Bank Name</th>-->
 										
 										<th>Account Holder Name</th>
-										<th>A/C Number</th>
+										<!--<th>A/C Number</th>
 										
-										<th>IFSC</th>
+										<th>IFSC</th>-->
 										<th>Requested By</th>
 										<th>Creation Date</th>
 										<th>Requested Amount</th>
@@ -289,47 +290,81 @@
 			   </div>
 			   
 			   <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-			     <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
-			       <div class="modal-content modal-bulk p-0">
-			         <div class="modal-header pb-0 text-center">
-			           <h5 class="modal-title w-100" id="modalTitle">Confirm Action</h5>
-			         </div>
-			         <hr>
-			         <p class="text-dark text-center" id="modalMessage">Are you sure you want to approve/reject this request?</p>
-			         <div class="modal-body text-center">
-			           <div class="table-responsive">
-			             <div class="table table-reimbursements">
-			               <div class="tablehead">
-			                 <div class="tabletheadtr">
-			                   <span>Account Holder</span>
-			                   <span>Bank Name</span>
-			                  <!--<span>Account Number</span>
-			                   <span>IFSC Code</span>--> 
-			                   <span>Requested By</span>
-			                   <span>Requested Amount</span>
-			                   <span>Balance</span>
-			                 </div>
+			       <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+			           <div class="modal-content modal-bulk p-0">
+			               <div class="modal-header pb-0 text-center">
+			                   <h5 class="modal-title w-100" id="modalTitle">Confirm Action</h5>
 			               </div>
-			               <div class="tablebody">
-			                 <div class="tablebodytr">
-			                   <span id="popupFieldName"></span>
-			                   <span id="popupFieldBankName"></span>
-			                  <!-- <span id="popupFieldAccountNumber"></span>
-			                   <span id="popupFieldIfscCode"></span>--> 
-			                   <span id="popupFieldCreatedBy"></span>
-			                   <span id="popupFieldAmount"></span>
-			                   <span id="popupFieldBalance"></span>
-			                 </div>
+			               <hr>
+			               <p class="text-dark text-center" id="modalMessage">Are you sure you want to approve/reject this request?</p>
+			               
+			               <div id="modalLoader" class="text-center p-4" style="display:none;">
+			                   <div class="spinner-border" role="status">
+			                       <span class="sr-only">Loading...</span>
+			                   </div>
+			                   <p>Loading order details...</p>
 			               </div>
-			             </div>
+
+			               <div id="modalDetailsContainer" class="modal-body text-center">
+			                   <div class="table-responsive">
+			                       <div class="table table-order-details">
+			                           <div class="tablehead">
+			                               <div class="tabletheadtr">
+			                                   <span>Customer Name</span>
+			                                   <span>Order Amount</span>
+			                                <span>Order Currency</span>
+			                                   <span>Customer ID</span>
+											   <span>OrderId</span>
+											      <!--<span>Payment Methods</span>-->
+											   <span>Order Status</span>
+			                               </div>
+			                           </div>
+			                           <div class="tablebody">
+			                               <div class="tablebodytr">
+			                                   <span id="popupFieldCustomerName"></span>
+			                                   <span id="popupFieldOrderAmount"></span>
+			                                   <span id="popupFieldOrderCurrency"></span>
+			                                   <span id="popupFieldCustomerId"></span>
+											   <span id="popupFieldCfOrderId"></span>
+											   <!--<span id="popupFieldPaymentMethods"></span>-->
+											   <span id="popupFieldOrderStatus"></span>
+			                               </div>
+			                           </div>
+			                       </div>
+
+			                      <!-- <div class="additional-details mt-3">
+			                           <div class="row">
+			                               <div class="col-md-6">
+			                                   <strong>Customer Phone:</strong> <span id="popupFieldCustomerPhone"></span>
+			                               </div>
+			                               <div class="col-md-6">
+			                                   <strong>Customer Email:</strong> <span id="popupFieldCustomerEmail"></span>
+			                               </div>
+			                               <div class="col-md-6">
+			                                   <strong>Order Status:</strong> <span id="popupFieldOrderStatus"></span>
+			                               </div>
+			                               <div class="col-md-6">
+			                                   <strong>Created At:</strong> <span id="popupFieldCreatedAt"></span>
+			                               </div>
+			                               <div class="col-md-6">
+			                                   <strong>CF Order ID:</strong> <span id="popupFieldCfOrderId"></span>
+			                               </div>
+			                               <div class="col-md-6">
+			                                   <strong>Order ID:</strong> <span id="popupFieldOrderId"></span>
+			                               </div>
+			                               <div class="col-md-12">
+			                                   <strong>Payment Methods:</strong> <span id="popupFieldPaymentMethods"></span>
+			                               </div>
+			                           </div>
+			                       </div>-->
+			                   </div>
+			                   <div class="d-flex justify-content-center mt-3">
+			                       <button class="btn btn-success w-100 mr-2" id="btnConfirm">CONFIRM</button>
+			                       <button class="btn btn-secondary w-100" id="btnCancel">Cancel</button>
+			                   </div>
+			               </div>
 			           </div>
-			           <div class="d-flex justify-content-center mt-3">
-			             <button class="btn btn-success w-100 mr-2" id="btnConfirm">CONFIRM</button>
-			             <button class="btn btn-secondary w-100" id="btnCancel">Cancel</button>
-			           </div>
-			         </div>
 			       </div>
-			     </div>
 			   </div>
 			   <style>
 	.tabletheadtr, .tablebodytr {

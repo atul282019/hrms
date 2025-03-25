@@ -130,6 +130,8 @@ function resendOTP() {
             document.getElementById("loginLoader").style.display = "none";
 
             if (obj['status'] == true) {
+				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
+				document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
                 $('#errorOtp').hide('slow');
                 document.getElementById("countdown").innerHTML = "00:60"; // Reset countdown
                 startCountdown(); // Restart the countdown logic

@@ -92,7 +92,7 @@ function getOrderDetail(){
 				   document.getElementById("customerEmail1").innerHTML=parsedData.data.customerEmail;
 				   
 				   document.getElementById("order_status").innerHTML=parsedData.data.order_status;
-				   document.getElementById("created_at").innerHTML =parsedData.data.created_at;
+				   document.getElementById("created_at").innerHTML =formatDateTime(parsedData.data.created_at);
 	 			   document.getElementById("cf_order_id").innerHTML=parsedData.data.cf_order_id;
 				   document.getElementById("orderId").innerHTML=order_id;
 				   			   
@@ -106,3 +106,24 @@ function getOrderDetail(){
 		}
 	});
 } 
+function formatDateTime(dateString) {
+    if (!dateString) return "N/A"; // Handle empty or invalid dates
+    const date = new Date(dateString);
+    
+    // Extract individual date components
+    let day = String(date.getDate()).padStart(2, '0');
+    let month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    let year = date.getFullYear();
+    
+    // Extract time components
+    let hours = date.getHours();
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    // AM/PM logic
+    let amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12; // Convert to 12-hour format
+    
+    // Combine components
+    return `${day}-${month}-${year} ${hours}:${minutes} ${amPm}`;
+}
+
