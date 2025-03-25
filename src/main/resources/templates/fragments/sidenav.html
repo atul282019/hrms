@@ -14,7 +14,8 @@
             </a>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active mt-3" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 2 or session.user_role == 3} ">
+            <li class="nav-item active mt-3" th:if="${session.user_role == 1 or session.user_role == 9 or 
+				session.user_role == 2 or session.user_role == 3 or session.user_role == 12} ">
                 <a class="nav-link" th:href="@{/dashboard}">
                     <img src="img/menu-home.svg" alt="" class="mr-2">
                     <span>Home</span></a>
@@ -125,7 +126,7 @@
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                  <span>Help Desk</span></a>
          </li>
-		 <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
+		 <li class="nav-item" th:if="${session.user_role == 12 or session.user_role == 9}">
               <a class="nav-link" th:href="@{/cotodelApproval}">
                   <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                   <span>Cotodel Approval</span></a>
