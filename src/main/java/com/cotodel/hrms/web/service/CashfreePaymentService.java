@@ -11,4 +11,6 @@ public interface CashfreePaymentService {
 
 	String getOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest);
 
+	String paymentCallBackData(String token, String payload);
+
 }

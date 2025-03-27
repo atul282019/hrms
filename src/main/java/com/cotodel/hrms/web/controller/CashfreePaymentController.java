@@ -23,10 +23,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.OrderUserRequest;
+import com.cotodel.hrms.web.response.Root;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.CashfreePaymentService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
 
 @Controller
 @CrossOrigin
@@ -103,11 +107,24 @@ public @ResponseBody String getOrderDetailByOrderId(HttpServletRequest request, 
 	}
 
 
-@PostMapping(value="/web-callback")
-public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = false) String payload) {
+@PostMapping(value="/webhook-callback")
+public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
-	logger.info("hook called"+payload);	
-	return new ResponseEntity<>(null, HttpStatus.OK);
+		logger.info("webhook-callback called");
+		logger.info("hook called"+payload);	
+		String profileRes=null;
+	    ObjectMapper om = new ObjectMapper();
+		Root root = om.readValue(payload, Root.class); 
+		try {
+			
+			profileRes = cashfreePaymentService.paymentCallBackData(tokengeneration.getToken(),payload);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+			return new ResponseEntity<>(null, HttpStatus.OK);
+	
 		
 }
 	
