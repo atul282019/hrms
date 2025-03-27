@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.OrderUserRequest;
+import com.cotodel.hrms.web.response.Root;
 import com.cotodel.hrms.web.service.CashfreePaymentService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.MessageConstant;
@@ -27,9 +28,9 @@ public class CashfreePaymentServiceImpl implements CashfreePaymentService{
 	}
 
 	@Override
-	public String paymentCallBackData(String token, String payload) {
-		// TODO Auto-generated method stub
-		return null;
+	public String paymentCallBackData(String token, Root root) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(root), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.paymentCallBackDataSave);
+
 	}
 	public String viewOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest) {
 		// TODO Auto-generated method stub

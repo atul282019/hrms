@@ -115,7 +115,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 		Root root = om.readValue(payload, Root.class); 
 		try {
 			
-			profileRes = cashfreePaymentService.paymentCallBackData(tokengeneration.getToken(),payload);
+			profileRes = cashfreePaymentService.paymentCallBackData(tokengeneration.getToken(),root);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

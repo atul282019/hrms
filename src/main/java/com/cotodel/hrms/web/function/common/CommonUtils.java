@@ -142,6 +142,8 @@ public interface CommonUtils {
 	public static String cashFreePaymentOrder ="/cashFree/Api/get/cashFreeOrder";
 	public static String cashFreePaymentOrderDetailByOrderId = "/cashFree/Api/get/cashFreeOrderId";
 	public static String viewcashFreePaymentOrderDetailByOrderId = "/cashFree/Api/get/cashFreeOrderIdView";
+	public static String paymentCallBackDataSave = "/cashFree/Api/get/cashFreeOrderIdUpdate";
+	
 	
 
 	//public static String empDetails  = "/empService/Api/add/empDetails";

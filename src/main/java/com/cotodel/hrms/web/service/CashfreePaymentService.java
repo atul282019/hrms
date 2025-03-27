@@ -3,6 +3,7 @@ package com.cotodel.hrms.web.service;
 import org.springframework.stereotype.Repository;
 
 import com.cotodel.hrms.web.response.OrderUserRequest;
+import com.cotodel.hrms.web.response.Root;
 
 @Repository
 public interface CashfreePaymentService {
@@ -13,6 +14,6 @@ public interface CashfreePaymentService {
 	
 	String viewOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest);
 
-	String paymentCallBackData(String token, String payload);
+	String paymentCallBackData(String token, Root root);
 
 }
