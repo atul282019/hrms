@@ -387,8 +387,9 @@
 
     </div>
     <!-- End of Page Wrapper -->
-	<!-- Modal Confirm -->
-	    <div class="modalView" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+	<!-- old Modal Confirm -->
+	 
+	    <!--<div class="modalView" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
 	        <div class="modal-dialog modal-dialog-centered" role="document">
 	        <div class="modal-content modal-bulk">
 	            <div class="modal-top text-center">          
@@ -402,7 +403,23 @@
 	            </div>
 	        </div>
 	        </div>
-	    </div>
+	    </div>-->
+		
+		<div class="modalView" id="ModalConfirm">
+		        <div class="modal-dialog modal-dialog-centered">
+		            <div class="modal-content modal-bulk p-0">
+		                <div class="modal-top text-center">
+		                    <button type="button" class="close p-0"  data-dismiss="modal" onclick="closePopup()" aria-label="Close" style="right: 10px; top: 0;">
+		                        <img src="img/modal-close.svg" alt="">
+		                    </button>
+		                    <img src="img/modal-success.svg" alt="">
+		                </div>
+		                <div class="modal-bottom">
+		                    <span>Organization Account Setup Successful!</span>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
 
 	    <!-- Modal Reject -->
 	    <div class="modal fade" id="ModalReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

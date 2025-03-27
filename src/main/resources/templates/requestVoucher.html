@@ -298,7 +298,7 @@
 			        </div>
 			    </div>
 			</div>
-			<div class="modalView" id="VoucherRequestSuccess" tabindex="-1" role="dialog"
+			<!-- old modal <div class="modalView" id="VoucherRequestSuccess" tabindex="-1" role="dialog"
 			       aria-labelledby="exampleModalCenterTitle" >
 			       <div class="modal-dialog modal-dialog-centered" role="document">
 			           <div class="modal-content modal-bulk">
@@ -309,13 +309,29 @@
 			                   <img src="img/modal-success.svg" alt="">
 			               </div>
 			               <div class="modal-bottom">
-			                   <!--<div class="count"><span>4</span><strong>5</strong></div>-->
-			                   <br>
+			                   <div class="count"><span>4</span><strong>5</strong></div>-->
+			                   <!--<br>
 			                   <span>Data saved SuccessFully!</span>
 			               </div>
 			           </div>
 			       </div>
-			   </div>
+			   </div>-->
+			   
+			   <div class="modalView" id="VoucherRequestSuccess">
+			   		        <div class="modal-dialog modal-dialog-centered">
+			   		            <div class="modal-content modal-bulk p-0">
+			   		                <div class="modal-top text-center">
+			   		                    <button type="button" class="close p-0"  data-dismiss="modal" id="approvedClose" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+			   		                        <img src="img/modal-close.svg" alt="">
+			   		                    </button>
+			   		                    <img src="img/modal-success.svg" alt="">
+			   		                </div>
+			   		                <div class="modal-bottom">
+			   		                   <span>Data saved SuccessFully!</span>
+			   		                </div>
+			   		            </div>
+			   		        </div>
+			   		    </div>
 </body>
 
 </body>
