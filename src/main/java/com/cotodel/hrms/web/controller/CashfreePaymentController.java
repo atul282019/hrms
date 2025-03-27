@@ -120,9 +120,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
-			return new ResponseEntity<>(null, HttpStatus.OK);
-	
+		return new ResponseEntity<>(null, HttpStatus.OK);
 		
 }
 @PostMapping(value="/viewOrderDetailByOrderId")
