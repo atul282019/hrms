@@ -702,6 +702,58 @@ function  getBankDetailByBankAccountNumber(){
    }); 
 			
 }
+function  getBankDetailByBankAccountNumber2(){
+	//saveBulkVoucherclearmessage();
+    //document.getElementById("signinLoader").style.display="flex";
+ 	var accountNumber = document.getElementById("banklist2").value;
+ 	$.ajax({
+	type: "POST",
+	url:"/getBankDetailByAccountNo",
+       data: {
+			"acNumber": accountNumber
+      		 },
+      		  beforeSend : function(xhr) {
+			//xhr.setRequestHeader(header, token);
+			},
+           success: function(data){
+           newData = data;
+           //console.log(newData);
+           var data1 = jQuery.parseJSON( newData );
+		   //var data2 = data1.data;
+		 
+			document.getElementById("bankName").value=data1.data.bankName; 
+			document.getElementById("bankCode").value=data1.data.bankCode; 
+			document.getElementById("accountHolderName").value=data1.data.accountHolderName; 
+			
+			document.getElementById("acNumber").value=data1.data.acNumber; 
+			document.getElementById("accountType").value=data1.data.accountType; 
+			document.getElementById("ifsc").value=data1.data.ifsc; 
+			
+			document.getElementById("erupiFlag").value=data1.data.erupiFlag; 
+			document.getElementById("branchCode").value=data1.data.branchCode; 
+			document.getElementById("authStatus").value=data1.data.authStatus; 
+			
+			document.getElementById("authResponse").value=data1.data.authResponse; 
+			document.getElementById("banklinkedMobile").value=data1.data.mobile; 
+			document.getElementById("accstatus").value=data1.data.accstatus; 
+
+			document.getElementById("orgId").value=data1.data.orgId; 
+			document.getElementById("orgCode").value=data1.data.orgCode; 
+			document.getElementById("tid").value=data1.data.tid;
+			
+			document.getElementById("merchentIid").value=data1.data.merchentIid; 
+			document.getElementById("mcc").value=data1.data.mcc; 
+			document.getElementById("submurchentid").value=data1.data.submurchentid;  
+			document.getElementById("merchentid").value=data1.data.merchentIid;  
+			document.getElementById("payerva").value=data1.data.payerva;  
+												 
+          },
+        error: function(e){
+            alert('Error: ' + e);
+        }
+   }); 
+			
+}
 
 function getTotalVoucherCount(){
 			var employerid = document.getElementById("employerId").value;

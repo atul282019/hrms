@@ -26,4 +26,10 @@ public class CashfreePaymentServiceImpl implements CashfreePaymentService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(orderUserRequest), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.cashFreePaymentOrderDetailByOrderId);
 	}
 
+	@Override
+	public String viewOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest) {
+		// TODO Auto-generated method stub
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(orderUserRequest), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.viewcashFreePaymentOrderDetailByOrderId);
+	}
+
 }

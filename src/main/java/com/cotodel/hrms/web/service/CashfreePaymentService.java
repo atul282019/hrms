@@ -10,5 +10,7 @@ public interface CashfreePaymentService {
 	String getCashfreePaymentSession(String token, OrderUserRequest orderUserRequest);
 
 	String getOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest);
+	
+	String viewOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest);
 
 }

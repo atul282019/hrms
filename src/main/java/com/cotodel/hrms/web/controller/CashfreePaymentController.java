@@ -98,5 +98,20 @@ public @ResponseBody String getOrderDetailByOrderId(HttpServletRequest request, 
 	   
 		return profileRes;
 	}
+@PostMapping(value="/viewOrderDetailByOrderId")
+public @ResponseBody String viewOrderDetailByOrderId(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,OrderUserRequest orderUserRequest) {
+			logger.info("getPayrollMaster");	
+			String token = (String) session.getAttribute("hrms");
+			String profileRes=null;
+			try {
+				profileRes = cashfreePaymentService.viewOrderDetailByOrderId(tokengeneration.getToken(),orderUserRequest);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
+	}
 	
 }
