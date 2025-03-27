@@ -197,11 +197,13 @@
 		    // Show loader while fetching order details
 		    $("#modalLoader").show();
 		    $("#modalDetailsContainer").hide();
+			
+			//console.log("orderId : ",orderId);
 
 		    // Fetch order details using the order ID
 		    $.ajax({
 		        type: "POST",
-		        url: "/getOrderDetailByOrderId",
+		        url: "/viewOrderDetailByOrderId",
 		        data: {
 		            "orderId": orderId
 		        },

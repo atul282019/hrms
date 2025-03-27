@@ -31,5 +31,9 @@ public class CashfreePaymentServiceImpl implements CashfreePaymentService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public String viewOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest) {
+		// TODO Auto-generated method stub
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(orderUserRequest), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.viewcashFreePaymentOrderDetailByOrderId);
+	}
 
 }

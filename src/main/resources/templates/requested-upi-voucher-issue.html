@@ -206,6 +206,7 @@
 							                                              <!--  <th>DOJ</th>-->
 							                                            <!--  <th>EMAIL</th>-->
 																		  <th>EMPLOYEE REMARK</th>
+																		  <th>STATUS</th>
 																		  <th>ACTION</th>
 							                                          </tr>
 							                                      </thead>
@@ -269,7 +270,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="table-input" id="amount" placeholder="Enter Amount"
-													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6">
+													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');validateAmount()" maxlength="6">
                                                 </td>
                                                 <td>
                                                     <div>
@@ -630,7 +631,7 @@
 					newData = data;
 					var data1 = jQuery.parseJSON(newData);
 					var data2 = data1.data;
-					 //console.log(data2);
+					 console.log("getRequestedEmployeeList()",data2);
 					document.getElementById("signinLoader").style.display="none";
 					
 					var table = $('#employeelist').DataTable( {
@@ -648,7 +649,8 @@
 						{ "mData": "voucherType"},
 						{ "mData": "voucherSubType"},
 						{ "mData": "amount"},
-						{ "mData": "remarks"},      
+						{ "mData": "remarks"},
+						{ "mData": "statusMessage"},     
 						{ "mData": "id", "render": function (data2, type, row) {
 					   
 					        return `
