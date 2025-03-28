@@ -622,72 +622,75 @@
 	
 	<script>
 		
-		function getRequestedEmployeeList(){
-			document.getElementById("signinLoader").style.display="flex";
-			const employerId = document.getElementById('employerId').value;
+		function getRequestedEmployeeList(){ 
+		    document.getElementById("signinLoader").style.display="flex";
+		    const employerId = document.getElementById('employerId').value;
 
 		    $.ajax({
 		        type: "GET",
 		        url: "/getRequestedVoucherList",
 		        data: { employerId },
-				success: function(data) {
-					newData = data;
-					var data1 = jQuery.parseJSON(newData);
-					var data2 = data1.data;
-					 console.log("getRequestedEmployeeList()",data2);
-					document.getElementById("signinLoader").style.display="none";
-					
-					var table = $('#employeelist').DataTable( {
-			          destroy: true,	
-					 // "dom": 'rtip',
-					 //dom: 'Bfrtip',
-					 lengthChange: true,
-				     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-		             "buttons": ["csv", "excel"],
-		             "language": {"emptyTable": "Records Not Available."  },
-			         "aaData": data2,
-		      		  "aoColumns": [ 
-						{ "mData": "name"},
-		                { "mData": "mobile"},   
-						{ "mData": "voucherType"},
-						{ "mData": "voucherSubType"},
-						{ "mData": "amount"},
-						{ "mData": "remarks"},
-						{ "mData": "statusMessage"},     
-						{ "mData": "id", "render": function (data2, type, row) {
-					   
-					        return `
-					            <td>
-					                <div class="dropdown no-arrow ml-2">
-					                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					                        <i class="fas fa-ellipsis-v fa-sm"></i>
-					                    </a>
-					                    <br>
-					                    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
-					                        <button 
-					                            class="dropdown-item py-2" 
-					                            value="${data2}" 
-					                            id="btnIssue" 
-					                            onclick="getRowData(this)">
-					                            Issue Voucher
-					                        </button>
-					                     
-					                    </div>
-					                </div>
-					            </td>`;
-					    }}, 
-					
-		    		 	],
-						
-						
-					});	
-					
-				},
-				error: function(e) {
-					alert('Failed to fetch JSON data' + e);
-				}
-			});
+		        success: function(data) {
+		            newData = data;
+		            var data1 = jQuery.parseJSON(newData);
+		            var data2 = data1.data;
+		            console.log("getRequestedEmployeeList()", data2);
+		            document.getElementById("signinLoader").style.display="none";
+
+		            var table = $('#employeelist').DataTable({
+		                destroy: true,
+		                lengthChange: true,
+		                responsive: true,
+		                searching: true,
+		                bInfo: false,
+		                paging: true,
+		                autoWidth: false,
+		                pagingType: "full_numbers",
+		                pageLength: 50,
+		                buttons: ["csv", "excel"],
+		                language: { "emptyTable": "Records Not Available." },
+		                aaData: data2,
+		                aoColumns: [
+		                    { "mData": "name" },
+		                    { "mData": "mobile" },
+		                    { "mData": "voucherType" },
+		                    { "mData": "voucherSubType" },
+		                    { "mData": "amount" },
+		                    { "mData": "remarks" },
+		                    { "mData": "statusMessage" },
+		                    { "mData": "id", "render": function (data2, type, row) {
+		                        if (row.statusMessage !== "Voucher Created") {
+		                            return `
+		                                <td>
+		                                    <div class="dropdown no-arrow ml-2">
+		                                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                                            <i class="fas fa-ellipsis-v fa-sm"></i>
+		                                        </a>
+		                                        <br>
+		                                        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+		                                            <button 
+		                                                class="dropdown-item py-2" 
+		                                                value="${data2}" 
+		                                                id="btnIssue" 
+		                                                onclick="getRowData(this)">
+		                                                Issue Voucher
+		                                            </button>
+		                                        </div>
+		                                    </div>
+		                                </td>`;
+		                        } else {
+		                            return '';
+		                        }
+		                    }}
+		                ],
+		            });
+		        },
+		        error: function(e) {
+		            alert('Failed to fetch JSON data' + e);
+		        }
+		    });
 		}
+
 		
 	function getRowData(btnIssue){
 		

@@ -66,13 +66,13 @@
 			       <span>Admin Settings</span></a>
 			</li>
 			
-			<li class="nav-item" th:if="${session.user_role == 12 or session.user_role == 9}"><!-- only 10 -->
+			<li class="nav-item" th:if="${session.user_role == 12 }"><!-- only 10 -->
                 <a class="nav-link" th:href="@{/displaymanagerMaster}">
                     <img src="img/pf.png" alt="" class="mr-2">
                     <span>Manager Master</span></a>
             </li> 
 			
-			<li class="nav-item" th:if="${session.user_role == 12 or session.user_role == 9}"><!-- only 10 -->
+			<li class="nav-item" th:if="${session.user_role == 12 }"><!-- only 10 -->
             <a class="nav-link" th:href="@{/displayjobTitlemaster}">
                 <img src="img/pf.png" alt="" class="mr-2">
                 <span>Job Title Master</span></a>
