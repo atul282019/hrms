@@ -121,22 +121,22 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("verifyRegisterUser");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/companyDetails")){
-				RequestDispatcher rd = request.getRequestDispatcher("companyDetails");
-				rd.forward(request, response);
-			}
+//			else if(requestURI.contains("/companyDetails")){
+//				RequestDispatcher rd = request.getRequestDispatcher("companyDetails");
+//				rd.forward(request, response);
+//			}
 			else if(requestURI.contains("/dashboard1")){
 				RequestDispatcher rd = request.getRequestDispatcher("dashboard1");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/companyDetails01")){
-				RequestDispatcher rd = request.getRequestDispatcher("companyDetails01");
-				rd.forward(request, response);
-			}
-			else if(requestURI.contains("/saveCompanyDetails")){
-				RequestDispatcher rd = request.getRequestDispatcher("saveCompanyDetails");
-				rd.forward(request, response);
-			}
+//			else if(requestURI.contains("/companyDetails01")){
+//				RequestDispatcher rd = request.getRequestDispatcher("companyDetails01");
+//				rd.forward(request, response);
+//			}
+//			else if(requestURI.contains("/saveCompanyDetails")){
+//				RequestDispatcher rd = request.getRequestDispatcher("saveCompanyDetails");
+//				rd.forward(request, response);
+//			}
 			else if(requestURI.contains("/logout")){
 				RequestDispatcher rd = request.getRequestDispatcher("logout");
 				rd.forward(request, response);

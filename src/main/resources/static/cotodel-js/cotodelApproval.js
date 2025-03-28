@@ -84,7 +84,7 @@
 		        }
 		    });
 		}*/
-		function getWaitlist() {
+		/*function getWaitlist() {
 		    const orgId = document.getElementById('employerId').value; // Get orgId
 		    document.getElementById("signinLoader").style.display = "flex";
 
@@ -176,7 +176,106 @@
 		            alert('Error: ' + e.responseText);
 		        }
 		    });
+		} working function without html trim functionality*/
+		function getWaitlist() {
+		    const orgId = document.getElementById('employerId').value; // Get orgId
+		    document.getElementById("signinLoader").style.display = "flex";
+
+		    $.ajax({
+		        type: "GET",
+		        url: "/getsubmitedCDetails",
+		        data: { orgId },
+		        success: function (data) {
+		            document.getElementById("signinLoader").style.display = "none";
+		            const parseddata = JSON.parse(data);
+		            console.log(data);
+		            var employer = parseddata.data;
+
+		            // Get the table body
+		            const tableBody = $("#reimbursementTable tbody");
+
+		            // Clear existing table rows
+		            tableBody.empty();
+
+		            // Check if vouchers exist
+		            if (employer.length === 0) {
+		                tableBody.append(`<tr><td colspan="16" class="text-center">No Requests Found</td></tr>`);
+		                return;
+		            }
+
+		            // Helper function to strip HTML tags
+		            function stripHtmlTags(str) {
+		                return str.replace(/<[^>]*>/g, '').trim();
+		            }
+
+		            // Populate the table dynamically
+		            employer.forEach((employer, index) => {
+		                let statusColorClass = "";
+		                if (employer.statusMessage === "Approved") {
+		                    statusColorClass = "text-success"; // Green
+		                } else if (employer.statusMessage === "Requested") {
+		                    statusColorClass = "text-warning"; // Yellow
+		                } else if (employer.statusMessage === "Rejected") {
+		                    statusColorClass = "text-danger"; // Red
+		                }
+
+		                let approver = employer.statusMessage === "Approved"
+		                    ? stripHtmlTags(employer.approvedby)
+		                    : employer.statusMessage === "Rejected"
+		                        ? stripHtmlTags(employer.rejectedby)
+		                        : "";
+
+		                // Conditionally render the dropdown menu only if statusMessage is "Requested"
+		                let actionMenu = "";
+		                if (employer.statusMessage === "Requested") {
+		                    actionMenu = `
+		                        <div class="dropdown no-arrow ml-2">
+		                            <a class="dropdown-toggle" href="#" id="dropdownMenu${index}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                                <i class="fas fa-ellipsis-v fa-sm"></i>
+		                            </a>
+		                            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenu${index}">
+		                                <button 
+		                                    class="dropdown-item py-2" 
+		                                    data-employer='${JSON.stringify(employer)}' 
+		                                    onclick="showConfirmationModal(this, 'Approved')">
+		                                    Approve
+		                                </button>
+		                                <button 
+		                                    class="dropdown-item py-2" 
+		                                    data-employer='${JSON.stringify(employer)}' 
+		                                    onclick="showConfirmationModal(this, 'Rejected')">
+		                                    Reject
+		                                </button>
+		                            </div>
+		                        </div>
+		                    `;
+		                }
+
+		                const row = `
+		                <tr>
+		                    <td>${employer.id}</td>
+		                    <td>${employer.orderId}</td>
+		                    <td>${employer.accountHolderName}</td>
+		                   
+		                    <td>${employer.createdby}</td>
+		                    <td>${formatDate(employer.creationDate)}</td>
+		                    <td>${employer.amountLimit}</td>
+		                    <td>${employer.balance}</td>
+		                    <td class="${statusColorClass} font-weight-bold">${employer.statusMessage}</td>
+		                    <td>${approver}</td>
+		                    <td>${actionMenu}</td>
+		                </tr>
+		                `;
+
+		                tableBody.append(row);
+		            });
+		        },
+		        error: function (e) {
+		            alert('Error: ' + e.responseText);
+		        }
+		    });
 		}
+
 
 		
 
