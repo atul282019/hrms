@@ -32,9 +32,15 @@ public class CashfreePaymentServiceImpl implements CashfreePaymentService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(root), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.paymentCallBackDataSave);
 
 	}
+	
 	public String viewOrderDetailByOrderId(String token, OrderUserRequest orderUserRequest) {
 		// TODO Auto-generated method stub
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(orderUserRequest), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.viewcashFreePaymentOrderDetailByOrderId);
+	}
+	
+	public String viewOrderIdList(String token, OrderUserRequest orderUserRequest) {
+		// TODO Auto-generated method stub
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(orderUserRequest), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.viewcashFreePaymentOrderDetailList );
 	}
 
 }

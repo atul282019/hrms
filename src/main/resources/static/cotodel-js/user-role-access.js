@@ -570,7 +570,7 @@ function resendVoucherOTP(){
 	               // Hide the "Resend OTP" link initially
 	               resendCodeElement.style.display = "none";
 				var downloadTimer = setInterval(function() {
-					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+					document.getElementById("countdownadd").innerHTML = "00:"+timeleft;
 					timeleft -= 1;
 					//document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
@@ -1499,4 +1499,62 @@ function getAddOTP(){
 						          }
 				      });
 					  document.getElementById("signinLoader").style.display = "none";
-				  }		  		  
+				  }		  		
+				  
+				  function getPaymentHistory() {
+				  		    const employerId = document.getElementById('employerId').value;
+				  			document.getElementById("signinLoader").style.display="flex";
+				  		    $.ajax({
+				  		        type: "POST",
+				  		        url: "/viewOrderIdList",
+				  		        data: { "orgId":employerId },
+				  		        success: function(data) {
+				  					document.getElementById("signinLoader").style.display="none";
+				  		            const parseddata = JSON.parse(data);
+				  		            console.log(data);
+				  					var payment_history=parseddata.data;
+
+				  		            // Get the table body
+				  		            const tableBody = $("#reimbursementTable tbody");
+
+				  		            // Clear existing table rows
+				  		            tableBody.empty();
+
+				  		            // Check if vouchers exist
+				  		            if (payment_history.length === 0) {
+				  		                tableBody.append(`<tr><td colspan="9" class="text-center">No Vouchers Found</td></tr>`);
+				  		                return;
+				  		            }
+
+				  		            // Populate the table dynamically
+				  		            payment_history.forEach((payment_history) => {
+				  						
+				  						//const employerData = encodeURIComponent(JSON.stringify(employer)); // Encode to pass safely
+				  		                const row = `
+				  						<tr>
+				  						            <td>${payment_history.id}</td>
+				  						            <td>${payment_history.paymentAmount}</td>
+				  						            <td>${payment_history.paymentCurrency}</td>
+				  						            <td>${payment_history.customerId}</td>
+				  						            <td>${payment_history.customerName}</td>
+				  						            
+				  						            <td>${payment_history.customerPhone}</td>
+				  						            <td>${payment_history.paymentTime}</td>
+				  									<td>${payment_history.orderId}</td>
+													<td>${payment_history.cfPaymentId}</td>
+													<td>${payment_history.paymentStatus}</td>
+													<td>${payment_history.serviceCharge}</td>
+													<td>${payment_history.serviceTax}</td>
+				  									<td>${payment_history.settlementAmount}</td>
+				  		                            
+				  						        </tr>
+				  		                `;
+
+				  		                tableBody.append(row);
+				  		            });
+				  		        },
+				  		        error: function(e) {
+				  		            alert('Error: ' + e.responseText);
+				  		        }
+				  		    });
+				  		}  

@@ -90,6 +90,7 @@
                                 <li th:if="${session.user_role == 9 or session.user_role == 1}" ><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
 								<li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu33">Prepaid Account</a></li>
+								<li th:if="${session.user_role == 9 or session.user_role == 3 or session.user_role == 1}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
                                <!-- <li><a data-toggle="tab" href="#menu33">Expenses & Advance</a></li>-->
                             </ul>
 
@@ -543,6 +544,65 @@
 																	<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
 																	<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
 								 </div>
+								 
+								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}">
+									
+									<script>
+							        document.addEventListener("DOMContentLoaded", function () {
+							            console.log("Calling the  getPaymentHistory(); function...");
+							            getPaymentHistory();
+							        });
+							    	</script>
+								 								
+								 																<div id="menu4" class="tab-pane">
+																									<div class="policies-wrap-in-table mt-5 mt-4">
+																															<div class="table-responsive">
+																																<table class="table table-reimbursements"
+																																	id="reimbursementTable">
+																																	<thead>
+																																		<tr>																																	
+																																			<th>Id</th>
+																																			<th>Payment Amount</th>
+																																			<th>Payment Currency</th>
+																																			<th>Customer Id</th>
+																																			<th>Customer Name</th>																																			
+																																			<th>Customer Phone</th>
+																																			<th>Payment Time</th>
+																																			<th>orderId</th>
+																																			<th>Payment Id</th>
+																																			<th>Payment Status</th>
+																																			<th>Service Charge</th>
+																																			<th>Service Tax</th>
+																																			<th>Settlement Amount</th>
+																																			
+																																		</tr>
+																																	</thead>
+																																	<tbody>
+																																		<td></td>
+
+																																	</tbody>
+																												
+																																</table>
+																																
+																															</div>
+																														</div>
+																								  
+								 																</div>
+								 																<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+								 																<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+								 																<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+								 																
+								 																<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+								 																<input type="hidden" class="form-input" id="CId" name="CId" > 
+								 																<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+								 																<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+								 																<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+								 																<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+								 																<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+								 																<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+								 																<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+								 																<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+								 							 </div>
                             </div>
                         </div>
                     </div>

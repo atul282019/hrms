@@ -138,4 +138,19 @@ public @ResponseBody String viewOrderDetailByOrderId(HttpServletRequest request,
 	   
 		return profileRes;
 	}
+@PostMapping(value="/viewOrderIdList")
+public @ResponseBody String viewOrderIdList(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,OrderUserRequest orderUserRequest) {
+			logger.info("getPayrollMaster");	
+			String token = (String) session.getAttribute("hrms");
+			String profileRes=null;
+			try {
+				profileRes = cashfreePaymentService.viewOrderIdList(tokengeneration.getToken(),orderUserRequest);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
+	}
 }
