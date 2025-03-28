@@ -18,29 +18,29 @@ public class jobTitlemasterServiceImpl implements  jobTitlemasterService{
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig; 
 
-	@Override
-	public String savejobTitlemaster(String token, EncriptResponse jobtitlemasterRequest) {
-		{
-	        // Convert the BankMaster object to JSON and make the request
-	        return CommonUtility.userRequest(
-	            token,
-	            MessageConstant.gson.toJson(jobtitlemasterRequest),
-	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.savejobTitlemasterDetailS
-	        );
-	    }
- 
-}
+//	@Override
+//	public String savejobTitlemaster(String token, EncriptResponse jobtitlemasterRequest) {
+//		{
+//	        // Convert the BankMaster object to JSON and make the request
+//	        return CommonUtility.userRequest(
+//	            token,
+//	            MessageConstant.gson.toJson(jobtitlemasterRequest),
+//	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.savejobTitlemasterDetailS
+//	        );
+//	    }
+// 
+//}
 
-	@Override
-	public String getjobTitlemaster(String token, EncriptResponse jobtitlemasterRequest) {
-		{
-	        // Convert the BankMaster object to JSON and make the request
-	        return CommonUtility.userRequest(
-	            token,
-	            MessageConstant.gson.toJson(jobtitlemasterRequest),
-	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getjobTitlemasterDetailS
-	        );
-	    }
- 
-}
+//	@Override
+//	public String getjobTitlemaster(String token, EncriptResponse jobtitlemasterRequest) {
+//		{
+//	        // Convert the BankMaster object to JSON and make the request
+//	        return CommonUtility.userRequest(
+//	            token,
+//	            MessageConstant.gson.toJson(jobtitlemasterRequest),
+//	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getjobTitlemasterDetailS
+//	        );
+//	    }
+// 
+//}
 }

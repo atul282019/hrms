@@ -9,7 +9,7 @@ import com.cotodel.hrms.web.util.EncriptResponse;
 
 @Repository
 public interface managerMasterService {
-	public String savemanagerMaster(String token,EncriptResponse managermaster);
-	public String getmanagerMasterWithId(String token,EncriptResponse managermaster);
+//	public String savemanagerMaster(String token,EncriptResponse managermaster);
+//	public String getmanagerMasterWithId(String token,EncriptResponse managermaster);
 
 }

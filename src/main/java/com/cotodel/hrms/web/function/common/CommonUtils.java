@@ -12,32 +12,19 @@ public interface CommonUtils {
 	public static String verifyOtpNew = "/userServices/Api/verifyOtpNew";
 	public static String regiUserBulk = "/empService/Api/add/saveBulkEmplOnboarding";
 	public static String verifyOtp = "/userServices/Api/verifyOtp";
-	//public static String stateMaster = "/userServices/Api/get/state-list";
-	//public static String orgMaster = "/userServices/Api/get/Organization";
+
 	public static String registerCompany = "/empService/Api/get/saveProfileDetails";
 	public static String companyProfileStatus = "/userServices/Api/get/getEmployerComplete";
-	//public static String getorgsubType = "/masterService/Api/get/orgTypeMasterList";
-	//public static String getpayrollDetails = "/empService/Api/get/payrollDetails";
+
 	public static String saveEmployee = "/empService/Api/add/employeeDetails";
-	//public static String getPayrollList = "/userServices/Api/get/payroll-list";
-	//public static String savePayrollDetail = "/empService/Api/save/payrollDetails";
-	//public static String savePayrollDetailNew = "/empService/Api/save/payrollDetailsNew";
-	//public static String getPermission  = "/userServices/Api/get/Permissions";
+	
 	public static String getRole  = "/userServices/Api/get/Roles";
 	public static String singleUserCreation  = "/userServices/Api/add/saveUsers";
 	public static String getSingleUser  = "/userServices/Api/get/userList";
 	public static String getBulkEmail  = "/userServices/Api/get/sendBulkEmail";
-	//public static String empFamilyDetails  = "/empService/Api/add/empFamilyDetails";
+
 	public static String getEmployeeDetails  = "/empService/Api/get/empAllDetails";
-	//public static String getEmployeeFamilyDetails  = "/empService/Api/get/empFamilyAllDetails";
-	//public static String saveEmployeeQualification  = "/empService/Api/add/saveQualification";
-	//public static String getEmployeeQualification = "/empService/Api/get/getQualification";
-	//public static String saveEmpExperience = "/empService/Api/add/saveExperience";
-	//public static String getEmpExperience = "/empService/Api/get/getExperience";
-	//public static String saveEmpCertificate = "/empService/Api/add/saveCertificate";
-	//public static String getEmpCertificate = "/empService/Api/get/getCertificate";
-	//public static String saveEmpProject = "/empService/Api/add/saveProject";
-	//public static String getEmpProject = "/empService/Api/get/getProject";
+	
 	public static String saveEmpOnboarding = "/empService/Api/add/saveEmplOnboarding";
 	public static String getEmployeeOnboarding ="/empService/Api/get/empOnboardingList";
 	public static String getEmployeeOnboardingFailList ="/empService/Api/get/empOnboardingFailList";
@@ -89,10 +76,6 @@ public interface CommonUtils {
 	public static String bulkVoucherUpload = "/empService/Api/add/erupiVoucherBulkVoucherUploadNew";
 	public static String createBulkVoucher = "/empService/Api/add/erupiVoucherBulkVoucherCreate";
 	public static String beneficiaryDeleteFromVoucherList = "/empService/Api/update/erupiVoucherDelete";
-	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
-	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
-	//public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";
-	//public static String getjobTitlemasterDetailS="/empService/Api/get/jobTitleMasterList";
 	public static String getMCCMasterByPurposeCode="/masterService/Api/get/mccMasterListByPurposeCode";
 	public static String getMCCMasterDeailsByPurposeCodeAndMCC="/masterService/Api/get/mccMasterListByPurposeCodeAndMccCode";
 	public static String getVoucherUserList="/empService/Api/get/erupiVoucherOldList";
@@ -145,6 +128,29 @@ public interface CommonUtils {
 	public static String paymentCallBackDataSave = "/cashFree/Api/get/cashFreeOrderIdUpdate";
 	public static String viewcashFreePaymentOrderDetailList = "/cashFree/Api/get/cashFreeOrderIdList";
 	
+
+	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
+	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
+	//public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";
+	//public static String getjobTitlemasterDetailS="/empService/Api/get/jobTitleMasterList";
+	//public static String empFamilyDetails  = "/empService/Api/add/empFamilyDetails";
+		//public static String getPayrollList = "/userServices/Api/get/payroll-list";
+			//public static String savePayrollDetail = "/empService/Api/save/payrollDetails";
+			//public static String savePayrollDetailNew = "/empService/Api/save/payrollDetailsNew";
+			//public static String getPermission  = "/userServices/Api/get/Permissions";
+			//public static String getorgsubType = "/masterService/Api/get/orgTypeMasterList";
+			//public static String getpayrollDetails = "/empService/Api/get/payrollDetails";
+			//public static String stateMaster = "/userServices/Api/get/state-list";
+			//public static String orgMaster = "/userServices/Api/get/Organization";
+		//public static String getEmployeeFamilyDetails  = "/empService/Api/get/empFamilyAllDetails";
+		//public static String saveEmployeeQualification  = "/empService/Api/add/saveQualification";
+		//public static String getEmployeeQualification = "/empService/Api/get/getQualification";
+		//public static String saveEmpExperience = "/empService/Api/add/saveExperience";
+		//public static String getEmpExperience = "/empService/Api/get/getExperience";
+		//public static String saveEmpCertificate = "/empService/Api/add/saveCertificate";
+		//public static String getEmpCertificate = "/empService/Api/get/getCertificate";
+		//public static String saveEmpProject = "/empService/Api/add/saveProject";
+		//public static String getEmpProject = "/empService/Api/get/getProject";
 	
 
 	//public static String empDetails  = "/empService/Api/add/empDetails";

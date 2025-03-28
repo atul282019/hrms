@@ -12,11 +12,11 @@ import com.cotodel.hrms.web.util.EncriptResponse;
 @Repository
 public interface MasterService {
 
-	String getStateMaster(String token,EncriptResponse userForm);
-
-	String getOrgMaster(String token,EncriptResponse userForm);
-
-	String getPermission(String token, EncriptResponse userForm);
+//	String getStateMaster(String token,EncriptResponse userForm);
+//
+//	String getOrgMaster(String token,EncriptResponse userForm);
+//
+//	String getPermission(String token, EncriptResponse userForm);
 
 	String getRole(String token, EncriptResponse userForm);
 

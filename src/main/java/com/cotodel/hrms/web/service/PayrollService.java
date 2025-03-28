@@ -8,8 +8,8 @@ import com.cotodel.hrms.web.util.EncriptResponse;
 @Repository
 public interface PayrollService {
 
-	String getPayrollMaster(String token, EncriptResponse payrollRequest);
+	//String getPayrollMaster(String token, EncriptResponse payrollRequest);
 
-	String savePayrollDetail(String token, EncriptResponse employeePayrollRequest);
+	//String savePayrollDetail(String token, EncriptResponse employeePayrollRequest);
 
 }

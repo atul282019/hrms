@@ -18,18 +18,18 @@ public class PayrollServiceImpl implements PayrollService{
 	public ApplicationConstantConfig applicationConstantConfig;
 
 	
-	@Override
-	public String getPayrollMaster(String token, EncriptResponse payrollRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(payrollRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.getPayrollList);
-	}
-
-
-	@Override
-	public String savePayrollDetail(String token, EncriptResponse employeePayrollRequest) {
-		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeePayrollRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.savePayrollDetailNew);
-
-	}
-	
+//	@Override
+//	public String getPayrollMaster(String token, EncriptResponse payrollRequest) {
+//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(payrollRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.getPayrollList);
+//	}
+//
+//
+//	@Override
+//	public String savePayrollDetail(String token, EncriptResponse employeePayrollRequest) {
+//		// TODO Auto-generated method stub
+//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeePayrollRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.savePayrollDetailNew);
+//
+//	}
+//	
 	
 }

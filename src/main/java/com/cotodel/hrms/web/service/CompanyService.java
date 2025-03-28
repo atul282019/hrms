@@ -12,8 +12,8 @@ public interface CompanyService {
 	String saveCompany(String token, EncriptResponse employeeProfileRequest);
 
 	String getCompanyProfileStatus(String token, EncriptResponse employeeProfileRequest);
-	String getorgsubType(String token, EncriptResponse employeeProfileRequest);
-	String getpayrollDetails(String token, EncriptResponse employeeProfileRequest);
+	//String getorgsubType(String token, EncriptResponse employeeProfileRequest);
+	//String getpayrollDetails(String token, EncriptResponse employeeProfileRequest);
 
 	String getGSTDetailsByGSTNumber(String token, EncriptResponse employeeProfileRequest);
 

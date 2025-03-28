@@ -18,27 +18,27 @@ public interface EmployeeDetailService {
 
 	//String saveEmployeeDetail(String token, EmployeeDetailsRequest employeeDetailRequest);
 
-	String saveFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest);
+	//String saveFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest);
 
-	String getEmployeeDetail(String token, EmployeeDetailsRequest employeeFamilyDetailRequest);
+	//String getEmployeeDetail(String token, EmployeeDetailsRequest employeeFamilyDetailRequest);
 
-	String getEmployeeFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest);
+	//String getEmployeeFamilyDetail(String token, EmployeeFamilyDetailRequest employeeFamilyDetailRequest);
 
-	String saveFamilyQualification(String token, EmployeeQualificationRequest employeeQualificationRequest);
+	//String saveFamilyQualification(String token, EmployeeQualificationRequest employeeQualificationRequest);
 
-	String getEmployeeQualificationDetail(String token, EmployeeQualificationRequest employeeQualificationRequest);
+	//String getEmployeeQualificationDetail(String token, EmployeeQualificationRequest employeeQualificationRequest);
 
-	String saveEmpCertificateDetail(String token, EmployeeExperienceRequest employeeExperienceRequest);
+	//String saveEmpCertificateDetail(String token, EmployeeExperienceRequest employeeExperienceRequest);
 
-	String getEmployeeExperience(String token, EmployeeExperienceRequest employeeExperienceRequest);
+	//String getEmployeeExperience(String token, EmployeeExperienceRequest employeeExperienceRequest);
 
-	String saveEmployeeCertificate(String token, EmployeeCertificateRequest employeeCertificateRequest);
+	//String saveEmployeeCertificate(String token, EmployeeCertificateRequest employeeCertificateRequest);
 
-	String getEmployeeCertificateDetail(String token, EmployeeCertificateRequest employeeCertificateRequest);
+	//String getEmployeeCertificateDetail(String token, EmployeeCertificateRequest employeeCertificateRequest);
 
-	String saveEmployeeProject(String token, EmployeeProjectRequest employeeProjectRequest);
+	//String saveEmployeeProject(String token, EmployeeProjectRequest employeeProjectRequest);
 
-	String getEmployeeProjectDetail(String token, EmployeeProjectRequest employeeProjectRequest);
+   //String getEmployeeProjectDetail(String token, EmployeeProjectRequest employeeProjectRequest);
 
 	String saveEmployeeOnboarding(String token, EncriptResponse employeeOnboarding);
 

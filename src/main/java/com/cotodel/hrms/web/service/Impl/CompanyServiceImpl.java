@@ -29,17 +29,17 @@ public class CompanyServiceImpl implements CompanyService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.userServiceBaseUrl+CommonUtils.companyProfileStatus);
 	}
 
-	@Override
-	public String getorgsubType(String token, EncriptResponse employeeProfileRequest) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.masterServiceBaseUrl+CommonUtils.getorgsubType);
-		
-	}
-
-	@Override
-	public String getpayrollDetails(String token, EncriptResponse employeeProfileRequest) {
-		// TODO Auto-generated method stub
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getpayrollDetails);
-	}
+//	@Override
+//	public String getorgsubType(String token, EncriptResponse employeeProfileRequest) {
+//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.masterServiceBaseUrl+CommonUtils.getorgsubType);
+//		
+//	}
+//
+//	@Override
+//	public String getpayrollDetails(String token, EncriptResponse employeeProfileRequest) {
+//		// TODO Auto-generated method stub
+//		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getpayrollDetails);
+//	}
 
 	@Override
 	public String getGSTDetailsByGSTNumber(String token, EncriptResponse employeeProfileRequest) {

@@ -17,31 +17,31 @@ public class managerMasterServiceImpl implements managerMasterService{
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig; 
 	
-	@Override
-	public String savemanagerMaster(String token, EncriptResponse managermasterRequest) {
-		{
-	        // Convert the BankMaster object to JSON and make the request
-	        return CommonUtility.userRequest(
-	            token,
-	            MessageConstant.gson.toJson(managermasterRequest),
-	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.savemanagerMasterDetailS
-	        );
-	    }
- 
-}
-
-	@Override
-	public String getmanagerMasterWithId(String token, EncriptResponse managermasterRequest)  {
-		{
-	        // Convert the BankMaster object to JSON and make the request
-	        return CommonUtility.userRequest(
-	            token,
-	            MessageConstant.gson.toJson(managermasterRequest),
-	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getmanagerMasterDetailSwithId
-	        );
-	    }
- 
-}
+//	@Override
+//	public String savemanagerMaster(String token, EncriptResponse managermasterRequest) {
+//		{
+//	        // Convert the BankMaster object to JSON and make the request
+//	        return CommonUtility.userRequest(
+//	            token,
+//	            MessageConstant.gson.toJson(managermasterRequest),
+//	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.savemanagerMasterDetailS
+//	        );
+//	    }
+// 
+//}
+//
+//	@Override
+//	public String getmanagerMasterWithId(String token, EncriptResponse managermasterRequest)  {
+//		{
+//	        // Convert the BankMaster object to JSON and make the request
+//	        return CommonUtility.userRequest(
+//	            token,
+//	            MessageConstant.gson.toJson(managermasterRequest),
+//	            applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getmanagerMasterDetailSwithId
+//	        );
+//	    }
+// 
+//}
 
 	
 	

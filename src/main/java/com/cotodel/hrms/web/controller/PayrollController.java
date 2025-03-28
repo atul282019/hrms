@@ -45,92 +45,92 @@ public class PayrollController extends CotoDelBaseController{
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
-	@GetMapping(value="/getPayrollMaster")
-	public @ResponseBody String getStateMaster(HttpServletRequest request, ModelMap model,Locale locale,
-			HttpSession session,PayrollRequest payrollRequest) {
-			logger.info("getPayrollMaster");	
-			String token = (String) session.getAttribute("hrms");
-			String profileRes=null;
-			//return payrollService.getPayrollMaster(tokengeneration.getToken(),payrollRequest);
-			
-			try {
-				String json = EncryptionDecriptionUtil.convertToJson(payrollRequest);
-
-				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-				String encriptResponse = payrollService.getPayrollMaster(tokengeneration.getToken(), jsonObject);
-
-	   
-				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	   
-		return profileRes;
-			  
-			
-	}
-	
-
-	@PostMapping(value="/saveCompanyPayroll")
-	public @ResponseBody String savePayrollDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeePayrollRequest employeePayrollRequest) {
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res=null;String userRes=null;
-		List<EmployeePayrollNew> list=new ArrayList<EmployeePayrollNew>();
-		String data[]=employeePayrollRequest.getListArray();
-		for (int i = 0; i < data.length; i++) {
-			String listValue=data[i];
-			String[] rowArray=listValue.split("@");
-			EmployeePayrollNew employeePayrollNew=new EmployeePayrollNew();
-			employeePayrollNew.setSalary_component(rowArray[0]);
-			employeePayrollNew.setPer_ctc(rowArray[1]);
-			employeePayrollNew.setPer(rowArray[2]);
-			employeePayrollNew.setTaxable(rowArray[3]);
-			employeePayrollNew.setEmployerId(employeePayrollRequest.getEmployerId().longValue());
-			list.add(employeePayrollNew);
-		}
-		
-		employeePayrollRequest.setList(list);
-//		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
-//		profileJsonRes= new JSONObject(profileRes);
+//	@GetMapping(value="/getPayrollMaster")
+//	public @ResponseBody String getStateMaster(HttpServletRequest request, ModelMap model,Locale locale,
+//			HttpSession session,PayrollRequest payrollRequest) {
+//			logger.info("getPayrollMaster");	
+//			String token = (String) session.getAttribute("hrms");
+//			String profileRes=null;
+//			//return payrollService.getPayrollMaster(tokengeneration.getToken(),payrollRequest);
 //			
-//		if(profileJsonRes.getBoolean("status")) { 
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
+//			try {
+//				String json = EncryptionDecriptionUtil.convertToJson(payrollRequest);
+//
+//				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//				String encriptResponse = payrollService.getPayrollMaster(tokengeneration.getToken(), jsonObject);
+//
+//	   
+//				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	   
+//		return profileRes;
+//			  
 //			
+//	}
+//	
+
+//	@PostMapping(value="/saveCompanyPayroll")
+//	public @ResponseBody String savePayrollDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeePayrollRequest employeePayrollRequest) {
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res=null;String userRes=null;
+//		List<EmployeePayrollNew> list=new ArrayList<EmployeePayrollNew>();
+//		String data[]=employeePayrollRequest.getListArray();
+//		for (int i = 0; i < data.length; i++) {
+//			String listValue=data[i];
+//			String[] rowArray=listValue.split("@");
+//			EmployeePayrollNew employeePayrollNew=new EmployeePayrollNew();
+//			employeePayrollNew.setSalary_component(rowArray[0]);
+//			employeePayrollNew.setPer_ctc(rowArray[1]);
+//			employeePayrollNew.setPer(rowArray[2]);
+//			employeePayrollNew.setTaxable(rowArray[3]);
+//			employeePayrollNew.setEmployerId(employeePayrollRequest.getEmployerId().longValue());
+//			list.add(employeePayrollNew);
 //		}
 //		
-//		return profileRes;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(employeePayrollRequest);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =  payrollService.savePayrollDetail(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-	}
+//		employeePayrollRequest.setList(list);
+////		profileRes = payrollService.savePayrollDetail(tokengeneration.getToken(),employeePayrollRequest);
+////		profileJsonRes= new JSONObject(profileRes);
+////			
+////		if(profileJsonRes.getBoolean("status")) { 
+////			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+////		}else {
+////			loginservice.sendEmailVerificationCompletion(userForm);
+////			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+////		}
+////		try {
+////			res = mapper.writeValueAsString(otpMap);
+////		} catch (Exception e) {
+////			
+////		}
+////		
+////		return profileRes;
+//		
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(employeePayrollRequest);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =  payrollService.savePayrollDetail(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+//	}
 	
 
 }

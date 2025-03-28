@@ -21,20 +21,20 @@ public class MasterServiceImpl implements MasterService{
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 
-	@Override
-	public String getStateMaster(String token,EncriptResponse userForm) {
-		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.stateMaster);
-	}
-
-	@Override
-	public String getOrgMaster(String token,EncriptResponse userForm) {
-		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.orgMaster);
-	}
-
-	@Override
-	public String getPermission(String token, EncriptResponse userForm) {
-		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.getPermission);
-	}
+//	@Override
+//	public String getStateMaster(String token,EncriptResponse userForm) {
+//		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.stateMaster);
+//	}
+//
+//	@Override
+//	public String getOrgMaster(String token,EncriptResponse userForm) {
+//		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.orgMaster);
+//	}
+//
+//	@Override
+//	public String getPermission(String token, EncriptResponse userForm) {
+//		return CommonUtility.userRequest(token,null, applicationConstantConfig.userServiceBaseUrl +CommonUtils.getPermission);
+//	}
 
 	@Override
 	public String getRole(String token, EncriptResponse userForm) {
