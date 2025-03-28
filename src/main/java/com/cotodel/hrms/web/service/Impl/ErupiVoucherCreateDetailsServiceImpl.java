@@ -41,6 +41,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		voucherId.put("id", erupiVoucherCreateDetails.getVoucherId());
 		
 		data.put("voucherId", voucherId);
+		data.put("requestId", erupiVoucherCreateDetails.getRequestId());
 		
 		data.put("name", erupiVoucherCreateDetails.getName());
 		data.put("mobile", erupiVoucherCreateDetails.getMobile());

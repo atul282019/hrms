@@ -1,12 +1,12 @@
 
 function submitOrgId() {
-    var orgIdInput = document.getElementById('orgIdInput');
-    var orgId = orgIdInput.value.trim();
+    var orgIdInput = document.getElementById('orgIdInput').value;
+    //var orgId = orgIdInput.value.trim();
 	//orgId=70;
 	
 
     // Validate that the orgId is a two-digit number
-    if (/^\d{2}$/.test(orgId)) {
+    if (/^\d{2}$/.test(orgIdInput)) {
         // Send AJAX request to the server with orgId
         $.ajax({
             type: "POST",

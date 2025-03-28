@@ -593,7 +593,7 @@ function  issueVoucher(){
 	
     var employerId = document.getElementById("employerId").value;
 	var employerName = document.getElementById("employerName").value;
-	
+	var requestId = document.getElementById("requestId").value;
 	
 	var customCheck45 = document.getElementById("customCheck45").checked; 
 	if (customCheck45) {
@@ -609,7 +609,7 @@ function  issueVoucher(){
 	url:"/createSingleVoucher",
        data: {
 		
-			 	
+			 	"requestId":requestId,
 			   "name": beneficiaryName,
 			   "mobile": beneficiaryMobile,
 			   "amount": amount,

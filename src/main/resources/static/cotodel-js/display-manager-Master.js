@@ -1,18 +1,18 @@
 
 function submitOrgId() {
-    var orgIdInput = document.getElementById('orgIdInput');
-    var orgId = orgIdInput.value.trim();
-	console.log("org id=",orgId);
+    var orgIdInput = document.getElementById('orgIdInput').value;
+   // var orgId = orgIdInput.value.trim();
+	//console.log("org id=",orgId);
 	//orgId=65;
 
     // Validate that the orgId is a two-digit number
-    if (/^\d{2}$/.test(orgId)) {
+    if (/^\d{2}$/.test(orgIdInput)) {
         // Send AJAX request to the server with orgId
         $.ajax({
             type: "POST",
             url: "/getmanagerMasterWithId",
             data: {
-                "orgId": orgId
+                "orgId": orgIdInput
             },
             dataType: "json",
             success: function(data) {

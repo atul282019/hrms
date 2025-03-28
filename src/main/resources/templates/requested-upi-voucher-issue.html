@@ -425,7 +425,9 @@
 									<input type="hidden" class="form-input" id="mcc" name="mcc"> 
 									<input type="hidden" class="form-input" id="submurchentid" name="submurchentid"> 
 									<input type="hidden" class="form-input" id="merchentid" name="merchentid">
-									<input type="hidden" class="form-input" id="payerva" name="payerva"> 													
+									<input type="hidden" class="form-input" id="payerva" name="payerva"> 	
+									
+									<input type="hidden" class="form-input" id="requestId" name="requestId">												
 	                        </div>
 							
 							<div class="upi-voucher-wrap" id="upi-voucher-wrapThree" style="display: none;">
@@ -527,9 +529,10 @@
 	  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 	  <script type="text/javascript" src="js/slick/slick.min.js"></script>
 
-	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
+	
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+	<script type="text/javascript" src="cotodel-js/requested-upi-voucher-issue.js"></script>
 
 			
 		<style>	@keyframes rotate360 {
@@ -692,6 +695,7 @@
 	    var row = $(btnIssue).closest('tr');
 	    var rowData = table.row(row).data();
 		console.log("Id of selected record",rowData.id);
+		document.getElementById("requestId").value=rowData.id;
 	    document.getElementById("search").value=rowData.name;
    	    document.getElementById("mobile").value=rowData.mobile;
 		document.getElementById("btnforvccategoryforbulkissuance").value=rowData.voucherType+"|"+rowData.voucherSubType;

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ErupiVoucherCreateDetails {
 	
+	private Long requestId;
 	private Integer voucherId;
 	private String name;	
 	private String mobile;			
