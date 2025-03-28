@@ -6,13 +6,13 @@ function submitOrgId() {
 	
 
     // Validate that the orgId is a two-digit number
-    if (/^\d{2}$/.test(orgIdInput)) {
+   // if (/^\d{2}$/.test(orgIdInput)) {
         // Send AJAX request to the server with orgId
         $.ajax({
             type: "POST",
             url: "/getjobMasterWithId",
             data: {
-                "orgId": orgId
+                "orgId": orgIdInput 
             },
             dataType: "json",
             success: function(data) {
@@ -69,10 +69,10 @@ function submitOrgId() {
                 document.querySelector('.tabs-details-tbl').style.display = 'none'; // Hide table on error
             }
         });
-    } else {
-        alert('Please enter a valid two-digit Org ID.');
-        document.querySelector('.tabs-details-tbl').style.display = 'none'; // Hide table for invalid input
-    }
+   // } else {
+       // alert('Please enter a valid two-digit Org ID.');
+       // document.querySelector('.tabs-details-tbl').style.display = 'none'; // Hide table for invalid input
+    //}
 }
 
 

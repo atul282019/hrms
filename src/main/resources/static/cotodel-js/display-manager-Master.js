@@ -6,7 +6,7 @@ function submitOrgId() {
 	//orgId=65;
 
     // Validate that the orgId is a two-digit number
-    if (/^\d{2}$/.test(orgIdInput)) {
+   // if (/^\d{2}$/.test(orgIdInput)) {
         // Send AJAX request to the server with orgId
         $.ajax({
             type: "POST",
@@ -66,10 +66,10 @@ function submitOrgId() {
                 document.querySelector('.tabs-details-tbl').style.display = 'none'; // Hide table on error
             }
         });
-    } else {
+   /* } else {
         alert('Please enter a valid two-digit Org ID.');
         document.querySelector('.tabs-details-tbl').style.display = 'none'; // Hide table for invalid input
-    }
+    }*/
 }
 
 
