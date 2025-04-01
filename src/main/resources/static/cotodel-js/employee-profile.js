@@ -107,13 +107,13 @@ function resendOTP() {
 		url: "/smsOtpResender",
 		dataType: 'json',
 		data: {
-			"mob": userName,
+			"mobile": userName,
 			"orderId":orderId
 		},
 		success: function(data) {
 			var obj = data;
 			document.getElementById("loginLoader").style.display = "none";
-			if (obj['status'] == "SUCCESS") {
+			if (obj['status'] == true) {
 				$('#errorOtp').hide('slow');
 				$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
@@ -122,20 +122,20 @@ function resendOTP() {
 					timeleft -= 1;
 					document.getElementById("optBtn").style.display = "none";
 					document.getElementById("orderId").value= obj['orderId'];
-					document.getElementById("verifyotpdiv").style.display = "block";
+					//document.getElementById("verifyotpdiv").style.display = "block";
 					if (timeleft <= 0) {
 						clearInterval(downloadTimer);
 						document.getElementById("optBtn").disabled = false;
 						document.getElementById("countdown").innerHTML = " ";
 						document.getElementById("optBtn").style.display = "none";
-						document.getElementById("verifyotpdiv").style.display = "none";
+						//document.getElementById("verifyotpdiv").style.display = "none";
 						
 						$('#loginIdDiv').hide('slow');
 					}
-					document.getElementById('password').focus();
+					//document.getElementById('password').focus();
 				}, 1000);
 				$('#loginIdDiv').show('slow');
-			}else if (obj['status'] == "FAILURE") {
+			}else if (obj['status'] == false) {
 
 				$('#errorOtp').html(obj['msg']);
 				$('#successmessage').hide('slow');
@@ -275,6 +275,7 @@ function saveEmployeeProfile(){
 	var email = document.getElementById("email").value;
 	var mobile = document.getElementById("mobilecode").value;
 	var proofOfIdentity = document.getElementById("proofOfIdentity").value;
+	var id = document.getElementById("IdfromApi").value;
 	
 	/*var herDate = document.getElementById("hireDate").value;
 	var jobTitle = document.getElementById("jobTitle").value;
@@ -335,6 +336,7 @@ function saveEmployeeProfile(){
 	//formData.append("employeeId",employeeId);
 	
 	//formData.append("empOrCont",empOrCont);
+	formData.append("id",id);
 	formData.append("name",name);
 	
 	formData.append("email",email);
@@ -374,7 +376,9 @@ function saveEmployeeProfile(){
             	 $("#employee-onboarding-one").hide();
 				// document.getElementById("empOnboarding").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
-			}else if(data1.status==false){
+			}
+			//else if(data1.status==false && data1.)
+				else if(data1.status==false){
 				 document.getElementById("failmsg").innerHTML=data1.message;
 				 document.getElementById("failmsgDiv").style.display="block";
 				 //document.getElementById("empOnboarding").disabled=false;
@@ -399,7 +403,7 @@ function saveEmployeeProfileTab2(){
 	//var employerId=document.getElementById("employerId").value; 
 	//var employeeId=document.getElementById("employeeId").value;
 	//var empOrCont = document.getElementById("contractor").value;
-	var id = document.getElementById("empid").value;
+	var id = document.getElementById("IdfromApi").value;
 	
 	var pan = document.getElementById("inputpan").value;
 	var accountNo = document.getElementById("accountNo").value;
@@ -518,6 +522,7 @@ function saveEmployeeProfileTab2(){
             	 $("#employee-onboarding-one").hide();*/
 				// document.getElementById("empOnboarding").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
+				 clearFields();
 			}else if(data1.status==false){
 				 document.getElementById("failmsgtab2").innerHTML=data1.message;
 				 document.getElementById("failmsgDivtab2").style.display="block";
@@ -540,18 +545,21 @@ function autoFillEmployeeForm() {
 
 			    $.ajax({
 			        type: "GET",
-			        url: "/getEmployeeOnboardingById",
-			        data: { "id": employeeId },
+			        url: "/getEmployeeOnboardingByUserDetailId",
+			        data: { "userDetailsId": employeeId },
 			        success: function(response) {
 			            var data1 = jQuery.parseJSON(response);
+						console.log("data1",data1);
 
 			            if (data1.status && data1.data) {
 			                var data = data1.data;
 
 			                // Fill form fields
-			                $("#name").val(data.name || "");
-                            $("#mobilecode").val(data.mobile || "").prop("readonly", data.mobile ? true : false);
-			                $("#email").val(data.email || "");
+							
+							$("#IdfromApi").val(data.id);
+							$("#name").val(data.name || "").prop("readonly", true);
+							$("#mobilecode").val(data.mobile || "").prop("readonly", true);
+							$("#email").val(data.email || "").prop("readonly", true);
 			               
 
 			                
@@ -564,4 +572,16 @@ function autoFillEmployeeForm() {
 			            console.log("Error fetching data: " + error.responseText);
 			        }
 			    });
+			}
+			function clearFields() {
+			    // Clearing input fields but not error messages
+			    $(" #accountNo, #confirmAccountNo, #bankIfsc, #beneficiaryName").val("");
+			    
+			    // Clearing PAN input fields
+			    $(".otp-box-onboarding input").val("");
+
+			    // Hiding success message after a delay
+			    setTimeout(function () {
+			        $("#successmsgdivtab2").fadeOut();
+			    }, 3000);
 			}

@@ -47,6 +47,8 @@ public interface EmployeeDetailService {
 	String getEmployeeOnboardingFailList(String token, EncriptResponse employeeOnboarding);
 
 	String getEmployeeOnboardingById(String token, EncriptResponse employeeOnboarding);
+	
+	String getEmployeeOnboardingByUserDetailId(String token, EncriptResponse employeeOnboarding);
 
 	String confirmBulkEmplOnboarding(String token, EncriptResponse employeeOnboarding);
 
