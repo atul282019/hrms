@@ -205,6 +205,14 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("webhook-callback");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/contact")){
+				RequestDispatcher rd = request.getRequestDispatcher("contact");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/policy")){
+				RequestDispatcher rd = request.getRequestDispatcher("policy");
+				rd.forward(request, response);
+			}
 			else{
 				RequestDispatcher rd = request.getRequestDispatcher("index");
 				rd.forward(request, response);
