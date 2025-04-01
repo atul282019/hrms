@@ -19,6 +19,7 @@ import com.cotodel.hrms.web.response.EmployeeProjectRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationNewRequest;
 import com.cotodel.hrms.web.response.EmployeeQualificationRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
+
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.CopyUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -150,6 +151,11 @@ public class EmployeeDetailServiceImpl implements EmployeeDetailService {
 	@Override
 	public String getEmployeeOnboardingById(String token, EncriptResponse employeeOnboarding) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingById);
+	}
+	
+	@Override
+	public String getEmployeeOnboardingByUserDetailId(String token, EncriptResponse employeeOnboarding) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeOnboarding), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getEmployeeOnboardingByUserDetailId);
 	}
 
 	@Override

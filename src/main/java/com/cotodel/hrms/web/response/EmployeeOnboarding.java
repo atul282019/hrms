@@ -11,6 +11,7 @@ public class EmployeeOnboarding {
 	
 	private Integer id;
 	//private Integer userDetailsId;
+	private Long userDetailsId;
 	private Integer employerId;
 	private Integer employeeId;	
 	private String empOrCont;
