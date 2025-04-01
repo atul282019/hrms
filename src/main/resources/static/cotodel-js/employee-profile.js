@@ -32,7 +32,7 @@ function getOTP() {
 		success: function(data) {
 			var obj = data;
 			document.getElementById("loginLoader").style.display = "none";
-			if (obj['status'] == "SUCCESS") {
+			if (obj['status'] == true) {
 				$('#errorOtp').hide('slow');
 				$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
@@ -55,7 +55,7 @@ function getOTP() {
 					//document.getElementById('password1').focus();
 				}, 1000);
 				$('#loginIdDiv').show('slow');
-			}else if (obj['status'] == "FAILURE") {
+			}else if (obj['status'] == false) {
 
 				$('#errorOtp').html(obj['msg']);
 				$('#successmessage').hide('slow');
@@ -534,3 +534,34 @@ function saveEmployeeProfileTab2(){
          }
     });	
 }
+function autoFillEmployeeForm() {
+			    const employeeId = document.getElementById("employeeId").value;
+				
+
+			    $.ajax({
+			        type: "GET",
+			        url: "/getEmployeeOnboardingById",
+			        data: { "id": employeeId },
+			        success: function(response) {
+			            var data1 = jQuery.parseJSON(response);
+
+			            if (data1.status && data1.data) {
+			                var data = data1.data;
+
+			                // Fill form fields
+			                $("#name").val(data.name || "");
+                            $("#mobilecode").val(data.mobile || "").prop("readonly", data.mobile ? true : false);
+			                $("#email").val(data.email || "");
+			               
+
+			                
+			                
+			            } else {
+			                console.log("No data found for the given Employee ID.");
+			            }
+			        },
+			        error: function(error) {
+			            console.log("Error fetching data: " + error.responseText);
+			        }
+			    });
+			}
