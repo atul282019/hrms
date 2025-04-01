@@ -18,6 +18,7 @@ function fetchOrgDetails(type) {
 					
 				if (response.status) {
 				    const data = response.data;
+					
 
 				if (type === "GST") {
 					gstContainer.style.display = 'block';
@@ -30,6 +31,19 @@ function fetchOrgDetails(type) {
                 }
 
           }
+		  else{
+			
+							if (type === "GST") {
+								gstContainer.style.display = 'block';
+								panContainer.style.display = 'none';
+			                    document.getElementById("gstnNo").value = "";
+			                } else if (type === "PAN") {
+								gstContainer.style.display = 'none';
+								        panContainer.style.display = 'block';
+			                    document.getElementById("panNo").value =  "";
+			                }
+			
+		  	}
 
 			},
             error: function ( status, error) {

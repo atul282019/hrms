@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
  
-<body id="page-top" >
+<body id="page-top" onload="autoFillEmployeeForm()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -102,6 +102,7 @@
                                     </div>
                                 </div>
                             </div>
+							<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
 
                             <div class="mt-4">
                                 <div class="row" id="employee-onboarding-one" style="display: block;">
