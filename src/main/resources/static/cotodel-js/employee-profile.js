@@ -560,6 +560,18 @@ function autoFillEmployeeForm() {
 							$("#name").val(data.name || "").prop("readonly", true);
 							$("#mobilecode").val(data.mobile || "").prop("readonly", true);
 							$("#email").val(data.email || "").prop("readonly", true);
+							$("#proofOfIdentity").val(data.proofOfIdentity || "Proof of Identity");
+			               $("#accountNo").val(data.bankAccountNumber || "");
+			               $("#confirmAccountNo").val(data.bankAccountNumber || "");
+			               $("#bankIfsc").val(data.ifscCode || "");
+			               $("#beneficiaryName").val(data.beneficiaryName || "");
+
+			               // Autofill PAN Card fields character by character
+			               if (data.pan) {
+			                   for (let i = 0; i < data.pan.length; i++) {
+			                       $(`#pan${i + 1}`).val(data.pan[i]);
+			                   }
+			               }
 			               
 
 			                
@@ -585,3 +597,133 @@ function autoFillEmployeeForm() {
 			        $("#successmsgdivtab2").fadeOut();
 			    }, 3000);
 			}
+			
+			function verifyOTP() {
+				//document.getElementById("authenticate").disabled = true;
+			  	var password1 = document.getElementById("password1").value;
+			  	var password2 = document.getElementById("password2").value;
+			  	var password3 = document.getElementById("password3").value;
+			  	var password4 = document.getElementById("password4").value;
+			  	var password5 = document.getElementById("password5").value;
+			  	var password6 = document.getElementById("password6").value;
+			  	var orderId = document.getElementById("orderId").value;
+			  	var employerMobile = document.getElementById("mobilecode").value;
+			  	
+			  	if (document.getElementById("mobilecode").value == "") {
+			  		document.getElementById("mobError").innerHTML="Please Enter mobile..";
+			  		
+			  		x = false;
+			  	} else if (password1 == "" && password1.length < 1) {
+			  		document.getElementById("mobilecodeError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password1.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password2 == "" && password2.length < 1) {
+			  		document.getElementById("mobilecodeError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password2.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password3 == "" && password3.length < 1) {
+			  		document.getElementById("mobilecodeError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password3.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password4 == "" && password4.length < 1) {
+			  		document.getElementById("mobilecodeError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password4.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password5 == "" && password5.length < 1) {
+			  		document.getElementById("mobilecodeError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password5.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	 if (password6 == "" && password6.length < 1) {
+			  		document.getElementById("mobError").innerHTML="";
+			  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+			  		x = false;
+			  	}
+			  	 else if (password6.length < 1) {
+			  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+			  		x = false;
+			  	}
+			  	else{
+			  		document.getElementById("otpError").innerHTML="";
+			  	}
+			  	
+			  	$.ajax({
+			  			type: "POST",
+			  			url:"/verifyOTP",
+			  			dataType: 'json',
+			  			data: {
+			  				"password1": password1,
+			  				"password2": password2,
+			  				"password3": password3,
+			  				"password4": password4,	
+			  				"password5": password5,
+			  				"password6": password6,
+			  				"mobile": employerMobile,
+			  				"orderId": orderId,
+			  				"userName":employerMobile
+			  			},
+			  			success: function(data) {
+			  				var obj = data;
+							document.getElementById("password1").value="";
+							document.getElementById("password2").value="";
+							document.getElementById("password3").value="";
+						    document.getElementById("password4").value="";
+							document.getElementById("password5").value="";
+							document.getElementById("password6").value="";
+							//document.getElementById("authenticate").disabled = false;
+			  				if (obj['status']== true) {
+								saveEmployeeProfile();
+								
+			  				}else if (obj['status'] == false) {
+								//document.getElementById("otpError").textContent=obj['message'];
+								document.getElementById("otpError").textContent="Invalid otp";
+								document.getElementById("otpError").style.display="block";
+								
+							} else {
+			  				
+			  				}
+			  			},
+			  			error: function(e) {
+			  				alert('Error: ' + e);
+			  			}
+			  		});
+			  }

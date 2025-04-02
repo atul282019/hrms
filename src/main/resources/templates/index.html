@@ -175,7 +175,11 @@
 	$( document ).ready(function() {
 		var error = document.getElementById("errorMessage").value;
 		var mo = document.getElementById("mo").value;
+		
 		var orderid = document.getElementById("orderid").value;
+		var maskedMobile = "XXXXXX" + mo.toString().slice(-4);
+		
+
 		
 		if(error==="Invalid Request !!"){
 	    document.getElementById("loginIdDiv").style.display="none";
@@ -183,6 +187,7 @@
 	    }
 		else if(error==="Incorrect OTP ||"){
 			
+			  document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
 			  startCountdown();
 			  document.getElementById("mobile").value=mo;
 			  document.getElementById("orderId").value=orderid;

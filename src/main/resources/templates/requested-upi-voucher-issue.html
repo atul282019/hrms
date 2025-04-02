@@ -692,7 +692,7 @@
 		}
 
 		
-	function getRowData(btnIssue){
+	/*function getRowData(btnIssue){
 		
 		var table = $('#employeelist').DataTable();
 	    var row = $(btnIssue).closest('tr');
@@ -713,7 +713,39 @@
 		$("#selectvouchers-wrap03").show();
 		$("#selectemployee-wrap03").hide();
 				
+	}*/
+	function getRowData(btnIssue) {
+	    var table = $('#employeelist').DataTable();
+	    var row = $(btnIssue).closest('tr');
+	    var rowData = table.row(row).data();
+	    
+	    console.log("Id of selected record", rowData.id);
+	    
+	    document.getElementById("requestId").value = rowData.id;
+	    document.getElementById("search").value = rowData.name;
+	    document.getElementById("mobile").value = rowData.mobile;
+	    document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType + "|" + rowData.voucherSubType;
+	    
+	    // Get the available balance from .text-wrapper-3
+	    let availableBalanceText = document.querySelector(".text-wrapper-3").innerText.replace(/[^0-9.]/g, "");
+	    let availableBalance = parseFloat(availableBalanceText.replace(/,/g, '')) || 0; // Convert to number
+
+	    // Get row amount and compare
+	    let requestedAmount = parseFloat(rowData.amount) || 0;
+	    let finalAmount = (requestedAmount > availableBalance) ? availableBalance : requestedAmount;
+	    
+	    document.getElementById("amount").value = finalAmount.toFixed(1);
+
+	    document.getElementById("voucherCode").value = rowData.purposeCode;
+	    document.getElementById("purposeCode").value = rowData.mcc;
+	    document.getElementById("voucherType").value = rowData.voucherType;
+	    document.getElementById("voucherSubType").value = rowData.voucherSubType;
+	    document.getElementById("mcc").value = rowData.mcc;
+	    
+	    $("#selectvouchers-wrap03").show();
+	    $("#selectemployee-wrap03").hide();
 	}
+
 	function backEmployeeList(){
 
 		$("#selectvouchers-wrap03").hide();

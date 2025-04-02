@@ -1244,6 +1244,50 @@
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	    const amountInput = document.getElementById("advanceAmount");
+	    const errorMsg = document.getElementById("advanceAmountError");
+	    const confirmCheckbox = document.getElementById("confirmAmount");
+	    const confirmErrorMsg = document.getElementById("confirmAmountError");
+	    
+	    const chargesDisplay = document.createElement("div");
+	    chargesDisplay.id = "chargesBreakdown";
+	    amountInput.parentNode.appendChild(chargesDisplay);
+	    
+	    amountInput.addEventListener("input", function () {
+	        let amount = parseFloat(amountInput.value);
+	        if (isNaN(amount) || amount <= 0) {
+	            errorMsg.textContent = "Please enter a valid amount.";
+	            chargesDisplay.innerHTML = "";
+	            return;
+	        }
+	        errorMsg.textContent = "";
+
+	        let serviceCharge = (1.9 / 100) * amount;
+	        let serviceTax = (0.34 / 100) * amount;
+	        let netAmount = amount - (serviceCharge + serviceTax);
+
+	        chargesDisplay.innerHTML = `
+			<br>
+	            <p><strong>Amount Entered:</strong> ₹${amount.toFixed(2)}</p>
+	            <p><strong>Service Charge (1.9%):</strong> ₹${serviceCharge.toFixed(2)}</p>
+	            <p><strong>Service Tax (0.34%):</strong> ₹${serviceTax.toFixed(2)}</p>
+	            <p><strong>Amount to be credited:</strong> ₹${netAmount.toFixed(2)}</p>
+	        `;
+	    });
+
+	    document.getElementById("renderBtn2").addEventListener("click", function (event) {
+	        if (!confirmCheckbox.checked) {
+	            confirmErrorMsg.textContent = "Please confirm the changes.";
+	            event.preventDefault();
+	        } else {
+	            confirmErrorMsg.textContent = "";
+	        }
+	    });
+	});
+	</script>
+
 	<script>	$(document).ready(function () {
 	    // Initially disable the button
 	    $("#renderBtn2").prop("disabled", true);
