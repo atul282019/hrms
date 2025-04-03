@@ -29,7 +29,7 @@
 						const formattedDate = director.creationDate ? director.creationDate.split("T")[0] : "N/A";
 		                const row = `
 		                    <tr>
-		                        <td>${director.orgId}</td>
+		                        <td>${director.id}</td>
 								<td>${director.name}</td>
 								<td>${director.email}</td>
 								<td>${director.mobile}</td>
@@ -76,7 +76,7 @@
 			var nameRegex = /^[A-Za-z\s]+$/;  // Only letters & spaces
 			    var mobileRegex = /^\d{10}$/;  // Exactly 10 digits
 			    var dinRegex = /^[A-Za-z0-9]{1,8}$/;  // Exactly 8 alphanumeric characters
-			    var emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Valid email format
+			    var emailRegex = /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)?@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Valid email format
 
 			    // Validation for Director Name
 			    if (DirectorName === "" || !nameRegex.test(DirectorName)) {
@@ -169,7 +169,9 @@
 		            }
 		        },
 		        error: function (error) {
-		            alert("Error while saving data: " + error.responseText);
+					console.log(error);
+		             alert("Error while saving data: " + (error.responseJSON?.error || "Unknown error"));
+					 
 		        }
 		    });
 		}

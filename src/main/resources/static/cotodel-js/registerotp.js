@@ -124,6 +124,7 @@ function userRegistration(){
 	var orgname = document.getElementById("orgname").value;
 	var regMobile = /^[6-9]\d{9}$/gi;
 	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+	var regName = /^[A-Za-z]+( [A-Za-z]+)*$/;  // Name must not be only spaces, allows space between words
 	var captcha= document.getElementById("captcha").value;
 	var noofEmp = document.getElementById("noofEmp").value;
 	var privacyCheck = document.getElementById("privacyCheck").checked;
@@ -136,7 +137,11 @@ function userRegistration(){
 		document.getElementById("usernameError1").innerHTML="Please Enter Name";
 		document.getElementById("username").focus();
 		return false;
-	}else{
+	}	else if (!name.match(regName)) {
+	        document.getElementById("usernameError1").innerHTML = "special character not allowed in name";
+	        document.getElementById("username").focus();
+	        return false;
+		}else{
 		document.getElementById("usernameError1").innerHTML="";
 	}
 	 if(orgname==""){

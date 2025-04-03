@@ -95,6 +95,10 @@ function getOrderDetail(){
 				   document.getElementById("created_at").innerHTML =formatDateTime(parsedData.data.created_at);
 	 			   document.getElementById("cf_order_id").innerHTML=parsedData.data.cf_order_id;
 				   document.getElementById("orderId").innerHTML=order_id;
+				   document.getElementById("serviceCharge").innerHTML=serviceCharge;
+				   document.getElementById("serviceTax").innerHTML=serviceTax;
+				   document.getElementById("settlementAmount").innerHTML=settlementAmount;
+				   
 				   			   
 				   document.getElementById("payment_methods").innerHTML=parsedData.data.payment_methods;
 	           } catch (error) {

@@ -260,7 +260,7 @@
 		                    <td>${employer.createdby}</td>
 		                    <td>${formatDate(employer.creationDate)}</td>
 		                    <td>${employer.amountLimit}</td>
-		                    <td>${employer.balance}</td>
+		                   
 		                    <td class="${statusColorClass} font-weight-bold">${employer.statusMessage}</td>
 		                    <td>${approver}</td>
 		                    <td>${actionMenu}</td>
@@ -314,14 +314,14 @@
 		                $("#popupFieldCustomerName").text(parsedData.data.customerName);
 		                $("#popupFieldOrderAmount").text(parsedData.data.orderAmount);
 		                $("#popupFieldOrderCurrency").text(parsedData.data.orderCurrency);
-		                $("#popupFieldCustomerId").text(parsedData.data.customerId);
+		                $("#popupFieldserviceCharge").text(parsedData.data.serviceCharge);
 		                $("#popupFieldCustomerPhone").text(parsedData.data.customerPhone);
 		                $("#popupFieldCustomerEmail").text(parsedData.data.customerEmail);
 		                $("#popupFieldOrderStatus").text(parsedData.data.order_status);
 		                $("#popupFieldCreatedAt").text(parsedData.data.created_at);
-		                $("#popupFieldCfOrderId").text(parsedData.data.cf_order_id);
+		                $("#popupFieldserviceTax").text(parsedData.data.serviceTax);
 		                $("#popupFieldOrderId").text(orderId);
-		                $("#popupFieldPaymentMethods").text(parsedData.data.payment_methods);
+		                $("#popupFieldsettlementAmount").text(parsedData.data.settlementAmount);
 
 		                // Hide loader and show details
 		                $("#modalLoader").hide();

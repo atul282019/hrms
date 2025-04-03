@@ -13,20 +13,25 @@ function fetchOrgDetails(type) {
 	      		 },
             dataType: 'json',
             success: function (response) {
-				console.log("company Data"+response)
+				document.getElementById("btnToform3").disabled = false;
 				document.getElementById("signinLoader").style.display="none";
 					
 				if (response.status) {
 				    const data = response.data;
+					//var data1 = jQuery.parseJSON(data);
+					console.log("company Data",data)
+					
 					
 
 				if (type === "GST") {
 					gstContainer.style.display = 'block';
 					panContainer.style.display = 'none';
+					updateGSTAndPAN(data.gstIdentificationNumber,"");
                     document.getElementById("gstnNo").value = data.gstIdentificationNumber || "";
                 } else if (type === "PAN") {
 					gstContainer.style.display = 'none';
 					        panContainer.style.display = 'block';
+							updateGSTAndPAN("",data.pan);
                     document.getElementById("panNo").value = data.pan || "";
                 }
 
@@ -52,6 +57,12 @@ function fetchOrgDetails(type) {
             }
         });
     }
+	function updateGSTAndPAN(gstValue, panValue) {
+		//function for applying green tick function on non editabke textbox
+						    document.getElementById("gstnNo1").value = gstValue;
+						    document.getElementById("panNo1").value = panValue;
+						    checkReadOnlyFields(); // Ensure tick appears after setting values
+						}
 	function validateInput() {
 		
 		
@@ -132,8 +143,32 @@ function fetchOrgDetails(type) {
 	    // Show Form 1 (GST/PAN input form)
 	    form1.style.display = 'block';
 		//window.location.href="/Setting-Organization-Account";
+		
+	//this is used then user clicks back when all the details are fetched 
+		let inputFields = document.querySelectorAll("#Form2 input");
+		    inputFields.forEach(input => {
+		        input.value = "";
+		        input.classList.remove("input-with-static-icon"); // Remove class to hide tick
+		    });
+
+		    // Clear error messages
+		    let errorMessages = document.querySelectorAll("#Form2 .error-msg");
+		    errorMessages.forEach(error => {
+		        error.textContent = "";
+		    });
+			
+			
+			
 	}
-	
+	function handleInputIcon(event) {
+	    let input = event.target;
+	    if (input.value.trim() !== "") {
+	        input.classList.add("input-with-static-icon"); // Add tick class
+	    } else {
+	        input.classList.remove("input-with-static-icon"); // Remove tick class if empty
+	    }
+	}
+
 	// Function to toggle visibility of PAN text box based on selected radio button
 	function toggleVisibility() {
 		document.getElementById("signinLoader").style.display="none";
@@ -490,6 +525,22 @@ function fetchOrgDetails(type) {
 		         alert('Error: ' + e);
 		     }
 		}); 	
+	}
+	function checkReadOnlyFields() {
+	    let gstInput = document.getElementById("gstnNo1");
+	    let panInput = document.getElementById("panNo1");
+
+	    if (gstInput.value.trim() !== "") {
+	        gstInput.classList.add("input-with-static-icon"); // Add tick if not empty
+	    } else {
+	        gstInput.classList.remove("input-with-static-icon");
+	    }
+
+	    if (panInput.value.trim() !== "") {
+	        panInput.classList.add("input-with-static-icon");
+	    } else {
+	        panInput.classList.remove("input-with-static-icon");
+	    }
 	}
 	
 	function changeOtpStatus() {

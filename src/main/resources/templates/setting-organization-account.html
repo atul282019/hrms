@@ -468,6 +468,21 @@
 	<!--<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>-->
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/setting-company-account.js"></script>
+	<script>			document.addEventListener("DOMContentLoaded", function() {
+	    let inputFields = document.querySelectorAll("#Form2 input:not([readonly])");
+
+	    inputFields.forEach(input => {
+	        input.addEventListener("input", handleInputIcon);
+
+	        // If input already has value, add tick
+	        if (input.value.trim() !== "") {
+	            input.classList.add("input-with-static-icon");
+	        }
+	    });
+
+	    // Check readonly fields separately
+	    checkReadOnlyFields();
+	});</script>
 	<script> 	function convertToUppercase(inputElement) {
 	    inputElement.value = inputElement.value.toUpperCase();
 	}</script>

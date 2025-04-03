@@ -715,6 +715,13 @@
 				
 	}*/
 	function getRowData(btnIssue) {
+		var selectedBank = document.getElementById("banklist").value;
+		    
+		    if (!selectedBank) {
+		        alert("Please select a bank account before selecting a row.");
+		        return; // Stop execution if no bank is selected
+		    }
+			
 	    var table = $('#employeelist').DataTable();
 	    var row = $(btnIssue).closest('tr');
 	    var rowData = table.row(row).data();
@@ -734,7 +741,7 @@
 	    let requestedAmount = parseFloat(rowData.amount) || 0;
 	    let finalAmount = (requestedAmount > availableBalance) ? availableBalance : requestedAmount;
 	    
-	    document.getElementById("amount").value = finalAmount.toFixed(1);
+	    document.getElementById("amount").value = finalAmount.toFixed(2);
 
 	    document.getElementById("voucherCode").value = rowData.purposeCode;
 	    document.getElementById("purposeCode").value = rowData.mcc;
