@@ -1,11 +1,14 @@
 package com.cotodel.hrms.web.controller;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +25,14 @@ import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.DirectorOnboarding;
 import com.cotodel.hrms.web.response.EmployeeDeactiveRequest;
 import com.cotodel.hrms.web.response.EmployeeOnboarding;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @CrossOrigin
 public class EmployeeDetailController extends CotoDelBaseController{
@@ -281,30 +287,84 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		
 	}
 	
-	@PostMapping(value="/saveDirectorOnboarding")
-	public @ResponseBody String saveDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,@Valid @RequestParam DirectorOnboarding directorOnboarding) {
-		String profileRes=null;
+	@PostMapping(value = "/saveDirectorOnboarding")
+	public @ResponseBody String saveDirectorOnboarding( HttpServletRequest request,  ModelMap model,  Locale locale,  HttpSession session, @Valid DirectorOnboarding directorOnboarding) {
 
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
+	    Map<String, Object> responseMap = new HashMap<>();
+	    ObjectMapper mapper = new ObjectMapper();
 
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+	    // Get token from session
+	    String token = (String) session.getAttribute("hrms");
 
-			String encriptResponse =  employeeDetailService.saveDirectorOnboarding(tokengeneration.getToken(), jsonObject);
+	    if (token == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: No token found.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+	    // Validate Token
+	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+	    if (obj == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Invalid token.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-		
+	    // Check User Role and Organization ID
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1) && obj.getOrgid() == directorOnboarding.getOrgId().intValue()) {
+	        try {
+	            // Convert request object to JSON
+	            String json = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
+
+	            // Encrypt Request
+	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+	            // Call Service
+	            String encryptedResponse = employeeDetailService.saveDirectorOnboarding(tokengeneration.getToken(), jsonObject);
+
+	            // Decrypt Response
+	            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+	            String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+	                    userReqEnc.getEncriptData(), 
+	                    userReqEnc.getEncriptKey(), 
+	                    applicationConstantConfig.apiSignaturePrivatePath
+	            );
+
+	            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+	            
+	            // Process API Response
+	            if (apiJsonResponse.getBoolean("status")) {
+	                responseMap.put("status", true);
+	            } else {
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
+	    try {
+	        return mapper.writeValueAsString(responseMap);
+	    } catch (JsonProcessingException e) {
+	        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	    }
 	}
-	@GetMapping(value="/getDirectorOnboarding")
+	
+@GetMapping(value="/getDirectorOnboarding")
 	public @ResponseBody String getDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,DirectorOnboarding directorOnboarding) {
 		String profileRes=null;
 

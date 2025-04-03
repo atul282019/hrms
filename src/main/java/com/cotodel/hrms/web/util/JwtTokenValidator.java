@@ -50,6 +50,8 @@ public class JwtTokenValidator {
 						u.setUser_role((Integer)body.get("user_role"));
 						u.setEmail((String)body.get("email"));
 						u.setOrgName((String)body.get("org"));
+						u.setOrgid(((Number) body.get("orgid")).longValue());
+						u.setEmail((String)body.get(""));
 						u.setOrgType((String)body.get("uotyp"));
 						return u;
 					}

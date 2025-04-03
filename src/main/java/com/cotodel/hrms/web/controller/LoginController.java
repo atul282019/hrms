@@ -180,7 +180,8 @@ public class LoginController extends CotoDelBaseController{
 						String mobile = profileJsonRes.getJSONObject("data").getString("mobile");
 						String username = profileJsonRes.getJSONObject("data").getString("username");
 						Integer user_role = profileJsonRes.getJSONObject("data").getInt("role_id");
-						String token	=	JwtTokenGenerator.generateToken(email,mobile,username,user_role, MessageConstant.SECRET);
+						Integer orgid = profileJsonRes.getJSONObject("data").getInt("id");
+						String token	=	JwtTokenGenerator.generateToken(email,mobile,username,user_role,orgid, MessageConstant.SECRET);
 						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
 					    request.getSession(true).setAttribute("hrms", token);
 					    // switch case to identify the user screen login

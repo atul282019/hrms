@@ -21,12 +21,14 @@ public class JwtTokenGenerator {
      * @param u the user for which the token will be generated
      * @return the JWT token
      */
-    public static String generateToken(String email,String mobile,String username,Integer user_role, String secret) {
+    public static String generateToken(String email,String mobile,String username,Integer user_role,Integer orgid, String secret) {
         Claims claims = Jwts.claims().setSubject(MessageConstant.USER);
         claims.put("mobile", mobile);
         claims.put("user_name", username);
         claims.put("email", email);
         claims.put("user_role", user_role);
+        claims.put("orgid", orgid);
+        
         return Jwts.builder()
                 .setClaims(claims).setExpiration(new Date(System.currentTimeMillis()+MessageConstant.EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, secret)
