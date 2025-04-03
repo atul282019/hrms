@@ -205,7 +205,7 @@
 			                        
 									<div class="card-form my-3">
                                         <label for="mobno">Mobile</label>
-                                        <input type="number" class="form-input" id="mobno" maxlength="10"
+                                        <input type="text" class="form-input" id="mobno" maxlength="10"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     </div>
  										 <div class="error-msg" id="mobnoError" style="color:red"></div>
@@ -240,11 +240,12 @@
 			                            <div id="otsuccmsg"></div>
 			                        </div>
 
-			                        <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
-			                            <div id="otfailmsg"></div>
-			                        </div>
+			                        
 
 									<div class="modal-footer d-flex justify-content-between ">
+										<div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+													                            <div id="otfailmsg"></div>
+													                        </div>
 									                <button type="button" class="btn btn-primary"  onclick="saveDirectorData()">Save</button>
 									                <button type="button" class="btn btn-border"  data-dismiss="modal">Cancel</button>
 						            </div>

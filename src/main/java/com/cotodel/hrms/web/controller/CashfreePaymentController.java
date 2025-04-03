@@ -105,7 +105,7 @@ public @ResponseBody String getOrderDetailByOrderId(HttpServletRequest request, 
 	   
 		return profileRes;
 	}
-@PostMapping(value="/webhook-callback")
+@PostMapping(value="/webhook-callback_notify")
 public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
 		logger.info("webhook-callback called");
@@ -116,6 +116,26 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 		try {
 			
 			profileRes = cashfreePaymentService.paymentCallBackData(tokengeneration.getToken(),root);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(null, HttpStatus.OK);
+		
+}
+
+
+@PostMapping(value="/staging_webhook")
+public ResponseEntity<Void> staging_webhook(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
+	
+		logger.info("staging_webhook");
+		logger.info("staging_webhook hook called"+payload);	
+		String profileRes=null;
+	    ObjectMapper om = new ObjectMapper();
+		Root root = om.readValue(payload, Root.class); 
+		try {
+			
+			profileRes = cashfreePaymentService.stagingWebhookSave(tokengeneration.getToken(),root);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

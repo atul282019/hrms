@@ -18,4 +18,6 @@ public interface CashfreePaymentService {
 	
 	String viewOrderIdList(String token, OrderUserRequest orderUserRequest);
 
+	String stagingWebhookSave(String token, Root root);
+
 }
