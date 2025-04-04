@@ -197,40 +197,40 @@
 			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
 
 									<div class="card-form my-3">
-			                            <label for="DirectorName">Name</label>
+			                            <label for="DirectorName">Name*</label>
 			                            <input type="text" class="form-input" id="DirectorName" name="DirectorName"oninput="sanitizeInput(this)">
 			                        </div>
 			                        <div class="error-msg" id="DirectorNameError" style="color:red"></div>
 
 			                        
 									<div class="card-form my-3">
-                                        <label for="mobno">Mobile</label>
+                                        <label for="mobno">Mobile*</label>
                                         <input type="text" class="form-input" id="mobno" maxlength="10"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     </div>
  										 <div class="error-msg" id="mobnoError" style="color:red"></div>
 										 
 										 <div class="card-form my-3">
-	                                         <label for="email">Email</label>
+	                                         <label for="email">Email*</label>
 	                                         <input type="email" class="form-input" id="email" maxlength="50" oninput="sanitizeInput(this)" >
 	 	                                    </div>
 	 									 <div class="error-msg" id="emailError" style="color:red"></div>
 										 
 										 <div class="card-form my-3">
-		                                         <label for="Din">Din</label>
+		                                         <label for="Din">Din*</label>
 		                                         <input type="text" class="form-input" id="Din" maxlength="8"
 		                                         oninput="sanitizeInput(this)">
 		                                     </div>
 		  										 <div class="error-msg" id="DinError" style="color:red"></div>
 
 			                        <div class="card-form my-3">
-			                            <label for="Designation">Designation</label>
+			                            <label for="Designation">Designation*</label>
 			                            <input type="text" class="form-input" id="Designation" name="Designation" oninput="sanitizeInput(this)">
 			                        </div>
 			                        <div class="error-msg" id="DesignationError" style="color:red"></div>
 									
 									<div class="card-form my-3">
-                                         <label for="Address">Address</label>
+                                         <label for="Address">Address*</label>
                                          <input type="text" class="form-input" id="Address" 
                                          oninput="sanitizeInput(this)">
                                      </div>
