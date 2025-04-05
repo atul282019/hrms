@@ -1,5 +1,5 @@
 	
-		function getDiretctorList() {
+		function getDirectorList() {
 		    const employerId = document.getElementById('employerId').value;
 			document.getElementById("signinLoader").style.display="flex";
 		    $.ajax({
@@ -38,19 +38,8 @@
 								<td>${director.address}</td>
 								<td>${director.createdby}</td>
 								<td>${formattedDate}</td>
-								
-		                        
-		                        
-		                        
-		                        
-		                       
-								
-								
-								
-		                        
 		                    </tr>
 		                `;
-
 		                tableBody.append(row);
 		            });
 		        },
@@ -61,7 +50,7 @@
 		}	
 		
 		
-		function saveDirectorData() {
+async function saveDirectorData() {
 			const employerId = document.getElementById('employerId').value;
 			const createdby_name = document.getElementById('Name').value;
 		    // Gather form data
@@ -139,21 +128,38 @@
 			    }
 
 				document.getElementById("signinLoader").style.display="flex";
-		    // Send the AJAX request
+
+	        const clientKey = "client-secret-key"; // Extra security measure
+	        const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	        // Concatenate data (must match backend)
+	        const dataString = employerId+DirectorName+Din+email+mobno+Designation+Address+createdby_name+clientKey+secretKey;
+
+	        // Generate SHA-256 hash
+	        const encoder = new TextEncoder();
+	        const data = encoder.encode(dataString);
+	        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	        const hashArray = Array.from(new Uint8Array(hashBuffer));
+	        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+	        // Prepare request payload
+	        const requestData = {
+				orgId : employerId,  
+				name:DirectorName,
+	            din: Din,
+	            email: email, 
+	            mobile: mobno,
+	            designation: Designation,
+	            address: Address,
+				createdby: createdby_name,
+	            key: clientKey,  // Extra key for validation
+	            hash: hashHex
+	        };
 		    $.ajax({
 		        type: "POST",
 		        url: "/saveDirectorOnboarding",
-		        data: {   
-					"orgId": employerId,  
-					"name":DirectorName,
-		            "din": Din,
-		            "email": email, 
-		            "mobile": mobno,
-		            "designation": Designation,
-		            "address": Address,
-					"createdby": createdby_name,
-		            
-		        },
+				contentType: "application/json",
+				data: JSON.stringify(requestData),
 		        dataType: "json",
 		        success: function (response) {
 					document.getElementById("signinLoader").style.display="none";

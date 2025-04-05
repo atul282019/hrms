@@ -262,12 +262,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	@PostMapping(value="/getErupiLinkBankAccountDetail")
 	public @ResponseBody String getErupiLinkBankAccountDetail(HttpServletRequest request,
 			EmployeeMassterRequest erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
-	
-			//String profileRes=null;
-			
-			//profileRes = expensesReimbursementService.getErupiLinkBankAccountDetail(tokengeneration.getToken(),erupiLinkBankAccount);
-			
-			//return profileRes;
 		
 		String profileRes=null;
 		
@@ -297,10 +291,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 			String profileRes=null;
 			
-			//profileRes = expensesReimbursementService.getErupiLinkDlinkAccountDetail(tokengeneration.getToken(),erupiLinkBankAccount);
-			
-			///return profileRes;
-			
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
 
@@ -328,10 +318,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 			String profileRes=null;
 			
-			//profileRes = expensesReimbursementService.delinkErupiAccount(tokengeneration.getToken(),erupiLinkBankAccount);
-			
-			//return profileRes;
-			
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
 
@@ -356,10 +342,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
 			String profileRes=null;
-			
-			//profileRes = expensesReimbursementService.relinkErupiAccount(tokengeneration.getToken(),erupiLinkBankAccount);
-			
-			//return profileRes;
 			
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);

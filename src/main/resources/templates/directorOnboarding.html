@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="getDiretctorList()">
+<body id="page-top" onload="getDirectorList()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -113,19 +113,19 @@
 						</div>
 					</div>
 					<div class="lds-spinner" id="signinLoader" style="display: none">
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-													<div></div>
-												</div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
 				</div>
               
               <!-- /.container-fluid -->
@@ -234,25 +234,19 @@
                                          <input type="text" class="form-input" id="Address" 
                                          oninput="sanitizeInput(this)">
                                      </div>
-  										 <div class="error-msg" id="AddressError" style="color:red"></div>
-
-										
-
-									<div class="modal-footer d-flex justify-content-between ">
+  								    <div class="error-msg" id="AddressError" style="color:red"></div>
+									<div class="modal-footer d-flex justify-content-between">
 										<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
-				 	                            <div id="otsuccmsg"></div>
-				 	                        </div>
-
-				 							<div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
-				 	                            <div id="otfailmsg"></div>
-				 	                        </div>
-										
-									                <button type="button" class="btn btn-primary"  onclick="saveDirectorData()">Save</button>
-									                <button type="button" class="btn btn-border"  data-dismiss="modal">Cancel</button>
+			 	                            <div id="otsuccmsg"></div>
+			 	                        </div>
+			 							<div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+			 	                            <div id="otfailmsg"></div>
+			 	                        </div>
+						                <button type="button" class="btn btn-primary"  onclick="saveDirectorData()">Save</button>
+						                <button type="button" class="btn btn-border"  data-dismiss="modal">Cancel</button>
 						            </div>
 			                    </form>
 			                </div>
-							
 			            </div>
 			        </div>
 			    </div>
@@ -292,6 +286,46 @@
 			   		            </div>
 			   		        </div>
 			   		    </div>
+						<!--<script>
+						    async function generateHashAndSend() {
+						        const userId = "12345";
+						        const timestamp = Date.now().toString();
+						        const clientKey = "client-secret-key"; // Extra security measure
+						        const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+						        // Concatenate data (must match backend)
+						        const dataString = userId + timestamp + clientKey + secretKey;
+
+						        // Generate SHA-256 hash
+						        const encoder = new TextEncoder();
+						        const data = encoder.encode(dataString);
+						        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+						        const hashArray = Array.from(new Uint8Array(hashBuffer));
+						        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+						        // Prepare request payload
+						        const requestData = {
+						            userId: userId,
+						            timestamp: timestamp,
+						            key: clientKey,  // Extra key for validation
+						            hash: hashHex
+						        };
+
+						        // Send AJAX POST request
+						        $.ajax({
+						            url: "/validateRequest", // Adjust if backend URL is different
+						            type: "POST",
+						            contentType: "application/json",
+						            data: JSON.stringify(requestData),
+						            success: function(response) {
+						                console.log("Server Response:", response);
+						            },
+						            error: function(xhr, status, error) {
+						                console.error("Error:", error);
+						            }
+						        });
+						    }
+						</script>-->
 </body>
 
 </body>

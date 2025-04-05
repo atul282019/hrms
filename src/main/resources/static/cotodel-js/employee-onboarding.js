@@ -210,7 +210,7 @@ function validateAmount(amount) {
 	        return false;
 	    }
 }
-function saveEmployeeOnboarding(){
+async function saveEmployeeOnboarding(){
 	    
 	    var employerId = document.getElementById("employerId").value;
 	    var employeeId = document.getElementById("employeeId").value;
@@ -222,7 +222,7 @@ function saveEmployeeOnboarding(){
 	    const jobTitle = document.getElementById("jobTitle").value;
 		const departmentDropdown = document.getElementById("department");
 		const department = departmentDropdown.options[departmentDropdown.selectedIndex].text;
-	   const reporting = document.getElementById("reporting");
+	    const reporting = document.getElementById("reporting");
 		const managerName1 = reporting.options[reporting.selectedIndex].text;
 		const managerName = document.getElementById("reporting").value;
 	    const ctc = document.getElementById("salary").value;
@@ -232,7 +232,6 @@ function saveEmployeeOnboarding(){
 		const Id = document.getElementById("Id").value;
 		const profilePhotoBase64 = document.getElementById("profilePhotoBase64").value;
 		
-
 	    const regName = /^[a-zA-Z\s]*$/;
 	    const onlySpace = /^$|.*\S+.*/;
 	    const regMobile = /^[6-9]\d{9}$/gi;
@@ -248,11 +247,9 @@ function saveEmployeeOnboarding(){
 		const employeeType = document.getElementById("employeeType").value;
 		
 		const dropdown = document.getElementById("employeeType");
-		  const emporcount = dropdown.options[dropdown.selectedIndex].text;
+		const emporcount = dropdown.options[dropdown.selectedIndex].text;
 		  
-	
-	    if (employeeType==1) {
-			
+	    if (employeeType==1) {	
 			if (name === "" || namespace !== name) {
 	        document.getElementById("nameError").textContent = namespace !== name 
 	            ? "Only single spaces are allowed." 
@@ -289,9 +286,6 @@ function saveEmployeeOnboarding(){
 		    } else {
 		        document.getElementById("emailError").textContent = "";
 		    }
-
-		 
-
 		    if (hireDate === "") {
 		        document.getElementById("hireDateError").textContent = "Please select date";
 		        document.getElementById("hireDate").focus();
@@ -419,53 +413,74 @@ function saveEmployeeOnboarding(){
 	        return false;
 	    }
 		console.log("profile photo in base 64 before check",profilePhoto);
-		//if(profilePhoto=="")
-			//if(profilePhoto!="")
-		//if(!profilePhotoBase64=="")
 			if(profilePhoto=="")
 			{
 				profilePhoto=profilePhotoBase64;
 			}
-			/*else if(profilePhoto!=profilePhotoBase64)//if user changes the photo while editing
-				{
-					profilePhoto=this.profilePhoto;
-				}*/
-				console.log("profile photo in base 64 after check",profilePhoto);
+			
+	console.log("profile photo in base 64 after check",profilePhoto);
 
 	var formData = new FormData(employeeOnboarding);
 	formData.append("Id",Id);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employeeId);
-	
-	//formData.append("empOrCont",empOrCont);
 	formData.append("name",name);
-	
 	formData.append("email",email);
 	formData.append("mobile",mobile);
 	formData.append("herDate",hireDate);
-	
 	formData.append("jobTitle",jobTitle);
 	formData.append("depratment",department);
-	
 	formData.append("managerId",managerName);
 	formData.append("managerName",managerName1);
 	formData.append("ctc",ctc);
-	
 	formData.append("location",selectedLocation);
 	formData.append("residentOfIndia",residentOfIndia);
 	formData.append("empOrCont",emporcount);
 	formData.append("empPhoto",profilePhoto);
 	
-	
-	
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+    const dataString = Id+employerId+employeeId+name+email+mobile+hireDate+jobTitle+department+managerName+
+	managerName1+ctc+selectedLocation+residentOfIndia+emporcount+profilePhoto+clientKey+secretKey;
+
+    // Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+    // Prepare request payload
+    const requestData = {
+		Id:Id,
+		employerId:employerId,
+		employeeId:employeeId,
+		name:name,
+		email:email,
+		mobile:mobile,
+		herDate:hireDate,
+		jobTitle:jobTitle,
+		depratment:department,
+		managerId:managerName,
+		managerName:managerName1,
+		ctc:ctc,
+		location:selectedLocation,
+		residentOfIndia:residentOfIndia,
+		empOrCont:emporcount,
+		empPhoto:profilePhoto,
+        key: clientKey,  // Extra key for validation
+        hash: hashHex
+    };
+
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
 	 	$.ajax({
 		type: "POST",
-	     url:"/employeeOnboarding",
-         data: formData,
-         processData: false,
-         contentType: false,       		 
+	     url:"/employeeRegistration",
+		 contentType: "application/json",
+		 data: JSON.stringify(requestData),
            success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);

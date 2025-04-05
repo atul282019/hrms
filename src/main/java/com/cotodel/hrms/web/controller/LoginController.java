@@ -131,6 +131,8 @@ public class LoginController extends CotoDelBaseController{
 					model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
 					}
 					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 9) {
+						//request.getSession(true).setAttribute("id",SHA256Hash.getSHA256Hash(String.valueOf(profileJsonRes.getJSONObject("data").getInt("id"))));
+						
 						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
