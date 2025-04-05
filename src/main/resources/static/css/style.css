@@ -26187,6 +26187,7 @@ p.title-2 {
 }
 
 .card-hero-wrap {
+	justify-content: center;
   margin-top: 50px;
   z-index: 7;
   position: relative;
@@ -26196,6 +26197,7 @@ p.title-2 {
   background: #fff;
   border-radius: 20px;
   padding: 20px;
+  border: 1px;
 }
 
 .card-img-wrap {
@@ -26265,7 +26267,7 @@ section.alumni-wrap {
 }
 
 section.faq-wrap {
-  background: #EAF4EF;
+  background: #FFFFFF;
 }
 .accordion.custom-accordian {
   border-bottom: 1px solid #BFDECC;
@@ -26304,11 +26306,11 @@ section.faq-wrap {
 }
 
 section.contact-section{
-  background: #EAF4EF;
+  background: #ffff;
 }
 
 .contact-form {
-  background: #fff;
+  background: #EAF4EF;
   border-radius: 20px;
   padding: 40px;
 }
@@ -26351,9 +26353,22 @@ section.blogs-section{
 .card-blog{
   border: 1px solid #EAF4EF;
   border-radius: 15px;
-  padding: 15px;  
+  padding: 1px;  
   margin: 10px;
   transition: ease-in-out 0.3s;
+  width: 369;
+}
+.card-blog1{
+  border: 1px solid #EAF4EF;
+  border-radius: 15px;
+  padding: 1px;  
+  margin: 10px;
+  transition: ease-in-out 0.3s;
+  border-color: #BFDECC;
+  width:1666;
+ 
+  
+ 
 }
 
 .card-blog:hover{
@@ -26481,7 +26496,8 @@ ul.sociallink li a{
 }
 
 .card-img-wrap{
-  min-height: 190px;
+  min-height: 100%;
+  min-width: 100%;
 }
 
 .about-sec-border{
@@ -26556,6 +26572,9 @@ section.faq-wrap {
     border: none;
     padding: 0;
     margin: 0;
+}
+.shift-right {
+  margin-left: 10px; /* You can adjust this value as needed */
 }
 
 .modal-solution-in {

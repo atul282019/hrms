@@ -29,7 +29,7 @@ function getProfileStatus(){
 	                   $('#profileComplete').html(profileComplete);
 	                   document.getElementById("profile").style.width = (132 * parseInt(profileComplete)) + "px";
 	               } else {
-	                   console.error("Unexpected response structure:", parsedData);
+	                   console.log("Unexpected response structure:", parsedData.message || "No message");
 	               }
 	           } catch (error) {
 	               console.error("Error parsing JSON:", error);
