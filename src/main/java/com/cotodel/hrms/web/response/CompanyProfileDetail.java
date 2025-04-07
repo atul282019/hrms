@@ -32,5 +32,7 @@ public class CompanyProfileDetail {
 	private String natureOfPrincipalPlaceOfBusiness;
 	private String centerJurisdictionCode;
 	private String  otpStatus;
+	private String clientKey;
+	private String hash; 
 
 }

@@ -198,7 +198,7 @@ function fetchOrgDetails(type) {
 	        inputElement.classList.remove("filled"); // Removes the icon if input is cleared
 	    }
 	}
-	function continueToForm3() {
+	async function continueToForm3() {
 	    const currentForm1 = document.getElementById('Form1');
 	    const currentForm2 = document.getElementById('Form2');
 	    const nextForm3 = document.getElementById('Form3'); // Assuming you have Form3 defined
@@ -464,16 +464,31 @@ function fetchOrgDetails(type) {
 		    } else {
 		      status.textContent = "Please Select GST or PAN";
 		    }
-		  
+						const clientKey = "client-secret-key"; // Extra security measure
+					    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+				
+					    // Concatenate data (must match backend)
+				
+						const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
+						pincode+state+employerName+employerId+secretKey;
+				
+					    // Generate SHA-256 hash
+					    const encoder = new TextEncoder();
+					    const data = encoder.encode(dataString);
+					    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+					    const hashArray = Array.from(new Uint8Array(hashBuffer));
+					    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+						
+
 		
-	
+	//pan is repeated 2 times , gstnNo1 feild is not present in class and is not going in request also employer mobile
 		$.ajax({
 		type: "POST",
 		url:"/saveOrganizationDetail",
 		    data: {
 				
-				"gstnNo1":gstnNo1,
-				"pan": panNo1,
+				//"gstnNo1":gstnNo1,
+				//"pan": panNo1,
 				"legalNameOfBusiness": legalName,
 				"tradeName":legalName,
 				"constitutionOfBusiness":tradeName,
@@ -494,8 +509,11 @@ function fetchOrgDetails(type) {
 				"gstIdentificationNumber":gstnNo1,
 				"pan":panNo1,
 				"createdBy":employerName,
-				"employerMobile":userMobile,
+				//"employerMobile":userMobile,
 				"employerId":employerId,
+				"clientKey" :clientKey,
+				  "hash":hashHex
+
 				
 		   		 },
 		   		  beforeSend : function(xhr) {

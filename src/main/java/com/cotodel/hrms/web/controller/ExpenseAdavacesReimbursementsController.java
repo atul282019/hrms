@@ -380,7 +380,58 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
 			String profileRes=null;
-			
+			String receivedHash = erupiLinkBankAccount.getHash();
+			 if (!CLIENT_KEY.equals(erupiLinkBankAccount.getClientKey())) {
+		          //  return Map.of("isValid", false, "message", "Invalid client key");
+		        }
+		        // Ensure consistent concatenation
+		        String dataString = erupiLinkBankAccount.getOrgId()+CLIENT_KEY+SECRET_KEY;
+
+		        // Compute hash
+		        String computedHash = null;
+				try {
+					computedHash = generateHash(dataString);
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				  boolean isValid = computedHash.equals(receivedHash);
+				    Map<String, Object> responseMap = new HashMap<>();
+				    ObjectMapper mapper = new ObjectMapper();
+				    
+				  if (!isValid) {
+				        responseMap.put("status", false);
+				        responseMap.put("message", "Request Tempered");
+				        try {
+				            return mapper.writeValueAsString(responseMap);
+				        } catch (JsonProcessingException e) {
+				            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+				        }
+				    }
+				  
+				  String token = (String) session.getAttribute("hrms");
+				    
+				    if (token == null) {
+				        responseMap.put("status", false);
+				        responseMap.put("message", "Unauthorized: No token found.");
+				        try {
+				            return mapper.writeValueAsString(responseMap);
+				        } catch (JsonProcessingException e) {
+				            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+				        }
+				    }
+				    // Validate Token
+				    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+				    if (obj == null) {
+				        responseMap.put("status", false);
+				        responseMap.put("message", "Unauthorized: Invalid token.");
+				        try {
+				            return mapper.writeValueAsString(responseMap);
+				        } catch (JsonProcessingException e) {
+				            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+				        }
+				    }
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
 
@@ -396,6 +447,12 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
+				    
+				   
 	   
 		return profileRes;
 		  

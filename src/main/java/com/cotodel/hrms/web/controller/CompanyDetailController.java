@@ -1,5 +1,8 @@
 package com.cotodel.hrms.web.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -22,11 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.CompanyProfileDetail;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.CompanyService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.cotodel.hrms.web.util.MessageConstant;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -43,6 +49,9 @@ public class CompanyDetailController extends CotoDelBaseController{
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
+	
+	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
+    private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
 	
 //	@PostMapping(value="/saveCompanyDetail")
 //	public @ResponseBody String saveCompanyDetail(HttpServletRequest request, ModelMap model,Locale locale,
@@ -186,6 +195,62 @@ public class CompanyDetailController extends CotoDelBaseController{
 	public @ResponseBody String saveOrganizationDetail(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,CompanyProfileDetail companyProfileDetail) {
 		String profileRes=null;
+		String receivedHash = companyProfileDetail.getHash();
+		if (!CLIENT_KEY.equals(companyProfileDetail.getClientKey())) {
+	          //  return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+		
+		 String dataString = companyProfileDetail.getPan()+companyProfileDetail.getLegalNameOfBusiness()+companyProfileDetail.getTradeName()+companyProfileDetail.getConstitutionOfBusiness()+
+		 companyProfileDetail.getOrgType()+companyProfileDetail.getAddress1()+companyProfileDetail.getAddress2()+companyProfileDetail.getDistrictName()+companyProfileDetail.getPincode()+companyProfileDetail.getStateName()+
+		 companyProfileDetail.getGstIdentificationNumber()+companyProfileDetail.getCreatedBy()+companyProfileDetail.getEmployerId()+CLIENT_KEY+SECRET_KEY;
+
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			 boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+			    ObjectMapper mapper = new ObjectMapper();
+			 
+			    // Get token from session
+			    if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    
+			    String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 2) && obj.getOrgid() == companyProfileDetail.getEmployerId().intValue()) {
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
 
@@ -201,6 +266,11 @@ public class CompanyDetailController extends CotoDelBaseController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
    
 	return profileRes;
 	
@@ -230,4 +300,13 @@ public class CompanyDetailController extends CotoDelBaseController{
 	return profileRes;
 	
 	}
+	 private String generateHash(String data) throws NoSuchAlgorithmException {
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : hashBytes) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    }
 }
