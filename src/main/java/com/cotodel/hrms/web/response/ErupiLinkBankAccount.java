@@ -39,5 +39,7 @@ public class ErupiLinkBankAccount {
 	private String psFlag;
 	private byte[] bankLogo;
 	private String response;
+	private String clientKey;
+	private String hash;
 		  
 }

@@ -1221,7 +1221,7 @@ function dlinkAccount(acNumber)
 }
 
 
-function submitLinkBankAccount(){
+async function submitLinkBankAccount(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var bankCode=  $("#bankName option:selected").val();
@@ -1351,7 +1351,22 @@ function submitLinkBankAccount(){
 			}
 			document.getElementById("signinLoader").style.display="flex";
 			document.getElementById("linkBankBtn").disabled = true;
-			
+			const clientKey = "client-secret-key"; // Extra security measure
+		    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	
+		    // Concatenate data (must match backend)
+	
+			const dataString = employerId+bankName+bankingName+bankAccNumber+bankAccNumberConfirm+accountType+bankIfsc+moblieLink+
+			merchantId+submerchantid+payerva+clientKey+secretKey;
+	
+		    // Generate SHA-256 hash
+		    const encoder = new TextEncoder();
+		    const data = encoder.encode(dataString);
+		    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		    const hashArray = Array.from(new Uint8Array(hashBuffer));
+		    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	
+				
 	 	$.ajax({
 		type: "POST",
 	     url:"/addErupiLinkBankAccount",
@@ -1383,7 +1398,9 @@ function submitLinkBankAccount(){
 					  "merchentIid": merchantId,
 					 // "mcc": mcc,
 					  "submurchentid": submerchantid,
-					  "payerva": payerva
+					  "payerva": payerva,
+					  "key": clientKey,  // Extra key for validation
+					  "hash": hashHex
 					
 		 		}, 
 						 

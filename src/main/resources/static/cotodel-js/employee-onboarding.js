@@ -419,24 +419,6 @@ async function saveEmployeeOnboarding(){
 			}
 			
 	console.log("profile photo in base 64 after check",profilePhoto);
-
-	var formData = new FormData(employeeOnboarding);
-	formData.append("Id",Id);
-	formData.append("employerId",employerId);
-	formData.append("employeeId",employeeId);
-	formData.append("name",name);
-	formData.append("email",email);
-	formData.append("mobile",mobile);
-	formData.append("herDate",hireDate);
-	formData.append("jobTitle",jobTitle);
-	formData.append("depratment",department);
-	formData.append("managerId",managerName);
-	formData.append("managerName",managerName1);
-	formData.append("ctc",ctc);
-	formData.append("location",selectedLocation);
-	formData.append("residentOfIndia",residentOfIndia);
-	formData.append("empOrCont",emporcount);
-	formData.append("empPhoto",profilePhoto);
 	
 	const clientKey = "client-secret-key"; // Extra security measure
     const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
@@ -512,74 +494,34 @@ async function saveEmployeeOnboarding(){
 }
 
 
-/*function getEmployeeOnboarding() {
-
-	var employeeId= document.getElementById("employeeId").value;
-	var employerId=document.getElementById("employerId").value;
-	//document.getElementById("signinLoader").style.display="flex";
-	$.ajax({
-		type: "GET",
-		url: "/getEmployeeOnboarding",
-		data: {
-			"employeeId": employeeId,
-			"employerId": employerId,
-		},
-       		  beforeSend : function(xhr) {
-				//xhr.setRequestHeader(header, token);
-				},
-            success: function(data){
-            newData = data;
-            console.log("Emp onboarding data",newData);
-            var data1 = jQuery.parseJSON( newData );
-			var data2 = data1.data;
-			//console.log(newData);
-           var table = $('#employeeTable').DataTable( {
-	          destroy: true,	
-		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
-             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-             "language": {"emptyTable": "No Data available"  },
-	        
-	         "aaData": data2,
-      		  "aoColumns": [ 
-				{ "mData": null, "render": function (data, type, row, meta) { return meta.row + 1; } },
-				{ "mData": "id","render": function (data1, type, row) {
-                    return '<input type="hidden" class="form-input" id="id" name="id" value="'+data1+'">';
-                 }}, 
-			    { "mData": "userDetailsId","render": function (data1, type, row) {
-	                return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="'+data1+'">';
-	             }},
-      		    { "mData": "name"},          
-      		    { "mData": "mobile"},
-      		    { "mData": "email"},
-      		    { "mData": "empOrCont"},
-				{ "mData": "status", "render": function(data, type, row) {
-				                        return data === 1 ? 'Active' : 'Deactive';
-				                    }},
-      		  	{ "mData": "userDetailsId", "render": function (data1, type, row) {
-                    return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right"   onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
-                 }}, 
-    		 	]
-      		});
-      	     		  
-    		},
-		error: function(e) {
-			alert('Failed to fetch JSON data' + e);
-		}
-	});
-}*/
-
-function getEmployeeOnboarding() {
+async function getEmployeeOnboarding() {
 	document.getElementById("signinLoader").style.display="flex";
     var employeeId = document.getElementById("employeeId").value;
     var employerId = document.getElementById("employerId").value;
     
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+    const dataString = employerId+employeeId+clientKey+secretKey;
+
+    // Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	const requestData = {
+			employerId:employerId,
+			employeeId:employeeId,
+	        key: clientKey,  // Extra key for validation
+	        hash: hashHex
+	    };
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "/getEmployeeOnboarding",
-        data: {
-            "employeeId": employeeId,
-            "employerId": employerId,
-        },
+		contentType: "application/json",
+		data: JSON.stringify(requestData),
         beforeSend: function(xhr) {
             //xhr.setRequestHeader(header, token);
         },
@@ -639,18 +581,34 @@ function getEmployeeOnboarding() {
   
 
  
- function pupolateDataEmployee() {
+ async function pupolateDataEmployee() {
 	 
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
 	//document.getElementById("signinLoader").style.display="flex";
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+    const dataString = employerId+employeeId+clientKey+secretKey;
+
+    // Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	const requestData = {
+			employerId:employerId,
+			employeeId:employeeId,
+	        key: clientKey,  // Extra key for validation
+	        hash: hashHex
+	    };
 		$.ajax({
-		type: "GET",
+		type: "POST",
 		url: "/getEmployeeOnboarding",
-		data: {
-			"employeeId": employeeId,
-			"employerId": employerId,
-		},
+		contentType: "application/json",
+					data: JSON.stringify(requestData),
        		  beforeSend : function(xhr) {
 				//xhr.setRequestHeader(header, token);
 				},
@@ -695,29 +653,47 @@ function getEmployeeOnboarding() {
 	sessionStorage.setItem("userDetailsId",userDetailsId);
   }
   
-  function pupolateData(id,userDetailsid) {
+ async function pupolateData(id,userDetailsid) {
 	 empid=id;
 	 userDetailsId=userDetailsid;
 	var employeeId= document.getElementById("employeeId").value;
 	var employerId=document.getElementById("employerId").value;
 	//document.getElementById("signinLoader").style.display="flex";
 	
+	    const clientKey = "client-secret-key"; // Extra security measure
+	    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	    // Concatenate data (must match backend)
+	    const dataString = id+employerId+clientKey+secretKey;
+
+	    // Generate SHA-256 hash
+	    const encoder = new TextEncoder();
+	    const data = encoder.encode(dataString);
+	    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	    const hashArray = Array.from(new Uint8Array(hashBuffer));
+	    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+		const requestData = {
+				id:id,
+				employerId:employerId,
+		        key: clientKey,  // Extra key for validation
+		        hash: hashHex
+		    };
+			
 		$.ajax({
-		type: "GET",
+		type: "POST",
 		url:"/getEmployeeOnboardingById",
-        data: {
-				"id": id,
-				"employerId": employerId,
-       		 },
+		contentType: "application/json",
+							data: JSON.stringify(requestData),
        		  beforeSend : function(xhr) {
 				//xhr.setRequestHeader(header, token);
 				},
             success: function(data){
             newData = data;
-           // console.log(newData);
+            console.log("new Data=========="+newData);
             var data1 = jQuery.parseJSON( newData );
+			console.log("data1=========="+data1);
 			var data2 = data1.data;
-			//console.log(newData);
+			console.log("data2=========="+data2);
   			document.getElementById("email").innerHTML=data2.email;
   			document.getElementById("mobile").innerHTML=data2.mobile;
   			document.getElementById("designation").innerHTML=data2.jobTitle;
@@ -858,18 +834,33 @@ function validateAndConvertImageToBase64() {
 	}*/
 	
 	// Function to display only deactive employees with an activate option
-	function getDeactiveEmployees() {
+	async function getDeactiveEmployees() {
 		document.getElementById("signinLoader").style.display="flex";
 	    var employeeId = document.getElementById("employeeId").value;
 	    var employerId = document.getElementById("employerId").value;
-	    
+		const clientKey = "client-secret-key"; // Extra security measure
+		    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+		    // Concatenate data (must match backend)
+		    const dataString = employerId+employeeId+clientKey+secretKey;
+
+		    // Generate SHA-256 hash
+		    const encoder = new TextEncoder();
+		    const data = encoder.encode(dataString);
+		    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		    const hashArray = Array.from(new Uint8Array(hashBuffer));
+		    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+			const requestData = {
+					employerId:employerId,
+					employeeId:employeeId,
+			        key: clientKey,  // Extra key for validation
+			        hash: hashHex
+			    };
 	    $.ajax({
-	        type: "GET",
+	        type: "POST",
 	        url: "/getEmployeeOnboarding",
-	        data: {
-	            "employeeId": employeeId,
-	            "employerId": employerId,
-	        },
+			contentType: "application/json",
+			data: JSON.stringify(requestData),
 	        beforeSend: function(xhr) {
 	            //xhr.setRequestHeader(header, token);
 	        },

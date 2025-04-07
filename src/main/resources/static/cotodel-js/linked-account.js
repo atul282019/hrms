@@ -291,7 +291,7 @@ function dlinkAccount(acNumber)
 	});	
 }
 
-function submitLinkBankAccount(){
+async function submitLinkBankAccount(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var bankCode=  $("#bankName option:selected").val();
@@ -304,7 +304,6 @@ function submitLinkBankAccount(){
 	
 	var tid = document.getElementById("tid").value;
 	var merchantId = document.getElementById("merchantId").value;
-	//var mcc = document.getElementById("mcc").value;
 	var submerchantid = document.getElementById("submerchantid").value;
 	var payerva = document.getElementById("payerva").value;
 	var moblieLink = document.getElementById("moblieLink").value;
@@ -388,22 +387,16 @@ function submitLinkBankAccount(){
 		if(merchantId=="" || merchantId==null){
 			document.getElementById("merchantIdError").innerHTML="Please Enter Merchant Id";
 			return false;
-		}		else if(!merchantId.match(merchantidregex))
-								{
-								document.getElementById("merchantIdError").innerHTML="Special Characters are not allowed in merchant id";
-										document.getElementById("merchantId").focus();
-										return false;
-								}
+		}else if(!merchantId.match(merchantidregex))
+		{
+		document.getElementById("merchantIdError").innerHTML="Special Characters are not allowed in merchant id";
+				document.getElementById("merchantId").focus();
+				return false;
+		}
 		else{
 			document.getElementById("merchantIdError").innerHTML="";
 		}
-		/*if(mcc=="" || mcc==null){
-					document.getElementById("mccError").innerHTML="Please Enter MCC";
-			return false;
-		}
-		else{
-			document.getElementById("mccError").innerHTML="";
-		}*/
+		
 		if(submerchantid=="" || submerchantid==null){
 		document.getElementById("submerchantidError").innerHTML="Please Enter Sub Merchant Id";
 				return false;
@@ -428,7 +421,21 @@ function submitLinkBankAccount(){
 			}
 			document.getElementById("signinLoader").style.display="flex";
 			document.getElementById("linkBankBtn").disabled = true;
-			
+			const clientKey = "client-secret-key"; // Extra security measure
+		    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	
+		    // Concatenate data (must match backend)
+	
+			const dataString = employerId+bankName+bankingName+bankAccNumber+bankAccNumberConfirm+accountType+bankIfsc+moblieLink+
+			merchantId+submerchantid+payerva+clientKey+secretKey;
+	
+		    // Generate SHA-256 hash
+		    const encoder = new TextEncoder();
+		    const data = encoder.encode(dataString);
+		    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		    const hashArray = Array.from(new Uint8Array(hashBuffer));
+		    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+				
 	 	$.ajax({
 		type: "POST",
 	     url:"/addErupiLinkBankAccount",
@@ -458,9 +465,10 @@ function submitLinkBankAccount(){
 					  "accstatus":1,
 					  "tid": tid,
 					  "merchentIid": merchantId,
-					 // "mcc": mcc,
 					  "submurchentid": submerchantid,
-					  "payerva": payerva
+					  "payerva": payerva,
+					  "clientKey" :clientKey,
+					  "hash":hashHex
 					
 		 		}, 
 						 

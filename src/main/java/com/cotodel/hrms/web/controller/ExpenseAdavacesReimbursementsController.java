@@ -1,10 +1,16 @@
 package com.cotodel.hrms.web.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +32,22 @@ import com.cotodel.hrms.web.response.LinkMultipleAccountRequest;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
 import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
 public class ExpenseAdavacesReimbursementsController extends CotoDelBaseController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(BulkUserController.class);
+	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
+    private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
 
 	
 	@Autowired
@@ -203,29 +215,107 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
 		String profileRes=null;
-		
-	//	profileRes = expensesReimbursementService.erupiLinkBankAccount(tokengeneration.getToken(),erupiLinkBankAccount);
-		
-		//  return profileRes;
-		
+		String receivedHash = erupiLinkBankAccount.getHash();
+		 // Validate client key first
+        if (!CLIENT_KEY.equals(erupiLinkBankAccount.getClientKey())) {
+          //  return Map.of("isValid", false, "message", "Invalid client key");
+        }
+        // Ensure consistent concatenation
+        String dataString = erupiLinkBankAccount.getOrgId()+erupiLinkBankAccount.getBankName()+erupiLinkBankAccount.getAccountHolderName()+erupiLinkBankAccount.getAcNumber()+erupiLinkBankAccount.getConirmAccNumber()+erupiLinkBankAccount.getAccountType()+erupiLinkBankAccount.getIfsc()
+        +erupiLinkBankAccount.getMobile()+erupiLinkBankAccount.getMerchentIid()+erupiLinkBankAccount.getSubmurchentid()+erupiLinkBankAccount.getPayerva()+CLIENT_KEY+SECRET_KEY;
 
+        // Compute hash
+        String computedHash = null;
 		try {
-			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =  expensesReimbursementService.erupiLinkBankAccount(tokengeneration.getToken(),jsonObject);
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
+			computedHash = generateHash(dataString);
+		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       
-		return profileRes;
-		  
+
+    // Validate hash
+    boolean isValid = computedHash.equals(receivedHash);
+    Map<String, Object> responseMap = new HashMap<>();
+    ObjectMapper mapper = new ObjectMapper();
+ 
+    // Get token from session
+    if (!isValid) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Request Tempered");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    String token = (String) session.getAttribute("hrms");
+    
+    if (token == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: No token found.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    // Validate Token
+    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+    if (obj == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Invalid token.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+
+    // Check User Role and Organization ID
+    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
+        try {
+            // Convert request object to JSON
+            String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+
+            // Encrypt Request
+            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+            // Call Service
+            String encryptedResponse =  expensesReimbursementService.erupiLinkBankAccount(tokengeneration.getToken(),jsonObject);
+
+            // Decrypt Response
+            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+            String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                    userReqEnc.getEncriptData(), 
+                    userReqEnc.getEncriptKey(), 
+                    applicationConstantConfig.apiSignaturePrivatePath
+            );
+
+            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+            
+            // Process API Response
+            if (apiJsonResponse.getBoolean("status")) {
+                responseMap.put("status", true);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }  
 	}
 	
 	@PostMapping(value="/updateErupiLinkBankAccountStaus")
@@ -744,4 +834,14 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
    
 	return profileRes;
 	}
+	
+	  private String generateHash(String data) throws NoSuchAlgorithmException {
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : hashBytes) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    }
 }
