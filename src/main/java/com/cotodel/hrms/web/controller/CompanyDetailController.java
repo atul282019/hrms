@@ -199,10 +199,11 @@ public class CompanyDetailController extends CotoDelBaseController{
 		if (!CLIENT_KEY.equals(companyProfileDetail.getClientKey())) {
 	          //  return Map.of("isValid", false, "message", "Invalid client key");
 	        }
-		
-		 String dataString = companyProfileDetail.getPan()+companyProfileDetail.getLegalNameOfBusiness()+companyProfileDetail.getTradeName()+companyProfileDetail.getConstitutionOfBusiness()+
-		 companyProfileDetail.getOrgType()+companyProfileDetail.getAddress1()+companyProfileDetail.getAddress2()+companyProfileDetail.getDistrictName()+companyProfileDetail.getPincode()+companyProfileDetail.getStateName()+
-		 companyProfileDetail.getGstIdentificationNumber()+companyProfileDetail.getCreatedBy()+companyProfileDetail.getEmployerId()+CLIENT_KEY+SECRET_KEY;
+//		const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
+//				pincode+state+employerName+employerId+clientKey+secretKey;
+		 String dataString = companyProfileDetail.getPan()+companyProfileDetail.getPan()+companyProfileDetail.getLegalNameOfBusiness()+companyProfileDetail.getLegalNameOfBusiness()+companyProfileDetail.getConstitutionOfBusiness()+companyProfileDetail.getOrgType()+
+			companyProfileDetail.getAddress1()+companyProfileDetail.getAddress2()+companyProfileDetail.getDistrictName()+companyProfileDetail.getPincode()+
+			companyProfileDetail.getStateName()+companyProfileDetail.getCreatedBy()+companyProfileDetail.getEmployerId()+CLIENT_KEY+SECRET_KEY;
 
 	        // Compute hash
 	        String computedHash = null;
@@ -251,28 +252,72 @@ public class CompanyDetailController extends CotoDelBaseController{
 			        }
 			    }
 			    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 2) && obj.getOrgid() == companyProfileDetail.getEmployerId().intValue()) {
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse = companyService.saveOrganizationDetail(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    }
+//    else {
+//        responseMap.put("status", false);
+//        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+//    }
+//   
+//	return profileRes;
+			    	  try {
+				            // Convert request object to JSON
+				            String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
 
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+				            // Encrypt Request
+				            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
-			String encriptResponse = companyService.saveOrganizationDetail(tokengeneration.getToken(), jsonObject);
+				            // Call Service
+				            String encryptedResponse =companyService.saveOrganizationDetail(tokengeneration.getToken(), jsonObject);
 
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+				            // Decrypt Response
+				            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+				            String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+				                    userReqEnc.getEncriptData(), 
+				                    userReqEnc.getEncriptKey(), 
+				                    applicationConstantConfig.apiSignaturePrivatePath
+				            );
 
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-    else {
-        responseMap.put("status", false);
-        responseMap.put("message", "Unauthorized: Insufficient permissions.");
-    }
-   
-	return profileRes;
+				            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+				            
+				            // Process API Response
+				            if (apiJsonResponse.getBoolean("status")) {
+				                responseMap.put("status", true);
+				                responseMap.put("message", apiJsonResponse.getString("message"));
+				            } else {
+				                responseMap.put("status", false);
+				                responseMap.put("message", apiJsonResponse.getString("message"));
+				            }
+
+				        } catch (Exception e) {
+				            responseMap.put("status", false);
+				            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+				            e.printStackTrace();
+				        }
+				    } else {
+				        responseMap.put("status", false);
+				        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+				    }
+				    try {
+				        return mapper.writeValueAsString(responseMap);
+				    } catch (JsonProcessingException e) {
+				        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+				    }
+					
 	
 	}
 	

@@ -344,11 +344,11 @@ function fetchOrgDetails(type) {
 				return false;
 	        }
 			else if(!state.match(onlyAlphabets))
-							{
-									document.getElementById("stateError").innerHTML="Only Alphabets are allowed in State Name";
-									document.getElementById("state").focus();
-									return false;
-							}  else {    
+			{
+					document.getElementById("stateError").innerHTML="Only Alphabets are allowed in State Name";
+					document.getElementById("state").focus();
+					return false;
+			}  else {    
 				status.textContent="";
 	        } 
 												
@@ -470,7 +470,7 @@ function fetchOrgDetails(type) {
 					    // Concatenate data (must match backend)
 				
 						const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
-						pincode+state+employerName+employerId+secretKey;
+						pincode+state+employerName+employerId+clientKey+secretKey;
 				
 					    // Generate SHA-256 hash
 					    const encoder = new TextEncoder();
@@ -536,6 +536,7 @@ function fetchOrgDetails(type) {
 				checkboxsection.display = 'block';
 						
 				}else if(data1.status==false){
+					
 				}else{
 				}
 		       },
