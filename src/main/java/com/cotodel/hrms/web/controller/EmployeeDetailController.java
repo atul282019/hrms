@@ -76,8 +76,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		 String herDate = requestData.get("herDate");
 		 String jobTitle = requestData.get("jobTitle");
 		 String depratment = requestData.get("depratment");
-		 String managerId = requestData.get("managerId");
-		 String managerName = requestData.get("managerName");
+		 String managerId = requestData.get("managerName");
+		 String managerName = requestData.get("managerName1");
 		 String ctc = requestData.get("ctc");
 		 String location = requestData.get("location");
 		 String residentOfIndia = requestData.get("residentOfIndia");
@@ -115,8 +115,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    		        ? Integer.parseInt(requestData.get("managerId"))
 	    		        : null
 	    		);
+	    // employeeOnboarding.setManagerName(requestData.get("managerName"));
 	     employeeOnboarding.setManagerName(requestData.get("managerName"));
-	     employeeOnboarding.setManagerName(requestData.get("managerName1"));
 	     employeeOnboarding.setCtc(requestData.get("ctc"));
 	     employeeOnboarding.setLocation(requestData.get("location"));
 	     employeeOnboarding.setResidentOfIndia(requestData.get("residentOfIndia"));
@@ -129,9 +129,9 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        responseMap.put("message", "Invalid client key");
 	        }
 	        // Ensure consistent concatenation
-	        String dataString = Id+employerId+employeeId+name+email+mobile+herDate+jobTitle+depratment+managerId+managerName+ctc+location+residentOfIndia+
+	        String dataString = Id+employerId+employeeId+name+email+mobile+herDate+jobTitle+depratment+ctc+location+residentOfIndia+
 	        		empOrCont+empPhoto+clientKey+SECRET_KEY;
-
+	       
 	        // Compute hash
 	        String computedHash = null;
 			try {
@@ -425,7 +425,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	eboarding.setHerDate(data.getString("herDate"));
 		        	eboarding.setJobTitle(data.getString("jobTitle"));
 		        	eboarding.setDepratment(data.getString("depratment"));
-		        	//eboarding.setManagerName(data.getString("managerName"));
+		        	eboarding.setManagerName(data.getString("managerName"));
 		        	eboarding.setLocation(data.getString("location"));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
 		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
@@ -547,7 +547,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	eboarding.setHerDate(data.getString("herDate"));
 		        	eboarding.setJobTitle(data.getString("jobTitle"));
 		        	eboarding.setDepratment(data.getString("depratment"));
-		        	//eboarding.setManagerName(data.getString("managerName"));
+		        	eboarding.setManagerName(data.getString("managerName"));
 		        	eboarding.setLocation(data.getString("location"));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
 		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));

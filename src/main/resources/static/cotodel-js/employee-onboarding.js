@@ -424,8 +424,8 @@ async function saveEmployeeOnboarding(){
     const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 
     // Concatenate data (must match backend)
-    const dataString = Id+employerId+employeeId+name+email+mobile+hireDate+jobTitle+department+managerName+
-	managerName1+ctc+selectedLocation+residentOfIndia+emporcount+profilePhoto+clientKey+secretKey;
+    const dataString = Id+employerId+employeeId+name+email+mobile+hireDate+jobTitle+department
+	+ctc+selectedLocation+residentOfIndia+emporcount+profilePhoto+clientKey+secretKey;
 
     // Generate SHA-256 hash
     const encoder = new TextEncoder();
