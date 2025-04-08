@@ -597,7 +597,65 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	@PostMapping(value="/saveEmployeeProfile")
 	public @ResponseBody String saveEmployeeProfile(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
 		String profileRes=null;
-	
+		String receivedHash = employeeOnboarding.getHash();
+		 if (!CLIENT_KEY.equals(employeeOnboarding.getClientKey())) {
+	          // return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+	        // Ensure consistent concatenation
+	        String dataString = 
+	        		employeeOnboarding.getId()+
+	        		employeeOnboarding.getName()+
+	        		employeeOnboarding.getEmail()+
+	        		employeeOnboarding.getMobile()+
+	        		employeeOnboarding.getProofOfIdentity()+
+	        		CLIENT_KEY+SECRET_KEY;
+//	        logger.info("data string"+dataString);
+//	        System.out.println("data string"+dataString);
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+			    ObjectMapper mapper = new ObjectMapper();
+			    
+			  if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			  String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    //logger.info("obj.getOrgid()"+obj.getOrgid());
+    if ((obj.getUser_role() == 2) && obj.getOrgid() == employeeOnboarding.getEmployerId().intValue()) {
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
 
@@ -608,12 +666,141 @@ public class EmployeeDetailController extends CotoDelBaseController{
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return profileRes;
+			String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                    userReqEnc.getEncriptData(), 
+                    userReqEnc.getEncriptKey(), 
+                    applicationConstantConfig.apiSignaturePrivatePath
+            );
+
+            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+            
+            // Process API Response
+            if (apiJsonResponse.getBoolean("status")) {
+                responseMap.put("status", true);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }
+		
+	}
+	
+	@PostMapping(value="/updateEmployeeProfile")
+	public @ResponseBody String updateEmployeeProfile(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
+		String profileRes=null;
+		String receivedHash = employeeOnboarding.getHash();
+		 if (!CLIENT_KEY.equals(employeeOnboarding.getClientKey())) {
+	          // return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+	        // Ensure consistent concatenation
+	        String dataString = 
+	        		employeeOnboarding.getId()+
+	        		employeeOnboarding.getPan()+
+	        		employeeOnboarding.getIfscCode()+
+	        		employeeOnboarding.getBeneficiaryName()+
+	        		employeeOnboarding.getBankAccountNumber()+
+	        		CLIENT_KEY+SECRET_KEY;
+
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+			    ObjectMapper mapper = new ObjectMapper();
+			    
+			  if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			  String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+    if ((obj.getUser_role() == 2) && obj.getOrgid() == employeeOnboarding.getEmployerId().intValue()) {
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = employeeDetailService.updateEmployeeProfile(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                    userReqEnc.getEncriptData(), 
+                    userReqEnc.getEncriptKey(), 
+                    applicationConstantConfig.apiSignaturePrivatePath
+            );
+
+            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+            
+            // Process API Response
+            if (apiJsonResponse.getBoolean("status")) {
+                responseMap.put("status", true);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }
 		
 	}
 	@PostMapping(value="/getEmployeeOnboardingByManagerId")

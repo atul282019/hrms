@@ -35,6 +35,9 @@ public class EmployeeOnboarding {
 	private String response;
 	private String empPhoto;
 	private String managerName;
+	private String clientKey;
+	private String hash;   
+	  
 	
 	
 }

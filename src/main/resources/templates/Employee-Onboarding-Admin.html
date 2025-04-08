@@ -209,7 +209,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div>
-                                            <label for="">Enter PAN</label>
+                                            <label for="">Enter PAN<span class="required-star">*</span></label>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="otp-box-onboarding">
@@ -226,7 +226,7 @@
                                         </div>
  										<div class="error-msg" id="panError" style="color:red"></div>
                                         <div class="card-form my-3">
-                                            <label for="">Bank Account Number</label>
+                                            <label for="">Bank Account Number<span class="required-star">*</span></label>
                                             <input type="password" id="accountNo" onkeyup="validate()"  name="accountNo" 
                                             class="form-input"  placeholder="*************" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
@@ -234,7 +234,7 @@
                                         <div class="clearfix"></div>
 
                                         <div class="card-form my-3">
-                                            <label for="">Confirm Bank Account Number</label>
+                                            <label for="">Confirm Bank Account Number<span class="required-star">*</span></label>
                                             <input type="text" class="form-input" onkeyup="validate()" id="confirmAccountNo"  
                                             name="confirmAccountNo" placeholder="Confirm Bank Account" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
@@ -245,7 +245,7 @@
                                         </div>-->
 
                                         <div class="card-form my-3">
-											<label for="">Bank Ifsc Code</label>
+											<label for="">Bank Ifsc Code<span class="required-star">*</span></label>
                                             <input type="text" class="form-input" id="bankIfsc" maxlength="11" name="bankIfsc" onkeyup="validateIFSC()" placeholder="Bank IFSC Code" style="text-transform:uppercase">
                                         </div>
 										 <div class="error-msg" id="bankIfscError" style="color:red"></div>
@@ -279,6 +279,8 @@
                                     </div>
                                 </div>
 								<input type="hidden" class="form-input" id="IdfromApi" name="IdfromApi" >
+								<input type="hidden" class="form-input" id="employerId" name="employerId"  th:value="${session.id}">
+								<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId">
 
 
 
