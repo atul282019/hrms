@@ -527,16 +527,22 @@ function fetchOrgDetails(type) {
 			   document.getElementById("signinLoader").style.display="none";
 			   			//data1.status=true;
 			   if(data1.status==true){	
-				$('#ModalConfirmDraft').modal('show');
-				setTimeout(function () {
-					$('#ModalConfirmDraft').modal('hide');
-				   }, 1200); 
-				// Hide both Form1 and Form2
-			    currentForm1.style.display = 'none';
-			    currentForm2.style.display = 'none';
-			    // Show Form3
-			    nextForm3.style.display = 'block';
-				checkboxsection.display = 'block';
+				
+				
+				       document.getElementById("status").style.color = "green";
+				       document.getElementById("status").innerHTML = "Draft Saved Successfully";
+
+				       // Now hide Form1 and Form2
+				    setTimeout(function () {
+						   currentForm1.style.display = 'none';
+				       currentForm2.style.display = 'none';
+
+				       // Show Form3
+				       nextForm3.style.display = 'block';
+
+				       // Show checkbox section
+				       checkboxsection.style.display = 'block';
+				   }, 1200);
 				
 				
 						
@@ -900,7 +906,8 @@ function resendOTP() {
 	document.getElementById("password4").value = "";
 	document.getElementById("password5").value = "";
 	document.getElementById("password6").value = "";
-	document.getElementById("otpError").value = "";
+	//document.getElementById("otpError").value = "";
+	document.getElementById("otpError").innerHTML="";
 	
     var userMobile = document.getElementById("userMobile").value;
     var orderId = document.getElementById("orderId").value;
@@ -1040,19 +1047,24 @@ function verfyIssueVoucherOTP() {
   			},
   			success: function(data) {
   				var obj = data;
-
   				if (obj.status=== true) {
-					
-					
-					$("#tab3").addClass("active");
+				$("#tab3").addClass("active");
 					changeOtpStatus();
   				}else if (obj.status === false) {
 					$('#ModalReject').modal('show');
 					 document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
 					 document.getElementById("otpVerifyBtn").disabled = true;
+					 document.getElementById("password1").value="";
+	 				 document.getElementById("password2").value="";
+	 				 document.getElementById("password3").value="";
+	 				 document.getElementById("password4").value="";
+	 				 document.getElementById("password5").value="";
+	 				 document.getElementById("password6").value="";
 				} else {
   				
   				}
+				
+				
   			},
   			error: function(e) {
   				alert('Error: ' + e);

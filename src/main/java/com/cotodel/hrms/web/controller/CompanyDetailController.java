@@ -416,7 +416,7 @@ public class CompanyDetailController extends CotoDelBaseController{
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
-			String encriptResponse = companyService.saveOrganizationDetail(tokengeneration.getToken(), jsonObject);
+			String encriptResponse = companyService.updateOrganizationDetail(tokengeneration.getToken(), jsonObject);
 
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);

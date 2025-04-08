@@ -18,5 +18,7 @@ public interface CompanyService {
 	String getGSTDetailsByGSTNumber(String token, EncriptResponse employeeProfileRequest);
 
 	String saveOrganizationDetail(String token, EncriptResponse companyProfileDetail);
+	
+	String updateOrganizationDetail(String token, EncriptResponse companyProfileDetail);
 
 }

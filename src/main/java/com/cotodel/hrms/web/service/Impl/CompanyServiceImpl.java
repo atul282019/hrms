@@ -45,12 +45,17 @@ public class CompanyServiceImpl implements CompanyService{
 	public String getGSTDetailsByGSTNumber(String token, EncriptResponse employeeProfileRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeProfileRequest), applicationConstantConfig.gstServiceBaseUrl+CommonUtils.gstDetailService);
 	}
+	
 
 	@Override
 	public String saveOrganizationDetail(String token, EncriptResponse companyProfileDetail) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(companyProfileDetail), applicationConstantConfig.userServiceBaseUrl+CommonUtils.saveCompanyDetail);
 	}
 	
+	@Override
+	public String updateOrganizationDetail(String token, EncriptResponse companyProfileDetail) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(companyProfileDetail), applicationConstantConfig.userServiceBaseUrl+CommonUtils.updateCompanyDetail);
+	}
 	
 
 }

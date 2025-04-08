@@ -527,20 +527,37 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	   
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
-				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    }else {
-		        responseMap.put("status", false);
-		        responseMap.put("message", "Unauthorized: Insufficient permissions.");
-		    }
-		    try {
-		        return mapper.writeValueAsString(responseMap);
-		    } catch (JsonProcessingException e) {
-		        return "{\"status\":false, \"message\":\"JSON processing error\"}";
-		    }
+				String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+	                    userReqEnc.getEncriptData(), 
+	                    userReqEnc.getEncriptKey(), 
+	                    applicationConstantConfig.apiSignaturePrivatePath
+	            );
+
+	            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+	            
+	            // Process API Response
+	            if (apiJsonResponse.getBoolean("status")) {
+	                responseMap.put("status", true);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            } else {
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
+	    try {
+	        return mapper.writeValueAsString(responseMap);
+	    } catch (JsonProcessingException e) {
+	        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	    }
 		  
 	}
 	@PostMapping(value="/re-linkErupiaccount")
@@ -612,13 +629,29 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	   
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
-				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    }
-	    else {
+				String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+	                    userReqEnc.getEncriptData(), 
+	                    userReqEnc.getEncriptKey(), 
+	                    applicationConstantConfig.apiSignaturePrivatePath
+	            );
+
+	            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+	            
+	            // Process API Response
+	            if (apiJsonResponse.getBoolean("status")) {
+	                responseMap.put("status", true);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            } else {
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    } else {
 	        responseMap.put("status", false);
 	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
 	    }
