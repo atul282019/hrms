@@ -19,26 +19,39 @@
     }
  
 
-	function getEmployeeOnboardingById() {
+	async function getEmployeeOnboardingById() {
 		   // var employeeId = document.getElementById("employeeId").value;
 			const employeeId = sessionStorage.getItem("employeeId");
 			const userDetailsId = sessionStorage.getItem("userDetailsId");
+			
+			const clientKey = "client-secret-key"; // Extra security measure
+			const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+			    // Concatenate data (must match backend)
+			    const dataString = employeeId+clientKey+secretKey;
+
+			    // Generate SHA-256 hash
+			    const encoder = new TextEncoder();
+			    const data = encoder.encode(dataString);
+			    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+			    const hashArray = Array.from(new Uint8Array(hashBuffer));
+			    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+				const requestData = {
+						id:employeeId,
+				        key: clientKey,  // Extra key for validation
+				        hash: hashHex
+				    };
 		    $.ajax({
-		        type: "GET",
-		        url: "/getEmployeeOnboardingById",
-		        data: { "id": employeeId },
+		        type: "POST",
+		        url: "/getEmployeeDetailByEmployeeId",
+				contentType: "application/json",
+				data: JSON.stringify(requestData),
 		        success: function(response) {
 					//console.log(response);
 					var data1 = jQuery.parseJSON(response);
 							console.log("data 1  getEmployeeOnboardingById()",data1);
 		            if (data1.status && data1.data) {
 		                var data = data1.data;
-		                
-		                // Splitting the full name (Assumption)
-		          /*      var nameParts = data.name ? data.name.split(" ") : ["", "", ""];
-		                var firstName = nameParts[0] || "";
-		                var middleName = nameParts.length > 2 ? nameParts[1] : "";
-		                var lastName = nameParts.length > 2 ? nameParts[2] : nameParts[1] || "";*/
 
 		                // Populate fields
 						$("#fullName").text(data.name);
@@ -103,11 +116,33 @@
 		        }
 		    });
 		}
-		function getEmployeeOnboardingByManagerId(managerId) {
+	async function getEmployeeOnboardingByManagerId(managerId) {
+		
+
+		const clientKey = "client-secret-key"; // Extra security measure
+		const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+		// Concatenate data (must match backend)
+		const dataString = managerId+clientKey+secretKey;
+
+		// Generate SHA-256 hash
+		const encoder = new TextEncoder();
+		const data = encoder.encode(dataString);
+		const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		const hashArray = Array.from(new Uint8Array(hashBuffer));
+		const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+		// Prepare request payload
+		const requestData = {
+			managerId:managerId,
+		    key: clientKey,  // Extra key for validation
+		    hash: hashHex
+		};
 			    $.ajax({
-			        type: "GET",
+			        type: "POST",
 			        url: "/getEmployeeOnboardingByManagerId",
-			        data: { "managerId": managerId },
+					contentType: "application/json",
+				    data: JSON.stringify(requestData),
 			        success: function(response) {
 			            var data = JSON.parse(response);
 			            console.log(data);

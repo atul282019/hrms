@@ -1,11 +1,33 @@
 	
-		function getDirectorList() {
+	async function getDirectorList() {
 		    const employerId = document.getElementById('employerId').value;
 			document.getElementById("signinLoader").style.display="flex";
+			
+			const clientKey = "client-secret-key"; // Extra security measure
+			    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+			    // Concatenate data (must match backend)
+			    const dataString = employerId+clientKey+secretKey;
+
+			    // Generate SHA-256 hash
+			    const encoder = new TextEncoder();
+			    const data = encoder.encode(dataString);
+			    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+			    const hashArray = Array.from(new Uint8Array(hashBuffer));
+			    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+			    // Prepare request payload
+			    const requestData = {
+					orgId:employerId,
+			        key: clientKey,  // Extra key for validation
+			        hash: hashHex
+			    };
+
 		    $.ajax({
-		        type: "GET",
+		        type: "POST",
 		        url: "/getDirectorOnboarding",
-		        data: { "orgId": employerId },
+				contentType: "application/json",
+			    data: JSON.stringify(requestData),
 		        success: function(data) {
 					document.getElementById("signinLoader").style.display="none";
 		            const parseddata = JSON.parse(data);

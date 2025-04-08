@@ -425,7 +425,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	eboarding.setHerDate(data.getString("herDate"));
 		        	eboarding.setJobTitle(data.getString("jobTitle"));
 		        	eboarding.setDepratment(data.getString("depratment"));
-		        	eboarding.setManagerName(data.getString("managerName"));
+		        	//eboarding.setManagerName(data.getString("managerName"));
 		        	eboarding.setLocation(data.getString("location"));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
 		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
@@ -449,6 +449,127 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		    }
 		}
 	
+	@PostMapping(value="/getEmployeeDetailByEmployeeId")
+	public @ResponseBody String getEmployeeDetailByEmployeeId(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session, @RequestBody Map<String, String> requestData) {
+		String profileRes=null;
+	
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse = employeeDetailService.getEmployeeOnboardingById(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+		  Map<String, Object> responseMap = new HashMap<>();
+		    ObjectMapper mapper = new ObjectMapper();
+
+		    try {
+		        // 1. Extract and validate input
+		        String employeeIdStr = requestData.get("id");
+		        String clientKey = requestData.get("key");
+		        String receivedHash = requestData.get("hash");
+
+		        Integer employeeId = parseInteger(employeeIdStr);
+
+		        if (clientKey == null || !CLIENT_KEY.equals(clientKey)) {
+		            return buildErrorResponse(mapper, "Invalid client key.");
+		        }
+
+		        // 2. Hash Validation
+		        String dataString = employeeIdStr + clientKey + SECRET_KEY;
+		        String computedHash = generateHash(dataString);
+
+		        if (!computedHash.equals(receivedHash)) {
+		            return buildErrorResponse(mapper, "Request Tempered");
+		        }
+
+		        // 3. Validate Session Token
+		        String token = (String) session.getAttribute("hrms");
+		        if (token == null) {
+		            return buildErrorResponse(mapper, "Unauthorized: No token found.");
+		        }
+
+		        UserDetailsEntity user = JwtTokenValidator.parseToken(token);
+		        if (user == null) {
+		            return buildErrorResponse(mapper, "Unauthorized: Invalid token.");
+		        }
+
+		        // 4. Role & Permission Check
+//		        if (!isAuthorized(user, employerId)) {
+//		            return buildErrorResponse(mapper, "Unauthorized: Insufficient permissions.");
+//		        }
+
+		        // 5. Prepare EmployeeOnboarding object
+		        EmployeeOnboarding onboarding = new EmployeeOnboarding();
+		        onboarding.setId(employeeId);
+		        
+		        logger.info("Fetching onboarding data for: {}", onboarding);
+
+		        // 6. Prepare and Encrypt Request
+		        String jsonRequest = EncryptionDecriptionUtil.convertToJson(onboarding);
+		        EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(
+		                jsonRequest, applicationConstantConfig.apiSignaturePublicPath);
+
+		        // 7. Call External Service
+		        String encryptedResponse = employeeDetailService.getEmployeeOnboardingById(tokengeneration.getToken(), encryptedRequest);
+
+		        // 8. Decrypt Response
+		        EncriptResponse decryptedWrapper = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+		        String decryptedJson = EncryptionDecriptionUtil.decriptResponse(
+		                decryptedWrapper.getEncriptData(), decryptedWrapper.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+		        JSONObject apiJsonResponse = new JSONObject(decryptedJson);
+
+		        // 9. Prepare Final Response
+		        boolean status = apiJsonResponse.getBoolean("status");
+		        responseMap.put("status", status);
+		        responseMap.put("message", apiJsonResponse.getString("message"));
+
+		        if (status && apiJsonResponse.has("data")) {
+		        	JSONObject data = apiJsonResponse.getJSONObject("data");
+		        	EmployeeOnboarding eboarding = new EmployeeOnboarding();
+		        	eboarding.setId(data.getInt("id"));
+		        	eboarding.setEmployeeId(data.getInt("employerId"));
+		        	eboarding.setName(data.getString("name"));
+		        	eboarding.setEmpOrCont(data.getString("empOrCont"));
+		        	eboarding.setEmail(data.getString("email"));
+		        	eboarding.setMobile(data.getString("mobile"));
+		        	eboarding.setHerDate(data.getString("herDate"));
+		        	eboarding.setJobTitle(data.getString("jobTitle"));
+		        	eboarding.setDepratment(data.getString("depratment"));
+		        	//eboarding.setManagerName(data.getString("managerName"));
+		        	eboarding.setLocation(data.getString("location"));
+		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
+		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
+		        	eboarding.setManagerId(data.getInt("managerId"));
+		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	
+		        	responseMap.put("data", eboarding); // Could be primitive or string
+		          
+		        }
+
+		    } catch (Exception e) {
+		        logger.error("Error while processing onboarding request", e);
+		        responseMap.put("status", false);
+		        responseMap.put("message", "Internal Server Error: " + e.getMessage());
+		    }
+
+		    try {
+		        return mapper.writeValueAsString(responseMap);
+		    } catch (JsonProcessingException e) {
+		        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+		    }
+		}
 	
 	@PostMapping(value="/confirmBulkEmplOnboarding")
 	public String confirmBulkEmplOnboarding( @RequestBody BulkConfirmationRequest[] bulkConfirmationRequest , HttpSession session) {
@@ -495,26 +616,111 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		return profileRes;
 		
 	}
-	@GetMapping(value="/getEmployeeOnboardingByManagerId")
-	public @ResponseBody String getEmployeeOnboardingByManagerId(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeOnboarding employeeOnboarding) {
-		String profileRes=null;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
+	@PostMapping(value="/getEmployeeOnboardingByManagerId")
+	public @ResponseBody String getEmployeeOnboardingByManagerId(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,@RequestBody Map<String, String> requestData) {
+	
 
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+		  Map<String, Object> responseMap = new HashMap<>();
+		    ObjectMapper mapper = new ObjectMapper();
 
-			String encriptResponse = employeeDetailService.getEmployeeOnboardingByManagerId(tokengeneration.getToken(), jsonObject);
+		    try {
+		        // 1. Extract and validate input
+		        String managerIdIdStr = requestData.get("managerId");
+		        String employerIdStr = requestData.get("employerId");
+		        String clientKey = requestData.get("key");
+		        String receivedHash = requestData.get("hash");
 
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+		        Integer managerId = parseInteger(managerIdIdStr);
 
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return profileRes;
+		        if (clientKey == null || !CLIENT_KEY.equals(clientKey)) {
+		            return buildErrorResponse(mapper, "Invalid client key.");
+		        }
+
+		        // 2. Hash Validation
+		        String dataString = managerIdIdStr + clientKey + SECRET_KEY;
+		        String computedHash = generateHash(dataString);
+
+		        if (!computedHash.equals(receivedHash)) {
+		            return buildErrorResponse(mapper, "Request Tempered");
+		        }
+
+		        // 3. Validate Session Token
+		        String token = (String) session.getAttribute("hrms");
+		        if (token == null) {
+		            return buildErrorResponse(mapper, "Unauthorized: No token found.");
+		        }
+
+		        UserDetailsEntity user = JwtTokenValidator.parseToken(token);
+		        if (user == null) {
+		            return buildErrorResponse(mapper, "Unauthorized: Invalid token.");
+		        }
+
+		        // 4. Role & Permission Check
+//		        if (!isAuthorized(user, employerId)) {
+//		            return buildErrorResponse(mapper, "Unauthorized: Insufficient permissions.");
+//		        }
+
+		        // 5. Prepare EmployeeOnboarding object
+		        EmployeeOnboarding onboarding = new EmployeeOnboarding();
+		        onboarding.setManagerId(managerId);
+		      
+
+		        logger.info("Fetching onboarding data for: {}", onboarding);
+
+		        // 6. Prepare and Encrypt Request
+		        String jsonRequest = EncryptionDecriptionUtil.convertToJson(onboarding);
+		        EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(
+		                jsonRequest, applicationConstantConfig.apiSignaturePublicPath);
+
+		        // 7. Call External Service
+		        String encryptedResponse = employeeDetailService.getEmployeeOnboardingByManagerId(tokengeneration.getToken(), encryptedRequest);
+
+		        // 8. Decrypt Response
+		        EncriptResponse decryptedWrapper = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+		        String decryptedJson = EncryptionDecriptionUtil.decriptResponse(
+		                decryptedWrapper.getEncriptData(), decryptedWrapper.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+		        JSONObject apiJsonResponse = new JSONObject(decryptedJson);
+
+		        // 9. Prepare Final Response
+		        boolean status = apiJsonResponse.getBoolean("status");
+		        responseMap.put("status", status);
+		        responseMap.put("message", apiJsonResponse.getString("message"));
+
+		        if (status && apiJsonResponse.has("data")) {
+		        	JSONObject data = apiJsonResponse.getJSONObject("data");
+		        	EmployeeOnboarding eboarding = new EmployeeOnboarding();
+		        	eboarding.setId(data.getInt("id"));
+		        	eboarding.setEmployeeId(data.getInt("employerId"));
+		        	eboarding.setName(data.getString("name"));
+		        	eboarding.setEmpOrCont(data.getString("empOrCont"));
+		        	eboarding.setEmail(data.getString("email"));
+		        	eboarding.setMobile(data.getString("mobile"));
+		        	eboarding.setHerDate(data.getString("herDate"));
+		        	eboarding.setJobTitle(data.getString("jobTitle"));
+		        	eboarding.setDepratment(data.getString("depratment"));
+		        	eboarding.setManagerName(data.getString("managerName"));
+		        	eboarding.setLocation(data.getString("location"));
+		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
+		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
+		        	eboarding.setManagerId(data.getInt("managerId"));
+		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	
+		        	responseMap.put("data", eboarding); // Could be primitive or string
+		          
+		        }
+
+		    } catch (Exception e) {
+		        logger.error("Error while processing onboarding request", e);
+		        responseMap.put("status", false);
+		        responseMap.put("message", "Internal Server Error: " + e.getMessage());
+		    }
+
+		    try {
+		        return mapper.writeValueAsString(responseMap);
+		    } catch (JsonProcessingException e) {
+		        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+		    }
 		
 	}
 	
@@ -648,27 +854,110 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    }
 	}
 	
-@GetMapping(value="/getDirectorOnboarding")
-	public @ResponseBody String getDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,DirectorOnboarding directorOnboarding) {
-		String profileRes=null;
+@PostMapping(value="/getDirectorOnboarding")
+	public @ResponseBody String getDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session, @RequestBody Map<String, String> requestData) {
+	
+		DirectorOnboarding directorOnboarding = new DirectorOnboarding();
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =  employeeDetailService.getDirectorOnboarding(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+		
+		 Map<String, Object> responseMap = new HashMap<>();
+		    ObjectMapper mapper = new ObjectMapper();
 
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
+		    try {
+		        // 1. Extract and validate input
+		        String employerIdStr = requestData.get("orgId");
+		        String clientKey = requestData.get("key");
+		        String receivedHash = requestData.get("hash");
 
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+		        Integer employerId = parseInteger(employerIdStr);
 
-			String encriptResponse =  employeeDetailService.getDirectorOnboarding(tokengeneration.getToken(), jsonObject);
+		        if (clientKey == null || !CLIENT_KEY.equals(clientKey)) {
+		            return buildErrorResponse(mapper, "Invalid client key.");
+		        }
 
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+		        // 2. Hash Validation
+		        String dataString =employerIdStr + clientKey + SECRET_KEY;
+		        String computedHash = generateHash(dataString);
 
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
+		        if (!computedHash.equals(receivedHash)) {
+		            return buildErrorResponse(mapper, "Request Tempered");
+		        }
+
+		        // 3. Validate Session Token
+		        String token = (String) session.getAttribute("hrms");
+		        if (token == null) {
+		            return buildErrorResponse(mapper, "Unauthorized: No token found.");
+		        }
+
+		        UserDetailsEntity user = JwtTokenValidator.parseToken(token);
+		        if (user == null) {
+		            return buildErrorResponse(mapper, "Unauthorized: Invalid token.");
+		        }
+
+		        // 4. Role & Permission Check
+		        if (!isAuthorized(user, employerId)) {
+		            return buildErrorResponse(mapper, "Unauthorized: Insufficient permissions.");
+		        }
+
+		        // 5. Prepare EmployeeOnboarding object
+		        EmployeeOnboarding onboarding = new EmployeeOnboarding();
+		       
+		        directorOnboarding.setOrgId(employerId.longValue());
+
+		        logger.info("Fetching onboarding data for: {}", directorOnboarding);
+
+		        // 6. Prepare and Encrypt Request
+		        String jsonRequest = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
+		        EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(
+		                jsonRequest, applicationConstantConfig.apiSignaturePublicPath);
+
+		        // 7. Call External Service
+		        String encryptedResponse = employeeDetailService.getDirectorOnboarding(tokengeneration.getToken(), encryptedRequest);
+
+		        // 8. Decrypt Response
+		        EncriptResponse decryptedWrapper = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+		        String decryptedJson = EncryptionDecriptionUtil.decriptResponse(
+		                decryptedWrapper.getEncriptData(), decryptedWrapper.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+		        JSONObject apiJsonResponse = new JSONObject(decryptedJson);
+
+		        // 9. Prepare Final Response
+		        boolean status = apiJsonResponse.getBoolean("status");
+		        responseMap.put("status", status);
+		        responseMap.put("message", apiJsonResponse.getString("message"));
+
+		        if (status) {
+		            List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
+		            responseMap.put("data", dataList);
+		        }
+
+		    } catch (Exception e) {
+		        logger.error("Error while processing onboarding request", e);
+		        responseMap.put("status", false);
+		        responseMap.put("message", "Internal Server Error: " + e.getMessage());
+		    }
+
+		    try {
+		        return mapper.writeValueAsString(responseMap);
+		    } catch (JsonProcessingException e) {
+		        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+		    }
 		
 	}
 	@PostMapping(value="/toggleEmployee")//de activating employee from emp-onboarding-full-action

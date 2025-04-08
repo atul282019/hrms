@@ -750,88 +750,13 @@ function validateAndConvertImageToBase64() {
             const base64String = event.target.result.split(',')[1];
 			console.log(base64String);
 			profilePhoto=base64String;
-			/*if(profilePhoto===base64String)
-				{
-					alert('Please re upload new image');
-					profilePhoto="";
-					return;
-				}*/
-            
-			//$("#profilePhotoBase64").val(profilePhoto);
-            // You can now use the Base64 string as needed
+			
         };
         reader.onerror = function() {
             console.log('Error reading file.');
         };
         reader.readAsDataURL(file);
     }
-	
-	/*function getEmployeeOnboardingDeactive() {
-	    var employeeId = document.getElementById("employeeId").value;
-	    var employerId = document.getElementById("employerId").value;
-	    
-	    $.ajax({
-	        type: "GET",
-	        url: "/getEmployeeOnboarding",
-	        data: {
-	            "employeeId": employeeId,
-	            "employerId": employerId,
-	        },
-	        beforeSend: function(xhr) {
-	            //xhr.setRequestHeader(header, token);
-	        },
-	        success: function(data) {
-	            newData = data;
-	            console.log("Emp onboarding data", newData);
-	            var data1 = jQuery.parseJSON(newData);
-	            var data2 = data1.data;
-	            
-	            // Filter employees with status 1 (Active)
-	            var filteredData = data2.filter(function(employee) {
-	                return employee.status === 0;
-	            });
-	            
-	            var table = $('#employeeTable').DataTable({
-	                destroy: true,
-	                "responsive": true,
-	                searching: false,
-	                bInfo: false,
-	                paging: false,
-	                "lengthChange": true,
-	                "autoWidth": false,
-	                "pagingType": "full_numbers",
-	                "pageLength": 50,
-	                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-	                "language": {"emptyTable": "No Active Employees Found"},
-	                
-	                // Use the filtered data instead of original data
-	                "aaData": filteredData,
-	                "aoColumns": [
-	                    { "mData": null, "render": function(data, type, row, meta) { return meta.row + 1; } },
-	                    { "mData": "id", "render": function(data1, type, row) {
-	                        return '<input type="hidden" class="form-input" id="id" name="id" value="' + data1 + '">';
-	                    }},
-	                    { "mData": "userDetailsId", "render": function(data1, type, row) {
-	                        return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="' + data1 + '">';
-	                    }},
-	                    { "mData": "name" },
-	                    { "mData": "mobile" },
-	                    { "mData": "email" },
-	                    { "mData": "empOrCont" },
-	                    { "mData": "status", "render": function(data, type, row) {
-	                        return 'DeActive'; // Since we're only showing Active employees
-	                    }},
-	                    { "mData": "userDetailsId", "render": function(data1, type, row) {
-	                        return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
-	                    }},
-	                ]
-	            });
-	        },
-	        error: function(e) {
-	            alert('Failed to fetch JSON data' + e);
-	        }
-	    });
-	}*/
 	
 	// Function to display only deactive employees with an activate option
 	async function getDeactiveEmployees() {

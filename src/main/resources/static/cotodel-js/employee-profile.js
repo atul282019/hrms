@@ -266,10 +266,6 @@ function validatePan(){
 
 
 function saveEmployeeProfile(){
-	//var employerId=document.getElementById("employerId").value; 
-	//var employeeId=document.getElementById("employeeId").value;
-	//var empOrCont = document.getElementById("contractor").value;
-	//var empOrCont = document.getElementById("employee").value;
 	
 	var name = document.getElementById("name").value;
 	var email = document.getElementById("email").value;
@@ -277,13 +273,6 @@ function saveEmployeeProfile(){
 	var proofOfIdentity = document.getElementById("proofOfIdentity").value;
 	var id = document.getElementById("IdfromApi").value;
 	
-	/*var herDate = document.getElementById("hireDate").value;
-	var jobTitle = document.getElementById("jobTitle").value;
-	var depratment = document.getElementById("department").value;
-	var managerName = document.getElementById("reporting").value;
-	var ctc = document.getElementById("salary").value;
-	var location = document.getElementById("location").value;
-	var residentOfIndia = document.getElementById("residence").value;*/
 	
 	var regName = /^[a-zA-Z\s]*$/;
 	var onlySpace = /^$|.*\S+.*/;
@@ -332,26 +321,12 @@ function saveEmployeeProfile(){
    
 	var formData = new FormData();
 	
-	//formData.append("employerId",employerId);
-	//formData.append("employeeId",employeeId);
-	
-	//formData.append("empOrCont",empOrCont);
 	formData.append("id",id);
 	formData.append("name",name);
 	
 	formData.append("email",email);
 	formData.append("mobile",mobile);
 	formData.append("proofOfIdentity",proofOfIdentity);
-	//formData.append("herDate",herDate);
-	
-	//formData.append("jobTitle",jobTitle);
-	//formData.append("depratment",depratment);
-	
-	//formData.append("managerName",managerName);
-	//formData.append("ctc",ctc);
-	
-	//formData.append("location",location);
-	//formData.append("residentOfIndia",residentOfIndia);
 	
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
@@ -400,9 +375,7 @@ function saveEmployeeProfile(){
 
 
 function saveEmployeeProfileTab2(){
-	//var employerId=document.getElementById("employerId").value; 
-	//var employeeId=document.getElementById("employeeId").value;
-	//var empOrCont = document.getElementById("contractor").value;
+	
 	var id = document.getElementById("IdfromApi").value;
 	
 	var pan = document.getElementById("inputpan").value;
@@ -411,12 +384,6 @@ function saveEmployeeProfileTab2(){
 	var bankIfsc = document.getElementById("bankIfsc").value;
 	
 	var beneficiaryName = document.getElementById("beneficiaryName").value;
-	/*var jobTitle = document.getElementById("jobTitle").value;
-	var depratment = document.getElementById("department").value;
-	var managerName = document.getElementById("reporting").value;
-	var ctc = document.getElementById("salary").value;
-	var location = document.getElementById("location").value;
-	var residentOfIndia = document.getElementById("residence").value;*/
 	
 	var regName = /^[a-zA-Z\s]*$/;
 	var onlySpace = /^$|.*\S+.*/;
@@ -481,9 +448,6 @@ function saveEmployeeProfileTab2(){
    
 	var formData = new FormData();
 	
-	//formData.append("employerId",employerId);
-	//formData.append("employeeId",employeeId);
-	
 	formData.append("id",id);
 	formData.append("pan",pan);
 	
@@ -491,15 +455,6 @@ function saveEmployeeProfileTab2(){
 	formData.append("ifscCode",bankIfsc);
 	formData.append("beneficiaryName",beneficiaryName);
 	formData.append("confirmAccountNo",confirmAccountNo);
-	
-	//formData.append("jobTitle",jobTitle);
-	//formData.append("depratment",depratment);
-	
-	//formData.append("managerName",managerName);
-	//formData.append("ctc",ctc);
-	
-	//formData.append("location",location);
-	//formData.append("residentOfIndia",residentOfIndia);
 	
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
@@ -571,11 +526,7 @@ function autoFillEmployeeForm() {
 			                   for (let i = 0; i < data.pan.length; i++) {
 			                       $(`#pan${i + 1}`).val(data.pan[i]);
 			                   }
-			               }
-			               
-
-			                
-			                
+			               }      
 			            } else {
 			                console.log("No data found for the given Employee ID.");
 			            }
