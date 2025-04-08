@@ -34,6 +34,7 @@ public interface CommonUtils {
 	public static String confirmBulkEmplOnboarding = "/empService/Api/add/confirmBulkEmplOnboarding";
 	public static String saveWaitlist = "/userServices/Api/add/saveWaitingListUsers"; 
 	public static String saveEmployeeProfile = "/empService/Api/add/saveEmplOnboardingNew";
+	public static String updateEmployeeProfile = "/empService/Api/update/updateEmplOnboardingNew";
 	public static String deactiveEmployeeProfile = "/empService/Api/update/emplOnboardingStatus";
 	public static String saveExpenseCategory = "/empService/Api/add/expenseCategoryBandDetails";
 	public static String getExpenseCategory = "/empService/Api/get/expenseCategoryBandDetailsList";

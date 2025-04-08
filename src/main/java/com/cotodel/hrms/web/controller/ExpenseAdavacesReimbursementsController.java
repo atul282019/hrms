@@ -382,7 +382,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			String profileRes=null;
 			String receivedHash = erupiLinkBankAccount.getHash();
 			 if (!CLIENT_KEY.equals(erupiLinkBankAccount.getClientKey())) {
-		          //  return Map.of("isValid", false, "message", "Invalid client key");
+		          // return Map.of("isValid", false, "message", "Invalid client key");
 		        }
 		        // Ensure consistent concatenation
 		        String dataString = erupiLinkBankAccount.getOrgId()+CLIENT_KEY+SECRET_KEY;
@@ -442,19 +442,37 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	   
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
-				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+	                    userReqEnc.getEncriptData(), 
+	                    userReqEnc.getEncriptKey(), 
+	                    applicationConstantConfig.apiSignaturePrivatePath
+	            );
+
+	            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+	            
+	            // Process API Response
+	            if (apiJsonResponse.getBoolean("status")) {
+	                responseMap.put("status", true);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            } else {
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
 	    } else {
 	        responseMap.put("status", false);
 	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
 	    }
-				    
-				   
-	   
-		return profileRes;
+	    try {
+	        return mapper.writeValueAsString(responseMap);
+	    } catch (JsonProcessingException e) {
+	        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	    }
 		  
 	}
 	

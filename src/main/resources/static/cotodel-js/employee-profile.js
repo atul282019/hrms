@@ -265,13 +265,16 @@ function validatePan(){
 }
 
 
-function saveEmployeeProfile(){
+async function saveEmployeeProfile(){
 	
 	var name = document.getElementById("name").value;
 	var email = document.getElementById("email").value;
 	var mobile = document.getElementById("mobilecode").value;
 	var proofOfIdentity = document.getElementById("proofOfIdentity").value;
 	var id = document.getElementById("IdfromApi").value;
+	var employerId=document.getElementById("employerId").value;
+	var userDetailsId=document.getElementById("userDetailsId").value;
+	
 	
 	
 	var regName = /^[a-zA-Z\s]*$/;
@@ -317,35 +320,62 @@ function saveEmployeeProfile(){
     } else {    
        document.getElementById("mobilecodeError").innerHTML="";
 		  
-    }         
-   
-	var formData = new FormData();
+    }   
+	/*var formData = new FormData();
+		
+		formData.append("id",id);
+		formData.append("name",name);
+		
+		formData.append("email",email);
+		formData.append("mobile",mobile);
+		formData.append("proofOfIdentity",proofOfIdentity);
+		*/
 	
-	formData.append("id",id);
-	formData.append("name",name);
-	
-	formData.append("email",email);
-	formData.append("mobile",mobile);
-	formData.append("proofOfIdentity",proofOfIdentity);
-	
+		const clientKey = "client-secret-key"; // Extra security measure
+	    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	    // Concatenate data (must match backend)
+	    const dataString=id+name+email+mobile+proofOfIdentity+clientKey+secretKey;
+
+	    // Generate SHA-256 hash
+	    const encoder = new TextEncoder();
+	    const data = encoder.encode(dataString);
+	    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	    const hashArray = Array.from(new Uint8Array(hashBuffer));
+	    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');      
+
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
+	//setting userdetails id in the feild of employer id because when we are getting obj.getOrgid() in controller we are getting 1517 as user details id 
+	//and if we are placing employerid in employerid then it is saying insufficient permissions
 	 	$.ajax({
 		type: "POST",
 	     url:"/saveEmployeeProfile",
-         data: formData,
-         processData: false,
-         contentType: false,       		 
+		 data: {
+		 		"id":id,
+				"employerId":userDetailsId,
+		 		"name":name,
+		 	  	"email":email,
+				"mobile":mobile,
+		 		"proofOfIdentity":proofOfIdentity,
+		 	  	"clientKey":clientKey,
+				"hash":hashHex
+
+		      		 },
+		      		  beforeSend : function(xhr) {
+		 		//xhr.setRequestHeader(header, token);
+		 		},      		 
            success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
+			console.log("data1",data1);
 			if(data1.status==true){
 				 document.getElementById("successmsg").innerHTML="Data Saved Successfully.";
 				 document.getElementById("successmsgdiv").style.display="block";
 				 //document.getElementById("tab2").addClass("active");
 				 $("#tab2").addClass("active");
-				 document.getElementById("empid").value=data1.data.id;
+				 //document.getElementById("empid").value=data1.data.id;
 				 //document.getElementById("employeeOnboarding").reset();
 			     $("#employee-onboarding-two").show();
             	 $("#employee-onboarding-one").hide();
@@ -374,7 +404,7 @@ function saveEmployeeProfile(){
 
 
 
-function saveEmployeeProfileTab2(){
+async function saveEmployeeProfileTab2(){
 	
 	var id = document.getElementById("IdfromApi").value;
 	
@@ -384,6 +414,8 @@ function saveEmployeeProfileTab2(){
 	var bankIfsc = document.getElementById("bankIfsc").value;
 	
 	var beneficiaryName = document.getElementById("beneficiaryName").value;
+	var employerId=document.getElementById("employerId").value;
+		var userDetailsId=document.getElementById("userDetailsId").value;
 	
 	var regName = /^[a-zA-Z\s]*$/;
 	var onlySpace = /^$|.*\S+.*/;
@@ -446,7 +478,7 @@ function saveEmployeeProfileTab2(){
 			   
 	    }
    
-	var formData = new FormData();
+	/*var formData = new FormData();
 	
 	formData.append("id",id);
 	formData.append("pan",pan);
@@ -454,30 +486,55 @@ function saveEmployeeProfileTab2(){
 	formData.append("bankAccountNumber",confirmAccountNo);
 	formData.append("ifscCode",bankIfsc);
 	formData.append("beneficiaryName",beneficiaryName);
-	formData.append("confirmAccountNo",confirmAccountNo);
+	formData.append("confirmAccountNo",confirmAccountNo);*/
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+		    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+		    // Concatenate data (must match backend)
+		    const dataString = id+pan+bankIfsc+beneficiaryName+confirmAccountNo+clientKey+secretKey;
+
+		    // Generate SHA-256 hash
+		    const encoder = new TextEncoder();
+		    const data = encoder.encode(dataString);
+		    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		    const hashArray = Array.from(new Uint8Array(hashBuffer));
+		    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');     
 	
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
 	 	$.ajax({
 		type: "POST",
-	     url:"/saveEmployeeProfile",
-         data: formData,
-         processData: false,
-         contentType: false,       		 
+	     url:"/updateEmployeeProfile",
+		 data: {
+		 	 		"id": id,
+		 	 		"pan" :pan,
+		 	 	  	"employerId":userDetailsId,
+		 			"ifscCode": bankIfsc,
+					"beneficiaryName" :beneficiaryName,
+		 	 		"bankAccountNumber" :confirmAccountNo,
+		 	 	  	"clientKey":clientKey,
+		 			"hash":hashHex
+
+		 	      		 },
+		 	      		  beforeSend : function(xhr) {
+		 	 		//xhr.setRequestHeader(header, token);
+		 	 		},      	       		 
            success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
 			if(data1.status==true){
+				clearFields();
 				 document.getElementById("successmsgtab2").innerHTML="Data Saved Successfully.";
 				 document.getElementById("successmsgdivtab2").style.display="block";
-				 document.getElementById("empid").value=data1.data.id;
+				 //document.getElementById("empid").value=data1.data.id;
 				 //document.getElementById("employeeOnboarding").reset();
 			    /* $("#employee-onboarding-two").show();
             	 $("#employee-onboarding-one").hide();*/
 				// document.getElementById("empOnboarding").disabled=false;
 				 $('#otmsgdiv').delay(5000).fadeOut(400);
-				 clearFields();
+				 
 			}else if(data1.status==false){
 				 document.getElementById("failmsgtab2").innerHTML=data1.message;
 				 document.getElementById("failmsgDivtab2").style.display="block";
@@ -494,6 +551,8 @@ function saveEmployeeProfileTab2(){
          }
     });	
 }
+
+
 function autoFillEmployeeForm() {
 			    const employeeId = document.getElementById("employeeId").value;
 				
@@ -512,6 +571,7 @@ function autoFillEmployeeForm() {
 			                // Fill form fields
 							
 							$("#IdfromApi").val(data.id);
+							$("#userDetailsId").val(data.userDetailsId);
 							$("#name").val(data.name || "").prop("readonly", true);
 							$("#mobilecode").val(data.mobile || "").prop("readonly", true);
 							$("#email").val(data.email || "").prop("readonly", true);
@@ -661,6 +721,7 @@ function autoFillEmployeeForm() {
 							document.getElementById("password5").value="";
 							document.getElementById("password6").value="";
 							//document.getElementById("authenticate").disabled = false;
+							//obj['status']== true;
 			  				if (obj['status']== true) {
 								saveEmployeeProfile();
 								
