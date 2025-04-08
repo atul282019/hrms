@@ -686,30 +686,11 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        boolean status = apiJsonResponse.getBoolean("status");
 		        responseMap.put("status", status);
 		        responseMap.put("message", apiJsonResponse.getString("message"));
-
+		        
 		        if (status && apiJsonResponse.has("data")) {
-		        	JSONObject data = apiJsonResponse.getJSONObject("data");
-		        	EmployeeOnboarding eboarding = new EmployeeOnboarding();
-		        	eboarding.setId(data.getInt("id"));
-		        	eboarding.setEmployeeId(data.getInt("employerId"));
-		        	eboarding.setName(data.getString("name"));
-		        	eboarding.setEmpOrCont(data.getString("empOrCont"));
-		        	eboarding.setEmail(data.getString("email"));
-		        	eboarding.setMobile(data.getString("mobile"));
-		        	eboarding.setHerDate(data.getString("herDate"));
-		        	eboarding.setJobTitle(data.getString("jobTitle"));
-		        	eboarding.setDepratment(data.getString("depratment"));
-		        	eboarding.setManagerName(data.getString("managerName"));
-		        	eboarding.setLocation(data.getString("location"));
-		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
-		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
-		        	eboarding.setManagerId(data.getInt("managerId"));
-		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
-		        	
-		        	responseMap.put("data", eboarding); // Could be primitive or string
-		          
+		            List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
+		            responseMap.put("data", dataList);
 		        }
-
 		    } catch (Exception e) {
 		        logger.error("Error while processing onboarding request", e);
 		        responseMap.put("status", false);
