@@ -272,7 +272,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     }
 
     // Check User Role and Organization ID
-    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
+    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
         try {
             // Convert request object to JSON
             String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);

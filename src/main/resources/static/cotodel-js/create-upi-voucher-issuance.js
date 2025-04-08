@@ -558,7 +558,7 @@ function  createSingleVoucherValidation(){
 }
 
 
-function  issueVoucher(){
+async function  issueVoucher(){
 	
 	document.getElementById("password1").value="";
 	document.getElementById("password2").value="";
@@ -603,30 +603,43 @@ function  issueVoucher(){
 	}
 	
 	document.getElementById("signinLoader").style.display="flex";
-	
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+
+	const dataString = beneficiaryName+beneficiaryMobile+startDate+validity+voucherCode+customCheck45+
+	createdby+employerId+merchentid+submurchentid+redemptionType+mcc+voucherCode+
+	voucherDesc+bankCode+acNumber+payerva+"01"+clientKey+secretKey;
+
+    // Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+							
  	$.ajax({
 	type: "POST",
 	url:"/createSingleVoucher",
        data: {
-		
-			 	
 			   "name": beneficiaryName,
 			   "mobile": beneficiaryMobile,
 			   "amount": amount,
 			   "startDate": startDate,
-			   "expDate": "",
+			   //"expDate": "",
 			   "validity": validity,
 			   "purposeCode": voucherCode,
-			   "otpValidationStatus": "",
+			   //"otpValidationStatus": "",
 			   "consent": customCheck45,
-			   "creationDate": "",
+			   //"creationDate": "",
 			   "createdby": createdby,
-			   "accountId": "",
+			   //"accountId": "",
 			   "orgId": employerId,
-			   "merchanttxnid": "",
+			   //"merchanttxnid": "",
 			   "merchantId": merchentid,
 			   "subMerchantId": submurchentid,
-			   "bulktblId": "",
+			   //"bulktblId": "",
 			   "redemtionType": redemptionType,
 			   "mcc": mcc,
 			   "voucherType": voucherType,
@@ -634,11 +647,13 @@ function  issueVoucher(){
 			   "voucherDesc": voucherDesc,
 			   "activeStatus": activeStatus,
 			   "bankcode":bankCode,
-			   "voucherId":"",
+			   //"voucherId":"",
 			   "accountNumber":acNumber,
 			   "payerVA":payerva,
-			   "payeeVPA":"",
-			   "mandateType":"01"
+			   //"payeeVPA":"",
+			   "mandateType":"01",
+			   "clientKey":clientKey,
+			   "hash":hashHex
 			   
       		 },
       		  beforeSend : function(xhr) {

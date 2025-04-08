@@ -62,7 +62,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("merchanttxnid", erupiVoucherCreateDetails.getMerchanttxnid());
 		data.put("creationmode", "");
 		data.put("bulktblId","" );
-		data.put("redemtionType", "SINGLE");
+		data.put("redemtionType", erupiVoucherCreateDetails.getRedemtionType());
 		data.put("mcc", erupiVoucherCreateDetails.getMcc());
 		data.put("extra1", "");
 		data.put("extra2","");
@@ -78,10 +78,11 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("merchantId", erupiVoucherCreateDetails.getMerchantId());
 		data.put("subMerchantId", erupiVoucherCreateDetails.getSubMerchantId());
 		
-		data.put("mandateType","");
-		data.put("mandateType","");
+		data.put("mandateType","01");
 		data.put("payeeVPA","");
-	
+		data.put("clientKey",erupiVoucherCreateDetails.getClientKey());
+		data.put("hash",erupiVoucherCreateDetails.getHash());
+		
 		data.put("validity",erupiVoucherCreateDetails.getValidity());
 		
 		logger.info(data.toString());
