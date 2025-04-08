@@ -201,9 +201,22 @@ public class CompanyDetailController extends CotoDelBaseController{
 	        }
 //		const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
 //				pincode+state+employerName+employerId+clientKey+secretKey;
-		 String dataString = companyProfileDetail.getPan()+companyProfileDetail.getPan()+companyProfileDetail.getLegalNameOfBusiness()+companyProfileDetail.getLegalNameOfBusiness()+companyProfileDetail.getConstitutionOfBusiness()+companyProfileDetail.getOrgType()+
-			companyProfileDetail.getAddress1()+companyProfileDetail.getAddress2()+companyProfileDetail.getDistrictName()+companyProfileDetail.getPincode()+
-			companyProfileDetail.getStateName()+companyProfileDetail.getCreatedBy()+companyProfileDetail.getEmployerId()+CLIENT_KEY+SECRET_KEY;
+		 String dataString = 
+				 //companyProfileDetail.getPan()+
+				 companyProfileDetail.getLegalNameOfBusiness()+
+				 companyProfileDetail.getTradeName()+
+				 companyProfileDetail.getConstitutionOfBusiness()+
+				 companyProfileDetail.getOrgType()+
+				companyProfileDetail.getAddress1()+
+				companyProfileDetail.getAddress2()+
+				companyProfileDetail.getDistrictName()+
+				companyProfileDetail.getPincode()+
+				companyProfileDetail.getStateName()+
+				companyProfileDetail.getGstIdentificationNumber()+
+				companyProfileDetail.getPan()+
+				companyProfileDetail.getCreatedBy()+
+				companyProfileDetail.getEmployerId()+
+				CLIENT_KEY+SECRET_KEY;
 
 	        // Compute hash
 	        String computedHash = null;
@@ -325,6 +338,78 @@ public class CompanyDetailController extends CotoDelBaseController{
 	public @ResponseBody String updateOrganizationDetail(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,CompanyProfileDetail companyProfileDetail) {
 		String profileRes=null;
+		String receivedHash = companyProfileDetail.getHash();
+		if (!CLIENT_KEY.equals(companyProfileDetail.getClientKey())) {
+	          //  return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+//		const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
+//				pincode+state+employerName+employerId+consent+otpstatus+clientKey+secretKey;
+		 String dataString = //companyProfileDetail.getPan()+
+				 companyProfileDetail.getLegalNameOfBusiness()+
+				 companyProfileDetail.getTradeName()+
+				 companyProfileDetail.getConstitutionOfBusiness()+
+				 companyProfileDetail.getOrgType()+
+				 companyProfileDetail.getAddress1()+
+				 companyProfileDetail.getAddress2()+
+				 companyProfileDetail.getDistrictName()+
+				 companyProfileDetail.getPincode()+
+				 companyProfileDetail.getStateName()+
+				 companyProfileDetail.getGstIdentificationNumber()+
+				 companyProfileDetail.getPan()+
+				 companyProfileDetail.getCreatedBy()+
+				 companyProfileDetail.getEmployerId()+
+				 companyProfileDetail.getConsent()+
+				 companyProfileDetail.getOtpStatus()+
+				 
+				 CLIENT_KEY+SECRET_KEY;
+
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			 boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+			    ObjectMapper mapper = new ObjectMapper();
+			 
+			    // Get token from session
+			    if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    
+			    String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 2) && obj.getOrgid() == companyProfileDetail.getEmployerId().intValue()) {
 		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
@@ -337,12 +422,24 @@ public class CompanyDetailController extends CotoDelBaseController{
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+		
+		
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }
    
-	return profileRes;
+	//return profileRes;
 	
 	}
 	 private String generateHash(String data) throws NoSuchAlgorithmException {

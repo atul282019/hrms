@@ -20,6 +20,7 @@
         "slnt" 0;
 }
 
+
 .h4,
 h4 {
     font-size: 18px;
@@ -6329,3 +6330,8 @@ table.vcScheduledtable thead {
 							        }
 
 /* made by anish ends here*/
+.required-star {
+    color: red !important;
+    margin-left: 4px;
+    font-weight: bold;
+}

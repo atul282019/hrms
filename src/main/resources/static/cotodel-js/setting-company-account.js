@@ -469,8 +469,8 @@ function fetchOrgDetails(type) {
 				
 					    // Concatenate data (must match backend)
 				
-						const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
-						pincode+state+employerName+employerId+clientKey+secretKey;
+						const dataString = panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
+						pincode+state+gstnNo1+employerName+employerId+clientKey+secretKey;
 				
 					    // Generate SHA-256 hash
 					    const encoder = new TextEncoder();
@@ -525,19 +525,25 @@ function fetchOrgDetails(type) {
 		        var data1 = jQuery.parseJSON( newData );
 			   //var data2 = data1.data;
 			   document.getElementById("signinLoader").style.display="none";
-			   			
+			   			//data1.status=true;
 			   if(data1.status==true){	
-				
+				$('#ModalConfirmDraft').modal('show');
+				setTimeout(function () {
+					$('#ModalConfirmDraft').modal('hide');
+				   }, 1200); 
 				// Hide both Form1 and Form2
 			    currentForm1.style.display = 'none';
 			    currentForm2.style.display = 'none';
 			    // Show Form3
 			    nextForm3.style.display = 'block';
 				checkboxsection.display = 'block';
+				
+				
 						
 				}else if(data1.status==false){
-					
+					document.getElementById("status").innerHTML=data1.message;
 				}else{
+					document.getElementById("status").innerHTML=data1.message;
 				}
 		       },
 		     error: function(e){
@@ -562,7 +568,7 @@ function fetchOrgDetails(type) {
 	    }
 	}
 	
-	function changeOtpStatus() {
+	async function changeOtpStatus() {
 			
 			var employerName = document.getElementById('employerName').value;
 			var employerId = document.getElementById('employerId').value;
@@ -579,16 +585,32 @@ function fetchOrgDetails(type) {
 			var district = document.getElementById('district').value;
 			var pincode = document.getElementById('Pincode').value;
 			var state = document.getElementById('state').value;
-			var consent = document.getElementById('flexCheckDefault').value;
+			//var consent = document.getElementById('flexCheckDefault').value;
+			var consent="Yes";
+			var otpStatus="Yes";
 				
-
+									const clientKey = "client-secret-key"; // Extra security measure
+								    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+							
+								    // Concatenate data (must match backend)
+									
+							
+									const dataString = panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
+									pincode+state+gstnNo1 +employerName+employerId+consent+otpStatus+clientKey+secretKey;
+							
+								    // Generate SHA-256 hash
+								    const encoder = new TextEncoder();
+								    const data = encoder.encode(dataString);
+								    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+								    const hashArray = Array.from(new Uint8Array(hashBuffer));
+								    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 			$.ajax({
 			type: "POST",
 			url:"/updateOrganizationDetail",
 			    data: {
 					
-					"gstnNo1":gstnNo1,
-					"pan": panNo1,
+					//"gstnNo1":gstnNo1,
+					//"pan": panNo1,
 					"legalNameOfBusiness": legalName,
 					"tradeName":legalName,
 					"constitutionOfBusiness":tradeName,
@@ -598,7 +620,7 @@ function fetchOrgDetails(type) {
 					"districtName": district,
 					"pincode": pincode,
 					"stateName": state,
-				    "consent": "",
+				    //"consent": "",
 					"streetName": "",
 					"buildingNumber": "",
 					"buildingName":"",
@@ -609,13 +631,15 @@ function fetchOrgDetails(type) {
 					"gstIdentificationNumber":gstnNo1,
 					"pan":panNo1,
 					"createdBy":employerName,
-					"employerMobile":userMobile,
+					//"employerMobile":userMobile,
+					//"employerId":employerId,
+				    "consent": consent,
+					"otpStatus":otpStatus,
+					//"createdBy":employerName,
+					//"employerMobile":userMobile,
 					"employerId":employerId,
-				    "consent": "Yes",
-					"otpStatus":"yes",
-					"createdBy":employerName,
-					"employerMobile":userMobile,
-					"employerId":employerId,
+					"clientKey" :clientKey,
+				  	"hash":hashHex
 					
 			   		 },
 			   		  beforeSend : function(xhr) {
@@ -629,8 +653,11 @@ function fetchOrgDetails(type) {
 				   document.getElementById("signinLoader").style.display="none";
 				   			
 				   if(data1.status==true){	
+					$('#ModalConfirm').modal('show');
 					}else if(data1.status==false){
+						document.getElementById("otpError").innerHTML=data1.message;
 					}else{
+						document.getElementById("otpError").innerHTML=data1.message;
 					}
 			       },
 			     error: function(e){
@@ -1016,7 +1043,7 @@ function verfyIssueVoucherOTP() {
 
   				if (obj.status=== true) {
 					
-					$('#ModalConfirm').modal('show');
+					
 					$("#tab3").addClass("active");
 					changeOtpStatus();
   				}else if (obj.status === false) {

@@ -165,20 +165,20 @@ async function  getLinkedBankDetail(){
 		       wrapper.appendChild(container);
 		   });
 
-		   function editItem(acNumber) {
+		 function editItem(acNumber) {
 			   //alert(`Are You Sure you want to de link this Account`);
 		        //alert(`Are You Sure  de link this Account: ${acNumber}`);
 				var accountid= acNumber;
 				document.getElementById("linkBankBtn").disabled = true;
 					document.getElementById("signinLoader").style.display="flex";
 					
-
 					 	$.ajax({
 						type: "POST",
 					     url:"/updateErupiLinkBankAccountStaus",
 						 data: {
 								"orgId": employerid,
 								"acNumber":accountid,
+								
 								
 						 		},    		 
 				            success: function(data){
@@ -219,18 +219,32 @@ async function  getLinkedBankDetail(){
    }); 
 			
 }
-function relinkBankAccount(acNumber) {
+async function relinkBankAccount(acNumber) {
     //console.log("Inside link bank account function");
     var employerid = document.getElementById("employerId").value;
 
     document.getElementById("signinLoader").style.display = "flex";
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	const dataString = employerid+acNumber+clientKey+secretKey;
+
+     //Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
 
     $.ajax({
         type: "POST",
         url: "/re-linkErupiaccount", // Adjust URL for linking action
         data: {
             "orgId": employerid,
-            "acNumber": acNumber
+            "acNumber": acNumber,
+			"clientKey" :clientKey,
+		  	"hash":hashHex
         },
         success: function (data) {
             newData = data;
@@ -260,16 +274,30 @@ function relinkBankAccount(acNumber) {
     });
 }
 
-function dlinkAccount(acNumber)
+async function dlinkAccount(acNumber)
 {
 	//console.log("Inside  de-link function");
 	var employerid = document.getElementById("employerId").value;
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+		const dataString = employerid+acNumber+clientKey+secretKey;
+
+	     //Generate SHA-256 hash
+	    const encoder = new TextEncoder();
+	    const data = encoder.encode(dataString);
+	    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	    const hashArray = Array.from(new Uint8Array(hashBuffer));
+	    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
 	 	$.ajax({
 		type: "POST",
 	     url:"/de-linkErupiaccount",
 		 data: {
 		 			  "orgId": employerid ,
-					  "acNumber":acNumber ,					  
+					  "acNumber":acNumber ,
+					  "clientKey" :clientKey,
+				  		"hash":hashHex					  
 					  
 		 		}, 
 						 
@@ -437,20 +465,20 @@ async function submitLinkBankAccount(){
 			}
 			document.getElementById("signinLoader").style.display="flex";
 			document.getElementById("linkBankBtn").disabled = true;
-		//	const clientKey = "client-secret-key"; // Extra security measure
-		 //   const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+		const clientKey = "client-secret-key"; // Extra security measure
+		   const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 	
-		    // Concatenate data (must match backend)
+		    //Concatenate data (must match backend)
 	
-			//const dataString = employerId+bankName+bankingName+bankAccNumber+bankAccNumberConfirm+accountType+bankIfsc+moblieLink+
-			//merchantId+submerchantid+payerva+clientKey+secretKey;
+			const dataString = employerId+bankName+bankingName+bankAccNumber+bankAccNumberConfirm+accountType+bankIfsc+moblieLink+
+			merchantId+submerchantid+payerva+clientKey+secretKey;
 	
 		    // Generate SHA-256 hash
-		    //const encoder = new TextEncoder();
-		    //const data = encoder.encode(dataString);
-		    //const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-		   // const hashArray = Array.from(new Uint8Array(hashBuffer));
-		  //  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+		    const encoder = new TextEncoder();
+		    const data = encoder.encode(dataString);
+		    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		    const hashArray = Array.from(new Uint8Array(hashBuffer));
+		    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 		 
 				
 	 	$.ajax({

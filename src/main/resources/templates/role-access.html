@@ -318,7 +318,7 @@
 									                    <select class="did-floating-select" id="bankName" onchange="resetErrorMessages()">
 									                       
 									                    </select>
-									                    <label class="did-floating-label">Select Bank</label>
+									                    <label class="did-floating-label">Select Bank<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="bankNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 													
@@ -327,13 +327,13 @@
 								                       <option value="SAVING">Saving</option>
 													   <option value="CURRENT">Current</option>
 								                    </select>
-								                    <label class="did-floating-label">Select Account Type</label>
+								                    <label class="did-floating-label">Select Account Type<span class="required-star">*</span></label>
 								                </div>
 												<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
 									                <div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " onkeyup="validateBankname()" id="bankingName" oninput="sanitizeInput(this)" onkeypress="resetErrorMessages()">
 									                    <label class="did-floating-label" >Enter Name as on the Bank
-									                        Account</label>
+									                        Account<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="bankingNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 													
@@ -342,14 +342,14 @@
 									                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber" 
 														  minlength="10" maxlength="16" onkeypress="resetErrorMessages()"
 														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
-									                    <label class="did-floating-label">Enter Bank A/c Number</label>
+									                    <label class="did-floating-label">Enter Bank A/c Number<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="bankAccNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 									                <div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="bankAccNumberConfirm" onkeyup="validate()" 
 														 onkeypress="resetErrorMessages()" maxlength="16"
 														 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-									                    <label class="did-floating-label">Re-enter Bank A/c Number</label>
+									                    <label class="did-floating-label">Re-enter Bank A/c Number<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="bankAccNumberConfirmError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 									               <!-- <div class="tip-wrap justify-content-start">
@@ -360,27 +360,27 @@
 									                <div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="bankIfsc"
 														maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase" onkeypress="resetErrorMessages()">
-									                    <label class="did-floating-label">Enter IFSC Code</label>
+									                    <label class="did-floating-label">Enter IFSC Code<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="bankIfscError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 													
 													<div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="moblieLink" onkeypress="resetErrorMessages()"
 														maxlength="10" onkeyup="validateMobile()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
-									                    <label class="did-floating-label">Enter Mobile Number</label>
+									                    <label class="did-floating-label">Enter Mobile Number<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="moblieLinkError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 
 													<div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="tid" maxlength="25"
 														onkeypress="resetErrorMessages()" >
-									                    <label class="did-floating-label">Tid</label>
+									                    <label class="did-floating-label">Tid<span class="required-star">*</span></label>
 								 					</div>
 													<div class="error-msg" id="tidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 													<div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="merchantId" maxlength="25"
 														onkeypress="resetErrorMessages()" onkeyup="validateMerchantId()">
-									                    <label class="did-floating-label">Merchant Id</label>
+									                    <label class="did-floating-label">Merchant Id<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="merchantIdError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 													<!--<div class="did-floating-label-content">
@@ -391,13 +391,13 @@
 													<div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="submerchantid" maxlength="25"
 														onkeypress="resetErrorMessages()" onkeyup="validateSubMerchantId()">
-									                    <label class="did-floating-label"> Sub Merchant Id</label>
+									                    <label class="did-floating-label"> Sub Merchant Id<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="submerchantidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 													<div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="payerva" onkeypress="resetErrorMessages()"
 														maxlength="25" onkeyup="validatePayerva()">
-									                    <label class="did-floating-label">Payerva</label>
+									                    <label class="did-floating-label">Payerva<span class="required-star">*</span></label>
 									                </div>
 													<div class="clearfix"></div>
 													<div class="error-msg" id="payervaError" style="color:red"></div>
