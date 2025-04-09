@@ -59,7 +59,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	@PostMapping(value="/createSingleVoucher")
 	public @ResponseBody String createSingleVoucher(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
 			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
-		String profileRes=null;
 		
 		//profileRes = erupiVoucherCreateDetailsService.createSingleVoucher(tokengeneration.getToken(),erupiVoucherCreateDetails);
 		
@@ -74,7 +73,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
         erupiVoucherCreateDetails.getMerchantId()+erupiVoucherCreateDetails.getSubMerchantId()+erupiVoucherCreateDetails.getRedemtionType()+
         erupiVoucherCreateDetails.getMcc()+erupiVoucherCreateDetails.getVoucherCode()+
         erupiVoucherCreateDetails.getVoucherDesc() +erupiVoucherCreateDetails.getBankcode()+erupiVoucherCreateDetails
-        .getAccountNumber()+erupiVoucherCreateDetails.getPayerVA()+erupiVoucherCreateDetails.getMandateType()+
+        .getAccountNumber()+erupiVoucherCreateDetails.getPayerVA()+erupiVoucherCreateDetails.getMandateType()+erupiVoucherCreateDetails.getAmount()+
         CLIENT_KEY+SECRET_KEY;
 		   
 
@@ -148,7 +147,9 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	        	voucher.setMobile(data.getString("mobile"));
 	        	voucher.setName(data.getString("voucherCode"));
 	        	voucher.setRedemtionType(data.getString("redemtionType"));
-	        	voucher.setAmount(data.getFloat("amount"));
+	        	
+	        	Float amount = data.getFloat("amount");
+	        	voucher.setAmount(amount.toString());
 	        	voucher.setStartDate(data.getString("startDate"));
 	        	voucher.setValidity(data.getString("validity"));
 	        	voucher.setType(data.getString("type"));

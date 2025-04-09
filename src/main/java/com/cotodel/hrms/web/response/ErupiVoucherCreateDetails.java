@@ -15,7 +15,7 @@ public class ErupiVoucherCreateDetails {
 	private Integer voucherId;
 	private String name;	
 	private String mobile;			
-	private Float amount;	
+	private String amount;	
     private String startDate;			
     private String expDate;	
     private String purposeCode;	

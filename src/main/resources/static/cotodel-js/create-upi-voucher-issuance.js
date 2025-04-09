@@ -610,7 +610,7 @@ async function  issueVoucher(){
 
 	const dataString = beneficiaryName+beneficiaryMobile+startDate+validity+voucherCode+customCheck45+
 	createdby+employerId+merchentid+submurchentid+redemptionType+mcc+voucherCode+
-	voucherDesc+bankCode+acNumber+payerva+"01"+clientKey+secretKey;
+	voucherDesc+bankCode+acNumber+payerva+"01"+amount+clientKey+secretKey;
 
     // Generate SHA-256 hash
     const encoder = new TextEncoder();
