@@ -276,8 +276,6 @@ function saveBulkVoucherUpload(){
 				 document.getElementById("success").innerHTML=data1.data.successCount;
 				 document.getElementById("successTotal").innerHTML=data1.data.totalCount;
 				 document.getElementById("failedTotal").innerHTML=data1.data.totalCount;
-				 
-				 
 				 document.getElementById("failedUploadDownload").innerHTML=data1.data.failCount;
  				 document.getElementById("successUploadDownload").innerHTML=data1.data.successCount;
  				 document.getElementById("successUploadTotal").innerHTML=data1.data.totalCount;
@@ -396,10 +394,6 @@ function resendVoucherOTP() {
 	var orderId = document.getElementById("orderId").value;
 	var employerMobile = document.getElementById("employerMobile").value;
 	
-	//document.getElementById("optBtn").disabled = true;
-	//document.getElementById("mobError").innerHTML="";
-	
-	//document.getElementById("loginLoader").style.display = "flex";
 	$.ajax({
 		type: "POST",
 		url:"/smsOtpResender",
@@ -416,8 +410,6 @@ function resendVoucherOTP() {
 				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
 								
-				//$('#errorOtp').hide('slow');
-				//$('#loginIdDiv').hide('slow');
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
 	               // Hide the "Resend OTP" link initially
@@ -434,11 +426,6 @@ function resendVoucherOTP() {
 						document.getElementById("countdown").innerHTML = " ";
 						resendCodeElement.style.display = "block";
 						
-						 
-						//document.getElementById("optBtn").style.display = "none";
-						//document.getElementById("verifyotpdiv").style.display = "none";
-						
-						//$('#loginIdDiv').hide('slow');
 					}
 				//	document.getElementById('password1').focus();
 				}, 1000);
@@ -496,8 +483,6 @@ function focusBack(){
 
 
 function  getLinkedBankDetail(){
-	
-    //document.getElementById("signinLoader").style.display="flex";
  	var employerid = document.getElementById("employerId").value;
  	$.ajax({
 	type: "POST",
@@ -508,9 +493,8 @@ function  getLinkedBankDetail(){
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
 			},
-   success: function(data){
+ 		    success: function(data){
             newData = data;
-//            console.log(newData);
 			$("#banklist option").remove();
 			$("#banklist2 option").remove();
             var obj = jQuery.parseJSON( data );
@@ -563,12 +547,9 @@ function  getLinkedBankDetail(){
 
 
 function  getVoucherDetailByBoucherCode(){
-	
-    //document.getElementById("signinLoader").style.display="flex";
  	var voucherCode = localStorage.getItem('voucherCode');
  	$.ajax({
 	type: "POST",
-	//url:"/getVoucherDetailByBoucherCode",
 	url:"/getmccMasterListByPurposeCode",
        data: {
 			"purposeCode": voucherCode
@@ -628,8 +609,7 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
            newData = data;
            console.log(newData);
            var data1 = jQuery.parseJSON( newData );
-		   var data2 = data1.data;
-			
+		   var data2 = data1.data;			
 			document.getElementById("voucherId").value=data1.data.id;
 			document.getElementById("voucherCode").value=data1.data.purposeCode;
 			document.getElementById("voucherType").value=data1.data.purposeCode;
@@ -638,21 +618,16 @@ function  getmccMasterDetailsByPurposeCodeAndMcc(){
 			document.getElementById("purposeCode").value=data1.data.purposeCode;
 			document.getElementById("activeStatus").value=data1.data.activeStatus;
 			document.getElementById("mcc").value=data1.data.mcc;
-			
 			document.getElementById("createdby").value=data1.data.createdby;
           },
         error: function(e){
             alert('Error: ' + e);
         }
-		
-
    }); 
 			
 }
 
 function  getBankDetailByBankAccountNumber(){
-	//saveBulkVoucherclearmessage();
-    //document.getElementById("signinLoader").style.display="flex";
  	var accountNumber = document.getElementById("banklist").value;
  	$.ajax({
 	type: "POST",
@@ -685,7 +660,7 @@ function  getBankDetailByBankAccountNumber(){
 			document.getElementById("banklinkedMobile").value=data1.data.mobile; 
 			document.getElementById("accstatus").value=data1.data.accstatus; 
 
-			document.getElementById("orgId").value=data1.data.orgId; 
+			//document.getElementById("orgId").value=data1.data.orgId; 
 			document.getElementById("orgCode").value=data1.data.orgCode; 
 			document.getElementById("tid").value=data1.data.tid;
 			
@@ -703,8 +678,6 @@ function  getBankDetailByBankAccountNumber(){
 			
 }
 function  getBankDetailByBankAccountNumber2(){
-	//saveBulkVoucherclearmessage();
-    //document.getElementById("signinLoader").style.display="flex";
  	var accountNumber = document.getElementById("banklist2").value;
  	$.ajax({
 	type: "POST",
@@ -797,16 +770,6 @@ function getVoucherSummaryList(){
 					 const container = document.getElementById('jsonData');	
 					 const container2 = document.getElementById('jsonData2');	
 					 
-					/* const statusMessage = document.createElement('div');
-					 statusMessage.classList.add('selectvouchers-carosel-cards');
-					 statusMessage.innerHTML = `
- 					                 <h5>Total Vouchers</h5>
- 					                <div class="d-flex justify-content-between my-1 mb-3"><span >Number</span><span> ${data1.totalCount}</span></div>
- 					                <div class="d-flex justify-content-between my-1"><span>Value</span> <span>${data1.totalAmount}</span></div>
- 					            `;
-					      
-					        container.appendChild(statusMessage);*/
-
 							data1.data.forEach(voucher => {
 					            const voucherDiv = document.createElement('div');
 					            voucherDiv.classList.add('selectvouchers-carosel-cards');
@@ -857,37 +820,12 @@ function getPrimaryBankDetail(){
 					     
 					      const dataSection = document.createElement('div');
 					      dataSection.classList.add('bnkdetils');
-						  
-						  /*const accountSection = document.createElement('div');
-							  let logoHTML = '';
-
-						          if (account.bankLogo) {
-						              logoHTML = `<img src="data:image/png;base64,${account.bankLogo}" alt="${account.bankName}" class="logo" width="30">`;
-						          }
-								  accountSection.innerHTML = `
-								  ${logoHTML}  
-								    `;
-							 container.appendChild(accountSection);
-					      
-							 dataSection.innerHTML = `
-							 
-					          <p><strong>${account.bankName}</strong></p>
-					          <p>
-							  <strong>${account.accountHolderName}</strong></p>
-					          <p><span class="mb-0">A/C No: </span><strong>${account.acNumber}</strong> </p>
-					          
-							  
-					 
-					      `;
-					      container.appendChild(dataSection);*/
 					},
 					error: function(e) {
 						alert('Failed to fetch JSON data' + e);
 				}
 			});
 		}
-
-
 
 
 function verfyIssueVoucherOTP() {
@@ -1016,25 +954,20 @@ function verfyIssueVoucherOTP() {
   }
 
 
-  function  issueBulkVoucher(){
+ async function  issueBulkVoucher(){
   	
   	document.getElementById("password1").value="";
   	document.getElementById("password2").value="";
     document.getElementById("password3").value="";
   	document.getElementById("password4").value="";
   	document.getElementById("password5").value="";
-    document.getElementById("password6").value="";
-  	
-    
-  	var banklist = document.getElementById("banklist").value;
-  	
+    document.getElementById("password6").value="";    
+  	//var banklist = document.getElementById("banklist").value;
   	var createdby = document.getElementById("employerName").value;
-	
 	var voucherCode = localStorage.getItem("voucherCode");
     var voucherName = localStorage.getItem("voucherName");
 	var purposeCode = localStorage.getItem("purposeCode");
-	var purposeName = localStorage.getItem("purposeName");
-	
+	//var purposeName = localStorage.getItem("purposeName");
 	const table = document.getElementById('issueVoucherTable');
 	      const firstColumnData = [];
 	      
@@ -1042,50 +975,63 @@ function verfyIssueVoucherOTP() {
 	        firstColumnData.push(row.cells[1].textContent);
 	      }
 	      console.log(firstColumnData);
-	    
-		  
+	   
   	var bankCode = document.getElementById("bankCode").value;
   	var mcc = document.getElementById("mcc").value;
   	var payerva = document.getElementById("payerva").value;
   	
   	var merchentid = document.getElementById("merchentid").value;
   	var submurchentid = document.getElementById("submurchentid").value;
-	var orgId = document.getElementById("orgId").value;
+	var employerId = document.getElementById("employerId").value;
 	var acNumber = document.getElementById("acNumber").value;
 	document.getElementById("signinLoader").style.display="flex";
 	
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+
+	const dataString = employerId+voucherCode+purposeCode+payerva+"01"+"CREATE"+
+	bankCode+acNumber+voucherCode+voucherName+merchentid+submurchentid+createdby+firstColumnData+clientKey+secretKey;
+
+    // Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
    	$.ajax({
   	type: "POST",
   	url:"/issueBulkVoucher",
 	data: {
-					"orgId":orgId,
-					"fileName":"",
-					"file":"",
-					"purposeCode":voucherCode,
-					"accountId":1,
-					"mcc":purposeCode,
-					"beneficiaryID":"",
-					"payerVA":payerva,
-					"payeeVPA":"",
-					"mandateType":"01",
-					"type":"CREATE",
-					"bankcode":bankCode,
-					"accountNumber":acNumber,
-					"voucherCode":voucherCode,
-					"voucherDesc":voucherName,
-					"merchantId":merchentid,
-					"subMerchantId":submurchentid,
-					"createdby":createdby,
-					"arrayofid":firstColumnData
+			"orgId":employerId,
+			"purposeCode":voucherCode,
+			"mcc":purposeCode,
+			"payerVA":payerva,
+			"mandateType":"01",
+			"type":"CREATE",
+			"bankcode":bankCode,
+			"accountNumber":acNumber,
+			"voucherCode":voucherCode,
+			"voucherDesc":voucherName,
+			"merchantId":merchentid,
+			"subMerchantId":submurchentid,
+			"createdby":createdby,
+			"arrayofid":firstColumnData,
+			"hash":hashHex,
+			"clientKey":clientKey
+			//"fileName":"",
+			//"file":"",
+			//"accountId":1,
+			//"beneficiaryID":"",
+			//"payeeVPA":"",
 			 },  	
         		  beforeSend : function(xhr) {
   			//xhr.setRequestHeader(header, token);
   			},
              success: function(data){
              newData = data;
-             //console.log(newData);
              var data1 = jQuery.parseJSON( newData );
-  		   //var data2 = data1.data;
   		   document.getElementById("signinLoader").style.display="none";
 		
 		if(data1.status==true){
@@ -1105,30 +1051,21 @@ function verfyIssueVoucherOTP() {
 				
 				 document.getElementById("issuesuccmsg").innerHTML="Voucher Created Successfully.";
 				 document.getElementById("issuemsgdiv").style.display="block";
-				 //document.getElementById("getInTouchUser").reset();
 				 $('#otmsgdiv').delay(10000).fadeOut(800);
-				 //window.location.href = "/upiVoucherIssuanceNew";
 				 document.getElementById('submitButton').disabled=false;
 				 document.getElementById('authenticate').disabled=false;
 				 document.getElementById("selectvouchers-wrap-issue").style.display="none";
 				 document.getElementById("upi-voucher-wrapThree").style.display="block";
-				
 				 const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
-
 				 data1.data.forEach((item) => {
 				     const row = tableBody.insertRow();
-
 				     row.insertCell().textContent = item.name;
 				     row.insertCell().textContent = item.mobile;
 				     row.insertCell().textContent = item.voucherDesc;
 				     row.insertCell().textContent = item.redemtionType;
 				     row.insertCell().textContent = item.amount;
-				     //row.insertCell().textContent = item.voucherCode;
 					 row.insertCell().textContent = item.startDate;
 					 row.insertCell().textContent = item.expDate;
-					// row.insertCell().textContent = item.response;
-					 
-
 				     // Add the response cell with an image
 				     const responseCell = row.insertCell();
 				     const img = document.createElement("img");
@@ -1142,11 +1079,7 @@ function verfyIssueVoucherOTP() {
 				     img.width = 20;
 				     img.height = 20;
 				     responseCell.appendChild(img);
-
-				    // row.insertCell().textContent = item.voucherDesc;
 				   });
-				 
-				
 			}else if(data1.status==false){
 				 document.getElementById('submitButton').disabled=false;
 				 document.getElementById('authenticate').disabled=false;									
@@ -1181,8 +1114,6 @@ function verfyIssueVoucherOTP() {
 
   
   function deleteBeneficiay(value){
-  		/* var row = jQuery(value).closest('tr');
-  		 var  id = $(row).find("input[name='issueId']").val();*/
   		 document.getElementById("signinLoader").style.display="flex";
   		  	$.ajax({
   		 	type: "POST",
@@ -1204,7 +1135,6 @@ function verfyIssueVoucherOTP() {
  			    // Handle row click to hide
  			    $('#issueVoucherTable tbody').on('click', 'tr', function () {
  			        $(this).hide(); // Hides the row in the DOM
- 			       
  			    });
 				 				
   		        },

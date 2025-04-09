@@ -33,10 +33,6 @@ function singleVoucherValidation(){
 			   	 document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
 			     var employerId = document.getElementById("employerId").value;
 			     var employerName = document.getElementById("employerName").value;
-			  
-			  
-				
-								
 			   	const amountValue = amount.trim();
 			   			  
 			   	if(banklist=="" || banklist==null){
@@ -105,13 +101,6 @@ function singleVoucherValidation(){
 			   		else{
 			   			document.getElementById("expiryDateError").innerHTML="";
 			   		}
-			   	/*	if (validity <= startDate) {
-			   	        document.getElementById("expiryDateError").innerHTML="Expiry date should be greater than start date";
-			   			return false;
-			           }
-		   		 else {
-		          	 document.getElementById("expiryDateError").innerHTML="";
-		           }*/
 				   var element = document.getElementById("lable2");
 				   							   	element.classList.add("active");
 				   var element = document.getElementById("lable3");

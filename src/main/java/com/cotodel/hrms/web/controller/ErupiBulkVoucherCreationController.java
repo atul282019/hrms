@@ -2,12 +2,19 @@ package com.cotodel.hrms.web.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +36,23 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.BulkVoucherService;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
 public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
 	private static final Logger logger = LoggerFactory.getLogger(ErupiBulkVoucherCreationController.class);
-
+	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
+    private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 	
@@ -86,11 +98,112 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	@PostMapping(value="/issueBulkVoucher")
 	public @ResponseBody String issueBulkVoucher(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
 			ErupiBulkVoucherCreateRequest erupiBulkVoucherCreateRequest) {
-		String profileRes=null;
 		
-		profileRes = erupiVoucherCreateDetailsService.issueBulkVoucher(tokengeneration.getToken(),erupiBulkVoucherCreateRequest);
+	    Map<String, Object> responseMap = new HashMap<>();
+	    ObjectMapper mapper = new ObjectMapper();
+		//profileRes = erupiVoucherCreateDetailsService.issueBulkVoucher(tokengeneration.getToken(),erupiBulkVoucherCreateRequest);
 		
-		return profileRes;
+		//return profileRes;
+		
+		String receivedHash = erupiBulkVoucherCreateRequest.getHash();
+		 // Validate client key first
+        if (!CLIENT_KEY.equals(erupiBulkVoucherCreateRequest.getClientKey())) {
+        	 responseMap.put("status", false);
+             responseMap.put("message", "Invalid client key");
+        }
+       // const dataString = orgId+voucherCode+purposeCode+payerva+"01"+CREATE+
+       // 		bankCode+acNumber+voucherCode+voucherName+merchentid+submurchentid+createdby+
+       // 		firstColumnData+clientKey+secretKey;
+        String dataString = erupiBulkVoucherCreateRequest.getOrgId()+erupiBulkVoucherCreateRequest.getPurposeCode()+erupiBulkVoucherCreateRequest.
+        		getMcc()+
+        		erupiBulkVoucherCreateRequest.getPayerVA()+erupiBulkVoucherCreateRequest.getMandateType()+erupiBulkVoucherCreateRequest.getType()
+        +erupiBulkVoucherCreateRequest.getBankcode()+ erupiBulkVoucherCreateRequest.getAccountNumber()+
+        erupiBulkVoucherCreateRequest.getVoucherCode()+erupiBulkVoucherCreateRequest.getVoucherDesc()+erupiBulkVoucherCreateRequest.getMerchantId()+
+        erupiBulkVoucherCreateRequest.getSubMerchantId()+erupiBulkVoucherCreateRequest.getCreatedby()+erupiBulkVoucherCreateRequest.getArrayofid()+CLIENT_KEY+SECRET_KEY;
+		   
+
+        // Compute hash
+        String computedHash = null;
+		try {
+			computedHash = generateHash(dataString);
+			System.out.println("computedHash"+computedHash);
+			System.out.println("computedHash---"+dataString);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+    // Validate hash
+    boolean isValid = computedHash.equals(receivedHash);
+ 
+    // Get token from session
+    if (!isValid) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Request Tempered");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    String token = (String) session.getAttribute("hrms");
+    
+    if (token == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: No token found.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    // Validate Token
+    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+    if (obj == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Invalid token.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+
+    // Check User Role and Organization ID
+    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiBulkVoucherCreateRequest.getOrgId().intValue()) {
+        try {
+            // Call Service
+            String encryptedResponse = erupiVoucherCreateDetailsService.issueBulkVoucher(tokengeneration.getToken(),erupiBulkVoucherCreateRequest);
+            // Decrypt Response
+         
+            JSONObject apiJsonResponse = new JSONObject(encryptedResponse);
+            
+            boolean status = apiJsonResponse.getBoolean("status");
+	        responseMap.put("status", status);
+	        responseMap.put("message", apiJsonResponse.getString("message"));
+
+	        if (status && apiJsonResponse.has("data")) {
+	            List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
+	            responseMap.put("data", dataList);
+	        } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }  
 	}
 	
 	@PostMapping(value = "/beneficiaryDeleteFromVoucherList")
@@ -144,4 +257,13 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		return null;
 	}
 
+	 private String generateHash(String data) throws NoSuchAlgorithmException {
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : hashBytes) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    }
 }

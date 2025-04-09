@@ -26,7 +26,7 @@ public class ErupiBulkVoucherCreateRequest {
 	private String name;	
 	private String bankcode;	
 	private String mobile;			
-	private Float amount;	
+	private String amount;	
     private String startDate;			
     private String expDate;	
     private String purposeCode;	
@@ -52,4 +52,6 @@ public class ErupiBulkVoucherCreateRequest {
 	private String responseApi;
 	private String mandateType;
 	private String payeeVPA;
+	private String clientKey;
+	private String hash;
 }
