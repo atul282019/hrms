@@ -424,11 +424,17 @@ async function saveEmployeeProfileTab2(){
 	var ifscRegex = /^[A-Za-z]{4}\d{7}$/ ;
 	var ifscRegex1 = /^[A-Za-z]{4}/ ;
 	
-	if(pan==""){
-		document.getElementById("panError").innerHTML="Please Enter Pan No.";
-		document.getElementById("pan1").focus();
-		return false;
-	}else{
+	for (let i = 1; i <= 10; i++) {
+	    const val = document.getElementById("pan" + i).value;
+	    pan += val ? val.trim().toUpperCase() : "";
+	}
+
+	// Validation check for empty PAN
+	if (pan === "" || pan.length < 10) {
+	    document.getElementById("panError").innerHTML = "Please Enter Pan No.";
+	    document.getElementById("pan1").focus();
+	    return false;
+	} else{
 		document.getElementById("panError").innerHTML="";
 	}
 	

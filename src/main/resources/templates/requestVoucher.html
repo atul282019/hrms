@@ -175,6 +175,18 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 	<script type="text/javascript" src="cotodel-js/requestVoucher.js"></script>
+	<style>
+	.label-wrapper {
+	    display: flex;
+	    align-items: center;
+	    gap: 4px;
+	}
+	.required-star {
+	    color: red;
+	    flex-shrink: 0;
+	}
+	</style>
+
 	<script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -240,16 +252,26 @@
 			                        <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
 			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
 
-			                        <div class="card-form my-3">
-			                           
-			                            <select class="form-select form-control no-bg border-0" id="VoucherType" name="VoucherType" onchange="getVoucherSubTypes()">
-			                                <option value="">Select Voucher Type</option>
-			                            </select>
-			                        </div>
-			                        <div class="error-msg" id="VoucherTypeerror" style="color:red"></div>
+									<div class="card-form my-3">
+									    <label for="VoucherType" class="label-wrapper">
+									        
+									        <span>Voucher Type</span>
+											<span class="required-star">*</span>
+									    </label>
+									    <select class="form-select form-control no-bg border-0" id="VoucherType" name="VoucherType" onchange="getVoucherSubTypes()">
+									        <option value="">Select Voucher Type</option>
+									    </select>
+									</div>
 
+			                        <div class="error-msg" id="VoucherTypeerror" style="color:red"></div>
+									
+									
 			                        <div class="card-form my-3">
-			                            
+										<label for="VoucherSubType" class="label-wrapper">
+										        
+										        <span>Voucher Sub Type</span>
+												<span class="required-star">*</span>
+										    </label>
 			                            <select class="form-select form-control no-bg border-0" id="VoucherSubType" name="VoucherSubType" >
 			                                <option value="">Select Voucher Sub Type</option>
 			                            </select>
@@ -269,26 +291,27 @@
  										 <div class="error-msg" id="mobnoError" style="color:red"></div>
 										 
 			                        <div class="card-form my-3">
-			                            <label for="VoucherAmount">Voucher Amount</label>
-			                            <input type="number" class="form-input" id="VoucherAmount" name="VoucherAmount" maxlength="5">
+			                            <label for="VoucherAmount">Voucher Amount<span class="required-star">*</span></label>
+			                            <input type="text" class="form-input" id="VoucherAmount" name="VoucherAmount" maxlength="5">
 			                        </div>
 			                        <div class="error-msg" id="VoucherAmountError" style="color:red"></div>
 
 			                        <div class="card-form my-3">
-			                            <label for="VoucherRemarks">Remarks</label>
+			                            <label for="VoucherRemarks">Remarks<span class="required-star">*</span></label>
 			                            <input type="text" class="form-input" id="VoucherRemarks" name="VoucherRemarks">
 			                        </div>
 			                        <div class="error-msg" id="VoucherRemarksError" style="color:red"></div>
 
-			                        <div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
-			                            <div id="otsuccmsg"></div>
-			                        </div>
-
-			                        <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
-			                            <div id="otfailmsg"></div>
-			                        </div>
+			                        
 
 									<div class="modal-footer d-flex justify-content-between ">
+										<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+				                            <div id="otsuccmsg"></div>
+				                        </div>
+
+				                        <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+				                            <div id="otfailmsg"></div>
+				                        </div>
 									                <button type="button" class="btn btn-primary"  onclick="saveVoucherData()">Save</button>
 									                <button type="button" class="btn btn-border"  data-dismiss="modal">Cancel</button>
 						            </div>

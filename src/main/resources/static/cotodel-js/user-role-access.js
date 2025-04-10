@@ -697,7 +697,7 @@ function getAddOTP(){
 			  console.log(rowData);
 			  var employerId = document.getElementById("employerId").value;
 		    $.ajax({
-		        url: '/editUserRole',
+		        url: '/edit1UserRole',
 		        type: 'POST',
 		        dataType: 'json',
 		        data: {
@@ -864,9 +864,9 @@ function getAddOTP(){
 							window.location.href="/roleAccess";
 		  				}else if (obj['status'] == false) {
 							document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-							roleUpdate();
-							$("#roleAcessOTPModal").show();
-							$("#roleAcessModalSuccessful").hide();
+							//roleUpdate();
+							//$("#roleAcessOTPModal").show();
+							//$("#roleAcessModalSuccessful").hide();
 							
 							document.getElementById("authenticate").disabled = false;
 						} else {
@@ -998,7 +998,7 @@ function getAddOTP(){
 		  		});
 		  }
 		  			  		  
-		  function  roleUpdate(){
+		  async function  roleUpdate(){
 		  	
 			const employerId = document.getElementById("employerId").value;
 			const employerName = document.getElementById("employerName").value;
@@ -1061,6 +1061,21 @@ function getAddOTP(){
 				// Log the collected data (optional)
 				console.log(allRowsData);
 				//alert(JSON.stringify(allRowsData, null, 2));
+				const clientKey = "client-secret-key";
+			    const secretKey = "0123456789012345";
+
+			    // Optional: flatten userDTO data to a single string for consistency
+			    const userFlatString = allRowsData.map(u =>
+			        u.id + u.username + u.email + u.mobile + u.userRole.map(r => r.roleDesc).join("")
+			    ).join("");
+
+			    const dataString = employerId +employerId+ userMobile + checkvalue +employerName+ userFlatString + clientKey + secretKey;
+
+			    const encoder = new TextEncoder();
+			    const data = encoder.encode(dataString);
+			    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+			    const hashArray = Array.from(new Uint8Array(hashBuffer));
+			    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 				// AJAX call to send the data
 				document.getElementById("signinLoader").style.display = "flex";
 				$.ajax({
@@ -1075,6 +1090,8 @@ function getAddOTP(){
 						consent: checkvalue,
 				        createdBy: employerName,
 				        userDTO: allRowsData, // Send all rows as an array
+						clientKey: clientKey,
+			            hash: hashHex 
 				    }),
 				    success: function(data) {
 				        console.log("Success:", data);
@@ -1088,7 +1105,7 @@ function getAddOTP(){
 				});
 
 		  }
-		  function  addRole(){
+		  async function  addRole(){
 						
 			const employerId = document.getElementById("employerId").value;
 			const employerName = document.getElementById("employerName").value;
@@ -1151,6 +1168,22 @@ function getAddOTP(){
 
 			// Log the collected data (optional)
 			console.log(allRowsData);
+			// Hashing: prepare a flat string to hash
+			    const clientKey = "client-secret-key";
+			    const secretKey = "0123456789012345";
+
+			    // Optional: flatten userDTO data to a single string for consistency
+			    const userFlatString = allRowsData.map(u =>
+			        u.id + u.username + u.email + u.mobile + u.userRole.map(r => r.roleDesc).join("")
+			    ).join("");
+
+			    const dataString = employerId +employerId+ userMobile + checkvalue +employerName+ userFlatString + clientKey + secretKey;
+
+			    const encoder = new TextEncoder();
+			    const data = encoder.encode(dataString);
+			    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+			    const hashArray = Array.from(new Uint8Array(hashBuffer));
+			    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 			//alert(JSON.stringify(allRowsData, null, 2));
 				// AJAX call to send the data
 				document.getElementById("signinLoader").style.display = "flex";
@@ -1166,6 +1199,8 @@ function getAddOTP(){
 						consent: checkvalue,
 				        createdBy: employerName,
 				        userDTO: allRowsData, // Send all rows as an array
+						clientKey: clientKey,
+			            hash: hashHex 
 				    }),
 				    success: function(data) {
 				        console.log("Success:", data);

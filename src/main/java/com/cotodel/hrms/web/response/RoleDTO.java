@@ -23,5 +23,8 @@ public class RoleDTO {
 	    private String createdBy;
 	    
     private List<UserDTO> userDTO;
+    
+    private String clientKey;
+	private String hash;
 
 }

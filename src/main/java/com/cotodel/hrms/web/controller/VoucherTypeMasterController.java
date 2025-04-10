@@ -1,5 +1,8 @@
 package com.cotodel.hrms.web.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -7,7 +10,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,11 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateRequest;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.VoucherTypeMaster;
 import com.cotodel.hrms.web.service.VoucherTypeMasterService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +38,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @CrossOrigin
 public class VoucherTypeMasterController extends CotoDelBaseController{
+	private static final Logger logger = LoggerFactory.getLogger(VoucherTypeMasterController.class);
 	
+	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
+    private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
@@ -39,6 +50,8 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
+	
+	
 	
 	@PostMapping(value="/savevoucherTypeMaster")
 	public @ResponseBody String saveBankMaster(ModelMap model, Locale locale, HttpSession session,VoucherTypeMaster voucherTypeMaster) {
@@ -185,47 +198,128 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	@PostMapping(value="/createVoucher")
 	public @ResponseBody String createVoucher(ModelMap model, Locale locale, HttpSession session,ErupiVoucherCreateRequest erupiVoucherCreateRequest) {
  
-        Map<String, String> responseMap = new HashMap<>();
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonResponse = null;
+        
+      
+        String profileRes = null;
 
-        // Call the service to save the BankMaster object
-//        voucherResponse = voucherTypeMasterService.saveVoucherTypeMaster(tokengeneration.getToken(), voucherTypeMaster);
-//        System.out.println(voucherResponse);  // Logging the response
-//        voucherJsonResponse = new JSONObject(voucherResponse);
-//
-//       
-//		if(voucherJsonResponse.getBoolean("status")) { 
-//			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
+        String receivedHash = erupiVoucherCreateRequest.getHash();
+		 if (!CLIENT_KEY.equals(erupiVoucherCreateRequest.getClientKey())) {
+	          // return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+		   logger.info("erupiVoucherCreateRequest.getEmployerId()+"+erupiVoucherCreateRequest.getEmployerId());
+	        logger.info("erupiVoucherCreateRequest.getEmployeeId()+"+erupiVoucherCreateRequest.getEmployeeId());
+	        logger.info("erupiVoucherCreateRequest.getPurposeCode()+"+erupiVoucherCreateRequest.getPurposeCode());
+	        logger.info("erupiVoucherCreateRequest.getMcc()+"+erupiVoucherCreateRequest.getMcc());
+	        logger.info("erupiVoucherCreateRequest.getName()+"+erupiVoucherCreateRequest.getName());
+	        logger.info("erupiVoucherCreateRequest.getVoucherType()+"+erupiVoucherCreateRequest.getVoucherType());
+	        logger.info("erupiVoucherCreateRequest.getVoucherSubType()+"+erupiVoucherCreateRequest.getVoucherSubType());
+	        logger.info("erupiVoucherCreateRequest.getMobile()+"+erupiVoucherCreateRequest.getMobile());
+	        logger.info("erupiVoucherCreateRequest.getAmount()+"+erupiVoucherCreateRequest.getAmount());
+	        logger.info("erupiVoucherCreateRequest.getRemarks()+"+erupiVoucherCreateRequest.getRemarks());
+	        // Ensure consistent concatenation
+	        String dataString =
+	        		//added String.valueOf because it was summing employerid and employeeid
+	        		String.valueOf(erupiVoucherCreateRequest.getEmployerId()) +
+	        	    String.valueOf(erupiVoucherCreateRequest.getEmployeeId()) +
+	        		erupiVoucherCreateRequest.getPurposeCode()+
+	        		erupiVoucherCreateRequest.getMcc()+
+	        		erupiVoucherCreateRequest.getName()+
+	        		erupiVoucherCreateRequest.getVoucherType()+
+	        		erupiVoucherCreateRequest.getVoucherSubType()+
+	        		erupiVoucherCreateRequest.getMobile()+
+	        		erupiVoucherCreateRequest.getAmount()+
+	        		erupiVoucherCreateRequest.getRemarks()+
+	        		CLIENT_KEY+SECRET_KEY;
+	        logger.info("dataString"+dataString);
+	        
+//	        System.out.println("data string"+dataString);
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+			    ObjectMapper mapper = new ObjectMapper();
+			    
+			  if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			  String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    logger.info("obj.getOrgid()"+obj.getOrgid());
+			    //here we are comparing employeeid with orgid because we are getting empid in session 
+   if ((obj.getUser_role() == 2) && obj.getOrgid() == erupiVoucherCreateRequest.getEmployerId().intValue()) {
         
         try {
            // jsonResponse = mapper.writeValueAsString(responseMap);
         	String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateRequest); 
-            EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
             
-            String encryptedResponse = voucherTypeMasterService.createVoucher(tokengeneration.getToken(), encryptedRequest);
-            EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
-            String voucherResponse1 = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-            
-            JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
-            if (voucherJsonResponse1.getBoolean("status")) {
-                responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-            } else {
-                responseMap.put("status", MessageConstant.RESPONSE_FAILED);
-            }
-            
-            jsonResponse = mapper.writeValueAsString(responseMap);
-        
-        } catch (Exception e) {
-            e.printStackTrace(); 
-        }
+            String encriptResponse = voucherTypeMasterService.createVoucher(tokengeneration.getToken(), jsonObject);
+            EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
-        
-        return jsonResponse;  
+			String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                    userReqEnc.getEncriptData(), 
+                    userReqEnc.getEncriptKey(), 
+                    applicationConstantConfig.apiSignaturePrivatePath
+            );
+
+            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+            
+            // Process API Response
+            if (apiJsonResponse.getBoolean("status")) {
+                responseMap.put("status", true);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }
+		
     }
 	@GetMapping(value="/getRequestedVoucherList")
 	public @ResponseBody String getRequestedVoucherList(ModelMap model, Locale locale, HttpSession session,ErupiVoucherCreateRequest erupiVoucherCreateRequest) {
@@ -260,4 +354,13 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         return jsonResponse;
     }
 
+	 private String generateHash(String data) throws NoSuchAlgorithmException {
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : hashBytes) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    }
 }

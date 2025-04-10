@@ -243,13 +243,13 @@
 		    });
 		}*/
 		
-		function saveVoucherData() {
+		async function saveVoucherData() {
 		    // Gather form data
-			var Name = document.getElementById("Name").value.trim();
+			var name = document.getElementById("Name").value.trim();
 			var employeeId = document.getElementById("empId").value.trim();
 			
 			var employerId = document.getElementById("employerId").value.trim();
-		    var mobno = document.getElementById("mobno").value.trim();
+		    var mobile = document.getElementById("mobno").value.trim();
 		    var amount = document.getElementById("VoucherAmount").value.trim();
 		    var remarks = document.getElementById("VoucherRemarks").value.trim();
 			
@@ -261,11 +261,11 @@
 
 		    // Fetch selected text for Voucher Type
 		    var voucherTypeDropdown = document.getElementById("VoucherType");
-		    var voucherTypeText = voucherTypeDropdown.options[voucherTypeDropdown.selectedIndex].text;
+		    var voucherType = voucherTypeDropdown.options[voucherTypeDropdown.selectedIndex].text;
 
 		    // Fetch selected text for Voucher Sub Type
 		    var voucherSubTypeDropdown = document.getElementById("VoucherSubType");
-		    var voucherSubTypeText = voucherSubTypeDropdown.options[voucherSubTypeDropdown.selectedIndex].text;
+		    var voucherSubType = voucherSubTypeDropdown.options[voucherSubTypeDropdown.selectedIndex].text;
 			
 			if (purposeCode === "") {
 			        document.getElementById("VoucherTypeerror").innerHTML = "Please select a Voucher Type";
@@ -311,6 +311,29 @@
 				   }
 			
 				   document.getElementById("signinLoader").style.display="flex";
+				   			const clientKey = "client-secret-key"; // Extra security measure
+				   		    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+				   		    // Concatenate data (must match backend)
+				   		    const dataString = 
+							employerId+
+							employeeId+
+							purposeCode+
+							mcc+
+							name+
+							voucherType+
+							voucherSubType+
+							mobile+
+							amount+
+							remarks+
+							clientKey+secretKey;
+
+				   		    // Generate SHA-256 hash
+				   		    const encoder = new TextEncoder();
+				   		    const data = encoder.encode(dataString);
+				   		    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+				   		    const hashArray = Array.from(new Uint8Array(hashBuffer));
+				   		    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');    
 		    // Send the AJAX request
 		    $.ajax({
 		        type: "POST",
@@ -321,25 +344,30 @@
 					"employeeId":employeeId,
 					"purposeCode":	purposeCode,
 					"mcc": mcc,
-		            "name": Name,
-		            "voucherType": voucherTypeText, // Selected text of Voucher Type
-		            "voucherSubType": voucherSubTypeText, // Selected text of Voucher Sub Type
-		            "mobile": mobno,
+		            "name": name,
+		            "voucherType": voucherType, // Selected text of Voucher Type
+		            "voucherSubType": voucherSubType, // Selected text of Voucher Sub Type
+		            "mobile": mobile,
 		            "amount": amount,
 		            "remarks": remarks,
+					"clientKey":clientKey,
+		 			"hash":hashHex
 		            
-		        },
-		        dataType: "json",
+				},
+					 	      		  beforeSend : function(xhr) {
+					 	 		//xhr.setRequestHeader(header, token);
+					 	 		},      	 
 		        success: function (response) {
+					var data1 = jQuery.parseJSON(response);
 					document.getElementById("signinLoader").style.display="none";
-		            if (response.status === "SUCCESS") {
+		            if (data1.status === true) {
 		               $("#VoucherRequestSuccess").show();
 					   setTimeout(function () {
 					                       $('.modal').modal('hide'); // Close all modals
 					                       location.reload(); // Refresh the page
 					                   },1000);
 		            } else {
-		                $("#otfailmsg").text(response.message || "Failed to save data.");
+		                $("#otfailmsg").text(data1.message);
 		                $("#otfailmsgDiv").show();
 		            }
 		        },

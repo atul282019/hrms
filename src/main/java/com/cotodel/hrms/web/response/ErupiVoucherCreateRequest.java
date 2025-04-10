@@ -26,10 +26,12 @@ public class ErupiVoucherCreateRequest {
 	private String mobile;
 	private String voucherType;
 	private String voucherSubType;
-	private Float amount;
+	private String amount;
 	private String remarks;
 	private String response;
 	private String purposeCode;	
 	private String mcc;
+	private String clientKey;
+	private String hash;   
 
 }

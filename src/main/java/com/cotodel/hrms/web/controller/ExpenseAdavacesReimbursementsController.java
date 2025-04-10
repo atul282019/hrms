@@ -454,6 +454,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	            if (apiJsonResponse.getBoolean("status")) {
 	                responseMap.put("status", true);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
+	                responseMap.put("data", apiJsonResponse.getJSONArray("data").toList()); 
 	            } else {
 	                responseMap.put("status", false);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
