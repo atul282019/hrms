@@ -60,8 +60,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	public @ResponseBody String createSingleVoucher(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
 			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
 		
-		//profileRes = erupiVoucherCreateDetailsService.createSingleVoucher(tokengeneration.getToken(),erupiVoucherCreateDetails);
-		
 		String receivedHash = erupiVoucherCreateDetails.getHash();
 		 // Validate client key first
         if (!CLIENT_KEY.equals(erupiVoucherCreateDetails.getClientKey())) {

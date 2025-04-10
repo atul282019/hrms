@@ -24,7 +24,7 @@ public class BulkVoucherRequest {
 	private String acNumber;	
 	private String type;	
 	private String ifsc;
-	private String orgId;
+	private Long orgId;
 	private String orgCode;
 	private String tid;
 	private String merchantId;
@@ -42,7 +42,8 @@ public class BulkVoucherRequest {
 	private String voucherCode;
 	private Integer voucherId;
 	private String beneficiaryID;
-	
+	private String clientKey;
+	private String hash;
 	
 
 }

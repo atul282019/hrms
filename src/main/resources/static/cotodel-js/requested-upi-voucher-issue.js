@@ -21,9 +21,7 @@ function resendVoucherOTP() {
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
-										
-				//$('#errorOtp').hide('slow');
-				//$('#loginIdDiv').hide('slow');
+					
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
 	               // Hide the "Resend OTP" link initially
@@ -39,12 +37,7 @@ function resendVoucherOTP() {
 						//document.getElementById("optBtn").disabled = false;
 						document.getElementById("countdown").innerHTML = " ";
 						resendCodeElement.style.display = "block";
-						//document.getElementById("optBtn").style.display = "none";
-						//document.getElementById("verifyotpdiv").style.display = "none";
-						
-						//$('#loginIdDiv').hide('slow');
 					}
-				//	document.getElementById('password1').focus();
 				}, 1000);
 				//$('#loginIdDiv').show('slow');
 			}else if (obj['status'] == false) {
@@ -226,8 +219,6 @@ function focusBack(){
 
 
 function  getLinkedBankDetail(){
-	
-    //document.getElementById("signinLoader").style.display="flex";
  	var employerid = document.getElementById("employerId").value;
  	$.ajax({
 	type: "POST",
@@ -270,16 +261,11 @@ function  getLinkedBankDetail(){
 			
 }
 
-
-
-
 function  getVoucherDetailByBoucherCode(){
 	createSingleVoucherValidation();
-    //document.getElementById("signinLoader").style.display="flex";
  	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
  	$.ajax({
 	type: "POST",
-	//url:"/getVoucherDetailByBoucherCode",
 	url:"/getmccMasterListByPurposeCode",
        data: {
 			"purposeCode": voucherCode
@@ -320,8 +306,6 @@ function  getVoucherDetailByBoucherCode(){
 }
 
 function  getBankDetailByBankAccountNumber(){
-	//createSingleVoucherValidation();
-    //document.getElementById("signinLoader").style.display="flex";
  	var accountNumber = document.getElementById("banklist").value;
  	$.ajax({
 	type: "POST",
@@ -380,8 +364,6 @@ function validateAmount(amount) {
 
 
 function  createSingleVoucherValidation(){
-	
-    //document.getElementById("signinLoader").style.display="flex";
 	
 	var banklist = document.getElementById("banklist").value;
 	
@@ -556,21 +538,20 @@ async function  issueVoucher(){
 	
 	document.getElementById("signinLoader").style.display="flex";
 	const clientKey = "client-secret-key"; // Extra security measure
-	    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 
-	    // Concatenate data (must match backend)
-
-		const dataString = beneficiaryName+beneficiaryMobile+startDate+validity+voucherCode+customCheck45+
-		createdby+employerId+merchentid+submurchentid+redemptionType+mcc+voucherCode+
-		voucherDesc+bankCode+acNumber+payerva+"01"+clientKey+secretKey;
-
-	    // Generate SHA-256 hash
-	    const encoder = new TextEncoder();
-	    const data = encoder.encode(dataString);
-	    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-	    const hashArray = Array.from(new Uint8Array(hashBuffer));
-	    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-								
+	const dataString = beneficiaryName+beneficiaryMobile+startDate+validity+voucherCode+customCheck45+
+	createdby+employerId+merchentid+submurchentid+redemptionType+mcc+voucherCode+
+	voucherDesc+bankCode+acNumber+payerva+"01"+amount+clientKey+secretKey;
+	
+		console.log("data string"+dataString); 
+    // Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+							
 	 	$.ajax({
 		type: "POST",
 		url:"/createSingleVoucher",
@@ -579,19 +560,13 @@ async function  issueVoucher(){
 				   "mobile": beneficiaryMobile,
 				   "amount": amount,
 				   "startDate": startDate,
-				   //"expDate": "",
 				   "validity": validity,
 				   "purposeCode": voucherCode,
-				   //"otpValidationStatus": "",
 				   "consent": customCheck45,
-				   //"creationDate": "",
 				   "createdby": createdby,
-				   //"accountId": "",
 				   "orgId": employerId,
-				   //"merchanttxnid": "",
 				   "merchantId": merchentid,
 				   "subMerchantId": submurchentid,
-				   //"bulktblId": "",
 				   "redemtionType": redemptionType,
 				   "mcc": mcc,
 				   "voucherType": voucherType,
@@ -599,10 +574,8 @@ async function  issueVoucher(){
 				   "voucherDesc": voucherDesc,
 				   "activeStatus": activeStatus,
 				   "bankcode":bankCode,
-				   //"voucherId":"",
 				   "accountNumber":acNumber,
 				   "payerVA":payerva,
-				   //"payeeVPA":"",
 				   "mandateType":"01",
 				   "clientKey":clientKey,
 				   "hash":hashHex

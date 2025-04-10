@@ -102,24 +102,16 @@ $(document).on('change','.up', function(){
 									resendCodeElement.style.display = "block";
 									document.getElementById("authenticate").disabled = true;
 									
-									 
-									///document.getElementById("optBtn").disabled = false;
-									///document.getElementById("countdown").innerHTML = " ";
-									//document.getElementById("optBtn").style.display = "none";
-									//document.getElementById("verifyotpdiv").style.display = "none";
-									///$('#loginIdDiv').hide('slow');
 								}
-								//document.getElementById('password').focus();
 							}, 1000);
 			            $('#otpModal1').fadeIn();
 			          } else {
-			            alert("Error: " + response.message);
+						document.getElementById('submitButton').disabled=false;
+			            alert("Error: " + obj.message);
 			          }
 			        },
 			        error: function() {
-					  //$('#otpModal').fadeIn();
-			         // alert("An error occurred. Please try again.");
-			        }
+					alert("Error: " + obj.message);			        }
 			      });
 			    });
 
@@ -197,7 +189,7 @@ function convertImageToBase64() {
 		
 	}
 	
-function saveBulkVoucherUpload(){
+async function saveBulkVoucherUpload(){
 	
 	var fileInput = document.getElementById("up").value;
 	var fileName = document.getElementById("fileName").value;
@@ -211,7 +203,20 @@ function saveBulkVoucherUpload(){
 	var voucherName = localStorage.getItem("voucherName");
 	var purposeCode = localStorage.getItem("purposeCode");
 	var purposeName = localStorage.getItem("purposeName");
-		
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+	const dataString = orgId+fileName+base64file+purposeCode+voucherCode
+	+voucherName+createdby+clientKey+secretKey;
+
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	
 	if(fileInput =="" || fileInput == null){
 		 document.getElementById("fileInputError").innerHTML="Please Select File";
 		 return false;
@@ -228,41 +233,44 @@ function saveBulkVoucherUpload(){
 					"orgId":orgId,
 					"fileName":fileName,
 					"file":base64file,
-					"purposeCode":"",
-					"accountId":1,
+					//"accountId":1,
 					"mcc": purposeCode,
-					"mccDesc": purposeName,
-					"beneficiaryID":"",
-					"payerVA":"",
-					"payeeVPA":"",
-					"mandateType":"01",
-					"type":"",
-					"bankcode": "",
-					"voucherId": "",
-				    "voucherCode": voucherCode,
+					//"mccDesc": purposeName,
+					//"mandateType":"01",
+					"voucherCode": voucherCode,
 					"voucherDesc": voucherName,
-					"voucherType": "Bulk",
-					"activeStatus": "",			
-					"merchanttxnid": "",
-					"merchantId": "",
-					"subMerchantId": "",
+					//"voucherType": "Bulk",
 					"createdby":createdby,
-				    "otpValidationStatus": "",
-					"consent": "",
-					"creationDate": "",
-					"redemtionType": "",	
-							 
+					//"purposeCode":"",
+					//"beneficiaryID":"",
+					//"payerVA":"",
+					//"payeeVPA":"",
+					//"type":"",
+					//"bankcode": "",
+					//"voucherId": "",
+					//"activeStatus": "",			
+					//"merchanttxnid": "",
+					//"merchantId": "",
+					//"subMerchantId": "",
+				    //"otpValidationStatus": "",
+					//"consent": "",
+					//"creationDate": "",
+					//"redemtionType": "",
+					"clientKey":clientKey,
+				    "hash":hashHex
+	
 			 },  		 
 	        success:function(data){
-	        var data1 = data;
-	       console.log(data);
-			//var data1 = jQuery.parseJSON(data);
-		
+	        var data1 = data.data;
+	       console.log("data"+data);
+		   console.log("data1"+data1);
+		   var data2 = jQuery.parseJSON(data1);
+		   console.log("data2"+data2);
 			document.getElementById("signinLoader").style.display="none";
-			if(data1.status==true){
+			if(data2.status==true){
 				//document.getElementById("continueButton").disabled = false;
-				 var success = data1.data.success;
-				 var fail = data1.data.fail;
+				 var success = data2.data.success;
+				 var fail = data2.data.fail;
 				 if (success.length === 0 ) {
 				         document.getElementById("continueButton").disabled = true;
 				     } else {
@@ -272,14 +280,14 @@ function saveBulkVoucherUpload(){
 				 document.getElementById("BulkVoucherIssuanceTable").style.display="block";
 				 document.getElementById("BulkVoucherIssuance-wrap").style.display="none";
 				 
-				 document.getElementById("failed").innerHTML=data1.data.failCount;
-				 document.getElementById("success").innerHTML=data1.data.successCount;
-				 document.getElementById("successTotal").innerHTML=data1.data.totalCount;
-				 document.getElementById("failedTotal").innerHTML=data1.data.totalCount;
-				 document.getElementById("failedUploadDownload").innerHTML=data1.data.failCount;
- 				 document.getElementById("successUploadDownload").innerHTML=data1.data.successCount;
- 				 document.getElementById("successUploadTotal").innerHTML=data1.data.totalCount;
- 				 document.getElementById("failedUploadTotal").innerHTML=data1.data.totalCount;
+				 document.getElementById("failed").innerHTML=data2.data.failCount;
+				 document.getElementById("success").innerHTML=data2.data.successCount;
+				 document.getElementById("successTotal").innerHTML=data2.data.totalCount;
+				 document.getElementById("failedTotal").innerHTML=data2.data.totalCount;
+				 document.getElementById("failedUploadDownload").innerHTML=data2.data.failCount;
+ 				 document.getElementById("successUploadDownload").innerHTML=data2.data.successCount;
+ 				 document.getElementById("successUploadTotal").innerHTML=data2.data.totalCount;
+ 				 document.getElementById("failedUploadTotal").innerHTML=data2.data.totalCount;
 				
 				 var table = $('#successUpload').DataTable( {
 			      destroy: true,	
@@ -290,7 +298,6 @@ function saveBulkVoucherUpload(){
 			      "language": {"emptyTable": "No Data available"  },
 			     "aaData": success,
 				  "aoColumns": [ 
-					/*{ "mData": "voucherType"},*/
 			        { "mData": "beneficiaryName"},   
 			        { "mData": "mobile"},   
 				    { "mData": "amount"},
@@ -314,13 +321,11 @@ function saveBulkVoucherUpload(){
 								 return '<td> <input type="hidden" name="issueId" id="issueId" value="'+data2+'" /> </td>';
 							}}, 								
 						{ "mData": "id"},	
-					/*	{ "mData": "voucherType"},*/
 			            { "mData": "beneficiaryName"},   
 			            { "mData": "mobile"},   
 					    { "mData": "amount"},
 						{ "mData": "startDate"},  
 						{ "mData": "expDate"},
-						
 						{ "mData": "id", "render": function (data2, type, row) {
 						   return '<td> <button value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/delete.svg" alt=""></a> </button> </td>';
 						}}, 
@@ -338,7 +343,6 @@ function saveBulkVoucherUpload(){
 	             "language": {"emptyTable": "No Data available"  },
 		         "aaData": fail,
 	      		  "aoColumns": [ 
-					/*{ "mData": "redemtionType"},*/
 					{ "mData": "beneficiaryName"},   
 					{ "mData": "mobile"},   
 					 { "mData": "amount"},
@@ -542,9 +546,6 @@ function  getLinkedBankDetail(){
    }); 
 			
 }
-
-
-
 
 function  getVoucherDetailByBoucherCode(){
  	var voucherCode = localStorage.getItem('voucherCode');
@@ -992,7 +993,7 @@ function verfyIssueVoucherOTP() {
     // Concatenate data (must match backend)
 
 	const dataString = employerId+voucherCode+purposeCode+payerva+"01"+"CREATE"+
-	bankCode+acNumber+voucherCode+voucherName+merchentid+submurchentid+createdby+firstColumnData+clientKey+secretKey;
+	bankCode+acNumber+voucherCode+voucherName+merchentid+submurchentid+createdby+clientKey+secretKey;
 
     // Generate SHA-256 hash
     const encoder = new TextEncoder();
@@ -1020,11 +1021,6 @@ function verfyIssueVoucherOTP() {
 			"arrayofid":firstColumnData,
 			"hash":hashHex,
 			"clientKey":clientKey
-			//"fileName":"",
-			//"file":"",
-			//"accountId":1,
-			//"beneficiaryID":"",
-			//"payeeVPA":"",
 			 },  	
         		  beforeSend : function(xhr) {
   			//xhr.setRequestHeader(header, token);

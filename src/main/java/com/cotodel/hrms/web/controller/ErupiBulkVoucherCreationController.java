@@ -35,7 +35,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
-import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.BulkVoucherService;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
@@ -70,13 +69,72 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 			BulkVoucherRequest bulkVoucherRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 		
 		String profileRes=null;
-		//profileRes = bulkVoucherService.saveBulkVoucher(tokengeneration.getToken(),bulkVoucherRequest);
-		
-		//  return profileRes;
-		
+	
+	    Map<String, Object> responseMap = new HashMap<>();
+	    ObjectMapper mapper = new ObjectMapper();
+	    
+		String receivedHash = bulkVoucherRequest.getHash();
+		 // Validate client key first
+        if (!CLIENT_KEY.equals(bulkVoucherRequest.getClientKey())) {
+        	 responseMap.put("status", false);
+             responseMap.put("message", "Invalid client key");
+        }
+        String dataString = bulkVoucherRequest.getOrgId()+bulkVoucherRequest.getFileName()+bulkVoucherRequest.getFile()+
+        bulkVoucherRequest.getMcc()+bulkVoucherRequest.getVoucherCode()
+        +bulkVoucherRequest.getVoucherDesc()+bulkVoucherRequest.getCreatedby()+CLIENT_KEY+SECRET_KEY;
+		  
+        // Compute hash
+        String computedHash = null;
 		try {
-			String json = EncryptionDecriptionUtil.convertToJson(bulkVoucherRequest);
+			computedHash = generateHash(dataString);
+			System.out.println("computedHash"+computedHash);
+			System.out.println("computedHash---"+dataString);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+    // Validate hash
+    boolean isValid = computedHash.equals(receivedHash);
+ 
+    // Get token from session
+    if (!isValid) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Request Tempered");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    String token = (String) session.getAttribute("hrms");
+    
+    if (token == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: No token found.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    // Validate Token
+    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+    if (obj == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Invalid token.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+
+    // Check User Role and Organization ID
+    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == bulkVoucherRequest.getOrgId().intValue()) {
+        try {
+        	String json = EncryptionDecriptionUtil.convertToJson(bulkVoucherRequest);
+        	
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = bulkVoucherService.saveBulkVoucher(tokengeneration.getToken(), jsonObject);
@@ -85,12 +143,35 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
+       			
+            JSONObject apiJsonResponse = new JSONObject(profileRes);
+            
+            boolean status = apiJsonResponse.getBoolean("status");
+	        responseMap.put("status", status);
+	        responseMap.put("message", apiJsonResponse.getString("message"));
+
+	        if (status && apiJsonResponse.has("data")) {
+	            //List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
+	            responseMap.put("data", profileRes);
+	        } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }  
 		  
 	}
 
@@ -101,9 +182,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		
 	    Map<String, Object> responseMap = new HashMap<>();
 	    ObjectMapper mapper = new ObjectMapper();
-		//profileRes = erupiVoucherCreateDetailsService.issueBulkVoucher(tokengeneration.getToken(),erupiBulkVoucherCreateRequest);
-		
-		//return profileRes;
 		
 		String receivedHash = erupiBulkVoucherCreateRequest.getHash();
 		 // Validate client key first
@@ -111,15 +189,13 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
         	 responseMap.put("status", false);
              responseMap.put("message", "Invalid client key");
         }
-       // const dataString = orgId+voucherCode+purposeCode+payerva+"01"+CREATE+
-       // 		bankCode+acNumber+voucherCode+voucherName+merchentid+submurchentid+createdby+
-       // 		firstColumnData+clientKey+secretKey;
+        
         String dataString = erupiBulkVoucherCreateRequest.getOrgId()+erupiBulkVoucherCreateRequest.getPurposeCode()+erupiBulkVoucherCreateRequest.
         		getMcc()+
         		erupiBulkVoucherCreateRequest.getPayerVA()+erupiBulkVoucherCreateRequest.getMandateType()+erupiBulkVoucherCreateRequest.getType()
         +erupiBulkVoucherCreateRequest.getBankcode()+ erupiBulkVoucherCreateRequest.getAccountNumber()+
         erupiBulkVoucherCreateRequest.getVoucherCode()+erupiBulkVoucherCreateRequest.getVoucherDesc()+erupiBulkVoucherCreateRequest.getMerchantId()+
-        erupiBulkVoucherCreateRequest.getSubMerchantId()+erupiBulkVoucherCreateRequest.getCreatedby()+erupiBulkVoucherCreateRequest.getArrayofid()+CLIENT_KEY+SECRET_KEY;
+        erupiBulkVoucherCreateRequest.getSubMerchantId()+erupiBulkVoucherCreateRequest.getCreatedby()+CLIENT_KEY+SECRET_KEY;
 		   
 
         // Compute hash
@@ -210,9 +286,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	public @ResponseBody String beneficiaryDeleteFromVoucherList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, BulkVoucherRequest bulkVoucherRequest) {
 		String profileRes = null;
-		//profileRes = erupiVoucherCreateDetailsService.beneficiaryDeleteFromVoucherList(tokengeneration.getToken(),	bulkVoucherRequest);
-
-		//return profileRes;
+	
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(bulkVoucherRequest);
 

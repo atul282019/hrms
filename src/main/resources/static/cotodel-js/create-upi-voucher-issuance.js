@@ -551,7 +551,7 @@ async function  issueVoucher(){
 	const dataString = beneficiaryName+beneficiaryMobile+startDate+validity+voucherCode+customCheck45+
 	createdby+employerId+merchentid+submurchentid+redemptionType+mcc+voucherCode+
 	voucherDesc+bankCode+acNumber+payerva+"01"+amount+clientKey+secretKey;
-
+	console.log("data string"+dataString); 
     // Generate SHA-256 hash
     const encoder = new TextEncoder();
     const data = encoder.encode(dataString);
@@ -567,19 +567,13 @@ async function  issueVoucher(){
 			   "mobile": beneficiaryMobile,
 			   "amount": amount,
 			   "startDate": startDate,
-			   //"expDate": "",
 			   "validity": validity,
 			   "purposeCode": voucherCode,
-			   //"otpValidationStatus": "",
 			   "consent": customCheck45,
-			   //"creationDate": "",
 			   "createdby": createdby,
-			   //"accountId": "",
 			   "orgId": employerId,
-			   //"merchanttxnid": "",
 			   "merchantId": merchentid,
 			   "subMerchantId": submurchentid,
-			   //"bulktblId": "",
 			   "redemtionType": redemptionType,
 			   "mcc": mcc,
 			   "voucherType": voucherType,
@@ -587,10 +581,8 @@ async function  issueVoucher(){
 			   "voucherDesc": voucherDesc,
 			   "activeStatus": activeStatus,
 			   "bankcode":bankCode,
-			   //"voucherId":"",
 			   "accountNumber":acNumber,
 			   "payerVA":payerva,
-			   //"payeeVPA":"",
 			   "mandateType":"01",
 			   "clientKey":clientKey,
 			   "hash":hashHex
