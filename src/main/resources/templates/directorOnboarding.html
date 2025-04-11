@@ -62,12 +62,6 @@
 	                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 	                                    Settings
 	                                </a>
-	                              
-	                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-						            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-								          <i class="fas fa-user-circle"></i> Logout         
-								        </a>
-						          </div> -->  
 	                              <div class="dropdown-divider"></div>
 	                                <a class="dropdown-item" th:href="@{/logout}">
 	                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
@@ -101,7 +95,6 @@
 								</thead>
 								<tbody>
 									<td></td>
-
 								</tbody>
 							</table>
 							<div class="last-add">
@@ -175,10 +168,7 @@
 	   });
 	});
 	
-	</script>
-	
-	
-
+	</script>	
 			<div class="modal fade" id="ModalAddDirector" tabindex="-1" role="dialog" aria-labelledby="ModalAddDirectorTitle" aria-hidden="true">
 			    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" >
 			        <div class="modal-content" >
@@ -189,7 +179,6 @@
 			                </button>
 			            </div>
 			            <div class="modal-body" >
-			                
 			                <div class="container-fluid p-0 p-md-1">
 			                    <form id="AddDirector" name="AddDirector" method="post">
 			                        <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
@@ -197,40 +186,37 @@
 			                        <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
 
 									<div class="card-form my-3">
-			                            <label for="DirectorName">Name*</label>
+			                            <label for="DirectorName">Name<span class="required-star">*</span></label>
 			                            <input type="text" class="form-input" id="DirectorName" name="DirectorName"oninput="sanitizeInput(this)">
 			                        </div>
 			                        <div class="error-msg" id="DirectorNameError" style="color:red"></div>
-
-			                        
 									<div class="card-form my-3">
-                                        <label for="mobno">Mobile*</label>
+                                        <label for="mobno">Mobile<span class="required-star">*</span></label>
                                         <input type="text" class="form-input" id="mobno" maxlength="10"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     </div>
  										 <div class="error-msg" id="mobnoError" style="color:red"></div>
 										 
 										 <div class="card-form my-3">
-	                                         <label for="email">Email*</label>
+	                                         <label for="email">Email<span class="required-star">*</span></label>
 	                                         <input type="email" class="form-input" id="email" maxlength="50" oninput="sanitizeInput(this)" >
 	 	                                    </div>
 	 									 <div class="error-msg" id="emailError" style="color:red"></div>
-										 
 										 <div class="card-form my-3">
-		                                         <label for="Din">Din*</label>
+		                                         <label for="Din">Din<span class="required-star">*</span></label>
 		                                         <input type="text" class="form-input" id="Din" maxlength="8"
 		                                         oninput="sanitizeInput(this)">
 		                                     </div>
 		  										 <div class="error-msg" id="DinError" style="color:red"></div>
 
 			                        <div class="card-form my-3">
-			                            <label for="Designation">Designation*</label>
+			                            <label for="Designation">Designation<span class="required-star">*</span></label>
 			                            <input type="text" class="form-input" id="Designation" name="Designation" oninput="sanitizeInput(this)">
 			                        </div>
 			                        <div class="error-msg" id="DesignationError" style="color:red"></div>
 									
 									<div class="card-form my-3">
-                                         <label for="Address">Address*</label>
+                                         <label for="Address">Address<span class="required-star">*</span></label>
                                          <input type="text" class="form-input" id="Address" 
                                          oninput="sanitizeInput(this)">
                                      </div>
@@ -250,82 +236,23 @@
 			            </div>
 			        </div>
 			    </div>
-			</div>
-			<!-- old modal
-				<div class="modalView" id="AddDirectorSuccess" tabindex="-1" role="dialog"
-			       aria-labelledby="exampleModalCenterTitle" >
-			       <div class="modal-dialog modal-dialog-centered" role="document">
-			           <div class="modal-content modal-bulk">
-			               <div class="modal-top text-center">
-			                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" onclick="approvedClose()">
-			                       <img src="img/modal-close.svg" alt="">
-			                   </button>
-			                   <img src="img/modal-success.svg" alt="">
-			               </div>
-			               <div class="modal-bottom">
-			                 <div class="count"><span>4</span><strong>5</strong></div>
-			                   <br>
-			                   <span>Data saved SuccessFully!</span>
-			               </div>
-			           </div>
-			       </div>
-			   </div>-->
-			   
-			   <div class="modalView" id="AddDirectorSuccess">
-			   		        <div class="modal-dialog modal-dialog-centered">
-			   		            <div class="modal-content modal-bulk p-0">
-			   		                <div class="modal-top text-center">
-			   		                    <button type="button" class="close p-0"  data-dismiss="modal" id="approvedClose" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
-			   		                        <img src="img/modal-close.svg" alt="">
-			   		                    </button>
-			   		                    <img src="img/modal-success.svg" alt="">
-			   		                </div>
-			   		                <div class="modal-bottom">
-			   		                    <span>Data saved SuccessFully!</span>
-			   		                </div>
-			   		            </div>
-			   		        </div>
-			   		    </div>
-						<!--<script>
-						    async function generateHashAndSend() {
-						        const userId = "12345";
-						        const timestamp = Date.now().toString();
-						        const clientKey = "client-secret-key"; // Extra security measure
-						        const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
-
-						        // Concatenate data (must match backend)
-						        const dataString = userId + timestamp + clientKey + secretKey;
-
-						        // Generate SHA-256 hash
-						        const encoder = new TextEncoder();
-						        const data = encoder.encode(dataString);
-						        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-						        const hashArray = Array.from(new Uint8Array(hashBuffer));
-						        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-
-						        // Prepare request payload
-						        const requestData = {
-						            userId: userId,
-						            timestamp: timestamp,
-						            key: clientKey,  // Extra key for validation
-						            hash: hashHex
-						        };
-
-						        // Send AJAX POST request
-						        $.ajax({
-						            url: "/validateRequest", // Adjust if backend URL is different
-						            type: "POST",
-						            contentType: "application/json",
-						            data: JSON.stringify(requestData),
-						            success: function(response) {
-						                console.log("Server Response:", response);
-						            },
-						            error: function(xhr, status, error) {
-						                console.error("Error:", error);
-						            }
-						        });
-						    }
-						</script>-->
+			</div>	
+		   <div class="modalView" id="AddDirectorSuccess">
+	        <div class="modal-dialog modal-dialog-centered">
+	            <div class="modal-content modal-bulk p-0">
+	                <div class="modal-top text-center">
+	                    <button type="button" class="close p-0"  data-dismiss="modal" id="approvedClose" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+	                        <img src="img/modal-close.svg" alt="">
+	                    </button>
+	                    <img src="img/modal-success.svg" alt="">
+	                </div>
+	                <div class="modal-bottom">
+	                    <span>Data saved SuccessFully!</span>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+						
 </body>
 
 </body>

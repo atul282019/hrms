@@ -143,7 +143,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	        	ErupiVoucherCreateDetails voucher = new ErupiVoucherCreateDetails();
 	        	voucher.setName(data.getString("name"));
 	        	voucher.setMobile(data.getString("mobile"));
-	        	voucher.setName(data.getString("voucherCode"));
+	        	voucher.setVoucherDesc(data.getString("voucherDesc"));
 	        	voucher.setRedemtionType(data.getString("redemtionType"));
 	        	
 	        	Float amount = data.getFloat("amount");

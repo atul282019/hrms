@@ -586,7 +586,6 @@ async function  issueVoucher(){
 			   "mandateType":"01",
 			   "clientKey":clientKey,
 			   "hash":hashHex
-			   
       		 },
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
@@ -595,7 +594,8 @@ async function  issueVoucher(){
            newData = data;
            //console.log(newData);
            var data1 = jQuery.parseJSON( newData );
-		   //var data2 = data1.data;
+		   var data2 = data1.data;
+		   console.log(""+data2);
 		   document.getElementById("signinLoader").style.display="none";
 		   			
 		   			if(data1.status==true){
@@ -637,7 +637,6 @@ async function  issueVoucher(){
 					
 					const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
 
-					 data1.data
 					     const row = tableBody.insertRow();
 
 					     row.insertCell().textContent = data1.data.name;

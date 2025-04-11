@@ -35,12 +35,11 @@ $(document).ready(function() {
 					$("#RevokeUPIVoucherModal").show();
 		              $("#revokeModal").hide();
 		          } else {
-		            alert("Error: " + response.message);
+					document.getElementById("authenticate").disabled = true;
+		            alert("Error: " + obj['message']);
 		          }
 		        },
 		        error: function() {
-				  //$('#otpModal').fadeIn();
-		         // alert("An error occurred. Please try again.");
 		        }
 		      });
 		    });
@@ -57,8 +56,6 @@ $(document).ready(function() {
 
 function resendVoucherOTP() {
 	
-	//var userName = document.getElementById("banklinkedMobile").value;
-
 	var employerMobile = document.getElementById("employerMobile").value;
 	var orderId = document.getElementById("orderId").value;
 	document.getElementById("signinLoader").style.display = "flex";
@@ -94,10 +91,9 @@ function resendVoucherOTP() {
 						document.getElementById("authenticate").disabled = true;
 					}
 				}, 1000);
-			}else if (obj['status'] == true) {
-			
 			} else {
-				
+				document.getElementById("authenticate").disabled = false;
+				alert(obj['message'])
 			}
 		},
 		error: function(e) {
@@ -409,7 +405,6 @@ function getBankListWithVocher() {
 
 function  getLinkedBankDetail(){
 	
-    //document.getElementById("signinLoader").style.display="flex";
  	var employerid = document.getElementById("employerId").value;
  	$.ajax({
 	type: "POST",
@@ -455,7 +450,6 @@ function getIssueVoucherList(){
 		type: "POST",
 		url: "/getIssueVoucherList",
 		data: {
-			//"employeeId": employerid,
 			"orgId": employerid,
 			"timePeriod":"AH",
 		},
@@ -605,9 +599,7 @@ function getIssueVoucherList(){
 	 					 $(row).find('td:eq(3)').html(imgTag+" "+accountNumber);
                      }
                   }
-			});
-      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');		
-			
+			});	
 		},
 		error: function(e) {
 			alert('Failed to fetch JSON data' + e);
@@ -657,16 +649,12 @@ function sendsms(rowData){
 		 }); 
 		 
 		 $(window).on('click', function(event) {
-		       //if (event.target.id === 'otpModal') {
-		       //  $('#smsUPIVcAuthenticate').fadeOut();
-		      // }
+		    
 		     });
 }
 
 
 function revoke(){
-		// var row = jQuery(value).closest('tr');
-		// var  id = $(row).find("input[name='revoke']").val();
 		var employerId = document.getElementById("employerId").value; 
 		var revokeId = document.getElementById("revokeId").value;
 		 document.getElementById("signinLoader").style.display="flex";
