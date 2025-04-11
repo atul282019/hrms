@@ -11,18 +11,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +31,7 @@ import com.cotodel.hrms.web.response.EmployeeOnboarding;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
+import com.cotodel.hrms.web.util.Base64FileUtil;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
@@ -145,7 +143,19 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    boolean isValid = computedHash.equals(receivedHash);
 	  
 	    logger.info("saveDirectorOnboarding---"+employeeOnboarding.toString());
+	    
+	    String fileExtension = Base64FileUtil.getFileExtensionFromBase64(employeeOnboarding.getEmpPhoto());
+	   
 	    // Get token from session
+	    if (!fileExtension.equals("png") && !fileExtension.equals("jpeg")) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Request Tempered");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 	    if (!isValid) {
 	        responseMap.put("status", false);
 	        responseMap.put("message", "Request Tempered");

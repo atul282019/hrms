@@ -94,18 +94,10 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 				String mobile=formatter.formatCellValue(row.getCell(3));
 				userRequest.setName(name);
 				userRequest.setEmpOrCont(userType);
-				//userRequest.setRole_id(2);
 				userRequest.setEmployerId(bulkEmployeeRequest.getEmployerId().intValue());
-				//userRequest.setOrgId(bulkEmployeeRequest.getEmployerId().intValue());
-				//userRequest.setLast_name();
-				//userRequest.setEmail(formatter.formatCellValue(row.getCell(3)));
 				userRequest.setMobile(mobile);
-				//userRequest.setUsername(name);
 				boolean CustomCheckEmail=false;
 				boolean CustomCheckUpdate=false;
-//				if(bulkEmployeeRequest.getCustomCheckEmail()!= null && bulkEmployeeRequest.getCustomCheckEmail().equals("on")) {
-//					CustomCheckEmail=true;
-//				}
 				if(bulkEmployeeRequest.getCustomCheckUpdate()!= null && bulkEmployeeRequest.getCustomCheckUpdate().equals("on")) {
 					CustomCheckUpdate=true;
 				}
