@@ -190,49 +190,75 @@
 			        }
 			    });
 			}
-			function autoFillEmployeeForm() {
-			    const employeeId = sessionStorage.getItem("employeeId");
-				$("#Id").val(employeeId);
-
-			    if (!employeeId) {
-			        console.log("No Employee ID found in session.");
-			        return;
-			    }
-
-			    $.ajax({
-			        type: "GET",
-			        url: "/getEmployeeOnboardingById",
-			        data: { "id": employeeId },
-			        success: function(response) {
-			            var data1 = jQuery.parseJSON(response);
-
-			            if (data1.status && data1.data) {
-			                var data = data1.data;
-
-			                // Fill form fields
-			                $("#name").val(data.name || "");
-                            $("#mobile").val(data.mobile || "").prop("readonly", data.mobile ? true : false);
-			                $("#email").val(data.email || "");
-			               // $("#hireDate").val(data.herDate || "");
-			                $("#jobTitle").val(data.jobTitle || "");
-			                $("#salary").val(data.salary || "");
-							$("#profilePhotoBase64").val(data.empPhoto);
-			                // Populate dropdowns
-			                //$("#department").val(data.department || "");
-			                //$("#reporting").val(data.managerId || "");
-			                //$("#location").val(data.location || "");
-
-			                
-			                
-			            } else {
-			                console.log("No data found for the given Employee ID.");
-			            }
-			        },
-			        error: function(error) {
-			            console.log("Error fetching data: " + error.responseText);
-			        }
-			    });
-			}
+			async function autoFillEmployeeForm() {
+							//this is id only but i have chanaged the name in session while getting to avoid confusion
+						    const id = sessionStorage.getItem("employeeId");
+							var employerId=document.getElementById("employerId").value;
+							$("#Id").val(id);
+			 
+						    if (!id) {
+						        console.log("No Employee ID found in session.");
+						        return;
+						    }
+							const clientKey = "client-secret-key"; // Extra security measure
+						    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+			 
+						    // Concatenate data (must match backend)
+						    const dataString = id+employerId+clientKey+secretKey;
+			 
+						    // Generate SHA-256 hash
+						    const encoder = new TextEncoder();
+						    const data = encoder.encode(dataString);
+						    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+						    const hashArray = Array.from(new Uint8Array(hashBuffer));
+						    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+									
+			 
+							const requestData = {
+											id:id,
+											employerId:employerId,
+									        key: clientKey,  // Extra key for validation
+									        hash: hashHex
+									    };
+										
+									$.ajax({
+									type: "POST",
+									url:"/getEmployeeOnboardingById",
+									contentType: "application/json",
+														data: JSON.stringify(requestData),
+							       		  beforeSend : function(xhr) {
+											//xhr.setRequestHeader(header, token);
+											},
+							            success: function(response){
+						            var data1 = jQuery.parseJSON(response);
+			 
+						            if (data1.status && data1.data) {
+						                var data = data1.data;
+			 
+						                // Fill form fields
+						                $("#name").val(data.name || "");
+			                            $("#mobile").val(data.mobile || "").prop("readonly", data.mobile ? true : false);
+						                $("#email").val(data.email || "");
+						               // $("#hireDate").val(data.herDate || "");
+						                $("#jobTitle").val(data.jobTitle || "");
+						                $("#salary").val(data.salary || "");
+										$("#profilePhotoBase64").val(data.empPhoto);
+						                // Populate dropdowns
+						                //$("#department").val(data.department || "");
+						                //$("#reporting").val(data.managerId || "");
+						                //$("#location").val(data.location || "");
+			 
+						                
+						                
+						            } else {
+						                console.log("No data found for the given Employee ID.");
+						            }
+						        },
+						        error: function(error) {
+						            console.log("Error fetching data: " + error.responseText);
+						        }
+						    });
+						}
 			function deactivateEmployee() {
 			    const employerId = document.getElementById("employerId").value;
 			    const Id = document.getElementById("Id").value;

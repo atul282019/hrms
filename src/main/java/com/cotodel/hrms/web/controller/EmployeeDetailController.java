@@ -414,23 +414,36 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        responseMap.put("message", apiJsonResponse.getString("message"));
 
 		        if (status && apiJsonResponse.has("data")) {
+		        	//if section fixed by anish on 11-04-25 
+		        	//it was giving error as email is not string / JSONObject["managerId"] is not a int likewise errors
 		        	JSONObject data = apiJsonResponse.getJSONObject("data");
 		        	EmployeeOnboarding eboarding = new EmployeeOnboarding();
 		        	eboarding.setId(data.getInt("id"));
 		        	eboarding.setEmployeeId(data.getInt("employerId"));
 		        	eboarding.setName(data.getString("name"));
 		        	eboarding.setEmpOrCont(data.getString("empOrCont"));
-		        	eboarding.setEmail(data.getString("email"));
+		        	//eboarding.setEmail(data.getString("email"));
+		        	eboarding.setEmail(data.optString("email", null));
 		        	eboarding.setMobile(data.getString("mobile"));
-		        	eboarding.setHerDate(data.getString("herDate"));
-		        	eboarding.setJobTitle(data.getString("jobTitle"));
-		        	eboarding.setDepratment(data.getString("depratment"));
-		        	eboarding.setManagerName(data.getString("managerName"));
-		        	eboarding.setLocation(data.getString("location"));
+		        	//eboarding.setHerDate(data.getString("herDate"));
+		        	eboarding.setEmail(data.optString("herDate", null));
+		        	//eboarding.setJobTitle(data.getString("jobTitle"));
+		        	eboarding.setEmail(data.optString("jobTitle", null));
+		        	//eboarding.setDepratment(data.getString("depratment"));
+		        	eboarding.setEmail(data.optString("depratment", null));
+		        	//eboarding.setManagerName(data.getString("managerName"));
+		        	eboarding.setEmail(data.optString("managerName", null));
+		        	//eboarding.setLocation(data.getString("location"));
+		        	eboarding.setEmail(data.optString("location", null));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
-		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
-		        	eboarding.setManagerId(data.getInt("managerId"));
-		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	//eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
+		        	eboarding.setEmail(data.optString("residentOfIndia", null));
+		        	//eboarding.setManagerId(data.getInt("managerId"));
+		        	int managerId = data.isNull("managerId") ? 0 : data.getInt("managerId");
+		        	eboarding.setManagerId(managerId);
+		        	//eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	eboarding.setEmail(data.optString("empPhoto", null));
+		        	
 		        	
 		        	responseMap.put("data", eboarding); // Could be primitive or string
 		          
@@ -536,23 +549,35 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        responseMap.put("message", apiJsonResponse.getString("message"));
 
 		        if (status && apiJsonResponse.has("data")) {
+		        	// if section fixed by anish on 11-04-25 
+		        	//it was giving error as email is not string / JSONObject["managerId"] is not a int likewise errors
 		        	JSONObject data = apiJsonResponse.getJSONObject("data");
 		        	EmployeeOnboarding eboarding = new EmployeeOnboarding();
 		        	eboarding.setId(data.getInt("id"));
 		        	eboarding.setEmployeeId(data.getInt("employerId"));
 		        	eboarding.setName(data.getString("name"));
 		        	eboarding.setEmpOrCont(data.getString("empOrCont"));
-		        	eboarding.setEmail(data.getString("email"));
+		        	//eboarding.setEmail(data.getString("email"));
+		        	eboarding.setEmail(data.optString("email", null));
 		        	eboarding.setMobile(data.getString("mobile"));
-		        	eboarding.setHerDate(data.getString("herDate"));
-		        	eboarding.setJobTitle(data.getString("jobTitle"));
-		        	eboarding.setDepratment(data.getString("depratment"));
-		        	eboarding.setManagerName(data.getString("managerName"));
-		        	eboarding.setLocation(data.getString("location"));
+		        	//eboarding.setHerDate(data.getString("herDate"));
+		        	eboarding.setEmail(data.optString("herDate", null));
+		        	//eboarding.setJobTitle(data.getString("jobTitle"));
+		        	eboarding.setEmail(data.optString("jobTitle", null));
+		        	//eboarding.setDepratment(data.getString("depratment"));
+		        	eboarding.setEmail(data.optString("depratment", null));
+		        	//eboarding.setManagerName(data.getString("managerName"));
+		        	eboarding.setEmail(data.optString("managerName", null));
+		        	//eboarding.setLocation(data.getString("location"));
+		        	eboarding.setEmail(data.optString("location", null));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
-		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
-		        	eboarding.setManagerId(data.getInt("managerId"));
-		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	//eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
+		        	eboarding.setEmail(data.optString("residentOfIndia", null));
+		        	//eboarding.setManagerId(data.getInt("managerId"));
+		        	int managerId = data.isNull("managerId") ? 0 : data.getInt("managerId");
+		        	eboarding.setManagerId(managerId);
+		        	//eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	eboarding.setEmail(data.optString("empPhoto", null));
 		        	
 		        	responseMap.put("data", eboarding); // Could be primitive or string
 		          
