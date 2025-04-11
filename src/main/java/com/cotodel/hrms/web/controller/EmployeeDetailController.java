@@ -81,7 +81,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		 String residentOfIndia = requestData.get("residentOfIndia");
 		 String empOrCont = requestData.get("empOrCont");
 		 String empPhoto = requestData.get("empPhoto");
-		 
+		 String filetype = requestData.get("filetype");
+		 String filename = requestData.get("filename");
 		 String clientKey = requestData.get("key");
 	     String receivedHash = requestData.get("hash");
 	     
@@ -120,7 +121,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	     employeeOnboarding.setResidentOfIndia(requestData.get("residentOfIndia"));
 	     employeeOnboarding.setEmpOrCont(requestData.get("empOrCont"));
 	     employeeOnboarding.setEmpPhoto(requestData.get("empPhoto"));
-	     
+	     employeeOnboarding.setFiletype(requestData.get("filetype"));
+	     employeeOnboarding.setFilename(requestData.get("filename"));
 	     // Validate client key first
 	        if (!CLIENT_KEY.equals(clientKey)) {
 	        	responseMap.put("status", false);
@@ -128,7 +130,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	        }
 	        // Ensure consistent concatenation
 	        String dataString = Id+employerId+employeeId+name+email+mobile+herDate+jobTitle+depratment+ctc+location+residentOfIndia+
-	        		empOrCont+empPhoto+clientKey+SECRET_KEY;
+	        		empOrCont+empPhoto+filetype+filename+clientKey+SECRET_KEY;
 	       
 	        // Compute hash
 	        String computedHash = null;
@@ -143,11 +145,9 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    boolean isValid = computedHash.equals(receivedHash);
 	  
 	    logger.info("saveDirectorOnboarding---"+employeeOnboarding.toString());
-	    
-	    String fileExtension = Base64FileUtil.getFileExtensionFromBase64(employeeOnboarding.getEmpPhoto());
-	   
+	 
 	    // Get token from session
-	    if (!fileExtension.equals("png") && !fileExtension.equals("jpeg")) {
+	    if (!employeeOnboarding.getFiletype().equals("image/jpeg") && !employeeOnboarding.getFiletype().equals("image/png")) {
 	        responseMap.put("status", false);
 	        responseMap.put("message", "Request Tempered");
 	        try {

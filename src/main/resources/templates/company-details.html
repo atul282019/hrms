@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -8,29 +8,29 @@
  
 <body id="page-top" onload="getOrgMaster(),getStateMaster(),getOrgMaster2(),getPayrollMaster(),AutoFillForm()">
 
-    <!-- Page Wrapper -->
+     Page Wrapper 
     <div id="wrapper">
 
-        <!-- Sidebar -->
+         Sidebar 
         
          <div th:insert="fragments/sidenav.html :: sidevav"></div>
        
-        <!-- End of Sidebar -->
+         End of Sidebar 
 
-        <!-- Content Wrapper -->
+         Content Wrapper 
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
+             Main Content 
             <div id="content">
 
-                <!-- Topbar -->
+                 Topbar 
 
 				<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
 
-                   <!-- Topbar Navbar -->
+                    Topbar Navbar 
                    <ul class="navbar-nav top-nav">
 
-                       <!-- Nav Item - User Information -->
+                        Nav Item - User Information 
                        <li class="nav-item">
                            <a class="nav-link active" href="#">
                                <span class="mr-2 small">Dashboard</span>
@@ -52,7 +52,7 @@
                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                            </a>
-                           <!-- Dropdown - User Information -->
+                            Dropdown - User Information 
                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -63,11 +63,11 @@
                                    Settings
                                </a>
                              
-                              <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+                                <div class="dropdown-item dropdown-footer form-group mb-0" >
 				            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
 						          <i class="fas fa-user-circle"></i> Logout         
 						        </a>
-				          </div> -->  
+				          </div>   
                              <div class="dropdown-divider"></div>
                                <a class="dropdown-item" th:href="@{/logout}">
                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
@@ -78,9 +78,9 @@
 
                   </ul>			
            </nav>
-                <!-- End of Topbar -->
+                 End of Topbar 
 
-                <!-- Begin Page Content -->
+                 Begin Page Content 
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
                         <div class="col-12 col-md-12">
@@ -324,8 +324,8 @@
                                             <div class="btn btn-primary ml-2 my-1 back" id="back4">Back</div>
                                             
                                             <input id="saveNext" type="button"  class="btn btn-primary ml-2 my-1" value="Continue" onclick="validateFormAndSubmit()" />
-                                           <!--  <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" /> -->
-                                           <!--  <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />-->
+                                             <input id="nextDiv" style="display: none" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" /> 
+                                             <input id="nextDiv" type="button"  class="btn btn-proceed ml-2 my-1" value="Next" onclick="openTab5()" />
                                           </div>
                                         
                                     </div>
@@ -469,7 +469,7 @@
                                               
                                                   <tbody>
                                                     <tr>
-                                                        <!-- <td><span id="salaryComponentBasic2" class="comp"></span> </td> -->
+                                                         <td><span id="salaryComponentBasic2" class="comp"></span> </td> 
                                                         <td><input class="no-bg border-0 age comp" type="text" id="salaryComponentBasic2" maxlength="30" size="10"></td>
                                                         <td><input class="no-bg border-0 percent" type="text" id="perCtcBasic2" placeholder="Textbox" maxlength="3" size="3"></td>
                                                         <td>
@@ -487,7 +487,7 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                         <!-- <td><span id="salaryComponentHra2" class="comp"></span> </td> -->
+                                                          <td><span id="salaryComponentHra2" class="comp"></span> </td> 
                                                           <td><input class="no-bg border-0 age comp"  type="text" id="salaryComponentHra2" maxlength="30" size="10" ></td>
                                                         <td><input class="no-bg border-0 percent"  type="text" id="perCtcHra2"  maxlength="3" size="3" ></td>
                                                         <td>
@@ -505,7 +505,7 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <!-- <td><span id="salaryComponentSpecial2" class="comp"></span> </td> -->
+                                                         <td><span id="salaryComponentSpecial2" class="comp"></span> </td> 
                                                         <td><input class="no-bg border-0 age comp" type="text" id="salaryComponentSpecial2" maxlength="30" size="10"></td>
                                                         <td><input class="no-bg border-0 percent" type="text" id="perCtcSpecial2"  maxlength="3" size="3"></td>
                                                         <td>
@@ -523,7 +523,7 @@
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <!-- <td><span id="salaryComponentLta2" class="comp"></span> </td> -->
+                                                         <td><span id="salaryComponentLta2" class="comp"></span> </td> 
                                                         <td><input class="no-bg border-0 age comp" type="text" id="salaryComponentLta2" maxlength="30" size="10"></td>
                                                         <td><input class="no-bg border-0 percent" type="text" id="perCtcLta2"  maxlength="3" size="3"></td>
                                                         <td>
@@ -576,7 +576,7 @@
                                          <div class="text-center text-md-center my-3 disabled">
                                             <div class="btn btn-proceed-border my-1 border-0">Back to setup guide</div>
                                             <div class="btn btn-primary ml-2 my-1 back" id="back5">Back</div>
-                                            <!-- <div class="btn btn-proceed ml-2 my-1 next">Continue</div> -->
+                                             <div class="btn btn-proceed ml-2 my-1 next">Continue</div> 
                                             <input type="button" id="btnPayrollSave" value="Save" class="btn btn-primary ml-2 my-1 next" onclick="validatePayrollAndSubmit()" />
                                         </div>
                                         
@@ -590,36 +590,36 @@
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
+                 /.container-fluid 
 
             </div>
-            <!-- End of Main Content -->
+             End of Main Content 
         </div>
         <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        <!-- End of Content Wrapper -->
+         End of Content Wrapper 
     
-    <!-- End of Page Wrapper -->
+     End of Page Wrapper 
 
-    <!-- Scroll to Top Button-->
+     Scroll to Top Button
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Bootstrap core JavaScript-->
+     Bootstrap core JavaScript
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
+     Core plugin JavaScript
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
+     Custom scripts for all pages
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
+     Page level plugins 
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
+     Page level custom scripts 
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/masterdata.js"></script>
     <script type="text/javascript" src="cotodel-js/company-detail.js"></script>
@@ -810,4 +810,4 @@ function enableAddButton(){
 
 </body>
 
-</html>
+</html>-->

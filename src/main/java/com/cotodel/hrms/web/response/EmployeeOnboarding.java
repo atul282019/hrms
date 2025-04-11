@@ -35,6 +35,8 @@ public class EmployeeOnboarding {
 	private String response;
 	private String empPhoto;
 	private String managerName;
+	private String filename;
+	private String filetype;
 	private String clientKey;
 	private String hash;   
 	  
