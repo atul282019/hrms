@@ -435,24 +435,24 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	//eboarding.setEmail(data.getString("email"));
 		        	eboarding.setEmail(data.optString("email", null));
 		        	eboarding.setMobile(data.getString("mobile"));
-		        	//eboarding.setHerDate(data.getString("herDate"));
-		        	eboarding.setEmail(data.optString("herDate", null));
-		        	//eboarding.setJobTitle(data.getString("jobTitle"));
-		        	eboarding.setEmail(data.optString("jobTitle", null));
-		        	//eboarding.setDepratment(data.getString("depratment"));
-		        	eboarding.setEmail(data.optString("depratment", null));
-		        	//eboarding.setManagerName(data.getString("managerName"));
-		        	eboarding.setEmail(data.optString("managerName", null));
-		        	//eboarding.setLocation(data.getString("location"));
-		        	eboarding.setEmail(data.optString("location", null));
+		        	eboarding.setHerDate(data.getString("herDate"));
+		        	//eboarding.setEmail(data.optString("herDate", null));
+		        	eboarding.setJobTitle(data.getString("jobTitle"));
+		        	//eboarding.setEmail(data.optString("jobTitle", null));
+		        	eboarding.setDepratment(data.getString("depratment"));
+		        	//eboarding.setEmail(data.optString("depratment", null));
+		        	eboarding.setManagerName(data.getString("managerName"));
+		        	//eboarding.setEmail(data.optString("managerName", null));
+		        	eboarding.setLocation(data.getString("location"));
+		        	//eboarding.setEmail(data.optString("location", null));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
-		        	//eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
-		        	eboarding.setEmail(data.optString("residentOfIndia", null));
+		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
+		        	//eboarding.setEmail(data.optString("residentOfIndia", null));
 		        	//eboarding.setManagerId(data.getInt("managerId"));
 		        	int managerId = data.isNull("managerId") ? 0 : data.getInt("managerId");
 		        	eboarding.setManagerId(managerId);
-		        	//eboarding.setEmpPhoto(data.getString("empPhoto"));
-		        	eboarding.setEmail(data.optString("empPhoto", null));
+		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	//eboarding.setEmail(data.optString("empPhoto", null));
 		        	
 		        	
 		        	responseMap.put("data", eboarding); // Could be primitive or string
@@ -571,23 +571,23 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	eboarding.setEmail(data.optString("email", null));
 		        	eboarding.setMobile(data.getString("mobile"));
 		        	//eboarding.setHerDate(data.getString("herDate"));
-		        	eboarding.setEmail(data.optString("herDate", null));
+		        	eboarding.setHerDate(data.optString("herDate", null));
 		        	//eboarding.setJobTitle(data.getString("jobTitle"));
-		        	eboarding.setEmail(data.optString("jobTitle", null));
+		        	eboarding.setJobTitle(data.optString("jobTitle", null));
 		        	//eboarding.setDepratment(data.getString("depratment"));
-		        	eboarding.setEmail(data.optString("depratment", null));
+		        	eboarding.setDepratment(data.optString("depratment", null));
 		        	//eboarding.setManagerName(data.getString("managerName"));
-		        	eboarding.setEmail(data.optString("managerName", null));
+		        	eboarding.setManagerName(data.optString("managerName", null));
 		        	//eboarding.setLocation(data.getString("location"));
-		        	eboarding.setEmail(data.optString("location", null));
+		        	eboarding.setLocation(data.optString("location", null));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
 		        	//eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
-		        	eboarding.setEmail(data.optString("residentOfIndia", null));
-		        	//eboarding.setManagerId(data.getInt("managerId"));
+		        	eboarding.setResidentOfIndia(data.optString("residentOfIndia", null));
+		        	eboarding.setManagerId(data.getInt("managerId"));
 		        	int managerId = data.isNull("managerId") ? 0 : data.getInt("managerId");
 		        	eboarding.setManagerId(managerId);
-		        	//eboarding.setEmpPhoto(data.getString("empPhoto"));
-		        	eboarding.setEmail(data.optString("empPhoto", null));
+		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	//eboarding.setEmail(data.optString("empPhoto", null));
 		        	
 		        	responseMap.put("data", eboarding); // Could be primitive or string
 		          
