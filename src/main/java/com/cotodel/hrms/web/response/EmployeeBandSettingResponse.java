@@ -22,6 +22,9 @@ public class EmployeeBandSettingResponse {
     private List<EmployeeBandTiersResponse> list;
     private String response;
 	private String introAddTierFlag;
+	
+	private String clientKey;
+	private String hash;
 
 	
 }

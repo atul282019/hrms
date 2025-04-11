@@ -270,7 +270,7 @@ function validateTab1(){
          }
      }
  	 
-	 function saveEmployeeBandTab2(){
+	 async function saveEmployeeBandTab2(){
 		 
 			var employeeBandEnabled = document.getElementById("employeeBandEnabled").checked;
 			var employerid = document.getElementById("employerId").value;
@@ -279,7 +279,7 @@ function validateTab1(){
 			var startingEmployeeAlpha = document.getElementById("startingEmployeeAlpha").value;
 			var startingEmployeeNumeric = document.getElementById("startingEmployeeNumeric").value;
 			var addtionalTiersCheckBox = document.getElementById("addtionalTiersCheckBox").value;
-			
+			var Status=1;
 		//	var status = document.getElementById('AlphabeticalFigure').checked;
 			//var status2 = document.getElementById('numericFigure').checked;
 			var startingBand=null;
@@ -332,7 +332,7 @@ function validateTab1(){
 			}
 			
 		    // get dynamic table data start
-			var formData = new FormData(formtab2);
+			/*var formData = new FormData(formtab2);
 			
 			 formData.append("employerId", employerid);
 			 formData.append("bandEnabled", bandEnabled);
@@ -342,24 +342,47 @@ function validateTab1(){
 			 //formData.append("employeeBandOrder", "A");
 			 formData.append("introAddTierFlag", introAddTierFlag);
 			 formData.append("Status", 1)
-			 var allInputValues = [];
+			 formData.append("listArray", allInputValues);*/
+			 var listArray = [];
 	
 		 $('.newTable tbody tr').each(function () {
 		        var employeeBandTier = $(this).find('select.dropdownvalue').val();
 		        var employeeBand = $(this).find('input.empolyeeinput01').val();       
 			    var rowvalue=employeeBand+"@"+employeeBandTier;
-			    allInputValues.push(rowvalue);
+			    listArray.push(rowvalue);
 		   });  
-		    
+		   const clientKey = "client-secret-key";
+		   	const secretKey = "0123456789012345";
+
+		   	let hashDataString = employerid + bandEnabled + dropdown + numericFigure + startingBand + introAddTierFlag+Status;
+		   	listArray.forEach(row => hashDataString += row);
+		   	hashDataString += clientKey + secretKey;
+
+		   	// Generate SHA-256 hash
+		   	const encoder = new TextEncoder();
+		   	const data = encoder.encode(hashDataString);
+		   	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		   	const hashArray = Array.from(new Uint8Array(hashBuffer));
+		   	const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 	    
-		    formData.append("listArray", allInputValues);
+		   
 		   document.getElementById("signinLoader").style.display="flex";
 		    	$.ajax({
 			type: "POST",
 		     url:"/saveEmployeeBandTab2",
-	         data: formData,
-	         processData: false,
-	         contentType: false,       		 
+			 dataType: "json",
+			 		data: {
+			 			employerId: employerid,
+			 			bandEnabled: bandEnabled,
+			 			employeeBandNo: dropdown,
+			 			employeeBandNoAlpha: numericFigure,
+			 			employeeBandOrder: startingBand,
+			 			introAddTierFlag: introAddTierFlag,
+						status:Status,
+			 			listArray: listArray,
+			 			clientKey: clientKey,
+			 			hash: hashHex
+			 		},       		 
 	            success: function(data){
 	            newData = data;
 				var data1 = jQuery.parseJSON(newData);
@@ -392,15 +415,29 @@ function validateTab1(){
 	 
 	 
 
-function getEmployeeBandWithTiers() {
+async function getEmployeeBandWithTiers() {
 
 	var employerId=document.getElementById("employerId").value;
 	document.getElementById("signinLoader").style.display="flex";
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	const dataString = employerId+clientKey+secretKey;
+		
+     //Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+		
 	$.ajax({
 		type: "POST",
 		url: "/saveEmployeeBandTierTab3",
 		data: {
 				"employerId": employerId,
+				"clientKey" :clientKey,
+			  	"hash":hashHex
 			},
        		  beforeSend : function(xhr) {
 				//xhr.setRequestHeader(header, token);
@@ -490,16 +527,28 @@ function bindJsonToTable(jsonData) {
             });
         }
 
-     function viewEmployeeBand() {
+    async function viewEmployeeBand() {
 
 			var employerId=document.getElementById("employerId").value;
 			//document.getElementById("signinLoader2").style.display="flex";
+			const clientKey = "client-secret-key"; // Extra security measure
+		    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+			const dataString = employerId+clientKey+secretKey;
+				
+		     //Generate SHA-256 hash
+		    const encoder = new TextEncoder();
+		    const data = encoder.encode(dataString);
+		    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		    const hashArray = Array.from(new Uint8Array(hashBuffer));
+		    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 			
 			$.ajax({
 				type: "POST",
 				url: "/saveEmployeeBandTierTab3",
 				data: {
 						"employerId": employerId,
+						"clientKey" :clientKey,
+					  	"hash":hashHex
 					},
 		       		  beforeSend : function(xhr) {
 						//xhr.setRequestHeader(header, token);
