@@ -83,7 +83,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		 String empPhoto = requestData.get("empPhoto");
 		 String filetype = requestData.get("filetype");
 		 String filename = requestData.get("filename");
-		 String clientKey = requestData.get("key");
+		 String clientKey = requestData.get("clientKey");
 	     String receivedHash = requestData.get("hash");
 	     
 	     employeeOnboarding.setId(
@@ -123,6 +123,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	     employeeOnboarding.setEmpPhoto(requestData.get("empPhoto"));
 	     employeeOnboarding.setFiletype(requestData.get("filetype"));
 	     employeeOnboarding.setFilename(requestData.get("filename"));
+	     employeeOnboarding.setClientKey(requestData.get("clientKey"));
+	     employeeOnboarding.setHash(requestData.get("hash"));
 	     // Validate client key first
 	        if (!CLIENT_KEY.equals(clientKey)) {
 	        	responseMap.put("status", false);
@@ -130,8 +132,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	        }
 	        // Ensure consistent concatenation
 	        String dataString = Id+employerId+employeeId+name+email+mobile+herDate+jobTitle+depratment+ctc+location+residentOfIndia+
-	        		empOrCont+empPhoto+filetype+filename+clientKey+SECRET_KEY;
-	       
+	        		empOrCont+empPhoto+filetype+filename+CLIENT_KEY+SECRET_KEY;
+	       logger.info("datastring"+dataString);
 	        // Compute hash
 	        String computedHash = null;
 			try {
@@ -435,24 +437,24 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	//eboarding.setEmail(data.getString("email"));
 		        	eboarding.setEmail(data.optString("email", null));
 		        	eboarding.setMobile(data.getString("mobile"));
-		        	eboarding.setHerDate(data.getString("herDate"));
-		        	//eboarding.setEmail(data.optString("herDate", null));
-		        	eboarding.setJobTitle(data.getString("jobTitle"));
-		        	//eboarding.setEmail(data.optString("jobTitle", null));
-		        	eboarding.setDepratment(data.getString("depratment"));
-		        	//eboarding.setEmail(data.optString("depratment", null));
-		        	eboarding.setManagerName(data.getString("managerName"));
-		        	//eboarding.setEmail(data.optString("managerName", null));
-		        	eboarding.setLocation(data.getString("location"));
-		        	//eboarding.setEmail(data.optString("location", null));
+		        	//eboarding.setHerDate(data.getString("herDate"));
+		        	eboarding.setHerDate(data.optString("herDate", null));
+		        	//eboarding.setJobTitle(data.getString("jobTitle"));
+		        	eboarding.setJobTitle(data.optString("jobTitle", null));
+		        	//eboarding.setDepratment(data.getString("depratment"));
+		        	eboarding.setDepratment(data.optString("depratment", null));
+		        	//eboarding.setManagerName(data.getString("managerName"));
+		        	eboarding.setManagerName(data.optString("managerName", null));
+		        	//eboarding.setLocation(data.getString("location"));
+		        	eboarding.setLocation(data.optString("location", null));
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
-		        	eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
-		        	//eboarding.setEmail(data.optString("residentOfIndia", null));
+		        	//eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
+		        	eboarding.setResidentOfIndia(data.optString("residentOfIndia", null));
 		        	//eboarding.setManagerId(data.getInt("managerId"));
 		        	int managerId = data.isNull("managerId") ? 0 : data.getInt("managerId");
 		        	eboarding.setManagerId(managerId);
-		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
-		        	//eboarding.setEmail(data.optString("empPhoto", null));
+		        	//eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	eboarding.setEmpPhoto(data.optString("empPhoto", null));
 		        	
 		        	
 		        	responseMap.put("data", eboarding); // Could be primitive or string
@@ -583,11 +585,11 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	eboarding.setUserDetailsId((data.getLong("userDetailsId")));
 		        	//eboarding.setResidentOfIndia(data.getString("residentOfIndia"));
 		        	eboarding.setResidentOfIndia(data.optString("residentOfIndia", null));
-		        	eboarding.setManagerId(data.getInt("managerId"));
+		        	//eboarding.setManagerId(data.getInt("managerId"));
 		        	int managerId = data.isNull("managerId") ? 0 : data.getInt("managerId");
 		        	eboarding.setManagerId(managerId);
-		        	eboarding.setEmpPhoto(data.getString("empPhoto"));
-		        	//eboarding.setEmail(data.optString("empPhoto", null));
+		        	//eboarding.setEmpPhoto(data.getString("empPhoto"));
+		        	eboarding.setEmpPhoto(data.optString("empPhoto", null));
 		        	
 		        	responseMap.put("data", eboarding); // Could be primitive or string
 		          

@@ -455,7 +455,7 @@ async function saveEmployeeOnboarding(){
 		empPhoto:profilePhoto,
 		filetype:filetype,
 		filename:filename,
-        key: clientKey,  // Extra key for validation
+        clientKey: clientKey,  // Extra key for validation
         hash: hashHex
     };
 

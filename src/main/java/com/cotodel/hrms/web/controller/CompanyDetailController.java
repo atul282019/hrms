@@ -201,8 +201,8 @@ public class CompanyDetailController extends CotoDelBaseController{
 	        }
 //		const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
 //				pincode+state+employerName+employerId+clientKey+secretKey;
-		 String dataString = 
-				 //companyProfileDetail.getPan()+
+		String dataString =
+				 companyProfileDetail.getPan()+
 				 companyProfileDetail.getLegalNameOfBusiness()+
 				 companyProfileDetail.getTradeName()+
 				 companyProfileDetail.getConstitutionOfBusiness()+
@@ -213,7 +213,7 @@ public class CompanyDetailController extends CotoDelBaseController{
 				companyProfileDetail.getPincode()+
 				companyProfileDetail.getStateName()+
 				companyProfileDetail.getGstIdentificationNumber()+
-				companyProfileDetail.getPan()+
+				//companyProfileDetail.getPan()+
 				companyProfileDetail.getCreatedBy()+
 				companyProfileDetail.getEmployerId()+
 				CLIENT_KEY+SECRET_KEY;
@@ -344,7 +344,8 @@ public class CompanyDetailController extends CotoDelBaseController{
 	        }
 //		const dataString = panNo1+panNo1+legalName+legalName+tradeName+orgType+address1+address2+district+
 //				pincode+state+employerName+employerId+consent+otpstatus+clientKey+secretKey;
-		 String dataString = //companyProfileDetail.getPan()+
+		String dataString =
+				 companyProfileDetail.getPan()+
 				 companyProfileDetail.getLegalNameOfBusiness()+
 				 companyProfileDetail.getTradeName()+
 				 companyProfileDetail.getConstitutionOfBusiness()+
@@ -355,12 +356,12 @@ public class CompanyDetailController extends CotoDelBaseController{
 				 companyProfileDetail.getPincode()+
 				 companyProfileDetail.getStateName()+
 				 companyProfileDetail.getGstIdentificationNumber()+
-				 companyProfileDetail.getPan()+
+				 //companyProfileDetail.getPan()+
 				 companyProfileDetail.getCreatedBy()+
 				 companyProfileDetail.getEmployerId()+
 				 companyProfileDetail.getConsent()+
 				 companyProfileDetail.getOtpStatus()+
-				 
+				
 				 CLIENT_KEY+SECRET_KEY;
 
 	        // Compute hash

@@ -1,9 +1,12 @@
 package com.cotodel.hrms.web.util;
 
+import java.lang.System.Logger;
+
 public class Base64FileUtil {
 
 	public static String getFileExtensionFromBase64(String base64String) {
-        if (base64String == null || !base64String.contains("data:")) {
+		
+        if (base64String == null ) {
             return null;
         }
 
