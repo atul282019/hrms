@@ -16,5 +16,9 @@ public class ExpanceTravelAdvanceRequest {
 	private String employeesAllow;
 	private String nameEmployeesCash;
 	private String daysDisbursalCash;
+	
+	private String hash;
+	private String clientKey;
+	
 
 }

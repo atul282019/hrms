@@ -40,12 +40,20 @@ function getExpanceCategoryList() {
                    
                  	var expenseCategory = data2.expenseCategory;
                  	var expenseLimit = data2.expenseLimit;
+					var dayToExpiry = data2.dayToExpiry;
                 	
+					if(dayToExpiry!=="")
+                    {
+				    
+					  $(row).find('td:eq(4)').html(dayToExpiry+" Days");
+                  
+                    }
+										
                      if(expenseCategory=="Conveyance")
                      {
 					 var imgTag = '<img src="img/taxi.svg" alt="" class="mr-2">'+expenseCategory;
- 					 var addImage = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
- 					  $(row).find('td:eq(3)').html(addImage);
+ 					// var addImage = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
+ 					//  $(row).find('td:eq(3)').html(addImage);
                       $(row).find('td:eq(1)').html(imgTag);
                      }
                      if(expenseCategory=="Miscellaneous")
@@ -60,8 +68,8 @@ function getExpanceCategoryList() {
 						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+expenseCategory;
 	 					 $(row).find('td:eq(1)').html(imgTag);
 	                      
-	                     var plus   = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
-	                     $(row).find('td:eq(3)').html(plus);
+	                    // var plus   = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
+	                    // $(row).find('td:eq(3)').html(plus);
                       
                      }
                      
@@ -82,7 +90,7 @@ function getExpanceCategoryList() {
 					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
 					 
 					 var addImage = expenseLimit+'<button class="button" onclick="toggleRow(this)">+</button>';
- 					  $(row).find('td:eq(3)').html(addImage);
+ 					 // $(row).find('td:eq(3)').html(addImage);
                       $(row).find('td:eq(1)').html(imgTag);
                      }
                   }
@@ -410,7 +418,7 @@ function editExpensesCategory(){
 }  
 
 
-function addExpensesCategory(){
+async function addExpensesCategory(){
 	
 	var expenseCategory = document.getElementById("expenseCategory").value;
 	var expanceCode = document.getElementById("expanceCode").value;
@@ -708,6 +716,19 @@ function addExpensesCategory(){
 	
      //get dynamic table data end
     
+
+
+	  const clientKey = "client-secret-key"; // Extra security measure
+	 const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	 // Concatenate data (must match backend)
+	 const dataString = employerid+expenseCategory+expanceCode+expanceLimit+distingushEmployeeBand+timeperiod+clientKey+secretKey;
+	 // Generate SHA-256 hash
+	 const encoder = new TextEncoder();
+	 const data = encoder.encode(dataString);
+	 const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	 const hashArray = Array.from(new Uint8Array(hashBuffer));
+	 const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	 
      var formData = new FormData(addExpenses);
      //formData.append("id", id);
      formData.append("employerId", employerid);
@@ -717,8 +738,12 @@ function addExpensesCategory(){
      formData.append("distingushEmployeeBand", distingushEmployeeBand);
      formData.append("dayToExpiry", timeperiod);
      formData.append("listArray", allInputValues);
+	 formData.append("hash", hashHex);
+	 formData.append("clientKey", clientKey);
+	 
      document.getElementById("addcat").disabled = true;
      document.getElementById("signinLoader").style.display="flex";
+	 
 	 	$.ajax({
 		 type: "POST",
 	     url:"/saveExpensesCategory",
@@ -976,25 +1001,23 @@ function deleteData(value){
     		
 	}
 
- function addAdvanceRequest(){
+ async function addAdvanceRequest(){
 	
-	var employeesAllow = null;
+	var employeesAllow = "";
 	var nameEmployeesCash = "all";
-    var travel =null;
-	var cash = null;
+    var travel ="";
+	var cash = "";
 	
 	var speficEmployees = document.getElementById("speficEmployees").value;
 	var employerid = document.getElementById("employerId").value;
 	var disbursmentDate =  document.getElementById("disbursmentDate").value;
 	
-    var formData = new FormData(addAdvance);
 	if(document.getElementById("travel").checked){
 		travel="Yes";
 	}
 	if(document.getElementById("cash").checked){
 		cash="Yes";
 	}
-	
      if(document.getElementById('all').checked) {
 				   
 		 employeesAllow="All";
@@ -1020,40 +1043,48 @@ function deleteData(value){
 		else{
 			document.getElementById("disbursmentDateError").innerHTML="";
 		}
-			
-        formData.append("employerId", employerid);
-	    formData.append("allowEmployeesTravel", travel);
-	    formData.append("allowEmployeesCash", cash);
-	    formData.append("employeesAllow", employeesAllow);
-	    formData.append("nameEmployeesCash",nameEmployeesCash)
-	    formData.append("daysDisbursalCash", disbursmentDate);
-	    document.getElementById("signinLoader").style.display="flex";
+	
 	    document.getElementById("adavanceButton").disabled=true;
+		
+		const clientKey = "client-secret-key"; // Extra security measure
+	    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	    // Concatenate data (must match backend)
+	    const dataString = employerid+travel+cash+employeesAllow+nameEmployeesCash+disbursmentDate+clientKey+secretKey;
+	    // Generate SHA-256 hash
+	    const encoder = new TextEncoder();
+	    const data = encoder.encode(dataString);
+	    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	    const hashArray = Array.from(new Uint8Array(hashBuffer));
+	    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+		
 	 	$.ajax({
 		 type: "POST",
 	     url:"/saveExpanceTravelAdvance",
-         data: formData,
-         processData: false,
-         contentType: false,       	
-         	 
+		 data: {
+					"employerId":employerid,
+					"allowEmployeesTravel": travel,
+					"allowEmployeesCash": cash,
+					"employeesAllow": employeesAllow,
+					"nameEmployeesCash":nameEmployeesCash,
+					"daysDisbursalCash": disbursmentDate,
+		 		    "clientKey":clientKey,
+		 		    "hash":hashHex
+		     },
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
 			window.location.reload();
-		  
-			if(data1.status==true){
-				
+			
+			if(data1.status==true){	
 			//	 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
 				// document.getElementById("payrollsuccessmsgdiv").style.display="block";
 				 
 			}else if(data1.status==false){
-				
 				 //document.getElementById("payrollfailmsg").innerHTML=data1.message;
 				 //document.getElementById("payrollfailmsgDiv").style.display="block";
 				
 			}else{
-				
 				 //document.getElementById("payrollfailmsgDiv").style.display="none";
 				 //document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
@@ -1068,7 +1099,6 @@ function deleteData(value){
 
 
 function getExpanseTravelAdvance() {
-
 	var employerId=document.getElementById("employerId").value;
 	//document.getElementById("signinLoader").style.display="flex";
 	$.ajax({

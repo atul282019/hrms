@@ -815,7 +815,8 @@ function dissableButton(){
                 </div>
                 <p>Set time period in which an expense incurred can be submitted (in Days)</p>
                 <div class="incurring-exp-modal">
-                    <p><input type="text" class="form-control incurr ml-0" id="timeperiod" placeholder="20"> Days</p>
+                    <p><input type="text" class="form-control incurr ml-0" id="timeperiod" placeholder="20"
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> Days</p>
                 </div>
                  <div class="error-msg" id="timeperiodError" style="color:red"></div>
             </div>
@@ -824,9 +825,6 @@ function dissableButton(){
             	<div id="addCategoryButton" style="display: block">
                 <button class="btn btn-primary d-block btn-lg w-100" type="button"  id="addcat" onclick="addExpensesCategory()" >Confirm</button>
                 </div>
-               <!--  <div id="editCategoryButton" style="display: none">
-                <button class="btn btn-primary d-block btn-lg w-100" type="button"  onclick="editExpensesCategory()" >Confirm</button>
-                </div> -->
             </div>
         </div>    
          </form>    

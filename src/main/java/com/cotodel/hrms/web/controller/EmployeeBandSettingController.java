@@ -139,7 +139,7 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
             if (apiJsonResponse.getBoolean("status")) {
                 responseMap.put("status", true);
                 responseMap.put("message", apiJsonResponse.getString("message"));
-               //responseMap.put("data", apiJsonResponse.getJSONArray("data").toList()); //as list
+               responseMap.put("data", apiJsonResponse); //as list
 //                JSONArray dataArray = apiJsonResponse.getJSONArray("data");
 //                responseMap.put("data", dataArray.toList());
 	            JSONObject dataObj = apiJsonResponse.getJSONObject("data");
@@ -275,7 +275,7 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
             if (apiJsonResponse.getBoolean("status")) {
                 responseMap.put("status", true);
                 responseMap.put("message", apiJsonResponse.getString("message"));
-               //responseMap.put("data", apiJsonResponse.getJSONArray("data").toList()); //as list
+               responseMap.put("data", apiResponse); //as list
 //                JSONArray dataArray = apiJsonResponse.getJSONArray("data");
 //                responseMap.put("data", dataArray.toList());
 //	            JSONObject dataObj = apiJsonResponse.getJSONObject("data");

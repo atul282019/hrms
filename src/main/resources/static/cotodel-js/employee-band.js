@@ -385,7 +385,7 @@ function validateTab1(){
 			 		},       		 
 	            success: function(data){
 	            newData = data;
-				var data1 = jQuery.parseJSON(newData);
+				var data1 = jQuery.parseJSON(data.data);
 				
 				document.getElementById("continewNext").style.display="block";
 				document.getElementById("continew2").style.display="none";

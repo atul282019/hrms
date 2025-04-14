@@ -224,7 +224,7 @@ async function saveEmployeeOnboarding(){
 		const department = departmentDropdown.options[departmentDropdown.selectedIndex].text;
 	    const reporting = document.getElementById("reporting");
 		const managerName1 = reporting.options[reporting.selectedIndex].text;
-		const managerName = document.getElementById("reporting").value;
+		const managerName = reporting.options[reporting.selectedIndex].value;
 	    const ctc = document.getElementById("salary").value;
 	    const locationDropdown = document.getElementById("location");
 		const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].text; 
@@ -334,7 +334,7 @@ async function saveEmployeeOnboarding(){
 			        document.getElementById("departmentError").textContent = "";
 			    }
 
-		    if (managerName === "") {
+		    if (managerName === "0") {
 		        document.getElementById("reportingError").textContent = "Please select manager name";
 		        document.getElementById("reporting").focus();
 		        return false;

@@ -1,9 +1,13 @@
 package com.cotodel.hrms.web.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,13 +25,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BandDetailRequest;
+import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExpanceTravelAdvanceRequest;
 import com.cotodel.hrms.web.response.ExpenseCategoryRequest;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.ExpensesTravelService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.cotodel.hrms.web.util.MessageConstant;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -36,6 +44,9 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExpensesTravelPoliciesController.class);
 
+	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
+    private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
+    
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 
@@ -48,8 +59,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	@PostMapping(value = "/saveExpensesCategory")
 	public @ResponseBody String saveExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
-		String profileRes = null;
-		
+	
 		List<BandDetailRequest> list = new ArrayList<BandDetailRequest>();
 		String data[] = expenseCategoryRequest.getListArray();
 		
@@ -89,40 +99,135 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		 
 
 		expenseCategoryRequest.setList(list);
-//		profileRes = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
-//		profileJsonRes = new JSONObject(profileRes);
-//
-//		if (profileJsonRes.getBoolean("status")) {
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		} else {
-//			loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//
-//		return profileRes;
 		
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), jsonObject);
+//			
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+		
+		
+		String receivedHash = expenseCategoryRequest.getHash();
+		 // Validate client key first
+      if (!CLIENT_KEY.equals(expenseCategoryRequest.getClientKey())) {
+        //  return Map.of("isValid", false, "message", "Invalid client key");
+      }
+      String dataString = expenseCategoryRequest.getEmployerId()+expenseCategoryRequest.getExpenseCategory()+
+    		  expenseCategoryRequest.getExpenseCode()+expenseCategoryRequest.getExpenseLimit()+expenseCategoryRequest.getDistingushEmployeeBand()+
+      expenseCategoryRequest.getDayToExpiry()+
+      CLIENT_KEY+SECRET_KEY;
+     // employerid+expenseCategory+expanceCode+expanceLimit+distingushEmployeeBand+timeperiod+clientKey+secretKey;
+      String computedHash = null;
 		try {
-			String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
+			computedHash = generateHash(dataString);
+			System.out.println("computedHash"+computedHash);
+			System.out.println("computedHash---"+dataString);
+		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   
-	return profileRes;
+
+  // Validate hash
+  boolean isValid = computedHash.equals(receivedHash);
+  Map<String, Object> responseMap = new HashMap<>();
+  ObjectMapper mapper = new ObjectMapper();
+
+  // Get token from session
+  if (!isValid) {
+      responseMap.put("status", false);
+      responseMap.put("message", "Request Tempered");
+      try {
+          return mapper.writeValueAsString(responseMap);
+      } catch (JsonProcessingException e) {
+          return "{\"status\":false, \"message\":\"JSON processing error\"}";
+      }
+  }
+  String token = (String) session.getAttribute("hrms");
+  
+  if (token == null) {
+      responseMap.put("status", false);
+      responseMap.put("message", "Unauthorized: No token found.");
+      try {
+          return mapper.writeValueAsString(responseMap);
+      } catch (JsonProcessingException e) {
+          return "{\"status\":false, \"message\":\"JSON processing error\"}";
+      }
+  }
+  // Validate Token
+  UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+  if (obj == null) {
+      responseMap.put("status", false);
+      responseMap.put("message", "Unauthorized: Invalid token.");
+      try {
+          return mapper.writeValueAsString(responseMap);
+      } catch (JsonProcessingException e) {
+          return "{\"status\":false, \"message\":\"JSON processing error\"}";
+      }
+  }
+
+  // Check User Role and Organization ID
+  if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == expenseCategoryRequest.getEmployerId().intValue()) {
+      try {
+          
+   	   // Convert request object to JSON
+          String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
+
+          // Encrypt Request
+          EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+          // Call Service
+          String encryptedResponse = expensesTravelService.saveExpensesCategory(tokengeneration.getToken(), jsonObject);
+
+          // Decrypt Response
+          EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+          String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                  userReqEnc.getEncriptData(), 
+                  userReqEnc.getEncriptKey(), 
+                  applicationConstantConfig.apiSignaturePrivatePath
+          );
+
+          JSONObject apiJsonResponse = new JSONObject(apiResponse);
+          
+          boolean status = apiJsonResponse.getBoolean("status");
+	        responseMap.put("status", status);
+	        responseMap.put("message", apiJsonResponse.getString("message"));
+
+	        if (status && apiJsonResponse.has("data")) {
+	        	  responseMap.put("status", true);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	        	
+	          
+	        } else {
+              responseMap.put("status", false);
+              responseMap.put("message", apiJsonResponse.getString("message"));
+          }
+
+      } catch (Exception e) {
+          responseMap.put("status", false);
+          responseMap.put("message", "Internal Server Error: " + e.getMessage());
+          e.printStackTrace();
+      }
+  } else {
+      responseMap.put("status", false);
+      responseMap.put("message", "Unauthorized: Insufficient permissions.");
+  }
+  try {
+      return mapper.writeValueAsString(responseMap);
+  } catch (JsonProcessingException e) {
+      return "{\"status\":false, \"message\":\"JSON processing error\"}";
+  }  
+		
 	}
 
 	@PostMapping(value = "/updateExpensesCategory")
@@ -212,23 +317,6 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String getExpensesCategory(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpenseCategoryRequest expenseCategoryRequest) {
 		String profileRes = null;
-	
-//		profileRes = expensesTravelService.getExpensesCategory(tokengeneration.getToken(), expenseCategoryRequest);
-//		profileJsonRes = new JSONObject(profileRes);
-//
-//		if (profileJsonRes.getBoolean("status")) {
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		} else {
-//			 loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//			
-//		}
-//
-//		return profileRes;
 		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expenseCategoryRequest);
@@ -295,25 +383,119 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	@PostMapping(value = "/saveExpanceTravelAdvance")
 	public @ResponseBody String saveExpanceTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
-		String profileRes = null;
-
+	
+		String receivedHash = expanceTravelAdvanceRequest.getHash();
+		 // Validate client key first
+       if (!CLIENT_KEY.equals(expanceTravelAdvanceRequest.getClientKey())) {
+         //  return Map.of("isValid", false, "message", "Invalid client key");
+       }
+       String dataString = expanceTravelAdvanceRequest.getEmployerId()+expanceTravelAdvanceRequest.getAllowEmployeesTravel()
+       +expanceTravelAdvanceRequest.getAllowEmployeesCash()+expanceTravelAdvanceRequest.getEmployeesAllow()
+       +expanceTravelAdvanceRequest.getNameEmployeesCash()+expanceTravelAdvanceRequest.getDaysDisbursalCash()+
+       CLIENT_KEY+SECRET_KEY;
+		   
+       String computedHash = null;
 		try {
-			String json = EncryptionDecriptionUtil.convertToJson(expanceTravelAdvanceRequest);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
+			computedHash = generateHash(dataString);
+			System.out.println("computedHash"+computedHash);
+			System.out.println("computedHash---"+dataString);
+		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+   // Validate hash
+   boolean isValid = computedHash.equals(receivedHash);
+   Map<String, Object> responseMap = new HashMap<>();
+   ObjectMapper mapper = new ObjectMapper();
+
+   // Get token from session
+   if (!isValid) {
+       responseMap.put("status", false);
+       responseMap.put("message", "Request Tempered");
+       try {
+           return mapper.writeValueAsString(responseMap);
+       } catch (JsonProcessingException e) {
+           return "{\"status\":false, \"message\":\"JSON processing error\"}";
+       }
+   }
+   String token = (String) session.getAttribute("hrms");
    
-	return profileRes;
+   if (token == null) {
+       responseMap.put("status", false);
+       responseMap.put("message", "Unauthorized: No token found.");
+       try {
+           return mapper.writeValueAsString(responseMap);
+       } catch (JsonProcessingException e) {
+           return "{\"status\":false, \"message\":\"JSON processing error\"}";
+       }
+   }
+   // Validate Token
+   UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+   if (obj == null) {
+       responseMap.put("status", false);
+       responseMap.put("message", "Unauthorized: Invalid token.");
+       try {
+           return mapper.writeValueAsString(responseMap);
+       } catch (JsonProcessingException e) {
+           return "{\"status\":false, \"message\":\"JSON processing error\"}";
+       }
+   }
+
+   // Check User Role and Organization ID
+   if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == expanceTravelAdvanceRequest.getEmployerId().intValue()) {
+       try {
+           
+    	   // Convert request object to JSON
+           String json = EncryptionDecriptionUtil.convertToJson(expanceTravelAdvanceRequest);
+
+           // Encrypt Request
+           EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+           // Call Service
+           String encryptedResponse = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(), jsonObject);
+
+           // Decrypt Response
+           EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+           String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                   userReqEnc.getEncriptData(), 
+                   userReqEnc.getEncriptKey(), 
+                   applicationConstantConfig.apiSignaturePrivatePath
+           );
+
+           JSONObject apiJsonResponse = new JSONObject(apiResponse);
+           
+           boolean status = apiJsonResponse.getBoolean("status");
+	        responseMap.put("status", status);
+	        responseMap.put("message", apiJsonResponse.getString("message"));
+
+	        if (status && apiJsonResponse.has("data")) {
+	        	  responseMap.put("status", true);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	        	
+	          
+	        } else {
+               responseMap.put("status", false);
+               responseMap.put("message", apiJsonResponse.getString("message"));
+           }
+
+       } catch (Exception e) {
+           responseMap.put("status", false);
+           responseMap.put("message", "Internal Server Error: " + e.getMessage());
+           e.printStackTrace();
+       }
+   } else {
+       responseMap.put("status", false);
+       responseMap.put("message", "Unauthorized: Insufficient permissions.");
+   }
+   try {
+       return mapper.writeValueAsString(responseMap);
+   } catch (JsonProcessingException e) {
+       return "{\"status\":false, \"message\":\"JSON processing error\"}";
+   }  
+		
+		
+		
 	}
 
 	@GetMapping(value = "/getExpanseTravelAdvance")
@@ -404,23 +586,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String getExpenseBandList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
 		String profileRes = null;
-		
-//		profileRes = expensesTravelService.getExpenseBandList(tokengeneration.getToken(), expanceTravelAdvanceRequest);
-//		profileJsonRes = new JSONObject(profileRes);
-//
-//		if (profileJsonRes.getBoolean("status")) {
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		} else {
-//			 loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//		}
-//
-//		return profileRes;
-		
+
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expanceTravelAdvanceRequest);
 
@@ -440,5 +606,15 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	return profileRes;
 	
 	}
+	
+	 private String generateHash(String data) throws NoSuchAlgorithmException {
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : hashBytes) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    }
 
 }

@@ -23,4 +23,9 @@ public class ExpenseCategoryRequest {
 	private String[] listArray;
 	private List<BandDetailRequest> list;
 
+	private String hash;
+	private String clientKey;
+	private String distingushEmployeeBand;
+	
+
 }

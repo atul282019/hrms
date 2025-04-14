@@ -100,11 +100,11 @@ public class EmployeeDetailController extends CotoDelBaseController{
  		        : null
 	    		 
 	    		 );
-	     employeeOnboarding.setManagerId(
-	    		 requestData.get("managerId") != null && !requestData.get("managerId").isEmpty()
-	    		        ? Integer.parseInt(requestData.get("managerId"))
-	    		        : null
-	    		);
+//	     employeeOnboarding.setManagerId(
+//	    		 requestData.get("managerId") != null && !requestData.get("managerId").isEmpty()
+//	    		        ? Integer.parseInt(requestData.get("managerId"))
+//	    		        : null
+//	    		);
 	     employeeOnboarding.setName(requestData.get("name"));
 	     employeeOnboarding.setEmail(requestData.get("email"));
 	     employeeOnboarding.setMobile(requestData.get("mobile"));
@@ -121,6 +121,13 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	     employeeOnboarding.setFiletype(requestData.get("filetype"));
 	     employeeOnboarding.setFilename(requestData.get("filename"));
 	     employeeOnboarding.setClientKey(requestData.get("clientKey"));
+	     
+	     employeeOnboarding.setManagerId(
+	    		 requestData.get("managerId") != null && !requestData.get("managerId").isEmpty()
+ 		        ? Integer.parseInt(requestData.get("managerId"))
+ 		        : null
+	    		 
+	    		 );
 	     employeeOnboarding.setHash(requestData.get("hash"));
 	     // Validate client key first
 	        if (!CLIENT_KEY.equals(clientKey)) {
@@ -128,10 +135,11 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        responseMap.put("message", "Invalid client key");
 	        }
 	        // Ensure consistent concatenation
+	        String managerId=employeeOnboarding.getManagerId()==null?"":employeeOnboarding.getManagerId().toString();
 	        String dataString = Id+employerId+employeeId+name+email+mobile+herDate+jobTitle+depratment+ctc+location+residentOfIndia+
-	        		empOrCont+empPhoto+filetype+filename+employeeOnboarding.getManagerId()+employeeOnboarding.getManagerName()+CLIENT_KEY+SECRET_KEY;
+	        		empOrCont+empPhoto+filetype+filename+managerId+employeeOnboarding.getManagerName()+CLIENT_KEY+SECRET_KEY;
 	       logger.info("datastring"+dataString);
-	     
+	       
 	        // Compute hash
 	        String computedHash = null;
 			try {
