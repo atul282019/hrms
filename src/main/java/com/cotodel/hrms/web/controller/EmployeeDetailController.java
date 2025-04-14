@@ -67,15 +67,12 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		 String Id = requestData.get("Id");
 		 String employerId = requestData.get("employerId");
 		 String employeeId = requestData.get("employeeId");
-		 String managerName1 =requestData.get("managerName1");
 		 String name = requestData.get("name");
 		 String email = requestData.get("email");
 		 String mobile = requestData.get("mobile");
 		 String herDate = requestData.get("herDate");
 		 String jobTitle = requestData.get("jobTitle");
 		 String depratment = requestData.get("depratment");
-		 String managerId = requestData.get("managerName");
-		 String managerName = requestData.get("managerName1");
 		 String ctc = requestData.get("ctc");
 		 String location = requestData.get("location");
 		 String residentOfIndia = requestData.get("residentOfIndia");
@@ -103,18 +100,18 @@ public class EmployeeDetailController extends CotoDelBaseController{
  		        : null
 	    		 
 	    		 );
+	     employeeOnboarding.setManagerId(
+	    		 requestData.get("managerId") != null && !requestData.get("managerId").isEmpty()
+	    		        ? Integer.parseInt(requestData.get("managerId"))
+	    		        : null
+	    		);
 	     employeeOnboarding.setName(requestData.get("name"));
 	     employeeOnboarding.setEmail(requestData.get("email"));
 	     employeeOnboarding.setMobile(requestData.get("mobile"));
 	     employeeOnboarding.setHerDate(requestData.get("herDate"));
 	     employeeOnboarding.setJobTitle(requestData.get("jobTitle"));
 	     employeeOnboarding.setDepratment(requestData.get("depratment"));
-	     employeeOnboarding.setManagerId(
-	    		 requestData.get("managerId") != null && !requestData.get("managerId").isEmpty()
-	    		        ? Integer.parseInt(requestData.get("managerId"))
-	    		        : null
-	    		);
-	    // employeeOnboarding.setManagerName(requestData.get("managerName"));
+	    
 	     employeeOnboarding.setManagerName(requestData.get("managerName"));
 	     employeeOnboarding.setCtc(requestData.get("ctc"));
 	     employeeOnboarding.setLocation(requestData.get("location"));
@@ -132,8 +129,9 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	        }
 	        // Ensure consistent concatenation
 	        String dataString = Id+employerId+employeeId+name+email+mobile+herDate+jobTitle+depratment+ctc+location+residentOfIndia+
-	        		empOrCont+empPhoto+filetype+filename+CLIENT_KEY+SECRET_KEY;
+	        		empOrCont+empPhoto+filetype+filename+employeeOnboarding.getManagerId()+employeeOnboarding.getManagerName()+CLIENT_KEY+SECRET_KEY;
 	       logger.info("datastring"+dataString);
+	     
 	        // Compute hash
 	        String computedHash = null;
 			try {
@@ -149,6 +147,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    logger.info("saveDirectorOnboarding---"+employeeOnboarding.toString());
 	 
 	    // Get token from session
+	    
+	    if(employeeOnboarding.getFiletype() != null &&  employeeOnboarding.getEmpPhoto() != "") {
 	    if (!employeeOnboarding.getFiletype().equals("image/jpeg") && !employeeOnboarding.getFiletype().equals("image/png")) {
 	        responseMap.put("status", false);
 	        responseMap.put("message", "Request Tempered");
@@ -158,6 +158,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 	        }
 	    }
+	}
 	    if (!isValid) {
 	        responseMap.put("status", false);
 	        responseMap.put("message", "Request Tempered");

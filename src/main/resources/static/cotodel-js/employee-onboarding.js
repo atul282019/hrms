@@ -426,7 +426,7 @@ async function saveEmployeeOnboarding(){
 
     // Concatenate data (must match backend)
     const dataString = Id+employerId+employeeId+name+email+mobile+hireDate+jobTitle+department
-	+ctc+selectedLocation+residentOfIndia+emporcount+profilePhoto+filetype+filename+clientKey+secretKey;
+	+ctc+selectedLocation+residentOfIndia+emporcount+profilePhoto+filetype+filename+managerName+managerName1+clientKey+secretKey;
 
     // Generate SHA-256 hash
     const encoder = new TextEncoder();

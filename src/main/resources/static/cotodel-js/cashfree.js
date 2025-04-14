@@ -1,5 +1,5 @@
 const cashfree = Cashfree({
-   mode:"production" //or sandbox
+   mode:"sandbox" //or production
 });
 
 function getSessionId(){

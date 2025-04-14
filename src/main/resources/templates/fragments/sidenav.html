@@ -37,17 +37,17 @@
                     <img src="img/menu-workplace.svg" alt="" class="mr-2">
                     <span>Workplace</span></a>
             </li>
-
-			<!--<li class="nav-item" th:if="${session.user_role == 1}">
-			    <a class="nav-link" th:href="@{/expenseReimbursementsCompany}">
-			        <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
-			        <span>Expenses & Advances</span></a>
-			</li>-->
 			<li class="nav-item" th:if="${session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
 	             <a class="nav-link" th:href="@{/expenseReimbursements}">
 	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
 	                 <span>Expenses & Advances</span></a>
 	         </li> 
+			<!--<li class="nav-item" th:if="${session.user_role == 1}">
+			    <a class="nav-link" th:href="@{/expenseReimbursementsCompany}">
+			        <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
+			        <span>Expenses & Advances</span></a>
+			</li>-->
+			
 			<!--<li class="nav-item">
 	           <a class="nav-link" th:href="@{/expenseReimbursements}">
 	               <img src="img/pf.png" alt="" class="mr-2">

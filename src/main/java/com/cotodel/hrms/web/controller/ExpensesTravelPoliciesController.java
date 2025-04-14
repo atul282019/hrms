@@ -296,25 +296,7 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	public @ResponseBody String saveExpanceTravelAdvance(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpanceTravelAdvanceRequest expanceTravelAdvanceRequest) {
 		String profileRes = null;
-		
-//		profileRes = expensesTravelService.saveExpanceTravelAdvance(tokengeneration.getToken(),
-//				expanceTravelAdvanceRequest);
-//		profileJsonRes = new JSONObject(profileRes);
-//
-//		if (profileJsonRes.getBoolean("status")) {
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		} else {
-//			 loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//			 TODO: handle exception
-//		}
-//
-//		return profileRes;
-		
+
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expanceTravelAdvanceRequest);
 

@@ -28,7 +28,6 @@
 
 				                     <!-- Topbar Navbar -->
 				                     <ul class="navbar-nav top-nav">
-
 				                         <!-- Nav Item - User Information -->
 				                         <li class="nav-item">
 				                             <a class="nav-link active" href="#">
@@ -42,9 +41,7 @@
 				                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
 				                             </a>
 				                         </li>
-
 				                     </ul>
-
 				  				<ul class="navbar-nav ml-auto">
 				                         <li class="nav-item dropdown no-arrow">
 				                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,12 +58,6 @@
 				                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 				                                     Settings
 				                                 </a>
-				                               
-				                                <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-				  				            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-				  						          <i class="fas fa-user-circle"></i> Logout         
-				  						        </a>
-				  				          </div> -->  
 				                               <div class="dropdown-divider"></div>
 				                                 <a class="dropdown-item" th:href="@{/logout}">
 				                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
@@ -129,11 +120,9 @@
                                       <div class="policies-section">
                                         <div class="policies-wrap">
                                             <h4>Advance Request Settings </h4>
-
                                             <div class="policies-wrap-in d-block">
                                                 <div class="d-flex justify-content-between">
                                                     <div class="d-block">
-
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox small">
                                                                 <input type="checkbox" class="custom-control-input"
@@ -176,14 +165,10 @@
                                                                 </label>
                                                             </div>
                                                         </div>
-
                                                         <div class="policies-wrap-in-left w-100 my-3">
-                                                         
                                                        	   <div id="nameEmployeesCash"  class="incurring-exp w-100">
-                                                           </div>
-                                                           
+                                                           </div> 
                                                         </div>
-
                                                         <div class="policies-wrap-in-left w-100">
                                                             <div class="incurring-exp">
                                                                 <p>An employee is required to submit expense claims
@@ -210,7 +195,6 @@
                                     <div class="policies-section">
                                         <div class="policies-wrap">
                                             <h4>Expense Category Settings </h4>
-                                            
                                             <div class="policies-wrap-in-table">
                                                 <div class="table-responsive">
                                                     <table class="table table-policies" id="expensesTable">
@@ -346,11 +330,10 @@
                                                         </tbody>
                                                     </table>
                                                      <div class="last-add">
-                                                     
-                                                   			    <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-                                                                <div colspan="5" style="padding:.75rem;">
-                                                                    <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalExpenseCategory" >+ Add Category</a>
-                                                                </div>
+                                           			    <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                                        <div colspan="5" style="padding:.75rem;">
+                                                            <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalExpenseCategory" >+ Add Category</a>
+                                                        </div>
                                                      </div>
                                                 </div>
                                             </div>
@@ -412,8 +395,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                                 <div id="menu1" class="tab-pane ">
                                   <h3>Menu 1</h3>
@@ -422,8 +403,7 @@
                               </div>
                         </div>
                     </div>
-                                        
-
+                                    
                 </div>
                 <!-- /.container-fluid -->
 
@@ -501,19 +481,13 @@
 	            }
 	        });
 	    }
-	  
-	  
 	$(document).ready(function(){
 		 $(".innernav").click(function(){
 	        $(".dropdownNav").addClass("active");
 	    });
 		 $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-		  
-	  
+		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');    
 	});
-	
-	
 	
 	</script>
 	<script>
@@ -525,8 +499,6 @@
 		 }
 	}
 	</script>
-	
-	
 	
 <script>
 
@@ -702,8 +674,7 @@ function dissableButton(){
                         </div>
                         <div id="speficEmployeesDiv"> 
                         <input type="text" class="form-control incurr mr-2 w-100"  id="speficEmployees"
-                        placeholder="Enter names of employees who are allowed cash advances">
-                           
+                               placeholder="Enter names of employees who are allowed cash advances">
                         </div>
                         <div class="error-msg" id="speficEmployeesError" style="color:red"></div>
                         
