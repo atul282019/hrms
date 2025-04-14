@@ -149,8 +149,9 @@ public class LoginController extends CotoDelBaseController{
 						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
 						
-					}
+					}// id and empid is same in 1,3,9 
 					else {
+						//id and emp is diiferent
 						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));

@@ -221,8 +221,19 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
           //  return Map.of("isValid", false, "message", "Invalid client key");
         }
         // Ensure consistent concatenation
-        String dataString = erupiLinkBankAccount.getOrgId()+erupiLinkBankAccount.getBankName()+erupiLinkBankAccount.getAccountHolderName()+erupiLinkBankAccount.getAcNumber()+erupiLinkBankAccount.getConirmAccNumber()+erupiLinkBankAccount.getAccountType()+erupiLinkBankAccount.getIfsc()
-        +erupiLinkBankAccount.getMobile()+erupiLinkBankAccount.getMerchentIid()+erupiLinkBankAccount.getSubmurchentid()+erupiLinkBankAccount.getPayerva()+CLIENT_KEY+SECRET_KEY;
+        String dataString = 
+        		erupiLinkBankAccount.getOrgId()+
+        		erupiLinkBankAccount.getBankName()+
+        		erupiLinkBankAccount.getAccountHolderName()+
+        		erupiLinkBankAccount.getAcNumber()+
+        		erupiLinkBankAccount.getConirmAccNumber()+
+        		erupiLinkBankAccount.getAccountType()+
+        		erupiLinkBankAccount.getIfsc()+
+				erupiLinkBankAccount.getMobile()+
+				erupiLinkBankAccount.getMerchentIid()+
+				erupiLinkBankAccount.getSubmurchentid()+
+				erupiLinkBankAccount.getPayerva()+
+				CLIENT_KEY+SECRET_KEY;
 
         // Compute hash
         String computedHash = null;

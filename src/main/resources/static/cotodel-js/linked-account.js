@@ -485,10 +485,10 @@ async function submitLinkBankAccount(){
 		type: "POST",
 	     url:"/addErupiLinkBankAccount",
 		 data: {
-		 			  "employeeId": employerId,
-					  "bank": {
-						"id": employerId
-					  },
+		 			 // "employeeId": employerId,
+					//  "bank": {
+					//	"id": employerId
+					 // },
 					  "bankCode": bankCode,
 					  "bankName": bankName,
 					  "accountHolderName": bankingName,
