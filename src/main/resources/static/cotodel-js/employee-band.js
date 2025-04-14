@@ -556,6 +556,7 @@ function bindJsonToTable(jsonData) {
 		            success: function(data){
 			 		newData = data;
 					var data1 = jQuery.parseJSON( newData );
+					console.log("data1 ",data1);
 					if(data1.data.list !== null && data1.data.list !== ""){
 						document.getElementById("viewBandDiv").style.display="block";
 						document.getElementById("defaultDiv").style.display="none";
