@@ -700,7 +700,9 @@ public class EmployeeDetailController extends CotoDelBaseController{
 			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 			        }
 			    }
-			    //logger.info("obj.getOrgid()"+obj.getOrgid());
+			    logger.info("obj.getUser_role() "+obj.getUser_role());
+			    logger.info("obj.getOrgid()"+obj.getOrgid());
+			    logger.info("employeeOnboarding.getEmployerId().intValue() "+employeeOnboarding.getEmployerId().intValue());
     if ((obj.getUser_role() == 2) && obj.getOrgid() == employeeOnboarding.getEmployerId().intValue()) {
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
