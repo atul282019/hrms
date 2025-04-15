@@ -348,12 +348,14 @@ async function saveEmployeeProfile(){
 	document.getElementById("empOnboarding").disabled=true;
 	//setting userdetails id in the feild of employer id because when we are getting obj.getOrgid() in controller we are getting 1517 as user details id 
 	//and if we are placing employerid in employerid then it is saying insufficient permissions
+	alert("id = "+id);
+	alert("employerId = "+employerId);
 	 	$.ajax({
 		type: "POST",
 	     url:"/saveEmployeeProfile",
 		 data: {
 		 		"id":id,
-				"employerId":userDetailsId,
+				"employerId":employerId,
 		 		"name":name,
 		 	  	"email":email,
 				"mobile":mobile,
@@ -415,7 +417,8 @@ async function saveEmployeeProfileTab2(){
 	
 	var beneficiaryName = document.getElementById("beneficiaryName").value;
 	var employerId=document.getElementById("employerId").value;
-		var userDetailsId=document.getElementById("userDetailsId").value;
+	var userDetailsId=document.getElementById("userDetailsId").value;
+	var mobile = document.getElementById("mobilecode").value;
 	
 	var regName = /^[a-zA-Z\s]*$/;
 	var onlySpace = /^$|.*\S+.*/;
@@ -509,13 +512,16 @@ async function saveEmployeeProfileTab2(){
 	
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
+	alert("id = "+id);
+		alert("employerId = "+employerId);
 	 	$.ajax({
 		type: "POST",
 	     url:"/updateEmployeeProfile",
 		 data: {
 		 	 		"id": id,
 		 	 		"pan" :pan,
-		 	 	  	"employerId":userDetailsId,
+		 	 	  	"employerId":employerId,
+					"mobile":mobile,
 		 			"ifscCode": bankIfsc,
 					"beneficiaryName" :beneficiaryName,
 		 	 		"bankAccountNumber" :confirmAccountNo,
