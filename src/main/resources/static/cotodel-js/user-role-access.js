@@ -1557,7 +1557,7 @@ function getAddOTP(){
 
 				  		            // Check if vouchers exist
 				  		            if (payment_history.length === 0) {
-				  		                tableBody.append(`<tr><td colspan="9" class="text-center">No Payemnt Aata Available</td></tr>`);
+				  		                tableBody.append(`<tr><td colspan="11" class="text-center">No Data Available</td></tr>`);
 				  		                return;
 				  		            }
 
@@ -1581,7 +1581,7 @@ function getAddOTP(){
 													<td>${payment_history.serviceCharge}</td>
 													<td>${payment_history.serviceTax}</td>
 				  									<td>${payment_history.settlementAmount}</td>
-				  		                            
+													
 				  						        </tr>
 				  		                `;
 

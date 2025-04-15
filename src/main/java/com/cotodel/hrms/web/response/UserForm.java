@@ -14,6 +14,8 @@ public class UserForm {
 	private String otp;
 	private String mobile;
 	private String orderId;
+	private String countdown;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -87,15 +89,19 @@ public class UserForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	public String getCountdown() {
+		return countdown;
+	}
+	public void setCountdown(String countdown) {
+		this.countdown = countdown;
+	}
 	@Override
 	public String toString() {
 		return "UserForm [userName=" + userName + ", password1=" + password1 + ", password2=" + password2
 				+ ", password3=" + password3 + ", password4=" + password4 + ", password5=" + password5 + ", password6="
-				+ password6 + ", sresult=" + sresult + ", otp=" + otp + ", mobile=" + mobile + ", orderId=" + orderId
-				+ "]";
+				+ password6 + ", password=" + password + ", sresult=" + sresult + ", otp=" + otp + ", mobile=" + mobile
+				+ ", orderId=" + orderId + ", countdown=" + countdown + "]";
 	}
-	
 	
 	
 	

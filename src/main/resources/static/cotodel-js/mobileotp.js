@@ -50,7 +50,7 @@ function getOTP() {
 				           (seconds < 10 ? "0" + seconds : seconds);
 
 				       timeleft -= 1;
-					    
+					   localStorage.setItem("otpExpiryTime", Date.now() + seconds * 1000);   
 					   document.getElementById("optBtn").style.display = "none";
 					   document.getElementById("orderId").value = obj['orderId'];
 					   document.getElementById("verifyotpdiv").style.display = "block";
@@ -494,4 +494,30 @@ function focusBack(){
 	    }
 	  });
 	})
+}
+
+
+
+function refreshCountdown() {
+    var expiryTime = parseInt(localStorage.getItem("otpExpiryTime"));
+    if (!expiryTime) return;
+    var downloadTimer = setInterval(function () {
+        var currentTime = Date.now();
+        var timeleft = Math.floor((expiryTime - currentTime) / 1000);
+
+        if (timeleft <= 0) {
+            clearInterval(downloadTimer);
+            localStorage.removeItem("otpExpiryTime");
+            document.getElementById("countdown").innerHTML = " ";
+            document.getElementById("resendOTPText").style.display = "block";
+            document.getElementById("optBtn").disabled = false;
+            document.getElementById("verifyotpdiv").style.display = "none";
+        } else {
+            var minutes = Math.floor(timeleft / 60);
+            var seconds = timeleft % 60;
+            document.getElementById("countdown").innerHTML =
+                (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                (seconds < 10 ? "0" + seconds : seconds);
+        }
+    }, 1000);
 }

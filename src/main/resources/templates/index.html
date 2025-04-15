@@ -188,7 +188,26 @@
 		else if(error==="Incorrect OTP ||"){
 			
 			  document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
-			  startCountdown();
+			  var expiryTime = localStorage.getItem("otpExpiryTime");
+			  var downloadTimer = setInterval(function () {
+			          var currentTime = Date.now();
+			          var timeleft = Math.floor((expiryTime - currentTime) / 1000);
+
+			          if (timeleft <= 0) {
+			              clearInterval(downloadTimer);
+			              localStorage.removeItem("otpExpiryTime");
+			              document.getElementById("countdown").innerHTML = " ";
+			              document.getElementById("resendOTPText").style.display = "block";
+			              document.getElementById("optBtn").disabled = false;
+			              document.getElementById("verifyotpdiv").style.display = "none";
+			          } else {
+			              var minutes = Math.floor(timeleft / 60);
+			              var seconds = timeleft % 60;
+			              document.getElementById("countdown").innerHTML =
+			                  (minutes < 10 ? "0" + minutes : minutes) + ":" +
+			                  (seconds < 10 ? "0" + seconds : seconds);
+			          }
+			      }, 1000);
 			  document.getElementById("mobile").value=mo;
 			  document.getElementById("orderId").value=orderid;
 			  document.getElementById("loginIdDiv").style.display="block";
