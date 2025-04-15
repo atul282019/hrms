@@ -53,6 +53,7 @@ public class LoginController extends CotoDelBaseController{
 			@ModelAttribute("userForm") UserForm userForm, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
 		String profileRes=null;JSONObject profileJsonRes=null;String screenName="index";
 		String profileResRepute=null; 
+		Integer orgid=null;
 		JSONObject profileResJsonRepute=null;
 		String message =null; String otpmobile =null; String orderid=null;
 		UserDetailsEntity obj =null;
@@ -129,6 +130,7 @@ public class LoginController extends CotoDelBaseController{
 					
 					session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
 					model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
+					orgid = profileJsonRes.getJSONObject("data").getInt("id");
 					}
 					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 9) {
 						//request.getSession(true).setAttribute("id",SHA256Hash.getSHA256Hash(String.valueOf(profileJsonRes.getJSONObject("data").getInt("id"))));
@@ -139,6 +141,7 @@ public class LoginController extends CotoDelBaseController{
 						
 						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
+						 orgid = profileJsonRes.getJSONObject("data").getInt("id");
 						
 					}
 					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 3) {
@@ -148,7 +151,7 @@ public class LoginController extends CotoDelBaseController{
 						
 						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
-						
+						 orgid = profileJsonRes.getJSONObject("data").getInt("id");
 					}// id and empid is same in 1,3,9 
 					else {
 						//id and emp is diiferent
@@ -158,6 +161,7 @@ public class LoginController extends CotoDelBaseController{
 						
 						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("employerid"));
 						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("employerid"));
+					    orgid = profileJsonRes.getJSONObject("data").getInt("employerid");
 					}
 					//request.getSession(true).setAttribute("cotodel", profileJsonRes.getString("token"));
 					
@@ -183,7 +187,7 @@ public class LoginController extends CotoDelBaseController{
 						String mobile = profileJsonRes.getJSONObject("data").getString("mobile");
 						String username = profileJsonRes.getJSONObject("data").getString("username");
 						Integer user_role = profileJsonRes.getJSONObject("data").getInt("role_id");
-						Integer orgid = profileJsonRes.getJSONObject("data").getInt("id");
+						
 						String token	=	JwtTokenGenerator.generateToken(email,mobile,username,user_role,orgid, MessageConstant.SECRET);
 						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
 					    request.getSession(true).setAttribute("hrms", token);
