@@ -1557,7 +1557,7 @@ function getAddOTP(){
 
 				  		            // Check if vouchers exist
 				  		            if (payment_history.length === 0) {
-				  		                tableBody.append(`<tr><td colspan="9" class="text-center">No Payemnt Aata Available</td></tr>`);
+				  		                tableBody.append(`<tr><td colspan="9" class="text-center">No Payment Data Available</td></tr>`);
 				  		                return;
 				  		            }
 
