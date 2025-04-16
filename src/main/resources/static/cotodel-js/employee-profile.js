@@ -348,8 +348,8 @@ async function saveEmployeeProfile(){
 	document.getElementById("empOnboarding").disabled=true;
 	//setting userdetails id in the feild of employer id because when we are getting obj.getOrgid() in controller we are getting 1517 as user details id 
 	//and if we are placing employerid in employerid then it is saying insufficient permissions
-	alert("id = "+id);
-	alert("employerId = "+employerId);
+	//alert("id = "+id);
+	//alert("employerId = "+employerId);
 	 	$.ajax({
 		type: "POST",
 	     url:"/saveEmployeeProfile",
@@ -512,8 +512,8 @@ async function saveEmployeeProfileTab2(){
 	
 	document.getElementById("signinLoader").style.display="flex";
 	document.getElementById("empOnboarding").disabled=true;
-	alert("id = "+id);
-		alert("employerId = "+employerId);
+	//alert("id = "+id);
+		//alert("employerId = "+employerId);
 	 	$.ajax({
 		type: "POST",
 	     url:"/updateEmployeeProfile",
