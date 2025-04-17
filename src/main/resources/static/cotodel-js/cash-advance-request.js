@@ -321,9 +321,7 @@ document.querySelectorAll('.remove-row-miscellaneous').forEach(button => {
 
 //////////////////////////////////////////////////////////////Advance Cash Travel Request script
 
-
-
-function cashAdvanceSubmit(){
+async function cashAdvanceSubmit(){
 	
 	   var employerid = document.getElementById("employerId").value.trim();
 	   var empId = document.getElementById("empId").value.trim();
@@ -337,8 +335,6 @@ function cashAdvanceSubmit(){
 		document.querySelectorAll(".error-message").forEach(el => el.remove());
 		
 		var errorMessage = document.getElementById("error-message"); // Get error span
-
-		  // Clear previous error messages
 		  errorMessage.innerText = "";
 
 		  // Validation
@@ -365,7 +361,22 @@ function cashAdvanceSubmit(){
 		      return;
 		  }
 		 
-		document.getElementById("signinLoader").style.display="flex";				
+		document.getElementById("signinLoader").style.display="flex";			
+		const clientKey = "client-secret-key"; // Extra security measure
+		const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+		// Concatenate data (must match backend)
+			
+		const dataString = employerName+"Cash"+cashDate+
+		""+cashAmmount+cashCurrency+cashAmmount+cashModeOfPayment+cashRemark+clientKey+secretKey;
+		console.log("data string"+dataString); 
+		// Generate SHA-256 hash
+		const encoder = new TextEncoder();
+		const data = encoder.encode(dataString);
+		const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		const hashArray = Array.from(new Uint8Array(hashBuffer));
+		const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+				
 		$.ajax({
 			type: "POST",
 			url: "/cashAdvanceRequest",
@@ -381,6 +392,8 @@ function cashAdvanceSubmit(){
 				"amount":cashAmmount,
 				"modeOfPayment":cashModeOfPayment,
 				"remarks":cashRemark,
+				"clientKey":clientKey,
+				"hash":hashHex,
 				
 			},
 			success: function(data) {
@@ -410,7 +423,7 @@ function closeCashSuccess(){
 }
 
 //////////////////////////////////////////////////////////////////////
-function getTableDataTravel() {
+async function getTableDataTravel() {
 	
 	let allValid = true;
     document.querySelectorAll(".template-row").forEach(row => {
@@ -420,7 +433,7 @@ function getTableDataTravel() {
     });
 
     if (!allValid) {
-         preventDefault();
+        // preventDefault();
         //alert("Please correct the errors before submitting.");
 		return false;
     }
@@ -510,6 +523,20 @@ function getTableDataTravel() {
 	var empId = document.getElementById("empId").value;
 	document.getElementById("signinLoader").style.display="flex";
     console.log(tableData);
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	const dataString = empId+"Travel"+employerid+clientKey+secretKey;
+	console.log("data string"+dataString); 
+	// Generate SHA-256 hash
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+		
+	
+	
    $.ajax({
    		type: "POST",
    		url: "/travelAdvanceRequest",
@@ -519,7 +546,9 @@ function getTableDataTravel() {
    			"employeeId":empId,
    			"employerId":employerid,
 			"requestType":"Travel",
-   			"travelReimbursement":tableData
+   			"travelReimbursement":tableData,
+			"clientKey":"clientKey",
+			"hash":hashHex,
    		}),
    		success: function(data) {
    			//newData = data;
@@ -588,7 +617,7 @@ function getTableDataTravel() {
        });
    });
 /////////////////////////////////////////////////////////////////////////
-function getaddTableRowAcomodation(){
+async function getaddTableRowAcomodation(){
 	
 	if (!validateTable()) {
 	     preventDefault();
@@ -653,7 +682,19 @@ function getaddTableRowAcomodation(){
 	   document.getElementById("signinLoader").style.display="flex";
 	
        console.log(tableData);
-   
+
+	   const clientKey = "client-secret-key"; // Extra security measure
+	   const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	   const dataString = empId+"Accomodation"+employerid+clientKey+secretKey;
+	   console.log("data string"+dataString); 
+	   // Generate SHA-256 hash
+	   const encoder = new TextEncoder();
+	   const data = encoder.encode(dataString);
+	   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	   const hashArray = Array.from(new Uint8Array(hashBuffer));
+	   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	   	
+
 	  $.ajax({
 	  		type: "POST",
 	  		url: "/travelAdvanceRequest",
@@ -663,7 +704,9 @@ function getaddTableRowAcomodation(){
 	  			"employeeId":empId,
 	  			"employerId":employerid,
 			    "requestType":"Accomodation",
-	  			"travelReimbursement":tableData
+	  			"travelReimbursement":tableData,
+				"clientKey":clientKey,
+				"hash":hashHex
 	  		}),
 	  		success: function(data) {
 	  			var modalfirst = document.getElementById("ModalConfirm");
@@ -748,7 +791,7 @@ function getaddTableRowAcomodation(){
     });
 ///////////////////////////////////////////////////////////
 
-function getTableDataIncity() {
+async function getTableDataIncity() {
     const rows2 = document.querySelectorAll(".template-row-incitycab");
 
     // Function to show error message without duplication
@@ -884,6 +927,17 @@ function getTableDataIncity() {
     document.getElementById("signinLoader").style.display = "flex";
 
     console.log(tableData);
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	   const dataString =empId+"In-City-Cab"+employerid+clientKey+secretKey;
+	   console.log("data string"+dataString); 
+	   // Generate SHA-256 hash
+	   const encoder = new TextEncoder();
+	   const data = encoder.encode(dataString);
+	   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	   const hashArray = Array.from(new Uint8Array(hashBuffer));
+	   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	   	
 
     $.ajax({
         type: "POST",
@@ -893,7 +947,9 @@ function getTableDataIncity() {
             "employeeId": empId,
             "employerId": employerid,
             "requestType": "In-City-Cab",
-            "travelReimbursement": tableData
+            "travelReimbursement": tableData,
+			"clientKey": clientKey,
+			"hash":hashHex
         }),
         success: function (data) {
             var modalfirst = document.getElementById("ModalConfirm");
@@ -909,7 +965,7 @@ function getTableDataIncity() {
 
 ///////////////////////////////////////////////
 
-function getTableDataFood(){
+async function getTableDataFood(){
 	       let isTableValid = true;
 	        const rows = document.querySelectorAll(".template-row-food");
 
@@ -946,7 +1002,17 @@ function getTableDataFood(){
 		   document.getElementById("signinLoader").style.display="flex";
 
 		    console.log(tableData);
-
+		   const clientKey = "client-secret-key"; // Extra security measure
+		   const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+		   const dataString = empId+"Meal"+employerid+clientKey+secretKey;
+		   console.log("data string"+dataString); 
+		   // Generate SHA-256 hash
+		   const encoder = new TextEncoder();
+		   const data = encoder.encode(dataString);
+		   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+		   const hashArray = Array.from(new Uint8Array(hashBuffer));
+		   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+				   	
 		  $.ajax({
 		  		type: "POST",
 		  		url: "/travelAdvanceRequest",
@@ -956,7 +1022,9 @@ function getTableDataFood(){
 		  			"employeeId":empId,
 		  			"employerId":employerid,
 				    "requestType":"Meal",
-		  			"travelReimbursement":tableData
+		  			"travelReimbursement":tableData,
+					"clientKey":clientKey,
+					"hash":hashHex
 		  		}),
 		  		success: function(data) {
 		  			var modalfirst = document.getElementById("ModalConfirm");
@@ -1097,7 +1165,7 @@ function showErrorMessage(element, message) {
 
    
 //////////////////////////////////////////////
-function getTableDataMiscellaneous(){
+async function getTableDataMiscellaneous(){
 	
 	let isTableValid = true;
 	       const rows = document.querySelectorAll(".template-row-miscellaneous");
@@ -1130,17 +1198,29 @@ function getTableDataMiscellaneous(){
 		   var employerid = document.getElementById("employerId").value;
 		   var empId = document.getElementById("empId").value;
 		   document.getElementById("signinLoader").style.display="flex";
-		   console.log(tableData);
+		   
+		  const clientKey = "client-secret-key"; // Extra security measure
+	      const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+	      const dataString = empId+"Miscellaneous"+employerid+clientKey+secretKey;
+	      console.log("data string"+dataString); 
+	      // Generate SHA-256 hash
+	      const encoder = new TextEncoder();
+	      const data = encoder.encode(dataString);
+	      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	      const hashArray = Array.from(new Uint8Array(hashBuffer));
+	      const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+		   	
 		  $.ajax({
 		  		type: "POST",
 		  		url: "/travelAdvanceRequest",
 			contentType: "application/json",
 		  		data:JSON.stringify({
-		  			
 		  			"employeeId":empId,
 		  			"employerId":employerid,
 				    "requestType":"Miscellaneous",
-		  			"travelReimbursement":tableData
+		  			"travelReimbursement":tableData,
+					"clientKey":clientKey,
+					"hash":hashHex
 		  		}),
 		  		success: function(data) {
 		  			var modalfirst = document.getElementById("ModalConfirm");
@@ -1592,9 +1672,6 @@ function getAllTablesData(){
 	  			"travelRequestUpdate":requestData,
 	  		}),
 	  		success: function(data) {
-	  			//newData = data;
-	  			//var data1 = jQuery.parseJSON(newData);
-	  			//var data2 = data1.list;
 	  			var modalfirst = document.getElementById("modalTravelUpdated");
 	  		    modalfirst.style.display = "block";
 	  			document.getElementById("signinLoader").style.display="none";
@@ -1638,8 +1715,6 @@ function getTableData(tableId, columnNames) {
     return data;
 }
 //////////////////////////////////////////////////////
-
-
 
 function deleteAdvanceTravel(value){
 	

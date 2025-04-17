@@ -67,4 +67,6 @@ public interface ExpensesReimbursementService {
 	String approveAdvanceTravelRequest(String token, EncriptResponse jsonObject);
 
 	String getCashAdvanceDetailById(String token, EncriptResponse jsonObject);
+
+	String getTravelRequestApprovalList(String token, EncriptResponse jsonObject);
 }

@@ -1,7 +1,4 @@
 package com.cotodel.hrms.web.response;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +30,6 @@ public class ExpensesReimbursementRequest{
 	private String approvedAmount;
 	public  String fileInput;
 
+	public  String clientKey;
+	public  String hash;
 }

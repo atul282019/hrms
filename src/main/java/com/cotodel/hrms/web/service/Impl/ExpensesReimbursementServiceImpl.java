@@ -198,5 +198,10 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	public String getCashAdvanceDetailById(String token, EncriptResponse advanceTravelRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(advanceTravelRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getCashAdvanceDetailById);
 	}
+
+	@Override
+	public String getTravelRequestApprovalList(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTravelRequestApprovalList);
+	}
 	
 }

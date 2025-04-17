@@ -18,4 +18,6 @@ public class TravelRequest {
 	private List<TravelAddRequest> travelReimbursement;
 	private int status;
 	private String response;
+	private String clientKey;
+	private String hash;
 }

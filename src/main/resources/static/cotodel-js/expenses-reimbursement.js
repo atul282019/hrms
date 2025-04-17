@@ -80,7 +80,7 @@ function getExpanceMasterMulti() {
 	});
 }
 
-function submitExpenseDraft(){
+async function submitExpenseDraft(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var expenseCategory=  document.getElementById("expenseCategory").value ;
@@ -182,7 +182,21 @@ function submitExpenseDraft(){
 	} catch (error) {
 	    console.error(error.message);
 	}
-		
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	    // Concatenate data (must match backend)
+	const dataString = employerId+expenseCategory+dateofExpense+expenseTitle+venderName+invoiceNumber+
+	currency+amount+modeofPayment+additionalRemark+employerId+clientKey+secretKey;
+	console.log("data string"+dataString); 
+	// Generate SHA-256 hash
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+			
 	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
@@ -224,7 +238,7 @@ function submitExpenseDraft(){
 	
 }
 
-function submitExpenseMultiple(){
+async function submitExpenseMultiple(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var empId= document.getElementById("empId").value; 
@@ -351,7 +365,21 @@ function submitExpenseMultiple(){
 	} catch (error) {
 	    console.error(error.message);
 	}
-		
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	// Concatenate data (must match backend)
+	const dataString = employerId+expenseCategory+dateofExpense+expenseTitle+venderName+invoiceNumber+
+	currency+amount+modeofPayment+additionalRemark+empId+clientKey+secretKey;
+	console.log("data string"+dataString); 
+	// Generate SHA-256 hash
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+				
 	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
@@ -369,6 +397,9 @@ function submitExpenseMultiple(){
 	
 	formData.append("fileInput",fileBase64);
 	formData.append("fileType",fileType);
+	
+	formData.append("clientKey",clientKey);
+	formData.append("hash",hashHex);
 	//document.getElementById("signinLoader").style.display="flex";
 	
 	 	$.ajax({
@@ -415,7 +446,7 @@ function submitExpenseMultiple(){
 	
 }
 
-function submitExpenseSingleDraft(){
+async function submitExpenseSingleDraft(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var empId= document.getElementById("empId").value; 
@@ -517,6 +548,21 @@ function submitExpenseSingleDraft(){
 	} catch (error) {
 	    console.error(error.message);
 	}
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	// Concatenate data (must match backend)
+		
+	const dataString = employerId+expenseCategory+dateofExpense+expenseTitle+venderName+invoiceNumber+
+	currency+amount+modeofPayment+additionalRemark+empId+clientKey+secretKey;
+	console.log("data string"+dataString); 
+	// Generate SHA-256 hash
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 		
 	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
@@ -532,11 +578,11 @@ function submitExpenseSingleDraft(){
 	formData.append("amount",amount);
 	formData.append("modeOfPayment",modeofPayment);
 	formData.append("remarks",additionalRemark);
-	
 	formData.append("fileInput",fileBase64);
 	formData.append("fileType",fileType);
 	
-	
+	formData.append("clientKey",clientKey);
+		formData.append("hash",hashHex);
 	//document.getElementById("signinLoader").style.display="flex";
 	
 	 	$.ajax({
@@ -565,7 +611,7 @@ function submitExpenseSingleDraft(){
 }
 
 
-function submitExpenseSingle(){
+async function submitExpenseSingle(){
 	
 	var employerId= document.getElementById("employerId").value;
 	var empId= document.getElementById("empId").value; 
@@ -692,8 +738,23 @@ function submitExpenseSingle(){
 	} catch (error) {
 	    console.error(error.message);
 	}
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	// Concatenate data (must match backend)
 		
+	const dataString = employerId+expenseCategory+dateofExpense+expenseTitle+venderName+invoiceNumber+
+	currency+amount+modeofPayment+additionalRemark+empId+clientKey+secretKey;
+	console.log("data string"+dataString); 
+	// Generate SHA-256 hash
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 	//console.log(cleanedBase64String);
+	
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",empId);
@@ -711,8 +772,8 @@ function submitExpenseSingle(){
 	formData.append("fileInput",fileBase64);
 	formData.append("fileType",fileType);
 	
-	
-	//document.getElementById("signinLoader").style.display="flex";
+	formData.append("clientKey",clientKey);
+	formData.append("hash",hashHex);
 	
 	 	$.ajax({
 		type: "POST",
@@ -803,7 +864,7 @@ function getExpanceCategoryList(){
 				{ "mData": "statusMessage"},
 				{ "mData": "modeOfPayment"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td> <div class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpance(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                    return '<td> <div class="d-flex align-items-center"> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button>  <button class="dropdown-item py-2" id="btnView" onclick="viewExpance(this)"> View</button> </div> </div> </div> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -866,8 +927,6 @@ function getExpanceCategoryList(){
 	});
 }
 
-
-
 function getExpanceCategoryApprovalList(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;
@@ -905,14 +964,123 @@ function getExpanceCategoryApprovalList(){
                // { "mData": "createationDate"},   
 			    { "mData": "expenseTitle"},   
 				   
-			 	{ "mData": "amount"},    
-			 	//{ "mData": function (data1, type, row) {
-			   //     return data1.currency + " " + data1.amount;
-			   // }},
+			 	//{ "mData": "amount"},    
+			 	{ "mData": function (data2, type, row) {
+			        return data2.currency + " " + data2.amount;
+			    }},
 				{ "mData": "statusMessage"},
 				{ "mData": "modeOfPayment"},        
-      		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td> <div  class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewExpanceApproval(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+      		  	{ "mData": "id", "render": function (data2, type, row) {
+                    return '<td> <div  class="d-flex align-items-center">  <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteExpance(this)" > Delete  </button><button class="dropdown-item py-2" id="btnView" onclick="viewExpanceApproval(this)"> View  </button> </div> </div> </div> </td>';
+                 }}, 
+    		 	],
+    		 	createdRow: function (row, data2, dataIndex) 
+                    {
+                     //console.log("row : "+JSON.stringify(data2));
+                   
+                 	var expenseCategory = data2.expenseCategory;
+                 	//var statusMessage = data2.statusMessage;
+                	
+                     if(expenseCategory=="Conveyance")
+                     {
+					 var imgTag = '<img src="img/taxi.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Miscellaneous")
+                     {
+					 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+expenseCategory;
+ 					
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                     if(expenseCategory=="Food")
+                     {
+						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+expenseCategory;
+	 					 $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                     if(expenseCategory=="Cash Advance")
+                     {
+					 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Travel")
+                     {
+					 var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+expenseCategory;
+ 					
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     if(expenseCategory=="Stay")
+                     {
+					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+expenseCategory;
+                      $(row).find('td:eq(2)').html(imgTag);
+                     }
+                     
+                  //   if(statusMessage=="Draft")
+                  //   {
+                  //    $(row).find('td:eq(6)').addClass('td-btn draft');
+                  //   }
+                  //   if(statusMessage=="Submitted")
+                  //   {
+                  //    $(row).find('td:eq(6)').addClass('td-btn submitted');
+                  //   }
+                  }
+      		});		
+			
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
+
+
+function getTravelExpenseApprovalList(){
+	document.getElementById("signinLoader").style.display="flex";
+	var employerid = document.getElementById("employerId").value;
+	var empId = document.getElementById("empId").value;
+	$.ajax({
+		type: "GET",
+		url: "/getTravelRequestApprovalList",
+		data: {
+			"employeeId": empId,
+			"employerId": employerid
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			console.log("Travel request data"+data1.data);
+			document.getElementById("signinLoader").style.display="none";
+			
+			var table = $('#tableCashAdvacceTravelApprovalFlow').DataTable( {
+	          destroy: true,	
+		     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+             "language": {"emptyTable": "No Data available"  },
+	        
+	         "aaData": data2,
+      		  "aoColumns": [ 
+				
+                { "mData": "id", "render": function (data2, type, row) {
+					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck4" name="customCheck4" ></div>';
+                 }}, 
+                { "mData": "sequenceId"},   
+				{ "mData": "requestType"},
+				//{ "mData": "createdDate"}, 
+				//{ "mData": "depratment"}, 
+               // { "mData": "createationDate"},   
+			   // { "mData": "expenseTitle"},   
+				   
+			 	//{ "mData": "amount"},    
+			 	{ "mData": function (data2, type, row) {
+			        return 'INR' + " " + data2.amount;
+			    }},
+				{ "mData": "statusRemarks"},
+				{ "mData": "modeOfPayment"},    
+				{ "mData": "approvedAmount"},     
+      		  	{ "mData": "id", "render": function (data2, type, row) {
+                    return '<td> <div  class="d-flex align-items-center">  <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><button class="dropdown-item py-2" id="btnView" onclick="viewExpanceApproval(this)"> View  </button> </div> </div> </div> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
@@ -1339,9 +1507,8 @@ function rejectExpenses(){
 		});
 }
 
-function saveTravelRequest(){
+async function saveTravelRequest(){
 	
-
 	var employerid = document.getElementById("employerId").value;
 	var empId = document.getElementById("empId").value;
 	var tavelByMode = document.getElementById("tavelByMode").value;
@@ -1358,7 +1525,23 @@ function saveTravelRequest(){
 	var travelAmountPayment = document.getElementById("travelAmountPayment").value;
 	var travelRemarks = document.getElementById("travelRemarks").value;
 	var employerName = document.getElementById("employerName").value;
-	document.getElementById("signinLoader").style.display="flex";				
+	document.getElementById("signinLoader").style.display="flex";			
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	// Concatenate data (must match backend)
+		
+	const dataString = employerid+empId+employerName+travelBookedBy+travelDate+travelDepartureFrom+travelArrivalTo+
+	travelTime+travelPreference+travelClass+travelAmountPayment+travelRemarks+clientKey+secretKey;
+	console.log("data string"+dataString); 
+	// Generate SHA-256 hash
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+			
 	$.ajax({
 		type: "POST",
 		url: "/cashAdvanceRequest",
@@ -1375,7 +1558,9 @@ function saveTravelRequest(){
 			"modeOfPayment":travelPreference,
 			"carrierDetails":travelClass,
 			"modeOfPayment":travelAmountPayment,
-			"remarks":travelRemarks,			
+			"remarks":travelRemarks,	
+			"clientKey":clientKey,
+			"hash":hashHex,			
 		},
 		success: function(data) {
 			newData = data;
@@ -1448,7 +1633,7 @@ function getCashAdvanceRequestList(){
 			    { "mData": "statusRemarks"},
 				{ "mData": "paymentMode"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td> <div  class="d-flex align-items-center"> <button class="btn-attach" id="btnView" onclick="viewAdvanceTravel(this)"> View <img src="img/attached.svg" alt=""> </button> <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><a class="dropdown-item py-2" href="#"> Download </a> </div> </div> </div> </td>';
+                    return '<td> <div  class="d-flex align-items-center"><div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><button class="dropdown-item py-2" id="btnView" onclick="viewAdvanceTravel(this)"> View </button> </div> </div> </div> </td>';
                  }}, 
     		 	],
 				createdRow: function (row, data2, dataIndex) 

@@ -200,6 +200,9 @@ function submitExpenseDraft(){
 	
 	formData.append("fileInput",fileBase64);
 	formData.append("fileType",fileType);
+	formData.append("clientKey",clientKey);
+	formData.append("hash",hashHex);
+			
 	//document.getElementById("signinLoader").style.display="flex";
 	
 	 	$.ajax({
@@ -224,7 +227,7 @@ function submitExpenseDraft(){
 	
 }
 
-function submitExpenseMultiple(){
+async function submitExpenseMultiple(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var expenseCategory=  document.getElementById("expenseCategory").value ;
@@ -328,6 +331,21 @@ function submitExpenseMultiple(){
 	}
 		
 	//console.log(cleanedBase64String);
+	const clientKey = "client-secret-key"; // Extra security measure
+	    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	    // Concatenate data (must match backend)
+
+		const dataString = employerId+employerId+expenseCategory+dateofExpense+expenseTitle+venderName+invoiceNumber+
+		currency+amount+modeofPayment+additionalRemark+fileBase64+fileType+clientKey+secretKey;
+		console.log("data string"+dataString); 
+	    // Generate SHA-256 hash
+	    const encoder = new TextEncoder();
+	    const data = encoder.encode(dataString);
+	    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	    const hashArray = Array.from(new Uint8Array(hashBuffer));
+	    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+				
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employerId);
@@ -344,6 +362,10 @@ function submitExpenseMultiple(){
 	
 	formData.append("fileInput",fileBase64);
 	formData.append("fileType",fileType);
+	
+	formData.append("clientKey",clientKey);
+	formData.append("hash",hashHex);
+		
 	//document.getElementById("signinLoader").style.display="flex";
 	
 	 	$.ajax({
@@ -368,7 +390,7 @@ function submitExpenseMultiple(){
 	
 }
 
-function submitExpenseSingleDraft(){
+async function submitExpenseSingleDraft(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var expenseCategory=  document.getElementById("expenseCategorySingle").value ;
@@ -488,7 +510,9 @@ function submitExpenseSingleDraft(){
 	formData.append("fileInput",fileBase64);
 	formData.append("fileType",fileType);
 	
-	
+	formData.append("clientKey",clientKey);
+	formData.append("hash",hashHex);
+		
 	//document.getElementById("signinLoader").style.display="flex";
 	
 	 	$.ajax({
@@ -517,7 +541,7 @@ function submitExpenseSingleDraft(){
 }
 
 
-function submitExpenseSingle(){
+async function submitExpenseSingle(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var expenseCategory=  document.getElementById("expenseCategorySingle").value ;
@@ -619,11 +643,26 @@ function submitExpenseSingle(){
 	    console.error(error.message);
 	}
 		
+	const clientKey = "client-secret-key"; // Extra security measure
+    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+
+	const dataString = employerId+employerId+expenseCategory+dateofExpense+expenseTitle+venderName+invoiceNumber+
+	currency+amount+modeofPayment+additionalRemark+fileBase64+fileType+clientKey+secretKey;
+	console.log("data string"+dataString); 
+    // Generate SHA-256 hash
+    const encoder = new TextEncoder();
+    const data = encoder.encode(dataString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+			
+
 	//console.log(cleanedBase64String);
 	var formData = new FormData(expenseReimbursement);
 	formData.append("employerId",employerId);
 	formData.append("employeeId",employerId);
-	//formData.append("employeeId",employeeId);
 	formData.append("expenseCategory",expenseCategory);
 	formData.append("dateOfExpense",dateofExpense);
 	formData.append("expenseTitle",expenseTitle);
@@ -633,10 +672,11 @@ function submitExpenseSingle(){
 	formData.append("amount",amount);
 	formData.append("modeOfPayment",modeofPayment);
 	formData.append("remarks",additionalRemark);
-	
+
 	formData.append("fileInput",fileBase64);
 	formData.append("fileType",fileType);
-	
+	formData.append("clientKey",clientKey);
+	formData.append("hash",hashHex);
 	
 	//document.getElementById("signinLoader").style.display="flex";
 	

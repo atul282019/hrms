@@ -75,13 +75,101 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String saveExpensesReimbursement(HttpServletRequest request,
 		 ExpensesReimbursementRequest expensesReimbursementRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
+	
+		///profileRes = expensesReimbursementService.saveExpensesReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
+		
 		String profileRes=null;
 		
-		profileRes = expensesReimbursementService.saveExpensesReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
+		String receivedHash = expensesReimbursementRequest.getHash();
+		 if (!CLIENT_KEY.equals(expensesReimbursementRequest.getClientKey())) {
+	          //  return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+
+
+	        // Ensure consistent concatenation
+	        String dataString = expensesReimbursementRequest.getEmployerId()+expensesReimbursementRequest.getExpenseCategory()
+	        +expensesReimbursementRequest.getDateOfExpense()+expensesReimbursementRequest.getExpenseTitle()+expensesReimbursementRequest.getVendorName()+
+	        expensesReimbursementRequest.getInvoiceNumber()+expensesReimbursementRequest.getCurrency()+expensesReimbursementRequest.getAmount()+expensesReimbursementRequest.getModeOfPayment()
+	        +expensesReimbursementRequest.getRemarks()+expensesReimbursementRequest.getEmployeeId()+CLIENT_KEY+SECRET_KEY;
+	        //+expensesReimbursementRequest.getFileInput()+expensesReimbursementRequest.getFileType()
+	       
+
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+
+			    ObjectMapper mapper = new ObjectMapper();
+			    
+			  if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			  
+			  String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1) && obj.getOrgid() == expensesReimbursementRequest.getEmployerId().intValue()) {
 		
-		  return profileRes;
-		  
-	}
+		try {
+			
+			profileRes = expensesReimbursementService.saveExpensesReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
+			
+          JSONObject apiJsonResponse = new JSONObject(profileRes);
+            
+            // Process API Response
+            if (apiJsonResponse.getBoolean("status")) {
+                responseMap.put("status", true);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }
+}
 
 	
 	@GetMapping(value = "/getExpanseReimbursement")
@@ -181,7 +269,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   
 	   return profileRes;
 	}
 	
@@ -593,8 +680,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	@PostMapping(value="/re-linkErupiaccount")
 	public @ResponseBody String relinkErupiaccount(HttpServletRequest request,
 			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
-	
-			String profileRes=null;
 			
 			String receivedHash = erupiLinkBankAccount.getHash();
 			 if (!CLIENT_KEY.equals(erupiLinkBankAccount.getClientKey())) {
@@ -725,9 +810,88 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String cashAdvanceRequest(HttpServletRequest request,
 			AdvanceTravelRequest advanceTravelRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
-		String profileRes=null;
+//		String profileRes=null;
+//		
+//		//profileRes = expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(),advanceTravelRequest);
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =  expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+//	
+
+		String receivedHash = advanceTravelRequest.getHash();
+		 if (!CLIENT_KEY.equals(advanceTravelRequest.getClientKey())) {
+	          //  return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+		 
+		// const dataString = empId+employerid+employerName+"Cash"+cashDate+
+		//			""+amount+cashCurrency+cashAmmount+cashModeOfPayment+cashRemark+clientKey+secretKey;
+		//			console.log("data string"+dataString); 
+	        // Ensure consistent concatenation
+	        String dataString = advanceTravelRequest.getUsername()
+	        +"Cash"+advanceTravelRequest.getCashDate()+advanceTravelRequest.getAmount()+advanceTravelRequest.getCurrency()+
+	        advanceTravelRequest.getAmount()+advanceTravelRequest.getModeOfPayment()+
+	        advanceTravelRequest.getRemarks()+CLIENT_KEY+SECRET_KEY;
+
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+			    ObjectMapper mapper = new ObjectMapper();
+			    
+			  if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			  
+			  String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1) && obj.getOrgid() == advanceTravelRequest.getEmployerId().intValue()) {
 		
-		//profileRes = expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(),advanceTravelRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
@@ -738,14 +902,38 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
-	
+			String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                    userReqEnc.getEncriptData(), 
+                    userReqEnc.getEncriptKey(), 
+                    applicationConstantConfig.apiSignaturePrivatePath
+            );
+
+            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+            
+            // Process API Response
+            if (apiJsonResponse.getBoolean("status")) {
+                responseMap.put("status", true);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }
+	  
 		  
 	}
 	
@@ -779,25 +967,125 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String travelAdvanceRequest(HttpServletRequest request,
 			@RequestBody TravelRequest travelRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 
-		String profileRes=null;
-		//profileRes = expensesReimbursementService.travelAdvanceRequest(tokengeneration.getToken(),travelRequest);	
+//		String profileRes=null;
+//		try {
+//			String json = EncryptionDecriptionUtil.convertToJson(travelRequest);
+//
+//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//			String encriptResponse =  expensesReimbursementService.travelAdvanceRequest(tokengeneration.getToken(), jsonObject);
+//
+//   
+//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   
+//	return profileRes;
+		
+		String receivedHash = travelRequest.getHash();
+		 if (!CLIENT_KEY.equals(travelRequest.getClientKey())) {
+	          //  return Map.of("isValid", false, "message", "Invalid client key");
+	        }
+		 
+		// const dataString = empId+employerid+employerName+"Cash"+cashDate+
+		//			""+amount+cashCurrency+cashAmmount+cashModeOfPayment+cashRemark+clientKey+secretKey;
+		//			console.log("data string"+dataString); 
+	        // Ensure consistent concatenation
+		
+	        String dataString = travelRequest.getEmployeeId()+travelRequest.getRequestType()+travelRequest.getEmployerId()
+	        +CLIENT_KEY+SECRET_KEY;
+
+	        // Compute hash
+	        String computedHash = null;
+			try {
+				computedHash = generateHash(dataString);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  boolean isValid = computedHash.equals(receivedHash);
+			    Map<String, Object> responseMap = new HashMap<>();
+			    ObjectMapper mapper = new ObjectMapper();
+			    
+			  if (!isValid) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Request Tempered");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			  
+			  String token = (String) session.getAttribute("hrms");
+			    
+			    if (token == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: No token found.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+			    // Validate Token
+			    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			    if (obj == null) {
+			        responseMap.put("status", false);
+			        responseMap.put("message", "Unauthorized: Invalid token.");
+			        try {
+			            return mapper.writeValueAsString(responseMap);
+			        } catch (JsonProcessingException e) {
+			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+			        }
+			    }
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1) && obj.getOrgid() == travelRequest.getEmployerId().intValue()) {
+		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(travelRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  expensesReimbursementService.travelAdvanceRequest(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
-	return profileRes;
+			String apiResponse = EncryptionDecriptionUtil.decriptResponse(
+                    userReqEnc.getEncriptData(), 
+                    userReqEnc.getEncriptKey(), 
+                    applicationConstantConfig.apiSignaturePrivatePath
+            );
+
+            JSONObject apiJsonResponse = new JSONObject(apiResponse);
+            
+            // Process API Response
+            if (apiJsonResponse.getBoolean("status")) {
+                responseMap.put("status", true);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }
+	  
 	}
 	
 	@GetMapping(value = "/getTravelReviewData")
@@ -1062,6 +1350,30 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = expensesReimbursementService.showLinkedAccAmount(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
+	
+	@GetMapping(value = "/getTravelRequestApprovalList")
+	public @ResponseBody String getTravelRequestApprovalList(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, AdvanceTravelRequest travelRequest) {
+		String profileRes = null;
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(travelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.getTravelRequestApprovalList(tokengeneration.getToken(), jsonObject);
 
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);

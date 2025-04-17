@@ -133,8 +133,35 @@ function resendOTP() {
 				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
                 $('#errorOtp').hide('slow');
-                document.getElementById("countdown").innerHTML = "00:60"; // Reset countdown
-                startCountdown(); // Restart the countdown logic
+               // document.getElementById("countdown").innerHTML = "00:60"; // Reset countdown
+               // startCountdown(); // Restart the countdown logic
+			   var timeleft = 60; // 3 minutes in seconds
+			   var downloadTimer = setInterval(function () {
+			       var minutes = Math.floor(timeleft / 60); // Calculate minutes
+			       var seconds = timeleft % 60; // Calculate remaining seconds
+
+			       // Update countdown display in "MM:SS" format
+			       document.getElementById("countdown").innerHTML = 
+			           (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+			           (seconds < 10 ? "0" + seconds : seconds);
+
+			       timeleft -= 1;
+				   localStorage.setItem("otpExpiryTime", Date.now() + seconds * 1000);   
+				   document.getElementById("optBtn").style.display = "none";
+				   document.getElementById("orderId").value = obj['orderId'];
+				   document.getElementById("verifyotpdiv").style.display = "block";
+
+			       if (timeleft < 0) {
+					clearInterval(downloadTimer);
+                       document.getElementById("countdown").innerHTML = " ";
+					document.getElementById("resendOTPText").style.display = "block";
+                    
+                       document.getElementById("optBtn").disabled = true;
+					document.getElementById("optBtn").style.display = "none";
+                       document.getElementById("verifyotpdiv").style.display = "none";
+			       }
+			   }, 1000); 
+
             } else {
                 $('#errorOtp').html(obj['msg']);
                 document.getElementById("resendOTPText").style.display = "block";
@@ -161,7 +188,7 @@ function startCountdown() {
             (seconds < 10 ? "0" + seconds : seconds);
 
         timeleft -= 1;
-
+		localStorage.setItem("otpExpiryTime", Date.now() + seconds * 1000); 
         if (timeleft < 0) {
             clearInterval(downloadTimer);
             document.getElementById("countdown").innerHTML = " ";
