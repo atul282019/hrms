@@ -1067,8 +1067,8 @@ function getTravelExpenseApprovalList(){
                  }}, 
                 { "mData": "sequenceId"},   
 				{ "mData": "requestType"},
-				//{ "mData": "createdDate"}, 
-				//{ "mData": "depratment"}, 
+				{ "mData": "name"}, 
+				{ "mData": "depratment"}, 
                // { "mData": "createationDate"},   
 			   // { "mData": "expenseTitle"},   
 				   
