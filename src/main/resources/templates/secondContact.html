@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Cotodel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+
+<body>
+	
+
+  <div class="main-section">
+	
+    <div class="left-section text-body" >
+		<a class="navbar-brand" href="home.html">
+						<img src="img/cotodel_aboutUs.webp" class="navbar-brand-item" alt="cotodel logo" fetchpriority="high">
+					</a><br>	
+      <h2>Contact Us</h2>
+      <p>Do you want to improve the way your business spends are being done? Want to discuss anything?</p>
+      <p>Cotodel is here to help!</p>
+      <a href="mailto:business@cotodel.com">business@cotodel.com</a>
+	 
+    </div>
+
+	
+  	
+		
+		<div class="right-section">
+			<nav class="navbar navbar-expand-lg navbar-light bg-white text-dark py-3" style="margin-top: -600px; ">
+					  <div class="container-fluid">
+					    
+					    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+					      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+					      <span class="navbar-toggler-icon"></span>
+					    </button>
+
+					    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+					      <ul class="navbar-nav ms-auto">
+					        <li class="nav-item">
+					          <a class="nav-link" href="/index">Home</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link active border-bottom border-success" href="#">Solutions</a>
+					        </li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
+		  <div class="image-overlap">
+		    <img src="img/women-similing-with-phone.webp" alt="Woman smiling with phone">
+		  </div>
+
+		  <!-- Inline Modal Content -->
+		  <div class="inline-modal-panel p-4 border rounded shadow-sm mt-4 bg-white custom-position" style="max-width: 450px; padding: 1.5rem; max-height: 700px;">
+		    <div class="modal-header border-0 py-1 pt-0">
+		      <h5 class="modal-title fw-bold">Cotodel Waitlist</h5>
+		      <!--<button type="button" class="btn-close" onclick="this.closest('.inline-modal-panel').style.display='none'"></button>-->
+		    </div>
+		    <div class="modal-body pt-0">
+		      <p class="text-muted mb-2">Get exclusive access to our expense management solution for your Business spends!</p>
+
+		      <form>
+		        <div class="mb-2">
+		          <input type="text" class="form-control" placeholder="Company Name" required>
+		        </div>
+
+		        <div class="mb-2">
+		          <label class="form-label">Company Size</label>
+		          <div class="border rounded p-3">
+		            <div class="form-check mb-2">
+		              <input class="form-check-input" type="radio" name="companySize" id="size1" checked>
+		              <label class="form-check-label" for="size1">Less than 100 Employees</label>
+		            </div>
+		            <div class="form-check mb-2">
+		              <input class="form-check-input" type="radio" name="companySize" id="size2">
+		              <label class="form-check-label" for="size2">100 to 500 Employees</label>
+		            </div>
+		            <div class="form-check">
+		              <input class="form-check-input" type="radio" name="companySize" id="size3">
+		              <label class="form-check-label" for="size3">More than 500 Employees</label>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="mb-2">
+		          <label class="form-label">Use-Case</label>
+		          <div class="border rounded p-3">
+		            <div class="form-check mb-2">
+		              <input class="form-check-input" type="radio" name="useCase" id="case1">
+		              <label class="form-check-label" for="case1">Fuel Expense & Fleet Management</label>
+		            </div>
+		            <div class="form-check mb-2">
+		              <input class="form-check-input" type="radio" name="useCase" id="case2">
+		              <label class="form-check-label" for="case2">Corporate Expense & Reimbursements</label>
+		            </div>
+		            <div class="mt-2">
+		              <input type="text" class="form-control" placeholder="Other">
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="row mb-2">
+		          <div class="col-12 col-md-6 mb-3 mb-md-0">
+		            <input type="text" class="form-control" placeholder="Contact Person Name" required>
+		          </div>
+		          <div class="col-12 col-md-6">
+		            <div class="input-group">
+		              <span class="input-group-text">+91</span>
+		              <input type="tel" class="form-control" placeholder="Phone number" required>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="mb-2">
+		          <input type="email" class="form-control" placeholder="Official Email ID" required>
+		        </div>
+
+		        <div class="form-check mb-2">
+		          <input class="form-check-input" type="checkbox" id="whatsappConsent">
+		          <label class="form-check-label" for="whatsappConsent">
+		            Connect with me on WhatsApp for onboarding
+		          </label>
+		        </div>
+
+		        <button type="submit" class="btn btn-success w-100 py-2">Submit</button>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+ 
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</body>
+<style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-section {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+    }
+
+	.left-section {
+	    background-color: #f8f9fa;
+	    color: #6c757d;
+	    flex: 1;
+	    padding: 2rem 3rem 0 3rem;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: flex-start;
+	    position: relative;
+	    z-index: 1;
+	  }
+
+	  .left-section h2 {
+	    font-weight: 700;
+	  }
+
+	  .left-section p {
+	    font-size: 1rem;
+	  }
+
+	  .left-section a {
+	    color: #007bff;
+	     text-decoration: underline;
+	  }
+
+   
+
+    .right-section {
+      flex: 1;
+      background: #fff;
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+    }
+	
+	.right-section nav {
+	  flex-shrink: 0;
+	}
+
+	.right-section .nav-link {
+	  padding: 0.5rem 1rem;
+	}
+
+	
+
+    .right-section h4 {
+      font-weight: 700;
+    }
+
+    .btn-green {
+      background-color: #2d8c4b;
+      color: white;
+    }
+
+    .btn-green:hover {
+      background-color: #256c3c;
+    }
+
+    .image-overlap {
+      position: absolute;
+      top: 55%;
+      left: 40%; 
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .image-overlap img {
+      max-width: 700px;
+      border-radius: 8px;
+    }
+  .border1
+  { 
+	margin-top: 17%;
+	text-align: left;
+	width: 90%; 
+	height: 160px;
+	border: 1px solid #dee2e6;
+	border-radius: 20px;
+	margin-right: auto; 
+	
+	padding-right:1rem 1.5rem;
+	padding-top: 20px;
+	padding-left: 25px;
+	padding-bottom: 20px;
+	
+  }
+  .custom-position {
+    position: absolute;
+   	top:350px;
+    left: 55%; /* adjust right-shift here */
+    transform: translateY(-50%);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .custom-position {
+      position: static;
+      transform: none;
+      left: auto;
+    }
+  }
+  .modal-sm {
+      max-width: 420px;
+    }
+
+    .modal-content input,
+    .modal-content .form-check {
+      font-size: 0.9rem;
+    }
+
+    .modal-content label {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .modal-body form > *:not(:last-child) {
+      margin-bottom: 0.75rem;
+    }
+	.right-navbar-wrapper {
+	  padding-right: 2rem; /* or increase for more shift */
+	}
+	
+	</style>
+</head>
+</html>

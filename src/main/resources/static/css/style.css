@@ -26358,19 +26358,16 @@ section.blogs-section{
   transition: ease-in-out 0.3s;
   width: 369;
 }
-.card-blog1{
-  border: 1px solid #EAF4EF;
+.card-blog1 {
+  border: 1px solid #BFDECC;
   border-radius: 15px;
-  padding: 1px;  
+  padding: 1px;
   margin: 10px;
   transition: ease-in-out 0.3s;
-  border-color: #BFDECC;
-  width:560px;
   height: 498px;
- 
-  
- 
+  width: 100%; /* Ensure card fits inside Bootstrap column */
 }
+
 
 .card-blog:hover{
   -webkit-box-shadow: 0px 0px 20px rgba(83, 88, 93, 0.15) !important;

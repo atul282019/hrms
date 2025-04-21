@@ -74,7 +74,31 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView policy(Model model) {
 		return new ModelAndView("policy", "command", "");
 	}	
+	@GetMapping(value="/firstContact")
+	public ModelAndView firstContact(Model model) {
+		return new ModelAndView("firstContact", "command", "");
+	}	
+	@GetMapping(value="/secondContact")
+	public ModelAndView secondContact(Model model) {
+		return new ModelAndView("secondContact", "command", "");
+	}
 	
+	@GetMapping(value="/newTransport&logistics")
+	public ModelAndView newTransportlogistics(Model model) {
+		return new ModelAndView("newTransport&logistics", "command", "");
+	} 
+	@GetMapping(value="/experience-upi-voucher")
+	public ModelAndView experienceupivoucher(Model model) {
+		return new ModelAndView("experience-upi-voucher", "command", "");
+	}
+	@GetMapping(value="/whatisErupi-blog1")
+	public ModelAndView whatisErupiblog1(Model model) {
+		return new ModelAndView("whatisErupi-blog1", "command", "");
+	}
+	@GetMapping(value="/whatisupiLite-blog2")
+	public ModelAndView whatisupiLiteblog2(Model model) {
+		return new ModelAndView("whatisupiLite-blog2", "command", "");
+	}
 	@GetMapping(value="/login")
 	public ModelAndView loginPage(Model model,@RequestParam(defaultValue = "") String code,
             @RequestParam(defaultValue = "") String vault_url,
