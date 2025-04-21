@@ -233,6 +233,18 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("whatisupiLite-blog2");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/upi123pay-blog3")){
+				RequestDispatcher rd = request.getRequestDispatcher("upi123pay-blog3");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/upicircle-blog4")){
+				RequestDispatcher rd = request.getRequestDispatcher("upicircle-blog4");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/expenseMgmtForCorporates")){
+				RequestDispatcher rd = request.getRequestDispatcher("expenseMgmtForCorporates");
+				rd.forward(request, response);
+			}
 			else if(requestURI.contains("/policy")){
 				RequestDispatcher rd = request.getRequestDispatcher("policy");
 				rd.forward(request, response);
