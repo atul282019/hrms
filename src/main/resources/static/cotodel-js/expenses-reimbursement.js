@@ -1080,7 +1080,7 @@ function getTravelExpenseApprovalList(){
 				{ "mData": "modeOfPayment"},    
 				{ "mData": "approvedAmount"},     
       		  	{ "mData": "id", "render": function (data2, type, row) {
-                    return '<td> <div  class="d-flex align-items-center">  <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><button class="dropdown-item py-2" id="btnView" onclick="viewExpanceApproval(this)"> View  </button> </div> </div> </div> </td>';
+                    return '<td> <div  class="d-flex align-items-center">  <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><button class="dropdown-item py-2" id="btnView" onclick="viewAdvanceTravelApprove(this)"> View  </button> </div> </div> </div> </td>';
                  }}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 

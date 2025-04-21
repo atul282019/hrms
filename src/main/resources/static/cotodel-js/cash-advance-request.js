@@ -1333,11 +1333,11 @@ function ReviewandSybmit(){
 		       console.log(data);
 			   var data1 = jQuery.parseJSON(data);
 				
-				var travelReimbursement = data1.data.travelReimbursement;
-				var mealReimbursement = data1.data.mealReimbursement;
-				var miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
-				var inCityCabReimbursement = data1.data.inCityCabReimbursement;
-				var accomodationReimbursement = data1.data.accomodationReimbursement;
+				//var travelReimbursement = data1.data.travelReimbursement;
+				//var mealReimbursement = data1.data.mealReimbursement;
+				// miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
+				//var inCityCabReimbursement = data1.data.inCityCabReimbursement;
+				//var accomodationReimbursement = data1.data.accomodationReimbursement;
 				document.getElementById("signinLoader").style.display="none";
 				
 				if(data1.status==true){
@@ -1896,7 +1896,7 @@ function viewAdvanceTravel(value){
 					//////////////////////////////////////////////////////
 					const tableBodyInCityCab = document.querySelector("#viewIncityCabOnly tbody");
 					tableBodyInCityCab.innerHTML = "";
-		            data1.data.accomodationReimbursement.forEach(item => {
+		            data1.data.inCityCabReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
 					      <td>
@@ -2192,7 +2192,7 @@ function viewAdvanceTravelApprove(value){
 		var empId = document.getElementById("empId").value;	
 		$.ajax({
 		type: "GET",
-		url: "/getCashAdvanceDetailById",
+		url: "/advanceTravelById",
 		data:{
 			"employeeId":empId,
 			"employerId":employerid,

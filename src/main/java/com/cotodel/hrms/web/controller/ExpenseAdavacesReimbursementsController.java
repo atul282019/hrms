@@ -1112,6 +1112,30 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	return profileRes;
 	}
 	
+	@GetMapping(value = "/advanceTravelById")
+	public @ResponseBody String advanceTravelById(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, TravelRequest advanceTravelRequest) {
+		String profileRes = null;
+		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.advanceTravelById(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
 	@PostMapping(value="/travelAdvanceRequestUpdate")
 	public @ResponseBody String travelAdvanceRequestUpdate(HttpServletRequest request,
 			@RequestBody TravelAdvanceRequestUpdate travelAdvanceRequestUpdate,BindingResult result, HttpSession session, ModelMap model,Locale locale) {

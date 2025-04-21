@@ -132,7 +132,7 @@ public interface CommonUtils {
 	public static String stagingWebhookSave = "http://13.234.119.146:8085/cashFree/Api/get/cashFreeOrderIdUpdate";
 	public static String viewcashFreePaymentOrderDetailList = "/cashFree/Api/get/cashFreeOrderIdList";
 	public static String getTravelRequestApprovalList ="/empService/Api/get/advanceTravelRequest";
-	
+	public static String getTravelRequestRequestById ="/empService/Api/get/advanceTravelById";
 	
 
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";

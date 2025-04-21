@@ -203,5 +203,10 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	public String getTravelRequestApprovalList(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTravelRequestApprovalList);
 	}
+
+	@Override
+	public String advanceTravelById(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTravelRequestRequestById);
+	}
 	
 }
