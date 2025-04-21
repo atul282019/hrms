@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.AdvanceTravelRequest;
+import com.cotodel.hrms.web.response.ApprovalTravelReimbursement;
 import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
@@ -1215,7 +1216,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 	@PostMapping(value = "/approveAdvanceTravelRequest")
 	public @ResponseBody String approveAdvanceTravelRequest(HttpServletRequest request, ModelMap model, Locale locale,
-			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
+			HttpSession session, ApprovalTravelReimbursement advanceTravelRequest) {
 		String profileRes = null;
 		//profileRes = expensesReimbursementService.approveAdvanceTravelRequest(tokengeneration.getToken(),advanceTravelRequest);
 

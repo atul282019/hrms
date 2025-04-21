@@ -62,7 +62,7 @@
 </head>
 	
 <body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),
-getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTravelApprovalList(),getTravelExpenseApprovalList()">
+getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApprovalList(),getTravelExpenseApprovalList()">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -225,8 +225,10 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 																<th>CATEGORY</th>
 																<!--<th>TITLE</th>-->
 																<th>AMOUNT</th>
+																<th>APPROVED AMOUNT</th>
 																<th>STATUS</th>
 																<th>MODE OF PAYMENT</th>
+																<th>APPROVED BY</th>
 																<th>ACTIONS</th>
 															</tr>
 														</thead>
@@ -359,6 +361,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
                                                     <th>STATUS</th>
                                                     <th>PAYMENT MODE</th>
 													<th>APPROVED AMOUNT</th>
+													<th>APPROVED BY</th>
                                                     <th>ACTIONS</th>
                                                 </tr>
                                             </thead>
@@ -1304,7 +1307,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 										<img src="img/save.svg" alt="">
 									</button>
 									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.name}">
+									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}">
 									<input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
 									<input type="hidden" class="form-input" id="expenseId" name="expenseId" >
 									
@@ -3995,7 +3998,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getCashAdvacceTrave
 						<div class="table-responsive-2">
 						
 						 <input type="hidden" class="border rounded px-2 py-1 w-full" placeholder="Approved Amount" id="approvalId" >
-											 					
+						 <input type="hidden" class="form-input" id="userName" name="userName" th:value="${session.username}">
 					   	 <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="approveCashAvance()">Approve</button>
 						 
 						 <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="rejectCashAvance()">Reject</button>

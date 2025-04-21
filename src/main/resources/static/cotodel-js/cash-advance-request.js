@@ -2080,7 +2080,7 @@ function closeView(){
 }
 
 
-
+/*
 function getCashAdvacceTravelApprovalList(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;
@@ -2177,7 +2177,7 @@ function getCashAdvacceTravelApprovalList(){
 		}
 	});
 }
-///////////////////////////////////////////////////////////////
+*////////////////////////////////////////////////////////////////
 
 
 
@@ -2616,7 +2616,7 @@ function approveCashAvance(){
 	
 		var employerid = document.getElementById("employerId").value;
 		var empId = document.getElementById("empId").value;
-		var employerName = document.getElementById("employerName").value;
+		var employerName = document.getElementById("userName").value;
 		var approveRemark = document.getElementById("approveRemark").value;
 		var approveAmount = document.getElementById("approveAmount").value;
         const id = document.getElementById("approvalId").value;  
@@ -2679,7 +2679,7 @@ function rejectCashAvance(){
 
 	var employerid = document.getElementById("employerId").value;
 	var empId = document.getElementById("empId").value;
-	var employerName = document.getElementById("employerName").value;
+	var employerName = document.getElementById("userName").value;
 	var approveRemark = document.getElementById("approveRemark").value;
 	var approveAmount = document.getElementById("approveAmount").value;
 	
