@@ -164,8 +164,8 @@
 		  } /* modal css*/
 		  custom-modal .modal-dialog {
 		  				      position: absolute;
-		  				      top: 20px;
-		  				      left: 463px;
+		  				      top: 80px;
+		  				      left: 50%; transform: translateX(-50%);
 		  				      max-width: unset;
 		  				      margin: 0;
 		  				    }
@@ -501,6 +501,30 @@
 								     </div>
 								   </div>
 								 </div>
+								 <!-- Modal1 -->
+								 <div class="modal fade custom-modal" id="demoModal1" tabindex="-1" aria-hidden="true">
+								 		   		   <div class="modal-dialog">
+								 		   		     <div class="modal-content">
+								 		   		       <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+								 		   		       <div class="modal-header-custom">
+								 		   		         <h5>Join the Waitlist</h5>
+								 		   		       </div>
+								 		   		       <p class="text-center">
+								 		   		         18 billion UPI transactions are happening every month!<br>
+								 		   		         Time to get your Business payments on UPI as well?
+								 		   		       </p>
+								 		   		       <div class="btn-group-custom">
+								 		   		         <button class="btn btn-success">
+								 		   		           Submit Details 
+								 		   		         </button>
+								 		   		         <span>OR</span>
+								 		   		         <button class="btn btn-success">
+								 		   		           Chat with Us <i class="bi bi-whatsapp ms-1"></i>
+								 		   		         </button>
+								 		   		       </div>
+								 		   		     </div>
+								 		   		   </div>
+								 		   		 </div>
 	 <script>
 	   let modalShown = false;
 
@@ -509,7 +533,7 @@
 	     const pageHeight = document.documentElement.scrollHeight;
 
 	     if (!modalShown && scrollPosition >= pageHeight / 2) {
-	       const demoModal = new bootstrap.Modal(document.getElementById('demoModal'));
+	       const demoModal = new bootstrap.Modal(document.getElementById('demoModal1'));
 	       demoModal.show();
 	       modalShown = true;
 	     }
