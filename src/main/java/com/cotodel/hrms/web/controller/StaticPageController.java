@@ -99,6 +99,19 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView whatisupiLiteblog2(Model model) {
 		return new ModelAndView("whatisupiLite-blog2", "command", "");
 	}
+	@GetMapping(value="/upi123pay-blog3")
+	public ModelAndView upi123payblog3(Model model) {
+		return new ModelAndView("upi123pay-blog3", "command", "");
+	}
+	
+	@GetMapping(value="/upicircle-blog4")
+	public ModelAndView upicircleblog4(Model model) {
+		return new ModelAndView("upicircle-blog4", "command", "");
+	}
+	@GetMapping(value="/expenseMgmtForCorporates")
+	public ModelAndView expenseMgmtForCorporates(Model model) {
+		return new ModelAndView("expenseMgmtForCorporates", "command", "");
+	}
 	@GetMapping(value="/login")
 	public ModelAndView loginPage(Model model,@RequestParam(defaultValue = "") String code,
             @RequestParam(defaultValue = "") String vault_url,
