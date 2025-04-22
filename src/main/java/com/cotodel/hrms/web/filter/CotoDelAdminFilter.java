@@ -221,8 +221,8 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("experience-upi-voucher");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/newTransport&logistics")){
-				RequestDispatcher rd = request.getRequestDispatcher("newTransport&logistics");
+			else if(requestURI.contains("/newTransportLogistics")){
+				RequestDispatcher rd = request.getRequestDispatcher("newTransportLogistics");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/whatisErupi-blog1")){
