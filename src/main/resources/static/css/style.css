@@ -1514,9 +1514,16 @@ progress {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    width: 49.33333333%;
+    width: 33.33333333%;
   }
 
+
+  .col-md-s {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 49.33333333%;
+  }
   .col-md-5 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;

@@ -478,29 +478,43 @@
   									
   									</footer>
 									<!-- Modal -->
-																		 <div class="modal fade custom-modal" id="demoModal" tabindex="-1" aria-hidden="true">
-																		   <div class="modal-dialog">
-																		     <div class="modal-content">
-																		       <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-																		       <div class="modal-header-custom">
-																		         <h5>Book a Demo</h5>
-																		       </div>
-																		       <p class="text-center">
-																		         18 billion UPI transactions are happening every month!<br>
-																		         Time to get your Business payments on UPI as well?
-																		       </p>
-																		       <div class="btn-group-custom">
-																		         <button class="btn btn-success">
-																		           Schedule Call <i class="bi bi-calendar ms-1"></i>
-																		         </button>
-																		         <span>OR</span>
-																		         <button class="btn btn-success">
-																		           Chat with Us <i class="bi bi-whatsapp ms-1"></i>
-																		         </button>
-																		       </div>
-																		     </div>
-																		   </div>
-																		 </div>
+								 <div class="modal fade custom-modal" id="demoModal" tabindex="-1" aria-hidden="true">
+								   <div class="modal-dialog">
+								     <div class="modal-content">
+								       <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+								       <div class="modal-header-custom">
+								         <h5>Book a Demo</h5>
+								       </div>
+								       <p class="text-center">
+								         18 billion UPI transactions are happening every month!<br>
+								         Time to get your Business payments on UPI as well?
+								       </p>
+								       <div class="btn-group-custom">
+								         <button class="btn btn-success">
+								           Schedule Call <i class="bi bi-calendar ms-1"></i>
+								         </button>
+								         <span>OR</span>
+								         <button class="btn btn-success">
+								           Chat with Us <i class="bi bi-whatsapp ms-1"></i>
+								         </button>
+								       </div>
+								     </div>
+								   </div>
+								 </div>
+	 <script>
+	   let modalShown = false;
+
+	   window.addEventListener("scroll", function () {
+	     const scrollPosition = window.scrollY + window.innerHeight;
+	     const pageHeight = document.documentElement.scrollHeight;
+
+	     if (!modalShown && scrollPosition >= pageHeight / 2) {
+	       const demoModal = new bootstrap.Modal(document.getElementById('demoModal'));
+	       demoModal.show();
+	       modalShown = true;
+	     }
+	   });
+	 </script>
 </body>
  
 </html>
