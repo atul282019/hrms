@@ -205,44 +205,44 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("webhook-callback");
 				rd.forward(request, response);
 			}
+//			else if(requestURI.contains("/contact")){
+//				RequestDispatcher rd = request.getRequestDispatcher("contact");
+//				rd.forward(request, response);
+//			}
 			else if(requestURI.contains("/contact")){
 				RequestDispatcher rd = request.getRequestDispatcher("contact");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/firstContact")){
-				RequestDispatcher rd = request.getRequestDispatcher("firstContact");
-				rd.forward(request, response);
-			}
-			else if(requestURI.contains("/secondContact")){
-				RequestDispatcher rd = request.getRequestDispatcher("secondContact");
+			else if(requestURI.contains("/waitlist")){
+				RequestDispatcher rd = request.getRequestDispatcher("waitlist");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/experience-upi-voucher")){
 				RequestDispatcher rd = request.getRequestDispatcher("experience-upi-voucher");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/newTransportLogistics")){
-				RequestDispatcher rd = request.getRequestDispatcher("newTransportLogistics");
+			else if(requestURI.contains("/fleetManagement")){
+				RequestDispatcher rd = request.getRequestDispatcher("fleetManagement");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/whatisErupi-blog1")){
-				RequestDispatcher rd = request.getRequestDispatcher("whatisErupi-blog1");
+			else if(requestURI.contains("/erupiBlog")){
+				RequestDispatcher rd = request.getRequestDispatcher("erupiBlog");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/whatisupiLite-blog2")){
-				RequestDispatcher rd = request.getRequestDispatcher("whatisupiLite-blog2");
+			else if(requestURI.contains("/upiLite")){
+				RequestDispatcher rd = request.getRequestDispatcher("upiLite");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/upi123pay-blog3")){
-				RequestDispatcher rd = request.getRequestDispatcher("upi123pay-blog3");
+			else if(requestURI.contains("/upiPay")){
+				RequestDispatcher rd = request.getRequestDispatcher("upiPay");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/upicircle-blog4")){
-				RequestDispatcher rd = request.getRequestDispatcher("upicircle-blog4");
+			else if(requestURI.contains("/upiCircle")){
+				RequestDispatcher rd = request.getRequestDispatcher("upiCircle");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/expenseMgmtForCorporates")){
-				RequestDispatcher rd = request.getRequestDispatcher("expenseMgmtForCorporates");
+			else if(requestURI.contains("/corporatesManagement")){
+				RequestDispatcher rd = request.getRequestDispatcher("corporatesManagement");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/policy")){

@@ -66,24 +66,24 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView directSignin(Model model) {
 		return new ModelAndView("signin", "command", "");
 	}	
-	@GetMapping(value="/contact")
-	public ModelAndView contact(Model model) {
-		return new ModelAndView("contact", "command", "");
-	}	
+//	@GetMapping(value="/contact")
+//	public ModelAndView contact(Model model) {
+//		return new ModelAndView("contact", "command", "");
+//	}	
 	@GetMapping(value="/policy")
 	public ModelAndView policy(Model model) {
 		return new ModelAndView("policy", "command", "");
 	}	
-	@GetMapping(value="/firstContact")
+	@GetMapping(value="/contact")
 	public ModelAndView firstContact(Model model) {
 		return new ModelAndView("firstContact", "command", "");
 	}	
-	@GetMapping(value="/secondContact")
+	@GetMapping(value="/waitlist")
 	public ModelAndView secondContact(Model model) {
 		return new ModelAndView("secondContact", "command", "");
 	}
 	
-	@GetMapping(value="/newTransportLogistics")
+	@GetMapping(value="/fleetManagement")
 	public ModelAndView newTransportlogistics(Model model) {
 		return new ModelAndView("newTransportLogistics", "command", "");
 	} 
@@ -91,24 +91,24 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView experienceupivoucher(Model model) {
 		return new ModelAndView("experience-upi-voucher", "command", "");
 	}
-	@GetMapping(value="/whatisErupi-blog1")
+	@GetMapping(value="/erupiBlog")
 	public ModelAndView whatisErupiblog1(Model model) {
 		return new ModelAndView("whatisErupi-blog1", "command", "");
 	}
-	@GetMapping(value="/whatisupiLite-blog2")
+	@GetMapping(value="/upiLite")
 	public ModelAndView whatisupiLiteblog2(Model model) {
 		return new ModelAndView("whatisupiLite-blog2", "command", "");
 	}
-	@GetMapping(value="/upi123pay-blog3")
+	@GetMapping(value="/upiPay")
 	public ModelAndView upi123payblog3(Model model) {
 		return new ModelAndView("upi123pay-blog3", "command", "");
 	}
 	
-	@GetMapping(value="/upicircle-blog4")
+	@GetMapping(value="/upiCircle")
 	public ModelAndView upicircleblog4(Model model) {
 		return new ModelAndView("upicircle-blog4", "command", "");
 	}
-	@GetMapping(value="/expenseMgmtForCorporates")
+	@GetMapping(value="/corporatesManagement")
 	public ModelAndView expenseMgmtForCorporates(Model model) {
 		return new ModelAndView("expenseMgmtForCorporates", "command", "");
 	}
