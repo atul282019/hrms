@@ -24,13 +24,13 @@ function saveWaitlistData() {
     var contactPerson = document.getElementById("contactPerson").value;
     var contactNumber = document.getElementById("mobno").value;
     var emailId = document.getElementById("emailId").value;
-	var eRupiStatus = document.getElementById("eRupiStatus").checked;
-    
+	//var eRupiStatus = document.getElementById("eRupiStatus").checked;
+	const whatsappConsent = document.getElementById("whatsappConsent").checked;
     var companySizeValue = companySize ? companySize.value : "";
     var industryValue = industry ? industry.value : "";
     
     // Validation Patterns
-    var companyNamePattern = /^[a-zA-Z0-9/ ]+$/; // Allows letters, numbers, spaces, and '/'
+  /*  var companyNamePattern = /^[a-zA-Z0-9/ ]+$/; // Allows letters, numbers, spaces, and '/'
     var namePattern = /^[a-zA-Z ]+$/; // Only allows letters and spaces
     var contactNumberPattern = /^[6-9]\d{9}$/; // Indian mobile number validation (10 digits, starts with 6-9)
     var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Standard email format
@@ -78,7 +78,8 @@ function saveWaitlistData() {
 	        return false;
 	    }
 		document.getElementById("signinLoader").style.display="flex";
-    $.ajax({
+   */
+		 $.ajax({
         type: "POST",
         url: "/userWaitList", // Backend API endpoint
         data: { 		
@@ -89,19 +90,23 @@ function saveWaitlistData() {
 		        "companySize": companySizeValue,
 		        "industry": industryValue,
 				
-				"erupistatus":eRupiStatus, 
+				//"erupistatus":eRupiStatus, 
 			},
 			
         success: function (response) {
-			document.getElementById("signinLoader").style.display="none";
+			//document.getElementById("signinLoader").style.display="none";
 			console.log(response);
 			const parseddata = JSON.parse(response);
 			//response.status=true;
             if (parseddata.status == true) {
-                $("#waitlistApproved").show(); 
+                $("#waitlistApproved").removeClass("d-none").show(); 
 				setTimeout(() => {
-		             window.location.href="/index";
-		         }, 400);
+				    if (whatsappConsent) {
+				        window.location.href = "https://wa.me/919910558848";
+				    } else {
+				        window.location.href = "/index";
+				    }
+				}, 400);
             } else {
                 alert("Error: " + parseddata.message);
             }

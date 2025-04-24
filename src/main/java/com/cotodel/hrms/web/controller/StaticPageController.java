@@ -95,16 +95,16 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView whatisErupiblog1(Model model) {
 		return new ModelAndView("whatisErupi-blog1", "command", "");
 	}
-	@GetMapping(value="/upiLite")
+	@GetMapping(value="/blogs/upilite")
 	public ModelAndView whatisupiLiteblog2(Model model) {
 		return new ModelAndView("whatisupiLite-blog2", "command", "");
 	}
-	@GetMapping(value="/upiPay")
+	@GetMapping(value="/blogs/upi123pay")
 	public ModelAndView upi123payblog3(Model model) {
 		return new ModelAndView("upi123pay-blog3", "command", "");
 	}
 	
-	@GetMapping(value="/upiCircle")
+	@GetMapping(value="/blogs/upicircle")
 	public ModelAndView upicircleblog4(Model model) {
 		return new ModelAndView("upicircle-blog4", "command", "");
 	}
