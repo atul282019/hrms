@@ -48,6 +48,7 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		boolean isStaticResourceImg = httpServletRequest.getRequestURI().contains("img/");
 		boolean isStaticResourceFiles = httpServletRequest.getRequestURI().contains("files/");
 		boolean isStaticResourcewebfonts = httpServletRequest.getRequestURI().contains("webfonts/");
+		boolean isStaticResourcewebfontsblog = httpServletRequest.getRequestURI().contains("/blogs");
 		
 		HttpSession session = httpServletRequest.getSession(false);
 		
@@ -74,7 +75,8 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		//logger.info("request uri-------------"+requestURI);
 		if(login==null){	
 			if( isStaticResourceImg || isStaticResource1 || isStaticResource2 || isStaticResource3 
-					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass || isStaticResourcewebfonts || isStaticResourceFiles) {
+					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass || isStaticResourcewebfonts || isStaticResourceFiles 
+					||isStaticResourcewebfontsblog) {
 						chain.doFilter(request, response);
 			}else if(requestURI.contains("/index")){
 				RequestDispatcher rd = request.getRequestDispatcher("index");
@@ -217,15 +219,15 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("waitlist");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/experience-upi-voucher")){
-				RequestDispatcher rd = request.getRequestDispatcher("experience-upi-voucher");
+			else if(requestURI.contains("/experienceupivoucher")){
+				RequestDispatcher rd = request.getRequestDispatcher("experienceupivoucher");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/fleetManagement")){
 				RequestDispatcher rd = request.getRequestDispatcher("fleetManagement");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/erupiBlog")){
+			else if(requestURI.contains("/blogs/erupiBlog")){
 				RequestDispatcher rd = request.getRequestDispatcher("erupiBlog");
 				rd.forward(request, response);
 			}

@@ -1,4 +1,53 @@
 User-agent: *
-Disallow: /admin/
-
+Disallow: /login
+Disallow: /FleetLogin
+Disallow: /dashboard
+Disallow: /dashboard1
+Disallow: /employeeDetails
+Disallow: /bulkInvite
+Disallow: /bulkupload
+Disallow: /bulkUserList
+Disallow: /manageEmployee
+Disallow: /employeeOnBoarding
+Disallow: /dashBoardNew
+Disallow:/companyDetailNew
+Disallow: /employeeOnboarding
+Disallow: /employeeOnboarding-full-action
+Disallow: /employeeProfile
+Disallow:/expanceTravel
+Disallow: /expenseReimbursements
+Disallow: /expenseReimbursementsCompany
+Disallow: /employeeBand
+Disallow: /employeeBandSetting
+Disallow: /bulkVoucherIssuance
+Disallow: /expenseReimbursementsNew
+Disallow: /displaybankMaster
+Disallow: /displayvoucherMaster
+Disallow: /bankMaster
+Disallow: /voucherTypeMaster
+Disallow: /editBankMaster
+Disallow: /linkBankDetail
+Disallow: /error
+Disallow: /roleAccess
+Disallow: /userVoucheCreation
+Disallow: /erupiDashboard
+Disallow: /ProfileInfo
+Disallow: /upiVoucherIssuanceNew
+Disallow: /reputeUpiVoucherIssuance
+Disallow: /upiVoucherIssuanceManually
+Disallow: /reputeUpiVoucherIssuanceManually
+Disallow: /requestedUpiVoucherIssuance
+Disallow: /issueWithBulkUploadVoucher
+Disallow: /editVoucherMaster
+Disallow: /settingOrganizationAccount
+Disallow: /requestVoucher
+Disallow: /directorOnboarding
+Disallow: /displayWaitlist
+Disallow: /deactiveEmployee
+Disallow: /payment
+Disallow: /cotodelApproval
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.json$
+# Sitemap URL
 Sitemap: https://www.cotodel.com/sitemap.xml

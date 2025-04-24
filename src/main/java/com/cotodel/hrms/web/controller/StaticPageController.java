@@ -87,11 +87,11 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView newTransportlogistics(Model model) {
 		return new ModelAndView("newTransportLogistics", "command", "");
 	} 
-	@GetMapping(value="/experience-upi-voucher")
+	@GetMapping(value="/experienceupivoucher")
 	public ModelAndView experienceupivoucher(Model model) {
 		return new ModelAndView("experience-upi-voucher", "command", "");
 	}
-	@GetMapping(value="/erupiBlog")
+	@GetMapping(value="/blogs/erupiBlog")
 	public ModelAndView whatisErupiblog1(Model model) {
 		return new ModelAndView("whatisErupi-blog1", "command", "");
 	}
