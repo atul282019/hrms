@@ -49,7 +49,8 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		boolean isStaticResourceFiles = httpServletRequest.getRequestURI().contains("files/");
 		boolean isStaticResourcewebfonts = httpServletRequest.getRequestURI().contains("webfonts/");
 		boolean isStaticResourcewebfontsblog = httpServletRequest.getRequestURI().contains("/blogs");
-		
+		boolean isStaticResourcewebfontssolutions = httpServletRequest.getRequestURI().contains("/solutions");
+
 		HttpSession session = httpServletRequest.getSession(false);
 		
 		
@@ -76,7 +77,7 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		if(login==null){	
 			if( isStaticResourceImg || isStaticResource1 || isStaticResource2 || isStaticResource3 
 					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass || isStaticResourcewebfonts || isStaticResourceFiles 
-					||isStaticResourcewebfontsblog) {
+					||isStaticResourcewebfontsblog || isStaticResourcewebfontssolutions) {
 						chain.doFilter(request, response);
 			}else if(requestURI.contains("/index")){
 				RequestDispatcher rd = request.getRequestDispatcher("index");
@@ -219,10 +220,11 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("waitlist");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/experienceupivoucher")){
+			else if(requestURI.contains("/upivoucher")){
 				RequestDispatcher rd = request.getRequestDispatcher("experienceupivoucher");
 				rd.forward(request, response);
 			}
+
 			else if(requestURI.contains("/fleetManagement")){
 				RequestDispatcher rd = request.getRequestDispatcher("fleetManagement");
 				rd.forward(request, response);
@@ -243,10 +245,11 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("upiCircle");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/corporatesManagement")){
+			else if(requestURI.contains("/solutions/corporateexpensemanagement")){
 				RequestDispatcher rd = request.getRequestDispatcher("corporatesManagement");
 				rd.forward(request, response);
 			}
+
 			else if(requestURI.contains("/policy")){
 				RequestDispatcher rd = request.getRequestDispatcher("policy");
 				rd.forward(request, response);
