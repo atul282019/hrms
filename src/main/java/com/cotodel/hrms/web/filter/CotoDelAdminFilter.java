@@ -231,15 +231,15 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("erupiBlog");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/upiLite")){
+			else if(requestURI.contains("/blogs/upilite")){
 				RequestDispatcher rd = request.getRequestDispatcher("upiLite");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/upiPay")){
+			else if(requestURI.contains("/blogs/upi123pay")){
 				RequestDispatcher rd = request.getRequestDispatcher("upiPay");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/upiCircle")){
+			else if(requestURI.contains("/blogs/upicircle")){
 				RequestDispatcher rd = request.getRequestDispatcher("upiCircle");
 				rd.forward(request, response);
 			}
