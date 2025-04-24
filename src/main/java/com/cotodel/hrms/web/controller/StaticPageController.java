@@ -1363,12 +1363,12 @@ public class StaticPageController extends CotoDelBaseController{
 			return new ModelAndView("cotodel-Waitlist", "command", "");
 		}	
 		
-		@GetMapping(value="/termsConditions")
+		@GetMapping(value="/termsconditions")
 		public ModelAndView termsConditions(Model model) {
 			return new ModelAndView("Termsconditions", "command", "");
 		}
 
-		@GetMapping(value="/refundPolicy")
+		@GetMapping(value="/refundpolicy")
 		public ModelAndView returnPolicy(Model model) {
 			return new ModelAndView("refund-policy", "command", "");
 		}
