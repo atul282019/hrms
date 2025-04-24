@@ -165,11 +165,11 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/termsconditions")){
-				RequestDispatcher rd = request.getRequestDispatcher("termsConditions");
+				RequestDispatcher rd = request.getRequestDispatcher("termsconditions");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/refundpolicy")){
-				RequestDispatcher rd = request.getRequestDispatcher("refundPolicy");
+				RequestDispatcher rd = request.getRequestDispatcher("refundpolicy");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/solutions")){
