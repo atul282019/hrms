@@ -196,6 +196,10 @@ h5,
   font-size: 1.09375rem;
 }
 
+.h51 {
+  font-size: 1.75rem;
+}
+
 h6,
 .h6 {
   font-size: 0.875rem;
@@ -4409,7 +4413,26 @@ fieldset:disabled .btn {
   --bs-btn-disabled-border-color: #d0d4d9;
 }
 
+
 .btn-success {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #2F945A;
+  --bs-btn-border-color: #2F945A;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #228e3b;
+  --bs-btn-hover-border-color: #208637;
+  --bs-btn-focus-shadow-rgb: 72, 180, 97;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #208637;
+  --bs-btn-active-border-color: #1e7d34;
+  --bs-btn-active-shadow: none;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #2F945A;
+  --bs-btn-disabled-border-color: #2F945A;
+}
+
+
+.btn-success-old {
   --bs-btn-color: #fff;
   --bs-btn-bg: #28a745;
   --bs-btn-border-color: #28a745;
@@ -26730,3 +26753,5 @@ section.faq-wrap {
         order: 2;
     }
 }
+
+
