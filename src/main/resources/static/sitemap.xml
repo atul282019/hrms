@@ -7,19 +7,24 @@
 <priority>1.00</priority>
 </url>
 <url>
-<loc>https://www.cotodel.com/upiLite</loc>
+<loc>https://www.cotodel.com/blogs/erupi</loc>
+<lastmod>2025-02-27T11:59:37+00:00</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://www.cotodel.com/blogs/upilite</loc>
 <lastmod>2025-02-27T11:59:37+00:00</lastmod>
 <priority>0.64</priority>
 </url>
 
 <url>
-<loc>https://www.cotodel.com/upiPay</loc>
+<loc>https://www.cotodel.com/blogs/upi123pay</loc>
 <lastmod>2025-02-27T11:59:37+00:00</lastmod>
 <priority>0.64</priority>
 </url>
 
 <url>
-<loc>https://www.cotodel.com/upiCircle</loc>
+<loc>https://www.cotodel.com/blogs/upicircle</loc>
 <lastmod>2025-02-27T11:59:37+00:00</lastmod>
 <priority>0.64</priority>
 </url>
