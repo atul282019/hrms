@@ -220,12 +220,16 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("waitlist");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/upivoucher")){
+			else if(requestURI.contains("/solutions/corporateexpensemanagement/upivoucher")){
+				RequestDispatcher rd = request.getRequestDispatcher("experienceupivoucher");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/solutions/fleetexpensemanagement/upivoucher")){
 				RequestDispatcher rd = request.getRequestDispatcher("experienceupivoucher");
 				rd.forward(request, response);
 			}
 
-			else if(requestURI.contains("/fleetManagement")){
+			else if(requestURI.contains("/solutions/fleetexpensemanagement")){
 				RequestDispatcher rd = request.getRequestDispatcher("fleetManagement");
 				rd.forward(request, response);
 			}
