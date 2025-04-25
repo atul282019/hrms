@@ -55,7 +55,25 @@
 
 
 <url>
-<loc>https://www.cotodel.com/experienceupivoucher</loc>
+<loc>https://cotodel.com/solutions/corporateexpensemanagement/upivoucher</loc>
+<lastmod>2025-02-27T11:59:37+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+
+<url>
+<loc>https://cotodel.com/solutions/corporateexpensemanagement</loc>
+<lastmod>2025-02-27T11:59:37+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+
+<url>
+<loc>https://cotodel.com/solutions/fleetexpensemanagement</loc>
+<lastmod>2025-02-27T11:59:37+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+
+<url>
+<loc>https://cotodel.com/solutions/fleetexpensemanagement/upivoucher</loc>
 <lastmod>2025-02-27T11:59:37+00:00</lastmod>
 <priority>0.80</priority>
 </url>
