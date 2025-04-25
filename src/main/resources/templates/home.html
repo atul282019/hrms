@@ -810,20 +810,43 @@ Header END -->
 																				<div class="col-12">
 																					<h2 class="h2-bold mb-4 color-prime-500"></h2>
 																					<h2 class="h2-bold mb-4 color-prime-500">Blogs</h2>
-																					<p class="title-2 color-secnd-500 mb-2">Thoughts from us & other industry leaders, providing actionable insights around payments and business spends! </p>
+																					<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+																					  <p class="title-2 color-secnd-500 m-0">
+																					    Thoughts from us & other industry leaders, providing actionable insights around payments and business spends!
+																					  </p>
+																					  <!-- arrow buttons for sliding-->
+																					  <div class="d-flex justify-content-end gap-2 mb-3">
+																					    <button class="blog-arrow-left btn p-2 border-0" >
+																					      <i class="bi bi-arrow-left" style="color: #C7C8D1; font-size: 1.2rem;"></i>
+																					    </button>
+																					    <button class="blog-arrow-right btn p-2 border-0" >
+																					      <i class="bi bi-arrow-right" style="color: #2F945A; font-size: 1.2rem;"></i>
+																					    </button>
+																					  </div>
+																				
+																					</div>
+																					
 																				</div>
-
+																				
+																				
 																				<div class="col-12">
+																					
 																					<div class="slider0 blogs-slider">
+																						
 																						<div>
+																							
 																							<div class="card-blog">
 																								<div class="card-blog-icon">
 																									<img src="img/blog11.webp" alt="">
 																								</div>
 																								<h4 class="title-2 fw-bold color-secnd-900 shift-right">eRUPI: What is it & How does it
-																								work?</h4>
-																								<p class="text-secnd-500 shift-right">Use UPI Vouchers for your digital purchases.
-																								Enjoy seamless and secure spending.</p><br>
+																								work?</h4><br>
+																								<p class="text-secnd-500 shift-right">UPI Digital Vouchers  for your Targeted Spends</p>
+																								<div class="d-flex gap-2 mb-2">
+																								          <span class="voucher-tag">UPI Digital Vouchers</span>
+																								          <span class="voucher-tag">Business Spends on UPI</span>
+																								        </div>
+																										<hr>
 																								<a href="/blogs/erupi" class="color-prime-500 shift-right" target="_blank">Read More <img class="ms-2"
 																										src="img/right-arrow.svg" alt=""></a>
 																							</div>
@@ -835,9 +858,13 @@ Header END -->
 																									<img src="img/blog22.webp" alt="">
 																								</div>
 																								<h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI Lite: What is it | How does it 
-work | Benefits</h4>
-																								<p class="text-secnd-500 shift-right">Egestas elit dui scelerisque ut eu purus aliquam vitae
-																									habitasse.</p><br>
+																																		work | Benefits</h4>
+																								<p class="text-secnd-500 shift-right">Small Transactions Made Easy Digitally</p>
+																								<div class="d-flex gap-2 mb-2">
+																							          <span class="voucher-tag">UPI</span>
+																							          <span class="voucher-tag">Digital Spends</span>
+																							        </div>
+																									<hr>
 																								<a href="/blogs/upilite" class="color-prime-500 shift-right" target="_blank">Read More <img class="ms-2"
 																										src="img/right-arrow.svg" alt=""></a>
 																							</div>
@@ -849,7 +876,12 @@ work | Benefits</h4>
 																									<img src="img/blog33.webp" alt="">
 																								</div>
 																								<h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI 123Pay: What is it | How does it work | Benefits</h4>
-																								<p class="text-secnd-500 shift-right">Empowering Digital Payments Without Internet or Smartphones</p><br>
+																								<p class="text-secnd-500 shift-right">Digital Payments Without Internet or Smartphones</p>
+																								<div class="d-flex gap-2 mb-2">
+																						          <span class="voucher-tag">UPI</span>
+																						          <span class="voucher-tag">Digital Spends</span>
+																						        </div>
+																								<hr>
 																								<a href="/blogs/upi123pay" class="color-prime-500 shift-right" target="_blank">Read More <img class="ms-2"
 																										src="img/right-arrow.svg" alt=""></a>
 																							</div>
@@ -861,7 +893,12 @@ work | Benefits</h4>
 																								<img src="img/blog44.webp" alt="">
 																							</div>
 																							<h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI Circle: What is it | How does it work | Benefits</h4>
-																							<p class="text-secnd-500 shift-right">Delegate payments effortlessly. Manage them securely with confidence.</p><br>
+																							<p class="text-secnd-500 shift-right">Delegate and manage payments securely</p>
+																							<div class="d-flex gap-2 mb-2">
+																					          <span class="voucher-tag">UPI</span>
+																					          <span class="voucher-tag">Digital Spends</span>
+																					        </div>
+																							<hr>
 																							<a href="/blogs/upicircle" class="color-prime-500 shift-right" target="_blank">Read More <img class=" ms-2"
 																									src="img/right-arrow.svg" alt=""></a>
 																						</div>
@@ -1028,12 +1065,21 @@ JS libraries, plugins and custom scripts -->
 	<script src="js/functions.js"></script>
 	<!-- Slick JS -->
 	<script src="js/slick.js"></script>
+<script>	$('.blog-arrow-left').click(function () {
+	  $('.blogs-slider').slick('slickPrev');
+	});
+
+	$('.blog-arrow-right').click(function () {
+	  $('.blogs-slider').slick('slickNext');
+	});
+</script>
 	<script>	document.getElementById('whatsappButton').addEventListener('click', function () {
 				window.open('https://wa.me/919910558848', '_blank'); // Open the URL in a new tab
 			});</script>
 	<style>	.footer-nav {
 				    display: flex;
 				    gap: 25px; /* Adjust spacing here */
+					 font-family: 'Open Sans', sans-serif;
 				  }
 				  .footer-nav a {
 				     color: white;
@@ -1065,6 +1111,26 @@ JS libraries, plugins and custom scripts -->
 					}
 					.card-blog a:hover {
 					  color: var(--bs-primary);
+					}
+					/**/
+					.voucher-tag {
+					  display: inline-block;
+					  background-color: #EDEDF0; /* Light grey tone */
+					  color: #4A4E69;            /* Dark bluish text */
+					  padding: 5px 12px;
+					  border-radius: 30px;
+					  font-size: 13px;
+					  font-weight: 500;
+					}
+					.btn-arrow {
+					  background: transparent;
+					  border: none;
+					  padding: 4px;
+					  cursor: pointer;
+					  transition: transform 0.2s ease;
+					}
+					.btn-arrow:hover {
+					  transform: scale(1.1);
 					}
 
 
@@ -1114,9 +1180,9 @@ JS libraries, plugins and custom scripts -->
 		});
 
 		$('.blogs-slider').slick({
-			slidesToShow: 4,
+			slidesToShow: 3,
 			slidesToScroll: 1,
-			autoplay: true,
+			autoplay: false,
 			autoplaySpeed: 2000,
 			lazyLoad: 'ondemand',
 			responsive: [
