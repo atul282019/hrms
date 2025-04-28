@@ -3,12 +3,22 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Refund Policy - Cotodel Technologies</title>
-	 
-	 <meta name="author" content="cotodel.com">
-	 <meta name="description" content="Business Payments on UPI">
+	<meta charset="UTF-8">
+	   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	   <title>Refund Policy - Cotodel Technologies</title>
+	<meta name="author" content="cotodel.com">
+	<meta name="description" content="Business Payments on UPI">
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="css/tiny-slider.css">
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	  <!-- Bootstrap Icons -->
+	  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 	 
 	 <!-- Google tag (gtag.js) -->
 	 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RE141954R"></script>
@@ -33,115 +43,85 @@
 	 	<!-- End Google Tag Manager (noscript) -->
 
 		
-	<style>
-	        body {
-	            font-family: 'Arial', sans-serif;
-	            font-size: 14px;
-	            margin: 0;
-	            padding: 20px;
-	            background-color: #f9f9f9;
-	            color: #333;
-	        }
-	        .container {
-	            max-width: 800px;
-	            margin: auto;
-	            background: #fff;
-	            padding: 20px;
-	            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	            border-radius: 8px;
-	        }
-	        h1, h2 {
-	            color: #222;
-	        }
-	        p {
-	            line-height: 1.6;
-	        }
-	        ul {
-	            padding-left: 20px;
-	        }
-	        .navbar {
-	            background-color: #fff;
-	            padding: 10px 20px;
-	            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	            display: flex;
-	            justify-content: flex-end;
-	            align-items: center;
-	        }
-	        .navbar .navbar-brand {
-	            margin-right: auto;
-	        }
-	        .navbar-nav {
-	            list-style: none;
-	            display: flex;
-	            gap: 20px;
-	        }
-	        .navbar-nav li {
-	            display: inline;
-	        }
-	        .navbar-nav a {
-	            text-decoration: none;
-	            color: #333;
-	            font-weight: bold;
-	        }
-			.last-add {
-					    background: #eaf4ef;
-					    color: #2f945a;
-					    
-						width: 100%;
-						height: 100%;
+		<style>
+				  /* Color styling for the highlighted text */
+				  .highlight {
+				      color: #2F945A; /* Black text for better readability on white */
+				      background: linear-gradient(to bottom, #ffffff, #BFDECC); /* White top, Green bottom */
+				      padding: 0.3em 0.6em;
+				      border-radius: 6px;
+				      display: inline-block;
+				    }
+					p {
+						font-family: 'Open Sans', sans-serif;
+							  font-weight: 400;
+							  font-size: 16px;
+							  line-height: 140%;
+							  letter-spacing: 0%;
 					}
-		.black
-				{
-					color: black;
-				}
-				.container h1 {
-				    color: #2f945a;
-				}
-	    </style>
+					ul {
+					  list-style-position: outside;
+					  padding-left: 20px; /* or a bit more if needed */
+					  margin-left: 0;
+					}
+
+					ul li {
+					  padding-left: 0;
+					  text-indent: 0;
+					}
+				</style>
 </head>
 <body>
-    <header class="navbar">
-        
-            <a class="navbar-brand" href="/">
-                <img src="img/Cotodel Logo.svg" class="navbar-brand-item" alt="">
-            </a>
-            <ul class="navbar-nav">
-                <li class="nav-item"> <a class="nav-link" href="/">Home</a></li>
-                
-            </ul>
-       
-    </header><br>
+	<nav class="navbar navbar-expand-lg navbar-light">
+	  <div class="container">
+			<a  href="/">
+			 <img src="img/Cotodel Logo.svg" class="navbar-brand-item" alt="cotodel logo" fetchpriority="high">
+		</a>
+	   
+	    <ul class="navbar-nav ms-auto ">
+	      <li class="nav-link "><a class="nav-link" href="/">Home</a></li>
+	    <!--  <li class="nav-link active border-bottom border-success "><a class="nav-link" href="#">Solutions</a></li>-->
+	    </ul>
+	  </div>	
+	</nav>
+	<header class="hero d-flex align-items-center  highlight">
+	   <div class="container">
+	     <div class="row align-items-center">
+	       <div class="col-md-6">
+	         <h1>
+	           <span >Terms & Conditions</span> 
+	         </h1>
+	         
+	         <div class="mt-3"> 
+			
+			<!--<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#demoModal">
+			     Book a Demo
+			   </button>-->
+	         </div>
+	       </div>
+	       <div class="col-md-6 d-none d-md-flex flex-column justify-content-end">
+	         <img src="img/Group 1707478017.webp" alt="Group 1707478019" class="img-fluid float-end">
+	       </div>
+		
+	   </div>
+	 </header><br>
+	
 	<div class="last-add">
     <div class="container">
-        <h1 >Refund Policy</h1>
-			<div class="black">
-		        <p><strong>Last updated on 03-02-2025 15:25:28</strong></p>
-		        <p> These terms and conditions constitute the refund policy of Cotodel Technologies Private 
-				Limited. </p>
-		        <p>	Thank you for showing your interest in our services and subscribing to our platform. If you 
-				are not happy or sure about your purchase, we are here to make it right.</p>
-		        
-		        <h2>Terms and Conditions for refund:</h2>
-		        <ul>
-		            <li> The business must file for refund within 24 hours from subscribing to our services on 
-					our platform.  </li>
-		            <li> If a customer is unsatisfied with the services, they must send a mail to our official 
-					company account at <a href="mailto:business@cotodel.com">business@cotodel.com</a> explaining the reason for the same. Our 
-					business support team will reach out to you at the earliest to address your refund 
-					query. </li>
-		            <li> If you want more information regarding our refund policy, please contact us at 
-					<a href="mailto:business@cotodel.com">business@cotodel.com</a>. We will revert to you within 3 business days and try to 
-					understand and solve your concern. </li>
-		          
-		        </ul>
-		        
-		        <h2></h2>
-		        <p>		We started with the objective to make your business spends as seamless as your personal 
-				payments and we would like to apologise in advance if for some reason we were unable to 
-				meet your expectations. Thank you for choosing Cotodel Technologies Private Limited!</p>
-		        
-		       
-		</div></div>
+       
+		<div class="black">
+		    <h5><strong>Last updated on 03-02-2025 15:25:28</strong></h5>
+		    <p>These terms and conditions constitute the refund policy of Cotodel Technologies Private Limited. Thank you for showing your interest in our services and subscribing to our platform. If you are not happy or sure about your purchase, we are here to make it right.</p>
+
+		    <h5><strong>Terms and Conditions for refund:</strong></h5>
+		    <ul>
+		        <li>The business must file for refund within 24 hours from subscribing to our services on our platform.</li>
+		        <li>If a customer is unsatisfied with the services, they must send a mail to our official company account at <a href="mailto:business@cotodel.com">business@cotodel.com</a> explaining the reason for the same. Our business support team will reach out to you at the earliest to address your refund query.</li>
+		        <li>If you want more information regarding our refund policy, please contact us at <a href="mailto:business@cotodel.com">business@cotodel.com</a>. We will revert to you within 3 business days and try to understand and solve your concern.</li>
+		    </ul>
+		</div>
+		<p>We started with the objective to make your business spends as seamless as your personal payments and we would like to apologise in advance if for some reason we were unable to meet your expectations. Thank you for choosing Cotodel Technologies Private Limited!</p>
+		      
     </div>
 	</div>
 </body>
