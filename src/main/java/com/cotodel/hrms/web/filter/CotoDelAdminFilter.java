@@ -200,6 +200,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("blogs");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/blogspage")){
+				RequestDispatcher rd = request.getRequestDispatcher("blogspage");
+				rd.forward(request, response);
+			}
 			else if(requestURI.contains("/whatsapp/send")){
 				RequestDispatcher rd = request.getRequestDispatcher("send");
 				rd.forward(request, response);

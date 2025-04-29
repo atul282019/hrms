@@ -99,6 +99,11 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView whatisErupiblog1(Model model) {
 		return new ModelAndView("whatisErupi-blog1", "command", "");
 	}
+	
+	@GetMapping(value="/blogspage")
+	public ModelAndView blogspage(Model model) {
+		return new ModelAndView("blogspage", "command", "");
+	}
 	@GetMapping(value="/blogs/upilite")
 	public ModelAndView whatisupiLiteblog2(Model model) {
 		return new ModelAndView("whatisupiLite-blog2", "command", "");

@@ -24696,7 +24696,7 @@ small,
 
 .pattern-overlay-1::after {
   content: "";
-  background: url(../images/bg/pattern/01.png);
+  /*background: url(../images/bg/pattern/01.png);*/
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24710,7 +24710,7 @@ small,
 
 .pattern-overlay-2::after {
   content: "";
-  background: url(../images/bg/pattern/02.png);
+  /*background: url(../images/bg/pattern/02.png);*/
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24724,7 +24724,7 @@ small,
 
 .pattern-overlay-3::after {
   content: "";
-  background: url(../images/bg/pattern/03.png);
+  /*background: url(../images/bg/pattern/03.png);*/
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24738,7 +24738,7 @@ small,
 
 .pattern-overlay-4::after {
   content: "";
-  background: url(../images/bg/pattern/04.png);
+  /*background: url(../images/bg/pattern/04.png);*/
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24752,7 +24752,7 @@ small,
 
 .pattern-overlay-5::after {
   content: "";
-  background: url(../images/bg/pattern/05.png);
+  /*background: url(../images/bg/pattern/05.png);*/
   background-position: center center;
   background-repeat: repeat;
   position: absolute;
@@ -24765,7 +24765,7 @@ small,
 
 .pattern-overlay-6::after {
   content: "";
-  background: url(../images/bg/pattern/06.png);
+  /*background: url(../images/bg/pattern/06.png);*/
   background-position: center center;
   background-repeat: repeat;
   position: absolute;
@@ -24778,7 +24778,7 @@ small,
 
 .pattern-overlay-7::after {
   content: "";
-  background: url(../images/bg/pattern/07.png);
+  /*background: url(../images/bg/pattern/07.png);*/
   background-position: center center;
   background-repeat: repeat;
   position: absolute;
@@ -24791,7 +24791,7 @@ small,
 
 .pattern-overlay-8::after {
   content: "";
-  background: url(../images/bg/pattern/08.png);
+  /*background: url(../images/bg/pattern/08.png);*/
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26410,6 +26410,7 @@ section.blogs-section{
   transition: ease-in-out 0.3s;
   height: 498px;
   width: 100%; /* Ensure card fits inside Bootstrap column */
+  position: relative;
 }
 
 
@@ -26767,6 +26768,15 @@ section.faq-wrap {
     .solution-content-wrapper {
         order: 2;
     }
+}
+.voucher-tag {
+  display: inline-block;
+  background-color: #EAF4EF; /* Light grey tone */
+  color: #2F945A;            /* Dark bluish text */
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 
