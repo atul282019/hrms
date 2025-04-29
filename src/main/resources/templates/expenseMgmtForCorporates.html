@@ -42,8 +42,9 @@
 	 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6GX7GDP"
 	 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	 	<!-- End Google Tag Manager (noscript) -->
-
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <style>
+	
 
 	p {
 		  color: #4A4E69;
@@ -98,18 +99,34 @@
       max-width: 100%;
       height: auto;
     }
-	.footer-nav {
-		    display: flex;
-		    gap: 25px; /* Adjust spacing here */
-		  }
-		  .footer-nav a {
-		     color: white;
-		     text-decoration: none; /* optional: removes underline */
-		   }
-		   .footer-contact p {
-		     color: white;
-		     margin: 0; /* Optional: remove default spacing */
-		   }
+	.social-icons a 
+			  {
+			    color: #fff;
+			    margin-left: 10px;
+			    font-size: 16px;
+			    margin-left: 4px;
+			     margin-right: 0;
+			  }
+			  .footer-nav {
+			  			    display: flex;
+			  			    gap: 25px; /* Adjust spacing here */
+			  				 font-family: 'Open Sans', sans-serif;
+			  				 color:#C7C8D1;
+			  			  }
+			  			  .footer-nav a {
+			  			     color: #C7C8D1;
+			  			     text-decoration: none; /* optional: removes underline */
+			  			   }
+			  			   .footer-contact p {
+			  			     color: white;
+			  			     margin: 0; /* Optional: remove default spacing */
+			  			   }
+			  			   .footer-contact p a:hover {
+			  			     color: white;
+			  			     text-decoration: none;
+			  			   }
+		   
+		   
 		   .custom-input-wrapper {
 		       max-width: 360px;
 		     }
@@ -232,7 +249,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
 		<a  href="/">
-			 <img src="img/Cotodel Logo.svg" class="navbar-brand-item" alt="cotodel logo" fetchpriority="high">
+			 <img src="img/Cotodel Logo.svg" class="navbar-brand-item" alt="Cotodel Business Payments logo" fetchpriority="high" title="Cotodel Business Payments logo">
 		</a>
      
       <ul class="navbar-nav ms-auto ">
@@ -260,7 +277,7 @@
           </div>
         </div>
         <div class="col-md-6 d-none d-md-flex flex-column justify-content-end">
-          <img src="img/Group 1707478019.webp" alt="Hero Image" class="img-fluid float-end">
+          <img src="img/Group 1707478019.webp" alt="Corporate expense management" class="img-fluid float-end" title="Shift your corporate spends on UPI with Cotodel">
         </div>
       </div>
     </div>
@@ -279,7 +296,7 @@
   
   <section class="container my-5" >
     <div class="d-flex justify-content-center">
-      <img src="img/mock-full.webp" alt="Centered Hero Image" class="img-fluid" style="max-width: 100%; height: auto;">
+      <img src="img/mock-full.webp" alt="UPI Digital voucher for Business spends" title="UPI Digital voucher for your Corporate expense management" class="img-fluid" style="max-width: 100%; height: auto;">
     </div>
   </section>
   
@@ -365,7 +382,8 @@
 		      <img src="img/women-centre.webp"
 		           class="img-fluid mt-md-n5 rounded-4 w-100"
 		           style="max-height: 820px; object-fit: cover; border-top-left-radius: 1rem; border-bottom-left-radius: 1rem;"
-		           alt="Hero Image">
+		           alt="How to issue & redeem a UPI Digital voucher for Business spends"
+				   title="UPI Digital voucher issuance & redemption for your Corporate expense management">
 		    </div>
       </div>
     </div>
@@ -382,26 +400,26 @@
       <div class="row g-4 justify-content-center align-items-stretch">
         <div class="col-12 col-sm-6 col-md-3">
           <div class="feature-card">
-  		 <img src="img/service-page-img1.svg" alt="service-page-img1" class="img-fluid" style="max-width: 100%;">
+  		 <img src="img/service-page-img1.svg" alt="Nationwide Discounts for Business" title="Get discounts on Business spends everytime" class="img-fluid" style="max-width: 100%;">
             <p>Nationwide Discounts</p>
   		
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-3">
           <div class="feature-card">
-            <img src="img/service-page-img2.svg" alt="Centered Hero Image" class="img-fluid" style="max-width: 100%;">
+            <img src="img/service-page-img2.svg" alt="Prevents Expense Theft & Fraud" title="Lock spends across categories which can only be redeemed at selected merchants" class="img-fluid" style="max-width: 100%;">
             <p>Prevents Expense Theft & Fraud</p>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-md-3">
           <div class="feature-card">
-            <img src="img/service-page-img3.svg" alt="service-page-img3" class="img-fluid" style="max-width: 100%;">
+            <img src="img/service-page-img3.svg" alt="Custom control for Business Owner" title="Control when & where your employees spend money on corporate payments" class="img-fluid" style="max-width: 100%;">
             <p>Custom control</p>
           </div>
         </div>
        <div class="col-12 col-sm-6 col-md-3">
           <div class="feature-card">
-           <img src="img/service-page-img4.svg" alt="service-page-img4" class="img-fluid" style="max-width: 100%;">
+           <img src="img/service-page-img4.svg" alt="Maximum visibility for Business" title="Complete visibility & transparency of all spends done by your employees" class="img-fluid" style="max-width: 100%;">
             <p>Maximum visibility</p>
           </div>
         </div>
@@ -424,6 +442,10 @@
  
 	   </section>
 	   <section class="faq-wrap" id="FAQs">
+		<!-- 				A - FAQs for Corporate expense management
+		T - Q&A for everything related to UPI Digital vouchers for Corporate expense management
+						use this for images in faq section
+					-->
 	   	   												<div class="container">
 	   	   													<div class="row">
 	   	   														<h2 class="h2-bold color-prime-500">FAQs</h2>
@@ -625,65 +647,67 @@
 	   	   														</div>
 	   	   													</div>
 	   	   											</section>
-	   <footer class="custom-footer">
-	   																	  <div class="container">
-	   																	    <!-- Top navigation -->
-	   																	    <div class="d-flex flex-wrap justify-content-start align-items-center footer-top">
-																			<a  href="/">
-																			 <img src="img/Cotodel Logo_Footer.svg" alt="Cotodel" class="footer-logo me-4">
-																			 </a>
-	   																	    </div>
-	   																	    <br>
+													<footer class="custom-footer">
+																														  <div class="container">
+																														    <!-- Top navigation -->
+																														    <div class="d-flex flex-wrap justify-content-start align-items-center footer-top">
+																																<a  href="/">
+																																<img src="img/Cotodel Logo_Footer.svg" alt="Cotodel" class="footer-logo me-4">
+																																</a>
+																															</div>
+																														    <br>
 
-	   																	    <nav class="footer-nav text-white">
-	   																	      <a href="/">Home</a>
-	   																	      <a href="/solutions/fleetexpensemanagement" target="_blank">Solutions</a>
-																			  <a href="https://cotodel.com/#Blogs">Blogs</a>
-																		      <a href="https://cotodel.com/#About">About Us</a>
-	   																	      <a href="/contact" target="_blank">Contact Us</a>
-	   																	    </nav>
+																														    <nav class="footer-nav text-white">
+																														      <a href="/">Home</a>
+																														      <a href="/solutions/fleetexpensemanagement" target="_blank">Solutions</a>
+																														      <a href="/blogs" target="_blank">Blogs</a>
+																														      <a href="/about" target="_blank">About Us</a>
+																														      <a href="/contact" target="_blank">Contact Us</a>
+																														    </nav>
 
-	   																	    <!-- Contact info -->
-	   																	    <div class="footer-contact mt-4 mb-2 d-flex justify-content-start gap-5 flex-wrap">
-	   																	      <div>
-	   																	        <span class="footer-heading">ADDRESS</span>
-	   																	        <p>WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
-	   																	      </div>
-	   																	      <div>
-	   																	        <span class="footer-heading">EMAIL</span>
-	   																	        <p>business@cotodel.com</p>
-	   																	      </div>
-	   																	    </div>
+																														    <!-- Contact info -->
+																														    <div class="footer-contact mt-4 mb-2 d-flex justify-content-start gap-5 flex-wrap">
+																														      <div>
+																														        <span class="footer-heading">ADDRESS</span>
+																														        <p>WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
+																														      </div>
+																														      <div>
+																														        <span class="footer-heading">EMAIL</span>
+																														        <p><a href="mailto:business@cotodel.com">business@cotodel.com</a></p>
+																														      </div>
+																														    </div>
 
-	   																	    <hr class="bg-secondary m-0">
-	   																	    <br>
+																														    <hr class="bg-secondary m-0">
+																														    <br>
 
-	   																	    <div class="row footer-bottom align-items-center text-white gy-2">
-	   																	      <div class="col-12 col-md-6 text-center text-md-start">
-	   																	     	
-	   																			<nav class="footer-nav">
-	   																		    <span class="footer-heading"> © 2025 Cotodel - All rights reserved </span>
-	   																			 <a href="/termsconditions" class="footer-heading" target="_blank">Terms & Conditions</a>
-	   																			<a href="/refundpolicy" class="footer-heading" target="_blank">Refund Policy</a>
-	   																	
-	   																		    </nav>														      
-	   																		 </div>
+																														    <div class="row footer-bottom align-items-center text-white gy-2">
+																														      <div class="col-12 col-md-6 text-center text-md-start">
+																														     	
+																																<nav class="footer-nav">
+																															    <span class="footer-heading"> © 2025 Cotodel - All rights reserved </span>
+																																 <a href="/termsconditions" class="footer-heading" target="_blank">Terms & Conditions</a>
+																																<a href="/refundpolicy" class="footer-heading" target="_blank">Refund Policy</a>
+																														
+																															    </nav>														      
+																															 </div>
 
-	   																	      <div class="col-12 col-md-2 text-center">
-	   																	      </div>
+																														      <div class="col-12 col-md-2 text-center">
+																														      </div>
 
-	   																	      <div class="col-12 col-md-4 text-center text-md-end d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center">
-	   																	          <div class="social-icons d-flex gap-1">
-	   																	          <a href="https://www.linkedin.com/company/cotodel/" target="_blank"><i class="fab fa-linkedin"></i></a>
-	   																	          <a href="https://www.instagram.com/cotodelsolutions/" target="_blank"><i class="fab fa-instagram"></i></a>
-	   																	          <a href="https://www.youtube.com/@Cotodel" target="_blank"><i class="fab fa-youtube"></i></a>
-	   																	          <a href="https://twitter.com/CotodelSolution" target="_blank"><i class="fab fa-x-twitter"></i></a>
-	   																	          <a href="https://www.facebook.com/profile.php?id=61555427067314" target="_blank"><i class="fab fa-facebook-f"></i></a>
-	   																	        </div>
-	   																	      </div>
-	   																	    </div>
-	   																	  </div>
-	   																	</footer>
+																														      <div class="col-12 col-md-4 text-center text-md-end d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center">
+																														          <div class="social-icons d-flex gap-3">
+																														          <a href="https://www.linkedin.com/company/cotodel/" target="_blank" title="Linkedin channel for Cotodel - Business Payments on UPI"><i class="fab fa-linkedin"></i></a>
+																														          <a href="https://www.instagram.com/cotodelsolutions/" target="_blank" title="Instagram channel for Cotodel - Business Payments on UPI"><i class="fab fa-instagram"></i></a>
+																														          <a href="https://www.youtube.com/@Cotodel" target="_blank" title="YouTube channel for Cotodel - Business Payments on UPI"><i class="fab fa-youtube"></i></a>
+																																  <a href="https://twitter.com/CotodelSolution" target="_blank" title="X/Twitter channel for Cotodel - Business Payments on UPI">
+																																    <i class="bi bi-twitter-x"></i>
+																																  </a>
+																														          <a href="https://www.facebook.com/profile.php?id=61555427067314" target="_blank" title="Facebook channel for Cotodel - Business Payments on UPI"><i class="fab fa-facebook-f"></i></a>
+																														        </div>
+																														      </div>
+																														    </div>
+																														  </div>
+																														</footer>
 									<!-- Modal -->
 								 <div class="modal fade custom-modal" id="demoModal" tabindex="-1" aria-hidden="true">
 								   <div class="modal-dialog">

@@ -160,6 +160,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("captcha");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/nointernet")){
+				RequestDispatcher rd = request.getRequestDispatcher("nointernet");
+				rd.forward(request, response);
+			}
 			else if(requestURI.contains("/waitList")){
 				RequestDispatcher rd = request.getRequestDispatcher("waitList");
 				rd.forward(request, response);
@@ -196,11 +200,11 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("consulting");
 				rd.forward(request, response);
 			}
+//			else if(requestURI.contains("/blogs")){
+//				RequestDispatcher rd = request.getRequestDispatcher("blogs");
+//				rd.forward(request, response);
+//			}
 			else if(requestURI.contains("/blogs")){
-				RequestDispatcher rd = request.getRequestDispatcher("blogs");
-				rd.forward(request, response);
-			}
-			else if(requestURI.contains("/blogspage")){
 				RequestDispatcher rd = request.getRequestDispatcher("blogspage");
 				rd.forward(request, response);
 			}

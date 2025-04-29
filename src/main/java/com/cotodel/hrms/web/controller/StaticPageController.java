@@ -50,10 +50,10 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView soultions(Model model) {
 		return new ModelAndView("solutions", "command", "");
 	}	
-	@GetMapping(value="/blogs")
-	public ModelAndView blogs(Model model) {
-		return new ModelAndView("blogs", "command", "");
-	}	
+//	@GetMapping(value="/blogs")
+//	public ModelAndView blogs(Model model) {
+//		return new ModelAndView("blogs", "command", "");
+//	}	
 	@GetMapping(value="/about")
 	public ModelAndView about(Model model) {
 		return new ModelAndView("about", "command", "");
@@ -100,9 +100,13 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("whatisErupi-blog1", "command", "");
 	}
 	
-	@GetMapping(value="/blogspage")
+	@GetMapping(value="/blogs")
 	public ModelAndView blogspage(Model model) {
 		return new ModelAndView("blogspage", "command", "");
+	}
+	@GetMapping(value="/nointernet")
+	public ModelAndView nointernet(Model model) {
+		return new ModelAndView("nointernet", "command", "");
 	}
 	@GetMapping(value="/blogs/upilite")
 	public ModelAndView whatisupiLiteblog2(Model model) {

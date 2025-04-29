@@ -3,13 +3,14 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-	<title>Cotodel - Business Payments</title>
+	<title>Blogs on UPI, Business & Fleet expense management by Cotodel</title>
 	<!-- Meta Tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="author" content="cotodel.com">
-	<meta name="description" content="Business Payments on UPI">
-
+	<meta name="description" content="Actionable insights & articles on payments, business spends & expense management">
+	<meta name="keyword" content="Business expense management, Fleet expense management, Expense solution for business, UPI Digital vouchers, UPI, NPCI">
+	  
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="img/favicon.png">
 	<!-- Google Font -->
@@ -22,7 +23,7 @@
 		rel="stylesheet">
 		
 
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 	<!-- Plugins CSS -->
 	<link rel="stylesheet" type="text/css" href="css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-icons.css">
@@ -83,19 +84,32 @@
 													      color: #86889B;
 													      font-size: 18px;
 													  }
-													  .footer-nav {
-													  				    display: flex;
-													  				    gap: 25px; /* Adjust spacing here */
-													  					 font-family: 'Open Sans', sans-serif;
-													  				  }
-													  				  .footer-nav a {
-													  				     color: white;
-													  				     text-decoration: none; /* optional: removes underline */
-													  				   }
-													  				   .footer-contact p {
-													  				     color: white;
-													  				     margin: 0; /* Optional: remove default spacing */
-													  				   }
+													  .social-icons a 
+													  		  {
+													  		    color: #fff;
+													  		    margin-left: 10px;
+													  		    font-size: 16px;
+													  		    margin-left: 4px;
+													  		     margin-right: 0;
+													  		  }
+													  		  .footer-nav {
+													  		  			    display: flex;
+													  		  			    gap: 25px; /* Adjust spacing here */
+													  		  				 font-family: 'Open Sans', sans-serif;
+													  		  				 color:#C7C8D1;
+													  		  			  }
+													  		  			  .footer-nav a {
+													  		  			     color: #C7C8D1;
+													  		  			     text-decoration: none; /* optional: removes underline */
+													  		  			   }
+													  		  			   .footer-contact p {
+													  		  			     color: white;
+													  		  			     margin: 0; /* Optional: remove default spacing */
+													  		  			   }
+													  		  			   .footer-contact p a:hover {
+													  		  			     color: white;
+													  		  			     text-decoration: none;
+													  		  			   }
 													  				   @media (max-width: 768px) {
 													  				     .footer-bottom > div {
 													  				       text-align: center !important;
@@ -105,13 +119,7 @@
 													  				       margin: 5px 0;
 													  				     }
 													  				   }
-													  				   .social-icons a {
-													  					  color: #fff;
-													  					  margin-left: 10px;
-													  					  font-size: 16px;
-													  					  margin-left: 4px;
-													  					   margin-right: 0;
-													  					}
+													  				   
 	</style>
 	
 	<!-- Google tag (gtag.js) -->
@@ -145,7 +153,7 @@
 			<div class="container">
 				<!-- Logo START -->
 				<a class="navbar-brand" href="/">
-					<img src="img/Cotodel Logo.svg" class="navbar-brand-item" alt="cotodel logo" fetchpriority="high">
+					<img src="img/Cotodel Logo.svg" class="navbar-brand-item" alt="Cotodel Business Payments logo" title="Cotodel Business Payments logo" fetchpriority="high">
 				</a>
 				<!-- Logo END -->
 				<!-- Responsive navbar toggler -->
@@ -193,9 +201,9 @@ Header END -->
 				<li class="nav-item"> <a class="nav-link text-body" href="/faqs">FAQs</a> </li>
 				<!-- <li class="nav-item"> <a class="nav-link text-body" href="#Blogs">Blogs</a> </li> -->
 			</ul>
-			<div class="mt-auto mb-5">
+			<!--<div class="mt-auto mb-5">
 				<a href="#" class="font-heading text-white text-primary-hover"><img src="img/envelopesimple.svg" alt="" class="me-2">business@cotodel.com</a>
-			</div>
+			</div>-->
 			<!-- Offcanvas inner END -->
 		</div>
 	</div>
@@ -221,6 +229,9 @@ Header END -->
 		<section class="latest-blogs py-5" id="Blogstop">
 		  <div class="container">
 		    <h2 class="mb-4 text-primary fw-bold">Latest Blogs</h2>
+			<p class="text-secnd-900 color-secnd-900 mt-3 mb-2 mb-lg-5">
+			    Thoughts from us & other industry leaders, providing actionable insights around payments and business spends!
+			  </p>
 
 		    <div class="row align-items-center">
 		      <div class="col-md-6">
@@ -232,7 +243,7 @@ Header END -->
 		            <img src="img/blogpageimg01.png" alt="blogpageimg01" width="555px" height="400px">
 		          </div>
 		        </div>-->
-				<img src="img/blogpageimg01.png" alt="blogpageimg01" class="img-fluid w-100 h-100 object-fit-cover">
+				<img src="img/blogpageimg01.png" alt="What is eRUPI (blog)" title="eRUPI - How does it work & Benefits" class="img-fluid w-100 h-100 object-fit-cover">
 		      </div>
 
 		      <div class="col-md-6 move-up">
@@ -258,7 +269,7 @@ Header END -->
 		          <span>3 min read</span>
 		        </div>
 
-		        <a href="#" class="text-primary fw-bold">View More →</a>
+		        <a href="#" class="text-primary fw-bold">Read More </a>
 				<!-- Arrows -->
   		    <div class="d-flex justify-content-end mt-4 gap-3">
   				<button class="blog-arrow-left btn p-2 border-0" >
@@ -281,14 +292,14 @@ Header END -->
 		    <div class="row">
 		      <div class="col-12">
 				
-				<h2 class="h2-bold mb-4 color-prime-500">Blogs</h2>
-		       <!--  <p class="title-2 color-secnd-500 m-0 mb-4">
+				 <!-- <h2 class="h2-bold mb-4 color-prime-500">Blogs</h2>
+		       <p class="title-2 color-secnd-500 m-0 mb-4">
 		          Thoughts from us & other industry leaders, providing actionable insights around payments and business spends!
 		        </p>-->
 		      </div>
 
 		      <!-- Each Blog Card -->
-		      <div class="col-md-4 mb-4">
+		      <!--<div class="col-md-4 mb-4">
 		        <div class="card-blog shift-right">
 		          <div class="card-blog-icon">
 		            <img src="img/blog11.webp" alt="eRpui Blog">
@@ -311,7 +322,7 @@ Header END -->
 				  		        </div>
 		          <a href="/blogs/erupi" class="color-prime-500 shift-right" target="_blank">Read More <img class="ms-2" src="img/right-arrow.svg" alt=""></a>
 		        </div>
-		      </div>
+		      </div>-->
 
 		      <!-- Repeat .col-md-4 for each blog card -->
 		      <!-- It will automatically create new rows after every 3 cards -->
@@ -319,7 +330,7 @@ Header END -->
 			  <div class="col-md-4 mb-4">
 			  				<div class="card-blog">
 			  				<div class="card-blog-icon">
-			  					<img src="img/blog22.webp" alt=" UPI Lite">
+			  					<img src="img/blog22.webp" alt="What is UPI Lite (blog)" title="UPI Lite - How does it work & Benefits">
 			  				</div>
 			  				<h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI Lite: What is it | How does it 
 			  														work | Benefits</h4>
@@ -338,15 +349,14 @@ Header END -->
 					  		          <span class="mx-2">•</span>
 					  		          <span>3 min read</span>
 					  		        </div>
-			  				<a href="/blogs/upilite" class="color-prime-500 shift-right" target="_blank">Read More <img class="ms-2"
-			  						src="img/right-arrow.svg" alt=""></a>
+			  				<a href="/blogs/upilite" class="color-prime-500 shift-right" target="_blank">Read More </a>
 			  			</div>
 			  		      </div>
 
 		      <div class="col-md-4 mb-4">
 				<div class="card-blog">
 			<div class="card-blog-icon">
-				<img src="img/blog33.webp" alt="UPI 123Pay">
+				<img src="img/blog33.webp" alt="What is UPI 123Pay (blog)" title="UPI 123Pay - How does it work & Benefits">
 			</div>
 			<h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI 123Pay: What is it | How does it work | Benefits</h4>
 			<p class="custom-secondary-for-blogs fw-bold shift-right">Digital Payments Without Internet or Smartphones</p>
@@ -364,15 +374,37 @@ Header END -->
 	          <span class="mx-2">•</span>
 	          <span>3 min read</span>
 	        </div>
-			<a href="/blogs/upi123pay" class="color-prime-500 shift-right" target="_blank">Read More <img class="ms-2"
-					src="img/right-arrow.svg" alt=""></a>
+			<a href="/blogs/upi123pay" class="color-prime-500 shift-right" target="_blank">Read More </a>
 		</div>
 		      </div>
 
-		     
+			  <div class="col-md-4 mb-4">
+			  		  				<div class="card-blog">
+			  		  				<div class="card-blog-icon">
+			  		  					<img src="img/blog44.webp" alt="What is UPI Circle (blog)" title="UPI Circle - How does it work & Benefits">
+			  		  				</div>
+			  		  				<h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI Circle: What is it | How does it work | Benefits</h4>
+			  		  				<p class="custom-secondary-for-blogs fw-bold shift-right">Delegate and manage payments securely</p>
+			  		  				<div class="d-flex gap-2 mb-2">
+			  		  			          <span class="voucher-tag">UPI</span>
+			  		  			          <span class="voucher-tag">Digital Spends</span>
+			  		  			        </div>
+			  							<p class="text-dark shift-right">Shreya Garg</p>
+			  				  		        <div class="d-flex align-items-center text-muted mb-3 small shift-right">
+			  				  		         
+			  				  		          
+			  				  		          <span>Cotodel</span>
+			  				  		          <span class="mx-2">•</span>
+			  				  		          <span>Apr 11, 2025</span>
+			  				  		          <span class="mx-2">•</span>
+			  				  		          <span>3 min read</span>
+			  				  		        </div>
+			  		  				<a href="/blogs/upilite" class="color-prime-500 shift-right" target="_blank">Read More </a>
+			  		  			</div>
+			  		  		      </div>
 
 		      <!-- Next row starts automatically -->
-			  <div class="col-md-4 mb-4">
+			  <!--<div class="col-md-4 mb-4">
 			  		        <div class="card-blog shift-right">
 			  		          <div class="card-blog-icon">
 			  		            <img src="img/blog11.webp" alt="eRpui Blog">
@@ -450,7 +482,7 @@ Header END -->
 											  		<a href="/blogs/upi123pay" class="color-prime-500 shift-right" target="_blank">Read More <img class="ms-2"
 											  				src="img/right-arrow.svg" alt=""></a>
 											  	</div>
-											  	      </div>
+											  	      </div>-->
 			  
 			  
 			  
@@ -462,64 +494,66 @@ Header END -->
 		  </div>
 		</section>
 		<footer class="custom-footer">
-																			  <div class="container">
-																			    <!-- Top navigation -->
-																			    <div class="d-flex flex-wrap justify-content-start align-items-center footer-top">
-																					<a  href="/">
-																					<img src="img/Cotodel Logo_Footer.svg" alt="Cotodel" class="footer-logo me-4">
-																					</a>
-																				</div>
-																			    <br>
+																							  <div class="container">
+																							    <!-- Top navigation -->
+																							    <div class="d-flex flex-wrap justify-content-start align-items-center footer-top">
+																									<a  href="/">
+																									<img src="img/Cotodel Logo_Footer.svg" alt="Cotodel" class="footer-logo me-4">
+																									</a>
+																								</div>
+																							    <br>
 
-																			    <nav class="footer-nav text-white">
-																			      <a href="/">Home</a>
-																			      <a href="/solutions/fleetexpensemanagement" target="_blank">Solutions</a>
-																			      <a href="/blogspage" target="_blank">Blogs</a>
-																			      <a href="/about" target="_blank">About Us</a>
-																			      <a href="/contact" target="_blank">Contact Us</a>
-																			    </nav>
+																							    <nav class="footer-nav text-white">
+																							      <a href="/">Home</a>
+																							      <a href="/solutions/fleetexpensemanagement" target="_blank">Solutions</a>
+																							      <a href="/blogs" target="_blank">Blogs</a>
+																							      <a href="/about" target="_blank">About Us</a>
+																							      <a href="/contact" target="_blank">Contact Us</a>
+																							    </nav>
 
-																			    <!-- Contact info -->
-																			    <div class="footer-contact mt-4 mb-2 d-flex justify-content-start gap-5 flex-wrap">
-																			      <div>
-																			        <span class="footer-heading">ADDRESS</span>
-																			        <p>WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
-																			      </div>
-																			      <div>
-																			        <span class="footer-heading">EMAIL</span>
-																			        <p>business@cotodel.com</p>
-																			      </div>
-																			    </div>
+																							    <!-- Contact info -->
+																							    <div class="footer-contact mt-4 mb-2 d-flex justify-content-start gap-5 flex-wrap">
+																							      <div>
+																							        <span class="footer-heading">ADDRESS</span>
+																							        <p>WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
+																							      </div>
+																							      <div>
+																							        <span class="footer-heading">EMAIL</span>
+																							        <p><a href="mailto:business@cotodel.com">business@cotodel.com</a></p>
+																							      </div>
+																							    </div>
 
-																			    <hr class="bg-secondary m-0">
-																			    <br>
+																							    <hr class="bg-secondary m-0">
+																							    <br>
 
-																			    <div class="row footer-bottom align-items-center text-white gy-2">
-																			      <div class="col-12 col-md-6 text-center text-md-start">
-																			     	
-																					<nav class="footer-nav">
-																				    <span class="footer-heading"> © 2025 Cotodel - All rights reserved </span>
-																					 <a href="/termsconditions" class="footer-heading" target="_blank">Terms & Conditions</a>
-																					<a href="/refundpolicy" class="footer-heading" target="_blank">Refund Policy</a>
-																			
-																				    </nav>														      
-																				 </div>
+																							    <div class="row footer-bottom align-items-center text-white gy-2">
+																							      <div class="col-12 col-md-6 text-center text-md-start">
+																							     	
+																									<nav class="footer-nav">
+																								    <span class="footer-heading"> © 2025 Cotodel - All rights reserved </span>
+																									 <a href="/termsconditions" class="footer-heading" target="_blank">Terms & Conditions</a>
+																									<a href="/refundpolicy" class="footer-heading" target="_blank">Refund Policy</a>
+																							
+																								    </nav>														      
+																								 </div>
 
-																			      <div class="col-12 col-md-2 text-center">
-																			      </div>
+																							      <div class="col-12 col-md-2 text-center">
+																							      </div>
 
-																			      <div class="col-12 col-md-4 text-center text-md-end d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center">
-																			          <div class="social-icons d-flex gap-1">
-																			          <a href="https://www.linkedin.com/company/cotodel/" target="_blank"><i class="fab fa-linkedin"></i></a>
-																			          <a href="https://www.instagram.com/cotodelsolutions/" target="_blank"><i class="fab fa-instagram"></i></a>
-																			          <a href="https://www.youtube.com/@Cotodel" target="_blank"><i class="fab fa-youtube"></i></a>
-																			          <a href="https://twitter.com/CotodelSolution" target="_blank"><i class="fab fa-x-twitter"></i></a>
-																			          <a href="https://www.facebook.com/profile.php?id=61555427067314" target="_blank"><i class="fab fa-facebook-f"></i></a>
-																			        </div>
-																			      </div>
-																			    </div>
-																			  </div>
-																			</footer>
+																							      <div class="col-12 col-md-4 text-center text-md-end d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center">
+																							          <div class="social-icons d-flex gap-3">
+																							          <a href="https://www.linkedin.com/company/cotodel/" target="_blank" title="Linkedin channel for Cotodel - Business Payments on UPI"><i class="fab fa-linkedin"></i></a>
+																							          <a href="https://www.instagram.com/cotodelsolutions/" target="_blank" title="Instagram channel for Cotodel - Business Payments on UPI"><i class="fab fa-instagram"></i></a>
+																							          <a href="https://www.youtube.com/@Cotodel" target="_blank" title="YouTube channel for Cotodel - Business Payments on UPI"><i class="fab fa-youtube"></i></a>
+																									  <a href="https://twitter.com/CotodelSolution" target="_blank" title="X/Twitter channel for Cotodel - Business Payments on UPI">
+																									    <i class="bi bi-twitter-x"></i>
+																									  </a>
+																							          <a href="https://www.facebook.com/profile.php?id=61555427067314" target="_blank" title="Facebook channel for Cotodel - Business Payments on UPI"><i class="fab fa-facebook-f"></i></a>
+																							        </div>
+																							      </div>
+																							    </div>
+																							  </div>
+																							</footer>
 
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
