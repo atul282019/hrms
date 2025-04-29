@@ -268,28 +268,6 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("signup", "command", "");
 	}	
 	
-//	@GetMapping(value="/companyDetails")
-//	public String companyDetail(Model model) {
-//		logger.info("opening companyDetailPage");
-//		String token = (String) session.getAttribute("hrms");
-//		Integer id  = (Integer) session.getAttribute("id");
-//		if(token!=null) {
-//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//			if(obj!=null) {
-//				if(obj.getUser_role()==9 || obj.getUser_role()==1){
-//				model.addAttribute("name",obj.getName());
-//				model.addAttribute("org",obj.getOrgName());
-//				model.addAttribute("mobile",obj.getMobile());
-//				model.addAttribute("email",obj.getEmail());
-//				model.addAttribute("id",id);
-//				return "company-details";
-//			}
-//		  return "error";
-//		}
-//		return "redirect:/index";
-//	}	
-//	return "redirect:/index";
-//}	
 
 	@GetMapping(value="/dashboard")
 	public String dashboard(Model model) {
