@@ -894,7 +894,7 @@ function getPrimaryBankDetail(){
 				  	   				      }
 				  	   				  }
 									  
-    function validateAmount1() {
+    /*function validateAmount1() {
       const requested = parseFloat(document.getElementById("requestedamount").value);
       const entered = parseFloat(document.getElementById("amount").value);
       const errorDiv = document.getElementById("amountError");
@@ -908,7 +908,7 @@ function getPrimaryBankDetail(){
       } else {
         errorDiv.textContent = "";
       }
-    }
+    }*/
  
 
 
