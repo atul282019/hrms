@@ -71,4 +71,6 @@ public interface ExpensesReimbursementService {
 	String getTravelRequestApprovalList(String token, EncriptResponse jsonObject);
 
 	String advanceTravelById(String token, EncriptResponse jsonObject);
+
+	String getExpanseLimitByExpenseTitleId(String token, EncriptResponse jsonObject);
 }

@@ -155,8 +155,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 												<div>
 													<a href="#" id="downloadExcel" class="mx-1">
 													    <img src="img/download-black.svg" alt="Download">
-													</a><a href="#"
-														class="mx-1"><img src="img/delete-black.svg" alt=""></a>
+													</a>
+													<!--<a href="#"
+														class="mx-1"><img src="img/delete-black.svg" alt=""></a>-->
 													<a href="#" class="mx-1"><img src="img/info-black.svg"
 														alt=""></a>
 												</div>
@@ -207,8 +208,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 												<div>
 													<a href="#" id="downloadExcel2" class="mx-1">
 													    <img src="img/download-black.svg" alt="Download">
-													</a> <a href="#"
-														class="mx-1"><img src="img/delete-black.svg" alt=""></a>
+													</a>
+													<!-- <a href="#"
+														class="mx-1"><img src="img/delete-black.svg" alt=""></a>-->
 													<a href="#" class="mx-1"><img src="img/info-black.svg"
 														alt=""></a>
 												</div>
@@ -1265,7 +1267,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 								<div class="form-grp">
 									<div class="form-grp-card-form-right">
 										<label for="">Periodic Limit: </label>
-										<div class="ntdfnd">INR 500</div>
+										<div class="ntdfnd">INR <span id="limit">500</span> </div>
 									</div>
 								</div>
 								<div class="clearfix"></div>
@@ -1364,11 +1366,10 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					class="d-flex justify-content-between border-btm modal-head-secd">
 					<div></div>
 					<div>
-						<a href="#" class="mx-1"><img src="img/download-blue.svg"
-							alt=""></a> <a href="#" class="mx-1"><img
-							src="img/refresh-blue.svg" alt=""></a> <a href="#" class="mx-1"><img
-							data-toggle="tooltip" data-placement="top" title=""
-							src="img/info.svg" alt=""
+					<!--	<a href="#" class="mx-1">
+							<img src="img/download-blue.svg"alt=""></a>
+							 <a href="#" class="mx-1"><img src="img/refresh-blue.svg" alt=""></a>-->
+							  <a href="#" class="mx-1"><img data-toggle="tooltip" data-placement="top" title="" src="img/info.svg" alt=""
 							data-original-title="In case you want to recall a submitted expense, press the ‘Undo’ Button and make necessary changes."></a>
 					</div>
 				</div>
@@ -1387,14 +1388,14 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 							<div class="col-12 col-md-5">
 
 								<div class="form-grp-half">
-									<div class="did-floating-label-content mr-2">
+									<div class="clearfix"></div>
+									<div class="did-floating-label-content">
 										<input class="did-floating-input" type="text" readonly
 											id="viewExpenseCategory"> <label
-											class="did-floating-label">Select Expense Category</label>
+											class="did-floating-label">Expense Category</label>
 									</div>
-									<div class="error-msg" id="expenseCategoryError"
-										style="color: red"></div>
-									<div class="did-floating-label-content ml-2">
+										<div class="clearfix"></div>
+									<div class="did-floating-label-content">
 										<input class="did-floating-input" type="text" readonly
 											id="viewDateofExpense"> <label
 											class="did-floating-label">Date of Expense</label>
@@ -1939,10 +1940,10 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                     <div>
                         <p><span>Submitted By</span><label id="submittedBy"></label></p>
                     </div>
-                    <div>
+                  <!--  <div>
                         <a href="#" class="mx-1"><img src="img/calendar.svg" alt=""></a>
                         <a href="#" class="mx-1"><img src="img/download-dark.svg" alt=""></a>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -2005,7 +2006,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                                 <div class="form-grp">
                                     <div class="form-grp-card-form-right">
                                         <label for="">Daily Limit:</label>
-                                        <div class="ntdfnd">INR 500</div>
+                                        <div class="ntdfnd">INR <span id="approveLimit">500</span></div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

@@ -674,7 +674,7 @@ function dissableButton(){
                         </div>
                         <div id="speficEmployeesDiv"> 
                         <input type="text" class="form-control incurr mr-2 w-100"  id="speficEmployees"
-                               placeholder="Enter names of employees who are allowed cash advances">
+                               placeholder="Enter comma seprated names of employees who are allowed cash advances">
                         </div>
                         <div class="error-msg" id="speficEmployeesError" style="color:red"></div>
                         
@@ -685,7 +685,9 @@ function dissableButton(){
                             </div>
                         </div>
                         <div class="incurring-exp-modal d-flex align-items-center" > 
-                        <input type="text" class="form-control incurr mr-2" id="disbursmentDate" style="width:50px; text-align: center;" placeholder="60"> Days from the date of disbursal of cash advance
+                        <input type="text" class="form-control incurr mr-2" id="disbursmentDate" maxlength="3" 
+						style="width:50px; text-align: center;" placeholder="60" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						> Days from the date of disbursal of cash advance
                             </p>
                         </div>
                         <div class="error-msg" id="disbursmentDateError" style="color:red"></div>
@@ -815,7 +817,7 @@ function dissableButton(){
                 </div>
                 <p>Set time period in which an expense incurred can be submitted (in Days)</p>
                 <div class="incurring-exp-modal">
-                    <p><input type="text" class="form-control incurr ml-0" id="timeperiod" placeholder="20"
+                    <p><input type="text" class="form-control incurr ml-0" id="timeperiod" placeholder="20" maxlength="3"
 						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> Days</p>
                 </div>
                  <div class="error-msg" id="timeperiodError" style="color:red"></div>
