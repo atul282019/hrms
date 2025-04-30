@@ -52,10 +52,13 @@
 	          padding: 60px 20px;
 	      }
 
-	      .empty-state img {
-	          max-width: 160px;
-	          margin-bottom: 20px;
-	      }
+		  .empty-state video {
+		      max-width: 200px; /* Change this value as needed */
+		      width: 100%;
+		      height: auto;
+		      margin-bottom: 20px;
+		      border-radius: 12px; /* optional, for smooth corners */
+		  }
 
 	      .empty-state h5 {
 	          font-weight: 600;
@@ -87,10 +90,13 @@
 	 
 
 	  <div class="container">
-	      <div class="empty-state">
-	          <img src="/path-to/your-lightning-cloud.svg" alt="Cloud Illustration" />
-	          <h5>Oops! Something went wrong</h5>
-	          <p>We’re having trouble fetching your data. Please check your connection or try again later.</p>
-	      </div>
+	    <div class="empty-state">
+	      <video autoplay muted loop playsinline>
+	        <source src="img/lightning-cloud.webm" type="video/webm" />
+	        Your browser does not support the video tag.
+	      </video>
+	      <h5>Oops! Something went wrong</h5>
+	      <p>We’re having trouble fetching your data. Please check your connection or try again later.</p>
+	    </div>
 	  </div>
 	  </body>

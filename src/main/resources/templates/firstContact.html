@@ -235,6 +235,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	.right-section nav {
 	  flex-shrink: 0;
 	}
+	@media (max-width: 991.98px) {
+	  .navbar-top-right {
+	    position: static;
+	    display: flex;
+	    justify-content: center;
+	    margin-bottom: 1.5rem;
+	  }
 
 	.right-section .nav-link {
 	 padding: 0.5rem 1rem;
@@ -242,9 +249,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	}
 	.navbar-top-right {
 	  position: absolute;
-	  top: 20px;
-	  right: 40px;
+	  top: 18px;
+	  right: 120px;
 	  z-index: 10;
+	  
 	}
 	
 
