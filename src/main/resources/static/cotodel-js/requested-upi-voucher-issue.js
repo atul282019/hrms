@@ -893,5 +893,22 @@ function getPrimaryBankDetail(){
 				  	   				          continueButton.disabled = false; // Enable button when valid
 				  	   				      }
 				  	   				  }
-				  	
+									  
+    function validateAmount1() {
+      const requested = parseFloat(document.getElementById("requestedamount").value);
+      const entered = parseFloat(document.getElementById("amount").value);
+      const errorDiv = document.getElementById("amountError");
+
+      if (!isNaN(requested) && !isNaN(entered)) {
+        if (entered > requested) {
+          errorDiv.textContent = "Entered amount cannot exceed the requested amount.";
+        } else {
+          errorDiv.textContent = "";
+        }
+      } else {
+        errorDiv.textContent = "";
+      }
+    }
+ 
+
 
