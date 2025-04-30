@@ -128,8 +128,7 @@
 								<td>${voucher.employeeId}</td>
 		                        <td>${voucher.voucherType}</td>
 		                        <td>${voucher.voucherSubType}</td>
-								<td>${voucher.purposeCode}</td>
-								<td>${voucher.mcc}</td>
+								
 		                        <td>${voucher.mobile}</td>
 		                        <td>${voucher.amount}</td>
 		                        <td>${formattedDate }</td>

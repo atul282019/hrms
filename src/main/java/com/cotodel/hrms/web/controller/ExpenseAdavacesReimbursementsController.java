@@ -198,6 +198,31 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	return profileRes;
 	}
 	
+	@GetMapping(value = "/getExpanseLimitByExpenseTitleId")
+	public @ResponseBody String getExpanseLimitByExpenseTitleId(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
+		String profileRes = null;
+		//profileRes = expensesReimbursementService.getExpanseReimbursement(tokengeneration.getToken(),
+		//		expensesReimbursementRequest);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = expensesReimbursementService.getExpanseLimitByExpenseTitleId(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
 	@GetMapping(value = "/getExpanseReimbursementApprovalList")
 	public @ResponseBody String getExpanseReimbursementApprovalList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
