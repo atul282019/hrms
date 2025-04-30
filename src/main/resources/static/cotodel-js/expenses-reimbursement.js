@@ -27,7 +27,7 @@ function getExpanceMaster() {
              }
              var option = document.createElement("option");
              option.text = values.expenseCategory;
-             option.value = values.expenseCategory;
+             option.value = values.id;
              x.add(option);
 
              count++;
@@ -90,6 +90,7 @@ async function submitExpenseDraft(){
 	var invoiceNumber = document.getElementById("invoiceNumber").value;
 	var currency= document.getElementById("currency").value;
 	var amount = document.getElementById("amount").value;
+	var limit = document.getElementById("limit").value;
 	var modeofPayment = document.getElementById("modeofPayment").value;
 	var additionalRemark = document.getElementById("additionalRemark").value;
 	var fileInput = document.getElementById("fileInput").value; 
@@ -154,7 +155,12 @@ async function submitExpenseDraft(){
 	else{
 		document.getElementById("amountError").innerHTML="";
 	}
-	
+	if (amount >= limit) {
+		    document.getElementById("amountSingleError").innerHTML = "Amount should not be greater than or equal to the periodic limit.";
+		    return false;
+		} else {
+		    document.getElementById("amountSingleError").innerHTML = "";
+		}
 	if(modeofPayment=="" || modeofPayment==null){
 		document.getElementById("modeofPaymentError").innerHTML="Please Select Mode of Payment";
 		return false;
@@ -248,7 +254,8 @@ async function submitExpenseMultiple(){
 	var venderName= document.getElementById("venderName").value;
 	var invoiceNumber = document.getElementById("invoiceNumber").value;
 	var currency= document.getElementById("currency").value;
-	var amount = document.getElementById("amount").value;
+	var amount = document.getElementById("amountSingle").value;
+	var limit = parseFloat(document.getElementById("limit").innerHTML); 
 	var modeofPayment = document.getElementById("modeofPayment").value;
 	var additionalRemark = document.getElementById("additionalRemark").value;
 	var fileInput = document.getElementById("fileInput").value; 
@@ -337,7 +344,12 @@ async function submitExpenseMultiple(){
 	else{
 		document.getElementById("amountError").innerHTML="";
 	}
-	
+	if (amount >= limit) {
+		    document.getElementById("amountError").innerHTML = "Amount should not be greater than or equal to the periodic limit.";
+		    return false;
+		} else {
+		    document.getElementById("amountError").innerHTML = "";
+		}
 	if(modeofPayment=="" || modeofPayment==null){
 		document.getElementById("modeofPaymentError").innerHTML="Please Select Mode of Payment";
 		return false;
@@ -457,6 +469,8 @@ async function submitExpenseSingleDraft(){
 	var invoiceNumber = document.getElementById("invoiceNumberSingle").value;
 	var currency= document.getElementById("currencySingle").value;
 	var amount = document.getElementById("amountSingle").value;
+	var limit = parseFloat(document.getElementById("limit").innerHTML); 
+			
 	var modeofPayment = document.getElementById("modeofpaymentSingle").value;
 	var additionalRemark = document.getElementById("remarkSingle").value;
 	
@@ -520,7 +534,12 @@ async function submitExpenseSingleDraft(){
 	else{
 		document.getElementById("amountError").innerHTML="";
 	}
-	
+	if (amount >= limit) {
+		    document.getElementById("amountSingleError").innerHTML = "Amount should not be greater than or equal to the periodic limit.";
+		    return false;
+		} else {
+		    document.getElementById("amountSingleError").innerHTML = "";
+		}
 	if(modeofPayment=="" || modeofPayment==null){
 		document.getElementById("modeofPaymentError").innerHTML="Please Select Mode of Payment";
 		return false;
@@ -622,11 +641,14 @@ async function submitExpenseSingle(){
 	var invoiceNumber = document.getElementById("invoiceNumberSingle").value;
 	var currency= document.getElementById("currencySingle").value;
 	var amount = document.getElementById("amountSingle").value;
+	var limit = parseFloat(document.getElementById("limit").innerHTML); 
+		
 	var modeofPayment = document.getElementById("modeofpaymentSingle").value;
 	var additionalRemark = document.getElementById("remarkSingle").value;
 	
 	var imageAdd = document.getElementById("imageAddSingle").src;
 	var imagePDF = document.getElementById("base64PDFSingle").value; 
+
 	
 	var fileType = null;
 	var fileBase64=null;
@@ -710,7 +732,13 @@ async function submitExpenseSingle(){
 	else{
 		document.getElementById("amountSingleError").innerHTML="";
 	}
-	
+	if (amount >= limit) {
+	    document.getElementById("amountSingleError").innerHTML = "Amount should not be greater than or equal to the periodic limit.";
+	    return false;
+	} else {
+	    document.getElementById("amountSingleError").innerHTML = "";
+	}
+
 	if(modeofPayment=="" || modeofPayment==null){
 		document.getElementById("modeofpaymentSingleError").innerHTML="Please Select Mode of Payment";
 		return false;
@@ -1388,6 +1416,8 @@ function approveExpenses(){
 		var expenseId = document.getElementById("expenseId").value;
 		var employerName = document.getElementById("employerName").value;
 		var approveAmmount = document.getElementById("approveAmmount").value;
+		var limit = parseFloat(document.getElementById("approveLimit").innerHTML); 
+		
 		if(approveAmmount=="" || approveAmmount==null){
 				document.getElementById("approveAmmountError").innerHTML="Please Enter Approved Amount";
 				return false;
@@ -1395,6 +1425,12 @@ function approveExpenses(){
 			else{
 				document.getElementById("approveAmmountError").innerHTML="";
 			}
+			if (approveAmmount >= limit) {
+				    document.getElementById("approveAmmountError").innerHTML = "Approved amount should not be greater than or equal to the daily limit.";
+				    return false;
+				} else {
+				    document.getElementById("approveAmmountError").innerHTML = "";
+				}
 
 			document.getElementById("signinLoader").style.display="flex";		
 		$.ajax({

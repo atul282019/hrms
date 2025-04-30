@@ -30,9 +30,14 @@ function getExpanceCategoryList() {
       		    { "mData": "expenseCode"},
       		    { "mData": "expenseLimit"},
       		    { "mData": "dayToExpiry"},
-      		  	{ "mData": "id", "render": function (data1, type, row) {
-                    return '<td align="right"><button type="button" class="btn p-0" onclick="viewData(this)"><img src="img/edit.svg" alt=""> </button> <button type="button" onclick="deleteData(this)" class="btn p-0" ><img src="img/delete.svg" ></button> </td>';
-                 }}, 
+				{ "mData": "id", "render": function (data2, type, row) {
+				    var buttons = '<td align="right"><button type="button" class="btn p-0" onclick="viewData(this)"><img src="img/edit.svg" alt=""></button>';
+				    if (row.flag !== "D") {
+				        buttons += ' <button type="button" onclick="deleteData(this)" class="btn p-0"><img src="img/delete.svg"></button>';
+				    }
+				    buttons += '</td>';
+				    return buttons;
+				}}, 
     		 	],
     		 	createdRow: function (row, data2, dataIndex) 
                     {
