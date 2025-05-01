@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.EmployeeOnboardingManagerRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.VoucherTypeMaster;
@@ -354,6 +354,71 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         return jsonResponse;
     }
 
+	@GetMapping(value="/erupiVoucherRequestByMngId")
+	public @ResponseBody String erupiVoucherRequestByMngId(ModelMap model, Locale locale, HttpSession session,EmployeeOnboardingManagerRequest erupiVoucherCreateRequest) {
+    
+        Map<String, Object> responseMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonResponse = null;
+        
+        try {
+            //jsonResponse = mapper.writeValueAsString(responseMap);
+        	String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateRequest);
+            EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            String encryptedResponse = voucherTypeMasterService.erupiVoucherRequestByMngId(tokengeneration.getToken(), encryptedRequest);
+            EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+            String voucherResponse1 = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
+            if (voucherJsonResponse1.getBoolean("status")) {
+                List<Object> voucherList = voucherJsonResponse1.getJSONArray("data").toList();
+                responseMap.put("status", true);
+                responseMap.put("data", voucherList);
+            } else {
+                responseMap.put("status", false);
+            }
+            
+            jsonResponse = mapper.writeValueAsString(responseMap);
+        
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }       
+        return jsonResponse;
+    }
+	@PostMapping(value="/approveRejectVoucherRequest")
+	public @ResponseBody String approveRejectVoucher(ModelMap model, Locale locale, HttpSession session,EmployeeOnboardingManagerRequest erupiVoucherCreateRequest) {
+    
+        Map<String, Object> responseMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonResponse = null;
+        
+        try {
+            //jsonResponse = mapper.writeValueAsString(responseMap);
+        	String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateRequest);
+            EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            String encryptedResponse = voucherTypeMasterService.approveRejectVoucher(tokengeneration.getToken(), encryptedRequest);
+            EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+            String voucherResponse1 = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
+            if (voucherJsonResponse1.getBoolean("status")) {
+                List<Object> voucherList = voucherJsonResponse1.getJSONArray("data").toList();
+                responseMap.put("status", true);
+                responseMap.put("data", voucherList);
+            } else {
+                responseMap.put("status", false);
+            }
+            
+            jsonResponse = mapper.writeValueAsString(responseMap);
+        
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }       
+        return jsonResponse;
+    }
+	
 	 private String generateHash(String data) throws NoSuchAlgorithmException {
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
 	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));

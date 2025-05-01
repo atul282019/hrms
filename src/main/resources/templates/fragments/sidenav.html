@@ -116,6 +116,11 @@
                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                 <span>Request Voucher</span></a>
         </li>
+		<li class="nav-item" th:if="${session.user_role == 2}">
+           <a class="nav-link" th:href="@{/requestedVoucherList}">
+               <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+               <span>Requested Voucher By Employee</span></a>
+       </li>
 		 <li class="nav-item" th:if="${session.user_role == 12}">
              <a class="nav-link" th:href="@{/displayWaitlist}">
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">

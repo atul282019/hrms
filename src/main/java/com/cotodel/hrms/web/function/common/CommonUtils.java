@@ -67,6 +67,8 @@ public interface CommonUtils {
 	public static String saveVoucherTypeMasterDetailS="/masterService/Api/add/mccMasterupdate";
 	public static String getvoucherTypeMasterList="/masterService/Api/get/mccMasterList";
 	public static String getRequestedVoucherList="/empService/Api/get/erupiVoucherRequest";
+	public static String erupiVoucherRequestByMngId="/empService/Api/get/erupiVoucherRequestByMngId";
+	public static String approveRejectRequestedVoucherById = "/empService/Api/update/erupiVoucherRequestUpdate";
 	public static String updatevoucherTypeMasterStatus="/empService/Api/update/voucherTypeMasterStatus";
 	public static String createVoucher="/empService/Api/add/erupiVoucherRequest";
 	public static String saveBankMasterDetailS="/empService/Api/add/bankMasterDetails";
