@@ -73,6 +73,14 @@ public class VoucherTypeMasterServiceImpl implements VoucherTypeMasterService{
 			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.approveRejectRequestedVoucherById
 			    );
 	}
+
+	@Override
+	public String getRequestedVoucherApproveList(String token, EncriptResponse encryptedRequest) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(encryptedRequest),
+			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getRequestedVoucherApproveList
+			    );
+	}
 	
 
 }

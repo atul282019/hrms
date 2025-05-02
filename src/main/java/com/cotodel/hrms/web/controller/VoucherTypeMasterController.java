@@ -354,6 +354,39 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         return jsonResponse;
     }
 
+	@GetMapping(value="/getRequestedVoucherApproveList")
+	public @ResponseBody String getRequestedVoucherApproveList(ModelMap model, Locale locale, HttpSession session,ErupiVoucherCreateRequest erupiVoucherCreateRequest) {
+    
+        Map<String, Object> responseMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonResponse = null;
+        
+        try {
+            //jsonResponse = mapper.writeValueAsString(responseMap);
+        	String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateRequest);
+            EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+            
+            String encryptedResponse = voucherTypeMasterService.getRequestedVoucherApproveList(tokengeneration.getToken(), encryptedRequest);
+            EncriptResponse responseObject = EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+            String voucherResponse1 = EncryptionDecriptionUtil.decriptResponse(responseObject.getEncriptData(), responseObject.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+            
+            JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
+            if (voucherJsonResponse1.getBoolean("status")) {
+                List<Object> voucherList = voucherJsonResponse1.getJSONArray("data").toList();
+                responseMap.put("status", true);
+                responseMap.put("data", voucherList);
+            } else {
+                responseMap.put("status", false);
+            }
+            
+            jsonResponse = mapper.writeValueAsString(responseMap);
+        
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }       
+        return jsonResponse;
+    }
+
 	@GetMapping(value="/erupiVoucherRequestByMngId")
 	public @ResponseBody String erupiVoucherRequestByMngId(ModelMap model, Locale locale, HttpSession session,EmployeeOnboardingManagerRequest erupiVoucherCreateRequest) {
     

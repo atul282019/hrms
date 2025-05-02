@@ -17,6 +17,7 @@ public interface VoucherTypeMasterService {
 	public String getRequestedVoucherList(String token,EncriptResponse VoucherGetRequest);
 	public String erupiVoucherRequestByMngId(String token, EncriptResponse encryptedRequest);
 	public String approveRejectVoucher(String token, EncriptResponse encryptedRequest);
+	public String getRequestedVoucherApproveList(String token, EncriptResponse encryptedRequest);
 	
 }
   

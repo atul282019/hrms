@@ -79,97 +79,52 @@ function getSavedVoucherList() {
 			});
 		}	
 	
-		
+		function approveReject(){
 			
-
-					function revoke(){
-							// var row = jQuery(value).closest('tr');
-							// var  id = $(row).find("input[name='revoke']").val();
-							var employerId = document.getElementById("employerId").value; 
-							var revokeId = document.getElementById("revokeId").value;
-							 document.getElementById("signinLoader").style.display="flex";
-							  	$.ajax({
-							 	type: "POST",
-							 	url:"/revokeCreatedVoucher",
-							     data: {
-							 			"id": revokeId,
-										"orgId": employerId
-							    		 },
-							    		  beforeSend : function(xhr) {
-							 			//xhr.setRequestHeader(header, token);
-							 			},
-							         success: function(data){
-										newData = data;
-										var data1 = jQuery.parseJSON(newData);
-										$('#RevokeUPIVoucherModal').hide();
-										document.getElementById("revokeId").value="";
-										document.getElementById("authenticate").disabled = false;
-										 document.getElementById("signinLoader").style.display="none";
-										
-										if(data1.status==true){
-										$('#revokeUPIVcAuthenticate').show();				
-										$('#RevokeUPIVoucherModal').hide();
-										}
-										else{
-											$('#revokeUPIVcAuthenticateFail').show();		
-										}
-										getSavedVoucherList();
-								        },
-								      error: function(e){
-										$('#revokeUPIVcAuthenticateFail').show();		
-								          alert('Error: ' + e);
-								      }
-							 }); 
+				var employerId = document.getElementById("employerId").value;
+				var employeeId = document.getElementById("empId").value;
+				var revokeId = document.getElementById("revokeId").value;
+				var username = document.getElementById("Name").value;
+				 document.getElementById("signinLoader").style.display="flex";
+				  	$.ajax({
+				 	type: "POST",
+				 	url:"/approveRejectVoucherRequest",
+				     data: {
+				 			"id": revokeId,
+							"employerId": employerId,
+							"employeeId":employeeId,
+							"loginuser": username,
+							"status": "Approved",
+							"rejecctRemark":""
+				    		 },
+				    		  beforeSend : function(xhr) {
+				 			//xhr.setRequestHeader(header, token);
+				 			},
+				         success: function(data){
+							newData = data;
+							var data1 = jQuery.parseJSON(newData);
+							$('#RevokeUPIVoucherModal').hide();
+							document.getElementById("revokeId").value="";
+							//document.getElementById("authenticate").disabled = false;
+							document.getElementById("signinLoader").style.display="none";
 							
-					}
-	
-
-					function approveReject(){
-						
-							var employerId = document.getElementById("employerId").value;
-							var employeeId = document.getElementById("empId").value;
-							var revokeId = document.getElementById("revokeId").value;
-							var username = document.getElementById("Name").value;
-							 document.getElementById("signinLoader").style.display="flex";
-							  	$.ajax({
-							 	type: "POST",
-							 	url:"/approveRejectVoucherRequest",
-							     data: {
-							 			"id": revokeId,
-										"employerId": employerId,
-										"employeeId":employeeId,
-										"loginuser": username,
-										"status": "Approved",
-										"rejecctRemark":""
-							    		 },
-							    		  beforeSend : function(xhr) {
-							 			//xhr.setRequestHeader(header, token);
-							 			},
-							         success: function(data){
-										newData = data;
-										var data1 = jQuery.parseJSON(newData);
-										$('#RevokeUPIVoucherModal').hide();
-										document.getElementById("revokeId").value="";
-										//document.getElementById("authenticate").disabled = false;
-										document.getElementById("signinLoader").style.display="none";
-										
-										if(data1.status==true){
-										$('#revokeUPIVcAuthenticate').show();				
-										$('#revokeModal').hide();
-										}
-										else{
-											$('#revokeUPIVcAuthenticateFail').show();		
-										}
-										getSavedVoucherList();
-								        },
-								      error: function(e){
-										$('#revokeUPIVcAuthenticateFail').show();		
-								          alert('Error: ' + e);
-								      }
-							 }); 
-							
-					}
-					
+							if(data1.status==true){
+							$('#revokeUPIVcAuthenticate').show();				
+							$('#revokeModal').hide();
+							}
+							else{
+								$('#revokeUPIVcAuthenticateFail').show();		
+							}
+							getSavedVoucherList();
+					        },
+					      error: function(e){
+							$('#revokeUPIVcAuthenticateFail').show();		
+					          alert('Error: ' + e);
+					      }
+				 }); 
+				
+		}
+		
 			function rejectVoucher(){
 											
 				var employerId = document.getElementById("employerId").value;
