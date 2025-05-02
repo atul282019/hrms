@@ -25,11 +25,12 @@ function getSavedVoucherList() {
 			             "mData": "id", "render": function (vouchers, type, row) {
 							 return ' <div class="table-check"><input type="hidden" value="'+vouchers+'" id="revokeId" name="revokeId" ></div>';
 			             }},
-			            { "mData": "name"},   
-			            { "mData": "employeeId"},   
+			            { "mData": "name"}, 
+						{ "mData": "mobile"},   
+			           // { "mData": "employeeId"},   
 					    { "mData": "voucherType"},
-					    { "mData": "voucherSubType"},   
-					 	{ "mData": "mobile"},    
+					 //   { "mData": "voucherSubType"},   
+					 	   
 						{ "mData": "amount"},    
 						{ 
 						  "mData": "creationDate",
