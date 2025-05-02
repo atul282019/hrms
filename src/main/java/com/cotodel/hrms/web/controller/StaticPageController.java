@@ -93,7 +93,7 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	@GetMapping(value="/solutions/corporateexpensemanagement/upivoucher")
 	public ModelAndView experienceupivoucher1(Model model) {
-		return new ModelAndView("experience-upi-voucher", "command", "");
+		return new ModelAndView("experience-upi-voucher01", "command", "");
 	}
 	@GetMapping(value="/blogs/erupi")
 	public ModelAndView whatisErupiblog1(Model model) {
@@ -120,6 +120,10 @@ public class StaticPageController extends CotoDelBaseController{
 	@GetMapping(value="/blogs/upicircle")
 	public ModelAndView upicircleblog4(Model model) {
 		return new ModelAndView("upicircle-blog4", "command", "");
+	}
+	@GetMapping(value="/blogs/fleetmanagement")
+	public ModelAndView fleetmanagement(Model model) {
+		return new ModelAndView("fleetmgmt-blog5", "command", "");
 	}
 	@GetMapping(value="/solutions/corporateexpensemanagement")
 	public ModelAndView expenseMgmtForCorporates(Model model) {
