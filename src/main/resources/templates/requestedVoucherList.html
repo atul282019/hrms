@@ -190,13 +190,19 @@
 	$(document).ready(function () {
         $(".close").click(function () {
             $("#revokeUPIVcAuthenticate").hide();
+			$("#revokeUPIVcAuthenticateReject").hide();
         });
     });
 	$(document).ready(function () {
         $(".close").click(function () {
-            $("#smsUPIVcAuthenticateFail").hide();
+            $("#revokeUPIVcAuthenticateFail").hide();
         });
     });
+	$(document).ready(function () {
+	        $(".close").click(function () {
+	            $("#revokeUPIVcAuthenticateFailReject").hide();
+	        });
+	    });
 	</script>
 	
 	<script>
@@ -250,6 +256,23 @@
 			    </div>
 			</div>
 
+			<!-- Modal UPI Voucher Revoked -->
+				<div class="customModal" id="revokeUPIVcAuthenticateReject">
+				    <div class="modal-dialog modal-dialog-centered" role="document">
+				        <div class="modal-content modal-bulk p-0">
+				            <div class="modal-top text-center">
+				                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                    <img src="img/modal-close.svg" alt="">
+				                </button>
+				                <img src="img/modal-success.svg" alt="">
+				            </div>
+				            <div class="modal-bottom">
+				                <span>Voucher Reject Successfully</span>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
 			
 			<!-- Modal UPI Voucher Revoked -->
 			<div class="customModal" id="revokeUPIVcAuthenticateFail">
@@ -267,6 +290,24 @@
 			        </div>
 			    </div>
 			</div>
+
+			<!-- Modal UPI Voucher Revoked -->
+			<div class="customModal" id="revokeUPIVcAuthenticateFailReject">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content modal-bulk p-0">
+			            <div class="modal-top text-center">
+			                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                    <img src="img/modal-close.svg" alt="">
+			                </button>
+			                <img src="img/table-fail.svg" alt="">
+			            </div>
+			            <div class="modal-bottom">
+			                <span>UPI Voucher Rejecton Failed</span>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
 			<!-- Modal Issue Vouchers -->
 			<div class="customModal" id="revokeModal">
 			    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
@@ -278,48 +319,48 @@
 			            <p class="text-dark">Please confirm if you would like to ‘Approve’ this  Voucher Request.</p>
 			            <div class="modal-body text-center">
 			              
-							<div class="table-responsive">
-							                <div class="table table-reimbursements table-upivouchers">
-							                    <div class="tablehead">
-													<input type="hidden" id="revokeId">
-							                        <div class="tabletheadtr">
-							                            <span>Name <img src="img/Sort.png" alt=""></span>
-														<span></span>
-							                            <span>Mobile</span>
-														<span>Amount </span>
-							                           <!-- <span>Bank A/c </span>-->
-							                           <!-- <span>Voucher &amp; Type <img src="img/Sort.png" alt=""></span>-->
-							                            <span>Status <img src="img/Sort.png" alt=""></span>
-							                            <span>Requested Date</span>
-														<span></span>
-														<span></span>
-							                        </div>
-							                    </div>
+						<div class="table-responsive">
+			                <div class="table table-reimbursements table-upivouchers">
+			                    <div class="tablehead">
+									<input type="hidden" id="revokeId">
+			                        <div class="tabletheadtr">
+			                            <span>Name <img src="img/Sort.png" alt=""></span>
+										<span></span>
+			                            <span>Mobile</span>
+										<span>Amount </span>
+			                           <!-- <span>Bank A/c </span>-->
+			                           <!-- <span>Voucher &amp; Type <img src="img/Sort.png" alt=""></span>-->
+			                            <span>Status <img src="img/Sort.png" alt=""></span>
+			                            <span>Requested Date</span>
+										<span></span>
+										<span></span>
+			                        </div>
+			                    </div>
 
-							                    <div class="tablebody">
-							                        <div class="tablebodytr">
-							                            <span id="popupFieldName"></span>
-							                            <span id="popupFieldMobile"></span>
-														<span id="popupFieldAmount"></span>
-							                           
-							                            <span id="popupFieldpurposeDesc">
-							                               
-							                            </span>
-							                            <span><label>Active</label></span>
-							                            <span id="popupFieldStartDate"></span>
-							                            <span  id="popupFieldExpiryDate"></span>
-							                        </div>
-							                    </div>
-												<div class="tablebody">
-													
-								                        <div class="tablebodytr">
-								                          <span id="rejectLabel">Enter Reject Remark</span> <input type="text" id="rejectRemark" name="rejectRemark" >
-								                        </div>
-														<div class="error-msg" id="rejectRemarkerror" style="color:red"></div>
-																						
-								                    </div>
-							                </div>
-							            </div>
+			                    <div class="tablebody">
+			                        <div class="tablebodytr">
+			                            <span id="popupFieldName"></span>
+			                            <span id="popupFieldMobile"></span>
+										<span id="popupFieldAmount"></span>
+			                           
+			                            <span id="popupFieldpurposeDesc">
+			                               
+			                            </span>
+			                            <span><label>Active</label></span>
+			                            <span id="popupFieldStartDate"></span>
+			                            <span  id="popupFieldExpiryDate"></span>
+			                        </div>
+			                    </div>
+								<div class="tablebody">
+									
+				                        <div class="tablebodytr">
+				                          <span id="rejectLabel">Enter Reject Remark</span> <input type="text" id="rejectRemark" name="rejectRemark" >
+				                        </div>
+										<div class="error-msg" id="rejectRemarkerror" style="color:red"></div>
+																		
+				                    </div>
+			                </div>
+			            </div>
 			                <div class="d-flex justify-content-center mt-3">
 			                    <button class="btn btn-border w-100" id="btnRevoke" onclick="approveReject()" >Approve</button>
 			                    <button class="btn btn-primary w-100" id="cancelbtn" onclick="rejectVoucher()" >Reject</button>
@@ -330,67 +371,67 @@
 			</div>
 
 			   
-			   <div class="modalView" id="VoucherRequestSuccess">
-			   		        <div class="modal-dialog modal-dialog-centered">
-			   		            <div class="modal-content modal-bulk p-0">
-			   		                <div class="modal-top text-center">
-			   		                    <button type="button" class="close p-0"  data-dismiss="modal" id="approvedClose" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
-			   		                        <img src="img/modal-close.svg" alt="">
-			   		                    </button>
-			   		                    <img src="img/modal-success.svg" alt="">
-			   		                </div>
-			   		                <div class="modal-bottom">
-			   		                   <span>Data saved SuccessFully!</span>
-			   		                </div>
-			   		            </div>
-			   		        </div>
-			   		    </div>
-						<script>
-									
-									let revokeValue = null;
+   <div class="modalView" id="VoucherRequestSuccess">
+   		        <div class="modal-dialog modal-dialog-centered">
+   		            <div class="modal-content modal-bulk p-0">
+   		                <div class="modal-top text-center">
+   		                    <button type="button" class="close p-0"  data-dismiss="modal" id="approvedClose" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+   		                        <img src="img/modal-close.svg" alt="">
+   		                    </button>
+   		                    <img src="img/modal-success.svg" alt="">
+   		                </div>
+   		                <div class="modal-bottom">
+   		                   <span>Data saved SuccessFully!</span>
+   		                </div>
+   		            </div>
+   		        </div>
+   		    </div>
+	<script>
+				
+				let revokeValue = null;
 
-									function openRevokeDialog(rowData) {
-										
-										if (typeof rowData === "string") {
-										     rowData = JSON.parse(decodeURIComponent(rowData));
-										  }
-										  document.getElementById("revokeId").value = rowData.id; // Example
-										  document.getElementById("popupFieldName").innerText = rowData.name; 
-										  document.getElementById("popupFieldMobile").innerText = rowData.mobile; 
-										  document.getElementById("popupFieldAmount").innerText = rowData.amount; 
-										  document.getElementById("popupFieldStartDate").innerText = rowData.creationDate; 
-									      revokeValue = rowData.value; // Store the button value
-									      document.getElementById("revokeModal").style.display = "flex";
-									}
-									function closeRevokeDialog() {
-									    document.getElementById("revokeModal").style.display = "none";
-									}
-									function confirmRevokeDialog() {
-									    console.log("Revoke confirmed for value:", revokeValue);
-									    revoke(revokeValue);
-									    closeRevokeDialog();
-									}
-								let resendValue = null;
+				function openRevokeDialog(rowData) {
+					
+					if (typeof rowData === "string") {
+					     rowData = JSON.parse(decodeURIComponent(rowData));
+					  }
+					  document.getElementById("revokeId").value = rowData.id; // Example
+					  document.getElementById("popupFieldName").innerText = rowData.name; 
+					  document.getElementById("popupFieldMobile").innerText = rowData.mobile; 
+					  document.getElementById("popupFieldAmount").innerText = rowData.amount; 
+					  document.getElementById("popupFieldStartDate").innerText = rowData.creationDate; 
+				      revokeValue = rowData.value; // Store the button value
+				      document.getElementById("revokeModal").style.display = "flex";
+				}
+				function closeRevokeDialog() {
+				    document.getElementById("revokeModal").style.display = "none";
+				}
+				function confirmRevokeDialog() {
+				    console.log("Revoke confirmed for value:", revokeValue);
+				    revoke(revokeValue);
+				    closeRevokeDialog();
+				}
+			let resendValue = null;
 
-											function sendSMSModal(rowData) {
-												
-												if (typeof rowData === "string") {
-												     rowData = JSON.parse(decodeURIComponent(rowData));
-												  }
-											    resendValue = rowData.value; // Store the button value
-											    document.getElementById("sendSMSModal").style.display = "flex";
-											}
-											function closeresendDialog() {
-											    document.getElementById("sendSMSModal").style.display = "none";
-											}
+						function sendSMSModal(rowData) {
+							
+							if (typeof rowData === "string") {
+							     rowData = JSON.parse(decodeURIComponent(rowData));
+							  }
+						    resendValue = rowData.value; // Store the button value
+						    document.getElementById("sendSMSModal").style.display = "flex";
+						}
+						function closeresendDialog() {
+						    document.getElementById("sendSMSModal").style.display = "none";
+						}
 
-											function confirmRevokeDialog() {
-											    console.log("Revoke confirmed for value:", resendValue);
-											    resendsms(resendValue);
-											    closeresendDialog();
-											}
-										//	document.getEle
-						</script>
+						function confirmRevokeDialog() {
+						    console.log("Revoke confirmed for value:", resendValue);
+						    resendsms(resendValue);
+						    closeresendDialog();
+						}
+					//	document.getEle
+	</script>
 							
 </body>
 

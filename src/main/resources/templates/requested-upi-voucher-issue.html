@@ -619,8 +619,6 @@
 		function getRequestedEmployeeList(){ 
 		    document.getElementById("signinLoader").style.display="flex";
 		    const employerId = document.getElementById('employerId').value;
-			
-
 		    $.ajax({
 		        type: "GET",
 		        url: "/getRequestedVoucherApproveList",

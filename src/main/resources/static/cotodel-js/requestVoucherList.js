@@ -105,7 +105,6 @@ function getSavedVoucherList() {
 							var data1 = jQuery.parseJSON(newData);
 							$('#RevokeUPIVoucherModal').hide();
 							document.getElementById("revokeId").value="";
-							//document.getElementById("authenticate").disabled = false;
 							document.getElementById("signinLoader").style.display="none";
 							
 							if(data1.status==true){
@@ -113,13 +112,15 @@ function getSavedVoucherList() {
 							$('#revokeModal').hide();
 							}
 							else{
-								$('#revokeUPIVcAuthenticateFail').show();		
+								$('#revokeUPIVcAuthenticateFail').show();	
+								$('#revokeModal').hide();	
 							}
 							getSavedVoucherList();
 					        },
 					      error: function(e){
-							$('#revokeUPIVcAuthenticateFail').show();		
-					          alert('Error: ' + e);
+							$('#revokeUPIVcAuthenticateFail').show();
+							$('#revokeModal').hide();		
+					        alert('Error: ' + e);
 					      }
 				 }); 
 				
@@ -160,20 +161,21 @@ function getSavedVoucherList() {
 							var data1 = jQuery.parseJSON(newData);
 							$('#RevokeUPIVoucherModal').hide();
 							document.getElementById("revokeId").value="";
-							//document.getElementById("authenticate").disabled = false;
 							document.getElementById("signinLoader").style.display="none";
 							
 							if(data1.status==true){
-							$('#revokeUPIVcAuthenticate').show();				
+							$('#revokeUPIVcAuthenticateReject').show();				
 							$('#revokeModal').hide();
 							}
 							else{
-								$('#revokeUPIVcAuthenticateFail').show();		
+								$('#revokeUPIVcAuthenticateFailReject').show();
+								$('#revokeModal').hide();		
 							}
 							getSavedVoucherList();
 					        },
 					      error: function(e){
-							$('#revokeUPIVcAuthenticateFail').show();		
+							$('#revokeUPIVcAuthenticateFailReject').show();		
+							$('#revokeModal').hide();
 					          alert('Error: ' + e);
 					      }
 				 }); 
