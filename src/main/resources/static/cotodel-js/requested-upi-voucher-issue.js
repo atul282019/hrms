@@ -218,6 +218,8 @@ function focusBack(){
 
 
 
+
+/* old workingfunction 
 function  getLinkedBankDetail(){
  	var employerid = document.getElementById("employerId").value;
  	$.ajax({
@@ -259,9 +261,55 @@ function  getLinkedBankDetail(){
         }
    }); 
 			
+}*/
+function getLinkedBankDetail() {
+    var employerid = document.getElementById("employerId").value;
+
+    $.ajax({
+        type: "POST",
+        url: "/getErupiLinkBankAccountDetail",
+        data: { "orgId": employerid },
+        beforeSend: function(xhr) {
+            // set headers if needed
+        },
+        success: function(data) {
+            $("#banklist option").remove();
+            var obj = jQuery.parseJSON(data);
+            obj = obj.data;
+
+            var bankList = document.getElementById("banklist");
+
+            // Add default option
+            var defaultOption = document.createElement("option");
+            defaultOption.text = "Select Bank";
+            defaultOption.value = "";
+            bankList.add(defaultOption);
+
+            let accounts = [];
+
+            for (var key in obj) {
+                var values = obj[key];
+                var option = document.createElement("option");
+                option.value = values.acNumber;
+                option.text = values.bankName + " | " + values.acNumber;
+                bankList.add(option);
+                accounts.push(values.acNumber);
+            }
+
+            // Auto-select if only one bank account exists
+			
+            if (accounts.length === 1) {
+                bankList.value = accounts[0];
+				document.getElementById("recallBalance").click();
+            }
+        },
+        error: function(e) {
+            alert('Error: ' + e);
+        }
+    });
 }
 
-function  getVoucherDetailByBoucherCode(){
+/*function  getVoucherDetailByBoucherCode(){
 	createSingleVoucherValidation();
  	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
  	$.ajax({
@@ -303,7 +351,7 @@ function  getVoucherDetailByBoucherCode(){
 		        }
    }); 
 			
-}
+}*/
 
 function  getBankDetailByBankAccountNumber(){
  	var accountNumber = document.getElementById("banklist").value;

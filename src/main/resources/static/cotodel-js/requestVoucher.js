@@ -122,6 +122,21 @@
 						//const maskedMobile = voucher.mobile 
 						 //                   ? `XXX-XXX-${voucher.mobile.slice(-4)}` 
 						  //                  : "N/A";
+						  // Color-coded status message
+						      let status = voucher.statusMessage || "N/A";
+						      let colorClass = "";
+
+						      if (status === "Requested") {
+						          colorClass = "color: #ffc107; font-weight: bold;"; // Yellow
+						      } else if (status === "Voucher Created") {
+						          colorClass = "color: #28a745; font-weight: bold;"; // Green
+						      } else if (status === "Approved by manager") {
+						          colorClass = "color: #007bff; font-weight: bold;"; // Blue
+						      } else if (status === "Rejected by manager") {
+  						          colorClass = "color:#dc3545; font-weight:bold;"; // red
+  						      }
+							  
+
 		                const row = `
 		                    <tr>
 		                        <td>${voucher.name}</td>
@@ -134,7 +149,7 @@
 		                        <td>${formattedDate }</td>
 								<td>${voucher.validity}</td>
 								<td>${voucher.remarks || "N/A"}</td>
-								<td>${voucher.statusMessage || "N/A"}</td>
+								<td><span style="${colorClass}">${status}</span></td>
 								
 		                        
 		                    </tr>

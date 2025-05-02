@@ -200,6 +200,7 @@
 	                                              <!--  <th>DOJ</th>-->
 	                                            <!--  <th>EMAIL</th>-->
 												  <th>EMPLOYEE REMARK</th>
+												  <th>VALIDITY IN DAYS</th>
 												  <th>STATUS</th>
 												  <th>ACTION</th>
 	                                          </tr>
@@ -279,6 +280,7 @@
                                                 <td>
                                                     <select class="GeneralSelect" id="expiryDate">
                                                         <option value="7 Days" class="test">7 Days </option>
+														<option value="15 Days">15 Days</option>
                                                         <option value="30 Days">30 Days</option>
                                                         <option value="90 Days">90 Days</option>
                                                     </select>
@@ -650,7 +652,24 @@
 		                    { "mData": "voucherSubType" },
 		                    { "mData": "amount" },
 		                    { "mData": "remarks" },
-		                    { "mData": "statusMessage" },
+							{ "mData": "validity" },
+							{
+							"mData": "statusMessage",
+							"render": function (status, type, row) {
+								let style = "";
+								if (status === "Requested") {
+									style = "color:#ffc107; font-weight:bold;";
+								} else if (status === "Voucher Created") {
+									style = "color:#28a745; font-weight:bold;";
+								} else if (status === "Approved by manager") {
+									style = "color:#007bff; font-weight:bold;";
+								}
+								else if(status==="Rejected by manager"){
+									style ="color:#dc3545; font-weight:bold;";
+									}
+								return `<span style="${style}">${status || "N/A"}</span>`;
+							}
+						}, 
 		                    { "mData": "id", "render": function (data2, type, row) {
 		                        if (row.statusMessage !== "Voucher Created") {
 		                            return `
@@ -684,6 +703,7 @@
 		    });
 		}
 
+	/* old working function 
 	function getRowData(btnIssue) {
 		var selectedBank = document.getElementById("banklist").value;
 		    
@@ -722,7 +742,42 @@
 	    
 	    $("#selectvouchers-wrap03").show();
 	    $("#selectemployee-wrap03").hide();
+	}*/
+	function getRowData(btnIssue) {
+	    var selectedBank = document.getElementById("banklist").value;
+	    
+	    if (!selectedBank) {
+	        alert("Please select a bank account before selecting a row.");
+	        return;
+	    }
+	    
+	    var table = $('#employeelist').DataTable();
+	    var row = $(btnIssue).closest('tr');
+	    var rowData = table.row(row).data();
+
+	    console.log("Id of selected record", rowData.id);
+
+	    document.getElementById("requestId").value = rowData.id;
+	    document.getElementById("search").value = rowData.name;
+	    document.getElementById("mobile").value = rowData.mobile;
+	    document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType + "|" + rowData.voucherSubType;
+
+	    // Always use row amount regardless of bank balance
+	    let rowAmount = parseFloat(rowData.amount) || 0;
+
+	    document.getElementById("amount").value = rowAmount.toFixed(2);
+	    document.getElementById("requestedamount").value = rowAmount.toFixed(2);
+
+	    document.getElementById("voucherCode").value = rowData.purposeCode;
+	    document.getElementById("purposeCode").value = rowData.mcc;
+	    document.getElementById("voucherType").value = rowData.voucherType;
+	    document.getElementById("voucherSubType").value = rowData.voucherSubType;
+	    document.getElementById("mcc").value = rowData.mcc;
+
+	    $("#selectvouchers-wrap03").show();
+	    $("#selectemployee-wrap03").hide();
 	}
+
 
 	function backEmployeeList(){
 

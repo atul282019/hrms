@@ -43,8 +43,25 @@ function getSavedVoucherList() {
 						    return `${yyyy}-${mm}-${dd}`;
 						  }
 						},
-						{ "mData": "remarks"},    
-						{ "mData": "statusMessage"},         
+						{ "mData": "remarks"}, 
+						{"mData":"validity"},   
+						{
+								"mData": "statusMessage",
+								"render": function (status, type, row) {
+									let style = "";
+									if (status === "Requested") {
+										style = "color:#ffc107; font-weight:bold;";
+									} else if (status === "Voucher Created") {
+										style = "color:#28a745; font-weight:bold;";
+									} else if (status === "Approved by manager") {
+										style = "color:#007bff; font-weight:bold;";
+									}
+									else if(status==="Rejected by manager"){
+										style ="color:#dc3545; font-weight:bold;";
+										}
+									return `<span style="${style}">${status || "N/A"}</span>`;
+								}
+							},         
 						{ "mData": "statusMessage", "render": function (creationDate, type, row) {
 						    if (row.statusMessage !== "Requested" || row.statusMessage !== "Requested") {
 						        return '';
