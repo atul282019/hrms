@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top" onload="getSavedVoucherList()">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content"> 
+
+                <!-- Topbar -->
+              
+               <!--<div th:insert="fragments/header.html :: header"></div>-->
+			   <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                   <!-- Topbar Navbar -->
+                   <ul class="navbar-nav top-nav">
+
+                       <!-- Nav Item - User Information -->
+                       <li class="nav-item">
+                           <a class="nav-link active" href="#">
+                               <span class="mr-2 small">Dashboard</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="#">
+                               <span class="mr-2 small">Request Voucher</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>
+
+                   </ul>
+
+				<ul class="navbar-nav ml-auto">
+	                        <li class="nav-item dropdown no-arrow">
+	                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+	                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+	                            </a>
+	                            <!-- Dropdown - User Information -->
+	                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+	                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
+	                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+	                                    Profile
+	                                </a>
+	                                <a class="dropdown-item" href="#">
+	                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+	                                    Settings
+	                                </a>
+	                              
+	                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+						            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+								          <i class="fas fa-user-circle"></i> Logout         
+								        </a>
+						          </div> -->  
+	                              <div class="dropdown-divider"></div>
+	                                <a class="dropdown-item" th:href="@{/logout}">
+	                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+	                                    Logout
+	                                </a>
+	                            </div>
+	                        </li>
+
+	                   </ul>		
+                     </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+				<div class="policies-wrap-in-table mt-5 mt-4">
+						<div class="table-responsive">
+							<table class="table table-reimbursements"
+								id="reimbursementTable">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>Employee Id</th>
+										<th>Voucher Type</th>
+										<th>Voucher Sub Type</th>
+										<th>Mobile No</th>
+										<th>Voucher Amount</th>
+										<th>Creation Date</th>
+										<th>Remarks</th>
+										<th>Status</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+								<td></td>
+
+								</tbody>
+							
+							</table>
+						
+						</div>
+					</div>
+					<input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
+                    <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                    <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
+
+					<div class="lds-spinner" id="signinLoader" style="display: none">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+              
+              <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+<div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+	<script type="text/javascript" src="cotodel-js/requestVoucherList.js"></script>
+	<style>
+	.label-wrapper {
+	    display: flex;
+	    align-items: center;
+	    gap: 4px;
+	}
+	.required-star {
+	    color: red;
+	    flex-shrink: 0;
+	}
+	</style>
+
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/requestedVoucherList"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+	
+	$(document).ready(function () {
+        $(".close").click(function () {
+            $("#revokeUPIVcAuthenticate").hide();
+        });
+    });
+	$(document).ready(function () {
+        $(".close").click(function () {
+            $("#smsUPIVcAuthenticateFail").hide();
+        });
+    });
+	</script>
+	
+	<script>
+	    function getVoucherSubTypes() {
+	        const selectedVoucherCode = document.getElementById('VoucherType').value;
+	        const subTypeDropdown = document.getElementById('VoucherSubType');
+	        
+	        if (!selectedVoucherCode) {
+	            subTypeDropdown.innerHTML = '<option value="">Select Voucher Sub Type</option>';
+	            return;
+	        }
+
+	        $.ajax({
+	            type: "GET",
+	            url: "/getPurposeListByVoucherCode",
+	            data: { purposeCode: selectedVoucherCode },
+	            success: function (data) {
+	                const parsedData = jQuery.parseJSON(data);
+					console.log("parsed data for /getPurposeListByVoucherCode",parsedData);
+	                
+	                subTypeDropdown.innerHTML = '<option value="">Select Voucher Sub Type</option>';
+	                
+	                parsedData.data.forEach(item => {
+	                    const option = document.createElement('option');
+	                    option.value = item.mcc;
+	                    option.textContent = item.mccDesc;
+	                    subTypeDropdown.appendChild(option);
+	                });
+	            },
+	            error: function (e) {
+	                alert('Error: ' + e.responseText);
+	            }
+	        });
+	    }
+	</script>
+	
+			<!-- Modal UPI Voucher Revoked -->
+			<div class="customModal" id="revokeUPIVcAuthenticate">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content modal-bulk p-0">
+			            <div class="modal-top text-center">
+			                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                    <img src="img/modal-close.svg" alt="">
+			                </button>
+			                <img src="img/modal-success.svg" alt="">
+			            </div>
+			            <div class="modal-bottom">
+			                <span>Voucher Approved Successfully</span>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+			
+			<!-- Modal UPI Voucher Revoked -->
+			<div class="customModal" id="revokeUPIVcAuthenticateFail">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content modal-bulk p-0">
+			            <div class="modal-top text-center">
+			                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                    <img src="img/modal-close.svg" alt="">
+			                </button>
+			                <img src="img/table-fail.svg" alt="">
+			            </div>
+			            <div class="modal-bottom">
+			                <span>UPI Voucher Approval Failed</span>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<!-- Modal Issue Vouchers -->
+			<div class="customModal" id="revokeModal">
+			    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+			        <div class="modal-content modal-bulk p-0">
+			            <div class="modal-header pb-0 text-center">
+			                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Are you sure?</h5>
+			            </div>
+			            <hr>
+			            <p class="text-dark">Please confirm if you would like to ‘Approve’ this  Voucher Request.</p>
+			            <div class="modal-body text-center">
+			              
+							<div class="table-responsive">
+							                <div class="table table-reimbursements table-upivouchers">
+							                    <div class="tablehead">
+													<input type="hidden" id="revokeId">
+							                        <div class="tabletheadtr">
+							                            <span>Name <img src="img/Sort.png" alt=""></span>
+														<span></span>
+							                            <span>Mobile</span>
+														<span>Amount </span>
+							                           <!-- <span>Bank A/c </span>-->
+							                           <!-- <span>Voucher &amp; Type <img src="img/Sort.png" alt=""></span>-->
+							                            <span>Status <img src="img/Sort.png" alt=""></span>
+							                            <span>Requested Date</span>
+														<span></span>
+														<span></span>
+							                        </div>
+							                    </div>
+
+							                    <div class="tablebody">
+							                        <div class="tablebodytr">
+							                            <span id="popupFieldName"></span>
+							                            <span id="popupFieldMobile"></span>
+														<span id="popupFieldAmount"></span>
+							                           
+							                            <span id="popupFieldpurposeDesc">
+							                               
+							                            </span>
+							                            <span><label>Active</label></span>
+							                            <span id="popupFieldStartDate"></span>
+							                            <span  id="popupFieldExpiryDate"></span>
+							                        </div>
+							                    </div>
+												<div class="tablebody">
+													
+								                        <div class="tablebodytr">
+								                          <span id="rejectLabel">Enter Reject Remark</span> <input type="text" id="rejectRemark" name="rejectRemark" >
+								                        </div>
+														<div class="error-msg" id="rejectRemarkerror" style="color:red"></div>
+																						
+								                    </div>
+							                </div>
+							            </div>
+			                <div class="d-flex justify-content-center mt-3">
+			                    <button class="btn btn-border w-100" id="btnRevoke" onclick="approveReject()" >Approve</button>
+			                    <button class="btn btn-primary w-100" id="cancelbtn" onclick="rejectVoucher()" >Reject</button>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+			   
+			   <div class="modalView" id="VoucherRequestSuccess">
+			   		        <div class="modal-dialog modal-dialog-centered">
+			   		            <div class="modal-content modal-bulk p-0">
+			   		                <div class="modal-top text-center">
+			   		                    <button type="button" class="close p-0"  data-dismiss="modal" id="approvedClose" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+			   		                        <img src="img/modal-close.svg" alt="">
+			   		                    </button>
+			   		                    <img src="img/modal-success.svg" alt="">
+			   		                </div>
+			   		                <div class="modal-bottom">
+			   		                   <span>Data saved SuccessFully!</span>
+			   		                </div>
+			   		            </div>
+			   		        </div>
+			   		    </div>
+						<script>
+									
+									let revokeValue = null;
+
+									function openRevokeDialog(rowData) {
+										
+										if (typeof rowData === "string") {
+										     rowData = JSON.parse(decodeURIComponent(rowData));
+										  }
+										  document.getElementById("revokeId").value = rowData.id; // Example
+										  document.getElementById("popupFieldName").innerText = rowData.name; 
+										  document.getElementById("popupFieldMobile").innerText = rowData.mobile; 
+										  document.getElementById("popupFieldAmount").innerText = rowData.amount; 
+										  document.getElementById("popupFieldStartDate").innerText = rowData.creationDate; 
+									      revokeValue = rowData.value; // Store the button value
+									      document.getElementById("revokeModal").style.display = "flex";
+									}
+									function closeRevokeDialog() {
+									    document.getElementById("revokeModal").style.display = "none";
+									}
+									function confirmRevokeDialog() {
+									    console.log("Revoke confirmed for value:", revokeValue);
+									    revoke(revokeValue);
+									    closeRevokeDialog();
+									}
+								let resendValue = null;
+
+											function sendSMSModal(rowData) {
+												
+												if (typeof rowData === "string") {
+												     rowData = JSON.parse(decodeURIComponent(rowData));
+												  }
+											    resendValue = rowData.value; // Store the button value
+											    document.getElementById("sendSMSModal").style.display = "flex";
+											}
+											function closeresendDialog() {
+											    document.getElementById("sendSMSModal").style.display = "none";
+											}
+
+											function confirmRevokeDialog() {
+											    console.log("Revoke confirmed for value:", resendValue);
+											    resendsms(resendValue);
+											    closeresendDialog();
+											}
+										//	document.getEle
+						</script>
+							
+</body>
+
+</html>
