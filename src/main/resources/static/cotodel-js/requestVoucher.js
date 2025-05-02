@@ -125,11 +125,11 @@
 		                const row = `
 		                    <tr>
 		                        <td>${voucher.name}</td>
-								<td>${voucher.employeeId}</td>
+								<td>${voucher.mobile}</td>
 		                        <td>${voucher.voucherType}</td>
 		                        <td>${voucher.voucherSubType}</td>
 								
-		                        <td>${voucher.mobile}</td>
+		                       
 		                        <td>${voucher.amount}</td>
 		                        <td>${formattedDate }</td>
 								<td>${voucher.validity}</td>
