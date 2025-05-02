@@ -404,9 +404,8 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
             
             JSONObject voucherJsonResponse1 = new JSONObject(voucherResponse1);
             if (voucherJsonResponse1.getBoolean("status")) {
-                List<Object> voucherList = voucherJsonResponse1.getJSONArray("data").toList();
                 responseMap.put("status", true);
-                responseMap.put("data", voucherList);
+                responseMap.put("message", voucherJsonResponse1.getString("message"));
             } else {
                 responseMap.put("status", false);
             }

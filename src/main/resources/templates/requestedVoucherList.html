@@ -187,6 +187,16 @@
 	   });
 	});
 	
+	$(document).ready(function () {
+        $(".close").click(function () {
+            $("#revokeUPIVcAuthenticate").hide();
+        });
+    });
+	$(document).ready(function () {
+        $(".close").click(function () {
+            $("#smsUPIVcAuthenticateFail").hide();
+        });
+    });
 	</script>
 	
 	<script>
@@ -222,9 +232,7 @@
 	        });
 	    }
 	</script>
-
-			
-
+	
 			<!-- Modal UPI Voucher Revoked -->
 			<div class="customModal" id="revokeUPIVcAuthenticate">
 			    <div class="modal-dialog modal-dialog-centered" role="document">
@@ -242,6 +250,7 @@
 			    </div>
 			</div>
 
+			
 			<!-- Modal UPI Voucher Revoked -->
 			<div class="customModal" id="revokeUPIVcAuthenticateFail">
 			    <div class="modal-dialog modal-dialog-centered" role="document">
@@ -253,7 +262,7 @@
 			                <img src="img/table-fail.svg" alt="">
 			            </div>
 			            <div class="modal-bottom">
-			                <span>UPI Voucher Revoked Failed</span>
+			                <span>UPI Voucher Approval Failed</span>
 			            </div>
 			        </div>
 			    </div>
@@ -301,11 +310,19 @@
 							                            <span  id="popupFieldExpiryDate"></span>
 							                        </div>
 							                    </div>
+												<div class="tablebody">
+													
+								                        <div class="tablebodytr">
+								                          <span id="rejectLabel">Enter Reject Remark</span> <input type="text" id="rejectRemark" name="rejectRemark" >
+								                        </div>
+														<div class="error-msg" id="rejectRemarkerror" style="color:red"></div>
+																						
+								                    </div>
 							                </div>
 							            </div>
 			                <div class="d-flex justify-content-center mt-3">
 			                    <button class="btn btn-border w-100" id="btnRevoke" onclick="approveReject()" >Approve</button>
-			                    <button class="btn btn-primary w-100" id="cancelbtn" onclick="approveReject()" >Reject</button>
+			                    <button class="btn btn-primary w-100" id="cancelbtn" onclick="rejectVoucher()" >Reject</button>
 			                </div>
 			            </div>
 			        </div>
@@ -337,32 +354,22 @@
 										if (typeof rowData === "string") {
 										     rowData = JSON.parse(decodeURIComponent(rowData));
 										  }
-
-										  // Populate your popup/modal with the row data
 										  document.getElementById("revokeId").value = rowData.id; // Example
 										  document.getElementById("popupFieldName").innerText = rowData.name; 
 										  document.getElementById("popupFieldMobile").innerText = rowData.mobile; 
 										  document.getElementById("popupFieldAmount").innerText = rowData.amount; 
-										//  document.getElementById("popupFieldpurposeDesc").innerText = rowData.purposeDesc; 
-										  
-										  document.getElementById("popupFieldStartDate").innerText = rowData.creationDate; // Example
-										  //document.getElementById("popupFieldExpiryDate").innerText = rowData.expDate; // Example
-
+										  document.getElementById("popupFieldStartDate").innerText = rowData.creationDate; 
 									      revokeValue = rowData.value; // Store the button value
 									      document.getElementById("revokeModal").style.display = "flex";
 									}
 									function closeRevokeDialog() {
 									    document.getElementById("revokeModal").style.display = "none";
 									}
-
 									function confirmRevokeDialog() {
 									    console.log("Revoke confirmed for value:", revokeValue);
 									    revoke(revokeValue);
 									    closeRevokeDialog();
 									}
-								//	document.getElementById("confirmButton").addEventListener("click", confirmRevokeDialog);
-								//	document.getElementById("cancelButton").addEventListener("click", closeRevokeDialog);
-								
 								let resendValue = null;
 
 											function sendSMSModal(rowData) {
@@ -370,12 +377,6 @@
 												if (typeof rowData === "string") {
 												     rowData = JSON.parse(decodeURIComponent(rowData));
 												  }
-
-												  // Populate your popup/modal with the row data
-												 
-												 // document.getElementById("popupField").textContent = rowData.amount; // Example
-
-
 											    resendValue = rowData.value; // Store the button value
 											    document.getElementById("sendSMSModal").style.display = "flex";
 											}

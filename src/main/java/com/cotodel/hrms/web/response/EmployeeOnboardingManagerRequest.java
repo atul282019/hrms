@@ -14,5 +14,7 @@ public class EmployeeOnboardingManagerRequest {
 	private Long managerId;
 	private String loginuser;
 	private String clientKey;
+	private String rejecctRemark;
+	private String status;
 	private String hash;   
 }

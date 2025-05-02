@@ -44,8 +44,8 @@ function getSavedVoucherList() {
 						},
 						{ "mData": "remarks"},    
 						{ "mData": "statusMessage"},         
-						{ "mData": "id", "render": function (creationDate, type, row) {
-						    if (row.type === "Approved" || row.type === "Reject") {
+						{ "mData": "statusMessage", "render": function (creationDate, type, row) {
+						    if (row.statusMessage !== "Requested" || row.statusMessage !== "Requested") {
 						        return '';
 						    } else {
 						        return `
@@ -61,17 +61,9 @@ function getSavedVoucherList() {
 						                            value="${vouchers}" 
 						                            id="btnRevoke" 
 						                            onclick="openRevokeDialog('${encodeURIComponent(JSON.stringify(row))}')">
-						                            Approve
+						                            Approve | Reject
 						                        </button>
-						                        <button 
-						                            class="dropdown-item py-2"  
-						                            data-toggle="modal" 
-						                            data-target="#tableSendSms" 
-						                            value="${vouchers}" 
-						                            id="btnSend" 
-						                            onclick="sendsms('${encodeURIComponent(JSON.stringify(row))}')">
-						                            Reject
-						                        </button>
+						                       
 						                    </div>
 						                </div>
 						            </td>`;
@@ -146,7 +138,9 @@ function getSavedVoucherList() {
 							 			"id": revokeId,
 										"employerId": employerId,
 										"employeeId":employeeId,
-										"loginuser": username
+										"loginuser": username,
+										"status": "Approved",
+										"rejecctRemark":""
 							    		 },
 							    		  beforeSend : function(xhr) {
 							 			//xhr.setRequestHeader(header, token);
@@ -175,4 +169,59 @@ function getSavedVoucherList() {
 							 }); 
 							
 					}
+					
+			function rejectVoucher(){
+											
+				var employerId = document.getElementById("employerId").value;
+				var employeeId = document.getElementById("empId").value;
+				var revokeId = document.getElementById("revokeId").value;
+				var username = document.getElementById("Name").value;
+				var rejectRemark = document.getElementById("rejectRemark").value;
+				if (rejectRemark === "") {
+			        document.getElementById("rejectRemarkerror").innerHTML = "Please Enter Reject Remark";
+			        voucherTypeDropdown.focus();
+			        return false;
+			    } else {
+			        document.getElementById("rejectRemarkerror").innerHTML = "";
+			    }
+				
+				 document.getElementById("signinLoader").style.display="flex";
+				  	$.ajax({
+				 	type: "POST",
+				 	url:"/approveRejectVoucherRequest",
+				     data: {
+				 			"id": revokeId,
+							"employerId": employerId,
+							"employeeId":employeeId,
+							"loginuser": username,
+							"status": "Rejected",
+							"rejecctRemark":rejectRemark
+				    		 },
+				    		  beforeSend : function(xhr) {
+				 			//xhr.setRequestHeader(header, token);
+				 			},
+				         success: function(data){
+							newData = data;
+							var data1 = jQuery.parseJSON(newData);
+							$('#RevokeUPIVoucherModal').hide();
+							document.getElementById("revokeId").value="";
+							//document.getElementById("authenticate").disabled = false;
+							document.getElementById("signinLoader").style.display="none";
+							
+							if(data1.status==true){
+							$('#revokeUPIVcAuthenticate').show();				
+							$('#revokeModal').hide();
+							}
+							else{
+								$('#revokeUPIVcAuthenticateFail').show();		
+							}
+							getSavedVoucherList();
+					        },
+					      error: function(e){
+							$('#revokeUPIVcAuthenticateFail').show();		
+					          alert('Error: ' + e);
+					      }
+				 }); 
+				
+		}
 				
