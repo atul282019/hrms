@@ -741,3 +741,33 @@ function sortTable(columnIndex) {
 	       const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
 	       XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
 	   });
+	   
+	   function requestedVoucherCount() {
+	   											   
+	   											    const employerId = document.getElementById('employerId').value;
+
+	   											    $.ajax({
+	   											        type: "GET",
+	   											        url: "/getRequestedVoucherApproveList",
+	   											        data: { employerId },
+	   											        success: function (data) {
+	   											            const data1 = jQuery.parseJSON(data);
+	   											            const data2 = data1.data;
+															
+	
+	   											            // Show count on bell badge
+	   											            const badge = document.getElementById("bellCountBadge");
+	   											            if (data2.length > 0) {
+	   											                badge.style.display = "inline-block";
+	   											                badge.textContent = data2.length;
+	   											            } else {
+	   											                badge.style.display = "none";
+	   											            }
+
+	   											           
+	   											        },
+	   											        error: function (e) {
+	   											            alert('Failed to fetch JSON data' + e);
+	   											        }
+	   											    });
+	   											}

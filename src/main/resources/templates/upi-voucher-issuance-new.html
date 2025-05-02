@@ -3,10 +3,10 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top" onload="getIssueVoucherList(), getLinkedBankDetail(),getBankListWithVocher()">
+<body id="page-top" onload="getIssueVoucherList(), getLinkedBankDetail(),getBankListWithVocher(),requestedVoucherCount()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -96,10 +96,16 @@
                                         <div class="col-12 col-md-3">
                                             <button class="btn-border-custom" id="requestedVoucher">
                                                 <a href="#">
-                                                    <div>
-                                                        <img src="img/user-voucher.svg" alt="">
-                                                        <span>Vouchers Requested</span>
-                                                    </div>
+													<div style="position: relative; display: inline-block;">
+													    <i class="bi bi-bell" style="font-size: 1.2rem;"></i>
+													    <span id="bellCountBadge"
+													          style="position: absolute; top: -5px; right: -5px; background: red; color:  white;
+													                 font-size: 11px; padding: 2px 6px; border-radius: 50%; display: none;">
+													        0
+													    </span>
+													</div>
+													<span>Vouchers Requested</span>
+													
                                                     <div>
                                                         <strong>-</strong>
                                                         <img src="img/arrow-voucher.svg" alt="">
@@ -403,6 +409,13 @@
 	       $(".dropdownNav").addClass("active");
 	   });
 	});
+
+	</script>
+	<script>
+		document.getElementById('requestedVoucher').addEventListener('click', function () {
+		    document.getElementById('bellCountBadge').style.display = 'none';
+		    window.location.href = '/requestedUpiVoucherIssuance'; // ← replace with actual target page URL
+		});
 
 	</script>
 	
