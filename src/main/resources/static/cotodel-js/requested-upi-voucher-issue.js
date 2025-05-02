@@ -894,21 +894,32 @@ function getPrimaryBankDetail(){
 				  	   				      }
 				  	   				  }
 									  
-    /*function validateAmount1() {
-      const requested = parseFloat(document.getElementById("requestedamount").value);
-      const entered = parseFloat(document.getElementById("amount").value);
-      const errorDiv = document.getElementById("amountError");
+									  function validateAmount1() {
+									    const requested = parseFloat(document.getElementById("requestedamount").value);
+									    const amountInput = document.getElementById("amount");
+									    const entered = parseFloat(amountInput.value);
+									    const errorDiv = document.getElementById("amountError");
 
-      if (!isNaN(requested) && !isNaN(entered)) {
-        if (entered > requested) {
-          errorDiv.textContent = "Entered amount cannot exceed the requested amount.";
-        } else {
-          errorDiv.textContent = "";
-        }
-      } else {
-        errorDiv.textContent = "";
-      }
-    }*/
+									    // Extract available balance from text, remove ₹, commas
+									    const balanceText = document.querySelector(".text-wrapper-3").textContent.replace(/[^0-9.]/g, "");
+									    const availableBalance = parseFloat(balanceText);
+
+									    if (!isNaN(requested) && !isNaN(entered) && !isNaN(availableBalance)) {
+									      if (entered > requested) {
+									        errorDiv.textContent = "Entered amount cannot exceed the requested amount.";
+									        amountInput.value = requested;
+									      } else if (entered > availableBalance) {
+									        errorDiv.textContent = "Entered amount cannot exceed available balance.";
+									        amountInput.value = availableBalance;
+									      } else {
+									        errorDiv.textContent = "";
+									      }
+									    } else {
+									      errorDiv.textContent = "";
+									    }
+									  }
+
+
  
 
 

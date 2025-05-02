@@ -132,6 +132,7 @@
 		                        <td>${voucher.mobile}</td>
 		                        <td>${voucher.amount}</td>
 		                        <td>${formattedDate }</td>
+								<td>${voucher.validity}</td>
 								<td>${voucher.remarks || "N/A"}</td>
 								<td>${voucher.statusMessage || "N/A"}</td>
 								
@@ -266,6 +267,8 @@
 		    var voucherSubTypeDropdown = document.getElementById("VoucherSubType");
 		    var voucherSubType = voucherSubTypeDropdown.options[voucherSubTypeDropdown.selectedIndex].text;
 			
+			var validityDropdown = document.getElementById("validity");
+					 var validity = validityDropdown.value; // Getting the mcc
 			if (purposeCode === "") {
 			        document.getElementById("VoucherTypeerror").innerHTML = "Please select a Voucher Type";
 			        voucherTypeDropdown.focus();
@@ -338,7 +341,7 @@
 		        type: "POST",
 		        url: "/createVoucher",
 		        data: {
-		            
+		            "validity":validity,
 					"employerId":employerId,
 					"employeeId":employeeId,
 					"purposeCode":	purposeCode,

@@ -257,6 +257,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("upiCircle");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/blogs/fleetmanagement")){
+				RequestDispatcher rd = request.getRequestDispatcher("fleetmanagement");
+				rd.forward(request, response);
+			}
 			else if(requestURI.contains("/solutions/corporateexpensemanagement")){
 				RequestDispatcher rd = request.getRequestDispatcher("corporatesManagement");
 				rd.forward(request, response);

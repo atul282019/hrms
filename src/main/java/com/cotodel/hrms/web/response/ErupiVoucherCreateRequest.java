@@ -31,6 +31,7 @@ public class ErupiVoucherCreateRequest {
 	private String response;
 	private String purposeCode;	
 	private String mcc;
+	private Integer validity;
 	private String clientKey;
 	private String hash;   
 
