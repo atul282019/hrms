@@ -28,6 +28,28 @@ public class UserRegistrationRequest implements Serializable{
 	
 	private String captcha;
 	
+	private String role;
+    private String companyId;
+    private String hrmsId;
+    private String hrmsName;
+    private String employeeName;
+   
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public String getHrmsName() {
+		return hrmsName;
+	}
+
+	public void setHrmsName(String hrmsName) {
+		this.hrmsName = hrmsName;
+	}
+
 	public String getcaptcha() {
 		return captcha;
 	}
@@ -121,13 +143,44 @@ public class UserRegistrationRequest implements Serializable{
 		return serialVersionUID;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getHrmsId() {
+		return hrmsId;
+	}
+
+	public void setHrmsId(String hrmsId) {
+		this.hrmsId = hrmsId;
+	}
+
 	@Override
 	public String toString() {
 		return "UserRegistrationRequest [username=" + username + ", email=" + email + ", mobile=" + mobile
 				+ ", orgname=" + orgname + ", noofEmp=" + noofEmp + ", privacyCheck=" + privacyCheck + ", whatsupCheck="
-				+ whatsupCheck + "]";
+				+ whatsupCheck + ", employerId=" + employerId + ", erupistatus=" + erupistatus + ", captcha=" + captcha
+				+ ", role=" + role + ", companyId=" + companyId + ", hrmsId=" + hrmsId + ", getcaptcha()="
+				+ getcaptcha() + ", getEmployerId()=" + getEmployerId() + ", isErupistatus()=" + isErupistatus()
+				+ ", getUsername()=" + getUsername() + ", getEmail()=" + getEmail() + ", getMobile()=" + getMobile()
+				+ ", getOrgname()=" + getOrgname() + ", getNoofEmp()=" + getNoofEmp() + ", getPrivacyCheck()="
+				+ getPrivacyCheck() + ", getWhatsupCheck()=" + getWhatsupCheck() + ", getRole()=" + getRole()
+				+ ", getCompanyId()=" + getCompanyId() + ", getHrmsId()=" + getHrmsId() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
+
 
 	
 

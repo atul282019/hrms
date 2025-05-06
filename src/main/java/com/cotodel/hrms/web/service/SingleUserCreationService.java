@@ -3,6 +3,7 @@ package com.cotodel.hrms.web.service;
 import org.springframework.stereotype.Repository;
 
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.response.UserRequest;
 import com.cotodel.hrms.web.response.UserWaitList;
 import com.cotodel.hrms.web.util.EncriptResponse;
 
@@ -19,5 +20,6 @@ public interface SingleUserCreationService {
 	String reputeRequestSave(String token, EncriptResponse jsonObject);
 	String updateuserWaitList(String token, EncriptResponse userWaitList);
 	String saveReputeUserDetailEncript(String token, EncriptResponse jsonObject);
-
+	String userDetailByMobileNo(String token, EncriptResponse jsonObjectIdToken2);
+	
 }

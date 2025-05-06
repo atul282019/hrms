@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.response.UserRequest;
 import com.cotodel.hrms.web.response.UserWaitList;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
 import com.cotodel.hrms.web.util.CommonUtility;
@@ -56,6 +57,12 @@ public class SingleUserCreationServiceImpl implements SingleUserCreationService{
 	@Override
 	public String saveReputeUserDetailEncript(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl+CommonUtils.registerReputeUserDetail);
+
+	}
+
+	@Override
+	public String userDetailByMobileNo(String token, EncriptResponse jsonObjectIdToken2) {
+	return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObjectIdToken2), applicationConstantConfig.userServiceBaseUrl+CommonUtils.getUserDetailByMobileNumber);
 
 	}
 

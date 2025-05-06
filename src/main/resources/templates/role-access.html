@@ -87,7 +87,7 @@
                         <div class="col-12">
                             <ul class="nav nav-tabs expense-tabs">
                                 <li class="active" th:if="${session.user_role == 9 or session.user_role == 1}" ><a data-toggle="tab" href="#home1">Role Access</a></li>
-                                <li th:if="${session.user_role == 9 or session.user_role == 1}" ><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
+                                <li th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" ><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
 								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33">Prepaid Account</a></li>
 								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
@@ -197,7 +197,7 @@
                                     </div>
 
                                 </div>
-                                <div id="menu11" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1}">
+                                <div id="menu11" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}">
 								
 									<div class="tab-content" id="defaultDiv" style="display: block">
 	                               <div id="home" class="tab-pane in active">

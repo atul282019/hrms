@@ -140,7 +140,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 			        }
 			    }
-    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1) && obj.getOrgid() == expensesReimbursementRequest.getEmployerId().intValue()) {
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == expensesReimbursementRequest.getEmployerId().intValue()) {
 		
 		try {
 			
@@ -555,7 +555,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 				            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 				        }
 				    }
-	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
 
@@ -658,7 +658,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 				            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 				        }
 				    }
-	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
 			
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
@@ -758,7 +758,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 				            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 				        }
 				    }
-	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
 			
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
@@ -916,7 +916,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 			        }
 			    }
-    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1) && obj.getOrgid() == advanceTravelRequest.getEmployerId().intValue()) {
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == advanceTravelRequest.getEmployerId().intValue()) {
 		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
@@ -1069,7 +1069,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 			        }
 			    }
-    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1) && obj.getOrgid() == travelRequest.getEmployerId().intValue()) {
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == travelRequest.getEmployerId().intValue()) {
 		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(travelRequest);

@@ -1,5 +1,7 @@
 package com.cotodel.hrms.web.controller;
 
+import java.util.Base64;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cotodel.hrms.web.jwt.util.JwtTokenGenerator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ReputeCompanyDetails;
 import com.cotodel.hrms.web.response.ReputeTokenRequest;
+import com.cotodel.hrms.web.response.ReputeUserRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
@@ -23,9 +27,8 @@ import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
+import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.Base64;
 
 @Controller
 @CrossOrigin
@@ -130,7 +133,7 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("expenseMgmtForCorporates", "command", "");
 	}
 	@GetMapping(value="/login")
-	public ModelAndView loginPage(Model model,@RequestParam(defaultValue = "") String code,
+	public String loginPage(Model model,@RequestParam(defaultValue = "") String code,
             @RequestParam(defaultValue = "") String vault_url,
             @RequestParam(defaultValue = "") String hrms_id,
             @RequestParam(defaultValue = "") String hrms_name,
@@ -138,6 +141,7 @@ public class StaticPageController extends CotoDelBaseController{
             @RequestParam(defaultValue = "") String company_id,
             @RequestParam(defaultValue = "") String role) {
 		logger.info("opening login Page");
+		String screenName="index";
 		if(code != null && !code.isEmpty() && code != "") {
 		
 		model.addAttribute("reputeUser","reputeUser");
@@ -146,6 +150,7 @@ public class StaticPageController extends CotoDelBaseController{
 		
 	    String[] jwtParts = repute.getIdToken().split("\\.");
         String payload = jwtParts[1];  // This is the middle part (payload)
+        Integer orgid=null;
         
         // Decode the payload from Base64
         String value=new String(Base64.getDecoder().decode(payload));
@@ -154,8 +159,8 @@ public class StaticPageController extends CotoDelBaseController{
        
         ReputeCompanyDetails reputeCompanyDetails=new ReputeCompanyDetails();
         reputeCompanyDetails=parseJson(value);
-		logger.info("opening login Page::"+reputeCompanyDetails.getEmail());
-		logger.info("opening login Page::"+reputeCompanyDetails.getPhoneNumber());
+		logger.info("opening login email ::"+reputeCompanyDetails.getEmail());
+		logger.info("opening login phone no ::"+reputeCompanyDetails.getPhoneNumber());
 		
 		String profileRes=null;
 		JSONObject profileJsonRes=null;
@@ -164,13 +169,21 @@ public class StaticPageController extends CotoDelBaseController{
 		UserRegistrationRequest userForm=new UserRegistrationRequest();
 		try {
 			
-		
+			logger.info("opening login email 1 ::"+reputeCompanyDetails.getEmail());
 		userForm.setEmail(reputeCompanyDetails.getEmail());
 		userForm.setUsername(hrms_name);
 		
 		String mobileNumber= reputeCompanyDetails.getPhoneNumber();
         String mobile1 = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
         userForm.setMobile(mobile1);
+        
+        userForm.setHrmsId(hrms_id);
+        userForm.setCompanyId(company_id);
+        userForm.setHrmsName(hrms_name);
+        userForm.setRole(role);
+        userForm.setEmployeeName(reputeCompanyDetails.getEmployeeName());
+        ReputeUserRequest userRequest = new ReputeUserRequest();
+        userRequest.setMobile(mobile1);
         repute.setMobile(mobile1);
         repute.setVault_url(vault_url);
         repute.setCompany_id(company_id);
@@ -195,10 +208,11 @@ public class StaticPageController extends CotoDelBaseController{
 	       // System.out.println("value: " + value);
 	        // Print the access token
 	       // reputeCompanyDetails=parseJson(value);
-         
+         logger.info("opening login email 22 ::"+reputeCompanyDetails.getEmail());
          profileJsonRes= new JSONObject(profileRes);
  		if(profileJsonRes.getBoolean("status")) { 
  			 try {
+ 				logger.info("opening login email 33::"+reputeCompanyDetails.getEmail());
  				//token.setAccessToken(repute.)
  				 String json2 = EncryptionDecriptionUtil.convertToJson(repute);
  				
@@ -211,6 +225,98 @@ public class StaticPageController extends CotoDelBaseController{
 				 profileResIdtoken=EncryptionDecriptionUtil.decriptResponse(userencriptReputeTokenRequest.getEncriptData(), userencriptReputeTokenRequest.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 				
 				 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
+				 if(profileJsonRes.getBoolean("status")) {
+					 
+					 System.out.println("User Already exist");
+					 logger.info("opening login email 66 ::"+reputeCompanyDetails.getEmail());
+					 session.setAttribute("reputeAccessToken", repute.getAccessToken());
+					 session.setAttribute("endpoint", repute.getVault_url());
+					 //String  userResponse = usercreationService.userDetailByMobileNo(tokengeneration.getToken(),userRequest);
+					 String json3 = EncryptionDecriptionUtil.convertToJson(userRequest);
+		 				
+		 				EncriptResponse jsonObjectIdToken2 =EncryptionDecriptionUtil.encriptResponse(json3, applicationConstantConfig.apiSignaturePublicPath);
+		 				
+						String encriptReputeTokenRequest2 = usercreationService.userDetailByMobileNo(tokengeneration.getToken(),jsonObjectIdToken2);
+						        
+						 EncriptResponse userencriptReputeTokenRequest2 =EncryptionDecriptionUtil.convertFromJson(encriptReputeTokenRequest2, EncriptResponse.class);
+						
+						 profileResIdtoken=EncryptionDecriptionUtil.decriptResponse(userencriptReputeTokenRequest2.getEncriptData(), userencriptReputeTokenRequest2.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+						
+						 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
+						
+					 logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
+					 if(profileJsonResIdtoken.getBoolean("status")) { 
+						  System.out.println("User stauts success");
+						  
+						 session.setAttribute("reputeAccessToken", repute.getAccessToken());
+						 session.setAttribute("endpoint", repute.getVault_url());
+						 
+						 request.getSession(true).setAttribute("email",  profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));									  
+						 request.getSession(true).setAttribute("hrms",  profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsId"));
+						 request.getSession(true).setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsName"));
+						 request.getSession(true).setAttribute("user_role",   profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"));
+						 //request.getSession(true).setAttribute("formattedDate",  formattedDate);
+		                 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						
+						 request.getSession(true).setAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						
+					    if(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id") == 3) {
+						   
+							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							
+							session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							 orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("id");
+						}// id and empid is same in 1,3,9 
+						else {
+							//id and emp is diiferent
+//							"id":1538 // employeeid
+//							"employerid":1439 //orgid
+							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							
+							session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+						    orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid");
+						}
+					    session.setAttribute("mobile", profileJsonResIdtoken.getJSONObject("userEntity").getString("mobile"));
+						session.setAttribute("email", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						session.setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("username"));
+						
+						String email = profileJsonResIdtoken.getJSONObject("userEntity").getString("email");
+						String mobile = profileJsonResIdtoken.getJSONObject("userEntity").getString("mobile");
+						String username = profileJsonResIdtoken.getJSONObject("userEntity").getString("username");
+						Integer user_role = profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id");
+					    String token	=	JwtTokenGenerator.generateToken(email,mobile,username,user_role,orgid, MessageConstant.SECRET);
+						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
+					    request.getSession(true).setAttribute("hrms", token);
+					   switch (String.valueOf(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"))) {	
+						
+						case "2":
+							 System.out.println("User stauts success case2 ");
+							//screenName="employee-dashboard";
+							screenName="dashboard";
+							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+							break;
+						case "3":
+							//screenName="employee-dashboard";
+							screenName="dashboard";
+							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+							break;
+						}
+						return screenName;
+					 }
+				 
+				 }
+				
+				 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -219,7 +325,7 @@ public class StaticPageController extends CotoDelBaseController{
  		}
  		else if(!profileJsonRes.getBoolean("status") && profileJsonRes.getString("message").equals("User Already exist with this email or mobile number !!")) {
  			try {
- 				
+ 				logger.info("opening login email 55 ::"+reputeCompanyDetails.getEmail());
  				//token.setAccessToken(repute.)
  				 String json2 = EncryptionDecriptionUtil.convertToJson(repute);
  				
@@ -232,6 +338,95 @@ public class StaticPageController extends CotoDelBaseController{
 				 profileResIdtoken=EncryptionDecriptionUtil.decriptResponse(userencriptReputeTokenRequest.getEncriptData(), userencriptReputeTokenRequest.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 				
 				 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
+				 logger.info("opening login email 66 profileJsonResIdtoken ::"+profileJsonResIdtoken);
+				 if(profileJsonResIdtoken.getBoolean("status")) { 
+					 System.out.println("User Already exist");
+					 logger.info("opening login email 66 ::"+reputeCompanyDetails.getEmail());
+					 session.setAttribute("reputeAccessToken", repute.getAccessToken());
+					 session.setAttribute("endpoint", repute.getVault_url());
+					 //String  userResponse = usercreationService.userDetailByMobileNo(tokengeneration.getToken(),userRequest);
+					 String json3 = EncryptionDecriptionUtil.convertToJson(userRequest);
+		 				
+		 				EncriptResponse jsonObjectIdToken2 =EncryptionDecriptionUtil.encriptResponse(json3, applicationConstantConfig.apiSignaturePublicPath);
+		 				
+						String encriptReputeTokenRequest2 = usercreationService.userDetailByMobileNo(tokengeneration.getToken(),jsonObjectIdToken2);
+						        
+						 EncriptResponse userencriptReputeTokenRequest2 =EncryptionDecriptionUtil.convertFromJson(encriptReputeTokenRequest2, EncriptResponse.class);
+						
+						 profileResIdtoken=EncryptionDecriptionUtil.decriptResponse(userencriptReputeTokenRequest2.getEncriptData(), userencriptReputeTokenRequest2.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+						
+						 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
+						
+					 logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
+					 if(profileJsonResIdtoken.getBoolean("status")) { 
+						  System.out.println("User stauts success");
+						  
+						 session.setAttribute("reputeAccessToken", repute.getAccessToken());
+						 session.setAttribute("endpoint", repute.getVault_url());
+						 
+						 request.getSession(true).setAttribute("email",  profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));									  
+						 request.getSession(true).setAttribute("hrms",  profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsId"));
+						 request.getSession(true).setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsName"));
+						 request.getSession(true).setAttribute("user_role",   profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"));
+						 //request.getSession(true).setAttribute("formattedDate",  formattedDate);
+		                 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						
+						 request.getSession(true).setAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						
+					    if(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id") == 3) {
+						   
+							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							
+							session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							 orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("id");
+						}// id and empid is same in 1,3,9 
+						else {
+							//id and emp is diiferent
+//							"id":1538 // employeeid
+//							"employerid":1439 //orgid
+							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							
+							session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+						    orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid");
+						}
+					    session.setAttribute("mobile", profileJsonResIdtoken.getJSONObject("userEntity").getString("mobile"));
+						session.setAttribute("email", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						session.setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("username"));
+						
+						String email = profileJsonResIdtoken.getJSONObject("userEntity").getString("email");
+						String mobile = profileJsonResIdtoken.getJSONObject("userEntity").getString("mobile");
+						String username = profileJsonResIdtoken.getJSONObject("userEntity").getString("username");
+						Integer user_role = profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id");
+					    String token	=	JwtTokenGenerator.generateToken(email,mobile,username,user_role,orgid, MessageConstant.SECRET);
+						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
+					    request.getSession(true).setAttribute("hrms", token);
+					   switch (String.valueOf(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"))) {	
+						
+						case "2":
+							 System.out.println("User stauts success case2 ");
+							//screenName="employee-dashboard";
+							screenName="dashboard";
+							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+							break;
+						case "3":
+							//screenName="employee-dashboard";
+							screenName="dashboard";
+							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+							break;
+						}
+						return screenName;
+					 }
+				 }
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -249,9 +444,9 @@ public class StaticPageController extends CotoDelBaseController{
 			model.addAttribute("message","");
 			model.addAttribute("mobile","");
 			model.addAttribute("orderid","");
-			return new ModelAndView("index", "command", "");
+			return screenName;
 		}
-		return new ModelAndView("index", "command", "");
+		return screenName;
 
 	}
 	@GetMapping(value="/FleetLogin")
@@ -661,7 +856,7 @@ public class StaticPageController extends CotoDelBaseController{
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
-				if(obj.getUser_role()==1|| obj.getUser_role()==9) {
+				if(obj.getUser_role()==1|| obj.getUser_role()==9 || obj.getUser_role()==3) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
@@ -683,7 +878,7 @@ public class StaticPageController extends CotoDelBaseController{
 		if(token!=null) {
 			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 			if(obj!=null) {
-				if(obj.getUser_role()==2 || obj.getUser_role()==1|| obj.getUser_role()==9) {
+				if(obj.getUser_role()==3 || obj.getUser_role()==2 || obj.getUser_role()==1|| obj.getUser_role()==9) {
 				model.addAttribute("name",obj.getName());
 				model.addAttribute("org",obj.getOrgName());
 				model.addAttribute("mobile",obj.getMobile());
