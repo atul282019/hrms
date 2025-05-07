@@ -159,8 +159,8 @@ public class StaticPageController extends CotoDelBaseController{
        
         ReputeCompanyDetails reputeCompanyDetails=new ReputeCompanyDetails();
         reputeCompanyDetails=parseJson(value);
-		logger.info("opening login email ::"+reputeCompanyDetails.getEmail());
-		logger.info("opening login phone no ::"+reputeCompanyDetails.getPhoneNumber());
+		//logger.info("opening login email ::"+reputeCompanyDetails.getEmail());
+		//logger.info("opening login phone no ::"+reputeCompanyDetails.getPhoneNumber());
 		
 		String profileRes=null;
 		JSONObject profileJsonRes=null;
@@ -169,7 +169,7 @@ public class StaticPageController extends CotoDelBaseController{
 		UserRegistrationRequest userForm=new UserRegistrationRequest();
 		try {
 			
-			logger.info("opening login email 1 ::"+reputeCompanyDetails.getEmail());
+			//logger.info("opening login email 1 ::"+reputeCompanyDetails.getEmail());
 		userForm.setEmail(reputeCompanyDetails.getEmail());
 		userForm.setUsername(hrms_name);
 		
@@ -208,11 +208,11 @@ public class StaticPageController extends CotoDelBaseController{
 	       // System.out.println("value: " + value);
 	        // Print the access token
 	       // reputeCompanyDetails=parseJson(value);
-         logger.info("opening login email 22 ::"+reputeCompanyDetails.getEmail());
+        // logger.info("opening login email 22 ::"+reputeCompanyDetails.getEmail());
          profileJsonRes= new JSONObject(profileRes);
  		if(profileJsonRes.getBoolean("status")) { 
  			 try {
- 				logger.info("opening login email 33::"+reputeCompanyDetails.getEmail());
+ 				//logger.info("opening login email 33::"+reputeCompanyDetails.getEmail());
  				//token.setAccessToken(repute.)
  				 String json2 = EncryptionDecriptionUtil.convertToJson(repute);
  				
@@ -225,10 +225,9 @@ public class StaticPageController extends CotoDelBaseController{
 				 profileResIdtoken=EncryptionDecriptionUtil.decriptResponse(userencriptReputeTokenRequest.getEncriptData(), userencriptReputeTokenRequest.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 				
 				 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
-				 if(profileJsonRes.getBoolean("status")) {
+				 if(profileJsonResIdtoken.getBoolean("status")) {
 					 
-					 System.out.println("User Already exist");
-					 logger.info("opening login email 66 ::"+reputeCompanyDetails.getEmail());
+					 //logger.info("opening login email 66 ::"+reputeCompanyDetails.getEmail());
 					 session.setAttribute("reputeAccessToken", repute.getAccessToken());
 					 session.setAttribute("endpoint", repute.getVault_url());
 					 //String  userResponse = usercreationService.userDetailByMobileNo(tokengeneration.getToken(),userRequest);
@@ -244,7 +243,7 @@ public class StaticPageController extends CotoDelBaseController{
 						
 						 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
 						
-					 logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
+					/// logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
 					 if(profileJsonResIdtoken.getBoolean("status")) { 
 						  System.out.println("User stauts success");
 						  

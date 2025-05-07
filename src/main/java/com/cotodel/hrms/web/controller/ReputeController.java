@@ -8,18 +8,26 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ReputeEmployeeRequest;
+import com.cotodel.hrms.web.response.Root;
+import com.cotodel.hrms.web.service.CashfreePaymentService;
 import com.cotodel.hrms.web.service.ReputeService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
@@ -36,6 +44,7 @@ public class ReputeController extends CotoDelBaseController{
 	
 	@Autowired
 	ReputeService reputeService;
+	
 	
 	@PostMapping(value="/getReputeEmployeeList")
 	public @ResponseBody String getReputeEmployeeList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,ReputeEmployeeRequest reputeEmployeeRequest) 
@@ -66,4 +75,24 @@ public class ReputeController extends CotoDelBaseController{
 	}
 	
 
+	@PostMapping(value="/webhook-repute-staging")
+	public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
+		
+			logger.info("webhook-callback called");
+			logger.info("hook called"+payload);	
+			String profileRes=null;
+		    ObjectMapper om = new ObjectMapper();
+			Root root = om.readValue(payload, Root.class); 
+			try {
+				
+				profileRes = reputeService.paymentCallBackData(tokengeneration.getToken(),root);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return new ResponseEntity<>(null, HttpStatus.OK);
+			
+	}
+
+	
 }

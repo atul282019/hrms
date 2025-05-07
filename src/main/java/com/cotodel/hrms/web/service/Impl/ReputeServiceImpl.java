@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.Root;
 import com.cotodel.hrms.web.service.ReputeService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -21,6 +22,15 @@ public class ReputeServiceImpl implements ReputeService{
 		return CommonUtility.userRequest(
 	            token,
 	            MessageConstant.gson.toJson(jsonObject),
+	            applicationConstantConfig.reputeServiceBaseUrl +CommonUtils.getReputeEmployeeList
+	        );
+	}
+
+	@Override
+	public String paymentCallBackData(String token, Root root) {
+		return CommonUtility.userRequest(
+	            token,
+	            MessageConstant.gson.toJson(root),
 	            applicationConstantConfig.reputeServiceBaseUrl +CommonUtils.getReputeEmployeeList
 	        );
 	}
