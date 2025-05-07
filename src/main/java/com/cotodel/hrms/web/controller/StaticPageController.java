@@ -75,9 +75,9 @@ public class StaticPageController extends CotoDelBaseController{
 //	public ModelAndView contact(Model model) {
 //		return new ModelAndView("contact", "command", "");
 //	}	
-	@GetMapping(value="/policy")
+	@GetMapping(value="/privacypolicy")
 	public ModelAndView policy(Model model) {
-		return new ModelAndView("policy", "command", "");
+		return new ModelAndView("privacy-policy", "command", "");
 	}	
 	@GetMapping(value="/contact")
 	public ModelAndView firstContact(Model model) {
