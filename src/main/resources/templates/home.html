@@ -1106,14 +1106,14 @@ Header END -->
 																			    <br>
 
 																			    <div class="row footer-bottom align-items-center text-white gy-2">
-																			      <div class="col-12 col-md-6 text-center text-md-start">
+																			      <div class="col-16 col-md-6 text-center text-md-start">
 																			     	
 																					<nav class="footer-nav">
 																				    <span class="footer-heading"> © 2025 Cotodel - All rights reserved </span>
 																					 <a href="/termsconditions" title="Cotodel's Terms & Conditions policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Terms & Conditions</a>
 																					<a href="/refundpolicy" title="Cotodel's Refund Policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Refund Policy</a>
-																					<!--<a href="/privacypolicy" title="Cotodel's Privacy Policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Privacy Policy</a>
-																						-->																				
+																					<a href="/privacypolicy" title="Cotodel's Privacy Policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Privacy Policy</a>
+																																										
 																				    </nav>														      
 																				 </div>
 
@@ -1206,6 +1206,41 @@ JS libraries, plugins and custom scripts -->
 			    margin-left: 4px;
 			     margin-right: 0;
 			  }
+			  /*footer-bottom .footer-nav {
+			    display: flex;
+			    flex-wrap: nowrap;
+			    align-items: center;
+			    gap: 25px;
+			    flex-shrink: 1;
+			    white-space: nowrap;
+			    overflow-x: auto; 
+			  }
+
+			  .footer-bottom .footer-nav a,
+			  .footer-bottom .footer-nav span {
+			    white-space: nowrap;}*/
+				.footer-bottom .footer-nav {
+				  display: flex;
+				  flex-direction: column;
+				  gap: 10px;
+				  align-items: flex-start;
+				  white-space: nowrap;
+				}
+
+				.footer-bottom .footer-nav a,
+				.footer-bottom .footer-nav span {
+				  white-space: nowrap;
+				}
+
+				/* Responsive for tablets and up */
+				@media (min-width: 768px) {
+				  .footer-bottom .footer-nav {
+				    flex-direction: row;
+				    flex-wrap: nowrap;
+				    align-items: center;
+				    gap: 25px;
+				  }
+				}
 			.footer-nav {
 				    display: flex;
 				    gap: 25px; /* Adjust spacing here */

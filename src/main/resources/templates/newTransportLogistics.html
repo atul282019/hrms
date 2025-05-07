@@ -206,6 +206,28 @@
 		    margin-left: 4px;
 		     margin-right: 0;
 		  }
+		  .footer-bottom .footer-nav {
+	   						  display: flex;
+	   						  flex-direction: column;
+	   						  gap: 10px;
+	   						  align-items: flex-start;
+	   						  white-space: nowrap;
+	   						}
+
+	   						.footer-bottom .footer-nav a,
+	   						.footer-bottom .footer-nav span {
+	   						  white-space: nowrap;
+	   						}
+
+	   						/* Responsive for tablets and up */
+	   						@media (min-width: 768px) {
+	   						  .footer-bottom .footer-nav {
+	   						    flex-direction: row;
+	   						    flex-wrap: nowrap;
+	   						    align-items: center;
+	   						    gap: 25px;
+	   						  }
+	   						}
 		  .footer-nav {
 		  			    display: flex;
 		  			    gap: 25px; /* Adjust spacing here */
@@ -755,66 +777,67 @@
 	   													</div>
 	   											</section>
 												<footer class="custom-footer">
-																																  <div class="container">
-																																    <!-- Top navigation -->
-																																    <div class="d-flex flex-wrap justify-content-start align-items-center footer-top">
-																																		<a  href="/" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends">
-																																		<img src="img/Cotodel Logo_Footer.svg" alt="Cotodel Business Payments logo" title="Cotodel Business Payments logo" class="footer-logo me-4">
-																																		</a>
-																																	</div>
-																																    <br>
+														  <div class="container">
+														    <!-- Top navigation -->
+														    <div class="d-flex flex-wrap justify-content-start align-items-center footer-top">
+																<a  href="/" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends">
+																<img src="img/Cotodel Logo_Footer.svg" alt="Cotodel Business Payments logo" title="Cotodel Business Payments logo" class="footer-logo me-4">
+																</a>
+															</div>
+														    <br>
 
-																																    <nav class="footer-nav text-white">
-																																      <a href="/" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends">Home</a>
-																																      <a href="/#Solutions" title="Cotodel's Solutions Page to understand about UPI Digital Vouchers for your corporate expense management and fleet expense management" target="_blank">Solutions</a>
-																																      <a href="/blogs" title ="Cotodel's Blogs Page to understand about UPI Digital Vouchers for your business spends " target="_blank">Blogs</a>
-																																      <a href="/about" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends"target="_blank">About Us</a>
-																																      <a href="/contact" title="Contact Cotodel's Business team to onboard your business & fleet spends on UPI " target="_blank">Contact Us</a>
-																																    </nav>
+														    <nav class="footer-nav text-white">
+														      <a href="/" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends">Home</a>
+														      <a href="/#Solutions" title="Cotodel's Solutions Page to understand about UPI Digital Vouchers for your corporate expense management and fleet expense management" target="_blank">Solutions</a>
+														      <a href="/blogs" title ="Cotodel's Blogs Page to understand about UPI Digital Vouchers for your business spends " target="_blank">Blogs</a>
+														      <a href="/about" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends"target="_blank">About Us</a>
+														      <a href="/contact" title="Contact Cotodel's Business team to onboard your business & fleet spends on UPI " target="_blank">Contact Us</a>
+														    </nav>
 
-																																    <!-- Contact info -->
-																																    <div class="footer-contact mt-4 mb-2 d-flex justify-content-start gap-5 flex-wrap">
-																																      <div>
-																																        <span class="footer-heading">ADDRESS</span>
-																																        <p>WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
-																																      </div>
-																																      <div>
-																																        <span class="footer-heading">EMAIL</span>
-																																        <p><a href="mailto:business@cotodel.com" title="Contact & mail Cotodel's Business team to onboard your business & fleet spends on UPI ">business@cotodel.com</a></p>
-																																      </div>
-																																    </div>
+														    <!-- Contact info -->
+														    <div class="footer-contact mt-4 mb-2 d-flex justify-content-start gap-5 flex-wrap">
+														      <div>
+														        <div class="footer-heading">ADDRESS</div>
+														        <p>WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
+														      </div>
+														      <div>
+														        <span class="footer-heading">EMAIL</span>
+														        <p><a href="mailto:business@cotodel.com" title="Contact & mail Cotodel's Business team to onboard your business & fleet spends on UPI ">business@cotodel.com</a></p>
+														      </div>
+														    </div>
 
-																																    <hr class="bg-secondary m-0">
-																																    <br>
+														    <hr class="bg-secondary m-0">
+														    <br>
 
-																																    <div class="row footer-bottom align-items-center text-white gy-2">
-																																      <div class="col-12 col-md-6 text-center text-md-start">
-																																     	
-																																		<nav class="footer-nav">
-																																	    <span class="footer-heading"> © 2025 Cotodel - All rights reserved </span>
-																																		 <a href="/termsconditions" title="Cotodel's Terms & Conditions policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Terms & Conditions</a>
-																																		<a href="/refundpolicy" title="Cotodel's Refund Policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Refund Policy</a>
-																																
-																																	    </nav>														      
-																																	 </div>
+														    <div class="row footer-bottom align-items-center text-white gy-2">
+														      <div class="col-16 col-md-6 text-center text-md-start">
+														     	
+																<nav class="footer-nav">
+															    <span class="footer-heading"> © 2025 Cotodel - All rights reserved </span>
+																 <a href="/termsconditions" title="Cotodel's Terms & Conditions policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Terms & Conditions</a>
+																<a href="/refundpolicy" title="Cotodel's Refund Policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Refund Policy</a>
+																<a href="/privacypolicy" title="Cotodel's Privacy Policy to understand about UPI Digital Vouchers for your business spends " class="footer-heading" target="_blank">Privacy Policy</a>
+																																					
+															    </nav>														      
+															 </div>
 
-																																      <div class="col-12 col-md-2 text-center">
-																																      </div>
+														      <div class="col-12 col-md-2 text-center">
+														      </div>
 
-																																      <div class="col-12 col-md-4 text-center text-md-end d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center">
-																																          <div class="social-icons d-flex gap-3">
-																																          <a href="https://www.linkedin.com/company/cotodel/" target="_blank" title="Linkedin page for Cotodel - Business Payments on UPI"><i class="fab fa-linkedin"></i></a>
-																																          <a href="https://www.instagram.com/cotodelsolutions/" target="_blank" title="Instagram page for Cotodel - Business Payments on UPI"><i class="fab fa-instagram"></i></a>
-																																          <a href="https://www.youtube.com/@Cotodel" target="_blank" title="YouTube channel for Cotodel - Business Payments on UPI"><i class="fab fa-youtube"></i></a>
-																																		  <a href="https://twitter.com/CotodelSolution" target="_blank" title="X/Twitter page for Cotodel - Business Payments on UPI">
-																																		    <i class="bi bi-twitter-x"></i>
-																																		  </a>
-																																          <a href="https://www.facebook.com/profile.php?id=61555427067314" target="_blank" title="Facebook page for Cotodel - Business Payments on UPI"><i class="fab fa-facebook-f"></i></a>
-																																        </div>
-																																      </div>
-																																    </div>
-																																  </div>
-																																</footer>
+														      <div class="col-12 col-md-4 text-center text-md-end d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center">
+														          <div class="social-icons d-flex gap-3">
+														          <a href="https://www.linkedin.com/company/cotodel/" target="_blank" title="Linkedin page for Cotodel - Business Payments on UPI"><i class="fab fa-linkedin"></i></a>
+														          <a href="https://www.instagram.com/cotodelsolutions/" target="_blank" title="Instagram page for Cotodel - Business Payments on UPI"><i class="fab fa-instagram"></i></a>
+														          <a href="https://www.youtube.com/@Cotodel" target="_blank" title="YouTube channel for Cotodel - Business Payments on UPI"><i class="fab fa-youtube"></i></a>
+																  <a href="https://twitter.com/CotodelSolution" target="_blank" title="X/Twitter page for Cotodel - Business Payments on UPI">
+																    <i class="bi bi-twitter-x"></i>
+																  </a>
+														          <a href="https://www.facebook.com/profile.php?id=61555427067314" target="_blank" title="Facebook page for Cotodel - Business Payments on UPI"><i class="fab fa-facebook-f"></i></a>
+														        </div>
+														      </div>
+														    </div>
+														  </div>
+														</footer>
 									
 									  
 									   
