@@ -1,6 +1,8 @@
 package com.cotodel.hrms.web.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -142,6 +144,14 @@ public class StaticPageController extends CotoDelBaseController{
             @RequestParam(defaultValue = "") String role) {
 		logger.info("opening login Page");
 		String screenName="index";
+		Date currentDate = new Date();
+		  // Define the desired date format
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss E d MMM yyyy");
+        // Format the date
+        String formattedDate = formatter.format(currentDate);
+        
+        // Print the formatted date
+        System.out.println(formattedDate);
 		if(code != null && !code.isEmpty() && code != "") {
 		
 		model.addAttribute("reputeUser","reputeUser");
@@ -190,6 +200,7 @@ public class StaticPageController extends CotoDelBaseController{
         repute.setHrms_id(hrms_id);
         repute.setHrms_name(hrms_name);
         repute.setRole(role);
+        
 		 String json = EncryptionDecriptionUtil.convertToJson(userForm);
          //2-json string data encript
          EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
@@ -200,15 +211,6 @@ public class StaticPageController extends CotoDelBaseController{
          //4-object data to decript to json
          profileRes=EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
          
-         //String[] jwtParts = idToken.split("\\.");
-	       // String payload = jwtParts[1];  // This is the middle part (payload)
-	        
-	        // Decode the payload from Base64
-	       // String value=new String(Base64.getDecoder().decode(payload));
-	       // System.out.println("value: " + value);
-	        // Print the access token
-	       // reputeCompanyDetails=parseJson(value);
-        // logger.info("opening login email 22 ::"+reputeCompanyDetails.getEmail());
          profileJsonRes= new JSONObject(profileRes);
  		if(profileJsonRes.getBoolean("status")) { 
  			 try {
@@ -254,7 +256,7 @@ public class StaticPageController extends CotoDelBaseController{
 						 request.getSession(true).setAttribute("hrms",  profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsId"));
 						 request.getSession(true).setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsName"));
 						 request.getSession(true).setAttribute("user_role",   profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"));
-						 //request.getSession(true).setAttribute("formattedDate",  formattedDate);
+						 request.getSession(true).setAttribute("formattedDate",  formattedDate);
 		                 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
@@ -263,7 +265,7 @@ public class StaticPageController extends CotoDelBaseController{
 						 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 						
-					    if(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id") == 3) {
+					     if(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id") == 3) {
 						   
 							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
 							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
@@ -275,8 +277,8 @@ public class StaticPageController extends CotoDelBaseController{
 						}// id and empid is same in 1,3,9 
 						else {
 							//id and emp is diiferent
-//							"id":1538 // employeeid
-//							"employerid":1439 //orgid
+							//"id":1538 // employeeid
+							//"employerid":1439 //orgid
 							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
 							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
 							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
@@ -299,13 +301,10 @@ public class StaticPageController extends CotoDelBaseController{
 					   switch (String.valueOf(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"))) {	
 						
 						case "2":
-							 System.out.println("User stauts success case2 ");
-							//screenName="employee-dashboard";
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
 						case "3":
-							//screenName="employee-dashboard";
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
@@ -315,7 +314,6 @@ public class StaticPageController extends CotoDelBaseController{
 				 
 				 }
 				
-				 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -358,8 +356,7 @@ public class StaticPageController extends CotoDelBaseController{
 						
 					 logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
 					 if(profileJsonResIdtoken.getBoolean("status")) { 
-						  System.out.println("User stauts success");
-						  
+						
 						 session.setAttribute("reputeAccessToken", repute.getAccessToken());
 						 session.setAttribute("endpoint", repute.getVault_url());
 						 
@@ -367,7 +364,7 @@ public class StaticPageController extends CotoDelBaseController{
 						 request.getSession(true).setAttribute("hrms",  profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsId"));
 						 request.getSession(true).setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsName"));
 						 request.getSession(true).setAttribute("user_role",   profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"));
-						 //request.getSession(true).setAttribute("formattedDate",  formattedDate);
+						 request.getSession(true).setAttribute("formattedDate",  formattedDate);
 		                 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
@@ -388,8 +385,8 @@ public class StaticPageController extends CotoDelBaseController{
 						}// id and empid is same in 1,3,9 
 						else {
 							//id and emp is diiferent
-//							"id":1538 // employeeid
-//							"employerid":1439 //orgid
+							//"id":1538 // employeeid
+							//"employerid":1439 //orgid
 							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
 							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
 							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
@@ -407,18 +404,14 @@ public class StaticPageController extends CotoDelBaseController{
 						String username = profileJsonResIdtoken.getJSONObject("userEntity").getString("username");
 						Integer user_role = profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id");
 					    String token	=	JwtTokenGenerator.generateToken(email,mobile,username,user_role,orgid, MessageConstant.SECRET);
-						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
-					    request.getSession(true).setAttribute("hrms", token);
-					   switch (String.valueOf(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"))) {	
-						
+						request.getSession(true).setAttribute("hrms", token);
+					    switch (String.valueOf(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"))) {
 						case "2":
 							 System.out.println("User stauts success case2 ");
-							//screenName="employee-dashboard";
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
 						case "3":
-							//screenName="employee-dashboard";
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
@@ -435,8 +428,7 @@ public class StaticPageController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		logger.info("opening login Page::"+reputeCompanyDetails.getEmail());
+		//logger.info("opening login Page::"+reputeCompanyDetails.getEmail());
 		}
 		String mobile  = (String) session.getAttribute("mobile");
 		if(mobile!=null) {
