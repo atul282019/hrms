@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ReputeEmployeeRequest;
 import com.cotodel.hrms.web.response.Root;
-import com.cotodel.hrms.web.service.CashfreePaymentService;
 import com.cotodel.hrms.web.service.ReputeService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -75,7 +75,7 @@ public class ReputeController extends CotoDelBaseController{
 	}
 	
 
-	@PostMapping(value="/webhook-repute-staging")
+	@PostMapping(value="/webhook-repute")
 	public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 		
 			logger.info("webhook-callback called");
@@ -84,7 +84,6 @@ public class ReputeController extends CotoDelBaseController{
 		    ObjectMapper om = new ObjectMapper();
 			Root root = om.readValue(payload, Root.class); 
 			try {
-				
 				profileRes = reputeService.paymentCallBackData(tokengeneration.getToken(),root);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

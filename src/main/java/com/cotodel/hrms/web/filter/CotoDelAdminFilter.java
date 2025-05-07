@@ -220,10 +220,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("webhook-callback");
 				rd.forward(request, response);
 			}
-//			else if(requestURI.contains("/contact")){
-//				RequestDispatcher rd = request.getRequestDispatcher("contact");
-//				rd.forward(request, response);
-//			}
+			else if(requestURI.contains("/webhook-repute")){
+				RequestDispatcher rd = request.getRequestDispatcher("webhook-repute");
+				rd.forward(request, response);
+			}
 			else if(requestURI.contains("/contact")){
 				RequestDispatcher rd = request.getRequestDispatcher("contact");
 				rd.forward(request, response);

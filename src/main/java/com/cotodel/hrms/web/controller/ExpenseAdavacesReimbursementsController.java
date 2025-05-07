@@ -465,11 +465,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	
 		String profileRes=null;
 		
-		//profileRes = expensesReimbursementService.updateErupiLinkBankAccountStaus(tokengeneration.getToken(),erupiLinkBankAccount);
-		
-		//  return profileRes;
-		
-		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
 
@@ -853,28 +848,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String cashAdvanceRequest(HttpServletRequest request,
 			AdvanceTravelRequest advanceTravelRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
-//		String profileRes=null;
-//		
-//		//profileRes = expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(),advanceTravelRequest);
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse =  expensesReimbursementService.cashAdvanceRequest(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//	return profileRes;
-//	
-
 		String receivedHash = advanceTravelRequest.getHash();
 		 if (!CLIENT_KEY.equals(advanceTravelRequest.getClientKey())) {
 	          //  return Map.of("isValid", false, "message", "Invalid client key");
@@ -984,8 +957,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getCashAdanceRequestData(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getCashAdanceRequestData(tokengeneration.getToken(),
-		//		advanceTravelRequest);
+	
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
@@ -1010,35 +982,11 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String travelAdvanceRequest(HttpServletRequest request,
 			@RequestBody TravelRequest travelRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 
-//		String profileRes=null;
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(travelRequest);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse =  expensesReimbursementService.travelAdvanceRequest(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//	return profileRes;
-		
 		String receivedHash = travelRequest.getHash();
 		 if (!CLIENT_KEY.equals(travelRequest.getClientKey())) {
 	          //  return Map.of("isValid", false, "message", "Invalid client key");
 	        }
 		 
-		// const dataString = empId+employerid+employerName+"Cash"+cashDate+
-		//			""+amount+cashCurrency+cashAmmount+cashModeOfPayment+cashRemark+clientKey+secretKey;
-		//			console.log("data string"+dataString); 
-	        // Ensure consistent concatenation
-		
 	        String dataString = travelRequest.getEmployeeId()+travelRequest.getRequestType()+travelRequest.getEmployerId()
 	        +CLIENT_KEY+SECRET_KEY;
 
