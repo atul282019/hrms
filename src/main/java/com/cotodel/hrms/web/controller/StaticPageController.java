@@ -1557,6 +1557,11 @@ public class StaticPageController extends CotoDelBaseController{
 		public ModelAndView returnPolicy(Model model) {
 			return new ModelAndView("refund-policy", "command", "");
 		}
+		
+		@GetMapping(value="/privacypolicy")
+		public ModelAndView privacyPolicy(Model model) {
+			return new ModelAndView("privacy-policy", "command", "");
+		}
 		@GetMapping(value="/requestVoucher")
 		public ModelAndView requestVoucher(Model model) {
 			String token = (String) session.getAttribute("hrms");

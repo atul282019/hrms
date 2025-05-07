@@ -9,6 +9,7 @@ import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequestNew;
+import com.cotodel.hrms.web.response.Ocr;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
 import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
@@ -145,6 +146,12 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	public String getExpensesReimbursementDetailById(String token,
 			EncriptResponse expensesReimbursementRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(expensesReimbursementRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpensesReimbursementDetailById);
+	}
+	
+	@Override
+	public String readOcr(String token,
+			Ocr ocrclass) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(ocrclass), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getOcrDetails);
 	}
 
 	@Override

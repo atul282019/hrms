@@ -30,6 +30,7 @@ import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.LinkMultipleAccountRequest;
+import com.cotodel.hrms.web.response.Ocr;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
 import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
@@ -297,6 +298,22 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		}
 	   return profileRes;
 	}
+	@PostMapping(value = "/readOcr")
+	public @ResponseBody String readOcr(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, Ocr ocrclass) {
+		String profileRes = null;
+	
+		//profileRes = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
+		try {
+			profileRes = expensesReimbursementService.readOcr(tokengeneration.getToken(), ocrclass);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	   return profileRes;
+	}
+	
 	
 	@PostMapping(value = "/deleteExpanseReimbursement")
 	public @ResponseBody String deleteExpanseReimbursement(HttpServletRequest request, ModelMap model, Locale locale,

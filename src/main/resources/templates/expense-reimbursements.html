@@ -721,6 +721,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 
                 reader.onload = function (e) {
                  //   $('#blah').attr('src', e.target.result);
+				 sendToOcr(e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
                 
@@ -760,6 +761,11 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 
                 reader.onload = function (e) {
                  //   $('#blah').attr('src', e.target.result);
+				
+				 sendToOcr(e.target.result);
+				             // Store base64 in hidden input for form submission
+				            
+
                 };
                 reader.readAsDataURL(input.files[0]);
                 
@@ -783,6 +789,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	                reader.onload = function (e) {
 	                    $('#imagePDFSingle').attr('src', e.target.result);
 	                    $('#base64PDFSingle').val(e.target.result);
+						
 	                   
 	                    document.getElementById("imagePDFSingle").style.display="block";
 	                    document.getElementById("imageAddSingle").style.display="none";
@@ -795,6 +802,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	                    document.getElementById("imagePDFSingle").style.display="none";
 	                };
 				}
+				
                 reader.readAsDataURL(input.files[0]);
             }
         }

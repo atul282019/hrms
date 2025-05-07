@@ -1803,7 +1803,25 @@ function exportToExcel(tableId, headingSelector) {
 
         XLSX.writeFile(workbook, fileName);
     }
+	function sendToOcr(base64Image) {
+	    console.log("sendToOcr base64Image  ",base64Image);
 
+	  
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/readOcr",
+	        data: {"file": base64Image},
+	        
+	        success: function (response) {
+	            console.log("OCR Result:", response);
+	            // handle result display here
+	        },
+	        error: function (e) {
+	            alert("OCR Error: " + e.responseText);
+	        }
+	    });
+	}
 
 
 

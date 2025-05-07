@@ -107,6 +107,7 @@ public interface CommonUtils {
 	public static String cApproveReject ="/empService/Api/update/linkMultipleAccountUpdate"; 
 	public static String showLinkedAccAmount ="/empService/Api/get/linkMultipleAccountAmount";
 	public static String getExpensesReimbursementDetailById ="/empService/Api/get/expenseReimbFileById"; 
+	public static String getOcrDetails ="/empService/Api/get/ocrDetails";
 	public static String expensesReimbursementUpdate ="/empService/Api/update/expenseReimbursementUpdate"; 
 	public static String gstDetailService ="/gstPanService/Api/get/gstDetails";
 	public static String saveCompanyDetail = "/userServices/Api/add/saveEmployerDetails";

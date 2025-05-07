@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.cotodel.hrms.web.response.AdvanceTravelRequest;
 import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
+import com.cotodel.hrms.web.response.Ocr;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
 import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
@@ -47,6 +48,8 @@ public interface ExpensesReimbursementService {
 	String showLinkedAccAmount(String token, EncriptResponse ErupiLinkAccountDetailsRequest);
 
 	String getExpensesReimbursementDetailById(String token, EncriptResponse expensesReimbursementRequest);
+	
+	String readOcr(String token, Ocr ocrclass);
 
 	String approveExpensesById(String token, EncriptResponse jsonObject);
 
