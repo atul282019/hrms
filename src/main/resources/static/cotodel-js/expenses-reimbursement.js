@@ -254,7 +254,7 @@ async function submitExpenseMultiple(){
 	var venderName= document.getElementById("venderName").value;
 	var invoiceNumber = document.getElementById("invoiceNumber").value;
 	var currency= document.getElementById("currency").value;
-	var amount = document.getElementById("amountSingle").value;
+	var amount = document.getElementById("amount").value;
 	var limit = parseFloat(document.getElementById("limit").innerHTML); 
 	var modeofPayment = document.getElementById("modeofPayment").value;
 	var additionalRemark = document.getElementById("additionalRemark").value;
@@ -450,6 +450,7 @@ async function submitExpenseMultiple(){
 			errorFields.forEach(function(field) {
 			    field.innerHTML = "";
 			});
+			$('#expReimbursementsubmission').modal('show');
          },
          error: function(e){
              alert('Error: ' + e);

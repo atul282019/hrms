@@ -1060,7 +1060,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 
 	<div class="modal fade" id="ModalAddExpenseReimbursement" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
+		aria-hidden="true" data-backdrop="static" data-keyboard="false">
 		<div
 			class="modal-dialog modal-lg modal-dialog-centered modal-approval-wrap"
 			role="document">
@@ -1138,7 +1138,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 
 	<div class="modal fade" id="ModalAddmanualexp" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
+		aria-hidden="true" data-backdrop="static" data-keyboard="false">
 		<div
 			class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap"
 			role="document">
@@ -1241,7 +1241,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 										id="venderName"> <label class="did-floating-label">Enter
 										Vendor Name</label>
 								</div><br>
-								<div class="error-msg" id="venderNameError" style="color: red"></div>
+								<div class="error-msg" id="venderNameError" style="color: red;margin-top: -30px;"></div>
 								<div class="clearfix"></div>
 								<div class="did-floating-label-content">
 									<input class="did-floating-input" type="text" 
@@ -1249,7 +1249,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 										Invoice Number</label>
 								</div><br>
 								<div class="error-msg" id="invoiceNumberError"
-									style="color: red"></div>
+									style="color: red"></div><br>
 								<div class="clearfix"></div>
 								<div class="form-grp-half">
 									<div class="mr-2 w-100 mb-2">
@@ -1682,6 +1682,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 								<div class="error-msg" id="expenseTitleSingleError"style="color: red"></div><br>
 								
 								<div class="clearfix"></div>
+								<div class="error-msg" id="vendorNameSingleError" style="color: red;"></div>
 								<div class="did-floating-label-content">
 									<input class="did-floating-input" type="text"
 										id="vendorNameSingle"> <label
@@ -2308,25 +2309,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
     </div>
 
 	
-    <!-- Modal Reimbursement Approved -->
-    <div class="modalView" id="modalReimbursementApproved" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-bulk">
-                <div class="modal-top text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" onclick="approvedClose()">
-                        <img src="img/modal-close.svg" alt="">
-                    </button>
-                    <img src="img/modal-success.svg" alt="">
-                </div>
-                <div class="modal-bottom">
-                    <!--<div class="count"><span>4</span><strong>5</strong></div>-->
-                    <br>
-                    <span>Reimbursement Approved</span>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Modal Reject Remark Reimbursement -->
     <div class="modalView" id="ModalRejectRemarkReimbursement" tabindex="-1" role="dialog"
@@ -2647,7 +2630,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 		<!--<div class="modal fade" id="ModalExpensesSubmitted" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalCenterTitle"
 			aria-hidden="true">-->
-			<div class="modalView" id="ModalExpensesSubmitted" tabindex="-1"
+			
+			<!--<div class="modalView" id="ModalExpensesSubmitted" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalCenterTitle"
 					aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
@@ -2661,13 +2645,83 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					</div>
 					<div class="modal-bottom">
 						<div class="count">
-							<!--<span>4</span><strong>10</strong>-->
+							
 						</div>
 						<br> <span>Expenses submitted Successfully!</span>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
+		
+		<div class="modalView" id="ModalExpensesSubmitted">
+				        <div class="modal-dialog modal-dialog-centered">
+				            <div class="modal-content modal-bulk p-0">
+				                <div class="modal-top text-center">
+				                    <button type="button" class="close p-0"  data-dismiss="modal" onclick="closeCashSuccess()" aria-label="Close" style="right: 10px; top: 0;">
+				                        <img src="img/modal-close.svg" alt="">
+				                    </button>
+				                    <img src="img/modal-success.svg" alt="">
+				                </div>
+				                <div class="modal-bottom">
+				                    <span>Cash Advance Request Submitted Successfully</span>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+					<!-- modal expense reimbursement submitted successfully-->
+					<div class="modalView" id="expReimbursementsubmission">
+									        <div class="modal-dialog modal-dialog-centered">
+									            <div class="modal-content modal-bulk p-0">
+									                <div class="modal-top text-center">
+									                    <button type="button" class="close p-0"  data-dismiss="modal" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+									                        <img src="img/modal-close.svg" alt="">
+									                    </button>
+									                    <img src="img/modal-success.svg" alt="">
+									                </div>
+									                <div class="modal-bottom">
+									                    <span>Expense Reimbursements Submitted Successfully</span>
+									                </div>
+									            </div>
+									        </div>
+									    </div>		
+					
+					<!-- Modal Reimbursement Approved -->
+					
+					<!--<div class="modalView" id="modalReimbursementApproved" tabindex="-1" role="dialog"
+					        aria-labelledby="exampleModalCenterTitle" >
+					        <div class="modal-dialog modal-dialog-centered" role="document">
+					            <div class="modal-content modal-bulk">
+					                <div class="modal-top text-center">
+					                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="approvedClose" onclick="approvedClose()">
+					                        <img src="img/modal-close.svg" alt="">
+					                    </button>
+					                    <img src="img/modal-success.svg" alt="">
+					                </div>
+					                <div class="modal-bottom">
+					                   
+					                    <br>
+					                    <span>Reimbursement Approved</span>
+					                </div>
+					            </div>
+					        </div>
+					    </div>-->	
+						
+
+						<div class="modalView" id="modalReimbursementApproved">
+										        <div class="modal-dialog modal-dialog-centered">
+										            <div class="modal-content modal-bulk p-0">
+										                <div class="modal-top text-center">
+										                    <button type="button" class="close p-0"  data-dismiss="modal" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+										                        <img src="img/modal-close.svg" alt="">
+										                    </button>
+										                    <img src="img/modal-success.svg" alt="">
+										                </div>
+										                <div class="modal-bottom">
+										                    <span>Reimbursement Approved</span>
+										                </div>
+										            </div>
+										        </div>
+										    </div>
 
 		<!-- Modal Travel Request -->
 		<div class="modal fade" id="travelDetailsTable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

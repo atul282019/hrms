@@ -111,7 +111,7 @@
 	 	        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
 	 	        <span>UPI Voucher Issuance</span></a>
 	 	 </li>
-		 <li class="nav-item" th:if="${session.user_role == 2}">
+		 <li class="nav-item" th:if="${session.user_role == 2 || session.user_role == 3}">
             <a class="nav-link" th:href="@{/requestVoucher}">
                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                 <span>Request Voucher</span></a>
