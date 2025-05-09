@@ -76,15 +76,15 @@ public class ReputeController extends CotoDelBaseController{
 	
 
 	@PostMapping(value="/webhook-repute")
-	public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
+	public ResponseEntity<Void> reputeWebhooks(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 		
-			logger.info("webhook-callback called");
-			logger.info("hook called"+payload);	
+			logger.info("webhook-repute called");
+			logger.info("repute hook called"+payload);	
 			String profileRes=null;
 		    ObjectMapper om = new ObjectMapper();
 			Root root = om.readValue(payload, Root.class); 
 			try {
-				profileRes = reputeService.paymentCallBackData(tokengeneration.getToken(),root);
+				profileRes = reputeService.reputeWebhooks(tokengeneration.getToken(),root);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

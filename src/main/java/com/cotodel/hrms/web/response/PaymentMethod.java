@@ -1,7 +1,7 @@
 package com.cotodel.hrms.web.response;
 
-import java.util.Date;
-
 public class PaymentMethod {
-	public App app;
+	public App upi;
+	public NetBanking netbanking;
+	public Card card;
 }

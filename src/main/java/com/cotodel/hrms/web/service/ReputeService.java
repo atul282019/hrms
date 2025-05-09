@@ -9,7 +9,6 @@ import com.cotodel.hrms.web.util.EncriptResponse;
 public interface ReputeService {
 
 	String getReputeEmployee(String token, EncriptResponse jsonObject);
-
-	String paymentCallBackData(String token, Root root);
+	String reputeWebhooks(String token, Root root);
 
 }

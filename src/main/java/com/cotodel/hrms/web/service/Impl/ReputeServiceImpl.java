@@ -27,7 +27,7 @@ public class ReputeServiceImpl implements ReputeService{
 	}
 
 	@Override
-	public String paymentCallBackData(String token, Root root) {
+	public String reputeWebhooks(String token, Root root) {
 		return CommonUtility.userRequest(
 	            token,
 	            MessageConstant.gson.toJson(root),

@@ -455,15 +455,8 @@ public class StaticPageController extends CotoDelBaseController{
 
 	}	
 	
-//	@GetMapping(value="/loginNew")
-//	public ModelAndView loginNew(Model model) {
-//		logger.info("opening loginNew");
-//		return new ModelAndView("login-FleetManagment", "command", "");
-//	}	
-
 	@GetMapping(value="/signup")
 	public ModelAndView SignupPage(Model model) {
-		logger.info("opening signupPage");
 		return new ModelAndView("signup", "command", "");
 	}	
 	
@@ -794,29 +787,7 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	return new ModelAndView("index", "command", "");
 }
-//	@PostMapping(value="/employeeOnboarding-full-action")
-//	public ModelAndView employeeOnboardingFullAction(  String reportingManager,  int employeeId,Model model) {
-//		String token = (String) session.getAttribute("hrms");
-//		Integer id  = (Integer) session.getAttribute("id");
-//		if(token!=null) {
-//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//			if(obj!=null) {
-//				if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2) {
-//				model.addAttribute("name",obj.getName());
-//				model.addAttribute("org",obj.getOrgName());
-//				model.addAttribute("mobile",obj.getMobile());
-//				model.addAttribute("email",obj.getEmail());
-//				model.addAttribute("employerId",id);
-//				model.addAttribute("reportingManagerid", reportingManager);
-//				model.addAttribute("employeeId", employeeId);
-//				return new ModelAndView("employee-onboarding-full-action", "command", "");
-//			}
-//			 return new ModelAndView("error", "command", "");
-//		}
-//		return new ModelAndView("index", "command", "");
-//	}
-//	return new ModelAndView("index", "command", "");
-//}
+
 	
 	@GetMapping(value="/employeeProfile")
 	public ModelAndView employeeOnboarding2(Model model) {
@@ -971,27 +942,27 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	return new ModelAndView("index", "command", "");
 }
-	@GetMapping(value="/expenseReimbursementsNew")
-	public ModelAndView expenseReimbursementsNew(Model model) {
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				if(obj.getUser_role()==1) {
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("employerId",id);
-				return new ModelAndView("expense-reimbursements-new", "command", "");
-			}
-			 return new ModelAndView("error", "command", "");
-		}
-		return new ModelAndView("index", "command", "");
-	}
-	return new ModelAndView("index", "command", "");
-}
+//	@GetMapping(value="/expenseReimbursementsNew")
+//	public ModelAndView expenseReimbursementsNew(Model model) {
+//		String token = (String) session.getAttribute("hrms");
+//		Integer id  = (Integer) session.getAttribute("id");
+//		if(token!=null) {
+//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//			if(obj!=null) {
+//				if(obj.getUser_role()==1 || obj.getUser_role()==3 ) {
+//				model.addAttribute("name",obj.getName());
+//				model.addAttribute("org",obj.getOrgName());
+//				model.addAttribute("mobile",obj.getMobile());
+//				model.addAttribute("email",obj.getEmail());
+//				model.addAttribute("employerId",id);
+//				return new ModelAndView("expense-reimbursements-new", "command", "");
+//			}
+//			 return new ModelAndView("error", "command", "");
+//		}
+//		return new ModelAndView("index", "command", "");
+//	}
+//	return new ModelAndView("index", "command", "");
+//}
 	@GetMapping(value="/displaybankMaster")
 	public ModelAndView displaybankMaster(Model model) {
 		String token = (String) session.getAttribute("hrms");

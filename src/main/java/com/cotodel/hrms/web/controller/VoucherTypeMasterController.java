@@ -206,16 +206,16 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 		 if (!CLIENT_KEY.equals(erupiVoucherCreateRequest.getClientKey())) {
 	          // return Map.of("isValid", false, "message", "Invalid client key");
 	        }
-		   logger.info("erupiVoucherCreateRequest.getEmployerId()+"+erupiVoucherCreateRequest.getEmployerId());
-	        logger.info("erupiVoucherCreateRequest.getEmployeeId()+"+erupiVoucherCreateRequest.getEmployeeId());
-	        logger.info("erupiVoucherCreateRequest.getPurposeCode()+"+erupiVoucherCreateRequest.getPurposeCode());
-	        logger.info("erupiVoucherCreateRequest.getMcc()+"+erupiVoucherCreateRequest.getMcc());
-	        logger.info("erupiVoucherCreateRequest.getName()+"+erupiVoucherCreateRequest.getName());
-	        logger.info("erupiVoucherCreateRequest.getVoucherType()+"+erupiVoucherCreateRequest.getVoucherType());
-	        logger.info("erupiVoucherCreateRequest.getVoucherSubType()+"+erupiVoucherCreateRequest.getVoucherSubType());
-	        logger.info("erupiVoucherCreateRequest.getMobile()+"+erupiVoucherCreateRequest.getMobile());
-	        logger.info("erupiVoucherCreateRequest.getAmount()+"+erupiVoucherCreateRequest.getAmount());
-	        logger.info("erupiVoucherCreateRequest.getRemarks()+"+erupiVoucherCreateRequest.getRemarks());
+//		    logger.info("erupiVoucherCreateRequest.getEmployerId()+"+erupiVoucherCreateRequest.getEmployerId());
+//	        logger.info("erupiVoucherCreateRequest.getEmployeeId()+"+erupiVoucherCreateRequest.getEmployeeId());
+//	        logger.info("erupiVoucherCreateRequest.getPurposeCode()+"+erupiVoucherCreateRequest.getPurposeCode());
+//	        logger.info("erupiVoucherCreateRequest.getMcc()+"+erupiVoucherCreateRequest.getMcc());
+//	        logger.info("erupiVoucherCreateRequest.getName()+"+erupiVoucherCreateRequest.getName());
+//	        logger.info("erupiVoucherCreateRequest.getVoucherType()+"+erupiVoucherCreateRequest.getVoucherType());
+//	        logger.info("erupiVoucherCreateRequest.getVoucherSubType()+"+erupiVoucherCreateRequest.getVoucherSubType());
+//	        logger.info("erupiVoucherCreateRequest.getMobile()+"+erupiVoucherCreateRequest.getMobile());
+//	        logger.info("erupiVoucherCreateRequest.getAmount()+"+erupiVoucherCreateRequest.getAmount());
+//	        logger.info("erupiVoucherCreateRequest.getRemarks()+"+erupiVoucherCreateRequest.getRemarks());
 	        // Ensure consistent concatenation
 	        String dataString =
 	        		//added String.valueOf because it was summing employerid and employeeid
