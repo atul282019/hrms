@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.CaptchaSession;
-import com.cotodel.hrms.web.response.CompanyProfileDetail;
-import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.response.EmployerDetailsRequest;
 import com.cotodel.hrms.web.response.UserWaitList;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -48,7 +47,7 @@ public class SignupController  extends CotoDelBaseController{
 	TokenGenerationImpl tokengeneration; 
 	
 	@PostMapping(value="/registerUser")
-	public @ResponseBody String registerUser(HttpServletRequest request,UserRegistrationRequest userForm) {
+	public @ResponseBody String registerUser(HttpServletRequest request,EmployerDetailsRequest userForm) {
 		String profileRes=null;
 		JSONObject profileJsonRes=null;
 		String captchaSecurity="";
@@ -59,9 +58,9 @@ public class SignupController  extends CotoDelBaseController{
 			captchaSecurity=(String) request.getSession(true).getAttribute("CAPTCHA");
 		}
 		logger.info("Session Captcha=="+captchaSecurity);
-		logger.info("User Enter Captcha=="+userForm.getcaptcha());
+		logger.info("User Enter Captcha=="+userForm.getCaptcha());
 		try {
-		if (validateCaptcha(request, userForm.getcaptcha(),captchaSecurity)) {
+		if (validateCaptcha(request, userForm.getCaptcha(),captchaSecurity)) {
 			//1-convert object to json string
             String json = EncryptionDecriptionUtil.convertToJson(userForm);
             //2-json string data encript

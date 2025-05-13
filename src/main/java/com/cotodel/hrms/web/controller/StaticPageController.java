@@ -304,10 +304,10 @@ public class StaticPageController extends CotoDelBaseController{
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
-						case "3":
-							screenName="dashboard";
-							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-							break;
+						//case "3":
+						//	screenName="dashboard";
+						//	model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						//	break;
 						}
 						return screenName;
 					 }
@@ -411,10 +411,10 @@ public class StaticPageController extends CotoDelBaseController{
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
-						case "3":
-							screenName="dashboard";
-							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-							break;
+						//case "3":
+						//	screenName="dashboard";
+						//	model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+						//	break;
 						}
 						return screenName;
 					 }
@@ -1535,7 +1535,7 @@ public class StaticPageController extends CotoDelBaseController{
 					model.addAttribute("employerId",id);
 
 					return new ModelAndView("requestVoucher", "command", "");
-				}
+				} 
 				 return new ModelAndView("error", "command", "");
 			}
 			return new ModelAndView("index", "command", "");

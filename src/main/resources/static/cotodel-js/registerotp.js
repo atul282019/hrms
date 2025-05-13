@@ -204,11 +204,16 @@ function userRegistration(){
 	
 	document.getElementById("signinLoader").style.display="flex";
     var formData = new FormData(registerUser);
+	formData.append("organizationName",orgname);
+	formData.append("companySize",noofEmp);
+	formData.append("name",name);
+	formData.append("consent",privacyCheck);
+	
+	
 	console.log("form data",formData);
 	 	$.ajax({
 		type: "POST",
 	     url:"/registerUser",
-	     //url:"/registerUser",
          data: formData,
          processData: false,
          contentType: false,

@@ -13,12 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.ReputeEmployeeDetails;
 import com.cotodel.hrms.web.response.ReputeEmployeeRequest;
 import com.cotodel.hrms.web.response.Root;
 import com.cotodel.hrms.web.service.ReputeService;
@@ -27,6 +27,7 @@ import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -80,11 +81,11 @@ public class ReputeController extends CotoDelBaseController{
 		
 			logger.info("webhook-repute called");
 			logger.info("repute hook called"+payload);	
-			String profileRes=null;
+		    String profileRes=null;
 		    ObjectMapper om = new ObjectMapper();
-			Root root = om.readValue(payload, Root.class); 
+			ReputeEmployeeDetails reputeEmployeeDetails = om.readValue(payload, ReputeEmployeeDetails.class); 
 			try {
-				profileRes = reputeService.reputeWebhooks(tokengeneration.getToken(),root);
+				profileRes = reputeService.reputeWebhooks(tokengeneration.getToken(),reputeEmployeeDetails);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

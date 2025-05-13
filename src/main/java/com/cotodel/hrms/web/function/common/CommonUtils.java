@@ -4,7 +4,8 @@ public interface CommonUtils {
 
 
 	public static String tokenUrl="/tokenService/Api/get/access-token";
-	public static String registerUserUrl = "/userServices/Api/get/saveUserDetails";
+	//public static String registerUserUrl = "/userServices/Api/get/saveUserDetails";
+	public static String registerUserUrl = "/userServices/Api/add/saveEmployerOnBoardingDetails";
 	public static String verifyEmail = "/userServices/Api//verifyLink";
 	public static String sendOtp = "/userServices/Api/getOtp";
 	public static String sendOtpNew = "/userServices/Api/getOtpNew";
@@ -126,6 +127,7 @@ public interface CommonUtils {
 	public static String getUserDetailByMobileNumber = "/userServices/Api/get/userDetailsWithMobile";
 	public static String getReputeToken = "/userServices/Api/get/reputeToken";
 	public static String getReputeEmployeeList = "/repute_marketplace/Api/get/employeeList";
+	public static String getReputeEmployeeStatusUpdate = "/repute_marketplace/Api/get/employeeList";
 	public static String saveDirectorOnboarding = "/empService/Api/add/directorOnboarding";
 	public static String getDirectorOnboarding = "/empService/Api/get/directorOnboarding";
 	public static String getsaveWaitlist = "/userServices/Api/get/waitingListUsers";
@@ -139,7 +141,7 @@ public interface CommonUtils {
 	public static String getTravelRequestApprovalList ="/empService/Api/get/advanceTravelRequest";
 	public static String getTravelRequestRequestById ="/empService/Api/get/advanceTravelById";
 	public static String getExpanseLimitByExpenseTitleId  =	"/empService/Api/get/expenseCategoryBandId";
-	
+	public static String employerOnboarding = "userServices/Api/add/saveEmployerOnBoardingDetails";
 		 
 
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
