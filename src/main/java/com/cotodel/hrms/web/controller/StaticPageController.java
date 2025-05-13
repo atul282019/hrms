@@ -267,13 +267,21 @@ public class StaticPageController extends CotoDelBaseController{
 						
 					     if(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id") == 3) {
 						   
-							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							
-							session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							 orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("id");
+//							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+//							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+//							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+//							
+//							session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+//							model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+//							 orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("id");
+					    	 //new change
+					    	 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+								session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+								model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+								
+								session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+								model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+							    orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid");
 						}// id and empid is same in 1,3,9 
 						else {
 							//id and emp is diiferent

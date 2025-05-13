@@ -124,34 +124,62 @@ public class LoginController extends CotoDelBaseController{
 					request.getSession(true).setAttribute("user_role",  profileJsonRes.getJSONObject("data").getInt("role_id"));
 					request.getSession(true).setAttribute("formattedDate",  formattedDate);
 					if(profileJsonRes.getJSONObject("data").getInt("role_id") == 1) {
-					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
-					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
-					model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+						
+//					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+//					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+//					model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+//					
+//					session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
+//					model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
+//					orgid = profileJsonRes.getJSONObject("data").getInt("id");
+					
+					//new changes 
+					request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+					session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+					model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("employerid"));
 					
 					session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
 					model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
-					orgid = profileJsonRes.getJSONObject("data").getInt("id");
+				    orgid = profileJsonRes.getJSONObject("data").getInt("employerid");
 					}
 					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 9) {
 						//request.getSession(true).setAttribute("id",SHA256Hash.getSHA256Hash(String.valueOf(profileJsonRes.getJSONObject("data").getInt("id"))));
 						
-						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
-						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
-						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+//						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+//						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+//						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+//						
+//						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
+//						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
+//						 orgid = profileJsonRes.getJSONObject("data").getInt("id");
+						
+						//new changes 
+						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("employerid"));
 						
 						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
-						 orgid = profileJsonRes.getJSONObject("data").getInt("id");
+					    orgid = profileJsonRes.getJSONObject("data").getInt("employerid");
 						
 					}
 					else if(profileJsonRes.getJSONObject("data").getInt("role_id") == 3) {
-						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
-						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
-						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+//						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+//						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("id"));
+//						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("id"));
+//						
+//						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
+//						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
+//						 orgid = profileJsonRes.getJSONObject("data").getInt("id");
+						
+						//new changes 
+						request.getSession(true).setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+						session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+						model.addAttribute("id",profileJsonRes.getJSONObject("data").getInt("employerid"));
 						
 						session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
 						model.addAttribute("empId",profileJsonRes.getJSONObject("data").getInt("id"));
-						 orgid = profileJsonRes.getJSONObject("data").getInt("id");
+					    orgid = profileJsonRes.getJSONObject("data").getInt("employerid");
 					}// id and empid is same in 1,3,9 
 					else {
 						//id and emp is diiferent
