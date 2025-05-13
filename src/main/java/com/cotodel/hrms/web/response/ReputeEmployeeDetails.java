@@ -27,6 +27,7 @@ public class ReputeEmployeeDetails {
 	private String pincode;
 	private String employmentStatus;
 	private String grade;
+	private String doe;
 	private String managerEmployeeId;
 	private String reputeEmployeeId;
 	

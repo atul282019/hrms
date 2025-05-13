@@ -128,6 +128,8 @@ public interface CommonUtils {
 	public static String getReputeToken = "/userServices/Api/get/reputeToken";
 	public static String getReputeEmployeeList = "/repute_marketplace/Api/get/employeeList";
 	public static String getReputeEmployeeStatusUpdate = "/repute_marketplace/Api/get/employeeList";
+	
+	public static String updateReputeEmployeeDetailByWebhoock = "/userServices/Api/update/updateReputeDetails";
 	public static String saveDirectorOnboarding = "/empService/Api/add/directorOnboarding";
 	public static String getDirectorOnboarding = "/empService/Api/get/directorOnboarding";
 	public static String getsaveWaitlist = "/userServices/Api/get/waitingListUsers";

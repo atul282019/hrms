@@ -246,7 +246,7 @@ public class StaticPageController extends CotoDelBaseController{
 						 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
 						
 					/// logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
-					 if(profileJsonResIdtoken.getBoolean("status")) { 
+					 if(profileJsonResIdtoken.getBoolean("status") && profileJsonResIdtoken.getJSONObject("userEntity").getInt("status")==1) { 
 						  System.out.println("User stauts success");
 						  
 						 session.setAttribute("reputeAccessToken", repute.getAccessToken());
@@ -363,7 +363,7 @@ public class StaticPageController extends CotoDelBaseController{
 						 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
 						
 					 logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
-					 if(profileJsonResIdtoken.getBoolean("status")) { 
+					 if(profileJsonResIdtoken.getBoolean("status")  && profileJsonResIdtoken.getJSONObject("userEntity").getInt("status")==1) { 
 						
 						 session.setAttribute("reputeAccessToken", repute.getAccessToken());
 						 session.setAttribute("endpoint", repute.getVault_url());

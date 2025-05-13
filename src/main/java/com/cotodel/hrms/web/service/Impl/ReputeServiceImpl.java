@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
-import com.cotodel.hrms.web.response.ReputeEmployeeDetails;
 import com.cotodel.hrms.web.service.ReputeService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -27,11 +26,11 @@ public class ReputeServiceImpl implements ReputeService{
 	}
 
 	@Override
-	public String reputeWebhooks(String token, ReputeEmployeeDetails reputeEmployeeDetails) {
+	public String reputeWebhooks(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(
 	            token,
-	            MessageConstant.gson.toJson(reputeEmployeeDetails),
-	            applicationConstantConfig.reputeServiceBaseUrl +CommonUtils.getReputeEmployeeStatusUpdate
+	            MessageConstant.gson.toJson(jsonObject),
+	            applicationConstantConfig.userServiceBaseUrl+CommonUtils.updateReputeEmployeeDetailByWebhoock
 	        );
 	}
 

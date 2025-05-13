@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -76,16 +77,28 @@ public class ReputeController extends CotoDelBaseController{
 	}
 	
 
-	@PostMapping(value="/webhook-repute")
+	@GetMapping(value="/webhook-repute")
 	public ResponseEntity<Void> reputeWebhooks(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 		
 			logger.info("webhook-repute called");
-			logger.info("repute hook called"+payload);	
+			logger.info("repute hook called"+payload);
+			String payload2 = "{\"companyId\":\"company_cotodel\",\"companyName\":\"Company Cotodel\",\"hrmsId\":\"demohrms\",\"employeeId\":\"807\",\"employeeName\":\"Test 806\",\"dob\":\"1990-01-01\",\"gender\":\"MALE\",\"department\":\"IT\",\"employmentType\":\"PERMANENT\",\"designation\":\"Software Engineer\",\"doj\":\"2023-10-22\",\"doe\":\"2025-05-02\",\"officialEmailId\":\"atulyadavayo807@gmail.com\",\"personalEmailId\":\"test_p@test807.com\",\"mobileNumber\":\"6306881236\",\"pincode\":\"560102\",\"employmentStatus\":\"INACTIVE\",\"grade\":\"G3\",\"managerEmployeeId\":\"3\"}";
 		    String profileRes=null;
 		    ObjectMapper om = new ObjectMapper();
-			ReputeEmployeeDetails reputeEmployeeDetails = om.readValue(payload, ReputeEmployeeDetails.class); 
+			ReputeEmployeeDetails reputeEmployeeDetails = om.readValue(payload2, ReputeEmployeeDetails.class); 
 			try {
-				profileRes = reputeService.reputeWebhooks(tokengeneration.getToken(),reputeEmployeeDetails);
+//				profileRes = reputeService.reputeWebhooks(tokengeneration.getToken(),reputeEmployeeDetails);
+				String json = EncryptionDecriptionUtil.convertToJson(reputeEmployeeDetails);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  reputeService.reputeWebhooks(tokengeneration.getToken(),jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

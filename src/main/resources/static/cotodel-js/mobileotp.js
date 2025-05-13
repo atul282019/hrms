@@ -68,7 +68,7 @@ function getOTP() {
 
                 $('#loginIdDiv').show('slow');
             } else if (obj.status===false) {
-                $('#errorOtp').html("Registration is mandatory for login");
+                $('#errorOtp').html(obj.message);
                 $('#successmessage').hide('slow');
                 document.getElementById("optBtn").style.display = "block";
                 document.getElementById("optBtn").disabled = false;
