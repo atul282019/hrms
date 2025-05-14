@@ -79,12 +79,6 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass || isStaticResourcewebfonts || isStaticResourceFiles 
 					||isStaticResourcewebfontsblog || isStaticResourcewebfontssolutions) {
 						chain.doFilter(request, response);
-			}else if(requestURI.contains("/index")){
-				RequestDispatcher rd = request.getRequestDispatcher("index");
-				rd.forward(request, response);
-			}else if(requestURI.contains("/loginNew")){
-				RequestDispatcher rd = request.getRequestDispatcher("loginNew");
-				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/login")){
 				RequestDispatcher rd = request.getRequestDispatcher("login");
@@ -113,9 +107,6 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 			else if(requestURI.contains("/registerUser")){
 				RequestDispatcher rd = request.getRequestDispatcher("registerUser");
 				rd.forward(request, response);
-			}else if(requestURI.contains("/token")){
-				RequestDispatcher rd = request.getRequestDispatcher("token");
-				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/sendEmailVerifyLink")){
 				RequestDispatcher rd = request.getRequestDispatcher("sendEmailVerifyLink");
@@ -128,10 +119,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 //				RequestDispatcher rd = request.getRequestDispatcher("companyDetails");
 //				rd.forward(request, response);
 //			}
-			else if(requestURI.contains("/dashboard1")){
-				RequestDispatcher rd = request.getRequestDispatcher("dashboard1");
-				rd.forward(request, response);
-			}
+//			else if(requestURI.contains("/dashboard1")){
+//				RequestDispatcher rd = request.getRequestDispatcher("dashboard1");
+//				rd.forward(request, response);
+//			}
 			else if(requestURI.contains("/sitemap.xml")){
 				RequestDispatcher rd = request.getRequestDispatcher("sitemap.xml");
 				rd.forward(request, response);
@@ -162,10 +153,6 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 			}
 			else if(requestURI.contains("/nointernet")){
 				RequestDispatcher rd = request.getRequestDispatcher("nointernet");
-				rd.forward(request, response);
-			}
-			else if(requestURI.contains("/waitList")){
-				RequestDispatcher rd = request.getRequestDispatcher("waitList");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/termsconditions")){
@@ -204,10 +191,6 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("consulting");
 				rd.forward(request, response);
 			}
-//			else if(requestURI.contains("/blogs")){
-//				RequestDispatcher rd = request.getRequestDispatcher("blogs");
-//				rd.forward(request, response);
-//			}
 			else if(requestURI.contains("/blogs")){
 				RequestDispatcher rd = request.getRequestDispatcher("blogspage");
 				rd.forward(request, response);
@@ -274,13 +257,16 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("corporatesManagement");
 				rd.forward(request, response);
 			}
-
 			else if(requestURI.contains("/policy")){
 				RequestDispatcher rd = request.getRequestDispatcher("policy");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/home")){
+				RequestDispatcher rd = request.getRequestDispatcher("home");
+				rd.forward(request, response);
+			}
 			else{
-				RequestDispatcher rd = request.getRequestDispatcher("index");
+				RequestDispatcher rd = request.getRequestDispatcher("/");
 				rd.forward(request, response);
 			}
 		}else{
