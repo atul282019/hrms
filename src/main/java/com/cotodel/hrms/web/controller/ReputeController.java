@@ -82,10 +82,10 @@ public class ReputeController extends CotoDelBaseController{
 		
 			logger.info("webhook-repute called");
 			logger.info("repute hook called"+payload);
-			String payload2 = "{\"companyId\":\"company_cotodel\",\"companyName\":\"Company Cotodel\",\"hrmsId\":\"demohrms\",\"employeeId\":\"807\",\"employeeName\":\"Test 806\",\"dob\":\"1990-01-01\",\"gender\":\"MALE\",\"department\":\"IT\",\"employmentType\":\"PERMANENT\",\"designation\":\"Software Engineer\",\"doj\":\"2023-10-22\",\"doe\":\"2025-05-02\",\"officialEmailId\":\"atulyadavayo807@gmail.com\",\"personalEmailId\":\"test_p@test807.com\",\"mobileNumber\":\"6306881236\",\"pincode\":\"560102\",\"employmentStatus\":\"INACTIVE\",\"grade\":\"G3\",\"managerEmployeeId\":\"3\"}";
+		//	String payload2 = "{\"companyId\":\"company_cotodel\",\"companyName\":\"Company Cotodel\",\"hrmsId\":\"demohrms\",\"employeeId\":\"807\",\"employeeName\":\"Test 806\",\"dob\":\"1990-01-01\",\"gender\":\"MALE\",\"department\":\"IT\",\"employmentType\":\"PERMANENT\",\"designation\":\"Software Engineer\",\"doj\":\"2023-10-22\",\"doe\":\"2025-05-02\",\"officialEmailId\":\"atulyadavayo807@gmail.com\",\"personalEmailId\":\"test_p@test807.com\",\"mobileNumber\":\"6306881236\",\"pincode\":\"560102\",\"employmentStatus\":\"INACTIVE\",\"grade\":\"G3\",\"managerEmployeeId\":\"3\"}";
 		    String profileRes=null;
 		    ObjectMapper om = new ObjectMapper();
-			ReputeEmployeeDetails reputeEmployeeDetails = om.readValue(payload2, ReputeEmployeeDetails.class); 
+			ReputeEmployeeDetails reputeEmployeeDetails = om.readValue(payload, ReputeEmployeeDetails.class); 
 			try {
 //				profileRes = reputeService.reputeWebhooks(tokengeneration.getToken(),reputeEmployeeDetails);
 				String json = EncryptionDecriptionUtil.convertToJson(reputeEmployeeDetails);

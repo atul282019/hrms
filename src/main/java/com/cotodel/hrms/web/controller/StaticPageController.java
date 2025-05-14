@@ -245,7 +245,7 @@ public class StaticPageController extends CotoDelBaseController{
 						
 						 profileJsonResIdtoken= new JSONObject(profileResIdtoken);
 						
-					/// logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
+					 logger.info("user Detail by mobile no ::"+profileJsonResIdtoken);
 					 if(profileJsonResIdtoken.getBoolean("status") && profileJsonResIdtoken.getJSONObject("userEntity").getInt("status")==1) { 
 						  System.out.println("User stauts success");
 						  
@@ -257,13 +257,14 @@ public class StaticPageController extends CotoDelBaseController{
 						 request.getSession(true).setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsName"));
 						 request.getSession(true).setAttribute("user_role",   profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"));
 						 request.getSession(true).setAttribute("formattedDate",  formattedDate);
-		                 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						
-						 request.getSession(true).setAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+		                
+//						 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						
+//						 request.getSession(true).setAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 						
 					     if(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id") == 3) {
 						   
@@ -312,10 +313,10 @@ public class StaticPageController extends CotoDelBaseController{
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
-						//case "3":
-						//	screenName="dashboard";
-						//	model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						//	break;
+						case "3":
+								screenName="dashboard";
+							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+							break;
 						}
 						return screenName;
 					 }
@@ -373,23 +374,25 @@ public class StaticPageController extends CotoDelBaseController{
 						 request.getSession(true).setAttribute("username", profileJsonResIdtoken.getJSONObject("userEntity").getString("hrmsName"));
 						 request.getSession(true).setAttribute("user_role",   profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id"));
 						 request.getSession(true).setAttribute("formattedDate",  formattedDate);
-		                 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						
-						 request.getSession(true).setAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						
+		               
+//						 request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//	     				 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						
+//						 request.getSession(true).setAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						 session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						 model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+//						
 					    if(profileJsonResIdtoken.getJSONObject("userEntity").getInt("role_id") == 3) {
 						   
-							request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
+					    	request.getSession(true).setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							session.setAttribute("id", profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
+							model.addAttribute("id",profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid"));
 							
 							session.setAttribute("empId", profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
 							model.addAttribute("empId",profileJsonResIdtoken.getJSONObject("userEntity").getInt("id"));
-							 orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("id");
+						    orgid = profileJsonResIdtoken.getJSONObject("userEntity").getInt("employerid");
+						    
 						}// id and empid is same in 1,3,9 
 						else {
 							//id and emp is diiferent
@@ -419,10 +422,10 @@ public class StaticPageController extends CotoDelBaseController{
 							screenName="dashboard";
 							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
 							break;
-						//case "3":
-						//	screenName="dashboard";
-						//	model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
-						//	break;
+						case "3":
+							screenName="dashboard";
+							model.addAttribute("name",profileJsonResIdtoken.getJSONObject("userEntity").getString("email"));
+							break;
 						}
 						return screenName;
 					 }
