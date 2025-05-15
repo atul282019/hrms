@@ -718,10 +718,26 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
         	
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
+				var fileName=input.files[0].name;
+				var fileType=input.files[0].type;
 
                 reader.onload = function (e) {
                  //   $('#blah').attr('src', e.target.result);
-				 sendToOcr(e.target.result);
+				 const fullBase64 = e.target.result;
+                 const base64Data = fullBase64.split(',')[1];
+				 if (fileType === "application/pdf") {
+				                   //  $('#imagePDF').attr('src', base64Data).show();
+				                   //  $('#base64PDF').val(base64Data);
+				                   //  $('#imageAdd').hide();
+								   sendToOcr(base64Data,"file",fileName);
+				                 } else {
+				                   //  $('#imageAdd').attr('src', base64Data).show();
+				                    // $('#imagePDF').hide();
+									sendToOcr(base64Data,"image",fileName);
+				                 }
+
+				                 
+				
                 };
                 reader.readAsDataURL(input.files[0]);
                 
@@ -758,12 +774,25 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
         	document.getElementById("fileUploadDiv").style.display="none";
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
+				var fileName=input.files[0].name;
+				var fileType=input.files[0].type;
 
                 reader.onload = function (e) {
                  //   $('#blah').attr('src', e.target.result);
 				
-				 sendToOcr(e.target.result);
-				             // Store base64 in hidden input for form submission
+				 const fullBase64 = e.target.result;
+				                  const base64Data = fullBase64.split(',')[1];
+				 				 if (fileType === "application/pdf") 
+								 {
+ 				                   //  $('#imagePDF').attr('src', base64Data).show();
+ 				                   //  $('#base64PDF').val(base64Data);
+ 				                   //  $('#imageAdd').hide();
+ 								   sendToOcrSingle(base64Data,"file",fileName);
+ 				                 } else {
+ 				                   //  $('#imageAdd').attr('src', base64Data).show();
+ 				                    // $('#imagePDF').hide();
+ 									sendToOcrSingle(base64Data,"image",fileName);
+ 				                 }
 				            
 
                 };
@@ -1055,6 +1084,27 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
     });
 	
 </script>
+<!-- modal unsuccessfull-->
+<div class="modal fade" id="ModalReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	        <div class="modal-dialog modal-dialog-centered" role="document">
+	        <div class="modal-content modal-bulk">
+				<!--<button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close"
+				              style="top: 10px; right: 10px; z-index: 1051; background: none; border: none;">
+				        <img src="img/modal-close.svg" alt="Close" style="width: 20px; height: 20px;">
+				      </button>-->
+
+	            <div class="modal-top text-center">          
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+	                <img src="img/modal-close.svg" alt="">
+	            </button>        
+	            <img src="img/modal-reject.svg" alt="">
+	            </div>
+	            <div class="modal-bottom">
+	                <span class="required-star"></span>
+	            </div>
+	        </div>
+	        </div>
+	    </div>
 
 	<!-- Modal Add Expense Reimbursements -->
 

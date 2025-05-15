@@ -248,7 +248,8 @@ async function submitExpenseMultiple(){
 	
 	var employerId= document.getElementById("employerId").value; 
 	var empId= document.getElementById("empId").value; 
-	var expenseCategory=  document.getElementById("expenseCategory").value ;
+	var expenseCategorySelect = document.getElementById("expenseCategory");
+	var expenseCategory = expenseCategorySelect.options[expenseCategorySelect.selectedIndex].text;
 	var dateofExpense = document.getElementById("dateofExpense").value;
 	var expenseTitle = document.getElementById("expenseTitle").value;
 	var venderName= document.getElementById("venderName").value;
@@ -423,6 +424,7 @@ async function submitExpenseMultiple(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
+			if(data1.status==true){ 
 			//close popup
 			document.getElementById("ModalAddmanualexp").style.display = "none";
 		    document.getElementById("ModalAddExpenseReimbursement").style.display = "none";
@@ -451,6 +453,18 @@ async function submitExpenseMultiple(){
 			    field.innerHTML = "";
 			});
 			$('#expReimbursementsubmission').modal('show');
+			
+			}
+			
+			else if(data1.status==false)
+   				{								
+					//close popup
+					document.getElementById("ModalAddmanualexp").style.display = "none";
+				    document.getElementById("ModalAddExpenseReimbursement").style.display = "none";
+					document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
+				   
+					$('#ModalReject').modal('show');
+				}
          },
          error: function(e){
              alert('Error: ' + e);
@@ -1450,10 +1464,23 @@ function approveExpenses(){
 				newData = data;
 				var data1 = jQuery.parseJSON(newData);
 				var data2 = data1.list;
-				getExpanceCategoryApprovalList();
+				//data1.status=false;
+				//data1.message="test message";
+				document.getElementById("signinLoader").style.display="none";
+				if(data1.status==true)
+				{getExpanceCategoryApprovalList();
 				var modalfirst = document.getElementById("modalReimbursementApproved");
 				modalfirst.style.display = "block";
-				document.getElementById("signinLoader").style.display="none";	
+				}
+				else if(data1.status==false)
+					{
+						var modalfirst = document.getElementById("ModalViewPendingExp");
+						modalfirst.style.display = "none";
+						document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
+												   
+						$('#ModalReject').modal('show');
+					}
+					
 			},
 			error: function(e) {
 				alert('Failed to fetch JSON data' + e);
@@ -1804,25 +1831,65 @@ function exportToExcel(tableId, headingSelector) {
 
         XLSX.writeFile(workbook, fileName);
     }
-	function sendToOcr(base64Image) {
+	function sendToOcr(base64Image,filetype,fileName) {
 	    console.log("sendToOcr base64Image  ",base64Image);
+		console.log("sendToOcr base64Image  ",filetype);
+		console.log("sendToOcr base64Image  ",fileName);
 
 	  
 
 	    $.ajax({
 	        type: "POST",
 	        url: "/readOcr",
-	        data: {"file": base64Image},
+	        data: {"file": base64Image,
+					"fileType":filetype,
+					"fileName":fileName 
+			},
 	        
 	        success: function (response) {
 	            console.log("OCR Result:", response);
+				var parsedData=JSON.parse(response);
+				var newData=parsedData;
 	            // handle result display here
+				if(newData.status==true)
+				{document.getElementById("venderName").value=newData.data.venderName;
+				document.getElementById("invoiceNumber").value=newData.data.order;
+				document.getElementById("amount").value=newData.data.totalAmount;}
 	        },
 	        error: function (e) {
 	            alert("OCR Error: " + e.responseText);
 	        }
 	    });
 	}
+	function sendToOcrSingle(base64Image,filetype,fileName) {
+		    console.log("sendToOcr base64Image  ",base64Image);
+			console.log("sendToOcr base64Image  ",filetype);
+			console.log("sendToOcr base64Image  ",fileName);
 
+		  
+
+		    $.ajax({
+		        type: "POST",
+		        url: "/readOcr",
+		        data: {"file": base64Image,
+						"fileType":filetype,
+						"fileName":fileName 
+				},
+		        
+		        success: function (response) {
+		            console.log("OCR Result:", response);
+					var parsedData=JSON.parse(response);
+					var newData=parsedData;
+		            // handle result display here
+					if(newData.status==true)
+					{document.getElementById("vendorNameSingle").value=newData.data.venderName;
+					document.getElementById("invoiceNumberSingle").value=newData.data.order;
+					document.getElementById("amountSingle").value=newData.data.totalAmount;}
+		        },
+		        error: function (e) {
+		            alert("OCR Error: " + e.responseText);
+		        }
+		    });
+		}
 
 

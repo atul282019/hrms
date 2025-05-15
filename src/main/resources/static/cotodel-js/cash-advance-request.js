@@ -400,9 +400,22 @@ async function cashAdvanceSubmit(){
 				newData = data;
 				var data1 = jQuery.parseJSON(newData);
 				var data2 = data1.list;
+				document.getElementById("signinLoader").style.display="none";
+				if(data1.status==true)
+				{
 				var modalfirst = document.getElementById("ModalExpensesSubmitted");
 			    modalfirst.style.display = "block";
-				document.getElementById("signinLoader").style.display="none";
+				}
+				else if(data1.status==false)
+					{	$('#ModalChooseAdvanceRequest').modal('hide');
+						$('#ModalCashAdvanceRequest').modal('hide');
+						
+						
+						
+						document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
+										   
+						$('#ModalReject').modal('show');
+					}
 			},
 			error: function(e) {
 				alert('Failed to fetch JSON data' + e);
@@ -551,12 +564,25 @@ async function getTableDataTravel() {
 			"hash":hashHex,
    		}),
    		success: function(data) {
-   			//newData = data;
-   			//var data1 = jQuery.parseJSON(newData);
+   			newData = data;
+   			var data1 = jQuery.parseJSON(newData);
    			//var data2 = data1.list;
+			document.getElementById("signinLoader").style.display="none";
+			if(data1.status==true)
+				{
+					
+				
    			var modalfirst = document.getElementById("ModalConfirm");
    		    modalfirst.style.display = "block";
-   			document.getElementById("signinLoader").style.display="none";
+   			}
+			else if(data1.status==false)
+				{ $('#travelDetailsTable').modal('hide');
+					$('#ModalChooseAdvanceRequest').modal('hide');
+					
+					document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
+				   
+					$('#ModalReject').modal('show');
+				}
    		},
    		error: function(e) {
    			alert('Failed to fetch JSON data' + e);
@@ -1672,9 +1698,29 @@ function getAllTablesData(){
 	  			"travelRequestUpdate":requestData,
 	  		}),
 	  		success: function(data) {
-	  			var modalfirst = document.getElementById("modalTravelUpdated");
-	  		    modalfirst.style.display = "block";
-	  			document.getElementById("signinLoader").style.display="none";
+				newData=data;
+				var data1 = jQuery.parseJSON(newData);
+				data1.status=false;
+				document.getElementById("signinLoader").style.display="none";
+				if(data1.status==true)
+					{
+						var modalfirst = document.getElementById("modalTravelUpdated");
+			  		    modalfirst.style.display = "block";
+					}
+					else if(data1.status==false)
+		 			{ 						
+							var modalfirst = document.getElementById("travelDetailsTable1");
+									modalfirst.style.display = "none";
+							$('#travelDetailsTable').modal('hide');
+							
+							$('#ModalChooseAdvanceRequest').modal('hide');
+							
+							document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
+						   
+							$('#ModalReject').modal('show');
+						}
+	  			
+	  			
 	  		},
 	  		error: function(e) {
 	  			alert('Failed to fetch JSON data' + e);
@@ -2655,16 +2701,30 @@ function approveCashAvance(){
 				newData = data;
 				var data1 = jQuery.parseJSON(newData);
 				var data2 = data1.list;
-				
-				var travelRequestApprove = document.getElementById("TravelRequestApprove");
-				document.getElementById("approveRemark").value="";
-				document.getElementById("approveAmount").value="";
-				travelRequestApprove.style.display = "none";
-				
-				var modalfirst = document.getElementById("modalTravelUpdated");
-			    modalfirst.style.display = "block";
-				
+				//data1.status=false;
+				//data1.message="test message";
 				document.getElementById("signinLoader").style.display="none";
+				if(data1.status==true)
+					{
+						var travelRequestApprove = document.getElementById("TravelRequestApprove");
+										document.getElementById("approveRemark").value="";
+										document.getElementById("approveAmount").value="";
+										travelRequestApprove.style.display = "none";
+										
+										var modalfirst = document.getElementById("modalTravelUpdated");
+									    modalfirst.style.display = "block";
+					}
+				else if(data1.status==false)
+					{ 
+						
+						var modalfirst = document.getElementById("TravelRequestApprove");
+							modalfirst.style.display = "none";
+						document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
+																		   
+												$('#ModalReject').modal('show');
+					}
+				
+				
 				
 			},
 			error: function(e) {
@@ -2710,11 +2770,22 @@ function rejectCashAvance(){
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.list;
-			var modalfirst = document.getElementById("ModalReimbursementApproved");
+			document.getElementById("signinLoader").style.display="none";
+			//data1.status=false;
+			//data1.message="test message";
+			if(data1.status==true)
+			{var modalfirst = document.getElementById("ModalReimbursementApproved");
 		    modalfirst.style.display = "block";
 			document.getElementById("approveRemark").value="";
 			document.getElementById("approveAmount").value="";
-			document.getElementById("signinLoader").style.display="none";
+			}
+			else if(data1.status==false)
+				{
+					var modalfirst = document.getElementById("TravelRequestApprove");
+						modalfirst.style.display = "none";
+					document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
+					$('#ModalReject').modal('show');
+				}
 			
 		},
 		error: function(e) {
