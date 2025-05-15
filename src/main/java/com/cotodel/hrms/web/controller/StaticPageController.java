@@ -47,18 +47,18 @@ public class StaticPageController extends CotoDelBaseController{
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
-	@GetMapping(value="/index")
-	public ModelAndView firstPage(Model model) {
+	@GetMapping(value="/")
+	public String firstPage(Model model) {
+		 return "redirect:/home";
+	}	
+	@GetMapping(value="/home")
+	public ModelAndView home(Model model) {
 		return new ModelAndView("home", "command", "");
 	}	
 	@GetMapping(value="/solutions")
 	public ModelAndView soultions(Model model) {
 		return new ModelAndView("solutions", "command", "");
 	}	
-//	@GetMapping(value="/blogs")
-//	public ModelAndView blogs(Model model) {
-//		return new ModelAndView("blogs", "command", "");
-//	}	
 	@GetMapping(value="/about")
 	public ModelAndView about(Model model) {
 		return new ModelAndView("about", "command", "");
@@ -71,10 +71,6 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView directSignin(Model model) {
 		return new ModelAndView("signin", "command", "");
 	}	
-//	@GetMapping(value="/contact")
-//	public ModelAndView contact(Model model) {
-//		return new ModelAndView("contact", "command", "");
-//	}	
 	@GetMapping(value="/privacypolicy")
 	public ModelAndView policy(Model model) {
 		return new ModelAndView("privacy-policy", "command", "");
