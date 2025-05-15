@@ -24,6 +24,9 @@ public class ReputeTokenRequest {
 	private String hrms_name;
 	private String company_id;
 	private String role;
+	private String managerEmployeeId;
+	///private String employeeId;
+	 
 	
 	
 }

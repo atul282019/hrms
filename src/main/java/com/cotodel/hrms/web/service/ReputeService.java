@@ -10,5 +10,6 @@ public interface ReputeService {
 
 	String getReputeEmployee(String token, EncriptResponse jsonObject);
 	String reputeWebhooks(String token, EncriptResponse jsonObject);
+	String getReputeEmployeeDetailByEmployeeId(String token, EncriptResponse jsonObject);
 
 }

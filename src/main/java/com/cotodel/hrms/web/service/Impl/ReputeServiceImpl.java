@@ -34,4 +34,14 @@ public class ReputeServiceImpl implements ReputeService{
 	        );
 	}
 
+	@Override
+	public String getReputeEmployeeDetailByEmployeeId(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(
+	            token,
+	            MessageConstant.gson.toJson(jsonObject),
+	            applicationConstantConfig.userServiceBaseUrl+CommonUtils.getReputeSingleEmployeeDetails
+	        );
+	}
+	
+
 }

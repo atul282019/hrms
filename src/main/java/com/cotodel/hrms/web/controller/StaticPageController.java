@@ -19,10 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cotodel.hrms.web.jwt.util.JwtTokenGenerator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ReputeCompanyDetails;
+import com.cotodel.hrms.web.response.ReputeEmployeeSingleRequest;
 import com.cotodel.hrms.web.response.ReputeTokenRequest;
+import com.cotodel.hrms.web.response.ReputeUserDetailRequest;
 import com.cotodel.hrms.web.response.ReputeUserRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
-import com.cotodel.hrms.web.response.UserRegistrationRequest;
+import com.cotodel.hrms.web.service.ReputeService;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.CommonUtility;
@@ -46,6 +48,10 @@ public class StaticPageController extends CotoDelBaseController{
 	
 	@Autowired
 	TokenGenerationImpl tokengeneration;
+	
+	@Autowired
+	ReputeService reputeService;
+	
 	
 	@GetMapping(value="/")
 	public String firstPage(Model model) {
@@ -172,44 +178,71 @@ public class StaticPageController extends CotoDelBaseController{
 		JSONObject profileJsonRes=null;
 		String profileResIdtoken=null;
 		JSONObject profileJsonResIdtoken=null;
-		UserRegistrationRequest userForm=new UserRegistrationRequest();
+		ReputeUserDetailRequest reputeUserForm = new ReputeUserDetailRequest();
 		try {
 			
 			//logger.info("opening login email 1 ::"+reputeCompanyDetails.getEmail());
-		userForm.setEmail(reputeCompanyDetails.getEmail());
-		userForm.setUsername(hrms_name);
+			reputeUserForm.setEmail(reputeCompanyDetails.getEmail());
+			reputeUserForm.setUsername(hrms_name);
 		
-		String mobileNumber= reputeCompanyDetails.getPhoneNumber();
-        String mobile1 = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
-        userForm.setMobile(mobile1);
+		    String mobileNumber= reputeCompanyDetails.getPhoneNumber();
+            String mobile1 = (mobileNumber.startsWith("0")) ? mobileNumber.substring(1) : mobileNumber;
+            reputeUserForm.setMobile(mobile1);
         
-        userForm.setHrmsId(hrms_id);
-        userForm.setCompanyId(company_id);
-        userForm.setHrmsName(hrms_name);
-        userForm.setRole(role);
-        userForm.setEmployeeName(reputeCompanyDetails.getEmployeeName());
-        ReputeUserRequest userRequest = new ReputeUserRequest();
-        userRequest.setMobile(mobile1);
-        repute.setMobile(mobile1);
-        repute.setVault_url(vault_url);
-        repute.setCompany_id(company_id);
-        repute.setHrms_id(hrms_id);
-        repute.setHrms_name(hrms_name);
-        repute.setRole(role);
-        
-		 String json = EncryptionDecriptionUtil.convertToJson(userForm);
-         //2-json string data encript
-         EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-		
-         String encriptResponse = usercreationService.saveReputeUserDetailEncript(tokengeneration.getToken(),jsonObject);
-         //3-decript data convert to object            
-         EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-         //4-object data to decript to json
-         profileRes=EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-         
-         profileJsonRes= new JSONObject(profileRes);
- 		if(profileJsonRes.getBoolean("status")) { 
- 			 try {
+            reputeUserForm.setHrmsId(hrms_id);
+            reputeUserForm.setCompanyId(company_id);
+            reputeUserForm.setHrmsName(hrms_name);
+            reputeUserForm.setRole(role);
+            reputeUserForm.setEmployeeName(reputeCompanyDetails.getEmployeeName());
+            reputeUserForm.setEmployeeId(reputeCompanyDetails.getEmployeeId());
+	        ReputeUserRequest userRequest = new ReputeUserRequest();
+	        userRequest.setMobile(mobile1);
+	        repute.setMobile(mobile1);
+	        repute.setVault_url(vault_url);
+	        repute.setCompany_id(company_id);
+	        repute.setHrms_id(hrms_id);
+	        repute.setHrms_name(hrms_name);
+	        repute.setRole(role);
+	        repute.setRole(role);
+	       // repute.setEmployeeId(reputeCompanyDetails.getEmployeeId());
+	        ReputeEmployeeSingleRequest reputeEmployeeSingleRequest = new ReputeEmployeeSingleRequest();
+	         reputeEmployeeSingleRequest.setEmployeeId(reputeCompanyDetails.getEmployeeId());
+	         reputeEmployeeSingleRequest.setAccessToken(repute.getAccessToken());
+			 reputeEmployeeSingleRequest.setEndpoint(repute.getVault_url());
+	        try {
+				String json = EncryptionDecriptionUtil.convertToJson(reputeEmployeeSingleRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  reputeService.getReputeEmployeeDetailByEmployeeId(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+				
+				profileJsonRes= new JSONObject(profileRes);
+				if(profileJsonRes.getBoolean("status")) { 
+					reputeUserForm.setManagerEmployeeId(profileJsonRes.getJSONObject("data").getString("managerEmployeeId"));
+				}
+	        } catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+			 String json = EncryptionDecriptionUtil.convertToJson(reputeUserForm);
+	         //2-json string data encript
+	         EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+			
+	         String encriptResponse = usercreationService.saveReputeUserDetailEncript(tokengeneration.getToken(),jsonObject);
+	         //3-decript data convert to object            
+	         EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+	         //4-object data to decript to json
+	         profileRes=EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	         
+	         profileJsonRes= new JSONObject(profileRes);
+	 		if(profileJsonRes.getBoolean("status")) { 
+	 			 try {
  				//logger.info("opening login email 33::"+reputeCompanyDetails.getEmail());
  				//token.setAccessToken(repute.)
  				 String json2 = EncryptionDecriptionUtil.convertToJson(repute);

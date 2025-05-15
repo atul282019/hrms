@@ -127,6 +127,7 @@ public interface CommonUtils {
 	public static String getUserDetailByMobileNumber = "/userServices/Api/get/userDetailsWithMobile";
 	public static String getReputeToken = "/userServices/Api/get/reputeToken";
 	public static String getReputeEmployeeList = "/repute_marketplace/Api/get/employeeList";
+	public static String getReputeSingleEmployeeDetails  = "/repute_marketplace/Api/get/employeeSingle";
 	public static String getReputeEmployeeStatusUpdate = "/repute_marketplace/Api/get/employeeList";
 	
 	public static String updateReputeEmployeeDetailByWebhoock = "/userServices/Api/update/updateReputeDetails";
