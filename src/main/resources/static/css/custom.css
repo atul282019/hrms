@@ -2584,6 +2584,7 @@ table.table-approval-flow thead,
 table.table-rejectremark thead {
     background: #2f945a;
     color: #fff;
+	
 }
 
 table.table-reimbursements thead tr th,
@@ -6259,7 +6260,29 @@ table.vcScheduledtable thead {
 					    color: #28a745; /* Text color for the second header row */
 					    font-weight: bold;
 					    text-align: center;
+						
 					}
+					.table-reimbursements-alt thead tr:first-child th {
+					    background-color:  #2F945A;
+					    color: #EAF4EF;
+					    font-weight: bold;
+					    text-align: center;
+					}
+					/* New class with rounded table header */
+					.table-reimbursements-alt thead tr:first-child th:first-child {
+					    border-top-left-radius: 10px;
+					}
+
+					.table-reimbursements-alt thead tr:first-child th:last-child {
+					    border-top-right-radius: 10px;
+					}
+
+					/* Ensure the table doesn't clip the rounded corners */
+					.table-reimbursements-alt thead {
+					    overflow: hidden;
+					}
+
+
 					#travelDetailsTable {
 					    width: 1728px;
 					    height:1117px;
@@ -6292,6 +6315,7 @@ table.vcScheduledtable thead {
 					    vertical-align: middle;
 					    padding: 10px;
 					}
+					
 					
 					.custom-btn1 {
 							    background-color: white !important;
@@ -6328,7 +6352,33 @@ table.vcScheduledtable thead {
 							            max-height: 0;
 							            padding: 0;
 							        }
-									
+									.empty-message {
+								     text-align: center;
+								     color: #7d8597;
+								     padding: 40px 20px;
+								     font-size: 18px;
+								   }
+								   .btn-custom{
+									width:154px;
+									height:45px;
+										padding: 10px;	
+								         border-radius: 10px;
+										 gap: 4px;
+										 background-color: #367AFF;
+										 color:white;
+								       }									 
+									   .btn-custom:hover
+									    {
+									      background-color: #367AFF;
+									      color: white;
+									      box-shadow: none;
+									    }
+										#vehicleDetailsModal *:not(.btn-primary):not(.btn-primary *) {
+				 						 color: #4A4E69 !important;
+										}
+		.custom-row-border td {
+				      border-bottom: 2px solid #EAF4EF;
+				    }
 
 /* made by anish ends here*/
 .required-star {
