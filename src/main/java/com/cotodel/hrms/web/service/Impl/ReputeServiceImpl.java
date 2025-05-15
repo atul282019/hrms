@@ -39,7 +39,7 @@ public class ReputeServiceImpl implements ReputeService{
 		return CommonUtility.userRequest(
 	            token,
 	            MessageConstant.gson.toJson(jsonObject),
-	            applicationConstantConfig.userServiceBaseUrl+CommonUtils.getReputeSingleEmployeeDetails
+	            applicationConstantConfig.reputeServiceBaseUrl+CommonUtils.getReputeSingleEmployeeDetails
 	        );
 	}
 	
