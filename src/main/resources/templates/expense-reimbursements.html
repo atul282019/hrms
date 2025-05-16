@@ -158,7 +158,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 						<div class="col-12">
 							<ul class="nav nav-tabs expense-tabs">
                                 <li class="active"><a data-toggle="tab" href="#home">Expenses & Advances</a></li>
-                                <li th:if="${session.user_role == 1 or session.user_role == 3}"><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
+                                <li th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 3}"><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
                                <!-- <li><a data-toggle="tab" href="#menu2">Linked Bank Account</a></li>-->
                             </ul>
 

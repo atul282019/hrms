@@ -1568,12 +1568,15 @@ function getAddOTP(){
 				  		                const row = `
 				  						<tr>
 				  						            <td>${payment_history.id}</td>
-				  						            <td>${payment_history.paymentAmount}</td>
-				  						            <td>${payment_history.paymentCurrency}</td>
+				  						           
 				  						            
 				  						            <td>${payment_history.customerName}</td>
 				  						            
 				  						            <td>${payment_history.customerPhone}</td>
+													<td>${payment_history.orderAmount}</td>
+												   <td>${payment_history.orderCurrency}</td>
+												   <td>${payment_history.orderStatus}</td>
+												   
 				  						            <td>${payment_history.paymentTime}</td>
 				  								
 													<td>${payment_history.cfPaymentId}</td>

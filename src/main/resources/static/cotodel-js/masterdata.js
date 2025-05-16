@@ -36,11 +36,14 @@ function getEmployeeType(){
 
 function getEmployeeMasterList(){
 	var employerId=document.getElementById("employerId").value;
+	var employeeId=document.getElementById("userDetailIdValue").value;
+	
 	$.ajax({
 			type: "GET",
 	        url: "/getEmployeeMasterList",
 			data:{
-				"orgId" : employerId
+				"orgId" : employerId,
+				"employeeId": employeeId
 			},
 	           success: function(data){
 	            newData = data;

@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
-<body id="page-top">
+<body id="page-top" onload="getUserDetailsId(),  getEmployeeMasterList();">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -226,6 +226,7 @@
 											<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
 											<input type="hidden" class="form-input" name="Id" id="Id">
                                             <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+											<input type="hidden" class="form-input" id="userDetailIdValue" name="userDetailIdValue" >
                                             <input type="button" id="empOnboarding" class="btn btn-primary next d-block" onclick ="saveEmployeeOnboarding()" value="Save"> 
                                         </div>
                                     </div>
@@ -283,7 +284,14 @@
 		    const dd = String(today.getDate()).padStart(2, '0');
 		    document.getElementById("hireDate").value = `${yyyy}-${mm}-${dd}`;
 		  });
+		  
+		  function getUserDetailsId(){
+			
+			document.getElementById("userDetailIdValue").value=sessionStorage.getItem("userDetailsId");
+			sessionStorage.clear();
+		  }
 		</script>
+		
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 		    // Wrap each function in a promise to ensure they finish before proceeding
@@ -296,7 +304,7 @@
 
 		    function loadEmployeeMasterList() {
 		        return new Promise((resolve) => {
-		            getEmployeeMasterList();
+		          //  getEmployeeMasterList();
 		            resolve();
 		        });
 		    }
@@ -316,7 +324,7 @@
 		    }
 
 		    // Run all dropdown-loading functions first, then fill the form
-			Promise.all([loadEmployeeType(), loadEmployeeMasterList(), loadOfficeLocations(), loadDepartments()])
+			Promise.all([loadEmployeeType(), loadOfficeLocations(), loadDepartments()])
 			        .then(() => {
 			            console.log("All dropdowns loaded, now processing status...");
 
