@@ -6281,6 +6281,27 @@ table.vcScheduledtable thead {
 					.table-reimbursements-alt thead {
 					    overflow: hidden;
 					}
+					
+					.table-unsuccess-alt thead tr:first-child th 
+					{
+					    background-color:  #4A4E69;
+					    color: #EAF4EF;
+					    font-weight: bold;
+					    text-align: start;
+					}
+					/* New class with rounded table header */
+					.table-unsuccess-alt thead tr:first-child th:first-child {
+					    border-top-left-radius: 10px;
+					}
+
+					.table-unsuccess-alt thead tr:first-child th:last-child {
+					    border-top-right-radius: 10px;
+					}
+
+					/* Ensure the table doesn't clip the rounded corners */
+					.table-unsuccess-alt thead {
+					    overflow: hidden;
+					}
 
 
 					#travelDetailsTable {
@@ -6373,12 +6394,98 @@ table.vcScheduledtable thead {
 									      color: white;
 									      box-shadow: none;
 									    }
-										#vehicleDetailsModal *:not(.btn-primary):not(.btn-primary *) {
-				 						 color: #4A4E69 !important;
-										}
+										
 		.custom-row-border td {
 				      border-bottom: 2px solid #EAF4EF;
-				    }
+				    } /* vechile css*/
+					.vehicle-modal-header {
+									       background-color: #e9ecef;
+									     }
+									     .vehicle-card-vd {
+									       background-color: #2F945A;
+									       padding: 1rem 1.5rem;
+									       border-radius: 0.5rem;
+									       color: white;
+									     }
+									     .vehicle-card-vd .row > div {
+									       padding: 0.5rem 1rem;
+									     }
+									     .vehicle-section-title-vd {
+									       font-weight: 600;
+									       display: flex;
+									       align-items: center;
+									       gap: 0.5rem;
+									       font-size: 1rem;
+									     }
+										 .vehicle-card-vd .row > div {
+										   padding: 0.5rem 1rem;
+										   color: #BFDECC !important; /* Label color */
+										 }
+
+										 .vehicle-card-vd .row > div > span {
+										   display: block;
+										   font-weight: 700;
+										   color: #fff !important; /* Span value color */
+										 }
+									     .info-section-vd, .legal-section-vd {
+									       background-color: #fafafa;
+									       border-radius: 0.5rem;
+									       padding: 1rem;
+									       margin-bottom: 1rem;
+									       border: 1px solid #dee2e6;
+									     }
+									     .section-title-vd {
+									       font-weight: 600;
+									       color: #198754;
+									       display: flex;
+									       align-items: center;
+									     }
+									     .section-title-vd i {
+									       margin-right: 0.5rem;
+									     }
+									     .activate-btn-vd {
+									       width: 100%;
+									     }
+									     .modal-dialog-vd {
+									       width: 1000px !important;
+									       max-width: 100%;
+									       margin-top: -70px;
+										   pointer-events: auto;
+									     }
+										 .modal-content-vd {
+										   height: auto;
+										   max-height: none;
+										   overflow: visible;
+										 }
+										 .toggle-icon {
+										   width: 16px;
+										   height: 16px;
+										   transition: transform 0.3s ease;
+										 }
+
+										 .toggle-icon.rotate {
+										   transform: rotate(180deg);
+										 }					   .section-title-vd {
+									     color: #4A4E69 !important;  /* Overrides your previous green style */
+									   }
+									   .modal-header {
+									     border-bottom: none !important;
+									   }
+									   .custom-hr {
+									     border: none;
+									     height: 2px;
+									     background-color: #59A97B;
+									     margin-top: 0.5rem;
+									     margin-bottom: 1rem;
+									   }
+									   .modal-btn {
+									   				      background-color: #367AFF;
+									   				      border: none;
+									   				      border-radius: 10px;
+									   				      height: 48px;
+									   				      color: white;
+									   				      font-weight: 600;
+									   				    }
 
 /* made by anish ends here*/
 .required-star {

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top" >
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                
+
+				<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+				                   <!-- Topbar Navbar -->
+				                   <ul class="navbar-nav top-nav">
+
+				                       <!-- Nav Item - User Information -->
+				                       <li class="nav-item">
+				                           <a class="nav-link active" href="#">
+				                               <span class="mr-2 small">Dashboard</span>
+				                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+				                           </a>
+				                       </li>
+				                       <li class="nav-item">
+				                           <a class="nav-link" href="#">
+				                               <span class="mr-2 small">Vehicle Management</span>
+				                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+				                           </a>
+				                       </li>
+
+				                   </ul>
+
+								<ul class="navbar-nav ml-auto">
+				                       <li class="nav-item dropdown no-arrow">
+				                           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                              <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+				                               <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+				                           </a>
+				                           <!-- Dropdown - User Information -->
+				                           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+				                               <a class="dropdown-item" th:href="@{/ProfileInfo}">
+				                                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+				                                   Profile
+				                               </a>
+				                               <a class="dropdown-item" href="#">
+				                                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+				                                   Settings
+				                               </a>
+				                             
+				                              <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+								            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+										          <i class="fas fa-user-circle"></i> Logout         
+										        </a>
+								          </div> -->  
+				                             <div class="dropdown-divider"></div>
+				                               <a class="dropdown-item" th:href="@{/logout}">
+				                                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+				                                   Logout
+				                               </a>
+				                           </div>
+				                       </li>
+
+				                  </ul>			
+				           </nav>
+                <!-- End of Topbar -->
+
+                 <!-- Begin Page Content -->
+				 <div class="container-fluid p-0 p-md-1 mt-4">
+				    <div class="row">
+				      <div class="col-12 col-md-12 px-4">
+
+				        <div class="d-flex justify-content-between align-items-center mb-3">
+				          <h4 class="fw-bold">Vehicle Management</h4>
+				          <div>
+							<button class="btn btn-custom me-2" data-bs-toggle="modal" data-bs-target="#AddVehicleModal">
+				              <i class="bi bi-plus-lg"></i> Add Vehicle
+				            </button>
+				            <a class="btn  btn-custom" href="/bulkvehicleupload"> 
+				              <i class="bi bi-upload"></i> Bulk Upload
+				            </a>
+				          </div>
+				        </div>
+
+				       
+				          <div class="table-responsive">
+				            <table class="table table-reimbursements-alt mb-0" id="reimbursementTable">
+				              <thead>
+				                <tr>
+				                  <th>Vehicle Type</th>
+				                  <th>Registration #</th>
+				                  <th>Make & Model</th>
+				                  <th>Assign Driver</th>
+				                </tr>
+				              </thead>
+				              <tbody>
+				                <tr>
+				                  <td colspan="4" class="empty-message">
+				                    Currently, there are no vehicle added. Please begin by setting up <br>
+				                    details of your fleet of vehicles.
+				                  </td>
+				                </tr>
+				              </tbody>
+				            </table>
+				          </div>
+				        </div>
+
+				      </div>
+				    </div>
+					<style>					
+						.modal-bulk {
+					      width: 600px;
+					      height: 240px;
+					      margin: auto;
+					      border-radius: 12px;
+					      padding: 0 20px 20px;
+					    }
+					    .modal-header {
+					      border-bottom: 1px solid #dee2e6;
+					      justify-content: center;
+					    }
+					    .modal-title {
+					      font-weight: 600;
+						 
+					    }
+					    .form-control {
+					      border-radius: 8px;
+					      height: 48px;
+					    }
+					   
+					</style>
+					<!-- Modal -->
+					<!--<div class="modal fade" id="AddVehicleModal" tabindex="-1" aria-labelledby="AddVehicleModalLabel" aria-hidden="true">
+					   <div class="modal-dialog modal-dialog-centered">
+					     <div class="modal-content modal-bulk">
+					       <div class="modal-header">
+					         <h5 class="modal-title w-100 text-center" id="AddVehicleModalLabel">Add Vehicle</h5>
+					         <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+					       </div>
+					       <div class="modal-body">
+					         <form>
+					           <label for="vehicleNumberInput" class="form-label text-primary small">Enter vehicle number</label>
+					           <input type="text" class="form-control" id="vehicleNumberInput" placeholder="HR87L6621">
+					           <div class="mt-4">
+					             <button type="submit" class="btn modal-btn w-100">VALIDATE</button>
+					           </div>
+					         </form>
+					       </div>
+					     </div>
+					   </div>
+					 </div>-->
+					
+					 <!-- add vehicle modal-->
+					 <div class="modal fade" id="AddVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					     <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+					         <div class="modal-content modal-bulk">
+					             <div class="modal-header pb-0">
+					                 <h5 class="modal-title mx-auto fw-dark text-center w-100" id="exampleModalCenterTitle">Add Vehicle</h5>
+					                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					                     <span aria-hidden="true">×</span>
+					                 </button>
+					             </div>
+								 <div class="modal-body px-4">
+								   <form class="w-100">
+								     <div class="mb-2">
+								       <input 
+								         type="text" 
+								         id="vehicleNumber" 
+								         class="form-control form-control-lg w-100 rounded-3"
+								         placeholder="Enter vehicle number (eg.DL1AB1234)" 
+								         maxlength="50"
+								         oninput="sanitizeInput(this)" 
+								         onkeyup="saveEmployeeValidation()" 
+								         onkeypress="resetErrorMessages()"
+								       >
+								     </div><br>
+
+								     <div class="d-grid">
+										<button type="button" class="btn btn-primary w-100" style="background-color:  #367AFF;" data-bs-toggle="modal" data-bs-target="#vehicleDetailsModal">
+				                         Validate
+				                     </button>
+								     </div>
+								   </form>
+								 </div>
+								
+					         </div>
+					     </div>
+					 </div>
+					
+					   
+
+					 <!-- Vehicle Details Modal -->
+					 <div class="modalView show" id="vehicleDetailsModal" >
+					     
+						<div class="modal-dialog  modal-dialog-vd">
+					       <div class="modal-content ">
+							<div class="modal-header pb-0">
+								<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Add Vehicle</Strong></h5>
+								<button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+												 		                        <img src="img/modal-close.svg" alt="">
+												 		                    </button>
+				             </div>
+							
+					         
+					         <div class="modal-body">
+								
+								
+															 
+					           <div class="vehicle-card-vd mb-3">
+								<div class="d-flex align-items-center mb-2">
+								  <img src="img/vehicle-icon.png" alt="Vehicle Icon" style="height: 24px;" class="me-2">
+								  <span class="modal-title">Vehicle Details</span>
+								</div>
+								<hr class="custom-hr">
+					             <div class="row text-white mt-n2">
+					               <div class="col-md-3">
+					                 Registration Number
+					                 <span>HR87L6621</span>
+					               </div>
+					               <div class="col-md-3">
+					                 Car Make & Model
+					                 <span>Volkswagen Virtus</span>
+					               </div>
+					               <div class="col-md-3">
+					                 Vehicle Class
+					                 <span>Private Car (LMV)</span>
+					               </div>
+					               <div class="col-md-3">
+					                 Fuel
+					                 <span>Diesel</span>
+					               </div>
+					             </div>
+					           </div>
+
+							   <div class="info-section-vd">
+								<div class="section-title-vd d-flex align-items-center justify-content-between" onclick="toggleSection('details-content', 'icon-details')">
+								  <span class="d-flex align-items-center">
+								     <img src="img/Additonal-Details.png" alt="Vehicle Icon" style="height: 24px;" class="me-2"></i>Additional Details
+								  </span>
+								  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-details">
+								</div>
+							     <div class="row mt-2 text-muted" id="details-content" style="display: none;">
+							       <div class="col-md-3">
+							         Chassis Number<br>
+							         <span class="fw-bold text-dark">MEXB23D22PTO14613</span>
+							       </div>
+							       <div class="col-md-3">
+							         Engine Number<br>
+							         <span class="fw-bold text-dark">ENG98765678HK656UYH</span>
+							       </div>
+							       <div class="col-md-3">
+							         Color<br>
+							         <span class="fw-bold text-dark">Grey</span>
+							       </div>
+							       <div class="col-md-3">
+							         Authority<br>
+							         <span class="fw-bold text-dark">Sarai Kale Khan</span>
+							       </div>
+								   <div class="w-100 my-3"></div>
+							       <div class="col-md-3">
+							         Manufacturing Date<br>
+							         <span class="fw-bold text-dark">2022</span>
+							       </div>
+							       <div class="col-md-3">
+							         Cubic Capacity<br>
+							         <span class="fw-bold text-dark">1231.5</span>
+							       </div>
+							       <div class="col-md-3">
+							         Seats<br>
+							         <span class="fw-bold text-dark">5</span>
+							       </div>
+							       <div class="col-md-3">
+							         Weight<br>
+							         <span class="fw-bold text-dark">1,800 kg</span>
+							       </div>
+								   <div class="w-100 my-3"></div>
+							       <div class="col-md-3">
+							         Wheelbase<br>
+							         <span class="fw-bold text-dark">2,600 mm</span>
+							       </div>
+							     </div>
+							   </div>
+
+					           <div class="legal-section-vd">
+					             
+								 <div class="section-title-vd d-flex align-items-center justify-content-between" 								
+								      onclick="toggleSection('legal-content', 'icon-legal')">
+								 								  <span class="d-flex align-items-center">
+								 								    <img src="img/Legal&Compliance.png" style="height: 24px;" class="me-2"></i>Legal & Compliances
+								 								  </span>
+								 								  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-legal">
+								 								</div>
+					             <div class="row mt-2" id="legal-content" style="display: none;">
+					              
+								   <div class="col-md-3">
+   							         Insurance Company:<br>
+   							         <span class="fw-bold text-dark">ICICI Lombard</span>
+   							       </div>
+								   
+								   <div class="col-md-3">
+  							         Fitness:<br>
+  							         <span class="fw-bold text-dark">Good</span>
+  							       </div>
+					               
+								   <div class="col-md-3">
+							         Tax:<br>
+							         <span class="fw-bold text-dark">Annual Road Tax</span>
+							       </div>
+								   
+								   <div class="col-md-3">
+   							         Financer:<br>
+   							         <span class="fw-bold text-dark">ICICI Bank</span>
+   							       </div>
+					               
+								   <div class="w-100 my-3"></div>
+								   
+								   <div class="col-md-3">
+  							         Permit Number:<br>
+  							         <span class="fw-bold text-dark">MH12-567894</span>
+  							       </div>
+								   
+					              
+					             </div>
+					           </div>
+
+					           <button class="btn btn-primary activate-btn-vd"  onclick="openModalConfirm()">ACTIVATE</button>
+					         </div>
+					       </div>
+					     </div>
+					   </div>
+					  
+					 <!-- modal confirm -->
+					 <div class="modalView" id="ModalConfirm">
+					 		        <div class="modal-dialog modal-dialog-centered">
+					 		            <div class="modal-content modal-bulk p-0">
+					 		                <div class="modal-top text-center">
+					 		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+					 		                        <img src="img/modal-close.svg" alt="">
+					 		                    </button>
+					 		                    <img src="img/modal-success.svg" alt="">
+					 		                </div>
+					 		                <div class="modal-bottom">
+					 		                    <span>Vehicle Successfully Added</span>
+					 		                </div>
+					 		            </div>
+					 		        </div>
+					 		    </div>	
+					 <!--<div class="lds-spinner" id="signinLoader" style="display: none">
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																	</div>-->
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <div id="bs-canvas-right" class="bs-canvas bs-canvas-right position-fixed bg-white h-100">
+        <button type="button" class="bs-canvas-close float-right test" aria-label="Close" aria-expanded="false"><span aria-hidden="true">&times;</span></button>
+       
+       
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="cotodel-js/employee-onboarding.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script>					  					 
+		  function toggleSection(contentId, iconId) 
+		  {
+		     const content = document.getElementById(contentId);
+		     const icon = document.getElementById(iconId);
+
+		     const isVisible = content.style.display === 'flex' || content.style.display === '';
+
+		     content.style.display = isVisible ? 'none' : 'flex';
+		     icon.classList.toggle('rotate', !isVisible);
+		   }
+	</script>
+	<script>	function openModalConfirm() {
+		const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+		  vehicleDetailsModal.style.display = 'none';
+	  const modal = document.getElementById('ModalConfirm');
+	  modal.style.display = 'block';
+
+	  // Create backdrop manually if needed
+	  if (!document.querySelector('.modal-backdrop')) {
+	    const backdrop = document.createElement('div');
+	    backdrop.className = 'modal-backdrop fade show';
+	    document.body.appendChild(backdrop);
+	  }
+
+	  // Lock body scroll
+	  document.body.classList.add('modal-open');
+	}
+</script>
+	<script>
+	  function toggleVehicleTable() {
+	    const table = document.getElementById('vehicleTable');
+	    if (table.style.display === 'none' || table.style.display === '') {
+	      table.style.display = 'flex';
+	    } else {
+	      table.style.display = 'none';
+	    }
+	  }
+	</script>
+	
+	
+
+	<!-- JavaScript -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+		  const closeButton = document.querySelector('#ModalConfirm .close');
+		  closeButton.addEventListener('click', function () {
+		    const modal = document.getElementById('ModalConfirm');
+		    modal.style.display = 'none'; // Hide the modal
+
+		    // Remove the Bootstrap backdrop if exists
+		    const backdrop = document.querySelector('.modal-backdrop');
+		    if (backdrop) backdrop.remove();
+		    
+		    // Optional: Remove 'modal-open' from body to allow scrolling again
+		    document.body.classList.remove('modal-open');
+		  });
+		});
+	</script>
+	
+	<script>
+		  document.addEventListener("DOMContentLoaded", function () {
+		    const closeBtn = document.querySelector('#vehicleDetailsModal .close');
+
+		    if (closeBtn) {
+		      closeBtn.addEventListener('click', function () {
+		        // Proper Bootstrap hide method
+		        $('#vehicleDetailsModal').modal('hide');
+		      });
+		    }
+
+		    // Optional: Reset modal content on hide to prevent residual changes
+		    $('#vehicleDetailsModal').on('hidden.bs.modal', function () {
+		      const modal = this;
+		      modal.querySelector('.modal-header').style.display = 'flex'; // Ensure header stays visible
+		    });
+		  });
+		</script>
+	<script>
+	  document.addEventListener("DOMContentLoaded", function () {
+	    const closeBtn = document.querySelector('#AddVehicleModal .close');
+
+	    if (closeBtn) {
+	      closeBtn.addEventListener('click', function () {
+	        // Proper Bootstrap hide method
+	        $('#AddVehicleModal').modal('hide');
+	      });
+	    }
+
+	    // Optional: Reset modal content on hide to prevent residual changes
+	    $('#AddVehicleModal').on('hidden.bs.modal', function () {
+	      const modal = this;
+	      modal.querySelector('.modal-header').style.display = 'flex'; // Ensure header stays visible
+	    });
+	  });
+	</script>
+
+
+    <script>
+        jQuery(document).ready(function($){
+            var bsOverlay = $('.bs-canvas-overlay');
+            $('[data-toggle="canvas"]').on('click', function(){
+                var ctrl = $(this), 
+                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+                $(elm).addClass('mr-0');
+                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+                if(bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+            
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function(){
+                var elm;
+                if($(this).hasClass('bs-canvas-close')) {
+                    elm = $(this).closest('.bs-canvas');
+                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+                } else {
+                    elm = $('.bs-canvas')
+                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");	
+                }
+                elm.removeClass('mr-0');
+                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+                if(bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+        </script>
+        
+	<script>
+		    $(document).ready(function(){
+		    	
+		    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+				  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+				  
+		        $(".innernav").click(function(){
+		            $(".dropdownNav").addClass("active");
+		        });
+		    });
+		    
+		 function viewData(value){
+			
+			 var row = jQuery(value).closest('tr');
+			 
+			 //var id = row[0].children[0].innerHTML;
+			 //var userDetailsId= row[0].children[1].innerHTML;
+			 var id = row.find('input[name="id"]').val();
+			    var userDetailsId = row.find('input[name="userDetailsId"]').val();
+
+			    // Debugging output
+			    console.log("Extracted ID:", id, "Extracted userDetailsId:", userDetailsId);
+			    
+			    //alert("id = " + id + " userDetailsId = " + userDetailsId);
+			 pupolateData(id,userDetailsId);
+			
+			 jQuery(document).ready(function($){
+		            var bsOverlay = $('.bs-canvas-overlay');
+		            $('[data-toggle="canvas"]').on('click', function(){
+		                var ctrl = $(this), 
+		                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+		                $(elm).addClass('mr-0');
+		                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+		                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+		                if(bsOverlay.length)
+		                    bsOverlay.addClass('show');
+		                return false;
+		            });
+		            
+		            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function(){
+		                var elm;
+		                if($(this).hasClass('bs-canvas-close')) {
+		                    elm = $(this).closest('.bs-canvas');
+		                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+		                } else {
+		                    elm = $('.bs-canvas')
+		                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");	
+		                }
+		                elm.removeClass('mr-0');
+		                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+		                if(bsOverlay.length)
+		                    bsOverlay.removeClass('show');
+		                return false;
+		            });
+		        });
+		 }
+		</script>
+		
+</body>
+
+</html>

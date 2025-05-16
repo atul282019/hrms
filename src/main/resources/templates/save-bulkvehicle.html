@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<!-- <body id="page-top" onload="getEmployeeOnboarding(),getEmployeeOnboardingFailList()"> -->
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+		  <!-- Topbar -->
+				             
+
+				<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+				                   <!-- Topbar Navbar -->
+				                   <ul class="navbar-nav top-nav">
+
+				                       <!-- Nav Item - User Information -->
+				                       <li class="nav-item">
+				                           <a class="nav-link active" href="#">
+				                               <span class="mr-2 small">Dashboard</span>
+				                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+				                           </a>
+				                       </li>
+				                       <li class="nav-item">
+				                           <a class="nav-link" href="#">
+				                               <span class="mr-2 small">Employee Payroll</span>
+				                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+				                           </a>
+				                       </li>
+
+				                   </ul>
+
+								<ul class="navbar-nav ml-auto">
+				                       <li class="nav-item dropdown no-arrow">
+				                           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                              <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+				                               <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+				                           </a>
+				                           <!-- Dropdown - User Information -->
+				                           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+				                               <a class="dropdown-item" th:href="@{/ProfileInfo}">
+				                                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+				                                   Profile
+				                               </a>
+				                               <a class="dropdown-item" href="#">
+				                                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+				                                   Settings
+				                               </a>
+				                             
+				                              <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+								            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+										          <i class="fas fa-user-circle"></i> Logout         
+										        </a>
+								          </div> -->  
+				                             <div class="dropdown-divider"></div>
+				                               <a class="dropdown-item" th:href="@{/logout}">
+				                                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+				                                   Logout
+				                               </a>
+				                           </div>
+				                       </li>
+
+				                  </ul>			
+				           </nav>
+				              <!-- End of Topbar -->
+							 
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 ml-2 p-3">
+                                <div class="successful-wrap">
+                                    <h2 class="mb-1 text-green">Successful Upload <div class="count"><span id="correct"></span><strong id="correcttot"></strong></div></h2>
+                                    <div class="alert alert-sucess">
+                                        View/Edit Details and Confirm Upload 
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-reimbursements-alt border-0 border-top" id="example1">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left">Vehicle Registration #</th>
+                                                   
+                                                </tr>
+                                            </thead>
+                                            <tbody id="successbody" class="table-bordered">  
+												<tr><td class="custom-row-border">Hr27</td> </tr>     
+												<tr><td class="custom-row-border">Hr27</td> </tr>          
+												<tr><td class="custom-row-border">Hr27</td> </tr>                                          
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="text-right my-3">
+                                        <button class="btn btn-outline-reject" data-toggle="modal" data-target="#ModalReject" onclick="reject()">Reject</button>
+                                        <button class="btn btn-confirm" data-toggle="modal" data-target="#ModalConfirm" onclick="confirmSuccess()" id="continueButton" >Confirm</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="unsuccessful-wrap">
+                                    <h2 class="mb-1 text-green">Unsuccessful Upload <div class="count"><span id="incorrect"></span><strong id="incorrecttot"></strong></div></h2>
+                                    <div class="alert alert-unsucess">
+                                        Edit Details to try again or Download Unsuccessful Upload 
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-unsuccess-alt" cellspacing="0" cellpadding="0" id="example2">
+                                            <thead>
+                                                <tr>  
+                                                    <th>Reason</th>                                            
+                                                    <th>Vehicle Registration #</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-bordered">  
+												<tr>
+													<td>Duplicate</td>          
+													<td>HR67L1234</td>       
+												</tr>   
+												<tr>
+													<td>Duplicate</td>          
+													<td>HR67L1234</td>       
+												</tr>                                                                        
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="text-right my-3">
+                                        <button class="btn btn-outline-download" onclick="ExportToExcel('xlsx')" data-toggle="modal" data-target="#ModalDownload">Download</button>
+                                        <a class="btn btn-retry" th:href="@{/bulkupload}" >Retry</a>
+                                    </div>
+                                    
+                                      <input type="hidden" name="employeeId" id="employeeId">
+                                      <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">                                            
+                                            
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                 
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Modal Confirm -->
+    <div class="modal fade" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk">
+            <div class="modal-top text-center">          
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href='/manageEmployee'">
+                <img src="img/modal-close.svg" alt="">
+            </button>        
+            <img src="img/modal-success.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <div class="count"><span id="correctConfirm"></span><strong id="correctTotal"></strong></div>
+                <br>
+                <span>Upload Successful</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Reject -->
+    <div class="modal fade" id="ModalReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk">
+            <div class="modal-top text-center">          
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                <img src="img/modal-close.svg" alt="">
+            </button>        
+            <img src="img/modal-reject.svg" alt="">
+            </div>
+            <div class="modal-bottom">
+                <div class="count"><span id="rejectConfirm"></span><strong id="rejectTotal"></strong></div>
+                <br>
+                <span>Upload Rejected</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Download -->
+    <div class="modal fade" id="ModalDownload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bulk">
+            <div class="modal-top text-center">          
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <img src="img/modal-close.svg" alt="">
+            </button>        
+            <div class="count">
+           <!--  <span>7</span><strong>10</strong> -->
+           <span id="incorrectUnsuccessful"></span>
+           <strong id="incorrecttotUnsuccessful"></strong>
+            </div>
+                <br>
+                <span>Download Successful</span>
+            </div>
+            <div class="modal-bottom">
+                <div class="count">
+                <span id="incorrectReview"></span>
+           		<strong id="incorrecttotReview"></strong>
+                </div>
+                <br>
+                <span>Review Pending Unsuccessful Upload</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+	<script type="text/javascript" src="cotodel-js/employee-onboarding-list.js"></script>
+
+<div th:text="${list}" id="list" style="display:none">
+</div>
+   <script th:inline="javascript">
+        $(document).ready(function() {
+		
+		var listDiv = document.getElementById("list");
+		var jsonString = listDiv.textContent;
+		var data = jQuery.parseJSON(jsonString);
+		var correctSize=data.correctSize;
+		var incorrectSize=data.incorrectSize;
+		var total=parseInt(correctSize)+parseInt(incorrectSize);
+		$('#correct').html(correctSize);
+		$('#correcttot').html(total);
+		
+		$('#correctConfirm').html(correctSize);
+		$('#correctTotal').html(total);
+		
+		$('#rejectConfirm').html(correctSize);
+		$('#rejectTotal').html(total);
+		
+		$('#incorrect').html(incorrectSize);
+		$('#incorrecttot').html(total);
+		
+		$('#incorrectUnsuccessful').html(incorrectSize);
+		$('#incorrecttotUnsuccessful').html(total);
+		
+		$('#incorrectReview').html(incorrectSize);
+		$('#incorrecttotReview').html(total);
+				
+		if(data.status=="SUCCESS"){
+			var data1=data.correct;	
+			console.log("data.correct",data1)	;
+			var data2 = jQuery.parseJSON(data1);	
+			    if (data2 && data2.length >=1) {
+			        $("#continueButton").prop("disabled", false); // Enable button
+			    } else {
+			        $("#continueButton").prop("disabled", true);  // Disable button
+			    }
+			
+				
+			 var i=1;
+			var table1 = $('#example1').DataTable( {
+          "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
+           "language": {"emptyTable": "No Data available"  },
+		   
+              "aaData": data2,			
+					"aoColumns": [
+						/* { "mData": "id"}, */
+						{ "render": function(data2,type,full,meta){return i++;}   }, 
+						{ "mData": "empOrCont"},
+						{ "mData": "name" },
+						//{ "mData": "email" },
+						{ "mData": "mobile" },
+						/* { "mData": "response"}	 */				
+					]
+				});	
+			
+			}
+        
+        });
+       $(document).ready(function() {
+		//console.log(list);
+		var listDiv = document.getElementById("list");
+		var jsonString = listDiv.textContent;
+		var data = jQuery.parseJSON(jsonString);
+		//console.log(data);		
+        if(data.status=="SUCCESS"){
+			var data1=data.incorrect;
+			console.log("data.incorrect",data1);
+			var data2 = jQuery.parseJSON(data1);
+			
+			
+			         
+			    
+			//console.log("1st.......:"+data2);			
+			var i=1;
+			var table1 = $('#example2').DataTable( {
+          "responsive": false, "lengthChange": false, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50, "paging": false, "searching": false,
+           "language": {"emptyTable": "No Data available"  },
+              "aaData": data2,			
+					"aoColumns": [
+						{ "render": function(data2,type,full,meta){return i++;}   }, 
+						{ "mData": "empOrCont"},
+						{ "mData": "name"},
+						//{ "mData": "email"},
+						{ "mData": "mobile"},						
+						{ "mData": "response"}		 		
+					],
+					createdRow: function (row, data2, dataIndex) 
+                    {
+                     console.log("row : "+JSON.stringify(data2));
+                     var regMobile = /^[6-9]\d{9}$/gi;
+                 	 var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+                 	//var email = data2.email;
+                	var mobile = data2.mobile;
+                     if(!mobile.match(regMobile))
+                     {
+                       $(row).find('td:eq(3)').addClass("tdactive");
+                     }
+                     //if(!email.match(regEmail))
+                    // {
+                    //   $(row).find('td:eq(3)').addClass("tdactive");
+                    // }
+                    }
+				});	
+			
+			}
+        });
+    </script>
+    
+    
+<script>
+$(document).ready(function(){
+	 $(".innernav").click(function(){
+        $(".dropdownNav").addClass("active");
+    });
+	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+	  
+  
+});
+
+function reject(){
+	console.log("test");
+	setTimeout(() => {
+	             window.location.href="/bulkupload";
+	         }, 400);
+}
+
+
+function confirmSuccess(){
+	var employeeId = document.getElementById("employeeId").value;
+	var employerId = document.getElementById("employerId").value; 
+	
+	var listDiv = document.getElementById("list");
+	var jsonString = listDiv.textContent;
+	var data = jQuery.parseJSON(jsonString);
+	var data2;
+	if(data.status=="SUCCESS"){
+		var data1=data.correct;
+		//console.log(data1);
+		 data2 = jQuery.parseJSON(data1);
+		}
+      
+	$.ajax({
+		type: "POST",
+		url: "/confirmBulkEmplOnboarding",
+		 dataType: "json",
+		contentType: 'application/json',
+		data: JSON.stringify(data2),
+     	beforeSend : function(xhr) {
+		//xhr.setRequestHeader(header, token);
+		},
+            success: function(data){
+            newData = data;
+            console.log(newData);
+           
+
+           },
+         error: function(e){
+             alert('Error: ' + e);
+         }
+    });
+}
+
+</script>
+
+
+  <script>
+
+        function ExportToExcel(type, fn, dl) {
+            var elt = document.getElementById('example2');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('BulkUserTemplate.' + (type || 'xlsx')));
+        }
+
+        
+        function refrecePage(){
+       	 
+            window.location.href = ""+$('#ctx').attr('content') + "/bulkUserList";
+        }
+
+    </script>
+</body>
+
+</html>
