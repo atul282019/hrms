@@ -6491,7 +6491,168 @@ table.vcScheduledtable thead {
 									     background-color: #59A97B;
 									     margin-top: 0.5rem;
 									     margin-bottom: 1rem;
-									   }
+									   } 
+									   .full-width-hr {
+									      margin-top: -1rem;
+									      margin-bottom: 1rem;
+									      border-top: 2px solid #e9ecef;
+									      width: calc(100% + 2rem);
+									      margin-left: -1rem;
+									      margin-right: -1rem;
+									    }
+										/* vehicle css ends here*/
+										/* edit vehicle css*/
+										.search-select-wrapper {
+															   position: relative;
+															 }
+															 .search-select-input {
+															   padding-left: 12px;
+															 }
+															 .suggestion-box {
+															   background: #fff;
+															   border: 1px solid #ccc;
+															   position: absolute;
+															   z-index: 1000;
+															   width: 100%;
+															   max-height: 150px;
+															   overflow-y: auto;
+															   border-radius: 0.25rem;
+															 }
+															 .suggestion-box div {
+															   padding: 8px 12px;
+															   cursor: pointer;
+															   display: flex;
+															   align-items: center;
+															   gap: 6px;
+															 }
+															 .suggestion-box div:hover {
+															   background-color: #EAF4EF;
+															 }
+															 .suggestion-icon {
+															   height: 14px;
+															 }
+															 .suggestion-text {
+															   flex-grow: 1;
+															 }
+															 .button-group-vd {
+															   margin-top: 2rem;
+															   gap: 8px; /* matches your "gap" spec */
+															 }
+
+															 /* Shared button style */
+															 .back-btn-vd,
+															 .save-btn-vd {
+															   width: 360px;
+															   height: 46px;
+															   border-radius: 10px;
+															   padding: 12px 20px;
+															   font-weight: 600;
+															   font-size: 16px;
+															   line-height: 22px;
+															   outline: none;
+															   box-shadow: none;
+															 }
+
+															 /* Back button style */
+															 /* Back button — white bg, blue border & text */
+															 .back-btn-vd {
+																background-color: white !important;
+															    color: rgba(54, 122, 255, 1) !important;
+															    border: 2px rgba(54, 122, 255, 0.5) !important;
+																padding: 5px 12px !important; /* Adjust padding for height */
+																box-shadow: 0 0 0 2px rgba(54, 122, 255, 0.5); /* Blue outline effect on the radius */
+															 }
+
+															 /* Save button style */
+															 .save-btn-vd {
+															   background-color: #367AFF;
+															   color: #FFFFFF;
+															   border: none;
+															 }
+
+															 .back-btn-vd:hover,
+															 .save-btn-vd:hover {
+															   opacity: 0.9;
+															   transition: 0.3s ease;
+															 }
+															 
+															 /* vehicle history modal */
+															 .vehicle-modal-dialog {
+															 							    max-width: 840px;
+															 							  }
+
+															 							  .vehicle-modal-content {
+															 							    border-radius: 16px;
+															 							    overflow: hidden;
+															 							  }
+
+															 							  .vehicle-modal-body {
+															 							    padding: 1.25rem;
+															 							    border: 1px solid #D6D9E0;
+															 							    border-radius: 12px;
+															 							  }
+
+															 							  .vehicle-details-wrapper {
+															 							    font-family: 'Open Sans', sans-serif;
+															 							  }
+
+															 							  .vehicle-dates {
+															 							    display: flex;
+															 							    justify-content: space-between;
+															 							    align-items: center;
+															 							    margin-bottom: 1rem;
+															 							  }
+
+															 							  .vehicle-date-label {
+															 							    font-size: 13px;
+															 							    color: #7D7F89;
+															 							  }
+
+															 							  .vehicle-date-value {
+															 							    font-weight: 400;
+															 							    color: #1F212C;
+															 							  }
+
+															 							  .vehicle-date-line {
+															 							    flex: 1;
+															 							    text-align: center;
+															 							  }
+
+															 							  .vehicle-date-dash {
+															 							    display: inline-block;
+															 							    width: 80%;
+															 							    border-bottom: 1px dashed #D6D9E0;
+															 							  }
+
+															 							  .vehicle-data-box {
+															 							    background: #EDEDF0;
+															 							    color: #4A4E69;
+															 							    border-radius: 12px;
+															 							    padding: 1rem 1.5rem;
+															 							  }
+
+															 							  .vehicle-icon {
+															 							    width: 24px;
+															 							    height: 24px;
+															 							    margin-right: 8px;
+															 								margin-top: 4px;
+															 							  }
+
+															 							  .vehicle-field-label {
+															 							    font-size: 13px;
+															 							    color: #7D7F89;
+															 							  }
+
+															 							  .vehicle-field-value {
+															 							    font-weight: 400;
+															 							  }
+															 							  .vehicle-history-title {
+															 								margin-left: 0 !important;
+															 							    text-align: left;
+															 							    font-weight: 700;
+															 							    font-size: 19px;
+															 							    color: #1F212C;
+															 							  }
 									   .modal-btn {
 									   				      background-color: #367AFF;
 									   				      border: none;
