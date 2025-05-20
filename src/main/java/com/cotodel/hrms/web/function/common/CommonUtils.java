@@ -117,6 +117,8 @@ public interface CommonUtils {
 	public static String travelAdvanceTravelRequest = "/empService/Api/add/advanceTravelRequest";
 	public static String getAdvanceTravelRequestData = "/empService/Api/get/advanceTravelRequest";
 	public static String getTravelReviewData = "/empService/Api/get/advanceTravelRequestStatus";
+	public static String getTravelReviewDataByExpensesID = "/empService/Api/get/advanceTravelSequenceIdRequestStatus";
+	public static String getTravelDraftDataReview = "/empService/Api/get/advanceTravelRequestDraftStatus";
 	public static String updateTraveRequestData ="/empService/Api/update/advanceTravelRequestUpdate";
 	public static String deleteTravelReimbursement = "/empService/Api/delete/advanceTravelRequestDelete";
 	public static String getAdanceCashTravelApprpvalList = "/empService/Api/get/advanceTravelApprovalRequest";

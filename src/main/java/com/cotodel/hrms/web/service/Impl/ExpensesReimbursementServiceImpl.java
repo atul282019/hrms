@@ -220,5 +220,16 @@ public class ExpensesReimbursementServiceImpl  implements ExpensesReimbursementS
 	public String getExpanseLimitByExpenseTitleId(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getExpanseLimitByExpenseTitleId);
 	}
+
+	@Override
+	public String getTravelReviewDataByExpensesID(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTravelReviewDataByExpensesID);
+	}
+
+	@Override
+	public String getTravelDraftDataReview(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTravelDraftDataReview);
+		
+	}
 	
 }

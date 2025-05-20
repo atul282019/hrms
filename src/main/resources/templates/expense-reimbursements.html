@@ -14,7 +14,6 @@
     <meta name="author" content="">
     <meta id="ctx" name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
 
-	
     <title>Dashboard</title>
 
     <!-- Custom fonts for this template -->
@@ -34,7 +33,6 @@
     <link rel="stylesheet" href="css/custom.css">
     <script type="text/javascript" src="js/xsls-export.js"></script>
 
-	
 	<style>
 	    .abc-container {
 	        display: flex;
@@ -57,28 +55,7 @@
 	    }
 
 	</style>
-	<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RE141954R"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-4RE141954R');
-		</script>
-		
-		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-P6GX7GDP');</script>
-		<!-- End Google Tag Manager -->
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6GX7GDP"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->
-
+	
 </head>
 	
 <body id="page-top" onload="getExpanceCategoryList(),getExpanceMaster(),getExpanceMasterMulti(),
@@ -158,7 +135,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 						<div class="col-12">
 							<ul class="nav nav-tabs expense-tabs">
                                 <li class="active"><a data-toggle="tab" href="#home">Expenses & Advances</a></li>
-                                <li th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 3}"><a data-toggle="tab" href="#menu1">Pending Approvals</a></li>
+                                <li th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 3}"><a data-toggle="tab" href="#menu1" id="pendingApproval">Pending Approvals</a></li>
                                <!-- <li><a data-toggle="tab" href="#menu2">Linked Bank Account</a></li>-->
                             </ul>
 
@@ -550,7 +527,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 
 	</script>
 
-	<script>		document.addEventListener("DOMContentLoaded", function () {
+	<script>		
+		document.addEventListener("DOMContentLoaded", function () {
 	    function preventRedirect(event) {
 	        event.preventDefault();
 	        event.stopPropagation();
@@ -619,14 +597,17 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	});
 
 </script>
-	<script>		document.getElementById("downloadExcel").addEventListener("click", function () {
-	        exportToExcel("reimbursementTable", ".policies-wrap:first-of-type h4");
+	<script>
+		document.getElementById("downloadExcel").addEventListener("click", function () {
+	    exportToExcel("reimbursementTable", ".policies-wrap:first-of-type h4");
 	    });
 
 	    document.getElementById("downloadExcel2").addEventListener("click", function () {
 	        exportToExcel("tblCashAdvanceTravel", ".policies-wrap:nth-of-type(2) h4");
-	    });;</script>
-	<script>		document.addEventListener("DOMContentLoaded", function () {
+	    });;
+	</script>
+	<script>		
+		document.addEventListener("DOMContentLoaded", function () {
 	    function handleCheckboxToggle(headerCheckboxId, tableId) {
 	        const headerCheckbox = document.getElementById(headerCheckboxId);
 
@@ -643,18 +624,19 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	    // Apply to both tables
 	    handleCheckboxToggle("customCheck3", "reimbursementTable");
 	    handleCheckboxToggle("customCheck88", "tblCashAdvanceTravel");
-	});</script>
-	<script>
-			function showConfirmModal() {
-			    $('#travelDetailsTable1').modal('hide'); // Close the current modal
+	});
+</script>
+ <script>
+		function showConfirmModal() {
+		    $('#travelDetailsTable1').modal('hide'); // Close the current modal
 
-			    // Wait for the modal to fully close, then show ModalConfirm
-			    $('#travelDetailsTable1').on('hidden.bs.modal', function () {
-			        $('#ModalConfirm').modal('show');
-			    });
-			}
+		    // Wait for the modal to fully close, then show ModalConfirm
+		    $('#travelDetailsTable1').on('hidden.bs.modal', function () {
+		        $('#ModalConfirm').modal('show');
+		    });
+		}
 
-		</script>
+	</script>
 	<script>
 		function showTable(tableId) {
 		    // Hide all tables
@@ -664,7 +646,6 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 		    // Show the selected table
 		    document.getElementById(tableId).style.display = 'block';
 		}
-
 	</script>
    <script> 
 	
@@ -717,9 +698,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	        $(".dropdownNav").addClass("active");
 	    });
 		 $('li.active').removeClass('active').removeAttr('aria-current'); 
-		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-		  
-	  
+		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');     
 	});
 	
 	</script>
@@ -733,9 +712,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
             });
         });
         
-        
-        function readURL(input) {
-        	
+        function readURL(input) {     	
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 				var fileName=input.files[0].name;
@@ -746,21 +723,12 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 				 const fullBase64 = e.target.result;
                  const base64Data = fullBase64.split(',')[1];
 				 if (fileType === "application/pdf") {
-				                   //  $('#imagePDF').attr('src', base64Data).show();
-				                   //  $('#base64PDF').val(base64Data);
-				                   //  $('#imageAdd').hide();
-								   sendToOcr(base64Data,"file",fileName);
-				                 } else {
-				                   //  $('#imageAdd').attr('src', base64Data).show();
-				                    // $('#imagePDF').hide();
-									sendToOcr(base64Data,"image",fileName);
-				                 }
-
-				                 
-				
+					   sendToOcr(base64Data,"file",fileName);
+	                 } else {
+						sendToOcr(base64Data,"image",fileName);
+	                 }			
                 };
                 reader.readAsDataURL(input.files[0]);
-                
             }
             
             if (input.files && input.files[0]) {
@@ -772,7 +740,6 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	                reader.onload = function (e) {
 	                    $('#imagePDF').attr('src', e.target.result);
 	                    $('#base64PDF').val(e.target.result);
-	                   
 	                    document.getElementById("imagePDF").style.display="block";
 	                    document.getElementById("imageAdd").style.display="none";
 	                };
@@ -798,35 +765,17 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 				var fileType=input.files[0].type;
 
                 reader.onload = function (e) {
-                 //   $('#blah').attr('src', e.target.result);
-				
 				 const fullBase64 = e.target.result;
-				                  const base64Data = fullBase64.split(',')[1];
-				 				 if (fileType === "application/pdf") 
-								 {
- 				                   //  $('#imagePDF').attr('src', base64Data).show();
- 				                   //  $('#base64PDF').val(base64Data);
- 				                   //  $('#imageAdd').hide();
- 								   sendToOcrSingle(base64Data,"file",fileName);
- 				                 } else {
- 				                   //  $('#imageAdd').attr('src', base64Data).show();
- 				                    // $('#imagePDF').hide();
- 									sendToOcrSingle(base64Data,"image",fileName);
- 				                 }
+                 const base64Data = fullBase64.split(',')[1];
+ 				 if (fileType === "application/pdf") 
+				 {
+				   sendToOcrSingle(base64Data,"file",fileName);
+                 } else {
+					sendToOcrSingle(base64Data,"image",fileName);
+                 }
 				            
-
                 };
-                reader.readAsDataURL(input.files[0]);
-                
-               /*  const base64String = e.target.result;
-                const fileTypeMatch = base64String.match(/^data:(image\/[a-zA-Z]+);base64,/);
-                const fileType = fileTypeMatch ? fileTypeMatch[1] : 'unknown';
-                const fileName = file.name;
-
-                console.log('File Name:', fileName);
-                console.log('File Type:', fileType);
-                console.log('Base64 String:', base64String); */
-                
+                reader.readAsDataURL(input.files[0]);   
             }
             
             if (input.files && input.files[0]) {
@@ -839,7 +788,6 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	                    $('#imagePDFSingle').attr('src', e.target.result);
 	                    $('#base64PDFSingle').val(e.target.result);
 						
-	                   
 	                    document.getElementById("imagePDFSingle").style.display="block";
 	                    document.getElementById("imageAddSingle").style.display="none";
 	                };
@@ -854,29 +802,560 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 				
                 reader.readAsDataURL(input.files[0]);
             }
-        }
-        
-        
+        }     
     </script>
-
-
+	
 	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+		    const dropZone = document.getElementById("drop-zone");
+		    const fileInput = document.getElementById("fileInput");
+		    // Initialize fileArray with potentially null values if files are deleted
+		    const fileArray = [];
+
+		    // Attach event listeners
+		    document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+		    const mergeButton = document.getElementById('merge-button');
+	        if (mergeButton) { // Check if button exists
+	            mergeButton.addEventListener('click', mergeSelectedPDFs);
+	        }
+		    const deleteButton = document.getElementById('delete-button');
+	        if (deleteButton) { // Check if button exists
+	             deleteButton.addEventListener('click', deleteSelectedPDFs);
+	        }
+
+
+		    function handleFileUpload(event) {
+		        // Check if the file input itself is used, or files are dropped (though drop uses handleFiles directly)
+		        const files = Array.from(event.target.files); // Always get from target.files for change event
+		        handleFiles(files);
+		        // Reset input value to allow selecting the same file again
+		        event.target.value = '';
+		    }
+
+		    function handleFiles(files) {
+		        // Ensure the main document view div is shown
+		        const docViewDiv = document.getElementById('docViewDiv');
+	            if (docViewDiv) docViewDiv.style.display = "block";
+
+	            const maxFiles = 5; // Define max files constant
+
+		        for (const file of files) {
+		            // Count non-null files currently in the array
+		            const currentFileCount = fileArray.filter(f => f !== null).length;
+
+		            if (currentFileCount >= maxFiles) {
+		                Swal.fire({
+		                    text: `You can only upload up to ${maxFiles} files.`,
+		                    confirmButtonText: 'OK'
+		                });
+		                // Stop processing further files if limit reached
+		                break;
+		            }
+
+		            // Find the next available slot (null entry) or push to the end
+		            let index = fileArray.findIndex(f => f === null);
+		            if (index === -1) {
+		                index = fileArray.length;
+		                fileArray.push(file);
+		            } else {
+		                fileArray[index] = file; // Replace the null entry
+		            }
+
+		            // Add the file to the list display
+		            addFileToList(file, index);
+		        }
+
+		         // Hide drop zone if max files are added
+	             const currentFileCount = fileArray.filter(f => f !== null).length;
+	            if (currentFileCount >= maxFiles) {
+	                const dropZone = document.getElementById("drop-zone");
+	                if(dropZone) dropZone.style.display = "none";
+	            }
+		    }
+
+
+		    function addFileToList(file, index) {
+		        const fileList = document.getElementById('show-list');
+	            if (!fileList) return; // Exit if list element doesn't exist
+
+		        const fileItem = document.createElement('div');
+		        fileItem.className = 'file-item';
+		        // Store the index on the file item element for easier removal later
+		        fileItem.dataset.index = index;
+
+
+		        const checkbox = document.createElement('input');
+		        checkbox.type = 'checkbox';
+		        // Use a unique identifier for the checkbox based on index and sanitized file name
+		        const safeFileName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, ''); // Allow some common characters
+		        checkbox.id = `file-${index}-${safeFileName}`;
+		        checkbox.name = 'pdfFiles';
+		        // Use the stored index as the value
+		        checkbox.value = index;
+		        checkbox.addEventListener('change', updateSelectedFiles);
+
+		        const label = document.createElement('label');
+		        label.htmlFor = checkbox.id; // Link label to the checkbox ID
+		        label.textContent = file.name; // Display original file name
+
+		        const sizeSpan = document.createElement('span');
+		        sizeSpan.textContent = formatBytes(file.size); // Format size for better readability
+	            sizeSpan.style.marginLeft = '10px'; // Add a little space
+
+		        fileItem.appendChild(checkbox);
+		        fileItem.appendChild(label);
+		        fileItem.appendChild(sizeSpan); // Append the size span
+		        fileList.appendChild(fileItem);
+		    }
+
+		    // Helper function to format file size
+		    function formatBytes(bytes, decimals = 2) {
+	            if (bytes === 0) return '0 Bytes';
+	            const k = 1024;
+	            const dm = decimals < 0 ? 0 : decimals;
+	            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	            const i = Math.floor(Math.log(bytes) / Math.log(k));
+	            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+	        }
+
+
+		    async function mergeSelectedPDFs() {
+		        // Filter out null entries from fileArray based on *checked* checkboxes
+		        const selectedFiles = Array.from(document.querySelectorAll('input[name="pdfFiles"]:checked'))
+		            .map(checkbox => {
+	                     const index = parseInt(checkbox.value);
+	                     return fileArray[index]; // Get the file object from the array by index
+	                })
+		            .filter(file => file instanceof File); // Ensure it's a valid File object
+
+		        if (selectedFiles.length === 0) {
+		            Swal.fire({
+		                text: 'Please select at least one file to merge.',
+		                confirmButtonText: 'OK'
+		            });
+		            return;
+		        }
+
+	            // Check if PDFLib is available
+	            if (typeof PDFLib === 'undefined') {
+	                 Swal.fire({
+	                    text: 'PDFLib library is not loaded. Cannot perform merge.',
+	                    icon: 'error',
+	                    confirmButtonText: 'OK'
+	                });
+	                console.error("PDFLib is not loaded.");
+	                return;
+	            }
+
+
+		        const mergedPdf = await PDFLib.PDFDocument.create();
+		        // Array to store base64 strings for *all* images processed
+		        const imageBase64Array = [];
+
+		        for (const file of selectedFiles) {
+	                // Skip null entries if any somehow got through (shouldn't happen with the filter above)
+	                if (!file) continue;
+
+		            const arrayBuffer = await file.arrayBuffer();
+
+		            if (file.type === "application/pdf") {
+		                try {
+		                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+		                    // Check if the PDF has pages before copying
+	                        if (pdf.getPageCount() > 0) {
+	                            const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+	                            copiedPages.forEach((page) => mergedPdf.addPage(page));
+	                        } else {
+	                            console.warn("Skipping empty PDF:", file.name);
+	                             Swal.fire({
+	                                text: `Warning: Skipping empty PDF file: ${file.name}`,
+	                                icon: 'warning',
+	                                confirmButtonText: 'OK'
+	                            });
+	                        }
+		                } catch (err) {
+		                    console.error("Error loading PDF:", file.name, err);
+		                    Swal.fire({
+		                        text: `Error reading PDF: ${file.name}`,
+		                        icon: 'error',
+		                        confirmButtonText: 'OK'
+		                    });
+		                    // Decide if you want to stop the process or continue with the next file
+		                    // return; // uncomment to stop on first error
+		                }
+		            } else if (file.type.startsWith("image/")) {
+		                try {
+		                    const imageBytes = new Uint8Array(arrayBuffer);
+		                    let imageEmbed, dims;
+
+		                    if (file.type === "image/png") {
+		                        imageEmbed = await mergedPdf.embedPng(imageBytes);
+		                    } else if (file.type === "image/jpeg" || file.type === "image/jpg") {
+		                        imageEmbed = await mergedPdf.embedJpg(imageBytes);
+		                    } else {
+	                        // Handle other image types if needed, e.g., embedPng might work for some GIFs
+	                        console.warn(`Unsupported image type for embedding: ${file.name}`);
+	                         Swal.fire({
+	                            text: `Warning: Unsupported image type: ${file.name}`,
+	                            icon: 'warning',
+	                            confirmButtonText: 'OK'
+	                        });
+	                        continue; // Skip to next file
+	                    }
+
+
+		                    // Define a standard page size (e.g., A4)
+	                        const finalPageWidth = 595; // A4 Portrait width in points
+	                        const finalPageHeight = 842; // A4 Portrait height in points
+
+	                        // Calculate scaling to fit within A4 while maintaining aspect ratio
+	                        const imgWidth = imageEmbed.width;
+	                        const imgHeight = imageEmbed.height;
+
+	                        let scaleFactor = 1;
+	                        // Only scale down if the image is larger than the page dimensions
+	                        if (imgWidth > finalPageWidth || imgHeight > finalPageHeight) {
+	                             scaleFactor = Math.min(finalPageWidth / imgWidth, finalPageHeight / imgHeight);
+	                        }
+
+
+	                        dims = imageEmbed.scale(scaleFactor);
+
+		                    // Create a new page with the standard size
+	                        const page = mergedPdf.addPage([finalPageWidth, finalPageHeight]);
+
+	                        // Calculate centered position
+	                        const xPos = (finalPageWidth - dims.width) / 2;
+	                        const yPos = (finalPageHeight - dims.height) / 2;
+
+
+		                    page.drawImage(imageEmbed, {
+		                        x: xPos,
+		                        y: yPos,
+		                        width: dims.width,
+		                        height: dims.height,
+	                            // Add margins if desired, e.g., x: xPos + margin, y: yPos + margin, width: ..., height: ...
+		                    });
+
+		                    // Generate base64 of this image and push to the array
+	                        try {
+	                           const base64 = await fileToBase64(file);
+	                           imageBase64Array.push(base64);
+	                        } catch(b64Err) {
+	                            console.error("Error converting image to base64:", file.name, b64Err);
+	                             Swal.fire({
+	                                text: `Error converting image to base64: ${file.name}`,
+	                                icon: 'error',
+	                                confirmButtonText: 'OK'
+	                            });
+	                        }
+
+
+		                } catch (err) {
+		                    console.error("Error embedding image:", file.name, err);
+		                    Swal.fire({
+		                        text: `Error embedding image into PDF: ${file.name}`,
+		                        icon: 'error',
+		                        confirmButtonText: 'OK'
+		                    });
+		                     // Decide if you want to stop the process or continue with the next file
+		                     // return; // uncomment to stop on first error
+		                }
+		            } else {
+		                Swal.fire({
+		                    text: `Unsupported file type selected: ${file.name} (${file.type})`,
+		                    icon: 'warning',
+		                    confirmButtonText: 'OK'
+		                });
+		                 // Decide if you want to stop the process or continue with the next file
+		                 // return; // uncomment to stop on first error
+		            }
+		        }
+
+		        // Check if any content was added before saving
+		        if (mergedPdf.getPageCount() === 0) {
+	             Swal.fire({
+	                text: 'No valid content could be processed from selected files.',
+	                icon: 'warning',
+	                confirmButtonText: 'OK'
+	             });
+	             // Clear previous outputs if merge failed
+	             $('#base64PDF').val('');
+	             $('#base64Image').val('');
+	             const imagePDFViewer = document.getElementById('imagePDF');
+	             if(imagePDFViewer) imagePDFViewer.src = '';
+	             const imageAddPlaceholder = document.getElementById('imageAdd');
+	             if (imageAddPlaceholder) imageAddPlaceholder.style.display = "block";
+
+	             return;
+	            }
+
+
+		        const mergedPdfBytes = await mergedPdf.save();
+		        const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+		        const url = URL.createObjectURL(blob);
+
+		        // Assuming #imagePDF is an iframe or object tag for viewing the PDF blob
+		        const imagePDFViewer = document.getElementById("imagePDF");
+	            if (imagePDFViewer) {
+	                imagePDFViewer.src = url; // Use src for iframe/object
+	                imagePDFViewer.style.display = "block";
+	            } else {
+	                 console.error("PDF viewer element #imagePDF not found.");
+	            }
+
+		        // Assuming #imageAdd is some initial placeholder element
+		        const imageAddPlaceholder = document.getElementById("imageAdd");
+	            if (imageAddPlaceholder) imageAddPlaceholder.style.display = "none";
+
+
+		        // Store the merged PDF base64
+	            const base64PDFInput = $('#base64PDF'); // Use jQuery if it's available
+	            if (base64PDFInput.length) {
+	                base64PDFInput.val(arrayBufferToBase64(mergedPdfBytes));
+	            } else {
+	                 console.warn("#base64PDF input field not found.");
+	            }
+
+		        // Store the array of image base64 strings as a JSON string
+	            const base64ImageInput = $('#base64Image'); // Use jQuery
+	             if (base64ImageInput.length) {
+	                base64ImageInput.val(JSON.stringify(imageBase64Array));
+	            } else {
+	                 console.warn("#base64Image input field not found.");
+	            }
+
+
+		        Swal.fire({
+		            text: 'Files merged successfully.',
+		            icon: 'success',
+		            confirmButtonText: 'OK'
+		        });
+
+		        // Assuming exampleModalCenterTitle is an element you want to hide
+		        const modalTitle = document.getElementById("exampleModalCenterTitle");
+		        if (modalTitle) modalTitle.style.display = "none";
+
+		        // Note: URL.revokeObjectURL(url) should be called when the URL is no longer needed
+	            // (e.g., when new files are uploaded/merged, or the viewer is closed).
+	            // This can be tricky depending on the viewer implementation.
+		    }
+
+		    function arrayBufferToBase64(buffer) {
+		        let binary = '';
+		        const bytes = new Uint8Array(buffer);
+		        const len = bytes.byteLength;
+		        // Use a loop that handles large buffers efficiently
+	            // Using chunking can prevent "Maximum call stack size exceeded" errors for very large files
+	            const chunkSize = 8192;
+	            for (let i = 0; i < len; i += chunkSize) {
+	                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+	            }
+		        return window.btoa(binary);
+		    }
+
+		    function fileToBase64(file) {
+		        return new Promise((resolve, reject) => {
+		            const reader = new FileReader();
+		            reader.onload = () => {
+	                    // reader.result is a data URL (e.g., "data:image/png;base64,...")
+	                    // We want just the base64 part after the comma
+	                    const base64String = reader.result.split(',')[1];
+	                    resolve(base64String);
+	                }
+		            reader.onerror = error => reject(error);
+		            reader.readAsDataURL(file); // Read file as data URL
+		        });
+		    }
+
+		    function deleteSelectedPDFs() {
+		        const selectedCheckboxes = document.querySelectorAll('input[name="pdfFiles"]:checked');
+
+		        if (selectedCheckboxes.length === 0) {
+		             // No files selected to delete
+	                Swal.fire({
+	                    text: 'Please select a file to delete.',
+	                    confirmButtonText: 'OK'
+	                });
+	                return; // Stop the function if nothing is selected
+		        }
+
+	            let filesDeletedCount = 0;
+		        selectedCheckboxes.forEach(checkbox => {
+		            const index = parseInt(checkbox.value);
+		            // Ensure the index is valid and corresponds to a non-null entry before deleting
+	                if (index >= 0 && index < fileArray.length && fileArray[index] !== null) {
+	                    // Remove the file item from the DOM
+	                    const fileItemElement = checkbox.closest('.file-item');
+	                    if (fileItemElement) {
+	                       fileItemElement.remove();
+	                    }
+
+	                    // Set the entry in fileArray to null
+	                    fileArray[index] = null;
+	                    filesDeletedCount++;
+	                }
+		        });
+
+	            // Count remaining non-null files
+	            const remainingFilesCount = fileArray.filter(f => f !== null).length;
+
+	            // Check if the file list is now empty
+	            if (remainingFilesCount === 0) {
+	                const docViewDiv = document.getElementById('docViewDiv');
+	                if (docViewDiv) docViewDiv.style.display = "none"; // Hide file list area
+
+	                const imagePDFViewer = document.getElementById('imagePDF');
+	                if (imagePDFViewer) {
+	                    imagePDFViewer.style.display = "none"; // Hide PDF viewer
+	                    imagePDFViewer.src = ''; // Clear the viewer content
+	                }
+
+	                 const imageAddPlaceholder = document.getElementById("imageAdd");
+	                 if (imageAddPlaceholder) imageAddPlaceholder.style.display = "block"; // Show placeholder again
+	            }
+
+	            // Show drop zone again if space is available
+	             const dropZone = document.getElementById("drop-zone");
+	            if (dropZone && remainingFilesCount < 5) { // Use 5 or your maxFiles constant
+	                 dropZone.style.display = "block";
+	            }
+
+
+	            if (filesDeletedCount > 0) {
+	                Swal.fire({
+	                    text: `Selected file(s) deleted successfully.`,
+	                    icon: 'success',
+	                    confirmButtonText: 'OK'
+	                });
+
+	                // Clear the merged output as the source files changed
+	                const base64PDFInput = $('#base64PDF');
+	                 if (base64PDFInput.length) base64PDFInput.val('');
+
+	                const base64ImageInput = $('#base64Image');
+	                if (base64ImageInput.length) base64ImageInput.val('');
+
+	                // Update the list of selected files displayed below buttons
+	                updateSelectedFiles();
+
+	            } else {
+	                 Swal.fire({
+	                    text: 'No selected files were found in the list to delete.',
+	                    icon: 'warning',
+	                    confirmButtonText: 'OK'
+	                });
+	            }
+		    }
+
+
+		    function updateSelectedFiles() {
+		        // Get values (indices) from *currently checked* checkboxes
+		        const selectedIndices = Array.from(document.querySelectorAll('input[name="pdfFiles"]:checked'))
+		            .map(checkbox => parseInt(checkbox.value))
+	                .filter(index => index >= 0 && index < fileArray.length && fileArray[index] !== null); // Ensure index is valid and file exists
+
+
+		        const selectedFilesDiv = document.getElementById('selected-files');
+	             if (!selectedFilesDiv) return; // Exit if element not found
+
+		        selectedFilesDiv.innerHTML = ''; // Clear current list
+
+	            if (selectedIndices.length > 0) {
+	                 selectedIndices.forEach(index => {
+	                    const file = fileArray[index]; // Get the file object by index
+	                    if (file) { // Should exist based on the filter above, but good practice
+	                        const fileDiv = document.createElement('div');
+	                        fileDiv.className = 'top-badge mr-2';
+
+	                        const fileDiv2 = document.createElement('div');
+	                        fileDiv2.className = 'table-check';
+	                        fileDiv2.textContent = file.name; // Display the file name
+
+	                        // The anchor/img part seems decorative based on the class names
+	                        // and doesn't perform an action here. Remove if not needed.
+	                        // const anchor = document.createElement('a');
+	                        // anchor.href = '#';
+
+	                        // const img = document.createElement('img');
+	                        // img.src = 'img/attach.svg'; // Or remove if not functional
+	                        // img.alt = '';
+
+	                        // anchor.appendChild(img);
+	                        // fileDiv2.appendChild(anchor);
+
+	                        fileDiv.appendChild(fileDiv2);
+	                        selectedFilesDiv.appendChild(fileDiv);
+	                    }
+	                });
+	            } else {
+	                // Optionally display a message like "No files selected"
+	                // selectedFilesDiv.textContent = 'No files selected for merge';
+	            }
+		    }
+
+	        // --- Drag and Drop Event Listeners ---
+	        const dropZoneElement = document.getElementById("drop-zone");
+	        if (dropZoneElement) {
+	            dropZoneElement.addEventListener("dragover", (e) => {
+	                e.preventDefault();
+	                dropZoneElement.classList.add("dragover");
+	            });
+
+	            dropZoneElement.addEventListener("dragleave", () => {
+	                dropZoneElement.classList.remove("dragover");
+	            });
+
+	            dropZoneElement.addEventListener("drop", (e) => {
+	                e.preventDefault();
+	                dropZoneElement.classList.remove("dragover");
+	                const droppedFiles = Array.from(e.dataTransfer.files);
+	                handleFiles(droppedFiles); // Use the shared handleFiles function
+	            });
+
+	             dropZoneElement.addEventListener("click", () => {
+	                const fileInput = document.getElementById("fileInput");
+	                if(fileInput) fileInput.click();
+	            });
+	        } else {
+	             console.warn("Drop zone element #drop-zone not found.");
+	        }
+
+
+		    // --- Initial State Setup ---
+	        // Ensure the file list div is hidden initially if no files are loaded (which is the case on page load)
+	        const docViewDiv = document.getElementById('docViewDiv');
+	        if (docViewDiv && fileArray.filter(f => f !== null).length === 0) {
+	             docViewDiv.style.display = "none";
+	        }
+
+	        // Also hide the PDF viewer and show placeholder initially
+	         const imagePDFViewer = document.getElementById('imagePDF');
+	         if (imagePDFViewer) imagePDFViewer.style.display = "none";
+
+	         const imageAddPlaceholder = document.getElementById('imageAdd');
+	         if (imageAddPlaceholder) imageAddPlaceholder.style.display = "block";
+
+	        // The drop zone visibility is handled by handleFiles/deleteSelectedPDFs based on file count.
+	        // No specific action needed here on load unless you have pre-loaded files.
+
+		});
+	</script>
+	
+<!--	<script>
 	
         document.addEventListener("DOMContentLoaded", () => {
         const dropZone = document.getElementById("drop-zone");
         const fileInput = document.getElementById("fileInput");
-      
         document.getElementById('fileInput').addEventListener('change', handleFileUpload);
         document.getElementById('merge-button').addEventListener('click', mergeSelectedPDFs);
         document.getElementById('delete-button').addEventListener('click', deleteSelectedPDFs);
-
         const fileArray = [];
 
         function handleFileUpload(event) {
         	document.getElementById('docViewDiv').style.display="block";
-        	
             const file = event.target.files[0];
-            if (file && file.type === 'application/pdf') {
+        //    if (file && file.type === 'application/pdf') {
             	 if (fileArray.length == 5) {
             		 document.getElementById("drop-zone").style.display = "none";
             	
@@ -884,7 +1363,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	                // Use SweetAlert to display an alert
 	                Swal.fire({
 	                   // title: 'Custom Alert',
-	                    text: 'You can only upload up to 5 PDF files.',
+	                    text: 'You can only upload up to 5 files.',
 	                    //icon: 'success',
 	                    confirmButtonText: 'OK'
 	                }); 
@@ -893,7 +1372,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                  }
                 fileArray.push(file);
                 addFileToList(file);
-            }
+       //     }
             event.target.value = ''; // Reset the input value
         }
 
@@ -925,72 +1404,94 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
         }
 
         async function mergeSelectedPDFs() {
-            const selectedFiles = Array.from(document.querySelectorAll('input[name="pdfFiles"]:checked')).map(checkbox => fileArray[checkbox.value]);
-			
-            if (selectedFiles.length === 0) {
-            	
-                 window.alert = function () { };
-	                // Use SweetAlert to display an alert
-	                Swal.fire({
-	                   // title: 'Custom Alert',
-	                    text: 'Please select at least one PDF file.',
-	                    //icon: 'success',
-	                    confirmButtonText: 'OK'
-	                }); 
-                
-                return;
-            }
+			const selectedFiles = Array.from(document.querySelectorAll('input[name="pdfFiles"]:checked'))
+			       .map(checkbox => fileArray[checkbox.value])
+			       .filter(file => file); // Ensure no nulls
+
+			   if (selectedFiles.length === 0) {
+			       Swal.fire({
+			           text: 'Please select at least one file.',
+			           confirmButtonText: 'OK'
+			       });
+			       return;
+			   }
             const fileType = selectedFiles[0].type;
             
-            const mergedPdf = await PDFLib.PDFDocument.create();
-            for (const file of selectedFiles) {
-                const arrayBuffer = await file.arrayBuffer();
-                const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
-                const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                copiedPages.forEach((page) => {
-                    mergedPdf.addPage(page);
-                });
-            }
+              const mergedPdf = await PDFLib.PDFDocument.create();
+			  for (const file of selectedFiles) {
+			         const arrayBuffer = await file.arrayBuffer();
 
-            window.alert = function () { };
-            // Use SweetAlert to display an alert
-            Swal.fire({
-               // title: 'Custom Alert',
-                text: 'Selected Files Merged Successfully',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }); 
-        
-            const mergedPdfBytes = await mergedPdf.save();
-            const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
+			         if (file.type === "application/pdf") {
+			             // Handle PDF files
+			             try {
+			                 const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+			                 const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+			                 copiedPages.forEach((page) => mergedPdf.addPage(page));
+			             } catch (err) {
+			                 console.error("Error loading PDF:", file.name, err);
+			                 Swal.fire({
+			                     text: `Error reading PDF: ${file.name}`,
+			                     icon: 'error',
+			                     confirmButtonText: 'OK'
+			                 });
+			             }
+			         } else if (file.type.startsWith("image/")) {
+			             // Handle image files
+			             try {
+			                 const imageBytes = new Uint8Array(arrayBuffer);
+			                 let imageEmbed, dims;
 
-            const pdfDisplay = document.getElementById('imagePDF');
-            pdfDisplay.src = url;
+			                 if (file.type === "image/png") {
+			                     imageEmbed = await mergedPdf.embedPng(imageBytes);
+			                 } else {
+			                     imageEmbed = await mergedPdf.embedJpg(imageBytes); // default for JPG or others
+			                 }
 
-            const base64String = arrayBufferToBase64(mergedPdfBytes);
-           $('#base64PDF').val(base64String);
-                
-           if(fileType==="application/pdf"){
-           
-           //$('#imagePDF').attr('src', base64String);
-           $('#base64PDF').val(base64String);
-          
-           document.getElementById("imagePDF").style.display="block";
-           document.getElementById("imageAdd").style.display="none";
-    
-			}
-			else{
-				
-		           //$('#imageAdd').attr('src', base64String);
-		           document.getElementById("imageAdd").style.display="block";
-		           document.getElementById("imagePDF").style.display="none";
-		       
-			} 
-           
-           var modalfirst = document.getElementById("exampleModalCenterTitle");
-           modalfirst.style.display = "none";
-        }
+			                 dims = imageEmbed.scale(1);
+			                 const page = mergedPdf.addPage([dims.width, dims.height]);
+			                 page.drawImage(imageEmbed, {
+			                     x: 0,
+			                     y: 0,
+			                     width: dims.width,
+			                     height: dims.height,
+			                 });
+			             } catch (err) {
+			                 console.error("Error embedding image:", file.name, err);
+			                 Swal.fire({
+			                     text: `Error reading image: ${file.name}`,
+			                     icon: 'error',
+			                     confirmButtonText: 'OK'
+			                 });
+			             }
+			         } else {
+			             Swal.fire({
+			                 text: `Unsupported file type: ${file.name}`,
+			                 icon: 'warning',
+			                 confirmButtonText: 'OK'
+			             });
+			         }
+			     }
+
+				     const mergedPdfBytes = await mergedPdf.save();
+				     const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+				     const url = URL.createObjectURL(blob);
+
+				     // Set preview and base64
+				     document.getElementById("imagePDF").src = url;
+				     document.getElementById("imagePDF").style.display = "block";
+				     document.getElementById("imageAdd").style.display = "none";
+
+				     $('#base64PDF').val(arrayBufferToBase64(mergedPdfBytes));
+
+				     Swal.fire({
+				         text: 'Files merged successfully.',
+				         icon: 'success',
+				         confirmButtonText: 'OK'
+				     });
+
+				     const modalfirst = document.getElementById("exampleModalCenterTitle");
+				     if (modalfirst) modalfirst.style.display = "none";
+				 }
 
         function arrayBufferToBase64(buffer) {
             let binary = '';
@@ -1103,7 +1604,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 
     });
 	
-</script>
+</script>-->
 <!-- modal unsuccessfull-->
 <div class="modal fade" id="ModalReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	        <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1270,7 +1771,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 										</div>
 										<embed id="imagePDF"
 											style="width: 100%; max-width: 500px; margin: 0 auto;"
-											height="480 px" width="500 px" type="application/pdf"></embed>
+											height="530 px" width="500 px" type="application/pdf"></embed>
 										<input type="hidden" id="base64PDF">
 									</div>
 
@@ -1281,7 +1782,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 								<div class="form-grp-half">
 									<div class="mr-2 w-100 mb-2">
 										<div class="did-floating-label-content mb-0">
-											<select class="did-floating-select" id="expenseCategory">
+											<select class="did-floating-select" id="expenseCategory" onchange="getExpanseLimitByExpenseTitleId1()">
 											</select> <label class="did-floating-label">Select Category</label>
 										</div><br>
 										<div class="error-msg" id="expenseCategoryError"
@@ -1377,26 +1878,19 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 								<div class="clearfix"></div>
 								<div class="d-flex justify-content-end mt-4 form-btns">
 
-									<button class="btn btn-border mx-1 width-auto">
-										<img src="img/del.svg" alt="">
-									</button>
-									<button class="btn btn-border mx-1 width-auto">
-										<img src="img/download.svg" alt="">
-									</button>
-									<button class="btn btn-border mx-1 width-auto">
-										<img src="img/save.svg" alt="">
-									</button>
-									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}">
-									<input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
-									<input type="hidden" class="form-input" id="expenseId" name="expenseId" >
-									
-									 <input class="btn btn-border mx-2" type="button" onclick="submitExpenseDraft()" value="Save & Next" />
-										<!--  <a class="btn btn-primary mx-2 d-flex align-items-center"
-										data-toggle="modal" data-target="#ModalExpensesSubmitted"
-										type="button">Submit</a> -->
-										<input class="btn btn-primary mx-2 d-flex align-items-center"
-										type="button" value="Submit" onclick="submitExpenseMultiple()" />
+								<button class="btn btn-border mx-1 width-auto" id="btnDelete"><img src="img/del.svg" alt="" > </button>
+								<button class="btn btn-border mx-1 width-auto" id="btnDownLoad"><img src="img/download.svg" alt=""> </button>
+								<button class="btn btn-border mx-1 width-auto" id="btnSave"><img src="img/save.svg" alt="">	</button>
+								<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}">
+								<input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
+								<input type="hidden" class="form-input" id="expenseId" name="expenseId" >
+								
+								 <button class="btn btn-border mx-2" onclick="submitExpenseDraft()" id="btnsubmitExpenseDraft" type="button" >Save & Next</button>
+							
+								 <button class="btn btn-primary mx-2 d-flex align-items-center" id="btnSubmitExpenseMultiple"
+								 type="button" onclick="submitExpenseMultiple()">Submit</button>
+
 								</div>
 							</div>
 						</div>
@@ -1726,7 +2220,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 									<div class="mr-2 w-100 mb-2">
 										<div class="did-floating-label-content mb-0">
 											<select class="did-floating-select"
-												id="expenseCategorySingle">
+												id="expenseCategorySingle" onchange="getExpanseLimitByExpenseTitleId()">
 											</select> <label class="did-floating-label">Select Category</label>
 										</div>
 										<div class="error-msg" id="expenseCategorySingleError"
@@ -1796,7 +2290,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 								<div class="form-grp">
 									<div class="form-grp-card-form-right">
 										<label for="">Periodic Limit: </label>
-										<div class="ntdfnd">INR 500</div>
+										<div class="ntdfnd">INR
+											<span id="firstLimit"> 500 </span> </div>
 									</div>
 								</div>
 								<div class="clearfix"></div>
@@ -2778,20 +3273,36 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 						
 
 						<div class="modalView" id="modalReimbursementApproved">
-										        <div class="modal-dialog modal-dialog-centered">
-										            <div class="modal-content modal-bulk p-0">
-										                <div class="modal-top text-center">
-										                    <button type="button" class="close p-0"  data-dismiss="modal" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
-										                        <img src="img/modal-close.svg" alt="">
-										                    </button>
-										                    <img src="img/modal-success.svg" alt="">
-										                </div>
-										                <div class="modal-bottom">
-										                    <span>Reimbursement Approved</span>
-										                </div>
-										            </div>
-										        </div>
-										    </div>
+				        <div class="modal-dialog modal-dialog-centered">
+				            <div class="modal-content modal-bulk p-0">
+				                <div class="modal-top text-center">
+				                    <button type="button" class="close p-0"  data-dismiss="modal" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+				                        <img src="img/modal-close.svg" alt="">
+				                    </button>
+				                    <img src="img/modal-success.svg" alt="">
+				                </div>
+				                <div class="modal-bottom">
+				                    <span>Reimbursement Approved</span>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+					
+					<div class="modalView" id="modalReimbursementRejected">
+				        <div class="modal-dialog modal-dialog-centered">
+				            <div class="modal-content modal-bulk p-0">
+				                <div class="modal-top text-center">
+				                    <button type="button" class="close p-0"  data-dismiss="modal" onclick="approvedClose()" aria-label="Close" style="right: 10px; top: 0;">
+				                        <img src="img/modal-close.svg" alt="">
+				                    </button>
+				                    <img src="img/modal-success.svg" alt="">
+				                </div>
+				                <div class="modal-bottom">
+				                    <span>Reimbursement Rejected</span>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
 
 		<!-- Modal Travel Request -->
 		<div class="modal fade" id="travelDetailsTable" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -2956,7 +3467,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 								</div>
 							</div>
 							<div class="w-100 text-right">
-							   	  <button class="btn btn-primary" id="btnSaveTravelRequest" onclick="getTableDataTravel()">Save & Next</button>
+							   	  <button class="btn btn-primary" id="btnSaveTravelRequest1" onclick="getTableDataTravel()">Save & Next</button>
 							</div>	
 	   
 		                </div>
@@ -3471,7 +3982,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 			<div class="background-wrap">
 				<span><h3>Review and Submit Advance Travel Request</h3></span><br>
             <div class="policies-wrap-in-table">
-                <div class="table-responsive-2" id="travelTableView" >
+                <div class="table-responsive-2" id="travelTableView"  style="display: none;">
                     <table class="table table-reimbursements" id="travelTableViewMode">
                         <thead >
 							<tr>
@@ -3509,7 +4020,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					
                 </div>
 				<!-- Accommodation Table -->
-				<div class="table-responsive-2" id="accommodationTable1" >
+				<div class="table-responsive-2" id="accommodationTable1" style="display: none;">
 				    <table class="table table-reimbursements" id="accommodationTableViewMode">
 				        <thead >
 							<tr>
@@ -3545,7 +4056,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					
 				</div>
 				<!-- In-City Cabs Table -->
-				<div class="table-responsive-2" id="inCityCabsTable1" >
+				<div class="table-responsive-2" id="inCityCabsTable1" style="display: none;">
 				    <table class="table table-reimbursements" id="inCityCabsTableView">
 				        <thead >
 							<tr>
@@ -3580,7 +4091,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					
 				</div>
 				<!-- Food Table -->
-				<div class="table-responsive-2" id="foodTable1" >
+				<div class="table-responsive-2" id="foodTable1" style="display: none;">
 				    <table class="table table-reimbursements" id="foodTableView">
 				        <thead >
 							<tr>
@@ -3619,7 +4130,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					
 				</div>
 				<!-- Miscellaneous Table -->
-				<div class="table-responsive-2" id="miscellaneousTable1" >
+				<div class="table-responsive-2" id="miscellaneousTable1" style="display: none;">
 				    <table class="table table-reimbursements" id="miscellaneousTableView">
 				        <thead >
 							<tr>
@@ -3685,7 +4196,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					<div class="background-wrap">
 						<span><h3>View Advance Travel Request</h3></span><br>
 		            <div class="policies-wrap-in-table">
-		                <div class="table-responsive-2" id="travelTableView" >
+		                <div class="table-responsive-2" id="travelTableView1" style="display: none;">
 		                    <table class="table table-reimbursements" id="viewTravelRequest">
 		                        <thead >
 									<tr>
@@ -3723,7 +4234,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 							
 		                </div>
 						<!-- Accommodation Table -->
-						<div class="table-responsive-2" id="accommodationTable1" >
+						<div class="table-responsive-2" id="accommodationTable22" style="display: none;">
 						    <table class="table table-reimbursements" id="viewAccomodationOnly">
 						        <thead >
 									<tr>
@@ -3757,7 +4268,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 							
 						</div>
 						<!-- In-City Cabs Table -->
-						<div class="table-responsive-2" id="inCityCabsTable1" >
+						<div class="table-responsive-2" id="inCityCabsTable22" style="display: none;">
 						    <table class="table table-reimbursements" id="viewIncityCabOnly">
 						        <thead >
 									<tr>
@@ -3792,7 +4303,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 							
 						</div>
 						<!-- Food Table -->
-						<div class="table-responsive-2" id="foodTable1" >
+						<div class="table-responsive-2" id="foodTable22" style="display: none;">
 						    <table class="table table-reimbursements" id="viewFoodOnly">
 						        <thead >
 									<tr>
@@ -3831,7 +4342,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 							
 						</div>
 						<!-- Miscellaneous Table -->
-						<div class="table-responsive-2" id="miscellaneousTable1" >
+						<div class="table-responsive-2" id="miscellaneousTable22" style="display: none;">
 						    <table class="table table-reimbursements" id="viewMiscellaneousOnly">
 						        <thead >
 									<tr>
@@ -3854,6 +4365,39 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					                <th>Tentative Amount</th>
 					                <th></th>
 					                <th></th>
+					                <th>Mode of Payment</th>
+					                <th>Remarks (Compulsory)</th>
+									<th></th>
+						            </tr>
+						        </thead>
+						        <tbody>
+								
+						       </tbody>
+						    </table>
+						</div>
+						
+						<!-- Cash Table -->
+						<div class="table-responsive-2" id="cashViewTable1" style="display: none;">
+						    <table class="table table-reimbursements" id="viewCashOnly">
+						        <thead >
+									<tr>
+									<th> <img src="img/cash.svg" alt=""  class="align-start"></th>
+									<th style="white-space: nowrap;">Cash</th>
+									<th></th>
+									<th></th>
+						            <th></th>
+						            <th></th>
+						            <th></th>
+						            <th></th>
+									                  
+						            </tr>
+						            <tr>
+									<th></th>
+					                <th>Title</th>
+					                <th>Currency</th>
+					                <th>Date</th>
+									<th>Currency</th>
+									<th>Amount</th>
 					                <th>Mode of Payment</th>
 					                <th>Remarks (Compulsory)</th>
 									<th></th>

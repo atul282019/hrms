@@ -1348,7 +1348,7 @@ function ReviewandSybmit(){
 		var empId = document.getElementById("empId").value;	
 		$.ajax({
 		type: "GET",
-		url: "/getTravelReviewData",
+		url: "/getTravelDraftDataReview",
 		data:{
 			"employeeId":empId,
 			"employerId":employerid,
@@ -1359,16 +1359,23 @@ function ReviewandSybmit(){
 		       console.log(data);
 			   var data1 = jQuery.parseJSON(data);
 				
-				//var travelReimbursement = data1.data.travelReimbursement;
-				//var mealReimbursement = data1.data.mealReimbursement;
-				// miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
-				//var inCityCabReimbursement = data1.data.inCityCabReimbursement;
-				//var accomodationReimbursement = data1.data.accomodationReimbursement;
+				var travelReimbursement = data1.data.travelReimbursement;
+				var mealReimbursement = data1.data.mealReimbursement;
+				var miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
+				var inCityCabReimbursement = data1.data.inCityCabReimbursement;
+				var accomodationReimbursement = data1.data.accomodationReimbursement;
 				document.getElementById("signinLoader").style.display="none";
 				
 				if(data1.status==true){
 					const tableBody = document.querySelector("#travelTableViewMode tbody");
 					tableBody.innerHTML = "";
+				if (travelReimbursement && travelReimbursement.length > 0) {
+					document.getElementById("travelTableView").style.display="block";/*
+					document.getElementById("accommodationTable1").style.display="none";
+					document.getElementById("inCityCabsTable1").style.display="none";
+					document.getElementById("foodTable1").style.display="none";
+					document.getElementById("miscellaneousTable1").style.display="none";
+											*/
 		           data1.data.travelReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1424,10 +1431,19 @@ function ReviewandSybmit(){
 		               `;
 		               tableBody.appendChild(row);
 		           });
+				   }
 					//////////////////////////////////////////
 					
 					const tableBodyAccomodation = document.querySelector("#accommodationTableViewMode tbody");
 					tableBodyAccomodation.innerHTML = "";
+					if (accomodationReimbursement && accomodationReimbursement.length > 0) {
+					/*	document.getElementById("travelTableView").style.display="none";
+						document.getElementById("inCityCabsTable1").style.display="none";
+						document.getElementById("foodTable1").style.display="none";
+						document.getElementById("miscellaneousTable1").style.display="none";*/
+
+						document.getElementById("accommodationTable1").style.display="block";
+												
 		            data1.data.accomodationReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1478,9 +1494,17 @@ function ReviewandSybmit(){
 		               `;
 		               tableBodyAccomodation.appendChild(row);
 		           });
+				   }
 					//////////////////////////////////////////////////////
 					const tableBodyInCityCab = document.querySelector("#inCityCabsTableView tbody");
 					tableBodyInCityCab.innerHTML = "";
+					if (inCityCabReimbursement && inCityCabReimbursement.length > 0) {
+						/*document.getElementById("travelTableView").style.display="none";
+						document.getElementById("accommodationTable1").style.display="none";
+						
+						document.getElementById("foodTable1").style.display="none";
+						document.getElementById("miscellaneousTable1").style.display="none";*/
+						document.getElementById("inCityCabsTable1").style.display="block";
 		            data1.data.inCityCabReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1537,9 +1561,18 @@ function ReviewandSybmit(){
 		               `;
 		               tableBodyInCityCab.appendChild(row);
 		           });
+				   }
 				   //////////////////////////////////////////////////
 				   const foodTableView = document.querySelector("#foodTableView tbody");
 				   foodTableView.innerHTML = "";
+				   if (mealReimbursement && mealReimbursement.length > 0) {
+/*					document.getElementById("travelTableView").style.display="none";
+					document.getElementById("accommodationTable1").style.display="none";
+					document.getElementById("inCityCabsTable1").style.display="none";
+
+					document.getElementById("miscellaneousTable1").style.display="none";
+											*/
+					document.getElementById("foodTable1").style.display="block";
 	   	            data1.data.mealReimbursement.forEach(item => {
 	   	               const row = document.createElement("tr");
 	   	               row.innerHTML = `
@@ -1590,9 +1623,18 @@ function ReviewandSybmit(){
 	   	               `;
 	   	               foodTableView.appendChild(row);
 	   	           });
+				   }
 					///////////////////////////////////////////////////////
 					const miscellaneousTableView = document.querySelector("#miscellaneousTableView tbody");
 					miscellaneousTableView.innerHTML = "";
+					if (miscellaneousReimbursement && miscellaneousReimbursement.length > 0) {
+						/*
+						document.getElementById("travelTableView").style.display="none";
+						document.getElementById("accommodationTable1").style.display="none";
+						document.getElementById("inCityCabsTable1").style.display="none";
+						document.getElementById("foodTable1").style.display="none";*/
+						document.getElementById("miscellaneousTable1").style.display="block";
+						
 	   	            data1.data.miscellaneousReimbursement.forEach(item => {
 	   	               const row = document.createElement("tr");
 	   	               row.innerHTML = `
@@ -1643,7 +1685,7 @@ function ReviewandSybmit(){
 	   	               `;
 	   	               miscellaneousTableView.appendChild(row);
 	   	           });
-				   
+				   }
 				   var modalfirst = document.getElementById("travelDetailsTable1");
 				   modalfirst.style.display = "block";
 				}
@@ -1802,15 +1844,20 @@ function deleteAdvanceTravel(value){
 
 function viewAdvanceTravel(value){
 	
+	var table = $('#tblCashAdvanceTravel').DataTable();
+	   var row = $(value).closest('tr');
+	   var rowData = table.row(row).data();
+	   var sequenceId = rowData.sequenceId;
 	    document.getElementById("signinLoader").style.display="flex";
 		var employerid = document.getElementById("employerId").value;
 		var empId = document.getElementById("empId").value;	
 		$.ajax({
 		type: "GET",
-		url: "/getTravelReviewData",
+		url: "/getTravelViewData",
 		data:{
-			"employeeId":empId,
-			"employerId":employerid,
+			"employeeId": empId,
+			"employerId": employerid,
+			"sequeneId": sequenceId,
 			"status":0
 			},
 		        success:function(data){
@@ -1820,15 +1867,26 @@ function viewAdvanceTravel(value){
 				
 				var travelReimbursement = data1.data.travelReimbursement;
 				var mealReimbursement = data1.data.mealReimbursement;
-				var miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
 				var inCityCabReimbursement = data1.data.inCityCabReimbursement;
 				var accomodationReimbursement = data1.data.accomodationReimbursement;
+				var miscellaneousReimbursement = data1.data.miscellaneousReimbursement;
+				var cashReimbursement = data1.data.cash;
+				
+								
 				document.getElementById("signinLoader").style.display="none";
 				
 				if(data1.status==true){
 					const tableBody = document.querySelector("#viewTravelRequest tbody");
 					tableBody.innerHTML = "";
-		           data1.data.travelReimbursement.forEach(item => {
+				  if (travelReimbursement && travelReimbursement.length > 0) {
+
+					document.getElementById("inCityCabsTable22").style.display="none";
+					document.getElementById("foodTable22").style.display="none";
+					document.getElementById("accommodationTable22").style.display="none";
+					document.getElementById("cashViewTable1").style.display="none";
+					document.getElementById("miscellaneousTable22").style.display="none";
+					document.getElementById("travelTableView1").style.display="block";
+		            data1.data.travelReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
 						   <td>
@@ -1883,10 +1941,19 @@ function viewAdvanceTravel(value){
 		               `;
 		               tableBody.appendChild(row);
 		           });
+				   }
 					//////////////////////////////////////////
 					
 					const tableBodyAccomodation = document.querySelector("#viewAccomodationOnly tbody");
 					tableBodyAccomodation.innerHTML = "";
+					if (accomodationReimbursement && accomodationReimbursement.length > 0) {
+
+						document.getElementById("travelTableView1").style.display="none";
+						document.getElementById("inCityCabsTable22").style.display="none";
+						document.getElementById("foodTable22").style.display="none";
+						document.getElementById("cashViewTable1").style.display="none";
+						document.getElementById("miscellaneousTable22").style.display="none";
+					document.getElementById("accommodationTable22").style.display="block";
 		            data1.data.accomodationReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1939,9 +2006,18 @@ function viewAdvanceTravel(value){
 		               `;
 		               tableBodyAccomodation.appendChild(row);
 		           });
+				   }
 					//////////////////////////////////////////////////////
 					const tableBodyInCityCab = document.querySelector("#viewIncityCabOnly tbody");
 					tableBodyInCityCab.innerHTML = "";
+					if (inCityCabReimbursement && inCityCabReimbursement.length > 0) {
+
+					document.getElementById("travelTableView1").style.display="none";
+					document.getElementById("foodTable22").style.display="none";
+					document.getElementById("accommodationTable22").style.display="none";
+					document.getElementById("cashViewTable1").style.display="none";
+					document.getElementById("miscellaneousTable22").style.display="none";
+					document.getElementById("inCityCabsTable22").style.display="block";
 		            data1.data.inCityCabReimbursement.forEach(item => {
 		               const row = document.createElement("tr");
 		               row.innerHTML = `
@@ -1998,9 +2074,18 @@ function viewAdvanceTravel(value){
 		               `;
 		               tableBodyInCityCab.appendChild(row);
 		           });
+				   }
 				   //////////////////////////////////////////////////
 				   const foodTableView = document.querySelector("#viewFoodOnly tbody");
 				   foodTableView.innerHTML = "";
+				   if (mealReimbursement && mealReimbursement.length > 0) {
+
+					document.getElementById("travelTableView1").style.display="none";
+					document.getElementById("inCityCabsTable22").style.display="none";
+					document.getElementById("accommodationTable22").style.display="none";
+					document.getElementById("cashViewTable1").style.display="none";
+					document.getElementById("miscellaneousTable22").style.display="none";
+					document.getElementById("foodTable22").style.display="block";
 	   	            data1.data.mealReimbursement.forEach(item => {
 	   	               const row = document.createElement("tr");
 	   	               row.innerHTML = `
@@ -2051,9 +2136,18 @@ function viewAdvanceTravel(value){
 	   	               `;
 	   	               foodTableView.appendChild(row);
 	   	           });
+				   }
 					///////////////////////////////////////////////////////
 					const miscellaneousTableView = document.querySelector("#viewMiscellaneousOnly tbody");
 					miscellaneousTableView.innerHTML = "";
+					if (miscellaneousReimbursement && miscellaneousReimbursement.length > 0) {
+					
+					document.getElementById("travelTableView1").style.display="none";
+					document.getElementById("inCityCabsTable22").style.display="none";
+					document.getElementById("foodTable22").style.display="none";
+					document.getElementById("accommodationTable22").style.display="none";
+	   				document.getElementById("cashViewTable1").style.display="none";
+					document.getElementById("miscellaneousTable22").style.display="block";
 	   	            data1.data.miscellaneousReimbursement.forEach(item => {
 	   	               const row = document.createElement("tr");
 	   	               row.innerHTML = `
@@ -2104,7 +2198,67 @@ function viewAdvanceTravel(value){
 	   	               `;
 	   	               miscellaneousTableView.appendChild(row);
 	   	           });
-				   
+				   }
+				   ///////////////////////////////////////////////////////
+				   				const viewCashOnlyView = document.querySelector("#viewCashOnly tbody");
+				   				viewCashOnlyView.innerHTML = "";
+				   				if (cashReimbursement && cashReimbursement.length > 0) {
+							    document.getElementById("travelTableView1").style.display="none";
+								document.getElementById("miscellaneousTable22").style.display="none";
+								document.getElementById("inCityCabsTable22").style.display="none";
+								document.getElementById("foodTable22").style.display="none";
+								document.getElementById("accommodationTable22").style.display="none";
+				   				document.getElementById("cashViewTable1").style.display="block";
+				      	            data1.data.cash.forEach(item => {
+				      	               const row = document.createElement("tr");
+				      	               row.innerHTML = `
+				   				       <td>
+				   					   <input type="hidden" class="form-control" value="${item.id}">
+				   	                   </td>
+				      	                   <td>
+				   					   
+				   					   <input type="text" class="form-control" value="${item.requestType}">
+				      	                       
+				      	                   </td>
+				      	                   <td>
+				      	                       <select class="form-control">
+				      	                           <option value="company" ${item.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+				      	                           <option value="self" ${item.paymentMode === "Credit Card" ? "selected" : ""}>Credit Card</option>
+				      	                       </select>
+				      	                   </td>
+				      	                   <td>
+				      					      <input type="date" class="form-control" value="${item.createdDate}">
+				      					      
+				      					   </td>
+										   <td>
+		   			      					<input type="text" class="form-control mb-2" value="${item.currency}">
+		   			      					</td>
+				      	                   <td>
+				      					<input type="text" class="form-control mb-2" value="${item.amount}">
+				      					</td>
+				   					</td>
+				   	                
+				      	                   <td>
+				      					   <div style="margin-bottom: 28px;">
+				      	                       <select class="form-control">
+				      	                           <option value="Credit Card" ${item.requestType === "Credit Card" ? "selected" : ""}>Credit Card</option>
+				      	                           <option value="Cash" ${item.requestType === "Cash" ? "selected" : ""}>Cash</option>
+				      	                       </select>
+				      						   </div>
+				      						   <div class="mt-0">
+				      					        <span class="text-muted">Limit:</span>
+				      					        <span class="border rounded px-3 py-1 bg-gray-200" style="border-color: darkgray; display: inline-block;">
+				      					            INR 8,000
+				      					        </span>
+				      					    </div>
+				      	                   </td>
+				      	                   <td><textarea  class="border rounded px-2 py-1 w-full" placeholder="Add Remarks (Optional)"
+				   					   	style="width: 100%; height: 100px;" >${item.remarks}</textarea></td>
+				   						<td></td>
+				      	               `;
+				      	               viewCashOnlyView.appendChild(row);
+				      	           });
+				   			   }
 				   var modalfirst = document.getElementById("travelRequestView");
 				   modalfirst.style.display = "block";
 				}
@@ -2701,31 +2855,26 @@ function approveCashAvance(){
 				newData = data;
 				var data1 = jQuery.parseJSON(newData);
 				var data2 = data1.list;
-				//data1.status=false;
-				//data1.message="test message";
 				document.getElementById("signinLoader").style.display="none";
 				if(data1.status==true)
 					{
 						var travelRequestApprove = document.getElementById("TravelRequestApprove");
-										document.getElementById("approveRemark").value="";
-										document.getElementById("approveAmount").value="";
-										travelRequestApprove.style.display = "none";
-										
-										var modalfirst = document.getElementById("modalTravelUpdated");
-									    modalfirst.style.display = "block";
+						document.getElementById("approveRemark").value="";
+						document.getElementById("approveAmount").value="";
+						travelRequestApprove.style.display = "none";
+						
+						var modalfirst = document.getElementById("modalTravelUpdated");
+					    modalfirst.style.display = "block";
+						window.location.reload();
+						
 					}
 				else if(data1.status==false)
 					{ 
-						
 						var modalfirst = document.getElementById("TravelRequestApprove");
-							modalfirst.style.display = "none";
+						modalfirst.style.display = "none";
 						document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
-																		   
-												$('#ModalReject').modal('show');
+						$('#ModalReject').modal('show');
 					}
-				
-				
-				
 			},
 			error: function(e) {
 				alert('Failed to fetch JSON data' + e);
@@ -2735,8 +2884,6 @@ function approveCashAvance(){
 
 
 function rejectCashAvance(){
-	
-
 	var employerid = document.getElementById("employerId").value;
 	var empId = document.getElementById("empId").value;
 	var employerName = document.getElementById("userName").value;
@@ -2771,18 +2918,22 @@ function rejectCashAvance(){
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.list;
 			document.getElementById("signinLoader").style.display="none";
-			//data1.status=false;
-			//data1.message="test message";
 			if(data1.status==true)
-			{var modalfirst = document.getElementById("ModalReimbursementApproved");
-		    modalfirst.style.display = "block";
-			document.getElementById("approveRemark").value="";
-			document.getElementById("approveAmount").value="";
+			{
+				var modalfirst = document.getElementById("TravelRequestApprove");
+			    modalfirst.style.display = "none";
+				document.getElementById("approveRemark").value="";
+				document.getElementById("approveAmount").value="";
+				
+				var modalfirst2 = document.getElementById("modalReimbursementRejected");
+				modalfirst2.style.display = "none";
+			
+				//window.location.reload();
 			}
 			else if(data1.status==false)
 				{
 					var modalfirst = document.getElementById("TravelRequestApprove");
-						modalfirst.style.display = "none";
+					modalfirst.style.display = "none";
 					document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
 					$('#ModalReject').modal('show');
 				}
@@ -2794,3 +2945,59 @@ function rejectCashAvance(){
 	});
 	
 }
+
+
+function getExpanseLimitByExpenseTitleId(){
+	var expenseCategorySingle = document.getElementById("expenseCategorySingle").value;			
+	$.ajax({
+		type: "GET",
+		url: "/getExpanseLimitByExpenseTitleId",
+		data:{
+			"id":expenseCategorySingle
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+		
+			if(data1.status==true)
+			{
+				document.getElementById("firstLimit").innerHTML=data1.message;
+			}
+			else if(data1.status==false)
+			{
+				document.getElementById("firstLimit").innerHTML=data1.message;
+			}
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
+
+
+function getExpanseLimitByExpenseTitleId1(){
+	var expenseCategorySingle = document.getElementById("expenseCategory").value;			
+	$.ajax({
+		type: "GET",
+		url: "/getExpanseLimitByExpenseTitleId",
+		data:{
+			"id":expenseCategorySingle
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			if(data1.status==true)
+			{
+				document.getElementById("limit").innerHTML=data1.message;
+			}
+			else if(data1.status==false)
+			{
+				document.getElementById("limit").innerHTML=data1.message;
+			}
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
+

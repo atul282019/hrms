@@ -32,6 +32,7 @@ function getExpanceMaster() {
 
              count++;
              }   
+ 
          },
 		error: function(e) {
 			alert('Failed to fetch JSON data' + e);
@@ -68,7 +69,7 @@ function getExpanceMasterMulti() {
              }
              var option = document.createElement("option");
              option.text = values.expenseCategory;
-             option.value = values.expenseCategory;
+             option.value = values.id;
              x.add(option);
 
              count++;
@@ -81,6 +82,10 @@ function getExpanceMasterMulti() {
 }
 
 async function submitExpenseDraft(){
+	
+	const btn = document.getElementById('btnsubmitExpenseDraft');
+    btn.disabled = true;
+    btn.textContent = "Processing..."; // Optional feedback
 	
 	var employerId= document.getElementById("employerId").value; 
 	var expenseCategory=  document.getElementById("expenseCategory").value ;
@@ -235,6 +240,9 @@ async function submitExpenseDraft(){
 			document.getElementById("ModalAddmanualexp").style.display = "none";
 		    document.getElementById("ModalAddExpenseReimbursement").style.display = "none";
   			// Get the <span> element that closes the modal
+			btn.disabled = false;
+			btn.textContent = "Save & Next"; // Optional feedback
+
 			getExpanceCategoryList();
          },
          error: function(e){
@@ -246,6 +254,7 @@ async function submitExpenseDraft(){
 
 
 async function submitExpenseMultiple(){
+	
 	
 	var employerId= document.getElementById("employerId").value; 
 	var empId= document.getElementById("empId").value; 
@@ -368,14 +377,15 @@ async function submitExpenseMultiple(){
 		if(imageAdd !==null && imageAdd !==""){
 			const result = extractBase64Info(imageAdd);
 			fileType = result.dataType;
-		    fileBase64 = result.base64Content;
+		    //fileBase64 = result.base64Content;
+			fileBase64 =cleanedBase64String;
 		}else{
 	   		 fileType = "application/pdf";
-		    fileBase64 = cleanedBase64String;
+		     fileBase64 = cleanedBase64String;
 	    }
 	    
-	   // console.log('Data Type:', result.dataType);
-	    //console.log('Base64 Content:', result.base64Content);
+	    console.log('Data Type:', result.dataType);
+	    console.log('Base64 Content:', result.base64Content);
 	} catch (error) {
 	    console.error(error.message);
 	}
@@ -415,7 +425,10 @@ async function submitExpenseMultiple(){
 	formData.append("clientKey",clientKey);
 	formData.append("hash",hashHex);
 	//document.getElementById("signinLoader").style.display="flex";
-	
+	const btn = document.getElementById('btnSubmitExpenseMultiple');
+	btn.disabled = true;
+	btn.textContent = "Processing..."; // Optional feedback
+		    
 	 	$.ajax({
 		type: "POST",
 	     url:"/addExpenseReimbursement",
@@ -425,6 +438,7 @@ async function submitExpenseMultiple(){
             success: function(data){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
+			
 			if(data1.status==true){ 
 			//close popup
 			document.getElementById("ModalAddmanualexp").style.display = "none";
@@ -432,39 +446,32 @@ async function submitExpenseMultiple(){
   			// Get the <span> element that closes the modal
 			getExpanceCategoryList();
 			// Reset all form fields
-
 			// Reset the form fields
 			document.getElementById("expenseReimbursement").reset();
-
 			// Clear file input manually
 			document.getElementById("fileInput").value = "";
-
 			// Hide the uploaded documents section
 			document.getElementById("docViewDiv").style.display = "none";
-			
-			
-			
-
 			// Clear the uploaded document list
 			document.getElementById("show-list").innerHTML = "";
-
 			// Optionally, clear any displayed error messages
 			var errorFields = document.querySelectorAll('[id$="Error"]');
 			errorFields.forEach(function(field) {
 			    field.innerHTML = "";
 			});
 			$('#expReimbursementsubmission').modal('show');
-			
+			btn.disabled = false;
+			btn.textContent = "Submit"; // Optional feedback
 			}
-			
 			else if(data1.status==false)
    				{								
 					//close popup
 					document.getElementById("ModalAddmanualexp").style.display = "none";
 				    document.getElementById("ModalAddExpenseReimbursement").style.display = "none";
 					document.querySelector('#ModalReject .modal-bottom span.required-star').innerText = data1.message;
-				   
 					$('#ModalReject').modal('show');
+					btn.disabled = false;
+					btn.textContent = "Submit"; // Optional feedback
 				}
          },
          error: function(e){
@@ -476,6 +483,11 @@ async function submitExpenseMultiple(){
 
 async function submitExpenseSingleDraft(){
 	
+
+	const btn = document.getElementById('btnSingleSaveNext');
+    btn.disabled = true;
+	btn.textContent = "Processing..."; // Optional feedback
+	   
 	var employerId= document.getElementById("employerId").value; 
 	var empId= document.getElementById("empId").value; 
 	var expenseCategory=  document.getElementById("expenseCategorySingle").value ;
@@ -633,7 +645,9 @@ async function submitExpenseSingleDraft(){
 			document.getElementById("ModalAddfreshexpContinew").style.display = "none";;
 			
 		   document.getElementById("ModalAddExpenseReimbursement").style.display = "none";;
-	
+		   btn.disabled = false;
+		   btn.textContent = "Save & Next"; // Optional feedback
+		    
   			// Get the <span> element that closes the modal
 			getExpanceCategoryList();
 			
@@ -647,7 +661,11 @@ async function submitExpenseSingleDraft(){
 
 
 async function submitExpenseSingle(){
-	
+
+	const btn = document.getElementById('btnSingleSubmit');
+	btn.disabled = true;
+    btn.textContent = "Processing..."; // Optional feedback
+	   
 	var employerId= document.getElementById("employerId").value;
 	var empId= document.getElementById("empId").value; 
 	var expenseCategory=  document.getElementById("expenseCategorySingle").value ;
@@ -834,6 +852,9 @@ async function submitExpenseSingle(){
 		   document.getElementById("ModalAddExpenseReimbursement").style.display = "none";;
 			
 		   	resetFormFields();
+			const btn = document.getElementById('btnSingleSubmit');
+		    btn.disabled = false;
+	        btn.textContent = "Submit"; // Optional feedback		   
   			// Get the <span> element that closes the modal
 			getExpanceCategoryList();
 			
@@ -868,9 +889,9 @@ function resetFormFields() {
 }
 
 function getExpanceCategoryList(){
-	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;
 	var empId = document.getElementById("empId").value;
+	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 		url: "/getExpanseReimbursement",
@@ -939,7 +960,7 @@ function getExpanceCategoryList(){
                      if(expenseCategory=="Cash Advance")
                      {
 					 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+expenseCategory;
-                      $(row).find('td:eq(4)').html(imgTag);
+                      $(row).find('td:eq(3)').html(imgTag);
                      }
                      if(expenseCategory=="Travel")
                      {
@@ -957,10 +978,22 @@ function getExpanceCategoryList(){
                      {
                       $(row).find('td:eq(6)').addClass('td-btn draft');
                      }
+					 if(statusMessage=="Pending")
+                      {
+                       $(row).find('td:eq(6)').addClass('color-third draft');
+                      }
                      if(statusMessage=="Submitted")
                      {
                       $(row).find('td:eq(6)').addClass('td-btn submitted');
                      }
+					 if(statusMessage=="Approved")
+                       {
+                        $(row).find('td:eq(6)').addClass('color-third settled');
+                       }
+                      if(statusMessage=="Rejected")
+                      {
+                       $(row).find('td:eq(6)').addClass('color-third rejected');
+                      }
                   }
       		});		
 			
@@ -1023,7 +1056,7 @@ function getExpanceCategoryApprovalList(){
                      //console.log("row : "+JSON.stringify(data2));
                    
                  	var expenseCategory = data2.expenseCategory;
-                 	//var statusMessage = data2.statusMessage;
+                 	var statusMessage = data2.statusMessage;
                 	
                      if(expenseCategory=="Conveyance")
                      {
@@ -1060,14 +1093,26 @@ function getExpanceCategoryApprovalList(){
                       $(row).find('td:eq(2)').html(imgTag);
                      }
                      
-                  //   if(statusMessage=="Draft")
-                  //   {
-                  //    $(row).find('td:eq(6)').addClass('td-btn draft');
-                  //   }
-                  //   if(statusMessage=="Submitted")
-                  //   {
-                  //    $(row).find('td:eq(6)').addClass('td-btn submitted');
-                  //   }
+                     if(statusMessage=="Draft")
+                    {
+                      $(row).find('td:eq(7)').addClass('color-third draft');
+                     }
+					 if(statusMessage=="Pending")
+                      {
+                       $(row).find('td:eq(7)').addClass('color-third draft');
+                      }
+                     if(statusMessage=="Submitted")
+                     {
+                      $(row).find('td:eq(7)').addClass('color-third submitted');
+                     }
+					 if(statusMessage=="Approved")
+                      {
+                       $(row).find('td:eq(7)').addClass('color-third settled');
+                      }
+                     if(statusMessage=="Rejected")
+                     {
+                      $(row).find('td:eq(7)').addClass('color-third rejected');
+                     }
                   }
       		});		
 			
@@ -1135,7 +1180,7 @@ function getTravelExpenseApprovalList(){
                      //console.log("row : "+JSON.stringify(data2));
                    
                  	var expenseCategory = data2.expenseCategory;
-                 	//var statusMessage = data2.statusMessage;
+                 	var statusMessage = data2.statusRemarks;
                 	
                      if(expenseCategory=="Conveyance")
                      {
@@ -1172,14 +1217,22 @@ function getTravelExpenseApprovalList(){
                       $(row).find('td:eq(2)').html(imgTag);
                      }
                      
-                  //   if(statusMessage=="Draft")
-                  //   {
-                  //    $(row).find('td:eq(6)').addClass('td-btn draft');
-                  //   }
-                  //   if(statusMessage=="Submitted")
-                  //   {
-                  //    $(row).find('td:eq(6)').addClass('td-btn submitted');
-                  //   }
+                     if(statusMessage=="Draft")
+                     {
+                      $(row).find('td:eq(6)').addClass('color-third draft');
+                     }
+                     if(statusMessage=="Submitted")
+                     {
+                      $(row).find('td:eq(6)').addClass('color-third submitted');
+                     }
+					 if(statusMessage=="Approved")
+	                  {
+	                   $(row).find('td:eq(6)').addClass('color-third settled');
+	                  }
+	                  if(statusMessage=="Reject")
+	                  {
+	                   $(row).find('td:eq(6)').addClass('color-third rejected');
+	                  }
                   }
       		});		
 			
@@ -1221,15 +1274,29 @@ function getTravelExpenseApprovalList(){
 			document.getElementById("viewAdditionalRemark").value =data2.remarks;
 			document.getElementById("viewStatus").value =data2.expenseTitle;
 			//document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
+			console.log("data2.file"+data2.file);
 			if(data2.fileType =="application/pdf"){
 			
 				document.getElementById("imagePDFView").style="display: block";
 				document.getElementById("imageView").style="display: none";
 				document.getElementById("imagePDFView").src="data:application/pdf;base64,"+data2.file;
+				//console.log("base 64 pdf"+data2.file);
+			}
+			else if(data2.fileType =="image/png"){
+				document.getElementById("imagePDFView").style="display: block";
+			    document.getElementById("imageView").style="display: none";
+				document.getElementById("imagePDFView").src="data:application/pdf;base64,"+data2.file;
+			}
+			else if(data2.fileType =="image/jpeg"){
+				document.getElementById("imagePDFView").style="display: block";
+			    document.getElementById("imageView").style="display: none";
+				document.getElementById("imagePDFView").src="data:application/pdf;base64,"+data2.file;
 			}
 			else{
+				
 				document.getElementById("imageView").style="display: block";
 				document.getElementById("imagePDFView").style="display: none";
+				//console.log("data2.file"+data2.file);
 				document.getElementById("imageView").src="data:image/jpeg;base64,"+data2.file;
 			}
 			//document.getElementById("").value =data2.expenseTitle;
@@ -1290,8 +1357,7 @@ function getTravelExpenseApprovalList(){
  	    document.getElementById("bankAccount").innerHTML = data2.modeOfPayment;
  		////document.getElementById("approvalExpenseRemark").value =data2.remarks;
 		//document.getElementById("submittedBy").innerHTML =data2.name;
-		
-		
+	
  		//document.getElementById("image").src="data:image/jpeg;base64,"+data2.file;
  		if(data2.fileType =="application/pdf"){
  		
@@ -1299,6 +1365,16 @@ function getTravelExpenseApprovalList(){
  			document.getElementById("imageViewApproval").style="display: none";
  			document.getElementById("imagePDFViewApproval").src="data:application/pdf;base64,"+data2.file;
  		}
+		else if(data2.fileType =="image/png"){
+			document.getElementById("imagePDFViewApproval").style="display: block";
+			document.getElementById("imageViewApproval").style="display: none";
+			document.getElementById("imagePDFViewApproval").src="data:application/pdf;base64,"+data2.file;
+		}
+		else if(data2.fileType =="image/jpeg"){
+			document.getElementById("imagePDFViewApproval").style="display: block";
+		    document.getElementById("imageViewApproval").style="display: none";
+		    document.getElementById("imagePDFViewApproval").src="data:application/pdf;base64,"+data2.file;
+		}
  		else{
  			document.getElementById("imageViewApproval").style="display: block";
  			document.getElementById("imagePDFViewApproval").style="display: none";
@@ -1493,7 +1569,8 @@ function approvedClose(){
 	modalfirst.style.display = "none";
 	var modalfirst2 = document.getElementById("ModalViewPendingExp");
     modalfirst2.style.display = "none";
-	getExpanceCategoryApprovalList();
+	//getExpanceCategoryApprovalList();
+	window.location.reload();
 }
 function closeApproval(){
 	var modalfirst = document.getElementById("ModalViewPendingExp");
@@ -1713,7 +1790,7 @@ function getCashAdvanceRequestList(){
 				    //console.log("row : "+JSON.stringify(data2));
 				  
 					var requestType = data2.requestType;
-					//var statusMessage = data2.statusMessage;
+					var statusMessage = data2.statusRemarks;
 
 				    if(requestType=="Accomodation")
 				    {
@@ -1749,6 +1826,26 @@ function getCashAdvanceRequestList(){
 					
 				     $(row).find('td:eq(3)').html(imgTag);
 				    }
+					if(statusMessage=="Draft")
+                     {
+                      $(row).find('td:eq(6)').addClass('color-third draft');
+                     }
+					 if(statusMessage=="Pending")
+                      {
+                       $(row).find('td:eq(6)').addClass('color-third draft');
+                      }
+                     if(statusMessage=="Submitted")
+                     {
+                      $(row).find('td:eq(6)').addClass('color-third submitted');
+                     }
+					 if(statusMessage=="Approved")
+                      {
+                       $(row).find('td:eq(6)').addClass('color-third settled');
+                      }
+					  if(statusMessage=="Reject")
+                       {
+                        $(row).find('td:eq(6)').addClass('color-third rejected');
+                       }
 		     	 }
     		 	
       		});		

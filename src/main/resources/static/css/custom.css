@@ -2681,6 +2681,9 @@ button.btn-attach img {
     color: #4A4E69;
 }
 
+.status-color-third {
+    color: #4A4E69;
+}
 span.color-third.draft {
     border: 1px solid #86889B;
     color: #86889B;
@@ -2691,8 +2694,19 @@ span.color-third.draft {
     text-align: center;
 }
 
-span.color-third.submitted,
-span.color-third.in-progress {
+
+td.color-third.draft {
+    border: 1px solid #86889B;
+    color: #86889B;
+    padding: 2px 10px 4px;
+    border-radius: 25px;
+    min-width: 120px;
+    display: inline-block;
+    text-align: center;
+}
+
+td.color-third.submitted,
+td.color-third.in-progress {
     border: 1px solid #2F945A;
     color: #2F945A;
     padding: 2px 10px 4px;
@@ -2702,7 +2716,7 @@ span.color-third.in-progress {
     text-align: center;
 }
 
-span.color-third.rejected {
+td.color-third.rejected {
     border: 1px solid #F24822;
     color: #F24822;
     padding: 2px 10px 4px;
@@ -2712,7 +2726,7 @@ span.color-third.rejected {
     text-align: center;
 }
 
-span.color-third.settled {
+td.color-third.settled {
     border: 1px solid #2F945A;
     background: #2F945A;
     color: #ffffff;

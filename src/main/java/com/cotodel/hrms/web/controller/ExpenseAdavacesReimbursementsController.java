@@ -141,7 +141,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 			        }
 			    }
-    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == expensesReimbursementRequest.getEmployerId().intValue()) {
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3 || obj.getUser_role() == 9) && obj.getOrgid() == expensesReimbursementRequest.getEmployerId().intValue()) {
 		
 		try {
 			
@@ -906,7 +906,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 			        }
 			    }
-    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == advanceTravelRequest.getEmployerId().intValue()) {
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3 || obj.getUser_role() == 9) && obj.getOrgid() == advanceTravelRequest.getEmployerId().intValue()) {
 		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
@@ -1034,7 +1034,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 			        }
 			    }
-    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == travelRequest.getEmployerId().intValue()) {
+    if ((obj.getUser_role() == 2 || obj.getUser_role() == 1 || obj.getUser_role() == 3 || obj.getUser_role() == 9) && obj.getOrgid() == travelRequest.getEmployerId().intValue()) {
 		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(travelRequest);
@@ -1085,6 +1085,8 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		String profileRes = null;
 		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
 		try {
+			
+			//review and submit
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
@@ -1103,6 +1105,58 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	return profileRes;
 	}
 	
+	@GetMapping(value = "/getTravelDraftDataReview")
+	public @ResponseBody String getTravelDraftDataReview(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
+		String profileRes = null;
+		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
+		try {
+			
+			//review and submit
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  expensesReimbursementService.getTravelDraftDataReview(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
+	@GetMapping(value = "/getTravelViewData")
+	public @ResponseBody String getTravelReviewDataByExpensesID(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
+		String profileRes = null;
+		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
+		try {
+			
+			//review and submit
+			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			//String encriptResponse =  expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(), jsonObject);
+			String encriptResponse =  expensesReimbursementService.getTravelReviewDataByExpensesID(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
 	@GetMapping(value = "/advanceTravelById")
 	public @ResponseBody String advanceTravelById(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, TravelRequest advanceTravelRequest) {
