@@ -5,7 +5,10 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" >
+<body id="page-top" onload="getVehicleDetaillist()">
+	<!-- 	onload="getVehicleDetaillist()"
+	"-->
+	
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -293,7 +296,7 @@
 											           <div class="row mb-3">
 											             <div class="col-md-6">
 											               <div class="did-floating-label-content mr-2">
-											                 <select class="did-floating-select">
+											                 <select class="did-floating-select" id="ownershipModel">
 											                   
 											                   <option>Owned</option>
 											                   <option>Leased</option>
@@ -303,7 +306,7 @@
 											             </div>
 											             <div class="col-md-6">
 															<div class="did-floating-label-content mr-2">
-											                <input type="text" class="did-floating-input" placeholder=" ">
+											                <input type="text" class="did-floating-input" placeholder=" "id="driverName1">
 											                <label class="did-floating-label">Enter Driver Name</label>
 											              </div>
 											             </div>
@@ -314,7 +317,7 @@
 											           <div class="row">
 											             <div class="col-md-6 mb-3">
 											               <div class="did-floating-label-content mr-2">
-											                 <select class="did-floating-select">
+											                 <select class="did-floating-select" id="assignmentType">
 											                   
 											                   <option>Permanent</option>
 											                   <option>Temporary</option>
@@ -324,13 +327,13 @@
 											             </div>
 											             <div class="col-md-6 mb-3">
 															<div class="did-floating-label-content mr-2">
-															               <input type="text" class="did-floating-input" placeholder=" ">
+															               <input type="text" class="did-floating-input" placeholder=" " id="clientName">
 															               <label class="did-floating-label">Enter Client Name</label>
 															             </div>
 											             </div>
 											             <div class="col-md-6 mb-3">
 															<div class="did-floating-label-content mr-2 search-select-wrapper">
-															  <input type="text" class="did-floating-input search-select-input" placeholder=" " onfocus="showSuggestions(this)" oninput="filterSuggestions(this)">
+															  <input type="text" class="did-floating-input search-select-input" id="driverName2" placeholder=" " onfocus="showSuggestions(this)" oninput="filterSuggestions(this)">
 															  <label class="did-floating-label">Enter Driver Name</label>
 															  <div class="suggestion-box" style="display: none;">
 															    <div onclick="selectSuggestion(this)"><span class="suggestion-text">Ramesh Kumar</span><img src="img/phone-icon.png" class="suggestion-icon" style="width: 20px; height: 20px;"> <span>9876543210</span></div>
@@ -341,8 +344,8 @@
 															</div>
 											             </div>
 											             <div class="col-md-6 mb-3">
-											               <div class="did-floating-label-content mr-2">
-											                 <select class="did-floating-select">
+											               <div class="did-floating-label-content mr-2" >
+											                 <select class="did-floating-select" id="timePeriod">
 											                   <option disabled selected>Tagged until changed </option>
 											                   <option>7 Days</option>
 											                   <option>30 Days</option>
@@ -356,7 +359,7 @@
 											         </div>
 
 
-							   <div class="info-section-vd">
+							  <!--<div class="info-section-vd">
 								<div class="section-title-vd d-flex align-items-center justify-content-between" onclick="toggleSection('details-content', 'icon-details')">
 								  <span class="d-flex align-items-center">
 								     <img src="img/Additonal-Details.png" alt="Vehicle Icon" style="height: 24px;" class="me-2"></i>Additional Details
@@ -445,7 +448,7 @@
 								   
 					              
 					             </div>
-					           </div>
+					           </div>-->
 
 					           <!--<button class="btn btn-primary activate-btn-vd"  onclick="openModalConfirm()">ACTIVATE</button>-->
 							   <div class="button-group-vd d-flex gap-3 justify-content-end">
@@ -708,7 +711,8 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
+				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
             </div>
             <!-- End of Main Content -->
         </div>
@@ -744,21 +748,10 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <script type="text/javascript" src="cotodel-js/employee-onboarding.js"></script>
+    <script type="text/javascript" src="cotodel-js/edit-vehicle.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script>
-					   function saveChanges() {
-						
-						
-					     const modal = new bootstrap.Modal(document.getElementById('ModalConfirm1'));
-					     modal.show();
-						 setTimeout(() => {
-						       window.location.href = "/editvehicle";
-						     }, 1600); // another 1.5s or adjust as needed
-					   }
-					   </script>
-
+	
 					   <script>
 					     function showSuggestions(input) {
 					       input.nextElementSibling.nextElementSibling.style.display = 'block';
