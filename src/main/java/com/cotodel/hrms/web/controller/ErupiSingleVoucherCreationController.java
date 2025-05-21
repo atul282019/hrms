@@ -123,15 +123,12 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
             return "{\"status\":false, \"message\":\"JSON processing error\"}";
         }
     }
-
     // Check User Role and Organization ID
     if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiVoucherCreateDetails.getOrgId().intValue()) {
         try {
             // Call Service
             String encryptedResponse = erupiVoucherCreateDetailsService.createSingleVoucher(tokengeneration.getToken(),erupiVoucherCreateDetails);
 
-            // Decrypt Response
-         
             JSONObject apiJsonResponse = new JSONObject(encryptedResponse);
             
             boolean status = apiJsonResponse.getBoolean("status");
@@ -153,8 +150,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	        	voucher.setType(data.getString("type"));
 	        	voucher.setResponse(data.getString("response"));
 	        	voucher.setExpDate(data.getString("expDate"));
-	        	
-	        	
 	        	responseMap.put("data", voucher); // Could be primitive or string
 	          
 	        } else {
@@ -190,7 +185,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  erupiVoucherCreateDetailsService.getIssueVoucherList(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -206,10 +200,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	@PostMapping(value = "/getVoucherSummaryList")
 	public @ResponseBody String getVoucherSummaryList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, EmployeeMassterRequest erupiVoucherCreateDetails) {
-		//String profileRes = null;
-		//profileRes = erupiVoucherCreateDetailsService.getVoucherSummaryList(tokengeneration.getToken(),	erupiVoucherCreateDetails);
-
-		//return profileRes;
 		
 		String profileRes=null;
 			
@@ -235,13 +225,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	@PostMapping(value = "/getTotalVoucherCount")
 	public @ResponseBody String getTotalVoucherCount(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, EmployeeMassterRequest erupiVoucherCreateDetails) {
-		//String profileRes = null;
-	
-		
-		//profileRes = erupiVoucherCreateDetailsService.getTotalVoucherCount(tokengeneration.getToken(),	erupiVoucherCreateDetails);
-
-		//return profileRes;
-		
 		
 		String profileRes=null;
 		
@@ -251,7 +234,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  erupiVoucherCreateDetailsService.getTotalVoucherCount(tokengeneration.getToken(),	jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -259,8 +241,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-       
+		}       
 		return profileRes;
 	}
 	
@@ -269,11 +250,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	public @ResponseBody String getPrimaryBankDetailsByOrgId(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
 		String profileRes = null;
-		//profileRes = erupiVoucherCreateDetailsService.getPrimaryBankDetailsByOrgId(tokengeneration.getToken(),	erupiVoucherCreateDetails);
-
-		//return profileRes;
 		
-
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
 
@@ -281,7 +258,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 			String encriptResponse =  erupiVoucherCreateDetailsService.getPrimaryBankDetailsByOrgId(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -307,18 +283,12 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	public @ResponseBody String erupiVoucheSmsSend(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ErupiVoucherStatusSmsRequest erupiVoucherStatusSmsRequest) {
 		String profileRes = null;
-		//profileRes = erupiVoucherCreateDetailsService.erupiVoucheSmsSend(tokengeneration.getToken(),	erupiVoucherCreateDetails);
-
-		//return profileRes;
-		
-		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherStatusSmsRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  erupiVoucherCreateDetailsService.erupiVoucheSmsSend(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -330,27 +300,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
    
 	return profileRes;
 	}
-//	
-//	@PostMapping(value="/geterupiVoucherOldList")
-//	public @ResponseBody String geterupiVoucherOldList(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
-//			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
-//		String profileRes=null;
-//		
-//		profileRes = erupiVoucherCreateDetailsService.geterupiVoucherOldList(tokengeneration.getToken(),erupiVoucherCreateDetails);
-//		
-//		return profileRes;
-//	}
-//	
-//	@PostMapping(value="/exitingUserVoucherCreation")
-//	public @ResponseBody String exitingUserVoucherCreation(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
-//			ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest) {
-//		String profileRes=null;
-//		
-//		profileRes = erupiVoucherCreateDetailsService.exitingUserVoucherCreation(tokengeneration.getToken(),existingUserVoucherCreationRequest);
-//		
-//		return profileRes;
-//	}
-//	
+	
 	@PostMapping(value="/voucherUserSearch")
 	public @ResponseBody String voucherUserSearch(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,EmployeeMassterRequest roleAccessRequest) {

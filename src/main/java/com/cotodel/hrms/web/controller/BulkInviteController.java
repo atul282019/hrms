@@ -1,12 +1,10 @@
 package com.cotodel.hrms.web.controller;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import com.cotodel.hrms.web.service.BulkInviteService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @CrossOrigin
@@ -38,8 +35,7 @@ public class BulkInviteController extends CotoDelBaseController{
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
-	
-	
+
 	@PostMapping(value="/sendInviteEmail")
 	public @ResponseBody String saveEmployeeDetail(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BulkInviteRequest bulkInviteRequest) {
 		String profileRes=null;
@@ -50,7 +46,6 @@ public class BulkInviteController extends CotoDelBaseController{
 
 			String encriptResponse = bulkInviteService.bulkInvite(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);

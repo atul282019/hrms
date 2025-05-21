@@ -51,28 +51,12 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 	
-	
-	
 	@PostMapping(value="/savevoucherTypeMaster")
 	public @ResponseBody String saveBankMaster(ModelMap model, Locale locale, HttpSession session,VoucherTypeMaster voucherTypeMaster) {
  
         Map<String, String> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
-        String jsonResponse = null;
-
-        // Call the service to save the BankMaster object
-//        voucherResponse = voucherTypeMasterService.saveVoucherTypeMaster(tokengeneration.getToken(), voucherTypeMaster);
-//        System.out.println(voucherResponse);  // Logging the response
-//        voucherJsonResponse = new JSONObject(voucherResponse);
-//
-//       
-//		if(voucherJsonResponse.getBoolean("status")) { 
-//			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-        
+        String jsonResponse = null;        
         try {
            // jsonResponse = mapper.writeValueAsString(responseMap);
         	String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster); 
@@ -87,15 +71,12 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
                 responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
             } else {
                 responseMap.put("status", MessageConstant.RESPONSE_FAILED);
-            }
-            
+            }           
             jsonResponse = mapper.writeValueAsString(responseMap);
         
         } catch (Exception e) {
             e.printStackTrace(); 
-        }
-
-        
+        }        
         return jsonResponse;  
     }
 	@GetMapping(value="/getvoucherTypeMaster")
@@ -104,20 +85,7 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         Map<String, Object> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
-        // Call the service to save the voucherResponse object
-//        voucherResponse = voucherTypeMasterService.getVoucherTypeMasterList(tokengeneration.getToken(), voucherTypeMaster);
-//        System.out.println(voucherResponse);  // Logging the response
-//        voucherJsonResponse = new JSONObject(voucherResponse);      
-//        if(voucherJsonResponse.getBoolean("status")) { 
-//			
-//			//responseMap.put("data", voucherJsonResponse.getJSONArray("data"));
-//			List<Object> voucherList = voucherJsonResponse.getJSONArray("data").toList();
-//			responseMap.put("status",true);
-//			responseMap.put("data", voucherList);
-//        }else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status", false);
-//		}
+     
         try {
             //jsonResponse = mapper.writeValueAsString(responseMap);
         	String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster);
@@ -155,22 +123,6 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
 
-//        // Call the service to save the BankMaster object
-//        voucherResponse = voucherTypeMasterService.updatevoucherTypeMasterStatus(tokengeneration.getToken(), voucherTypeMaster);
-//        System.out.println(voucherResponse);  // Logging the response
-//        
-//        voucherJsonResponse = new JSONObject(voucherResponse);
-//
-//        
-//
-//		if(voucherJsonResponse.getBoolean("status")) { 
-//			responseMap.put("status","SUCCESS");
-//		}else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status","FAILURE");
-//		}
-// 
-//		return new ObjectMapper().writeValueAsString(responseMap);
         try {
             String json = EncryptionDecriptionUtil.convertToJson(voucherTypeMaster);
             EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
@@ -198,25 +150,13 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	@PostMapping(value="/createVoucher")
 	public @ResponseBody String createVoucher(ModelMap model, Locale locale, HttpSession session,ErupiVoucherCreateRequest erupiVoucherCreateRequest) {
  
-        
-      
         String profileRes = null;
 
         String receivedHash = erupiVoucherCreateRequest.getHash();
 		 if (!CLIENT_KEY.equals(erupiVoucherCreateRequest.getClientKey())) {
 	          // return Map.of("isValid", false, "message", "Invalid client key");
 	        }
-//		    logger.info("erupiVoucherCreateRequest.getEmployerId()+"+erupiVoucherCreateRequest.getEmployerId());
-//	        logger.info("erupiVoucherCreateRequest.getEmployeeId()+"+erupiVoucherCreateRequest.getEmployeeId());
-//	        logger.info("erupiVoucherCreateRequest.getPurposeCode()+"+erupiVoucherCreateRequest.getPurposeCode());
-//	        logger.info("erupiVoucherCreateRequest.getMcc()+"+erupiVoucherCreateRequest.getMcc());
-//	        logger.info("erupiVoucherCreateRequest.getName()+"+erupiVoucherCreateRequest.getName());
-//	        logger.info("erupiVoucherCreateRequest.getVoucherType()+"+erupiVoucherCreateRequest.getVoucherType());
-//	        logger.info("erupiVoucherCreateRequest.getVoucherSubType()+"+erupiVoucherCreateRequest.getVoucherSubType());
-//	        logger.info("erupiVoucherCreateRequest.getMobile()+"+erupiVoucherCreateRequest.getMobile());
-//	        logger.info("erupiVoucherCreateRequest.getAmount()+"+erupiVoucherCreateRequest.getAmount());
-//	        logger.info("erupiVoucherCreateRequest.getRemarks()+"+erupiVoucherCreateRequest.getRemarks());
-	        // Ensure consistent concatenation
+
 	        String dataString =
 	        		//added String.valueOf because it was summing employerid and employeeid
 	        		String.valueOf(erupiVoucherCreateRequest.getEmployerId()) +
@@ -232,7 +172,6 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 	        		CLIENT_KEY+SECRET_KEY;
 	        logger.info("dataString"+dataString);
 	        
-//	        System.out.println("data string"+dataString);
 	        // Compute hash
 	        String computedHash = null;
 			try {

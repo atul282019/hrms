@@ -349,23 +349,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	public @ResponseBody String getEmployeeOnboardingById(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session, @RequestBody Map<String, String> requestData) {
 		String profileRes=null;
 	
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse = employeeDetailService.getEmployeeOnboardingById(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//	return profileRes;
 		  Map<String, Object> responseMap = new HashMap<>();
 		    ObjectMapper mapper = new ObjectMapper();
 
@@ -487,23 +470,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	public @ResponseBody String getEmployeeDetailByEmployeeId(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session, @RequestBody Map<String, String> requestData) {
 		String profileRes=null;
 	
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(employeeOnboarding);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse = employeeDetailService.getEmployeeOnboardingById(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//	return profileRes;
 		  Map<String, Object> responseMap = new HashMap<>();
 		    ObjectMapper mapper = new ObjectMapper();
 
@@ -537,12 +503,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        if (user == null) {
 		            return buildErrorResponse(mapper, "Unauthorized: Invalid token.");
 		        }
-
-		        // 4. Role & Permission Check
-//		        if (!isAuthorized(user, employerId)) {
-//		            return buildErrorResponse(mapper, "Unauthorized: Insufficient permissions.");
-//		        }
-
 		        // 5. Prepare EmployeeOnboarding object
 		        EmployeeOnboarding onboarding = new EmployeeOnboarding();
 		        onboarding.setId(employeeId);
@@ -599,9 +559,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		        	eboarding.setManagerId(managerId);
 		        	//eboarding.setEmpPhoto(data.getString("empPhoto"));
 		        	eboarding.setEmpPhoto(data.optString("empPhoto", null));
-		        	
 		        	responseMap.put("data", eboarding); // Could be primitive or string
-		          
 		        }
 
 		    } catch (Exception e) {
@@ -969,7 +927,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	        if (!CLIENT_KEY.equals(clientKey)) {
 	          //  return Map.of("isValid", false, "message", "Invalid client key");
 	        }
-
 	        // Ensure consistent concatenation
 	        String dataString = orgId+name+din+email+mobile+designation+address+createdby+clientKey+SECRET_KEY;
 
@@ -1074,23 +1031,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	public @ResponseBody String getDirectorOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session, @RequestBody Map<String, String> requestData) {
 	
 		DirectorOnboarding directorOnboarding = new DirectorOnboarding();
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(directorOnboarding);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse =  employeeDetailService.getDirectorOnboarding(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//	return profileRes;
 		
 		 Map<String, Object> responseMap = new HashMap<>();
 		    ObjectMapper mapper = new ObjectMapper();
@@ -1213,7 +1153,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 
 			String encriptResponse = employeeDetailService.getEmployeeOnboardingByUserDetailId(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -1226,36 +1165,6 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	
 	}
 	
-//	@PostMapping(value="/validateRequest")
-//	public @ResponseBody String validateRequest(@RequestBody Map<String, String> requestData) {
-//        String userId = requestData.get("userId");
-//        String timestamp = requestData.get("timestamp");
-//        String clientKey = requestData.get("key");
-//        String receivedHash = requestData.get("hash");
-//
-//        // Validate client key first
-//        if (!CLIENT_KEY.equals(clientKey)) {
-//          //  return Map.of("isValid", false, "message", "Invalid client key");
-//        }
-//
-//        // Ensure consistent concatenation
-//        String dataString = userId + timestamp + clientKey + SECRET_KEY;
-//
-//        // Compute hash
-//        String computedHash = null;
-//		try {
-//			computedHash = generateHash(dataString);
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//        // Validate hash
-//        boolean isValid = computedHash.equals(receivedHash);
-//		return computedHash;
-//
-//    }
-
     private String generateHash(String data) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));

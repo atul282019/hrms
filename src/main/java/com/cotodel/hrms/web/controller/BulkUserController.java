@@ -74,9 +74,6 @@ public class BulkUserController extends CotoDelBaseController{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		
-		
 		  session.setAttribute("list",profileRes); logger.info(profileRes);
 		  model.addAttribute("list",profileRes); 
 		  return "bulk-table-invitelist";
@@ -105,6 +102,4 @@ public class BulkUserController extends CotoDelBaseController{
 		}
 		return null;
 	}
-	
-
 }

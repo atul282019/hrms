@@ -99,16 +99,12 @@ public class SignupController  extends CotoDelBaseController{
 	public @ResponseBody String userWaitList(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,UserWaitList userWaitList) {
 			String profileRes=null;
-		
-		//profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
-		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(userWaitList);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = usercreationService.userWaitList(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -125,8 +121,6 @@ public class SignupController  extends CotoDelBaseController{
 	@SuppressWarnings("unchecked")
 	protected boolean validateCaptcha(HttpServletRequest request, String captcha,String sessioncaptcha) throws Exception {
 		String captchaId =sessioncaptcha;
- 
-		// HashMap<String, Boolean> captchaMap = new HashMap<String, Boolean>();
 		captchaMap = (HashMap<String, Boolean>) request.getSession().getAttribute("capchaValidatedMap");
 		logger.debug("Captcha validation done for " + captchaId);
 		
@@ -159,15 +153,12 @@ public class SignupController  extends CotoDelBaseController{
 	public @ResponseBody String getuserWaitList(HttpServletRequest request,UserWaitList userWaitList) {
 		String profileRes=null;JSONObject profileJsonRes=null;
 		
-		//profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
-		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(userWaitList);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = usercreationService.getuserWaitList(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -186,16 +177,13 @@ public class SignupController  extends CotoDelBaseController{
 	public @ResponseBody String updateuserWaitList(HttpServletRequest request,UserWaitList userWaitList) {
 		String profileRes=null;JSONObject profileJsonRes=null;
 		
-		//profileRes = usercreationService.userWaitList(tokengeneration.getToken(),userWaitList);
-		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(userWaitList);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = usercreationService.updateuserWaitList(tokengeneration.getToken(), jsonObject);
-
-   
+  
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);

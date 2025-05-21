@@ -45,7 +45,6 @@ public class OtpVerifyController extends CotoDelBaseController{
 			
 				String password = null;
 				password= userForm.getPassword1()+userForm.getPassword2()+userForm.getPassword3()+userForm.getPassword4()+userForm.getPassword5()+userForm.getPassword6();      
-				//profileRes =loginservice.verifyVoucherIssueOTP(tokengeneration.getToken(),userForm.getUserName(),userForm.getMobile(),password,userForm.getOrderId());
 				userForm.setOtp(password);
 				userForm.setPassword(password);
 				try {

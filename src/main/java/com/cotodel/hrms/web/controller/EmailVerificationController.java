@@ -51,13 +51,11 @@ public class EmailVerificationController extends CotoDelBaseController{
 			String mobileno = new String(tokenBytes, StandardCharsets.UTF_8);
 			byte[] emailBytes = Base64.getDecoder().decode(emailbyt);
 			String emailAgain = new String(emailBytes, StandardCharsets.UTF_8);
-			System.out.println(mobileno + " ------ "+emailAgain);
-			
+		
 		    UserRegistrationRequest userForm = new UserRegistrationRequest();
 			userForm.setEmail(mobileno);
 			userForm.setMobile(mobileno);
 			model.addAttribute("userform",userForm);
-		
 			return new ModelAndView("emailverification", "command", "");
 		
 	}

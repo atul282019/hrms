@@ -62,9 +62,7 @@ public class OtpSenderController extends CotoDelBaseController{
 	@PostMapping(value="/smsOtpResender")
 	public @ResponseBody String resendOTP(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
 		String profileRes=null;
-
-		//	userRes=loginservice.resendOtp(tokengeneration.getToken(), userForm.getUserName(),userForm.getMobile(),userForm.getOrderId());
-			try {
+		try {
 				String json = EncryptionDecriptionUtil.convertToJson(userForm);
 
 				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);

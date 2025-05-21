@@ -115,7 +115,6 @@ public class EmployeeBandSettingController extends CotoDelBaseController{
 			        }
 			    }
 			    
-		//return empBandSettingService.getEmployeeBandTier(tokengeneration.getToken(),employeeBandSettingResponse);
 	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == employeeBandSettingResponse.getEmployerId().intValue()) {
 			    try {
 			String json = EncryptionDecriptionUtil.convertToJson(employeeBandSettingResponse);

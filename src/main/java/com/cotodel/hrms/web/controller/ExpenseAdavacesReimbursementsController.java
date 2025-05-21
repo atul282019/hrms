@@ -86,8 +86,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		 if (!CLIENT_KEY.equals(expensesReimbursementRequest.getClientKey())) {
 	          //  return Map.of("isValid", false, "message", "Invalid client key");
 	        }
-
-
 	        // Ensure consistent concatenation
 	        String dataString = expensesReimbursementRequest.getEmployerId()+expensesReimbursementRequest.getExpenseCategory()
 	        +expensesReimbursementRequest.getDateOfExpense()+expensesReimbursementRequest.getExpenseTitle()+expensesReimbursementRequest.getVendorName()+
@@ -147,7 +145,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			
 			profileRes = expensesReimbursementService.saveExpensesReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
 			
-          JSONObject apiJsonResponse = new JSONObject(profileRes);
+           JSONObject apiJsonResponse = new JSONObject(profileRes);
             
             // Process API Response
             if (apiJsonResponse.getBoolean("status")) {
@@ -178,16 +176,14 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getExpanseReimbursement(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursement(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
+		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = expensesReimbursementService.getExpanseReimbursement(tokengeneration.getToken(), jsonObject);
-
-   
+  
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -203,8 +199,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getExpanseLimitByExpenseTitleId(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursement(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
+	
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
@@ -228,16 +223,14 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getExpanseReimbursementApprovalList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
+		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(), jsonObject);
-
-   
+ 
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -253,15 +246,12 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String viewExpenseReimbursement(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
-	
-		//profileRes = expensesReimbursementService.viewExpenseReimbursement(tokengeneration.getToken(), expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = expensesReimbursementService.viewExpenseReimbursement(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -280,7 +270,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
 	
-		//profileRes = expensesReimbursementService.getExpensesReimbursementDetailById(tokengeneration.getToken(), expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
@@ -303,14 +292,12 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			HttpSession session, Ocr ocrclass) {
 		String profileRes = null;
 	
-		//profileRes = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
 		try {
 			profileRes = expensesReimbursementService.readOcr(tokengeneration.getToken(), ocrclass);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   
 	   return profileRes;
 	}
 	
@@ -328,7 +315,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 
 			String encriptResponse = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -574,7 +560,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 				String encriptResponse =  expensesReimbursementService.getErupiLinkDlinkAccountDetail(tokengeneration.getToken(), jsonObject);
-
 	   
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -612,7 +597,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	    }
 		  
 	}
-	
 	
 	@PostMapping(value="/de-linkErupiaccount")
 	public @ResponseBody String delinkErupiaccount(HttpServletRequest request,
@@ -678,8 +662,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 				String encriptResponse =  expensesReimbursementService.delinkErupiAccount(tokengeneration.getToken(), jsonObject);
-
-	   
+				
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 				String apiResponse = EncryptionDecriptionUtil.decriptResponse(
@@ -821,16 +804,12 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 		 ExpensesReimbursementRequest expensesReimbursementRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
 		String profileRes=null;
-		
-		//profileRes = expensesReimbursementService.approveExpensesById(tokengeneration.getToken(),expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  expensesReimbursementService.approveExpensesById(tokengeneration.getToken(), jsonObject);
-
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -1083,7 +1062,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getTravelReviewData(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
 		try {
 			
 			//review and submit
@@ -1109,7 +1087,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getTravelDraftDataReview(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
 		try {
 			
 			//review and submit
@@ -1119,7 +1096,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 
 			String encriptResponse =  expensesReimbursementService.getTravelDraftDataReview(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -1135,18 +1111,14 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getTravelReviewDataByExpensesID(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
 		try {
 			
 			//review and submit
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+    		String encriptResponse =  expensesReimbursementService.getTravelReviewDataByExpensesID(tokengeneration.getToken(), jsonObject);
 
-			//String encriptResponse =  expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(), jsonObject);
-			String encriptResponse =  expensesReimbursementService.getTravelReviewDataByExpensesID(tokengeneration.getToken(), jsonObject);
-
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -1161,15 +1133,12 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String advanceTravelById(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, TravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getTravelReviewData(tokengeneration.getToken(),advanceTravelRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  expensesReimbursementService.advanceTravelById(tokengeneration.getToken(), jsonObject);
-
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -1186,7 +1155,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			@RequestBody TravelAdvanceRequestUpdate travelAdvanceRequestUpdate,BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 
 		String profileRes=null;
-		//profileRes = expensesReimbursementService.travelAdvanceRequestUpdate(tokengeneration.getToken(),travelAdvanceRequestUpdate);	
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(travelAdvanceRequestUpdate);
 
@@ -1211,15 +1179,12 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String deleteAdvanceTravel(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, TravelReimbursement travelReimbursement) {
 		String profileRes = null;
-	
-		//profileRes = expensesReimbursementService.deleteAdvanceTravel(tokengeneration.getToken(),travelReimbursement);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(travelReimbursement);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  expensesReimbursementService.deleteAdvanceTravel(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -1237,8 +1202,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getAdanceCashTravelApprpvalList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getAdanceCashTravelApprpvalList(tokengeneration.getToken(),advanceTravelRequest);
-
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
@@ -1262,8 +1225,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String approveAdvanceTravelRequest(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ApprovalTravelReimbursement advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.approveAdvanceTravelRequest(tokengeneration.getToken(),advanceTravelRequest);
-
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
@@ -1287,7 +1248,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getCashAdvanceDetailById(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, AdvanceTravelRequest advanceTravelRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getCashAdvanceDetailById(tokengeneration.getToken(),advanceTravelRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(advanceTravelRequest);
 
@@ -1311,8 +1271,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getErupiLinkAccountDetails(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ErupiLinkBankAccount erupiLinkBankAccount) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
 
@@ -1336,15 +1294,12 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String saveCotodelbankDetails(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session,  LinkMultipleAccountRequest linkMultipleAccountRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(linkMultipleAccountRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = expensesReimbursementService.SaveCotodelbankDetails(tokengeneration.getToken(), jsonObject);
-
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
@@ -1361,8 +1316,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String getSavedCBankDetails(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session,  LinkMultipleAccountRequest linkMultipleAccountRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(linkMultipleAccountRequest);
 
@@ -1370,7 +1323,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 
 			String encriptResponse = expensesReimbursementService.getSavedCBankDetails(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -1386,16 +1338,13 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String cApproveReject(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session,  LinkMultipleAccountRequest linkMultipleAccountRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(linkMultipleAccountRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = expensesReimbursementService.cApproveReject(tokengeneration.getToken(), jsonObject);
-
-   
+  
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -1411,8 +1360,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String showLinkedAccAmount(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session,  LinkMultipleAccountRequest linkMultipleAccountRequest) {
 		String profileRes = null;
-		//profileRes = expensesReimbursementService.getExpanseReimbursementApprovalList(tokengeneration.getToken(),
-		//		expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(linkMultipleAccountRequest);
 
@@ -1443,8 +1390,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = expensesReimbursementService.getTravelRequestApprovalList(tokengeneration.getToken(), jsonObject);
-
-   
+  
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);

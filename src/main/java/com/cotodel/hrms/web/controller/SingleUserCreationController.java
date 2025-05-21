@@ -35,7 +35,6 @@ public class SingleUserCreationController extends CotoDelBaseController{
 	@PostMapping(value="/singleUserCreation")
 	public @ResponseBody String registerUser(HttpServletRequest request,UserRegistrationRequest userForm) {
 		String profileRes=null;
-		//profileRes = singleUserService.singleUserCreation(tokengeneration.getToken(),userForm);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(userForm);
 
@@ -43,7 +42,6 @@ public class SingleUserCreationController extends CotoDelBaseController{
 
 			String encriptResponse = singleUserService.singleUserCreation(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -59,16 +57,13 @@ public class SingleUserCreationController extends CotoDelBaseController{
 	@GetMapping(value="/getUserList")
 	public @ResponseBody String getUser(HttpServletRequest request,UserRegistrationRequest userForm) {
 		String profileRes=null;
-		//profileRes = singleUserService.getUser(tokengeneration.getToken(),userForm);
-		
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(userForm);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = singleUserService.getUser(tokengeneration.getToken(), jsonObject);
-
-   
+ 
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);

@@ -53,29 +53,6 @@ public class CompanyDetailController extends CotoDelBaseController{
 	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
     private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
 	
-//	@PostMapping(value="/saveCompanyDetail")
-//	public @ResponseBody String saveCompanyDetail(HttpServletRequest request, ModelMap model,Locale locale,
-//			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
-//		String profileRes=null;
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse = companyService.saveCompany(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//	return profileRes;
-//	}
-	
 	@PostMapping(value="/getCompanyProfileStatus")
 	public @ResponseBody String getCompanyProfileStatus(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
@@ -102,76 +79,10 @@ public class CompanyDetailController extends CotoDelBaseController{
 		return profileRes;
 	}
 	
-//	@GetMapping(value="/getorgsubType")
-//	public @ResponseBody String getorgsubType(HttpServletRequest request, ModelMap model,Locale locale,
-//			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
-//	   
-//	        String profileRes=null;
-//	
-//	    	try {
-//				String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
-//
-//				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//				String encriptResponse = companyService.getorgsubType(tokengeneration.getToken(), jsonObject);
-//
-//	   
-//				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//	   
-//		return profileRes;
-//	}
-//	@PostMapping(value="/getpayrollDetails")
-//	public @ResponseBody String getpayrollDetails(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
-//		
-//        String profileRes=null;    
-//        try {
-//			String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse = companyService.getpayrollDetails(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//	return profileRes;
-//	}
-
 	@PostMapping(value="/getGSTDetailsByGSTNumber")
 	public @ResponseBody String getGSTDetailsByGSTNumber(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
 	
         String profileRes=null;
-		//String token = (String) session.getAttribute("hrms");
-//		companyResponse= companyService.getGSTDetailsByGSTNumber(tokengeneration.getToken(),employeeProfileRequest);
-//		 companyJsonResponse = new JSONObject(companyResponse);      
-//		 if(companyJsonResponse.getBoolean("status")) { 
-//			 	responseMap.put("status",true);
-//				
-//				JSONObject dataObject = companyJsonResponse.getJSONObject("data");
-//				responseMap.put("data", dataObject.toMap());
-//	        }else {
-//				responseMap.put("status", false);
-//			}
-//	        try {
-//	            jsonResponse = mapper.writeValueAsString(responseMap);
-//	        } catch (Exception e) {
-//	            e.printStackTrace(); 
-//	        }       
-//	        return jsonResponse;
-        
-        
         try {
 			String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
 
@@ -265,28 +176,7 @@ public class CompanyDetailController extends CotoDelBaseController{
 			        }
 			    }
 			    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 2) && obj.getOrgid() == companyProfileDetail.getEmployerId().intValue()) {
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse = companyService.saveOrganizationDetail(tokengeneration.getToken(), jsonObject);
-//
-//   
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    }
-//    else {
-//        responseMap.put("status", false);
-//        responseMap.put("message", "Unauthorized: Insufficient permissions.");
-//    }
-//   
-//	return profileRes;
+
 			    	  try {
 				            // Convert request object to JSON
 				            String json = EncryptionDecriptionUtil.convertToJson(companyProfileDetail);

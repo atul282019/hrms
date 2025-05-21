@@ -65,8 +65,6 @@ public class RoleAccessController extends CotoDelBaseController{
 	public @ResponseBody String getStateMaster(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,RoleAccessRequest roleAccessRequest) {
 			logger.info("get User With Role");	
-			String token = (String) session.getAttribute("hrms");
-			//return roleaccessservice.getUserRole(tokengeneration.getToken(),roleAccessRequest);
 			
 			String profileRes=null;
 			
@@ -77,7 +75,6 @@ public class RoleAccessController extends CotoDelBaseController{
 
 				String encriptResponse =  roleaccessservice.getUserRole(tokengeneration.getToken(), jsonObject);
 
-	   
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -95,17 +92,9 @@ public class RoleAccessController extends CotoDelBaseController{
 			logger.info("edit User with Role");	
 			String profileRes=null;
 			//String token = (String) session.getAttribute("hrms");
-			
-			 // Validate or process the data as needed
-	        System.out.println("Org ID: " + requestDTO.getOrgId());
-	        System.out.println("Employer ID: " + requestDTO.getEmployerId());
-	        System.out.println("Created By: " + requestDTO.getCreatedBy());
-	        
+	      
 	        for (UserDTO user : requestDTO.getUserDTO()) {
-	            System.out.println("User ID: " + user.getId());
-	            System.out.println("Username: " + user.getUsername());
-	            System.out.println("Email: " + user.getEmail());
-	            System.out.println("Mobile: " + user.getMobile());
+	          
 	            for (UserRoleDTO role : user.getUserRole()) {
 	                System.out.println("Role: " + role.getRoleDesc());
 	            }
@@ -189,8 +178,7 @@ public class RoleAccessController extends CotoDelBaseController{
 				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 				String encriptResponse =  roleaccessservice.editUserRoleDTO(tokengeneration.getToken(), jsonObject);
-
-	   
+				
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 				String apiResponse = EncryptionDecriptionUtil.decriptResponse(
@@ -205,10 +193,7 @@ public class RoleAccessController extends CotoDelBaseController{
 	            if (apiJsonResponse.getBoolean("status")) {
 	                responseMap.put("status", true);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
-	               //responseMap.put("data", apiJsonResponse.getJSONArray("data").toList()); //as list
-//	                List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();//as object
-//	                
-//		            responseMap.put("data", dataList);
+	            
 	            } else {
 	                responseMap.put("status", false);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
@@ -235,7 +220,6 @@ public class RoleAccessController extends CotoDelBaseController{
 			HttpSession session,RoleAccessRequest roleAccessRequest) {
 			logger.info("delete User with Role");	
 			String token = (String) session.getAttribute("hrms");
-			//return roleaccessservice.deleteUserRole(tokengeneration.getToken(),roleAccessRequest);
            String profileRes=null;
 			
 			try {
@@ -244,8 +228,7 @@ public class RoleAccessController extends CotoDelBaseController{
 				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 				String encriptResponse =  roleaccessservice.deleteUserRole(tokengeneration.getToken(), jsonObject);
-
-	   
+				
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -262,8 +245,6 @@ public class RoleAccessController extends CotoDelBaseController{
 			HttpSession session,RoleAccessRequest roleAccessRequest) {
 			logger.info("search User");	
 			String token = (String) session.getAttribute("hrms");
-			//return roleaccessservice.userSearch(tokengeneration.getToken(),roleAccessRequest);
-			
 			String profileRes=null;
 			
 			try {
@@ -272,7 +253,6 @@ public class RoleAccessController extends CotoDelBaseController{
 				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 				String encriptResponse =  roleaccessservice.userSearch(tokengeneration.getToken(), jsonObject);
-
 	   
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 

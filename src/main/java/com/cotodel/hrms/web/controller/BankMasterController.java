@@ -50,37 +50,18 @@ public class BankMasterController extends CotoDelBaseController{
 	public ApplicationConstantConfig applicationConstantConfig;
 	
 	
-	@PostMapping(value="/savebankMaster")// saving details form bank master form
+	@PostMapping(value="/savebankMaster")
 	public @ResponseBody String saveBankMaster(ModelMap model, Locale locale, HttpSession session,BankMaster bankMaster) {
       
         String jsonResponse = null;
-
-        // Call the service to save the BankMaster object
-//        bankResponse = bankMasterService.saveBankMaster(tokengeneration.getToken(), bankMaster);
-//        System.out.println(bankResponse);  // Logging the response
-//        bankJsonResponse = new JSONObject(bankResponse);
-
-       
-//		if(bankJsonResponse.getBoolean("status")) { 
-//			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-        
         try {
-            //jsonResponse = mapper.writeValueAsString(responseMap);
         	String json = EncryptionDecriptionUtil.convertToJson(bankMaster);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  bankMasterService.saveBankMaster(tokengeneration.getToken(), jsonObject);
-
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
 			jsonResponse =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		
        
         } catch (Exception e) {
             e.printStackTrace(); 
@@ -89,30 +70,16 @@ public class BankMasterController extends CotoDelBaseController{
         
         return jsonResponse;  
     }
-	@GetMapping(value="/getbankmaster")// for displaying bank name and bank code in bank master form 
+	@GetMapping(value="/getbankmaster")
 	public @ResponseBody String getBankMasterList(ModelMap model, Locale locale, HttpSession session,BankMaster bankMaster) {
         String bankResponse = null;
         JSONObject bankJsonResponse = null;
         Map<String, Object> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
-        // Call the service to save the BankMaster object
-//        bankResponse = bankMasterService.getBankMasterList(tokengeneration.getToken(), bankMaster);
-//        System.out.println(bankResponse);  // Logging the response
-//        bankJsonResponse = new JSONObject(bankResponse);      
-//        if(bankJsonResponse.getBoolean("status")) { 
-//			
-//			//responseMap.put("data", bankJsonResponse.getJSONArray("data"));
-//			List<Object> bankList = bankJsonResponse.getJSONArray("data").toList();
-//			responseMap.put("status",true);
-//			responseMap.put("data", bankList);
-//        }else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status", false);
-//		}
+     
         try {
-            //jsonResponse = mapper.writeValueAsString(responseMap);
-
+        	
             String json = EncryptionDecriptionUtil.convertToJson(bankMaster);
             EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
             
@@ -135,33 +102,14 @@ public class BankMasterController extends CotoDelBaseController{
         }       
         return jsonResponse;
     }
-	@PostMapping(value="/getaftersaveBankMasterDetailsList")// for displaying the whole data in table
+	@PostMapping(value="/getaftersaveBankMasterDetailsList")
 	public @ResponseBody String getaftersaveBankMasterDetailsList(ModelMap model, Locale locale, HttpSession session,BankMaster bankMaster){
         String bankResponse = null;
         JSONObject bankJsonResponse = null;
         Map<String, Object> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = null;
-
-        // Call the service to save the BankMaster object
-//        bankResponse = bankMasterService.getaftersaveBankMasterDetailsList(tokengeneration.getToken(), bankMaster);
-//        System.out.println(bankResponse);  // Logging the response
-//        bankJsonResponse = new JSONObject(bankResponse);
-//
-//       
-//
-//		if(bankJsonResponse.getBoolean("status")) { 
-//			
-//			List<Object> bankList = bankJsonResponse.getJSONArray("data").toList();
-//			responseMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//			responseMap.put("data", bankList);
-//		}else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-        
         try {
-            //jsonResponse = mapper.writeValueAsString(responseMap);
         	 String json = EncryptionDecriptionUtil.convertToJson(bankMaster);
              EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
              
@@ -182,9 +130,7 @@ public class BankMasterController extends CotoDelBaseController{
          
         } catch (Exception e) {
             e.printStackTrace(); 
-        }
-
-        
+        }        
         return jsonResponse;  
     }
 	
@@ -196,26 +142,7 @@ public class BankMasterController extends CotoDelBaseController{
         JSONObject bankJsonResponse = null;
         Map<String, Boolean> responseMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
-        String jsonResponse = null;
-
-        // Call the service to save the BankMaster object
-//        bankResponse= bankMasterService.updatebankMasterDetailStatus(tokengeneration.getToken(),bankMaster);
-//       
-//        
-//        bankJsonResponse = new JSONObject(bankResponse);
-//
-//        
-//
-//		if(bankJsonResponse.getBoolean("status")) { 
-//			responseMap.put("status",true);
-//		}else {
-//			//loginsevice.rsendEmailVerificationCompletion(userForm);
-//			responseMap.put("status",false);
-//		}
-//        
-//		return new ObjectMapper().writeValueAsString(responseMap);
-        
-        
+        String jsonResponse = null;        
         try {
             String json = EncryptionDecriptionUtil.convertToJson(bankMaster);
             EncriptResponse encryptedRequest = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
@@ -229,13 +156,11 @@ public class BankMasterController extends CotoDelBaseController{
                 responseMap.put("status", true);
             } else {
                 responseMap.put("status", false);
-            }
-            
+            }        
             jsonResponse = mapper.writeValueAsString(responseMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return jsonResponse;
 		}
 	

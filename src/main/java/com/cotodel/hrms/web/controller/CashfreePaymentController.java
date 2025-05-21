@@ -50,11 +50,8 @@ public class CashfreePaymentController extends CotoDelBaseController{
 	public @ResponseBody String getCashfreePaymentSession(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,OrderUserRequest orderUserRequest) {
 			logger.info("getPayrollMaster");	
-			String token = (String) session.getAttribute("hrms");
 			String profileRes=null;
-		
 			try {
-				
 				profileRes = cashfreePaymentService.getCashfreePaymentSession(tokengeneration.getToken(),orderUserRequest);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -110,11 +107,10 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 	
 		logger.info("webhook-callback called");
 		logger.info("hook called"+payload);	
-		String profileRes=null;
+		String profileRes =null;
 	    ObjectMapper om = new ObjectMapper();
 		Root root = om.readValue(payload, Root.class); 
 		try {
-			
 			profileRes = cashfreePaymentService.paymentCallBackData(tokengeneration.getToken(),root);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -179,7 +175,6 @@ public @ResponseBody String viewOrderDetailByOrderId(HttpServletRequest request,
 public @ResponseBody String viewOrderIdList(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,OrderUserRequest orderUserRequest) {
 			logger.info("getPayrollMaster");	
-			String token = (String) session.getAttribute("hrms");
 			String profileRes=null;
 			try {
 				profileRes = cashfreePaymentService.viewOrderIdList(tokengeneration.getToken(),orderUserRequest);
