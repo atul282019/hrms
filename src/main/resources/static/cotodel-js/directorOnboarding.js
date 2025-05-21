@@ -79,10 +79,10 @@ async function saveDirectorData() {
 			var DirectorName = document.getElementById("DirectorName").value.trim();
 			var mobno = document.getElementById("mobno").value.trim();
 			
-			var Din = document.getElementById("Din").value.trim();
+			//var Din = document.getElementById("Din").value.trim();
 		    var email = document.getElementById("email").value.trim();
-		    var Designation = document.getElementById("Designation").value.trim();
-		    var Address = document.getElementById("Address").value.trim();
+		   // var Designation = document.getElementById("Designation").value.trim();
+		    //var Address = document.getElementById("Address").value.trim();
 
 			var nameRegex = /^[A-Za-z\s]+$/;  // Only letters & spaces
 			    var mobileRegex = /^\d{10}$/;  // Exactly 10 digits
@@ -108,13 +108,13 @@ async function saveDirectorData() {
 			    }
 
 			    // Validation for DIN (Director Identification Number) - 8 alphanumeric characters
-			    if (!dinRegex.test(Din)) {
+			   /* if (!dinRegex.test(Din)) {
 			        document.getElementById("DinError").innerHTML = "DIN must be exactly 8 alphanumeric characters";
 			        document.getElementById("Din").focus();
 			        return false;
 			    } else {
 			        document.getElementById("DinError").innerHTML = "";
-			    }
+			    }*/
 
 			    // Validation for Email
 			    if (!emailRegex.test(email)) {
@@ -132,7 +132,7 @@ async function saveDirectorData() {
 			    }
 
 			    // Validation for Designation
-			    if (Designation === "" || !nameRegex.test(Designation)) {
+			   /* if (Designation === "" || !nameRegex.test(Designation)) {
 			        document.getElementById("DesignationError").innerHTML = "Please enter a valid Designation (only letters and spaces are allowed)";
 			        document.getElementById("Designation").focus();
 			        return false;
@@ -147,7 +147,7 @@ async function saveDirectorData() {
 			        return false;
 			    } else {
 			        document.getElementById("AddressError").innerHTML = "";
-			    }
+			    }*/
 
 				document.getElementById("signinLoader").style.display="flex";
 
@@ -155,7 +155,11 @@ async function saveDirectorData() {
 	        const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 
 	        // Concatenate data (must match backend)
-	        const dataString = employerId+DirectorName+Din+email+mobno+Designation+Address+createdby_name+clientKey+secretKey;
+	        const dataString = employerId+DirectorName+email+mobno+createdby_name+clientKey+secretKey;
+			//+Din
+			
+			//+Designation+Address
+			
 
 	        // Generate SHA-256 hash
 	        const encoder = new TextEncoder();
@@ -168,11 +172,11 @@ async function saveDirectorData() {
 	        const requestData = {
 				orgId : employerId,  
 				name:DirectorName,
-	            din: Din,
+	            //din: Din,
 	            email: email, 
 	            mobile: mobno,
-	            designation: Designation,
-	            address: Address,
+	           // designation: Designation,
+	            //address: Address,
 				createdby: createdby_name,
 	            key: clientKey,  // Extra key for validation
 	            hash: hashHex

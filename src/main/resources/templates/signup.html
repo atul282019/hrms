@@ -23,7 +23,8 @@
 
 </head>
 
-<body class="bg-white" onload="reCaptcha()">
+<body class="bg-white" >
+	<!-- onload="reCaptcha()"-->
 
     <div class="container-fluid px-0">
         <div class="header px-4">
@@ -46,10 +47,10 @@
 		                    <input type="text" class="form-control" placeholder="Enter Your Full Name" id="username" name="username" minlength="5" maxlength="50" oninput="sanitizeInput(this)">
 					        <div class="custom-errormsg" id="usernameError1" style="color:red"></div>
 			               </div> 
-						   <div class="custom-in">
+						   <!--<div class="custom-in">
 							  <input type="text" class="form-control" id="orgname" name="orgname" placeholder="Organization Name" minlength="5" maxlength="50" oninput="sanitizeInput(this)"  >
 						    <div class="custom-errormsg" id="orgnameError1" style="color:red"></div>  
-						   </div>  
+						   </div>  -->
 						   <div class="custom-in">
 							 <input type="text" class="form-control" placeholder="Enter your work email address" id="email"name="email" maxlength="50" oninput="sanitizeInput(this)" >
 							<div class="custom-errormsg" id="emailError1" style="color:red"></div> 
@@ -93,20 +94,20 @@
 		                           
 		                       </div>
 		                   </div>
-													
+								<br>	<br>				
 							
 						
 						<!-- Google reCAPTCHA -->
-						<!--<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>-->
-						<div class="custom-in">
+						
+						<!--<div class="custom-in">
 						    <label for="captchaInput">Captcha letters are case sensitive</label>
-						    <div id="captchaContainer" style="position: relative;">
+						    <div id="captchaContainer" style="position: relative;">-->
 						        <!-- CAPTCHA image -->
-						        <!--<img id="captcha_id" name="captcha_id" src="/getrecaptcha" alt="Captcha" style="border:1px solid #ddd; width: 200px; height: 50px;">-->
-								<img id="captcha_id" name="captcha_id"  alt="Captcha" th:src="@{/captcha}" draggable="false">
+						        
+								<!--<img id="captcha_id" name="captcha_id"  alt="Captcha" th:src="@{/captcha}" draggable="false">-->
 
 						        <!-- Refresh icon positioned on the right side of the captcha image -->
-						        <img src="/img/recall.svg" alt="Refresh" id="refreshCaptcha" 
+						       <!-- <img src="/img/recall.svg" alt="Refresh" id="refreshCaptcha" 
 						             style="position: absolute; top: 50%; right: 40px; transform: translateY(-50%); cursor: pointer;" 
 						             onclick="reCaptcha()">
 						    </div>
@@ -120,7 +121,7 @@
 				            oncut="return false;" 
 				            autocomplete="off">
 						    <div class="custom-errormsg" id="captchaError" style="color:red"></div>
-						</div>
+						</div>-->
 						
 						<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
 			            	<div id="otsuccmsg"></div>   
@@ -133,10 +134,13 @@
 	                       <div class="d-grid mt-2">
 	                           <button class="btn btn-primary btn-user btn-block" type="button" id="signupButton" onclick="userRegistration()" disabled>Signup </button>
 	                       </div>
+						   <!-- 
 	                      <p class="reCAPTCHA">This site is protected by reCAPTCHA and <a href="#">Google Privacy Policy</a> and <a href="#">Terms of Service</a> apply.</p>                
-                </form>
+                			-->
+					  </form>
                 </div>
-
+				
+				<br><br>
                 <hr>
                 <div class="login-right-wrap">
                     <p class="text-center already-login">Already have account with us?  <a th:href="@{/login}">Login</a>

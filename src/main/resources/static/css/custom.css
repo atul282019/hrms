@@ -1778,6 +1778,8 @@ img.searchimg {
 .otp-box-onboarding {
     display: flex;
     margin: 10px 0 10px;
+	justify-content: center; 
+	
 }
 
 .otp-box-onboarding input.form-control {
@@ -1786,6 +1788,8 @@ img.searchimg {
     margin-right: 10px;
     border-radius: 10px;
     background: none;
+	height: 49px;
+	text-align: center;   
 }
 
 .time-otp {
@@ -2612,6 +2616,13 @@ table.table-approval-flow tbody td label,
 table.table-rejectremark tbody td label {
     color: #86889B;
     margin-bottom: 0;
+}
+.table-reimbursements thead tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.table-reimbursements thead tr:first-child th:last-child {
+    border-top-right-radius: 10px;
 }
 
 table.table-approval-flow tbody td .name-btn {
@@ -5634,6 +5645,23 @@ button.btn-voucher-custom a {
     color: #fff;
     display: flex;
 }
+/* ✅ Disabled Button Styling */
+button.btn-voucher-custom:disabled {
+    background-color: #C1D6FF !important;
+    border-color: #C1D6FF !important;
+    color: #fff !important;
+    opacity: 1;
+    cursor: not-allowed;
+}
+/* ✅ Disabled Inner Content Styling */
+button.btn-voucher-custom:disabled a,
+button.btn-voucher-custom:disabled a span,
+button.btn-voucher-custom:disabled a img {
+    pointer-events: none;
+    color: #fff !important;
+    opacity: 0.8;
+}
+
 
 .calender-time {
     border-radius: 10px;
@@ -6290,6 +6318,7 @@ table.vcScheduledtable thead {
 					.table-reimbursements-alt thead tr:first-child th:last-child {
 					    border-top-right-radius: 10px;
 					}
+					
 
 					/* Ensure the table doesn't clip the rounded corners */
 					.table-reimbursements-alt thead {
@@ -6664,7 +6693,7 @@ table.vcScheduledtable thead {
 
 /* made by anish ends here*/
 .required-star {
-    color: red !important;
+    color: grey !important;
     margin-left: 4px;
     font-weight: bold;
 }

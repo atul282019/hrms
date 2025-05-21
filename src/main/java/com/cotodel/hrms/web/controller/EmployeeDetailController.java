@@ -903,22 +903,22 @@ public class EmployeeDetailController extends CotoDelBaseController{
 
 		 String orgId = requestData.get("orgId");
 		 String name = requestData.get("name");
-		 String din = requestData.get("din");
+		 //String din = requestData.get("din");
 		 String email = requestData.get("email");
 		 String mobile = requestData.get("mobile");
-		 String designation = requestData.get("designation");
-		 String address = requestData.get("address");
+		// String designation = requestData.get("designation");
+		// String address = requestData.get("address");
 		 String createdby = requestData.get("createdby");
 		 
 		 DirectorOnboarding directorOnboarding = new DirectorOnboarding();
 		 directorOnboarding.setOrgId(Long.parseLong(requestData.get("orgId")));
-	     directorOnboarding.setDesignation(requestData.get("designation"));
-	     directorOnboarding.setAddress(requestData.get("address"));
+	     //directorOnboarding.setDesignation(requestData.get("designation"));
+	     //directorOnboarding.setAddress(requestData.get("address"));
 	     directorOnboarding.setName(requestData.get("name"));
 	     directorOnboarding.setMobile(requestData.get("mobile"));
 	     directorOnboarding.setCreatedby(requestData.get("createdby"));
 	     directorOnboarding.setEmail(requestData.get("email"));
-	     directorOnboarding.setDin(requestData.get("din"));
+	    // directorOnboarding.setDin(requestData.get("din"));
 	
 	     String clientKey = requestData.get("key");
 	     String receivedHash = requestData.get("hash");
@@ -928,7 +928,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	          //  return Map.of("isValid", false, "message", "Invalid client key");
 	        }
 	        // Ensure consistent concatenation
-	        String dataString = orgId+name+din+email+mobile+designation+address+createdby+clientKey+SECRET_KEY;
+	        String dataString = orgId+name+email+mobile+createdby+clientKey+SECRET_KEY;
 
 	        // Compute hash
 	        String computedHash = null;

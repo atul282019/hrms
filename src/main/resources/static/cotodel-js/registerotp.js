@@ -121,14 +121,14 @@ function userRegistration(){
 	var email = document.getElementById("email").value;
 	var email = email.toLowerCase();
 	var mobile = document.getElementById("mobile").value;
-	var orgname = document.getElementById("orgname").value;
+	//var orgname = document.getElementById("orgname").value;
 	var regMobile = /^[6-9]\d{9}$/gi;
 	var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
 	var regName = /^[A-Za-z]+( [A-Za-z]+)*$/;  // Name must not be only spaces, allows space between words
-	var captcha= document.getElementById("captcha").value;
+	//var captcha= document.getElementById("captcha").value;
 	var noofEmp = document.getElementById("noofEmp").value;
 	var privacyCheck = document.getElementById("privacyCheck").checked;
-	var whatsupCheck = document.getElementById("whatsupCheck").checked;
+	//var whatsupCheck = document.getElementById("whatsupCheck").checked;
 	var eRupiStatus = document.getElementById("eRupiStatus").checked;
 	console.log("eRupiStatus",eRupiStatus);
 	
@@ -144,13 +144,13 @@ function userRegistration(){
 		}else{
 		document.getElementById("usernameError1").innerHTML="";
 	}
-	 if(orgname==""){
+	/* if(orgname==""){
 		document.getElementById("orgnameError1").innerHTML="Please Enter Organization Name";
 		document.getElementById("orgname").focus();
 		return false;
 	}else{
 		document.getElementById("orgnameError1").innerHTML="";
-	}
+	}*/
 	if(email==""){
 		document.getElementById("emailError1").innerHTML="Please Enter Email";
 		document.getElementById("email").focus();
@@ -196,15 +196,15 @@ function userRegistration(){
 		document.getElementById("whatsupCheckError1").innerHTML="";
 		
 	}*/
-	if(captcha==""){
+	/*if(captcha==""){
 			document.getElementById("captchaError").innerHTML="Captcha is Required";
 			//document.getElementById("mobileu").focus();
 			return false;
-		}
+		}*/
 	
 	document.getElementById("signinLoader").style.display="flex";
     var formData = new FormData(registerUser);
-	formData.append("organizationName",orgname);
+	//formData.append("organizationName",orgname);
 	formData.append("companySize",noofEmp);
 	formData.append("name",name);
 	formData.append("consent",privacyCheck);
@@ -231,7 +231,7 @@ function userRegistration(){
     			 localStorage.setItem("userName", mobile);
     			 window.location.href = "/signin";
 			}else if(data1.status==false){
-				reCaptcha();
+				//reCaptcha();
 				 document.getElementById("otfailmsg").innerHTML=data1.message;
 				 document.getElementById("otfailmsgDiv").style.display="block";
 				 $('#otfailmsgDiv').delay(5000).fadeOut(400);

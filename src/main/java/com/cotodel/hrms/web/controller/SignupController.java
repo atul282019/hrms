@@ -47,53 +47,60 @@ public class SignupController  extends CotoDelBaseController{
 	TokenGenerationImpl tokengeneration; 
 	
 	@PostMapping(value="/registerUser")
-	public @ResponseBody String registerUser(HttpServletRequest request,EmployerDetailsRequest userForm) {
-		String profileRes=null;
-		JSONObject profileJsonRes=null;
-		String captchaSecurity="";
-		JSONObject responseJson = new JSONObject();
-		
-		captchaSecurity = (String) session.getAttribute("CAPTCHA");
-		if(request.getSession(true).getAttribute("CAPTCHA")!=null){
-			captchaSecurity=(String) request.getSession(true).getAttribute("CAPTCHA");
-		}
-		logger.info("Session Captcha=="+captchaSecurity);
-		logger.info("User Enter Captcha=="+userForm.getCaptcha());
-		try {
-		if (validateCaptcha(request, userForm.getCaptcha(),captchaSecurity)) {
-			//1-convert object to json string
-            String json = EncryptionDecriptionUtil.convertToJson(userForm);
-            //2-json string data encript
-            EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-		
-            String encriptResponse = usercreationService.singleUserCreationEncript(tokengeneration.getToken(),jsonObject);
-            //3-decript data convert to object            
-            EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-            //4-object data to decript to json
-            profileRes=EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-            profileJsonRes= new JSONObject(profileRes);		
-		if(profileJsonRes.getBoolean("status")) { 
-		//loginservice.sendEmailToEmployee(userForm);
-			
-		}
-		return profileRes;
-		}
-		else {
-			responseJson.put("status", false);
-			responseJson.put("message", "Wrong captcha entered");
-			
-			System.out.println("Inside wrong captcha");
-		}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			responseJson.put("status", false);
+	public @ResponseBody String registerUser(HttpServletRequest request, EmployerDetailsRequest userForm) {
+	    String profileRes = null;
+	    JSONObject profileJsonRes = null;
+	    // String captchaSecurity = "";
+	    JSONObject responseJson = new JSONObject();
+
+	    // captchaSecurity = (String) session.getAttribute("CAPTCHA");
+	    // if(request.getSession(true).getAttribute("CAPTCHA") != null){
+	    //     captchaSecurity = (String) request.getSession(true).getAttribute("CAPTCHA");
+	    // }
+
+	    // logger.info("Session Captcha==" + captchaSecurity);
+	    // logger.info("User Enter Captcha==" + userForm.getCaptcha());
+
+	    try {
+	        // if (validateCaptcha(request, userForm.getCaptcha(), captchaSecurity)) {
+	        // --- CAPTCHA check is disabled, proceeding without validation ---
+
+	        // 1 - convert object to json string
+	        String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+	        // 2 - json string data encrypt
+	        EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+	        String encriptResponse = usercreationService.singleUserCreationEncript(tokengeneration.getToken(), jsonObject);
+
+	        // 3 - decrypt data convert to object            
+	        EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+	        // 4 - object data decrypt to json
+	        profileRes = EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	        profileJsonRes = new JSONObject(profileRes);
+
+	        if (profileJsonRes.getBoolean("status")) {
+	            // loginservice.sendEmailToEmployee(userForm);
+	        }
+
+	        return profileRes;
+
+	        // } else {
+	        //     responseJson.put("status", false);
+	        //     responseJson.put("message", "Wrong captcha entered");
+	        //     System.out.println("Inside wrong captcha");
+	        // }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        responseJson.put("status", false);
 	        responseJson.put("message", "An error occurred while processing the request");
-		}
-		return responseJson.toString();
-		
+	    }
+
+	    return responseJson.toString();
 	}
+
 
 	@PostMapping(value="/userWaitList")
 	public @ResponseBody String userWaitList(HttpServletRequest request, ModelMap model,Locale locale,

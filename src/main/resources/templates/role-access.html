@@ -5,6 +5,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),viewEmployeeBand(),cotodelLinkedBankDetail()">
 
@@ -738,6 +739,11 @@
 				        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 				        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 				        name="orderId" >
+						
+						<div class="d-flex justify-content-center mt-2">
+						    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+						</div>
+						
 				    </div>
 				   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -793,6 +799,11 @@
 					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 					        name="orderId" >
+							
+							<div class="d-flex justify-content-center mt-2">
+							    <i class="fa-solid fa-eye" id="toggleOtpIcon1" style="cursor: pointer;" onclick="toggleOtpVisibility1()"></i>
+							</div>
+							
 					    </div>
 					   <label class="time-otp ml-0 text-dark" for="" id="countdownadd" style="color: green;"></label>
 					  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -846,6 +857,11 @@
 							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 							        name="orderId" >
+									
+									
+									<div class="d-flex justify-content-center mt-2">
+									    <i class="fa-solid fa-eye" id="toggleOtpIcon2" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+									</div>
 							    </div>
 							   <label class="time-otp ml-0 text-dark" for="" id="countdown1" style="color: green;"></label>
 							   <div class="error-msg" id="otpError2" style="color:red"></div>
@@ -1244,6 +1260,54 @@
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>
+		function toggleOtpVisibility2() {
+		    const icon = document.getElementById("toggleOtpIcon2");
+		    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+		    const isHidden = inputs[0].type === 'password';
+		    inputs.forEach(input => {
+		        if (input.id.startsWith('password')) {
+		            input.type = isHidden ? 'text' : 'password';
+		        }
+		    });
+
+		    icon.classList.toggle('fa-eye');
+		    icon.classList.toggle('fa-eye-slash');
+		}
+		</script>
+	<script>
+		function toggleOtpVisibility1() {
+		    const icon = document.getElementById("toggleOtpIcon1");
+		    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+		    const isHidden = inputs[0].type === 'password';
+		    inputs.forEach(input => {
+		        if (input.id.startsWith('password')) {
+		            input.type = isHidden ? 'text' : 'password';
+		        }
+		    });
+
+		    icon.classList.toggle('fa-eye');
+		    icon.classList.toggle('fa-eye-slash');
+		}
+		</script>
+	<script>
+		function toggleOtpVisibility() {
+		    const icon = document.getElementById("toggleOtpIcon");
+		    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+		    const isHidden = inputs[0].type === 'password';
+		    inputs.forEach(input => {
+		        if (input.id.startsWith('password')) {
+		            input.type = isHidden ? 'text' : 'password';
+		        }
+		    });
+
+		    icon.classList.toggle('fa-eye');
+		    icon.classList.toggle('fa-eye-slash');
+		}
+		</script>
 	<script>
 	document.addEventListener("DOMContentLoaded", function () {
 	    const amountInput = document.getElementById("advanceAmount");

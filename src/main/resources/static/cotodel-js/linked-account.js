@@ -351,7 +351,7 @@ async function submitLinkBankAccount(){
 	var submerchantid = document.getElementById("submerchantid").value;
 	var payerva = document.getElementById("payerva").value;
 	var moblieLink = document.getElementById("moblieLink").value;
-	var banknameregex=/^[A-Za-z]+( [A-Za-z]+)?$/;
+	var banknameregex=/^[A-Za-z]+( [A-Za-z]+){0,2}$/;
 	var merchantidregex=/^[A-Za-z0-9]+$/;
 	var submerchantidregex=/^[A-Za-z0-9]+$/;
 	var onlyNumeric=/^\d+$/;
@@ -553,7 +553,7 @@ async function submitLinkBankAccount(){
 function validateBankname()
 { 
 	//console.log("Inside validateBankname");
-	var banknameregex=/^[A-Za-z]+( [A-Za-z]+)?$/;
+	var banknameregex=/^[A-Za-z]+( [A-Za-z]+){0,2}$/;
 	var bankingName = document.getElementById("bankingName").value;
 	
 	if(bankingName=="" || bankingName==null){
