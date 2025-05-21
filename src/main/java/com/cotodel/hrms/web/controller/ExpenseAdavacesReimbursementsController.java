@@ -77,9 +77,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String saveExpensesReimbursement(HttpServletRequest request,
 		 ExpensesReimbursementRequest expensesReimbursementRequest, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
-	
-		///profileRes = expensesReimbursementService.saveExpensesReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
-		
 		String profileRes=null;
 		
 		String receivedHash = expensesReimbursementRequest.getHash();
@@ -307,7 +304,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			HttpSession session, ExpensesReimbursementRequest expensesReimbursementRequest) {
 		String profileRes = null;
 	
-		//profileRes = expensesReimbursementService.deleteExpanseReimbursement(tokengeneration.getToken(),expensesReimbursementRequest);
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(expensesReimbursementRequest);
 
@@ -449,24 +445,23 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 	public @ResponseBody String updateErupiLinkBankAccountStaus(HttpServletRequest request,
 			ErupiLinkBankAccount erupiLinkBankAccount, BindingResult result, HttpSession session, ModelMap model,Locale locale) {
 	
-		String profileRes=null;
-		
-		try {
-			String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
-
-			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-			String encriptResponse =   expensesReimbursementService.updateErupiLinkBankAccountStaus(tokengeneration.getToken(), jsonObject);
-
-   
-			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   
+			String profileRes=null;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
+	
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+	
+				String encriptResponse =   expensesReimbursementService.updateErupiLinkBankAccountStaus(tokengeneration.getToken(), jsonObject);
+				
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+	
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
 	return profileRes;
 		  
 	}
@@ -506,7 +501,6 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 			 if (!CLIENT_KEY.equals(erupiLinkBankAccount.getClientKey())) {
 		          // return Map.of("isValid", false, "message", "Invalid client key");
 		        }
-		        // Ensure consistent concatenation
 		        String dataString = erupiLinkBankAccount.getOrgId()+CLIENT_KEY+SECRET_KEY;
 
 		        // Compute hash
@@ -553,7 +547,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 				            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 				        }
 				    }
-	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
+		if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiLinkBankAccount.getOrgId().intValue()) {
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiLinkBankAccount);
 
