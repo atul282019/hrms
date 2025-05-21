@@ -926,6 +926,14 @@ function getExpanceCategoryList(){
 			 	{ "mData": function (data1, type, row) {
 			        return data1.currency + " " + data1.amount;
 			    }},
+				{ "mData": function (data1, type, row) {
+					if(data1.approvedAmount ===null){
+						return "";
+					}else{
+						return data1.currency + " " + data1.approvedAmount;
+					}
+			    }},
+				{ "mData": "approvedBy"},  
 				{ "mData": "statusMessage"},
 				{ "mData": "modeOfPayment"},        
       		  	{ "mData": "id", "render": function (data1, type, row) {
@@ -976,23 +984,23 @@ function getExpanceCategoryList(){
                      
                      if(statusMessage=="Draft")
                      {
-                      $(row).find('td:eq(6)').addClass('td-btn draft');
+                      $(row).find('td:eq(8)').addClass('td-btn draft');
                      }
 					 if(statusMessage=="Pending")
                       {
-                       $(row).find('td:eq(6)').addClass('color-third draft');
+                       $(row).find('td:eq(8)').addClass('color-third draft');
                       }
                      if(statusMessage=="Submitted")
                      {
-                      $(row).find('td:eq(6)').addClass('td-btn submitted');
+                      $(row).find('td:eq(8)').addClass('td-btn submitted');
                      }
 					 if(statusMessage=="Approved")
                        {
-                        $(row).find('td:eq(6)').addClass('color-third settled');
+                        $(row).find('td:eq(8)').addClass('color-third settled');
                        }
                       if(statusMessage=="Rejected")
                       {
-                       $(row).find('td:eq(6)').addClass('color-third rejected');
+                       $(row).find('td:eq(8)').addClass('color-third rejected');
                       }
                   }
       		});		
@@ -1045,6 +1053,14 @@ function getExpanceCategoryApprovalList(){
 			 	{ "mData": function (data2, type, row) {
 			        return data2.currency + " " + data2.amount;
 			    }},
+				{ "mData": function (data2, type, row) {
+					if(data2.approvedAmount ===null){
+						return '';
+					}else{
+						return data2.currency + " " + data2.approvedAmount;
+					}
+				}},
+				{ "mData": "approvedBy"},
 				{ "mData": "statusMessage"},
 				{ "mData": "modeOfPayment"},        
       		  	{ "mData": "id", "render": function (data2, type, row) {
@@ -1095,23 +1111,23 @@ function getExpanceCategoryApprovalList(){
                      
                      if(statusMessage=="Draft")
                     {
-                      $(row).find('td:eq(7)').addClass('color-third draft');
+                      $(row).find('td:eq(9)').addClass('color-third draft');
                      }
 					 if(statusMessage=="Pending")
                       {
-                       $(row).find('td:eq(7)').addClass('color-third draft');
+                       $(row).find('td:eq(9)').addClass('color-third draft');
                       }
                      if(statusMessage=="Submitted")
                      {
-                      $(row).find('td:eq(7)').addClass('color-third submitted');
+                      $(row).find('td:eq(9)').addClass('color-third submitted');
                      }
 					 if(statusMessage=="Approved")
                       {
-                       $(row).find('td:eq(7)').addClass('color-third settled');
+                       $(row).find('td:eq(9)').addClass('color-third settled');
                       }
                      if(statusMessage=="Rejected")
                      {
-                      $(row).find('td:eq(7)').addClass('color-third rejected');
+                      $(row).find('td:eq(9)').addClass('color-third rejected');
                      }
                   }
       		});		
@@ -1165,12 +1181,18 @@ function getTravelExpenseApprovalList(){
 			 	{ "mData": function (data2, type, row) {
 			        return 'INR' + " " + data2.amount;
 			    }},
-				{ "mData": "statusRemarks"},
-				{ "mData": "paymentMode"}, 
 				{ "mData": function (data2, type, row) {
-			        return 'INR' + " " + data2.approvedAmount;
+					if(data2.approvedAmount===null){
+						return '';
+					}
+					else{
+						return 'INR' + " " + data2.approvedAmount;
+					}
 			    }},   
 				{ "mData": "approvedBy"},  
+				{ "mData": "statusRemarks"},
+				{ "mData": "paymentMode"}, 
+				
       		  	{ "mData": "id", "render": function (data2, type, row) {
                     return '<td> <div  class="d-flex align-items-center">  <div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><button class="dropdown-item py-2" id="btnView" onclick="viewAdvanceTravelApprove(this)"> View  </button> </div> </div> </div> </td>';
                  }}, 
@@ -1219,19 +1241,19 @@ function getTravelExpenseApprovalList(){
                      
                      if(statusMessage=="Draft")
                      {
-                      $(row).find('td:eq(6)').addClass('color-third draft');
+                      $(row).find('td:eq(8)').addClass('color-third draft');
                      }
                      if(statusMessage=="Submitted")
                      {
-                      $(row).find('td:eq(6)').addClass('color-third submitted');
+                      $(row).find('td:eq(8)').addClass('color-third submitted');
                      }
 					 if(statusMessage=="Approved")
 	                  {
-	                   $(row).find('td:eq(6)').addClass('color-third settled');
+	                   $(row).find('td:eq(8)').addClass('color-third settled');
 	                  }
 	                  if(statusMessage=="Reject")
 	                  {
-	                   $(row).find('td:eq(6)').addClass('color-third rejected');
+	                   $(row).find('td:eq(8)').addClass('color-third rejected');
 	                  }
                   }
       		});		
@@ -1773,14 +1795,26 @@ function getCashAdvanceRequestList(){
 			   // }},  
 				{ "mData": "requestType"},
 				{ "mData": function (data2, type, row) {
-			        return 'INR' + " " + data2.amount;
+					if(data2.amount===null){
+							return '';
+						}
+						else{
+					 	return 'INR' + " " + data2.amount;
+						}
+			        
 			    }},
 				{ "mData": function (data2, type, row) {
-				 return 'INR' + " " + data2.approvedAmount;
+					if(data2.approvedAmount===null){
+						return '';
+					}
+					else{
+				 	return 'INR' + " " + data2.approvedAmount;
+					}
 			    }},
+				{ "mData": "approvedBy"},    
 			    { "mData": "statusRemarks"},
 				{ "mData": "paymentMode"},        
-				{ "mData": "approvedBy"},    
+			
       		  	{ "mData": "id", "render": function (data1, type, row) {
                     return '<td> <div  class="d-flex align-items-center"><div class="dropdown no-arrow ml-2"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right shadow"  aria-labelledby="userDropdown"><button class="dropdown-item py-2" onclick="deleteAdvanceTravel(this)" > Delete  </button><button class="dropdown-item py-2" id="btnView" onclick="viewAdvanceTravel(this)"> View </button> </div> </div> </div> </td>';
                  }}, 
@@ -1828,23 +1862,23 @@ function getCashAdvanceRequestList(){
 				    }
 					if(statusMessage=="Draft")
                      {
-                      $(row).find('td:eq(6)').addClass('color-third draft');
+                      $(row).find('td:eq(7)').addClass('color-third draft');
                      }
 					 if(statusMessage=="Pending")
                       {
-                       $(row).find('td:eq(6)').addClass('color-third draft');
+                       $(row).find('td:eq(7)').addClass('color-third draft');
                       }
                      if(statusMessage=="Submitted")
                      {
-                      $(row).find('td:eq(6)').addClass('color-third submitted');
+                      $(row).find('td:eq(7)').addClass('color-third submitted');
                      }
 					 if(statusMessage=="Approved")
                       {
-                       $(row).find('td:eq(6)').addClass('color-third settled');
+                       $(row).find('td:eq(7)').addClass('color-third settled');
                       }
 					  if(statusMessage=="Reject")
                        {
-                        $(row).find('td:eq(6)').addClass('color-third rejected');
+                        $(row).find('td:eq(7)').addClass('color-third rejected');
                        }
 		     	 }
     		 	

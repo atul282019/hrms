@@ -17,6 +17,10 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.cotodel.hrms.web.controller.BulkUserController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -24,7 +28,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class EncryptionDecriptionUtil {
 
-
+	private static final Logger logger = LoggerFactory.getLogger(EncryptionDecriptionUtil.class);
 	public static RSAPublicKey readPublicKey(String fileName) throws Exception {
 	    // Read the entire key content as a string
 	    String key = new String(Files.readAllBytes(Paths.get(fileName)));
@@ -63,8 +67,8 @@ public class EncryptionDecriptionUtil {
         // Option A: Send Base64 Encoded IV in "iv" tag
         String ivBase64 = Base64.getEncoder().encodeToString(encryptedDataResult[0]);
         String encryptedDataBase64 = Base64.getEncoder().encodeToString(encryptedDataResult[1]);
-        //logger.info("createRequest :ivBase64:"+ivBase64);
-        System.out.println("createRequest :encryptedDataBase64:"+encryptedDataBase64);
+        logger.info("createRequest :ivBase64:"+ivBase64);
+        logger.info("createRequest :encryptedDataBase64:"+encryptedDataBase64);
 //        // Create the JSON request
         EncriptResponse encriptResponse=new EncriptResponse();
         encriptResponse.setEncriptData(encryptedDataBase64);
@@ -122,7 +126,7 @@ public class EncryptionDecriptionUtil {
 	        
 	        // Convert decrypted bytes to string (assuming UTF-8 encoding)
 	        String responseString = new String(decryptedResponse, "UTF-8");
-	        System.out.println("END:"+responseString);
+	        logger.info("Decripted Response:"+responseString);
 	        return responseString;
 	    }
 	 private static byte[] decryptSessionKey(byte[] encryptedKey, PrivateKey privateKey) throws Exception {
