@@ -148,7 +148,8 @@ public interface CommonUtils {
 	public static String getExpanseLimitByExpenseTitleId  =	"/empService/Api/get/expenseCategoryBandId";
 	public static String employerOnboarding = "userServices/Api/add/saveEmployerOnBoardingDetails";
 		 
-
+	public static String getVehicleManagementList="/empService/Api/get/getVehicleManagement";
+	public static String addVehicleDetails="/empService/Api/add/VehicleManagement";
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
 	//public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";
