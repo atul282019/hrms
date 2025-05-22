@@ -909,6 +909,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 		// String designation = requestData.get("designation");
 		// String address = requestData.get("address");
 		 String createdby = requestData.get("createdby");
+		 String clientKey = requestData.get("key");
+	     String receivedHash = requestData.get("hash");
 		 
 		 DirectorOnboarding directorOnboarding = new DirectorOnboarding();
 		 directorOnboarding.setOrgId(Long.parseLong(requestData.get("orgId")));
@@ -918,10 +920,13 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	     directorOnboarding.setMobile(requestData.get("mobile"));
 	     directorOnboarding.setCreatedby(requestData.get("createdby"));
 	     directorOnboarding.setEmail(requestData.get("email"));
+	    
 	    // directorOnboarding.setDin(requestData.get("din"));
 	
-	     String clientKey = requestData.get("key");
-	     String receivedHash = requestData.get("hash");
+	    
+	     
+	     directorOnboarding.setHash(receivedHash);
+	     directorOnboarding.setClientKey(clientKey);
 
 	        // Validate client key first
 	        if (!CLIENT_KEY.equals(clientKey)) {

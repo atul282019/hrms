@@ -55,9 +55,6 @@
 								<td>${director.name}</td>
 								<td>${director.email}</td>
 								<td>${director.mobile}</td>
-								<td>${director.din}</td>
-								<td>${director.designation}</td>
-								<td>${director.address}</td>
 								<td>${director.createdby}</td>
 								<td>${formattedDate}</td>
 		                    </tr>
