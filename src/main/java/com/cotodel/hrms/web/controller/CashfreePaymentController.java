@@ -120,7 +120,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 		
 }
 
-@PostMapping(value="/webhook-callback")
+@PostMapping(value="/production-webhook-callback")
 public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
 		logger.info("webhook-callback called production");
@@ -138,7 +138,28 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 		return new ResponseEntity<>(null, HttpStatus.OK);
 		
 }
-@PostMapping(value="/staging_webhook")
+
+
+@PostMapping(value="/preprod-webhook-callback")
+public ResponseEntity<Void> preprodWebhookCallback(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
+	
+		logger.info("webhook-callback called production");
+		logger.info("productionhook called"+payload);	
+		String profileRes=null;
+	    ObjectMapper om = new ObjectMapper();
+		Root root = om.readValue(payload, Root.class); 
+		try {
+			
+			profileRes = cashfreePaymentService.preprodWebhookCallback(tokengeneration.getToken(),root);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(null, HttpStatus.OK);
+		
+}
+
+@PostMapping(value="/stagingWebhook")
 public ResponseEntity<Void> staging_webhook(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
 		logger.info("staging_webhook");

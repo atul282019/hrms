@@ -151,6 +151,8 @@ public interface CommonUtils {
 	public static String getVehicleManagementList="/empService/Api/get/getVehicleManagement";
 	public static String addVehicleDetails="/empService/Api/add/VehicleManagement";
 	
+	public static String preprodWebhookCallback ="http://13.234.119.146:9085/cashFree/Api/get/cashFreeOrderIdUpdate";
+	
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
 	//public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";

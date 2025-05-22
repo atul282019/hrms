@@ -391,6 +391,7 @@ function validateTab1(){
 				document.getElementById("continew2").style.display="none";
 				document.getElementById("signinLoader").style.display="none";
 				getEmployeeBandWithTiers();
+				viewEmployeeBand();
 				//console.log(data1);
 				//console.log(data.status);
 				//document.getElementById("signinLoader").style.display="none";

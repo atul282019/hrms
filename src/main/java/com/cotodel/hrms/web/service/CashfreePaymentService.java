@@ -20,4 +20,6 @@ public interface CashfreePaymentService {
 
 	String stagingWebhookSave(String token, Root root);
 
+	String preprodWebhookCallback(String token, Root root);
+
 }

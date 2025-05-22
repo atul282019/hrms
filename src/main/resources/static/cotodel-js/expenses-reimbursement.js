@@ -919,7 +919,7 @@ function getExpanceCategoryList(){
 					 return ' <div class="table-check"><input type="checkbox" value="'+data2+'" id="customCheck3" name="customCheck3" ></div>';
                  }}, 
                 { "mData": "sequenceId"},   
-                { "mData": "created_date"},   
+                { "mData": "createationDate"},   
 			    { "mData": "expenseCategory"},
 			    { "mData": "expenseTitle"},   
 			 	//{ "mData": "amount"},    

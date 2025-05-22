@@ -8,27 +8,9 @@
 		data: {"mobile":userMobile,"orgId":employerId},
 		success: function(data) {
 			newData = data;
-			//var newData = '{"data": []}';for checking with empty data
 			var data1 = jQuery.parseJSON(newData);
 
 			document.getElementById("signinLoader").style.display = "none";
-			
-			
-			/*var checkboxContainer = document.getElementById("checkboxContainer");
-
-		    if (!data1.data || data1.data.length === 0) { 
-		        console.log("Hiding checkbox container due to empty data.");
-		        if (checkboxContainer) {
-		            checkboxContainer.style.setProperty("display", "none", "important");
-		        }
-		        return;
-		    } else {
-		        console.log("Showing checkbox container.");
-		        if (checkboxContainer) {
-		            checkboxContainer.style.setProperty("display", "flex", "important");
-		        }
-		    }*/
-
 			// Get unique role descriptions
 			const roleDescriptions = [...new Set(
 			    data1.data.flatMap(user => user.userRole.map(role => role.roleDesc))
@@ -49,8 +31,6 @@
 			const tableBody = document.getElementById("userTable").querySelector("tbody");
 			data1.data.forEach(user => {
 			    const row = document.createElement("tr");
-
-			    // ID
 			    const idCell = document.createElement("td");
 			    idCell.textContent = user.id;
 			    row.appendChild(idCell);
@@ -112,23 +92,6 @@ function editUserRoleWithMoreUser() {
 			
 			document.getElementById("signinLoader").style.display="none";
 			
-			/*var checkboxContainer = document.getElementById("checkboxContainer");
-
-			    if (!data1.data || data1.data.length === 0) {
-			        console.log("Hiding checkbox container due to empty data.");
-			        if (checkboxContainer) {
-			            checkboxContainer.style.setProperty("display", "none", "important");
-			        }
-			        return;
-			    } else {
-			        console.log("Showing checkbox container.");
-			        if (checkboxContainer) {
-			            checkboxContainer.style.setProperty("display", "flex", "important");
-			        }
-			    }
-			
-			*/
-			
 			  // Get unique role descriptions
 			        const roleDescriptions = [...new Set(
 			            data1.data.flatMap(user => user.userRole.map(role => role.roleDesc))
@@ -180,7 +143,6 @@ function editUserRoleWithMoreUser() {
 						    const role = uniqueRoles.find(role => role.roleDesc === roleDesc);
 						    checkbox.checked = role && role.id !== null;
 
-
 			                roleCell.appendChild(checkbox);
 			                row.appendChild(roleCell);
 			            });
@@ -199,13 +161,9 @@ function editUserRoleWithMoreUser() {
 						deleteIcon.style="width:15px"
 						deleteButton.appendChild(deleteIcon);
 						deleteButton.title = "delete"; // Tooltip for accessibility
-
 				
 				        	deleteButton.addEventListener("click", () => {
-				               // row.remove();
-				               //alert("Are you sure you want to delete this user role");
-							   
-							   if (confirm("Are you sure you want to delete this user role?")) {
+							if (confirm("Are you sure you want to delete this user role?")) {
 
 							// Extract roles
 							const rowdelete = deleteButton.parentElement.parentElement;
@@ -267,17 +225,14 @@ function editUserRoleWithMoreUser() {
 							           // User clicked "No"
 							           alert("deletion canceled.");
 							       }
-							   
-
+							  
 							      });
 							    actionCell.appendChild(deleteButton);
 						
-			        row.appendChild(actionCell);
-
+			         row.appendChild(actionCell);
 			            // Append row to table
 			            tableBody.appendChild(row);
 			        }
-
 			        // Populate table with initial data
 			        data1.data.forEach(user => createRow(user));
 			},
@@ -388,13 +343,6 @@ function editUserRoleWithMoreUser() {
 				        </td>
 				    `;
 				});
-	            // Add action column
-	           // rowHTML += `
-	            //    <td>
-	           //         <button class="btn btn-sm btn-primary" onclick="addAction(${user.id})">Add</button>
-	           //     </td>
-	           // `;
-
 	            row.innerHTML = rowHTML;
 	            tableBody.appendChild(row);
 	        });
@@ -454,10 +402,7 @@ function getOTP(){
 	 } 		  
 	 else {
 		document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
-		
-	    //alert("Please check consent");
 	  }
-	
 }
 function getOTPforCotodel(){
 	
@@ -535,20 +480,10 @@ function getOTPforCotodel(){
 	         // alert("An error occurred. Please try again.");
 	        }
 	      });
-	// } 		  
-	// else {
-	//	document.getElementById("confirmAmountError").innerHTML="Please check consent";
-		
-	    //alert("Please check consent");
-	  //}
-	
 }
 function resendVoucherOTP(){
-	
-	//const checkbox = document.getElementById("styled-checkbox-40");
 	var userMobile = document.getElementById("userMobile").value;
 	var orderId = document.getElementById("orderId").value;
-	//  if (checkbox.checked) {
 		$.ajax({
 			type: 'POST',
 	        url:"/smsOtpResender",
@@ -560,10 +495,8 @@ function resendVoucherOTP(){
 			success: function(data) {
 			var obj = data;
 	        if (obj['status'] == true) {
-				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
-				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;				
-										
+				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;												
 	            // If successful, open the OTP modal
 				var timeleft = "60";
 				var resendCodeElement = document.getElementById("resendCode");
@@ -590,13 +523,6 @@ function resendVoucherOTP(){
 	         // alert("An error occurred. Please try again.");
 	        }
 	      });
-	// } 		  
-	// else {
-	//	document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
-		
-	    //alert("Please check consent");
-	//  }
-	
 }
 // otp for add role
 
@@ -632,9 +558,7 @@ function getAddOTP(){
 					document.getElementById("orderId").value= obj['orderId'];
 					//document.getElementById("verifyotpdiv").style.display = "block";
 					if (timeleft <0) {
-						clearInterval(downloadTimer);
-						
-						
+						clearInterval(downloadTimer);												
 					}	
 				}, 1000);
 	            $("#roleAcessOTPModal").show();  
@@ -856,7 +780,6 @@ function getAddOTP(){
 		  			},
 		  			success: function(data) {
 		  				var obj = data;
-
 		  				if (obj['status']== true) {
 							roleUpdate();
 							$("#roleAcessOTPModal").hide();
@@ -864,10 +787,6 @@ function getAddOTP(){
 							window.location.href="/roleAccess";
 		  				}else if (obj['status'] == false) {
 							document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-							//roleUpdate();
-							//$("#roleAcessOTPModal").show();
-							//$("#roleAcessModalSuccessful").hide();
-							
 							document.getElementById("authenticate").disabled = false;
 						} else {
 							
@@ -980,7 +899,6 @@ function getAddOTP(){
 		  			},
 		  			success: function(data) {
 		  				var obj = data;
-
 		  				if (obj['status']== true) {
 							addRole();
 							$("#AddRoleAcessOTPModal").hide();
@@ -1018,10 +936,8 @@ function getAddOTP(){
 		  	document.getElementById("password5").value="";
 		    document.getElementById("password6").value="";
 			
-			// Retrieve all rows from the table body
 				const rows = document.querySelectorAll("#editUserRole tbody tr");
 				const allRowsData = [];
-
 				// Loop through each row to extract data
 				rows.forEach(row => {
 				    // Extract basic user information
@@ -1128,7 +1044,6 @@ function getAddOTP(){
 			// Retrieve all rows from the table body
 			const rows = document.querySelectorAll("#resultTable tbody tr");
 			const allRowsData = [];
-
 			// Loop through each row to extract data
 			rows.forEach(row => {
 			    // Extract basic user information
@@ -1213,18 +1128,15 @@ function getAddOTP(){
 				        document.getElementById("signinLoader").style.display = "none";
 				    }
 				});
-  
 		  }
 		  
 		  function toggleSubmitButton() {
 		  	       const checkbox = document.getElementById('styled-checkbox-40');
-		  	       const submitButton = document.getElementById('editRole');
-		  	       
+		  	       const submitButton = document.getElementById('editRole');		  	       
 		  	       // Enable the button only if the checkbox is checked
 		  	       submitButton.disabled = !checkbox.checked;
 		  	   }
-			   
-			   
+			   			   
 			   function cotodelLinkedBankDetail() {
 			       document.getElementById("signinLoader").style.display = "flex";
 			       
@@ -1292,7 +1204,6 @@ function getAddOTP(){
 
 			   function resendCotodelOTP(){
 			   	
-			   	//const checkbox = document.getElementById("styled-checkbox-40");
 			   	var userMobile = document.getElementById("userMobile").value;
 			   	var orderId = document.getElementById("orderId").value;
 			   	//  if (checkbox.checked) {
@@ -1337,13 +1248,7 @@ function getAddOTP(){
 			   	         // alert("An error occurred. Please try again.");
 			   	        }
 			   	      });
-			   	// } 		  
-			   	// else {
-			   	//	document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
-			   		
-			   	    //alert("Please check consent");
-			   	//  }
-			   	
+			  
 			   }
 			   function verfyCotodelOTP() {
 			   		//document.getElementById("authenticate").disabled = true;
@@ -1445,13 +1350,9 @@ function getAddOTP(){
 			   	  			},
 			   	  			success: function(data) {
 			   	  				var obj = data;
-
 			   	  				if (obj['status']== true) {
-									
 			   						$("#cotodelAmountOTPModal").hide();
 									submitCotodelBankDetails();
-			   						
-									
 			   						//window.location.href="/roleAccess";
 			   	  				}else if (obj['status'] == false) { 
 									//document.getElementById("otpError2").innerHTML=data.message;
@@ -1482,10 +1383,7 @@ function getAddOTP(){
 				      //var Cbalance = document.getElementById("Cbalance").value;
 					  var CnewAmount = document.getElementById("advanceAmount").value;
 					  var createdby = document.getElementById("employerName").value;
-					  //let CaccountTypeobj = CaccountType.toUpperCase() === "SAVING" 
-					   //   ? { saving: "SAVING", current: null } 
-					    //  : { saving: null, current: "CURRENT" };   
-					      
+					  
 				      $.ajax({
 				          type: "POST",
 				          url: "/submitCotodelDetails",
@@ -1551,40 +1449,30 @@ function getAddOTP(){
 
 				  		            // Get the table body
 				  		            const tableBody = $("#reimbursementTable tbody");
-
 				  		            // Clear existing table rows
 				  		            tableBody.empty();
-
 				  		            // Check if vouchers exist
 				  		            if (payment_history.length === 0) {
 				  		                tableBody.append(`<tr><td colspan="16" class="text-center">No Data Available</td></tr>`);
 				  		                return;
 				  		            }
-
 				  		            // Populate the table dynamically
 				  		            payment_history.forEach((payment_history) => {
-				  						
 				  						//const employerData = encodeURIComponent(JSON.stringify(employer)); // Encode to pass safely
 				  		                const row = `
 				  						<tr>
 				  						            <td>${payment_history.id}</td>
-				  						           
-				  						            
 				  						            <td>${payment_history.customerName}</td>
-				  						            
 				  						            <td>${payment_history.customerPhone}</td>
 													<td>${payment_history.orderAmount}</td>
 												   <td>${payment_history.orderCurrency}</td>
 												   <td>${payment_history.orderStatus}</td>
-												   
 				  						            <td>${payment_history.paymentTime}</td>
-				  								
 													<td>${payment_history.cfPaymentId}</td>
 													<td>${payment_history.paymentStatus}</td>
 													<td>${payment_history.serviceCharge}</td>
 													<td>${payment_history.serviceTax}</td>
 				  									<td>${payment_history.settlementAmount}</td>
-													
 				  						        </tr>
 				  		                `;
 
