@@ -8,7 +8,7 @@ $(document).ready(function () {
        });
 	   
 function getBankMaster() {
-	document.getElementById("signinLoader").style.display="flex";
+	//document.getElementById("signinLoader").style.display="flex";
 	//var employerid = document.getElementById("employerId").value;
 	$.ajax({
 		type: "POST",
@@ -52,7 +52,7 @@ function getBankMaster() {
 
 async function  getLinkedBankDetail(){
 	
-    document.getElementById("signinLoader").style.display="flex";
+    //document.getElementById("signinLoader").style.display="flex";
  	var employerid = document.getElementById("employerId").value;
 	const clientKey = "client-secret-key"; // Extra security measure
     const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
@@ -93,7 +93,7 @@ async function  getLinkedBankDetail(){
 
 		}
 		  const wrapper = document.getElementById('data-wrapper');
-
+		  wrapper.innerHTML = '';
 		   // Render only specific fields with Edit button
 		   data1.data.forEach(item => {
 		       const container = document.createElement('div');
@@ -194,6 +194,7 @@ async function  getLinkedBankDetail(){
 									 $('#otmsgdiv').delay(5000).fadeOut(400);
 					    			 //window.location.href = "/roleAccess";
 									 $('a[href="#menu22"]').tab('show');
+									 getLinkedBankDetail();
 								}else if(data1.status==false){
 									 document.getElementById("otfailmsg").innerHTML=data1.message;
 									 document.getElementById("otfailmsgDiv").style.display="block";
@@ -258,6 +259,7 @@ async function relinkBankAccount(acNumber) {
                 $('#otmsgdiv').delay(5000).fadeOut(400);
                 //window.location.href = "/roleAccess";
 				$('a[href="#menu22"]').tab('show');
+				getLinkedBankDetail();
             } else if (data1.status == false) {
                 document.getElementById("otfailmsg").innerHTML = data1.message;
                 document.getElementById("otfailmsgDiv").style.display = "block";
@@ -289,7 +291,7 @@ async function dlinkAccount(acNumber)
 	    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
 	    const hashArray = Array.from(new Uint8Array(hashBuffer));
 	    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-
+		document.getElementById("signinLoader").style.display="flex";
 	 	$.ajax({
 		type: "POST",
 	     url:"/de-linkErupiaccount",
@@ -315,7 +317,7 @@ async function dlinkAccount(acNumber)
 					 document.getElementById("linkBankBtn").disabled = false;
 	    			 //window.location.href = "/roleAccess";
 					 $('a[href="#menu22"]').tab('show');
-					 //getLinkedBankDetail();
+					 getLinkedBankDetail();
 				}else if(data1.status==false){
 					 document.getElementById("otfailmsg").innerHTML=data1.message;
 					 document.getElementById("otfailmsgDiv").style.display="block";
@@ -465,7 +467,7 @@ async function submitLinkBankAccount(){
 			}
 			document.getElementById("signinLoader").style.display="flex";
 			document.getElementById("linkBankBtn").disabled = true;
-		const clientKey = "client-secret-key"; // Extra security measure
+		    const clientKey = "client-secret-key"; // Extra security measure
 		   const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 	
 		    //Concatenate data (must match backend)
@@ -530,6 +532,10 @@ async function submitLinkBankAccount(){
 					 $('#otmsgdiv').delay(5000).fadeOut(400);
 					 document.getElementById("linkBankBtn").disabled = false;
 	    			 //window.location.href = "/roleAccess";
+					 getLinkedBankDetail();
+					 document.getElementById("linkedbnkacntsctn").style.display="block";
+					 document.getElementById("linkaccbankform").style.display="block";
+					 
 				}else if(data1.status==false){
 					 document.getElementById("otfailmsg").innerHTML=data1.message;
 					 document.getElementById("otfailmsgDiv").style.display="block";
@@ -571,12 +577,6 @@ function validateBankname()
 				document.getElementById("bankingNameError").innerHTML="";
 			}
 }
-function updateLinkBankAccount(){
-	
-	
-}
-
-
 function validate() {
 	var x= document.getElementById("bankAccNumber").value;
     var y= document.getElementById("bankAccNumberConfirm").value;
