@@ -159,7 +159,7 @@ public ResponseEntity<Void> preprodWebhookCallback(@RequestBody(required = false
 		
 }
 
-@PostMapping(value="/staging_webhook")
+@PostMapping(value="/stagingWebhook")
 public ResponseEntity<Void> staging_webhook(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
 		logger.info("staging_webhook");
