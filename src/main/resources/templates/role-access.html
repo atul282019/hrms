@@ -7,7 +7,8 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),viewEmployeeBand(),cotodelLinkedBankDetail()">
+<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
+viewEmployeeBand(),cotodelLinkedBankDetail()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -63,12 +64,6 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
                                 </a>
-                              
-                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-							          <i class="fas fa-user-circle"></i> Logout         
-							        </a>
-					          </div> -->  
                               <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" th:href="@{/logout}">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
@@ -88,11 +83,11 @@
                         <div class="col-12">
                             <ul class="nav nav-tabs expense-tabs">
                                 <li class="active" th:if="${session.user_role == 9 or session.user_role == 1}" ><a data-toggle="tab" href="#home1">Role Access</a></li>
-                                <li th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" ><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
+                                <li th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
 								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33">Prepaid Account</a></li>
 								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
-                               <!-- <li><a data-toggle="tab" href="#menu33">Expenses & Advance</a></li>-->
+                             
                             </ul>
 
                             <div class="tab-content">
@@ -353,11 +348,7 @@
 									                    <label class="did-floating-label">Re-enter Bank A/c Number<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="bankAccNumberConfirmError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
-									               <!-- <div class="tip-wrap justify-content-start">
-									                    <p class="mb-0">The bank account numbers entered don't match each
-									                        other. Please try again.</p>
-									                </div>-->
-													
+									              
 									                <div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="bankIfsc"
 														maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase" onkeypress="resetErrorMessages()">
@@ -384,11 +375,7 @@
 									                    <label class="did-floating-label">Merchant Id<span class="required-star">*</span></label>
 									                </div>
 													<div class="error-msg" id="merchantIdError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
-													<!--<div class="did-floating-label-content">
-									                    <input class="did-floating-input" type="text" placeholder=" " id="mcc" maxlength="25">
-									                    <label class="did-floating-label">Mcc</label>
-									                </div>
-													<div class="error-msg" id="mccError" style="color:red"></div>-->
+													
 													<div class="did-floating-label-content">
 									                    <input class="did-floating-input" type="text" placeholder=" " id="submerchantid" maxlength="25"
 														onkeypress="resetErrorMessages()" onkeyup="validateSubMerchantId()">
@@ -415,7 +402,6 @@
 									                <div class="d-flex justify-content-center mt-3">
 														<input type="button" class="btn btn-primary w-100" id="linkBankBtn" value="AUTHENTICATE" onclick="submitLinkBankAccount()"> 
 														
-									                   <!-- <button class="btn btn-primary w-100" data-toggle="modal" data-target="#ModalAuthenticate">AUTHENTICATE</button>-->
 									                </div>
 									            </div>
 									        </div>
@@ -426,15 +412,9 @@
 									            <div class="text-left">
 									                <h3>Linked Bank Account Details</h3>
 									            </div>
-
 									            <div class="linked-bank-account-innersection d-block">
-									               
-													<div id="data-wrapper"> 
-														
-													</div>
-									               
+													<div id="data-wrapper"> </div>
 									            </div>
-
 									            <div class="d-flex justify-content-end">
 									                <button class="btn btn-primary" id="linkedanotheraccount">Link Another Bank Account</button>
 									            </div>
@@ -444,38 +424,7 @@
 								</div>
 								
                                 <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
-									<!--<div id="menu3" class="tab-pane">
-																	    <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
-																	        <div class="col-12 col-md-8 col-lg-6 mx-auto">
-																	            <div class="text-center">
-																	                <h3>Cotodel Linked Account</h3>
-																	            </div>
-
-																	           
-																	        </div>
-																	    </div>
-
-
-																	    <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
-																	            <div class="text-left">
-																	                <h3>Prepaid Account Details</h3>
-																	            </div>
-
-																	            <div class="linked-bank-account-innersection d-block">
-																	               
-																					<div id="data-wrapper1"> 
-																						
-																					</div>
-																	               
-																	            </div>
-
-																	            <div class="d-flex justify-content-end">
-																	                <button class="btn btn-primary" id="continuebtn">Continue</button>
-																	            </div>
-																	    </div>
-																		
-
-																	</div>-->
+									
 																	<div id="menu3" class="tab-pane">
 																	  <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
 																	    <div class="col-12 col-md-8 col-lg-6 mx-auto">
@@ -523,9 +472,7 @@
 																	        </form>
 																	        <div class="d-flex justify-content-center mt-3">
 																				<button class="btn btn-primary w-100" id="renderBtn2" onclick="getSessionId()">Pay Now</button>
-																									
-																	          <!--<button class="btn btn-primary w-100" id="continueButton" onclick="getOTPforCotodel()">Continue</button>-->
-																	        </div>
+																				 </div>
 																	      </div>
 																	    </div>
 																	  </div>
@@ -594,7 +541,6 @@
 							 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
 							<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
 							<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
-							
 							<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
 							<input type="hidden" class="form-input" id="CId" name="CId" > 
 							<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
@@ -641,7 +587,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <div class="customModal modal btnroleAcessModal">
+   <!-- <div class="customModal modal btnroleAcessModal">
         <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
             <div class="modal-content modal-bulk p-0">
                 <div class="modal-header pb-0">
@@ -674,8 +620,8 @@
             </div>
         </div>
     </div>
-
-    <div class="customModal modal btnroleAcessModal1">
+-->
+  <!--  <div class="customModal modal btnroleAcessModal1">
         <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
             <div class="modal-content modal-bulk p-0">
                 <div class="modal-header pb-0">
@@ -708,7 +654,7 @@
             </div>
         </div>
     </div>
-
+-->
 
     <div class="customModal modal" id="roleAcessOTPModal">
         <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
@@ -746,26 +692,15 @@
 						
 				    </div>
 				   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
-				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
 					<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
-					
 					<div class="error-msg" id="otpError" style="color:red"></div>
-				    
 					<div class="tip-wrap justify-content-center">
 				        <p class="mb-0" id="maskedMobileDisplay1"></p>
 				    </div>
-					
-					
-					
 				    <div class="d-flex justify-content-center mt-3">
-						<!--
-				        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
-						-->
 						<button class="btn btn-primary w-100" id="authenticate"  onclick="verfyIssueVoucherOTP()">Authenticate</button>
 				    </div>
-				</div>
-
-				
+				</div>				
             </div>
         </div>
     </div>
@@ -811,14 +746,8 @@
 						<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
 					    <div class="tip-wrap justify-content-center">
 					        <p class="mb-0" id="maskedMobileDisplay"></p>
-					    </div>
-						
-						
-						
+					    </div>						
 					    <div class="d-flex justify-content-center mt-3">
-							<!--
-					        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
-							-->
 							<button class="btn btn-primary w-100" id="authenticateAdd"  onclick="verfyAddRoleOTP()">Authenticate</button>
 					    </div>
 					</div>
@@ -857,8 +786,6 @@
 							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 							        name="orderId" >
-									
-									
 									<div class="d-flex justify-content-center mt-2">
 									    <i class="fa-solid fa-eye" id="toggleOtpIcon2" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
 									</div>
@@ -869,28 +796,14 @@
 								<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendCotodelOTP()">Resend OTP</a></p>
 							    <div class="tip-wrap justify-content-center">
 							        <p class="mb-0" id="maskedMobileDisplay2"></p>
-							    </div>
-								
-								
-								
+							    </div>								
 							    <div class="d-flex justify-content-center mt-3">
-									<!--
-							        <button class="btn btn-primary w-100" id="authenticatereport">Authenticate</button>
-									-->
 									<button class="btn btn-primary w-100" type="button" id="authenticateAddctdl"  onclick="verfyCotodelOTP()">Authenticate</button>
 							    </div>
-							</div>
-
-							
+							</div>							
 			            </div>
 			        </div>
 			    </div>
-
-	<!--<div id="popup">
-	        <h3>Employee Details</h3>
-	        <p id="popupContent"></p>
-	        <button onclick="closePopup()">Close</button>
-	</div>-->
 	
 	<div class="customModal modal lastrowaddBtnWrap">
 	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xl">
@@ -909,8 +822,7 @@
 						           <tbody id="tableBody">
 					               <!-- Rows will be dynamically generated -->
 					           </tbody>
-	                        </table>
-							
+	                        </table>							
 							<div>
                                 <div class="autocomp-input-wrap">
                                     <!--<input type="text" class="autocomp-input" id="search"
@@ -934,7 +846,6 @@
 
 	                    <div class="d-block text-right">
 	                       <button class="btn btn-primary mb-1" onclick="getAddOTP()" id="addSubmit">Submit</button>
-						  <!--  <button class="btn btn-primary mb-1" onclick="addRole()">Submit</button>-->
 	                    </div>
 	                </div>
 	            </div>
@@ -973,11 +884,7 @@
 	           </div>
 	       </div>
 	   </div>
-	   
-	   
-
-	
-	
+	  
 	 <!-- Modal Modal Employee Band Setting -->
 	    <div class="modal fade" id="ModalEmployeeBandSetting" tabindex="-1" role="dialog"
 	        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -1057,22 +964,17 @@
 	                                        <select class="did-floating-select mx-2 min-w170" id="startingEmployeeNumeric" style="display: none" onchange="change();">
 	                                            <option value="ascending">Ascending</option>
 	                                            <option value="descending">Descending</option>
-	                                        </select>
-	                                        
+	                                        </select>	                                        
 	                                        <div class="exclaimation"><img src="img/exclaimation.svg" alt="" data-toggle="tooltip" data-placement="top"
 	                                             title="The selected band forms the starting point for the order of seniority. In case A or 1 is selected, the order of seniority will be in a chronological order, with A or 1 as the base, and vice-versa.">
-	                                        </div>
-	                                        
-	                                    </div>
-	                                   
+	                                        </div>	                                        
+	                                    </div>	                                   
 	                                    <hr>
-
 	                                    <ul class="custom-slid-bar">
 	                                        <li class="highlight">1</li>
 	                                        <li>2</li>
 	                                        <li>3</li>
 	                                    </ul>
-
 	                                    <div class="d-flex justify-content-center mt-2">
 	                                        <button class="btn btn-primary w-100" type="button" onclick="validateTab1()" id="continewTab1" style="display:block"> Continue </button>
 	                                        <button class="btn btn-primary w-100" data-target="#carouselExampleFade" id="continewTab2" data-slide="next" style="display:none"> Continue </button>
@@ -1099,8 +1001,8 @@
 	                                   				   <th>Additional Tiers</th>
 	                                   				</tr>
 	                                   			</thead>
-		                                   			  <tbody>
-		                                   			  </tbody>
+                                   			  <tbody>
+                                   			  </tbody>
 	                                   		</table>
 	                                   	</div>
 	                                       
@@ -1128,10 +1030,8 @@
 	                                        <p class="mb-0">Starting Employee Band that defines the order of seniority</p>
 	                                        <select class="did-floating-select mx-2 min-w170" id="reviewDropdown">
 	                                        </select>
-	                                    </div>
-	                                    
-	                                    <hr>
-	                                    
+	                                    </div>	                                    
+	                                    <hr>	                                    
 	                                    <div class="table-responsive">
 	                                    	<table class="table empolyee-band-table" id="dynamicTable">
 	                                    		<thead>
@@ -1145,25 +1045,23 @@
 	                                    				<th class="bandlabel01" ></th>
 	                                    			</tr>
 	                                    		</thead>
-	                                    		<tbody>
-	                                    			
+	                                    		<tbody>	                                    			
 	                                    		</tbody>
 	                                    	</table>
-	                                    </div>
-	                                    
+	                                    </div>	                                   
 	                                    <ul class="custom-slid-bar">
 	                                        <li class="highlight">1</li>
 	                                        <li class="highlight">2</li>
 	                                        <li class="highlight">3</li>
 	                                    </ul>
-
 	                                    <div class="d-flex justify-content-center mt-2">
-	                                        <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
-	                                        
-						                    <button class="btn btn-primary mx-2 w-49" id="close" onclick="close()">
+	                                        <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>	                                        
+						<!--                    <button clas="btn btn-primary mx-2 w-49" id="close" type="button" onclick="close()">
 						                       <span aria-hidden="true">Confirm</span>
 						                    </button>
-						                    
+-->											<button type="button" class="btn btn-primary mx-2 w-49" data-dismiss="modal" aria-label="Close">
+						                        <span aria-hidden="true">Confirm</span>
+						                    </button>	                    
 	                                    </div>
 	                                    <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> 
 	                                </div>
@@ -1416,24 +1314,18 @@
 		        $(this).parent().addClass('active');
 		        $(this).tab('show');
 		    });
-		    
 		    // Initialize all tabs properly
 		    $('[data-toggle="tab"]').tab();
-		
-		    
 		    // Force Bootstrap to properly initialize the first tab
-			
 		    $('.expense-tabs li.active a').tab('show');
-			
-		    
-			
 		    // Alternative approach - trigger a click on the first tab
 		    // Uncomment this if the above doesn't work
 		    // $('.expense-tabs li.active a').trigger('click');
 		});
 	</script>
 	
-	<script>				// Get reference to the amount input field
+	<script>
+		// Get reference to the amount input field
 		const advanceAmountInput = document.getElementById('advanceAmount');
 		const advanceAmountError = document.getElementById('advanceAmountError');
 		const continueButton = document.getElementById('continueButton');
@@ -1525,7 +1417,6 @@
 		        advanceAmountError.textContent = 'Max 8 digits before decimal';
 		        return false;
 		    }
-
 		    advanceAmountError.textContent = '';
 		    return true;
 		}
@@ -1546,9 +1437,9 @@
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/cashfree.js"></script>
 	
-	<script>	document.addEventListener("DOMContentLoaded", function() {
+	<script>	
+		document.addEventListener("DOMContentLoaded", function() {
 	    var activeTab = localStorage.getItem("activeTab");
-	    
 	    if (activeTab) {
 	        $('.nav-tabs a[href="' + activeTab + '"]').tab('show'); // Bootstrap tabs
 	        $(activeTab).addClass("active show"); // Ensure it's visible
@@ -1560,15 +1451,15 @@
 		document.getElementById("continuebtn1").addEventListener("click", function() {
 		  // Hide all other divs in menu3
 		  document.getElementById("cotodellinkaccbankform").style.display = "none";
-		  document.getElementById("cotodellinkedbnkacntsctn").style.display = "none";
-		  
+		  document.getElementById("cotodellinkedbnkacntsctn").style.display = "none";		  
 		  // Show only the cotodelAmountRequest div
 		  document.getElementById("cotodelAmountRequest").style.display = "block";
 		});
 	</script>
-	<script>	document.addEventListener('DOMContentLoaded', function() {
-	  // Clear amount error when user types in the input
-	  document.getElementById("advanceAmount").addEventListener('input', function() {
+	<script>	
+		document.addEventListener('DOMContentLoaded', function() {
+	    // Clear amount error when user types in the input
+	    document.getElementById("advanceAmount").addEventListener('input', function() {
 	    if(this.value.trim() !== "") {
 	      document.getElementById("advanceAmountError").textContent = "";
 	    }
@@ -1603,19 +1494,13 @@
 		        }
 		    }
 		}
-
 		// Initially hide the column
 		document.addEventListener('DOMContentLoaded', function() {
 		    document.getElementById('addtionalTiersCheckBox').checked = true;
 		    toggleColumn();
 		});
 
-		function close(){
-			//window.location.href = "http://localhost:9191/roleAccess";
-		}	
-	
-	$(document).ready(function(){
-		
+	$(document).ready(function(){		
 		  $('li.active').removeClass('active').removeAttr('aria-current'); 
 		  $('a[href="' +'/roleAccess"]').closest('li').addClass('active').attr('aria-current', 'page');   
 		  
@@ -1627,9 +1512,6 @@
 	</script>
 	
     <script>
-		
-
-			   
 		
 		$(document).ready(function () {
            // Show the modal when the button is clicked
@@ -1674,12 +1556,10 @@
             $("#btnroleAcess1").click(function () {
                 $(".btnroleAcessModal1").show();
             });
-
             // Hide the modal when the close button is clicked
             $("#closeBtn1").click(function () {
                 $(".btnroleAcessModal1").hide();
             });
-
             // Optionally, hide the modal if the user clicks outside the modal content
             $(window).click(function (event) {
                 if ($(event.target).is(".btnroleAcessModal1")) {
@@ -1749,7 +1629,6 @@
         }
 
     </script>
-		
 </body>
 
 </html>
