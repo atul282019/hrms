@@ -17,6 +17,8 @@ public class DirectorOnboarding {
 		private String din;	
 		private String designation;		
 		private String address;
+		private String clientKey;
+		private String hash;
 		private String createdby;
 		private String response;
 
