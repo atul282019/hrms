@@ -205,7 +205,7 @@
 					   
 
 					 <!-- Vehicle Details Modal -->
-					 <div class="modalView show" id="vehicleDetailsModal" >
+					 <div class="modalView show" id="vehicleDetailsModal1" >
 					     
 						<div class="modal-dialog  modal-dialog-vd">
 					       <div class="modal-content ">
@@ -343,6 +343,238 @@
 					       </div>
 					     </div>
 					   </div>
+					   <!-- Vehicle Details Modal -->
+					   <div class="modalView show" id="vehicleDetailsModal" >
+					       
+					   <div class="modal-dialog  modal-dialog-vd">
+					         <div class="modal-content ">
+					   	<div class="modal-header pb-0">
+					   		<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Add Vehicle</Strong></h5>
+					   		<button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+					   						 		                        <img src="img/modal-close.svg" alt="">
+					   						 		                    </button>
+					           </div>
+					   	
+					           
+					           <div class="modal-body">
+					   		
+					   		
+					   									 
+					             <div class="vehicle-card-vd mb-3">
+					   		<div class="d-flex align-items-center mb-2">
+					   		  <img src="img/vehicle-icon.png" alt="Vehicle Icon" style="height: 24px;" class="me-2">
+					   		  <span class="modal-title">Vehicle Details</span>
+					   		</div>
+					   		<hr class="custom-hr">
+					               <div class="row text-white mt-n2">
+					                 <div class="col-md-3">
+					                   Registration Number
+					                   <span>HR87L6621</span>
+					                 </div>
+					                 <div class="col-md-3">
+					                   Car Make & Model
+					                   <span>Volkswagen Virtus</span>
+					                 </div>
+					                 <div class="col-md-3">
+					                   Vehicle Class
+					                   <span>Private Car (LMV)</span>
+					                 </div>
+					                 <div class="col-md-3">
+					                   Fuel
+					                   <span>Diesel</span>
+					                 </div>
+					               </div>
+					             </div>
+					   	   <!-- Ownership & Assignment Details Section -->
+					   	        <div class="info-section-vd mb-3">
+					   	          <div class="section-title-vd d-flex align-items-center mb-3">
+					   	            <img src="img/ownership-icon.png" alt="Icon" style="height: 24px;width: 24px; margin-right: 0.5rem;">
+					   	            Ownership & Assignment Details
+					   	          </div>
+					   			 <hr class="full-width-hr">
+					   			  <!-- Owner Info (Single Container Left-Aligned) -->
+					   			           <div class="mb-3">
+					   			             <div style="background: #e9ecef; border-radius: 0.5rem; padding: 1rem; display: flex; justify-content: flex-start; gap: 2rem; flex-wrap: wrap;">
+					   			               <div style="min-width: 200px;"  class="text-left">
+					   			                 Owner Name<br>
+					   			                <strong> Ramesh Kumaer</strong>
+					   			               </div>
+					   			               <div style="min-width: 200px; " class="text-left">
+					   			                 Owner Address<br>
+					   			                 <strong>A-2989, 2nd floor Greenfield, Faridabad- 121003</strong>
+					   			               </div>
+					   			             </div>
+					   			           </div>
+
+					   					   <!-- Ownership Section -->
+					   					           <label class="mb-2 d-block text-left">Ownership</label>
+					   					           <div class="row mb-3">
+					   					             <div class="col-md-6">
+					   					               <div class="did-floating-label-content mr-2">
+					   					                 <select class="did-floating-select" id="ownershipModel">
+					   					                   
+					   					                   <option>Owned</option>
+					   					                   <option>Leased</option>
+					   					                 </select>
+					   					                 <label class="did-floating-label">Select Ownership Model</label>
+					   					               </div>
+					   					             </div>
+					   					             <div class="col-md-6">
+					   									<div class="did-floating-label-content mr-2">
+					   					                <input type="text" class="did-floating-input" placeholder=" "id="driverName1">
+					   					                <label class="did-floating-label">Enter Driver Name</label>
+					   					              </div>
+					   					             </div>
+					   					           </div>
+
+					   					           <!-- Assignment Section -->
+					   					           <label class="mb-2 d-block text-left">Assignment</label>
+					   					           <div class="row">
+					   					             <div class="col-md-6 mb-3">
+					   					               <div class="did-floating-label-content mr-2">
+					   					                 <select class="did-floating-select" id="assignmentType">
+					   					                   
+					   					                   <option>Permanent</option>
+					   					                   <option>Temporary</option>
+					   					                 </select>
+					   					                 <label class="did-floating-label">Select Assignment Type</label>
+					   					               </div>
+					   					             </div>
+					   					             <div class="col-md-6 mb-3">
+					   									<div class="did-floating-label-content mr-2">
+					   									               <input type="text" class="did-floating-input" placeholder=" " id="clientName">
+					   									               <label class="did-floating-label">Enter Client Name</label>
+					   									             </div>
+					   					             </div>
+					   					             <div class="col-md-6 mb-3">
+					   									<div class="did-floating-label-content mr-2 search-select-wrapper">
+					   									  <input type="text" class="did-floating-input search-select-input" id="driverName2" placeholder=" " onfocus="showSuggestions(this)" oninput="filterSuggestions(this)">
+					   									  <label class="did-floating-label">Enter Driver Name</label>
+					   									  <div class="suggestion-box" style="display: none;">
+					   									    <div onclick="selectSuggestion(this)"><span class="suggestion-text">Ramesh Kumar</span><img src="img/phone-icon.png" class="suggestion-icon" style="width: 20px; height: 20px;"> <span>9876543210</span></div>
+					   									    <div onclick="selectSuggestion(this)"><span class="suggestion-text">Suresh Singh</span><img src="img/phone-icon.png" class="suggestion-icon" style="width: 20px; height: 20px;"> <span>9123456789</span></div>
+					   									    <div onclick="selectSuggestion(this)"><span class="suggestion-text">Meena Sharma</span><img src="img/phone-icon.png" class="suggestion-icon" style="width: 20px; height: 20px;"> <span>9988776655</span></div>
+					   									    <div onclick="selectSuggestion(this)"><span class="suggestion-text">Arjun Rao</span><img src="img/phone-icon.png" class="suggestion-icon" style="width: 20px; height: 20px;"> <span>8877665544</span></div>
+					   									  </div>
+					   									</div>
+					   					             </div>
+					   					             <div class="col-md-6 mb-3">
+					   					               <div class="did-floating-label-content mr-2" >
+					   					                 <select class="did-floating-select" id="timePeriod">
+					   					                   <option disabled selected>Tagged until changed </option>
+					   					                   <option>7 Days</option>
+					   					                   <option>30 Days</option>
+					   					                   <option>90 Days</option>
+					   									   <option>360 Days</option>
+					   					                 </select>
+					   					                 <label class="did-floating-label">Select Time Period</label>
+					   					               </div>
+					   					             </div>
+					   					           </div>
+					   					         </div>
+
+
+					   	  <!--<div class="info-section-vd">
+					   		<div class="section-title-vd d-flex align-items-center justify-content-between" onclick="toggleSection('details-content', 'icon-details')">
+					   		  <span class="d-flex align-items-center">
+					   		     <img src="img/Additonal-Details.png" alt="Vehicle Icon" style="height: 24px;" class="me-2"></i>Additional Details
+					   		  </span>
+					   		  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-details">
+					   		</div>
+					   	     <div class="row mt-2 text-muted" id="details-content" style="display: none;">
+					   	       <div class="col-md-3">
+					   	         Chassis Number<br>
+					   	         <span class="fw-bold text-dark">MEXB23D22PTO14613</span>
+					   	       </div>
+					   	       <div class="col-md-3">
+					   	         Engine Number<br>
+					   	         <span class="fw-bold text-dark">ENG98765678HK656UYH</span>
+					   	       </div>
+					   	       <div class="col-md-3">
+					   	         Color<br>
+					   	         <span class="fw-bold text-dark">Grey</span>
+					   	       </div>
+					   	       <div class="col-md-3">
+					   	         Authority<br>
+					   	         <span class="fw-bold text-dark">Sarai Kale Khan</span>
+					   	       </div>
+					   		   <div class="w-100 my-3"></div>
+					   	       <div class="col-md-3">
+					   	         Manufacturing Date<br>
+					   	         <span class="fw-bold text-dark">2022</span>
+					   	       </div>
+					   	       <div class="col-md-3">
+					   	         Cubic Capacity<br>
+					   	         <span class="fw-bold text-dark">1231.5</span>
+					   	       </div>
+					   	       <div class="col-md-3">
+					   	         Seats<br>
+					   	         <span class="fw-bold text-dark">5</span>
+					   	       </div>
+					   	       <div class="col-md-3">
+					   	         Weight<br>
+					   	         <span class="fw-bold text-dark">1,800 kg</span>
+					   	       </div>
+					   		   <div class="w-100 my-3"></div>
+					   	       <div class="col-md-3">
+					   	         Wheelbase<br>
+					   	         <span class="fw-bold text-dark">2,600 mm</span>
+					   	       </div>
+					   	     </div>
+					   	   </div>
+
+					             <div class="legal-section-vd">
+					               
+					   		 <div class="section-title-vd d-flex align-items-center justify-content-between" 								
+					   		      onclick="toggleSection('legal-content', 'icon-legal')">
+					   		 								  <span class="d-flex align-items-center">
+					   		 								    <img src="img/Legal&Compliance.png" style="height: 24px;" class="me-2"></i>Legal & Compliances
+					   		 								  </span>
+					   		 								  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-legal">
+					   		 								</div>
+					               <div class="row mt-2" id="legal-content" style="display: none;">
+					                
+					   		   <div class="col-md-3">
+					   		         Insurance Company:<br>
+					   		         <span class="fw-bold text-dark">ICICI Lombard</span>
+					   		       </div>
+					   		   
+					   		   <div class="col-md-3">
+					   		         Fitness:<br>
+					   		         <span class="fw-bold text-dark">Good</span>
+					   		       </div>
+					                 
+					   		   <div class="col-md-3">
+					   	         Tax:<br>
+					   	         <span class="fw-bold text-dark">Annual Road Tax</span>
+					   	       </div>
+					   		   
+					   		   <div class="col-md-3">
+					   		         Financer:<br>
+					   		         <span class="fw-bold text-dark">ICICI Bank</span>
+					   		       </div>
+					                 
+					   		   <div class="w-100 my-3"></div>
+					   		   
+					   		   <div class="col-md-3">
+					   		         Permit Number:<br>
+					   		         <span class="fw-bold text-dark">MH12-567894</span>
+					   		       </div>
+					   		   
+					                
+					               </div>
+					             </div>-->
+
+					             <!--<button class="btn btn-primary activate-btn-vd"  onclick="openModalConfirm()">ACTIVATE</button>-->
+					   	   <div class="button-group-vd d-flex gap-3 justify-content-end">
+					   	     <button class="btn back-btn-vd" >Back</button>
+					   	     <button class="btn save-btn-vd" onclick="saveChanges()">SAVE</button>
+					   	   </div>
+
+					           </div>
+					         </div>
+					       </div>
+					     </div>
 					  
 					 <!-- modal confirm -->
 					 <div class="modalView" id="ModalConfirm">
