@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cotodel Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-control {
+      margin-bottom: 20px;
+    }
+    .btn-primary {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+	<div class="logo-container">
+			  <img src="img/Cotodel Logo.svg" alt="Cotodel Logo" class="logo-img" />
+			</div>
+	<div class="image-section">
+		
+	  <div id="imageCarousel" class="carousel slide h-100" data-ride="carousel">
+	    <div class="carousel-inner h-100">
+	      <div class="carousel-item active h-100">
+	        <img src="/img/Image12.webp" class="d-block w-100 h-100" alt="Slide 1" style="object-fit: cover;">
+	        <div class="carousel-caption d-none d-md-block">
+	          <h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+	        </div>
+	      </div>
+	      <div class="carousel-item h-100">
+	        <img src="/img/Image12.webp" class="d-block w-100 h-100" alt="Slide 2" style="object-fit: cover;">
+	        <div class="carousel-caption d-none d-md-block">
+				<h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+				       
+	        </div>
+	      </div>
+	      <div class="carousel-item h-100">
+	        <img src="/img/Image12.webp" class="d-block w-100 h-100" alt="Slide 3" style="object-fit: cover;">
+	        <div class="carousel-caption d-none d-md-block">
+				<h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+				       
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	
+	<div class="login-section">
+	  <div class="login-body">
+	    <h4 class="login-title">Get started with your email or phone number</h4>
+
+	    <div class="phone-input-container">
+	      <div class="phone-prefix">
+	        <img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon" />
+	        <span>+91</span>
+	      </div>
+	      <input type="text" class="form-control phone-input" placeholder="Enter your mobile number" />
+	    </div>
+
+	    <p class="helper-text">We will send an OTP on the mobile number entered.</p>
+		
+
+		<!-- Inside .login-section -->
+		<div class="login-body" id="login-body">
+		  <!-- Your phone input and login UI -->
+		  <!-- Replace LOGIN button -->
+		  <button class="btn login-btn" onclick="showOtpForm()">LOGIN</button>
+		</div>
+
+		<!-- OTP Form -->
+		<div id="otp-section" style="display:none;">
+		  <h4 class="login-title">Verify OTP</h4>
+		  <p class="helper-text">OTP code has been sent to your phone <strong>xx405</strong></p>
+
+		  <div class="d-flex justify-content-between mb-3">
+		    <input type="text" class="form-control text-center otp-input" maxlength="1">
+		    <input type="text" class="form-control text-center otp-input" maxlength="1">
+		    <input type="text" class="form-control text-center otp-input" maxlength="1">
+		    <input type="text" class="form-control text-center otp-input" maxlength="1">
+		    <input type="text" class="form-control text-center otp-input" maxlength="1">
+		    <input type="text" class="form-control text-center otp-input" maxlength="1">
+			<div class="d-flex justify-content-center mt-2">
+			    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+			</div>
+		      </div>
+
+		  <p class="text-muted">Didn’t receive the code? <span style="color: #367AFF">00:20</span></p>
+		  <button class="btn login-btn">LOGIN</button>
+		</div>
+		
+	    <div class="or-divider"><span>or login with</span></div>
+
+	    <div class="social-buttons">
+	      <button class="btn social-btn"><img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" /> Google</button>
+	      <button class="btn social-btn"><img src="img/repute-logo.png" alt="Repute" /> Repute</button>
+	    </div>
+	  </div>
+
+	  <hr class="footer-divider" />
+	  <div class="login-footer">
+	    New to Cotodel? <a href="#">Register for Demo</a>
+	  </div>
+	</div>
+  </div>
+ 
+  <link rel="stylesheet" href="css/custom.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $('#imageCarousel').carousel({
+      interval: 10000, // 10 seconds per slide
+      ride: 'carousel'
+    });
+  </script>
+  <script>
+  				  function showOtpForm() {
+  				    document.getElementById('login-body').style.display = 'none';
+  				    document.getElementById('otp-section').style.display = 'block';
+
+  				    document.querySelector('.or-divider').style.display = 'none';
+  				    document.querySelector('.social-buttons').style.display = 'none';
+  				    
+  				    
+  					document.querySelector('.helper-text').style.display = 'none';
+  				  }
+  				</script>
+</body>
+</html>

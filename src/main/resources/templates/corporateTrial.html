@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Corporate Trial</title>
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="img/favicon.png">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body>
+
+	<div class="loginNew-wrap" id="loginWrap">
+	    <div class="container-fluid">
+	        <div class="row g-0">
+	            <!-- Left Content Column -->
+	            <div class="col-12 col-md-7 logoNewLeft-custom">			
+	                <div class="logoNew">
+	                    <img src="img/Cotodel Logo-white.png" alt="Cotodel Logo" class="img-fluid">
+	                </div>
+	                <div class="logoNewBtm">
+	                    <h2><span>Business expenses</span> made seamless like <br><span>your UPI spends</span></h2>
+						
+	                    <ul class="feature-list">
+	                        <li><img src="img/Frame.svg" alt="check"><span>Issue vouchers on-demand without transferring Capital</span></li>
+	                        <li><img src="img/Frame.svg" alt="check"><span>Trace money flow digitally from issuance to redemption</span></li>
+	                        <li><img src="img/Frame.svg" alt="check"><span>Lock purpose of spend at Category/Brand level</span></li>
+	                        <li><img src="img/Frame.svg" alt="check"><span>Extend vouchers for Flexi-Tax Benefits & Allowances</span></li>
+	                    </ul>
+	                </div>
+	            </div>
+
+	            <!-- Registration Form Column -->
+	            <div class="col-12 col-md-5">
+	                <div class="logoNewForm1">
+	                    <div class="logoNewFormtop">
+	                        <h5 class="form-title">Register your Business with Cotodel!</h5>
+	                        
+	                        <form id="registrationForm">
+	                            <!-- Form Fields -->
+	                            <div class="form-group">
+	                                <input type="text" class="form-control" placeholder="Enter your full name" required>
+	                            </div>
+	                            
+	                            <div class="form-group">
+	                                <input type="email" class="form-control" placeholder="Enter your work email address" required>
+	                            </div>
+	                            
+	                            <div class="form-group">
+	                                <input type="tel" class="form-control" placeholder="+91 00000 00000" pattern="[0-9]{10}" required>
+	                            </div>
+	                            
+	                            <div class="form-group">
+	                                <input type="text" class="form-control" placeholder="Enter your company name" required>
+	                            </div>
+
+								<div class="mb-4 ">
+									                  <label class="form-label d-block">Company Size</label>
+									                  <div class="form-check-group">
+									                      <div class="form-check">
+									                          <input class="form-check-input" type="radio" name="companySize" id="size1" value="Less than 20 Employees" required>
+									                          <label class="form-check-label" for="size1">Less than 20 Employees</label>
+									                      </div>
+									                      <div class="form-check">
+									                          <input class="form-check-input" type="radio" name="companySize" id="size2" value="20 to 50 Vehicles">
+									                          <label class="form-check-label" for="size2">20 to 50 Employees</label>
+									                      </div>
+									                      <div class="form-check">
+									                          <input class="form-check-input" type="radio" name="companySize" id="size3" value="50 to 100 Vehicles">
+									                          <label class="form-check-label" for="size3">50 to 100 Employees</label>
+									                      </div>
+														  <div class="form-check">
+  									                          <input class="form-check-input" type="radio" name="companySize" id="size3" value="More than 100 Vehicles">
+  									                          <label class="form-check-label" for="size3">More than 100 Employees</label>
+  									                      </div>
+									                  </div>
+									              </div>
+
+	                            <!-- Checkbox Group -->
+								<div class="form-group checkbox-group" style="color: #232323;">
+								    <div class="form-check">
+								        <input type="checkbox" id="terms" required>
+								        <label for="terms">
+								            I agree to the 
+								            <a href="/privacy-policy" style="color: #367AFF;">privacy policy</a> and 
+								            <a href="/terms-of-use" style="color: #367AFF;">terms of use</a>
+								        </label>
+								    </div>
+								    <div class="form-check">
+								        <input type="checkbox" id="whatsapp">
+								        <label for="whatsapp">Connect with me on WhatsApp for onboarding</label>
+								    </div>
+								</div>
+
+	                            <button type="submit" class="btn btn-register" disabled>REGISTER</button>
+	                        </form>
+								<hr>
+	                        <div class="existing-account">
+	                            Already have an account with us? <a href="#">Login</a>
+	                        </div>
+	                    </div>
+	                    
+	                    
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+    
+	<style>
+		
+		
+
+		
+		@media (max-width: 1200px) {
+		    .logoNewForm {
+				width: 95%;
+		        max-width: 500px;
+		        min-height: 580px;
+		        margin: 20px auto;
+		        padding: 25px;
+				margin-top: -40px;
+		    }
+		    
+		    
+		}
+		
+		
+		.logoNewBtm {
+		    margin-top: 2rem;
+		    padding-bottom: 2rem;
+		}
+
+		/* Reduce form element spacing */
+		.form-group {
+		    margin-bottom: 0.75rem;
+		}
+
+	.form-control {
+	    height: 40px;
+	    border: 1px solid #C7C8D1;
+	    border-radius: 8px;
+	    margin-bottom: 0.75rem;
+	    padding: 0.75rem 1rem;
+	}
+
+	.form-control:focus {
+	    border-color: #367AFF;
+	    
+	}
+
+	.radio-group {
+	    margin: 1.5rem 0;
+	}
+
+	.radio-group label {
+	    display: block;
+	    margin-bottom: 0.75rem;
+	    font-weight: 500;
+	}
+
+	.radio-option {
+	    margin-bottom: 0.75rem;
+	}
+
+	.radio-option input[type="radio"] {
+	    accent-color: #367AFF;
+	    margin-right: 0.75rem;
+	}
+
+	.checkbox-group {
+	    margin: 0.25rem 0;
+	}
+	.checkbox-group .form-check {
+		margin-bottom: 0.5rem; /* Reduced from 1rem */
+		  align-items: center;
+	}
+
+	.form-check {
+	    margin-bottom: 1rem;
+	}
+
+	.form-check input[type="checkbox"] {
+	    accent-color: #367AFF;
+	    margin-right: 0.75rem;
+	}
+	
+
+	.feature-list li {
+	    display: flex;
+	    align-items: center;
+	    margin-bottom: 1rem;
+	}
+
+	.feature-list img {
+	    margin-right: 0.75rem;
+	    width: 20px;
+	}
+	
+	.form-check-input[type="radio"] {
+	    margin-right: 10px;
+	    transform: scale(1.1);
+	}
+
+	/* Adjust checkbox alignment */
+	.form-check-input[type="checkbox"] {
+	    margin-left: 0;
+	    margin-right: 10px;
+	}
+	
+	.checkbox-group .form-check-label {
+	    margin-left: 0.5rem; /* Reduced spacing between checkbox and text */
+	}
+	.checkbox-group .form-check {
+	    margin-left: -8px; /* Adjust this value as needed */
+	}
+	.form-check-group .form-check:last-child {
+	    margin-bottom: 0.25rem;
+	}
+	</style>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+
+	<script>
+		$(document).ready(function() {
+		    var loginuser = document.getElementById("loginRepute").value;
+		    if (loginuser === "reputeUser") {
+				document.title = "Expence Management";
+		        var loginWrap = document.getElementById("loginWrap");
+		        loginWrap.classList.remove("loginNew-wrap");
+		        loginWrap.classList.add("loginNew-wrap-repute");
+				
+				document.getElementById("qr1").innerHTML="Issue vouchers on-demand without transferring Capital";
+				document.getElementById("qr2").innerHTML="Trace money flow digitally from issuance to redemption";
+				document.getElementById("qr3").innerHTML="Lock purpose of spend at Category/Brand level";
+				document.getElementById("qr4").innerHTML="Extend vouchers for administering Flexi-Tax Benefits";
+		    }
+		});
+	$( document ).ready(function() {
+		var error = document.getElementById("errorMessage").value;
+		var mo = document.getElementById("mo").value;
+		
+		var orderid = document.getElementById("orderid").value;
+		var maskedMobile = "XXXXXX" + mo.toString().slice(-4);
+		
+
+		
+		if(error==="Invalid Request !!"){
+	    document.getElementById("loginIdDiv").style.display="none";
+	    document.getElementById("optBtn").style.display="block";
+	    }
+		else if(error==="Incorrect OTP ||"){
+			
+			  document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
+			  var expiryTime = localStorage.getItem("otpExpiryTime");
+			  var downloadTimer = setInterval(function () {
+			          var currentTime = Date.now();
+			          var timeleft = Math.floor((expiryTime - currentTime) / 1000);
+
+			          if (timeleft <= 0) {
+			              clearInterval(downloadTimer);
+			              localStorage.removeItem("otpExpiryTime");
+			              document.getElementById("countdown").innerHTML = " ";
+			              document.getElementById("resendOTPText").style.display = "block";
+			              document.getElementById("optBtn").disabled = false;
+			              document.getElementById("verifyotpdiv").style.display = "none";
+			          } else {
+			              var minutes = Math.floor(timeleft / 60);
+			              var seconds = timeleft % 60;
+			              document.getElementById("countdown").innerHTML =
+			                  (minutes < 10 ? "0" + minutes : minutes) + ":" +
+			                  (seconds < 10 ? "0" + seconds : seconds);
+			          }
+			      }, 1000);
+			  document.getElementById("mobile").value=mo;
+			  document.getElementById("orderId").value=orderid;
+			  document.getElementById("loginIdDiv").style.display="block";
+			  document.getElementById("optBtn").style.display = "none";
+			  document.getElementById("verifyotpdiv").style.display = "block";
+			 
+			 // window.location.href="/login";
+		}
+		else if(error==="No Role assigned to User. Please contact to Organisation Admin !!"){
+			document.getElementById("loginIdDiv").style.display="none";
+		    document.getElementById("optBtn").style.display="block";
+		}else{
+			
+		}
+	});
+
+
+	  $(document).ready(function() {
+	    $('#successError').delay(5000).fadeOut(600);
+		// window.location.href="/login";
+	});
+
+	</script>
+	
+	</body>
+
+	</html>

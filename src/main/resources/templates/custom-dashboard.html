@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top" >
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <!-- <div th:insert="fragments/header.html :: header"></div>-->
+				<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                   <!-- Topbar Navbar -->
+                   <ul class="navbar-nav top-nav">
+
+                       <!-- Nav Item - User Information -->
+                       <li class="nav-item">
+                           <a class="nav-link active" href="#">
+                               <span class="mr-2 small">Dashboard</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="#">
+                               <span class="mr-2 small">Home</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>
+
+                   </ul>
+
+				<ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" th:href="@{/ProfileInfo}">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Settings
+                            </a>
+                          <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+	               </ul>		
+	             </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+				<div th:switch="${session.user_role}">
+                <div class="container-fluid p-0 p-md-1">
+					<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
+                     <div class="row px-2">
+						
+                        <div class="col-12" th:case="9">
+							
+                            <div class="mt-4 bg-white p-3" >
+                            <div class="row">
+                                 <div class="col-12 col-sm-4 organisation-wrap" >
+                                    <h3>Let’s set up your organisation!</h3>
+                                   <div class="w3-border">
+										  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
+										</div>
+                                    <p><span id="profileComplete">0</span> of 3 completed</p>
+                                </div>
+								
+                                <div class="col-12 col-sm-8">
+
+                                    <div class="details-wrap">
+                                        <div class="basic-details-wrap">
+                                            <h4>Basic Details</h4>
+                                            <div class="time">COMPLETED</div>                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="details-wrap">
+                                        <div class="basic-details-wrap mb-2">
+                                            <h4>Compliance and people</h4>
+                                            <div class="time">3 steps | 5 mins</div>
+                                        </div>
+                                            <div class="basic-details-input">
+                                                <span>1</span>
+                                                <p>Setup Compliance</p>
+                                              <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+												<div id="btnsetupStart"><a class="btn btn-primary" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a></div>
+                                            </div>
+
+                                            <div class="basic-details-input no-bg mb-0">
+                                                <span>2</span>
+                                                <p>Add employee and contractors</p>
+                                                <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
+                                            </div>
+											<!--<div class="basic-details-input no-bg mb-0">
+                                                <span>3</span>
+                                                <p>Director Onboarding</p>
+                                                <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
+                                            </div>-->
+											<div class="basic-details-input">
+                                               <span>3</span>
+                                               <p>Director Onboarding</p>
+                                             <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+											<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
+                                           </div>
+                                       
+                                    </div>                                    
+									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
+                                    <div class="details-wrap mb-0">
+                                        <div class="basic-details-wrap">
+                                            <h4>KYC verification</h4>
+                                            <div class="time">2 steps | 10 mins</div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<script>
+				        document.addEventListener("DOMContentLoaded", function () {
+				            console.log("Calling the getProfileStatus() function...");
+				            getProfileStatus();
+				        });
+				    	</script>
+						</div>
+						<div class="col-12" th:case="1">
+													
+						                            <div class="mt-4 bg-white p-3" >
+						                            <div class="row">
+						                                 <div class="col-12 col-sm-4 organisation-wrap" >
+						                                    <h3>Let’s set up your organisation!</h3>
+						                                   <div class="w3-border">
+																  <div class="w3-green" id="profile1" style="height:20px; background-color:#096" ></div>
+																</div>
+						                                    <p><span id="profileComplete1">0</span> of 3 completed</p>
+						                                </div>
+														
+						                                <div class="col-12 col-sm-8">
+
+						                                    <div class="details-wrap">
+						                                        <div class="basic-details-wrap">
+						                                            <h4>Basic Details</h4>
+						                                            <div class="time">COMPLETED</div>                                            
+						                                        </div>
+						                                    </div>
+
+						                                    <div class="details-wrap">
+						                                        <div class="basic-details-wrap mb-2">
+						                                            <h4>Compliance and people</h4>
+						                                            <div class="time">3 steps | 5 mins</div>
+						                                        </div>
+						                                            <div class="basic-details-input">
+						                                                <span>1</span>
+						                                                <p>Setup Compliance</p>
+						                                              <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+																		<div id="btnsetupStart1"><a class="btn btn-primary" id="anchorStart1"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a></div>
+						                                            </div>
+
+						                                            <div class="basic-details-input no-bg mb-0">
+						                                                <span>2</span>
+						                                                <p>Add employee and contractors</p>
+						                                                <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
+						                                            </div>
+																	<!--<div class="basic-details-input no-bg mb-0">
+						                                                <span>3</span>
+						                                                <p>Director Onboarding</p>
+						                                                <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
+						                                            </div>-->
+																	<div class="basic-details-input">
+						                                               <span>3</span>
+						                                               <p>Director Onboarding</p>
+						                                             <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+																	<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
+						                                           </div>
+						                                       
+						                                    </div>                                    
+															<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
+						                                    <div class="details-wrap mb-0">
+						                                        <div class="basic-details-wrap">
+						                                            <h4>KYC verification</h4>
+						                                            <div class="time">2 steps | 10 mins</div>                                            
+						                                        </div>
+						                                    </div>
+						                                </div>
+						                            </div>
+						                        </div>
+												<script>
+										        document.addEventListener("DOMContentLoaded", function () {
+										            console.log("Calling the getProfileStatus1() function...");
+										            getProfileStatus1();
+										        });
+										    	</script>
+												</div>
+						
+						<div class="col-12" th:case="3">
+
+							<div class="upi-voucher-wrap mb-2" >
+                           
+
+                             <div id="linkedAccount" >
+                                 <div class="linkedAccount-wrap m-0">
+                                     <div class="linkedAccount-wrap-left-btn">
+                                         <img src="img/allbank.svg" alt="">
+                                         <span>All Linked Bank Accounts</span>
+                                     </div>
+                                     <div class="linkedAccount-wrap-right">
+                                         <span>Funds Marked for Active UPI Vouchers <img
+                                                 src="img/e-rupi-seeklogo.png" alt=""></span>
+                                         <div class="funds-mark"><div id="totalVoucher"></div>&nbsp; Vouchers &#8377;<strong id="totalvoucherValue">&#8377;0.00</strong></div>
+										<div class="infoo mx-2"><a href="#" id="btnforinfomodal"><img
+										 src="img/infoo.svg" width="34px" alt=""></a></div>
+                                         <button class="fundmarked" id="fundmarked">
+                                             <a href="#"><img src="img/fund-expand.svg" alt=""></a>
+                                         </button>
+                                     </div>
+                                 </div>
+
+                                 <div class="activeupivcmarked" id="myDiv" style="display: block;">
+                                     <div class="row">
+                                         <div class="col-12 col-md-3" id="bankListData">
+                                             <div class="left-activeupivcmarked active">
+                                                 <div class="img-bank">
+                                                     <img src="img/allbankblk.svg" alt="">
+                                                 </div>
+                                                 <span>All Banks</span>
+
+                                             </div>
+
+                                            <!-- <div class="left-activeupivcmarked" >
+                                               
+												<div class="img-bank">
+                                                      <img src="img/indianbank.png" width="18" height="18">
+                                                  </div>
+                                                  <span>Indian Bank</span>
+                                                  <label class="mb-0">xxx0569</label>
+                                             </div>-->
+                                         </div>
+
+                                         <div class="col-12 col-md-9">
+                                             <div class="table-responsive mt-2">
+                                                 <table class="table table-bordered">
+                                                     <thead>
+                                                         <tr>
+                                                             <th>Total Vouchers Issued (A)</th>
+                                                             <th id="totalIssueCount"></th>
+                                                             <th id="totalIssueAmount"></th>
+                                                         </tr>
+                                                     </thead>
+                                                     <tbody>
+                                                         <tr>
+                                                             <td>Redeemed Vouchers (B)</td>
+                                                             <td id="redemVCount"></td>
+                                                             <td id="redemVAmount"></td>
+                                                         </tr>
+                                                         <tr>
+                                                             <td>Expired & Revoked Vouchers (C)</td>
+                                                             <td id="expRevokeCount"></td>
+                                                             <td id="expRevokeAmount"></td>
+                                                         </tr>
+                                                         <tr class="lasttr">
+                                                             <td>Active Vouchers (D)</td>
+                                                             <td id="activeCount"></td>
+                                                             <td id="activeAmount"></td>
+                                                         </tr>
+                                                     </tbody>
+                                                 </table>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+             				</div>
+							<script>
+							        document.addEventListener("DOMContentLoaded", function () {
+							            console.log("Calling both functions...");
+							            getLinkedBankDetail();
+							            getBankListWithVocher();
+							        });
+							    </script>
+						</div>
+						<div class="col-12" th:case="12">
+													
+						                            <div class="mt-4 bg-white p-3" >
+						                            <div class="row">
+						                                 <div class="col-12 col-sm-4 organisation-wrap" >
+						                                    <h3>Let’s set up your organisation!</h3>
+						                                   <div class="w3-border">
+																  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
+																</div>
+						                                    <p><span id="profileComplete">0</span> of 3 completed</p>
+						                                </div>
+														
+						                                <div class="col-12 col-sm-8">
+
+						                                    <div class="details-wrap">
+						                                        <div class="basic-details-wrap">
+						                                            <h4>Basic Details</h4>
+						                                            <div class="time">COMPLETED</div>                                            
+						                                        </div>
+						                                    </div>
+
+						                                    <div class="details-wrap">
+						                                        <div class="basic-details-wrap mb-2">
+						                                            <h4>Compliance and people</h4>
+						                                            <div class="time">3 steps | 5 mins</div>
+						                                        </div>
+						                                            <div class="basic-details-input">
+						                                                <span>1</span>
+						                                                <p>Setup Compliance</p>
+						                                              <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+																		<div id="btnsetupStart"><a class="btn btn-primary" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a></div>
+						                                            </div>
+
+						                                            <div class="basic-details-input no-bg mb-0">
+						                                                <span>2</span>
+						                                                <p>Add employee and contractors</p>
+						                                                <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
+						                                            </div>
+																	<!--<div class="basic-details-input no-bg mb-0">
+						                                                <span>3</span>
+						                                                <p>Director Onboarding</p>
+						                                                <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
+						                                            </div>-->
+																	<div class="basic-details-input">
+						                                               <span>3</span>
+						                                               <p>Director Onboarding</p>
+						                                             <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
+																	<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
+						                                           </div>
+						                                       
+						                                    </div>                                    
+															<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
+						                                    <div class="details-wrap mb-0">
+						                                        <div class="basic-details-wrap">
+						                                            <h4>KYC verification</h4>
+						                                            <div class="time">2 steps | 10 mins</div>                                            
+						                                        </div>
+						                                    </div>
+						                                </div>
+						                            </div>
+						                        </div>
+												<script>
+										        document.addEventListener("DOMContentLoaded", function () {
+										            console.log("Calling the getProfileStatus() function...");
+										            getProfileStatus();
+										        });
+										    	</script>
+												</div>
+						<div class="col-12" th:case="*">
+							<div class="container-fluid p-0 p-md-1">
+											
+											<div class="col-12">
+							                      <div class="mt-4  p-3" >
+							                      <div class="row">
+							                           <div class="col-12 col-sm-4 organisation-wrap" >
+							                              <h3></h3>
+							                             <div class="w3-border">
+															 
+							                              <p></p>
+							                          </div>
+													
+							                      </div>
+							                  </div>
+							                  </div>
+
+											  <div class="mt-4  p-3" >
+							                      <div class="row">
+							                           <div class="col-12 col-sm-4 organisation-wrap" >
+							                              <h3></h3>
+							                             <div class="w3-border">
+															<h4></h4>
+							                              <p></p>
+							                          </div>
+													
+							                      </div>
+							                  </div>
+							                  </div>
+											  <div class="mt-4  p-3" >
+							                  <div class="row">
+							                       <div class="col-12 col-sm-4 organisation-wrap" >
+							                          <h3></h3>
+							                         <div class="w3-border">
+														 
+							                          <p></p>
+							                      </div>
+												
+							                  </div>
+							              </div>
+							              </div>
+											                     
+										 </div>
+							        	
+										
+							           </div>
+                       
+                     </div>
+					 
+					
+																									 
+																									
+					 
+
+                </div>
+                <!-- /.container-fluid -->
+				
+
+            </div>
+            <!-- End of Main Content -->
+			
+				</div><!-- ending switchcase-->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+	
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
+	
+	
+    <script>
+    $(document).ready(function(){
+   	 $(".innernav").click(function(){
+           $(".dropdownNav").addClass("active");
+       });
+   	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+   	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+   });
+    </script>
+
+</body>
+
+</html>
