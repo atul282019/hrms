@@ -7,11 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class VehicleManagementRequest {
+public class EmployeeOnboardingDriverRequest {
 	private Long orgId;
-	private Long id;
-	private String response;
-	private String vehicleSequenceId;
-
+   private String name;;
 }

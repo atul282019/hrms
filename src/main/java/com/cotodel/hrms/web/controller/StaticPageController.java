@@ -1825,7 +1825,7 @@ public class StaticPageController extends CotoDelBaseController{
    				model.addAttribute("email",obj.getEmail());
    				model.addAttribute("employerId",id);
     
-   				return new ModelAndView("edit-vehicle", "command", "");
+   				return new ModelAndView("vehicleManagement", "command", "");
    			}
    			 return new ModelAndView("error", "command", "");
    		}

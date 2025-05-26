@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top" onload="getVehicleManagementList()">
+<div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div th:insert="fragments/sidenav.html :: sidevav"></div>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+        <!-- Topbar -->
+		<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+           <!-- Topbar Navbar -->
+           <ul class="navbar-nav top-nav">
+
+               <!-- Nav Item - User Information -->
+               <li class="nav-item">
+                   <a class="nav-link active" href="#">
+                       <span class="mr-2 small">Dashboard</span>
+                       <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                   </a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="#">
+                       <span class="mr-2 small">Vehicle Management</span>
+                       <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                   </a>
+               </li>
+
+           </ul>
+
+	<ul class="navbar-nav ml-auto">
+           <li class="nav-item dropdown no-arrow">
+               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                   <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+               </a>
+               <!-- Dropdown - User Information -->
+               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                   <a class="dropdown-item" th:href="@{/ProfileInfo}">
+                       <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                       Profile
+                   </a>
+                   <a class="dropdown-item" href="#">
+                       <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                       Settings
+                   </a>
+                 
+                  <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
+	            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
+			          <i class="fas fa-user-circle"></i> Logout         
+			        </a>
+	          </div> -->  
+                 <div class="dropdown-divider"></div>
+                   <a class="dropdown-item" th:href="@{/logout}">
+                       <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                       Logout
+                   </a>
+               </div>
+           </li>
+
+      </ul>			
+       </nav>
+     <!-- End of Topbar -->
+         <!-- Begin Page Content -->
+		 <div class="container-fluid p-0 p-md-1 mt-4">
+		    <div class="row">
+		      <div class="col-12 col-md-12 px-4">
+
+		        <div class="d-flex justify-content-between align-items-center mb-3">
+		          <h4 class="fw-bold">Vehicle Management</h4>
+		          <div>
+					<button class="btn btn-custom me-2" data-bs-toggle="modal" data-bs-target="#AddVehicleModal">
+		              <i class="bi bi-plus-lg"></i> Add Vehicle
+		            </button>
+		            <a class="btn  btn-custom" href="/bulkvehicleupload"> 
+		              <i class="bi bi-upload"></i> Bulk Upload
+		            </a>
+		          </div>
+		        </div>				       
+		          <div class="table-responsive">
+		            <table class="table table-reimbursements-alt mb-0" id="vehicleManagementTable">
+		              <thead>
+		                <tr>
+						 <!-- <th>S.NO</th>-->
+						  <th>Vehicle ID</th>
+		                  <th>Vehicle Type</th>
+		                  <th>Registration #</th>	
+						  <th>Fuel Type</th>			 
+		                  <th>Make & Model</th>
+		                 <!-- <th>Driver Assignment</th>
+-->						 <!-- <th>Vehicle Model</th>-->
+						 
+						  <th>Driver Assigned</th>			  
+						  <th>Client</th>
+						  <th>History</th>
+						  <th></th>
+		                </tr>
+		              </thead>
+		              <tbody class="table-bordered">
+		            <!--    <tr>
+		                 <td> <img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">
+							Truck</td>
+						 <td> HR67L1234</td>
+						 <td>Diesel </td>
+						 <td>
+				           Tata<br>
+				           Virtus
+				         </td>
+						 <td>Not defined</td>
+						 <td>Driver not assigned</td>
+						 <td>Client not assigned</td>
+						 <td> <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
+							No History</td>
+				 		 <td><a href="#" data-toggle="modal" data-target="#editDetailsModal">
+							    <img src="img/edit-pencil-blue.png" alt="Edit Pencil" style="height:24px; width:24px; margin-right:4px;">
+							  </a>
+						</td>
+		                </tr>
+						
+						<tr>
+		                 <td> <img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">
+							Car</td>
+						 <td> HR87L6621</td>
+						 <td>Petrol</td>
+						 <td>
+				           Suzuki<br>
+				           Baleno
+				         </td>
+						 <td>Not defined</td>
+						 <td>Driver not assigned</td>
+						 <td>Client not assigned</td>
+						 <td><a href="#" data-toggle="modal" data-target="#vehicleHistoryModal">
+							<img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
+						View History</a>	
+						</td>
+						 <td><a href="#" data-toggle="modal" data-target="#editDetailsModal">
+							    <img src="img/edit-pencil-blue.png" alt="Edit Pencil" style="height:24px; width:24px; margin-right:4px;">
+							  </a>
+						</td>
+		                </tr>
+						-->
+		              </tbody>
+		            </table>
+		          </div>
+		        </div>
+
+		      </div>
+		    </div>
+			
+			 <!-- add vehicle modal-->
+			 <div class="modal fade" id="AddVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			     <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+			         <div class="modal-content modal-bulk1" style="max-height: 600px;">
+			             <div class="modal-header pb-0">
+			                 <h5 class="modal-title mx-auto fw-dark text-left w-100" id="exampleModalCenterTitle">Add Vehicle</h5>
+			                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeexampleModalCenterTitle()">
+			                     <span aria-hidden="true">×</span>
+			                 </button>
+			             </div>
+						 <div class="modal-body px-4">
+						   <form class="w-100">
+							<div class="did-floating-label-content mb-3">
+					           <input 
+					             type="text"
+					             id="vehicleNumber"
+					             class="did-floating-input"
+					             placeholder="Enter Vehicle Number (e.g. DL1AB1234)"
+					             maxlength="10" >
+					           <label class="did-floating-label">Enter Vehicle Number</label>
+					         </div>
+					         <div class="error-msg" id="vehicleNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+					        
+							 <div class="did-floating-label-content mb-3">
+					           <input 
+					             type="text"
+					             id="vehicleManufactor"
+					             class="did-floating-input"
+					             placeholder="Enter vehicle manufacturer (eg. Mahindra, Toyota,etc.)"
+					             maxlength="50" >
+					           <label class="did-floating-label">Enter Vehicle Manufactor</label>
+					         </div>
+					         <div class="error-msg" id="vehicleManufactorError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+							 
+							 <div class="did-floating-label-content mb-3">
+						             <input type="text" class="did-floating-input"
+									  placeholder="Enter Vehicle Model" id="vehicleModel">
+						             <label class="did-floating-label">Enter Vehicle Model</label>
+				           </div>
+						   <div class="error-msg" id="vehicleModelError" style="color: red; margin-top: -10px; font-size: 12px;"></div>								        
+						
+							   <div class="did-floating-label-content mb-3">
+					               <select class="did-floating-input" id="vehicleType">
+					                 <option value="" disabled selected hidden> Select Vehicle Type</option>
+					                 <option value="1">Mini Truck</option>
+					                 <option value="2">Truck</option>
+					                 <option value="3">Sedan</option>
+									 <option value="4">SUV / MUV</option>
+ 					                 <option value="5">Hatchback</option>
+ 					                 <option value="6">Two-Wheeler</option>
+									 <option value="7">Amb./Spl. Purp</option>
+					               </select>
+					               <label class="did-floating-label">Select Vehicle Type</label>
+				             </div>
+							 <div class="error-msg" id="VehicleTypeError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+							   											   
+							   
+							   <div class="did-floating-label-content mb-3">
+					               <select class="did-floating-input" id="vehicleFuelType">
+					                 <option value="" disabled selected hidden>Select Fuel Type</option>
+					                 <option value="1">Petrol</option>
+					                 <option value="2">Diesel</option>
+					                 <option value="3">Electric</option>
+					               </select>
+					               <label class="did-floating-label">Fuel Type</label>
+					             </div>
+								 <div class="error-msg" id="fuelTypeError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+							  
+
+						     <div class="d-grid">
+								<!--<button type="button" class="btn btn-primary w-100" style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" data-bs-toggle="modal" data-bs-target="#vehicleDetailsModal">
+		                         Validate
+		                     </button>-->
+							 <button type="button" class="btn btn-primary w-100" 
+							 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" onclick="draftAndOpenPopup()">
+		                         Validate
+		                     </button>
+						     </div>
+						   </form>
+						 </div>
+						
+			         </div>
+			     </div>
+			 </div>
+			
+			 <!-- Vehicle Details Modal -->
+			 <div class="modalView show" id="vehicleDetailsModal" >
+			     
+				<div class="modal-dialog  modal-dialog-vd">
+			       <div class="modal-content ">
+					<div class="modal-header pb-0">
+						<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Add Vehicle</Strong></h5>
+						<!--<button type="button" class="close p-0"  data-dismiss="modal" onclick="closeAdd()"
+						aria-label="Close" style="right: 10px; top: 0;">
+	                        <img src="img/modal-close.svg" alt="">
+	                    </button>-->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAdd()">
+		                     <span aria-hidden="true">×</span>
+		                 </button>
+		             </div>
+			         <div class="modal-body">
+											 
+			           <div class="vehicle-card-vd mb-3">
+						<div class="d-flex align-items-center mb-2">
+						  <img src="img/vehicle-icon.png" alt="Vehicle Icon" style="height: 24px;" class="me-2">
+						  <span class="modal-title">Vehicle Details</span>
+						</div>
+						<hr class="custom-hr">
+			             <div class="row text-white mt-n2">
+			               <div class="col-md-4">
+			                 Registration Number
+			                 <span id="rNumber"></span>
+			               </div>
+			               <div class="col-md-3">
+			                 Car Make & Model
+			                 <span id="rModel"> </span>
+			               </div>
+			               <div class="col-md-3">
+			                 Vehicle Class
+			                 <span id="rClass"></span>
+			               </div>
+			               <div class="col-md-2">
+			                 Fuel
+			                 <span  id="rType"></span>
+			               </div>
+			             </div>
+			           </div>
+					   
+					   <button class="btn btn-primary activate-btn-vd"
+					    style="background-color:  #367AFF;border-radius: 10px;padding: 12px 0;"
+					   onclick="saveOpenModalConfirm()">ACTIVATE
+					  </button>
+
+			         </div>
+			       </div>
+			     </div>
+			   </div>
+			  
+			 <!-- modal confirm -->
+ <div class="modalView" id="ModalConfirm">
+ 		        <div class="modal-dialog modal-dialog-centered">
+ 		            <div class="modal-content modal-bulk p-0">
+ 		                <div class="modal-top text-center">
+ 		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+ 		                        <img src="img/modal-close.svg" alt="">
+ 		                    </button>
+ 		                    <img src="img/modal-success.svg" alt="">
+ 		                </div>
+ 		                <div class="modal-bottom" id="success" style="display: block;">
+ 		                    <span >Vehicle Successfully Added</span>
+ 		                </div>
+						<div class="modal-bottom" id="failed" style="display: block;">
+							
+ 		                    <span style="color: red;" id="failedError">Vehicle Updation Failed </span>
+ 		                </div>
+ 		            </div>
+ 		        </div>
+ 		    </div>	
+			
+			<div class="modalView" id="ModalConfirmUpdate">
+ 		        <div class="modal-dialog modal-dialog-centered">
+ 		            <div class="modal-content modal-bulk p-0">
+ 		                <div class="modal-top text-center">
+ 		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" 
+							style="right: 10px; top: 0;" onclick="closeModalConfirmUpdate()">
+ 		                        <img src="img/modal-close.svg" alt="">
+ 		                    </button>
+ 		                    <img src="img/modal-success.svg" alt="">
+ 		                </div>
+ 		                <div class="modal-bottom" id="successUpdate" style="display: block;">
+ 		                    <span >Driver Details Updated</span>
+ 		                </div>
+						<div class="modal-bottom" id="failedUpdate" style="display: block;">
+							
+ 		                    <span style="color: red;" id="failedUpdateError">Driver Details Updation Failed</span>
+ 		                </div>
+ 		            </div>
+ 		        </div>
+ 		    </div>			
+			<!-- modal confirm -->
+			<div class="modal fade" id="ModalConfirm1" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered">
+			    <div class="modal-content modal-bulk p-0">
+			      <div class="modal-top text-center position-relative">
+			        <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+						<img src="img/modal-close.svg" alt="">
+					</button>
+			        <img src="img/modal-success.svg" alt="">
+			      </div>
+			      <div class="modal-bottom text-center">
+			        <span>Assignment Details Revised</span>
+			      </div>
+			    </div>
+			  </div>
+			</div>	
+			
+			<!-- view history modal-->
+			
+			<!-- Vehicle Details Modal -->
+			<div class="modalView show" id="vehicleHistoryModal" tabindex="-1" aria-labelledby="vehicleHistoryModalLabel">
+			  <div class="modal-dialog modal-dialog-centered vehicle-modal-dialog"  style="margin-top: -7vh;">
+			    <div class="modal-content vehicle-modal-content">
+					<div class="modal-header pb-0">
+		                 <h5 class="modal-title mx-auto text-left vehicle-history-title" id="exampleModalCenterTitleHistiry">History</h5>
+		                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeHistory()">
+		                     <span aria-hidden="true">×</span>
+		                 </button>
+		             </div><br>
+			      <!-- sub box 1 -->
+				  <div  id="vehicleDataContainer">
+			     
+					
+			      </div>
+			      <!-- sub box 1 ends -->
+				    
+			  <br>
+			  <div class="d-grid">
+			   <!-- <button onclick="downloadDivAsExcel()" type="button" class="btn btn-primary w-100" style="background-color: #367AFF; border-radius: 10px;">
+			      <img src="img/download-white.png" alt="icon" style="height: 24px; margin-right: 8px; vertical-align: middle;">
+			      Download History
+			    </button>-->
+				<button type="button" class="btn btn-primary w-100" style="background-color: #367AFF; border-radius: 10px;">
+			      <img src="img/download-white.png" alt="icon" style="height: 24px; margin-right: 8px; vertical-align: middle;">
+			      Download History
+			    </button>
+			  </div>
+		    </div>
+		  </div>
+		</div>
+
+						
+		<!-- Vehicle Details Modal -->
+	   <div class="modalView show" id="editDetailsModal" >
+	       
+	   <div class="modal-dialog  modal-dialog-vd">
+	         <div class="modal-content ">
+	   	<div class="modal-header pb-0">
+	   		<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Add Vehicle</Strong></h5>
+   		<button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;"
+		 onclick="editDetailsModalClose()">
+                <img src="img/modal-close.svg" alt="">
+            </button>
+           </div>
+           <div class="modal-body">	 
+             <div class="vehicle-card-vd mb-3">
+   		<div class="d-flex align-items-center mb-2">
+   		  <img src="img/vehicle-icon.png" alt="Vehicle Icon" style="height: 24px;" class="me-2">
+   		  <span class="modal-title">Vehicle Details</span>
+   		</div>
+   		<hr class="custom-hr">
+               <div class="row text-white mt-n2">
+                 <div class="col-md-4">
+                   Registration Number
+                   <span id="editVehicleNumber"></span>
+                 </div>
+                 <div class="col-md-3">
+                   Car Make & Model
+                   <span id="editVehicleModel"></span>
+                 </div>
+                 <div class="col-md-3">
+                   Vehicle Class
+                   <span id="editVehicleClass"></span>
+                 </div>
+                 <div class="col-md-2">
+                   Fuel
+                   <span id="editVehicleDesileType"></span>
+                 </div>
+               </div>
+             </div>
+   	   <!-- Ownership & Assignment Details Section -->
+   	        <div class="info-section-vd mb-3">
+   	          <div class="section-title-vd d-flex align-items-center mb-3">
+   	            <img src="img/ownership-icon.png" alt="Icon" style="height: 24px;width: 24px; margin-right: 0.5rem;">
+   	            Ownership & Assignment Details
+   	          </div>
+   			 <hr class="full-width-hr">
+					   
+							 <div class="mb-3">
+						             <div style="background: #e9ecef; border-radius: 0.5rem; padding: 1rem; display: flex; justify-content: flex-start; gap: 2rem; flex-wrap: wrap;">
+						               <div style="min-width: 200px;"  class="text-left">
+						                 Owner Name<br>
+						                <strong> Ramesh Kumaer</strong>
+						               </div>
+						               <div style="min-width: 200px; " class="text-left">
+						                 Owner Address<br>
+						                 <strong>A-2989, 2nd floor Greenfield, Faridabad- 121003</strong>
+						               </div>
+						             </div>
+						           </div>
+ 					<!--         <div class="row mb-3">
+ 					             <div class="col-md-6">
+									<div class="did-floating-label-content mr-2">
+	   					                <label type="text" class="did-floating-input" placeholder=" "id="ownerName" readonly>
+	   					                <label class="did-floating-label">Owner Name</label>
+	   					              </div>
+ 					             </div>
+ 					             <div class="col-md-6">
+ 									<div class="did-floating-label-content mr-2">
+ 					                <label type="text" class="did-floating-input" placeholder=" "id="ownerAddress" readonly>
+ 					                <label class="did-floating-label">Owner Address</label>
+ 					              </div>
+ 					             </div>
+ 					           </div>
+													   -->
+   					          <!-- <label class="mb-2 d-block text-left">Ownership</label>
+   					           <div class="row mb-3">
+   					             <div class="col-md-6">
+   					               <div class="did-floating-label-content mr-2">
+   					                 <select class="did-floating-select" id="ownershipModel">
+   					                   
+   					                   <option value="1">Owned</option>
+   					                   <option value="2">Leased</option>
+   					                 </select>
+   					                 <label class="did-floating-label">Select Ownership Model</label>
+   					               </div>
+   					             </div>
+   					             <div class="col-md-6">
+   									<div class="did-floating-label-content mr-2">
+   					                <input type="text" class="did-floating-input" placeholder=" "id="driverName1">
+   					                <label class="did-floating-label">Enter Driver Name</label>
+   					              </div>
+   					             </div>
+   					           </div>-->
+
+   					           <!-- Assignment Section -->
+   					           <label class="mb-2 d-block text-left">Assignment</label>
+   					           <div class="row">
+   					             <div class="col-md-6 mb-3">
+   					               <div class="did-floating-label-content mr-2">
+   					                 <select class="did-floating-select" id="assignmentType">
+										<option value="">Select Assignment Type</option>
+   					                   <option value="1">Permanent</option>
+   					                   <option value="2">Temporary</option>
+   					                 </select>
+   					                 <label class="did-floating-label">Select Assignment Type</label>
+   					               </div>
+   					             </div>
+   					             <div class="col-md-6 mb-3">
+   									<div class="did-floating-label-content mr-2">
+						               <input type="text" class="did-floating-input" placeholder=" " id="clientName">
+						               <label class="did-floating-label">Enter Client Name</label>
+						             </div>
+   					             </div>
+   					             <div class="col-md-6 mb-3">
+   									<div class="did-floating-label-content mr-2 search-select-wrapper">
+   									  <input type="text" class="did-floating-input search-select-input" id="driverName2" placeholder=" " onkeyup="showSuggestions()" oninput="filterSuggestions(this)">
+   									  <label class="did-floating-label">Enter Driver Name</label>
+									  <div  style="display: none;" id="suggestion-box-div">
+									  <div id="suggestionBox" class="suggestion-box">
+									  </div>
+										
+   									  </div>
+   									</div>
+   					             </div>
+   					             <div class="col-md-6 mb-3">
+   					               <div class="did-floating-label-content mr-2" >
+   					                 <select class="did-floating-select" id="timePeriod" onchange="toggleCustomTextbox(this.value)">
+										<option disabled selected>Select Time Period </option>
+   					                   <option id="Tagged until changed">Tagged until changed </option>
+   					                   <option id="7 Days">7 Days</option>
+   					                   <option id="30 Days">30 Days</option>
+   					                   <option id="90 Days">90 Days</option>
+   									   <option id="360 Days">360 Days</option>
+   					                 </select>
+   					                 <label class="did-floating-label">Select Time Period</label>
+   					               </div>
+								   <div id="customTextboxContainer" style="display: none; margin-top: 10px;">
+								       <input type="text" class="form-control" id="customTimePeriod" placeholder="Enter custom time period">
+								     </div>
+   					             </div>
+   					           </div>
+   					         </div>
+
+						 <!--<button class="btn btn-primary activate-btn-vd"  onclick="openModalConfirm()">ACTIVATE</button>-->
+					   	   <div class="button-group-vd d-flex gap-3 justify-content-end">
+					   	     <button class="btn back-btn-vd" >Back</button>
+					   	     <button class="btn save-btn-vd" onclick="saveUpdate()" id="btnUpdateTrip">SAVE</button>
+					   	      </div>
+
+					           </div>
+					         </div>
+					       </div>
+					     </div>
+												  								
+					 <!--<div class="lds-spinner" id="signinLoader" style="display: none">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>-->
+
+                </div>
+                <!-- /.container-fluid -->
+				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
+				<input type="hidden" class="form-input" id="vehicleId" name="vehicleId">
+				<input type="hidden" class="form-input" id="driverId" name="driverId">
+				<input type="hidden" class="form-input" id="driverName" name="driverName">
+				<input type="hidden" class="form-input" id="driverMobile" name="driverMobile">
+				<input type="hidden" class="form-input" id="requestType" name="requestType" value="manual"><!-- manual or apiresponse-->
+				
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <div id="bs-canvas-right" class="bs-canvas bs-canvas-right position-fixed bg-white h-100">
+        <button type="button" class="bs-canvas-close float-right test" aria-label="Close" aria-expanded="false"><span aria-hidden="true">&times;</span></button>
+       
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="cotodel-js/edit-vehicle.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+	<script>
+	  function toggleCustomTextbox(value) {
+	    const customContainer = document.getElementById('customTextboxContainer');
+	    if (value === 'Tagged until changed') {
+	      customContainer.style.display = 'block';
+	    } else {
+	      customContainer.style.display = 'none';
+	    }
+	  }
+	</script>
+   <script>
+	
+     function showSuggestions() {
+		var searchText =document.getElementById("driverName2").value;
+		const orgId = document.getElementById('orgId').value;
+			    $.ajax({
+			        type: "GET",
+			        url: "/getEmployeeDriver",
+					data: { 
+						"orgId" :orgId,
+						"name" :searchText
+					},
+			        beforeSend: function(xhr) {
+			            //xhr.setRequestHeader(header, token);
+			        },
+			        success: function(data) {
+			            newData = data;
+			            console.log("Emp onboarding data", newData);
+			            var data1 = jQuery.parseJSON(newData);
+					if(data1.status==true){
+						const suggestionBox = document.getElementById("suggestionBox");
+						const  suggestionboxdiv =  document.getElementById("suggestion-box-div");
+						suggestionBox.classList.add("suggestion-box");
+						 suggestionBox.innerHTML = ''; // Clear any existing suggestions
+						
+						 data1.data.forEach(entry => {
+						   const div = document.createElement("div");
+						   div.setAttribute("onclick", "selectSuggestion(this)");
+
+						   const nameSpan = document.createElement("span");
+						   nameSpan.classList.add("suggestion-text");
+						   nameSpan.innerText = entry.name;
+
+						   const icon = document.createElement("img");
+						   icon.src = "img/phone-icon.png";
+						   icon.classList.add("suggestion-icon");
+						   icon.style.width = "20px";
+						   icon.style.height = "20px";
+
+						   const mobileSpan = document.createElement("span");
+						   mobileSpan.classList.add("suggestion-text-mobile");
+						   mobileSpan.innerText = entry.mobile;
+
+						   const id = document.createElement("input");
+						   id.type = "hidden";
+	   					   id.classList.add("suggestion-text-id");
+	   					   id.innerText = entry.id;
+						   div.appendChild(id);
+						   div.appendChild(nameSpan);
+						   div.appendChild(icon);
+						   div.appendChild(mobileSpan);
+						   suggestionBox.appendChild(div);
+						 });
+
+						 suggestionBox.style.display = 'block'; // Show the box
+						 suggestionboxdiv.style.display = 'block';
+						
+					}else if(data1.status==false){
+					}else{
+					}
+
+			        },
+					error: function(e) {
+			            alert('Failed to fetch JSON data' + e);
+			        }
+			    });
+     }
+
+     function filterSuggestions(input) {
+       const query = input.value.toLowerCase();
+       const suggestions = input.nextElementSibling.nextElementSibling.querySelectorAll('div');
+       suggestions.forEach(el => {
+         el.style.display = el.textContent.toLowerCase().includes(query) ? 'flex' : 'none';
+       });
+     }
+
+     function selectSuggestion(element) {
+       const wrapper = element.closest('.search-select-wrapper');
+       const input = wrapper.querySelector('input');
+       const name = element.querySelector('.suggestion-text').textContent.trim();
+	   const mobile = element.querySelector('.suggestion-text-mobile').textContent.trim();
+	   const id = element.querySelector('.suggestion-text-id').textContent.trim();
+	  
+       input.value = name;
+       wrapper.querySelector('.suggestion-box').style.display = 'none';
+	  
+	   document.getElementById("driverId").value=id;
+	   document.getElementById("driverName").value=name;
+	   document.getElementById("driverMobile").value=mobile;
+	 
+     }
+
+     // Hide dropdown when clicking outside
+     document.addEventListener('click', function (event) {
+       document.querySelectorAll('.search-select-wrapper').forEach(wrapper => {
+         if (!wrapper.contains(event.target)) {
+           const box = wrapper.querySelector('.suggestion-box');
+           if (box) box.style.display = 'none';
+         }
+       });
+     });
+   </script>
+
+	<script>					  					 
+		  function toggleSection(contentId, iconId) 
+		  {
+		     const content = document.getElementById(contentId);
+		     const icon = document.getElementById(iconId);
+
+		     const isVisible = content.style.display === 'flex' || content.style.display === '';
+
+		     content.style.display = isVisible ? 'none' : 'flex';
+		     icon.classList.toggle('rotate', !isVisible);
+		   }
+	</script>
+	<script>	
+
+function openModalConfirm() {
+	const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+	vehicleDetailsModal.style.display = 'none';
+	const modal = document.getElementById('ModalConfirm');
+	modal.style.display = 'block';
+
+	  // Create backdrop manually if needed
+	  if (!document.querySelector('.modal-backdrop')) {
+	    const backdrop = document.createElement('div');
+	    backdrop.className = 'modal-backdrop fade show';
+	    document.body.appendChild(backdrop);
+	  }
+	  // Lock body scroll
+	  document.body.classList.add('modal-open');
+	}
+	
+	function closeAdd(){	
+		const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+		vehicleDetailsModal.style.display = 'none';
+	}
+	function closeexampleModalCenterTitle(){
+		const vehicleDetailsModal = document.getElementById('AddVehicleModal');
+		vehicleDetailsModal.style.display = 'none';
+	}
+	function closeHistory(){
+		const vehicleHistoryModal = document.getElementById('vehicleHistoryModal');
+		vehicleHistoryModal.style.display = 'none';
+	}
+	
+	function closeModalConfirmUpdate(){
+		const modalConfirmUpdate = document.getElementById('ModalConfirmUpdate');
+			modalConfirmUpdate.style.display = 'none';
+	}
+	function editDetailsModalClose(){
+		const editDetailsModal = document.getElementById('editDetailsModal');
+		editDetailsModal.style.display = 'none';
+				
+	}
+	
+	function draftAndOpenPopup(){
+		    var vehicleNumber = document.getElementById("vehicleNumber").value;
+			document.getElementById("rNumber").innerText=vehicleNumber;
+			
+			var vehicleManufactor = document.getElementById("vehicleManufactor").value;							
+			
+			var vehicleModel = document.getElementById("vehicleModel").value;	
+			document.getElementById("rModel").innerText=vehicleModel;
+			
+			const vehicleTypeId = document.getElementById('vehicleType').options[
+		        document.getElementById('vehicleType').selectedIndex
+		    ].value;
+								
+			const vehicleType = document.getElementById('vehicleType').options[
+				        document.getElementById('vehicleType').selectedIndex
+				    ].text;
+			document.getElementById("rClass").innerText=vehicleType;
+			
+			const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
+		        document.getElementById('vehicleFuelType').selectedIndex
+		    ].value;
+			
+			const vehicleFuelType = document.getElementById('vehicleFuelType').options[
+			        document.getElementById('vehicleFuelType').selectedIndex
+			    ].text;
+			document.getElementById("rType").innerText=vehicleFuelType;		
+			
+			if(vehicleNumber =="" ){
+				document.getElementById("vehicleNumberError").textContent = "Please Enter Vehicle Number.";
+				return false;
+			}
+			else{
+				document.getElementById("vehicleNumberError").textContent = "";
+			}
+			if(vehicleManufactor =="" ){
+					document.getElementById("vehicleManufactorError").textContent = "Please Enter Vehicle Manufactor.";
+					return false;
+				}
+				else{
+					document.getElementById("vehicleManufactorError").textContent = "";
+				}
+				if(vehicleModel =="" ){
+					document.getElementById("vehicleModelError").textContent = "Please Enter Vehicle Model.";
+					return false;
+				}
+				else{
+					document.getElementById("vehicleModelError").textContent = "";
+				}
+				
+				if(vehicleTypeId =="" ){
+					document.getElementById("VehicleTypeError").textContent = "Please Select Vehicle Type.";
+					return false;
+				}
+				else{
+					document.getElementById("VehicleTypeError").textContent = "";
+				}
+				if(vehicleFuelTypeId =="" ){
+					document.getElementById("fuelTypeError").textContent = "Please Select Fuel Type.";
+					return false;
+				}
+				else{
+					document.getElementById("fuelTypeError").textContent = "";
+				}
+				
+			const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+				  vehicleDetailsModal.style.display = 'block';
+		   const AddVehicleModal = document.getElementById('AddVehicleModal');
+		  		AddVehicleModal.style.display = 'none';	  
+		}
+	function saveOpenModalConfirm() {
+		
+		const orgId = document.getElementById('orgId').value;
+		const createdBy = document.getElementById('createdBy').value;
+		
+		var vehicleNumber = document.getElementById("vehicleNumber").value;
+		
+		var vehicleManufactor = document.getElementById("vehicleManufactor").value;
+		var vehicleModel = document.getElementById("vehicleModel").value;
+		
+		var vehicleTypeId = document.getElementById('vehicleType').options[
+        document.getElementById('vehicleType').selectedIndex
+	    ].value;
+		const vehicleType = document.getElementById('vehicleType').options[
+        document.getElementById('vehicleType').selectedIndex
+	    ].text;
+		
+		document.getElementById("rClass").innerText=vehicleType;
+		
+		const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
+	    document.getElementById('vehicleFuelType').selectedIndex
+	    ].value;
+		const vehicleFuelType = document.getElementById('vehicleFuelType').options[
+        document.getElementById('vehicleFuelType').selectedIndex
+        ].text;
+		
+		document.getElementById("rType").innerText=vehicleFuelType;
+		
+		var requestType  = 	document.getElementById('requestType').value;
+	
+	    $.ajax({
+	        type: "POST",
+	        url: "/addVehicleDetails",
+	        data:
+			{  
+			    "orgId":orgId,
+			    "createdBy":createdBy,
+				"vehicleNumber":vehicleNumber,
+				"vehicleManufactor":vehicleManufactor,
+				"vehicleType":vehicleType,
+				"vehicleTypeId":vehicleTypeId,
+				"vehicleFuelType":vehicleFuelType,	
+				"vehicleFuelTypeId":vehicleFuelTypeId,	
+				"vehicleModel": vehicleModel,
+				"creationType":"single",
+				"applicationType":"web",
+				"requestType":requestType		
+			},
+			success: function(data){
+	            newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				
+				if(data1.status==true){
+					
+					const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+					vehicleDetailsModal.style.display = 'none';
+					document.getElementById('success').style.display = 'block';
+					document.getElementById('failed').style.display = 'none';
+					
+					const modal = document.getElementById('ModalConfirm');
+					modal.style.display = 'block';
+					getVehicleManagementList();
+				    document.getElementById("vehicleNumber").value="";
+					document.getElementById("vehicleManufactor").value="";							
+					document.getElementById("vehicleModel").value="";	
+					
+				}else if(data1.status==false){
+					const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+					vehicleDetailsModal.style.display = 'none';
+					document.getElementById('success').style.display = 'none';
+					document.getElementById('failed').style.display = 'failed';
+					document.getElementById('failedError').innerHTML=	data1.message;		
+					const modal = document.getElementById('ModalConfirm');
+					modal.style.display = 'block';
+					getVehicleManagementList();
+				}else{
+				
+				}
+	         },
+	         error: function(e){
+	             alert('Error: ' + e);
+	         }
+	    });
+	}
+
+	function saveUpdate(){
+	
+		var vehicleId = document.getElementById('vehicleId').value;
+		const orgId = document.getElementById('orgId').value;
+		const createdBy = document.getElementById('createdBy').value;
+
+		//var ownerName = document.getElementById("ownerName").value;
+		//var ownerAddress = document.getElementById("ownerAddress").value;
+	//	var ownershipId = document.getElementById('ownershipModel').options[
+	//		              document.getElementById('ownershipModel').selectedIndex
+	//				    ].value;
+	//	const ownership = document.getElementById('ownershipModel').options[
+	//	           document.getElementById('ownershipModel').selectedIndex
+	//		    ].text;
+				
+	//	var driverName1 = document.getElementById("driverName1").value;
+		const timePeriod_id = document.getElementById('timePeriod').options[
+				        document.getElementById('timePeriod').selectedIndex
+				    ].value;
+		const timePeriod = document.getElementById('timePeriod').options[
+		        document.getElementById('timePeriod').selectedIndex
+		    ].text;
+		
+		const assignmentTypeId = document.getElementById('assignmentType').options[
+		        document.getElementById('assignmentType').selectedIndex
+		    ].value;
+	   const assignmentType = document.getElementById('assignmentType').options[
+	        document.getElementById('assignmentType').selectedIndex
+	    ].text;
+						
+		var customTimePeriod = document.getElementById("customTimePeriod").value;
+		var clientName = document.getElementById("clientName").value;
+		var driverName2 = document.getElementById("driverName2").value;
+		
+		var driverId= document.getElementById("driverId").value;
+		var driverMobile = document.getElementById("driverMobile").value;
+
+		document.getElementById('btnUpdateTrip').disabled=true;
+		 $.ajax({
+		     type: "POST",
+		     url: "/updateVehicleDetails",
+		     data:
+			{  
+				"vehicleSequenceId":vehicleId,
+			    "orgId":orgId,
+			    "createdBy":createdBy,
+				"ownerName":"",
+				"ownership_type_id":"",
+				"ownership_type":"",
+				"driverName":"",
+				"assignmentType_id":assignmentTypeId,	
+				"assignmentType":assignmentType,				
+				"clientName":clientName,				
+				"driverName2":driverName2,		
+				"driverId":driverId,		
+				"driverMobile":driverMobile,	
+				"timePeriod_id": timePeriod_id,		
+				"selectedTimeperiod": timePeriod,
+				"customTimePeriod":customTimePeriod
+			},
+			success: function(data){
+		         newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				
+				if(data1.status==true){
+					const editDetailsModal = document.getElementById('editDetailsModal');
+					editDetailsModal.style.display = 'none';
+					document.getElementById('successUpdate').style.display = 'block';
+					document.getElementById('failedUpdate').style.display = 'none';
+					
+					const modal = document.getElementById('ModalConfirmUpdate');
+					modal.style.display = 'block';
+					document.getElementById('driverName2').value="";
+					document.getElementById('clientName').value="";	
+					document.getElementById("customTimePeriod").value="";
+					document.getElementById('btnUpdateTrip').disabled=false;
+					getVehicleManagementList();					
+				}else if(data1.status==false){
+					const vehicleDetailsModal = document.getElementById('editDetailsModal');
+					vehicleDetailsModal.style.display = 'none';
+					document.getElementById('successUpdate').style.display = 'none';
+					document.getElementById('failedUpdate').style.display = 'block';
+					document.getElementById('failedUpdateError').innerHTML=	data1.message;		
+					const modal = document.getElementById('ModalConfirmUpdate');
+					modal.style.display = 'block';
+					document.getElementById('driverName2').value="";
+					document.getElementById('clientName').value="";	
+				    document.getElementById("customTimePeriod").value="";
+					document.getElementById('btnUpdateTrip').disabled=false;
+					getVehicleManagementList();
+				}else{
+				
+				}
+		      },
+		      error: function(e){
+		          alert('Error: ' + e);
+		      }
+		 });
+
+	}
+	async function getVehicleManagementList() {
+		const orgId = document.getElementById('orgId').value;
+		const createdBy = document.getElementById('createdBy').value;
+	
+	    $.ajax({
+	        type: "GET",
+	        url: "/getVehicleList",
+			data: { orgId },
+	        beforeSend: function(xhr) {
+	            //xhr.setRequestHeader(header, token);
+	        },
+	        success: function(data) {
+	            newData = data;
+	            console.log("Emp onboarding data", newData);
+	            var data1 = jQuery.parseJSON(newData);
+	            var data2 = data1.data;
+	            var filteredData = data2.filter(function(employee) {
+	                return employee.status === 1;
+	            });
+	            
+	            var table = $('#vehicleManagementTable').DataTable({
+	                destroy: true,
+	                "responsive": true,
+	                searching: false,
+	                bInfo: false,
+	                paging: false,
+	                "lengthChange": true,
+	                "autoWidth": false,
+	                "pagingType": "full_numbers",
+	                "pageLength": 50,
+	                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+	                "language": {"emptyTable": "No Active Employees Found"},
+	                
+	                // Use the filtered data instead of original data
+	                "aaData": filteredData,
+	                "aoColumns": [
+	                  //  { "mData": null, "render": function(data, type, row, meta) { return meta.row + 1; } },
+						{ "mData": "vehicleSequenceId" },
+	                    { "mData": "vehicleType" },
+	                    { "mData": "vehicleNumber" },
+						{ "mData": "vehicleFuelType" },
+	                    { "mData": "vehicleManufactor" },
+						//{ "mData": "vehicleManufactor" },
+						//{ "mData": "vehicleModel" },
+						
+				     	//{ "mData": "drivername2" },
+						{
+						  "mData": "driverName2",
+						  "render": function(data1, type, row) {
+						    if (data1 === "" || data1 === null) {
+						      return 'Driver not assigned';
+						    } else {
+						      return row.driverName2 + "</br>+91" + row.driverMobile + "";
+						    }
+						  }
+						},
+						
+						{
+						  "mData": "clientName",
+						  "render": function(data1, type, row) {
+						    if (data1 === "" || data1 === null) {
+						      return 'Client not assigned';
+						    } else {
+						      return row.clientName;
+						    }
+						  }
+						},			 
+						
+					   // { "mData": "clientName" },
+						
+						{ "mData": "tripStatus", "render": function(data1, type, row) {
+							if(data1 !=="In progress"){
+							//return '<a href="#" onclick="viewHistory(this)"> data-toggle="modal" data-target="#vehicleHistoryModal"><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
+
+							return 'No History';		
+						}
+							else{
+								return '<a href="#" onclick="viewHistory(this)" ><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
+								
+															
+							}							
+						}},					 
+						
+						 { "mData": "tripStatus", "render": function(data1, type, row) {
+							//var vehicleType = data1.vehicleType;
+							if(data1==="In progress"){
+								return '';
+	                      //return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
+						}
+						else{
+							return '<td><a onclick="viewData(this)"> <img src="img/edit-pencil-blue.png" alt="Edit Pencil" style="height:24px; width:24px; margin-right:4px;">  </a></td>';
+													 
+						}
+					   }},
+	                ],
+					createdRow: function (row, data1, dataIndex) 
+		                    {
+		                     //console.log("row : "+JSON.stringify(data2));
+		                   
+		                 	var vehicleType = data1.vehicleType;
+		                 	//var statusMessage = data2.statusMessage;
+		                	
+		                     if(vehicleType=="SUV / MUV")
+		                     {
+							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+		                     $(row).find('td:eq(1)').html(imgTag);
+		                     }
+		                     if(vehicleType=="Sedan")
+		                     {
+							 var imgTag = ' <img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
+		 					 $(row).find('td:eq(1)').html(imgTag);
+		                     }
+		                     
+		                     if(vehicleType=="Truck")
+		                     {
+								var imgTag = ' <img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
+								 $(row).find('td:eq(1)').html(imgTag);
+		                     }
+		                     
+		                     if(vehicleType=="Mini Truck")
+		                     {
+							 var imgTag = '<img src="img/truck-icon.png" alt="" class="mr-2">'+vehicleType;
+		                     $(row).find('td:eq(1)').html(imgTag);
+		                     }
+		                     if(vehicleType=="Hatchback")
+		                     {
+							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+		 					 $(row).find('td:eq(1)').html(imgTag);
+		                     }
+		                     if(vehicleType=="Two-Wheeler")
+		                     {
+							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+		                      $(row).find('td:eq(1)').html(imgTag);
+		                     }
+							 if(vehicleType=="Ambulance / Special Purpose")
+ 		                     {
+ 							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+ 		                      $(row).find('td:eq(1)').html(imgTag);
+ 		                     }
+							 
+		                    // if(statusMessage=="Draft")
+		                    // {
+							////	  $(row).find('td:eq(8)').addClass('td-btn draft');
+		                    // }
+							 
+		                  }
+					});		
+								
+	        },
+	        error: function(e) {
+	            alert('Failed to fetch JSON data' + e);
+	        }
+	    });
+	}
+	
+	
+	function viewHistory(value){
+			
+			var row = jQuery(value).closest('tr');
+		 //   var id = row.find('input[name="id"]').val();
+		 var vehicleSequenceId = row.find('td').eq(0).text().trim(); 
+			const orgId = document.getElementById('orgId').value;
+			const createdBy = document.getElementById('createdBy').value;
+		    $.ajax({
+		        type: "GET",
+		        url: "/vehichleTripHistory",
+				data: { vehicleSequenceId },
+		        beforeSend: function(xhr) {
+		            //xhr.setRequestHeader(header, token);
+		        },
+		        success: function(data) {
+		            newData = data;
+		            console.log("Emp onboarding data", newData);
+		            var data1 = jQuery.parseJSON(newData);
+				if(data1.status==true){
+					const container = document.getElementById("vehicleDataContainer");
+					container.innerHTML = '';
+					 data1.data.forEach(item => {
+					   const html = `
+					   <div class="modal-body vehicle-modal-body">
+					     <div class="vehicle-details-wrapper">
+					       <div class="vehicle-dates">
+					         <div>
+					           <div class="vehicle-date-label">From</div>
+					           <div class="vehicle-date-value">${item.tripStartDate}</div>
+					         </div>
+					         <div class="vehicle-date-line">
+					           <span class="vehicle-date-dash"></span>
+					         </div>
+					         <div>
+					           <div class="vehicle-date-label">To</div>
+					           <div class="vehicle-date-value">${item.tripEndDate}</div>
+					         </div>
+					       </div>
+
+					       <div class="row text-left vehicle-data-box">
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/Driver-icon.png" alt="Driver" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Driver</div>
+					             <div class="vehicle-field-value">${item.driverName2}</div>
+					           </div>
+					         </div>
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/phone-icon1.png" alt="Mobile" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Mobile Number</div>
+					             <div class="vehicle-field-value">${item.driverMobile}</div>
+					           </div>
+					         </div>
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/user-icon.png" alt="Client Name" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Client Name</div>
+					             <div class="vehicle-field-value">${item.clientName}</div>
+					           </div>
+					         </div>
+					         <!-- Optional fields (DL Number, Client City) -->
+					         <!--
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/dl-icon.png" alt="DL Number" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">DL Number</div>
+					             <div class="vehicle-field-value">N/A</div>
+					           </div>
+					         </div>
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/user-icon.png" alt="Client City" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Client City</div>
+					             <div class="vehicle-field-value">N/A</div>
+					           </div>
+					         </div>
+					         -->
+					       </div>
+					     </div>
+						 </div>
+						 </br>
+					   `;
+
+					   container.insertAdjacentHTML('beforeend', html);
+					 });					
+					const vehicleHistoryModal = document.getElementById('vehicleHistoryModal');
+	 				vehicleHistoryModal.style.display = 'block';
+				}else if(data1.status==false){
+
+					const container = document.getElementById("vehicleDataContainer");
+					container.innerHTML = '';
+					 data1.data.forEach(item => {
+					   const html = `
+					   <div class="modal-body vehicle-modal-body">
+					     <div class="vehicle-details-wrapper">
+					       <div class="vehicle-dates">
+					         <div>
+					           <div class="vehicle-date-label">From</div>
+					           <div class="vehicle-date-value">${item.tripStartDate}</div>
+					         </div>
+					         <div class="vehicle-date-line">
+					           <span class="vehicle-date-dash"></span>
+					         </div>
+					         <div>
+					           <div class="vehicle-date-label">To</div>
+					           <div class="vehicle-date-value">${item.tripEndDate}</div>
+					         </div>
+					       </div>
+
+					       <div class="row text-left vehicle-data-box">
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/Driver-icon.png" alt="Driver" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Driver</div>
+					             <div class="vehicle-field-value">${item.driverName2}</div>
+					           </div>
+					         </div>
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/phone-icon1.png" alt="Mobile" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Mobile Number</div>
+					             <div class="vehicle-field-value">${item.driverMobile}</div>
+					           </div>
+					         </div>
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/user-icon.png" alt="Client Name" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Client Name</div>
+					             <div class="vehicle-field-value">${item.clientName}</div>
+					           </div>
+					         </div>
+					         <!-- Optional fields (DL Number, Client City) -->
+					         <!--
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/dl-icon.png" alt="DL Number" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">DL Number</div>
+					             <div class="vehicle-field-value">N/A</div>
+					           </div>
+					         </div>
+					         <div class="col-md-4 mb-3 d-flex align-items-start">
+					           <img src="img/user-icon.png" alt="Client City" class="vehicle-icon">
+					           <div>
+					             <div class="vehicle-field-label">Client City</div>
+					             <div class="vehicle-field-value">N/A</div>
+					           </div>
+					         </div>
+					         -->
+					       </div>
+					     </div>
+						 </div>
+						 </br>
+					   `;
+
+					   container.insertAdjacentHTML('beforeend', html);
+					 });	
+					const vehicleHistoryModal = document.getElementById('vehicleHistoryModal');
+					 				vehicleHistoryModal.style.display = 'block';
+				}else{
+				}
+
+		        },
+				error: function(e) {
+		            alert('Failed to fetch JSON data' + e);
+		        }								
+		    });		
+		}  
+	function viewData(value){
+		
+		var row = jQuery(value).closest('tr');
+	   // var id = row.find('input[name="id"]').val();
+	   var vehicleSequenceId = row.find('td').eq(0).text().trim(); 
+	  // alert(""+id);
+		const orgId = document.getElementById('orgId').value;
+		const createdBy = document.getElementById('createdBy').value;
+	    $.ajax({
+	        type: "GET",
+	        url: "/getVehicleManagementById",
+			data: { vehicleSequenceId },
+	        beforeSend: function(xhr) {
+	            //xhr.setRequestHeader(header, token);
+	        },
+	        success: function(data) {
+	            newData = data;
+	            console.log("Emp onboarding data", newData);
+	            var data1 = jQuery.parseJSON(newData);
+			if(data1.status==true){
+				document.getElementById("editVehicleNumber").innerText=data1.data.vehicleType;
+				document.getElementById("editVehicleModel").innerText=data1.data.vehicleNumber;
+				document.getElementById("editVehicleClass").innerText=data1.data.vehicleManufactor;
+				document.getElementById("editVehicleDesileType").innerText=data1.data.vehicleFuelType;
+				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;						
+				const editDetailsModal = document.getElementById('editDetailsModal');
+ 				editDetailsModal.style.display = 'block';
+			}else if(data1.status==false){
+			}else{
+			}
+
+	        },
+			error: function(e) {
+	            alert('Failed to fetch JSON data' + e);
+	        }								
+	    });		
+	}  
+	
+	  function downloadDivAsExcel() {
+	    const tableData = [];
+	    
+	    // Select all vehicle detail wrappers
+	    document.querySelectorAll('.vehicle-details-wrapper').forEach((wrapper, index) => {
+	      const row = {};
+
+	      row['From Date'] = wrapper.querySelector('.vehicle-dates .vehicle-date-value:nth-child(2)')?.innerText || '';
+	      row['To Date'] = wrapper.querySelector('.vehicle-dates .vehicle-date-value:last-child')?.innerText || '';
+	      row['Driver Name'] = wrapper.querySelector('.vehicle-data-box .vehicle-field-value')?.innerText || '';
+	      row['Mobile Number'] = wrapper.querySelectorAll('.vehicle-data-box .vehicle-field-value')[1]?.innerText || '';
+	      row['Client Name'] = wrapper.querySelectorAll('.vehicle-data-box .vehicle-field-value')[2]?.innerText || '';
+	      // Add more fields if needed...
+
+	      tableData.push(row);
+	    });
+
+	    const worksheet = XLSX.utils.json_to_sheet(tableData);
+	    const workbook = XLSX.utils.book_new();
+	    XLSX.utils.book_append_sheet(workbook, worksheet, "TripData");
+
+	    XLSX.writeFile(workbook, "TripDetails.xlsx");
+	  }
+				
+	
+</script>
+	<script>
+	  function toggleVehicleTable() {
+	    const table = document.getElementById('vehicleTable');
+	    if (table.style.display === 'none' || table.style.display === '') {
+	      table.style.display = 'flex';
+	    } else {
+	      table.style.display = 'none';
+	    }
+	  }
+	</script>
+
+	<!-- JavaScript -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+		  const closeButton = document.querySelector('#ModalConfirm .close');
+		  closeButton.addEventListener('click', function () {
+		    const modal = document.getElementById('ModalConfirm');
+		    modal.style.display = 'none'; // Hide the modal
+		    // Remove the Bootstrap backdrop if exists
+		    const backdrop = document.querySelector('.modal-backdrop');
+		    if (backdrop) backdrop.remove();
+		    
+		    // Optional: Remove 'modal-open' from body to allow scrolling again
+		    document.body.classList.remove('modal-open');
+		  });
+		});
+	</script>
+	
+	<script>
+		  document.addEventListener("DOMContentLoaded", function () {
+		    const closeBtn = document.querySelector('#vehicleDetailsModal .close');
+		    if (closeBtn) {
+		      closeBtn.addEventListener('click', function () {
+		        // Proper Bootstrap hide method
+		        $('#vehicleDetailsModal').modal('hide');
+		      });
+		    }
+		    // Optional: Reset modal content on hide to prevent residual changes
+		    $('#vehicleDetailsModal').on('hidden.bs.modal', function () {
+		      const modal = this;
+		      modal.querySelector('.modal-header').style.display = 'flex'; // Ensure header stays visible
+		    });
+		  });
+		</script>
+	<script>
+	  document.addEventListener("DOMContentLoaded", function () {
+	    const closeBtn = document.querySelector('#AddVehicleModal .close');
+
+	    if (closeBtn) {
+	      closeBtn.addEventListener('click', function () {
+	        // Proper Bootstrap hide method
+	        $('#AddVehicleModal').modal('hide');
+	      });
+	    }
+
+	    // Optional: Reset modal content on hide to prevent residual changes
+	    $('#AddVehicleModal').on('hidden.bs.modal', function () {
+	      const modal = this;
+	      modal.querySelector('.modal-header').style.display = 'flex'; // Ensure header stays visible
+	    });
+	  });
+	</script>
+
+    <script>
+        jQuery(document).ready(function($){
+            var bsOverlay = $('.bs-canvas-overlay');
+            $('[data-toggle="canvas"]').on('click', function(){
+                var ctrl = $(this), 
+                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+                $(elm).addClass('mr-0');
+                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+                if(bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+            
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function(){
+                var elm;
+                if($(this).hasClass('bs-canvas-close')) {
+                    elm = $(this).closest('.bs-canvas');
+                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+                } else {
+                    elm = $('.bs-canvas')
+                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");	
+                }
+                elm.removeClass('mr-0');
+                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+                if(bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+        </script>
+        
+	<script>
+    $(document).ready(function(){
+    	
+    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+        $(".innernav").click(function(){
+            $(".dropdownNav").addClass("active");
+        });
+    });
+		    
+</script>
+		<style>					
+			.modal-bulk1 {
+		      width: 600px;
+		      height: 480px;
+		      margin: auto;
+		      border-radius: 12px;
+		      padding: 0 20px 20px;
+		    }
+		    .modal-header {
+		      border-bottom: 1px solid #dee2e6;
+		      justify-content: center;
+		    }
+		    .modal-title {
+		      font-weight: 600;
+			 
+		    }
+		    .form-control {
+		      border-radius: 8px;
+		      height: 48px;
+		    }
+		   
+		</style>
+		
+</body>
+
+</html>

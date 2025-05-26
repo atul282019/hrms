@@ -150,6 +150,10 @@ public interface CommonUtils {
 		 
 	public static String getVehicleManagementList="/empService/Api/get/getVehicleManagement";
 	public static String addVehicleDetails="/empService/Api/add/VehicleManagement";
+	public static String getVehicleManagementById = "/empService/Api/get/getVehicleManagementById";
+	public static String getDriverDetail = "/empService/Api/get/getEmployeeDriver";
+	public static String updateVehicleDetails = "/empService/Api/add/tripVehicleDetails";
+	public static String vehichleTripHistory =  "/empService/Api/get/getTripHistoryList";
 	
 	public static String preprodWebhookCallback ="http://13.234.119.146:9085/cashFree/Api/get/cashFreeOrderIdUpdate";
 	
