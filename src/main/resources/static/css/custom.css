@@ -5271,12 +5271,20 @@ input.autocomp-input {
 }
 
 .logoNewLeft {
+	
     justify-content: space-between;
     display: flex;
     flex-direction: column;
     height: 90vh;
 }
 
+.logoNewLeft-custom {
+	
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    height: 102vh;
+}
 .logoNewBtm h2 {
     color: #FFFFFF;
     font-size: 28px;
@@ -6723,3 +6731,448 @@ table.vcScheduledtable thead {
     margin-left: 4px;
     font-weight: bold;
 }
+
+.logoNewForm1 {
+			
+		    width: 470px;
+		    height: auto; /* Changed from min-height */
+		    border: 1px solid #C7C8D1;
+		    border-radius: 20px;
+		    background: #fff;
+		    padding: 25px; /* Reduced padding */
+		     margin: 30px 0 0 30px; /* Reduced margins */
+		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		    position: relative;
+		    transform: none; /* Removed transform */
+		}
+		.form-title {
+					
+					  
+				    font-size: 23px;
+				    margin-bottom: 1rem;
+				    color: #1F212C;
+				    font-weight: 700;
+				    margin-top: -60px; /* Removed negative margin */
+				}
+				.btn-register {
+					    background: #367AFF;
+					    color: white;
+					    width: 100%;
+					   
+					    border-radius: 8px;
+					    font-weight: 600;
+					    
+						margin-top: 0.5rem;
+						    padding: 10px;
+					}
+					.form-check-group {
+						    border: 1px solid #C7C8D1;
+						    border-radius: 8px;
+						    padding: 8px;
+						    margin-top: 10px;
+							margin-bottom: 8px;
+							
+						}
+						.form-check-group:focus-within {
+						    border-color: #367AFF;
+						    box-shadow: 0 0 0 2px rgba(54, 122, 255, 0.1);
+						}
+						.existing-account {
+							    text-align: center;
+							    margin-top: 1.5rem;
+							    color: #666;
+							}
+
+							.existing-account a {
+							    color: #367AFF;
+							    text-decoration: none;
+							    font-weight: 500;
+							}
+							
+							.mb-4 {
+					  	    margin-bottom: 0.5rem !important; /* Reduced from Bootstrap's default 1.5rem */
+					  	}	
+							
+/* new login page design classes*/
+.login-footer {
+	margin-top: 20px;
+	  text-align: center;
+	  font-size: 14px;
+	 
+	}
+
+	.login-footer a {
+	  color: #3b82f6;
+	  font-weight: 500;
+	  text-decoration: none;
+	}
+	.login-body {
+	  flex: 1;
+	}
+	
+	.social-buttons {
+	  display: flex;
+	  gap: 12px;
+	  justify-content: space-between;
+	  margin-bottom: 20px;
+	}
+	.helper-text	{
+			margin-top: 10px;
+		  font-size: 14px;
+		  color: #6D7072;
+		  margin-bottom: 15px;
+		}
+	.social-btn {
+		  flex: 1;
+		  border: 1px solid #ddd;
+		  border-radius: 8px;
+		  padding: 10px;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  gap: 8px;
+		  background: #fff;
+		  font-weight: 500;
+		}
+		
+		.or-divider {
+			  text-align: center;
+			  margin: 10px 0 20px;
+			  position: relative;
+			}
+
+			.or-divider span {
+			  background: #fff;
+			  padding: 0 10px;
+			  color: #777;
+			}
+
+			.or-divider::before {
+			  content: "";
+			  position: absolute;
+			  top: 50%;
+			  width: 100%;
+			  height: 1px;
+			  background: #ccc;
+			  left: 0;
+			  z-index: -1;
+			}
+			.flag-icon {
+				  width: 24px;
+				  height: 16px;
+				  border-radius: 2px;
+				  object-fit: cover;
+				}
+				.phone-input {
+				  flex: 1;
+				  border: none;
+				  outline: none;
+				  padding: 10px 12px;
+				  background-color: transparent;
+				  color: #fff;
+				}
+				
+				.phone-input-container {
+					  display: flex;
+					  align-items: center;
+					  border: 1px solid #C7C8D1;
+					  border-radius: 8px;
+					  overflow: hidden;
+					  background-color: #ffff; /* Optional dark bg like your screenshot */
+					  height: 42px;
+					}
+				.phone-input-container .form-control {
+					margin-top: 20px;
+				  border: none;
+				  outline: none;
+				  box-shadow: none;
+				  flex: 1;
+				}
+
+
+				.login-btn {
+				  width: 100%;
+				  background-color: #367AFF;
+				  color: #ffff;
+				  font-weight: 600;
+				  border-radius: 10px;
+				  padding: 10px;
+				  border: none;
+				  margin-bottom: 20px;
+				}
+
+				.or-divider {
+				     text-align: center;
+				     margin: 20px 0;
+				   }
+				   
+				   .main-container {
+					margin-top: 50px; /* move the entire section down */
+				   	  width: 1250px !important;
+				   	  height: 650px !important;
+				   	  display: flex;
+				   	  gap: 24px;
+				   	  border-radius: 16px;
+				   	  overflow: hidden;
+				   	  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+				   	  padding: 20px;
+				   	  /* Remove the white background */
+				   	  /* background: #fff; */
+					  background-color: #F6F6FA;
+					  background: transparent !important; /* ensure it's clear */
+					    box-shadow: none !important;        /* remove shadows */
+				   	}
+
+
+					.image-section {
+						
+					  flex: 3;
+					  overflow: hidden;
+					  position: relative;
+					  border-radius: 20px;
+					}
+					.carousel-caption {
+						  text-align: left !important;
+						  left: 20px;
+						  right: auto;
+						  bottom: 30px;
+						}
+						.carousel-caption h5 {
+						  background: rgba(0, 0, 0, 0.4);
+						  padding: 8px 16px;
+						  display: inline-block;
+						  border-radius: 6px;
+						}
+						.login-section {
+							  flex: 2;
+							  padding: 40px;
+							  display: flex;
+							  flex-direction: column;
+							   justify-content: flex-start;
+							  background-color: #fff;
+							  border-radius: 12px;
+							}
+
+						    .login-section h4 {
+						      font-size: 18px;
+						      font-weight: bold;
+						    }
+
+							@keyframes slideImages {
+							  0%   { transform: translateX(0%); }
+							  33%  { transform: translateX(-100%); }
+							  66%  { transform: translateX(-200%); }
+							  100% { transform: translateX(0%); }
+							}
+
+
+							.footer-divider {
+								  margin: 20px 0 10px;
+								  border: none;
+								  border-top: 1px solid #ddd;
+								}
+
+
+
+							.logo-container {
+							  position: absolute;
+							  top: 20px;
+							  left: 140px;
+							  z-index: 10;
+							}
+
+							.logo-img {
+							  width: 140.3571319580078px;
+							  height: 30px;
+							}
+
+							.phone-prefix {
+							  display: flex;
+							  align-items: center;
+							  gap: 6px;
+							  padding: 10px 12px;
+							  background-color: transparent;
+							  border-right: 1px solid #666;
+							  color: #86889B;
+							  font-weight: 500;
+							  white-space: nowrap;
+							}
+							.login-title {
+							  font-size: 20px;
+							  font-weight: 600;
+							  margin-bottom: 20px;
+							}
+
+							#otp-section {
+									    background: white;
+									    border-radius: 12px;
+									    padding: 30px 0;
+									  }
+
+									  .otp-input {
+									    width: 41px;
+									    height: 49px;
+									    margin-right: 0px !important;
+									    font-size: 20px;
+									    border: 1px solid #C7C8D1;
+									    border-radius: 10px;
+									  }
+									  
+									  
+ /* Industries page css*/
+ 
+ .gradient-bg {
+ 	        background: linear-gradient(to bottom, #1F212C 0%, #0B572B 50%, #ffffff 50%, #ffffff 100%);
+ 	        margin: 0;
+ 	    }
+		
+		.section-overlap {
+		        position: relative;
+		        margin-top: -700px;
+		        z-index: 2;
+		    }
+			.section-top {
+			        height: 300px;
+			    }
+				.section-bottom {
+				        padding-top: 260px;
+				        padding-bottom: 0px;
+				        position: relative;
+				        z-index: 1;
+				    }
+					.logo-container-I {
+					        display: flex;
+					        justify-content: center;
+					        align-items: center;
+					        margin-bottom: 20px;
+							margin-right: 60px;
+							margin-top: -80;
+					    }
+						.logo-img-I {
+						        max-width: 300px;
+						    }
+
+							 
+
+							  .card-container {
+							      width: 645px;
+							      height: 579px;
+							      margin: auto;
+							      background-color: white;
+							      border-radius: 20px;
+							      border: 1px solid #C7C8D1;
+							      transition: all 0.3s ease-in-out;
+							  }
+
+							  .card-container:hover {
+							      transform: translateY(-5px);
+							      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+							      border-color: #2F945A;
+							  }
+
+							  .card-image {
+							      margin: 10px auto;
+							      max-width: 100%;
+							  }
+
+							  .card-content {
+							      background-color: #2F945A;
+							      color: white;
+							      width: 100%;
+							      height: 289px;
+							      border-radius: 20px;
+							      padding: 20px;
+							      margin-top: 20px;
+							      display: flex;
+							      flex-direction: column;
+							      justify-content: space-between;
+							  }
+
+							  .feature-list {
+							      color: #D4EADB;
+							      text-align: left;
+							      list-style-type: none;
+							      padding-left: 8px;
+							  }
+
+							  .feature-item {
+							      margin-bottom: 8px;
+							  }
+
+							  .feature-bullet {
+							      color: #92D2B6;
+							  }
+
+							  .feature-text {
+							      color: white;
+							  }
+
+							  .explore-btn {
+							      border: 1px solid #D4EADB;
+							      color: white;
+							      padding: 0.5rem 2rem;
+							      border-radius: 8px;
+							      align-self: center;
+							      width: 465px;
+							      font-weight: bold;
+							      transition: all 0.3s ease-in-out;
+								
+								 position: relative;
+								    overflow: hidden;
+								    color: white;
+								    background: transparent;
+								
+							  }
+							.explore-btn::after {
+							    content: "Register Now";
+							    position: absolute;
+							    top: 50%;
+							    left: 50%;
+							    transform: translate(-50%, -50%);
+							    opacity: 0;
+							    color: #2F945A;
+							    font-weight: bold;
+							    transition: opacity 0.3s ease;
+							}
+
+							.explore-btn:hover::after {
+							    opacity: 1;
+							}
+							  .explore-btn:hover {
+							      background-color: white;
+							      color: #2F945A;
+							      border-color: white;
+								
+								 color: transparent; /* hide original text */
+							  }
+
+							  .card-title {
+							      font-weight: bold;
+							      margin-bottom: 12px;
+							      text-align: left;
+								color: white;
+							  }
+
+							  /* Updated industry-blog class with your specifications */
+							  .industry-blog {
+							      border-radius: 15px;
+							      padding: 1px;
+							      margin: 10px;
+							      transition: all 0.3s ease-in-out;
+							      width: 100%;
+							      max-width: 545px;
+							      background-color: #fff;
+							      border: 1px solid #C7C8D1;
+							      display: flex;
+							      flex-direction: column;
+							      justify-content: space-between;
+							      height: 100%;
+							  }
+
+							  /* Hover effect for industry-blog */
+							  .industry-blog:hover {
+							      transform: translateY(-5px);
+							      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+							      border-color: #2F945A;
+							  }
+							  
