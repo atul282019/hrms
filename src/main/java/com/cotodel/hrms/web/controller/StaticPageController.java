@@ -111,6 +111,10 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView blogspage(Model model) {
 		return new ModelAndView("blogspage", "command", "");
 	}
+	@GetMapping(value="/fleettrial")
+	public ModelAndView fleettrial(Model model) {
+		return new ModelAndView("fleetTrial", "command", "");
+	}
 	@GetMapping(value="/nointernet")
 	public ModelAndView nointernet(Model model) {
 		return new ModelAndView("nointernet", "command", "");
@@ -499,7 +503,31 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView SignupPage(Model model) {
 		return new ModelAndView("signup", "command", "");
 	}	
-	
+	@GetMapping(value="/customdashboard")
+	public String customdashboard(Model model) {
+		logger.info("opening dashboardPage");
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2
+						|| obj.getUser_role()==3  || obj.getUser_role()==12) {
+
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("id",id);
+				return "custom-dashboard";
+			}
+			 return "error";
+		}
+		return "redirect:/index";
+		
+	}
+	return "redirect:/index";	
+}	
 
 	@GetMapping(value="/dashboard")
 	public String dashboard(Model model) {
@@ -1549,7 +1577,15 @@ public class StaticPageController extends CotoDelBaseController{
 		@GetMapping(value="/waitList")
 		public ModelAndView cotodelWaitlist(Model model) {
 			return new ModelAndView("cotodel-Waitlist", "command", "");
-		}	
+		}
+		@GetMapping(value="/corporatetrial")
+		public ModelAndView corporatetrial(Model model) {
+			return new ModelAndView("corporateTrial", "command", "");
+		}
+		@GetMapping(value="/customlogin")
+		public ModelAndView loginnew(Model model) {
+			return new ModelAndView("loginnew", "command", "");
+		}
 		
 		@GetMapping(value="/termsconditions")
 		public ModelAndView termsConditions(Model model) {
@@ -1696,6 +1732,10 @@ public class StaticPageController extends CotoDelBaseController{
     @GetMapping(value = "/consulting")
     public ModelAndView consultingAndAdvisory(Model model) {
         return new ModelAndView("consulting", "command", "");
+    }
+    @GetMapping(value = "/Industries")
+    public ModelAndView Industries(Model model) {
+        return new ModelAndView("Industries", "command", "");
     }
     
     @GetMapping(value="/payment")
