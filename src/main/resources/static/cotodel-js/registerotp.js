@@ -553,7 +553,7 @@ function verifyEmail(){
  			  
               } else if (data.status === false) {
  				  //$("#demoModal").show();
-                  document.getElementById("otfailmsg").innerHTML = data1.message;
+                  document.getElementById("otfailmsg").innerHTML = data.message;
                   document.getElementById("otfailmsgDiv").style.display = "block";
                   $('#otfailmsgDiv').delay(5000).fadeOut(400);
               } else {
@@ -663,7 +663,7 @@ function verifyEmail(){
 			  
              } else if (data.status === false) {
 				//$("#demoModal").show();
-                 document.getElementById("otfailmsg").innerHTML = data1.message;
+                 document.getElementById("otfailmsg").innerHTML = data.message;
                  document.getElementById("otfailmsgDiv").style.display = "block";
                  $('#otfailmsgDiv').delay(5000).fadeOut(400);
              } else {
