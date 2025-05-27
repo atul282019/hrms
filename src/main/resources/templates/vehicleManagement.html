@@ -298,7 +298,7 @@
 			   </div>
 			  
 			 <!-- modal confirm -->
- <div class="modalView" id="ModalConfirm">
+ 	<div class="modalView" id="ModalConfirm">
  		        <div class="modal-dialog modal-dialog-centered">
  		            <div class="modal-content modal-bulk p-0">
  		                <div class="modal-top text-center">
@@ -811,10 +811,10 @@ function openModalConfirm() {
 				document.getElementById("vehicleNumberError").textContent = "Please Enter Vehicle Number.";
 				return false;
 			}
-			else if(!vehicleNumber.match(regex)){
-						document.getElementById("vehicleNumberError").textContent = "Please Enter Valid Vehicle Number.";
-						return false;
-					}
+			//else if(!vehicleNumber.match(regex)){
+			//			document.getElementById("vehicleNumberError").textContent = "Please Enter Valid Vehicle Number.";
+			//			return false;
+			//		}
 			else{
 				document.getElementById("vehicleNumberError").textContent = "";
 			}
