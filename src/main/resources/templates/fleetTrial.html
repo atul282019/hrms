@@ -52,23 +52,27 @@
 	                    <div class="logoNewFormtop">
 	                        <h5 class="form-title">Register your Fleet with Cotodel!</h5>
 	                        
-	                        <form id="registrationForm">
+	                        <form id="fleetregistration">
 	                            <!-- Form Fields -->
 	                            <div class="form-group">
-	                                <input type="text" class="form-control" placeholder="Enter your full name" required>
-	                            </div>
+	                                <input type="text" id="username" class="form-control" placeholder="Enter your full name" required>
+									<div id="usernameError1" class="error-msg"></div>
+								</div>
 	                            
 	                            <div class="form-group">
-	                                <input type="email" class="form-control" placeholder="Enter your work email address" required>
-	                            </div>
+	                                <input type="email"id="email"class="form-control" placeholder="Enter your work email address" required>
+									<div id="emailError1" class="error-msg"></div>
+								 </div>
 	                            
 	                            <div class="form-group">
-	                                <input type="tel" class="form-control" placeholder="+91 00000 00000" pattern="[0-9]{10}" required>
-	                            </div>
+	                                <input type="tel" id="mobile" class="form-control" placeholder="+91 00000 00000" pattern="[0-9]{10}" required>
+									 <div id="mobileError1" class="error-msg"></div>
+								</div>
 	                            
 	                            <div class="form-group">
-	                                <input type="text" class="form-control" placeholder="Enter your company name" required>
-	                            </div>
+	                                <input type="text" id="orgname"class="form-control" placeholder="Enter your company name" required>
+									<div id="orgnameError1" class="error-msg"></div>
+								 </div>
 
 								<div class="mb-4 ">
 									                  <label class="form-label d-block">Company Size</label>
@@ -101,6 +105,7 @@
 								            <a href="/privacy-policy" style="color: #367AFF;">privacy policy</a> and 
 								            <a href="/terms-of-use" style="color: #367AFF;">terms of use</a>
 								        </label>
+										<div id="privacyCheckError1" class="error-msg"></div>
 								    </div>
 								    <div class="form-check">
 								        <input type="checkbox" id="whatsapp">
@@ -108,11 +113,11 @@
 								    </div>
 								</div>
 
-	                            <button type="submit" class="btn btn-register" disabled>REGISTER</button>
+	                            <button type="button" class="btn btn-register" onclick="fleetRegistration()">REGISTER</button>
 	                        </form>
 								<hr>
 	                        <div class="existing-account">
-	                            Already have an account with us? <a href="#">Login</a>
+	                            Already have an account with us? <a href="/login">Login</a>
 	                        </div>
 	                    </div>
 	                    
@@ -123,6 +128,22 @@
 	    </div>
 	</div>
     
+	
+	<div class="lds-spinner" id="signinLoader" style="display: none">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+	
 	<style>
 		
 		
@@ -244,6 +265,7 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
 
 	<script>
 		$(document).ready(function() {

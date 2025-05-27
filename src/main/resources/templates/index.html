@@ -1,178 +1,207 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cotodel Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Login Fleet Management</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/custom.css">
-
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-control {
+      margin-bottom: 20px;
+    }
+    .btn-primary {
+      width: 100%;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="main-container">
+	<div class="logo-container">
+			  <img src="img/Cotodel Logo.svg" alt="Cotodel Logo" class="logo-img" />
+			</div>
+	<div class="image-section">
+		
+	  <div id="imageCarousel" class="carousel slide h-100" data-ride="carousel">
+	    <div class="carousel-inner h-100">
+	      <div class="carousel-item active h-100">
+	        <img src="/img/Image12.webp" class="d-block w-100 h-100" alt="Slide 1" style="object-fit: cover;">
+	        <div class="carousel-caption d-none d-md-block">
+	          <h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+	        </div>
+	      </div>
+	      <div class="carousel-item h-100">
+	        <img src="/img/Image12.webp" class="d-block w-100 h-100" alt="Slide 2" style="object-fit: cover;">
+	        <div class="carousel-caption d-none d-md-block">
+				<h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+				       
+	        </div>
+	      </div>
+	      <div class="carousel-item h-100">
+	        <img src="/img/Image12.webp" class="d-block w-100 h-100" alt="Slide 3" style="object-fit: cover;">
+	        <div class="carousel-caption d-none d-md-block">
+				<h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+				       
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
-    <div class="loginNew-wrap" id="loginWrap">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 col-md-8 logoNewLeft">
-                    <div class="logoNew">
-                        <img src="img/cotodel_logoNew.svg" alt="">
-                    </div>
-                    <div class="logoNewBtm">
-                       <h2><span>Business Payments</span> made seamless like <br>your UPI spends</h2>
-                       <ul>
-                        <li><img src="img/Frame.svg" alt=""><span id="qr1">UPI-enabled vouchers on driver's UPI app</span> </li>
-                        <li><img src="img/Frame.svg" alt=""><span id="qr2">Lock purpose of spend at Fuel stations</span></li>
-                        <li><img src="img/Frame.svg" alt=""><span id="qr3">Trace money flow digitally without transferring Capital</span></li>
-                        <li><img src="img/Frame.svg" alt=""><span id="qr4">Existing QR-code network of merchants to be used</span></li>
-                       </ul>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="logoNewForm">
-                        <div class="logoNewFormtop">
-                            <img src="img/logoFavicon.svg" alt="">
-                            <div class="logoNewFormWelcome">Welcome to <b>Cotodel</b></div>
-                            <h4>Get started with your phone number</h4>
-                            <!--<form action="">
-                                <input type="text" class="form-control" placeholder="Enter your Email or Mobile Number">
-                                <p>We will send you an email with OTP</p>
-                                <button class="btn btn-primary btn-block">Login</button>
-                                <div class="or text-center"><span>or</span></div>
-                                <p class="text-center">New to Cotodel?</p>
-                                <button class="btn btn-outline-primary btn-user btn-block">Signup</button>
-                            </form>-->
-													<form autocomplete="of" id="loginForm" name="loginForm">
-							                        <input class="form-control" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
-							                        autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-							                        <div class="error-msg" id="mobError" style="color:red"></div>
-							                        <div  id="loginIdDiv" style="display: none" >
-							                        <span id="maskedMobileDisplay"></span>
-  
-							                        
-							                        <div class="otp-box d-flex" id="otpInputBox" >
-							                           <!--  <input  class="form-control form-control-sm" type="password" id="password" 
-							                            name="password" maxlength="1" autocomplete="off"> -->
-							                            <input  class="form-control form-control-sm test" type="password" id="password1"
-														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-												        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-												        <input  class="form-control form-control-sm test" type="password" id="password2"
-														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-												        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-												        <input  class="form-control form-control-sm test" type="password" id="password3"
-														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-												        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-												        <input  class="form-control form-control-sm test" type="password" id="password4"
-														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-												        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-												        <input  class="form-control form-control-sm test" type="password" id="password5"
-														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-												        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
-												        <input  class="form-control form-control-sm test" type="password" id="password6"
-														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
-												        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
-												        <input  class="form-control form-control-sm test" type="hidden" id="orderId" name="orderId" >
-														
-														<div>
-															
-														<input type="hidden" id="errorMessage" th:value="${message}" ></input>
-														<input type="hidden" id="mo" th:value="${mobile}" ></input>
-														<input type="hidden" id="orderid" th:value="${orderid}" ></input>
-															
-													   </div>
-							                            <span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" style="font-size: 14px; cursor: pointer; display: inline-block; margin-bottom: 5px;">
-							                                <i class="fas fa-eye"></i>
-							                            </span>
-							                           
-							                        </div>
-							                        </div>
-							                        
-							                       <div id="otpError" style="color:red"></div>	
-							                       <div id="errorOtp" style="color:red"></div>	
-							                       <!-- <div class="text-center" id="countdown" style="color: green;"></div>
-													<p id="successmessage"></p> -->
-													<label for="countdown" id="countdown" style="color: green;" ></label>
-													
-													<div class="form-group">
-													<div class="row">
-														<div class="col-sm-12 col-sm-offset-3">
-															<div id="successError">
-																<p id="error" style="color: red" th:if="${message ne null}">
-																	<span id="orderid" th:text="${message}" style="color: red;"></span>
-																 </p>
-															</div>
-														</div>
-													</div>
-													</div>
-													
-							                        <p id="resendOTPText" style="display: none; ">Didn’t receive the code?<a href="#" onclick="resendOTP()">Resend OTP</a></p>
-							                        <div class="d-grid">
-							                            <button class="btn btn-primary btn-user btn-block" id="optBtn" type="button"  onclick="getOTP()" >Login</button>
-							                        </div>
-							                        <div class="d-grid">
-							                            <button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn btn-primary btn-user btn-block">Verify OTP and Sign In</button>
-							                        </div>
-													<input id="loginRepute" th:value="${reputeUser}" type="hidden" />
-							                         <div class="or text-center"><span>or</span></div>
-							                        <p class="text-center">New to <a href="#">Cotodel?</a></p>
-							                        <div class="d-grid">
-							                            <a class="btn btn-outline-primary btn-user btn-block" type="button" th:href="@{/signup}" >Signup</a>
-							                        </div>
-							                    </form>
-                        </div>
-                        <div class="logoNewFormbtm">
-                            <img src="img/powered-by.png" alt="">
-                        </div>
-                    </div>
-					<div class="lds-spinner" id="loginLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	
+	<div class="login-section">
+	
+	  <div class="login-body">
+		<form autocomplete="off" id="loginForm" name="loginForm">
+	    <h4 class="login-title">Get started with your email or phone number</h4>
 
-                </div>
-            </div>
-        </div>
-    </div>
-    
+	    <div class="phone-input-container">
+	      <div class="phone-prefix">
+	        <img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon" />
+	        <span>+91</span>
+	      </div>
+		  <input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
+        autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+	    </div>
+		<div class="error-msg" id="mobError" style="color:red"></div>
+		<div id="errorOtp" style="color:red"></div>	
+		
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	    <p class="helper-text">We will send an OTP on the mobile number entered.</p>
+		
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+		<!-- Inside .login-section -->
+		<div class="login-body" id="login-body">
+		  <!-- Your phone input and login UI -->
+		  <!-- Replace LOGIN button -->
+		  <button class="btn login-btn" onclick="getOTP();"  id="optBtn" type="button" disabled >LOGIN</button>
+		</div>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+		<!-- OTP Form -->
+		<div id="otp-section" style="display:none;">
+		  <h4 class="login-title">Verify OTP</h4>
+		  <!--<p class="helper-text">OTP code has been sent to your phone <strong>xx405</strong></p>-->
+		  <span id="maskedMobileDisplay"></span>
 
-	<script>
-		$(document).ready(function() {
-		    var loginuser = document.getElementById("loginRepute").value;
-		    if (loginuser === "reputeUser") {
-				document.title = "Expence Management";
-		        var loginWrap = document.getElementById("loginWrap");
-		        loginWrap.classList.remove("loginNew-wrap");
-		        loginWrap.classList.add("loginNew-wrap-repute");
+		  <div id="otpInputBox" >
+		  <div class="d-flex justify-content-between mb-3 ">
+		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+			id="password1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password1">
+		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
+			id="password2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password2">
+		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"
+			id="password3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password3">
+		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+			id="password4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password4">
+		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+			id="password5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password5">
+		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
+			id="password6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password6">
+			<input  class="form-control form-control-sm test" type="hidden" id="orderId" name="orderId" >
+																	
+			<div>
+																		
+			<input type="hidden" id="errorMessage" th:value="${message}" ></input>
+			<input type="hidden" id="mo" th:value="${mobile}" ></input>
+			<input type="hidden" id="orderid" th:value="${orderid}" ></input>
 				
-				document.getElementById("qr1").innerHTML="Issue vouchers on-demand without transferring Capital";
-				document.getElementById("qr2").innerHTML="Trace money flow digitally from issuance to redemption";
-				document.getElementById("qr3").innerHTML="Lock purpose of spend at Category/Brand level";
-				document.getElementById("qr4").innerHTML="Extend vouchers for administering Flexi-Tax Benefits";
-		    }
-		});
-	$( document ).ready(function() {
+		   </div>		
+		   <span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" style="font-size: 14px; cursor: pointer; display: inline-block; margin-bottom: 5px;">
+		   							                                <i class="fas fa-eye"></i>
+		   							                            </span>
+		      </div>
+		  </div>
+		  <div id="otpError" style="color:red"></div>	
+   			
+		  
+		  <label for="countdown" id="countdown" style="color: green;" ></label>
+		  <p class="text-muted" id="resendOTPText" style="display: none; ">Didn’t receive the code? <a href="#" onclick="resendOTP()">Resend OTP</a></p>
+		  <!--<button class="btn login-btn">LOGIN</button>-->
+		  <button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn login-btn">Verify OTP and Sign In</button>
+		</div>
+		
+	    <div class="or-divider"><span>or login with</span></div>
+
+	    <div class="social-buttons">
+	      <button class="btn social-btn"><img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" /> Google</button>
+	      <button class="btn social-btn"><img src="img/repute-logo.png" alt="Repute" /> Repute</button>
+	    </div>
+	  </div>
+	</form>
+
+	  <hr class="footer-divider" />
+	  <div class="login-footer">
+	    New to Cotodel? <a href="/signup">Register for Demo</a>
+	  </div>
+	  <div class="lds-spinner" id="loginLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+	</div>
+  </div>
+ 
+  <link rel="stylesheet" href="css/custom.css">
+  <!-- Bootstrap core JavaScript-->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+      <!-- Core plugin JavaScript-->
+     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+      <!-- Custom scripts for all pages-->
+      <script src="js/sb-admin-2.min.js"></script>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+  <script>
+    $('#imageCarousel').carousel({
+      interval: 10000, // 10 seconds per slide
+      ride: 'carousel'
+    });
+  </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const mobileInput = document.getElementById("mobile");
+    const optBtn = document.getElementById("optBtn");
+
+    mobileInput.addEventListener("input", function () {
+      const isValid = /^[6-9]\d{9}$/.test(mobileInput.value);
+      optBtn.disabled = !isValid;
+    });
+  });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const otpInputs = document.querySelectorAll(".otp-input");
+   
+      otpInputs.forEach((input, index) => {
+        input.addEventListener("input", function () {
+          if (this.value.length === 1) {
+            const next = otpInputs[index + 1];
+            if (next) next.focus();
+          }
+        });
+   
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Backspace" && this.value === "") {
+            const prev = otpInputs[index - 1];
+            if (prev) prev.focus();
+          }
+        });
+      });
+    });
+    </script>
+	<script>	$( document ).ready(function() {
 		var error = document.getElementById("errorMessage").value;
 		var mo = document.getElementById("mo").value;
 		
@@ -222,25 +251,124 @@
 		}else{
 			
 		}
-	});
+	});</script>
+   <script>	function getOTP() {
+		console.log("get otp called");
+	    var regMobile = /^[6-9]\d{9}$/gi;
+	    var userName = document.getElementById("mobile").value;
 
+	    if (userName == "") {
+	        document.getElementById("mobile").focus();
+	        document.getElementById("mobError").innerHTML = "Please Enter Mobile Number";
+	        return false;
+	    } else if (userName.length < 10) {
+	        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+	        document.getElementById("mob").focus();
+	        return false;
+	    } else if (!userName.match(regMobile)) {
+	        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+	        document.getElementById("mob").focus();
+	        return false;
+	    }
 
-	  $(document).ready(function() {
-	    $('#successError').delay(5000).fadeOut(600);
-		// window.location.href="/login";
-	});
+	    document.getElementById("optBtn").disabled = true;
+	    document.getElementById("mobError").innerHTML = "";
+	    document.getElementById("loginLoader").style.display = "flex";
+	 
+	    $.ajax({
+	        type: "POST",
+	        url: "/smsOtpSender",
+	        dataType: 'json',
+	        data: { "mobile": userName },
+	        success: function (data) {
+	            var obj = data;
+	            document.getElementById("loginLoader").style.display = "none";
 
-	</script>
-	<style>#toggleOtpVisibility {
-	    color: #007bff; /* Primary color for the icon */
-	    position: relative;
-	    z-index: 1;
-	    font-size: 18px;
-	}
-	#toggleOtpVisibility:hover {
-	    color: #0056b3; /* Darker shade on hover */
-	}
-	</style>
-	</body>
+	            if (obj.status === true) {
+					showOtpForm();
 
-	</html>
+					// Mask the mobile number (show only last 4 digits)
+					var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
+					document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
+
+	                $('#errorOtp').hide('slow');
+	                $('#loginIdDiv').hide('slow');
+					var timeleft = 60; // 3 minutes in seconds
+					   var downloadTimer = setInterval(function () {
+					       var minutes = Math.floor(timeleft / 60); // Calculate minutes
+					       var seconds = timeleft % 60; // Calculate remaining seconds
+
+					       // Update countdown display in "MM:SS" format
+					       document.getElementById("countdown").innerHTML = 
+					           (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+					           (seconds < 10 ? "0" + seconds : seconds);
+
+					       timeleft -= 1;
+						   localStorage.setItem("otpExpiryTime", Date.now() + seconds * 1000);   
+						   document.getElementById("optBtn").style.display = "none";
+						   document.getElementById("orderId").value = obj['orderId'];
+						   document.getElementById("verifyotpdiv").style.display = "block";
+
+					       if (timeleft < 0) {
+							clearInterval(downloadTimer);
+	                        document.getElementById("countdown").innerHTML = " ";
+							document.getElementById("resendOTPText").style.display = "block";
+	                     
+	                        document.getElementById("optBtn").disabled = true;
+							document.getElementById("optBtn").style.display = "none";
+	                        document.getElementById("verifyotpdiv").style.display = "none";
+					       }
+					   }, 1000); 
+
+	                $('#loginIdDiv').show('slow');
+	            } else if (obj.status===false) {
+	                $('#errorOtp').html(obj.message);
+	                $('#successmessage').hide('slow');
+	                document.getElementById("optBtn").style.display = "block";
+	                document.getElementById("optBtn").disabled = false;
+	                $('#successerror').hide('slow');
+	            } else {
+	                $('#errorOtp').html("OTP Failed");
+	                document.getElementById("optBtn").disabled = false;
+	                $('#successmessage').hide('slow');
+	                document.getElementById("optBtn").style.display = "block";
+	                $('#successerror').hide('slow');
+	            }
+	        },
+	        error: function (e) {
+	            alert('Error: ' + e);
+	        }
+	    });
+	}</script>
+
+  <script>
+  				  function showOtpForm() {
+					
+  				    document.getElementById('login-body').style.display = 'none';
+  				    document.getElementById('otp-section').style.display = 'block';
+
+  				    document.querySelector('.or-divider').style.display = 'none';
+  				    document.querySelector('.social-buttons').style.display = 'none';
+  				    
+  				    
+  					document.querySelector('.helper-text').style.display = 'none';
+					
+					
+  				  }
+  				</script>
+				<script>				function toggleOtpVisibility() {
+				    const toggleIcon = document.getElementById('toggleOtpVisibility').querySelector('i');
+				    const otpInputs = document.querySelectorAll('#otpInputBox input.otp-input');
+
+				    const isPasswordVisible = toggleIcon.classList.contains("fa-eye");
+
+				    otpInputs.forEach(input => {
+				        input.type = isPasswordVisible ? "text" : "password";
+				    });
+
+				    toggleIcon.classList.toggle("fa-eye");
+				    toggleIcon.classList.toggle("fa-eye-slash");
+				}
+</script>
+</body>
+</html>

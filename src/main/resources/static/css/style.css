@@ -26779,5 +26779,24 @@ section.faq-wrap {
   font-weight: 500;
 }
 
+.btn-login-home {
+	  display: inline-flex;
+	  align-items: center;
+	  justify-content: center;
+	  width: 104px;
+	  height: 42px;
+	  padding: 10px 30px;
+	  gap: 10px;
+	  border-radius: 10px;
+	  background-color: #2F945A; /* Bootstrap green */
+	  color: white;
+	  font-weight: 600;
+	  font-size: 14px;
+	  text-decoration: none;
+	  transition: background-color 0.2s ease;
+	}
 
+	.btn-login-home:hover {
+	  background-color: #218838; /* Darker green on hover */
+	}
 

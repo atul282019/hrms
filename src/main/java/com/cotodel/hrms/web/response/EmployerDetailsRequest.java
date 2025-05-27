@@ -43,5 +43,6 @@ public class EmployerDetailsRequest {
 	private String privacyCheck;
 	private String whatsupCheck;
 	private String captcha;
+	private String companyType;
 }
  

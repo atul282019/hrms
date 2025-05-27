@@ -620,6 +620,7 @@ ul.navbar-nav.top-nav .nav-item a.active span {
     float: left;
     top: 0px;
     width: 100%;
+	color: red;
 	
 }
 
@@ -6864,12 +6865,12 @@ table.vcScheduledtable thead {
 				  object-fit: cover;
 				}
 				.phone-input {
-				  flex: 1;
-				  border: none;
-				  outline: none;
-				  padding: 10px 12px;
-				  background-color: transparent;
-				  color: #fff;
+					flex: 1;
+					 padding: 10px 12px;
+					 background-color: #fff;
+					 color: #1F212C;
+					 border: 1px solid #ccc;
+					 border-radius: 4px;
 				}
 				
 				.phone-input-container {
@@ -7175,4 +7176,5 @@ table.vcScheduledtable thead {
 							      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 							      border-color: #2F945A;
 							  }
+							  
 							  

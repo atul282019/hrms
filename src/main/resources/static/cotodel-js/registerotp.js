@@ -455,3 +455,117 @@ function verifyEmail(){
          }
     });
  }*/
+ 
+ // Updated function using element IDs and original AJAX request
+ function fleetRegistration() {
+    
+
+     const name = document.getElementById("username").value.trim();
+     const emailInput = document.getElementById("email").value.trim();
+     const email = emailInput.toLowerCase();
+     const mobile = document.getElementById("mobile").value.trim();
+     const orgname = document.getElementById("orgname").value.trim();
+     const privacyCheck = document.getElementById("terms").checked;
+     const whatsappCheck = document.getElementById("whatsapp").checked;
+
+     const companySizeInput = document.querySelector('input[name="companySize"]:checked');
+     const noofEmp = companySizeInput ? companySizeInput.value : "";
+
+     const regMobile = /^[6-9]\d{9}$/;
+     const regEmail = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+     const regName = /^[A-Za-z]+( [A-Za-z]+)*$/;
+
+     if (!name || !regName.test(name)) {
+         document.getElementById("usernameError1").innerHTML = "Please enter a valid full name.";
+         document.getElementById("username").focus();
+         return false;
+     } else {
+         document.getElementById("usernameError1").innerHTML = "";
+     }
+
+     if (!email || !regEmail.test(email)) {
+         document.getElementById("emailError1").innerHTML = "Please enter a valid email address.";
+         document.getElementById("email").focus();
+         return false;
+     } else {
+         document.getElementById("emailError1").innerHTML = "";
+     }
+
+     if (!mobile || !regMobile.test(mobile)) {
+         document.getElementById("mobileError1").innerHTML = "Please enter a valid 10-digit mobile number starting with 6-9.";
+         document.getElementById("mobile").focus();
+         return false;
+     } else {
+         document.getElementById("mobileError1").innerHTML = "";
+     }
+
+     if (!orgname) {
+         document.getElementById("orgnameError1").innerHTML = "Please enter your company name.";
+         document.getElementById("orgname").focus();
+         return false;
+     } else {
+         document.getElementById("orgnameError1").innerHTML = "";
+     }
+
+    /* if (!noofEmp) {
+         document.getElementById("noofEmpError1").innerHTML = "Please select your company size.";
+         return false;
+     } else {
+         document.getElementById("noofEmpError1").innerHTML = "";
+     }*/
+
+     if (!privacyCheck) {
+         document.getElementById("privacyCheckError1").innerHTML = "Please agree to the privacy policy and terms of use.";
+         document.getElementById("terms").focus();
+         return false;
+     } else {
+         document.getElementById("privacyCheckError1").innerHTML = "";
+     }
+
+     document.getElementById("signinLoader").style.display = "flex";
+	 
+
+     const formData = new FormData(fleetregistration);
+     formData.append("companySize", noofEmp);
+     formData.append("name", name);
+     formData.append("email", email);
+     formData.append("mobile", mobile);
+     formData.append("organizationName", orgname);
+     formData.append("consent", privacyCheck);
+     formData.append("whatsupCheck", whatsappCheck);
+
+     console.log("form data", formData);
+
+     $.ajax({
+         type: "POST",
+         url: "/registerUser",
+         data: formData,
+         processData: false,
+         contentType: false,
+         success: function(data) {
+             const data1 = jQuery.parseJSON(data);
+             document.getElementById("signinLoader").style.display = "none";
+             if (data1.status === true) {
+                 document.getElementById("otsuccmsg").innerHTML = "Our Team Will Contact you soon, Thanks for Registration.";
+                 document.getElementById("otmsgdiv").style.display = "block";
+                 $('#otmsgdiv').delay(5000).fadeOut(400);
+                 localStorage.setItem("userName", mobile);
+                 window.location.href = "/signin";
+             } else if (data1.status === false) {
+                 document.getElementById("otfailmsg").innerHTML = data1.message;
+                 document.getElementById("otfailmsgDiv").style.display = "block";
+                 $('#otfailmsgDiv').delay(5000).fadeOut(400);
+             } else {
+                 document.getElementById("captchaError").innerHTML = data1.message;
+             }
+         },
+         error: function(e) {
+             alert('Error: ' + e);
+         }
+     });
+ }
+
+ const form = document.getElementById("registrationForm");
+ if (form) {
+     form.addEventListener("submit", userRegistration);
+ }
