@@ -569,3 +569,217 @@ function verifyEmail(){
  if (form) {
      form.addEventListener("submit", userRegistration);
  }
+ 
+ function OTPforfleet(){
+ 	
+ 	const checkbox = document.getElementById("styled-checkbox-40");
+ 	var userMobile = document.getElementById("userMobile").value;
+ 	  //if (checkbox.checked) {
+ 		$.ajax({
+ 			type: 'POST',
+ 	        url:"/smsOtpSender",
+ 			data: {
+ 						"mobile": userMobile,
+ 					},
+ 			dataType: 'json',
+ 			success: function(data) {
+ 			var obj = data;
+ 			
+ 	        if (obj['status'] == true) {
+ 				// Mask the mobile number (show only last 4 digits)
+ 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
+ 				document.getElementById("maskedMobileDisplay1").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;				
+ 										
+ 	            // If successful, open the OTP modal
+ 				var timeleft = "60";
+ 				var resendCodeElement = document.getElementById("resendCode");
+ 	               // Hide the "Resend OTP" link initially
+ 	               resendCodeElement.style.display = "none";
+ 				var downloadTimer = setInterval(function() {
+ 					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+ 					timeleft -= 1;
+ 					//document.getElementById("optBtn").style.display = "none";
+ 					document.getElementById("orderId").value= obj['orderId'];
+ 					//document.getElementById("verifyotpdiv").style.display = "block";
+ 					if (timeleft < 0) {
+ 						clearInterval(downloadTimer);
+ 						resendCodeElement.style.display = "block";	
+ 					}	
+ 				}, 1000);
+ 	            $("#fleetOTPModal").show();  
+ 	          } else {
+ 	            alert("Error: " + obj.message);
+ 	          }
+ 	        },
+ 	        error: function() {
+ 			  //$('#otpModal').fadeIn();
+ 	         // alert("An error occurred. Please try again.");
+ 	        }
+ 	      });
+ 	// } 		  
+ 	// else {
+ 	//	document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
+ 	 // }
+ }
+ 
+ function resendfleetOTP(){
+ 	var userMobile = document.getElementById("userMobile").value;
+ 	var orderId = document.getElementById("orderId").value;
+ 		$.ajax({
+ 			type: 'POST',
+ 	        url:"/smsOtpResender",
+ 			data: {
+ 						"mobile": userMobile,
+ 						"orderId": orderId
+ 					},
+ 			dataType: 'json',
+ 			success: function(data) {
+ 			var obj = data;
+ 	        if (obj['status'] == true) {
+ 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
+ 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;												
+ 	            // If successful, open the OTP modal
+ 				var timeleft = "60";
+ 				var resendCodeElement = document.getElementById("resendCode");
+ 	               // Hide the "Resend OTP" link initially
+ 	               resendCodeElement.style.display = "none";
+ 				var downloadTimer = setInterval(function() {
+ 					document.getElementById("countdownadd").innerHTML = "00:"+timeleft;
+ 					timeleft -= 1;
+ 					//document.getElementById("optBtn").style.display = "none";
+ 					document.getElementById("orderId").value= obj['orderId'];
+ 					//document.getElementById("verifyotpdiv").style.display = "block";
+ 					if (timeleft < 0) {
+ 						clearInterval(downloadTimer);
+ 						resendCodeElement.style.display = "block";	
+ 					}	
+ 				}, 1000);
+ 	            $("#fleetOTPModal").show();  
+ 	          } else {
+ 	            alert("Error: " + obj.message);
+ 	          }
+ 	        },
+ 	        error: function() {
+ 			  //$('#otpModal').fadeIn();
+ 	         // alert("An error occurred. Please try again.");
+ 	        }
+ 	      });
+ }
+ 
+ function verfyIssueVoucherOTP() {
+ 			
+ 		  	var password1 = document.getElementById("password1").value;
+ 		  	var password2 = document.getElementById("password2").value;
+ 		  	var password3 = document.getElementById("password3").value;
+ 		  	var password4 = document.getElementById("password4").value;
+ 		  	var password5 = document.getElementById("password5").value;
+ 		  	var password6 = document.getElementById("password6").value;
+ 		  	var orderId = document.getElementById("orderId").value;
+ 		  	var userMobile = document.getElementById("userMobile").value;
+ 		  	 if (password1 == "" && password1.length < 1) {
+ 		  		//document.getElementById("mobError").innerHTML="";
+ 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	 else if (password1.length < 1) {
+ 		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	else{
+ 		  		document.getElementById("otpError").innerHTML="";
+ 		  	}
+ 		  	 if (password2 == "" && password2.length < 1) {
+ 		  		//document.getElementById("mobError").innerHTML="";
+ 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	 else if (password2.length < 1) {
+ 		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	else{
+ 		  		document.getElementById("otpError").innerHTML="";
+ 		  	}
+ 		  	 if (password3 == "" && passwor3.length < 1) {
+ 		  		//document.getElementById("mobError").innerHTML="";
+ 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	 else if (password3.length < 1) {
+ 		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	else{
+ 		  		document.getElementById("otpError").innerHTML="";
+ 		  	}
+ 		  	 if (password4 == "" && password4.length < 1) {
+ 		  		//document.getElementById("mobError").innerHTML="";
+ 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	 else if (password4.length < 1) {
+ 		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	else{
+ 		  		document.getElementById("otpError").innerHTML="";
+ 		  	}
+ 		  	 if (password5 == "" && password5.length < 1) {
+ 		  		//document.getElementById("mobError").innerHTML="";
+ 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	 else if (password5.length < 1) {
+ 		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	else{
+ 		  		document.getElementById("otpError").innerHTML="";
+ 		  	}
+ 		  	 if (password6 == "" && password6.length < 1) {
+ 		  		//document.getElementById("mobError").innerHTML="";
+ 		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	 else if (password6.length < 1) {
+ 		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+ 		  		x = false;
+ 		  	}
+ 		  	else{
+ 		  		document.getElementById("otpError").innerHTML="";
+ 		  	}
+ 			document.getElementById("authenticate").disabled = true;
+ 		  	$.ajax({
+ 		  			type: "POST",
+ 		  			url:"/verifyOTP",
+ 		  			dataType: 'json',
+ 		  			data: {
+ 		  				"password1": password1,
+ 		  				"password2": password2,
+ 		  				"password3": password3,
+ 		  				"password4": password4,	
+ 		  				"password5": password5,
+ 		  				"password6": password6,
+ 		  				"mobile": userMobile,
+ 		  				"orderId": orderId,
+ 		  				"userName":userMobile
+ 		  			},
+ 		  			success: function(data) {
+ 		  				var obj = data;
+ 		  				if (obj['status']== true) {
+ 							roleUpdate();
+ 							$("#fleetOTPModal").hide();
+ 							//$("#roleAcessModalSuccessful").show();
+ 							
+ 		  				}else if (obj['status'] == false) {
+ 							document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+ 							document.getElementById("authenticate").disabled = false;
+ 						} else {
+ 							
+ 		  				}
+ 		  			},
+ 		  			error: function(e) {
+ 		  				alert('Error: ' + e);
+ 		  			}
+ 		  		});
+ 		  }
