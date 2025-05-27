@@ -284,6 +284,14 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("customlogin");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/otpWithOutRegister")){
+				RequestDispatcher rd = request.getRequestDispatcher("otpWithOutRegister");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/verifyOtpWithOutRegister")){
+				RequestDispatcher rd = request.getRequestDispatcher("verifyOtpWithOutRegister");
+				rd.forward(request, response);
+			}
 			else{
 				RequestDispatcher rd = request.getRequestDispatcher("/");
 				rd.forward(request, response);

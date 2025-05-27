@@ -59,6 +59,29 @@ public class OtpSenderController extends CotoDelBaseController{
 		return profileRes;
 	}	
 	
+	@PostMapping(value="/otpWithOutRegister")
+	public @ResponseBody String otpWithOutRegister(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
+		String profileRes=null;
+
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = loginservice.otpWithOutRegister(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return profileRes;
+	}	
+	
 	@PostMapping(value="/smsOtpResender")
 	public @ResponseBody String resendOTP(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
 		String profileRes=null;

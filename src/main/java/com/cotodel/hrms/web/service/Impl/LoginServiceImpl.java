@@ -214,5 +214,15 @@ public class LoginServiceImpl implements LoginService {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObjectRepute), applicationConstantConfig.userServiceBaseUrl+CommonUtils.getReputeToken);
 
 	}
+
+	@Override
+	public String otpWithOutRegister(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.otpWithOutRegister);
+	}
+
+	@Override
+	public String verifyOtpWithOutRegister(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtpWithOutRegister);
+	}
 	
 }

@@ -174,7 +174,7 @@
 					             type="text"
 					             id="vehicleNumber"
 					             class="did-floating-input"
-					             placeholder="Enter Vehicle Number (e.g. DL1AB1234)"
+					             placeholder="Enter Vehicle Number (e.g. DL1AB1234)" style="text-transform: uppercase;"
 					             maxlength="10" >
 					           <label class="did-floating-label">Enter Vehicle Number</label>
 					         </div>
@@ -187,7 +187,7 @@
 					             class="did-floating-input"
 					             placeholder="Enter vehicle manufacturer (eg. Mahindra, Toyota,etc.)"
 					             maxlength="50" >
-					           <label class="did-floating-label">Enter Vehicle Manufactor</label>
+					           <label class="did-floating-label">Enter Vehicle manufacturer</label>
 					         </div>
 					         <div class="error-msg" id="vehicleManufactorError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 							 
@@ -220,6 +220,8 @@
 					                 <option value="1">Petrol</option>
 					                 <option value="2">Diesel</option>
 					                 <option value="3">Electric</option>
+									 <option value="4">CNG</option>
+									 
 					               </select>
 					               <label class="did-floating-label">Fuel Type</label>
 					             </div>
@@ -394,7 +396,7 @@
 	   <div class="modal-dialog  modal-dialog-vd">
 	         <div class="modal-content ">
 	   	<div class="modal-header pb-0">
-	   		<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Add Vehicle</Strong></h5>
+	   		<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Edit Assignment Details</Strong></h5>
    		<button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;"
 		 onclick="editDetailsModalClose()">
                 <img src="img/modal-close.svg" alt="">
@@ -493,12 +495,16 @@
    					                 </select>
    					                 <label class="did-floating-label">Select Assignment Type</label>
    					               </div>
+								   <div class="error-msg" id="assignmentTypeError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+								   						  
    					             </div>
    					             <div class="col-md-6 mb-3">
    									<div class="did-floating-label-content mr-2">
 						               <input type="text" class="did-floating-input" placeholder=" " id="clientName">
-						               <label class="did-floating-label">Enter Client Name</label>
+						               <label class="did-floating-label">Enter Client Name</label>				   		
 						             </div>
+									 <div class="error-msg" id="clientNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+									 									   		
    					             </div>
    					             <div class="col-md-6 mb-3">
    									<div class="did-floating-label-content mr-2 search-select-wrapper">
@@ -507,14 +513,15 @@
 									  <div  style="display: none;" id="suggestion-box-div">
 									  <div id="suggestionBox" class="suggestion-box">
 									  </div>
-										
-   									  </div>
+   									  </div>			   		
    									</div>
+									<div class="error-msg" id="driverName2Error" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+																	  		
    					             </div>
    					             <div class="col-md-6 mb-3">
    					               <div class="did-floating-label-content mr-2" >
    					                 <select class="did-floating-select" id="timePeriod" onchange="toggleCustomTextbox(this.value)">
-										<option disabled selected>Select Time Period </option>
+									   <option id="Select Time Period" >Select Time Period </option>
    					                   <option id="Tagged until changed">Tagged until changed </option>
    					                   <option id="7 Days">7 Days</option>
    					                   <option id="30 Days">30 Days</option>
@@ -522,7 +529,10 @@
    									   <option id="360 Days">360 Days</option>
    					                 </select>
    					                 <label class="did-floating-label">Select Time Period</label>
+														  		
    					               </div>
+								   <div class="error-msg" id="timePeriodError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+								   								 			
 								   <div id="customTextboxContainer" style="display: none; margin-top: 10px;">
 								       <input type="text" class="form-control" id="customTimePeriod" placeholder="Enter custom time period">
 								     </div>
@@ -532,7 +542,7 @@
 
 						 <!--<button class="btn btn-primary activate-btn-vd"  onclick="openModalConfirm()">ACTIVATE</button>-->
 					   	   <div class="button-group-vd d-flex gap-3 justify-content-end">
-					   	     <button class="btn back-btn-vd" >Back</button>
+					   	     <button class="btn back-btn-vd" onclick="editDetailsModalClose()" >Back</button>
 					   	     <button class="btn save-btn-vd" onclick="saveUpdate()" id="btnUpdateTrip">SAVE</button>
 					   	      </div>
 
@@ -794,16 +804,22 @@ function openModalConfirm() {
 			        document.getElementById('vehicleFuelType').selectedIndex
 			    ].text;
 			document.getElementById("rType").innerText=vehicleFuelType;		
-			
+			var regex =	'^[A-Z]{2}\s?[0-9A-Z]{2}\s?[A-Z]{1,2}\s?[0-9]{4}$'
+
+			 
 			if(vehicleNumber =="" ){
 				document.getElementById("vehicleNumberError").textContent = "Please Enter Vehicle Number.";
 				return false;
 			}
+			else if(!vehicleNumber.match(regex)){
+						document.getElementById("vehicleNumberError").textContent = "Please Enter Valid Vehicle Number.";
+						return false;
+					}
 			else{
 				document.getElementById("vehicleNumberError").textContent = "";
 			}
 			if(vehicleManufactor =="" ){
-					document.getElementById("vehicleManufactorError").textContent = "Please Enter Vehicle Manufactor.";
+					document.getElementById("vehicleManufactorError").textContent = "Please Enter Vehicle Manufacturer.";
 					return false;
 				}
 				else{
@@ -958,8 +974,35 @@ function openModalConfirm() {
 		
 		var driverId= document.getElementById("driverId").value;
 		var driverMobile = document.getElementById("driverMobile").value;
-
-		document.getElementById('btnUpdateTrip').disabled=true;
+		if(assignmentTypeId =="" ){
+				document.getElementById("assignmentTypeError").textContent = "Please Select Assignment Type.";
+				return false;
+			}
+			else{
+				document.getElementById("assignmentTypeError").textContent = "";
+			}
+			if(clientName =="" ){
+				document.getElementById("clientNameError").textContent = "Please Enter Client Name.";
+				return false;
+			}
+			else{
+				document.getElementById("clientNameError").textContent = "";
+			}
+			if(driverName2 =="" ){
+				document.getElementById("driverName2Error").textContent = "Please Enter Driver Name.";
+				return false;
+			}
+			else{
+				document.getElementById("driverName2Error").textContent = "";
+			}
+			if(timePeriod_id =="Select Time Period" ){
+				document.getElementById("timePeriodError").textContent = "Please Select Time Period.";
+				return false;
+			}
+			else{
+				document.getElementById("timePeriodError").textContent = "";
+			}
+		 document.getElementById('btnUpdateTrip').disabled=true;
 		 $.ajax({
 		     type: "POST",
 		     url: "/updateVehicleDetails",
@@ -1096,7 +1139,7 @@ function openModalConfirm() {
 							if(data1 !=="In progress"){
 							//return '<a href="#" onclick="viewHistory(this)"> data-toggle="modal" data-target="#vehicleHistoryModal"><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
 
-							return 'No History';		
+							return '<img src="img/history-icon-gray.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">No History';		
 						}
 							else{
 								return '<a href="#" onclick="viewHistory(this)" ><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
@@ -1153,7 +1196,7 @@ function openModalConfirm() {
 		                     }
 		                     if(vehicleType=="Two-Wheeler")
 		                     {
-							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+							 var imgTag = '<img src="img/two-wheeler-icon.png" alt="" class="mr-2">'+vehicleType;
 		                      $(row).find('td:eq(1)').html(imgTag);
 		                     }
 							 if(vehicleType=="Ambulance / Special Purpose")

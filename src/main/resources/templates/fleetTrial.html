@@ -53,8 +53,8 @@
 	                <div class="logoNewForm1">
 	                    <div class="logoNewFormtop">
 	                        <h5 class="form-title">Register your Fleet with Cotodel!</h5>
-	                        
-	                        <form id="fleetregistration">
+							
+	                        <form action="" id="fleetRegistration" name="fleetRegistration">
 	                            <!-- Form Fields -->
 	                            <div class="form-group">
 	                                <input type="text" id="username" class="form-control" placeholder="Enter your full name" required>
@@ -67,7 +67,13 @@
 								 </div>
 	                            
 	                            <div class="form-group">
-	                                <input type="tel" id="mobile" class="form-control" placeholder="+91 00000 00000" pattern="[0-9]{10}" required>
+									<div class="phone-input-container">
+										      <div class="phone-prefix">
+										        <img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon">
+										        <span>+91</span>
+										      </div>
+											  <input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile" autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" fdprocessedid="hbzy1q">
+										    </div>
 									 <div id="mobileError1" class="error-msg"></div>
 								</div>
 	                            
@@ -77,26 +83,26 @@
 								 </div>
 
 								<div class="mb-4 ">
-									                  <label class="form-label d-block">Company Size</label>
-									                  <div class="form-check-group">
-									                      <div class="form-check">
-									                          <input class="form-check-input" type="radio" name="companySize" id="size1" value="Less than 20 Vehicles" required>
-									                          <label class="form-check-label" for="size1">Less than 20 Vehicles</label>
-									                      </div>
-									                      <div class="form-check">
-									                          <input class="form-check-input" type="radio" name="companySize" id="size2" value="20 to 50 Vehicles">
-									                          <label class="form-check-label" for="size2">20 to 50 Vehicles</label>
-									                      </div>
-									                      <div class="form-check">
-									                          <input class="form-check-input" type="radio" name="companySize" id="size3" value="50 to 100 Vehicles">
-									                          <label class="form-check-label" for="size3">50 to 100 Vehicles</label>
-									                      </div>
-														  <div class="form-check">
-  									                          <input class="form-check-input" type="radio" name="companySize" id="size3" value="More than 100 Vehicles">
-  									                          <label class="form-check-label" for="size3">More than 100 Vehicles</label>
-  									                      </div>
-									                  </div>
-									              </div>
+					                  <label class="form-label d-block">Company Size</label>
+					                  <div class="form-check-group">
+					                      <div class="form-check">
+					                          <input class="form-check-input" type="radio" name="companySize" id="size1" value="Less than 20 Vehicles" required>
+					                          <label class="form-check-label" for="size1">Less than 20 Vehicles</label>
+					                      </div>
+					                      <div class="form-check">
+					                          <input class="form-check-input" type="radio" name="companySize" id="size2" value="20 to 50 Vehicles">
+					                          <label class="form-check-label" for="size2">20 to 50 Vehicles</label>
+					                      </div>
+					                      <div class="form-check">
+					                          <input class="form-check-input" type="radio" name="companySize" id="size3" value="50 to 100 Vehicles">
+					                          <label class="form-check-label" for="size3">50 to 100 Vehicles</label>
+					                      </div>
+										  <div class="form-check">
+					                          <input class="form-check-input" type="radio" name="companySize" id="size3" value="More than 100 Vehicles">
+					                          <label class="form-check-label" for="size3">More than 100 Vehicles</label>
+					                      </div>
+					                  </div>
+					              </div>
 
 	                            <!-- Checkbox Group -->
 								<div class="form-group checkbox-group" style="color: #232323;">
@@ -114,15 +120,22 @@
 								        <label for="whatsapp">Connect with me on WhatsApp for onboarding</label>
 								    </div>
 								</div>
-<!-- fleetregistration()-->
-	                            <button type="button" class="btn btn-register" onclick="OTPforfleet()">REGISTER</button>
+								<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+						            	<div id="otsuccmsg"></div>   
+						            </div>
+						            
+						            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+						            	<div id="otfailmsg"></div>
+						            </div>	  
+														
+	                            <button type="button" class="btn btn-register" onclick="OTPforfleet()" >REGISTER</button>
 	                        </form>
 								<hr>
 	                        <div class="existing-account">
 	                            Already have an account with us? <a href="/login">Login</a>
 	                        </div>
 	                    </div>
-						<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}">
+						
 	                    
 	                </div>
 	            </div>
@@ -190,14 +203,42 @@
 								<div class="tip-wrap justify-content-center">
 							        <p class="mb-0" id="maskedMobileDisplay1"></p>
 							    </div>
+								<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+					            	<div id="otsuccmsg"></div>   
+					            </div>
+					            
+					            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+					            	<div id="otfailmsg"></div>
+					            </div>	  
+														
 							    <div class="d-flex justify-content-center mt-3">
-									<button class="btn btn-primary w-100" id="authenticate"  onclick="verfyIssueVoucherOTP()">Authenticate</button>
+									<button class="btn btn-primary w-100" id="authenticate"  onclick="verfyFleetRegistrationOtp()">Authenticate</button>
 							    </div>
 							</div>				
 			            </div>
 			        </div>
 			    </div>
 	
+				<div class="customModal modal" id="demoModal">
+			        <div>
+			            <div class="modal-content modal-bulk p-0">
+			                <div class="modal-header text-center">
+			                    <h5 class="modal-title w-100">Schedule Demo</h5>
+								<button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;" onclick="closeDemo()">
+	 		                        <img src="img/modal-close.svg" alt="">
+	 		                    </button>
+			                </div>				
+							<div class="modal-body text-center">
+								<!-- Calendly inline widget begin -->
+							    <div>
+									<div class="calendly-inline-widget" data-url="https://calendly.com/business-cotodel?text_color=1f212c&primary_color=3678ff" style="min-width:320px;height:700px;"></div>
+									<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+									<!-- Calendly inline widget end -->
+							</div>				
+			            </div>
+			        </div>
+			    </div>
+				</div>
 	<style>
 		
 		
@@ -318,7 +359,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+<!--	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>-->
 	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
 	<script>
 			function toggleOtpVisibility() {
@@ -335,6 +376,12 @@
 			    icon.classList.toggle('fa-eye');
 			    icon.classList.toggle('fa-eye-slash');
 			}
+			
+			function closeDemo(){
+					const demoModal = document.getElementById('demoModal');
+						demoModal.style.display = 'none';
+						window.location.href="/";
+				}
 			</script>
 <!--<script>
 		$(document).ready(function() {

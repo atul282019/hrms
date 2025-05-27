@@ -456,6 +456,116 @@ function verifyEmail(){
     });
  }*/
  
+ 
+ function carporateRegistration() {
+     
+
+      const name = document.getElementById("username").value.trim();
+      const emailInput = document.getElementById("email").value.trim();
+      const email = emailInput.toLowerCase();
+      const mobile = document.getElementById("mobile").value.trim();
+      const orgname = document.getElementById("orgname").value.trim();
+      const privacyCheck = document.getElementById("terms").checked;
+      const whatsappCheck = document.getElementById("whatsapp").checked;
+
+      const companySizeInput = document.querySelector('input[name="companySize"]:checked');
+      const noofEmp = companySizeInput ? companySizeInput.value : "";
+
+      const regMobile = /^[6-9]\d{9}$/;
+      const regEmail = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+      const regName = /^[A-Za-z]+( [A-Za-z]+)*$/;
+
+      if (!name || !regName.test(name)) {
+          document.getElementById("usernameError1").innerHTML = "Please enter a valid full name.";
+          document.getElementById("username").focus();
+          return false;
+      } else {
+          document.getElementById("usernameError1").innerHTML = "";
+      }
+
+      if (!email || !regEmail.test(email)) {
+          document.getElementById("emailError1").innerHTML = "Please enter a valid email address.";
+          document.getElementById("email").focus();
+          return false;
+      } else {
+          document.getElementById("emailError1").innerHTML = "";
+      }
+
+      if (!mobile || !regMobile.test(mobile)) {
+          document.getElementById("mobileError1").innerHTML = "Please enter a valid 10-digit mobile number starting with 6-9.";
+          document.getElementById("mobile").focus();
+          return false;
+      } else {
+          document.getElementById("mobileError1").innerHTML = "";
+      }
+
+      if (!orgname) {
+          document.getElementById("orgnameError1").innerHTML = "Please enter your company name.";
+          document.getElementById("orgname").focus();
+          return false;
+      } else {
+          document.getElementById("orgnameError1").innerHTML = "";
+      }
+
+     /* if (!noofEmp) {
+          document.getElementById("noofEmpError1").innerHTML = "Please select your company size.";
+          return false;
+      } else {
+          document.getElementById("noofEmpError1").innerHTML = "";
+      }*/
+
+      if (!privacyCheck) {
+          document.getElementById("privacyCheckError1").innerHTML = "Please agree to the privacy policy and terms of use.";
+          document.getElementById("terms").focus();
+          return false;
+      } else {
+          document.getElementById("privacyCheckError1").innerHTML = "";
+      }
+
+     // document.getElementById("signinLoader").style.display = "flex";
+ 	 
+      $.ajax({
+          type: "POST",
+          url: "/registerUser",
+ 		 dataType: 'json',
+ 		data: {
+              "companySize": noofEmp,
+              "name": name,
+              "email": email,
+              "mobile": mobile,
+  			 "organizationName": orgname,
+  			 "consent": privacyCheck,
+ 			 "whatsupCheck": whatsappCheck,
+ 			 "companyType": "Carporate"
+          },
+          success: function(data) {
+ 			console.log(data);
+             // var data1 = jQuery.parseJSON(data);
+            //  document.getElementById("signinLoader").style.display = "none";
+              if (data.status === true) {
+                  document.getElementById("otsuccmsg").innerHTML = "Our Team Will Contact you soon, Thanks for Registration.";
+                  document.getElementById("otmsgdiv").style.display = "block";
+                  $('#otmsgdiv').delay(5000).fadeOut(400);
+ 				 
+ 				 $("#demoModal").show(); 
+                  //localStorage.setItem("userName", mobile);
+                 // window.location.href = "/signin";
+ 			  
+              } else if (data.status === false) {
+ 				  //$("#demoModal").show();
+                  document.getElementById("otfailmsg").innerHTML = data1.message;
+                  document.getElementById("otfailmsgDiv").style.display = "block";
+                  $('#otfailmsgDiv').delay(5000).fadeOut(400);
+              } else {
+                  document.getElementById("captchaError").innerHTML = data1.message;
+              }
+          },
+          error: function(e) {
+              alert('Error: ' + e);
+          }
+      });
+  }
+
  // Updated function using element IDs and original AJAX request
  function fleetRegistration() {
     
@@ -522,36 +632,37 @@ function verifyEmail(){
          document.getElementById("privacyCheckError1").innerHTML = "";
      }
 
-     document.getElementById("signinLoader").style.display = "flex";
+    // document.getElementById("signinLoader").style.display = "flex";
 	 
-
-     const formData = new FormData(fleetregistration);
-     formData.append("companySize", noofEmp);
-     formData.append("name", name);
-     formData.append("email", email);
-     formData.append("mobile", mobile);
-     formData.append("organizationName", orgname);
-     formData.append("consent", privacyCheck);
-     formData.append("whatsupCheck", whatsappCheck);
-
-     console.log("form data", formData);
-
      $.ajax({
          type: "POST",
          url: "/registerUser",
-         data: formData,
-         processData: false,
-         contentType: false,
+		 dataType: 'json',
+		data: {
+             "companySize": noofEmp,
+             "name": name,
+             "email": email,
+             "mobile": mobile,
+ 			 "organizationName": orgname,
+ 			 "consent": privacyCheck,
+			 "whatsupCheck": whatsappCheck,
+			 "companyType": "Fleet"
+         },
          success: function(data) {
-             const data1 = jQuery.parseJSON(data);
-             document.getElementById("signinLoader").style.display = "none";
-             if (data1.status === true) {
+			console.log(data);
+            // var data1 = jQuery.parseJSON(data);
+           //  document.getElementById("signinLoader").style.display = "none";
+             if (data.status === true) {
                  document.getElementById("otsuccmsg").innerHTML = "Our Team Will Contact you soon, Thanks for Registration.";
                  document.getElementById("otmsgdiv").style.display = "block";
                  $('#otmsgdiv').delay(5000).fadeOut(400);
-                 localStorage.setItem("userName", mobile);
-                 window.location.href = "/signin";
-             } else if (data1.status === false) {
+				 
+				 $("#demoModal").show(); 
+                 //localStorage.setItem("userName", mobile);
+                // window.location.href = "/signin";
+			  
+             } else if (data.status === false) {
+				//$("#demoModal").show();
                  document.getElementById("otfailmsg").innerHTML = data1.message;
                  document.getElementById("otfailmsgDiv").style.display = "block";
                  $('#otfailmsgDiv').delay(5000).fadeOut(400);
@@ -572,19 +683,82 @@ function verifyEmail(){
  
  function OTPforfleet(){
  	
- 	const checkbox = document.getElementById("styled-checkbox-40");
- 	var userMobile = document.getElementById("userMobile").value;
+	const name = document.getElementById("username").value.trim();
+	    const emailInput = document.getElementById("email").value.trim();
+	    const email = emailInput.toLowerCase();
+	    const mobile = document.getElementById("mobile").value.trim();
+	    const orgname = document.getElementById("orgname").value.trim();
+	    const privacyCheck = document.getElementById("terms").checked;
+	    const whatsappCheck = document.getElementById("whatsapp").checked;
+
+	    const companySizeInput = document.querySelector('input[name="companySize"]:checked');
+	    const noofEmp = companySizeInput ? companySizeInput.value : "";
+
+	    const regMobile = /^[6-9]\d{9}$/;
+	    const regEmail = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+	    const regName = /^[A-Za-z]+( [A-Za-z]+)*$/;
+
+	    if (!name || !regName.test(name)) {
+	        document.getElementById("usernameError1").innerHTML = "Please enter a valid full name.";
+	        document.getElementById("username").focus();
+	        return false;
+	    } else {
+	        document.getElementById("usernameError1").innerHTML = "";
+	    }
+
+	    if (!email || !regEmail.test(email)) {
+	        document.getElementById("emailError1").innerHTML = "Please enter a valid email address.";
+	        document.getElementById("email").focus();
+	        return false;
+	    } else {
+	        document.getElementById("emailError1").innerHTML = "";
+	    }
+
+	    if (!mobile || !regMobile.test(mobile)) {
+	        document.getElementById("mobileError1").innerHTML = "Please enter a valid 10-digit mobile number starting with 6-9.";
+	        document.getElementById("mobile").focus();
+	        return false;
+	    } else {
+	        document.getElementById("mobileError1").innerHTML = "";
+	    }
+
+	    if (!orgname) {
+	        document.getElementById("orgnameError1").innerHTML = "Please enter your company name.";
+	        document.getElementById("orgname").focus();
+	        return false;
+	    } else {
+	        document.getElementById("orgnameError1").innerHTML = "";
+	    }
+
+	   /* if (!noofEmp) {
+	        document.getElementById("noofEmpError1").innerHTML = "Please select your company size.";
+	        return false;
+	    } else {
+	        document.getElementById("noofEmpError1").innerHTML = "";
+	    }*/
+
+	    if (!privacyCheck) {
+	        document.getElementById("privacyCheckError1").innerHTML = "Please agree to the privacy policy and terms of use.";
+	        document.getElementById("terms").focus();
+	        return false;
+	    } else {
+	        document.getElementById("privacyCheckError1").innerHTML = "";
+	    }
+
+	    document.getElementById("signinLoader").style.display = "flex";
+	 
+ 	   var userMobile = document.getElementById("mobile").value;
  	  //if (checkbox.checked) {
  		$.ajax({
  			type: 'POST',
- 	        url:"/smsOtpSender",
+ 	        url:"/otpWithOutRegister",
  			data: {
  						"mobile": userMobile,
  					},
  			dataType: 'json',
  			success: function(data) {
  			var obj = data;
- 			
+			document.getElementById("signinLoader").style.display = "none";
  	        if (obj['status'] == true) {
  				// Mask the mobile number (show only last 4 digits)
  				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
@@ -607,6 +781,7 @@ function verifyEmail(){
  					}	
  				}, 1000);
  	            $("#fleetOTPModal").show();  
+				//$("#demoModal").show();  
  	          } else {
  	            alert("Error: " + obj.message);
  	          }
@@ -616,14 +791,117 @@ function verifyEmail(){
  	         // alert("An error occurred. Please try again.");
  	        }
  	      });
- 	// } 		  
- 	// else {
- 	//	document.getElementById("styled-checkbox-40Error").innerHTML="Please check consent";
- 	 // }
+ 	
  }
  
+ function OTPforCorporate(){
+ 	
+     const name = document.getElementById("username").value.trim();
+     const emailInput = document.getElementById("email").value.trim();
+     const email = emailInput.toLowerCase();
+     const mobile = document.getElementById("mobile").value.trim();
+     const orgname = document.getElementById("orgname").value.trim();
+     const privacyCheck = document.getElementById("terms").checked;
+     const whatsappCheck = document.getElementById("whatsapp").checked;
+
+     const companySizeInput = document.querySelector('input[name="companySize"]:checked');
+     const noofEmp = companySizeInput ? companySizeInput.value : "";
+
+     const regMobile = /^[6-9]\d{9}$/;
+     const regEmail = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+     const regName = /^[A-Za-z]+( [A-Za-z]+)*$/;
+
+     if (!name || !regName.test(name)) {
+         document.getElementById("usernameError1").innerHTML = "Please enter a valid full name.";
+         document.getElementById("username").focus();
+         return false;
+     } else {
+         document.getElementById("usernameError1").innerHTML = "";
+     }
+
+     if (!email || !regEmail.test(email)) {
+         document.getElementById("emailError1").innerHTML = "Please enter a valid email address.";
+         document.getElementById("email").focus();
+         return false;
+     } else {
+         document.getElementById("emailError1").innerHTML = "";
+     }
+
+     if (!mobile || !regMobile.test(mobile)) {
+         document.getElementById("mobileError1").innerHTML = "Please enter a valid 10-digit mobile number starting with 6-9.";
+         document.getElementById("mobile").focus();
+         return false;
+     } else {
+         document.getElementById("mobileError1").innerHTML = "";
+     }
+
+     if (!orgname) {
+         document.getElementById("orgnameError1").innerHTML = "Please enter your company name.";
+         document.getElementById("orgname").focus();
+         return false;
+     } else {
+         document.getElementById("orgnameError1").innerHTML = "";
+     }
+
+     if (!privacyCheck) {
+         document.getElementById("privacyCheckError1").innerHTML = "Please agree to the privacy policy and terms of use.";
+         document.getElementById("terms").focus();
+         return false;
+     } else {
+         document.getElementById("privacyCheckError1").innerHTML = "";
+     }
+
+     document.getElementById("signinLoader").style.display = "flex";
+  
+ 	   var userMobile = document.getElementById("mobile").value;
+ 	  //if (checkbox.checked) {
+ 		$.ajax({
+ 			type: 'POST',
+ 	        url:"/otpWithOutRegister",
+ 			data: {
+ 						"mobile": userMobile,
+ 					},
+ 			dataType: 'json',
+ 			success: function(data) {
+ 			var obj = data;
+ 		    document.getElementById("signinLoader").style.display = "none";
+ 	        if (obj['status'] == true) {
+ 				// Mask the mobile number (show only last 4 digits)
+ 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
+ 				document.getElementById("maskedMobileDisplay1").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;				
+ 										
+ 	            // If successful, open the OTP modal
+ 				var timeleft = "60";
+ 				var resendCodeElement = document.getElementById("resendCode");
+ 	               // Hide the "Resend OTP" link initially
+ 	               resendCodeElement.style.display = "none";
+ 				var downloadTimer = setInterval(function() {
+ 					document.getElementById("countdown").innerHTML = "00:"+timeleft;
+ 					timeleft -= 1;
+ 					//document.getElementById("optBtn").style.display = "none";
+ 					document.getElementById("orderId").value= obj['orderId'];
+ 					//document.getElementById("verifyotpdiv").style.display = "block";
+ 					if (timeleft < 0) {
+ 						clearInterval(downloadTimer);
+ 						resendCodeElement.style.display = "block";	
+ 					}	
+ 				}, 1000);
+ 	            $("#corporateOTPModal").show();  
+ 	          } else {
+ 	            alert("Error: " + obj.message);
+ 	          }
+ 	        },
+ 	        error: function() {
+ 			  //$('#otpModal').fadeIn();
+ 	         // alert("An error occurred. Please try again.");
+ 	        }
+ 	      });
+ 	
+ }
+
+ 
  function resendfleetOTP(){
- 	var userMobile = document.getElementById("userMobile").value;
+ 	var userMobile = document.getElementById("mobile").value;
  	var orderId = document.getElementById("orderId").value;
  		$.ajax({
  			type: 'POST',
@@ -783,3 +1061,278 @@ function verifyEmail(){
  		  			}
  		  		});
  		  }
+
+		  
+		  function verfyFleetRegistrationOtp() {
+		   			
+		   		  	var password1 = document.getElementById("password1").value;
+		   		  	var password2 = document.getElementById("password2").value;
+		   		  	var password3 = document.getElementById("password3").value;
+		   		  	var password4 = document.getElementById("password4").value;
+		   		  	var password5 = document.getElementById("password5").value;
+		   		  	var password6 = document.getElementById("password6").value;
+		   		  	var orderId = document.getElementById("orderId").value;
+		   		  	var userMobile = document.getElementById("mobile").value;
+		   		  	 if (password1 == "" && password1.length < 1) {
+		   		  		//document.getElementById("mobError").innerHTML="";
+		   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	 else if (password1.length < 1) {
+		   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	else{
+		   		  		document.getElementById("otpError").innerHTML="";
+		   		  	}
+		   		  	 if (password2 == "" && password2.length < 1) {
+		   		  		//document.getElementById("mobError").innerHTML="";
+		   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	 else if (password2.length < 1) {
+		   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	else{
+		   		  		document.getElementById("otpError").innerHTML="";
+		   		  	}
+		   		  	 if (password3 == "" && passwor3.length < 1) {
+		   		  		//document.getElementById("mobError").innerHTML="";
+		   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	 else if (password3.length < 1) {
+		   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	else{
+		   		  		document.getElementById("otpError").innerHTML="";
+		   		  	}
+		   		  	 if (password4 == "" && password4.length < 1) {
+		   		  		//document.getElementById("mobError").innerHTML="";
+		   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	 else if (password4.length < 1) {
+		   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	else{
+		   		  		document.getElementById("otpError").innerHTML="";
+		   		  	}
+		   		  	 if (password5 == "" && password5.length < 1) {
+		   		  		//document.getElementById("mobError").innerHTML="";
+		   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	 else if (password5.length < 1) {
+		   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	else{
+		   		  		document.getElementById("otpError").innerHTML="";
+		   		  	}
+		   		  	 if (password6 == "" && password6.length < 1) {
+		   		  		//document.getElementById("mobError").innerHTML="";
+		   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	 else if (password6.length < 1) {
+		   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		   		  		x = false;
+		   		  	}
+		   		  	else{
+		   		  		document.getElementById("otpError").innerHTML="";
+		   		  	}
+		   			//document.getElementById("authenticate").disabled = true;
+		   		  	$.ajax({
+		   		  			type: "POST",
+		   		  			url:"verifyOtpWithOutRegister",
+		   		  			dataType: 'json',
+		   		  			data: {
+		   		  				"password1": password1,
+		   		  				"password2": password2,
+		   		  				"password3": password3,
+		   		  				"password4": password4,	
+		   		  				"password5": password5,
+		   		  				"password6": password6,
+		   		  				"mobile": userMobile,
+		   		  				"orderId": orderId,
+		   		  				"userName":userMobile
+		   		  			},
+		   		  			success: function(data) {
+		   		  				var obj = data;
+		   		  				if (obj['status']== true) {
+		   							fleetRegistration();
+		   							$("#fleetOTPModal").hide();
+		   							//$("#roleAcessModalSuccessful").show();
+		   							
+		   		  				}else if (obj['status'] == false) {
+		   							document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+		   							document.getElementById("authenticate").disabled = false;
+		   						} else {
+		   							
+		   		  				}
+		   		  			},
+		   		  			error: function(e) {
+		   		  				alert('Error: ' + e);
+		   		  			}
+		   		  		});
+		   		  }
+
+				  function verfyCorporateRegistrationOtp() {
+				  	   			
+				  	   		  	var password1 = document.getElementById("password1").value;
+				  	   		  	var password2 = document.getElementById("password2").value;
+				  	   		  	var password3 = document.getElementById("password3").value;
+				  	   		  	var password4 = document.getElementById("password4").value;
+				  	   		  	var password5 = document.getElementById("password5").value;
+				  	   		  	var password6 = document.getElementById("password6").value;
+				  	   		  	var orderId = document.getElementById("orderId").value;
+				  	   		  	var userMobile = document.getElementById("mobile").value;
+				  	   		  	 if (password1 == "" && password1.length < 1) {
+				  	   		  		//document.getElementById("mobError").innerHTML="";
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	 else if (password1.length < 1) {
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	else{
+				  	   		  		document.getElementById("otpError").innerHTML="";
+				  	   		  	}
+				  	   		  	 if (password2 == "" && password2.length < 1) {
+				  	   		  		//document.getElementById("mobError").innerHTML="";
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	 else if (password2.length < 1) {
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	else{
+				  	   		  		document.getElementById("otpError").innerHTML="";
+				  	   		  	}
+				  	   		  	 if (password3 == "" && passwor3.length < 1) {
+				  	   		  		//document.getElementById("mobError").innerHTML="";
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	 else if (password3.length < 1) {
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	else{
+				  	   		  		document.getElementById("otpError").innerHTML="";
+				  	   		  	}
+				  	   		  	 if (password4 == "" && password4.length < 1) {
+				  	   		  		//document.getElementById("mobError").innerHTML="";
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	 else if (password4.length < 1) {
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	else{
+				  	   		  		document.getElementById("otpError").innerHTML="";
+				  	   		  	}
+				  	   		  	 if (password5 == "" && password5.length < 1) {
+				  	   		  		//document.getElementById("mobError").innerHTML="";
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	 else if (password5.length < 1) {
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	else{
+				  	   		  		document.getElementById("otpError").innerHTML="";
+				  	   		  	}
+				  	   		  	 if (password6 == "" && password6.length < 1) {
+				  	   		  		//document.getElementById("mobError").innerHTML="";
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	 else if (password6.length < 1) {
+				  	   		  		document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+				  	   		  		x = false;
+				  	   		  	}
+				  	   		  	else{
+				  	   		  		document.getElementById("otpError").innerHTML="";
+				  	   		  	}
+				  	   			//document.getElementById("authenticate").disabled = true;
+				  	   		  	$.ajax({
+				  	   		  			type: "POST",
+				  	   		  			url:"verifyOtpWithOutRegister",
+				  	   		  			dataType: 'json',
+				  	   		  			data: {
+				  	   		  				"password1": password1,
+				  	   		  				"password2": password2,
+				  	   		  				"password3": password3,
+				  	   		  				"password4": password4,	
+				  	   		  				"password5": password5,
+				  	   		  				"password6": password6,
+				  	   		  				"mobile": userMobile,
+				  	   		  				"orderId": orderId,
+				  	   		  				"userName":userMobile
+				  	   		  			},
+				  	   		  			success: function(data) {
+				  	   		  				var obj = data;
+				  	   		  				if (obj['status']== true) {
+				  	   							carporateRegistration();
+				  	   							$("#corporateOTPModal").hide();
+				  	   							//$("#roleAcessModalSuccessful").show();
+				  	   							
+				  	   		  				}else if (obj['status'] == false) {
+				  	   							document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
+				  	   							document.getElementById("authenticate").disabled = false;
+				  	   						} else {
+				  	   							
+				  	   		  				}
+				  	   		  			},
+				  	   		  			error: function(e) {
+				  	   		  				alert('Error: ' + e);
+				  	   		  			}
+				  	   		  		});
+				  	   		  }
+
+		      function focusNext(currentInput) {
+		          // Move focus to the next input box
+		          var maxLength = parseInt(currentInput.getAttribute("maxlength"));
+		          var currentLength = currentInput.value.length;
+
+		          if (currentLength >= maxLength) {
+		              var nextIndex = Array.from(currentInput.parentElement.children).indexOf(currentInput) + 1;
+		              var nextInput = currentInput.parentElement.children[nextIndex];
+
+		              if (nextInput) {
+		                  nextInput.focus();
+		              }
+		          }
+		      }
+
+		  function focusBack(){
+		  	  var elts = document.getElementsByClassName('test')
+		  	  Array.from(elts).forEach(function(elt) {
+		  	  elt.addEventListener("keydown", function(event) {
+		  	    // Number 13 is the "Enter" key on the keyboard
+		  	    if (event.keyCode === 13 ||
+		  	        event.keyCode !== 8 && elt.value.length === Number(elt.maxLength)
+		  	    ) {
+		  	      // Focus on the next sibling
+		  	      elt.nextElementSibling.focus()
+		  	    }
+		  	    if (event.keyCode == 8) {
+		  	      elt.value = '';
+		  	      if (elt.previousElementSibling != null) {
+		  	        elt.previousElementSibling.focus();
+		  	        event.preventDefault();
+		  	      }
+		  	    }
+		  	  });
+		  	})
+		  }
+
