@@ -26797,6 +26797,7 @@ section.faq-wrap {
 	}
 
 	.btn-login-home:hover {
-	  background-color: #218838; /* Darker green on hover */
+	  background-color: #367AFF; /* Darker green on hover */
+	  color: white;
 	}
 
