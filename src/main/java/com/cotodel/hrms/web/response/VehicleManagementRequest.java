@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 public class VehicleManagementRequest {
 	private Long orgId;
+	private Long id;
 	private String response;
+	private String vehicleSequenceId;
 
 }

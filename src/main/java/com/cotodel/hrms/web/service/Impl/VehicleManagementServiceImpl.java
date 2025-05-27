@@ -29,5 +29,37 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			        MessageConstant.gson.toJson(VehicleManagementSaveRequest),
 			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.addVehicleDetails
 			    );
+	}
+
+	@Override
+	public String getVehicleManagementById(String token, EncriptResponse jsonObject) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(jsonObject),
+			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getVehicleManagementById
+			    );
+	}
+
+	@Override
+	public String updateVehicleDetails(String token, EncriptResponse jsonObject) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(jsonObject),
+			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.updateVehicleDetails
+			    );
+	}
+
+	@Override
+	public String getEmployeeDriver(String token, EncriptResponse jsonObject) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(jsonObject),
+			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getDriverDetail
+			    );
+	}
+
+	@Override
+	public String vehichleTripHistory(String token, EncriptResponse jsonObject) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(jsonObject),
+			        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.vehichleTripHistory
+			    );
 	} 
 }
