@@ -5258,7 +5258,15 @@ input.autocomp-input {
     min-height: 100vh;
     background-size: cover;
 }
-
+.loginNew-wrap-corporate {
+	background: url("../img/Corporate_women.png") no-repeat center center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 10px;
+    min-height: 100vh;
+    background-size: cover;
+}
 
 .loginNew-wrap-repute {
 	background: url("../img/signup-bg2 1.webp") no-repeat center center;
