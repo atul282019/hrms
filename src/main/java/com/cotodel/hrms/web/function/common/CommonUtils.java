@@ -159,6 +159,8 @@ public interface CommonUtils {
 	
 	public static String preprodWebhookCallback ="http://13.234.119.146:9085/cashFree/Api/get/cashFreeOrderIdUpdate";
 	public static String getVehicleNumberDetaiilByVehicleNumber ="/gstPanService/Api/get/checkVehicleNo";
+	public static String checkAccountNumberValidation ="/get/bankVerification";
+	
 	
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";

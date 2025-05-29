@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.BankVerificationRequest;
 import com.cotodel.hrms.web.response.EmployeeOnboardingDriverRequest;
 import com.cotodel.hrms.web.response.RCRequest;
 import com.cotodel.hrms.web.response.VehicleManagementRequest;
@@ -36,6 +37,29 @@ public class VehicleManagementController extends CotoDelBaseController {
 	
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
+	
+	@GetMapping(value = "/checkAccountNumberValidation")
+	public @ResponseBody String checkAccountNumberValidation(HttpServletRequest request, ModelMap model, Locale locale,
+	    HttpSession session, BankVerificationRequest bankVerificationRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(bankVerificationRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  vehicleManagementService.checkAccountNumberValidation(tokengeneration.getToken(), jsonObject);
+  
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+    	return profileRes;
+	}
 	
 	@GetMapping(value = "/getVehicleDetaiilByRC")
 	public @ResponseBody String getVehicleNumberDetaiilByVehicleNumber(HttpServletRequest request, ModelMap model, Locale locale,

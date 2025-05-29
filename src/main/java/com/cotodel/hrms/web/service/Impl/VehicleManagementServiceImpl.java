@@ -69,5 +69,13 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			        MessageConstant.gson.toJson(jsonObject),
 			        applicationConstantConfig.gstServiceBaseUrl +CommonUtils.getVehicleNumberDetaiilByVehicleNumber
 			    );
+	}
+
+	@Override
+	public String checkAccountNumberValidation(String token, EncriptResponse jsonObject) {
+		 return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(jsonObject),
+		        applicationConstantConfig.gstServiceBaseUrl +CommonUtils.getVehicleNumberDetaiilByVehicleNumber
+		    );
 	} 
 }
