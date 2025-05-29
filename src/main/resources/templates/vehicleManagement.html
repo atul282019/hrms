@@ -376,14 +376,11 @@
 				    
 			  <br>
 			  <div class="d-grid">
-			   <!-- <button onclick="downloadDivAsExcel()" type="button" class="btn btn-primary w-100" style="background-color: #367AFF; border-radius: 10px;">
-			      <img src="img/download-white.png" alt="icon" style="height: 24px; margin-right: 8px; vertical-align: middle;">
-			      Download History
-			    </button>-->
-				<button type="button" class="btn btn-primary w-100" style="background-color: #367AFF; border-radius: 10px;">
+			    <button onclick="downloadInExcel()" type="button" class="btn btn-primary w-100" style="background-color: #367AFF; border-radius: 10px;">
 			      <img src="img/download-white.png" alt="icon" style="height: 24px; margin-right: 8px; vertical-align: middle;">
 			      Download History
 			    </button>
+				
 			  </div>
 		    </div>
 		  </div>
@@ -1196,12 +1193,12 @@ function openModalConfirm() {
 		                     }
 		                     if(vehicleType=="Two-Wheeler")
 		                     {
-							 var imgTag = '<img src="img/two-wheeler-icon.png" alt="" class="mr-2">'+vehicleType;
+							 var imgTag = '<img src="img/two-wheeler-icon.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
 		                      $(row).find('td:eq(1)').html(imgTag);
 		                     }
-							 if(vehicleType=="Ambulance / Special Purpose")
+							 if(vehicleType=="Amb./Spl. Purp")
  		                     {
- 							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+ 							 var imgTag = '<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
  		                      $(row).find('td:eq(1)').html(imgTag);
  		                     }
 							 
@@ -1427,7 +1424,7 @@ function openModalConfirm() {
 	    });		
 	}  
 	
-	  function downloadDivAsExcel() {
+	  function downloadInExcel() {
 	    const tableData = [];
 	    
 	    // Select all vehicle detail wrappers

@@ -425,72 +425,72 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 								
                                 <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
 									
-																	<div id="menu3" class="tab-pane">
-																	  <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
-																	    <div class="col-12 col-md-8 col-lg-6 mx-auto">
-																	      <div class="text-center">
-																	        <h3>Cotodel Linked Account</h3>
-																	      </div>
-																	    </div>
-																	  </div>
+								<div id="menu3" class="tab-pane">
+								  <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
+								    <div class="col-12 col-md-8 col-lg-6 mx-auto">
+								      <div class="text-center">
+								        <h3>Cotodel Linked Account</h3>
+								      </div>
+								    </div>
+								  </div>
 
-																	  <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
-																	    <div class="text-left">
-																	      <h3>Prepaid Account Details</h3>
-																	    </div>
+								  <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
+								    <div class="text-left">
+								      <h3>Prepaid Account Details</h3>
+								    </div>
 
-																	    <div class="linked-bank-account-innersection d-block">
-																	      <div id="data-wrapper1">
-																	      </div>
-																	    </div>
+								    <div class="linked-bank-account-innersection d-block">
+								      <div id="data-wrapper1">
+								      </div>
+								    </div>
 
-																	    <div class="d-flex justify-content-end">
-																	      <button class="btn btn-primary" id="continuebtn1">Continue</button>
-																	    </div>
-																	  </div>
+								    <div class="d-flex justify-content-end">
+								      <button class="btn btn-primary" id="continuebtn1">Continue</button>
+								    </div>
+								  </div>
 
-																	  <!-- Amount Request Section (converted from modal) -->
-																	  <div class="amount-request-section col-md-8" id="cotodelAmountRequest" style="display: none;">
-																	    <div class="card">
-																	      <div class="card-header">
-																	        <h5 class="card-title" id="CnewAmount"><strong> Enter Prepaid Amount</strong></h5>
-																	      </div>
-																	      <div class="card-body">
-																	        <form action="" class="advancerequestform">
-																	          <div class="form-group">
-																	            <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
-																	          </div>
-																			  <div class="error-msg" id="advanceAmountError" style="color:red"></div>
-																			  <br>
-																	          <div class="unstyled centered d-flex mt-2" id="checkboxContainer">
-																	            <input class="styled-checkbox" id="confirmAmount" type="checkbox" value="value1">
-																	            <label for="confirmAmount"></label>
-																	            <p class="d-inline mb-0 ml-2">I confirm the changes</p>
-																	          </div>
-																	          <div class="error-msg" id="confirmAmountError" style="color:red"></div>
-																			  
-																	        </form>
-																	        <div class="d-flex justify-content-center mt-3">
-																				<button class="btn btn-primary w-100" id="renderBtn2" onclick="getSessionId()">Pay Now</button>
-																				 </div>
-																	      </div>
-																	    </div>
-																	  </div>
-																	</div>
-																	<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
-																	<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
-																	<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
-																	
-																	<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
-																	<input type="hidden" class="form-input" id="CId" name="CId" > 
-																	<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
-																	<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
-																	<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
-																	<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
-																	<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
-																	<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
-																	<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
-																	<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+								  <!-- Amount Request Section (converted from modal) -->
+								  <div class="amount-request-section col-md-8" id="cotodelAmountRequest" style="display: none;">
+								    <div class="card">
+								      <div class="card-header">
+								        <h5 id="CnewAmount"><strong> Enter Prepaid Amount</strong></h5>
+								      </div>
+								      <div class="card-body">
+								        <form action="" class="advancerequestform">
+								          <div class="form-group">
+								            <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
+								          </div>
+										  <div class="error-msg" id="advanceAmountError" style="color:red"></div>
+										  <br>
+								          <div class="unstyled centered d-flex mt-2" id="checkboxContainer">
+								            <input class="styled-checkbox" id="confirmAmount" type="checkbox" value="value1">
+								            <label for="confirmAmount"></label>
+								            <p class="d-inline mb-0 ml-2">I confirm the changes</p>
+								          </div>
+								          <div class="error-msg" id="confirmAmountError" style="color:red"></div>
+										  
+								        </form>
+								        <div class="d-flex justify-content-center mt-3">
+											<button class="btn btn-primary w-100" id="renderBtn2" onclick="getSessionId()">Pay Now</button>
+											 </div>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+								<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+								
+								<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+								<input type="hidden" class="form-input" id="CId" name="CId" > 
+								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+								<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+								<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+								<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
 								 </div>
 								 
 								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
