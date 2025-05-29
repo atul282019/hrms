@@ -12,5 +12,6 @@ public interface VehicleManagementService {
 	public String updateVehicleDetails(String token, EncriptResponse jsonObject);
 	public String getEmployeeDriver(String token, EncriptResponse jsonObject);
 	public String vehichleTripHistory(String token, EncriptResponse jsonObject);
+	public String getVehicleNumberDetaiilByVehicleNumber(String token, EncriptResponse jsonObject);
 
 }

@@ -160,7 +160,7 @@
 			 <!-- add vehicle modal-->
 			 <div class="modal fade" id="AddVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			     <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
-			         <div class="modal-content modal-bulk1" style="max-height: 600px;">
+			         <div class="modal-content modal-bulk1" style="max-height: 200px;">
 			             <div class="modal-header pb-0">
 			                 <h5 class="modal-title mx-auto fw-dark text-left w-100" id="exampleModalCenterTitle">Add Vehicle</h5>
 			                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeexampleModalCenterTitle()">
@@ -180,7 +180,7 @@
 					         </div>
 					         <div class="error-msg" id="vehicleNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
 					        
-							 <div class="did-floating-label-content mb-3">
+							<!-- <div class="did-floating-label-content mb-3">
 					           <input 
 					             type="text"
 					             id="vehicleManufactor"
@@ -227,15 +227,22 @@
 					             </div>
 								 <div class="error-msg" id="fuelTypeError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
 							  
-
+-->
 						     <div class="d-grid">
 								<!--<button type="button" class="btn btn-primary w-100" style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" data-bs-toggle="modal" data-bs-target="#vehicleDetailsModal">
 		                         Validate
 		                     </button>-->
-							 <button type="button" class="btn btn-primary w-100" 
+							 <!--<button type="button" class="btn btn-primary w-100" 
 							 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" onclick="draftAndOpenPopup()">
 		                         Validate
-		                     </button>
+		                     </button>-->
+							 <div class="error-msg" id="VehicleNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+							 						  
+							 <button type="button" class="btn btn-primary w-100" 
+ 							 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" onclick="chekVechileNumber()">
+ 		                         Validate
+ 		                     </button>
+							 
 						     </div>
 						   </form>
 						 </div>
@@ -268,25 +275,59 @@
 						</div>
 						<hr class="custom-hr">
 			             <div class="row text-white mt-n2">
-			               <div class="col-md-4">
-			                 Registration Number
-			                 <span id="rNumber"></span>
-			               </div>
-			               <div class="col-md-3">
-			                 Car Make & Model
-			                 <span id="rModel"> </span>
-			               </div>
-			               <div class="col-md-3">
-			                 Vehicle Class
-			                 <span id="rClass"></span>
-			               </div>
-			               <div class="col-md-2">
-			                 Fuel
-			                 <span  id="rType"></span>
-			               </div>
+			               <div class="col-md-4"> Registration Number <span id="rNumber"></span>  </div>
+			               <div class="col-md-3"> Car Make & Model<span id="rModel"> </span> </div>
+			               <div class="col-md-3">  Vehicle Class<span id="rClass"></span> </div>
+			               <div class="col-md-2">  Fuel  <span  id="rType"></span></div>
 			             </div>
 			           </div>
+					<div class="info-section-vd">
+					<div class="section-title-vd d-flex align-items-center justify-content-between" onclick="toggleSection('details-content', 'icon-details')">
+					  <span class="d-flex align-items-center">
+					     <img src="img/Additonal-Details.png" alt="Vehicle Icon" style="height: 24px;" class="me-2"></i>Additional Details
+					  </span>
+					  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-details">
+					</div>
+				     <div class="row mt-2 text-muted" id="details-content" style="display: none;">
+				       <div class="col-md-3"> Chassis Number<br>  <span class="fw-bold text-dark" id="vehicle_chasi_number"></span> </div>
+				       <div class="col-md-3">  Engine Number<br> <span class="fw-bold text-dark" id="vehicle_engine_number"></span></div>
+				       <div class="col-md-3">  Color<br>  <span class="fw-bold text-dark" id="color"></span> </div>
+				       <div class="col-md-3"> Authority<br> <span class="fw-bold text-dark" id="registered_at"></span> </div>
+					   <div class="w-100 my-3"></div>
+				       <div class="col-md-3">  Manufacturing Date<br> <span class="fw-bold text-dark" id="manufacturing_date"></span>  </div>
+				       <div class="col-md-3">  Cubic Capacity<br> <span class="fw-bold text-dark" id="cubic_capacity"></span> </div>
+				       <div class="col-md-3">   Seats<br><span class="fw-bold text-dark" id="seat_capacity"></span>  </div>
+				       <div class="col-md-3"> Weight<br> <span class="fw-bold text-dark" id="unladen_weight"></span></div>
+					   <div class="w-100 my-3"></div>
+				       <div class="col-md-3">  Wheelbase<br> <span class="fw-bold text-dark"  id="wheelbase"></span>
+				       </div>
+				     </div>
+				   </div>
+	
+		           <div class="legal-section-vd">
+		             
+					 <div class="section-title-vd d-flex align-items-center justify-content-between" 								
+					      onclick="toggleSection('legal-content', 'icon-legal')">
+							  <span class="d-flex align-items-center">
+							    <img src="img/Legal&Compliance.png" style="height: 24px;" class="me-2"></i>Legal & Compliances
+							  </span>
+							  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-legal">
+							</div>
+		             <div class="row mt-2" id="legal-content" style="display: none;">
+		              
+					   <div class="col-md-3"> Insurance Company:<br>  <span class="fw-bold text-dark" id="insurance_company"></span></div>
 					   
+					   <div class="col-md-3">  Fitness:<br>  <span class="fw-bold text-dark" id="fit_up_to"></span> </div>		               
+					   <div class="col-md-3">  Tax:<br><span class="fw-bold text-dark" id="tax_paid_upto"></span> </div>
+					   <div class="col-md-3"> Financer:<br><span class="fw-bold text-dark" id="financer"></span></div>	               
+					   <div class="w-100 my-3"></div>					   
+					   <div class="col-md-3">Permit Number:<br>  <span class="fw-bold text-dark" id="permit_number"></span> </div>
+					   <input type="hidden" id="ownerNameView" name="ownerNameView" >
+					   <input type="hidden" id="ownerAddressView" name="ownerAddressView">
+		              
+		             </div>
+		           </div>
+
 					   <button class="btn btn-primary activate-btn-vd"
 					    style="background-color:  #367AFF;border-radius: 10px;padding: 12px 0;"
 					   onclick="saveOpenModalConfirm()">ACTIVATE
@@ -407,22 +448,10 @@
    		</div>
    		<hr class="custom-hr">
                <div class="row text-white mt-n2">
-                 <div class="col-md-4">
-                   Registration Number
-                   <span id="editVehicleNumber"></span>
-                 </div>
-                 <div class="col-md-3">
-                   Car Make & Model
-                   <span id="editVehicleModel"></span>
-                 </div>
-                 <div class="col-md-3">
-                   Vehicle Class
-                   <span id="editVehicleClass"></span>
-                 </div>
-                 <div class="col-md-2">
-                   Fuel
-                   <span id="editVehicleDesileType"></span>
-                 </div>
+                 <div class="col-md-4">  Registration Number <span id="editVehicleNumber"></span></div>
+                 <div class="col-md-3">  Car Make & Model <span id="editVehicleModel"></span> </div>
+                 <div class="col-md-3">  Vehicle Class   <span id="editVehicleClass"></span>       </div>
+                 <div class="col-md-2">  Fuel<span id="editVehicleDesileType"></span> </div>
                </div>
              </div>
    	   <!-- Ownership & Assignment Details Section -->
@@ -433,18 +462,13 @@
    	          </div>
    			 <hr class="full-width-hr">
 					   
-							 <div class="mb-3">
-						             <div style="background: #e9ecef; border-radius: 0.5rem; padding: 1rem; display: flex; justify-content: flex-start; gap: 2rem; flex-wrap: wrap;">
-						               <div style="min-width: 200px;"  class="text-left">
-						                 Owner Name<br>
-						                <strong> Ramesh Kumaer</strong>
-						               </div>
-						               <div style="min-width: 200px; " class="text-left">
-						                 Owner Address<br>
-						                 <strong>A-2989, 2nd floor Greenfield, Faridabad- 121003</strong>
-						               </div>
-						             </div>
-						           </div>
+			 <div class="mb-3">
+             <div style="background: #e9ecef; border-radius: 0.5rem; padding: 1rem; display: flex; justify-content: flex-start; gap: 2rem; flex-wrap: wrap;">
+               <div style="min-width: 200px;"  class="text-left">
+                 Owner Name<br> <strong  id="owner_name_edit"> </strong> </div>
+               <div style="min-width: 200px; " class="text-left">Owner Address<br>  <strong id="ownerpresent_address_edit"></strong></div>
+             </div>
+           </div>
  					<!--         <div class="row mb-3">
  					             <div class="col-md-6">
 									<div class="did-floating-label-content mr-2">
@@ -536,7 +560,50 @@
    					             </div>
    					           </div>
    					         </div>
-
+							 <div class="info-section-vd">
+		 					<div class="section-title-vd d-flex align-items-center justify-content-between" onclick="toggleSection('details-content_1', 'icon-details')">
+		 					  <span class="d-flex align-items-center">
+		 					     <img src="img/Additonal-Details.png" alt="Vehicle Icon" style="height: 24px;" class="me-2"></i>Additional Details
+		 					  </span>
+		 					  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-details">
+		 					</div>
+		 				     <div class="row mt-2 text-muted" id="details-content_1" style="display: none;">
+		 				       <div class="col-md-3"> Chassis Number<br>  <span class="fw-bold text-dark" id="vehicle_chasi_number_edit"></span> </div>
+		 				       <div class="col-md-3">  Engine Number<br> <span class="fw-bold text-dark" id="vehicle_engine_number_edit"></span></div>
+		 				       <div class="col-md-3">  Color<br>  <span class="fw-bold text-dark" id="color_edit"></span> </div>
+		 				       <div class="col-md-3"> Authority<br> <span class="fw-bold text-dark" id="registered_at"></span> </div>
+		 					   <div class="w-100 my-3"></div>
+		 				       <div class="col-md-3">  Manufacturing Date<br> <span class="fw-bold text-dark" id="manufacturing_date_edit"></span>  </div>
+		 				       <div class="col-md-3">  Cubic Capacity<br> <span class="fw-bold text-dark" id="cubic_capacity_edit"></span> </div>
+		 				       <div class="col-md-3">   Seats<br><span class="fw-bold text-dark" id="seat_capacity_edit"></span>  </div>
+		 				       <div class="col-md-3"> Weight<br> <span class="fw-bold text-dark" id="unladen_weight_edit"></span></div>
+		 					   <div class="w-100 my-3"></div>
+		 				       <div class="col-md-3">  Wheelbase<br> <span class="fw-bold text-dark"  id="wheelbase_edit"></span>
+		 				       </div>
+		 				     </div>
+		 				   </div>
+		 	
+		 		           <div class="legal-section-vd">
+		 		             
+		 					 <div class="section-title-vd d-flex align-items-center justify-content-between" 								
+		 					      onclick="toggleSection('legal-content_1', 'icon-legal')">
+		 							  <span class="d-flex align-items-center">
+		 							    <img src="img/Legal&Compliance.png" style="height: 24px;" class="me-2"></i>Legal & Compliances
+		 							  </span>
+		 							  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-legal">
+		 							</div>
+		 		             <div class="row mt-2" id="legal-content_1" style="display: none;">
+		 		              
+		 					   <div class="col-md-3"> Insurance Company:<br>  <span class="fw-bold text-dark" id="insurance_company_edit"></span></div>
+		 					   
+		 					   <div class="col-md-3">  Fitness:<br>  <span class="fw-bold text-dark" id="fit_up_to_edit"></span> </div>		               
+		 					   <div class="col-md-3">  Tax:<br><span class="fw-bold text-dark" id="tax_paid_upto_edit"></span> </div>
+		 					   <div class="col-md-3"> Financer:<br><span class="fw-bold text-dark" id="financer_edit"></span></div>	               
+		 					   <div class="w-100 my-3"></div>					   
+		 					   <div class="col-md-3">Permit Number:<br>  <span class="fw-bold text-dark" id="permit_number_edit"></span> </div>
+		 					
+		 		             </div>
+		 		           </div>
 						 <!--<button class="btn btn-primary activate-btn-vd"  onclick="openModalConfirm()">ACTIVATE</button>-->
 					   	   <div class="button-group-vd d-flex gap-3 justify-content-end">
 					   	     <button class="btn back-btn-vd" onclick="editDetailsModalClose()" >Back</button>
@@ -621,70 +688,211 @@
 	</script>
    <script>
 	
+	function draftAndOpenPopup(){
+			    var vehicleNumber = document.getElementById("vehicleNumber").value;
+				document.getElementById("rNumber").innerText=vehicleNumber;
+				
+				var vehicleManufactor = document.getElementById("vehicleManufactor").value;							
+				
+				var vehicleModel = document.getElementById("vehicleModel").value;	
+				document.getElementById("rModel").innerText=vehicleModel;
+				
+				const vehicleTypeId = document.getElementById('vehicleType').options[
+			        document.getElementById('vehicleType').selectedIndex
+			    ].value;
+									
+				const vehicleType = document.getElementById('vehicleType').options[
+					        document.getElementById('vehicleType').selectedIndex
+					    ].text;
+				document.getElementById("rClass").innerText=vehicleType;
+				
+				const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
+			        document.getElementById('vehicleFuelType').selectedIndex
+			    ].value;
+				
+				const vehicleFuelType = document.getElementById('vehicleFuelType').options[
+				        document.getElementById('vehicleFuelType').selectedIndex
+				    ].text;
+				document.getElementById("rType").innerText=vehicleFuelType;		
+				var regex =	'^[A-Z]{2}\s?[0-9A-Z]{2}\s?[A-Z]{1,2}\s?[0-9]{4}$'
+
+				 
+				if(vehicleNumber =="" ){
+					document.getElementById("vehicleNumberError").textContent = "Please Enter Vehicle Number.";
+					return false;
+				}
+				//else if(!vehicleNumber.match(regex)){
+				//			document.getElementById("vehicleNumberError").textContent = "Please Enter Valid Vehicle Number.";
+				//			return false;
+				//		}
+				else{
+					document.getElementById("vehicleNumberError").textContent = "";
+				}
+				if(vehicleManufactor =="" ){
+						document.getElementById("vehicleManufactorError").textContent = "Please Enter Vehicle Manufacturer.";
+						return false;
+					}
+					else{
+						document.getElementById("vehicleManufactorError").textContent = "";
+					}
+					if(vehicleModel =="" ){
+						document.getElementById("vehicleModelError").textContent = "Please Enter Vehicle Model.";
+						return false;
+					}
+					else{
+						document.getElementById("vehicleModelError").textContent = "";
+					}
+					
+					if(vehicleTypeId =="" ){
+						document.getElementById("VehicleTypeError").textContent = "Please Select Vehicle Type.";
+						return false;
+					}
+					else{
+						document.getElementById("VehicleTypeError").textContent = "";
+					}
+					if(vehicleFuelTypeId =="" ){
+						document.getElementById("fuelTypeError").textContent = "Please Select Fuel Type.";
+						return false;
+					}
+					else{
+						document.getElementById("fuelTypeError").textContent = "";
+					}
+					
+				const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+					  vehicleDetailsModal.style.display = 'block';
+			   const AddVehicleModal = document.getElementById('AddVehicleModal');
+			  		AddVehicleModal.style.display = 'none';	  
+			}
+	
+	function chekVechileNumber() {
+			var vehicleNumber =document.getElementById("vehicleNumber").value;
+			const orgId = document.getElementById('orgId').value;
+			const createdBy = document.getElementById('createdBy').value;
+			if(vehicleNumber===""){
+				document.getElementById('VehicleNumberError').innerHTML="Please Enter Vehicle Number";
+				return false;
+			}
+			else{
+				document.getElementById('VehicleNumberError').innerHTML="";
+			}
+		    $.ajax({
+		        type: "GET",
+		        url: "/getVehicleDetaiilByRC",
+				data: { 
+					"orgId" :orgId,
+					"id_number": vehicleNumber,
+					"createdBy":createdBy
+				},
+		        beforeSend: function(xhr) {
+		            //xhr.setRequestHeader(header, token);
+		        },
+		        success: function(data) {
+		            newData = data;
+		            console.log("Emp onboarding data", newData);
+		            var data1 = jQuery.parseJSON(newData);
+				if(data1.status==true){
+					document.getElementById("rNumber").innerText=data1.data.rc_number;
+					document.getElementById("rModel").innerText=data1.data.maker_model;
+					document.getElementById("rClass").innerText=data1.data.vehicle_category_description;
+					document.getElementById("rType").innerText=data1.data.fuel_type;
+					document.getElementById("vehicle_chasi_number").innerText=data1.data.vehicle_chasi_number; 
+					document.getElementById("vehicle_engine_number").innerText=data1.data.vehicle_engine_number; 
+					document.getElementById("color").innerText=data1.data.color; 
+					document.getElementById("registered_at").innerText=data1.data.registered_at; 
+					document.getElementById("manufacturing_date").innerText=data1.data.manufacturing_date;
+					document.getElementById("cubic_capacity").innerText=data1.data.cubic_capacity;
+					document.getElementById("seat_capacity").innerText=data1.data.seat_capacity;
+					document.getElementById("unladen_weight").innerText=data1.data.unladen_weight+" "+"kg";
+					document.getElementById("wheelbase").innerText=data1.data.wheelbase+" "+"mm";
+					document.getElementById("insurance_company").innerText=data1.data.insurance_company;
+					document.getElementById("fit_up_to").innerText=data1.data.fit_up_to;
+					document.getElementById("tax_paid_upto").innerText=data1.data.tax_paid_upto;					
+					document.getElementById("financer").innerText=data1.data.financer;
+					document.getElementById("permit_number").innerText=data1.data.permit_number;
+					document.getElementById("ownerNameView").value=data1.data.owner_name;
+					document.getElementById("ownerAddressView").value=data1.data.present_address;
+					          
+									   
+					const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
+					vehicleDetailsModal.style.display = 'block';
+			        const AddVehicleModal = document.getElementById('AddVehicleModal');
+			  		AddVehicleModal.style.display = 'none';	  
+				}else if(data1.status==false){
+					document.getElementById('VehicleNumberError').innerHTML=data1.message;
+				}else{
+				}
+		        },
+				error: function(e) {
+		            alert('Failed to fetch JSON data' + e);
+		        }
+		    });
+	     }
+
+	
      function showSuggestions() {
 		var searchText =document.getElementById("driverName2").value;
 		const orgId = document.getElementById('orgId').value;
-			    $.ajax({
-			        type: "GET",
-			        url: "/getEmployeeDriver",
-					data: { 
-						"orgId" :orgId,
-						"name" :searchText
-					},
-			        beforeSend: function(xhr) {
-			            //xhr.setRequestHeader(header, token);
-			        },
-			        success: function(data) {
-			            newData = data;
-			            console.log("Emp onboarding data", newData);
-			            var data1 = jQuery.parseJSON(newData);
-					if(data1.status==true){
-						const suggestionBox = document.getElementById("suggestionBox");
-						const  suggestionboxdiv =  document.getElementById("suggestion-box-div");
-						suggestionBox.classList.add("suggestion-box");
-						 suggestionBox.innerHTML = ''; // Clear any existing suggestions
-						
-						 data1.data.forEach(entry => {
-						   const div = document.createElement("div");
-						   div.setAttribute("onclick", "selectSuggestion(this)");
+	    $.ajax({
+	        type: "GET",
+	        url: "/getEmployeeDriver",
+			data: { 
+				"orgId" :orgId,
+				"name" :searchText
+			},
+	        beforeSend: function(xhr) {
+	            //xhr.setRequestHeader(header, token);
+	        },
+	        success: function(data) {
+	            newData = data;
+	            console.log("Emp onboarding data", newData);
+	            var data1 = jQuery.parseJSON(newData);
+			if(data1.status==true){
+				const suggestionBox = document.getElementById("suggestionBox");
+				const  suggestionboxdiv =  document.getElementById("suggestion-box-div");
+				suggestionBox.classList.add("suggestion-box");
+				 suggestionBox.innerHTML = ''; // Clear any existing suggestions
+				
+				 data1.data.forEach(entry => {
+				   const div = document.createElement("div");
+				   div.setAttribute("onclick", "selectSuggestion(this)");
 
-						   const nameSpan = document.createElement("span");
-						   nameSpan.classList.add("suggestion-text");
-						   nameSpan.innerText = entry.name;
+				   const nameSpan = document.createElement("span");
+				   nameSpan.classList.add("suggestion-text");
+				   nameSpan.innerText = entry.name;
 
-						   const icon = document.createElement("img");
-						   icon.src = "img/phone-icon.png";
-						   icon.classList.add("suggestion-icon");
-						   icon.style.width = "20px";
-						   icon.style.height = "20px";
+				   const icon = document.createElement("img");
+				   icon.src = "img/phone-icon.png";
+				   icon.classList.add("suggestion-icon");
+				   icon.style.width = "20px";
+				   icon.style.height = "20px";
 
-						   const mobileSpan = document.createElement("span");
-						   mobileSpan.classList.add("suggestion-text-mobile");
-						   mobileSpan.innerText = entry.mobile;
+				   const mobileSpan = document.createElement("span");
+				   mobileSpan.classList.add("suggestion-text-mobile");
+				   mobileSpan.innerText = entry.mobile;
 
-						   const id = document.createElement("input");
-						   id.type = "hidden";
-	   					   id.classList.add("suggestion-text-id");
-	   					   id.innerText = entry.id;
-						   div.appendChild(id);
-						   div.appendChild(nameSpan);
-						   div.appendChild(icon);
-						   div.appendChild(mobileSpan);
-						   suggestionBox.appendChild(div);
-						 });
+				   const id = document.createElement("input");
+				   id.type = "hidden";
+				   id.classList.add("suggestion-text-id");
+				   id.innerText = entry.id;
+				   div.appendChild(id);
+				   div.appendChild(nameSpan);
+				   div.appendChild(icon);
+				   div.appendChild(mobileSpan);
+				   suggestionBox.appendChild(div);
+				 });
 
-						 suggestionBox.style.display = 'block'; // Show the box
-						 suggestionboxdiv.style.display = 'block';
-						
-					}else if(data1.status==false){
-					}else{
-					}
+				 suggestionBox.style.display = 'block'; // Show the box
+				 suggestionboxdiv.style.display = 'block';
+				
+			}else if(data1.status==false){
+			}else{
+			}
 
-			        },
-					error: function(e) {
-			            alert('Failed to fetch JSON data' + e);
-			        }
-			    });
+	        },
+			error: function(e) {
+	            alert('Failed to fetch JSON data' + e);
+	        }
+	    });
      }
 
      function filterSuggestions(input) {
@@ -775,81 +983,6 @@ function openModalConfirm() {
 				
 	}
 	
-	function draftAndOpenPopup(){
-		    var vehicleNumber = document.getElementById("vehicleNumber").value;
-			document.getElementById("rNumber").innerText=vehicleNumber;
-			
-			var vehicleManufactor = document.getElementById("vehicleManufactor").value;							
-			
-			var vehicleModel = document.getElementById("vehicleModel").value;	
-			document.getElementById("rModel").innerText=vehicleModel;
-			
-			const vehicleTypeId = document.getElementById('vehicleType').options[
-		        document.getElementById('vehicleType').selectedIndex
-		    ].value;
-								
-			const vehicleType = document.getElementById('vehicleType').options[
-				        document.getElementById('vehicleType').selectedIndex
-				    ].text;
-			document.getElementById("rClass").innerText=vehicleType;
-			
-			const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
-		        document.getElementById('vehicleFuelType').selectedIndex
-		    ].value;
-			
-			const vehicleFuelType = document.getElementById('vehicleFuelType').options[
-			        document.getElementById('vehicleFuelType').selectedIndex
-			    ].text;
-			document.getElementById("rType").innerText=vehicleFuelType;		
-			var regex =	'^[A-Z]{2}\s?[0-9A-Z]{2}\s?[A-Z]{1,2}\s?[0-9]{4}$'
-
-			 
-			if(vehicleNumber =="" ){
-				document.getElementById("vehicleNumberError").textContent = "Please Enter Vehicle Number.";
-				return false;
-			}
-			//else if(!vehicleNumber.match(regex)){
-			//			document.getElementById("vehicleNumberError").textContent = "Please Enter Valid Vehicle Number.";
-			//			return false;
-			//		}
-			else{
-				document.getElementById("vehicleNumberError").textContent = "";
-			}
-			if(vehicleManufactor =="" ){
-					document.getElementById("vehicleManufactorError").textContent = "Please Enter Vehicle Manufacturer.";
-					return false;
-				}
-				else{
-					document.getElementById("vehicleManufactorError").textContent = "";
-				}
-				if(vehicleModel =="" ){
-					document.getElementById("vehicleModelError").textContent = "Please Enter Vehicle Model.";
-					return false;
-				}
-				else{
-					document.getElementById("vehicleModelError").textContent = "";
-				}
-				
-				if(vehicleTypeId =="" ){
-					document.getElementById("VehicleTypeError").textContent = "Please Select Vehicle Type.";
-					return false;
-				}
-				else{
-					document.getElementById("VehicleTypeError").textContent = "";
-				}
-				if(vehicleFuelTypeId =="" ){
-					document.getElementById("fuelTypeError").textContent = "Please Select Fuel Type.";
-					return false;
-				}
-				else{
-					document.getElementById("fuelTypeError").textContent = "";
-				}
-				
-			const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
-				  vehicleDetailsModal.style.display = 'block';
-		   const AddVehicleModal = document.getElementById('AddVehicleModal');
-		  		AddVehicleModal.style.display = 'none';	  
-		}
 	function saveOpenModalConfirm() {
 		
 		const orgId = document.getElementById('orgId').value;
@@ -857,28 +990,49 @@ function openModalConfirm() {
 		
 		var vehicleNumber = document.getElementById("vehicleNumber").value;
 		
-		var vehicleManufactor = document.getElementById("vehicleManufactor").value;
-		var vehicleModel = document.getElementById("vehicleModel").value;
+	//	var vehicleManufactor = document.getElementById("vehicleManufactor").value;
+	//	var vehicleModel = document.getElementById("vehicleModel").value;
 		
-		var vehicleTypeId = document.getElementById('vehicleType').options[
-        document.getElementById('vehicleType').selectedIndex
-	    ].value;
-		const vehicleType = document.getElementById('vehicleType').options[
-        document.getElementById('vehicleType').selectedIndex
-	    ].text;
+	//	var vehicleTypeId = document.getElementById('vehicleType').options[
+    //    document.getElementById('vehicleType').selectedIndex
+	 //   ].value;
+	//	const vehicleType = document.getElementById('vehicleType').options[
+     //   document.getElementById('vehicleType').selectedIndex
+	//    ].text;
 		
-		document.getElementById("rClass").innerText=vehicleType;
+		//document.getElementById("rClass").innerText=vehicleType;
 		
-		const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
-	    document.getElementById('vehicleFuelType').selectedIndex
-	    ].value;
-		const vehicleFuelType = document.getElementById('vehicleFuelType').options[
-        document.getElementById('vehicleFuelType').selectedIndex
-        ].text;
+	//	const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
+	 //   document.getElementById('vehicleFuelType').selectedIndex
+	//    ].value;
+	//	const vehicleFuelType = document.getElementById('vehicleFuelType').options[
+    //    document.getElementById('vehicleFuelType').selectedIndex
+    //    ].text;
 		
-		document.getElementById("rType").innerText=vehicleFuelType;
-		
+	//document.getElementById("rType").innerText=vehicleFuelType;
+	  //  document.getElementById("rNumber").innerText=data1.data.rc_number;
+		var vehicleManufactor = document.getElementById("rModel").innerText;
+		var vehicleType =  document.getElementById("rClass").innerText;
+		var vehicleFuelType = document.getElementById("rType").innerText;
+		var maker_model  = document.getElementById("rModel").innerText;
 		var requestType  = 	document.getElementById('requestType').value;
+		var vehicle_chasi_number = document.getElementById("vehicle_chasi_number").innerText;
+		var vehicle_engine_number = document.getElementById("vehicle_engine_number").innerText;
+		var color = document.getElementById("color").innerText;
+		var registered_at =document.getElementById("registered_at").innerText; 
+		var manufacturing_date  = document.getElementById("manufacturing_date").innerText;
+		var cubic_capacity = document.getElementById("cubic_capacity").innerText;
+		var seat_capacity = document.getElementById("seat_capacity").innerText;
+		var unladen_weight = document.getElementById("unladen_weight").innerText;
+		var wheelbase = document.getElementById("wheelbase").innerText;
+		var insurance_company = document.getElementById("insurance_company").innerText;
+		var fit_up_to = document.getElementById("fit_up_to").innerText;
+		var tax_paid_upto = document.getElementById("tax_paid_upto").innerText;					
+		var financer = document.getElementById("financer").innerText;
+		var permit_number = document.getElementById("permit_number").innerText;
+		
+		var ownerNameView = document.getElementById("ownerNameView").value;
+		var ownerAddressView = document.getElementById("ownerAddressView").value;
 	
 	    $.ajax({
 	        type: "POST",
@@ -890,13 +1044,28 @@ function openModalConfirm() {
 				"vehicleNumber":vehicleNumber,
 				"vehicleManufactor":vehicleManufactor,
 				"vehicleType":vehicleType,
-				"vehicleTypeId":vehicleTypeId,
+				
 				"vehicleFuelType":vehicleFuelType,	
-				"vehicleFuelTypeId":vehicleFuelTypeId,	
-				"vehicleModel": vehicleModel,
+				"vehicleModel": maker_model,
 				"creationType":"single",
 				"applicationType":"web",
-				"requestType":requestType		
+				"requestType":"API Call",
+				"vehicle_chasi_number":vehicle_chasi_number,	
+				"vehicle_engine_number":vehicle_engine_number,
+				"color":color,
+				"registered_at":registered_at,
+				"manufacturing_date":manufacturing_date,
+				"cubic_capacity":cubic_capacity,
+				"seat_capacity":seat_capacity,
+				"unladen_weight":unladen_weight,
+				"wheelbase":wheelbase,
+				"insurance_company":insurance_company,
+				"fit_up_to":fit_up_to,
+				"tax_paid_upto":tax_paid_upto,
+				"financer":financer,
+				"permit_number":permit_number,
+				"ownerName":ownerNameView,
+				"ownerAddress":ownerAddressView
 			},
 			success: function(data){
 	            newData = data;
@@ -913,8 +1082,8 @@ function openModalConfirm() {
 					modal.style.display = 'block';
 					getVehicleManagementList();
 				    document.getElementById("vehicleNumber").value="";
-					document.getElementById("vehicleManufactor").value="";							
-					document.getElementById("vehicleModel").value="";	
+					//document.getElementById("vehicleManufactor").value="";							
+					//document.getElementById("vehicleModel").value="";	
 					
 				}else if(data1.status==false){
 					const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
@@ -1158,57 +1327,56 @@ function openModalConfirm() {
 					   }},
 	                ],
 					createdRow: function (row, data1, dataIndex) 
-		                    {
-		                     //console.log("row : "+JSON.stringify(data2));
-		                   
-		                 	var vehicleType = data1.vehicleType;
-		                 	//var statusMessage = data2.statusMessage;
-		                	
-		                     if(vehicleType=="SUV / MUV")
-		                     {
-							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
-		                     $(row).find('td:eq(1)').html(imgTag);
-		                     }
-		                     if(vehicleType=="Sedan")
-		                     {
-							 var imgTag = ' <img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
-		 					 $(row).find('td:eq(1)').html(imgTag);
-		                     }
-		                     
-		                     if(vehicleType=="Truck")
-		                     {
-								var imgTag = ' <img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
-								 $(row).find('td:eq(1)').html(imgTag);
-		                     }
-		                     
-		                     if(vehicleType=="Mini Truck")
-		                     {
-							 var imgTag = '<img src="img/truck-icon.png" alt="" class="mr-2">'+vehicleType;
-		                     $(row).find('td:eq(1)').html(imgTag);
-		                     }
-		                     if(vehicleType=="Hatchback")
-		                     {
-							 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
-		 					 $(row).find('td:eq(1)').html(imgTag);
-		                     }
-		                     if(vehicleType=="Two-Wheeler")
-		                     {
-							 var imgTag = '<img src="img/two-wheeler-icon.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
-		                      $(row).find('td:eq(1)').html(imgTag);
-		                     }
-							 if(vehicleType=="Amb./Spl. Purp")
- 		                     {
- 							 var imgTag = '<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
- 		                      $(row).find('td:eq(1)').html(imgTag);
- 		                     }
-							 
-		                    // if(statusMessage=="Draft")
-		                    // {
-							////	  $(row).find('td:eq(8)').addClass('td-btn draft');
-		                    // }
-							 
-		                  }
-					});		
+                    {
+                     //console.log("row : "+JSON.stringify(data2));
+                   
+                 	var vehicleType = data1.vehicleType;
+                 	//var statusMessage = data2.statusMessage;
+                	
+                     if(vehicleType=="SUV / MUV")
+                     {
+					 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+                     $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     else if(vehicleType=="Sedan")
+                     {
+					 var imgTag = ' <img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
+ 					 $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     
+                     else if(vehicleType=="Truck")
+                     {
+						var imgTag = ' <img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
+						 $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     
+                     else if(vehicleType=="Mini Truck")
+                     {
+					 var imgTag = '<img src="img/truck-icon.png" alt="" class="mr-2">'+vehicleType;
+                     $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     else if(vehicleType=="Hatchback")
+                     {
+					 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+ 					 $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     else if(vehicleType=="Two-Wheeler")
+                     {
+					 var imgTag = '<img src="img/two-wheeler-icon.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
+                      $(row).find('td:eq(1)').html(imgTag);
+                     }
+					 else if(vehicleType=="Amb./Spl. Purp")
+                     {
+					 var imgTag = '<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
+                      $(row).find('td:eq(1)').html(imgTag);
+                     }
+					 else{
+						var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+						 $(row).find('td:eq(1)').html(imgTag);
+					 }
+					
+                  }
+			});		
 								
 	        },
 	        error: function(e) {
@@ -1404,13 +1572,35 @@ function openModalConfirm() {
 	        success: function(data) {
 	            newData = data;
 	            console.log("Emp onboarding data", newData);
-	            var data1 = jQuery.parseJSON(newData);
+				var data1 = jQuery.parseJSON(newData);
 			if(data1.status==true){
-				document.getElementById("editVehicleNumber").innerText=data1.data.vehicleType;
-				document.getElementById("editVehicleModel").innerText=data1.data.vehicleNumber;
-				document.getElementById("editVehicleClass").innerText=data1.data.vehicleManufactor;
+				document.getElementById("editVehicleNumber").innerText=data1.data.vehicleNumber;
+				document.getElementById("editVehicleModel").innerText=data1.data.vehicleModel;
+				document.getElementById("editVehicleClass").innerText=data1.data.vehicleType ;
 				document.getElementById("editVehicleDesileType").innerText=data1.data.vehicleFuelType;
-				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;						
+				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;
+				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;
+				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;
+				
+			    document.getElementById("vehicle_chasi_number_edit").innerText=data1.data.vehicle_chasi_number;
+			    document.getElementById("vehicle_engine_number_edit").innerText=data1.data.vehicle_engine_number;
+				document.getElementById("color_edit").innerText=data1.data.color;
+				//document.getElementById("registered_at_edit").innerText=data1.data.registered_at;
+				document.getElementById("manufacturing_date_edit").innerText=data1.data.manufacturing_date;
+				document.getElementById("cubic_capacity_edit").innerText=data1.data.cubic_capacity;
+				document.getElementById("seat_capacity_edit").innerText=data1.data.seat_capacity;
+				document.getElementById("unladen_weight_edit").innerText=data1.data.unladen_weight;
+				document.getElementById("wheelbase_edit").innerText =data1.data.wheelbase;
+				document.getElementById("insurance_company_edit").innerText=data1.data.insurance_company;
+				document.getElementById("fit_up_to_edit").innerText=data1.data.fit_up_to;
+				document.getElementById("tax_paid_upto_edit").innerText=data1.data.tax_paid_upto;				
+				document.getElementById("financer_edit").innerText=data1.data.financer;
+				document.getElementById("permit_number_edit").innerText=data1.data.permit_number;
+				
+				document.getElementById("owner_name_edit").innerHTML=data1.data.ownerName;
+				document.getElementById("ownerpresent_address_edit").innerHTML=data1.data.ownerAddress;
+				
+				///getVehicleManagementById						
 				const editDetailsModal = document.getElementById('editDetailsModal');
  				editDetailsModal.style.display = 'block';
 			}else if(data1.status==false){

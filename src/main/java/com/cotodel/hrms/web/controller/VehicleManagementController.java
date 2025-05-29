@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeOnboardingDriverRequest;
+import com.cotodel.hrms.web.response.RCRequest;
 import com.cotodel.hrms.web.response.VehicleManagementRequest;
 import com.cotodel.hrms.web.response.VehicleManagementSaveRequest;
 import com.cotodel.hrms.web.service.VehicleManagementService;
@@ -36,6 +37,28 @@ public class VehicleManagementController extends CotoDelBaseController {
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
 	
+	@GetMapping(value = "/getVehicleDetaiilByRC")
+	public @ResponseBody String getVehicleNumberDetaiilByVehicleNumber(HttpServletRequest request, ModelMap model, Locale locale,
+	    HttpSession session, RCRequest rCRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(rCRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  vehicleManagementService.getVehicleNumberDetaiilByVehicleNumber(tokengeneration.getToken(), jsonObject);
+  
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+    	return profileRes;
+	}
 	@GetMapping(value = "/getVehicleList")
 	public @ResponseBody String VehicleManagementList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, VehicleManagementRequest vehicleManagementRequest) {

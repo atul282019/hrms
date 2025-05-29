@@ -29,7 +29,6 @@ public class VehicleManagementSaveRequest {
 	private String engineNumber;	
 	private String color;	
 	private String authority;	
-	private String cubicCapacity;	
 	private int seat;	
 	private String weight;	
 	private String insuranceCompany;	
@@ -59,5 +58,18 @@ public class VehicleManagementSaveRequest {
 	private String driverMobile;
 	private String requestType;
 	private String customTimePeriod;
+	
+	private String vehicle_chasi_number;
+	private String vehicle_engine_number;
+	private String registered_at;
+	private String manufacturing_date;
+	private String cubic_capacity;
+	private String seat_capacity;
+	private String unladen_weight;
+	private String wheelbase;
+	private String insurance_company;
+	private String fit_up_to;
+	private String tax_paid_upto;
+	private String permit_number;
 
 }
