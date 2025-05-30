@@ -11,6 +11,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
+import com.cotodel.hrms.web.response.RevokeVoucher;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -101,12 +102,6 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	@Override
 	public String getPrimaryBankDetailsByOrgId(String token, EncriptResponse erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getPrimaryBankDetailByOrgId);
-	}
-
-	@Override
-	public String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.revokeCreatedVoucherOneByOne);
-
 	}
 
 	@Override
@@ -239,6 +234,12 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	@Override
 	public String getTotalVoucherCount(String token, EncriptResponse erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTotalVoucherCount);
+	}
+
+	@Override
+	public String revokeCreatedVoucherSingle(String token, EncriptResponse json) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(json), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.revokeCreatedVoucherOneByOne);
+
 	}
 
 

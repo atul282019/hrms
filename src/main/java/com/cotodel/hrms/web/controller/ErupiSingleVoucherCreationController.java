@@ -22,12 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.EmployeeMassterRequest;
-import com.cotodel.hrms.web.response.EmployeeOnboarding;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ErupiVoucherStatusSmsRequest;
-import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
-import com.cotodel.hrms.web.response.ReputeEmployeeRequest;
-import com.cotodel.hrms.web.response.RoleAccessRequest;
+import com.cotodel.hrms.web.response.RevokeVoucher;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -271,10 +268,24 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	
 	@PostMapping(value = "/revokeCreatedVoucher")
 	public @ResponseBody String revokeCreatedVoucher(HttpServletRequest request, ModelMap model, Locale locale,
-			HttpSession session, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+			HttpSession session, RevokeVoucher erupiVoucherCreateDetails) {
 		String profileRes = null;
-		profileRes = erupiVoucherCreateDetailsService.revokeCreatedVoucher(tokengeneration.getToken(),	erupiVoucherCreateDetails);
+		//profileRes = erupiVoucherCreateDetailsService.revokeCreatedVoucher(tokengeneration.getToken(),	erupiVoucherCreateDetails);
 
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  erupiVoucherCreateDetailsService.revokeCreatedVoucherSingle(tokengeneration.getToken(),	jsonObject);
+
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return profileRes;
 	}
 	

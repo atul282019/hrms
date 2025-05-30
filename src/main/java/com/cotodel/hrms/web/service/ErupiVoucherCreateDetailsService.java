@@ -6,6 +6,7 @@ import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
+import com.cotodel.hrms.web.response.RevokeVoucher;
 import com.cotodel.hrms.web.response.RoleAccessRequest;
 import com.cotodel.hrms.web.util.EncriptResponse;
 
@@ -20,7 +21,7 @@ public interface ErupiVoucherCreateDetailsService {
 
 	String getPrimaryBankDetailsByOrgId(String token, EncriptResponse erupiVoucherCreateDetails);
 
-	String revokeCreatedVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+	//String revokeCreatedVoucher(String token, RevokeVoucher erupiVoucherCreateDetails);
 
 	String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherStatusSmsRequest);
 
@@ -35,5 +36,7 @@ public interface ErupiVoucherCreateDetailsService {
 	String voucherUserSearch(String token, EncriptResponse roleAccessRequest);
 
 	String getTotalVoucherCount(String token, EncriptResponse erupiVoucherCreateDetails);
+
+	String revokeCreatedVoucherSingle(String token, EncriptResponse jsonObject);
 
 }
