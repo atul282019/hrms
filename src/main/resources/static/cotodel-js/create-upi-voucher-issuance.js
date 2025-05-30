@@ -327,7 +327,13 @@ function  getBankDetailByBankAccountNumber(){
            //console.log(newData);
            var data1 = jQuery.parseJSON( newData );
 		   //var data2 = data1.data;
-			
+		   let continueButton = document.getElementById("continueButton1"); // Target the specific button
+		   let errorMessage = document.getElementById("amountError");
+		   document.getElementById("amount").value="";
+		   
+		    errorMessage.style.display = "none"; // Hide error message
+		    continueButton.disabled = false; // Enable button when valid
+		    document.getElementById("accountSeltWallet").value=data1.data.accountSeltWallet; 
 			document.getElementById("bankName").value=data1.data.bankName; 
 			document.getElementById("bankCode").value=data1.data.bankCode; 
 			document.getElementById("accountHolderName").value=data1.data.accountHolderName; 
@@ -872,31 +878,31 @@ function getPrimaryBankDetail(){
 				      return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
 				  }
 				  function validateAmount() {
-				  	   				      // Get available balance (removing currency symbols & commas)
-				  	   				      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
-				  	   				      let amountInput = document.getElementById("amount");
-				  	   				      let continueButton = document.getElementById("continueButton1"); // Target the specific button
-				  	   				      let errorMessage = document.getElementById("amountError");
+			      // Get available balance (removing currency symbols & commas)
+			      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
+			      let amountInput = document.getElementById("amount");
+			      let continueButton = document.getElementById("continueButton1"); // Target the specific button
+			      let errorMessage = document.getElementById("amountError");
 
-				  	   				      // Convert values to float (handle decimal values correctly)
-				  	   				      let balance = parseFloat(availableBalance);
-				  	   				      let amount = parseFloat(amountInput.value.trim());
+			      // Convert values to float (handle decimal values correctly)
+			      let balance = parseFloat(availableBalance);
+			      let amount = parseFloat(amountInput.value.trim());
 
-				  	   				      // Disable button by default
-				  	   				      continueButton.disabled = true;
+			      // Disable button by default
+			      // Ensure valid numbers before comparison
+				  var accountSeltWallet = document.getElementById("accountSeltWallet").value;
+			      // Validation: Ensure entered amount is <= available balance
+				  if(accountSeltWallet==="Wallet"){
+				      if (amount > balance || !balance) {
+				          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
+				          errorMessage.style.display = "inline"; // Show error message
+				          amountInput.value = balance; // Auto-trim input value
+						  continueButton.disabled = true;
+				      } else {
+				          errorMessage.style.display = "none"; // Hide error message
+				          continueButton.disabled = false; // Enable button when valid
+				      }
+				  }
+			  }
 
-				  	   				      // Ensure valid numbers before comparison
-				  	   				     
-
-				  	   				      // Validation: Ensure entered amount is <= available balance
-				  	   				      if (amount > balance || !balance) {
-				  	   				          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
-				  	   				          errorMessage.style.display = "inline"; // Show error message
-				  	   				          amountInput.value = balance; // Auto-trim input value
-				  	   				      } else {
-				  	   				          errorMessage.style.display = "none"; // Hide error message
-				  	   				          continueButton.disabled = false; // Enable button when valid
-				  	   				      }
-				  	   				  }
-				  	
 
