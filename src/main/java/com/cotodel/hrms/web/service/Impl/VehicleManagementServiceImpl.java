@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.BulkEmployeeRequest;
 import com.cotodel.hrms.web.service.VehicleManagementService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -77,5 +78,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		        MessageConstant.gson.toJson(jsonObject),
 		        applicationConstantConfig.gstServiceBaseUrl +CommonUtils.getVehicleNumberDetaiilByVehicleNumber
 		    );
+	}
+
+	@Override
+	public String saveBulkVehicleDetail(String token, BulkEmployeeRequest bulkEmployeeRequest) {
+		// TODO Auto-generated method stub
+		return null;
 	} 
 }
