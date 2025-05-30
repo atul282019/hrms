@@ -273,8 +273,16 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("fleettrial");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/customdashboard")){
-				RequestDispatcher rd = request.getRequestDispatcher("customdashboard");
+			else if(requestURI.contains("/custom01")){
+				RequestDispatcher rd = request.getRequestDispatcher("custom01");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/custom02")){
+				RequestDispatcher rd = request.getRequestDispatcher("custom02");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/custom03")){
+				RequestDispatcher rd = request.getRequestDispatcher("custom03");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/corporatetrial")){
