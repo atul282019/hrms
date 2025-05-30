@@ -503,31 +503,43 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView SignupPage(Model model) {
 		return new ModelAndView("signup", "command", "");
 	}	
-	@GetMapping(value="/customdashboard")
-	public String customdashboard(Model model) {
-		logger.info("opening dashboardPage");
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2
-						|| obj.getUser_role()==3  || obj.getUser_role()==12) {
-
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("id",id);
-				return "custom-dashboard";
-			}
-			 return "error";
-		}
-		return "redirect:/index";
-		
+	@GetMapping(value="/custom01")
+	public ModelAndView customdashboard(Model model) {
+		return new ModelAndView("custom-dashboard", "command", "");
+	}	
+	@GetMapping(value="/custom02")
+	public ModelAndView customdashboard02(Model model) {
+		return new ModelAndView("custom-dashboard02", "command", "");
+	}	
+	@GetMapping(value="/custom03")
+	public ModelAndView customdashboard03(Model model) {
+		return new ModelAndView("custom-dashboard03", "command", "");
 	}
-	return "redirect:/index";	
-}	
+//	@GetMapping(value="/customdashboard")
+//	public String customdashboard(Model model) {
+//		logger.info("opening dashboardPage");
+//		String token = (String) session.getAttribute("hrms");
+//		Integer id  = (Integer) session.getAttribute("id");
+//		if(token!=null) {
+//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//			if(obj!=null) {
+//				if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==2
+//						|| obj.getUser_role()==3  || obj.getUser_role()==12) {
+//
+//				model.addAttribute("name",obj.getName());
+//				model.addAttribute("org",obj.getOrgName());
+//				model.addAttribute("mobile",obj.getMobile());
+//				model.addAttribute("email",obj.getEmail());
+//				model.addAttribute("id",id);
+//				return "custom-dashboard";
+//			}
+//			 return "error";
+//		}
+//		return "redirect:/index";
+//		
+//	}
+//	return "redirect:/index";	
+//}	
 
 	@GetMapping(value="/dashboard")
 	public String dashboard(Model model) {

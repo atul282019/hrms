@@ -3,7 +3,9 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
-
+ <!-- Make sure to include Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 <body id="page-top" >
 
     <!-- Page Wrapper -->
@@ -70,364 +72,162 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-				<div th:switch="${session.user_role}">
-                <div class="container-fluid p-0 p-md-1">
-					<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
-                     <div class="row px-2">
-						
-                        <div class="col-12" th:case="9">
-							
-                            <div class="mt-4 bg-white p-3" >
-                            <div class="row">
-                                 <div class="col-12 col-sm-4 organisation-wrap" >
-                                    <h3>Let’s set up your organisation!</h3>
-                                   <div class="w3-border">
-										  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
-										</div>
-                                    <p><span id="profileComplete">0</span> of 3 completed</p>
-                                </div>
-								
-                                <div class="col-12 col-sm-8">
+				<div class="cd-container"> 
+				  <div class="cd-wrapper">
+				    <div class="cd-setup-box">
+				      <div class="cd-setup-inner">
+				        <div class="cd-setup-left">
+				          <div>
+				            <h5 class="cd-setup-title">Set up your Cotodel <br>Dashboard!</h5>
+				            <div class="cd-progress">
+				              <div class="cd-progress-bar"></div>
+				            </div>
+				            <p class="small" style="color: #4A4E69;">0 of 3 completed</p>
+				          </div>
+				          <a href="#" class="cd-help-link">
+				            <img src="img/question-mark.png" class="cd-help-icon"> Need help with setup?
+				          </a>
+				        </div>
+				        <div class="cd-setup-right">
+				          <div class="list-group list-group-flush">
+				            <div class="cd-step-item">
+				              <div class="cd-step-left">
+				                <div class="cd-step-number">1</div>
+				                <span>Enter Organization Details</span>
+				              </div>
+				              <a href="#" class="cd-step-link">
+				                <span>Start</span>
+				                <i class="fas fa-angle-right"></i>
+				              </a>
+				            </div>
+				            <div class="cd-step-item bg-transparent">
+				              <div class="cd-step-left">
+				                <div class="cd-step-number">2</div>
+				                <span>Setup/Link Bank Account</span>
+				              </div>
+				              <i class="fas fa-angle-right text-secondary"></i>
+				            </div>
+				            <div class="cd-step-item bg-transparent">
+				              <div class="cd-step-left">
+				                <div class="cd-step-number">3</div>
+				                <span>Add your Driver Partners & Vehicles</span>
+				              </div>
+				              <i class="fas fa-angle-right text-secondary"></i>
+				            </div>
+				          </div>
+				          <div class="status-box">
+				            <p class="status-content">
+				              <img src="img/sand-clock-blue.png" class="benefit-icon" style="height: 20px; width: 20px; margin-top: 13px; margin-right: 5px;">
+				              Details for linking Bank A/c submitted. Please allow 72 Hrs - 96 Hrs for 'UP! Voucher Issuance' to be activated.
+				            </p>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				    <div class="cd-offer-box">
+				      <div class="mb-3">
+				        <h4 class="fw-bold text-dark">Offers</h4>
+				        <hr class="cd-offer-divider">
+				      </div>
+				      <div class="cd-offer-item">
+				        <img src="img/indian oil.png" alt="Indian Oil" class="cd-offer-icon" />
+				        <div class="cd-offer-content">
+				          <strong>Indian Oil</strong>
+				          <small class="text-success">
+				            <img src="img/tabler_discount.png" class="cd-discount-icon" />Get up to ₹50 Cashback
+				          </small>
+				        </div>
+				      </div>
+				      <div class="cd-offer-item">
+				        <img src="img/vehicle-icon.png" alt="Vehicles" class="cd-offer-icon" />
+				        <div class="cd-offer-content">
+				          <strong>Onboard 20+ Vehicles</strong>
+				          <small class="text-success">
+				            <img src="img/tabler_discount.png" class="cd-discount-icon" />Get up to ₹50 Cashback
+				          </small>
+				        </div>
+				      </div>
+				      <div class="cd-offer-item">
+				        <img src="img/ticket.png" class="cd-offer-icon" />
+				        <div class="cd-offer-content">
+				          <strong>Issue 5 Fuel Vouchers</strong>
+				          <small class="text-success">
+				            <img src="img/tabler_discount.png" class="cd-discount-icon" /> Get up to ₹50 Cashback
+				          </small>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<section class="business-benefits py-5">
+				  <div class="container max-w-1440">
+				    <h5 class="benefits-section-heading mb-4">Business Benefits</h5>
+				    <div class="cd-benefits-flex justify-content-between align-items-start gap-4">
+				      <div class="cd-benefits-left">
+				        <div class="d-flex flex-column gap-5">
+				          <div class="benefit-card">
+				            <img src="img/Seamless Control over Expenses.png" class="benefit-icon">
+				            <p class="benefit-title">Seamless Control over Expenses</p>
+				            <p class="benefit-desc">Set-up Budgets and Parameters to issue vouchers across categories of spends</p>
+				          </div>
+				          <div class="benefit-card">
+				            <img src="img/Automatic Digital Reconciliation.png" class="benefit-icon">
+				            <p class="benefit-title">Automatic Digital Reconciliation</p>
+				            <p class="benefit-desc">Automated reconciliation across all spends with digital trail of all transactions done</p>
+				          </div>
+				          <div class="benefit-card">
+				            <img src="img/Convenient Form Factor.png" class="benefit-icon">
+				            <p class="benefit-title">Convenient Form Factor</p>
+				            <p class="benefit-desc">UPI is the preferred mode of payment now</p>
+				          </div>
+				          <div class="benefit-card">
+				            <img src="img/Actionable Insights & Analysis.png" class="benefit-icon">
+				            <p class="benefit-title">Actionable Insights & Analysis</p>
+				            <p class="benefit-desc">Get actionable insights, analytics & reports for your business spends in an efficient manner</p>
+				          </div>
+				        </div>
+				        <div class="d-flex flex-column gap-5">
+				          <div class="benefit-card">
+				            <img src="img/Full Control over Money.png" class="benefit-icon">
+				            <p class="benefit-title">Full Control over Money</p>
+				            <p class="benefit-desc">Money never leaves your Bank Account till transaction is done</p>
+				          </div>
+				          <div class="benefit-card">
+				            <img src="img/Seamless Onboarding without KYC.png" class="benefit-icon">
+				            <p class="benefit-title">Seamless Onboarding without KYC</p>
+				            <p class="benefit-desc">No KYC is needed to add a new employee/contractual worker</p>
+				          </div>
+				          <div class="benefit-card">
+				            <img src="img/Higher Redemption Touchpoints.png" class="benefit-icon">
+				            <p class="benefit-title">Higher Redemption Touchpoints</p>
+				            <p class="benefit-desc">Leveraging the existing network of QR codes</p>
+				          </div>
+				          <div class="benefit-card">
+				            <img src="img/Reduction in Admin Tasks & Delays.png" class="benefit-icon">
+				            <p class="benefit-title">Reduction in Admin Tasks & Delays</p>
+				            <p class="benefit-desc">No Paper-work or burden associated with sending money and managing spends</p>
+				          </div>
+				        </div>
+				      </div>
+					  <div class="cd-benefits-right">
+					    <iframe width="540" height="570"
+					            src="https://www.youtube.com/embed/3gI_suq55wQ"
+					            title="Fleet Expenses on UPI"
+					            frameborder="0"
+					            allow="autoplay"
+					            allowfullscreen
+					            class="cd-video-frame">
+					    </iframe>
+					  </div>
+				    </div>
+				  </div>
+				</section>
 
-                                    <div class="details-wrap">
-                                        <div class="basic-details-wrap">
-                                            <h4>Basic Details</h4>
-                                            <div class="time">COMPLETED</div>                                            
-                                        </div>
-                                    </div>
 
-                                    <div class="details-wrap">
-                                        <div class="basic-details-wrap mb-2">
-                                            <h4>Compliance and people</h4>
-                                            <div class="time">3 steps | 5 mins</div>
-                                        </div>
-                                            <div class="basic-details-input">
-                                                <span>1</span>
-                                                <p>Setup Compliance</p>
-                                              <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
-												<div id="btnsetupStart"><a class="btn btn-primary" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a></div>
-                                            </div>
 
-                                            <div class="basic-details-input no-bg mb-0">
-                                                <span>2</span>
-                                                <p>Add employee and contractors</p>
-                                                <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
-                                            </div>
-											<!--<div class="basic-details-input no-bg mb-0">
-                                                <span>3</span>
-                                                <p>Director Onboarding</p>
-                                                <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
-                                            </div>-->
-											<div class="basic-details-input">
-                                               <span>3</span>
-                                               <p>Director Onboarding</p>
-                                             <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
-											<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
-                                           </div>
-                                       
-                                    </div>                                    
-									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
-                                    <div class="details-wrap mb-0">
-                                        <div class="basic-details-wrap">
-                                            <h4>KYC verification</h4>
-                                            <div class="time">2 steps | 10 mins</div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-						<script>
-				        document.addEventListener("DOMContentLoaded", function () {
-				            console.log("Calling the getProfileStatus() function...");
-				            getProfileStatus();
-				        });
-				    	</script>
-						</div>
-						<div class="col-12" th:case="1">
-													
-						                            <div class="mt-4 bg-white p-3" >
-						                            <div class="row">
-						                                 <div class="col-12 col-sm-4 organisation-wrap" >
-						                                    <h3>Let’s set up your organisation!</h3>
-						                                   <div class="w3-border">
-																  <div class="w3-green" id="profile1" style="height:20px; background-color:#096" ></div>
-																</div>
-						                                    <p><span id="profileComplete1">0</span> of 3 completed</p>
-						                                </div>
-														
-						                                <div class="col-12 col-sm-8">
-
-						                                    <div class="details-wrap">
-						                                        <div class="basic-details-wrap">
-						                                            <h4>Basic Details</h4>
-						                                            <div class="time">COMPLETED</div>                                            
-						                                        </div>
-						                                    </div>
-
-						                                    <div class="details-wrap">
-						                                        <div class="basic-details-wrap mb-2">
-						                                            <h4>Compliance and people</h4>
-						                                            <div class="time">3 steps | 5 mins</div>
-						                                        </div>
-						                                            <div class="basic-details-input">
-						                                                <span>1</span>
-						                                                <p>Setup Compliance</p>
-						                                              <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
-																		<div id="btnsetupStart1"><a class="btn btn-primary" id="anchorStart1"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a></div>
-						                                            </div>
-
-						                                            <div class="basic-details-input no-bg mb-0">
-						                                                <span>2</span>
-						                                                <p>Add employee and contractors</p>
-						                                                <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
-						                                            </div>
-																	<!--<div class="basic-details-input no-bg mb-0">
-						                                                <span>3</span>
-						                                                <p>Director Onboarding</p>
-						                                                <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
-						                                            </div>-->
-																	<div class="basic-details-input">
-						                                               <span>3</span>
-						                                               <p>Director Onboarding</p>
-						                                             <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
-																	<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
-						                                           </div>
-						                                       
-						                                    </div>                                    
-															<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
-						                                    <div class="details-wrap mb-0">
-						                                        <div class="basic-details-wrap">
-						                                            <h4>KYC verification</h4>
-						                                            <div class="time">2 steps | 10 mins</div>                                            
-						                                        </div>
-						                                    </div>
-						                                </div>
-						                            </div>
-						                        </div>
-												<script>
-										        document.addEventListener("DOMContentLoaded", function () {
-										            console.log("Calling the getProfileStatus1() function...");
-										            getProfileStatus1();
-										        });
-										    	</script>
-												</div>
-						
-						<div class="col-12" th:case="3">
-
-							<div class="upi-voucher-wrap mb-2" >
-                           
-
-                             <div id="linkedAccount" >
-                                 <div class="linkedAccount-wrap m-0">
-                                     <div class="linkedAccount-wrap-left-btn">
-                                         <img src="img/allbank.svg" alt="">
-                                         <span>All Linked Bank Accounts</span>
-                                     </div>
-                                     <div class="linkedAccount-wrap-right">
-                                         <span>Funds Marked for Active UPI Vouchers <img
-                                                 src="img/e-rupi-seeklogo.png" alt=""></span>
-                                         <div class="funds-mark"><div id="totalVoucher"></div>&nbsp; Vouchers &#8377;<strong id="totalvoucherValue">&#8377;0.00</strong></div>
-										<div class="infoo mx-2"><a href="#" id="btnforinfomodal"><img
-										 src="img/infoo.svg" width="34px" alt=""></a></div>
-                                         <button class="fundmarked" id="fundmarked">
-                                             <a href="#"><img src="img/fund-expand.svg" alt=""></a>
-                                         </button>
-                                     </div>
-                                 </div>
-
-                                 <div class="activeupivcmarked" id="myDiv" style="display: block;">
-                                     <div class="row">
-                                         <div class="col-12 col-md-3" id="bankListData">
-                                             <div class="left-activeupivcmarked active">
-                                                 <div class="img-bank">
-                                                     <img src="img/allbankblk.svg" alt="">
-                                                 </div>
-                                                 <span>All Banks</span>
-
-                                             </div>
-
-                                            <!-- <div class="left-activeupivcmarked" >
-                                               
-												<div class="img-bank">
-                                                      <img src="img/indianbank.png" width="18" height="18">
-                                                  </div>
-                                                  <span>Indian Bank</span>
-                                                  <label class="mb-0">xxx0569</label>
-                                             </div>-->
-                                         </div>
-
-                                         <div class="col-12 col-md-9">
-                                             <div class="table-responsive mt-2">
-                                                 <table class="table table-bordered">
-                                                     <thead>
-                                                         <tr>
-                                                             <th>Total Vouchers Issued (A)</th>
-                                                             <th id="totalIssueCount"></th>
-                                                             <th id="totalIssueAmount"></th>
-                                                         </tr>
-                                                     </thead>
-                                                     <tbody>
-                                                         <tr>
-                                                             <td>Redeemed Vouchers (B)</td>
-                                                             <td id="redemVCount"></td>
-                                                             <td id="redemVAmount"></td>
-                                                         </tr>
-                                                         <tr>
-                                                             <td>Expired & Revoked Vouchers (C)</td>
-                                                             <td id="expRevokeCount"></td>
-                                                             <td id="expRevokeAmount"></td>
-                                                         </tr>
-                                                         <tr class="lasttr">
-                                                             <td>Active Vouchers (D)</td>
-                                                             <td id="activeCount"></td>
-                                                             <td id="activeAmount"></td>
-                                                         </tr>
-                                                     </tbody>
-                                                 </table>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-             				</div>
-							<script>
-							        document.addEventListener("DOMContentLoaded", function () {
-							            console.log("Calling both functions...");
-							            getLinkedBankDetail();
-							            getBankListWithVocher();
-							        });
-							    </script>
-						</div>
-						<div class="col-12" th:case="12">
-													
-						                            <div class="mt-4 bg-white p-3" >
-						                            <div class="row">
-						                                 <div class="col-12 col-sm-4 organisation-wrap" >
-						                                    <h3>Let’s set up your organisation!</h3>
-						                                   <div class="w3-border">
-																  <div class="w3-green" id="profile" style="height:20px; background-color:#096" ></div>
-																</div>
-						                                    <p><span id="profileComplete">0</span> of 3 completed</p>
-						                                </div>
-														
-						                                <div class="col-12 col-sm-8">
-
-						                                    <div class="details-wrap">
-						                                        <div class="basic-details-wrap">
-						                                            <h4>Basic Details</h4>
-						                                            <div class="time">COMPLETED</div>                                            
-						                                        </div>
-						                                    </div>
-
-						                                    <div class="details-wrap">
-						                                        <div class="basic-details-wrap mb-2">
-						                                            <h4>Compliance and people</h4>
-						                                            <div class="time">3 steps | 5 mins</div>
-						                                        </div>
-						                                            <div class="basic-details-input">
-						                                                <span>1</span>
-						                                                <p>Setup Compliance</p>
-						                                              <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
-																		<div id="btnsetupStart"><a class="btn btn-primary" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/settingOrganizationAccount}">Start</a></div>
-						                                            </div>
-
-						                                            <div class="basic-details-input no-bg mb-0">
-						                                                <span>2</span>
-						                                                <p>Add employee and contractors</p>
-						                                                <a th:href="@{/employeeOnBoarding}"><i class="fas fa-angle-right"></i></a>
-						                                            </div>
-																	<!--<div class="basic-details-input no-bg mb-0">
-						                                                <span>3</span>
-						                                                <p>Director Onboarding</p>
-						                                                <a th:href="@{/directorOnboarding}"><i class="fas fa-angle-right"></i></a>
-						                                            </div>-->
-																	<div class="basic-details-input">
-						                                               <span>3</span>
-						                                               <p>Director Onboarding</p>
-						                                             <!--  <a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/companyDetails}">Start</a>-->
-																	<a class="btn btn-primary"  th:if="${session.user_role == 9 || session.user_role == 1}" th:href="@{/directorOnboarding}">Start</a>
-						                                           </div>
-						                                       
-						                                    </div>                                    
-															<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${id}">
-						                                    <div class="details-wrap mb-0">
-						                                        <div class="basic-details-wrap">
-						                                            <h4>KYC verification</h4>
-						                                            <div class="time">2 steps | 10 mins</div>                                            
-						                                        </div>
-						                                    </div>
-						                                </div>
-						                            </div>
-						                        </div>
-												<script>
-										        document.addEventListener("DOMContentLoaded", function () {
-										            console.log("Calling the getProfileStatus() function...");
-										            getProfileStatus();
-										        });
-										    	</script>
-												</div>
-						<div class="col-12" th:case="*">
-							<div class="container-fluid p-0 p-md-1">
-											
-											<div class="col-12">
-							                      <div class="mt-4  p-3" >
-							                      <div class="row">
-							                           <div class="col-12 col-sm-4 organisation-wrap" >
-							                              <h3></h3>
-							                             <div class="w3-border">
-															 
-							                              <p></p>
-							                          </div>
-													
-							                      </div>
-							                  </div>
-							                  </div>
-
-											  <div class="mt-4  p-3" >
-							                      <div class="row">
-							                           <div class="col-12 col-sm-4 organisation-wrap" >
-							                              <h3></h3>
-							                             <div class="w3-border">
-															<h4></h4>
-							                              <p></p>
-							                          </div>
-													
-							                      </div>
-							                  </div>
-							                  </div>
-											  <div class="mt-4  p-3" >
-							                  <div class="row">
-							                       <div class="col-12 col-sm-4 organisation-wrap" >
-							                          <h3></h3>
-							                         <div class="w3-border">
-														 
-							                          <p></p>
-							                      </div>
-												
-							                  </div>
-							              </div>
-							              </div>
-											                     
-										 </div>
-							        	
-										
-							           </div>
-                       
-                     </div>
-					 
-					
-																									 
-																									
-					 
-
-                </div>
-                <!-- /.container-fluid -->
-				
-
-            </div>
             <!-- End of Main Content -->
 			
-				</div><!-- ending switchcase-->
+				
         </div>
         <!-- End of Content Wrapper -->
 
@@ -457,6 +257,10 @@
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
 	
+	<!-- Theme CSS -->
+	 
+	 <link rel="stylesheet" type="text/css" href="css/custom.css">
+	
 	
     <script>
     $(document).ready(function(){
@@ -467,6 +271,9 @@
    	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
    });
     </script>
+	
+
+</style>
 
 </body>
 
