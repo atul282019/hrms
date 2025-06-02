@@ -515,6 +515,10 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView customdashboard03(Model model) {
 		return new ModelAndView("custom-dashboard03", "command", "");
 	}
+	@GetMapping(value="/newbank-aclinking")
+	public ModelAndView newbankaclinking(Model model) {
+		return new ModelAndView("newBank-acLinking", "command", "");
+	}	
 //	@GetMapping(value="/customdashboard")
 //	public String customdashboard(Model model) {
 //		logger.info("opening dashboardPage");
