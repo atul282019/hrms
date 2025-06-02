@@ -17,17 +17,59 @@ function getProfileStatus(){
 	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
 
 	               if (parsedData.data && parsedData.data.profileComplete) {
-	                   let profileComplete = parsedData.data.profileComplete;
+	                  //let profileComplete = parsedData.data.profileComplete;
+					  let profileComplete =2;
 
-	                   if (profileComplete === 3) {
+	                   if (profileComplete === 1) {
 						let anchorStart = document.getElementById("anchorStart");
-						anchorStart.textContent = "Complete";
+						anchorStart.textContent = "Completed";
 					    anchorStart.href = ""; 
-	                    document.getElementById("btnsetupStart").style.display = "none";
+						anchorStart.style = "color:#86889B"; 
+						document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+						document.getElementById("btnsetupBankAccount").classList.remove("bg-transparent");
+					   }
+					   if (profileComplete === 2) {
+	   					let anchorStart = document.getElementById("anchorStart");
+	   					anchorStart.textContent = "Completed";
+	   				    anchorStart.href = ""; 
+	   					anchorStart.style = "color:#86889B"; 
+						
+						let anchorStartAccount = document.getElementById("anchorStartAccount");
+						anchorStartAccount.textContent = "Completed";
+						anchorStartAccount.href = ""; 
+						anchorStartAccount.style = "color:#86889B"; 
+						
+	   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+	   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
+						document.getElementById("btnsetupPartner").classList.remove("bg-transparent");
+						document.getElementById("bankContent").style.display = "block";
+						
+							
 	                   }
-
+					   if (profileComplete === 3) {
+   	   					let anchorStart = document.getElementById("anchorStart");
+   	   					anchorStart.textContent = "Completed";
+   	   				    anchorStart.href = ""; 
+   	   					anchorStart.style = "color:#86889B"; 
+   						
+   						let anchorStartAccount = document.getElementById("anchorStartAccount");
+   						anchorStartAccount.textContent = "Completed";
+   						anchorStartAccount.href = ""; 
+   						anchorStartAccount.style = "color:#86889B"; 
+						
+						let btnTextVehicles = document.getElementById("anchorStartVehicles");
+						btnTextVehicles.textContent = "Completed";
+						btnTextVehicles.href = ""; 
+						btnTextVehicles.style = "color:#86889B"; 
+						
+   						
+   	   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+   	   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
+   						document.getElementById("btnsetupPartner").classList.add("cd-step-item", "bg-transparent");
+   							
+   	                   }
 	                   $('#profileComplete').html(profileComplete);
-	                   document.getElementById("profile").style.width = (132 * parseInt(profileComplete)) + "px";
+	                   document.getElementById("profile").style.width = (66.33 * parseInt(profileComplete)) + "px";
 	               } else {
 	                   console.log("Unexpected response structure:", parsedData.message || "No message");
 	               }

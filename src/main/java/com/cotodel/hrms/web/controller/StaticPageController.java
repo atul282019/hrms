@@ -557,7 +557,8 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("mobile",obj.getMobile());
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("id",id);
-				return "dashboard";
+				//return "dashboard";
+				return "custom-dashboard";
 			}
 			 return "error";
 		}

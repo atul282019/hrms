@@ -80,9 +80,11 @@
 				          <div>
 				            <h5 class="cd-setup-title">Set up your Cotodel <br>Dashboard!</h5>
 				            <div class="cd-progress">
-				              <div class="cd-progress-bar"></div>
+				              <div class="cd-progress-bar" id="profile" ></div>
 				            </div>
-				            <p class="small" style="color: #4A4E69;">0 of 3 completed</p>
+							<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+				            <!--<p class="small" style="color: #4A4E69;">0 of 3 completed</p>-->
+							<p class="small" style="color: #4A4E69;" ><span id="profileComplete">0</span> of 3 completed</p>
 				          </div>
 				          <a href="#" class="cd-help-link">
 				            <img src="img/question-mark.png" class="cd-help-icon"> Need help with setup?
@@ -90,33 +92,37 @@
 				        </div>
 				        <div class="cd-setup-right">
 				          <div class="list-group list-group-flush">
-				            <div class="cd-step-item">
+				            <div class="cd-step-item" id="btnsetupStart">
 				              <div class="cd-step-left">
 				                <div class="cd-step-number">1</div>
 				                <span>Enter Organization Details</span>
 				              </div>
-				              <a href="#" class="cd-step-link">
+							  <a  class="cd-step-link" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1}" 
+							  th:href="@{/settingOrganizationAccount}"><span id="btnText">Start</span><i class="fas fa-angle-right"></i></a>
+				             <!-- <a href="#" class="cd-step-link">
 				                <span>Start</span>
 				                <i class="fas fa-angle-right"></i>
-				              </a>
+				              </a>-->
 				            </div>
-				            <div class="cd-step-item bg-transparent">
+				            <div class="cd-step-item bg-transparent" id="btnsetupBankAccount">
 				              <div class="cd-step-left">
 				                <div class="cd-step-number">2</div>
 				                <span>Setup/Link Bank Account</span>
 				              </div>
-				              <i class="fas fa-angle-right text-secondary"></i>
+							  <a  class="cd-step-link" id="anchorStartAccount"  th:if="${session.user_role == 9 || session.user_role == 1}" 
+							  th:href="@{/roleAccess}"><span id="btnTextAccount">Start</span><i class="fas fa-angle-right"></i></a>
 				            </div>
-				            <div class="cd-step-item bg-transparent">
+				            <div class="cd-step-item bg-transparent" id="btnsetupPartner">
 				              <div class="cd-step-left">
 				                <div class="cd-step-number">3</div>
 				                <span>Add your Driver Partners & Vehicles</span>
 				              </div>
-				              <i class="fas fa-angle-right text-secondary"></i>
+							  <a  class="cd-step-link" id="anchorStartVehicles"  th:if="${session.user_role == 9 || session.user_role == 1}" 
+							   th:href="@{/roleAccess}"><span id="btnTextVehicles">Start</span><i class="fas fa-angle-right"></i></a>
 				            </div>
 				          </div>
-				          <div class="status-box">
-				            <p class="status-content">
+				          <div class="status-box" id="bankContent" style="display: none;">
+				            <p class="status-content" >
 				              <img src="img/sand-clock-blue.png" class="benefit-icon" style="height: 20px; width: 20px; margin-top: 13px; margin-right: 5px;">
 				              Details for linking Bank A/c submitted. Please allow 72 Hrs - 96 Hrs for 'UP! Voucher Issuance' to be activated.
 				            </p>
@@ -224,7 +230,7 @@
 				</section>
 
 
-
+			
             <!-- End of Main Content -->
 			
 				
@@ -255,7 +261,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
+    <script type="text/javascript" src="cotodel-js/dashboard.js"></script>
 	
 	<!-- Theme CSS -->
 	 
@@ -272,7 +278,12 @@
    });
     </script>
 	
-
+	<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Calling the getProfileStatus() function...");
+        getProfileStatus();
+    });
+	</script>
 </style>
 
 </body>
