@@ -620,7 +620,7 @@ ul.navbar-nav.top-nav .nav-item a.active span {
     float: left;
     top: 0px;
     width: 100%;
-	color: red;
+	color: #F24822;
 	
 }
 
@@ -6483,6 +6483,32 @@ table.vcScheduledtable thead {
 		.custom-row-border td {
 				      border-bottom: 2px solid #EAF4EF;
 				    } /* vechile css*/
+					.input-with-icon {
+							  position: relative;
+							  width: 100%;
+							  max-width: 100%; /* prevent expansion */
+							}
+
+							.input-with-icon input {
+							  width: 100%;
+							  max-width: 100%;
+							  padding-right: 44px;
+							  box-sizing: border-box;
+							  overflow: hidden; /* avoids stretching */
+							  white-space: nowrap;
+							  text-overflow: ellipsis;
+							}
+
+							.input-icon-right {
+							  position: absolute;
+							  top: 50%;
+							  right: 12px; /* move icon closer to far-right */
+							  transform: translateY(-50%);
+							  width: 20px;
+							  height: 20px;
+							  pointer-events: none;
+							  z-index: 2;
+							}
 					.vehicle-modal-header {
 									       background-color: #e9ecef;
 									     }
@@ -7742,4 +7768,161 @@ table.vcScheduledtable thead {
 					      padding-right: 10px;
 					    }
 
-				    
+
+						.voucher-summary {
+						  width: 420px;
+						  height: 296px;
+						  background: #fff;
+						  border-radius: 16px;
+						  padding: 20px;
+						  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+						  position: relative;
+						}
+
+						.voucher-header {
+						  display: flex;
+						  justify-content: space-between;
+						  align-items: center;
+						}
+
+						.voucher-status {
+						  color: #2F9E44;
+						  font-weight: 600;
+						}
+
+						.voucher-title {
+						  font-weight: 700;
+						  color: #4A4E69;
+						}
+
+						.voucher-dropdown {
+						  padding: 5px 10px;
+						  border-radius: 10px;
+						  border: 1px solid #ccc;
+						}
+
+						.voucher-body {
+						  margin-top: 20px;
+						  padding-bottom: 20px;
+						}
+
+						.voucher-amount {
+						  font-size: 23px;
+						  font-weight: 700;
+						  color: #2F945A;
+						}
+
+						.voucher-label {
+						  color: #4A4E69;
+						}
+
+						.voucher-progress {
+						  position: absolute;
+						  top: 30%;
+						  right: 5%;
+						  transform: rotate(180deg);
+						}
+
+						.voucher-progress-svg {
+						  width: 130px;
+						  height: 130px;
+						}
+
+						.voucher-progress-bg {
+						  stroke: #e6e6e6;
+						  stroke-width: 10;
+						  fill: none;
+						}
+
+						.voucher-progress-bar {
+						  stroke: #2F9E44;
+						  stroke-width: 10;
+						  fill: none;
+						  stroke-dasharray: 345;
+						  stroke-dashoffset: 86;
+						  stroke-linecap: round;
+						  transform: rotate(-180deg);
+						  transform-origin: 65px 65px;
+						}
+
+						.voucher-progress-text {
+						  text-anchor: middle;
+						  font-size: 16px;
+						  fill: #333;
+						  font-weight: bold;
+						}
+
+						.voucher-progress-subtext {
+						  text-anchor: middle;
+						  font-size: 12px;
+						  fill: #777;
+						}
+
+						.voucher-divider {
+						  margin-top: 25px;
+						  width: 60%;
+						  text-align: left;
+						  margin-left: 0;
+						}
+
+						.voucher-spent {
+						  font-size: 19px;
+						  font-weight: 700;
+						  color: #4A4E69;
+						}
+
+						.category-summary {
+						  width: 370px;
+						  height: 296px;
+						  background: #fff;
+						  border-radius: 20px;
+						  padding: 20px;
+						  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+						}
+
+						.category-filters {
+						  display: flex;
+						  justify-content: space-between;
+						  align-items: center;
+						}
+
+						.category-type {
+						  padding: 5px 10px;
+						  border-radius: 10px;
+						  border: 1px solid #2F945A;
+						  background-color: #2F945A;
+						  color: white;
+						}
+
+						.category-period {
+						  padding: 5px 10px;
+						  border-radius: 10px;
+						  border: 1px solid #ccc;
+						}
+
+						.category-breakdown {
+						  margin-top: 20px;
+						  display: grid;
+						  gap: 15px;
+						  color: #1F212C;
+						}
+
+						.category-item {
+						  display: flex;
+						  justify-content: space-between;
+						  align-items: center;
+						}
+
+						.category-icon {
+						  width: 24px;
+						  vertical-align: middle;
+						  margin-right: 8px;
+						}
+
+						.category-amount {
+						  background: #e6f4ea;
+						  color: #2F945A;
+						  padding: 4px 10px;
+						  border-radius: 20px;
+						  font-weight: 500;
+						}	    
