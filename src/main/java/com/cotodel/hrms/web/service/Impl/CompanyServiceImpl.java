@@ -56,6 +56,27 @@ public class CompanyServiceImpl implements CompanyService{
 	public String updateOrganizationDetail(String token, EncriptResponse companyProfileDetail) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(companyProfileDetail), applicationConstantConfig.userServiceBaseUrl+CommonUtils.updateCompanyDetail);
 	}
+
+	@Override
+	public String activeInactiveVoucherAmount(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.activeInactiveVoucherAmount);
+	}
+
+	@Override
+	public String usedAmountByCategories(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.usedAmountByCategories);
+
+	}
+
+	@Override
+	public String loadActiveInactiveUserList(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.empOnboardingListTotalActive);
+	}
+
+	@Override
+	public String erupiVoucherCreateListLimit(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.erupiVoucherCreateListLimit);
+	}
 	
 
 }

@@ -161,6 +161,10 @@ public interface CommonUtils {
 	public static String getVehicleNumberDetaiilByVehicleNumber ="/gstPanService/Api/get/checkVehicleNo";
 	public static String checkAccountNumberValidation ="/get/bankVerification";
 	
+	public static String activeInactiveVoucherAmount = "/empService/Api/get/voucherAmount";
+	public static String usedAmountByCategories = "/empService/Api/get/erupiVoucherCreateListByPurposeCode";
+	public static String  empOnboardingListTotalActive ="/empService/Api/get/empOnboardingListTotalActive";
+	public static String erupiVoucherCreateListLimit ="/empService/Api/get/erupiVoucherCreateListLimit";
 	
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";

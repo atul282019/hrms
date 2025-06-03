@@ -7353,6 +7353,14 @@ table.vcScheduledtable thead {
 				  margin-bottom: 0;
 				}
 
+				.status-content-inprogress {
+							  display: flex;
+							  align-items: flex-start;
+							  color: #FF9500;
+							  font-size: 0.9rem;
+							  margin-bottom: 0;
+							}
+
 				.cd-offer-box {
 				  background-color: white;
 				  padding: 1rem;
