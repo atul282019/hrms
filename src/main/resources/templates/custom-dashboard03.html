@@ -6,6 +6,12 @@
  <!-- Make sure to include Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 
 <body id="page-top" >
 
@@ -24,52 +30,60 @@
 
                 <!-- Topbar -->
                 <!-- <div th:insert="fragments/header.html :: header"></div>-->
-				<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+				<nav class="navbar navbar-expand navbar-light bg-white shadow-sm flex-column p-0">
+				  <!-- Top Row -->
+				  <div class="w-100 d-flex justify-content-between align-items-center px-4 pt-3 pb-2">
+				    <!-- Greeting with Username -->
+				    <h5 class="mb-0">
+				      Hi <span class="text-success font-weight-bold" th:text="${session.username}">Don Joe</span>,
+				    </h5>
 
-                   <!-- Topbar Navbar -->
-                   <ul class="navbar-nav top-nav">
+				    <!-- Right Icons + Profile -->
+				    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+				      <!-- Wallet Icon -->
+				      <li class="nav-item mr-3">
+				        <a href="#" role="button">
+				          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+				        </a>
+				      </li>
 
-                       <!-- Nav Item - User Information -->
-                       <li class="nav-item">
-                           <a class="nav-link active" href="#">
-                               <span class="mr-2 small">Dashboard</span>
-                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                           </a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">
-                               <span class="mr-2 small">Home</span>
-                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                           </a>
-                       </li>
+				      <!-- Notification Icon -->
+				      <li class="nav-item mr-3">
+				        <a href="#" role="button">
+				          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+				        </a>
+				      </li>
 
-                   </ul>
+				      <!-- Profile Dropdown -->
+				      <li class="nav-item dropdown no-arrow">
+				        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+				        </a>
+				        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+				          <a class="dropdown-item" href="/ProfileInfo">
+				            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+				          </a>
+				          <a class="dropdown-item" href="#">
+				            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+				          </a>
+				          <div class="dropdown-divider"></div>
+				          <a class="dropdown-item" href="/logout">
+				            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+				          </a>
+				        </div>
+				      </li>
+				    </ul>
+				  </div>
 
-				<ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
-                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" th:href="@{/ProfileInfo}">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                          <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/logout}">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
-	               </ul>		
-	             </nav>
+				  <!-- Bottom Row (Status Strip) -->
+				  <div class="w-100 border-top py-2 px-4 d-flex justify-content-between align-items-center bg-white">
+				    <small class="text-muted">Track your Vouchers, Incentives & Transactions here</small>
+				    <small class="text-muted">
+				        <img src="img/refresh-blue.svg" alt="refresh-blue" class="nav-icon-img"> Last updated on • 15:26:13 • 12/05/2025
+				    </small>
+				  </div>
+				</nav>
+				
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->

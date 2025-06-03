@@ -260,8 +260,13 @@
                                         <a class="btn btn-border-primary btn-lg" 
 										th:href="@{/issueWithBulkUploadVoucher}">Back</a>
 										<!-- @{/createUpiVoucherIssuance}-->
-										<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVoucherUpload()" value="Upload & Continue" disabled> </input>
-                                       <!-- <div class="btn btn-primary btn-lg" id="uploadBulkVoucherTable" >Upload & Continue</div>-->
+										<!--<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVoucherUpload()" value="Upload & Continue" disabled> </input>
+          							 -->
+									 <!-- Trigger button for Bootstrap 4 -->
+									 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Vehicleloading">
+									   Upload & Continue
+									 </button>
+
                                     </div>
                                                     
                                 </div>                                
@@ -270,6 +275,8 @@
 							</form>
                         </div>
                     </div>
+					
+					
 
                     <div class="row BulkVoucherIssuanceTable" id="BulkVoucherIssuanceTable" style="display: none;">
                         <div class="col-12 col-md-12">
@@ -575,6 +582,8 @@
             <!-- End of Main Content -->
         </div>
 		
+		
+		
 		<div class="lds-spinner" id="signinLoader" style="display: none">
 					<div></div>
 					<div></div>
@@ -794,6 +803,31 @@
 
 
 		</script>
+		<!-- Updated Add Vehicle Modal to match the design -->
+		<div class="modal fade" id="Vehicleloading" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document" style="max-width: 750px;">
+		    <div class="modal-content modal-bulk text-center p-4">
+		      <div class="modal-body">
+		        <div class="mb-3">
+		          <img src="img/animated-car.png" alt="" style="width: 60px;height: 30px;">
+		        </div>
+		        <h5 class="vehicle-history-title" style="text-align: center;">Upload in Progress</h5><hr>
+
+		        <div class="my-3 p-2" style="background-color: #367AFF1A; color: #4A4E69; border-radius:10px;">
+		          Estimated Time: 3-4 Minutes
+		        </div>
+
+		        <p class="vehicle-date-value">Please wait as we retrieve and upload details of your Vehicles.<br>You could also go to the Dashboard, and check back after some time.</p>
+
+		        <div class="mt-4">
+		          <a href="/dashboard" class="btn btn-outline-primary w-100 custom-blue" style= "border-color: #367AFF;">
+		            Go to Dashboard
+		          </a>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 			
 <!-- Modal Download -->
 <div class="modal fade" id="ModalDownload1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

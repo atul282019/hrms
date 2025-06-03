@@ -935,12 +935,19 @@ small {
     }
 
     .breadcrumb-wrap {
-        margin: 10px auto;
-        flex-direction: column;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		max-width: 1140px;
+		margin: 30px auto;
+		position: relative;
     }
 
     .breadcrumb-in {
-        padding: 10px 0px;
+		position: relative;
+			display: flex;
+			align-items: center;
+			padding-right: 30px; /* spacing for the line */
     }
 
     .company-dtl-wrap .btn-lg {
@@ -6320,7 +6327,9 @@ table.vcScheduledtable thead {
 			    background-size: 20px;
 			}
 			
-			
+			.custom-blue{
+				color:#367AFF;
+			}
 			
 			.custom-btn {
 					    display: inline-flex; /* Ensures it's treated like the button element */
@@ -7699,7 +7708,7 @@ table.vcScheduledtable thead {
 
 	#userTable thead th {
 	  border-top: none !important;
-	  color: #4A4E69;
+	  color: #FFFFFF;
 	  font-weight: 400;
 	}
 
@@ -7933,4 +7942,446 @@ table.vcScheduledtable thead {
 						  padding: 4px 10px;
 						  border-radius: 20px;
 						  font-weight: 500;
-						}	    
+						}
+						.nav-name{
+							font-weight:700 ;
+							color:#2F945A ;
+							
+						}	
+						.nav-images {
+							width: 24px;
+							height: 24px; 
+							margin-top: 22px;
+							
+						}
+						
+/* bank breadcrumb */
+.bank-breadcrumb-container {
+  max-width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.bank-breadcrumb-title {
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #000000;
+  padding-left: 300px; /* shift to right */
+}
+
+.bank-breadcrumb-steps {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 80px;
+ padding-left: 300px; /* shift to right */
+}
+
+.bank-step {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 16px;
+  color: #6B7280;
+}
+
+.bank-step span {
+  margin-top: -4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #9CA3AF;
+  margin-right: 10px;
+  font-size: 14px;
+  background: #fff;
+  color: #374151;
+  z-index: 1;
+}
+
+.bank-step.active span {
+  background-color: #367AFF;
+  color: white;
+  border-color: #367AFF;
+}
+
+.bank-step.active label {
+  margin-top: 3px;
+  color: #367AFF;
+  font-weight: 500;
+}
+
+.bank-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  top: 50%;
+  width: 60px;
+  height: 2px;
+  background: #E5E7EB;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.bank-step.active::after {
+  background: #367AFF;
+}
+.black
+{
+	color:#4A4E69;
+	font-weight:400;
+}
+.black-bold
+{
+	color:#4A4E69;
+	font-weight:700;
+}
+/*bank account linking*/
+.bank-select-wrapper {
+	margin-top: 4px;
+  background: #fff;
+  padding: 32px;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.bank-select-heading {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 24px;
+}
+.bank-select-options {
+	  display: flex;
+	  gap: 120px;
+	  flex-wrap: wrap;
+	  align-items: center;
+	  margin-bottom: 24px;
+	 
+	}
+
+	.bank-select-option {
+	  display: flex;
+	  align-items: center;
+	  gap: 10px;
+	  margin-top: 20px;
+	}
+
+	.bank-select-option img {
+	  width: 42px;
+	  height: 42px;
+	  background: #fff;
+	  border: 1px solid #E5E7EB;
+	  padding: 8px;
+	  border-radius: 12px;
+	}
+
+	.bank-select-option input[type="checkbox"] {
+	  width: 16px;
+	  height: 16px;
+	  accent-color: #367AFF;
+	}
+
+	.bank-select-option label {
+		margin-top: 5px;
+	  font-size: 14px;
+	  color: #111827;
+	  cursor: pointer;
+	}
+
+	
+
+	
+	.bank-submitted-wrapper {
+	  padding: 40px 24px;
+	  border-radius: 16px;
+	  background: #fff;
+	  text-align: center;
+	 width: 100%;
+	  margin: 0 auto;
+	}
+
+	.bank-submitted-title {
+	  font-family: 'Open Sans', sans-serif;
+	  font-size: 20px;
+	  font-weight: 700;
+	  color: #111827;
+	  margin-top: 12px;
+	}
+	
+	.submission-info-box {
+		
+		white-space: nowrap;           /* Prevent line breaks */
+		overflow: hidden;              /* Hide overflow (optional) */
+		text-overflow: ellipsis;       /* Add ellipsis if text overflows (optional) */
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		background: #EAF0FF;
+		color: #367AFF;
+		border: 1px solid #D2E3FF;
+		padding: 12px 16px;
+		border-radius: 10px;
+		font-size: 14px;
+		font-family: 'Open Sans', sans-serif;
+	}
+	.submission-info-box-pending {
+		
+		white-space: nowrap;           /* Prevent line breaks */
+		overflow: hidden;              /* Hide overflow (optional) */
+		text-overflow: ellipsis;       /* Add ellipsis if text overflows (optional) */
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		background: #FF950033;
+		color: #FF9500;
+		border: 1px solid #FF95001A;
+		padding: 12px 16px;
+		border-radius: 10px;
+		font-size: 14px;
+		font-family: 'Open Sans', sans-serif;
+	}
+	.info-icon {
+	  width: 18px;
+	  height: 18px;
+	}
+	.primary-account-badge {
+		  width: 155px;
+		  height: 47px;
+		  border-radius: 40px;
+		  padding: 10px 20px;
+		  gap: 10px;
+		  background-color: #2F945A; /* Green (Bootstrap success) */
+		  color: #fff;
+		  font-weight: 600;
+		  font-size: 14px;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		}
+
+		.bank-details-header {
+		  display: flex;
+		  align-items: center;
+		  gap: 12px;
+		  font-family: 'Open Sans', sans-serif;
+		  font-weight: 700;
+		  font-size: 23px;
+		  line-height: 140%;
+		  letter-spacing: 0;
+		  color: #1F212C;
+		  margin-bottom: 24px;
+		}
+
+		.back-arrow {
+		  font-size: 20px;
+		  color: #1F212C;
+		  cursor: pointer;
+		}
+
+		.position-relative {
+		  position: relative;
+		}	  
+		.custom-primary-btn {
+	    background-color: #367AFF !important;
+	    color: #fff !important;
+	    border: none;
+	  }
+	  .toggle-password {
+	  	  position: absolute;
+	  	  right: 12px;
+	  	  top: 50%;
+	  	  transform: translateY(-50%);
+	  	  cursor: pointer;
+	  	  font-size: 16px;
+	  	  color: #6B7280;
+	  	  z-index: 10;
+	  	}
+
+	  	/**/
+	  	/* Container */
+	  	#bank-details-screen {
+	  	  background: #fff;
+	  	  padding: 30px;
+	  	  border-radius: 16px;
+	  	  max-width: 600px;
+	  	  margin: auto;
+	  	  
+	  	  margin-left: 0; /* ensure left alignment */
+	  	 
+	  	}
+		/* File upload success block */
+		.upload-box {
+		  border: 1px solid #C7C8D1;
+		  border-radius: 12px;
+		  padding: 20px;
+		  margin-bottom: 24px;
+		  text-align: center;
+		}
+
+		.upload-box .check-icon {
+		  font-size: 32px;
+		  color: green;
+		  margin-bottom: 10px;
+		}
+
+		.upload-box button {
+		  margin-top: 16px;
+		  margin-bottom: 16px;
+		  background: #367AFF;
+		  color: #fff;
+		  padding: 8px 24px;
+		  border: none;
+		  border-radius: 8px;
+		  font-weight: 500;
+		  cursor: pointer;
+		}
+		.file-preview {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: flex-start;
+		  background: #EAF8ED;
+		  padding: 12px 16px;
+		  border-radius: 8px;
+		  gap: 12px;
+		}
+
+		.file-info {
+		  display: flex;
+		  flex-direction: column;
+		  align-items: flex-start; /* forces left-alignment */
+		}
+
+		.file-name {
+		  font-weight: 400;
+		  color: #4A4E69;
+		}
+
+		.file-meta {
+		  font-size: 14px;
+		  color: #4B5563;
+		  display: flex;
+		  align-items: center;
+		  gap: 6px;
+		}
+
+		.file-delete {
+		  font-size: 20px;
+		  line-height: 1;
+		  padding-left: 8px;
+		}
+		/* Submit button */
+			.submit-btn {
+			  margin-top: 16px;
+			  background: #367AFF;
+			  color: white;
+			  border: none;
+			  padding: 14px;
+			  font-weight: 600;
+			  font-size: 16px;
+			  border-radius: 8px;
+			  cursor: pointer;
+			}
+
+			/**/
+			.bank-select-block {
+			  padding: 30px;
+			  background: #fff;
+			  border-radius: 16px;
+			  font-family: 'Inter', sans-serif;
+			  max-width: 100%;
+			}
+			.bank-option {
+					display: flex;
+					align-items: center;
+					gap: 12px;
+					padding: 8px;
+					border-radius: 8px;
+					transition: background-color 0.2s ease-in-out;
+				}
+				.bank-option:hover {
+				  background-color: #EBF2FF;
+				  cursor: pointer;
+				}
+				.bank-option img {
+				  width: 32px;
+				  height: 32px;
+				  border-radius: 8px;
+				  object-fit: contain;
+				}
+
+				.bank-option input[type="checkbox"] {
+				  width: 18px;
+				  height: 18px;
+				}
+
+				.bank-option label {
+				  font-size: 16px;
+				  color: #4A4E69;
+				  margin-top: 5px;
+				}
+				.bank-option input[type="checkbox"] {
+				  width: 18px;
+				  height: 18px;
+				  accent-color: #367AFF; /* modern browsers support this */
+				  cursor: pointer;
+				}
+				.bank-option-list {
+					  display: flex;
+					  flex-direction: column;
+					  gap: 8px;
+					  margin-bottom: 24px;
+					}
+
+					
+					.bank-divider {
+					  border: none;
+					  border-top: 1px solid #E5E7EB;
+					  margin: 24px 0;
+					}
+
+					.bank-radio-option {
+					  display: flex;
+					  align-items: center;
+					  gap: 10px;
+					  font-size: 16px;
+					  color: #111827;
+					}
+
+					.bank-next-button {
+					  display: flex;
+					  justify-content: flex-end;
+					  margin-top: 40px;
+					 
+					}
+
+					.bank-next-button button {
+					  padding: 12px 24px;
+					  border: none;
+					  border-radius: 10px;
+					  background-color: #367AFF;
+					  color: white;
+					  font-size: 14px;
+					  font-weight: 500;
+					  width:120px ;
+					 	}				
+						  .custom-submit-btn {
+				  		margin-top:8px ;
+				  	  background-color: #367AFF;
+				  	  color: #FFFFFF;
+				  	  border: none;
+				  	  padding: 12px 24px;
+				  	  font-size: 14px;
+				  	  font-weight: 600;
+				  	  border-radius: 8px;
+				  	  cursor: pointer;
+				  	  transition: background-color 0.2s ease-in-out;
+				  	  width: 100%; /* full-width to match input fields */
+				  	}
+
+				  	.custom-submit-btn:hover {
+				  	  background-color: #2a5fd9; /* slightly darker on hover */
+				  	}
