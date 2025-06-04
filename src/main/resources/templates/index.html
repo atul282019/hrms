@@ -74,8 +74,8 @@
 		  <input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
         autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	    </div>
-		<div class="error-msg" id="mobError" style="color:red"></div>
-		<div id="errorOtp" style="color:red"></div>	
+		<div class="error-msg" id="mobError" ></div>
+		<div  class="error-msg" id="errorOtp" ></div>	
 		
 
 	    <p class="helper-text">We will send an OTP on the mobile number entered.</p>
@@ -117,13 +117,12 @@
 			<input type="hidden" id="orderid" th:value="${orderid}" ></input>
 				
 		   </div>		
-		   <span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" 
-		   style="font-size: 18px; cursor: pointer; display: inline-block; margin-bottom: 2px; margin-left: -50px; margin-top: 10px;">
-                <i class="fas fa-eye"></i>
-            </span>
+		   <span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" class="eye-icon" role="button" aria-label="Toggle OTP visibility" tabindex="0">
+		      <i class="fas fa-eye"></i>
+		    </span>
 		      </div>
 		  </div>
-		  <div id="otpError" style="color:red"></div>	
+		  <div  class="error-msg" id="otpError" style="margin-top: -15px; margin-bottom: 20px;"></div>	
    			
 		  <p>You can resend the otp after: <label for="countdown" id="countdown" style="color: green;" ></label> seconds</p>
 		  
@@ -166,6 +165,7 @@
  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+  
   <script>
     $('#imageCarousel').carousel({
       interval: 10000, // 10 seconds per slide
@@ -205,6 +205,7 @@
     });
     </script>
 	<script>	$( document ).ready(function() {
+
 		var error = document.getElementById("errorMessage").value;
 		var mo = document.getElementById("mo").value;
 		
@@ -217,9 +218,20 @@
 	    document.getElementById("loginIdDiv").style.display="none";
 	    document.getElementById("optBtn").style.display="block";
 	    }
+		
 		else if(error==="Incorrect OTP ||"){
-			
+			//hide otp button and helper text above it 
+			$("#optBtn").hide();
+			$(".helper-text").hide();
+			//show the otp section
+			$("#otp-section").show();
+			// apply the border in custom colour to 
+			$(".otp-input").addClass("error");
+			//show the otp msg
+			 $("#otpError").text("Invalid OTP. Please try again.");
 			  document.getElementById("maskedMobileDisplay").innerHTML = `OTP code has been sent to your phone ${maskedMobile}`;
+			//  $("#orderId").val(orderid);
+			        $("#verifyotpdiv").show();
 			  var expiryTime = localStorage.getItem("otpExpiryTime");
 			  var downloadTimer = setInterval(function () {
 			          var currentTime = Date.now();
@@ -254,8 +266,13 @@
 		}else{
 			
 		}
+		//clear otp boxes
+		//$(".otp-input").val('');
 	});</script>
    <script>	function getOTP() {
+	//clear otp boxes
+	//$(".otp-input").val('');
+
 		console.log("get otp called");
 	    var regMobile = /^[6-9]\d{9}$/gi;
 	    var userName = document.getElementById("mobile").value;
