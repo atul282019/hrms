@@ -77,6 +77,11 @@ public class CompanyServiceImpl implements CompanyService{
 	public String erupiVoucherCreateListLimit(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.erupiVoucherCreateListLimit);
 	}
+
+	@Override
+	public String getVoucherTransactionList(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getVoucherTransactionList);
+	}
 	
 
 }

@@ -18,6 +18,7 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.ActiveUserListClass;
 import com.cotodel.hrms.web.response.EmployeeProfileRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherAmountRequest;
+import com.cotodel.hrms.web.response.ErupiVoucherCreateTransactionRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherPurposeCodeRequest;
 import com.cotodel.hrms.web.service.CompanyService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -149,7 +150,7 @@ public class DashboardController extends CotoDelBaseController{
 	
 	@PostMapping(value="/erupiVoucherCreateListLimit")
 	public @ResponseBody String erupiVoucherCreateListLimit(HttpServletRequest request, ModelMap model,Locale locale,
-			HttpSession session,ErupiVoucherAmountRequest employeeProfileRequest) {
+			HttpSession session,ErupiVoucherPurposeCodeRequest employeeProfileRequest) {
 			logger.info("erupiVoucherCreateListLimit");	
 			String token = (String) session.getAttribute("hrms");
 			String profileRes=null;
@@ -160,8 +161,6 @@ public class DashboardController extends CotoDelBaseController{
 				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 				String encriptResponse = companyService.erupiVoucherCreateListLimit(tokengeneration.getToken(), jsonObject);
-
-	   
 				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -172,4 +171,30 @@ public class DashboardController extends CotoDelBaseController{
 	   
 		return profileRes;
 	}
+	
+	@PostMapping(value="/getVoucherTransactionList")
+	public @ResponseBody String getVoucherTransactionList(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,ErupiVoucherCreateTransactionRequest employeeProfileRequest) {
+			logger.info("ErupiVoucherCreateTransactionRequest");	
+			String token = (String) session.getAttribute("hrms");
+			String profileRes=null;
+		
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse = companyService.getVoucherTransactionList(tokengeneration.getToken(), jsonObject);
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
+	}
+	
+	
 }

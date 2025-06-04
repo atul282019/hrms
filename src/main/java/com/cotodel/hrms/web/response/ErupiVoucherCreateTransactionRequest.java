@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+public class ErupiVoucherCreateTransactionRequest {
 
-public class VehicleManagementRequest {
 	private Long orgId;
-	private Long id;
-	private String response;
-	private String vehicleSequenceId;
 	private String limit;
 }

@@ -7574,7 +7574,7 @@ table.vcScheduledtable thead {
   flex-direction: column;
   gap: 10px;
   position: relative;
-  width: 581px;
+  width: auto;
   
 }
 .info-header {

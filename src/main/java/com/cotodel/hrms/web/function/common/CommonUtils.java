@@ -165,6 +165,7 @@ public interface CommonUtils {
 	public static String usedAmountByCategories = "/empService/Api/get/erupiVoucherCreateListByPurposeCode";
 	public static String  empOnboardingListTotalActive ="/empService/Api/get/empOnboardingListTotalActive";
 	public static String erupiVoucherCreateListLimit ="/empService/Api/get/erupiVoucherCreateListLimit";
+	public static String  getVoucherTransactionList = "/empService/Api/get/erupiVoucherCreateTransactionList";
 	
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
