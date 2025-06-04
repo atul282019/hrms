@@ -288,14 +288,22 @@
 	            document.getElementById("loginLoader").style.display = "none";
 
 	            if (obj.status === true) {
-					showOtpForm();
+					document.getElementById('login-body').style.display = 'none';
+				    document.getElementById('otp-section').style.display = 'block';
 
+				    document.querySelector('.or-divider').style.display = 'none';
+				    document.querySelector('.social-buttons').style.display = 'none';
+				    
+				    
+					document.querySelector('.helper-text').style.display = 'none';
+									
 					// Mask the mobile number (show only last 4 digits)
 					var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
 					document.getElementById("maskedMobileDisplay").innerHTML = `OTP code has been sent to your phone ${maskedMobile}`;
 
 	                $('#errorOtp').hide('slow');
 	                $('#loginIdDiv').hide('slow');
+					document.getElementById("verifyotpdiv").style.display = "block";
 					var timeleft = 60; // 3 minutes in seconds
 					   var downloadTimer = setInterval(function () {
 					       var minutes = Math.floor(timeleft / 60); // Calculate minutes
@@ -310,7 +318,7 @@
 						   localStorage.setItem("otpExpiryTime", Date.now() + seconds * 1000);   
 						   document.getElementById("optBtn").style.display = "none";
 						   document.getElementById("orderId").value = obj['orderId'];
-						   document.getElementById("verifyotpdiv").style.display = "block";
+						   
 						   
 					       if (timeleft < 0) {
 							clearInterval(downloadTimer);
