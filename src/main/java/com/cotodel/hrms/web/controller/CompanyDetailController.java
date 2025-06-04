@@ -53,31 +53,6 @@ public class CompanyDetailController extends CotoDelBaseController{
 	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
     private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
 	
-	@PostMapping(value="/getCompanyProfileStatus")
-	public @ResponseBody String getCompanyProfileStatus(HttpServletRequest request, ModelMap model,Locale locale,
-			HttpSession session,EmployeeProfileRequest employeeProfileRequest) {
-			logger.info("getPayrollMaster");	
-			String token = (String) session.getAttribute("hrms");
-			String profileRes=null;
-		
-			try {
-				String json = EncryptionDecriptionUtil.convertToJson(employeeProfileRequest);
-
-				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-
-				String encriptResponse = companyService.getCompanyProfileStatus(tokengeneration.getToken(), jsonObject);
-
-	   
-				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-
-				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	   
-		return profileRes;
-	}
 	
 	@PostMapping(value="/getGSTDetailsByGSTNumber")
 	public @ResponseBody String getGSTDetailsByGSTNumber(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,EmployeeProfileRequest employeeProfileRequest) {

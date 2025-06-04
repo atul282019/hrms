@@ -21,4 +21,14 @@ public interface CompanyService {
 	
 	String updateOrganizationDetail(String token, EncriptResponse companyProfileDetail);
 
+	String activeInactiveVoucherAmount(String token, EncriptResponse jsonObject);
+
+	String usedAmountByCategories(String token, EncriptResponse jsonObject);
+
+	String loadActiveInactiveUserList(String token, EncriptResponse jsonObject);
+
+	String erupiVoucherCreateListLimit(String token, EncriptResponse jsonObject);
+
+	String getVoucherTransactionList(String token, EncriptResponse jsonObject);
+
 }

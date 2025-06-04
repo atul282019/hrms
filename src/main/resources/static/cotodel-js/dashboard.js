@@ -1,5 +1,483 @@
+async function getVoucherTransactionList() {
+	const orgId = document.getElementById('employerId').value;
+    $.ajax({
+        type: "POST",
+        url: "/getVoucherTransactionList",
+		data: { "orgId":orgId,
+				"limit":"10"	
+		 },
+        beforeSend: function(xhr) {
+            //xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+            newData = data;
+            console.log("Emp onboarding data", newData);
+            var data1 = jQuery.parseJSON(newData);
+            var data2 = data1.data;
+            
+            var table = $('#vouchersTableTransactionList').DataTable({
+                destroy: true,
+                "responsive": true,
+                searching: false,
+                bInfo: false,
+                paging: false,
+                "lengthChange": true,
+                "autoWidth": false,
+                "pagingType": "full_numbers",
+                "pageLength": 50,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "language": {"emptyTable": "As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.If your team and you haven’t already, start issuing and using UPI Vouchers to experience the magic!"},
+                
+                "aaData": data2,
+                "aoColumns": [
+                    { "mData": "creationDate" },
+					{ "mData": "merchanttxnId" },
+                    { "mData": "name" },
+                    { "mData": "purposeDesc" },
+					{ "mData": "merchanttxnId" },
+					{ "mData": "amount" },
+					{ "mData": "merchanttxnId" },
+					
+                ],
+				createdRow: function (row, data2, dataIndex) 
+                {
+               
+             	var type = data2.type;
+                 if(type=="fail")
+                 {
+					var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
+					 $(row).find('td:eq(9)').html(imgTag);
+                //  $(row).find('td:eq(10)').addClass('tdactive');
+                 }
+                 if(type=="Created")
+                 {
+					var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
+					 $(row).find('td:eq(9)').html(imgTag);
+                 // $(row).find('td:eq(10)').addClass('tdsubmitted');
+                 }
+				 if(type=="Revoke")
+                 {
+			
+					var imgTag = ' <img src="img/Revoke.svg" alt="" class="mr-2">';
+				    $(row).find('td:eq(9)').html(imgTag);
+				 
+                 }
+				 if(type=="Redeem")
+                 {
+					var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
+					 $(row).find('td:eq(9)').html(imgTag);
+                 }
+				 var bankcode = data2.bankcode;
+				 var bankIcon = data2.bankIcon;
+				 var accountNumber = data2.accountNumber;
+				 if(bankcode=="ICICI")
+                 {	
+ 					 var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt=""] width="16px" height=""16px>';
+ 					 $(row).find('td:eq(2)').html(imgTag+" "+accountNumber);
+                 }
+              }
+		});		
+							
+        },
+        error: function(e) {
+            alert('Failed to fetch JSON data' + e);
+        }
+    });
+}
 
-function getProfileStatus(){
+async function getVehicleManagementList() {
+	const orgId = document.getElementById('employerId').value;
+    $.ajax({
+        type: "GET",
+        url: "/getVehicleList",
+		data: { "orgId":orgId,
+				"limit":"Yes"
+		 },
+        beforeSend: function(xhr) {
+            //xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+            newData = data;
+            console.log("Emp onboarding data", newData);
+            var data1 = jQuery.parseJSON(newData);
+            var data2 = data1.data;
+         
+            var table = $('#vehicleManagementTable1').DataTable({
+                destroy: true,
+                "responsive": true,
+                searching: false,
+                bInfo: false,
+                paging: false,
+                "lengthChange": true,
+                "autoWidth": false,
+                "pagingType": "full_numbers",
+                "pageLength": 50,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "language": {"emptyTable": "No vehicles have been mapped with the platform yet. Please proceed to the Vehicle Management section to onboard vehicles from your fleet."},
+                
+                // Use the filtered data instead of original data
+                "aaData": data2,
+                "aoColumns": [
+                    { "mData": "vehicleType" },
+                    { "mData": "vehicleNumber" },
+                    { "mData": "vehicleManufactor" },
+					{
+					  "mData": "driverName2",
+					  "render": function(data1, type, row) {
+					    if (data1 === "" || data1 === null) {
+					      return 'Driver not assigned';
+					    } else {
+					      return row.driverName2 + "</br>+91 " + row.driverMobile + "";
+					    }
+					  }
+					},
+				
+                ],
+				createdRow: function (row, data1, dataIndex) 
+                {
+             	var vehicleType = data1.vehicleType;
+                 if(vehicleType=="SUV / MUV")
+                 {
+				 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+                 $(row).find('td:eq(0)').html(imgTag);
+                 }
+                 else if(vehicleType=="Sedan")
+                 {
+				 var imgTag = ' <img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
+				 $(row).find('td:eq(0)').html(imgTag);
+                 }
+                 
+                 else if(vehicleType=="Truck")
+                 {
+					var imgTag = ' <img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
+					 $(row).find('td:eq(0)').html(imgTag);
+                 }
+                 
+                 else if(vehicleType=="Mini Truck")
+                 {
+				 var imgTag = '<img src="img/truck-icon.png" alt="" class="mr-2">'+vehicleType;
+                 $(row).find('td:eq(0)').html(imgTag);
+                 }
+                 else if(vehicleType=="Hatchback")
+                 {
+				 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+				 $(row).find('td:eq(0)').html(imgTag);
+                 }
+                 else if(vehicleType=="Two-Wheeler")
+                 {
+				 var imgTag = '<img src="img/two-wheeler-icon.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
+                  $(row).find('td:eq(0)').html(imgTag);
+                 }
+				 else if(vehicleType=="Amb./Spl. Purp")
+                 {
+				 var imgTag = '<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
+                  $(row).find('td:eq(0)').html(imgTag);
+                 }
+				 else{
+					var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
+					 $(row).find('td:eq(0)').html(imgTag);
+				 }				
+              }
+		});									
+        },
+        error: function(e) {
+            alert('Failed to fetch JSON data' + e);
+        }
+    });
+}
+
+
+function erupiVoucherCreateListLimit() {
+	
+		var employerid = document.getElementById("employerId").value;
+		$.ajax({
+			type: "POST",
+			url: "/erupiVoucherCreateListLimit",
+			data: {
+				//"employeeId": employerid,
+				"orgId": employerid,
+				"timePeriod":"LM",
+			},
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				var data2 = data1.data;
+				
+				var table = $('#vouchersTableList').DataTable( {
+		          destroy: true,	
+				 // "dom": 'rtip',
+				 //dom: 'Bfrtip',
+				 lengthChange: true,
+			     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+	             "buttons": ["csv", "excel"],
+	             "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
+		         "aaData": data2,
+	      		  "aoColumns": [ 
+					 
+					{ "mData": "name"},
+	                { "mData": "mobile"},   
+				    { "mData": "accountNumber"},   
+					{ "mData": "purposeDesc"},  
+					//{ "mData": "mcc"}, 
+					{ "mData": "type"},
+					{ "mData": "creationDate"},
+					{ "mData": "expDate"},
+					{ "mData": "amount"},
+					{ "mData": "amount"},      
+	    		 	],
+					
+					createdRow: function (row, data2, dataIndex) 
+	                    {
+	                   
+	                 	var type = data2.type;
+	                     if(type=="fail")
+	                     {
+							var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
+							 $(row).find('td:eq(9)').html(imgTag);
+	                    //  $(row).find('td:eq(10)').addClass('tdactive');
+	                     }
+	                     if(type=="Created")
+	                     {
+							var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
+							 $(row).find('td:eq(9)').html(imgTag);
+	                     // $(row).find('td:eq(10)').addClass('tdsubmitted');
+	                     }
+						 if(type=="Revoke")
+	                     {
+					
+							var imgTag = ' <img src="img/Revoke.svg" alt="" class="mr-2">';
+						    $(row).find('td:eq(9)').html(imgTag);
+						 
+	                     }
+						 if(type=="Redeem")
+	                     {
+							var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
+							 $(row).find('td:eq(9)').html(imgTag);
+	                     }
+						 var bankcode = data2.bankcode;
+						 var bankIcon = data2.bankIcon;
+						 var accountNumber = data2.accountNumber;
+						 if(bankcode=="ICICI")
+	                     {	
+		 					 var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt=""] width="16px" height=""16px>';
+		 					 $(row).find('td:eq(2)').html(imgTag+" "+accountNumber);
+	                     }
+	                  }
+				});		
+				
+			},
+			error: function(e) {
+				alert('Failed to fetch JSON data' + e);
+			}
+		});
+}
+
+
+function loadActiveInactiveUserList(){
+	
+	var employerId = document.getElementById("employerId").value;
+		$.ajax({
+			type: "POST",
+			url: "/loadActiveInactiveUserList",
+			data: {
+					"employerId":employerId,
+			},
+			beforeSend: function(xhr) {
+			},
+			success: function(response) {
+				var responseData = JSON.parse(response);
+				const defaultImg = "img/user3.png"; // fallback image
+
+				// Set total and active counts
+				document.getElementById("totalCount").textContent = responseData.data.total;
+				document.getElementById("activeCount").textContent = responseData.data.active;
+
+				const tbody = document.getElementById("userTableBody");
+				tbody.innerHTML = ""; // clear previous rows
+
+				responseData.data.empList.forEach((emp) => {
+				  const tr = document.createElement("tr");
+
+				  const userTd = document.createElement("td");
+				  const img = document.createElement("img");
+				  img.className = "rounded-circle me-2";
+				  img.width = 30;
+
+				  if (emp.empPhoto && emp.empPhoto.trim() !== "") {
+				    img.src = `data:image/png;base64,${emp.empPhoto}`;
+				  } else {
+				    img.src = defaultImg; // fallback
+				  }
+
+				  userTd.appendChild(img);
+				  userTd.append(` ${emp.name}`);
+
+				  // --- Department ---
+				  const deptTd = document.createElement("td");
+				  deptTd.textContent =
+				    emp.depratment && emp.depratment.trim() !== ""
+				      ? emp.depratment
+				      : "-";
+					  const mobile = document.createElement("td");
+		  			  mobile.textContent =
+	  			    emp.mobile && emp.mobile.trim() !== ""
+	  			      ? emp.mobile
+	  			      : "-";
+
+					  const empOrCont = document.createElement("td");
+		  			  empOrCont.textContent =
+		  			    emp.empOrCont && emp.empOrCont.trim() !== ""
+		  			      ? emp.empOrCont
+		  			      : "-";
+
+						  const email = document.createElement("td");
+			  			  email.textContent =
+			  			    emp.email && emp.email.trim() !== ""
+			  			      ? emp.email
+			  			      : "-";
+
+				  // --- Employee Code ---
+				  const empCodeTd = document.createElement("td");
+				  empCodeTd.textContent = emp.empCode;
+
+				  // Append to row
+				  tr.appendChild(userTd);
+				  tr.appendChild(deptTd);
+				  tr.appendChild(empCodeTd);
+				  tr.appendChild(mobile);
+				  tr.appendChild(email);
+				  tr.appendChild(empOrCont);
+				  // Add to table
+				  tbody.appendChild(tr);
+				});
+
+			},
+			error: function(e) {
+				alert('Error: ' + e);
+			}
+		});
+}
+
+
+function loadCategoryVoucherData(){
+	//document.getElementById("overlay").style.display = "flex";
+	var employerId = document.getElementById("employerId").value;
+	$.ajax({
+		type: "POST",
+		url: "/usedAmountByCategories",
+		data: {
+				"orgId":employerId,
+				"timePeriod":"LM",
+		},
+		beforeSend: function(xhr) {
+		},
+		success: function(response) {
+			var response = JSON.parse(response);
+			try {
+				if (response.status && response.data && response.data.length > 0) {
+					const categoryBreakdown = document.querySelector('.category-breakdown');
+					  categoryBreakdown.innerHTML = ''; // Clear existing items
+
+					  const iconMap = {
+					    "Fuel": "img/fuel-grey.png",
+					    "Health & Wellness": "img/Maintainence-grey.png",
+					    "Meal": "img/food-icon-grey.png",
+					    "Maintenance": "img/Maintainence-grey.png",
+					    "Toll": "img/Toll-grey.png"
+					  };
+
+					  response.data.forEach(item => {
+					    const name = item.voucherName;
+					    const amount = item.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 });
+					    const icon = iconMap[name] || "img/default-icon.png";
+
+					    const categoryItem = document.createElement('div');
+					    categoryItem.className = 'category-item';
+					    categoryItem.innerHTML = `
+					      <div><img src="${icon}" class="category-icon">${name}</div>
+					      <span class="category-amount">₹${amount}</span>
+					    `;
+					    categoryBreakdown.appendChild(categoryItem);
+					  });
+				
+				        }
+
+	               
+	           } catch (error) {
+	               console.error("Error parsing JSON:", error);
+	           }
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+} 
+
+function loadVoucherData(){
+	//document.getElementById("overlay").style.display = "flex";
+	var employerId = document.getElementById("employerId").value;
+	$.ajax({
+		type: "POST",
+		url: "/activeInactiveVoucherAmount",
+		data: {
+				"orgId":employerId,
+		},
+		beforeSend: function(xhr) {
+		},
+		success: function(response) {
+			var response = JSON.parse(response);
+			try {
+				if (response.status && response.data && response.data.length > 0) {
+				          populateVoucherUI(response.data[0]);
+				        }
+
+	               
+	           } catch (error) {
+	               console.error("Error parsing JSON:", error);
+	           }
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+} 
+
+function populateVoucherUI(data) {
+  const accountNumber = data.accountNumber;
+  const maskedAccount = 'xxxx' + accountNumber.slice(-4);
+  const bankName = data.bankName;
+  const totalAmount = data.totalAmount;
+  const balance = parseFloat(data.balance);
+  const spent = totalAmount;
+  const available = balance;
+  const total = spent + available;
+  const spentPercent = ((spent / total) * 100).toFixed(1);
+
+  // Update dropdown
+  const dropdown = document.querySelector('.voucher-dropdown');
+  dropdown.innerHTML = `<option>${bankName} ${maskedAccount}</option>`;
+
+  // Update amounts
+  document.querySelector('.voucher-amount').textContent = `₹${available.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+  document.querySelector('.voucher-spent').textContent = `₹${spent.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+
+  // Update progress circle (you might need to style it with stroke-dasharray)
+  const progressText = document.querySelector('.voucher-progress-text');
+  progressText.textContent = `${spentPercent}%`;
+
+  const progressCircle = document.querySelector('.voucher-progress-bar');
+  const radius = 55;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * (1 - spent / total);
+  progressCircle.setAttribute('stroke-dasharray', circumference);
+  progressCircle.setAttribute('stroke-dashoffset', offset);
+}
+
+// Call this on page load
+document.addEventListener('DOMContentLoaded', function () {
+  loadVoucherData();
+});
+function getProfileStatus1(){
 	//document.getElementById("overlay").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
 	var employeeId = "2";
@@ -17,10 +495,225 @@ function getProfileStatus(){
 	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
 
 	               if (parsedData.data && parsedData.data.profileComplete) {
-	                  //let profileComplete = parsedData.data.profileComplete;
-					  let profileComplete =2;
+	                   let profileComplete = parsedData.data.profileComplete;
 
-	                   if (profileComplete === 1) {
+	                   if (profileComplete === 3) {
+						let anchorStart = document.getElementById("anchorStart1");
+						anchorStart.textContent = "Complete";
+					    anchorStart.href = ""; 
+	                    document.getElementById("btnsetupStart1").style.display = "none";
+	                   }
+
+	                   $('#profileComplete1').html(profileComplete);
+	                   document.getElementById("profile1").style.width = (132 * parseInt(profileComplete)) + "px";
+	               } else {
+	                   console.error("Unexpected response structure:", parsedData);
+	               }
+	           } catch (error) {
+	               console.error("Error parsing JSON:", error);
+	           }
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+function getBankListWithVocher() {
+	    const employerId = document.getElementById("employerId").value;
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/voucherCreateBankList",
+	        data: { orgId: employerId },
+	        beforeSend: function (xhr) {
+	            // You can add headers if needed
+	        },
+	        success: function (data) {
+	            try {
+	                const parsedData = jQuery.parseJSON(data);
+	                const dataList = document.getElementById('bankListData');
+	                const totalIssueCount = document.getElementById('totalIssueCount');
+	                const totalIssueAmount = document.getElementById('totalIssueAmount');
+	                const redemVCount = document.getElementById('redemVCount');
+	                const redemVAmount = document.getElementById('redemVAmount');
+	                const expRevokeCount = document.getElementById('expRevokeCount');
+	                const expRevokeAmount = document.getElementById('expRevokeAmount');
+	                const activeCount = document.getElementById('activeCount');
+	                const activeAmount = document.getElementById('activeAmount');
+
+					const totalVoucher = document.getElementById('totalVoucher');
+					const totalvoucherValue = document.getElementById('totalvoucherValue');
+									
+	                // Clear previous list
+	                dataList.innerHTML = "";
+
+	                parsedData.data.forEach((item) => {
+	                    const div = document.createElement('div');
+	                    div.className = 'left-activeupivcmarked';
+	                    div.innerHTML = `
+	                        <div class="img-bank">
+	                            <img src="data:image/png;base64,${item.bankLogo}" width="18" height="18" alt="Bank Logo">
+	                        </div>
+	                        <span>${item.bankName}</span>
+	                        <input type="hidden" value="${item.bankAccount}" />
+	                        <label>${item.bankAccountMask || ''}</label>
+	                    `;
+
+	                    // Set the default active class for null bank account
+	                    if (item.bankAccount === null) {
+	                        div.classList.add('active');
+
+	                        // Fetch details for null account on page load
+	                        $.ajax({
+	                            type: "POST",
+	                            url: "/voucherCreateSummaryDetailByAccount",
+	                            data: {
+	                                "orgId": employerId,
+	                                "accNumber": null,
+	                            },
+	                            success: function (data) {
+	                                const jsonData = jQuery.parseJSON(data);
+	                                totalIssueCount.textContent = jsonData.issueDetail.totalIssueCount || "0";
+	                                totalIssueAmount.textContent = jsonData.issueDetail.totalIssueAmount || "0";
+	                                redemVCount.textContent = jsonData.issueDetail.redemVCount || "0";
+	                                redemVAmount.textContent = jsonData.issueDetail.redemVAmount || "0";
+	                                expRevokeCount.textContent = jsonData.issueDetail.expRevokeCount || "0";
+	                                expRevokeAmount.textContent = jsonData.issueDetail.expRevokeAmount || "0";
+	                                activeCount.textContent = jsonData.issueDetail.activeCount || "0";
+	                                activeAmount.textContent = jsonData.issueDetail.activeAmount || "0";
+									
+									totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
+								    totalvoucherValue.textContent = jsonData.issueDetail.totalIssueAmount || "0";
+	                            },
+	                            error: function (e) {
+	                                console.error('Error fetching default account details:', e);
+	                            },
+	                        });
+	                    }
+
+	                    // Add a click event listener to the div
+	                    div.addEventListener('click', () => {
+	                        const activeDiv = dataList.querySelector('.active');
+	                        if (activeDiv) activeDiv.classList.remove('active');
+
+	                        div.classList.add('active');
+
+	                        const bankAccount = item.bankAccount;
+	                        
+	                            $.ajax({
+	                                type: "POST",
+	                                url: "/voucherCreateSummaryDetailByAccount",
+	                                data: {
+	                                    "orgId": employerId,
+	                                    "accNumber": bankAccount,
+	                                },
+	                                success: function (data) {
+	                                    const jsonData = jQuery.parseJSON(data);
+	                                    totalIssueCount.textContent = jsonData.issueDetail.totalIssueCount || "0";
+	                                    totalIssueAmount.textContent = jsonData.issueDetail.totalIssueAmount || "0";
+	                                    redemVCount.textContent = jsonData.issueDetail.redemVCount || "0";
+	                                    redemVAmount.textContent = jsonData.issueDetail.redemVAmount || "0";
+	                                    expRevokeCount.textContent = jsonData.issueDetail.expRevokeCount || "0";
+	                                    expRevokeAmount.textContent = jsonData.issueDetail.expRevokeAmount || "0";
+	                                    activeCount.textContent = jsonData.issueDetail.activeCount || "0";
+	                                    activeAmount.textContent = jsonData.issueDetail.activeAmount || "0";
+	                                },
+	                                error: function (e) {
+	                                    console.error('Error fetching account details:', e);
+	                                },
+	                            });
+	                       
+	                    });
+
+	                    dataList.appendChild(div);
+	                });
+
+	                // Update totals with parsed data
+	                totalIssueCount.textContent = parsedData.issueDetail.totalIssueCount || "0";
+	                totalIssueAmount.textContent = parsedData.issueDetail.totalIssueAmount || "0";
+	                redemVCount.textContent = parsedData.issueDetail.redemVCount || "0";
+	                redemVAmount.textContent = parsedData.issueDetail.redemVAmount || "0";
+	                expRevokeCount.textContent = parsedData.issueDetail.expRevokeCount || "0";
+	                expRevokeAmount.textContent = parsedData.issueDetail.expRevokeAmount || "0";
+	                activeCount.textContent = parsedData.issueDetail.activeCount || "0";
+	                activeAmount.textContent = parsedData.issueDetail.activeAmount || "0";
+	            } catch (error) {
+	                console.error('Error parsing response:', error);
+	                alert('Failed to process the response data.');
+	            }
+	        },
+	        error: function (error) {
+	            console.error('Error in AJAX request:', error);
+	            alert('Failed to fetch bank list. Please try again.');
+	        },
+	    });
+	}
+	
+	
+	function  getLinkedBankDetail(){
+			
+		    //document.getElementById("signinLoader").style.display="flex";
+		 	var employerid = document.getElementById("employerId").value;
+		 	$.ajax({
+			type: "POST",
+			url:"/getErupiLinkBankAccountDetail",
+		       data: {
+					"orgId": employerid
+		      		 },
+		      		  beforeSend : function(xhr) {
+					//xhr.setRequestHeader(header, token);
+					},
+					   success: function(data){
+			          
+						var obj = jQuery.parseJSON( data );
+						 obj = obj.data;
+						 
+						if (obj && obj.length > 0) {
+						     // Show the div with data
+							 document.getElementById("nolinkBankAccount").style.display="none";
+			 				 document.getElementById("linkedAccount").style.display="block";
+			 				 const issueManually = document.getElementById('issueManually');
+			 				 issueManually.disabled =false;
+							 
+						   } else {
+							const issueManually = document.getElementById('issueManually');
+							issueManually.disabled =true;
+							document.getElementById("nolinkBankAccount").style.display="block";
+							 document.getElementById("linkedAccount").style.display="none";
+						}		
+		          },
+		        error: function(e){
+		            alert('Error: ' + e);
+		        }
+		   }); 
+					
+		}
+
+function getProfileStatus(){
+	//document.getElementById("overlay").style.display = "flex";
+	var employerId = document.getElementById("employerId").value;
+	var employeeId = document.getElementById("employeeId").value;
+	$.ajax({
+		type: "POST",
+		url: "/getCompanyProfileStatus",
+		data: {
+				"employerId":employerId,
+				"employeeId" :employeeId
+		},
+		beforeSend: function(xhr) {
+		},
+		success: function(data) {
+			try {
+	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
+
+	               if (parsedData.data && parsedData.data.profileTotal) {
+	                  //let profileComplete = parsedData.data.profileComplete;
+					  let profileComplete =parsedData.data.profileTotal;
+					  let profileCompanyComplete =parsedData.data.profileCompanyComplete;
+					  let erupiLinkAccount = parsedData.data.erupiLinkAccount;
+					  let profileVehicleComplete = parsedData.data.profileVehicleComplete;
+	                   if (profileCompanyComplete === "1") {
 						let anchorStart = document.getElementById("anchorStart");
 						anchorStart.textContent = "Completed";
 					    anchorStart.href = ""; 
@@ -28,7 +721,7 @@ function getProfileStatus(){
 						document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
 						document.getElementById("btnsetupBankAccount").classList.remove("bg-transparent");
 					   }
-					   if (profileComplete === 2) {
+					   if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1") {
 	   					let anchorStart = document.getElementById("anchorStart");
 	   					anchorStart.textContent = "Completed";
 	   				    anchorStart.href = ""; 
@@ -43,10 +736,25 @@ function getProfileStatus(){
 	   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
 						document.getElementById("btnsetupPartner").classList.remove("bg-transparent");
 						document.getElementById("bankContent").style.display = "block";
+						document.getElementById("bankContentInprogress").style.display = "none";
+	                   }else if(profileCompanyComplete === "1" &&  erupiLinkAccount==="2"){
+						let anchorStart = document.getElementById("anchorStart");
+	   					anchorStart.textContent = "Completed";
+	   				    anchorStart.href = ""; 
+	   					anchorStart.style = "color:#86889B"; 
 						
-							
-	                   }
-					   if (profileComplete === 3) {
+						let anchorStartAccount = document.getElementById("anchorStartAccount");
+						anchorStartAccount.textContent = "Inprogress";
+						anchorStartAccount.href = ""; 
+						anchorStartAccount.style = "color:#FF9500"; 
+						
+	   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+	   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
+						document.getElementById("btnsetupPartner").classList.remove("bg-transparent");
+						document.getElementById("bankContent").style.display = "none";
+						document.getElementById("bankContentInprogress").style.display = "block";
+					   }
+					    if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1" && profileVehicleComplete==="1") {
    	   					let anchorStart = document.getElementById("anchorStart");
    	   					anchorStart.textContent = "Completed";
    	   				    anchorStart.href = ""; 
@@ -61,12 +769,19 @@ function getProfileStatus(){
 						btnTextVehicles.textContent = "Completed";
 						btnTextVehicles.href = ""; 
 						btnTextVehicles.style = "color:#86889B"; 
-						
-   						
+					
    	   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
    	   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
    						document.getElementById("btnsetupPartner").classList.add("cd-step-item", "bg-transparent");
-   							
+   						
+						
+						document.getElementById("profileContainer").style.display = "block";
+						document.getElementById("accountSetup").style.display = "none";
+						document.getElementById("userTransactionSection").style.display = "block";
+						document.getElementById("activeVoucherContainer").style.display = "block";
+																		
+						document.getElementById("accountSetupDiv2").style.display = "block";
+							
    	                   }
 	                   $('#profileComplete').html(profileComplete);
 	                   document.getElementById("profile").style.width = (66.33 * parseInt(profileComplete)) + "px";
@@ -257,8 +972,6 @@ function getBankListWithVocher() {
 	
 	
 	function  getLinkedBankDetail(){
-			
-		    //document.getElementById("signinLoader").style.display="flex";
 		 	var employerid = document.getElementById("employerId").value;
 		 	$.ajax({
 			type: "POST",

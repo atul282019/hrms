@@ -1244,7 +1244,10 @@ function openModalConfirm() {
 	    $.ajax({
 	        type: "GET",
 	        url: "/getVehicleList",
-			data: { orgId },
+			data: { "orgId": orgId,
+					"limit":"No"
+					
+					},
 	        beforeSend: function(xhr) {
 	            //xhr.setRequestHeader(header, token);
 	        },
