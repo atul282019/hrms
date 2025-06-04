@@ -3,8 +3,12 @@ package com.cotodel.hrms.web.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +38,8 @@ import com.cotodel.hrms.web.response.BankVerificationRequest;
 import com.cotodel.hrms.web.response.BulkEmployeeRequest;
 import com.cotodel.hrms.web.response.EmployeeOnboardingDriverRequest;
 import com.cotodel.hrms.web.response.RCRequest;
+import com.cotodel.hrms.web.response.VehicleBulkCreateRequest;
+import com.cotodel.hrms.web.response.VehicleManagementBulkUploadRequest;
 import com.cotodel.hrms.web.response.VehicleManagementRequest;
 import com.cotodel.hrms.web.response.VehicleManagementSaveRequest;
 import com.cotodel.hrms.web.service.VehicleManagementService;
@@ -41,6 +47,7 @@ import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
@@ -48,6 +55,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class VehicleManagementController extends CotoDelBaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(VehicleManagementController.class);
+	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
+    private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
@@ -243,35 +252,35 @@ public class VehicleManagementController extends CotoDelBaseController {
     	return profileRes;
 	}
 	
-	@PostMapping(value="/saveBulkVehicleDetail")
-	public String saveBulkVehicleDetail(HttpServletResponse response, HttpServletRequest request,
-			@ModelAttribute("formData") BulkEmployeeRequest bulkEmployeeRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
-		
-		String profileRes=null;JSONObject profileJsonRes=null;
-		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-		ObjectMapper mapper = new ObjectMapper();
-		String res = null; 
-		int orgid=(int)request.getSession(true).getAttribute("id");
-		Long emplrid=(long)orgid;
-		bulkEmployeeRequest.setEmployerId(emplrid);
-		profileRes = vehicleManagementService.saveBulkVehicleDetail(tokengeneration.getToken(),bulkEmployeeRequest);
-		profileJsonRes= new JSONObject(profileRes);
-		if(profileJsonRes.getString("status").equalsIgnoreCase("SUCCESS")) { 
-			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-		}else {
-			//loginservice.sendEmailVerificationCompletion(userForm);
-			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-		}
-		try {
-			res = mapper.writeValueAsString(otpMap);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		  session.setAttribute("list",profileRes); logger.info(profileRes);
-		  model.addAttribute("list",profileRes); 
-		  return "bulk-table-invitelist";
-		  
-	}
+//	@PostMapping(value="/saveBulkVehicleDetail")
+//	public String saveBulkVehicleDetail(HttpServletResponse response, HttpServletRequest request,
+//			@ModelAttribute("formData") BulkEmployeeRequest bulkEmployeeRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
+//		
+//		String profileRes=null;JSONObject profileJsonRes=null;
+//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res = null; 
+//		int orgid=(int)request.getSession(true).getAttribute("id");
+//		Long emplrid=(long)orgid;
+//		bulkEmployeeRequest.setEmployerId(emplrid);
+//		profileRes = vehicleManagementService.saveBulkVehicleDetail(tokengeneration.getToken(),bulkEmployeeRequest);
+//		profileJsonRes= new JSONObject(profileRes);
+//		if(profileJsonRes.getString("status").equalsIgnoreCase("SUCCESS")) { 
+//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
+//		}else {
+//			//loginservice.sendEmailVerificationCompletion(userForm);
+//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
+//		}
+//		try {
+//			res = mapper.writeValueAsString(otpMap);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		  session.setAttribute("list",profileRes); logger.info(profileRes);
+//		  model.addAttribute("list",profileRes); 
+//		  return "bulk-table-invitelist";
+//		  
+//	}
 	
 
 	@GetMapping(value = "/getVehicleTemplate")
@@ -298,6 +307,249 @@ public class VehicleManagementController extends CotoDelBaseController {
 		}
 		return null;
 	}
+	
+	@PostMapping(value="/saveBulkVehicle")
+	public @ResponseBody String saveBulkVehicle(HttpServletResponse response, HttpServletRequest request,
+			VehicleManagementBulkUploadRequest vehicleManagementBulkUploadRequest, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {
 
+	    String profileRes = null;
+	    Map<String, Object> responseMap = new HashMap<>();
+	    ObjectMapper mapper = new ObjectMapper();
+	    
+	    String receivedHash = vehicleManagementBulkUploadRequest.getHash();
+
+	    // Validate client key only
+	    if (!CLIENT_KEY.equals(vehicleManagementBulkUploadRequest.getClientKey())) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Invalid client key");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+	    System.out.println("vehicleManagementBulkUploadRequest.getOrgId() " + vehicleManagementBulkUploadRequest.getOrgId());
+        System.out.println("vehicleManagementBulkUploadRequest.getFileName() " + vehicleManagementBulkUploadRequest.getFileName());
+        System.out.println("vehicleManagementBulkUploadRequest.getFile() " + vehicleManagementBulkUploadRequest.getFile());
+        System.out.println("vehicleManagementBulkUploadRequest.getCreatedBy() " + vehicleManagementBulkUploadRequest.getCreatedBy());
+	    
+	    // Prepare data string for hashing
+	    String dataString = vehicleManagementBulkUploadRequest.getOrgId() + vehicleManagementBulkUploadRequest.getFileName() + vehicleManagementBulkUploadRequest.getFile() +
+	            
+	    		vehicleManagementBulkUploadRequest.getCreatedBy() + CLIENT_KEY + SECRET_KEY;
+
+	    String computedHash = null;
+	    try {
+	        computedHash = generateHash(dataString);
+	        System.out.println("computedHash: " + computedHash);
+	        System.out.println("dataString: " + dataString);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+
+	    // Validate hash
+	    boolean isValid = computedHash != null && computedHash.equals(receivedHash);
+	    if (!isValid) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Request Tempered");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+
+	    // Get token from session
+//	    String token = (String) session.getAttribute("hrms");
+//	    if (token == null) {
+//	        responseMap.put("status", false);
+//	        responseMap.put("message", "Unauthorized: No token found.");
+//	        try {
+//	            return mapper.writeValueAsString(responseMap);
+//	        } catch (JsonProcessingException e) {
+//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+//	        }
+//	    }
+
+//	    // Validate Token
+//	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//	    if (obj == null) {
+//	        responseMap.put("status", false);
+//	        responseMap.put("message", "Unauthorized: Invalid token.");
+//	        try {
+//	            return mapper.writeValueAsString(responseMap);
+//	        } catch (JsonProcessingException e) {
+//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+//	        }
+//	    }
+
+	    // Check User Role and Organization ID
+	   // if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == bulkVoucherRequest.getOrgId().intValue()) {
+	        try {
+	            String json = EncryptionDecriptionUtil.convertToJson(vehicleManagementBulkUploadRequest);
+	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+	            String encriptResponse = vehicleManagementService.saveBulkVehicleDetail(tokengeneration.getToken(), jsonObject);
+
+	            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+	            profileRes = EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+	            JSONObject apiJsonResponse = new JSONObject(profileRes);
+	            boolean status = apiJsonResponse.getBoolean("status");
+	            responseMap.put("status", status);
+	            responseMap.put("message", apiJsonResponse.getString("message"));
+
+	            if (status && apiJsonResponse.has("data")) {
+	                responseMap.put("data", profileRes);
+	            } else {
+	            	//responseMap.put("data", profileRes);
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+//	    } else {
+//	        responseMap.put("status", false);
+//	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+//	    }
+
+	    try {
+	        return mapper.writeValueAsString(responseMap);
+	    } catch (JsonProcessingException e) {
+	        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	    }
+	} 
+
+	@PostMapping(value="/createBulkVehicle")
+	public @ResponseBody String createBulkVehicle(HttpServletResponse response, HttpServletRequest request,
+			VehicleBulkCreateRequest vehicleBulkCreateRequest, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {
+
+	    String profileRes = null;
+	    Map<String, Object> responseMap = new HashMap<>();
+	    ObjectMapper mapper = new ObjectMapper();
+	    
+	    String receivedHash = vehicleBulkCreateRequest.getHash();
+	    String arrayJoined = String.join("", vehicleBulkCreateRequest.getArrayofid()); 
+
+	    // Validate client key only
+	    if (!CLIENT_KEY.equals(vehicleBulkCreateRequest.getClientKey())) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Invalid client key");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+	    System.out.println("vehicleManagementBulkUploadRequest.getOrgId() " + vehicleBulkCreateRequest.getOrgId());
+        System.out.println("arrayJoined " + arrayJoined);
+//        System.out.println("vehicleManagementBulkUploadRequest.getFile() " +vehicleBulkCreateRequest.getFile());
+        System.out.println("vehicleManagementBulkUploadRequest.getCreatedBy() " + vehicleBulkCreateRequest.getCreatedby());
+	    
+	    // Prepare data string for hashing
+	    String dataString = vehicleBulkCreateRequest.getOrgId() +
+	            
+	    		vehicleBulkCreateRequest.getCreatedby() +arrayJoined+ CLIENT_KEY + SECRET_KEY;
+
+	    String computedHash = null;
+	    try {
+	        computedHash = generateHash(dataString);
+	        System.out.println("computedHash: " + computedHash);
+	        System.out.println("dataString: " + dataString);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+
+	    // Validate hash
+	    boolean isValid = computedHash != null && computedHash.equals(receivedHash);
+	    //isValid=true;
+	    if (!isValid) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Request Tempered");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+
+	    // Get token from session
+//	    String token = (String) session.getAttribute("hrms");
+//	    if (token == null) {
+//	        responseMap.put("status", false);
+//	        responseMap.put("message", "Unauthorized: No token found.");
+//	        try {
+//	            return mapper.writeValueAsString(responseMap);
+//	        } catch (JsonProcessingException e) {
+//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+//	        }
+//	    }
+
+//	    // Validate Token
+//	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//	    if (obj == null) {
+//	        responseMap.put("status", false);
+//	        responseMap.put("message", "Unauthorized: Invalid token.");
+//	        try {
+//	            return mapper.writeValueAsString(responseMap);
+//	        } catch (JsonProcessingException e) {
+//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+//	        }
+//	    }
+
+	    // Check User Role and Organization ID
+	   // if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == bulkVoucherRequest.getOrgId().intValue()) {
+	        try {
+	            String json = EncryptionDecriptionUtil.convertToJson(vehicleBulkCreateRequest);
+	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+	            String encriptResponse = vehicleManagementService.createBulkVehicle(tokengeneration.getToken(), jsonObject);
+
+	            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+	            profileRes = EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+	            JSONObject apiJsonResponse = new JSONObject(profileRes);
+	            boolean status = apiJsonResponse.getBoolean("status");
+	            responseMap.put("status", status);
+	            responseMap.put("message", apiJsonResponse.getString("message"));
+
+	            if (status && apiJsonResponse.has("data")) {
+	                responseMap.put("data", profileRes);
+	            } else {
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+//	    } else {
+//	        responseMap.put("status", false);
+//	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+//	    }
+
+	    try {
+	        return mapper.writeValueAsString(responseMap);
+	    } catch (JsonProcessingException e) {
+	        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	    }
+	} 
+	
+	
+	 private String generateHash(String data) throws NoSuchAlgorithmException {
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : hashBytes) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    }
 	
 }

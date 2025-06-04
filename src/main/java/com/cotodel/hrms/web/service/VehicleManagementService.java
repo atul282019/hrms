@@ -3,6 +3,7 @@ package com.cotodel.hrms.web.service;
 import org.springframework.stereotype.Repository;
 
 import com.cotodel.hrms.web.response.BulkEmployeeRequest;
+import com.cotodel.hrms.web.response.VehicleManagementBulkUploadRequest;
 import com.cotodel.hrms.web.util.EncriptResponse;
 
 @Repository
@@ -15,6 +16,8 @@ public interface VehicleManagementService {
 	public String vehichleTripHistory(String token, EncriptResponse jsonObject);
 	public String getVehicleNumberDetaiilByVehicleNumber(String token, EncriptResponse jsonObject);
 	public String checkAccountNumberValidation(String token, EncriptResponse jsonObject);
-	public String saveBulkVehicleDetail(String token, BulkEmployeeRequest bulkEmployeeRequest);
+	public String saveBulkVehicleDetail(String token, EncriptResponse jsonObject);
+	public String createBulkVehicle(String token, EncriptResponse jsonObject);
+	
 
 }

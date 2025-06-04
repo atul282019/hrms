@@ -34,7 +34,8 @@
 
 </head>
 
-<body id="page-top" onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail(),getTotalVoucherCount()" >
+<body id="page-top"  >
+	<!-- onload="getLinkedBankDetail(),getVoucherSummaryList(), getPrimaryBankDetail(),getTotalVoucherCount()"-->
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -242,7 +243,7 @@
 									<input type="hidden" class="form-input" id="payerva" name="payerva"> 
 									<input type="hidden" class="form-input" id="base64Output" name="base64Output"> 
 									<input type="hidden" class="form-input" id="fileName" name="fileName"> 
-									
+									<input type="hidden" class="form-input" id="vehicleIds" name="vehicleIds">
 									
 																		
 								   <div class="clearfix"></div>
@@ -260,12 +261,12 @@
                                         <a class="btn btn-border-primary btn-lg" 
 										th:href="@{/issueWithBulkUploadVoucher}">Back</a>
 										<!-- @{/createUpiVoucherIssuance}-->
-										<!--<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVoucherUpload()" value="Upload & Continue" disabled> </input>
-          							 -->
-									 <!-- Trigger button for Bootstrap 4 -->
+										<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVehicleUpload()" value="Upload & Continue" disabled> </input>
+											
+									 <!-- Trigger button for Bootstrap 4 
 									 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Vehicleloading">
 									   Upload & Continue
-									 </button>
+									 </button>-->
 
                                     </div>
                                                     
@@ -292,11 +293,11 @@
                                             <thead>
                                                 <tr>
                                                     <!--<th>Redemtion Type</th>-->
-                                                    <th>Beneficiary Name</th>
-                                                    <th>mobile</th>
+                                                    <th>Vehicle Registration #</th>
+                                                    <!--<th>mobile</th>
                                                     <th>amount</th>
                                                     <th>startDate</th>
-                                                    <th>expDate</th>
+                                                    <th>expDate</th>-->
                                                    
                                                 </tr>
                                             </thead>
@@ -308,7 +309,7 @@
 
                                     <div class="text-right my-3">
                                         <button class="btn btn-outline-reject" onclick="bulkReject()">Cancel</button>
-                                        <button class="btn btn-confirm" id="continueButton" onclick="nextTab()" disabled>Continue
+                                        <button class="btn btn-confirm" id="continueButton" onclick="createBulkVehicle()" disabled>Continue
 											<!--<a class="text-white" style="text-decoration: none;" onclick="nextTab()" >Continue</a>-->
 											</button>
                                     </div>
@@ -325,12 +326,12 @@
                                             <thead>
                                                 <tr>
 													<!--<th>Redemtion Type</th>-->
-                                                    <th>Beneficiary Name</th>
-                                                    <th>mobile</th>
-                                                    <th>amount</th>
+                                                    <th>Reason</th>
+                                                    <th>Vehicle Registration #</th>
+                                                    <!--<th>amount</th>
                                                     <th>startDate</th>
                                                     <th>expDate</th>
-													<th>Error Msg</th>
+													<th>Error Msg</th>-->
                                                 
                                                 </tr>
                                             </thead>
@@ -603,6 +604,44 @@
 
     </div>
     <!-- End of Page Wrapper -->
+	
+	<!-- Modal Confirm -->
+	<div class="modal fade" id="ModalBulkConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content modal-bulk">
+	        <div class="modal-top text-center">          
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+	            <img src="img/modal-close.svg" alt="">
+	        </button>        
+	        <img src="img/modal-success.svg" alt="">
+	        </div>
+	        <div class="modal-bottom">
+	            <div class="count"><span id="correctConfirm"></span><strong id="correctTotal"></strong></div>
+	            <br>
+	            <span>Upload Successful</span>
+	        </div>
+	    </div>
+	    </div>
+	</div>
+
+	<!-- Modal Reject -->
+	<div class="modal fade" id="ModalBulkReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content modal-bulk">
+	        <div class="modal-top text-center">          
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+	            <img src="img/modal-close.svg" alt="">
+	        </button>        
+	        <img src="img/modal-reject.svg" alt="">
+	        </div>
+	        <div class="modal-bottom">
+	            <div class="count"><span id="rejectConfirm"></span><strong id="rejectTotal"></strong></div>
+	            <br>
+	            <span>Upload Rejected</span>
+	        </div>
+	    </div>
+	    </div>
+	</div>
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -626,13 +665,15 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<script src="js/xsls-export.js"></script>
-	<script type="text/javascript" src="cotodel-js/bulk-voucher-issuance.js"></script>
+	<script type="text/javascript" src="cotodel-js/bulk-vehicle.js"></script>
 
 	<script type="text/javascript" src="js/slick/slick.min.js"></script>
 
 
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<!-- Bootstrap JS (must come after jQuery) -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 	
 		<script type="text/javascript">
