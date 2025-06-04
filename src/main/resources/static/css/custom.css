@@ -623,7 +623,10 @@ ul.navbar-nav.top-nav .nav-item a.active span {
 	color: #F24822;
 	
 }
-
+.otp-input.error {
+  border: 1px solid #F24822 !important;
+  box-shadow: 0 0 0 0.2rem rgba(242, 72, 34, 0.25) !important;
+}
 label.company-dtl-label {
     font-weight: 400;
     margin-top: 10px;
@@ -4778,7 +4781,9 @@ select.GeneralSelect,
 .btn-lg {
     min-width: 150px;
 }
-
+.w-16 {
+  width: 16% !important;
+}
 .selectvouchers-table td span {
     margin-left: 10px;
 }
@@ -7029,6 +7034,59 @@ table.vcScheduledtable thead {
 							  width: 140.3571319580078px;
 							  height: 30px;
 							}
+							/* making logo responsive */
+							/* Responsive: center logo in small viewports */
+							@media (max-width: 768px) {
+							  .logo-container {
+							    left: 60px;
+							    transform: translateX(-50%);
+							  }
+
+							  .logo-img {
+							    width: 120px;
+							    height: auto;
+							  }
+							}
+							/* Responsive Adjustments */
+
+								@media (max-width: 400px) {
+								  .logo-img {
+								    width: 100px;
+								    height: auto;
+									margin-left: 30px;
+								  }
+								}
+								/*making eye icon on index page responsive*/
+								/* Eye icon default style
+									.eye-icon {
+									  font-size: 18px;
+									  cursor: pointer;
+									  display: inline-block;
+									  margin-bottom: 2px;
+									  margin-top: 10px;
+									} */
+									.eye-icon {
+												  font-size: 18px;
+												  cursor: pointer;
+												  display: inline-block;
+												  margin-bottom: 2px;
+												  margin-left: -50px;
+												  margin-top: 10px;
+												}
+
+									/* Responsive: stack icon below inputs on small screens */
+									@media (max-width: 300px) {
+									  .otp-wrapper {
+									    flex-direction: column;
+									    align-items: flex-start;
+									  }
+
+									  .eye-icon {
+									    margin-left: 0;
+									    margin-top: 5px;
+									  }
+									}
+
 
 							.phone-prefix {
 							  display: flex;
@@ -7416,12 +7474,14 @@ table.vcScheduledtable thead {
 				  border-radius: 10px;
 				  background: white;
 				  margin: 20px;
+				  width:97.5%;
 				}
 				.business-benefits01 {
 					  border: 1px solid #DEE2E6;
 					  border-radius: 10px;
 					  background: white;
 					  margin: 20px;
+					  width:97.5%;
 					}
 
 				.max-w-1440 {
