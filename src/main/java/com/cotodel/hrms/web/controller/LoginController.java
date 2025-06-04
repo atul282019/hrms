@@ -120,6 +120,7 @@ public class LoginController extends CotoDelBaseController{
 					//set token in session
 					request.getSession(true).setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));									  
 					request.getSession(true).setAttribute("hrms", profileJsonRes.getJSONObject("data").getString("mobile"));
+					request.getSession(true).setAttribute("organizationName", profileJsonRes.getJSONObject("data").getString("organizationName"));
 					request.getSession(true).setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
 					request.getSession(true).setAttribute("user_role",  profileJsonRes.getJSONObject("data").getInt("role_id"));
 					request.getSession(true).setAttribute("formattedDate",  formattedDate);
@@ -200,7 +201,7 @@ public class LoginController extends CotoDelBaseController{
 					session.setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));
 					session.setAttribute("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
 					session.setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
-					
+					session.setAttribute("organizationName", profileJsonRes.getJSONObject("data").getString("organizationName"));
 					//check user is in database or not
 					//userRes=loginService.checkUserExsistance(userForm);
 

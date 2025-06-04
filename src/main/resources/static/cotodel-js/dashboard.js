@@ -26,7 +26,9 @@ async function getVoucherTransactionList() {
                 "pagingType": "full_numbers",
                 "pageLength": 50,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                "language": {"emptyTable": "As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.If your team and you haven’t already, start issuing and using UPI Vouchers to experience the magic!"},
+                "language": {
+					"emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+					},
                 
                 "aaData": data2,
                 "aoColumns": [
@@ -113,7 +115,9 @@ async function getVehicleManagementList() {
                 "pagingType": "full_numbers",
                 "pageLength": 50,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                "language": {"emptyTable": "No vehicles have been mapped with the platform yet. Please proceed to the Vehicle Management section to onboard vehicles from your fleet."},
+                "language": {
+					"emptyTable": 'No vehicles have been mapped with the platform yet. Please proceed to the <a href="/vehiclemanagement">Vehicle Management</a> section to onboard vehicles from your fleet.'
+						},
                 
                 // Use the filtered data instead of original data
                 "aaData": data2,
@@ -196,7 +200,7 @@ function erupiVoucherCreateListLimit() {
 			data: {
 				//"employeeId": employerid,
 				"orgId": employerid,
-				"timePeriod":"LM",
+				"timePeriod":"CM",
 			},
 			success: function(data) {
 				newData = data;
@@ -210,7 +214,9 @@ function erupiVoucherCreateListLimit() {
 				 lengthChange: true,
 			     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
 	             "buttons": ["csv", "excel"],
-	             "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
+	             "language": {
+					"emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+					},
 		         "aaData": data2,
 	      		  "aoColumns": [ 
 					 
@@ -281,6 +287,7 @@ function loadActiveInactiveUserList(){
 			url: "/loadActiveInactiveUserList",
 			data: {
 					"employerId":employerId,
+					"type":"total",
 			},
 			beforeSend: function(xhr) {
 			},
@@ -367,7 +374,7 @@ function loadCategoryVoucherData(){
 		url: "/usedAmountByCategories",
 		data: {
 				"orgId":employerId,
-				"timePeriod":"LM",
+				"timePeriod":"CM",
 		},
 		beforeSend: function(xhr) {
 		},
@@ -428,7 +435,15 @@ function loadVoucherData(){
 			var response = JSON.parse(response);
 			try {
 				if (response.status && response.data && response.data.length > 0) {
-				          populateVoucherUI(response.data[0]);
+					document.getElementById("employerId").value;
+					
+					document.getElementById("offerbox1").style.display="none";
+					document.getElementById("accountSetupDiv2").style.display="none";
+					document.getElementById("activeVoucherContainer").style.display = "block";
+					document.getElementById("userTransactionSection").style.display = "block";
+					document.getElementById("activeVoucherContainer").style.display = "block";
+					
+			       populateVoucherUI(response.data[0]);
 				        }
 
 	               
@@ -471,12 +486,18 @@ function populateVoucherUI(data) {
   const offset = circumference * (1 - spent / total);
   progressCircle.setAttribute('stroke-dasharray', circumference);
   progressCircle.setAttribute('stroke-dashoffset', offset);
+  
+  const color = spentPercent < 50 ? '#00c853' // green
+              : spentPercent < 80 ? '#ffab00' // orange
+              : '#d50000'; // red
+
+  progressCircle.setAttribute('stroke', color);
 }
 
 // Call this on page load
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
   loadVoucherData();
-});
+});*/
 function getProfileStatus1(){
 	//document.getElementById("overlay").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
@@ -754,7 +775,7 @@ function getProfileStatus(){
 						document.getElementById("bankContent").style.display = "none";
 						document.getElementById("bankContentInprogress").style.display = "block";
 					   }
-					    if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1" && profileVehicleComplete==="1") {
+					    if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1" && profileVehicleComplete==="0") {
    	   					let anchorStart = document.getElementById("anchorStart");
    	   					anchorStart.textContent = "Completed";
    	   				    anchorStart.href = ""; 
@@ -778,7 +799,7 @@ function getProfileStatus(){
 						document.getElementById("profileContainer").style.display = "block";
 						document.getElementById("accountSetup").style.display = "none";
 						document.getElementById("userTransactionSection").style.display = "block";
-						document.getElementById("activeVoucherContainer").style.display = "block";
+						//document.getElementById("activeVoucherContainer").style.display = "none";
 																		
 						document.getElementById("accountSetupDiv2").style.display = "block";
 							
