@@ -258,11 +258,11 @@
 																					
 																												
                                     <div class="w-100 my-3 text-left">
-                                        <a class="btn btn-border-primary btn-lg" 
-										th:href="@{/issueWithBulkUploadVoucher}">Back</a>
-										<!-- @{/createUpiVoucherIssuance}-->
+                                        <a class="btn btn-border-primary btn-lg w-16" 
+										th:href="@{/vehiclemanagement}">Back</a>
+										<!-- @{/createUpiVoucherIssuance}-->	
 										<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkVehicleUpload()" value="Upload & Continue" disabled> </input>
-											
+										
 									 <!-- Trigger button for Bootstrap 4 
 									 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Vehicleloading">
 									   Upload & Continue
@@ -674,6 +674,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<!-- Bootstrap JS (must come after jQuery) -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 	
 		<script type="text/javascript">
@@ -689,6 +690,44 @@
 	});
 
 	</script>
+	<style>
+	/* Container within modal */
+	.car-container {
+	  position: relative;
+	  width: 100%;
+	  height: 50px;
+	  overflow: hidden;
+	  margin-bottom: 1rem;
+	}
+
+	/* Car image */
+	.car-moving {
+	  position: absolute;
+	  top: 0;
+	  right: 250px;
+	  width: 60px;
+	  height: 30px;
+	  animation: moveCar var(--car-speed, 4s) linear infinite;
+	}
+
+	/* Animation only within container width */
+	@keyframes moveCar {
+	  0% {
+	    transform: translateX(0);
+	  }
+	  100% {
+	    transform: translateX(calc(100% + 80px));
+	  }
+	}
+
+	/* Optional speed control */
+	.speed-slow   { --car-speed: 8s; }
+	.speed-medium { --car-speed: 5s; }
+	.speed-fast   { --car-speed: 2s; }
+	</style>
+
+
+
 	<style>
 		
 			@keyframes rotate360 {
@@ -849,9 +888,9 @@
 		  <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document" style="max-width: 750px;">
 		    <div class="modal-content modal-bulk text-center p-4">
 		      <div class="modal-body">
-		        <div class="mb-3">
-		          <img src="img/animated-car.png" alt="" style="width: 60px;height: 30px;">
-		        </div>
+				<div class="car-container">
+				  <img src="img/animated-car.png" alt="Car" class="car-moving speed-medium">
+				</div>
 		        <h5 class="vehicle-history-title" style="text-align: center;">Upload in Progress</h5><hr>
 
 		        <div class="my-3 p-2" style="background-color: #367AFF1A; color: #4A4E69; border-radius:10px;">
@@ -976,6 +1015,11 @@
 			 </div>
 		</div>
 	</div>
+	<script>
+	  $('#Vehicleloading').on('shown.bs.modal', function () {
+	    $('.car-moving').addClass('car-moving');
+	  });
+	</script>
 
 	<script>
 	function toggleOtpVisibility() {

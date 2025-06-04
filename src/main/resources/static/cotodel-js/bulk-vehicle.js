@@ -25,7 +25,7 @@ async function saveBulkVehicleUpload(){
 	else{
 		document.getElementById("fileInputError").innerHTML="";
 	}
-
+	$('#Vehicleloading').modal('show');
 	$.ajax({
 		type: "POST",
 	     url:"/saveBulkVehicle",
@@ -44,8 +44,16 @@ async function saveBulkVehicleUpload(){
 		   console.log("data1",data1);
 		   var data2 = jQuery.parseJSON(data1);
 		   console.log("data2",data2);
-			
+		  
 			if(data2.status==true){
+				// showing the vehicle modal for 2 sec
+				setTimeout(() => {
+				  console.log("Closing modal...");
+				  $('#Vehicleloading').modal('hide');
+	  				$('body').removeClass('modal-open');
+	  				$('.modal-backdrop').remove();
+				}, 2000);
+				
 				//document.getElementById("continueButton").disabled = false;
 				 var success = data2.data.success;
 				 //send all success ids to backend while stroing in html

@@ -4781,7 +4781,9 @@ select.GeneralSelect,
 .btn-lg {
     min-width: 150px;
 }
-
+.w-16 {
+  width: 16% !important;
+}
 .selectvouchers-table td span {
     margin-left: 10px;
 }
@@ -7055,14 +7057,22 @@ table.vcScheduledtable thead {
 								  }
 								}
 								/*making eye icon on index page responsive*/
-								/* Eye icon default style */
+								/* Eye icon default style
 									.eye-icon {
 									  font-size: 18px;
 									  cursor: pointer;
 									  display: inline-block;
 									  margin-bottom: 2px;
 									  margin-top: 10px;
-									}
+									} */
+									.eye-icon {
+												  font-size: 18px;
+												  cursor: pointer;
+												  display: inline-block;
+												  margin-bottom: 2px;
+												  margin-left: -50px;
+												  margin-top: 10px;
+												}
 
 									/* Responsive: stack icon below inputs on small screens */
 									@media (max-width: 300px) {
