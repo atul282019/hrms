@@ -34,49 +34,49 @@ async function getVoucherTransactionList() {
                 "aoColumns": [
                     { "mData": "creationDate" },
 					{ "mData": "merchanttxnId" },
-                    { "mData": "name" },
+                    { "mData": "name"},
                     { "mData": "purposeDesc" },
 					{ "mData": "merchanttxnId" },
-					{ "mData": "amount" },
+					{
+					  "mData": "amount",
+					  "render": function(data2, type, row) {
+					    if (data2 === "" || data2 === null) {
+					      return '';
+					    } else {
+					      return 'INR' +"&nbsp;"+ data2;
+					    }
+					  }
+					},
+					
 					{ "mData": "merchanttxnId" },
 					
                 ],
 				createdRow: function (row, data2, dataIndex) 
                 {
-               
-             	var type = data2.type;
-                 if(type=="fail")
-                 {
-					var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
-					 $(row).find('td:eq(9)').html(imgTag);
-                //  $(row).find('td:eq(10)').addClass('tdactive');
-                 }
-                 if(type=="Created")
-                 {
-					var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
-					 $(row).find('td:eq(9)').html(imgTag);
-                 // $(row).find('td:eq(10)').addClass('tdsubmitted');
-                 }
-				 if(type=="Revoke")
-                 {
-			
-					var imgTag = ' <img src="img/Revoke.svg" alt="" class="mr-2">';
-				    $(row).find('td:eq(9)').html(imgTag);
-				 
-                 }
-				 if(type=="Redeem")
-                 {
-					var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
-					 $(row).find('td:eq(9)').html(imgTag);
-                 }
-				 var bankcode = data2.bankcode;
-				 var bankIcon = data2.bankIcon;
-				 var accountNumber = data2.accountNumber;
-				 if(bankcode=="ICICI")
+					
+					 
+				var purposeDesc = data2.purposeDesc;
+              	
+				
+                  if(purposeDesc=="Meal")
+                  {
+				 var imgTag = '<img src="img/food.svg" alt="" class="mr-2">'+purposeDesc;
+                   $(row).find('td:eq(3)').html(imgTag);
+                  }
+				 else if(purposeDesc=="Petroleum Vouhcer")
+                  {
+  			      var imgTag = '<img src="img/fuel-grey.png" alt="" class="mr-2">'+purposeDesc;
+                   $(row).find('td:eq(3)').html(imgTag);
+                  }
+             	
+				// var bankcode = data2.bankcode;
+				// var bankIcon = data2.bankIcon;
+				// var accountNumber = data2.accountNumber;
+				/* if(bankcode=="ICICI")
                  {	
  					 var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt=""] width="16px" height=""16px>';
  					 $(row).find('td:eq(2)').html(imgTag+" "+accountNumber);
-                 }
+                 }*/
               }
 		});		
 							
@@ -129,9 +129,9 @@ async function getVehicleManagementList() {
 					  "mData": "driverName2",
 					  "render": function(data1, type, row) {
 					    if (data1 === "" || data1 === null) {
-					      return 'Driver not assigned';
+					      return '<img src="img/vector-not-assigned.png" alt="" class="mr-2"> Driver is not assigned';
 					    } else {
-					      return row.driverName2 + "</br>+91 " + row.driverMobile + "";
+					      return row.driverName2 + "</br>+91 " + row.driverMobile + ""+'<img src="img/vector-people.png" alt="" style="margin-left: 100px;">';
 					    }
 					  }
 					},
@@ -223,18 +223,39 @@ function erupiVoucherCreateListLimit() {
 					{ "mData": "name"},
 	                { "mData": "mobile"},   
 				    { "mData": "accountNumber"},   
-					{ "mData": "purposeDesc"},  
+					{ "mData": "purposeDesc"},
 					//{ "mData": "mcc"}, 
 					{ "mData": "type"},
 					{ "mData": "creationDate"},
 					{ "mData": "expDate"},
-					{ "mData": "amount"},
+					{
+					  "mData": "amount",
+					  "render": function(data2, type, row) {
+					    if (data2 === "" || data2 === null) {
+					      return '';
+					    } else {
+					      return 'INR' +"&nbsp;"+ data2;
+					    }
+					  }
+					},
 					{ "mData": "amount"},      
 	    		 	],
 					
 					createdRow: function (row, data2, dataIndex) 
 	                    {
-	                   
+						var purposeDesc = data2.purposeDesc;
+						              	
+						
+		                  if(purposeDesc=="Meal")
+		                  {
+						 var imgTag = '<img src="img/food.svg" alt="" class="mr-2">'+purposeDesc;
+		                   $(row).find('td:eq(3)').html(imgTag);
+		                  }
+						 else if(purposeDesc=="Petroleum Vouhcer")
+		                  {
+		  			      var imgTag = '<img src="img/fuel-grey.png" alt="" class="mr-2">'+purposeDesc;
+		                   $(row).find('td:eq(3)').html(imgTag);
+		                  }
 	                 	var type = data2.type;
 	                     if(type=="fail")
 	                     {
@@ -365,6 +386,91 @@ function loadActiveInactiveUserList(){
 		});
 }
 
+function activeUser(){
+	
+	var employerId = document.getElementById("employerId").value;
+		$.ajax({
+			type: "POST",
+			url: "/loadActiveInactiveUserList",
+			data: {
+					"employerId":employerId,
+					"type":"active",
+			},
+			beforeSend: function(xhr) {
+			},
+			success: function(response) {
+				var responseData = JSON.parse(response);
+				const defaultImg = "img/user3.png"; // fallback image
+
+				// Set total and active counts
+				document.getElementById("totalCount").textContent = responseData.data.total;
+				document.getElementById("activeCount").textContent = responseData.data.active;
+
+				const tbody = document.getElementById("userTableBody");
+				tbody.innerHTML = ""; // clear previous rows
+
+				responseData.data.empList.forEach((emp) => {
+				  const tr = document.createElement("tr");
+
+				  const userTd = document.createElement("td");
+				  const img = document.createElement("img");
+				  img.className = "rounded-circle me-2";
+				  img.width = 30;
+
+				  if (emp.empPhoto && emp.empPhoto.trim() !== "") {
+				    img.src = `data:image/png;base64,${emp.empPhoto}`;
+				  } else {
+				    img.src = defaultImg; // fallback
+				  }
+
+				  userTd.appendChild(img);
+				  userTd.append(` ${emp.name}`);
+
+				  // --- Department ---
+				  const deptTd = document.createElement("td");
+				  deptTd.textContent =
+				    emp.depratment && emp.depratment.trim() !== ""
+				      ? emp.depratment
+				      : "-";
+					  const mobile = document.createElement("td");
+		  			  mobile.textContent =
+	  			    emp.mobile && emp.mobile.trim() !== ""
+	  			      ? emp.mobile
+	  			      : "-";
+
+					  const empOrCont = document.createElement("td");
+		  			  empOrCont.textContent =
+		  			    emp.empOrCont && emp.empOrCont.trim() !== ""
+		  			      ? emp.empOrCont
+		  			      : "-";
+
+						  const email = document.createElement("td");
+			  			  email.textContent =
+			  			    emp.email && emp.email.trim() !== ""
+			  			      ? emp.email
+			  			      : "-";
+
+				  // --- Employee Code ---
+				  const empCodeTd = document.createElement("td");
+				  empCodeTd.textContent = emp.empCode;
+
+				  // Append to row
+				  tr.appendChild(userTd);
+				  tr.appendChild(deptTd);
+				  tr.appendChild(empCodeTd);
+				  tr.appendChild(mobile);
+				  tr.appendChild(email);
+				  tr.appendChild(empOrCont);
+				  // Add to table
+				  tbody.appendChild(tr);
+				});
+
+			},
+			error: function(e) {
+				alert('Error: ' + e);
+			}
+		});
+}
 
 function loadCategoryVoucherData(){
 	//document.getElementById("overlay").style.display = "flex";
@@ -439,6 +545,7 @@ function loadVoucherData(){
 					
 					document.getElementById("offerbox1").style.display="none";
 					document.getElementById("accountSetupDiv2").style.display="none";
+					document.getElementById("businessSection").style.display = "none";
 					document.getElementById("activeVoucherContainer").style.display = "block";
 					document.getElementById("userTransactionSection").style.display = "block";
 					document.getElementById("activeVoucherContainer").style.display = "block";
@@ -466,39 +573,42 @@ function populateVoucherUI(data) {
   const spent = totalAmount;
   const available = balance;
   const total = spent + available;
-  const spentPercent = ((spent / total) * 100).toFixed(1);
+  const spentPercent = parseFloat(((spent / total) * 100).toFixed(1));
 
   // Update dropdown
   const dropdown = document.querySelector('.voucher-dropdown');
   dropdown.innerHTML = `<option>${bankName} ${maskedAccount}</option>`;
 
   // Update amounts
-  document.querySelector('.voucher-amount').textContent = `₹${available.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-  document.querySelector('.voucher-spent').textContent = `₹${spent.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+  document.querySelector('.voucher-amount').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  document.querySelector('.voucher-spent').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
-  // Update progress circle (you might need to style it with stroke-dasharray)
+  // Update progress text
   const progressText = document.querySelector('.voucher-progress-text');
   progressText.textContent = `${spentPercent}%`;
 
+  // Update progress circle
   const progressCircle = document.querySelector('.voucher-progress-bar');
   const radius = 55;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - spent / total);
   progressCircle.setAttribute('stroke-dasharray', circumference);
   progressCircle.setAttribute('stroke-dashoffset', offset);
-  
-  const color = spentPercent < 50 ? '#00c853' // green
-              : spentPercent < 80 ? '#ffab00' // orange
-              : '#d50000'; // red
+
+  // Dynamic color
+  const color = spentPercent < 50 ? '#00c853'      // green
+              : spentPercent < 80 ? '#ffab00'      // orange
+              : '#d50000';                         // red
 
   progressCircle.setAttribute('stroke', color);
 }
+
 
 // Call this on page load
 /*document.addEventListener('DOMContentLoaded', function () {
   loadVoucherData();
 });*/
-function getProfileStatus1(){
+/*function getProfileStatus1(){
 	//document.getElementById("overlay").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
 	var employeeId = "2";
@@ -538,7 +648,7 @@ function getProfileStatus1(){
 			alert('Error: ' + e);
 		}
 	});
-}
+}*/
 
 function getBankListWithVocher() {
 	    const employerId = document.getElementById("employerId").value;
@@ -734,11 +844,18 @@ function getProfileStatus(){
 					  let profileCompanyComplete =parsedData.data.profileCompanyComplete;
 					  let erupiLinkAccount = parsedData.data.erupiLinkAccount;
 					  let profileVehicleComplete = parsedData.data.profileVehicleComplete;
+					  let profileDriverComplete = parsedData.data.profileDriverComplete;
 	                   if (profileCompanyComplete === "1") {
 						let anchorStart = document.getElementById("anchorStart");
 						anchorStart.textContent = "Completed";
 					    anchorStart.href = ""; 
 						anchorStart.style = "color:#86889B"; 
+						
+						let anchorStartAccount = document.getElementById("btnTextAccount");
+						anchorStartAccount.textContent = "Start";
+						anchorStartAccount.href = "/roleAccess"; 
+						anchorStartAccount.style = "color:#0d6efd"; 
+												
 						document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
 						document.getElementById("btnsetupBankAccount").classList.remove("bg-transparent");
 					   }
@@ -752,6 +869,11 @@ function getProfileStatus(){
 						anchorStartAccount.textContent = "Completed";
 						anchorStartAccount.href = ""; 
 						anchorStartAccount.style = "color:#86889B"; 
+						
+						let btnTextVehicles = document.getElementById("anchorStartVehicles");
+						btnTextVehicles.textContent = "Start";
+						btnTextVehicles.href = "/manageEmployee"; 
+						btnTextVehicles.style = "color:#0d6efd"; 
 						
 	   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
 	   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
@@ -775,7 +897,7 @@ function getProfileStatus(){
 						document.getElementById("bankContent").style.display = "none";
 						document.getElementById("bankContentInprogress").style.display = "block";
 					   }
-					    if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1" && profileVehicleComplete==="0") {
+					    if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1" && profileDriverComplete==="1") {
    	   					let anchorStart = document.getElementById("anchorStart");
    	   					anchorStart.textContent = "Completed";
    	   				    anchorStart.href = ""; 
