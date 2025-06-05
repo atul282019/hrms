@@ -221,7 +221,7 @@ async function saveEmployeeOnboarding(){
 	    const hireDate = document.getElementById("hireDate").value;
 	    const jobTitle = document.getElementById("jobTitle").value;
 		const departmentDropdown = document.getElementById("department");
-		const department = departmentDropdown.options[departmentDropdown.selectedIndex].text;
+		var department = departmentDropdown.options[departmentDropdown.selectedIndex].text;
 	    const reporting = document.getElementById("reporting");
 		const managerName1 = reporting.options[reporting.selectedIndex].text;
 		const managerName = reporting.options[reporting.selectedIndex].value;
@@ -369,7 +369,7 @@ async function saveEmployeeOnboarding(){
 		    }
 	    }
 	   else if (employeeType==2 || employeeType==3 || employeeType==4) {
-
+		department=document.getElementById("organizationName").value;
 		if (name === "" || namespace !== name) {
 		    document.getElementById("nameError").textContent = namespace !== name 
 		        ? "Only single spaces are allowed." 
