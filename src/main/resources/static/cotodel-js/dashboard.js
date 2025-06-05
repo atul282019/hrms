@@ -131,8 +131,10 @@ async function getVehicleManagementList() {
 					    if (data1 === "" || data1 === null) {
 					      return '<img src="img/vector-not-assigned.png" alt="" class="mr-2"> Driver is not assigned';
 					    } else {
-					      return row.driverName2 + "</br>+91 " + row.driverMobile + ""+'<img src="img/vector-people.png" alt="" style="margin-left: 100px;">';
-					    }
+					      //return row.driverName2 + "</br>+91 " + row.driverMobile + ""+'<img src="img/vector-people.png" alt="" style="margin-left: 100px;">';
+						  return row.driverName2 + "</br>+91 " + row.driverMobile;
+						  					  
+					  }
 					  }
 					},
 				
@@ -527,7 +529,7 @@ function loadCategoryVoucherData(){
 } 
 
 function loadVoucherData(){
-	//document.getElementById("overlay").style.display = "flex";
+	document.getElementById("signinLoader").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
 	$.ajax({
 		type: "POST",
@@ -601,6 +603,7 @@ function populateVoucherUI(data) {
               : '#d50000';                         // red
 
   progressCircle.setAttribute('stroke', color);
+  document.getElementById("signinLoader").style.display = "none";
 }
 
 
@@ -822,7 +825,7 @@ function getBankListWithVocher() {
 		}
 
 function getProfileStatus(){
-	//document.getElementById("overlay").style.display = "flex";
+	document.getElementById("signinLoader").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
 	var employeeId = document.getElementById("employeeId").value;
 	$.ajax({
@@ -928,6 +931,7 @@ function getProfileStatus(){
    	                   }
 	                   $('#profileComplete').html(profileComplete);
 	                   document.getElementById("profile").style.width = (66.33 * parseInt(profileComplete)) + "px";
+					   document.getElementById("signinLoader").style.display = "none";
 	               } else {
 	                   console.log("Unexpected response structure:", parsedData.message || "No message");
 	               }
