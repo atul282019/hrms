@@ -25,39 +25,81 @@
     .btn-primary {
       width: 100%;
     }
+	
+	.carousel-line-indicators {
+	  display: flex;
+	  gap: 12px;
+	  justify-content: flex-start;
+	}
+
+	.carousel-line-indicators .line {
+	  width: 40px;
+	  height: 2px;
+	  background-color: #ffffff;
+	  opacity: 0.8;
+	  border-radius: 2px;
+	  margin-bottom: 10px;
+	}
+
+	.carousel-line-indicators .line.active {
+	  background-color: #2F945A;
+	  opacity: 1;
+	}
+
   </style>
+  <script>
+    const carousel = document.getElementById('imageCarousel');
+    const indicators = document.querySelectorAll('.carousel-line-indicators .line');
+
+    indicators.forEach((line, index) => {
+      line.addEventListener('click', () => {
+        $('#imageCarousel').carousel(index);
+      });
+    });
+
+    carousel.addEventListener('slid.bs.carousel', () => {
+      const activeIndex = [...carousel.querySelectorAll('.carousel-item')].findIndex(item => item.classList.contains('active'));
+      document.querySelectorAll('.carousel-line-indicators').forEach(group => {
+        group.querySelectorAll('.line').forEach((line, idx) => {
+          line.classList.toggle('active', idx === activeIndex);
+        });
+      });
+    });
+  </script>
+
 </head>
 <body>
   <div class="main-container">
 	<div class="logo-container">
 			  <img src="img/Cotodel Logo.svg" alt="Cotodel Logo" class="logo-img" />
 			</div>
-	<div class="image-section">
-		
-	  <div id="imageCarousel" class="carousel slide h-100" data-ride="carousel">
-	    <div class="carousel-inner h-100">
-	      <div class="carousel-item active h-100">
-	        <img src="/img/Image 1_SignIn.webp" class="d-block w-100 h-100" alt="Slide 1" style="object-fit: cover;"><div class="carousel-caption d-none d-md-block">
-	          <h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
-	        </div>
-	      </div>
-	      <div class="carousel-item h-100">
-			<img src="/img/corporate_women_login.webp" class="d-block w-100 h-100" alt="Slide 2" style="object-fit: cover;">
-				        <div class="carousel-caption d-none d-md-block">
-				<h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
-				       
-	        </div>
-	      </div>
-	      <!--<div class="carousel-item h-100">
-	        <img src="/img/Image12.webp" class="d-block w-100 h-100" alt="Slide 3" style="object-fit: cover;">
-	        <div class="carousel-caption d-none d-md-block">
-				<h3><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
-				       
-	        </div>
-	      </div>-->
-	    </div>
-	  </div>
-	</div>
+			<div class="image-section position-relative">
+			  <div id="imageCarousel" class="carousel slide h-100" data-ride="carousel">
+			    <div class="carousel-inner h-100">
+			      <div class="carousel-item active h-100" data-index="0">
+			        <img src="/img/Image 1_SignIn.webp" class="d-block w-100 h-100" alt="Slide 1" style="object-fit: cover;">
+			        <div class="carousel-caption d-none d-md-block text-left">
+			          <div class="carousel-line-indicators mb-2">
+			            <div class="line active" data-slide-to="0"></div>
+			            <div class="line" data-slide-to="1"></div>
+			          </div>
+			          <h3 style="font-weight: 700;"><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+			        </div>
+			      </div>
+
+			      <div class="carousel-item h-100" data-index="1">
+			        <img src="/img/corporate_women_login.webp" class="d-block w-100 h-100" alt="Slide 2" style="object-fit: cover;">
+			        <div class="carousel-caption d-none d-md-block text-left">
+			          <div class="carousel-line-indicators mb-2">
+			            <div class="line" data-slide-to="0"></div>
+			            <div class="line active" data-slide-to="1"></div>
+			          </div>
+			          <h3 style="font-weight: 700;"><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 
 	
 	<div class="login-section">
@@ -128,7 +170,7 @@
 		  
 		  <p class="text-muted" id="resendOTPText" style="display: none; ">Didn’t receive the code? <a href="#" onclick="resendOTP()">Resend OTP</a></p>
 		  <!--<button class="btn login-btn">LOGIN</button>-->
-		  <button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn login-btn">LOGIN</button>
+		  <button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn login-btn" disabled>LOGIN</button>
 		</div>
 		
 	    <div class="or-divider">
@@ -182,6 +224,20 @@
       optBtn.disabled = !isValid;
     });
   });
+  </script>
+  <script>
+	/* when user finishes entering otp then only enable login button*/
+	document.querySelectorAll('.otp-input').forEach(input => {
+	   input.addEventListener('input', checkOtpFilled);
+	 });
+
+	 function checkOtpFilled() {
+	   const inputs = document.querySelectorAll('.otp-input');
+	   const allFilled = Array.from(inputs).every(input => input.value.trim().length === 1);
+
+	   const verifyBtn = document.getElementById('verifyotpdiv');
+	   verifyBtn.disabled = !allFilled;
+	 }
   </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
