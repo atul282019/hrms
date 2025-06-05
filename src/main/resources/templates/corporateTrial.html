@@ -26,7 +26,9 @@
 <style>html, body {
   overflow: hidden;
   height: 100%;
-}</style>
+}
+
+</style>
 <body>
 
 	<div class="loginNew-wrap-corporate" id="loginWrap">
@@ -38,13 +40,13 @@
 	                    <img src="img/Cotodel Logo-white.png" alt="Cotodel Logo" class="img-fluid">
 	                </div>
 	                <div class="logoNewBtm">
-	                    <h2><span>Business expenses</span> made seamless like <br><span>your UPI spends</span></h2>
+	                    <h2 style="font-weight: 700;"><span>Business expenses</span> made seamless like <br><span>your UPI spends</span></h2>
 						
 	                    <ul class="feature-list">
-	                        <li><img src="img/Frame.svg" alt="check"><span>Issue vouchers on-demand without transferring Capital</span></li>
-	                        <li><img src="img/Frame.svg" alt="check"><span>Trace money flow digitally from issuance to redemption</span></li>
-	                        <li><img src="img/Frame.svg" alt="check"><span>Lock purpose of spend at Category/Brand level</span></li>
-	                        <li><img src="img/Frame.svg" alt="check"><span>Extend vouchers for Flexi-Tax Benefits & Allowances</span></li>
+	                        <li><img src="img/Frame-green.svg" alt="check"><span>Issue vouchers on-demand without transferring Capital</span></li>
+	                        <li><img src="img/Frame-green.svg" alt="check"><span>Trace money flow digitally from issuance to redemption</span></li>
+	                        <li><img src="img/Frame-green.svg" alt="check"><span>Lock purpose of spend at Category/Brand level</span></li>
+	                        <li><img src="img/Frame-green.svg" alt="check"><span>Extend vouchers for Flexi-Tax Benefits & Allowances</span></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -75,7 +77,7 @@
 										        <img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon">
 										        <span>+91</span>
 										      </div>
-											  <input class="form-control phone-input" style="margin-top: 11.5px;" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile" autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" fdprocessedid="hbzy1q">
+											  <input class="form-control phone-input" style="margin-top: 11.5px;" placeholder="00000 00000" type="text" id="mobile" name="mobile" autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" fdprocessedid="hbzy1q">
 										    </div>
 											<div id="mobileError1" class="error-msg"></div>
 	                                <!--<input type="tel" class="form-control" placeholder="+91 00000 00000" pattern="[0-9]{10}" required>-->
@@ -133,7 +135,7 @@
 					            	<div id="otfailmsg"></div>
 					            </div>	  
 														
-	                            <button type="button" class="btn btn-register" onclick="OTPforCorporate()" >REGISTER</button>
+	                            <button type="button" id="registerBtn" class="btn btn-register" onclick="OTPforCorporate()" disabled>REGISTER</button>
 	                        </form>
 								<hr>
 	                        <div class="existing-account">
@@ -200,11 +202,11 @@
 								        name="orderId" >
 										
 										<div class="d-flex justify-content-center mt-2">
-										    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+										    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer; margin-top: 6px;" onclick="toggleOtpVisibility()"></i>
 										</div>
 										
 								    </div>
-								   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+								   <label class="time-otp ml-0 text-dark" for="countdown" id="countdown" style="color: green;"></label>
 									<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendfleetOTP()">Resend OTP</a></p>
 									<div class="error-msg" id="otpError" style="color:red"></div>
 									<div class="tip-wrap justify-content-center">
@@ -368,6 +370,17 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
+	<script>
+	  const termsCheckbox = document.getElementById('terms');
+	  const registerBtn = document.getElementById('registerBtn');
+
+	  termsCheckbox.addEventListener('change', function () {
+	    registerBtn.disabled = !this.checked;
+	  });
+
+	  // Initial state
+	  registerBtn.disabled = !termsCheckbox.checked;
+	</script>
 
 	<script>
 		

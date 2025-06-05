@@ -48,7 +48,10 @@
 
   </style>
   <script>
+  document.addEventListener("DOMContentLoaded", function () {
     const carousel = document.getElementById('imageCarousel');
+    if (!carousel) return; // optional: fail safe
+
     const indicators = document.querySelectorAll('.carousel-line-indicators .line');
 
     indicators.forEach((line, index) => {
@@ -58,14 +61,18 @@
     });
 
     carousel.addEventListener('slid.bs.carousel', () => {
-      const activeIndex = [...carousel.querySelectorAll('.carousel-item')].findIndex(item => item.classList.contains('active'));
+      const activeIndex = [...carousel.querySelectorAll('.carousel-item')]
+        .findIndex(item => item.classList.contains('active'));
+
       document.querySelectorAll('.carousel-line-indicators').forEach(group => {
         group.querySelectorAll('.line').forEach((line, idx) => {
           line.classList.toggle('active', idx === activeIndex);
         });
       });
     });
+  });
   </script>
+
 
 </head>
 <body>
@@ -166,7 +173,10 @@
 		  </div>
 		  <div  class="error-msg" id="otpError" style="margin-top: -15px; margin-bottom: 20px;"></div>	
    			
-		  <p>You can resend the otp after: <label for="countdown" id="countdown" style="color: green;" ></label> seconds</p>
+		  <p id="otpCountdownText">
+		    You can resend the OTP after: 
+		    <span id="countdown" style="color: green;"></span> seconds
+		  </p>
 		  
 		  <p class="text-muted" id="resendOTPText" style="display: none; ">Didn’t receive the code? <a href="#" onclick="resendOTP()">Resend OTP</a></p>
 		  <!--<button class="btn login-btn">LOGIN</button>-->
@@ -295,6 +305,7 @@
 
 			          if (timeleft <= 0) {
 			              clearInterval(downloadTimer);
+						  document.getElementById("otpCountdownText").style.display = "none";
 			              localStorage.removeItem("otpExpiryTime");
 			              document.getElementById("countdown").innerHTML = " ";
 			              document.getElementById("resendOTPText").style.display = "block";
@@ -350,6 +361,7 @@
 	    document.getElementById("optBtn").disabled = true;
 	    document.getElementById("mobError").innerHTML = "";
 	    document.getElementById("loginLoader").style.display = "flex";
+		
 	 
 	    $.ajax({
 	        type: "POST",
@@ -395,6 +407,7 @@
 						   
 					       if (timeleft < 0) {
 							clearInterval(downloadTimer);
+							document.getElementById("otpCountdownText").style.display = "none";
 	                        document.getElementById("countdown").innerHTML = " ";
 							document.getElementById("resendOTPText").style.display = "block";
 	                     
@@ -425,7 +438,98 @@
 	        }
 	    });
 	}</script>
+	
+<script>	function resendOTP() {
+		
+	    console.log("resend otp clicked");
+		document.getElementById("password1").value = "";
+		document.getElementById("password2").value = "";
+		document.getElementById("password3").value = "";
+		document.getElementById("password4").value = "";
+		document.getElementById("password5").value = "";
+		document.getElementById("password6").value = "";
+	    var regMobile = /^[6-9]\d{9}$/gi;
+	    var userName = document.getElementById("mobile").value;
+	    var orderId = document.getElementById("orderId").value;
 
+	    if (userName == "") {
+	        document.getElementById("mobile").focus();
+	        document.getElementById("mobError").innerHTML = "Please Enter Mobile Number";
+	        return false;
+	    } else if (userName.length < 10) {
+	        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+	        document.getElementById("mobile").focus();
+	        return false;
+	    } else if (!userName.match(regMobile)) {
+	        document.getElementById("mobError").innerHTML = "Please Enter Valid Mobile Number";
+	        document.getElementById("mob").focus();
+	        return false;
+	    }
+
+	    document.getElementById("optBtn").disabled = true;
+	    document.getElementById("mobError").innerHTML = "";
+	    document.getElementById("resendOTPText").style.display = "none"; // Hide Resend OTP link
+	    document.getElementById("loginLoader").style.display = "flex";
+		document.getElementById("verifyotpdiv").style.display = "block";
+		document.getElementById("otpCountdownText").style.display = "block";
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/smsOtpResender",
+	        dataType: 'json',
+	        data: { "mobile": userName, "orderId": orderId },
+	        success: function (data) {
+	            var obj = data;
+	            document.getElementById("loginLoader").style.display = "none";
+
+	            if (obj['status'] == true) {
+					
+					var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
+					document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
+	                $('#errorOtp').hide('slow');
+	               // document.getElementById("countdown").innerHTML = "00:60"; // Reset countdown
+	               // startCountdown(); // Restart the countdown logic
+				   var timeleft = 60; // 3 minutes in seconds
+				   var downloadTimer = setInterval(function () {
+				       var minutes = Math.floor(timeleft / 60); // Calculate minutes
+				       var seconds = timeleft % 60; // Calculate remaining seconds
+
+				       // Update countdown display in "MM:SS" format
+				       document.getElementById("countdown").innerHTML = 
+				           (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+				           (seconds < 10 ? "0" + seconds : seconds);
+
+				       timeleft -= 1;
+					   localStorage.setItem("otpExpiryTime", Date.now() + seconds * 1000);   
+					   document.getElementById("optBtn").style.display = "none";
+					   document.getElementById("orderId").value = obj['orderId'];
+					   document.getElementById("verifyotpdiv").style.display = "block";
+
+				       if (timeleft < 0) {
+						clearInterval(downloadTimer);
+						document.getElementById("otpCountdownText").style.display = "none";
+	                       document.getElementById("countdown").innerHTML = " ";
+						document.getElementById("resendOTPText").style.display = "block";
+	                    
+	                       document.getElementById("optBtn").disabled = true;
+						document.getElementById("optBtn").style.display = "none";
+	                       document.getElementById("verifyotpdiv").style.display = "none";
+				       }
+				   }, 1000); 
+
+	            } else {
+	                $('#errorOtp').html(obj['msg']);
+	                document.getElementById("resendOTPText").style.display = "block";
+	                document.getElementById("optBtn").disabled = true;
+					document.getElementById("verifyotpdiv").style.display = "none";
+					document.getElementById("otpCountdownText").style.display = "none";
+	            }
+	        },
+	        error: function (e) {
+	            alert('Error: ' + e);
+	        }
+	    });
+	}</script>
   <script>
   				  function showOtpForm() {
 					
