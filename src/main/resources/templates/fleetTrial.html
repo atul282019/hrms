@@ -25,7 +25,10 @@
     <link rel="stylesheet" href="css/custom.css">
 
 </head>
-
+<style>html, body {
+  overflow: hidden;
+  height: 100%;
+}</style>
 <body>
 
 	<div class="loginNew-wrap" id="loginWrap">
@@ -56,31 +59,35 @@
 							
 	                        <form action="" id="fleetRegistration" name="fleetRegistration">
 	                            <!-- Form Fields -->
-	                            <div class="form-group">
-	                                <input type="text" id="username" class="form-control" placeholder="Enter your full name" required>
-									<div id="usernameError1" class="error-msg"></div>
+								<div class="floating-group">
+								  <input type="text" id="username" class="form-control" placeholder=" " autocomplete="off" required>
+								  <label for="username">Enter your full name</label>
+								  <div id="usernameError1" class="error-msg"></div>
 								</div>
 	                            
-	                            <div class="form-group">
-	                                <input type="email"id="email"class="form-control" placeholder="Enter your work email address" required>
-									<div id="emailError1" class="error-msg"></div>
-								 </div>
+								<div class="floating-group">
+									  <input type="email" id="email" class="form-control" placeholder=" " autocomplete="off" required>
+									  <label for="email">Enter your work email address</label>
+									  <div id="emailError1" class="error-msg"></div>
+									</div>
 	                            
-	                            <div class="form-group">
-									<div class="phone-input-container">
-										      <div class="phone-prefix">
-										        <img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon">
-										        <span>+91</span>
-										      </div>
-											  <input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile" autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" fdprocessedid="hbzy1q">
-										    </div>
-									 <div id="mobileError1" class="error-msg"></div>
-								</div>
+									<div class="form-group">
+										<div class="phone-input-container">
+											      <div class="phone-prefix">
+											        <img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon">
+											        <span>+91</span>
+											      </div>
+												  <input class="form-control phone-input" style="margin-top: 11.5px;" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile" autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" fdprocessedid="hbzy1q">
+											    </div>
+												<div id="mobileError1" class="error-msg"></div>
+		                                <!--<input type="tel" class="form-control" placeholder="+91 00000 00000" pattern="[0-9]{10}" required>-->
+		                            </div>
 	                            
-	                            <div class="form-group">
-	                                <input type="text" id="orgname"class="form-control" placeholder="Enter your company name" required>
-									<div id="orgnameError1" class="error-msg"></div>
-								 </div>
+									<div class="floating-group">
+									  <input type="text" id="orgname" class="form-control" placeholder=" " autocomplete="off" required>
+									  <label for="orgname">Enter your company name</label>
+									  <div id="orgnameError1" class="error-msg"></div>
+									</div>
 
 								<div class="mb-4 ">
 					                  <label class="form-label d-block">Company Size</label>

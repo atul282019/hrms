@@ -6921,10 +6921,25 @@ table.vcScheduledtable thead {
 				  box-shadow: none !important;
 				  height: 100%;
 				  padding: 10px;
+				  color: transparent;
+				  transition: color 0.2s ease;
+
 				}
 				.phone-input::placeholder {
 				  color: #86889B; /* Choose any color you want */
 				  opacity: 1; /* Make sure it’s fully visible */
+				}
+				.floating-group input:focus,
+				.floating-group input:not(:placeholder-shown) {
+				  color: #1F212C !important;
+				}
+				.phone-input:focus,
+				.phone-input:not(:placeholder-shown) {
+				  color: #1F212C !important;
+				}
+				.form-check-input:checked + .form-check-label {
+				  color: #1F212C;
+				  font-weight: 400;
 				}
 				.phone-input-container {
 					  display: flex;
@@ -8484,6 +8499,8 @@ table.vcScheduledtable thead {
 					  background: white;
 					  color: #1F212C;
 					  outline: none;
+					  color: transparent;
+					  transition: color 0.2s ease;
 					}
 
 					.floating-group label {
