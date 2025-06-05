@@ -6920,7 +6920,10 @@ table.vcScheduledtable thead {
 					 border: 1px solid #ccc;
 					 border-radius: 4px;
 				}
-				
+				.phone-input::placeholder {
+				  color: #86889B; /* Choose any color you want */
+				  opacity: 1; /* Make sure it’s fully visible */
+				}
 				.phone-input-container {
 					  display: flex;
 					  align-items: center;
@@ -6936,8 +6939,12 @@ table.vcScheduledtable thead {
 				  outline: none;
 				  box-shadow: none;
 				  flex: 1;
+				 
 				}
-
+				#verifyotpdiv:hover {
+				  background-color: #316FE8 !important;
+				  color: #ffffff;
+				}
 
 				.login-btn {
 				  width: 100%;
@@ -7092,12 +7099,13 @@ table.vcScheduledtable thead {
 							  display: flex;
 							  align-items: center;
 							  gap: 6px;
-							  padding: 10px 12px;
+							  padding: 6px 12px;
 							  background-color: transparent;
-							  border-right: 1px solid #666;
+							  border-right: 1px solid #C7C8D1;
 							  color: #86889B;
 							  font-weight: 500;
 							  white-space: nowrap;
+							  height: 20px; /* Optionally control exact height */
 							}
 							.login-title {
 							  font-size: 20px;
@@ -7768,7 +7776,7 @@ table.vcScheduledtable thead {
 
 	#userTable thead th {
 	  border-top: none !important;
-	  color: #FFFFFF;
+	  
 	  font-weight: 400;
 	}
 
