@@ -37,7 +37,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
 				      <!-- Wallet Icon -->
 				      <li class="nav-item mr-3">
-				        <a href="#" role="button">
+				        <a href="/settings/wallet" role="button">
 				          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
 				        </a>
 				      </li>
@@ -273,7 +273,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 									   <div class="voucher-header">
 									     <span class="voucher-status">Active</span>
 									     <span class="voucher-title">UPI Vouchers</span>
-									     <select class="voucher-dropdown" >
+									     <select class="voucher-dropdown" id="bankListData">
 									       <option></option>
 									     </select>
 									   </div>
@@ -301,8 +301,12 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 									     <select class="category-type">
 									       <option>All Categories</option>
 									     </select>
-									     <select class="category-period">
-									       <option>Current Month</option>
+									     <select class="category-period" id="timePeriod" onchange="loadCategoryVoucherData()">
+									       <option value="CM" selected>Current Month</option>
+										   <option value="LM">Last Month</option>
+										   <option value="CFY">Current Year</option>
+										   <option value="LFY">Last Year</option>
+										   <option value="AH">All</option>
 									     </select>
 									   </div>
 									   <div class="category-breakdown">

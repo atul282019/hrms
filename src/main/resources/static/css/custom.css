@@ -7505,7 +7505,7 @@ table.vcScheduledtable thead {
 				  background-color: white;
 				  padding: 1rem;
 				  border-radius: 20px;
-				  width: 370px;
+				  width: 500px;
 				  height: 296px;
 				  margin-left: 24px;
 				  overflow-y: auto;
@@ -7920,7 +7920,7 @@ table.vcScheduledtable thead {
 
 
 						.voucher-summary {
-						  width: 420px;
+						  width: 520px;
 						  height: 296px;
 						  background: #fff;
 						  border-radius: 16px;
@@ -7989,7 +7989,7 @@ table.vcScheduledtable thead {
 						  stroke-width: 10;
 						  fill: none;
 						  stroke-dasharray: 345;
-						  stroke-dashoffset: 86;
+						  stroke-dashoffset: 1;
 						  stroke-linecap: round;
 						  transform: rotate(-180deg);
 						  transform-origin: 65px 65px;
@@ -8022,7 +8022,7 @@ table.vcScheduledtable thead {
 						}
 
 						.category-summary {
-						  width: 370px;
+						  width:500px;
 						  height: 296px;
 						  background: #fff;
 						  border-radius: 20px;

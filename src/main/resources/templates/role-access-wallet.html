@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<head>
+       
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+    <meta id="ctx" name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+
+	
+    <title>Dashboard</title>
+
+    <!-- Custom fonts for this template -->
+    <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css}">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
+	 <link rel="stylesheet" type="text/css" th:href="@{/css/slick/slick.css}" />
+	 <link rel="stylesheet" type="text/css" th:href="@{/css/slick/slick-theme.css}" />
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <script type="text/javascript" th:src="@{/js/xsls-export.js}"></script>
+	<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+	<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+     <style>
+        .hidden {
+            display: none;
+        }
+        .button {
+            cursor: pointer;
+            padding: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+		#myDiv {
+		            transition: max-height 0.3s ease-out;
+		            
+		            overflow: hidden;
+		        }
+		        #myDiv.collapsed {
+		            max-height: 0;
+		            padding: 0;
+		        }
+    </style>
+</head>
+<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
+viewEmployeeBand(),cotodelLinkedBankDetail()">
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+			      
+		<div th:insert="fragments/sidenav.html :: sidevav"></div>
+		
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+						<li class="nav-item">
+                           <a class="nav-link" href="#">
+                               <span class="mr-2 small">Admin Settings</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>
+
+                    </ul>
+					<ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                               <!-- <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>-->
+                              <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+					 </ul>		
+
+                </nav>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs expense-tabs">
+                                <li class="active" th:if="${session.user_role == 9 or session.user_role == 1}" ><a data-toggle="tab" href="#home1">Role Access</a></li>
+                                <li th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
+                                <li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
+								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33" id="prepaidAccountLi">Prepaid Account</a></li>
+								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
+                             
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home1" class="tab-pane in active" th:if="${session.user_role == 9 or session.user_role == 1}">
+                                    <div class="role-access-wrap" id="RoleAaccessWrap01" >
+                                        <div class="role-access-wrapin-top">
+                                            <div class="role-access-wrapin-topflex d-flex justify-content-between py-3">
+                                                <div>
+                                                    <h4 class="mb-0">Following users have access to selected controls:
+                                                    </h4>
+                                                </div>
+                                                <div>
+                                                <button class="btn btn-border-primary mr-1 mb-1"
+                                                    id="btnroleAcess">Role Access <img src="img/rollAccessIcon.png" alt="" /></button>
+												 <!--<button class="btn btn-primary mb-1" id="addEditroleAccess" th:if="${session.user_role == 9}">Add/Edit View</button>-->
+												 <button class="btn btn-primary mb-1" id="addEditroleAccess">Add/Edit View</button>
+												                                          
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="role-access-wrapin-bottom">
+                                            <div class="table-responsive">
+                                                <table class="table table-reimbursements" id="userTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>User Name</th>
+                                                            <th>Email</th>
+                                                            <th>Mobile</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="role-access-wrap" style="display: none;" id="RoleAaccessWrap02">
+                                        <div class="role-access-wrapin-top">
+                                            <div class="organisation-wrap">
+                                                <h3 class="mb-2">Edit View Activated</h3>
+                                            </div>
+                                            <div class="role-access-wrapin-topflex d-flex justify-content-between py-3">
+                                                <div>
+                                                    <h4 class="mb-0">Following users have access to selected controls:
+                                                    </h4>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-border-primary mr-1 mb-1"
+                                                        id="btnroleAcess1">Role Access <img src="img/rollAccessIcon.png"
+                                                            alt="" /></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="role-access-wrapin-bottom">
+                                            <div class="table-responsive">
+                                                <table class="table table-reimbursements" id="editUserRole">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Mobile</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    
+                                                    </tbody>
+                                                </table>
+										      	<div class="table table-reimbursements">
+	                                              <!-- <a href="#" class="text-green">Add +</a>-->
+												  
+                                                  <div colspan="8" align="right">
+                                                      <button class="btn mr-1 mb-1 no-bg border-0" id="lastrowaddBtn">Add +</button>                                                            
+                                                  </div>
+                                                
+												<!-- <button class="text-green" id="addRowButton">Add +</button>-->
+	                                           </div>
+                                            </div>
+
+                                            <div class="unstyled centered d-flex mt-2"  id="checkboxContainer">
+                                                <input class="styled-checkbox" id="styled-checkbox-40" type="checkbox"
+                                                    value="value1" onchange="toggleSubmitButton()">
+                                                <label for="styled-checkbox-40"></label>
+                                                <p class="d-inline mb-0 ml-2">I confirm that the changes made are to the
+                                                    best of my knowledge, and are approved by the competent authority in
+                                                    my organization.</p>
+                                            </div>
+											<div class="error-msg" id="styled-checkbox-40Error" style="color:red"></div>
+                                            <hr>
+											
+																	
+                                            <div class="d-block text-right">
+                                                <button class="btn btn-border-primary mr-1 mb-1" id="BackroleAcess">Back</button>
+												<!--	<button class="btn btn-primary mb-1" onclick="roleUpdate()">Confirm Changes</button>
+-->                                             <button class="btn btn-primary mb-1" id="editRole" onclick="getOTP()" disabled>Confirm Changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="menu11" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}">
+								
+									<div class="tab-content" id="defaultDiv" style="display: block">
+	                               <div id="home" class="tab-pane in active">
+	                                   <div class="employee-band-wrap">
+	                                       <h4>Employee Bands</h4>
+	                                       <p>For your understanding, Employee Bands are devised to help you segment your organization’s employees 
+	                                           based on work experience, seniority, roles, pay-grade or any other criteria defined by your organization.</p>
+	                                           <h5>Employee Bands are currently ‘Deactivated’</h5>
+	                                           <p><b>By activating Employee Bands,</b> you can introduce segmentation and set guidelines
+	                                            for the administration of employee benefits and expense allowances.</p>
+	                                            <div class="d-flex justify-content-center mt-2 w-50">
+	                                                <a class="btn btn-primary mx-2 w-100" data-toggle="modal" data-target="#ModalEmployeeBandSetting">Activate Employee Bands</a>
+	                                          </div>
+	                                   </div>
+	                               </div>
+								   
+	                           </div>
+	                           
+	                            <div class="tab-content" style="display: none" id="viewBandDiv" >
+	                               <div id="home" class="tab-pane in active">
+	                                   <div class="bandsetting">
+	                                       <h4>Expense Reimbursements </h4>
+	                                       <div class="bandsetting01-wrap">
+	                                           <div class="left-bandsetting d-flex">
+	                                               <div class="table-check">
+	                                                   <input type="checkbox" id="customCheck3" checked>
+	                                               </div>
+	                                               <p>Employee Bands are activated. This helps introduce segmentation and
+	                                                   set guidelines for the administration of employee benefits and
+	                                                   expense allowances.</p>
+	                                           </div>
+	                                           <div class="right-bandsetting">
+	                                               <button type="button" class="btn p-0">
+	                                                   <img src="img/edit.svg" alt="" data-toggle="modal" data-target="#ModalEmployeeBandActivation">
+	                                               </button>
+	                                           </div>
+	                                       </div>
+	                                   </div>
+
+	                                   <div class="bandsetting" >
+	                                       <h4>Employee Band Settings </h4>
+	                                       <div class="bandsetting01-wrap">
+	                                           <div class="left-bandsetting">
+	                                               <div>
+	                                                   <label>Number of Employee Bands</label> <input type="text" id="Noofband" class="num" readonly>
+	                                               </div>
+	                                               <div>
+	                                                   <label>Employee Bands represented by:</label><br>
+		                                                    <div class="band-option">
+		                                                         <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="NumericView"
+		                                                    id="numericFigure">
+		                                                <label class="form-check-label" for="numericView">
+		                                                    Numeric Figures
+		                                                </label>
+		                                            </div>
+		                                            
+		                                            <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="AlphabeticalView"
+		                                                    id="AlphabeticalFigureView" >
+		                                                <label class="form-check-label" for="AlphabeticalFigureView">
+		                                                    Alphabetical Figures
+		                                                </label>
+		                                            </div>
+	                                                   </div>
+	                                               </div>
+	                                               <div>
+	                                                   <label>Starting Employee Band that defines the order of
+	                                                       seniority</label> <input type="text"
+	                                                       placeholder="Employee Band A1" class="employee">
+	                                                   <div class="exclaimation"><img src="img/exclaimation.svg" alt=""
+	                                                           data-toggle="tooltip" data-placement="top"
+	                                                           title="The selected band forms the starting point for the order of seniority. In case A or 1 is selected, the order of seniority will be in a chronological order, with A or 1 as the base, and vice-versa.">
+	                                                   </div>
+	                                               </div>
+
+	                                               <div class="table-responsive">
+	                                                   <table class="table emp_Bnd_Tbl" id="viewEmployeeBandTable">
+	                                                       <thead>
+	                                                           <tr>
+	                                                               <th>Employee Bands</th>
+	                                                               <th colspan="3">Additional Tiers</th>
+	                                                           </tr>
+	                                                       </thead>
+	                                                       <tbody>
+	                                                          
+	                                                       </tbody>
+	                                                   </table>
+	                                               </div>
+
+	                                           </div>
+	                                           <div class="right-bandsetting">
+	                                               <button type="button" class="btn p-0" data-toggle="modal"
+	                                                   data-target="#ModalEmployeeBandSetting">
+	                                                   <img src="img/edit.svg" alt="">
+	                                               </button>
+	                                           </div>
+
+
+	                                       </div>
+	                                   </div>
+
+
+	                               </div>
+	                           </div>
+									
+								 </div>
+                                <div id="menu22" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}"> 
+									<div id="menu2" class="tab-pane">
+									    <div class="policies-section-bank" id="linkaccbankform" style="display: none;">
+									        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+									            <div class="text-center">
+									                <h3>Bank A/c Linking</h3>
+									            </div>
+
+									            <div class="form-linkedbank">
+									                <div class="did-floating-label-content mr-2">
+									                    <select class="did-floating-select" id="bankName" onchange="resetErrorMessages()">
+									                       
+									                    </select>
+									                    <label class="did-floating-label">Select Bank<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content mr-2">
+								                    <select class="did-floating-select" id="bankAccType" onchange="resetErrorMessages()">
+								                       <option value="SAVING">Saving</option>
+													   <option value="CURRENT">Current</option>
+								                    </select>
+								                    <label class="did-floating-label">Select Account Type<span class="required-star">*</span></label>
+								                </div>
+												<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " onkeyup="validateBankname()" id="bankingName" oninput="sanitizeInput(this)" onkeypress="resetErrorMessages()">
+									                    <label class="did-floating-label" >Enter Name as on the Bank
+									                        Account<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankingNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber" 
+														  minlength="10" maxlength="16" onkeypress="resetErrorMessages()"
+														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+									                    <label class="did-floating-label">Enter Bank A/c Number<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankAccNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="bankAccNumberConfirm" onkeyup="validate()" 
+														 onkeypress="resetErrorMessages()" maxlength="16"
+														 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+									                    <label class="did-floating-label">Re-enter Bank A/c Number<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankAccNumberConfirmError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+									              
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="bankIfsc"
+														maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase" onkeypress="resetErrorMessages()">
+									                    <label class="did-floating-label">Enter IFSC Code<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankIfscError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="moblieLink" onkeypress="resetErrorMessages()"
+														maxlength="10" onkeyup="validateMobile()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+									                    <label class="did-floating-label">Enter Mobile Number<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="moblieLinkError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="tid" maxlength="25"
+														onkeypress="resetErrorMessages()" >
+									                    <label class="did-floating-label">Tid<span class="required-star">*</span></label>
+								 					</div>
+													<div class="error-msg" id="tidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="merchantId" maxlength="25"
+														onkeypress="resetErrorMessages()" onkeyup="validateMerchantId()">
+									                    <label class="did-floating-label">Merchant Id<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="merchantIdError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="submerchantid" maxlength="25"
+														onkeypress="resetErrorMessages()" onkeyup="validateSubMerchantId()">
+									                    <label class="did-floating-label"> Sub Merchant Id<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="submerchantidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="payerva" onkeypress="resetErrorMessages()"
+														maxlength="25" onkeyup="validatePayerva()">
+									                    <label class="did-floating-label">Payerva<span class="required-star">*</span></label>
+									                </div>
+													<div class="clearfix"></div>
+													<div class="error-msg" id="payervaError" style="color:red"></div>
+												
+													<div class="clearfix"></div>
+													<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+										            	<div id="otsuccmsg"></div>   
+										            </div>
+										            
+										            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+										            	<div id="otfailmsg"></div>
+										            </div><br>
+													                        
+									                <div class="d-flex justify-content-center mt-3">
+														<input type="button" class="btn btn-primary w-100" id="linkBankBtn" value="AUTHENTICATE" onclick="submitLinkBankAccount()"> 
+														
+									                </div>
+									            </div>
+									        </div>
+									    </div>
+
+
+									    <div class="linked-bank-account-section" id="linkedbnkacntsctn" style="display: block;">
+									            <div class="text-left">
+									                <h3>Linked Bank Account Details</h3>
+									            </div>
+									            <div class="linked-bank-account-innersection d-block">
+													<div id="data-wrapper"> </div>
+									            </div>
+									            <div class="d-flex justify-content-end">
+									                <button class="btn btn-primary" id="linkedanotheraccount">Link Another Bank Account</button>
+									            </div>
+									    </div>
+
+									</div>
+								</div>
+								
+                                <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
+									
+								<div id="menu3" class="tab-pane">
+								  <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
+								    <div class="col-12 col-md-8 col-lg-6 mx-auto">
+								      <div class="text-center">
+								        <h3>Cotodel Linked Account</h3>
+								      </div>
+								    </div>
+								  </div>
+
+								  <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
+								    <div class="text-left">
+								      <h3>Prepaid Account Details</h3>
+								    </div>
+
+								    <div class="linked-bank-account-innersection d-block">
+								      <div id="data-wrapper1">
+								      </div>
+								    </div>
+
+								    <div class="d-flex justify-content-end">
+								      <button class="btn btn-primary" id="continuebtn1">Continue</button>
+								    </div>
+								  </div>
+
+								  <!-- Amount Request Section (converted from modal) -->
+								  <div class="amount-request-section col-md-8" id="cotodelAmountRequest" style="display: none;">
+								    <div class="card">
+								      <div class="card-header">
+								        <h5 id="CnewAmount"><strong> Enter Prepaid Amount</strong></h5>
+								      </div>
+								      <div class="card-body">
+								        <form action="" class="advancerequestform">
+								          <div class="form-group">
+								            <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
+								          </div>
+										  <div class="error-msg" id="advanceAmountError" style="color:red"></div>
+										  <br>
+								          <div class="unstyled centered d-flex mt-2" id="checkboxContainer">
+								            <input class="styled-checkbox" id="confirmAmount" type="checkbox" value="value1">
+								            <label for="confirmAmount"></label>
+								            <p class="d-inline mb-0 ml-2">I confirm the changes</p>
+								          </div>
+								          <div class="error-msg" id="confirmAmountError" style="color:red"></div>
+										  
+								        </form>
+								        <div class="d-flex justify-content-center mt-3">
+											<button class="btn btn-primary w-100" id="renderBtn2" onclick="getSessionId()">Pay Now</button>
+											 </div>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+								<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+								
+								<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+								<input type="hidden" class="form-input" id="CId" name="CId" > 
+								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+								<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+								<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+								<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+								 </div>
+								 
+								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
+									
+									<script>
+							        document.addEventListener("DOMContentLoaded", function () {
+							            console.log("Calling the  getPaymentHistory(); function...");
+							            getPaymentHistory();
+							        });
+							    	</script>
+								 								
+								<div id="menu4" class="tab-pane">
+									<div class="policies-wrap-in-table mt-5 mt-4">
+											<div class="table-responsive">
+												<table class="table table-reimbursements"
+													id="reimbursementTable">
+													<thead>
+														<tr>																																	
+															<th>Id</th>
+															
+															<th>Customer Name</th>																																			
+															<th>Customer Phone</th>
+															<th>Order Amount</th>
+															<th>Payment Currency</th>	
+															<th>Order Status</th>														
+															<th>Payment Time</th>
+															<th>Payment Id</th>
+															<th>Payment Status</th>
+															<th>Service Charge</th>
+															<th>Service Tax</th>
+															<th>Settlement Amount</th>
+															
+														</tr>
+													</thead>
+													<tbody>
+														<td></td>
+
+													</tbody>
+								
+												</table>
+												
+											</div>
+										</div>
+								  
+								</div>
+								
+							 </div>
+							 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+							<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+							<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+							<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+							<input type="hidden" class="form-input" id="CId" name="CId" > 
+							<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+							<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+							<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+							<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+							<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+							<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+							<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+							<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+                           </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+		
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+			
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+   <!-- <div class="customModal modal btnroleAcessModal">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
+            <div class="modal-content modal-bulk p-0">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title">Role Access</h5>
+                    <span id="closeBtn" class="close">&times;</span>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="roleAccessModal-wrap">
+                        <h5>Title:</h5>
+                        <ul>
+                            <li>Exhausted Vouchers: Completely redeemed</li>
+                            <li>Revoked Vouchers: Partially redeemed</li>
+                        </ul>
+                    </div>
+                    <div class="roleAccessModal-wrap">
+                        <h5>Title:</h5>
+                        <ul>
+                            <li>Exhausted Vouchers: Completely redeemed</li>
+                            <li>Revoked Vouchers: Partially redeemed</li>
+                        </ul>
+                    </div>
+                    <div class="roleAccessModal-wrap">
+                        <h5>Title:</h5>
+                        <ul>
+                            <li>Exhausted Vouchers: Completely redeemed</li>
+                            <li>Revoked Vouchers: Partially redeemed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+  <!--  <div class="customModal modal btnroleAcessModal1">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
+            <div class="modal-content modal-bulk p-0">
+                <div class="modal-header pb-0">
+                    <h5 class="modal-title">Role Access</h5>
+                    <span id="closeBtn1" class="close">&times;</span>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="roleAccessModal-wrap">
+                        <h5>Title:</h5>
+                        <ul>
+                            <li>Exhausted Vouchers: Completely redeemed</li>
+                            <li>Revoked Vouchers: Partially redeemed</li>
+                        </ul>
+                    </div>
+                    <div class="roleAccessModal-wrap">
+                        <h5>Title:</h5>
+                        <ul>
+                            <li>Exhausted Vouchers: Completely redeemed</li>
+                            <li>Revoked Vouchers: Partially redeemed</li>
+                        </ul>
+                    </div>
+                    <div class="roleAccessModal-wrap">
+                        <h5>Title:</h5>
+                        <ul>
+                            <li>Exhausted Vouchers: Completely redeemed</li>
+                            <li>Revoked Vouchers: Partially redeemed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+
+    <div class="customModal modal" id="roleAcessOTPModal">
+        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
+            <div class="modal-content modal-bulk p-0">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100">Confirm Role Access Changes</h5>
+                </div>				
+				<div class="modal-body text-center">
+				    <div class="otp-box-onboarding justify-content-center">
+					
+					<input  class="form-control form-control-sm test" type="password" id="password1" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password2" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password3" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password4" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password5" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="password" id="password6" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+				        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+				        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+				        name="orderId" >
+						
+						<div class="d-flex justify-content-center mt-2">
+						    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+						</div>
+						
+				    </div>
+				   <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
+					<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+					<div class="error-msg" id="otpError" style="color:red"></div>
+					<div class="tip-wrap justify-content-center">
+				        <p class="mb-0" id="maskedMobileDisplay1"></p>
+				    </div>
+				    <div class="d-flex justify-content-center mt-3">
+						<button class="btn btn-primary w-100" id="authenticate"  onclick="verfyIssueVoucherOTP()">Authenticate</button>
+				    </div>
+				</div>				
+            </div>
+        </div>
+    </div>
+
+	<div class="customModal modal" id="addRoleAcessOTPModal">
+	        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
+	            <div class="modal-content modal-bulk p-0">
+	                <div class="modal-header text-center">
+	                    <h5 class="modal-title w-100">Confirm Add Users Roles</h5>
+	                </div>				
+					<div class="modal-body text-center">
+					    <div class="otp-box-onboarding justify-content-center">
+						
+						<input  class="form-control form-control-sm test" type="password" id="password11" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password22" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password33" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password44" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password55" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="password" id="password66" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+					        name="orderId" >
+							
+							<div class="d-flex justify-content-center mt-2">
+							    <i class="fa-solid fa-eye" id="toggleOtpIcon1" style="cursor: pointer;" onclick="toggleOtpVisibility1()"></i>
+							</div>
+							
+					    </div>
+					   <label class="time-otp ml-0 text-dark" for="" id="countdownadd" style="color: green;"></label>
+					  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+					  <div class="error-msg" id="otpError1" style="color:red"></div>
+						<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendVoucherOTP()">Resend OTP</a></p>
+					    <div class="tip-wrap justify-content-center">
+					        <p class="mb-0" id="maskedMobileDisplay"></p>
+					    </div>						
+					    <div class="d-flex justify-content-center mt-3">
+							<button class="btn btn-primary w-100" id="authenticateAdd"  onclick="verfyAddRoleOTP()">Authenticate</button>
+					    </div>
+					</div>
+
+					
+	            </div>
+	        </div>
+	    </div>
+		
+		<div class="customModal modal" id="cotodelAmountOTPModal">
+			        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
+			            <div class="modal-content modal-bulk p-0">
+			                <div class="modal-header text-center">
+			                    <h5 class="modal-title w-100">Confirm Taking Given Amount from Cotodel</h5>
+			                </div>				
+							<div class="modal-body text-center">
+							    <div class="otp-box-onboarding justify-content-center">
+								
+								<input  class="form-control form-control-sm test" type="password" id="password111" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password222" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password333" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password444" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password555" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password666" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
+							        name="orderId" >
+									<div class="d-flex justify-content-center mt-2">
+									    <i class="fa-solid fa-eye" id="toggleOtpIcon2" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+									</div>
+							    </div>
+							   <label class="time-otp ml-0 text-dark" for="" id="countdown1" style="color: green;"></label>
+							   <div class="error-msg" id="otpError2" style="color:red"></div>
+							  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+								<p id="resendCode">Didn’t receive the code?  <a href="#" onclick="resendCotodelOTP()">Resend OTP</a></p>
+							    <div class="tip-wrap justify-content-center">
+							        <p class="mb-0" id="maskedMobileDisplay2"></p>
+							    </div>								
+							    <div class="d-flex justify-content-center mt-3">
+									<button class="btn btn-primary w-100" type="button" id="authenticateAddctdl"  onclick="verfyCotodelOTP()">Authenticate</button>
+							    </div>
+							</div>							
+			            </div>
+			        </div>
+			    </div>
+	
+	<div class="customModal modal lastrowaddBtnWrap">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xl">
+	        <div class="modal-content modal-bulk p-0">
+	            <div class="modal-header">
+	                <h5 class="modal-title">Add Role </h5>
+	                <span id="closeBtn0" class="close">&times;</span>
+	            </div>
+	            <div class="modal-body pt-0">
+	                <div class="role-access-wrapin-bottom role-access-wrapin-bottom-add">
+	                    <div class="table-responsive">
+	                        <table class="table table-reimbursements" id="resultTable">
+								<thead id="tableHeader">
+					               <!-- Headers will be dynamically generated -->
+						           </thead>
+						           <tbody id="tableBody">
+					               <!-- Rows will be dynamically generated -->
+					           </tbody>
+	                        </table>							
+							<div>
+                                <div class="autocomp-input-wrap">
+                                    <!--<input type="text" class="autocomp-input" id="search"
+                                    placeholder="Search Employee..."
+                                    autocomplete="off">-->
+									<input type="text" class="autocomp-input" id="searchBox" placeholder="Search Employee..." oninput="searchEmployee()" />
+                                <div id="autocomplete-suggestions"
+                                    class="autocomplete-dropdown"></div>
+                                </div>                                                                
+                            </div>
+							<div class="unstyled centered d-flex mt-2">
+                               <input class="styled-checkbox" id="styled-checkbox-41" type="checkbox"
+                                   value="Yes">
+                               <label for="styled-checkbox-41"></label>
+                               <p class="d-inline mb-0 ml-2">I confirm that the changes made are to the
+                                   best of my knowledge, and are approved by the competent authority in
+                                   my organization.</p>
+                           </div>
+						   <div class="error-msg" id="styled-checkbox-41Error" style="color:red"></div>
+	                    </div>
+
+	                    <div class="d-block text-right">
+	                       <button class="btn btn-primary mb-1" onclick="getAddOTP()" id="addSubmit">Submit</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+    <div class="customModal modal" id="roleAcessModalSuccessful">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-bulk p-0">
+                <div class="modal-top text-center">
+                    <button type="button" class="close p-0" id="roleAcessSuccessfulClose" data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+                        <img src="img/modal-close.svg" alt="">
+                    </button>
+                    <img src="img/modal-success.svg" alt="">
+                </div>
+                <div class="modal-bottom">
+                    <span>Role Acess Modal Successful</span>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="customModal modal" id="amountApproved">
+	       <div class="modal-dialog modal-dialog-centered">
+	           <div class="modal-content modal-bulk p-0">
+	               <div class="modal-top text-center">
+	                   <button type="button" class="close p-0" id="roleAcessSuccessfulClose1" 
+					   data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+	                       <img src="img/modal-close.svg" alt="">
+	                   </button>
+	                   <img src="img/modal-success.svg" alt="">
+	               </div>
+	               <div class="modal-bottom">
+	                   <span>Amount Requested</span>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+	  
+	 <!-- Modal Modal Employee Band Setting -->
+	    <div class="modal fade" id="ModalEmployeeBandSetting" tabindex="-1" role="dialog"
+	        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+	            <div class="modal-content modal-bulk">
+	                <div class="modal-header pb-0">
+	                    <h5 class="modal-title" id="exampleModalCenterTitle">Employee Band Settings</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">×</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <hr class="mt-0">
+	                    <div id="carouselExampleFade" class="carousel slide employeeCarousel" data-ride="carousel" data-touch="false" data-interval="false">
+	                        <div class="carousel-inner">
+	                            <div class="carousel-item active">
+	                            <form id="formtab1" >
+	                                <div class="slide-wrap">
+	                                    <div class="d-flex">
+	                                        <div class="table-check mr-2">
+	                                            <input type="checkbox" id="employeeBandEnabled" checked>
+	                                        </div>
+	                                        <p class="mb-0">Employee bands enabled</p>
+	                                    </div>
+	                                    <div class="error-msg" id="employeeBandEnabledError" style="color:red"></div>
+	                                    <div class="d-flex align-items-center mb-2">
+	                                        <p class="mb-0">Define the number of Employee Bands</p>
+	                                        <!--  <select class="did-floating-select" id="dropdown" onchange="handleDropdownChange()" > -->
+	                                         <select class="did-floating-select" id="dropdown" >
+	                                             <option value="1">1</option>
+	                                             <option value="2">2</option>
+	                                             <option value="3">3</option>
+	                                             <option value="4">4</option>
+	                                             <option value="5">5</option>
+	                                             <option value="6">6</option>
+	                                        </select>
+	                                    </div>
+	                                    <div class="error-msg" id="dropdownError" style="color:red"></div>
+	                                    <div>
+	                                        <p>Choose how the Employee Bands must be represented</p>
+	                                    </div>
+	                                    <div>
+	                                        <div class="band-option">
+	                                            <div class="form-check">
+	                                                <input class="form-check-input" type="radio" name="numericFigure" value="Numeric"
+	                                                    id="numericFigure" onclick="handleDropdownNumeric()">
+	                                                <label class="form-check-label" for="numericFigure">
+	                                                    Numeric Figures
+	                                                </label>
+	                                            </div>
+	                                            
+	                                            <div class="form-check">
+	                                                <input class="form-check-input" type="radio" name="numericFigure" value="Alphabetical" onchange="handleDropdownAlpha()"
+	                                                    id="AlphabeticalFigure" >
+	                                                <label class="form-check-label" for="AlphabeticalFigure">
+	                                                    Alphabetical Figures
+	                                                </label>
+	                                            </div>
+	                                            
+	                                        </div>
+	                                        <div class="" id="numericFigureError" style="color:red"></div> 
+	                                        
+	                                    </div>
+	                                    <div class="my-4">
+	                                        <div class="info-msg">
+	                                            <strong>‘Numerical Figures’ would be showcased as Bands 1, 2, 3... till n,
+	                                                whereas ‘Alphabetical Figures’ would be showcased as Bands A, B, C... till n.</strong>
+	                                        </div>
+	                                    </div>
+	                                    <div class="d-flex align-items-center">
+	                                        <p class="mb-0">Choose the starting Employee Band to define the order of seniority </p>
+	                                        <select class="did-floating-select mx-2 min-w170" id="startingEmployeeAlpha" style="display: block" onchange="change();">
+	                                           <option value="ascending">Ascending</option>
+	                                           <option value="descending">Descending</option>
+	                                        </select>
+	                                        
+	                                        <select class="did-floating-select mx-2 min-w170" id="startingEmployeeNumeric" style="display: none" onchange="change();">
+	                                            <option value="ascending">Ascending</option>
+	                                            <option value="descending">Descending</option>
+	                                        </select>	                                        
+	                                        <div class="exclaimation"><img src="img/exclaimation.svg" alt="" data-toggle="tooltip" data-placement="top"
+	                                             title="The selected band forms the starting point for the order of seniority. In case A or 1 is selected, the order of seniority will be in a chronological order, with A or 1 as the base, and vice-versa.">
+	                                        </div>	                                        
+	                                    </div>	                                   
+	                                    <hr>
+	                                    <ul class="custom-slid-bar">
+	                                        <li class="highlight">1</li>
+	                                        <li>2</li>
+	                                        <li>3</li>
+	                                    </ul>
+	                                    <div class="d-flex justify-content-center mt-2">
+	                                        <button class="btn btn-primary w-100" type="button" onclick="validateTab1()" id="continewTab1" style="display:block"> Continue </button>
+	                                        <button class="btn btn-primary w-100" data-target="#carouselExampleFade" id="continewTab2" data-slide="next" style="display:none"> Continue </button>
+	                                    </div>
+	                                </div>
+	                                </form>
+	                            </div>
+	                            <div class="carousel-item">
+	                            <form id="formtab2">
+	                                <div class="slide-wrap">
+	                                    <div class="d-flex">
+	                                        <div class="table-check mr-2">
+	                                            <input type="checkbox" id="addtionalTiersCheckBox" onclick="toggleColumn()" class="coupon_question" checked>
+	                                        </div>
+	                                        <p class="mb-0">Introduce additional Tiers to each Employee Band</p>
+	                                    </div>
+	                                    <div class="error-msg" id="gstnNoError" style="color:red"></div>
+	                                    <hr>            
+	                                   	<div class="table-responsive">
+	                                   		<table id="bandTable" class="table no-bordered empolyee-band-head-modal newTable" colpadding="5">
+	                                   			<thead>
+	                                   				<tr>
+	                                   				   <th>Employee Bands</th>
+	                                   				   <th>Additional Tiers</th>
+	                                   				</tr>
+	                                   			</thead>
+                                   			  <tbody>
+                                   			  </tbody>
+	                                   		</table>
+	                                   	</div>
+	                                       
+	                                    <ul class="custom-slid-bar">                                    
+	                                        <li class="highlight">1</li>
+	                                        <li class="highlight">2</li>
+	                                        <li>3</li>                                   
+	                                    </ul>
+
+	                                    <div class="d-flex justify-content-center mt-2">
+	                                        <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>
+	                                        <button class="btn btn-primary mx-2 w-49" data-target="#carouselExampleFade" data-slide="next" id="continew2" onclick="saveEmployeeBandTab2()">Continue</button>
+	                                        <button class="btn btn-primary mx-2 w-49" data-target="#carouselExampleFade" data-slide="next" id="continewNext" style="display:none" onclick="saveEmployeeBandTab2()">Continue</button>
+	                                    </div>
+	                                </div>
+	                                </form>
+	                            </div>
+	                            <div class="carousel-item">
+	                            <form id="formTab3">
+	                                <div class="slide-wrap">
+	                                    <div class="d-block">
+	                                        <p class="mb-0">Please review and confirm the Employee Bands below</p>
+	                                    </div>
+	                                    <div class="d-flex align-items-center my-2" id="alphaSeniority">
+	                                        <p class="mb-0">Starting Employee Band that defines the order of seniority</p>
+	                                        <select class="did-floating-select mx-2 min-w170" id="reviewDropdown">
+	                                        </select>
+	                                    </div>	                                    
+	                                    <hr>	                                    
+	                                    <div class="table-responsive">
+	                                    	<table class="table empolyee-band-table" id="dynamicTable">
+	                                    		<thead>
+	                                    			<tr>
+	                                    				<th class="bandlabel">Employee Bands</th>
+	                                    				<th class="bandlabel01" >Additional Tiers</th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    				<th class="bandlabel01"></th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    				<th class="bandlabel01" ></th>
+	                                    			</tr>
+	                                    		</thead>
+	                                    		<tbody>	                                    			
+	                                    		</tbody>
+	                                    	</table>
+	                                    </div>	                                   
+	                                    <ul class="custom-slid-bar">
+	                                        <li class="highlight">1</li>
+	                                        <li class="highlight">2</li>
+	                                        <li class="highlight">3</li>
+	                                    </ul>
+	                                    <div class="d-flex justify-content-center mt-2">
+	                                        <button class="btn btn-border mx-2 w-49" data-target="#carouselExampleFade" data-slide="prev">Back</button>	                                        
+						<!--                    <button clas="btn btn-primary mx-2 w-49" id="close" type="button" onclick="close()">
+						                       <span aria-hidden="true">Confirm</span>
+						                    </button>
+-->											<button type="button" class="btn btn-primary mx-2 w-49" data-dismiss="modal" aria-label="Close">
+						                        <span aria-hidden="true">Confirm</span>
+						                    </button>	                    
+	                                    </div>
+	                                    <div class="lds-spinner" id="signinLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> 
+	                                </div>
+	                               </form>
+	                               <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+	                            </div>
+	                        </div>
+	                        
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    
+	     <!-- Modal Choose Type of Advance Request -->
+	   <div class="modal fade" id="ModalEmployeeBandActivation" tabindex="-1" role="dialog"
+	   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	   <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	       <div class="modal-content modal-bulk">
+	           <div class="modal-header pb-0">
+	               <h5 class="modal-title" id="exampleModalCenterTitle">Employee Band Activation</h5>
+	               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                   <span aria-hidden="true">×</span>
+	               </button>
+	           </div>
+	           <div class="modal-body">
+	            <div class="d-flex">
+	                <div class="table-check mr-2">
+	                    <input type="checkbox" id="customCheck2">
+	                </div>
+	                <p class="mb-0">Employee Bands are activated. This helps introduce segmentation and set guidelines for the administration of employee benefits and expense allowances.</p>
+	            </div>
+	               <div class="d-flex justify-content-center mt-3">
+	                   <button class="btn btn-primary w-100">Confirm</button>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+	</div>
+	
+	<!-- Modal Choose Type of Advance Request -->
+	<div class="modal fade" id="cotodelAmountRequest" tabindex="-1" role="dialog"
+	    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	        <div class="modal-content modal-bulk">
+	            <div class="modal-header pb-0">
+	                <h5 class="modal-title" id="CnewAmount">Please Enter Amount</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form action="" class="advancerequestform">
+	                    <div class="form-group">
+	                        <!--<label for="advanceAmount">Advance Amount</label>-->
+	                        <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
+	                    </div>
+						
+						<div class="unstyled centered d-flex mt-2"  id="checkboxContainer">
+                           <input class="styled-checkbox" id="confirmAmount" type="checkbox"
+                               value="value1">
+                           <label for="confirmAmount"></label>
+                           <p class="d-inline mb-0 ml-2">I confirm the changes</p>
+                       </div>
+					<div class="error-msg" id="confirmAmountError" style="color:red"></div>
+	                </form>
+	                <div class="d-flex justify-content-center mt-3">
+	                    <button class="btn btn-primary w-100" id="continueButton" onclick="getOTPforCotodel()">Continue</button>
+	                </div>
+					
+					<input type="hidden" id="tabValue" th:value="${tab}" ></input>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+    <!-- Bootstrap core JavaScript-->
+    <script  th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script  th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script  th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script  th:src="@{/js/sb-admin-2.min.js}"></script>
+
+    <!-- Page level plugins -->
+    <script  th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script  th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script  th:src="@{/js/demo/datatables-demo.js}"></script>
+	<script type="text/javascript"  th:src="@{/cotodel-js/user-role-access.js}"></script>
+	<!--
+	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
+	-->
+	<script type="text/javascript" th:src="@{/cotodel-js/employee-band.js}"></script>
+	
+	
+	<script>
+	   
+	  $( document ).ready(function() {
+	  		var error = document.getElementById("tabValue").value;
+	  		if(error==="wallet"){
+				alert(""+error);
+				document.getElementById('prepaidAccountLi').classList.add('active');
+			    document.getElementById('cotodellinkaccbankform').style.display="block";
+				document.getElementById('cotodellinkedbnkacntsctn').style.display="block";
+				
+	  	    }
+			});
+	</script>
+	<script>
+		function toggleOtpVisibility2() {
+		    const icon = document.getElementById("toggleOtpIcon2");
+		    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+		    const isHidden = inputs[0].type === 'password';
+		    inputs.forEach(input => {
+		        if (input.id.startsWith('password')) {
+		            input.type = isHidden ? 'text' : 'password';
+		        }
+		    });
+
+		    icon.classList.toggle('fa-eye');
+		    icon.classList.toggle('fa-eye-slash');
+		}
+		</script>
+	<script>
+		function toggleOtpVisibility1() {
+		    const icon = document.getElementById("toggleOtpIcon1");
+		    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+		    const isHidden = inputs[0].type === 'password';
+		    inputs.forEach(input => {
+		        if (input.id.startsWith('password')) {
+		            input.type = isHidden ? 'text' : 'password';
+		        }
+		    });
+
+		    icon.classList.toggle('fa-eye');
+		    icon.classList.toggle('fa-eye-slash');
+		}
+		</script>
+	<script>
+		function toggleOtpVisibility() {
+		    const icon = document.getElementById("toggleOtpIcon");
+		    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+		    const isHidden = inputs[0].type === 'password';
+		    inputs.forEach(input => {
+		        if (input.id.startsWith('password')) {
+		            input.type = isHidden ? 'text' : 'password';
+		        }
+		    });
+
+		    icon.classList.toggle('fa-eye');
+		    icon.classList.toggle('fa-eye-slash');
+		}
+		</script>
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	    const amountInput = document.getElementById("advanceAmount");
+	    const errorMsg = document.getElementById("advanceAmountError");
+	    const confirmCheckbox = document.getElementById("confirmAmount");
+	    const confirmErrorMsg = document.getElementById("confirmAmountError");
+	    
+	    const chargesDisplay = document.createElement("div");
+	    chargesDisplay.id = "chargesBreakdown";
+	    amountInput.parentNode.appendChild(chargesDisplay);
+	    
+	    amountInput.addEventListener("input", function () {
+	        let amount = parseFloat(amountInput.value);
+	        if (isNaN(amount) || amount <= 0) {
+	            errorMsg.textContent = "Please enter a valid amount.";
+	            chargesDisplay.innerHTML = "";
+	            return;
+	        }
+	        errorMsg.textContent = "";
+
+	        let serviceCharge = (1.9 / 100) * amount;
+	        let serviceTax = (0.34 / 100) * amount;
+	        let netAmount = amount - (serviceCharge + serviceTax);
+
+	        chargesDisplay.innerHTML = `
+			<br>
+	            <p><strong>Amount Entered:</strong> ₹${amount.toFixed(2)}</p>
+	            <p><strong>Service Charge (1.9%):</strong> ₹${serviceCharge.toFixed(2)}</p>
+	            <p><strong>Service Tax (0.34%):</strong> ₹${serviceTax.toFixed(2)}</p>
+	            <p><strong>Amount to be credited:</strong> ₹${netAmount.toFixed(2)}</p>
+	        `;
+	    });
+
+	    document.getElementById("renderBtn2").addEventListener("click", function (event) {
+	        if (!confirmCheckbox.checked) {
+	            confirmErrorMsg.textContent = "Please confirm the changes.";
+	            event.preventDefault();
+	        } else {
+	            confirmErrorMsg.textContent = "";
+	        }
+	    });
+	});
+	</script>
+
+	<script>	$(document).ready(function () {
+	    // Initially disable the button
+	    $("#renderBtn2").prop("disabled", true);
+
+	    // Add event listener to checkbox
+	    $("#confirmAmount").on("change", function () {
+	        if ($(this).is(":checked")) {
+	            $("#renderBtn2").prop("disabled", false);
+	        } else {
+	            $("#renderBtn2").prop("disabled", true);
+	        }
+	    });
+	});
+</script>
+	<script>				// Method 1: Direct jQuery approach
+	$(document).ready(function() {
+	    // Make sure the close button works
+	    $('#roleAcessSuccessfulClose1').on('click', function() {
+	        $('#amountApproved').modal('hide');
+	        // Alternative approaches if the above doesn't work
+	        $('.customModal').modal('hide');
+	        // Or hiding via direct CSS manipulation
+	        $('#amountApproved').hide();
+	    });
+	    
+	    // Also add the data-dismiss attribute functionality manually
+	    $('[data-dismiss="modal"]').on('click', function() {
+	        $(this).closest('.modal').modal('hide');
+	    });
+	});
+
+	// Method 2: Plain JavaScript approach
+	document.addEventListener('DOMContentLoaded', function() {
+	    const closeButton = document.getElementById('roleAcessSuccessfulClose1');
+	    if (closeButton) {
+	        closeButton.addEventListener('click', function() {
+	            // Try multiple approaches
+	            $('#amountApproved').modal('hide'); // jQuery/Bootstrap
+	            
+	            // Plain JS fallback
+	            const modal = document.getElementById('amountApproved');
+	            if (modal) {
+	                modal.style.display = 'none';
+	                modal.classList.remove('show');
+	                document.body.classList.remove('modal-open');
+	                // Remove modal backdrop if present
+	                const backdrop = document.querySelector('.modal-backdrop');
+	                if (backdrop) {
+	                    backdrop.remove();
+	                }
+	            }
+	        });
+	    }
+	});
+</script>
+	<script>
+		$(document).ready(function () {
+		    // Handle tab clicks
+		    $('.expense-tabs a').on('click', function (e) {
+		        e.preventDefault();
+		        $('.expense-tabs li').removeClass('active');
+		        $(this).parent().addClass('active');
+		        $(this).tab('show');
+		    });
+		    // Initialize all tabs properly
+		    $('[data-toggle="tab"]').tab();
+		    // Force Bootstrap to properly initialize the first tab
+		    $('.expense-tabs li.active a').tab('show');
+		    // Alternative approach - trigger a click on the first tab
+		    // Uncomment this if the above doesn't work
+		    // $('.expense-tabs li.active a').trigger('click');
+		});
+	</script>
+	
+	<script>
+		// Get reference to the amount input field
+		const advanceAmountInput = document.getElementById('advanceAmount');
+		const advanceAmountError = document.getElementById('advanceAmountError');
+		const continueButton = document.getElementById('continueButton');
+		const confirmAmountCheckbox = document.getElementById('confirmAmount');
+		const confirmAmountError = document.getElementById('confirmAmountError');
+
+		// Prevent invalid characters and leading zero
+		advanceAmountInput.addEventListener('keypress', function(event) {
+		    const currentValue = advanceAmountInput.value;
+
+		    // Allow only numbers and a single decimal point
+		    if (!/[\d.]/.test(event.key)) {
+		        event.preventDefault();
+		        return;
+		    }
+
+		    // Prevent leading zero unless followed by a decimal (e.g., "0." is allowed)
+		    if (currentValue.length === 0 && event.key === '0') {
+		        event.preventDefault();
+		        return;
+		    }
+
+		    // Prevent more than 8 digits before the decimal
+		    const parts = currentValue.split('.');
+		    if (parts[0].length >= 8 && event.key !== '.') {
+		        event.preventDefault();
+		        return;
+		    }
+
+		    // Ensure only one decimal point is allowed
+		    if (event.key === '.' && currentValue.includes('.')) {
+		        event.preventDefault();
+		    }
+		});
+
+		// Additional validation on paste
+		advanceAmountInput.addEventListener('paste', function(event) {
+		    const clipboardData = event.clipboardData || window.clipboardData;
+		    const pastedText = clipboardData.getData('text');
+
+		    // Allow only positive numbers with up to 8 digits before decimal
+		    if (!/^[1-9]\d{0,7}(\.\d{1,2})?$/.test(pastedText)) {
+		        event.preventDefault();
+		        advanceAmountError.textContent = 'Invalid input: Max 8 digits, no leading zero';
+		        setTimeout(() => {
+		            advanceAmountError.textContent = '';
+		        }, 2000);
+		    }
+		});
+
+		// Final validation on blur (when field loses focus)
+		advanceAmountInput.addEventListener('blur', function() {
+		    validateAmount();
+		});
+
+		// Validate on continue button click
+		continueButton.addEventListener('click', function(event) {
+		    if (!validateAmount() || !validateConfirmation()) {
+		        event.preventDefault();
+		    }
+		});
+
+		// Function to validate the amount
+		function validateAmount() {
+		    let amount = advanceAmountInput.value.trim();
+
+		    // Check for empty value
+		    if (amount === '' || isNaN(amount)) {
+		        advanceAmountError.textContent = 'Please enter a valid amount';
+		        return false;
+		    }
+
+		    // Prevent leading zero (except "0.")
+		    if (/^0\d/.test(amount)) {
+		        advanceAmountError.textContent = 'Invalid input: No leading zeros';
+		        return false;
+		    }
+
+		    // Ensure amount is greater than zero
+		    amount = parseFloat(amount);
+		    if (amount <= 0) {
+		        advanceAmountError.textContent = 'Amount must be greater than zero';
+		        return false;
+		    }
+
+		    // Ensure max 8 digits before decimal
+		    const parts = advanceAmountInput.value.split('.');
+		    if (parts[0].length > 8) {
+		        advanceAmountError.textContent = 'Max 8 digits before decimal';
+		        return false;
+		    }
+		    advanceAmountError.textContent = '';
+		    return true;
+		}
+
+		// Function to validate confirmation checkbox
+		function validateConfirmation() {
+		    if (!confirmAmountCheckbox.checked) {
+		        confirmAmountError.textContent = 'Please confirm the changes';
+		        return false;
+		    }
+		    confirmAmountError.textContent = '';
+		    return true;
+		}
+
+</script>
+
+	<script src="cotodel-js/linked-account.js"></script>
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	<script type="text/javascript" src="cotodel-js/cashfree.js"></script>
+	
+	<script>	
+		document.addEventListener("DOMContentLoaded", function() {
+	    var activeTab = localStorage.getItem("activeTab");
+	    if (activeTab) {
+	        $('.nav-tabs a[href="' + activeTab + '"]').tab('show'); // Bootstrap tabs
+	        $(activeTab).addClass("active show"); // Ensure it's visible
+	        localStorage.removeItem("activeTab"); // Clear after setting
+	    }
+	});
+</script>
+	<script>
+		document.getElementById("continuebtn1").addEventListener("click", function() {
+		  // Hide all other divs in menu3
+		  document.getElementById("cotodellinkaccbankform").style.display = "none";
+		  document.getElementById("cotodellinkedbnkacntsctn").style.display = "none";		  
+		  // Show only the cotodelAmountRequest div
+		  document.getElementById("cotodelAmountRequest").style.display = "block";
+		});
+	</script>
+	<script>	
+		document.addEventListener('DOMContentLoaded', function() {
+	    // Clear amount error when user types in the input
+	    document.getElementById("advanceAmount").addEventListener('input', function() {
+	    if(this.value.trim() !== "") {
+	      document.getElementById("advanceAmountError").textContent = "";
+	    }
+	  });
+
+	  // Clear checkbox error when user checks the box
+	  document.getElementById("confirmAmount").addEventListener('change', function() {
+	    if(this.checked) {
+	      document.getElementById("confirmAmountError").textContent = "";
+	    }
+	  });
+	});</script>
+	<style>	
+		@media (min-width: 1200px) {
+	  .modal-xl {
+	    max-width: 1210px !important;
+	  }
+	} </style>
+
+	 
+	<script type="text/javascript">
+	
+		function toggleColumn() {
+		    var checkBox = document.getElementById('addtionalTiersCheckBox');
+		    var elements = document.getElementsByClassName('dropdownvalue');
+		    
+		    for (var i = 0; i < elements.length; i++) {
+		        if (checkBox.checked) {
+		            elements[i].style.display = '';
+		        } else {
+		            elements[i].style.display = 'none';
+		        }
+		    }
+		}
+		// Initially hide the column
+		document.addEventListener('DOMContentLoaded', function() {
+		    document.getElementById('addtionalTiersCheckBox').checked = true;
+		    toggleColumn();
+		});
+
+	$(document).ready(function(){		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/roleAccess"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+
+	</script>
+	
+    <script>
+		
+		$(document).ready(function () {
+           // Show the modal when the button is clicked
+           $("#lastrowaddBtn").click(function () {
+               $(".lastrowaddBtnWrap").show();
+           });
+
+           // Hide the modal when the close button is clicked
+           $("#closeBtn0").click(function () {
+               $(".lastrowaddBtnWrap").hide();
+           });
+
+           // Optionally, hide the modal if the user clicks outside the modal content
+           $(window).click(function (event) {
+               if ($(event.target).is(".lastrowaddBtnWrap")) {
+                   $(".lastrowaddBtnWrap").hide();
+               }
+           });
+       });
+			   
+        $(document).ready(function () {
+            // Show the modal when the button is clicked
+            $("#btnroleAcess").click(function () {
+                $(".btnroleAcessModal").show();
+            });
+
+            // Hide the modal when the close button is clicked
+            $("#closeBtn").click(function () {
+                $(".btnroleAcessModal").hide();
+            });
+
+            // Optionally, hide the modal if the user clicks outside the modal content
+            $(window).click(function (event) {
+                if ($(event.target).is(".btnroleAcessModal")) {
+                    $(".btnroleAcessModal").hide();
+                }
+            });
+        });
+        ////////////////////////
+        $(document).ready(function () {
+            // Show the modal when the button is clicked
+            $("#btnroleAcess1").click(function () {
+                $(".btnroleAcessModal1").show();
+            });
+            // Hide the modal when the close button is clicked
+            $("#closeBtn1").click(function () {
+                $(".btnroleAcessModal1").hide();
+            });
+            // Optionally, hide the modal if the user clicks outside the modal content
+            $(window).click(function (event) {
+                if ($(event.target).is(".btnroleAcessModal1")) {
+                    $(".btnroleAcessModal1").hide();
+                }
+            });
+        });
+
+        ////////////////////////
+        $(document).ready(function () {
+            // Show the modal when the button is clicked
+            $("#AuthenticateClose").click(function () {
+                $("#roleAcessOTPModal").hide();
+                $("#roleAcessModalSuccessful").show();
+            });
+
+        });
+
+        ///////////////////
+
+        $(document).ready(function () {
+            // When the button is clicked, show the div
+            $("#ConfirmroleAccess").click(function () {
+                $("#roleAcessOTPModal").show();  // Show the div
+            });
+        });
+
+
+         ///////////////////
+
+         $(document).ready(function () {
+            // When the button is clicked, show the div
+            $("#roleAcessSuccessfulClose").click(function () {
+                $("#roleAcessModalSuccessful").hide();  // Show the div
+            });
+        });
+
+        // Get the elements
+        var addEditroleAccess = document.getElementById("addEditroleAccess");
+        var RoleAaccessWrap01 = document.getElementById("RoleAaccessWrap01");
+        var RoleAaccessWrap02 = document.getElementById("RoleAaccessWrap02");
+
+        // Add event listener to the button
+        addEditroleAccess.onclick = function () {
+            // Toggle the visibility of the divs
+            if (RoleAaccessWrap01.style.display !== "none") {
+                RoleAaccessWrap01.style.display = "none"; // Hide the first div
+                RoleAaccessWrap02.style.display = "block"; // Show the second div
+            } else {
+                firstDiv.style.display = "block"; // Show the first div
+                RoleAaccessWrap02.style.display = "none"; // Hide the second div
+            }
+        }
+        ///////////////
+        // Get the elements
+        var addEditroleAccess = document.getElementById("addEditroleAccess");
+        var RoleAaccessWrap01 = document.getElementById("RoleAaccessWrap01");
+        var RoleAaccessWrap02 = document.getElementById("RoleAaccessWrap02");
+
+        // Add event listener to the button
+        BackroleAcess.onclick = function () {
+            // Toggle the visibility of the divs
+            if (RoleAaccessWrap02.style.display !== "none") {
+                RoleAaccessWrap02.style.display = "none"; // Hide the first div
+                RoleAaccessWrap01.style.display = "block"; // Show the second div
+            }
+        }
+
+    </script>
+	<style>
+		.card-title{
+			color: #000000;
+			font-weight: 700;
+		}
+	</style>
+</body>
+
+</html>

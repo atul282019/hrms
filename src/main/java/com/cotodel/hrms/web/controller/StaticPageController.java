@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -539,10 +540,10 @@ public class StaticPageController extends CotoDelBaseController{
 //			}
 //			 return "error";
 //		}
-//		return "redirect:/index";
+//		return "redirect:/login";
 //		
 //	}
-//	return "redirect:/index";	
+//	return "redirect:/login";	
 //}	
 
 	@GetMapping(value="/dashboard")
@@ -566,10 +567,10 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return "error";
 		}
-		return "redirect:/index";
+		return "redirect:/login";
 		
 	}
-	return "redirect:/index";	
+	return "redirect:/login";	
 }	
 
 	@GetMapping(value="/dashboard1")
@@ -1341,6 +1342,28 @@ public class StaticPageController extends CotoDelBaseController{
 				model.addAttribute("email",obj.getEmail());
 				model.addAttribute("employerId",id);
 				return new ModelAndView("role-access", "command", "");
+			}
+			 return new ModelAndView("error", "command", "");
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	return new ModelAndView("index", "command", "");
+}
+@GetMapping(value="/settings/{tab}")
+	public ModelAndView roleAccessWallet(@PathVariable String tab, Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("tab",tab);
+				model.addAttribute("employerId",id);
+				return new ModelAndView("role-access-wallet", "command", "");
 			}
 			 return new ModelAndView("error", "command", "");
 		}
