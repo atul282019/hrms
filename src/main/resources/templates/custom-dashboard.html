@@ -605,11 +605,14 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/dashboard.js"></script>
-	
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
 	<!-- Theme CSS -->
 	 
 	 <link rel="stylesheet" type="text/css" href="css/custom.css">
@@ -622,13 +625,14 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
    	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
    });
+   
     </script>
 
 	<script>
-			$('#bankListData').select2({
-		    templateResult: formatBankOption,
-		    templateSelection: formatBankOption,
-		    minimumResultsForSearch: Infinity // hides search box
+		$('#bankListData').select2({
+	    templateResult: formatBankOption,
+	    templateSelection: formatBankOption,
+	    minimumResultsForSearch: Infinity // hides search box
 		});
 
 		function formatBankOption(option) {
