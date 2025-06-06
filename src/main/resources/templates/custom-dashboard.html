@@ -623,7 +623,24 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
    	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
    });
     </script>
-	
+
+	<script>
+			$('#bankListData').select2({
+		    templateResult: formatBankOption,
+		    templateSelection: formatBankOption,
+		    minimumResultsForSearch: Infinity // hides search box
+		});
+
+		function formatBankOption(option) {
+		    if (!option.id) return option.text;
+		    var imgSrc = $(option.element).data('image');
+		    if (imgSrc) {
+		        return $('<span style="display: flex; align-items: center;"><img src="' + imgSrc + '" style="width: 20px; height: 20px; margin-right: 8px;" /> <span style="font-weight: 600;">' + option.text.split(' ')[0] + '</span>&nbsp;' + option.text.replace(option.text.split(' ')[0] + ' ', '') + '</span>');
+		    }
+		    return option.text;
+		}
+
+	</script>
 	<script>
     document.addEventListener("DOMContentLoaded", function () {
         console.log("Calling the getProfileStatus() function...");

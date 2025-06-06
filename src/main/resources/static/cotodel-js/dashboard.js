@@ -132,8 +132,8 @@ async function getVehicleManagementList() {
 					      return '<img src="img/vector-not-assigned.png" alt="" class="mr-2"> Driver is not assigned';
 					    } else {
 					      //return row.driverName2 + "</br>+91 " + row.driverMobile + ""+'<img src="img/vector-people.png" alt="" style="margin-left: 100px;">';
-						  return row.driverName2 + "</br>+91 " + row.driverMobile;
-						  					  
+						  return row.driverName2 + "</br>+91 " + row.driverMobile + 
+						    '<img src="img/people-grey.png" alt="not-assigned" style="height:24px; width:24px; float:right; margin-left:5px;">';	  					  
 					  }
 					  }
 					},
