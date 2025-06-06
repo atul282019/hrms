@@ -598,9 +598,9 @@ function populateVoucherUI(data) {
   progressCircle.setAttribute('stroke-dashoffset', offset);
 
   // Dynamic color
-  const color = spentPercent < 50 ? '#00c853'      // green
-              : spentPercent < 80 ? '#ffab00'      // orange
-              : '#d50000';                         // red
+  const color = spentPercent < 50 ? '#2F945A'      // green
+              : spentPercent < 80 ? '#2F945A'  // orange
+              : '#2F945A';                         // red
 
   progressCircle.setAttribute('stroke', color);
   document.getElementById("signinLoader").style.display = "none";
@@ -944,7 +944,7 @@ function getProfileStatus(){
 		}
 	});
 } 
-function getProfileStatus1(){
+/*function getProfileStatus1(){
 	//document.getElementById("overlay").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
 	var employeeId = "2";
@@ -984,7 +984,7 @@ function getProfileStatus1(){
 			alert('Error: ' + e);
 		}
 	});
-}
+}*/
 
 function getBankListWithVocher() {
 	    const employerId = document.getElementById("employerId").value;
