@@ -477,12 +477,13 @@ function activeUser(){
 function loadCategoryVoucherData(){
 	//document.getElementById("overlay").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
+	var timePeriod = document.getElementById("timePeriod").value;
 	$.ajax({
 		type: "POST",
 		url: "/usedAmountByCategories",
 		data: {
 				"orgId":employerId,
-				"timePeriod":"CM",
+				"timePeriod":timePeriod,
 		},
 		beforeSend: function(xhr) {
 		},
@@ -528,68 +529,75 @@ function loadCategoryVoucherData(){
 	});
 } 
 
-function loadVoucherData(){
-	document.getElementById("signinLoader").style.display = "flex";
-	var employerId = document.getElementById("employerId").value;
-	$.ajax({
-		type: "POST",
-		url: "/activeInactiveVoucherAmount",
-		data: {
-				"orgId":employerId,
-		},
-		beforeSend: function(xhr) {
-		},
-		success: function(response) {
-			var response = JSON.parse(response);
-			try {
-				if (response.status && response.data && response.data.length > 0) {
-					document.getElementById("employerId").value;
-					
-					document.getElementById("offerbox1").style.display="none";
-					document.getElementById("accountSetupDiv2").style.display="none";
-					document.getElementById("businessSection").style.display = "none";
-					document.getElementById("activeVoucherContainer").style.display = "block";
-					document.getElementById("userTransactionSection").style.display = "block";
-					document.getElementById("activeVoucherContainer").style.display = "block";
-					
-			       populateVoucherUI(response.data[0]);
-				        }
+function loadVoucherData() {
+  document.getElementById("signinLoader").style.display = "flex";
+  var employerId = document.getElementById("employerId").value;
+  
+  $.ajax({
+    type: "POST",
+    url: "/activeInactiveVoucherAmount",
+    data: { "orgId": employerId },
+    success: function(response) {
+      try {
+        var response = JSON.parse(response);
 
-	               
-	           } catch (error) {
-	               console.error("Error parsing JSON:", error);
-	           }
-		},
-		error: function(e) {
-			alert('Error: ' + e);
-		}
-	});
-} 
+        if (response.status && response.data && response.data.length > 0) {
+          document.getElementById("offerbox1").style.display = "none";
+          document.getElementById("accountSetupDiv2").style.display = "none";
+          document.getElementById("businessSection").style.display = "none";
+          document.getElementById("activeVoucherContainer").style.display = "block";
+          document.getElementById("userTransactionSection").style.display = "block";
+
+          populateVoucherDropdown(response.data);
+          populateVoucherUI(response.data[0]); // Default load first one
+
+          document.querySelector('.voucher-dropdown').addEventListener('change', function() {
+            const selectedIndex = this.selectedIndex;
+            populateVoucherUI(response.data[selectedIndex]);
+          });
+        }
+
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    },
+    error: function(e) {
+      alert('Error: ' + e);
+    }
+  });
+}
+
+function populateVoucherDropdown(dataList) {
+  const dropdown = document.querySelector('.voucher-dropdown');
+  dropdown.innerHTML = ''; // clear previous
+  dataList.forEach((data, index) => {
+    const maskedAccount = 'xxxx' + data.accountNumber.slice(-4);
+    const label = (data.bankName ? data.bankName + ' ' : '') + maskedAccount;
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = label;
+    dropdown.appendChild(option);
+  });
+}
 
 function populateVoucherUI(data) {
   const accountNumber = data.accountNumber;
   const maskedAccount = 'xxxx' + accountNumber.slice(-4);
-  const bankName = data.bankName;
+  const bankName = data.bankName || "Bank";
   const totalAmount = data.totalAmount;
   const balance = parseFloat(data.balance);
   const spent = totalAmount;
   const available = balance;
   const total = spent + available;
-  const spentPercent = parseFloat(((spent / total) * 100).toFixed(1));
 
-  // Update dropdown
-  const dropdown = document.querySelector('.voucher-dropdown');
-  dropdown.innerHTML = `<option>${bankName} ${maskedAccount}</option>`;
+  const spentPercent = total > 0 ? parseFloat(((spent / total) * 100).toFixed(1)) : 0;
 
-  // Update amounts
   document.querySelector('.voucher-amount').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
   document.querySelector('.voucher-spent').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
-  // Update progress text
   const progressText = document.querySelector('.voucher-progress-text');
   progressText.textContent = `${spentPercent}%`;
 
-  // Update progress circle
   const progressCircle = document.querySelector('.voucher-progress-bar');
   const radius = 55;
   const circumference = 2 * Math.PI * radius;
@@ -597,12 +605,9 @@ function populateVoucherUI(data) {
   progressCircle.setAttribute('stroke-dasharray', circumference);
   progressCircle.setAttribute('stroke-dashoffset', offset);
 
-  // Dynamic color
-  const color = spentPercent < 50 ? '#2F945A'      // green
-              : spentPercent < 80 ? '#2F945A'  // orange
-              : '#2F945A';                         // red
-
+  const color = spentPercent < 50 ? '#2F945A' : spentPercent < 80 ? '#2F945A' : '#2F945A';
   progressCircle.setAttribute('stroke', color);
+
   document.getElementById("signinLoader").style.display = "none";
 }
 

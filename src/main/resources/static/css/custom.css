@@ -7471,7 +7471,7 @@ table.vcScheduledtable thead {
 				  background-color: white;
 				  padding: 1rem;
 				  border-radius: 20px;
-				  width: 370px;
+				  width: 500px;
 				  height: 296px;
 				  margin-left: 24px;
 				  overflow-y: auto;
@@ -7886,7 +7886,7 @@ table.vcScheduledtable thead {
 
 
 						.voucher-summary {
-						  width: 420px;
+						  width: 520px;
 						  height: 296px;
 						  background: #fff;
 						  border-radius: 16px;
@@ -7988,7 +7988,7 @@ table.vcScheduledtable thead {
 						}
 
 						.category-summary {
-						  width: 370px;
+						  width:500px;
 						  height: 296px;
 						  background: #fff;
 						  border-radius: 20px;
