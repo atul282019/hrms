@@ -570,15 +570,26 @@ function loadVoucherData() {
 function populateVoucherDropdown(dataList) {
   const dropdown = document.querySelector('.voucher-dropdown');
   dropdown.innerHTML = ''; // clear previous
+
   dataList.forEach((data, index) => {
     const maskedAccount = 'xxxx' + data.accountNumber.slice(-4);
     const label = (data.bankName ? data.bankName + ' ' : '') + maskedAccount;
+
     const option = document.createElement("option");
     option.value = index;
-    option.textContent = label;
+
+    // Use base64 image if available
+    const logoBase64 = data.bankLogo || ''; // Add this in your dataList
+    if (logoBase64) {
+      option.innerHTML = `<img src="data:image/png;base64,${logoBase64}" style="height:16px;width:16px;vertical-align:middle;margin-right:5px;"> ${label}`;
+    } else {
+      option.textContent = label;
+    }
+
     dropdown.appendChild(option);
   });
 }
+
 
 function populateVoucherUI(data) {
   const accountNumber = data.accountNumber;
