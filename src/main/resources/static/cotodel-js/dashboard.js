@@ -1,3 +1,71 @@
+
+
+let voucherData = []; // Global to hold response
+
+function loadVoucherData() {
+  document.getElementById("signinLoader").style.display = "flex";
+  const employerId = document.getElementById("employerId").value;
+  
+  $.ajax({
+    type: "POST",
+    url: "/activeInactiveVoucherAmount",
+    data: { "orgId": employerId },
+    success: function(response) {
+      try {
+        response = JSON.parse(response);
+
+        if (response.status && response.data && response.data.length > 0) {
+          voucherData = response.data; // Store globally
+
+          document.getElementById("offerbox1").style.display = "none";
+          document.getElementById("accountSetupDiv2").style.display = "none";
+          document.getElementById("businessSection").style.display = "none";
+          document.getElementById("activeVoucherContainer").style.display = "block";
+          document.getElementById("userTransactionSection").style.display = "block";
+
+          populateVoucherDropdown(voucherData);
+          populateVoucherUI(voucherData[0]); // Default load
+        }
+
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    },
+    error: function(e) {
+      alert('Error: ' + e);
+    }
+  });
+}
+
+function populateVoucherDropdown(dataList) {
+  const dropdown = document.querySelector('.voucher-dropdown');
+  dropdown.innerHTML = ''; // Clear existing options
+
+  dataList.forEach((data, index) => {
+    const maskedAccount = 'xxxx' + data.accountNumber.slice(-4);
+    const label = `${data.bankName} ${maskedAccount}`;
+    const logoBase64 = data.bankLogo || ''; // base64 string only (without data:image/... prefix)
+
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = label;
+
+    // Construct full data URL if logo is present
+    if (logoBase64) {
+      option.setAttribute("data-image", `data:image/png;base64,${logoBase64}`);
+    }
+
+    dropdown.appendChild(option);
+  });
+}
+
+$(document).on('change', '.voucher-dropdown', function() {
+  const selectedIndex = this.selectedIndex;
+  if (voucherData[selectedIndex]) {
+    populateVoucherUI(voucherData[selectedIndex]);
+  }
+});
+
 async function getVoucherTransactionList() {
 	const orgId = document.getElementById('employerId').value;
     $.ajax({
@@ -53,11 +121,7 @@ async function getVoucherTransactionList() {
                 ],
 				createdRow: function (row, data2, dataIndex) 
                 {
-					
-					 
 				var purposeDesc = data2.purposeDesc;
-              	
-				
                   if(purposeDesc=="Meal")
                   {
 				 var imgTag = '<img src="img/food.svg" alt="" class="mr-2">'+purposeDesc;
@@ -67,16 +131,7 @@ async function getVoucherTransactionList() {
                   {
   			      var imgTag = '<img src="img/fuel-grey.png" alt="" class="mr-2">'+purposeDesc;
                    $(row).find('td:eq(3)').html(imgTag);
-                  }
-             	
-				// var bankcode = data2.bankcode;
-				// var bankIcon = data2.bankIcon;
-				// var accountNumber = data2.accountNumber;
-				/* if(bankcode=="ICICI")
-                 {	
- 					 var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt=""] width="16px" height=""16px>';
- 					 $(row).find('td:eq(2)').html(imgTag+" "+accountNumber);
-                 }*/
+                  }	
               }
 		});		
 							
@@ -132,8 +187,8 @@ async function getVehicleManagementList() {
 					      return '<img src="img/vector-not-assigned.png" alt="" class="mr-2"> Driver is not assigned';
 					    } else {
 					      //return row.driverName2 + "</br>+91 " + row.driverMobile + ""+'<img src="img/vector-people.png" alt="" style="margin-left: 100px;">';
-						  return row.driverName2 + "</br>+91 " + row.driverMobile;
-						  					  
+						  return row.driverName2 + "</br>+91 " + row.driverMobile + 
+						    '<img src="img/people-grey.png" alt="not-assigned" style="height:24px; width:24px; float:right; margin-left:5px;">';	  					  
 					  }
 					  }
 					},
@@ -529,66 +584,7 @@ function loadCategoryVoucherData(){
 	});
 } 
 
-function loadVoucherData() {
-  document.getElementById("signinLoader").style.display = "flex";
-  var employerId = document.getElementById("employerId").value;
-  
-  $.ajax({
-    type: "POST",
-    url: "/activeInactiveVoucherAmount",
-    data: { "orgId": employerId },
-    success: function(response) {
-      try {
-        var response = JSON.parse(response);
 
-        if (response.status && response.data && response.data.length > 0) {
-          document.getElementById("offerbox1").style.display = "none";
-          document.getElementById("accountSetupDiv2").style.display = "none";
-          document.getElementById("businessSection").style.display = "none";
-          document.getElementById("activeVoucherContainer").style.display = "block";
-          document.getElementById("userTransactionSection").style.display = "block";
-
-          populateVoucherDropdown(response.data);
-          populateVoucherUI(response.data[0]); // Default load first one
-
-          document.querySelector('.voucher-dropdown').addEventListener('change', function() {
-            const selectedIndex = this.selectedIndex;
-            populateVoucherUI(response.data[selectedIndex]);
-          });
-        }
-
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-      }
-    },
-    error: function(e) {
-      alert('Error: ' + e);
-    }
-  });
-}
-
-function populateVoucherDropdown(dataList) {
-  const dropdown = document.querySelector('.voucher-dropdown');
-  dropdown.innerHTML = ''; // clear previous
-
-  dataList.forEach((data, index) => {
-    const maskedAccount = 'xxxx' + data.accountNumber.slice(-4);
-    const label = (data.bankName ? data.bankName + ' ' : '') + maskedAccount;
-
-    const option = document.createElement("option");
-    option.value = index;
-
-    // Use base64 image if available
-    const logoBase64 = data.bankLogo || ''; // Add this in your dataList
-    if (logoBase64) {
-      option.innerHTML = `<img src="data:image/png;base64,${logoBase64}" style="height:16px;width:16px;vertical-align:middle;margin-right:5px;"> ${label}`;
-    } else {
-      option.textContent = label;
-    }
-
-    dropdown.appendChild(option);
-  });
-}
 
 
 function populateVoucherUI(data) {
@@ -623,51 +619,18 @@ function populateVoucherUI(data) {
 }
 
 
-// Call this on page load
-/*document.addEventListener('DOMContentLoaded', function () {
-  loadVoucherData();
-});*/
-/*function getProfileStatus1(){
-	//document.getElementById("overlay").style.display = "flex";
-	var employerId = document.getElementById("employerId").value;
-	var employeeId = "2";
-	$.ajax({
-		type: "POST",
-		url: "/getCompanyProfileStatus",
-		data: {
-				"employerId":employerId,
-				"employeeId" :employeeId
-		},
-		beforeSend: function(xhr) {
-		},
-		success: function(data) {
-			try {
-	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
+document.addEventListener("DOMContentLoaded", function() {
+  const dropdown = document.querySelector('.voucher-dropdown');
+  if (dropdown) {
+    dropdown.addEventListener('change', function() {
+      const selectedIndex = this.selectedIndex;
+      if (window.voucherData && voucherData[selectedIndex]) {
+        populateVoucherUI(voucherData[selectedIndex]);
+      }
+    });
+  }
+});
 
-	               if (parsedData.data && parsedData.data.profileComplete) {
-	                   let profileComplete = parsedData.data.profileComplete;
-
-	                   if (profileComplete === 3) {
-						let anchorStart = document.getElementById("anchorStart1");
-						anchorStart.textContent = "Complete";
-					    anchorStart.href = ""; 
-	                    document.getElementById("btnsetupStart1").style.display = "none";
-	                   }
-
-	                   $('#profileComplete1').html(profileComplete);
-	                   document.getElementById("profile1").style.width = (132 * parseInt(profileComplete)) + "px";
-	               } else {
-	                   console.error("Unexpected response structure:", parsedData);
-	               }
-	           } catch (error) {
-	               console.error("Error parsing JSON:", error);
-	           }
-		},
-		error: function(e) {
-			alert('Error: ' + e);
-		}
-	});
-}*/
 
 function getBankListWithVocher() {
 	    const employerId = document.getElementById("employerId").value;
@@ -960,47 +923,6 @@ function getProfileStatus(){
 		}
 	});
 } 
-/*function getProfileStatus1(){
-	//document.getElementById("overlay").style.display = "flex";
-	var employerId = document.getElementById("employerId").value;
-	var employeeId = "2";
-	$.ajax({
-		type: "POST",
-		url: "/getCompanyProfileStatus",
-		data: {
-				"employerId":employerId,
-				"employeeId" :employeeId
-		},
-		beforeSend: function(xhr) {
-		},
-		success: function(data) {
-			try {
-	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
-
-	               if (parsedData.data && parsedData.data.profileComplete) {
-	                   let profileComplete = parsedData.data.profileComplete;
-
-	                   if (profileComplete === 3) {
-						let anchorStart = document.getElementById("anchorStart1");
-						anchorStart.textContent = "Complete";
-					    anchorStart.href = ""; 
-	                    document.getElementById("btnsetupStart1").style.display = "none";
-	                   }
-
-	                   $('#profileComplete1').html(profileComplete);
-	                   document.getElementById("profile1").style.width = (132 * parseInt(profileComplete)) + "px";
-	               } else {
-	                   console.error("Unexpected response structure:", parsedData);
-	               }
-	           } catch (error) {
-	               console.error("Error parsing JSON:", error);
-	           }
-		},
-		error: function(e) {
-			alert('Error: ' + e);
-		}
-	});
-}*/
 
 function getBankListWithVocher() {
 	    const employerId = document.getElementById("employerId").value;

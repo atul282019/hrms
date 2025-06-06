@@ -96,31 +96,31 @@
                                                         </div>                                                         
                                                         
                                                         <div class="profile-add-wrap">
-                                                             <div class="profile-add"><img src="img/mail.svg" alt="">  <span id="profileEmail">Loading...</span></div>
-                                                            <div class="profile-add"><img src="img/call.svg" alt="">+91 <span id="mobile"></span></div>
+                                                             <div class="profile-add"><img src="img/mail.svg" alt="">  <span id="profileEmail" th:text="${session.username}">Loading...</span></div>
+                                                            <div class="profile-add"><img src="img/call.svg" alt="">+91 <span id="mobile" th:text="${session.mobile}"></span></div>
                                                             <div class="profile-add"><img src="img/location.svg" alt=""><span id="location">India, Gurgaon</span></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="profile-info-wrap">
                                                             <div class="profile-info">
-                                                                <label for="">Designation</label>
-                                                               <p id="designation"></p>
+                                                                <label for="">Name</label>
+                                                               <p id="designation" th:text="${session.username}"></p>
                                                             </div>
 
                                                             <div class="profile-info">
-                                                                <label for="">Department</label>
-                                                                <p id="depratment"></p>
+                                                                <label for="">Mobile</label>
+                                                                <p id="depratment" th:text="${session.mobile}"></p>
                                                             </div>
 
                                                             <div class="profile-info">
-                                                                <label for="">Reporting Manager</label>
-                                                                <p id="mngrName"></p>
+                                                                <label for="">Email</label>
+                                                                <p id="mngrName" th:text="${session.email}"></p>
                                                             </div>
 
                                                             <div class="profile-info">
-                                                                <label for="">Employment Type</label>
-                                                                <p id="empType"></p>
+                                                                <label for="">Employee Organization</label>
+                                                                <p id="empType" th:text="${session.organizationName}"></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -129,49 +129,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="tab-content">
-                                    <div class="row tab-pane in active" id="about-section">
-                                        <div class="row">
-                                            <div class="col-12 col-md-6">
-                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
-                                                    <h5>Primary Details</h5>
-                                                    <div class="primary-Details-wrap">
-														<div class="Primary-details-info">
-											                  <label>Name</label>
-											                  <p id="firstName"></p>
-											              </div>
-											              <!--<div class="Primary-details-info">
-											                  <label>Middle Name</label>
-											                  <p id="middleName"></p>
-											              </div>
-											              <div class="Primary-details-info">
-											                  <label>Last Name</label>
-											                  <p id="lastName"></p>
-											              </div>-->
-											              <div class="Primary-details-info">
-											                  <label>Gender</label>
-											                  <p id="gender"></p>
-											              </div>
-											              <div class="Primary-details-info">
-											                  <label>Date of Birth</label>
-											                  <p id="dob"></p>
-											              </div>
-											              <div class="Primary-details-info">
-											                  <label>Marital Status</label>
-											                  <p id="maritalStatus"></p>
-											              </div>
-											              <div class="Primary-details-info">
-											                  <label>Physically Handicapped</label>
-											                  <p id="handicapped"></p>
-											              </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>    
                                 </div>
                             </div>
 
