@@ -466,7 +466,7 @@ function verifyEmail(){
       const mobile = document.getElementById("mobile").value.trim();
       const orgname = document.getElementById("orgname").value.trim();
       const privacyCheck = document.getElementById("terms").checked;
-      const whatsappCheck = document.getElementById("whatsapp").checked;
+     // const whatsappCheck = document.getElementById("whatsapp").checked;
 
       const companySizeInput = document.querySelector('input[name="companySize"]:checked');
       const noofEmp = companySizeInput ? companySizeInput.value : "";
@@ -535,7 +535,7 @@ function verifyEmail(){
               "mobile": mobile,
   			 "organizationName": orgname,
   			 "consent": privacyCheck,
- 			 "whatsupCheck": whatsappCheck,
+ 			 //"whatsupCheck": whatsappCheck,
  			 "companyType": "Carporate"
           },
           success: function(data) {
@@ -547,7 +547,7 @@ function verifyEmail(){
                   document.getElementById("otmsgdiv").style.display = "block";
                   $('#otmsgdiv').delay(5000).fadeOut(400);
  				 
- 				 $("#demoModal").show(); 
+				  $("#demoModal").modal('show');
                   //localStorage.setItem("userName", mobile);
                  // window.location.href = "/signin";
  			  
@@ -576,7 +576,7 @@ function verifyEmail(){
      const mobile = document.getElementById("mobile").value.trim();
      const orgname = document.getElementById("orgname").value.trim();
      const privacyCheck = document.getElementById("terms").checked;
-     const whatsappCheck = document.getElementById("whatsapp").checked;
+     //const whatsappCheck = document.getElementById("whatsapp").checked;
 
      const companySizeInput = document.querySelector('input[name="companySize"]:checked');
      const noofEmp = companySizeInput ? companySizeInput.value : "";
@@ -645,7 +645,7 @@ function verifyEmail(){
              "mobile": mobile,
  			 "organizationName": orgname,
  			 "consent": privacyCheck,
-			 "whatsupCheck": whatsappCheck,
+			 //"whatsupCheck": whatsappCheck,
 			 "companyType": "Fleet"
          },
          success: function(data) {
@@ -657,7 +657,7 @@ function verifyEmail(){
                  document.getElementById("otmsgdiv").style.display = "block";
                  $('#otmsgdiv').delay(5000).fadeOut(400);
 				 
-				 $("#demoModal").show(); 
+				  $("#demoModal").modal('show'); 
                  //localStorage.setItem("userName", mobile);
                 // window.location.href = "/signin";
 			  
@@ -689,7 +689,7 @@ function verifyEmail(){
 	    const mobile = document.getElementById("mobile").value.trim();
 	    const orgname = document.getElementById("orgname").value.trim();
 	    const privacyCheck = document.getElementById("terms").checked;
-	    const whatsappCheck = document.getElementById("whatsapp").checked;
+	    //const whatsappCheck = document.getElementById("whatsapp").checked;
 
 	    const companySizeInput = document.querySelector('input[name="companySize"]:checked');
 	    const noofEmp = companySizeInput ? companySizeInput.value : "";
@@ -802,7 +802,7 @@ function verifyEmail(){
      const mobile = document.getElementById("mobile").value.trim();
      const orgname = document.getElementById("orgname").value.trim();
      const privacyCheck = document.getElementById("terms").checked;
-     const whatsappCheck = document.getElementById("whatsapp").checked;
+    // const whatsappCheck = document.getElementById("whatsapp").checked;
 
      const companySizeInput = document.querySelector('input[name="companySize"]:checked');
      const noofEmp = companySizeInput ? companySizeInput.value : "";

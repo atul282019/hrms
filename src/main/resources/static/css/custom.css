@@ -6789,7 +6789,7 @@ table.vcScheduledtable thead {
 		    border-radius: 20px;
 		    background: #fff;
 		    padding: 25px; /* Reduced padding */
-		     margin: 30px 0 0 30px; /* Reduced margins */
+		     margin: 40px 0 0 80px; /* Reduced margins */
 		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 		    position: relative;
 		    transform: none; /* Removed transform */
@@ -7228,13 +7228,47 @@ table.vcScheduledtable thead {
 							      justify-content: space-between;
 							  }
 
-							  .feature-list {
+							/*  .feature-list {
 							      color: #D4EADB;
 							      text-align: left;
 							      list-style-type: none;
 							      padding-left: 8px;
 								  font-weight: 400;
+							  }*/
+							  .feature-list {
+							      color: #D4EADB;
+							      text-align: left;
+							      list-style-type: none;
+							      padding-left: 8px;
+							      font-weight: 400;
+							      margin: 0;
+							      padding: 0;
+								  
 							  }
+							  /* Move right-column items more to right */
+							  .logoNewBtm ul li.right-column {
+							      padding-left: 40px; /* adjust this value as needed */
+							  }
+
+							  .feature-list li {
+							      display: flex;
+							      flex-wrap: nowrap; /* force image and text on one line */
+							      align-items: center;
+							      white-space: nowrap; /* optional: if you want full sentence on one line */
+							      margin-bottom: 8px;
+							  }
+
+							  .feature-list li img {
+							      flex: 0 0 auto;
+							      margin-right: 8px;
+							  }
+
+							  .feature-list li span {
+							      display: inline-block;
+							      flex: 1 1 auto;
+							      /* NO overflow, NO text-overflow, so text will be fully shown */
+							  }
+
 
 							  .feature-item {
 							      margin-bottom: 8px;
@@ -8559,3 +8593,33 @@ table.vcScheduledtable thead {
 			  font-size: 0.8rem;
 			  color: #86889B;
 			}
+
+			/* demo modal in fleet trial and corporate trial*/
+			#demoModal.modal {
+				    overflow: hidden !important; /* force no modal scroll */
+				}
+
+				#demoModal .modal-dialog {
+				    max-width: 1100px;
+				    margin: 0 auto;
+				}
+
+
+				#demoModal .modal-content {
+				    overflow: hidden; /* no modal content scroll */
+				    box-sizing: border-box;
+				    width: auto;
+				    height: auto;
+				}
+
+
+				#demoModal .modal-header .close {
+				    position: absolute;
+				    top: 10px;
+				    right: 10px;
+				    z-index: 9999;
+				    background: transparent;
+				    border: none;
+				    padding: 5px;
+				    cursor: pointer;
+				}
