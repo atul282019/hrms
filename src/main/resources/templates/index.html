@@ -72,7 +72,24 @@
     });
   });
   </script>
+<style>     .carousel-line-indicators {
+    display: flex;
+    gap: 8px;
+  }
 
+  .carousel-line-indicators .line {
+    height: 2px;
+    width: 20px;
+    background-color: #ccc;
+    border-radius: 2px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+
+  .carousel-line-indicators .line.active {
+    width: 30px; /* horizontally bigger */
+    background-color: #2F945A;
+  }
+</style>
 
 </head>
 <body>
