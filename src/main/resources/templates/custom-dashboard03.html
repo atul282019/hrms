@@ -95,9 +95,10 @@
 					   <div class="voucher-header">
 					     <span class="voucher-status">Active</span>
 					     <span class="voucher-title">UPI Vouchers</span>
-					     <select class="voucher-dropdown" >
+					     <select class="voucher-dropdown" id="bankSelect">
 							
-					       <option>ICICI Bank xxxx3456</option>
+					       <option data-image="img/hdfc.svg">HDFC Bank xxxx3157</option>
+						   <option data-image="img/icici.svg">ICICI Bank xxxx3456</option>
 					     </select>
 					   </div>
 					   <div class="voucher-body">
@@ -702,6 +703,11 @@
 	<!-- Theme CSS -->
 	 
 	 <link rel="stylesheet" type="text/css" href="css/custom.css">
+	 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+	 
 	
 	
     <script>
@@ -715,7 +721,22 @@
     </script>
 	
 
+<script>		$('#bankSelect').select2({
+	    templateResult: formatBankOption,
+	    templateSelection: formatBankOption,
+	    minimumResultsForSearch: Infinity // hides search box
+	});
 
+	function formatBankOption(option) {
+	    if (!option.id) return option.text;
+	    var imgSrc = $(option.element).data('image');
+	    if (imgSrc) {
+	        return $('<span style="display: flex; align-items: center;"><img src="' + imgSrc + '" style="width: 20px; height: 20px; margin-right: 8px;" /> <span style="font-weight: 600;">' + option.text.split(' ')[0] + '</span>&nbsp;' + option.text.replace(option.text.split(' ')[0] + ' ', '') + '</span>');
+	    }
+	    return option.text;
+	}
+
+</script>
 
 </body>
 
