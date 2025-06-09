@@ -301,7 +301,7 @@
 						        	</div>
 									
 									</div>
-									<div class="w-100 my-3 ">
+									<div class="button-container w-100 my-3 ">
 								            <button class="btn btn-border-primary custom-width-backbtn" id="backButton" onclick="goBackToForm2()">Back</button>
 								            <button type="button" class="btn btn-primary custom-width-contbtn" id="authButton" onclick="getOTP()" disabled>Authenticate</button>
 											</div>
@@ -485,6 +485,20 @@
 	<!--<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>-->
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/setting-company-account.js"></script>
+	
+	<style>
+	.button-container {
+	    display: flex;
+	    justify-content: start; /* space between buttons */
+	    align-items: center;    
+		gap: 12px;        /* align vertically */
+	}
+
+	.custom-width-backbtn,
+	.custom-width-contbtn {
+	    min-width: 120px; /* or whatever size you need to make widths stable */
+	}
+	</style>
 	<script>			document.addEventListener("DOMContentLoaded", function() {
 	    let inputFields = document.querySelectorAll("#Form2 input:not([readonly])");
 
