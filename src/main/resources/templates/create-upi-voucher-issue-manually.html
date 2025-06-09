@@ -860,71 +860,158 @@
    }
 
     </script>
+<style>	/* Top box categories */
+	.top-categories-box {
+	    background-color: #EAF4EF;
+	    padding: 20px;
+	    border-radius: 20px;
+	    list-style: none;
+	    /* center the box with space left/right */
+	    width: 90%; /* or 80%, as you like */
+	    margin: 10px auto 10px auto;
+	    box-sizing: border-box;
+		margin-left: 10px;
+	}
 
+
+
+
+
+	/* Other categories list */
+	.other-categories {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0 16px;
+	}
+
+	/* List item */
+	.voucher-item {
+	    display: flex;
+	    align-items: center;
+	    gap: 12px;
+	    padding: 8px 12px;
+	    border-radius: 8px;
+	    cursor: pointer;
+	    transition: background-color 0.1s ease, color 0.1s ease;
+	    width: 100%;
+	    box-sizing: border-box;
+	    background-color: transparent; /* ensure default background */
+	    position: relative; /* helps paint background under flex children */
+	    z-index: 1;
+	}
+
+
+	/* Hover effect */
+	.voucher-item:hover {
+	    background-color: #2F945A !important; /* force it */
+	    color: #FFFFFF !important;
+	}
+
+	.voucher-item:hover span {
+	    color: #FFFFFF !important;
+	}
+
+	/* Selected item stays green */
+	.voucher-item.selected {
+	    background-color: #2F945A;
+	    color: #FFFFFF;
+	}
+
+	.voucher-item.selected span {
+	    color: #FFFFFF;
+	}
+
+	/* Image style */
+	.voucher-item img {
+	    height: 32px;
+	    width: 32px;
+	    flex-shrink: 0; /* prevent img from shrinking */
+	}
+
+</style>
 	<script>
-	    function getVoucherListWithIcon() {
-	        const voucherList = document.getElementById('voucherList');
-	        const purposeList = document.getElementById('purposeList');
-	        
-	        $.ajax({
-	            type: "GET",
-	            url: "/getVoucherListWithIcon",
-	            success: function(data) {
-	                const parsedData = jQuery.parseJSON(data);
-					console.log("Get voucher list with data : ",parsedData);
-	                // Populate Voucher List
-	                parsedData.data.forEach(item => {
-	                    const li = document.createElement('li');
-	                    li.classList.add('voucher-item');
-	                    li.setAttribute('data-value', item.purposeCode);
+		function getVoucherListWithIcon() {
+		    const voucherList = document.getElementById('voucherList');
+		    const purposeList = document.getElementById('purposeList');
 
-	                    const a = document.createElement('a');
-	                    a.href = "javascript:void(0);";
+		    $.ajax({
+		        type: "GET",
+		        url: "/getVoucherListWithIcon",
+		        success: function(data) {
+		            const parsedData = jQuery.parseJSON(data);
+		            console.log("Get voucher list with data : ", parsedData);
 
-	                    const img = document.createElement('img');
-	                    img.src = item.voucherIcon 
-	                        ? `data:image/png;base64,${item.voucherIcon}`
-	                        : '';
-	                    img.classList.add('img-fluid');
-						img.style.height = '20px';
-						img.style.width = '20px';
-	                    const span = document.createElement('span');
-	                    span.textContent = item.voucherName;
+		            // Setup container with 2 lists
+		            voucherList.innerHTML = `
+		                <ul id="topCategories" class="top-categories-box"></ul>
+		                <h5 style="
+		                    color: #1F212C;
+		                    margin: 0 16px 10px 16px;
+		                    font-size: 16px;
+		                    font-weight: 600;
+		                ">Other Categories</h5>
+		                <ul id="otherCategories" class="other-categories"></ul>
+		            `;
 
-	                    a.appendChild(img);
-	                    a.appendChild(span);
-	                    li.appendChild(a);
-	                    voucherList.appendChild(li);
-	                });
+		            const topCategories = document.getElementById('topCategories');
+		            const otherCategories = document.getElementById('otherCategories');
 
-	                // Add click event listener to Voucher List
-	                voucherList.addEventListener('click', event => {
-	                    const clickedItem = event.target.closest('li'); // Get the clicked LI element
-	                    if (clickedItem) {
-	                        const purposeCode = clickedItem.getAttribute('data-value');
-	                        const voucherIcon = clickedItem.querySelector('img').src;
-	                        const voucherName = clickedItem.querySelector('span').textContent;
+		            // Populate Voucher List
+		            parsedData.data.forEach((item, index) => {
+		                const li = document.createElement('li');
+		                li.classList.add('voucher-item');
+		                li.setAttribute('data-value', item.purposeCode);
 
-	                        // Bind the selected image and voucher name to specific elements
-	                       
-	                        // Clear previous selections
-	                        [...voucherList.children].forEach(item => item.classList.remove('selected'));
-	                        [...purposeList.children].forEach(item => item.remove()); // Clear Purpose List
+		                const img = document.createElement('img');
+		                img.src = item.voucherIcon
+		                    ? `data:image/png;base64,${item.voucherIcon}`
+		                    : '';
+		                img.alt = item.voucherName;
 
-	                        // Highlight the selected item
-	                        clickedItem.classList.add('selected');
+		                const span = document.createElement('span');
+		                span.textContent = item.voucherName;
+		               
+		                span.style.fontWeight = '500';
 
-	                        // Fetch Purpose List using the selected purposeCode
-	                        fetchPurposeListByVoucherCode(purposeCode);
-	                    }
-						document.getElementById("mccDiv").style.display="block";
-	                });
-	            },
-	            error: function(e) {
-	                alert('Error: ' + e.responseText);
-	            }
-	        });
-	    }
+		                li.appendChild(img);
+		                li.appendChild(span);
+
+		                // Append to correct list
+		                if (index < 5) {
+		                    topCategories.appendChild(li);
+		                } else {
+		                    otherCategories.appendChild(li);
+		                }
+		            });
+
+		            // Add click event listener to entire voucherList
+		            voucherList.addEventListener('click', event => {
+		                const clickedItem = event.target.closest('li.voucher-item');
+		                if (clickedItem) {
+		                    const purposeCode = clickedItem.getAttribute('data-value');
+		                    const voucherIcon = clickedItem.querySelector('img').src;
+		                    const voucherName = clickedItem.querySelector('span').textContent;
+
+		                    // Clear selections
+		                    [...voucherList.querySelectorAll('li.voucher-item')].forEach(item => item.classList.remove('selected'));
+		                    [...purposeList.children].forEach(item => item.remove());
+
+		                    // Highlight selected
+		                    clickedItem.classList.add('selected');
+
+		                    // Fetch Purpose List
+		                    fetchPurposeListByVoucherCode(purposeCode);
+		                }
+		                document.getElementById("mccDiv").style.display = "block";
+		            });
+		        },
+		        error: function(e) {
+		            alert('Error: ' + e.responseText);
+		        }
+		    });
+		}
+
+
 
 	    function fetchPurposeListByVoucherCode(purposeCode) {
 	        const purposeList = document.getElementById('purposeList');
@@ -1194,7 +1281,7 @@
 
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <div class="leftselctVoucehrs">
+                                    <div class="leftselctVoucehrs" style="overflow-y: scroll; height:500px;">
                                         <h4>Vouchers Categories</h4>
                                         <ul id="voucherList">
                                            
