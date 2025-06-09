@@ -106,4 +106,9 @@ public class MasterServiceImpl implements MasterService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(employeeMassterRequest), applicationConstantConfig.employerServiceBaseUrl +CommonUtils.getVoucherCreateSummaryDetailByAccount);
 	}
 
+	@Override
+	public String getVoucherListWithIconNew(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.masterServiceBaseUrl +CommonUtils.getVoucherListWithIconNew);
+	}
+
 }

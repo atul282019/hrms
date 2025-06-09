@@ -44,4 +44,6 @@ public interface MasterService {
 
 	String voucherCreateSummaryDetailByAccount(String token, EncriptResponse employeeMassterRequest);
 
+	String getVoucherListWithIconNew(String token, EncriptResponse jsonObject);
+
 }

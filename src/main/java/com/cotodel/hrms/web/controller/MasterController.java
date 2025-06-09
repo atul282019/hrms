@@ -360,9 +360,9 @@ public class MasterController  extends CotoDelBaseController{
    
 	return profileRes;
 	}
-	
-	@GetMapping(value="/getVoucherListWithIcon")
-	public @ResponseBody String getVoucherListWithIcon(HttpServletRequest request, ModelMap model,Locale locale,
+	/// old api
+	@GetMapping(value="/getVoucherListWithIconOld")
+	public @ResponseBody String getVoucherListWithIconOld(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
 		logger.info("getofficeLocationMaster");	
 		String token = (String) session.getAttribute("cotodel");
@@ -376,6 +376,34 @@ public class MasterController  extends CotoDelBaseController{
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse =  masterService.getVoucherListWithIcon(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
+	@GetMapping(value="/getVoucherListWithIcon")
+	public @ResponseBody String getVoucherListWithIconNew(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest employeeMassterRequest) {
+		logger.info("getofficeLocationMaster");	
+		String token = (String) session.getAttribute("cotodel");
+		//return masterService.getVoucherListWithIcon(tokengeneration.getToken(),employeeMassterRequest);
+		
+		String profileRes=null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(employeeMassterRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  masterService.getVoucherListWithIconNew(tokengeneration.getToken(), jsonObject);
 
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
