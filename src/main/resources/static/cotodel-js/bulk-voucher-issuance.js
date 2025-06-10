@@ -753,7 +753,7 @@ function getTotalVoucherCount(){
 		}
 
 
-function getVoucherSummaryList(){
+/*function getVoucherSummaryList(){
 			var employerid = document.getElementById("employerId").value;
 			$.ajax({
 				type: "POST",
@@ -801,7 +801,7 @@ function getVoucherSummaryList(){
 				}
 			});
 		}
-
+*/
 function getPrimaryBankDetail(){
 			var employerid = document.getElementById("employerId").value;
 			$.ajax({

@@ -295,7 +295,7 @@ function erupiVoucherCreateListLimit() {
 					    }
 					  }
 					},
-					{ "mData": "amount"},      
+					{ "mData": "redeemAmount"},      
 	    		 	],
 					
 					createdRow: function (row, data2, dataIndex) 

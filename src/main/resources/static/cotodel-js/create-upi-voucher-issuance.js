@@ -695,7 +695,7 @@ async function  issueVoucher(){
    }); 
 		
 }
-
+/*
 function getVoucherSummaryList(){
 			var employerid = document.getElementById("employerId").value;
 			$.ajax({
@@ -713,16 +713,6 @@ function getVoucherSummaryList(){
 					 
 					 const container = document.getElementById('jsonData');	
 					 
-					/* const statusMessage = document.createElement('div');
-					 statusMessage.classList.add('selectvouchers-carosel-cards');
-					 statusMessage.innerHTML = `
-		                 <h5>Total Vouchers</h5>
-		                <div class="d-flex justify-content-between my-1 mb-3"><span >Number</span><span> ${data1.totalCount}</span></div>
-		                <div class="d-flex justify-content-between my-1"><span>Value</span> <span> ₹${data1.totalAmount}</span></div>
-		            `;
-					      
-					        container.appendChild(statusMessage);*/
-							  
 							data1.data.forEach(voucher => {
 							    const voucherDiv = document.createElement('div');
 							    voucherDiv.classList.add('selectvouchers-carosel-cards');
@@ -752,7 +742,7 @@ function getVoucherSummaryList(){
 			});
 		}
 
-
+*/
 function getPrimaryBankDetail(){
 			var employerid = document.getElementById("employerId").value;
 			$.ajax({
