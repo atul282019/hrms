@@ -214,10 +214,11 @@
                                             <tr>
                                                 <td>
                                                     <div class="autocomp-input-wrap table-input">
-                                                        <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
+                                                        <input type="text" class="autocomp-input" id="search" oninput="userSearchAndPupolate()"
                                                             placeholder="Enter Name" autocomplete="off">
-                                                        <div id="autocomplete-suggestions"
-                                                            class="autocomplete-dropdown"></div>
+                                                        <div id="autocomplete-suggestions" class="autocomplete-dropdown">
+															
+														</div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -250,6 +251,8 @@
                                                         <option value="7 Days" class="test">7 Days </option>
                                                         <option value="30 Days">30 Days</option>
                                                         <option value="90 Days">90 Days</option>
+														<option value="365 Days">365 Days</option>
+														
                                                     </select>
                                                 </td>
                                                 <td>
@@ -503,8 +506,6 @@
 	<script>
         //var today = new Date().toISOString().split('T')[0];
        // document.getElementById("startDate").value = today;
-
-	
     </script>
 	
 			
@@ -520,7 +521,9 @@
 	.rotate {
 	    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
 	} </style>
-	<script>		document.getElementById("recallBalance").addEventListener("click", function() {
+	<script>
+		
+		document.getElementById("recallBalance").addEventListener("click", function() {
 	    var recallIcon = this;
 	    var selectedBankAccount = document.getElementById("banklist").value;
 
@@ -797,7 +800,7 @@
 		
 		const suggestionsDropdown = document.getElementById('autocomplete-suggestions');
 	    const employerId = document.getElementById('employerId').value;
-		       // Sample list of users (this can be dynamic)
+
 			$.ajax({
             type: "POST",
             url: "/voucherUserSearch",
@@ -808,10 +811,6 @@
             },
             success: function (data) {
                 //document.getElementById("signinLoader").style.display = "none";
-				
-				//data.data
-		     // Event listener to trigger autocomplete
-		      
 		           const query = searchInput2.value.toLowerCase();
 		           if (query) {
 		               const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
@@ -829,34 +828,27 @@
             }
         });
 
-		      
-
 	       // Function to display the filtered suggestions in the dropdown
 	       function displaySuggestions(userList) {
-	           suggestionsDropdown.innerHTML = ''; // Clear previous suggestions
+	           suggestionsDropdown.innerHTML = '';
 	           userList.forEach(user => {
 	               const div = document.createElement('div');
 	               div.classList.add('autocomplete-suggestion');
-
-	               // Create content with username, profile, and contact number
 	               div.innerHTML = `
-				     <strong>${user.email}</strong>
-				     <span class="user-profile">${user.username}</span>
-				     <span class="user-contact">${user.mobile}</span>
+				   <span class="user-profile">${user.username}</span> &nbsp;
+	               <span class="user-contact">${user.id}</span> &nbsp;|
+	               <span class="user-contact">${user.mobile}</span>
 				   `;
-
 	               div.addEventListener('click', function () {
-	                   searchInput2.value = user.username; // Set input value to the selected user
-					   mobile.value = user.mobile; // Set input value to the selected user
-	                   suggestionsDropdown.style.display = 'none'; // Hide dropdown
+	                   searchInput2.value = user.username; 
+					   mobile.value = user.mobile;
+	                   suggestionsDropdown.style.display = 'none';
 	               });
 
 	               suggestionsDropdown.appendChild(div);
 	           });
-
 	           suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
 	       }
-
    }
 
     </script>

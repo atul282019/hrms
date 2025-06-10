@@ -5245,18 +5245,17 @@ table.table-upivouchers tbody td.tdreedeem {
 tr.addrow-roleaccess {
     background: #EAF4EF;
 }
-
 input.autocomp-input {
     width: 268px;
     height: 44px;
     border-radius: 20px;
     border: none;
-    padding: 10px 20px 10px 35px !important;
+    padding: 10px 40px 10px 15px !important; /* more space on right for icon */
     color: #4A4E69;
     font-size: 15px !important;
-    background: url("../img/searchautocomp.svg") no-repeat 10px center #fff;
+    background: url("../img/searchautocomp.svg") no-repeat right 15px center #fff;
+    background-size: 20px;
 }
-
 .autocomp-input-wrap {
     position: relative;
 }
@@ -5500,13 +5499,13 @@ ol.carousel-signupindicators {
     display: none;
     position: absolute;
     top: 50px;
-    width: 340px;
+    width: 400px;
     border: 1px solid #EAF4EF;
     background-color: white;
     box-shadow: none;
     max-height: 300px;
     overflow-y: auto;
-    z-index: 1;
+    z-index: 10000;
     border-radius: 12px;
 }
 
@@ -5514,10 +5513,10 @@ ol.carousel-signupindicators {
     font-size: 14px;
     padding: 12px 10px;
     cursor: pointer;
-    font-weight: 400;
+    font-weight: 450;
     line-height: 18px;
     color: #4A4E69;
-    text-align: right;
+    text-align: left;
 }
 
 .autocomplete-suggestion:hover {
@@ -7804,6 +7803,7 @@ table.vcScheduledtable thead {
   .table-responsive 
   {
   text-align: left;
+  overflow-x:inherit;
   }
 	
 

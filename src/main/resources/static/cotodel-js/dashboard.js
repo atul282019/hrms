@@ -819,7 +819,7 @@ function getProfileStatus(){
 		success: function(data) {
 			try {
 	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
-
+				   document.getElementById("signinLoader").style.display = "none";
 	               if (parsedData.data && parsedData.data.profileTotal) {
 	                  //let profileComplete = parsedData.data.profileComplete;
 					  let profileComplete =parsedData.data.profileTotal;
@@ -910,7 +910,7 @@ function getProfileStatus(){
    	                   }
 	                   $('#profileComplete').html(profileComplete);
 	                   document.getElementById("profile").style.width = (66.33 * parseInt(profileComplete)) + "px";
-					   document.getElementById("signinLoader").style.display = "none";
+					   
 	               } else {
 	                   console.log("Unexpected response structure:", parsedData.message || "No message");
 	               }
