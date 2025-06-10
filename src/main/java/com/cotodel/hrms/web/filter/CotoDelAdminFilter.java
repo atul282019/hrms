@@ -288,6 +288,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 			else if(requestURI.contains("/corporatetrial")){
 				RequestDispatcher rd = request.getRequestDispatcher("corporatetrial");
 				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/blogs/fleetcardvsupi")){
+				RequestDispatcher rd = request.getRequestDispatcher("fleetcardvsupi");
+				rd.forward(request, response);
 			}else if(requestURI.contains("/customlogin")){
 				RequestDispatcher rd = request.getRequestDispatcher("customlogin");
 				rd.forward(request, response);
