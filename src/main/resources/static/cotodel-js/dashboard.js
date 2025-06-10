@@ -3,7 +3,7 @@
 let voucherData = []; // Global to hold response
 
 function loadVoucherData() {
-  document.getElementById("signinLoader").style.display = "flex";
+  //document.getElementById("signinLoader").style.display = "flex";
   const employerId = document.getElementById("employerId").value;
   
   $.ajax({
@@ -615,7 +615,7 @@ function populateVoucherUI(data) {
   const color = spentPercent < 50 ? '#2F945A' : spentPercent < 80 ? '#2F945A' : '#2F945A';
   progressCircle.setAttribute('stroke', color);
 
-  document.getElementById("signinLoader").style.display = "none";
+  //document.getElementById("signinLoader").style.display = "none";
 }
 
 
@@ -804,7 +804,7 @@ function getBankListWithVocher() {
 		}
 
 function getProfileStatus(){
-	document.getElementById("signinLoader").style.display = "flex";
+	//document.getElementById("signinLoader").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
 	var employeeId = document.getElementById("employeeId").value;
 	$.ajax({
@@ -819,7 +819,7 @@ function getProfileStatus(){
 		success: function(data) {
 			try {
 	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
-				   document.getElementById("signinLoader").style.display = "none";
+				  // document.getElementById("signinLoader").style.display = "none";
 	               if (parsedData.data && parsedData.data.profileTotal) {
 	                  //let profileComplete = parsedData.data.profileComplete;
 					  let profileComplete =parsedData.data.profileTotal;

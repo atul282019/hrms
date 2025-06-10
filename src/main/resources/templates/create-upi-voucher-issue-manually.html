@@ -1141,7 +1141,7 @@
 	        if (selectedRadioButton) {
 				selectedPurposeCode = selectedRadioButton.closest('li').getAttribute('data-value');
 			    selectedPurposeName = selectedRadioButton.closest('li').querySelector('span').textContent;
-				
+				var show = selectedPurposeName.substring(0, 5);
 				
 				console.log("Selected Purpose Code:", selectedPurposeCode);
 	        } else {
@@ -1150,8 +1150,8 @@
 	        }
 			
 			// Get the selected voucher data (image and name)
-						   
-			document.getElementById("btnforvccategoryforbulkissuance").value=selectedVoucherName+'|'+selectedPurposeName;
+			
+			document.getElementById("btnforvccategoryforbulkissuance").value=selectedVoucherName+" | "+show+"...";
 			document.getElementById("voucherCode").value=selectedVoucherCode;
 			document.getElementById("voucherDesc").value=selectedVoucherName;
 			document.getElementById("purposeCode").value=selectedVoucherCode;

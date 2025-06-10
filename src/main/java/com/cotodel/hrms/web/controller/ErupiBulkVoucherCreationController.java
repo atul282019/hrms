@@ -156,6 +156,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	        } else {
                 responseMap.put("status", false);
                 responseMap.put("message", apiJsonResponse.getString("message"));
+                responseMap.put("data",  apiJsonResponse.getJSONObject("data"));
             }
 
         } catch (Exception e) {

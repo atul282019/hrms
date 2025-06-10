@@ -261,13 +261,18 @@ async function saveBulkVoucherUpload(){
 	
 			 },  		 
 	        success:function(data){
+		  
 	        var data1 = data.data;
 	       console.log("data"+data);
 		   console.log("data1"+data1);
-		   var data2 = jQuery.parseJSON(data1);
+		   var data2;
+		   if(data.status !==false){
+		    data2 = jQuery.parseJSON(data1);
 		   console.log("data2"+data2);
-			document.getElementById("signinLoader").style.display="none";
-			if(data2.status==true){
+		   }
+		   document.getElementById("signinLoader").style.display="none";
+			
+			if(data.status==true){
 				//document.getElementById("continueButton").disabled = false;
 				 var success = data2.data.success;
 				 var fail = data2.data.fail;
@@ -369,7 +374,8 @@ async function saveBulkVoucherUpload(){
 			           }
 					   
 				});
-			}else if(data1.status==false){
+			}else if(data.status==false){
+				document.getElementById("fileInputError").innerHTML=data.message;
 				document.getElementById("signinLoader").style.display="none";
 				
 			}
