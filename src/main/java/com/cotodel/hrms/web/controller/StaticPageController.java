@@ -137,6 +137,11 @@ public class StaticPageController extends CotoDelBaseController{
 	public ModelAndView fleetmanagement(Model model) {
 		return new ModelAndView("fleetmgmt-blog5", "command", "");
 	}
+	@GetMapping(value="/blogs/fleetcardvsupi")
+	public ModelAndView fleetcardvsupiblog6(Model model) {
+		return new ModelAndView("fleetcardvsupi-blog6", "command", "");
+	}
+ 
 	@GetMapping(value="/solutions/corporateexpensemanagement")
 	public ModelAndView expenseMgmtForCorporates(Model model) {
 		return new ModelAndView("expenseMgmtForCorporates", "command", "");
@@ -515,6 +520,10 @@ public class StaticPageController extends CotoDelBaseController{
 	@GetMapping(value="/custom03")
 	public ModelAndView customdashboard03(Model model) {
 		return new ModelAndView("custom-dashboard03", "command", "");
+	}
+	@GetMapping(value="/cotowallet")
+	public ModelAndView cotowallet(Model model) {
+		return new ModelAndView("coto-wallet", "command", "");
 	}
 	@GetMapping(value="/newbank-aclinking")
 	public ModelAndView newbankaclinking(Model model) {
