@@ -89,14 +89,13 @@
 		          </div>
 		        </div>				       
 		          <div class="table-responsive">
-		            <table class="table table-reimbursements-alt mb-0" id="vehicleManagementTable">
+		            <table class="table table-reimbursements mb-0" id="vehicleManagementTable">
 		              <thead>
 		                <tr>
-						 <!-- <th>S.NO</th>
-						  <th>Vehicle ID</th>-->
+						 <!-- <th>S.NO</th>-->
 						  <th>Registration #</th>	
 		                  <th>Vehicle Type</th>
-		                 
+		                  
 						  <th>Fuel Type</th>			 
 		                  <th>Make & Model</th>
 		                 <!-- <th>Driver Assignment</th>
@@ -1239,168 +1238,117 @@ function openModalConfirm() {
 
 	}
 	async function getVehicleManagementList() {
-		const orgId = document.getElementById('orgId').value;
-		const createdBy = document.getElementById('createdBy').value;
-	
-	    $.ajax({
-	        type: "GET",
-	        url: "/getVehicleList",
-			data: { "orgId": orgId,
-					"limit":"No"
-					
-					},
-	        beforeSend: function(xhr) {
-	            //xhr.setRequestHeader(header, token);
-	        },
-	        success: function(data) {
-	            newData = data;
-	            console.log("Emp onboarding data", newData);
-	            var data1 = jQuery.parseJSON(newData);
-	            var data2 = data1.data;
-	            var filteredData = data2.filter(function(employee) {
-	                return employee.status === 1;
-	            });
-	            
-	            var table = $('#vehicleManagementTable').DataTable({
-	                destroy: true,
-	                "responsive": true,
-	                searching: false,
-	                bInfo: false,
-	                paging: false,
-	                "lengthChange": true,
-	                "autoWidth": false,
-	                "pagingType": "full_numbers",
-	                "pageLength": 50,
-	                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-	                "language": {"emptyTable": "No Active Employees Found"},
-	                
-	                // Use the filtered data instead of original data
-	                "aaData": filteredData,
-	                "aoColumns": [
-	                  //  { "mData": null, "render": function(data, type, row, meta) { return meta.row + 1; } },
-					  { "mData": "vehicleNumber" },
-						//{ "mData": "vehicleSequenceId" },
-	                    { "mData": "vehicleType" },	                    
-						{ "mData": "vehicleFuelType" },
-	                    { "mData": "vehicleManufactor" },
-						//{ "mData": "vehicleManufactor" },
-						//{ "mData": "vehicleModel" },
-						
-				     	//{ "mData": "drivername2" },
-						{
-						  "mData": "driverName2",
-						  "render": function(data1, type, row) {
-						    if (data1 === "" || data1 === null) {
-						      return 'Driver not assigned';
-						    } else {
-						      return row.driverName2 + "</br>+91 " + row.driverMobile + "";
-						    }
-						  }
-						},
-						
-						{
-						  "mData": "clientName",
-						  "render": function(data1, type, row) {
-						    if (data1 === "" || data1 === null) {
-						      return 'Client not assigned';
-						    } else {
-						      return row.clientName;
-						    }
-						  }
-						},			 
-						
-					   // { "mData": "clientName" },
-						
-						{ "mData": "tripStatus", "render": function(data1, type, row) {
-							if(data1 !=="In progress"){
-							//return '<a href="#" onclick="viewHistory(this)"> data-toggle="modal" data-target="#vehicleHistoryModal"><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
+	  const orgId = document.getElementById('orgId').value;
+	  const createdBy = document.getElementById('createdBy').value;
 
-							return '<img src="img/history-icon-gray.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">No History';		
-						}
-							else{
-								return '<a href="#" onclick="viewHistory(this)" ><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
-								
-															
-							}							
-						}},					 
-						
-						 { "mData": "tripStatus", "render": function(data1, type, row) {
-							//var vehicleType = data1.vehicleType;
-							if(data1==="In progress"){
-								return '';
-	                      //return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
-						}
-						else{
-							return '<td><a onclick="viewData(this)"> <img src="img/edit-pencil-blue.png" alt="Edit Pencil" style="height:24px; width:24px; margin-right:4px;">  </a></td>';
-													 
-						}
-					   }},
-	                ],
-					createdRow: function (row, data1, dataIndex) 
-                    {
-                     //console.log("row : "+JSON.stringify(data2));
-                   
-                 	var vehicleType = data1.vehicleType;
-                 	//var statusMessage = data2.statusMessage;
-                	
-                     if(vehicleType=="SUV / MUV")
-                     {
-					 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
-                     $(row).find('td:eq(1)').html(imgTag);
-                     }
-                     else if(vehicleType=="Sedan")
-                     {
-					 var imgTag = ' <img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
- 					 $(row).find('td:eq(1)').html(imgTag);
-                     }
-                     
-                     else if(vehicleType=="Truck")
-                     {
-						var imgTag = ' <img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">'+vehicleType;
-						 $(row).find('td:eq(1)').html(imgTag);
-                     }
-                     
-                     else if(vehicleType=="Mini Truck")
-                     {
-					 var imgTag = '<img src="img/truck-icon.png" alt="" class="mr-2">'+vehicleType;
-                     $(row).find('td:eq(1)').html(imgTag);
-                     }
-                     else if(vehicleType=="Hatchback")
-                     {
-					 var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
- 					 $(row).find('td:eq(1)').html(imgTag);
-                     }
-                     else if(vehicleType=="Two-Wheeler")
-                     {
-					 var imgTag = '<img src="img/two-wheeler-icon.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
-                      $(row).find('td:eq(1)').html(imgTag);
-                     }
-					 else if(vehicleType=="Amb./Spl. Purp")
-                     {
-					 var imgTag = '<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">'+vehicleType;
-                      $(row).find('td:eq(1)').html(imgTag);
-                     }
-					 else{
-						var imgTag = '<img src="img/car-icon.png" alt="" class="mr-2">'+vehicleType;
-						 $(row).find('td:eq(1)').html(imgTag);
-					 }
-					
-                  }
-			});		
-								
-	        },
-	        error: function(e) {
-	            alert('Failed to fetch JSON data' + e);
+	  $.ajax({
+	    type: "GET",
+	    url: "/getVehicleList",
+	    data: {
+	      orgId: orgId,
+	      limit: "No"
+	    },
+	    beforeSend: function (xhr) {},
+	    success: function (data) {
+	      const data1 = jQuery.parseJSON(data);
+	      const filteredData = data1.data.filter(vehicle => vehicle.status === 1);
+
+	      $('#vehicleManagementTable').DataTable({
+	        destroy: true,
+	        responsive: true,
+	        searching: false,
+	        bInfo: false,
+	        paging: false,
+	        lengthChange: true,
+	        autoWidth: false,
+	        pagingType: "full_numbers",
+	        pageLength: 50,
+	        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+	        language: { emptyTable: "No Active Employees Found" },
+	        aaData: filteredData,
+	        aoColumns: [
+	          {
+	            mData: "vehicleNumber",
+	            render: function (data, type, row) {
+	              return `<span data-vehicle-seq-id="${row.vehicleSequenceId}">${data}</span>`;
+	            }
+	          },
+	          {
+	            mData: "vehicleType"
+	          },
+	          {
+	            mData: "vehicleFuelType"
+	          },
+	          {
+	            mData: "vehicleManufactor"
+	          },
+	          {
+	            mData: "driverName2",
+	            render: function (data1, type, row) {
+	              return data1 ? `${row.driverName2}<br>+91 ${row.driverMobile}` : 'Driver not assigned';
+	            }
+	          },
+	          {
+	            mData: "clientName",
+	            render: function (data1, type, row) {
+	              return data1 ? row.clientName : 'Client not assigned';
+	            }
+	          },
+	          {
+	            mData: "tripStatus",
+	            render: function (data1, type, row) {
+	              if (data1 !== "In progress") {
+	                return '<img src="img/history-icon-gray.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">No History';
+	              } else {
+	                return '<a href="#" onclick="viewHistory(this)"><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
+	              }
+	            }
+	          },
+	          {
+	            mData: "tripStatus",
+	            render: function (data1, type, row) {
+	              if (data1 === "In progress") {
+	                return '';
+	              } else {
+	                return '<td><a onclick="viewData(this)"><img src="img/edit-pencil-blue.png" alt="Edit Pencil" style="height:24px; width:24px; margin-right:4px;"></a></td>';
+	              }
+	            }
+	          }
+	        ],
+	        createdRow: function (row, data1) {
+	          const vehicleType = data1.vehicleType;
+	          let imgTag = '';
+
+	          if (vehicleType === "SUV / MUV" || vehicleType === "Hatchback") {
+	            imgTag = `<img src="img/car-icon.png" alt="" class="mr-2">${vehicleType}`;
+	          } else if (vehicleType === "Sedan") {
+	            imgTag = `<img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">${vehicleType}`;
+	          } else if (vehicleType === "Truck" || vehicleType === "Mini Truck") {
+	            imgTag = `<img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">${vehicleType}`;
+	          } else if (vehicleType === "Two-Wheeler") {
+	            imgTag = `<img src="img/two-wheeler-icon.webp" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
+	          } else if (vehicleType === "Amb./Spl. Purp") {
+	            imgTag = `<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
+	          } else {
+	            imgTag = `<img src="img/car-icon.png" alt="" class="mr-2">${vehicleType}`;
+	          }
+
+	          $(row).find('td:eq(1)').html(imgTag);
 	        }
-	    });
+	      });
+	    },
+	    error: function (e) {
+	      alert('Failed to fetch JSON data' + e);
+	    }
+	  });
 	}
-	
+
 	
 	function viewHistory(value){
 			
 			var row = jQuery(value).closest('tr');
 		 //   var id = row.find('input[name="id"]').val();
-		 var vehicleSequenceId = row.find('td').eq(0).text().trim(); 
+		 var vehicleSequenceId = row.find('td').eq(0).find('span').data('vehicle-seq-id');
 			const orgId = document.getElementById('orgId').value;
 			const createdBy = document.getElementById('createdBy').value;
 		    $.ajax({
@@ -1564,66 +1512,50 @@ function openModalConfirm() {
 		        }								
 		    });		
 		}  
-	function viewData(value){
-		
-		var row = jQuery(value).closest('tr');
-	   // var id = row.find('input[name="id"]').val();
-	   var vehicleSequenceId = row.find('td').eq(0).text().trim(); 
-	  // alert(""+id);
-		const orgId = document.getElementById('orgId').value;
-		const createdBy = document.getElementById('createdBy').value;
-	    $.ajax({
-	        type: "GET",
-	        url: "/getVehicleManagementById",
-			data: { vehicleSequenceId },
-	        beforeSend: function(xhr) {
-	            //xhr.setRequestHeader(header, token);
-	        },
-	        success: function(data) {
-	            newData = data;
-	            console.log("Emp onboarding data", newData);
-				var data1 = jQuery.parseJSON(newData);
-			if(data1.status==true){
-				document.getElementById("editVehicleNumber").innerText=data1.data.vehicleNumber;
-				document.getElementById("editVehicleModel").innerText=data1.data.vehicleModel;
-				document.getElementById("editVehicleClass").innerText=data1.data.vehicleType ;
-				document.getElementById("editVehicleDesileType").innerText=data1.data.vehicleFuelType;
-				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;
-				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;
-				document.getElementById("vehicleId").value=data1.data.vehicleSequenceId;
-				
-			    document.getElementById("vehicle_chasi_number_edit").innerText=data1.data.vehicle_chasi_number;
-			    document.getElementById("vehicle_engine_number_edit").innerText=data1.data.vehicle_engine_number;
-				document.getElementById("color_edit").innerText=data1.data.color;
-				//document.getElementById("registered_at_edit").innerText=data1.data.registered_at;
-				document.getElementById("manufacturing_date_edit").innerText=data1.data.manufacturing_date;
-				document.getElementById("cubic_capacity_edit").innerText=data1.data.cubic_capacity;
-				document.getElementById("seat_capacity_edit").innerText=data1.data.seat_capacity;
-				document.getElementById("unladen_weight_edit").innerText=data1.data.unladen_weight;
-				document.getElementById("wheelbase_edit").innerText =data1.data.wheelbase;
-				document.getElementById("insurance_company_edit").innerText=data1.data.insurance_company;
-				document.getElementById("fit_up_to_edit").innerText=data1.data.fit_up_to;
-				document.getElementById("tax_paid_upto_edit").innerText=data1.data.tax_paid_upto;				
-				document.getElementById("financer_edit").innerText=data1.data.financer;
-				document.getElementById("permit_number_edit").innerText=data1.data.permit_number;
-				
-				document.getElementById("owner_name_edit").innerHTML=data1.data.ownerName;
-				document.getElementById("ownerpresent_address_edit").innerHTML=data1.data.ownerAddress;
-				
-				///getVehicleManagementById						
-				const editDetailsModal = document.getElementById('editDetailsModal');
- 				editDetailsModal.style.display = 'block';
-			}else if(data1.status==false){
-			}else{
-			}
+		function viewData(value) {
+		  const row = jQuery(value).closest('tr');
+		  const vehicleSequenceId = row.find('td').eq(0).find('span').data('vehicle-seq-id');
+		  const orgId = document.getElementById('orgId').value;
+		  const createdBy = document.getElementById('createdBy').value;
 
-	        },
-			error: function(e) {
-	            alert('Failed to fetch JSON data' + e);
-	        }								
-	    });		
-	}  
-	
+		  $.ajax({
+		    type: "GET",
+		    url: "/getVehicleManagementById",
+		    data: { vehicleSequenceId },
+		    beforeSend: function (xhr) {},
+		    success: function (data) {
+		      const data1 = jQuery.parseJSON(data);
+		      if (data1.status === true) {
+		        document.getElementById("editVehicleNumber").innerText = data1.data.vehicleNumber;
+		        document.getElementById("editVehicleModel").innerText = data1.data.vehicleModel;
+		        document.getElementById("editVehicleClass").innerText = data1.data.vehicleType;
+		        document.getElementById("editVehicleDesileType").innerText = data1.data.vehicleFuelType;
+		        document.getElementById("vehicleId").value = data1.data.vehicleSequenceId;
+		        document.getElementById("vehicle_chasi_number_edit").innerText = data1.data.vehicle_chasi_number;
+		        document.getElementById("vehicle_engine_number_edit").innerText = data1.data.vehicle_engine_number;
+		        document.getElementById("color_edit").innerText = data1.data.color;
+		        document.getElementById("manufacturing_date_edit").innerText = data1.data.manufacturing_date;
+		        document.getElementById("cubic_capacity_edit").innerText = data1.data.cubic_capacity;
+		        document.getElementById("seat_capacity_edit").innerText = data1.data.seat_capacity;
+		        document.getElementById("unladen_weight_edit").innerText = data1.data.unladen_weight;
+		        document.getElementById("wheelbase_edit").innerText = data1.data.wheelbase;
+		        document.getElementById("insurance_company_edit").innerText = data1.data.insurance_company;
+		        document.getElementById("fit_up_to_edit").innerText = data1.data.fit_up_to;
+		        document.getElementById("tax_paid_upto_edit").innerText = data1.data.tax_paid_upto;
+		        document.getElementById("financer_edit").innerText = data1.data.financer;
+		        document.getElementById("permit_number_edit").innerText = data1.data.permit_number;
+		        document.getElementById("owner_name_edit").innerHTML = data1.data.ownerName;
+		        document.getElementById("ownerpresent_address_edit").innerHTML = data1.data.ownerAddress;
+
+		        document.getElementById('editDetailsModal').style.display = 'block';
+		      }
+		    },
+		    error: function (e) {
+		      alert('Failed to fetch JSON data' + e);
+		    }
+		  });
+		}
+
 	  function downloadInExcel() {
 	    const tableData = [];
 	    

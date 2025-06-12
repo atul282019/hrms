@@ -75,7 +75,8 @@ function fetchMccMasterList() {
                 $('#purposeCode').val(mccData.purposeCode);
                 $('#purposeDesc').val(mccData.purposeDesc);
                 $('#mccCode').val(mccData.mcc);
-                $('#mccDesc').val(mccData.mccDesc);
+                $('#mccDesc').val(mccData.mccDesc); 
+				$('#prStatus').val(mccData.prStatus);
 
                 // Handle Voucher Icon
                 if (mccData.voucherIcon) {
@@ -192,7 +193,7 @@ function saveVoucherData() {
 	    var mccCode = document.getElementById("mccCode").value.trim();
 	    var mccDesc = document.getElementById("mccDesc").value.trim();
 	    var status = document.getElementById("status").value.trim();
-
+		var prStatus=document.getElementById("prStatus").value.trim();
 
 
     // Send the AJAX request
@@ -210,6 +211,7 @@ function saveVoucherData() {
 					"voucherIcon":uploadVoucherIcon_base64,
 					"mccIcon":uploadMccIcon_base64,
 					"mccMainIcon":uploadMccMainIcon_base64,
+					"prStatus":prStatus
 
 					
 		      		 },dataType: "json", 
