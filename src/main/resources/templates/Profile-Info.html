@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" >
+<body id="page-top" onload="getEmployeeOnboardingById()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -76,6 +76,9 @@
 				<input type="hidden" class="form-input" name="employerId" id="employerId" >
 				<input type="hidden" class="form-input" name="Id" id="Id" >
 				<input type="hidden" class="form-input" name="userDetailsId" id="userDetailsId" >
+				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
+				<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
 				<!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
@@ -92,7 +95,21 @@
                                                     <div class="col-12">
                                                         <div class="profile-name-wrap">
                                                             <h4><span th:text="${name}"></span></h4><img src="img/linked.svg" class="ml-2" alt="">
-                                                         
+															<div style="position: relative; display: inline;">
+															             <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
+															             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions </button>
+
+															             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+															                 aria-labelledby="userDropdown">
+															                 <a class="dropdown-item py-2"  href="#">
+															                     Change Reporting Manager
+															                 </a>
+															                 
+															                 <a class="dropdown-item py-2" href="#" onclick="deactivateEmployee()">
+															                     Deactivate User
+															                 </a>
+															             </div>
+															         </div>
                                                         </div>                                                         
                                                         
                                                         <div class="profile-add-wrap">
@@ -100,36 +117,175 @@
                                                             <div class="profile-add"><img src="img/call.svg" alt="">+91 <span id="mobile" th:text="${session.mobile}"></span></div>
                                                             <div class="profile-add"><img src="img/location.svg" alt=""><span id="location">India, Gurgaon</span></div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="profile-info-wrap">
-                                                            <div class="profile-info">
-                                                                <label for="">Name</label>
-                                                               <p id="designation" th:text="${session.username}"></p>
-                                                            </div>
-
-                                                            <div class="profile-info">
-                                                                <label for="">Mobile</label>
-                                                                <p id="depratment" th:text="${session.mobile}"></p>
-                                                            </div>
-
-                                                            <div class="profile-info">
-                                                                <label for="">Email</label>
-                                                                <p id="mngrName" th:text="${session.email}"></p>
-                                                            </div>
-
-                                                            <div class="profile-info">
-                                                                <label for="">Employee Organization</label>
-                                                                <p id="empType" th:text="${session.organizationName}"></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    </div>                                              
+													<div class="col-12 mt-4">
+                                                       <div class="profile-tabs">
+                                                           <ul class="nav nav-tabs">
+                                                               <li><a data-toggle="tab" href="#about-section" class="active about-tab">About</a></li>
+                                                               <li><a data-toggle="tab" href="#Transactions-History-section" class="Transactions-tab">Transactions History</a></li><!-- href="#salary-section" -->
+                                                               
+                                                           </ul>
+                                                       </div>
+                                                   </div>
                                                    
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+								<div class="tab-content">
+								  <div class="row tab-pane in active" id="about-section">
+								    <div class="row">
+								      <!-- Two columns: Left for Primary, Right for Reporting -->
+								      <div class="col-12 col-md-6">
+								        <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+								          <h5>Primary Details</h5>
+								          <div class="primary-Details-wrap">
+								            <div class="Primary-details-info">
+								              <label>Name</label>
+								              <p id="firstName"></p>
+								            </div>
+								            <div class="Primary-details-info">
+								              <label>Gender</label>
+								              <p id="gender"></p>
+								            </div>
+								            <div class="Primary-details-info">
+								              <label>Date of Birth</label>
+								              <p id="dob"></p>
+								            </div>
+								            <div class="Primary-details-info">
+								              <label>Marital Status</label>
+								              <p id="maritalStatus"></p>
+								            </div>
+								            <div class="Primary-details-info">
+								              <label>Physically Handicapped</label>
+								              <p id="handicapped"></p>
+								            </div>
+								          </div>
+								        </div>
+								      </div>
+
+								      <div class="col-12 col-md-6">
+								        <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+								          <h5>Reporting Team (<span id="teamCount">0</span>)</h5>
+								          <div class="Reporting-team-wrap">
+								            <!-- Optional: Add reporting team member HTML blocks here -->
+								          </div>
+								        </div>
+								      </div>
+								    </div>
+								  </div>
+								  <div class="row tab-pane" id="Transactions-History-section">
+									<!-- tabs section-->
+									<div class="business-benefits01 py-5" style="width: 100%; margin-left: -2px !important;">
+									<div class="container-fluid">
+										<div class="download-btn-container">
+									    <img src="img/download-blue.svg" alt="Download Icon">
+									  </div>
+									   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+									     
+									     <li class="nav-item">
+									       <a class="nav-link active" data-toggle="tab" href="#RewardsRedemption" role="tab">Rewards Redemption</a>
+									     </li>
+									     <li class="nav-item">
+									       <a class="nav-link" data-toggle="tab" href="#Transactions" role="tab">Transactions</a>
+									     </li>
+									   </ul>
+									  
+									   <hr class="mt-0">
+
+									   <div class="tab-content mt-3">
+ 
+										<!-- transactions tab-->
+									     <div class="tab-pane fade show active" id="RewardsRedemption" role="tabpanel">
+											
+											<!-- empty table with error msg . msg to show when data is not present-->
+											<div class="table-responsive">
+											  <table class="table table-reimbursements mb-0" >
+											    <thead>
+													<tr>
+
+											        <th>Voucher ID</th>	
+												  	 
+											        <th>Bank A/c</th>
+											       
+												  <th>Category</th>	
+												  <th>Redemption Type</th>	
+												  <th>Status</th>	
+												  <th>Issue Date</th>	
+												  <th>Expiry Date</th>
+												  <th>Issued</th>
+												  <th>Redeemed</th>
+											      </tr>
+											    </thead>
+											    <tbody class="table-bordered">
+													<tr>
+									            	<td colspan="12" class="text-center">													
+														As per the last update, there are no UPI Vouchers issued to this user. 
+														</td>
+													 
+										            </tr>	
+													<tr>
+									            	<td colspan="12" class="text-center">													
+														
+														If you have issued a UPI Voucher to this user already, please refresh and check again after 60 minutes.
+													</td>
+													 
+										            </tr>			
+											    </tbody>
+											  </table>
+											</div>
+									     </div>
+										 
+										 <!--vouchers tab-->
+									     <div class="tab-pane fade" id="Transactions" role="tabpanel">
+											<div class="table-responsive">
+									        <table class="table table-reimbursements mb-0">
+									          <thead>
+									            <tr>
+												 <!-- <th>S.NO</th>-->
+												  <th>Voucher ID</th>
+									              
+									              <th>Date & Time</th>	
+												  	 
+									              <th>TXN ID</th>
+									             
+												  <th>Catagory</th>	
+												  <th>Merchant</th>	
+												  <th>Amount</th>	
+												  
+												 
+									            </tr>
+									          </thead>
+									          <tbody class="table-bordered">
+									            <tr>
+								            	<td colspan="9" class="text-center">													
+													As per the last update, this user has not used a UPI Vouchers to transact.
+													</td>
+												 
+									            </tr>	
+												<tr>
+								            	<td colspan="9" class="text-center">													
+													
+													If the user has already transacted, please refresh and check again after 60 minutes.</td>
+												 
+									            </tr>						
+																	
+									          </tbody>
+									        </table>
+									      </div>
+										 
+
+									     </div>
+									   </div>
+									 </div>
+									 </div>
+								  </div>
+								  
+								  
+								  
+								</div><!-- tabcontentend-->
+
                             </div>
 
                         </div>
@@ -150,6 +306,8 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+	<!-- Theme css-->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -166,7 +324,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	<script type="text/javascript" src="cotodel-js/employee-onboarding-full-action.js"></script>
+	<script type="text/javascript" src="cotodel-js/Profile-Info.js"></script>
 
 </body>
 

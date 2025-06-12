@@ -92,10 +92,11 @@
 		            <table class="table table-reimbursements-alt mb-0" id="vehicleManagementTable">
 		              <thead>
 		                <tr>
-						 <!-- <th>S.NO</th>-->
-						  <th>Vehicle ID</th>
+						 <!-- <th>S.NO</th>
+						  <th>Vehicle ID</th>-->
+						  <th>Registration #</th>	
 		                  <th>Vehicle Type</th>
-		                  <th>Registration #</th>	
+		                 
 						  <th>Fuel Type</th>			 
 		                  <th>Make & Model</th>
 		                 <!-- <th>Driver Assignment</th>
@@ -1277,9 +1278,9 @@ function openModalConfirm() {
 	                "aaData": filteredData,
 	                "aoColumns": [
 	                  //  { "mData": null, "render": function(data, type, row, meta) { return meta.row + 1; } },
-						{ "mData": "vehicleSequenceId" },
-	                    { "mData": "vehicleType" },
-	                    { "mData": "vehicleNumber" },
+					  { "mData": "vehicleNumber" },
+						//{ "mData": "vehicleSequenceId" },
+	                    { "mData": "vehicleType" },	                    
 						{ "mData": "vehicleFuelType" },
 	                    { "mData": "vehicleManufactor" },
 						//{ "mData": "vehicleManufactor" },

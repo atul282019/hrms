@@ -146,6 +146,11 @@
                 <img src="img/support.png" alt="" class="mr-2">
                 <span>Support</span></a>
         </li>
+		<li class="nav-item" th:if="${ session.user_role == 9}">
+		             <a class="nav-link" th:href="@{/cotodelApproval}">
+		                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+		                 <span>Cotodel Wallet</span></a>
+		         </li>
 		<!--  <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
                <a class="nav-link" th:href="@{/payment}">
                    <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">

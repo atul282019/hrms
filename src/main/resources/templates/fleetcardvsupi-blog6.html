@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is eRUPI | Cotodel - Business Payments on UPI</title>
+  <meta name="author" content="cotodel.com">
+  <meta name="description" content="eRUPI is UPI Digital Vouchers that can be issued at a person as well as purpose level. Since UPI is the preferred mode of payment, eRUPI becomes the alternate to prepaid instruments and corporate cards/fuel cards. At Cotodel, we are trying to bring business spends on UPI by leveraging eRUPI which is approved by NPCI">
+  <meta name="keywords" content="UPI, Digital Spends, eRUPI, NPCI, UPI Innovation">
+  
+  <link rel="icon" href="/img/favicon.png" type="image/png">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Plugins CSS -->
+  <link rel="stylesheet" type="text/css" href="css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-icons.css">
+  <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="css/tiny-slider.css">
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+  	
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RE141954R"></script>
+  
+  <script>
+  	  window.dataLayer = window.dataLayer || [];
+  	  function gtag(){dataLayer.push(arguments);}
+  	  gtag('js', new Date());
+
+  	  gtag('config', 'G-4RE141954R');
+  	</script>
+  	
+  	<!-- Google Tag Manager -->
+  	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  	})(window,document,'script','dataLayer','GTM-P6GX7GDP');</script>
+  	<!-- End Google Tag Manager -->
+  	<!-- Google Tag Manager (noscript) -->
+  	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6GX7GDP"
+  	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  	<!-- End Google Tag Manager (noscript) -->
+
+
+  <style>
+	.custom-green{
+		color :#2F945A;
+	}
+    body { font-family: 'Open Sans', sans-serif; line-height: 1.6; }
+	p {
+		color: #4A4E69;
+		  font-family: 'Open Sans', sans-serif;
+		  font-weight: 400;
+		  font-size: 20px;
+		  line-height: 140%;
+		  letter-spacing: 0%;
+		  
+	}
+	@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+	.availability-box {
+	  width: 1054.36px;
+	  height: 168px;
+	  background-color: #EDEDF0;
+	  border-radius: 10px;
+	  border: 1px solid #dcdcdc;
+	  font-family: 'Open Sans', sans-serif;
+	}
+
+	@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+	.availability-box {
+	  width: 1054.36px;
+	  background-color: #EDEDF0;
+	  border-radius: 10px; /* 🔹 Rounded on all sides */
+	  border: 1px solid #dcdcdc;
+	  font-family: 'Open Sans', sans-serif;
+	  overflow: hidden; /* 🔹 Ensures inner content fits within rounded corners */
+	}
+
+	.availability-header {
+	  height: 56px;
+	  padding: 12px 24px;
+	  display: flex;
+	  align-items: center;
+	  gap: 12px;
+	  font-weight: 700;
+	  font-size: 23px;
+	  line-height: 1.4;
+	  color: #000;
+	  background-color: #EDEDF0;
+	  border-bottom: 1px solid #dcdcdc;
+	}
+
+	.option-row {
+	  height: 56px;
+	  background-color: #ffffff;
+	  padding: 12px 24px;
+	  display: flex;
+	  gap: 12px;
+	  align-items: center;
+	  border-bottom: 1px solid #dcdcdc;
+	}
+
+	.option-row:last-child {
+	  border-bottom: none; /* 🔹 Avoid double border at the bottom */
+	}
+
+	.availability-box .text-secondary {
+	  color: #4A4E69 !important;
+	}
+
+
+    h2, h3 { margin-top: 2rem; }
+    .section { padding: 2rem 0; }
+   
+    .hero h1 { color: #1b7e3c; }
+    .highlight { color: #1F212C; font-weight: bold;display: inline; }
+    .step-number { font-weight: bold; color: #1b7e3c; }
+    footer { background: #f1f1f1; padding: 2rem 0; margin-top: 3rem; }
+    .cover-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+	.meta {
+	      color: #6c757d;
+	      font-size: 0.9rem;
+	    }
+	    .meta span::after {
+	      content: " \2022"; /* bullet character */
+	      margin-left: 0.5rem;
+	      margin-right: 0.5rem;
+	    }
+	    .meta span:last-child::after {
+	      content: "";
+	      margin: 0;
+	    }
+		.section ul li {
+		  color: #1F212C; /* force normal black text for list items */
+		  
+		  margin-bottom: 1rem;
+		}
+		.custom-cta-btn {
+		    width: 200px;
+		    height: 55px;
+		    padding: 20px;
+		    border-radius: 16px;
+		    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Optional thin top border */
+		    font-weight: 600;
+		    font-size: 1.1rem;
+		    background-color: #2F945A; /* adjust to match green if needed */
+		    color: white;
+		  }
+		  .custom-cta-btn:hover {
+		    background-color: #2F945A;
+		    text-decoration: none;
+		    color: white;
+		  }
+		  .custom-secondary-for-blogs {
+			color:#86889B;
+		    font-weight: 400;
+		    font-size: 48px;
+		    line-height: 140%;
+		    letter-spacing: 0%;
+		  }
+  </style>
+</head>
+<body>
+  <div class="container-fluid p-0">
+    <!-- Full Width Cover Image -->
+    <img src="img/blogcover6.png" alt="Fleet CARD Vs UPI" class="cover-image" title="Explanation of eRUPI - How does it work & Benefits">
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+	<section class="section container">
+		     <h1 class="custom-green">Fuel Cards vs. UPI Digital Vouchers</h1>
+			 <h1 class="custom-secondary-for-blogs">UPI Digital Vouchers empowering Fleet Expense Management</h1>
+			 <p>Paras Gupta & Vidit Sidana</p>
+
+			   <p class="meta">
+				<span>CotoPay</span>
+			     <span>May 15, 2025</span>
+			     <span>4 min read</span>
+			   </p>
+			
+		     <p>Managing fuel expenses is a core operational challenge for fleet managers. While fuel cards have been around for a long time, they come with several limitations. UPI Digital Vouchers are a new-age payment method which can act as an alternative mode of payment for fleets which are operating their fuel spends either via cash or fuel cards currently.</p>
+
+			<p>Read on for a comparison between Fuel cards and UPI Digital Vouchers and why UPI Digital Vouchers are emerging as the smarter choice for Fleet owners! </p> 
+			 </section>
+			 
+			 <section class="section container">
+			   <h1>
+			     <span class="fw-bold">Availability</span>
+			     <span class="fw-normal">: Go Where Your Fleet Goes</span>
+			   </h1>
+			   <p>Fuel cards are limited to select partner fuel stations, creating inefficiencies when drivers deviate from routes or enter remote areas. A driver running low on fuel may need to detour significantly just to find an accepted station. In contrast, UPI Digital Vouchers offer universal acceptance at any UPI-enabled petrol pump — now covering most fuel stations across India. This enables faster refueling, eliminates detours, and enhances fleet productivity and route efficiency.</p>
+			   <p>Additionally, fuel cards often rely on POS machines that may be out of service, not recharged, or lack network connectivity — especially common in peripheral areas or highways where commercial vehicles typically operate. This leads to transaction failures and delays. UPI Digital Vouchers, however, leverage mobile-based UPI apps that work seamlessly even in low-connectivity zones, ensuring smooth, real-time transactions and uninterrupted fleet operations.</p>
+			 </section>
+
+		<section class="container" >
+	   <div class="d-flex justify-content-center">
+	     <img src="img/FeatureComparison.png" alt="Utilizing eRUPI for business spends" title="UPI Digital vouchers for business spends (corporate expenses & fleet expenses) for employees and drivers"class="img-fluid" style="max-width: 120%; height: auto;">
+	   </div><br>
+	   <h1>
+	     <span class="fw-bold">Hidden Fees:</span>
+	     <span class="fw-normal">: Say Goodbye to Unnecessary Costs</span>
+	   </h1>
+	    <p>Fuel cards often come with joining fees, renewal charges, POS terminal fees, and sometimes even per-transaction fees. Over time, these add up and eat into your operating budget. In contrast, UPI Digital Vouchers come with zero hidden charges. What you see is what you pay.</p>
+</section>		 
+
+ <section class="container" >
+	   <div class="d-flex justify-content-center">
+	     <img src="img/FeatureComparison2.png" alt="UPI Ecosystem for targeted business spends" title="Digital UPI Vouchers require no change in consumer or merchant" class="img-fluid" style="max-width: 120%; height: auto;">
+	   </div>
+	   </section>		
+	   
+	   <section class="contact-section pt-0" >
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="contact-form  text-start" >
+							<h2 class="h2-bold mb-4 color-prime-500">Join the Waitlist</h2>
+							<p class="title-2 color-secnd-500 mb-2">18 billion UPI transactions are happening every month!  Time to get your Business payments on UPI as well?
+							</p>
+							<!--<p class="title-2 color-secnd-500">Drop in your details to connect with us</p>-->
+
+
+							<div
+								class="d-flex mt-2 mt-lg-4 flex-column flex-md-row align-items-md-center justify-content-start">
+								<a class="btn btn-lg btn-primary bradius-8 text-white mb-0" id="submitButton01"
+								target="_blank" href="/waitlist" title="Join the waitlist to get exclusive access to Cotodel's expense management solution to bring your business spends and fleet expenses on UPI">Submit Details
+								<i class="bi bi-arrow-right"></i>	
+							</a>
+								<p class="or">OR</p>
+								<button class="btn btn-lg btn-primary bradius-8 text-white mb-0"
+									id="whatsappButton"><img src="img/whatsapp.svg" alt="Connect with Cotodel for Corporate Expense Management" title="Message us to implement Smart Digital UPI Vouchers to simplify your business spends." class="me-2">Chat
+									with us</button>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</section>			 
+
+							
+	<section class="section container">
+				   <h1>
+				     <span class="fw-bold">Form Factor:</span>
+				     <span class="fw-normal">: Ditch the Plastic, Go Digital</span>
+				   </h1>
+				   <p>UPI is India's preferred payment method. With most consumers now going cashless and card-free, UPI Digital Vouchers enables fast, secure, and hassle-free transactions across the country. If personal spending is this seamless, why shouldn’t business payments be the same? Simplify your fleet expenses with the power of UPI Digital Vouchers.</p>
+				   	   <div class="d-flex justify-content-center">
+				   	     <img src="img/FeatureComparison3.png" alt="UPI Ecosystem for targeted business spends" title="Digital UPI Vouchers require no change in consumer or merchant" class="img-fluid" style="max-width: 120%; height: auto;">
+				   	   </div>
+				   	   </section>
+					   
+					   <section class="section container">
+						<h1>
+	   				     <span class="fw-bold">Programmable Locked Spends:</span>
+	   				     <span class="fw-normal">: Total Control Over Usage </span>
+	   				   </h1>
+					   <p>Fuel cards are limited to fuel stations, offering minimal control over how and where funds are used. In contrast, UPI Digital Vouchers provide advanced spend-locking capabilities — businesses can define precise usage parameters such as category-level restrictions (e.g., all fuel stations in India), brand-specific limits (e.g., all Indian Oil outlets), or even lock usage to a specific merchant location (e.g., Indian Oil Station, Bandra Road). This level of granularity ensures tight control, reduces misuse, and enhances transparency.</p>
+					   <p>Moreover, UPI Digital Vouchers are not restricted to fuel expenses alone. Fleet managers can configure vouchers to be used across other essential categories like toll payments, vehicle maintenance, food, and lodging — depending on the operational needs of the fleet. This makes UPI Digital Vouchers a highly versatile and scalable solution.</p>
+					   <div class="d-flex justify-content-center">
+	   				   	     <img src="img/FeatureComparison4.png" alt="UPI Ecosystem for targeted business spends" title="Digital UPI Vouchers require no change in consumer or merchant" class="img-fluid" style="max-width: 120%; height: auto;">
+	   				   	   </div>
+	   				   	   </section>
+						   
+   <section class="section container">
+		<h1>
+	     <span class="fw-bold">Seamless Onboarding:</span>
+	     <span class="fw-normal">: Save Time, Go Paperless </span>
+	   </h1>
+	   <p>Fuel card issuance typically requires paperwork, KYC verification, and waiting periods, slowing down operations, especially for businesses with large or mobile fleets. UPI Digital Vouchers simplify this process with digital onboarding. Fleet managers can instantly issue vouchers to drivers via mobile numbers, eliminating the need for physical cards or complex documentation. This is ideal for gig economy models and logistics startups that need to scale their fleets quickly and efficiently.</p>
+	    	<div class="d-flex justify-content-center">
+	   	     <img src="img/FeatureComparison5.png" alt="UPI Ecosystem for targeted business spends" title="Digital UPI Vouchers require no change in consumer or merchant" class="img-fluid" style="max-width: 120%; height: auto;">
+	   	   </div>
+	   	   </section>
+		   
+		   <section class="section container">
+			<h1 class="text-strong">Fuel Card Vs UPI Digital Voucher Summary</h1>
+			</section>
+			
+			<section class="container my-4">
+			  <div class="availability-box overflow-hidden">
+			    <div class="availability-header">
+			      <span>Availability</span>
+			    </div>
+			    <div class="option-row d-flex align-items-start">
+			      <span class="fw-bold me-2 text-dark">Fuel Cards</span>
+			      <span class="text-secondary">Limited to select partner fuel stations.</span>
+			    </div>
+			    <div class="option-row d-flex align-items-start">
+			      <span class="fw-bold me-2 text-dark">UPI Vouchers</span>
+			      <span class="text-secondary">Accepted at any UPI-enabled petrol pump nationwide.</span>
+			    </div>
+			  </div>
+
+			  <!-- More space added here -->
+			  <div class="availability-box overflow-hidden" style="margin-top: 40px;">
+			    <div class="availability-header">
+			      <span>Fees</span>
+			    </div>
+			    <div class="option-row d-flex align-items-start">
+			      <span class="fw-bold me-2 text-dark">Fuel Cards</span>
+			      <span class="text-secondary">Often include joining, renewal, and transaction fees.</span>
+			    </div>
+			    <div class="option-row d-flex align-items-start">
+			      <span class="fw-bold me-2 text-dark">UPI Vouchers</span>
+			      <span class="text-secondary">No hidden charges — transparent and cost-effective.</span>
+			    </div>
+			  </div>
+	              <div class="availability-box overflow-hidden" style="margin-top: 40px;">
+	  			    <div class="availability-header">
+	  			      <span>Form Factor</span>
+	  			    </div>
+	  			    <div class="option-row d-flex align-items-start">
+	  			      <span class="fw-bold me-2 text-dark">Fuel Cards</span>
+	  			      <span class="text-secondary">Plastic cards required for use.</span>
+	  			    </div>
+	  			    <div class="option-row d-flex align-items-start">
+	  			      <span class="fw-bold me-2 text-dark">UPI Vouchers</span>
+	  			      <span class="text-secondary">Fully digital; no physical card needed; Preference of Indian Consumer.</span>
+	  			    </div>
+	  			  </div>
+					  <div class="availability-box overflow-hidden" style="margin-top: 40px;">
+		  			    <div class="availability-header">
+		  			      <span>Control & Flexibility</span>
+		  			    </div>
+		  			    <div class="option-row d-flex align-items-start">
+		  			      <span class="fw-bold me-2 text-dark">Fuel Cards</span>
+		  			      <span class="text-secondary">Basic control; limited to fuel purchases.</span>
+		  			    </div>
+		  			    <div class="option-row d-flex align-items-start">
+		  			      <span class="fw-bold me-2 text-dark">UPI Vouchers</span>
+		  			      <span class="text-secondary">Programmable for merchant types, limits, and validity.</span>
+		  			    </div>
+		  			  </div>
+					  <div class="availability-box overflow-hidden" style="margin-top: 40px;">
+		  	  			    <div class="availability-header">
+		  	  			      <span>Onboarding</span>
+		  	  			    </div>
+		  	  			    <div class="option-row d-flex align-items-start">
+		  	  			      <span class="fw-bold me-2 text-dark">Fuel Cards</span>
+		  	  			      <span class="text-secondary">Paper-based, time-consuming setup.</span>
+		  	  			    </div>
+		  	  			    <div class="option-row d-flex align-items-start">
+		  	  			      <span class="fw-bold me-2 text-dark">UPI Vouchers</span>
+		  	  			      <span class="text-secondary">Instant, paperless issuance via mobile.</span>
+		  	  			    </div>
+		  	  			  </div>
+			           </section>
+ 
+
+ <h5>References</h5>
+	<p>
+	   <a href="https://www.axisbank.com/retail/cards/credit-card/indianoil-axis-bank-credit-card" title="Indian Oil Axis Bank Credit Card | Cotodel Digital UPI Vouchers" target="_blank">
+		Indian Oil Axis Bank Credit Card</a>, 
+	  <a href="https://www.icicibank.com/personal-banking/cards/credit-card/fuel" title=" ICICI Bank Credit Card | Cotodel Digital UPI Vouchers" target="_blank">ICICI Bank Credit Card</a>,
+	  <a href="https://www.hdfcbank.com/personal/pay/cards/credit-cards/indianoil-hdfc-bank-credit-card" title="Indian Oil HDFC Bank Credit Card | Cotodel Digital UPI Vouchers" target="_blank">Indian Oil HDFC Bank Credit Card</a>
+  </p>
+    <!-- CTA -->
+	<footer class="footer-cta bg-white border-top py-4"> 
+	  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+	    <h5 class="text-primary fw-semibold mb-3 mb-md-0">
+	      At Cotodel, we’re building smart solutions that enable Targeted Business Spends on UPI. 
+	      So, let us make your Business spends as seamless as your personal UPI spends!
+	    </h5>
+	    <a href="/" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends " class="btn custom-cta-btn d-flex align-items-center justify-content-center gap-2">
+	      Explore More <span class="ms-1">→</span>
+	    </a>
+	  </div>
+	</footer>
+  </div>
+  <script>	document.getElementById('whatsappButton').addEventListener('click', function () {
+      				window.open('https://wa.me/919910558848', '_blank'); // Open the URL in a new tab
+      			});</script>
+</body>
+</html>

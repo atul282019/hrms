@@ -27,7 +27,9 @@
     <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
 	<script type="text/javascript" src="js/xsls-export.js"></script>
-    <link rel="stylesheet" href="css/custom.css">
+   
+	<!-- Font Awesome 6 Free (Latest) -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 </head>
 
@@ -524,11 +526,27 @@
 
 	  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 	  <script type="text/javascript" src="js/slick/slick.min.js"></script>
-
+	  <link rel="stylesheet" href="css/custom.css">
 	
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
 	<script type="text/javascript" src="cotodel-js/requested-upi-voucher-issue.js"></script>
+	<script>
+			function toggleOtpVisibility2() {
+			    const icon = document.getElementById("toggleOtpIcon2");
+			    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+			    const isHidden = inputs[0].type === 'password';
+			    inputs.forEach(input => {
+			        if (input.id.startsWith('password')) {
+			            input.type = isHidden ? 'text' : 'password';
+			        }
+			    });
+
+			    icon.classList.toggle('fa-eye');
+			    icon.classList.toggle('fa-eye-slash');
+			}
+			</script>
 
 			
 		<style>	@keyframes rotate360 {
@@ -1077,6 +1095,9 @@
 					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 					        name="orderId" >
+							<div class="d-flex justify-content-center mt-2">
+							    <i class="fa-solid fa-eye" id="toggleOtpIcon2" style="cursor: pointer;margin-top: 5px; " onclick="toggleOtpVisibility2()"></i>
+							</div>
 	                </div>
 	               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -1135,7 +1156,7 @@
             </div>
         </div>
     </div>
-
+	
 </body>
 
 </html>

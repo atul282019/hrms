@@ -111,7 +111,7 @@ async function getVoucherTransactionList() {
 					    if (data2 === "" || data2 === null) {
 					      return '';
 					    } else {
-					      return 'INR' +"&nbsp;"+ data2;
+					      return '&#8377' +"&nbsp;"+ data2;
 					    }
 					  }
 					},
@@ -291,7 +291,7 @@ function erupiVoucherCreateListLimit() {
 					    if (data2 === "" || data2 === null) {
 					      return '';
 					    } else {
-					      return 'INR' +"&nbsp;"+ data2;
+					      return '&#8377' +"&nbsp;"+ data2;
 					    }
 					  }
 					},

@@ -4,6 +4,9 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Font Awesome 6 Free (Latest) -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
 <body id="page-top" onload="getIssueVoucherList(), getLinkedBankDetail(),getBankListWithVocher(),requestedVoucherCount()">
@@ -892,6 +895,23 @@
 	});
 	
 </script>
+<script>
+			function toggleOtpVisibility2() {
+			    const icon = document.getElementById("toggleOtpIcon2");
+			    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+			    const isHidden = inputs[0].type === 'password';
+			    inputs.forEach(input => {
+			        if (input.id.startsWith('password')) {
+			            input.type = isHidden ? 'text' : 'password';
+			        }
+			    });
+
+			    icon.classList.toggle('fa-eye');
+			    icon.classList.toggle('fa-eye-slash');
+			}
+			</script>
+
 </body>
 
 </html>
@@ -1058,6 +1078,9 @@
 							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 							        name="orderId" >
+									<div class="d-flex justify-content-center mt-2">
+									    <i class="fa-solid fa-eye" id="toggleOtpIcon2" style="cursor: pointer;margin-top: 5px; " onclick="toggleOtpVisibility2()"></i>
+									</div>
 			                </div>
 			               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 						  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -1096,14 +1119,15 @@
 <div class="customModal" id="revokeUPIVcAuthenticateFail">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bulk p-0">
-            <div class="modal-top text-center">
+            <div class="modal-top text-center" >
+				<!-- style="background-color: #F248221A !important;"-->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="img/modal-close.svg" alt="">
                 </button>
                 <img src="img/table-fail.svg" alt="">
             </div>
             <div class="modal-bottom">
-                <span>UPI Voucher Revoked Failed</span>
+                <span>UPI Voucher Revocation Failed</span>
             </div>
         </div>
     </div>
