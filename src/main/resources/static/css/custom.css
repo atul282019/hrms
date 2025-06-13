@@ -7634,6 +7634,23 @@ table.vcScheduledtable thead {
 				  font-size: 0.8rem;
 				  
 				}
+				.pill-wide {
+								  display: inline-flex;
+								  align-items: center;
+								  justify-content: center;
+								  width: 117px;
+								  height: 23.23px;
+								  border-radius: 18.09px;
+								  padding: 3.62px 9.04px;
+								  background-color: #000; /* default fallback */
+								    color: #ffffff !important; /* ← ensures white text */
+								  font-weight: 500;
+								  font-size: 0.8rem;
+								  transform: translateY(-2px); 
+								  white-space: nowrap; /* Prevents wrapping */
+								  
+								}
+								
 
 				.total-pill {
 				  background-color: #4A4E69;
@@ -7641,6 +7658,16 @@ table.vcScheduledtable thead {
 
 				.active-pill {
 				  background-color: #2F945A;
+				}
+				.bg-lightgreen-txt-green-pill 
+				{
+					background-color: #EAF4EF;
+				 	color: #2F945A !important;
+				}
+				.bg-grey-txt-grey-pill 
+				{
+					background-color: #EDEDF0;
+					 color: #ACAEBA !important;
 				}
 				.pending-pill {
 					   background-color: #F24822;
