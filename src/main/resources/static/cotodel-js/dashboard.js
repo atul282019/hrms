@@ -559,40 +559,33 @@ function loadCategoryVoucherData(){
 		beforeSend: function(xhr) {
 		},
 		success: function(response) {
-			var response = JSON.parse(response);
-			try {
-				if (response.status && response.data && response.data.length > 0) {
-					const categoryBreakdown = document.querySelector('.category-breakdown');
-					  categoryBreakdown.innerHTML = ''; // Clear existing items
+		    var response = JSON.parse(response);
+		    try {
+		        if (response.status && response.data && response.data.length > 0) {
+		            const categoryBreakdown = document.querySelector('.category-breakdown');
+		            categoryBreakdown.innerHTML = ''; // Clear existing items
 
-					  const iconMap = {
-					    "Fuel": "img/fuel-grey.png",
-					    "Health & Wellness": "img/Maintainence-grey.png",
-					    "Meal": "img/food-icon-grey.png",
-					    "Maintenance": "img/Maintainence-grey.png",
-					    "Toll": "img/Toll-grey.png"
-					  };
+		            response.data.forEach(item => {
+		                const name = item.voucherName;
+		                const amount = item.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 });
 
-					  response.data.forEach(item => {
-					    const name = item.voucherName;
-					    const amount = item.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 });
-					    const icon = iconMap[name] || "img/default-icon.png";
+		                // If base64 icon exists, use it, else fallback to a default image
+		                const icon = item.mccMainIcon && item.mccMainIcon.trim() !== ""
+		                    ? `data:image/png;base64,${item.mccMainIcon}`
+		                    : "img/default-icon.png";
 
-					    const categoryItem = document.createElement('div');
-					    categoryItem.className = 'category-item';
-					    categoryItem.innerHTML = `
-					      <div><img src="${icon}" class="category-icon">${name}</div>
-					      <span class="category-amount">₹${amount}</span>
-					    `;
-					    categoryBreakdown.appendChild(categoryItem);
-					  });
-				
-				        }
-
-	               
-	           } catch (error) {
-	               console.error("Error parsing JSON:", error);
-	           }
+		                const categoryItem = document.createElement('div');
+		                categoryItem.className = 'category-item';
+		                categoryItem.innerHTML = `
+		                    <div><img src="${icon}" class="category-icon">${name}</div>
+		                    <span class="category-amount">₹${amount}</span>
+		                `;
+		                categoryBreakdown.appendChild(categoryItem);
+		            });
+		        }
+		    } catch (error) {
+		        console.error("Error parsing JSON:", error);
+		    }
 		},
 		error: function(e) {
 			alert('Error: ' + e);
