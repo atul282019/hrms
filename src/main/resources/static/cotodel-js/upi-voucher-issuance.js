@@ -492,7 +492,16 @@ function getIssueVoucherList(){
 			    { "mData": "accountNumber"},   
 				{ "mData": "purposeDesc"},  
 				//{ "mData": "mcc"}, 
-				{ "mData": "amount"},
+				{
+				  "mData": "amount",
+				  "render": function(data2, type, row) {
+				    if (data2 === "" || data2 === null) {
+				      return '';
+				    } else {
+				      return '₹'+""+ data2;
+				    }
+				  }
+				},
 				{ 
 				  "mData": "creationDate", 
 				  "render": function (data) {

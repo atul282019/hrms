@@ -546,8 +546,9 @@
    					             </div>
    					             <div class="col-md-6 mb-3">
    					               <div class="did-floating-label-content mr-2" >
-   					                 <select class="did-floating-select" id="timePeriod" onchange="toggleCustomTextbox(this.value)">
-									   <option id="Select Time Period" >Select Time Period </option>
+   					                 <!--<select class="did-floating-select" id="timePeriod" onchange="toggleCustomTextbox(this.value)">-->
+										<select class="did-floating-select" id="timePeriod">
+									   <option id="5 Year" >Select Time Period </option>
    					                   <option id="Tagged until changed">Tagged until changed </option>
    					                   <option id="7 Days">7 Days</option>
    					                   <option id="30 Days">30 Days</option>
@@ -1307,11 +1308,12 @@ function openModalConfirm() {
 	          {
 	            mData: "tripStatus",
 	            render: function (data1, type, row) {
-	              if (data1 === "In progress") {
-	                return '';
-	              } else {
+	              //if (data1 === "In progress") {
+	              //  return '';
+	              //}
+				 //  else {
 	                return '<td><a onclick="viewData(this)"><img src="img/edit-pencil-blue.png" alt="Edit Pencil" style="height:24px; width:24px; margin-right:4px;"></a></td>';
-	              }
+	             // }
 	            }
 	          }
 	        ],
