@@ -4,19 +4,23 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +29,8 @@ import com.cotodel.hrms.web.response.EmployeeMassterRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ErupiVoucherStatusSmsRequest;
 import com.cotodel.hrms.web.response.RevokeVoucher;
+import com.cotodel.hrms.web.response.SingleVoucherCreationRequest;
+import com.cotodel.hrms.web.response.TravelRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -52,9 +58,9 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	
 	@Autowired
 	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
-	
-	@PostMapping(value="/createSingleVoucher")
-	public @ResponseBody String createSingleVoucher(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
+	//single voucher Issue backup
+	@PostMapping(value="/createSingleVoucherOLD")
+	public @ResponseBody String createSingleVoucherOLD(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
 			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
 		
 		String receivedHash = erupiVoucherCreateDetails.getHash();
@@ -148,6 +154,122 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	        	voucher.setResponse(data.getString("response"));
 	        	voucher.setExpDate(data.getString("expDate"));
 	        	responseMap.put("data", voucher); // Could be primitive or string
+	          
+	        } else {
+                responseMap.put("status", false);
+                responseMap.put("message", apiJsonResponse.getString("message"));
+            }
+
+        } catch (Exception e) {
+            responseMap.put("status", false);
+            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    } else {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+    }
+    try {
+        return mapper.writeValueAsString(responseMap);
+    } catch (JsonProcessingException e) {
+        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+    }  
+		
+	}
+
+	@PostMapping(value="/createSingleVoucher")
+	public @ResponseBody String createSingleVoucher(HttpServletRequest request,
+			@RequestBody SingleVoucherCreationRequest erupiVoucherCreateDetails, BindingResult result, HttpSession session, 
+			ModelMap model,Locale locale) {
+		
+		String receivedHash = erupiVoucherCreateDetails.getHash();
+		 // Validate client key first
+        if (!CLIENT_KEY.equals(erupiVoucherCreateDetails.getClientKey())) {
+          //  return Map.of("isValid", false, "message", "Invalid client key");
+        }
+        String dataString = erupiVoucherCreateDetails.getConsent()
+        +erupiVoucherCreateDetails.getCreatedby()+ erupiVoucherCreateDetails.getOrgId()+
+        erupiVoucherCreateDetails.getMerchantId()+erupiVoucherCreateDetails.getSubMerchantId()+erupiVoucherCreateDetails
+        .getAccountNumber()+erupiVoucherCreateDetails.getPayerVA()+erupiVoucherCreateDetails.getMandateType()+
+        CLIENT_KEY+SECRET_KEY;
+        // Compute hash
+        String computedHash = null;
+		try {
+			computedHash = generateHash(dataString);
+			System.out.println("computedHash"+computedHash);
+			System.out.println("computedHash---"+dataString);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+    // Validate hash
+    boolean isValid = computedHash.equals(receivedHash);
+    Map<String, Object> responseMap = new HashMap<>();
+    ObjectMapper mapper = new ObjectMapper();
+ 
+    // Get token from session
+    if (!isValid) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Request Tempered");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    String token = (String) session.getAttribute("hrms");
+    
+    if (token == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: No token found.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    // Validate Token
+    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+    if (obj == null) {
+        responseMap.put("status", false);
+        responseMap.put("message", "Unauthorized: Invalid token.");
+        try {
+            return mapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+        }
+    }
+    // Check User Role and Organization ID
+    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiVoucherCreateDetails.getOrgId().intValue()) {
+        try {
+        	String profileRes = null;
+    		
+            // Call Service
+           // String encryptedResponse = erupiVoucherCreateDetailsService.createSingleVoucherWithMultipleRequest(tokengeneration.getToken(),erupiVoucherCreateDetails);
+        	try {
+    			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
+
+    			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+    			String encriptResponse =  erupiVoucherCreateDetailsService.createSingleVoucherWithMultipleRequest(tokengeneration.getToken(), jsonObject);
+       
+    			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+    			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+    		} catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+            JSONObject apiJsonResponse = new JSONObject(profileRes);
+            
+            boolean status = apiJsonResponse.getBoolean("status");
+	        responseMap.put("status", status);
+	        responseMap.put("message", apiJsonResponse.getString("message"));
+
+	        if (status && apiJsonResponse.has("data")) {
+	        	 List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
+	        	responseMap.put("data", dataList); // Could be primitive or string
 	          
 	        } else {
                 responseMap.put("status", false);

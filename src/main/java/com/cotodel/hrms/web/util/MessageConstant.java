@@ -19,7 +19,9 @@ public class MessageConstant {
 
 	public static final String USER = "USER";
 	public static final String SECRET = "mNJIkdje2343nns";
-	public static final long EXPIRATION_TIME = 1900000 ; // 15 mins
+	//public static final long EXPIRATION_TIME = 1900000 ; // 15 mins
+	public static final long EXPIRATION_TIME = 60 * 60 * 1000; ; // 15 mins
+	
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	public static final String EMAIL_MOBILE_INVALID = "Invalid email or mobile number !!";

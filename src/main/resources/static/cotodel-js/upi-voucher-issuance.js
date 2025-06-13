@@ -492,9 +492,28 @@ function getIssueVoucherList(){
 			    { "mData": "accountNumber"},   
 				{ "mData": "purposeDesc"},  
 				//{ "mData": "mcc"}, 
-				{ "mData": "amount"},
-				{ "mData": "creationDate"},
-				{ "mData": "expDate"},
+				{
+				  "mData": "amount",
+				  "render": function(data2, type, row) {
+				    if (data2 === "" || data2 === null) {
+				      return '';
+				    } else {
+				      return '₹'+""+ data2;
+				    }
+				  }
+				},
+				{ 
+				  "mData": "creationDate", 
+				  "render": function (data) {
+				      return formatDate(data);
+				  }
+				},
+				{ 
+				  "mData": "expDate", 
+				  "render": function (data) {
+				      return formatDate(data);
+				  }
+				},
 				{ "mData": "redemtionType"},
 				{ "mData": "type"},      
 				
@@ -616,6 +635,15 @@ function getIssueVoucherList(){
 			alert('Failed to fetch JSON data' + e);
 		}
 	});
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
 }
 function colosethis(){
 	
