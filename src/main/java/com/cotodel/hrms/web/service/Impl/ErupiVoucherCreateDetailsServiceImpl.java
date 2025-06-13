@@ -12,6 +12,7 @@ import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
 import com.cotodel.hrms.web.response.RevokeVoucher;
+import com.cotodel.hrms.web.response.SingleVoucherCreationRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -241,6 +242,12 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(json), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.revokeCreatedVoucherOneByOne);
 
 	}
+
+	@Override
+	public String createSingleVoucherWithMultipleRequest(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucher);
+	}
+
 
 
 }

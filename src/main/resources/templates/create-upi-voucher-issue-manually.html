@@ -34,8 +34,8 @@
 </head>
 
 
-<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList()" >
-
+<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount()" >
+<!--	<body id="page-top" onload="getLinkedBankDetail(),getVoucherListWithIcon(),getTotalVoucherCount(),getVoucherSummaryList()" >-->
  <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
     <!-- Page Wrapper -->
@@ -197,7 +197,7 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table class="table table-reimbursements selectvouchers-table">
+                                    <table class="table table-reimbursements selectvouchers-table" id="sourceTable">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
@@ -211,10 +211,10 @@
                                             </tr>
                                         </thead>
                                         <tbody id="voucherTableBody">
-                                            <tr>
+                                           <tr>
                                                 <td>
                                                     <div class="autocomp-input-wrap table-input">
-                                                        <input type="text" class="autocomp-input" id="search" oninput="userSearchAndPupolate()"
+                                                        <input type="text" class="autocomp-input" id="search" oninput="userSearchAndPopulate(this)"
                                                             placeholder="Enter Name" autocomplete="off">
                                                         <div id="autocomplete-suggestions" class="autocomplete-dropdown">
 															
@@ -222,32 +222,37 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input" id="mobile" maxlength="10" readonly
+                                                    <input type="text" class="table-input" maxlength="10" readonly
 													 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                                      placeholder="Enter Mobile Number">
+													 
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input table-input-voucher selectMCC" id="btnforvccategoryforbulkissuance"
-                                                     placeholder="Select Voucher">
+                                                    <input type="text" class="table-input table-input-voucher" onclick="showVoucherModal(this)"
+                                                     placeholder="Select Voucher">  
+													 <input type="hidden" class="table-input table-input-voucher selectMCC"> 
+													 <input type="hidden" class="table-input table-input-voucher selectPurpose"> 
+													 <input type="hidden" class="table-input table-input-voucher selectMCCDescription"> 
+													 <input type="hidden" class="table-input table-input-voucher selectPurposeDescription">   
                                                 </td>
                                                 <td>
-                                                    <select class="GeneralSelect" id="redemptionType">
-                                                        <option value="" class="test">Choose Type </option>
+                                                    <select class="GeneralSelect redemptionType">
                                                         <option value="Single">Single</option>
-                                                        <option value="Multi" selected>Multi</option>
+                                                        <option value="MULTIPLE" selected>Multiple</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="table-input" id="amount" placeholder="Enter Amount" 
+                                                    <input type="text" class="table-input" placeholder="Enter Amount" 
 													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');validateAmount()" maxlength="6">
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <input type="date" class="table-input" id="startDate" placeholder="Salect Date">
+                                                        <input type="date" class="table-input" placeholder="Salect Date">
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <select class="GeneralSelect" id="expiryDate">
+                                                    <select class="GeneralSelect validity">
+														<option value="1 Days" class="test">1 Day </option>
                                                         <option value="7 Days" class="test">7 Days </option>
                                                         <option value="30 Days">30 Days</option>
                                                         <option value="90 Days">90 Days</option>
@@ -259,7 +264,7 @@
                                                     <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
                                                 </td>
                                             </tr>
-											<tr>
+											<!--<tr>
                                            <td>
 											  <div class="error-msg" id="beneficiaryNameError" style="color:red"></div>
 										   </td>
@@ -286,14 +291,16 @@
                                            <td>
 											
                                            </td>
-                                       </tr>
-                                      <!-- <tr class="text-center">
-                                                <td colspan="8" style="background: #EAF4EF;">
-                                                    <a href="#" class="text-success" onclick="addNewVoucher(event)">+ Add New Voucher</a>
-                                                </td>
-                                            </tr>-->
+                                       </tr>-->
+									 
                                         </tbody>
+										<tr class="text-center">
+	                                         <td colspan="8" style="background: #EAF4EF;">
+	                                             <a href="#" class="text-success" onclick="addNewVoucher(event)">+ Add New Voucher</a>
+	                                         </td>
+	                                     </tr>
                                     </table>
+									<div id="common-error-msg" style="color: red; display: none;"></div>
                                 </div>
 
                                 <div class="w-100 my-3 text-right">
@@ -312,7 +319,7 @@
 	                                </div>
 
 	                                <div class="table-responsive">
-	                                    <table class="table table-reimbursements selectvouchers-table">
+	                                    <table class="table table-reimbursements selectvouchers-table" id="targetTable">
 	                                        <thead>
 	                                            <tr>
 	                                                <th>Name</th>
@@ -376,7 +383,7 @@
 									<input type="hidden" class="form-input" id="createdby" name="createdby"> 
 									<input type="hidden" class="form-input" id="bankName" name="bankName"> 
 									<input type="hidden" class="form-input" id="accountSeltWallet" name="accountSeltWallet"> 
-									<input type="hidden" class="form-input" id="bankCode" name="bankCode"> 
+									<input type="hidden" class="form-input" id="bankcode" name="bankcode"> 
 									<input type="hidden" class="form-input" id="accountHolderName" name="accountHolderName"> 
 									<input type="hidden" class="form-input" id="acNumber" name="acNumber">
 									<input type="hidden" class="form-input" id="accountType" name="accountType"> 
@@ -547,37 +554,37 @@
 		
 	<script>
 			$('.responsive-content').slick({
-			            dots: false,
-			            infinite: false,
-			            speed: 300,
-			            slidesToShow: 4,
-			            slidesToScroll: 1,
-			            draggable: false,
-			            responsive: [
-			                {
-			                    breakpoint: 1024,
-			                    settings: {
-			                        slidesToShow: 3,
-			                        slidesToScroll: 1,
-			                        infinite: true
-			                    }
-			                },
-			                {
-			                    breakpoint: 600,
-			                    settings: {
-			                        slidesToShow: 2,
-			                        slidesToScroll: 1
-			                    }
-			                },
-			                {
-			                    breakpoint: 480,
-			                    settings: {
-			                        slidesToShow: 1,
-			                        slidesToScroll: 1
-			                    }
-			                }
-			            ]
-			        });
+            dots: false,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            draggable: false,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        infinite: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
 		</script>
 	<script type="text/javascript">
 
@@ -793,69 +800,7 @@
         });
 
         ////////////////////////
-       function userSearchAndPupolate(){
-		const searchInput = document.getElementById('search').value;
-		const searchInput2 = document.getElementById('search');
-		const mobile = document.getElementById('mobile');
-		
-		const suggestionsDropdown = document.getElementById('autocomplete-suggestions');
-	    const employerId = document.getElementById('employerId').value;
-
-			$.ajax({
-            type: "POST",
-            url: "/voucherUserSearch",
-            dataType: 'json',
-            data: {
-                "orgId": employerId,
-                "userName": searchInput
-            },
-            success: function (data) {
-                //document.getElementById("signinLoader").style.display = "none";
-		           const query = searchInput2.value.toLowerCase();
-		           if (query) {
-		               const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
-		               displaySuggestions(filteredUsers);
-		           } else {
-		               suggestionsDropdown.style.display = 'none';
-		           }
-		     
-               
-            },
-            error: function (e) {
-                document.getElementById("signinLoader").style.display = "none";
-                console.error('Error:', e);
-                alert('An error occurred while fetching the data.');
-            }
-        });
-
-	       // Function to display the filtered suggestions in the dropdown
-	       function displaySuggestions(userList) {
-	           suggestionsDropdown.innerHTML = '';
-	           userList.forEach(user => {
-	               const div = document.createElement('div');
-	               div.classList.add('autocomplete-suggestion');
-				   const base64Image = user.empPhoto 
-				              ? `<img class="user-photo" src="data:image/jpeg;base64,${user.empPhoto}" alt="Emp Photo" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`
-				              : `<img class="img-profile rounded-circle" src="img/no-image-available.png" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`;
-
-	               div.innerHTML = `
-				    ${base64Image} &nbsp;
-				   <span class="user-profile">${user.username}</span> &nbsp;
-	               <span class="user-contact">${user.empCode}</span> &nbsp;|
-	               <span class="user-contact">${user.mobile}</span>
-				   `;
-	               div.addEventListener('click', function () {
-	                   searchInput2.value = user.username; 
-					   mobile.value = user.mobile;
-	                   suggestionsDropdown.style.display = 'none';
-	               });
-
-	               suggestionsDropdown.appendChild(div);
-	           });
-	           suggestionsDropdown.style.display = userList.length > 0 ? 'block' : 'none';
-	       }
-   }
-
+       
     </script>
 <style>	/* Top box categories */
 	/* Page root optional cleanup */
@@ -1040,7 +985,6 @@
 		                    // Clear selections
 		                    [...voucherList.querySelectorAll('li.voucher-item')].forEach(item => item.classList.remove('selected'));
 		                    [...purposeList.children].forEach(item => item.remove());
-
 		                    // Highlight selected
 		                    clickedItem.classList.add('selected');
 
@@ -1119,47 +1063,7 @@
 	</script>
 
 	<script>
-		
-		function getVoucherDetail(){
-	        // Get the selected voucher data (image and name)
-	        const selectedVoucherItem = document.querySelector('.voucher-item.selected');
-			
-			var selectedVoucherName=null;
-			var selectedVoucherCode=null;
-			var selectedPurposeCode =null;
-			var selectedPurposeName =null;
-	        if (selectedVoucherItem) {
-				selectedVoucherCode = selectedVoucherItem.getAttribute('data-value');
-			    selectedVoucherName = selectedVoucherItem.querySelector('span').textContent;
-	            console.log("Selected Voucher Code:", selectedVoucherName);
-	        } else {
-	            alert('No voucher selected!');
-	        }
-
-	        // Get the selected radio button data (Purpose List)
-	        const selectedRadioButton = document.querySelector('input[name="selectvouchers"]:checked');
-	        if (selectedRadioButton) {
-				selectedPurposeCode = selectedRadioButton.closest('li').getAttribute('data-value');
-			    selectedPurposeName = selectedRadioButton.closest('li').querySelector('span').textContent;
-				var show = selectedPurposeName.substring(0, 5);
-				
-				console.log("Selected Purpose Code:", selectedPurposeCode);
-	        } else {
-	            alert('No purpose selected!');
-				return false;
-	        }
-			
-			// Get the selected voucher data (image and name)
-			
-			document.getElementById("btnforvccategoryforbulkissuance").value=selectedVoucherName+" | "+show+"...";
-			document.getElementById("voucherCode").value=selectedVoucherCode;
-			document.getElementById("voucherDesc").value=selectedVoucherName;
-			document.getElementById("purposeCode").value=selectedVoucherCode;
-			document.getElementById("purposeName").value=selectedPurposeName;
-			document.getElementById("mcc").value=selectedPurposeCode;
-			$("#modalforvccategoryforbulkissuance").hide();
-				   
-		}
+	
 	function getTotalVoucherCount(){
 				var employerid = document.getElementById("employerId").value;
 				$.ajax({
@@ -1235,81 +1139,216 @@
 	    document.getElementById('startDate').value = getFormattedDate(); // Set default value to current date
 	</script>
 	
-	<script>
-	    function addNewVoucher(event) {
-	        event.preventDefault();
+	<script>	
+		function addNewVoucher(event) {
+	    event.preventDefault();
+	    const tableBody = document.getElementById('voucherTableBody');
+	    const rows = tableBody.querySelectorAll('tr');
 
-	        const tableBody = document.getElementById('voucherTableBody');
+	    const newRow = document.createElement('tr');
+	    newRow.innerHTML = `
+	        <td>
+	            <div class="autocomp-input-wrap table-input">
+	                <input type="text" class="autocomp-input" id="search" oninput="userSearchAndPopulate(this)"
+	                       placeholder="Enter Name" autocomplete="off">
+	                <div class="autocomplete-dropdown"></div>
+	            </div>
+	        </td>
+	        <td>
+	            <input type="text" class="table-input" placeholder="Enter Mobile Number">
+	        </td>
+	        <td>
+	            <input type="text" class="table-input table-input-voucher" onclick="showVoucherModal(this)" placeholder="Select Voucher">
+				<input type="hidden" class="table-input table-input-voucher selectMCC"> 
+				<input type="hidden" class="table-input table-input-voucher selectPurpose"> 
+			    <input type="hidden" class="table-input table-input-voucher selectMCCDescription"> 
+				<input type="hidden" class="table-input table-input-voucher selectPurposeDescription">
+	        </td>
+	        <td>
+	            <select class="GeneralSelect redemptionType">
+	                <option value="Single">Single</option>
+	                <option value="MULTIPLE" selected>Multiple</option>
+	            </select>
+	        </td>
+	        <td>
+	            <input type="text" class="table-input" placeholder="Enter Amount">
+	        </td>
+	        <td>
+	            <input type="date" class="table-input table-dateed" placeholder="Select Date">
+	        </td>
+	        <td>
+	            <select class="GeneralSelect validity">
+	                <option value="1 days">1 day</option>
+	                <option value="7 days">7 days</option>
+	                <option value="30 days">30 days</option>
+	                <option value="90 days">90 days</option>
+					<option value="365 Days">365 Days</option>
+	            </select>
+	        </td>
+	        <td>
+	            <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+	        </td>
+	    `;
 
-	        // Create a new row
-	        const newRow = document.createElement('tr');
-	        newRow.innerHTML = `
-	            <td>
-					<div class="autocomp-input-wrap table-input">
-                       <input type="text" class="autocomp-input " id="search" oninput="userSearchAndPupolate()"
-                           placeholder="Enter Name" autocomplete="off">
-                       <div id="autocomplete-suggestions"
-                           class="autocomplete-dropdown"></div>
-                   </div>
-	            </td>
-	            <td>
-	                <input type="text" class="table-input" placeholder="Enter Mobile Number">
-	            </td>
-	            <td>
-	                <input type="text" class="table-input table-input-voucher selectMCC" placeholder="Select Voucher" id="btnforvccategoryforbulkissuance">
-	            </td>
-	            <td>
-	                <select class="GeneralSelect">
-	                    <option value="General">Choose Type</option>
-	                    <option value="Single">Single</option>
-	                    <option value="Multi">Multi</option>
-	                </select>
-	            </td>
-	            <td>
-	                <input type="text" class="table-input" placeholder="Enter Amount">
-	            </td>
-	            <td>
-	                <input type="date" class="table-dateed" placeholder="Select Date">
-	            </td>
-	            <td>
-	                <select class="GeneralSelect">
-	                    <option value="7 days">7 days</option>
-	                    <option value="30 days">30 days</option>
-	                    <option value="90 days">90 days</option>
-	                </select>
-	            </td>
-	            <td>
-	                 <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
-	            </td>
-	        `;
+	    // Insert before the error row (3rd last tr)
+	    tableBody.insertBefore(newRow, rows[rows.length - 2]);
+	}
 
-	        // Insert the new row above the last row
-	        tableBody.insertBefore(newRow, tableBody.lastElementChild);
+
+	    function userSearchAndPopulate(inputElement) {
+	        const query = inputElement.value.toLowerCase();
+	        const suggestionsDropdown = inputElement.nextElementSibling;
+
+			const searchInput = document.getElementById('search').value;
+			//const searchInput2 = document.getElementById('search');
+			//const mobile = document.getElementById('mobile');
+		    const employerId = document.getElementById('employerId').value;
+
+						$.ajax({
+			            type: "POST",
+			            url: "/voucherUserSearch",
+			            dataType: 'json',
+			            data: {
+			                "orgId": employerId,
+			                "userName": query
+			            },
+			            success: function (data) {
+			                //document.getElementById("signinLoader").style.display = "none";
+					          // const query = searchInput2.value.toLowerCase();
+					           if (query) {
+					              // const filteredUsers =  data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
+					              // displaySuggestions(filteredUsers);
+								  const filteredUsers = data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
+								  displaySuggestions(filteredUsers, inputElement, suggestionsDropdown);
+					           } else {
+					               suggestionsDropdown.style.display = 'none';
+					           }
+					     
+			               
+			            },
+			            error: function (e) {
+			                document.getElementById("signinLoader").style.display = "none";
+			                console.error('Error:', e);
+			                alert('An error occurred while fetching the data.');
+			            }
+
+	      });
+	      
 	    }
 
+	    function displaySuggestions(userList, inputElement, dropdown) {
+	        dropdown.innerHTML = '';
+	        userList.forEach(user => {
+	            const div = document.createElement('div');
+	            div.classList.add('autocomplete-suggestion');
+	            const base64Image = user.empPhoto 
+	                ? `<img class="user-photo" src="data:image/jpeg;base64,${user.empPhoto}" alt="Emp Photo" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`
+	                : `<img class="img-profile rounded-circle" src="img/no-image-available.png" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`;
+
+	            div.innerHTML = `
+	                ${base64Image} &nbsp;
+	                <span class="user-profile">${user.username}</span> &nbsp;
+	                <span class="user-contact">${user.mobile}</span>
+	            `;
+	            div.addEventListener('click', function () {
+	                inputElement.value = user.username;
+	                // Assuming you want to populate the mobile field next to the inputElement
+	                inputElement.closest('tr').querySelector('input[placeholder="Enter Mobile Number"]').value = user.mobile;
+	                dropdown.style.display = 'none';
+	            });
+
+	            dropdown.appendChild(div);
+	        });
+	        dropdown.style.display = userList.length > 0 ? 'block' : 'none';
+	    }
+
+		function showVoucherModal(inputElement) {
+		        const modal = document.getElementById('modalforvccategoryforbulkissuance');
+		        modal.style.display = 'block';
+		    }
+
+		    function closeModal() {
+		        const modal = document.getElementById('modalforvccategoryforbulkissuance');
+		        modal.style.display = 'none';
+		    }
+
+		    // Ensure modals are closed properly
+		    window.onclick = function(event) {
+		        const modal = document.getElementById('modalforvccategoryforbulkissuance');
+		        if (event.target == modal) {
+		            modal.style.display = 'none';
+		        }
+		    };
 	    function deleteRow(button) {
-			// Get the table body and its rows
-			   const tableBody = document.getElementById("voucherTableBody");
-			   const rows = tableBody.querySelectorAll("tr");
+	        const tableBody = document.getElementById("voucherTableBody");
+	        const rows = tableBody.querySelectorAll("tr");
 
-			   // Log the number of rows
-			   console.log("Number of rows before deletion:", rows.length);
+	        if (rows.length <= 1) {
+	            alert("Cannot delete the first row.");
+	            return;
+	        }
 
-			   // Check if only one row is present
-			   if (rows.length <= 2) {
-			       alert("Cannot delete the first row.");
-			       return;
-			   }
+	        const row = button.parentElement.parentElement;
+	        tableBody.removeChild(row);
+	    }
+	</script>	
+	
+	<script>
+	    let currentRowInput;
 
-			   // Delete the selected row
-			   const row = button.parentElement.parentElement;
-			   tableBody.removeChild(row);
+	    function showVoucherModal(inputElement) {
+	        currentRowInput = inputElement;
+	        const modal = document.getElementById('modalforvccategoryforbulkissuance');
+	        modal.style.display = 'block';
+	    }
 
-			   // Log the number of rows after deletion
-			   console.log("Number of rows after deletion:", tableBody.querySelectorAll("tr").length);
+	    function getVoucherDetail() {
+	        // Get the selected voucher data (image and name)
+	        const selectedVoucherItem = document.querySelector('.voucher-item.selected');
+	        
+	        let selectedVoucherName = null;
+	        let selectedVoucherCode = null;
+	        let selectedPurposeCode = null;
+	        let selectedPurposeName = null;
+
+	        if (selectedVoucherItem) {
+	            selectedVoucherCode = selectedVoucherItem.getAttribute('data-value');
+	            selectedVoucherName = selectedVoucherItem.querySelector('span').textContent;
+	        } else {
+	            alert('No voucher selected!');
+	            return false;
+	        }
+
+	        // Get the selected radio button data (Purpose List)
+	        const selectedRadioButton = document.querySelector('input[name="selectvouchers"]:checked');
+	        if (selectedRadioButton) {
+	            selectedPurposeCode = selectedRadioButton.closest('li').getAttribute('data-value');
+	            selectedPurposeName = selectedRadioButton.closest('li').querySelector('span').textContent;
+	            const show = selectedPurposeName.substring(0, 5);
+	        } else {
+	            alert('No purpose selected!');
+	            return false;
+	        }
+
+	        // Assuming currentRowInput is set correctly to the clicked input element
+	        if (currentRowInput) {
+	            const currentRow = currentRowInput.closest('tr');
+	            currentRow.querySelector('.table-input-voucher').value = selectedVoucherName + " | " + selectedPurposeName.substring(0, 5) + "...";
+								
+				currentRow.querySelector('.selectMCC').value =  selectedPurposeCode;
+	            currentRow.querySelector('.selectPurpose').value  = selectedVoucherCode;
+	            currentRow.querySelector('.selectMCCDescription').value  = selectedVoucherName;
+	            currentRow.querySelector('.selectPurposeDescription').value = selectedPurposeName;
+	        }
+	        // Hide the modal
+	        closeModal();
+	    }
+
+	    function closeModal() {
+	        const modal = document.getElementById('modalforvccategoryforbulkissuance');
+	        modal.style.display = 'none';
 	    }
 	</script>
-	
     <!-- Modal Issue Vouchers -->
     <div class="customModal" id="modalforvccategoryforbulkissuance">
         <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
