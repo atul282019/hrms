@@ -1137,7 +1137,7 @@ function getAddOTP(){
 		  	       submitButton.disabled = !checkbox.checked;
 		  	   }
 			   			   
-			   function cotodelLinkedBankDetail() {
+			 /*  function cotodelLinkedBankDetail() {
 			       document.getElementById("signinLoader").style.display = "flex";
 			       
 			       $.ajax({
@@ -1200,7 +1200,7 @@ function getAddOTP(){
 			               document.getElementById("signinLoader").style.display = "none";
 			           }
 			       });
-			   }
+			   }*/
 
 			   function resendCotodelOTP(){
 			   	

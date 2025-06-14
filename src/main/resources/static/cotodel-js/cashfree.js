@@ -46,7 +46,7 @@ function getSessionId(){
 	                   let payment_session_id = parsedData.data.payment_session_id;
 					   let checkoutOptions = {
 				       paymentSessionId: payment_session_id,
-					   redirectTarget: "_self",
+					   redirectTarget: "_modal",
 					  	};
 						cashfree.checkout(checkoutOptions);
 	                  
