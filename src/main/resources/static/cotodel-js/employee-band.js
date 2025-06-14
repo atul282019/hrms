@@ -1,4 +1,29 @@
 
+function addAdditionalTR() {
+        // Initialize DataTable
+        var table = $('#expensesTable').DataTable();
+        
+        // Add hidden rows after each row in the DataTable
+        $('#expensesTable tbody tr').each(function() {
+            var detailsRow = $('<tr class="hidden"><td colspan="6">Detailed information</td></tr>');
+            $(this).after(detailsRow);
+        });
+
+        // Handle plus/minus button click
+        $('#expensesTable').on('click', '.button', function() {
+            var button = $(this);
+            var detailsRow = button.closest('tr').next('tr.hidden');
+            if (detailsRow.length > 0) {
+                if (detailsRow.is(':visible')) {
+                    detailsRow.hide();
+                    button.text('+');
+                } else {
+                    detailsRow.show();
+                    button.text('-');
+                }
+            }
+        });
+    }
 function change() {
 	
   var startingEmployeeAlpha = document.getElementById('startingEmployeeAlpha').value;
