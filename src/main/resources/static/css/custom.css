@@ -7846,7 +7846,7 @@ table.vcScheduledtable thead {
 	
   .table-reimbursements-alt {
     min-width: 900px; /* or auto-size to content */
-    width: max-content;
+    width: 100%;
 	text-align: left;
 	  overflow-x:auto;
   }

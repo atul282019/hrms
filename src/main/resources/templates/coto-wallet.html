@@ -14,7 +14,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 
-<body id="page-top" >
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+
+<body id="page-top" onload="getPaymentHistory(),cotodelLinkedBankDetail()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -112,9 +115,9 @@
 								<button class="cd-wallet-button" data-bs-toggle="modal" data-bs-target="#ProductTrialModal">
 								  Trial&nbsp;<span style="font-size: 18px; font-weight: bold;">+</span>
 								</button>
-					            <button class="cd-wallet-button cd-wallet-button-disabled">
+					            <a href="/upiVoucherIssuanceNew"> <button class="cd-wallet-button cd-wallet-button-disabled">
 					              Redeem&nbsp;→
-					            </button>
+					            </button> </a>
 					          </div>
 					        </div>
 					      </div>
@@ -200,14 +203,14 @@
 			      </div>
 				   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
 				     
-				     <li class="nav-item">
+				  <!--   <li class="nav-item">
 				       <a class="nav-link active" data-bs-toggle="tab" href="#RewardsRedemption" role="tab">Rewards Redemption</a>
 				     </li>
 				     <li class="nav-item">
 				       <a class="nav-link" data-bs-toggle="tab" href="#RewardsEarnings" role="tab">Rewards Earnings</a>
-				     </li>
+				     </li>-->
 				     <li class="nav-item">
-				       <a class="nav-link" data-bs-toggle="tab" href="#WalletLoading" role="tab">Wallet Loading</a>
+				       <a class="nav-link active"  data-bs-toggle="tab" href="#WalletLoading" role="tab">Wallet Loading</a>
 				     </li>
 					
 					
@@ -219,9 +222,9 @@
 
 					 
 					<!-- transactions tab-->
-				     <div class="tab-pane fade show active" id="RewardsRedemption" role="tabpanel">
+				     <!--<div class="tab-pane fade show active" id="RewardsRedemption" role="tabpanel">
 						
-						<!-- empty table with error msg . msg to show when data is not present-->
+						 empty table with error msg . msg to show when data is not present
 						<div class="table-responsive">
 						  <table class="table table-reimbursements-alt mb-0" >
 						    <thead>
@@ -253,15 +256,15 @@
 						  </table>
 						</div>
 						
-				     </div>
+				     </div>-->
 					 
 					 <!--vouchers tab-->
-				     <div class="tab-pane fade" id="RewardsEarnings" role="tabpanel">
+				    <!-- <div class="tab-pane fade" id="RewardsEarnings" role="tabpanel">
 						<div class="table-responsive">
 			            <table class="table table-reimbursements-alt mb-0">
 			              <thead>
 			                <tr>
-							 <!-- <th>S.NO</th>-->
+							  <th>S.NO</th>
 							  <th>Date & Time</th>
 			                  
 			                  <th>TXN ID</th>	
@@ -287,20 +290,19 @@
 			          </div>
 					 
 	
-				     </div>
+				     </div>-->
 
 					 <!-- vehicles tab-->
-				     <div class="tab-pane fade" id="WalletLoading" role="tabpanel">
-								<!-- empty table with error msg . msg to show when data is not present-->
-										  
+				    <div class="tab-pane fade show active" id="WalletLoading" role="tabpanel">
+								
 										  <div class="table-responsive">
-							            <table class="table table-reimbursements-alt mb-0" id="vehicleManagementTable1">
+							            <table class="table table-reimbursements-alt mb-0" id="paymentHistoryTable">
 							              <thead>
 							                <tr>
-											 <!-- <th>S.NO</th>-->
-											  <th>ID</th>
-							                  
+											  <th>S.NO</th>
+											 
 							                  <th>Customer Name</th>	
+											  <th>Mobile</th>	
 											  	 
 							                  <th>Order Amount</th>
 							                 
@@ -327,21 +329,50 @@
 											
 							              </tbody>
 							            </table>
+										
 							          </div>
-				     </div>
-				   </div>
-				 </div>
-				 </div>
+								     </div>
+									 
+									 <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: none;">
+		 							    <div class="text-left">
+		 							    
+		 							    </div>
+
+		 							    <div class="linked-bank-account-innersection d-block">
+		 							      <div id="data-wrapper1">
+		 							      </div>
+		 							    </div>
+
+		 							    <div class="d-flex justify-content-end">
+		 							  <button class="btn btn-primary" id="continuebtn1" style="display: none;">Continue</button>
+		 							    </div>
+		 							  </div>
+									 <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
+									 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+									 <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
+									 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+	 								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+	 								<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+	 								
+									 <input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+	 								<input type="hidden" class="form-input" id="CId" name="CId" > 
+	 								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+	 								<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+	 								<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+	 								<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+	 								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+	 								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+	 								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+	 								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+									<input type="hidden" class="form-input" id="advanceAmount" name="advanceAmount" > 
+									
+	 								 </div>
+
+								   </div>
+								 </div>
+								 </div>
+								
 				
-				
-
-
-				
-
-
-
-
-
             <!-- End of Main Content -->
 			
 				
@@ -369,22 +400,22 @@
 	   
 	                   <div class="trial-radio mb-4">
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount500" checked>
+	                           <input type="radio" name="trialAmount" id="amount500" checked onchange="updatePayment()">
 	                           <label for="amount500">₹500</label>
 	                       </div>
 	   
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount1000">
+	                           <input type="radio" name="trialAmount" id="amount1000" onchange="updatePayment()">
 	                           <label for="amount1000">₹1,000</label>
 	                       </div>
 	   
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount1500">
+	                           <input type="radio" name="trialAmount" id="amount1500" onchange="updatePayment()">
 	                           <label for="amount1500">₹1,500</label>
 	                       </div>
 	   
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount2000">
+	                           <input type="radio" name="trialAmount" id="amount2000"  onchange="updatePayment()">
 	                           <label for="amount2000">₹2,000</label>
 	                       </div>
 	                   </div>
@@ -397,7 +428,7 @@
 	                   </div>
 	   
 	                   <div class="d-grid mt-4">
-						<button type="button" class="btn btn-continue" data-bs-toggle="modal" data-bs-target="#ProductTrialPaymentModal">
+						<button type="button" class="btn btn-continue" data-bs-toggle="modal" onclick="updatePayment()">
 						        CONTINUE
 						    </button>
 	                   </div>
@@ -424,7 +455,7 @@
 	                   <div class="payment-summary-card">
 	                       <div class="payment-summary-header">
 	                           <span>Total Payable Amount</span>
-	                           <span>₹2,020</span>
+	                           <span id="trialAmountDisplay">₹</span>
 	                       </div><hr>
 
 	                       <div class="payment-summary-breakup-toggle text-left" data-bs-toggle="collapse" data-bs-target="#paymentBreakup" aria-expanded="false" aria-controls="paymentBreakup">
@@ -433,25 +464,30 @@
 	                       </div>
 
 	                       <div class="collapse" id="paymentBreakup">
-	                           <div class="payment-breakup-details">
+	                           <div class="payment-breakup-details"  id="">
 	                               <div class="payment-row">
 	                                   <span>Product Trial Amount</span>
-	                                   <span>₹2,000</span>
+	                                   <span  id="totalAmountDisplay"></span>
 	                               </div>
 								   <div class="payment-row">
 								       <span>Service Fee <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="For covering the cost of transactions made via payment gateways. (inclusive of GST)"></i></span>
-								       <span>₹20</span>
+								       <span id="serviceFeeDisplay">₹</span>
 								   </div>
+								 
 	                           </div>
 	                       </div>
 	                   </div>
 
 	                   <!-- Action Buttons -->
 	                   <div class="payment-buttons">
-	                       <button type="button" class="btn btn-border-primary" data-bs-dismiss="modal">Back</button>
-						   <button type="button" class="btn btn-pay-now" data-bs-toggle="modal" data-bs-target="#PaymentSuccessModal">
+	                      <!-- <button type="button" class="btn btn-border-primary" data-bs-dismiss="modal" id="back" onclick="backPopup()">Back</button>-->
+						   <button type="button" class="btn btn-border-primary" id="back" onclick="backPopup()">Back</button>
+						<!--   <button type="button" class="btn btn-pay-now" data-bs-toggle="modal" data-bs-target="#PaymentSuccessModal" onclick="getSessionId()">
 						       PAY NOW
-						   </button>
+						   </button>-->
+						   <button type="button" class="btn btn-pay-now" data-bs-toggle="modal" onclick="getSessionId()">
+   						       PAY NOW
+   						   </button>
 	                   </div>
 	               </div>
 	           </div>
@@ -514,6 +550,7 @@
 	 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	 <script type="text/javascript" src="cotodel-js/cashfree.js"></script>
 
 	 
 	
@@ -553,11 +590,177 @@
    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
    	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
    });
+   
+   
+   
+   function getPaymentHistory() {
+     		    const employerId = document.getElementById('employerId').value;
+     			//document.getElementById("signinLoader").style.display="flex";
+     		    $.ajax({
+     		        type: "POST",
+     		        url: "/viewOrderIdList",
+     		        data: { "orgId":employerId },
+     		        success: function(data) {
+     				///	document.getElementById("signinLoader").style.display="none";
+     		            const parseddata = JSON.parse(data);
+     		            console.log(data);
+     					var payment_history=parseddata.data;
+
+     		            // Get the table body
+     		            const tableBody = $("#paymentHistoryTable tbody");
+     		            // Clear existing table rows
+     		            tableBody.empty();
+     		            // Check if vouchers exist
+     		            if (payment_history.length === 0) {
+     		                tableBody.append(`<tr><td colspan="16" class="text-center">No Data Available</td></tr>`);
+     		                return;
+     		            }
+     		            // Populate the table dynamically
+     		            payment_history.forEach((payment_history) => {
+     						//const employerData = encodeURIComponent(JSON.stringify(employer)); // Encode to pass safely
+     		                const row = `
+     						<tr>
+     						            <td>${payment_history.id}</td>
+     						            <td>${payment_history.customerName}</td>
+     						            <td>${payment_history.customerPhone}</td>
+   									<td>${payment_history.orderCurrency} ${payment_history.orderAmount}</td>
+   								   
+   								   <td>${payment_history.orderStatus}</td>
+     						       
+   									<td>${payment_history.cfPaymentId}</td>
+   									<td>${payment_history.paymentStatus}</td>
+   									<td>${payment_history.serviceCharge}</td>
+   									<td>${payment_history.serviceTax}</td>
+     								<td>${payment_history.settlementAmount}</td>
+     						        </tr>
+     		                `;
+
+     		                tableBody.append(row);
+     		            });
+     		        },
+     		        error: function(e) {
+     		            alert('Error: ' + e.responseText);
+     		        }
+     		    });
+     		}  
     </script>
+	<script>
+		function backPopup() {
+		    // First, manually hide the current modal via jQuery or Bootstrap
+		    $('#ProductTrialPaymentModal').modal('hide');
+
+		    // After it's hidden, show the previous modal
+		    $('#ProductTrialPaymentModal').on('hidden.bs.modal', function () {
+								
+		        $('#ProductTrialModal').modal('show');
+		        // Remove event listener to avoid stacking
+		        $(this).off('hidden.bs.modal');
+				
+		    });
+		}
+		
+		
+		
+		function updatePayment() {
+			const radios = document.getElementsByName("trialAmount");
+			    let selectedAmount = 0;
+
+			    radios.forEach((radio) => {
+			        if (radio.checked) {
+			            const label = document.querySelector(`label[for="${radio.id}"]`);
+			            const labelText = label.innerText.trim();
+			            selectedAmount = parseInt(labelText.replace(/[₹,]/g, ""));
+			        }
+			    });
+
+			    const serviceFee = 20; // Fixed or calculate dynamically if needed
+			    const totalAmount = selectedAmount + serviceFee;
+
+			    // Update the UI
+			    document.getElementById("trialAmountDisplay").innerText = "₹" + selectedAmount.toLocaleString();
+			    document.getElementById("serviceFeeDisplay").innerText = "₹" + serviceFee.toLocaleString();
+			    document.getElementById("totalAmountDisplay").innerText = "₹" + totalAmount.toLocaleString();
+				document.getElementById("advanceAmount").value =selectedAmount;
+				
+			    $('#ProductTrialPaymentModal').modal('show'); 
+				}
+				
+				function cotodelLinkedBankDetail() {
+						     
+						       $.ajax({
+						           type: "POST",
+						           url: "/getErupiLinkAccountDetails",
+						           data: {
+						               "acNumber": "CW64917777"
+						           },
+						           beforeSend: function(xhr) {
+						               //xhr.setRequestHeader(header, token);
+						           },
+						           success: function(data) {
+						               console.log("Linked bank account data:", data);
+						               
+						               var parsedData = typeof data === "string" ? JSON.parse(data) : data;
+						               if (parsedData.status === true && parsedData.data) {
+						                   var item = parsedData.data;
+										    $("#CId").val(item.id);
+					   						$("#CbankCode").val(item.bankCode);
+					   						$("#CbankName").val(item.bankName);
+											$("#CaccountHolderName").val(item.accountHolderName);
+											$("#CacNumber").val(item.acNumber);
+					   						$("#CaccountType").val(item.accountType);
+											$("#CifscCode").val(item.ifsc);
+											//$("#Cbalance").val(item.balance);
+											
+						                   console.log("cotodelLinkedBankDetail()", item);
+						                   
+						                   const wrapper = document.getElementById('data-wrapper1');
+						                   wrapper.innerHTML = '';
+						                   
+						                   const container = document.createElement('div');
+						                   container.className = 'data-container';
+						                   
+						                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc"];
+						                   
+						                   const fieldLabels = {
+						                       bankName: "Bank Name",
+						                       accountHolderName: "Account Holder Name",
+						                       acNumber: "Account Number",
+						                       accountType: "Account Type",
+						                       ifsc: "IFSC",
+						                       
+						                   };
+						                   
+						                   fieldsToDisplay.forEach(key => {
+						                       const fieldDiv = document.createElement('div');
+						                       fieldDiv.className = 'field';
+						                       fieldDiv.innerHTML = `<span class="label">${fieldLabels[key]}:</span> ${item[key] ?? 'N/A'}`;
+						                       container.appendChild(fieldDiv);
+						                   });
+						                   
+						                   wrapper.appendChild(container);
+						               }
+						               
+						              // document.getElementById("signinLoader").style.display = "none";
+						           },
+						           error: function(error) {
+						               console.error("Error fetching bank details:", error);
+						              // document.getElementById("signinLoader").style.display = "none";
+						           }
+						       });
+						   }
+
+	</script>
 	
-
-
-
+	<script>
+			document.getElementById("continuebtn1").addEventListener("click", function() {
+			  // Hide all other divs in menu3
+			  document.getElementById("cotodellinkaccbankform").style.display = "none";
+			  document.getElementById("cotodellinkedbnkacntsctn").style.display = "none";		  
+			  // Show only the cotodelAmountRequest div
+			  document.getElementById("cotodelAmountRequest").style.display = "block";
+			});
+		</script>
+	
 </body>
 
 </html>

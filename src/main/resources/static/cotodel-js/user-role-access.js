@@ -1137,14 +1137,14 @@ function getAddOTP(){
 		  	       submitButton.disabled = !checkbox.checked;
 		  	   }
 			   			   
-			   function cotodelLinkedBankDetail() {
+			 /*  function cotodelLinkedBankDetail() {
 			       document.getElementById("signinLoader").style.display = "flex";
 			       
 			       $.ajax({
 			           type: "POST",
 			           url: "/getErupiLinkAccountDetails",
 			           data: {
-			               "acNumber": "12345678912345"
+			               "acNumber": "CW64917777"
 			           },
 			           beforeSend: function(xhr) {
 			               //xhr.setRequestHeader(header, token);
@@ -1200,7 +1200,7 @@ function getAddOTP(){
 			               document.getElementById("signinLoader").style.display = "none";
 			           }
 			       });
-			   }
+			   }*/
 
 			   function resendCotodelOTP(){
 			   	
