@@ -12,8 +12,6 @@
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-
 <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 
@@ -46,9 +44,9 @@
 				    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
 				      <!-- Wallet Icon -->
 				      <li class="nav-item mr-3">
-				        <a href="#" role="button">
-				          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
-				        </a>
+						<a href="/cotowallet" role="button">
+	  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	  			        </a>
 				      </li>
 
 				      <!-- Notification Icon -->
@@ -67,9 +65,9 @@
 				          <a class="dropdown-item" href="/ProfileInfo">
 				            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
 				          </a>
-				          <a class="dropdown-item" href="#">
+				       <!--   <a class="dropdown-item" href="#">
 				            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
-				          </a>
+				          </a>-->
 				          <div class="dropdown-divider"></div>
 				          <a class="dropdown-item" href="/logout">
 				            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
@@ -93,7 +91,6 @@
                 <!-- Begin Page Content -->
 				<div class="cd-container" id="activeVoucherContainer">
 					
-
 					<div class="cd-wrapper">
 					  <!-- Left Column -->
 					  <div class="cd-left-column">
@@ -193,8 +190,7 @@
 					  </div>
 					</div>
 				</div>
-				
-				
+								
 				<!-- tabs section-->
 				<div class="business-benefits01 py-5">
 				<div class="container">
@@ -211,29 +207,20 @@
 				     </li>-->
 				     <li class="nav-item">
 				       <a class="nav-link active"  data-bs-toggle="tab" href="#WalletLoading" role="tab">Wallet Loading</a>
-				     </li>
-					
-					
+				     </li>					
 				   </ul>
 				  
 				   <hr class="mt-0">
-
-				   <div class="tab-content mt-3">
-
-					 
+				   <div class="tab-content mt-3">					 
 					<!-- transactions tab-->
-				     <!--<div class="tab-pane fade show active" id="RewardsRedemption" role="tabpanel">
-						
+				     <!--<div class="tab-pane fade show active" id="RewardsRedemption" role="tabpanel">						
 						 empty table with error msg . msg to show when data is not present
 						<div class="table-responsive">
 						  <table class="table table-reimbursements-alt mb-0" >
 						    <thead>
 								<tr>
-
 						        <th>TXN ID</th>	
-							  	 
 						        <th>Name</th>
-						       
 							  <th>Catagory</th>	
 							  <th>Redemption Type</th>	
 							  <th>Issue Date</th>	
@@ -242,20 +229,15 @@
 						      </tr>
 						    </thead>
 						    <tbody class="table-bordered">
-						      <tr>
-							 
+						      <tr>							 
 								<td colspan="9" class="text-center">
 									You have not made any redemptions from your CotoWallet yet. Select ‘Redeem’ to use your CotoWallet.
 									If you have redeemed your CotoWallet, please refresh and check this section again after 60 minutes.
-								 </td>
-								
+								 </td>								
 						      </tr>	
-							  
-							 
 						    </tbody>
 						  </table>
-						</div>
-						
+						</div>						
 				     </div>-->
 					 
 					 <!--vouchers tab-->
@@ -265,124 +247,97 @@
 			              <thead>
 			                <tr>
 							  <th>S.NO</th>
-							  <th>Date & Time</th>
-			                  
-			                  <th>TXN ID</th>	
-							  	 
+							  <th>Date & Time</th>			                  
+			                  <th>TXN ID</th>	  	 
 			                  <th>Name</th>
-			                 
 							  <th>Catagory</th>	
 							  <th>Merchant</th>	
 							  <th>Amount</th>	
 							  <th>Tier Number</th>	
 							  <th>Reward Earned</th>	
-							 
 			                </tr>
 			              </thead>
 			              <tbody class="table-bordered">
 			                <tr>
 			                <td colspan="9" class="text-center"> Update Text</td>
-							 
-			                </tr>							
-												
+			                </tr>												
 			              </tbody>
 			            </table>
 			          </div>
-					 
-	
 				     </div>-->
-
 					 <!-- vehicles tab-->
 				    <div class="tab-pane fade show active" id="WalletLoading" role="tabpanel">
 								
-										  <div class="table-responsive">
-							            <table class="table table-reimbursements-alt mb-0" id="paymentHistoryTable">
-							              <thead>
-							                <tr>
-											  <th>S.NO</th>
-											 
-							                  <th>Customer Name</th>	
-											  <th>Mobile</th>	
-											  	 
-							                  <th>Order Amount</th>
-							                 
-											  <th>Order Status</th>		
-											  
-											  <th>Payment ID</th>
-											  							                  
-  							                  <th>Payment Status</th>	
-  											  	 
-  							                  <th>Service Charges</th>
-  							                 
-  											  <th>Service Tax</th>
-											  <th>Settlement Amount</th>						    
-							                </tr>
-							              </thead>
-							              <tbody class="table-bordered">
-											 					  
-											  <tr>							  
-												<td colspan="9" class="text-center">
-											   No vehicles have been mapped with the platform yet. Please proceed to the <span style="color:#367AFF;">Vehicle Management</span> 													section to onboard
-												vehicles from your fleet.
-											  </td>
-										  </tr>				
-											
-							              </tbody>
-							            </table>
-										
-							          </div>
-								     </div>
-									 
-									 <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: none;">
-		 							    <div class="text-left">
-		 							    
-		 							    </div>
+					 <div class="table-responsive">
+			            <table class="table table-reimbursements-alt mb-0" id="paymentHistoryTable">
+			              <thead>
+			                <tr>
+							  <th>S.NO</th>
+			                  <th>Customer Name</th>	
+							  <th>Mobile</th>	
+			                  <th>Order Amount</th>
+							  <th>Order Status</th>		
+							  <th>Payment ID</th>	                  
+			                  <th>Payment Status</th>	
+			                  <th>Service Charges</th>
+							  <th>Service Tax</th>
+							  <th>Settlement Amount</th>						    
+			                </tr>
+			              </thead>
+			              <tbody class="table-bordered">							 					  
+							  <tr>							  
+								<td colspan="9" class="text-center">
+							   No vehicles have been mapped with the platform yet. Please proceed to the <span style="color:#367AFF;">Vehicle Management</span> 													section to onboard
+								vehicles from your fleet.
+							  </td>
+						  </tr>											
+			              </tbody>
+			            </table>						
+			          </div>
+				     </div>
+					 
+					 <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: none;">
+					    <div class="text-left">
+					    
+					    </div>
+					    <div class="linked-bank-account-innersection d-block">
+					      <div id="data-wrapper1">
+					      </div>
+					    </div>
 
-		 							    <div class="linked-bank-account-innersection d-block">
-		 							      <div id="data-wrapper1">
-		 							      </div>
-		 							    </div>
-
-		 							    <div class="d-flex justify-content-end">
-		 							  <button class="btn btn-primary" id="continuebtn1" style="display: none;">Continue</button>
-		 							    </div>
-		 							  </div>
-									 <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
-									 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-									 <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
-									 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
-	 								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
-	 								<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
-	 								
-									 <input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
-	 								<input type="hidden" class="form-input" id="CId" name="CId" > 
-	 								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
-	 								<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
-	 								<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
-	 								<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
-	 								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
-	 								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
-	 								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
-	 								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
-									<input type="hidden" class="form-input" id="advanceAmount" name="advanceAmount" > 
-									
-	 								 </div>
-
-								   </div>
-								 </div>
-								 </div>
-								
+					    <div class="d-flex justify-content-end">
+					  <button class="btn btn-primary" id="continuebtn1" style="display: none;">Continue</button>
+					    </div>
+					  </div>
+					 <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
+					 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+					 <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
+					 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+					<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+					<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+					
+					 <input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+					<input type="hidden" class="form-input" id="CId" name="CId" > 
+					<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+					<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+					<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+					<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+					<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+					<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+					<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+					<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+					<input type="hidden" class="form-input" id="advanceAmount" name="advanceAmount" > 					
+					 </div>
+				   </div>
+				 </div>
+				 </div>				
 				
-            <!-- End of Main Content -->
-			
-				
+            <!-- End of Main Content -->							
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
 	
-
 	<!-- Modal -->
 	<!-- Fixed Modal -->
 	   <div class="modal fade" id="ProductTrialModal" tabindex="-1" aria-labelledby="productTrialModalTitle" aria-hidden="true">
@@ -396,26 +351,25 @@
 	               </div>
 	   
 	               <div class="modal-body">
-	                   <p class="text-muted mb-3">Select Amount for Product Trial</p>
-	   
+	                   <p class="text-muted mb-3">Select Amount for Product Trial</p>	   
 	                   <div class="trial-radio mb-4">
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount500" checked onchange="updatePayment()">
+	                           <input type="radio" name="trialAmount" id="amount500" checked >
 	                           <label for="amount500">₹500</label>
 	                       </div>
 	   
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount1000" onchange="updatePayment()">
+	                           <input type="radio" name="trialAmount" id="amount1000" >
 	                           <label for="amount1000">₹1,000</label>
 	                       </div>
 	   
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount1500" onchange="updatePayment()">
+	                           <input type="radio" name="trialAmount" id="amount1500" >
 	                           <label for="amount1500">₹1,500</label>
 	                       </div>
 	   
 	                       <div class="form-check">
-	                           <input type="radio" name="trialAmount" id="amount2000"  onchange="updatePayment()">
+	                           <input type="radio" name="trialAmount" id="amount2000"  >
 	                           <label for="amount2000">₹2,000</label>
 	                       </div>
 	                   </div>
@@ -502,24 +456,19 @@
 	                   <div class="success-icon mb-4">
 	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
 	                   </div>
-
 	                   <!-- Title -->
 	                   <h5 class="fw-bold mb-3" id="paymentSuccessModalTitle">Payment completed</h5>
-
 	                   <!-- Subtext -->
 	                   <p class="text-muted mb-4">
 	                       Your Product Trial payment was successful!<br>
 	                       Now experience the magic of UPI vouchers.
 	                   </p>
-
 	                   <!-- OK Button -->
 					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal">OK</button>
 	               </div>
 	           </div>
 	       </div>
 	   </div>
-
-
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -540,7 +489,7 @@
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+   <!-- <script src="js/demo/datatables-demo.js"></script>-->
 	<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
 	
 	<!-- Theme CSS -->
@@ -552,8 +501,6 @@
 	 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	 <script type="text/javascript" src="cotodel-js/cashfree.js"></script>
 
-	 
-	
 	 <!-- Bootstrap Tooltip requires this -->
 	 <script>
 	     document.addEventListener('DOMContentLoaded', function () {
@@ -580,8 +527,6 @@
 	     });
 	 </script>
 
-
-
     <script>
     $(document).ready(function(){
    	 $(".innernav").click(function(){
@@ -590,9 +535,7 @@
    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
    	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
    });
-   
-   
-   
+    
    function getPaymentHistory() {
      		    const employerId = document.getElementById('employerId').value;
      			//document.getElementById("signinLoader").style.display="flex";
@@ -620,21 +563,18 @@
      						//const employerData = encodeURIComponent(JSON.stringify(employer)); // Encode to pass safely
      		                const row = `
      						<tr>
-     						            <td>${payment_history.id}</td>
-     						            <td>${payment_history.customerName}</td>
-     						            <td>${payment_history.customerPhone}</td>
-   									<td>${payment_history.orderCurrency} ${payment_history.orderAmount}</td>
-   								   
-   								   <td>${payment_history.orderStatus}</td>
-     						       
-   									<td>${payment_history.cfPaymentId}</td>
-   									<td>${payment_history.paymentStatus}</td>
-   									<td>${payment_history.serviceCharge}</td>
-   									<td>${payment_history.serviceTax}</td>
-     								<td>${payment_history.settlementAmount}</td>
-     						        </tr>
+					        <td>${payment_history.id}</td>
+					        <td>${payment_history.customerName}</td>
+				            <td>${payment_history.customerPhone}</td>
+							<td>${payment_history.orderCurrency} ${payment_history.orderAmount}</td>
+					   	    <td>${payment_history.orderStatus}</td>
+							<td>${payment_history.cfPaymentId}</td>
+							<td>${payment_history.paymentStatus}</td>
+							<td>${payment_history.serviceCharge}</td>
+							<td>${payment_history.serviceTax}</td>
+							<td>${payment_history.settlementAmount}</td>
+					        </tr>
      		                `;
-
      		                tableBody.append(row);
      		            });
      		        },
@@ -658,8 +598,6 @@
 				
 		    });
 		}
-		
-		
 		
 		function updatePayment() {
 			const radios = document.getElementsByName("trialAmount");
@@ -687,67 +625,67 @@
 				
 				function cotodelLinkedBankDetail() {
 						     
-						       $.ajax({
-						           type: "POST",
-						           url: "/getErupiLinkAccountDetails",
-						           data: {
-						               "acNumber": "CW64917777"
-						           },
-						           beforeSend: function(xhr) {
-						               //xhr.setRequestHeader(header, token);
-						           },
-						           success: function(data) {
-						               console.log("Linked bank account data:", data);
-						               
-						               var parsedData = typeof data === "string" ? JSON.parse(data) : data;
-						               if (parsedData.status === true && parsedData.data) {
-						                   var item = parsedData.data;
-										    $("#CId").val(item.id);
-					   						$("#CbankCode").val(item.bankCode);
-					   						$("#CbankName").val(item.bankName);
-											$("#CaccountHolderName").val(item.accountHolderName);
-											$("#CacNumber").val(item.acNumber);
-					   						$("#CaccountType").val(item.accountType);
-											$("#CifscCode").val(item.ifsc);
-											//$("#Cbalance").val(item.balance);
-											
-						                   console.log("cotodelLinkedBankDetail()", item);
-						                   
-						                   const wrapper = document.getElementById('data-wrapper1');
-						                   wrapper.innerHTML = '';
-						                   
-						                   const container = document.createElement('div');
-						                   container.className = 'data-container';
-						                   
-						                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc"];
-						                   
-						                   const fieldLabels = {
-						                       bankName: "Bank Name",
-						                       accountHolderName: "Account Holder Name",
-						                       acNumber: "Account Number",
-						                       accountType: "Account Type",
-						                       ifsc: "IFSC",
-						                       
-						                   };
-						                   
-						                   fieldsToDisplay.forEach(key => {
-						                       const fieldDiv = document.createElement('div');
-						                       fieldDiv.className = 'field';
-						                       fieldDiv.innerHTML = `<span class="label">${fieldLabels[key]}:</span> ${item[key] ?? 'N/A'}`;
-						                       container.appendChild(fieldDiv);
-						                   });
-						                   
-						                   wrapper.appendChild(container);
-						               }
-						               
-						              // document.getElementById("signinLoader").style.display = "none";
-						           },
-						           error: function(error) {
-						               console.error("Error fetching bank details:", error);
-						              // document.getElementById("signinLoader").style.display = "none";
-						           }
-						       });
-						   }
+		       $.ajax({
+		           type: "POST",
+		           url: "/getErupiLinkAccountDetails",
+		           data: {
+		               "acNumber": "CW64917777"
+		           },
+		           beforeSend: function(xhr) {
+		               //xhr.setRequestHeader(header, token);
+		           },
+		           success: function(data) {
+		               console.log("Linked bank account data:", data);
+		               
+		               var parsedData = typeof data === "string" ? JSON.parse(data) : data;
+		               if (parsedData.status === true && parsedData.data) {
+		                   var item = parsedData.data;
+						    $("#CId").val(item.id);
+	   						$("#CbankCode").val(item.bankCode);
+	   						$("#CbankName").val(item.bankName);
+							$("#CaccountHolderName").val(item.accountHolderName);
+							$("#CacNumber").val(item.acNumber);
+	   						$("#CaccountType").val(item.accountType);
+							$("#CifscCode").val(item.ifsc);
+							//$("#Cbalance").val(item.balance);
+							
+		                   console.log("cotodelLinkedBankDetail()", item);
+		                   
+		                   const wrapper = document.getElementById('data-wrapper1');
+		                   wrapper.innerHTML = '';
+		                   
+		                   const container = document.createElement('div');
+		                   container.className = 'data-container';
+		                   
+		                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc"];
+		                   
+		                   const fieldLabels = {
+		                       bankName: "Bank Name",
+		                       accountHolderName: "Account Holder Name",
+		                       acNumber: "Account Number",
+		                       accountType: "Account Type",
+		                       ifsc: "IFSC",
+		                       
+		                   };
+		                   
+		                   fieldsToDisplay.forEach(key => {
+		                       const fieldDiv = document.createElement('div');
+		                       fieldDiv.className = 'field';
+		                       fieldDiv.innerHTML = `<span class="label">${fieldLabels[key]}:</span> ${item[key] ?? 'N/A'}`;
+		                       container.appendChild(fieldDiv);
+		                   });
+		                   
+		                   wrapper.appendChild(container);
+		               }
+		               
+		              // document.getElementById("signinLoader").style.display = "none";
+		           },
+		           error: function(error) {
+		               console.error("Error fetching bank details:", error);
+		              // document.getElementById("signinLoader").style.display = "none";
+		           }
+		       });
+		   }
 
 	</script>
 	
