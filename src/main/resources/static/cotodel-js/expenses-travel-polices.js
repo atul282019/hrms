@@ -397,23 +397,25 @@ function editExpensesCategory(){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			// document.getElementById("signinLoader").style.display="none";
-			location.reload();
+			//location.reload();
 			if(data1.status==true){
 				
-				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
-				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
+				// document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
+				// document.getElementById("payrollsuccessmsgdiv").style.display="block";
 				 
 			}else if(data1.status==false){
 				
-				 document.getElementById("payrollfailmsg").innerHTML=data1.message;
-				 document.getElementById("payrollfailmsgDiv").style.display="block";
+				// document.getElementById("payrollfailmsg").innerHTML=data1.message;
+				// document.getElementById("payrollfailmsgDiv").style.display="block";
 				
 			}else{
 				
-				 document.getElementById("payrollfailmsgDiv").style.display="none";
-				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
+				// document.getElementById("payrollfailmsgDiv").style.display="none";
+				// document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			
 			getExpanceCategoryList();
+			document.getElementById("ModalExpenseCategoryEdit").style.display = "none";
          },
          error: function(e){
              alert('Error: ' + e);
@@ -761,23 +763,26 @@ async function addExpensesCategory(){
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
 			document.getElementById("addcat").disabled = false;
-			location.reload();
+			//location.reload();
 			if(data1.status==true){
 				
-				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
-				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
+				 //document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
+				 //document.getElementById("payrollsuccessmsgdiv").style.display="block";
 				 
 			}else if(data1.status==false){
 				
-				 document.getElementById("payrollfailmsg").innerHTML=data1.message;
-				 document.getElementById("payrollfailmsgDiv").style.display="block";
+				 //document.getElementById("payrollfailmsg").innerHTML=data1.message;
+				 //document.getElementById("payrollfailmsgDiv").style.display="block";
 				
 			}else{
 				
-				 document.getElementById("payrollfailmsgDiv").style.display="none";
-				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
+				// document.getElementById("payrollfailmsgDiv").style.display="none";
+				 //document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			
+			
 			getExpanceCategoryList();
+			$('#ModalExpenseCategory').modal('hide');
          },
          error: function(e){
              alert('Error: ' + e);
@@ -1079,12 +1084,14 @@ function deleteData(value){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
-			window.location.reload();
+			//window.location.reload();
 			
 			if(data1.status==true){	
+				
 			//	 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
 				// document.getElementById("payrollsuccessmsgdiv").style.display="block";
-				 
+				//document.getElementById("nameEmployeesCash").clear();
+				
 			}else if(data1.status==false){
 				 //document.getElementById("payrollfailmsg").innerHTML=data1.message;
 				 //document.getElementById("payrollfailmsgDiv").style.display="block";
@@ -1093,7 +1100,9 @@ function deleteData(value){
 				 //document.getElementById("payrollfailmsgDiv").style.display="none";
 				 //document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			document.getElementById("nameEmployeesCash").innerHTML = '';
 			getExpanseTravelAdvance();
+			$('#ModalAdvanceRequest').modal('hide');
          },
          error: function(e){
              alert('Error: ' + e);

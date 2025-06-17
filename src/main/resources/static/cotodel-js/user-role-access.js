@@ -1144,7 +1144,7 @@ function getAddOTP(){
 			           type: "POST",
 			           url: "/getErupiLinkAccountDetails",
 			           data: {
-			               "acNumber": "CW64917777"
+			               "acNumber": "12345678912345"
 			           },
 			           beforeSend: function(xhr) {
 			               //xhr.setRequestHeader(header, token);
