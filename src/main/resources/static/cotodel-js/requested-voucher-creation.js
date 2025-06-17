@@ -30,7 +30,7 @@ function singleVoucherValidation(){
 			   	 document.getElementById("mobilelbl").innerHTML = beneficiaryMobile;
 			   	 document.getElementById("amountlbl").innerHTML = $("#amount").val();
 			   	 document.getElementById("startdatelbl").innerHTML = $("#startDate").val();*/
-			   	 document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
+			   	 //document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
 			     var employerId = document.getElementById("employerId").value;
 			     var employerName = document.getElementById("employerName").value;
 			   	const amountValue = amount.trim();
