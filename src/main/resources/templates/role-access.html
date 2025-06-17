@@ -11,7 +11,7 @@
 viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 
 <body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
-viewEmployeeBand(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()">
+viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -1239,7 +1239,7 @@ viewEmployeeBand(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmplo
 	                                    <div class="error-msg" id="gstnNoError" style="color:red"></div>
 	                                    <hr>            
 	                                   	<div class="table-responsive">
-	                                   		<table id="bandTable" class="table no-bordered empolyee-band-head-modal newTable" colpadding="5">
+	                                   		<table id="bandTable" class="table no-bordered empolyee-band-head-modal newTableBand" colpadding="5">
 	                                   			<thead>
 	                                   				<tr>
 	                                   				   <th>Employee Bands</th>
@@ -1564,7 +1564,7 @@ viewEmployeeBand(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmplo
 	                    </div>
 
 	                    <div class="expense-table">
-	                        <table class="table mb-0 newTable" id="newTable">
+	                        <table class="table mb-0 newTable1" id="newTable1">
 	                            <thead>
 	                               <!--  <tr>
 	                                    <th></th>
@@ -1805,6 +1805,36 @@ viewEmployeeBand(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmplo
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>
+
+	function newRow(){
+		    var rowCount = $('#newTable1 tr').length;
+		    if(rowCount <= 5){
+			   $("#newTable1 tbody").append($("#newTable1 tbody tr:last").clone());
+		    }
+	}
+	function deleteTableRow(){
+		 var rowCount = $('#newTable1 tr').length;
+		 if(rowCount >= 3){
+		    $('#newTable1 tbody tr:last').remove();
+		 }
+	}
+
+
+	function newRowEdit(){
+		    var rowCount = $('#newTableEdit tr').length;
+		    if(rowCount <= 5){
+			   $("#newTableEdit tbody").append($("#newTable tbody tr:last").clone());
+		    }
+	}
+	function deleteTableRowEdit(){
+		 var rowCount = $('#newTableEdit tr').length;
+		 if(rowCount >= 5){
+		    $('#newTableEdit tbody tr:last').remove();
+		 }
+	}
+	</script>	
+		
 	<script>
 		function toggleOtpVisibility2() {
 		    const icon = document.getElementById("toggleOtpIcon2");
