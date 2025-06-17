@@ -316,6 +316,29 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	return profileRes;
 	}
 	
+	@PostMapping(value = "/erupiVoucherCreateListRedeem")
+	public @ResponseBody String erupiVoucherCreateListRedeem(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, EmployeeMassterRequest erupiVoucherCreateDetails) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  erupiVoucherCreateDetailsService.erupiVoucherCreateListRedeem(tokengeneration.getToken(), jsonObject);
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
 	@PostMapping(value = "/getVoucherSummaryList")
 	public @ResponseBody String getVoucherSummaryList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, EmployeeMassterRequest erupiVoucherCreateDetails) {

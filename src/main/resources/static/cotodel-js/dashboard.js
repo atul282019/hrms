@@ -601,15 +601,15 @@ function populateVoucherUI(data) {
   const maskedAccount = 'xxxx' + accountNumber.slice(-4);
   const bankName = data.bankName || "Bank";
   const totalAmount = data.totalAmount;
-  const balance = parseFloat(data.balance);
+  const balance = parseFloat(data.redeemAmount);
   const spent = totalAmount;
   const available = balance;
   const total = spent + available;
 
   const spentPercent = total > 0 ? parseFloat(((spent / total) * 100).toFixed(1)) : 0;
 
-  document.querySelector('.voucher-amount').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
-  document.querySelector('.voucher-spent').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  document.querySelector('.voucher-amount').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  document.querySelector('.voucher-spent').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
   const progressText = document.querySelector('.voucher-progress-text');
   progressText.textContent = `${spentPercent}%`;

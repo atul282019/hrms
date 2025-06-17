@@ -217,50 +217,101 @@ function focusBack(){
 
 
 
-function  getLinkedBankDetail(){
-	
-    //document.getElementById("signinLoader").style.display="flex";
- 	var employerid = document.getElementById("employerId").value;
- 	$.ajax({
-	type: "POST",
-	url:"/getErupiLinkBankAccountDetail",
-       data: {
-			"orgId": employerid
-      		 },
-      		  beforeSend : function(xhr) {
-			//xhr.setRequestHeader(header, token);
-			},
-			   success: function(data){
-			            newData = data;
-			            console.log(newData);
-						$("#banklist option").remove();
-			            var obj = jQuery.parseJSON( data );
-			             obj = obj.data;
-			        	 var count=0;
-			         	for (var key in obj) {
+function getLinkedBankDetail() {
+  var employerid = document.getElementById("employerId").value;
+  $.ajax({
+    type: "POST",
+    url: "/getErupiLinkBankAccountDetail",
+    data: { "orgId": employerid },
+    success: function (data) {
+      const select = document.getElementById("banklist");
+      select.innerHTML = "";
 
-			             var values =  obj[key];
-			             var x = document.getElementById("banklist");
-			             if(count==0){
-			             var option = document.createElement("option");
-			             option.text ="Select Bank";
-			             option.value = "";
-			             x.add(option);
-			             }
-			             var option = document.createElement("option");
-			             option.value = values.acNumber;
-			             option.text = values.bankName+" | "+values.acNumber;
-			             x.add(option);
+      const parsed = JSON.parse(data).data;
+	  console.log("getLinkedBankDetail()=",parsed);
+      const dropdownList = document.getElementById("dropdownList");
+      dropdownList.innerHTML = "";
 
-			             count++;
-			             }
-          },
-        error: function(e){
-            alert('Error: ' + e);
-        }
-   }); 
-			
+      const bankKeys = Object.keys(parsed);
+
+      if (bankKeys.length === 1) {
+        const onlyBank = parsed[bankKeys[0]];
+        const masked = "XXXX" + onlyBank.acNumber.slice(-4);
+
+        const option = document.createElement("option");
+        option.value = onlyBank.acNumber;
+        option.text = onlyBank.bankName + " | " + masked;
+        select.appendChild(option);
+
+        document.getElementById("selectedBank").innerHTML = `
+          <div class="dropdown-item">
+            <div class="dropdown-bank-info">
+              <img src="data:image/png;base64,${onlyBank.bankIcon}" alt="logo">
+              <span>${onlyBank.bankName}</span>
+            </div>
+            <span class="dropdown-mask">${masked}</span>
+          </div>
+        `;
+        select.value = onlyBank.acNumber;
+        getBankDetailByBankAccountNumber();
+        showLinkedAccAmount(onlyBank.acNumber);
+
+      } else {
+        bankKeys.forEach((key, i) => {
+          const bank = parsed[key];
+          const masked = "XXXX" + bank.acNumber.slice(-4);
+
+          const option = document.createElement("option");
+          option.value = bank.acNumber;
+          option.text = bank.bankName + " | " + masked;
+          select.appendChild(option);
+
+          const div = document.createElement("div");
+          div.className = "dropdown-item";
+          div.innerHTML = `
+            <div class="dropdown-bank-info">
+              <img src="data:image/png;base64,${bank.bankIcon}" alt="logo">
+              <span>${bank.bankName}</span>
+            </div>
+            <span class="dropdown-mask">${masked}</span>
+          `;
+          div.onclick = function () {
+            document.getElementById("selectedBank").innerHTML = `
+              <div class="dropdown-item">
+                <div class="dropdown-bank-info">
+                  <img src="data:image/png;base64,${bank.bankIcon}" alt="logo">
+                  <span>${bank.bankName}</span>
+                </div>
+                <span class="dropdown-mask">${masked}</span>
+              </div>
+            `;
+            select.value = bank.acNumber;
+            document.getElementById("dropdownList").style.display = "none";
+            getBankDetailByBankAccountNumber();
+            showLinkedAccAmount(bank.acNumber,bank.accountSeltWallet);
+          };
+          dropdownList.appendChild(div);
+        });
+      }
+    },
+    error: function (e) {
+      alert("Error: " + e);
+    },
+  });
 }
+
+document.getElementById("selectedBank").addEventListener("click", function () {
+  const list = document.getElementById("dropdownList");
+  list.style.display = list.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", function (e) {
+  const dropdown = document.getElementById("customDropdown");
+  if (!dropdown.contains(e.target)) {
+    document.getElementById("dropdownList").style.display = "none";
+  }
+});
+
 
 
 
@@ -827,42 +878,47 @@ function getPrimaryBankDetail(){
 			      });
 				  
 				  
-				  function  showLinkedAccAmount(accountNumber){
-				  	
-				      //document.getElementById("signinLoader").style.display="flex";
-				   	//var employerid = document.getElementById("employerId").value;
-					//var accountNumber = document.getElementById("banklist").value;
-					var employerid = document.getElementById("employerId").value;
-					console.log("accountNumber,employerid ",accountNumber,employerid);
-				   	$.ajax({
-				  	type: "POST",
-				  	url:"/showLinkedAccAmount",
-				         data: {
-				  			"acNumber": accountNumber,
-							"orgId":employerid 
-				        		 },
-				        		
-				  			   success: function(data){
-								console.log("showLinkedAccAmount",data);
-				  	          
-								var obj = jQuery.parseJSON(data);
-								   // obj = obj.data;
+				  function showLinkedAccAmount(accountNumber, accountSeltWallet) {
+				      const employerid = document.getElementById("employerId").value;
+				      console.log("accountNumber, employerid", accountNumber, employerid);
 
-									if (obj.status==true) {
-									            // Update the balance in the HTML
-									            document.querySelector(".text-wrapper-3").textContent = obj.balance ? obj.balance:"Amount Not Available";
-												
-												document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
-									        }
-											// Format and display timestamp if available
-						            			
-				            },
-				          error: function(e){
+				      if (accountSeltWallet === "Self") {
+				          document.querySelector(".button-check-balance").style.display = "block";
+				          document.querySelector(".tip-disabled").style.display = "block";
+
+				          document.querySelector(".div-2").style.display = "none";
+				          document.querySelector(".last-updated-on").style.display = "none";
+
+				          return; // Don't send request to backend
+				      }
+
+				      // For other accounts, show balance section and fetch data
+				      document.querySelector(".button-check-balance").style.display = "none";
+				      document.querySelector(".tip-disabled").style.display = "none";
+
+				      document.querySelector(".div-2").style.display = "block";
+				      document.querySelector(".last-updated-on").style.display = "block";
+
+				      $.ajax({
+				          type: "POST",
+				          url: "/showLinkedAccAmount",
+				          data: {
+				              "acNumber": accountNumber,
+				              "orgId": employerid
+				          },
+				          success: function (data) {
+				              console.log("showLinkedAccAmount", data);
+				              const obj = jQuery.parseJSON(data);
+				              if (obj.status === true) {
+				                  document.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
+				              }
+				          },
+				          error: function (e) {
 				              alert('Error: ' + e);
 				          }
-				     }); 
-				  			
+				      });
 				  }
+
 				  function formatTimestamp(timestamp) {
 				      let dateObj = new Date(timestamp.replace(" ", "T")); // Ensure proper parsing
 

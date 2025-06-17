@@ -88,7 +88,11 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		logger.info(data.toString());
 		return data.toString();
 	}
-
+	
+	@Override
+	public String erupiVoucherCreateListRedeem(String token, EncriptResponse erupiVoucherCreateDetails) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.erupiVoucherCreateListRedeem);
+	}
 	@Override
 	public String getIssueVoucherList(String token, EncriptResponse erupiVoucherCreateDetails) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getIssuseVoucherList);

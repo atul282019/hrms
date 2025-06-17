@@ -17,6 +17,8 @@ public interface ErupiVoucherCreateDetailsService {
 	String createSingleVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
 	String getIssueVoucherList(String token, EncriptResponse erupiVoucherCreateDetails);
+	
+	String erupiVoucherCreateListRedeem(String token, EncriptResponse erupiVoucherCreateDetails);
 
 	String getVoucherSummaryList(String token, EncriptResponse erupiVoucherCreateDetails);
 

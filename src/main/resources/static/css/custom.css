@@ -6040,9 +6040,10 @@ tr.lasttr {
 
 .span {
     font-family: var(--title-2-bold-font-family);
-    font-weight: var(--title-2-bold-font-weight);
+    
     color: #000000;
-    font-size: var(--title-2-bold-font-size);
+	font-size: 19px !important;
+	   font-weight: 400 !important;
     letter-spacing: var(--title-2-bold-letter-spacing);
     line-height: var(--title-2-bold-line-height);
     font-style: var(--title-2-bold-font-style);
@@ -6050,8 +6051,8 @@ tr.lasttr {
 
 .text-wrapper-3 {
     font-family: var(--title-1-bold-font-family);
-    font-weight: var(--title-1-bold-font-weight);
-    font-size: var(--title-1-bold-font-size);
+	font-size: 19px !important;
+	    font-weight: 400 !important;
     line-height: var(--title-1-bold-line-height);
     font-style: var(--title-1-bold-font-style);
     letter-spacing: var(--title-1-bold-letter-spacing);
@@ -7842,6 +7843,7 @@ table.vcScheduledtable thead {
   {
   text-align: left;
   overflow-x:auto;
+  
   }
 	
   .table-reimbursements-alt {
@@ -8945,3 +8947,62 @@ table.vcScheduledtable thead {
 								  			  z-index: 1050;
 								  			  transition: right 0.3s ease-in-out;
 								  			}
+											
+											.balance-container {
+												    position: absolute;
+												    bottom: 0;
+												    right: 0;
+												    display: flex;
+												    flex-direction: column;
+												    align-items: flex-end;
+												    gap: 4px;
+												    padding: 8px;
+												}
+													.tip-disabled {
+												    width: 100%;
+												    max-width: 350px;
+												    height: 34px;
+												    padding: 8px 10px;
+												    border: 1px solid #EDEDF0;
+												    border-radius: 10px;
+												    display: flex;
+												    align-items: center;
+												    gap: 10px;
+												    font-size: 11px;
+												    font-weight: 400;
+												    color: #ACAEBA;
+												    background-color: #DCDCDC1A;
+												    white-space: nowrap;
+												    overflow: hidden;
+												    text-overflow: ellipsis;
+												    opacity: 0.6;
+												    pointer-events: none;
+												}
+												.tip-disabled img {
+												    width: 14px;
+												    height: 14px;
+												    flex-shrink: 0;
+												}
+
+														
+
+														
+												.button-check-balance {
+														width: 100%;
+													    max-width: 350px;
+													    height: 36px;
+													    padding: 8px 16px;
+													    border: 1px solid #367AFF;
+													    border-radius: 8px;
+													    color: #367AFF;
+													    background-color: transparent;
+													    font-size: 14px;
+													    font-weight: 500;
+													    line-height: 20px;
+													    cursor: pointer;
+													    display: flex;
+													    align-items: center;
+													    justify-content: center;
+													    gap: 8px;
+													}
+											
