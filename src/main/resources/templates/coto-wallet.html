@@ -403,7 +403,6 @@
 	                       <span aria-hidden="true">&times;</span>
 	                   </button>
 	               </div>
-
 	               <div class="modal-body">
 	                   <!-- Payment Summary Card -->
 	                   <div class="payment-summary-card">
@@ -602,7 +601,6 @@
 		function updatePayment() {
 			const radios = document.getElementsByName("trialAmount");
 			    let selectedAmount = 0;
-
 			    radios.forEach((radio) => {
 			        if (radio.checked) {
 			            const label = document.querySelector(`label[for="${radio.id}"]`);
@@ -623,13 +621,12 @@
 			    $('#ProductTrialPaymentModal').modal('show'); 
 				}
 				
-				function cotodelLinkedBankDetail() {
-						     
+				function cotodelLinkedBankDetail() {						     
 		       $.ajax({
 		           type: "POST",
 		           url: "/getErupiLinkAccountDetails",
 		           data: {
-		               "acNumber": "CW64917777"
+		               "acNumber": "12345678912345"
 		           },
 		           beforeSend: function(xhr) {
 		               //xhr.setRequestHeader(header, token);
@@ -647,18 +644,13 @@
 							$("#CacNumber").val(item.acNumber);
 	   						$("#CaccountType").val(item.accountType);
 							$("#CifscCode").val(item.ifsc);
-							//$("#Cbalance").val(item.balance);
-							
-		                   console.log("cotodelLinkedBankDetail()", item);
-		                   
+							//$("#Cbalance").val(item.balance);							
+		                   console.log("cotodelLinkedBankDetail()", item);		                   
 		                   const wrapper = document.getElementById('data-wrapper1');
-		                   wrapper.innerHTML = '';
-		                   
+		                   wrapper.innerHTML = '';		                   
 		                   const container = document.createElement('div');
-		                   container.className = 'data-container';
-		                   
-		                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc"];
-		                   
+		                   container.className = 'data-container';		                   
+		                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc"];		                   
 		                   const fieldLabels = {
 		                       bankName: "Bank Name",
 		                       accountHolderName: "Account Holder Name",
@@ -688,7 +680,6 @@
 		   }
 
 	</script>
-	
 	<script>
 			document.getElementById("continuebtn1").addEventListener("click", function() {
 			  // Hide all other divs in menu3
@@ -697,8 +688,6 @@
 			  // Show only the cotodelAmountRequest div
 			  document.getElementById("cotodelAmountRequest").style.display = "block";
 			});
-		</script>
-	
+		</script>	
 </body>
-
 </html>
