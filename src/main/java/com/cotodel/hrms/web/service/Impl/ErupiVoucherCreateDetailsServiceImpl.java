@@ -29,7 +29,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	@Override
 	public String createSingleVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
 		return CommonUtility.bulkUserRequest(token,createVoucherRequestJson(erupiVoucherCreateDetails), 
-				applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucher,applicationConstantConfig.apiSignaturePublicPath,
+				applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucherOLD,applicationConstantConfig.apiSignaturePublicPath,
 				applicationConstantConfig.apiSignaturePrivatePath);
 		
 	}

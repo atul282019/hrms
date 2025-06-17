@@ -59,7 +59,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	@Autowired
 	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
 	//single voucher Issue backup
-	@PostMapping(value="/createSingleVoucherOLD")
+	@PostMapping(value="/createSingleVoucherRequested")
 	public @ResponseBody String createSingleVoucherOLD(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
 			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
 		

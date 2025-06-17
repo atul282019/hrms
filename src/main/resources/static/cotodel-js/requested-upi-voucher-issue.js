@@ -602,7 +602,7 @@ async function  issueVoucher(){
 							
 	 	$.ajax({
 		type: "POST",
-		url:"/createSingleVoucher",
+		url:"/createSingleVoucherRequested",
 	       data: {
 				   "name": beneficiaryName,
 				   "mobile": beneficiaryMobile,
