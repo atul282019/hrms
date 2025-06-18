@@ -108,9 +108,8 @@
 					            <div class="cd-wallet-balance-amount">₹0.00</div>
 					            <div class="cd-wallet-balance-label">Wallet Balance</div>
 					          </div>
-					          <div style="display: flex; gap: 10px;">
-								<button class="cd-wallet-button" data-bs-toggle="modal" data-bs-target="#ProductTrialModal">
-								  Trial&nbsp;<span style="font-size: 18px; font-weight: bold;">+</span>
+					          <div style="display: flex; gap: 8px;">
+								<button class="cd-wallet-button" data-bs-toggle="modal" data-bs-target="#ProductTrialModal">Pay & Trial&nbsp;<span style="font-size: 18px; font-weight: bold;">+</span>
 								</button>
 					            <a href="/upiVoucherIssuanceNew"> <button class="cd-wallet-button cd-wallet-button-disabled">
 					              Redeem&nbsp;→
@@ -280,7 +279,7 @@
 							  <th>Payment ID</th>	                  
 			                  <th>Payment Status</th>	
 			                  <th>Service Charges</th>
-							  <th>Service Tax</th>
+							<!--  <th>Service Tax</th>-->
 							  <th>Settlement Amount</th>						    
 			                </tr>
 			              </thead>
@@ -326,7 +325,72 @@
 					<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
 					<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
 					<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
-					<input type="hidden" class="form-input" id="advanceAmount" name="advanceAmount" > 					
+					<input type="hidden" class="form-input" id="advanceAmount" name="advanceAmount" > 			
+					<input type="hidden" class="form-input" id="amountServiceCharge" name="amountServiceCharge" > 
+					
+					<input type="hidden" id="order_id" th:value="${order_id}">
+								<div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section" style="display: none;">
+										                                                   <h5>Payment Receipt</h5>
+										                                                   <div class="primary-Details-wrap">
+																							<div class="Primary-details-info">
+																				                  <label> Customer ID</label>
+																				                  <p id="customerId"></p>
+																				              </div>
+																							<div class="Primary-details-info">
+																							                  <label>Name</label>
+																							                  <p id="name"></p>
+																							              </div>
+																							              
+																							              <div class="Primary-details-info">
+																							                  <label>Order Amount</label>
+																							                  <p id="amount"></p>
+																							              </div>
+																										  <div class="Primary-details-info">
+																						                  <label>Service Charge</label>
+																						                  <p id="serviceCharge"></p>
+																						              		</div>
+																										  <div class="Primary-details-info">
+																							                  <label>Service Tax</label>
+																							                  <p id="serviceTax"></p>
+																							              </div>
+																									  		<div class="Primary-details-info">
+																						                  <label>Settlement Amount</label>
+																							                  <p id="settlementAmount"></p>
+																							              </div>
+																										  <div class="Primary-details-info">
+																							                  <label>Order Status</label>
+																							                  <p id="order_status"></p>
+																							              </div>
+																							              <div class="Primary-details-info">
+																							                  <label>order Currency</label>
+																							                  <p id="currency"></p>
+																							              </div>
+																							              <div class="Primary-details-info">
+																							                  <label>Customer Email</label>
+																							                  <p id="customerEmail1"></p>
+																							              </div>
+																							              <div class="Primary-details-info">
+																							                  <label>Payment Date</label>
+																							                  <p id="created_at"></p>
+																							              </div>
+																										  <div class="Primary-details-info">
+																							                  <label>Payment Confirmation Id </label>
+																							                  <p id="cf_order_id"></p>
+																							              </div>
+																										  <div class="Primary-details-info">
+																							                  <label>Payment Methods</label>
+																							                  <p id="payment_methods"></p>
+																							              </div>
+																										  <div class="Primary-details-info">
+																							                  <label>Customer Phone Number</label>
+																							                  <p id="customerPhone"></p>
+																							              </div>
+																										  <div class="Primary-details-info">
+					  																			                  <label>Customer Order Id</label>
+					  																			                  <p id="orderId"></p>
+					  																			              </div>
+																											 </div>
+										                                               </div>		
 					 </div>
 				   </div>
 				 </div>
@@ -374,7 +438,7 @@
 	                       </div>
 	                   </div>
 	   
-	                   <div class="info-alert d-flex align-items-center">
+	                   <div class="info-alert d-flex align-items-centerr" style="display: none;"  id="tialAmountLimit" >
 	                       <i class="bi bi-info-circle-fill me-2" style="margin-right: 13px;"></i>
 	                       <div>
 	                           Monthly limit for Product Trial is ₹2,000. You can only try ₹500 more.
@@ -489,8 +553,8 @@
 
     <!-- Page level custom scripts -->
    <!-- <script src="js/demo/datatables-demo.js"></script>-->
-	<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
-	
+	<!--<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
+	-->
 	<!-- Theme CSS -->
 	 
 	 <link rel="stylesheet" type="text/css" href="css/custom.css">
@@ -558,24 +622,22 @@
      		                return;
      		            }
      		            // Populate the table dynamically
-     		            payment_history.forEach((payment_history) => {
-     						//const employerData = encodeURIComponent(JSON.stringify(employer)); // Encode to pass safely
-     		                const row = `
-     						<tr>
-					        <td>${payment_history.id}</td>
-					        <td>${payment_history.customerName}</td>
-				            <td>${payment_history.customerPhone}</td>
-							<td>${payment_history.orderCurrency} ${payment_history.orderAmount}</td>
-					   	    <td>${payment_history.orderStatus}</td>
-							<td>${payment_history.cfPaymentId}</td>
-							<td>${payment_history.paymentStatus}</td>
-							<td>${payment_history.serviceCharge}</td>
-							<td>${payment_history.serviceTax}</td>
-							<td>${payment_history.settlementAmount}</td>
-					        </tr>
-     		                `;
-     		                tableBody.append(row);
-     		            });
+						payment_history.forEach((payment_history) => {
+						    const row = `
+						    <tr>
+						        <td>${payment_history.id}</td>
+						        <td>${payment_history.customerName}</td>
+						        <td>${payment_history.customerPhone}</td>
+						        <td style="text-align:right">₹${Number(payment_history.orderAmount).toLocaleString('en-IN')}</td>
+						        <td>${payment_history.orderStatus}</td>
+						        <td>${payment_history.cfPaymentId}</td>
+						        <td>${payment_history.paymentStatus}</td>
+						        <td style="text-align:right">₹${Number(payment_history.serviceCharge).toLocaleString('en-IN')}</td>
+						        <td style="text-align:right">₹${Number(payment_history.settlementAmount).toLocaleString('en-IN')}</td>
+						    </tr>
+						    `;
+						    tableBody.append(row);
+						});
      		        },
      		        error: function(e) {
      		            alert('Error: ' + e.responseText);
@@ -609,14 +671,15 @@
 			        }
 			    });
 
-			    const serviceFee = 20; // Fixed or calculate dynamically if needed
-			    const totalAmount = selectedAmount + serviceFee;
+				const serviceFee = Math.round(selectedAmount * 0.01); // rounds to nearest rupee
+				const totalAmount = selectedAmount + serviceFee;
 
 			    // Update the UI
-			    document.getElementById("trialAmountDisplay").innerText = "₹" + selectedAmount.toLocaleString();
+			    document.getElementById("trialAmountDisplay").innerText = "₹" +totalAmount.toLocaleString(); 
 			    document.getElementById("serviceFeeDisplay").innerText = "₹" + serviceFee.toLocaleString();
-			    document.getElementById("totalAmountDisplay").innerText = "₹" + totalAmount.toLocaleString();
-				document.getElementById("advanceAmount").value =selectedAmount;
+			    document.getElementById("totalAmountDisplay").innerText = "₹" +selectedAmount.toLocaleString();
+				document.getElementById("advanceAmount").value =totalAmount;
+				document.getElementById("amountServiceCharge").value =serviceFee;
 				
 			    $('#ProductTrialPaymentModal').modal('show'); 
 				}

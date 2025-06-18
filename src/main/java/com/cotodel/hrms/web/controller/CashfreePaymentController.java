@@ -80,8 +80,8 @@ public class CashfreePaymentController extends CotoDelBaseController{
 				model.addAttribute("email", obj.getEmail());
 				model.addAttribute("order_id", order_id);
 				model.addAttribute("id", id);
-				return new ModelAndView("success", "command", "");
-				//return new ModelAndView("coto-wallet", "command", "");
+				//return new ModelAndView("success", "command", "");
+				return new ModelAndView("coto-wallet", "command", "");
 			}
 			return new ModelAndView("error", "command", "");
 	}

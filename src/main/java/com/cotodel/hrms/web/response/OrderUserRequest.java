@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class OrderUserRequest {
 	
 	private String orderAmount;
+	private String amountServiceCharge;
 	private String orderCurrency;
 	private String customerId;
 	private String customerName;

@@ -1,5 +1,5 @@
 const cashfree = Cashfree({
-   mode:"production" //or production //sandbox
+   mode:"sandbox" //or production //sandbox
 });
 
 function getSessionId(){
@@ -18,13 +18,15 @@ function getSessionId(){
 	var acNumber = document.getElementById("CacNumber").value;
 	var createdBy = document.getElementById("employerName").value;
 	var createdBy = document.getElementById("employerName").value;
+	var amountServiceCharge = document.getElementById("amountServiceCharge").value;
 	
 	$.ajax({
 		type: "POST",
 		url: "/getCashfreePaymentSession",
 		data: {
 				"orgId":employerId,
-				 "orderAmount" :orderAmount,
+				"orderAmount" :orderAmount,
+				"amountServiceCharge":amountServiceCharge,
 				"orderCurrency": "INR",
 				"customerId" :customerId,
 				"customerName": customerName,
@@ -67,7 +69,7 @@ function getSessionId(){
 
 
 function getOrderDetail(){
-	document.getElementById("signinLoader").style.display = "flex";
+	//document.getElementById("signinLoader").style.display = "flex";
 	var order_id = document.getElementById("order_id").value;
 
 	$.ajax({
@@ -79,7 +81,7 @@ function getOrderDetail(){
 		beforeSend: function(xhr) {
 		},
 		success: function(data) {
-			document.getElementById("signinLoader").style.display = "none";
+			//document.getElementById("signinLoader").style.display = "none";
 			try {
 	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
 				   console.log(parsedData);
@@ -103,6 +105,7 @@ function getOrderDetail(){
 				   
 				   			   
 				   document.getElementById("payment_methods").innerHTML=parsedData.data.payment_methods;
+				  // $('#PaymentSuccessModal').modal('show'); 
 	           } catch (error) {
 	               console.error("Error parsing JSON:", error);
 	           }
