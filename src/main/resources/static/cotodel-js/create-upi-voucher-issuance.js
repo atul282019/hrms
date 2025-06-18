@@ -380,7 +380,9 @@ function  getBankDetailByBankAccountNumber(){
 		   //var data2 = data1.data;
 		   let continueButton = document.getElementById("continueButton1"); // Target the specific button
 		  // let errorMessage = document.getElementById("amountError");
-		   //document.getElementById("amount").value="";
+
+		   document.getElementById("amount").value="";
+	   //document.getElementById("amount").value="";
 		   
 		   // errorMessage.style.display = "none"; // Hide error message
 		    continueButton.disabled = false; // Enable button when valid
