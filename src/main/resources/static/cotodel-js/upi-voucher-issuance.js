@@ -635,90 +635,92 @@ function getIssueVoucherList1(){
 
 async function getVoucherTransactionList() {
 	const orgId = document.getElementById('employerId').value;
-
     $.ajax({
         type: "POST",
         url: "/getVoucherTransactionList",
-		data: {
-            "orgId": orgId,
-			"limit": "10"
-		},
+		data: { "orgId":orgId,
+				 "timePeriod":"AH"	
+		 },
         beforeSend: function(xhr) {
-            // xhr.setRequestHeader(header, token);
+            //xhr.setRequestHeader(header, token);
         },
         success: function(data) {
             newData = data;
             console.log("Emp onboarding data", newData);
             var data1 = jQuery.parseJSON(newData);
             var data2 = data1.data;
-
+			console.log(" upi voucher issue getVoucherTransactionList()=",data1);
+            
             var table = $('#vouchersTableTransactionList').DataTable({
                 destroy: true,
-                responsive: true,
+                "responsive": true,
                 searching: false,
                 bInfo: false,
                 paging: false,
-                lengthChange: true,
-                autoWidth: false,
-                pagingType: "full_numbers",
-                pageLength: 50,
-                buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                language: {
-                    emptyTable: 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
-                },
-                aaData: data2,
-                aoColumns: [
-                    {
-                        mData: "creationDate",
-                        render: function (data) {
-                            return formatDate(data);
-                        }
-                    },
-                    { mData: "merchanttxnId" },
-                    {
-                        mData: "name",
-                        render: function(data, type, row) {
-                            const name = row.name || '';
-                            const mobile = row.mobile || '';
-                            return `${name}<br><small>${mobile}</small>`;
-                        }
-                    },
-                    { mData: "purposeDesc" },
-                    { mData: "merchanttxnId" },
-                    {
-                        mData: "amount",
-						className: "text-right",
-                        render: function(data2, type, row) {
-                            if (data2 === "" || data2 === null) {
-                                return '';
-                            } else {
-                                return '₹'+data2;
-                            }
-                        }
-                    },
-                   // { mData: "merchanttxnId" }
+                "lengthChange": true,
+                "autoWidth": false,
+                "pagingType": "full_numbers",
+                "pageLength": 50,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "language": {
+					"emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+					},
+                
+                "aaData": data2,
+                "aoColumns": [
+                  //  { "mData": "creationDate" },
+					{ 
+					  "mData": "creationDate", 
+					  "render": function (data) {
+					      return formatDate(data);
+					  }
+					},
+					{ "mData": "merchanttxnId" },
+					{ "mData": "bankrrn" },
+					{
+					  "mData": null,
+					  "render": function (data, type, row) {
+					    return `<div>${row.name}</div><div>${row.mobile}</div>`;
+					  }
+					},
+					{
+					  "mData": "purposeDesc",
+					  "render": function (data, type, row) {
+					   
+					      return '<img src="data:image/png;base64,' + row.mccMainIcon + '" alt="" width="24px" height="24px" style="margin-top:-10px;">'+ data;
+					    
+					  }
+					},
+					{ "mData": "payeeName" },
+					{
+					  "mData": "redeemAmount",
+					"class":"text-right",
+					"render": function (data2, type, row) {
+					    if (!data2) return '';
+					    let amount = parseFloat(data2);
+					    let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
+					    let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+					    return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+					}
+					},
+					
+					//{ "mData": "merchanttxnId" },
+					
                 ],
-                createdRow: function (row, data2, dataIndex) {
-                    var purposeDesc = data2.purposeDesc;
-                    if (purposeDesc === "Meal") {
-                        var imgTag = '<img src="img/food.svg" alt="" class="mr-2">' + purposeDesc;
-                        $(row).find('td:eq(3)').html(imgTag);
-                    } else if (purposeDesc === "Petroleum Voucher") {
-                        var imgTag = '<img src="img/fuel-grey.png" alt="" class="mr-2">' + purposeDesc;
-                        $(row).find('td:eq(3)').html(imgTag);
-                    }
-                }
-            });
+
+				
+		});		
+							
         },
         error: function(e) {
             alert('Failed to fetch JSON data' + e);
         }
     });
-} 
+}
 
 
 
-function erupiVoucherCreateListLimit(timePeriod = "CM") {
+function erupiVoucherCreateListLimit(timePeriod = "AH") {
   var employerid = document.getElementById("employerId").value;
   $.ajax({
     type: "POST",
@@ -790,7 +792,7 @@ function erupiVoucherCreateListLimit(timePeriod = "CM") {
               let labelText = '', labelClass = '';
               switch (data) {
                 case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
-                case "Redeem": labelText = "Redeemed"; labelClass = "pill bg-blue-txt-blue-pill"; break;
+                case "Redeemed": labelText = "Redeemed"; labelClass = "pill bg-lightyellow-txt-yellow-pill "; break;
                 case "fail": labelText = "Failed"; labelClass = "pill bg-red-txt-red-pill"; break;
                 case "Revoke": labelText = "Revoked"; labelClass = "pill bg-grey-txt-grey-pill"; break;
                 default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
@@ -798,13 +800,28 @@ function erupiVoucherCreateListLimit(timePeriod = "CM") {
               return `<span class="${labelClass}">${labelText}</span>`;
             }
           },
-          {
-            "mData": "amount",
-            "render": function (data) {
-              return data ? '₹' + data : '';
-            }
-          },
-          { "mData": "redeemAmount" },
+		  {
+		    "mData": "amount",
+		  "class":"text-right",
+		  "render": function (data2, type, row) {
+		      if (!data2) return '';
+		      let amount = parseFloat(data2);
+		      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
+		      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+		      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+		  }
+		  },
+          { "mData": "redeemAmount", 
+			"class":"text-right",
+					  "render": function (data2, type, row) {
+					      if (!data2) return '';
+					      let amount = parseFloat(data2);
+					      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
+					      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+					      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+					  }
+			
+		  },
           {
             "mData": null,
             "render": function (data, type, row) {

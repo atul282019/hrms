@@ -356,6 +356,7 @@ requestedVoucherCount()">
 													 <th>Issue Date</th>	
 			 										  <th>Name & Mobile #</th>
 													  <th>Voucher ID</th>
+													  
 			 						                  <th>Bank A/c</th>
 			 										  <th>Category</th>	
 			 										  
@@ -436,6 +437,7 @@ requestedVoucherCount()">
 												      <tr>							
 													  <th>Date & Time</th>
 												      <th>Voucher ID</th>	
+													  <th>Transaction RRN</th>
 												      <th>Name & Mobile #</th>
 													  <th>Catagory</th>	
 													  <th>Merchant Name</th>	
@@ -597,7 +599,7 @@ requestedVoucherCount()">
 
 		clearFiltersBtn.addEventListener('click', clearAllFilters);
 	</script>
-	<script>	document.addEventListener("DOMContentLoaded", function () {
+	<script>		document.addEventListener("DOMContentLoaded", function () {
 	  function updateSelectedLabel(label) {
 	    const dropdownLabel = document.querySelector(".dropdown-toggle.calender-time span");
 	    dropdownLabel.textContent = label;
@@ -614,14 +616,35 @@ requestedVoucherCount()">
 	    const period = periodMap[periodKey] || "AH";
 	    updateSelectedLabel(label);
 	    erupiVoucherCreateListLimit(period);
+
+	    // Smooth scroll to content after a short delay to allow data rendering
+	    setTimeout(() => {
+	      const section = document.querySelector(".upi-voucher-wrap");
+	      if (section) {
+	        section.scrollIntoView({ behavior: "smooth", block: "start" });
+	      }
+	    }, 300); // Adjust delay if needed
 	  }
 
-	  document.getElementById("currentMonth").addEventListener("click", () => callPeriod("currentMonth", "Current Month"));
-	  document.getElementById("lastMonth").addEventListener("click", () => callPeriod("lastMonth", "Last Month"));
-	  document.getElementById("currentFY").addEventListener("click", () => callPeriod("currentFY", "Current Financial Year"));
-	  document.getElementById("lastFY").addEventListener("click", () => callPeriod("lastFY", "Last Financial Year"));
-	  document.getElementById("allHistory").addEventListener("click", () => callPeriod("allHistory", "All History"));
+	  // Prevent scroll jump by default and trigger callPeriod
+	  const addFilterEvent = (id, key, label) => {
+	    const el = document.getElementById(id);
+	    if (el) {
+	      el.addEventListener("click", (e) => {
+	        e.preventDefault();
+	        callPeriod(key, label);
+	      });
+	    }
+	  };
+
+	  addFilterEvent("currentMonth", "currentMonth", "Current Month");
+	  addFilterEvent("lastMonth", "lastMonth", "Last Month");
+	  addFilterEvent("currentFY", "currentFY", "Current Financial Year");
+	  addFilterEvent("lastFY", "lastFY", "Last Financial Year");
+	  addFilterEvent("allHistory", "allHistory", "All History");
 	});
+
+
 </script>
 	<script type="text/javascript">
 

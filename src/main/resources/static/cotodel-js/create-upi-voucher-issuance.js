@@ -217,7 +217,7 @@ function focusBack(){
 
 
 
-function getLinkedBankDetail() {
+ function getLinkedBankDetail() {
   const employerid = document.getElementById("employerId").value;
 
   $.ajax({
@@ -249,15 +249,18 @@ function getLinkedBankDetail() {
 
         const selectedHTML = onlyBank.accountSeltWallet === "Wallet"
           ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
-                <span style="font-weight: 500; color: #4A4E69;">coto</span><span style="font-weight: 700; color: #2F945A;">wallet</span>
-              </div>
-              <span class="dropdown-mask">${masked}</span>`
+                <span style="font-weight: 500; color: #4A4E69;">coto</span>
+                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+             </div>
+             <span class="dropdown-mask">${masked}</span>
+             <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
           : `<div class="dropdown-item">
                 <div class="dropdown-bank-info">
                   <img src="data:image/png;base64,${onlyBank.bankIcon}" alt="logo" style="width: 24px; height: 24px;">
                   <span>${onlyBank.bankName}</span>
                 </div>
                 <span class="dropdown-mask">${masked}</span>
+                <i class="bi bi-caret-down-fill dropdown-arrow"></i>
              </div>`;
 
         document.getElementById("selectedBank").innerHTML = selectedHTML;
@@ -283,8 +286,9 @@ function getLinkedBankDetail() {
 
           if (bank.accountSeltWallet === "Wallet") {
             div.innerHTML = `
-			<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
-                <span style="font-weight: 500; color: #4A4E69;">coto</span><span style="font-weight: 700; color: #2F945A;">wallet</span>
+              <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
+                <span style="font-weight: 500; color: #4A4E69;">coto</span>
+                <span style="font-weight: 700; color: #2F945A;">wallet</span>
               </div>
               <span class="dropdown-mask">${masked}</span>
             `;
@@ -299,7 +303,8 @@ function getLinkedBankDetail() {
           }
 
           div.onclick = function () {
-            document.getElementById("selectedBank").innerHTML = div.innerHTML;
+            const selectedHTML = div.innerHTML + '<i class="bi bi-caret-down-fill dropdown-arrow"></i>';
+            document.getElementById("selectedBank").innerHTML = selectedHTML;
             select.value = bank.acNumber;
             document.getElementById("dropdownList").style.display = "none";
             getBankDetailByBankAccountNumber();
@@ -314,7 +319,8 @@ function getLinkedBankDetail() {
         });
 
         if (walletBank) {
-          document.getElementById("selectedBank").innerHTML = walletBank.div.innerHTML;
+          const selectedHTML = walletBank.div.innerHTML + '<i class="bi bi-caret-down-fill dropdown-arrow"></i>';
+          document.getElementById("selectedBank").innerHTML = selectedHTML;
           select.value = walletBank.bank.acNumber;
           getBankDetailByBankAccountNumber();
           showLinkedAccAmount(walletBank.bank.acNumber, walletBank.bank.accountSeltWallet);
@@ -915,11 +921,9 @@ function getPrimaryBankDetail(){
 
 				          document.querySelector(".div-2").style.display = "none";
 				          document.querySelector(".last-updated-on").style.display = "none";
-
-				          return; // Don't send request to backend
+				          return;
 				      }
 
-				      // For other accounts, show balance section and fetch data
 				      document.querySelector(".button-check-balance").style.display = "none";
 				      document.querySelector(".tip-disabled").style.display = "none";
 
@@ -937,7 +941,11 @@ function getPrimaryBankDetail(){
 				              console.log("showLinkedAccAmount", data);
 				              const obj = jQuery.parseJSON(data);
 				              if (obj.status === true) {
-				                  document.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
+				                  const rawAmount = obj.balance;
+				                  const formattedAmount = (!isNaN(rawAmount) && rawAmount !== null)
+				                      ? Number(rawAmount).toLocaleString('en-IN')
+				                      : "Amount Not Available";
+				                  document.querySelector(".text-wrapper-3").textContent = formattedAmount;
 				              }
 				          },
 				          error: function (e) {
@@ -945,6 +953,8 @@ function getPrimaryBankDetail(){
 				          }
 				      });
 				  }
+
+
 
 				  function formatTimestamp(timestamp) {
 				      let dateObj = new Date(timestamp.replace(" ", "T")); // Ensure proper parsing

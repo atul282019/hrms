@@ -171,8 +171,8 @@ public interface CommonUtils {
 	public static String usedAmountByCategories = "/empService/Api/get/erupiVoucherCreateListByPurposeCode";
 	public static String  empOnboardingListTotalActive ="/empService/Api/get/empOnboardingListTotalActive";
 	public static String erupiVoucherCreateListLimit ="/empService/Api/get/erupiVoucherCreateListLimit";
-	public static String  getVoucherTransactionList = "/empService/Api/get/erupiVoucherCreateTransactionList";
-	
+	//public static String  getVoucherTransactionList = "/empService/Api/get/erupiVoucherCreateTransactionList";
+	public static String  getVoucherTransactionList = "/empService/Api/get/erupiVoucherCreateListRedeem";
 	public static String bulkVehicleUpload = "/empService/Api/add/vehicleBulkUploadNew";
 	public static String createbulkVehicle = "/empService/Api/add/vehicleBulkCreate";
 	

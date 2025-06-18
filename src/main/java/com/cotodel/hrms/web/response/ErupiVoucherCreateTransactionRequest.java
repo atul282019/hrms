@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class ErupiVoucherCreateTransactionRequest {
 
 	private Long orgId;
-	private String limit;
+	private String timePeriod;
+	
 }
