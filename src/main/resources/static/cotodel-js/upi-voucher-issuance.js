@@ -277,6 +277,17 @@ function focusBack(){
 }
 
 
+// Utility to format amount with rupee, commas, 2 decimals
+function formatRupee(amount) {
+    const num = parseFloat(amount) || 0;
+    return `<div style="text-align: right;">₹${num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>`;
+}
+
+function formatPlainAmount(amount) {
+    const num = parseFloat(amount) || 0;
+    return num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 function getBankListWithVocher() {
     const employerId = document.getElementById("employerId").value;
 
@@ -284,9 +295,6 @@ function getBankListWithVocher() {
         type: "POST",
         url: "/voucherCreateBankList",
         data: { orgId: employerId },
-        beforeSend: function (xhr) {
-            // You can add headers if needed
-        },
         success: function (data) {
             try {
                 const parsedData = jQuery.parseJSON(data);
@@ -299,11 +307,9 @@ function getBankListWithVocher() {
                 const expRevokeAmount = document.getElementById('expRevokeAmount');
                 const activeCount = document.getElementById('activeCount');
                 const activeAmount = document.getElementById('activeAmount');
+                const totalVoucher = document.getElementById('totalVoucher');
+                const totalvoucherValue = document.getElementById('totalvoucherValue');
 
-				const totalVoucher = document.getElementById('totalVoucher');
-				const totalvoucherValue = document.getElementById('totalvoucherValue');
-								
-                // Clear previous list
                 dataList.innerHTML = "";
 
                 parsedData.data.forEach((item) => {
@@ -318,31 +324,27 @@ function getBankListWithVocher() {
                         <label>${item.bankAccountMask || ''}</label>
                     `;
 
-                    // Set the default active class for null bank account
                     if (item.bankAccount === null) {
                         div.classList.add('active');
 
-                        // Fetch details for null account on page load
                         $.ajax({
                             type: "POST",
                             url: "/voucherCreateSummaryDetailByAccount",
-                            data: {
-                                "orgId": employerId,
-                                "accNumber": null,
-                            },
+                            data: { "orgId": employerId, "accNumber": null },
                             success: function (data) {
                                 const jsonData = jQuery.parseJSON(data);
                                 totalIssueCount.textContent = jsonData.issueDetail.totalIssueCount || "0";
-                                totalIssueAmount.textContent = jsonData.issueDetail.totalIssueAmount || "0";
+                                totalIssueAmount.innerHTML = formatRupee(jsonData.issueDetail.totalIssueAmount);
                                 redemVCount.textContent = jsonData.issueDetail.redemVCount || "0";
-                                redemVAmount.textContent = jsonData.issueDetail.redemVAmount || "0";
+                                redemVAmount.innerHTML = formatRupee(jsonData.issueDetail.redemVAmount);
                                 expRevokeCount.textContent = jsonData.issueDetail.expRevokeCount || "0";
-                                expRevokeAmount.textContent = jsonData.issueDetail.expRevokeAmount || "0";
+                                expRevokeAmount.innerHTML = formatRupee(jsonData.issueDetail.expRevokeAmount);
                                 activeCount.textContent = jsonData.issueDetail.activeCount || "0";
-                                activeAmount.textContent = jsonData.issueDetail.activeAmount || "0";
-								
-								totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
-							    totalvoucherValue.textContent = jsonData.issueDetail.totalIssueAmount || "0";
+                                activeAmount.innerHTML = formatRupee(jsonData.issueDetail.activeAmount);
+                                totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
+                                totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.totalIssueAmount);
+                                totalvoucherValue.style.textAlign = "right";
+                                totalvoucherValue.style.display = "block";
                             },
                             error: function (e) {
                                 console.error('Error fetching default account details:', e);
@@ -350,52 +352,52 @@ function getBankListWithVocher() {
                         });
                     }
 
-                    // Add a click event listener to the div
                     div.addEventListener('click', () => {
                         const activeDiv = dataList.querySelector('.active');
                         if (activeDiv) activeDiv.classList.remove('active');
-
                         div.classList.add('active');
 
-                        const bankAccount = item.bankAccount;
-                        
-                            $.ajax({
-                                type: "POST",
-                                url: "/voucherCreateSummaryDetailByAccount",
-                                data: {
-                                    "orgId": employerId,
-                                    "accNumber": bankAccount,
-                                },
-                                success: function (data) {
-                                    const jsonData = jQuery.parseJSON(data);
-                                    totalIssueCount.textContent = jsonData.issueDetail.totalIssueCount || "0";
-                                    totalIssueAmount.textContent = jsonData.issueDetail.totalIssueAmount || "0";
-                                    redemVCount.textContent = jsonData.issueDetail.redemVCount || "0";
-                                    redemVAmount.textContent = jsonData.issueDetail.redemVAmount || "0";
-                                    expRevokeCount.textContent = jsonData.issueDetail.expRevokeCount || "0";
-                                    expRevokeAmount.textContent = jsonData.issueDetail.expRevokeAmount || "0";
-                                    activeCount.textContent = jsonData.issueDetail.activeCount || "0";
-                                    activeAmount.textContent = jsonData.issueDetail.activeAmount || "0";
-                                },
-                                error: function (e) {
-                                    console.error('Error fetching account details:', e);
-                                },
-                            });
-                       
+                        $.ajax({
+                            type: "POST",
+                            url: "/voucherCreateSummaryDetailByAccount",
+                            data: { "orgId": employerId, "accNumber": item.bankAccount },
+                            success: function (data) {
+                                const jsonData = jQuery.parseJSON(data);
+                                totalIssueCount.textContent = jsonData.issueDetail.totalIssueCount || "0";
+                                totalIssueAmount.innerHTML = formatRupee(jsonData.issueDetail.totalIssueAmount);
+                                redemVCount.textContent = jsonData.issueDetail.redemVCount || "0";
+                                redemVAmount.innerHTML = formatRupee(jsonData.issueDetail.redemVAmount);
+                                expRevokeCount.textContent = jsonData.issueDetail.expRevokeCount || "0";
+                                expRevokeAmount.innerHTML = formatRupee(jsonData.issueDetail.expRevokeAmount);
+                                activeCount.textContent = jsonData.issueDetail.activeCount || "0";
+                                activeAmount.innerHTML = formatRupee(jsonData.issueDetail.activeAmount);
+                                totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
+                                totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.totalIssueAmount);
+                                totalvoucherValue.style.textAlign = "right";
+                                totalvoucherValue.style.display = "block";
+                            },
+                            error: function (e) {
+                                console.error('Error fetching account details:', e);
+                            },
+                        });
                     });
 
                     dataList.appendChild(div);
                 });
 
-                // Update totals with parsed data
                 totalIssueCount.textContent = parsedData.issueDetail.totalIssueCount || "0";
-                totalIssueAmount.textContent = parsedData.issueDetail.totalIssueAmount || "0";
+                totalIssueAmount.innerHTML = formatRupee(parsedData.issueDetail.totalIssueAmount);
                 redemVCount.textContent = parsedData.issueDetail.redemVCount || "0";
-                redemVAmount.textContent = parsedData.issueDetail.redemVAmount || "0";
+                redemVAmount.innerHTML = formatRupee(parsedData.issueDetail.redemVAmount);
                 expRevokeCount.textContent = parsedData.issueDetail.expRevokeCount || "0";
-                expRevokeAmount.textContent = parsedData.issueDetail.expRevokeAmount || "0";
+                expRevokeAmount.innerHTML = formatRupee(parsedData.issueDetail.expRevokeAmount);
                 activeCount.textContent = parsedData.issueDetail.activeCount || "0";
-                activeAmount.textContent = parsedData.issueDetail.activeAmount || "0";
+                activeAmount.innerHTML = formatRupee(parsedData.issueDetail.activeAmount);
+                totalVoucher.innerHTML = parsedData.issueDetail.totalIssueCount || "0";
+                totalvoucherValue.textContent = formatPlainAmount(parsedData.issueDetail.totalIssueAmount);
+                totalvoucherValue.style.textAlign = "right";
+                totalvoucherValue.style.display = "block";
+
             } catch (error) {
                 console.error('Error parsing response:', error);
                 alert('Failed to process the response data.');
@@ -407,6 +409,7 @@ function getBankListWithVocher() {
         },
     });
 }
+
 
 function  getLinkedBankDetail(){
 	

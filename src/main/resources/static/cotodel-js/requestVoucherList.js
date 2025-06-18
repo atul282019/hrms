@@ -31,7 +31,17 @@ function getSavedVoucherList() {
 					    { "mData": "voucherType"},
 					 //   { "mData": "voucherSubType"},   
 					 	   
-						{ "mData": "amount"},    
+						{ "mData": "amount",
+							"class":"text-right",
+							"render": function (data2, type, row) {
+							    if (!data2) return '';
+							    let amount = parseFloat(data2);
+							    let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
+							    let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+							    return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+							}
+							
+						},    
 						{ 
 						  "mData": "creationDate",
 						  "render": function(vouchers, type, row) {
