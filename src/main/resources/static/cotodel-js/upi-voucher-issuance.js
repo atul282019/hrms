@@ -695,14 +695,14 @@ async function getVoucherTransactionList() {
                             }
                         }
                     },
-                    { mData: "merchanttxnId" }
+                   // { mData: "merchanttxnId" }
                 ],
                 createdRow: function (row, data2, dataIndex) {
                     var purposeDesc = data2.purposeDesc;
                     if (purposeDesc === "Meal") {
                         var imgTag = '<img src="img/food.svg" alt="" class="mr-2">' + purposeDesc;
                         $(row).find('td:eq(3)').html(imgTag);
-                    } else if (purposeDesc === "Petroleum Vouhcer") {
+                    } else if (purposeDesc === "Petroleum Voucher") {
                         var imgTag = '<img src="img/fuel-grey.png" alt="" class="mr-2">' + purposeDesc;
                         $(row).find('td:eq(3)').html(imgTag);
                     }
@@ -812,7 +812,7 @@ function erupiVoucherCreateListLimit(timePeriod = "CM") {
           var purposeDesc = data2.purposeDesc;
           if (purposeDesc === "Meal") {
             $(row).find('td:eq(4)').html('<img src="img/food.svg" alt="" class="mr-2">' + purposeDesc);
-          } else if (purposeDesc === "Petroleum Vouhcer") {
+          } else if (purposeDesc === "Petroleum Voucher") {
             $(row).find('td:eq(4)').html('<img src="img/fuel-grey.png" alt="" class="mr-2">' + purposeDesc);
           }
 
