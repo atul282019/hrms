@@ -197,7 +197,7 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table class="table table-reimbursements selectvouchers-table">
+                                    <table class="table table-reimbursements selectvouchers-table" id="sourceTable">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
@@ -234,7 +234,7 @@
                                                     <select class="GeneralSelect" id="redemptionType">
                                                         <option value="" class="test">Choose Type </option>
                                                         <option value="Single">Single</option>
-                                                        <option value="Multi" selected>Multi</option>
+                                                        <option value="MULTIPLE" selected>Multiple</option>
                                                     </select>
                                                 </td>
                                                 <td>
@@ -287,11 +287,11 @@
 											
                                            </td>
                                        </tr>
-                                      <!-- <tr class="text-center">
+                                       <tr class="text-center">
                                                 <td colspan="8" style="background: #EAF4EF;">
                                                     <a href="#" class="text-success" onclick="addNewVoucher(event)">+ Add New Voucher</a>
                                                 </td>
-                                            </tr>-->
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -312,7 +312,7 @@
 	                                </div>
 
 	                                <div class="table-responsive">
-	                                    <table class="table table-reimbursements selectvouchers-table">
+	                                    <table class="table table-reimbursements selectvouchers-table" id="targetTable">
 	                                        <thead>
 	                                            <tr>
 	                                                <th>Name</th>

@@ -23,13 +23,13 @@ function singleVoucherValidation(){
 			   	var mcc = parts[1]; 
 			   	var payerva = document.getElementById("payerva").value;
 			   	
-			   	 document.getElementById("voucherlbl").innerHTML=voucherName;
+			   /*	 document.getElementById("voucherlbl").innerHTML=voucherName;
 			   	 document.getElementById("redemptionLbl").innerHTML = document.getElementById("redemptionType").value; 
 			   	 //document.getElementById("redemptionLbl").innerHTML = PurposeCode;
 			   	 document.getElementById("namelbl").innerHTML = beneficiaryName;
 			   	 document.getElementById("mobilelbl").innerHTML = beneficiaryMobile;
 			   	 document.getElementById("amountlbl").innerHTML = $("#amount").val();
-			   	 document.getElementById("startdatelbl").innerHTML = $("#startDate").val();
+			   	 document.getElementById("startdatelbl").innerHTML = $("#startDate").val();*/
 			   	 document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
 			     var employerId = document.getElementById("employerId").value;
 			     var employerName = document.getElementById("employerName").value;
@@ -106,8 +106,47 @@ function singleVoucherValidation(){
 				   var element = document.getElementById("lable3");
 				   	   	element.classList.add("active");
 				   	   	
-					$("#selectvouchers-wrap04").show();
-					$("#selectvouchers-wrap03").hide();
-					
+						const sourceRows = document.querySelectorAll("#sourceTable tbody tr");
+									 const targetBody = document.querySelector("#targetTable tbody");
+
+									 targetBody.innerHTML = ""; // Clear previous content
+
+									 // Loop through all rows except the last two (error row + add-new row)
+									 for (let i = 0; i < sourceRows.length - 1; i++) {
+									   const row = sourceRows[i];
+									   const cells = row.querySelectorAll("td");
+									   const newRow = document.createElement("tr");
+
+									   // Skip last <td> (delete icon)
+									   for (let j = 0; j < cells.length - 1; j++) {
+									     const cell = cells[j];
+									     const newCell = document.createElement("td");
+									     let value = "";
+
+									     // Check for input, select, or plain text
+									     const input = cell.querySelector("input");
+									     const select = cell.querySelector("select");
+
+									     if (input) {
+									       value = input.value.trim();
+									     } else if (select) {
+									       value = select.options[select.selectedIndex].text;
+									     } else {
+									       value = cell.textContent.trim();
+									     }
+
+									     newCell.textContent = value;
+									     newRow.appendChild(newCell);
+									   }
+
+									   targetBody.appendChild(newRow);
+									 }
+								   var element = document.getElementById("lable2");
+								   							   	element.classList.add("active");
+								   var element = document.getElementById("lable3");
+								   	   	element.classList.add("active");
+								   	   	
+									$("#selectvouchers-wrap04").show();
+									$("#selectvouchers-wrap03").hide();
 	}
 			
