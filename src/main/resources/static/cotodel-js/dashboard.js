@@ -100,7 +100,13 @@ async function getVoucherTransactionList() {
                 
                 "aaData": data2,
                 "aoColumns": [
-                    { "mData": "creationDate" },
+                  //  { "mData": "creationDate" },
+					{ 
+					  "mData": "creationDate", 
+					  "render": function (data) {
+					      return formatDate(data);
+					  }
+					},
 					{ "mData": "merchanttxnId" },
                     { "mData": "name"},
                     { "mData": "purposeDesc" },
@@ -111,7 +117,7 @@ async function getVoucherTransactionList() {
 					    if (data2 === "" || data2 === null) {
 					      return '';
 					    } else {
-					      return 'INR' +"&nbsp;"+ data2;
+					      return '₹'+""+data2;
 					    }
 					  }
 					},
@@ -283,15 +289,25 @@ function erupiVoucherCreateListLimit() {
 					{ "mData": "purposeDesc"},
 					//{ "mData": "mcc"}, 
 					{ "mData": "type"},
-					{ "mData": "creationDate"},
-					{ "mData": "expDate"},
+					{ 
+					  "mData": "creationDate", 
+					  "render": function (data) {
+					      return formatDate(data);
+					  }
+					},
+					{ 
+					  "mData": "expDate", 
+					  "render": function (data) {
+					      return formatDate(data);
+					  }
+				  },
 					{
 					  "mData": "amount",
 					  "render": function(data2, type, row) {
 					    if (data2 === "" || data2 === null) {
 					      return '';
 					    } else {
-					      return 'INR' +"&nbsp;"+ data2;
+					      return '₹'+""+ data2;
 					    }
 					  }
 					},
@@ -543,40 +559,33 @@ function loadCategoryVoucherData(){
 		beforeSend: function(xhr) {
 		},
 		success: function(response) {
-			var response = JSON.parse(response);
-			try {
-				if (response.status && response.data && response.data.length > 0) {
-					const categoryBreakdown = document.querySelector('.category-breakdown');
-					  categoryBreakdown.innerHTML = ''; // Clear existing items
+		    var response = JSON.parse(response);
+		    try {
+		        if (response.status && response.data && response.data.length > 0) {
+		            const categoryBreakdown = document.querySelector('.category-breakdown');
+		            categoryBreakdown.innerHTML = ''; // Clear existing items
 
-					  const iconMap = {
-					    "Fuel": "img/fuel-grey.png",
-					    "Health & Wellness": "img/Maintainence-grey.png",
-					    "Meal": "img/food-icon-grey.png",
-					    "Maintenance": "img/Maintainence-grey.png",
-					    "Toll": "img/Toll-grey.png"
-					  };
+		            response.data.forEach(item => {
+		                const name = item.voucherName;
+		                const amount = item.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 });
 
-					  response.data.forEach(item => {
-					    const name = item.voucherName;
-					    const amount = item.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 });
-					    const icon = iconMap[name] || "img/default-icon.png";
+		                // If base64 icon exists, use it, else fallback to a default image
+		                const icon = item.mccMainIcon && item.mccMainIcon.trim() !== ""
+		                    ? `data:image/png;base64,${item.mccMainIcon}`
+		                    : "img/default-icon.png";
 
-					    const categoryItem = document.createElement('div');
-					    categoryItem.className = 'category-item';
-					    categoryItem.innerHTML = `
-					      <div><img src="${icon}" class="category-icon">${name}</div>
-					      <span class="category-amount">₹${amount}</span>
-					    `;
-					    categoryBreakdown.appendChild(categoryItem);
-					  });
-				
-				        }
-
-	               
-	           } catch (error) {
-	               console.error("Error parsing JSON:", error);
-	           }
+		                const categoryItem = document.createElement('div');
+		                categoryItem.className = 'category-item';
+		                categoryItem.innerHTML = `
+		                    <div><img src="${icon}" class="category-icon">${name}</div>
+		                    <span class="category-amount">₹${amount}</span>
+		                `;
+		                categoryBreakdown.appendChild(categoryItem);
+		            });
+		        }
+		    } catch (error) {
+		        console.error("Error parsing JSON:", error);
+		    }
 		},
 		error: function(e) {
 			alert('Error: ' + e);
@@ -592,15 +601,15 @@ function populateVoucherUI(data) {
   const maskedAccount = 'xxxx' + accountNumber.slice(-4);
   const bankName = data.bankName || "Bank";
   const totalAmount = data.totalAmount;
-  const balance = parseFloat(data.balance);
+  const balance = parseFloat(data.redeemAmount);
   const spent = totalAmount;
   const available = balance;
   const total = spent + available;
 
   const spentPercent = total > 0 ? parseFloat(((spent / total) * 100).toFixed(1)) : 0;
 
-  document.querySelector('.voucher-amount').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
-  document.querySelector('.voucher-spent').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  document.querySelector('.voucher-amount').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  document.querySelector('.voucher-spent').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
   const progressText = document.querySelector('.voucher-progress-text');
   progressText.textContent = `${spentPercent}%`;
@@ -1091,4 +1100,13 @@ function getBankListWithVocher() {
 		        }
 		   }); 
 					
+		}
+
+		function formatDate(dateStr) {
+		    if (!dateStr) return '';
+		    const date = new Date(dateStr);
+		    const day = String(date.getDate()).padStart(2, '0');
+		    const month = String(date.getMonth() + 1).padStart(2, '0');
+		    const year = date.getFullYear();
+		    return `${day}-${month}-${year}`;
 		}

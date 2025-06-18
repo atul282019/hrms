@@ -53,12 +53,12 @@
            </li>
 		
            
-			
-             <li class="nav-item" th:if="${session.user_role == 3  or session.user_role == 9  or session.user_role == 1 }">
+			<!--moved to admin settings-->
+            <!-- <li class="nav-item" th:if="${session.user_role == 3  or session.user_role == 9  or session.user_role == 1 }">
                 <a class="nav-link" th:href="@{/expanceTravel}">
                     <img src="img/menu-workplace.svg" alt="" class="mr-2">
                     <span>Workplace</span></a>
-            </li>
+            </li>-->
 			
 			<!--<li class="nav-item" th:if="${session.user_role == 1}">
 			    <a class="nav-link" th:href="@{/expenseReimbursementsCompany}">
@@ -139,6 +139,11 @@
 		<li class="nav-item" th:if="${session.user_role == 12 or session.user_role == 9}">
              <a class="nav-link" th:href="@{/cotodelApproval}">
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+                 <span>Cotodel Wallet Approvel</span></a>
+         </li>
+		 <li class="nav-item" th:if="${ session.user_role == 9}">
+             <a class="nav-link" th:href="@{/cotowallet}">
+                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                  <span>Cotodel Wallet</span></a>
          </li>
 		<li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
@@ -146,6 +151,7 @@
                 <img src="img/support.png" alt="" class="mr-2">
                 <span>Support</span></a>
         </li>
+		
 		<!--  <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
                <a class="nav-link" th:href="@{/payment}">
                    <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">

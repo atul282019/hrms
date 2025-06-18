@@ -602,7 +602,7 @@ async function  issueVoucher(){
 							
 	 	$.ajax({
 		type: "POST",
-		url:"/createSingleVoucher",
+		url:"/createSingleVoucherRequested",
 	       data: {
 				   "name": beneficiaryName,
 				   "mobile": beneficiaryMobile,
@@ -727,7 +727,8 @@ async function  issueVoucher(){
 	   				}
 	          },
 	        error: function(e){
-	            alert('Error: ' + e);
+	            alert('Error: ' , e);
+				console.log("Inside Error block",e);
 	        }
 	   }); 
 			

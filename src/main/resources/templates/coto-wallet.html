@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+ <!-- Make sure to include Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+
+<body id="page-top" onload="getPaymentHistory(),cotodelLinkedBankDetail()">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <!-- <div th:insert="fragments/header.html :: header"></div>-->
+				<nav class="navbar navbar-expand navbar-light bg-white shadow-sm flex-column p-0">
+				  <!-- Top Row -->
+				  <div class="w-100 d-flex justify-content-between align-items-center px-4 pt-3 pb-2">
+				    <!-- Greeting with Username -->
+				    <h5 class="mb-0">
+				     <!--  Hi <span class="text-success font-weight-bold" th:text="${session.username}">Don Joe</span>,-->
+				    </h5>
+
+				    <!-- Right Icons + Profile -->
+				    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+				      <!-- Wallet Icon -->
+				      <li class="nav-item mr-3">
+						<a href="#" role="button">
+	  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	  			        </a>
+				      </li>
+
+				      <!-- Notification Icon -->
+				      <li class="nav-item mr-3">
+				        <a href="#" role="button">
+				          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+				        </a>
+				      </li>
+
+				      <!-- Profile Dropdown -->
+				      <li class="nav-item dropdown no-arrow">
+				        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+				        </a>
+				        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+				          <a class="dropdown-item" href="/ProfileInfo">
+				            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+				          </a>
+				       <!--   <a class="dropdown-item" href="#">
+				            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+				          </a>-->
+				          <div class="dropdown-divider"></div>
+				          <a class="dropdown-item" href="/logout">
+				            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+				          </a>
+				        </div>
+				      </li>
+				    </ul>
+				  </div>
+
+				  <!-- Bottom Row (Status Strip)
+				  <div class="w-100 border-top py-2 px-4 d-flex justify-content-between align-items-center bg-white">
+				    <small class="text-muted">Track your Vouchers, Incentives & Transactions here</small>
+				    <small class="text-muted">
+				        <img src="img/refresh-blue.svg" alt="refresh-blue" class="nav-icon-img"> Last updated on • 15:26:13 • 12/05/2025
+				    </small>
+				  </div> -->
+				</nav>
+				
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+				<div class="cd-container" id="activeVoucherContainer">
+					
+					<div class="cd-wrapper">
+					  <!-- Left Column -->
+					  <div class="cd-left-column">
+					    <div style="display: flex; flex-direction: row; height: 100%;">
+					      <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+					        <img src="img/wallet-illustration.png" alt="Wallet Illustration" class="cd-wallet-img" />
+					      </div>
+					      <div style="flex: 1; display: flex; flex-direction: column; padding: 10px 0 10px 10px;">
+					        <div class="cd-wallet-header">
+					          <h2>coto<span>wallet</span></h2>
+					        </div>
+					        <div style="flex-grow: 1;"></div>
+					        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+					          <div class="cd-wallet-balance">
+					            <div class="cd-wallet-balance-amount">₹0.00</div>
+					            <div class="cd-wallet-balance-label">Wallet Balance</div>
+					          </div>
+					          <div style="display: flex; gap: 10px;">
+								<button class="cd-wallet-button" data-bs-toggle="modal" data-bs-target="#ProductTrialModal">
+								  Trial&nbsp;<span style="font-size: 18px; font-weight: bold;">+</span>
+								</button>
+					            <a href="/upiVoucherIssuanceNew"> <button class="cd-wallet-button cd-wallet-button-disabled">
+					              Redeem&nbsp;→
+					            </button> </a>
+					          </div>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+
+					  <!-- Middle Column -->
+					  <div class="cd-middle-column">
+					    <h4 style="margin-bottom: 10px; font-weight: bold;">Rewards this Month</h4>
+					    <div class="cd-middle-card">
+					      <div class="cd-middle-left">
+					        <div class="cd-middle-tier-badge">Tier 1</div>
+					        <div class="cd-middle-progress"></div>
+					        <div class="cd-middle-goal">
+					          <div style="font-size: 14px; color: #555; margin-bottom: 4px;">Current Spend</div>
+					          <div style="font-size: 20px; font-weight: bold; color: #2e2e2e; margin-bottom: 8px;">₹0.00</div>
+					        </div>
+					        <div class="cd-middle-progress"></div>
+					        <div class="cd-middle-goal">
+					          <div style="font-size: 14px; color: #555; margin-bottom: 4px;">Rewards Earned</div>
+					          <div style="font-size: 20px; font-weight: bold; color: #2e7d32;">₹0.00</div>
+					        </div>
+					      </div>
+					      <div class="cd-middle-right">
+					        <div class="cd-middle-circle">
+					          <div class="cd-middle-circle-inner">
+					            ₹1,00,000<br /><span class="cd-middle-circle-subtext">to go</span>
+					          </div>
+					          <div class="cd-middle-caption">
+					            To earn more than <br /><span style="font-weight: bold; color: #2e2e2e;">₹500</span>
+					          </div>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+
+					  <!-- Right Column -->
+					  <div class="cd-right-column">
+					    <h4 style="margin-bottom: 8px; font-weight: bold;">Rewards Tier</h4>
+					    <div style="flex-grow: 1; overflow: hidden;">
+					      <table class="cd-table">
+					        <thead class="cd-table-header">
+					          <tr>
+					            <th>Tier #</th>
+					            <th>Monthly Spends</th>
+					            <th>Rewards Earned</th>
+					          </tr>
+					        </thead>
+					        <tbody>
+					          <tr class="cd-table-row">
+					            <td class="cd-table-cell">1</td>
+					            <td class="cd-table-cell">More than ₹5,00,000</td>
+					            <td class="cd-table-cell">1% of Spends<br />Earn more than ₹5,000</td>
+					          </tr>
+					          <tr class="cd-table-row">
+					            <td class="cd-table-cell">2</td>
+					            <td class="cd-table-cell">₹2,50,000 to ₹4,99,999</td>
+					            <td class="cd-table-cell">0.75% of Spends<br />Earn from ₹1,875 to ₹3,750</td>
+					          </tr>
+					          <tr class="cd-table-row">
+					            <td class="cd-table-cell">3</td>
+					            <td class="cd-table-cell">₹1,00,000 to ₹2,49,999</td>
+					            <td class="cd-table-cell">0.60% of Spends<br />Earn from ₹600 to ₹1,500</td>
+					          </tr>
+					          <tr class="cd-table-row">
+					            <td class="cd-table-cell">4</td>
+					            <td class="cd-table-cell">Less than ₹1,00,000</td>
+					            <td class="cd-table-cell">0.50% of Spends<br />Earn up to ₹500</td>
+					          </tr>
+					        </tbody>
+					      </table>
+					    </div>
+					  </div>
+					</div>
+				</div>
+								
+				<!-- tabs section-->
+				<div class="business-benefits01 py-5">
+				<div class="container">
+					<div class="download-btn-container">
+			        <img src="img/download-blue.svg" alt="Download Icon">
+			      </div>
+				   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+				     
+				  <!--   <li class="nav-item">
+				       <a class="nav-link active" data-bs-toggle="tab" href="#RewardsRedemption" role="tab">Rewards Redemption</a>
+				     </li>
+				     <li class="nav-item">
+				       <a class="nav-link" data-bs-toggle="tab" href="#RewardsEarnings" role="tab">Rewards Earnings</a>
+				     </li>-->
+				     <li class="nav-item">
+				       <a class="nav-link active"  data-bs-toggle="tab" href="#WalletLoading" role="tab">Wallet Loading</a>
+				     </li>					
+				   </ul>
+				  
+				   <hr class="mt-0">
+				   <div class="tab-content mt-3">					 
+					<!-- transactions tab-->
+				     <!--<div class="tab-pane fade show active" id="RewardsRedemption" role="tabpanel">						
+						 empty table with error msg . msg to show when data is not present
+						<div class="table-responsive">
+						  <table class="table table-reimbursements-alt mb-0" >
+						    <thead>
+								<tr>
+						        <th>TXN ID</th>	
+						        <th>Name</th>
+							  <th>Catagory</th>	
+							  <th>Redemption Type</th>	
+							  <th>Issue Date</th>	
+							  <th>Expiry Date</th>	
+							  <th>Amount</th>
+						      </tr>
+						    </thead>
+						    <tbody class="table-bordered">
+						      <tr>							 
+								<td colspan="9" class="text-center">
+									You have not made any redemptions from your CotoWallet yet. Select ‘Redeem’ to use your CotoWallet.
+									If you have redeemed your CotoWallet, please refresh and check this section again after 60 minutes.
+								 </td>								
+						      </tr>	
+						    </tbody>
+						  </table>
+						</div>						
+				     </div>-->
+					 
+					 <!--vouchers tab-->
+				    <!-- <div class="tab-pane fade" id="RewardsEarnings" role="tabpanel">
+						<div class="table-responsive">
+			            <table class="table table-reimbursements-alt mb-0">
+			              <thead>
+			                <tr>
+							  <th>S.NO</th>
+							  <th>Date & Time</th>			                  
+			                  <th>TXN ID</th>	  	 
+			                  <th>Name</th>
+							  <th>Catagory</th>	
+							  <th>Merchant</th>	
+							  <th>Amount</th>	
+							  <th>Tier Number</th>	
+							  <th>Reward Earned</th>	
+			                </tr>
+			              </thead>
+			              <tbody class="table-bordered">
+			                <tr>
+			                <td colspan="9" class="text-center"> Update Text</td>
+			                </tr>												
+			              </tbody>
+			            </table>
+			          </div>
+				     </div>-->
+					 <!-- vehicles tab-->
+				    <div class="tab-pane fade show active" id="WalletLoading" role="tabpanel">
+								
+					 <div class="table-responsive">
+			            <table class="table table-reimbursements-alt mb-0" id="paymentHistoryTable">
+			              <thead>
+			                <tr>
+							  <th>S.NO</th>
+			                  <th>Customer Name</th>	
+							  <th>Mobile</th>	
+			                  <th>Order Amount</th>
+							  <th>Order Status</th>		
+							  <th>Payment ID</th>	                  
+			                  <th>Payment Status</th>	
+			                  <th>Service Charges</th>
+							  <th>Service Tax</th>
+							  <th>Settlement Amount</th>						    
+			                </tr>
+			              </thead>
+			              <tbody class="table-bordered">							 					  
+							  <tr>							  
+								<td colspan="9" class="text-center">
+							   No vehicles have been mapped with the platform yet. Please proceed to the <span style="color:#367AFF;">Vehicle Management</span> 													section to onboard
+								vehicles from your fleet.
+							  </td>
+						  </tr>											
+			              </tbody>
+			            </table>						
+			          </div>
+				     </div>
+					 
+					 <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: none;">
+					    <div class="text-left">
+					    
+					    </div>
+					    <div class="linked-bank-account-innersection d-block">
+					      <div id="data-wrapper1">
+					      </div>
+					    </div>
+
+					    <div class="d-flex justify-content-end">
+					  <button class="btn btn-primary" id="continuebtn1" style="display: none;">Continue</button>
+					    </div>
+					  </div>
+					 <input type="hidden" class="form-input" id="Name" name="Name" th:value="${session.username}">
+					 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+					 <input type="hidden" class="form-input" id="empId" name="empId" th:value="${session.empId}">
+					 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+					<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+					<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+					
+					 <input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+					<input type="hidden" class="form-input" id="CId" name="CId" > 
+					<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+					<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+					<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+					<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+					<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+					<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+					<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+					<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+					<input type="hidden" class="form-input" id="advanceAmount" name="advanceAmount" > 					
+					 </div>
+				   </div>
+				 </div>
+				 </div>				
+				
+            <!-- End of Main Content -->							
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+	
+	<!-- Modal -->
+	<!-- Fixed Modal -->
+	   <div class="modal fade" id="ProductTrialModal" tabindex="-1" aria-labelledby="productTrialModalTitle" aria-hidden="true">
+	       <div class="modal-dialog modal-dialog-centered">
+	           <div class="modal-content rounded-3">
+	               <div class="modal-header">
+	                   <h5 class="modal-title w-100 text-left" id="productTrialModalTitle">Product Trial Payment</h5>
+	                   <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close">
+	                       <span aria-hidden="true" >&times;</span>
+	                   </button>
+	               </div>
+	   
+	               <div class="modal-body">
+	                   <p class="text-muted mb-3">Select Amount for Product Trial</p>	   
+	                   <div class="trial-radio mb-4">
+	                       <div class="form-check">
+	                           <input type="radio" name="trialAmount" id="amount500" checked >
+	                           <label for="amount500">₹500</label>
+	                       </div>
+	   
+	                       <div class="form-check">
+	                           <input type="radio" name="trialAmount" id="amount1000" >
+	                           <label for="amount1000">₹1,000</label>
+	                       </div>
+	   
+	                       <div class="form-check">
+	                           <input type="radio" name="trialAmount" id="amount1500" >
+	                           <label for="amount1500">₹1,500</label>
+	                       </div>
+	   
+	                       <div class="form-check">
+	                           <input type="radio" name="trialAmount" id="amount2000"  >
+	                           <label for="amount2000">₹2,000</label>
+	                       </div>
+	                   </div>
+	   
+	                   <div class="info-alert d-flex align-items-center">
+	                       <i class="bi bi-info-circle-fill me-2" style="margin-right: 13px;"></i>
+	                       <div>
+	                           Monthly limit for Product Trial is ₹2,000. You can only try ₹500 more.
+	                       </div>
+	                   </div>
+	   
+	                   <div class="d-grid mt-4">
+						<button type="button" class="btn btn-continue" data-bs-toggle="modal" onclick="updatePayment()">
+						        CONTINUE
+						    </button>
+	                   </div>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+	   
+	   <!-- payment breakup-->
+	   <!-- Product Trial Payment Modal -->
+	  
+	   <div class="modal fade" id="ProductTrialPaymentModal" tabindex="-1" aria-labelledby="productTrialPaymentModalTitle" aria-hidden="true">
+	       <div class="modal-dialog modal-dialog-centered">
+	           <div class="modal-content rounded-3">
+	               <div class="modal-header">
+	                   <h5 class="modal-title w-100 text-left" id="productTrialPaymentModalTitle">Product Trial Payment</h5>
+	                   <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close">
+	                       <span aria-hidden="true">&times;</span>
+	                   </button>
+	               </div>
+	               <div class="modal-body">
+	                   <!-- Payment Summary Card -->
+	                   <div class="payment-summary-card">
+	                       <div class="payment-summary-header">
+	                           <span>Total Payable Amount</span>
+	                           <span id="trialAmountDisplay">₹</span>
+	                       </div><hr>
+
+	                       <div class="payment-summary-breakup-toggle text-left" data-bs-toggle="collapse" data-bs-target="#paymentBreakup" aria-expanded="false" aria-controls="paymentBreakup">
+	                           Show Break up
+							    <img src="img/Dropdown.png" class="arrow-icon" style="width: 24px; height: 24px;">
+	                       </div>
+
+	                       <div class="collapse" id="paymentBreakup">
+	                           <div class="payment-breakup-details"  id="">
+	                               <div class="payment-row">
+	                                   <span>Product Trial Amount</span>
+	                                   <span  id="totalAmountDisplay"></span>
+	                               </div>
+								   <div class="payment-row">
+								       <span>Service Fee <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="For covering the cost of transactions made via payment gateways. (inclusive of GST)"></i></span>
+								       <span id="serviceFeeDisplay">₹</span>
+								   </div>
+								 
+	                           </div>
+	                       </div>
+	                   </div>
+
+	                   <!-- Action Buttons -->
+	                   <div class="payment-buttons">
+	                      <!-- <button type="button" class="btn btn-border-primary" data-bs-dismiss="modal" id="back" onclick="backPopup()">Back</button>-->
+						   <button type="button" class="btn btn-border-primary" id="back" onclick="backPopup()">Back</button>
+						<!--   <button type="button" class="btn btn-pay-now" data-bs-toggle="modal" data-bs-target="#PaymentSuccessModal" onclick="getSessionId()">
+						       PAY NOW
+						   </button>-->
+						   <button type="button" class="btn btn-pay-now" data-bs-toggle="modal" onclick="getSessionId()">
+   						       PAY NOW
+   						   </button>
+	                   </div>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+	   <!-- Payment Success Modal -->
+	   <div class="modal fade" id="PaymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+	       <div class="modal-dialog modal-dialog-centered">
+	           <div class="modal-content rounded-3">
+	               <div class="modal-body text-center py-5">
+	                   <!-- Success Icon -->
+	                   <div class="success-icon mb-4">
+	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
+	                   </div>
+	                   <!-- Title -->
+	                   <h5 class="fw-bold mb-3" id="paymentSuccessModalTitle">Payment completed</h5>
+	                   <!-- Subtext -->
+	                   <p class="text-muted mb-4">
+	                       Your Product Trial payment was successful!<br>
+	                       Now experience the magic of UPI vouchers.
+	                   </p>
+	                   <!-- OK Button -->
+					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal">OK</button>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+	
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+   <!-- <script src="js/demo/datatables-demo.js"></script>-->
+	<script type="text/javascript" src="cotodel-js/dashboard.js"></script>
+	
+	<!-- Theme CSS -->
+	 
+	 <link rel="stylesheet" type="text/css" href="css/custom.css">
+	 <link rel="stylesheet" type="text/css" href="css/custom1.css">
+	 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	 <script type="text/javascript" src="cotodel-js/cashfree.js"></script>
+
+	 <!-- Bootstrap Tooltip requires this -->
+	 <script>
+	     document.addEventListener('DOMContentLoaded', function () {
+	         // Init tooltips
+	         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	         tooltipTriggerList.map(function (tooltipTriggerEl) {
+	             return new bootstrap.Tooltip(tooltipTriggerEl)
+	         });
+
+	         // Arrow toggle logic
+	         var toggle = document.querySelector('.payment-summary-breakup-toggle');
+	         var collapse = document.getElementById('paymentBreakup');
+
+	         collapse.addEventListener('show.bs.collapse', function () {
+	             toggle.classList.remove('collapsed');
+	         });
+
+	         collapse.addEventListener('hide.bs.collapse', function () {
+	             toggle.classList.add('collapsed');
+	         });
+
+	         // Initial state → collapsed (arrow down)
+	         toggle.classList.add('collapsed');
+	     });
+	 </script>
+
+    <script>
+    $(document).ready(function(){
+   	 $(".innernav").click(function(){
+           $(".dropdownNav").addClass("active");
+       });
+   	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+   	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+   });
+    
+   function getPaymentHistory() {
+     		    const employerId = document.getElementById('employerId').value;
+     			//document.getElementById("signinLoader").style.display="flex";
+     		    $.ajax({
+     		        type: "POST",
+     		        url: "/viewOrderIdList",
+     		        data: { "orgId":employerId },
+     		        success: function(data) {
+     				///	document.getElementById("signinLoader").style.display="none";
+     		            const parseddata = JSON.parse(data);
+     		            console.log(data);
+     					var payment_history=parseddata.data;
+
+     		            // Get the table body
+     		            const tableBody = $("#paymentHistoryTable tbody");
+     		            // Clear existing table rows
+     		            tableBody.empty();
+     		            // Check if vouchers exist
+     		            if (payment_history.length === 0) {
+     		                tableBody.append(`<tr><td colspan="16" class="text-center">No Data Available</td></tr>`);
+     		                return;
+     		            }
+     		            // Populate the table dynamically
+     		            payment_history.forEach((payment_history) => {
+     						//const employerData = encodeURIComponent(JSON.stringify(employer)); // Encode to pass safely
+     		                const row = `
+     						<tr>
+					        <td>${payment_history.id}</td>
+					        <td>${payment_history.customerName}</td>
+				            <td>${payment_history.customerPhone}</td>
+							<td>${payment_history.orderCurrency} ${payment_history.orderAmount}</td>
+					   	    <td>${payment_history.orderStatus}</td>
+							<td>${payment_history.cfPaymentId}</td>
+							<td>${payment_history.paymentStatus}</td>
+							<td>${payment_history.serviceCharge}</td>
+							<td>${payment_history.serviceTax}</td>
+							<td>${payment_history.settlementAmount}</td>
+					        </tr>
+     		                `;
+     		                tableBody.append(row);
+     		            });
+     		        },
+     		        error: function(e) {
+     		            alert('Error: ' + e.responseText);
+     		        }
+     		    });
+     		}  
+    </script>
+	<script>
+		function backPopup() {
+		    // First, manually hide the current modal via jQuery or Bootstrap
+		    $('#ProductTrialPaymentModal').modal('hide');
+
+		    // After it's hidden, show the previous modal
+		    $('#ProductTrialPaymentModal').on('hidden.bs.modal', function () {
+								
+		        $('#ProductTrialModal').modal('show');
+		        // Remove event listener to avoid stacking
+		        $(this).off('hidden.bs.modal');
+				
+		    });
+		}
+		
+		function updatePayment() {
+			const radios = document.getElementsByName("trialAmount");
+			    let selectedAmount = 0;
+			    radios.forEach((radio) => {
+			        if (radio.checked) {
+			            const label = document.querySelector(`label[for="${radio.id}"]`);
+			            const labelText = label.innerText.trim();
+			            selectedAmount = parseInt(labelText.replace(/[₹,]/g, ""));
+			        }
+			    });
+
+			    const serviceFee = 20; // Fixed or calculate dynamically if needed
+			    const totalAmount = selectedAmount + serviceFee;
+
+			    // Update the UI
+			    document.getElementById("trialAmountDisplay").innerText = "₹" + selectedAmount.toLocaleString();
+			    document.getElementById("serviceFeeDisplay").innerText = "₹" + serviceFee.toLocaleString();
+			    document.getElementById("totalAmountDisplay").innerText = "₹" + totalAmount.toLocaleString();
+				document.getElementById("advanceAmount").value =selectedAmount;
+				
+			    $('#ProductTrialPaymentModal').modal('show'); 
+				}
+				
+				function cotodelLinkedBankDetail() {						     
+		       $.ajax({
+		           type: "POST",
+		           url: "/getErupiLinkAccountDetails",
+		           data: {
+		               "acNumber": "12345678912345"
+		           },
+		           beforeSend: function(xhr) {
+		               //xhr.setRequestHeader(header, token);
+		           },
+		           success: function(data) {
+		               console.log("Linked bank account data:", data);
+		               
+		               var parsedData = typeof data === "string" ? JSON.parse(data) : data;
+		               if (parsedData.status === true && parsedData.data) {
+		                   var item = parsedData.data;
+						    $("#CId").val(item.id);
+	   						$("#CbankCode").val(item.bankCode);
+	   						$("#CbankName").val(item.bankName);
+							$("#CaccountHolderName").val(item.accountHolderName);
+							$("#CacNumber").val(item.acNumber);
+	   						$("#CaccountType").val(item.accountType);
+							$("#CifscCode").val(item.ifsc);
+							//$("#Cbalance").val(item.balance);							
+		                   console.log("cotodelLinkedBankDetail()", item);		                   
+		                   const wrapper = document.getElementById('data-wrapper1');
+		                   wrapper.innerHTML = '';		                   
+		                   const container = document.createElement('div');
+		                   container.className = 'data-container';		                   
+		                   const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber", "accountType", "ifsc"];		                   
+		                   const fieldLabels = {
+		                       bankName: "Bank Name",
+		                       accountHolderName: "Account Holder Name",
+		                       acNumber: "Account Number",
+		                       accountType: "Account Type",
+		                       ifsc: "IFSC",
+		                       
+		                   };
+		                   
+		                   fieldsToDisplay.forEach(key => {
+		                       const fieldDiv = document.createElement('div');
+		                       fieldDiv.className = 'field';
+		                       fieldDiv.innerHTML = `<span class="label">${fieldLabels[key]}:</span> ${item[key] ?? 'N/A'}`;
+		                       container.appendChild(fieldDiv);
+		                   });
+		                   
+		                   wrapper.appendChild(container);
+		               }
+		               
+		              // document.getElementById("signinLoader").style.display = "none";
+		           },
+		           error: function(error) {
+		               console.error("Error fetching bank details:", error);
+		              // document.getElementById("signinLoader").style.display = "none";
+		           }
+		       });
+		   }
+
+	</script>
+	<script>
+			document.getElementById("continuebtn1").addEventListener("click", function() {
+			  // Hide all other divs in menu3
+			  document.getElementById("cotodellinkaccbankform").style.display = "none";
+			  document.getElementById("cotodellinkedbnkacntsctn").style.display = "none";		  
+			  // Show only the cotodelAmountRequest div
+			  document.getElementById("cotodelAmountRequest").style.display = "block";
+			});
+		</script>	
+</body>
+</html>

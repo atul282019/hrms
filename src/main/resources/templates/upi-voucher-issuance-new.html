@@ -4,9 +4,15 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Font Awesome 6 Free (Latest) -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 
-<body id="page-top" onload="getIssueVoucherList(), getLinkedBankDetail(),getBankListWithVocher(),requestedVoucherCount()">
+<body id="page-top" onload="getVoucherTransactionList(),
+erupiVoucherCreateListLimit(),getLinkedBankDetail(),getBankListWithVocher(),
+requestedVoucherCount()">
+	<!--onload="getIssueVoucherList(), getLinkedBankDetail(),getBankListWithVocher(),requestedVoucherCount()"-->
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -45,38 +51,45 @@
                         </li>
 
                     </ul>
-					<ul class="navbar-nav ml-auto">
-	                    <li class="nav-item dropdown no-arrow">
-	                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                           <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
-	                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-	                        </a>
-	                        <!-- Dropdown - User Information -->
-	                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-	                            <a class="dropdown-item" th:href="@{/ProfileInfo}">
-	                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-	                                Profile
-	                            </a>
-	                          <!--  <a class="dropdown-item" href="#">
-	                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-	                                Settings
-	                            </a>
-	                          -->
-	                           <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-							          <i class="fas fa-user-circle"></i> Logout         
-							        </a>
-					          </div> -->  
-	                          <div class="dropdown-divider"></div>
-	                            <a class="dropdown-item" th:href="@{/logout}">
-	                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
-	                                Logout
-	                            </a>
-	                        </div>
-	                    </li>
-	
-	               </ul>	
+					<!-- Right Icons + Profile -->
+								    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+								      <!-- Wallet Icon -->
+								     <!-- <li class="nav-item mr-3">
+								        <a href="/settings/wallet" role="button">
+								          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+								        </a>
+								      </li>-->
+									  <li class="nav-item mr-3">
+					  			        <a href="/cotowallet" role="button">
+					  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+					  			        </a>
+					  			      </li>
+								      <!-- Notification Icon -->
+								      <li class="nav-item mr-3">
+								        <a href="#" role="button">
+								          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+								        </a>
+								      </li>
 
+								      <!-- Profile Dropdown -->
+								      <li class="nav-item dropdown no-arrow">
+								        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+								        </a>
+								        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+								          <a class="dropdown-item" href="/ProfileInfo">
+								            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								          </a>
+								       <!--   <a class="dropdown-item" href="#">
+								            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+								          </a>-->
+								          <div class="dropdown-divider"></div>
+								          <a class="dropdown-item" href="/logout">
+								            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+								          </a>
+								        </div>
+								      </li>
+								    </ul>
                 </nav>
 
 
@@ -174,13 +187,13 @@
                                                 <div class="funds-mark"><div id="totalVoucher"></div>&nbsp; Vouchers &#8377;<strong id="totalvoucherValue">&#8377;0.00</strong></div>
 												<div class="infoo mx-2"><a href="#" id="btnforinfomodal"><img
 												 src="img/infoo.svg" width="34px" alt=""></a></div>
-                                                <button class="fundmarked" id="fundmarked">
-                                                    <a href="#"><img src="img/fund-expand.svg" alt=""></a>
-                                                </button>
+												 <button class="fundmarked">
+												     <a href="#" id="fundmarked"><img src="img/fund-expand.svg" alt=""></a>
+												 </button>
                                             </div>
                                         </div>
 
-                                        <div class="activeupivcmarked" id="myDiv" style="display: block;">
+                                        <div class="activeupivcmarked" id="myDiv" style="display: none;">
                                             <div class="row">
                                                 <div class="col-12 col-md-3" id="bankListData">
                                                     <div class="left-activeupivcmarked active">
@@ -239,107 +252,236 @@
                                 <div class="linkedAccount-wrap-p"><img src="img/recall.svg" alt="" class="mr-1">
 									<label class="mb-0">Last updated on</label><span th:text="${session.formattedDate}" ></span></div>
 
-                                <div class="upi-voucher-wrap">
+									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+									<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">
+        							<div class="upi-voucher-wrap">
 									<div class="d-flex align-items-center justify-content-between">
-									                                        <h3 class="mb-3">Details of Vouchers Issued</h3>
-									                                        <!-- <div class="rightdownload mb-3 d-flex">
-									                                            <div class="calender-time">
-									                                                <span>Select Time Period</span>
-									                                                <img src="img/calendar-time.svg" alt="">
-									                                            </div>
-									                                            <div class="download-vc">
-									                                                <img src="img/download-vouchers.svg" alt="">
-									                                            </div>
-									                                        </div> -->
+									    <h3 class="mb-3">Details of UPI Vouchers & Transactions</h3>
 
-									                                        <div class="rightdownload mb-3 d-flex">                                            
-									                                            <div class="dropdown no-arrow ml-2">                                                       
-									                                                <a class="dropdown-toggle calender-time" href="#" id="userDropdown"
-									                                                    role="button" data-toggle="dropdown"
-									                                                    aria-haspopup="true" aria-expanded="false">
-									                                                    <span>Select Time Period</span>
-									                                                    <img src="img/calendar-time.svg" alt="">
-									                                                </a>
-									                                                <!-- Dropdown - User Information -->
-									                                                <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
-																						<a class="dropdown-item py-2" id="currentMonth" href="#">Current Month</a>
-																			            <a class="dropdown-item py-2" id="lastMonth" href="#">Last Month</a>
-																			            <a class="dropdown-item py-2" id="currentFY" href="#">Current Financial Year</a>
-																			            <a class="dropdown-item py-2" id="lastFY" href="#">Last Financial Year</a>
-																			            <a class="dropdown-item py-2" id="allHistory" href="#">All History</a>
-									                                                </div>
-									                                            </div>
-																				<button class="download-vc" id="downloadBtn">
-																				    <img src="img/download-vouchers.svg" alt="Download Vouchers">
-																				</button>
-									                                        </div>
-									                                    </div>
+									    <div class="rightdownload mb-3 d-flex align-items-center" style="gap: 12px;">
+											<div style="font-size: 13px;color: #1F212C;">Clear Filters</div>
+									        <!-- Search Box -->
+									        <div style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="d-flex align-items-center">
+									            <img src="img/search.svg" alt="Search" style="margin-right: 6px;">
+									            <input type="text" placeholder="Search..." style="border: none; outline: none; width: 100%;">
+									        </div>
 
-                                    <div class="upi-voucher-table">
-                                       <!-- <div class="upi-voucher-in-head"><i class="fa fa-filter"></i>
-                                            <p>Quick Filters</p>
-                                        </div>-->
-                                        <div class="table-responsive">
-                                           <!-- <table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
-                                                <thead>
-                                                    <tr>
-														<th> </th>
-                                                        <th>Name <img src="img/Sort.png" alt=""></th>
-                                                        <th>Mobile Number </th>
-                                                        <th>Voucher & Type <img src="img/Sort.png" alt=""></th>
-                                                        <th>Status <img src="img/Sort.png" alt=""></th>
-                                                        <th>Issue Date <img src="img/Sort.png" alt=""></th>
-                                                        <th>Expiry Date</th>
-                                                        <th>Issued</th>
-                                                        <th>Redeemed</th>
-                                                    </tr>
-                                                </thead>
+									        <!-- Quick Filters -->
+									        <div style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
+									            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									                <img src="img/filter-icon.svg" alt="Filter" style="margin-right: 6px;">
+									                Quick Filters
+									            </a>
+									            <div class="dropdown-menu">
+									                <a class="dropdown-item" href="#">Filter 1</a>
+									                <a class="dropdown-item" href="#">Filter 2</a>
+									            </div>
+									        </div>
 
-                                                <tbody id="tableBody">
-                                                    <tr>
-                                                        <td colspan="9">
-                                                            <div class="upi-voucher-tbody">
-                                                                <p>UPI Vouchers section is currently not enabled. </p>
-                                                                <p>Please link your bank account to enable this section.
-                                                                </p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
--->											
-											<table class="table table-reimbursements table-upivouchers" id="issueVoucherTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-														<th onclick="sortTable(0)">Name <img src="img/Sort.png" alt=""></th>
-                                                        <th onclick="sortTable(0)">Mobile <img src="img/Sort.png" alt=""></th>
-														<th>Bank A/c </th>
-                                                        <th onclick="sortTable(0)">Voucher & Type<img src="img/Sort.png" alt=""></th>
-                                                       <!-- <th onclick="sortTable(0)">merchant txnId </th>-->
-                                                       <!-- <th onclick="sortTable(0)">Purpose Code</th>-->
-													<!--	<th onclick="sortTable(0)">MCC Code</th>-->
-                                                        <!--<th onclick="sortTable(0)">MCC</th>-->
-														<th onclick="sortTable(0)">Amount <img src="img/Sort.png" alt=""></th>
-														<th onclick="sortTable(0)">Creation Date</th>
-														<th onclick="sortTable(0)">Expiry Date</th>
-														<th onclick="sortTable(0)">Redemption Type</th>
-														<th onclick="sortTable(0)">Status</th>
-                                                       
-														<th onclick="sortTable(0)" colspan="2">Action</th>
-                                                    </tr>
-                                                </thead>
+									        <!-- Select Time Period -->
+									        <div class="dropdown no-arrow">
+									            <a class="dropdown-toggle calender-time" href="#" id="userDropdown"
+									               role="button" data-toggle="dropdown"
+									               aria-haspopup="true" aria-expanded="false"
+									               style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;">
+									                <span>Select Time Period</span>
+									                <img src="img/calendar-time.svg" alt="">
+									            </a>
+									            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+									                <a class="dropdown-item py-2" id="currentMonth" href="#">Current Month</a>
+									                <a class="dropdown-item py-2" id="lastMonth" href="#">Last Month</a>
+									                <a class="dropdown-item py-2" id="currentFY" href="#">Current Financial Year</a>
+									                <a class="dropdown-item py-2" id="lastFY" href="#">Last Financial Year</a>
+									                <a class="dropdown-item py-2" id="allHistory" href="#">All History</a>
+									            </div>
+									        </div>
+									    </div>
+									</div>
 
-                                                <tbody id="tableBody">
-                                                    
-                                                </tbody>
-											<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-											<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">
+                                    <div >
+										<div >
+											<div class="download-btn-container">												
+											<img src="img/Revoke-grey.svg" alt="Revoke Icon" style="margin-right: 10px;">
+									    	<img src="img/download-grey.svg" alt="Download Icon">
+										  </div>
+										   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+										    
+										    
+										     <li class="nav-item">
+										       <a class="nav-link active" data-toggle="tab" href="#vouchers" role="tab">Vouchers</a>
+										     </li>
+											 <li class="nav-item">
+	 									       <a class="nav-link" data-toggle="tab" href="#transactions" role="tab">Transactions</a>
+	 									     </li>
+											
+											
+										   </ul>
+										  
+										   <hr class="mt-0">
+
+										   <div class="tab-content mt-3">
+											<!--vouchers tab-->
+											<div class="tab-pane fade show active" id="vouchers" role="tabpanel">
+											<div class="table-responsive">
+											   <table class="table table-reimbursements mb-0" id="vouchersTableList" style="font-size: 13px;">
+											     <!--<thead>
+											       <tr>
+													<th style="width: 40px;">
+											          <input type="checkbox" id="checkAll">
+											        </th>
+												  <th>Issue Date</th>
+											         
+											         <th>Name & Mobile#</th>	
+												  	 
+											         <th>Voucher ID</th>
+											        
+												  <th>Bank A/c</th>	
+												  <th>Category</th>	
+												  <th>Redemptions</th>	
+												  <th>Expiry Date</th>	
+												  <th>Status</th>	
+												  <th>Redemption Status</th>	
+												  <th>Issued</th>
+												  <th>Redeemed</th>		  
+												  <th></th>
+											       </tr>
+											     </thead>-->
+												 <thead>
+			 						                <tr>
+			 										 <!-- <th>S.NO</th>-->
+			 										  <th>Name</th>
+			 						                  <th>Mobile Number</th>	
+			 						                  <th>Bank A/c</th>
+			 										  <th>Voucher & Type</th>	
+			 										  <th>Status</th>	
+			 										  <th>Issue Date</th>	
+			 										  <th>Expiry Date</th>	
+			 										  <th>Issued</th>	
+			 										  <th>Redeemed</th>	
+													  <th>Actions</th>	
+			 						                </tr>
+			 						              </thead>
+											     <tbody class="table-bordered" >
+											       <!--<tr>
+													<td>
+											          <input type="checkbox" class="rowCheckbox">
+											        </td>
+											        <td > 25/10/2024</td>
+												 <td>Deepak Kumar<br>9910318405</td>
+												 <td>ICICI00001145781</td>
+												 <td>
+											         <img src="img/indianbank.png" alt="indianbank" style="height:24px; width:24px; margin-right:4px;"> xxx0569
+											        </td>
+												 <td><img src="img/cup-1.svg" alt="info" style="height:24px; width:24px; ">Meal 
+													</td>
+													<td><img src="img/tiffinbox.svg" alt="tiffinbox" style="height:24px; width:24px;">Multiple</td>
+													<td>25/11/2024</td>
+													<td class="pill bg-lightgreen-txt-green-pill mt-3">Active</td>
+													<td style="vertical-align: middle;">
+													  <div class="pill-wide bg-lightgreen-txt-green-pill">Not Redeemed</div>
+													</td>
+													<td>₹50,000</td>
+													<td style="text-align: right;">-<img src="img/history-icon-gray.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+													<td>
+											       	<i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+												   </td>
+											       </tr>
+												   
+												     <tr>
+												   <td>
+												        <input type="checkbox" class="rowCheckbox">
+												      </td>
+												      <td> 25/10/2024</td>
+												   <td>Atul Kumar<br>9910318405</td>
+												   <td>ICICI00001145781</td>
+												   <td>
+												       <img src="img/indianbank.png" alt="indianbank" style="height:24px; width:24px; margin-right:4px;"> xxx8798
+												      </td>
+												   <td><img src="img/fuel-1.svg" alt="info" style="height:24px; width:24px; ">Fuel
+												   </td>
+												   <td><img src="img/single-redemption-green.svg" alt="single-redemption-green" style="height:24px; width:24px;">Single</td>
+												   <td>25/11/2024</td>
+												   <td class="pill bg-grey-txt-grey-pill  mt-3">Expired</td>
+												   
+												   <td style="vertical-align: middle;">
+   													  <div class="pill-wide bg-grey-txt-grey-pill">Fully Redeemed</div>
+   													</td>
+												   <td>₹50,000</td>
+												   <td style="text-align: right;">-<img src="img/history-icon-gray.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+												   <td>
+											       	<i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+												   </td>
+												     </tr>	-->							
+																	
+											     </tbody>
+											   </table>
+											 </div>
+
+
+											 
+											</div>
+
+											 
+											<!-- transactions tab-->
+										     <div class="tab-pane fade" id="transactions" role="tabpanel">
+												<div class="table-responsive">
+												  <table class="table table-reimbursements mb-0" id="vouchersTableTransactionList" style="font-size: 13px;">
+													<thead>
+												      <tr>							
+													  <th>Date & Time</th>
+												      <th>TXN ID</th>	
+												      <th>Name</th>
+													  <th>Catagory</th>	
+													  <th>Merchant</th>	
+													  <th>Amount</th>	
+													  <th>Mode of Payment</th>	
+													  
+												      </tr>
+												    </thead>
+												    <tbody class="table-bordered" >
+												      <tr>
+										       		  <td>21/04/2024<br>
+														17:57:13</td>
+													 <td>ICICI00001145781</td>
+													 <td>
+														CDL-0424-003
+												       </td>
+													   <td>Deepak Kumar<br>9910318405</td>
+													 <td><img src="img/fuel-grey.png" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Fuel
+														</td>
+														<td>Indian Oil</td>
+														<td style="text-align: right;">16,890</td>
+														
+														
+												      </tr>							
+													  <tr>
+											       		  <td>21/04/2024<br>
+															17:57:13</td>
+														 <td>ICICI00001145781</td>
+														 <td>
+															CDL-0424-003
+													       </td>
+														   <td>Atul Kumar<br>9910318405</td>
+														 <td><img src="img/food-icon-grey.png" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Food
+															</td>
+															<td>Anna Dosa</td>
+															<td style="text-align: right;">890</td>
+															
+															
+													      </tr>						
+												    </tbody>
+												  </table>
+												</div>											
+										     </div>
 											 
 
-                                        </div>
+
+										   </div>
+										 </div>
+                                        
                                     </div>
                                 </div>
+								
                             </div>
 
                         </div>
@@ -569,12 +711,15 @@
 	
 
 	<script>
-	    const button = document.getElementById('fundmarked');
-	    const div = document.getElementById('myDiv');
+		document.addEventListener("DOMContentLoaded", function () {
+		  const button = document.getElementById('fundmarked');
+		  const div = document.getElementById('myDiv');
 
-	    button.addEventListener('click', () => {
-	        div.classList.toggle('collapsed');
-	    });
+		  button.addEventListener('click', function (e) {
+		    e.preventDefault();
+		    div.style.display = div.style.display === "none" ? "block" : "none";
+		  });
+		});
 	</script>
 	<script>
 		
@@ -892,6 +1037,25 @@
 	});
 	
 </script>
+<script>
+			function toggleOtpVisibility2() {
+			    const icon = document.getElementById("toggleOtpIcon2");
+			    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+			    const isHidden = inputs[0].type === 'password';
+			    inputs.forEach(input => {
+			        if (input.id.startsWith('password')) {
+			            input.type = isHidden ? 'text' : 'password';
+			        }
+			    });
+
+			    icon.classList.toggle('fa-eye');
+			    icon.classList.toggle('fa-eye-slash');
+			}
+			</script>
+<style>			.collapsed {
+			    display: none !important;
+			  }</style>
 </body>
 
 </html>
@@ -1058,6 +1222,9 @@
 							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 							        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 							        name="orderId" >
+									<div class="d-flex justify-content-center mt-2">
+									    <i class="fa-solid fa-eye" id="toggleOtpIcon2" style="cursor: pointer;margin-top: 5px; " onclick="toggleOtpVisibility2()"></i>
+									</div>
 			                </div>
 			               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 						  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -1096,14 +1263,15 @@
 <div class="customModal" id="revokeUPIVcAuthenticateFail">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bulk p-0">
-            <div class="modal-top text-center">
+            <div class="modal-top text-center" >
+				<!-- style="background-color: #F248221A !important;"-->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="img/modal-close.svg" alt="">
                 </button>
                 <img src="img/table-fail.svg" alt="">
             </div>
             <div class="modal-bottom">
-                <span>UPI Voucher Revoked Failed</span>
+                <span>UPI Voucher Revocation Failed</span>
             </div>
         </div>
     </div>

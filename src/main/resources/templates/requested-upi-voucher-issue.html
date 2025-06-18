@@ -27,7 +27,9 @@
     <link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
 	<script type="text/javascript" src="js/xsls-export.js"></script>
-    <link rel="stylesheet" href="css/custom.css">
+   
+	<!-- Font Awesome 6 Free (Latest) -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 </head>
 
@@ -71,37 +73,45 @@
                             </a>
                         </li>
                     </ul>
-					<ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <!--<a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>-->
-                              
-                               <!--  <div class="dropdown-item dropdown-footer form-group mb-0" >
-					            <a class="float-right btn text-white custom-btn-dark btn-sm mb-0"  th:href="@{/logout}">
-							          <i class="fas fa-user-circle"></i> Logout         
-							        </a>
-					          </div> -->  
-                              <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" th:href="@{/logout}">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
+					<!-- Right Icons + Profile -->
+								    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+								      <!-- Wallet Icon -->
+								     <!-- <li class="nav-item mr-3">
+								        <a href="/settings/wallet" role="button">
+								          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+								        </a>
+								      </li>-->
+									  <li class="nav-item mr-3">
+					  			        <a href="/cotowallet" role="button">
+					  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+					  			        </a>
+					  			      </li>
+								      <!-- Notification Icon -->
+								      <li class="nav-item mr-3">
+								        <a href="#" role="button">
+								          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+								        </a>
+								      </li>
 
-                   </ul>	
+								      <!-- Profile Dropdown -->
+								      <li class="nav-item dropdown no-arrow">
+								        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+								        </a>
+								        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+								          <a class="dropdown-item" href="/ProfileInfo">
+								            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								          </a>
+								       <!--   <a class="dropdown-item" href="#">
+								            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+								          </a>-->
+								          <div class="dropdown-divider"></div>
+								          <a class="dropdown-item" href="/logout">
+								            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+								          </a>
+								        </div>
+								      </li>
+								    </ul>
                 </nav>
 
                 <!-- End of Topbar -->
@@ -224,7 +234,7 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table class="table table-reimbursements selectvouchers-table">
+                                    <table class="table table-reimbursements selectvouchers-table" id="sourceTable">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
@@ -337,7 +347,7 @@
 	                                </div>
 
 	                                <div class="table-responsive">
-	                                    <table class="table table-reimbursements selectvouchers-table">
+	                                    <table class="table table-reimbursements selectvouchers-table" id="targetTable">
 	                                        <thead>
 	                                            <tr>
 	                                                <th>Name</th>
@@ -345,6 +355,7 @@
 	                                                <th>Voucher Type</th>
 	                                                <th>Redemption Type</th>
 	                                                <th>Amount</th>
+													<th>Approve Amount</th>
 	                                                <th>Start Date</th>
 	                                                <th>Validity</th>
 	                                            </tr>
@@ -524,11 +535,27 @@
 
 	  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 	  <script type="text/javascript" src="js/slick/slick.min.js"></script>
-
+	  <link rel="stylesheet" href="css/custom.css">
 	
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
-	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
+	<script type="text/javascript" src="cotodel-js/requested-voucher-creation.js"></script>
 	<script type="text/javascript" src="cotodel-js/requested-upi-voucher-issue.js"></script>
+	<script>
+			function toggleOtpVisibility2() {
+			    const icon = document.getElementById("toggleOtpIcon2");
+			    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+			    const isHidden = inputs[0].type === 'password';
+			    inputs.forEach(input => {
+			        if (input.id.startsWith('password')) {
+			            input.type = isHidden ? 'text' : 'password';
+			        }
+			    });
+
+			    icon.classList.toggle('fa-eye');
+			    icon.classList.toggle('fa-eye-slash');
+			}
+			</script>
 
 			
 		<style>	@keyframes rotate360 {
@@ -1077,6 +1104,9 @@
 					        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
 					        <input  class="form-control form-control-sm test" type="hidden" id="orderId" 
 					        name="orderId" >
+							<div class="d-flex justify-content-center mt-2">
+							    <i class="fa-solid fa-eye" id="toggleOtpIcon2" style="cursor: pointer;margin-top: 5px; " onclick="toggleOtpVisibility2()"></i>
+							</div>
 	                </div>
 	               <label class="time-otp ml-0 text-dark" for="" id="countdown" style="color: green;"></label>
 				  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
@@ -1135,7 +1165,7 @@
             </div>
         </div>
     </div>
-
+	
 </body>
 
 </html>

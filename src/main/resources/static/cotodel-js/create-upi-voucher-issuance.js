@@ -217,50 +217,101 @@ function focusBack(){
 
 
 
-function  getLinkedBankDetail(){
-	
-    //document.getElementById("signinLoader").style.display="flex";
- 	var employerid = document.getElementById("employerId").value;
- 	$.ajax({
-	type: "POST",
-	url:"/getErupiLinkBankAccountDetail",
-       data: {
-			"orgId": employerid
-      		 },
-      		  beforeSend : function(xhr) {
-			//xhr.setRequestHeader(header, token);
-			},
-			   success: function(data){
-			            newData = data;
-			            console.log(newData);
-						$("#banklist option").remove();
-			            var obj = jQuery.parseJSON( data );
-			             obj = obj.data;
-			        	 var count=0;
-			         	for (var key in obj) {
+function getLinkedBankDetail() {
+  var employerid = document.getElementById("employerId").value;
+  $.ajax({
+    type: "POST",
+    url: "/getErupiLinkBankAccountDetail",
+    data: { "orgId": employerid },
+    success: function (data) {
+      const select = document.getElementById("banklist");
+      select.innerHTML = "";
 
-			             var values =  obj[key];
-			             var x = document.getElementById("banklist");
-			             if(count==0){
-			             var option = document.createElement("option");
-			             option.text ="Select Bank";
-			             option.value = "";
-			             x.add(option);
-			             }
-			             var option = document.createElement("option");
-			             option.value = values.acNumber;
-			             option.text = values.bankName+" | "+values.acNumber;
-			             x.add(option);
+      const parsed = JSON.parse(data).data;
+	  console.log("getLinkedBankDetail()=",parsed);
+      const dropdownList = document.getElementById("dropdownList");
+      dropdownList.innerHTML = "";
 
-			             count++;
-			             }
-          },
-        error: function(e){
-            alert('Error: ' + e);
-        }
-   }); 
-			
+      const bankKeys = Object.keys(parsed);
+
+      if (bankKeys.length === 1) {
+        const onlyBank = parsed[bankKeys[0]];
+        const masked = "XXXX" + onlyBank.acNumber.slice(-4);
+
+        const option = document.createElement("option");
+        option.value = onlyBank.acNumber;
+        option.text = onlyBank.bankName + " | " + masked;
+        select.appendChild(option);
+
+        document.getElementById("selectedBank").innerHTML = `
+          <div class="dropdown-item">
+            <div class="dropdown-bank-info">
+              <img src="data:image/png;base64,${onlyBank.bankIcon}" alt="logo">
+              <span>${onlyBank.bankName}</span>
+            </div>
+            <span class="dropdown-mask">${masked}</span>
+          </div>
+        `;
+        select.value = onlyBank.acNumber;
+        getBankDetailByBankAccountNumber();
+        showLinkedAccAmount(onlyBank.acNumber);
+
+      } else {
+        bankKeys.forEach((key, i) => {
+          const bank = parsed[key];
+          const masked = "XXXX" + bank.acNumber.slice(-4);
+
+          const option = document.createElement("option");
+          option.value = bank.acNumber;
+          option.text = bank.bankName + " | " + masked;
+          select.appendChild(option);
+
+          const div = document.createElement("div");
+          div.className = "dropdown-item";
+          div.innerHTML = `
+            <div class="dropdown-bank-info">
+              <img src="data:image/png;base64,${bank.bankIcon}" alt="logo">
+              <span>${bank.bankName}</span>
+            </div>
+            <span class="dropdown-mask">${masked}</span>
+          `;
+          div.onclick = function () {
+            document.getElementById("selectedBank").innerHTML = `
+              <div class="dropdown-item">
+                <div class="dropdown-bank-info">
+                  <img src="data:image/png;base64,${bank.bankIcon}" alt="logo">
+                  <span>${bank.bankName}</span>
+                </div>
+                <span class="dropdown-mask">${masked}</span>
+              </div>
+            `;
+            select.value = bank.acNumber;
+            document.getElementById("dropdownList").style.display = "none";
+            getBankDetailByBankAccountNumber();
+            showLinkedAccAmount(bank.acNumber,bank.accountSeltWallet);
+          };
+          dropdownList.appendChild(div);
+        });
+      }
+    },
+    error: function (e) {
+      alert("Error: " + e);
+    },
+  });
 }
+
+document.getElementById("selectedBank").addEventListener("click", function () {
+  const list = document.getElementById("dropdownList");
+  list.style.display = list.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", function (e) {
+  const dropdown = document.getElementById("customDropdown");
+  if (!dropdown.contains(e.target)) {
+    document.getElementById("dropdownList").style.display = "none";
+  }
+});
+
 
 
 
@@ -329,13 +380,15 @@ function  getBankDetailByBankAccountNumber(){
 		   //var data2 = data1.data;
 		   let continueButton = document.getElementById("continueButton1"); // Target the specific button
 		  // let errorMessage = document.getElementById("amountError");
+
 		   document.getElementById("amount").value="";
+	   //document.getElementById("amount").value="";
 		   
 		   // errorMessage.style.display = "none"; // Hide error message
 		    continueButton.disabled = false; // Enable button when valid
 		    document.getElementById("accountSeltWallet").value=data1.data.accountSeltWallet; 
 			document.getElementById("bankName").value=data1.data.bankName; 
-			document.getElementById("bankCode").value=data1.data.bankCode; 
+			document.getElementById("bankcode").value=data1.data.bankCode; 
 			document.getElementById("accountHolderName").value=data1.data.accountHolderName; 
 			
 			document.getElementById("acNumber").value=data1.data.acNumber; 
@@ -393,7 +446,7 @@ function  createSingleVoucherValidation(){
 	var  purposeCode= document.getElementById("purposeCode").value;
 	var activeStatus = document.getElementById("activeStatus").value;
 	var createdby = document.getElementById("employerName").value;
-	var bankCode = document.getElementById("bankCode").value;
+	var bankCode = document.getElementById("bankcode").value;
 	var mcc = document.getElementById("mcc").value;
 	var payerva = document.getElementById("payerva").value;
 	
@@ -513,33 +566,56 @@ async function  issueVoucher(){
 	document.getElementById("password5").value="";
     document.getElementById("password6").value="";
 	
-	var banklist = document.getElementById("banklist").value;
+
+	const tableBody = document.getElementById('voucherTableBody');
+	    const rows = tableBody.querySelectorAll('tr');
+	    const tableData = [];
 	
-	var voucher = document.getElementById("voucherId").value;
-	var beneficiaryName = document.getElementById("search").value;
-	var beneficiaryMobile = document.getElementById("mobile").value;
-	var redemptionType = document.getElementById("redemptionType").value;
-	var amount = document.getElementById("amount").value;
-	var startDate = document.getElementById("startDate").value;
-	var validity = document.getElementById("expiryDate").value;
-	
-	var voucherType = document.getElementById("voucherType").value;;
-	var voucherCode = document.getElementById("voucherCode").value;
-	var voucherDesc = document.getElementById("voucherDesc").value;
-	var  purposeCode= document.getElementById("purposeCode").value;
-	var activeStatus = document.getElementById("activeStatus").value;
-	var createdby = document.getElementById("employerName").value;
-	var bankCode = document.getElementById("bankCode").value;
-	var mcc = document.getElementById("mcc").value;
+	    rows.forEach((row, index) => {
+	   
+	        const nameInput = row.querySelector('input[placeholder="Enter Name"]');
+	        const mobileInput = row.querySelector('input[placeholder="Enter Mobile Number"]');
+	        const voucherInput = row.querySelector('.table-input-voucher');
+			const selectMCC = row.querySelector('.selectMCC');
+			const selectPurpose = row.querySelector('.selectPurpose');
+			const selectMCCDescription = row.querySelector('.selectMCCDescription');
+			const selectPurposeDescription = row.querySelector('.selectPurposeDescription');
+	        const redemptionSelect = row.querySelector('.redemptionType');
+	        const amountInput = row.querySelector('input[placeholder="Enter Amount"]');
+	        const dateInput = row.querySelector('input[type="date"]');
+	        const validitySelect = row.querySelector('.validity');
+
+	      
+            const rowData = {
+				name: nameInput ? nameInput.value : '',
+                mobile: mobileInput ? mobileInput.value : '',
+                voucher: voucherInput ? voucherInput.value : '',
+				mcc: selectMCC ? selectMCC.value : '',
+				mccDescription: selectPurposeDescription ? selectPurposeDescription.value : '',
+				purposeCode: selectPurpose ? selectPurpose.value : '',
+				purposeDescription: selectMCCDescription ? selectMCCDescription.value : '', 
+				voucherCode:selectPurpose ? selectPurpose.value : '',
+				voucherDesc :selectMCCDescription ? selectMCCDescription.value : '', 
+                redemptionType: redemptionSelect ? redemptionSelect.value : '',
+				amount: amountInput ? amountInput.value : '',
+                startDate: dateInput ? dateInput.value : '',
+                validity: validitySelect ? validitySelect.value : ''
+            };
+            tableData.push(rowData);
+			console.log("Issue Voucher");
+			console.log(tableData);
+	    });
+		console.log("Issue Voucher Table Data");
+		 console.log(tableData);
+		 
 	var payerva = document.getElementById("payerva").value;
 	var acNumber = document.getElementById("acNumber").value;
-	
 	var merchentid = document.getElementById("merchentid").value;
 	var submurchentid = document.getElementById("submurchentid").value;
-	
+	var activeStatus = document.getElementById("activeStatus").value;
+	var createdby = document.getElementById("employerName").value;
+	var bankCode = document.getElementById("bankcode").value;
     var employerId = document.getElementById("employerId").value;
-	var employerName = document.getElementById("employerName").value;
-	
 	
 	var customCheck45 = document.getElementById("customCheck45").checked; 
 	if (customCheck45) {
@@ -554,9 +630,8 @@ async function  issueVoucher(){
 
     // Concatenate data (must match backend)
 
-	const dataString = beneficiaryName+beneficiaryMobile+startDate+validity+voucherCode+customCheck45+
-	createdby+employerId+merchentid+submurchentid+redemptionType+mcc+voucherCode+
-	voucherDesc+bankCode+acNumber+payerva+"01"+amount+clientKey+secretKey;
+	const dataString =customCheck45+
+	createdby+employerId+merchentid+submurchentid+acNumber+payerva+"01"+clientKey+secretKey;
 	console.log("data string"+dataString); 
     // Generate SHA-256 hash
     const encoder = new TextEncoder();
@@ -564,35 +639,37 @@ async function  issueVoucher(){
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-							
+		
  	$.ajax({
 	type: "POST",
 	url:"/createSingleVoucher",
-       data: {
-			   "name": beneficiaryName,
-			   "mobile": beneficiaryMobile,
-			   "amount": amount,
-			   "startDate": startDate,
-			   "validity": validity,
-			   "purposeCode": voucherCode,
+	contentType: "application/json",
+       data:JSON.stringify({
+			 //  "name": beneficiaryName,
+			  // "mobile": beneficiaryMobile,
+			  // "amount": amount,
+			   //"startDate": startDate,
+			   //"validity": validity,
+			   //"purposeCode": voucherCode,
+			   //"mcc": mcc,
+			   // "voucherCode": voucherCode,
+			   // "voucherDesc": voucherDesc,
 			   "consent": customCheck45,
 			   "createdby": createdby,
 			   "orgId": employerId,
 			   "merchantId": merchentid,
 			   "subMerchantId": submurchentid,
-			   "redemtionType": redemptionType,
-			   "mcc": mcc,
-			   "voucherType": voucherType,
-			   "voucherCode": voucherCode,
-			   "voucherDesc": voucherDesc,
+			  // "redemtionType": redemptionType,
+			  
 			   "activeStatus": activeStatus,
 			   "bankcode":bankCode,
 			   "accountNumber":acNumber,
 			   "payerVA":payerva,
 			   "mandateType":"01",
 			   "clientKey":clientKey,
-			   "hash":hashHex
-      		 },
+			   "hash":hashHex,
+			   "erupiVoucherCreateDetails":tableData
+      		 }),
       		  beforeSend : function(xhr) {
 			//xhr.setRequestHeader(header, token);
 			},
@@ -606,28 +683,7 @@ async function  issueVoucher(){
 		   			
 		   			if(data1.status==true){
 						
-				    document.getElementById("banklist").value="";
-					
-					document.getElementById("voucherId").value="";
-					document.getElementById("search").value="";
-					document.getElementById("mobile").value="";
-					document.getElementById("redemptionType").value="";
-					document.getElementById("amount").value="";
-					document.getElementById("startDate").value="";
-					document.getElementById("expiryDate").value="";
-					document.getElementById("btnforvccategoryforbulkissuance").value="";
-					
-					document.getElementById("voucherCode").value="";
-					document.getElementById("voucherType").value="";
-					document.getElementById("voucherSubType").value="";
-					document.getElementById("voucherDesc").value="";
-					document.getElementById("purposeCode").value="";
-					document.getElementById("activeStatus").value="";
-					document.getElementById("employerName").value="";
-					document.getElementById("bankCode").value="";
-					document.getElementById("mcc").value="";
-					document.getElementById("payerva").value="";
-					
+				   
    					document.getElementById("issuesuccmsg").innerHTML="Voucher Created Successfully.";
    					document.getElementById("issuemsgdiv").style.display="block";
    					//document.getElementById("getInTouchUser").reset();
@@ -641,37 +697,34 @@ async function  issueVoucher(){
 					var element = document.getElementById("lable3");
 				    element.classList.add("active");
 					
-					const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
+					let tbody = $("#successFailVoucherTable tbody");
+	                   tbody.empty(); // Clear table first
 
-					     const row = tableBody.insertRow();
+	                   data1.data.forEach(function (item) {
+						
+						let imgTag = "";
 
-					     row.insertCell().textContent = data1.data.name;
-					     row.insertCell().textContent = data1.data.mobile;
-					     row.insertCell().textContent = data1.data.voucherDesc;
-					     row.insertCell().textContent = data1.data.redemtionType;
-					     row.insertCell().textContent = data1.data.amount;
-					     //row.insertCell().textContent = item.voucherCode;
-						 row.insertCell().textContent = data1.data.startDate;
-						 row.insertCell().textContent = data1.data.expDate;
-						// row.insertCell().textContent = item.response;
-						 
-
-					     // Add the response cell with an image
-					     const responseCell = row.insertCell();
-					     const img = document.createElement("img");
-					     if (data1.data.response === "SUCCESS") {
-					       img.src = "img/status-check.svg"; 
-					       img.alt = "Success";
-					     } else {
-					       img.src = "img/status-cross.svg"; 
-					       img.alt = "Failure";
-					     }
-					     img.width = 20;
-					     img.height = 20;
-					     responseCell.appendChild(img);
-
-					    // row.insertCell().textContent = item.voucherDesc;
-					   
+						  
+						       if (item.response === "SUCCESS") {
+						           imgTag = `<img src="img/status-check.svg" alt="Success" width="20">`;
+						       } else {
+						           imgTag = `<img src="img/status-cross.svg" alt="Failure" width="20">`;
+						       }
+						  
+	                       let row = `
+	                           <tr>
+	                               <td>${item.name}</td>
+	                               <td>${item.mobile}</td>
+	                               <td>${item.voucherDesc}</td>
+	                               <td>${item.redemtionType}</td>
+	                               <td>${item.amount}</td>
+								   <td>${formatDate(item.startDate)}</td>
+								   <td>${formatDate(item.expDate)}</td>
+	                               <td>${imgTag}</td>
+	                           </tr>
+	                       `;
+	                       tbody.append(row);
+	                   });
 					document.getElementById('submitButton').disabled=false;
 					document.getElementById('authenticate').disabled=false;
 					
@@ -694,6 +747,16 @@ async function  issueVoucher(){
         }
    }); 
 		
+}
+
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
 }
 /*
 function getVoucherSummaryList(){
@@ -817,42 +880,47 @@ function getPrimaryBankDetail(){
 			      });
 				  
 				  
-				  function  showLinkedAccAmount(accountNumber){
-				  	
-				      //document.getElementById("signinLoader").style.display="flex";
-				   	//var employerid = document.getElementById("employerId").value;
-					//var accountNumber = document.getElementById("banklist").value;
-					var employerid = document.getElementById("employerId").value;
-					console.log("accountNumber,employerid ",accountNumber,employerid);
-				   	$.ajax({
-				  	type: "POST",
-				  	url:"/showLinkedAccAmount",
-				         data: {
-				  			"acNumber": accountNumber,
-							"orgId":employerid 
-				        		 },
-				        		
-				  			   success: function(data){
-								console.log("showLinkedAccAmount",data);
-				  	          
-								var obj = jQuery.parseJSON(data);
-								   // obj = obj.data;
+				  function showLinkedAccAmount(accountNumber, accountSeltWallet) {
+				      const employerid = document.getElementById("employerId").value;
+				      console.log("accountNumber, employerid", accountNumber, employerid);
 
-									if (obj.status==true) {
-									            // Update the balance in the HTML
-									            document.querySelector(".text-wrapper-3").textContent = obj.balance ? obj.balance:"Amount Not Available";
-												
-												document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
-									        }
-											// Format and display timestamp if available
-						            			
-				            },
-				          error: function(e){
+				      if (accountSeltWallet === "Self") {
+				          document.querySelector(".button-check-balance").style.display = "block";
+				          document.querySelector(".tip-disabled").style.display = "block";
+
+				          document.querySelector(".div-2").style.display = "none";
+				          document.querySelector(".last-updated-on").style.display = "none";
+
+				          return; // Don't send request to backend
+				      }
+
+				      // For other accounts, show balance section and fetch data
+				      document.querySelector(".button-check-balance").style.display = "none";
+				      document.querySelector(".tip-disabled").style.display = "none";
+
+				      document.querySelector(".div-2").style.display = "block";
+				      document.querySelector(".last-updated-on").style.display = "block";
+
+				      $.ajax({
+				          type: "POST",
+				          url: "/showLinkedAccAmount",
+				          data: {
+				              "acNumber": accountNumber,
+				              "orgId": employerid
+				          },
+				          success: function (data) {
+				              console.log("showLinkedAccAmount", data);
+				              const obj = jQuery.parseJSON(data);
+				              if (obj.status === true) {
+				                  document.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
+				              }
+				          },
+				          error: function (e) {
 				              alert('Error: ' + e);
 				          }
-				     }); 
-				  			
+				      });
 				  }
+
 				  function formatTimestamp(timestamp) {
 				      let dateObj = new Date(timestamp.replace(" ", "T")); // Ensure proper parsing
 

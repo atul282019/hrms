@@ -1,4 +1,29 @@
 
+function addAdditionalTR() {
+        // Initialize DataTable
+        var table = $('#expensesTable').DataTable();
+        
+        // Add hidden rows after each row in the DataTable
+        $('#expensesTable tbody tr').each(function() {
+            var detailsRow = $('<tr class="hidden"><td colspan="6">Detailed information</td></tr>');
+            $(this).after(detailsRow);
+        });
+
+        // Handle plus/minus button click
+        $('#expensesTable').on('click', '.button', function() {
+            var button = $(this);
+            var detailsRow = button.closest('tr').next('tr.hidden');
+            if (detailsRow.length > 0) {
+                if (detailsRow.is(':visible')) {
+                    detailsRow.hide();
+                    button.text('+');
+                } else {
+                    detailsRow.show();
+                    button.text('-');
+                }
+            }
+        });
+    }
 function change() {
 	
   var startingEmployeeAlpha = document.getElementById('startingEmployeeAlpha').value;
@@ -345,7 +370,7 @@ function validateTab1(){
 			 formData.append("listArray", allInputValues);*/
 			 var listArray = [];
 	
-		 $('.newTable tbody tr').each(function () {
+		 $('.newTableBand tbody tr').each(function () {
 		        var employeeBandTier = $(this).find('select.dropdownvalue').val();
 		        var employeeBand = $(this).find('input.empolyeeinput01').val();       
 			    var rowvalue=employeeBand+"@"+employeeBandTier;
@@ -391,7 +416,7 @@ function validateTab1(){
 				document.getElementById("continew2").style.display="none";
 				document.getElementById("signinLoader").style.display="none";
 				getEmployeeBandWithTiers();
-				viewEmployeeBand();
+				viewEmployeeBandAdd();
 				//console.log(data1);
 				//console.log(data.status);
 				//document.getElementById("signinLoader").style.display="none";
@@ -528,7 +553,7 @@ function bindJsonToTable(jsonData) {
             });
         }
 
-    async function viewEmployeeBand() {
+    async function viewEmployeeBandAdd() {
 
 			var employerId=document.getElementById("employerId").value;
 			//document.getElementById("signinLoader2").style.display="flex";

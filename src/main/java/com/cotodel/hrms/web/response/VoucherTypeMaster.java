@@ -20,7 +20,8 @@ public class VoucherTypeMaster {
 	private String mccMainIcon;
 	private String mcc;
 	private String mccDesc;
-	
+	private int prStatus;
+	 
 	
 	
 	

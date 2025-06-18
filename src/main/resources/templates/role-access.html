@@ -7,8 +7,11 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<!--<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
+viewEmployeeBand(),cotodelLinkedBankDetail()">-->
+
 <body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
-viewEmployeeBand(),cotodelLinkedBankDetail()">
+viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()">
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -48,31 +51,45 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
                        </li>
 
                     </ul>
-					<ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <span class="mr-2 d-none d-lg-inline text-gray-600 small" > <p th:text="${session.username}"></p> </span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" th:href="@{/ProfileInfo}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                               <!-- <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>-->
-                              <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" th:href="@{/logout}">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" > </i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-					 </ul>		
+					<!-- Right Icons + Profile -->
+								    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+								      <!-- Wallet Icon -->
+								     <!-- <li class="nav-item mr-3">
+								        <a href="/settings/wallet" role="button">
+								          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+								        </a>
+								      </li>-->
+									  <li class="nav-item mr-3">
+					  			        <a href="/cotowallet" role="button">
+					  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+					  			        </a>
+					  			      </li>
+								      <!-- Notification Icon -->
+								      <li class="nav-item mr-3">
+								        <a href="#" role="button">
+								          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+								        </a>
+								      </li>
 
+								      <!-- Profile Dropdown -->
+								      <li class="nav-item dropdown no-arrow">
+								        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+								        </a>
+								        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+								          <a class="dropdown-item" href="/ProfileInfo">
+								            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								          </a>
+								       <!--   <a class="dropdown-item" href="#">
+								            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+								          </a>-->
+								          <div class="dropdown-divider"></div>
+								          <a class="dropdown-item" href="/logout">
+								            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+								          </a>
+								        </div>
+								      </li>
+								    </ul>
                 </nav>
 
                 <!-- End of Topbar -->
@@ -85,9 +102,9 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
                                 <li class="active" th:if="${session.user_role == 9 or session.user_role == 1}" ><a data-toggle="tab" href="#home1">Role Access</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
-								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33">Prepaid Account</a></li>
-								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
-                             
+								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33">Workplace</a></li>
+								<!--<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
+                             -->
                             </ul>
 
                             <div class="tab-content">
@@ -424,59 +441,321 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 								</div>
 								
                                 <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
-									
-								<div id="menu3" class="tab-pane">
-								  <div class="policies-section-bank" id="cotodellinkaccbankform" style="display: none;">
-								    <div class="col-12 col-md-8 col-lg-6 mx-auto">
-								      <div class="text-center">
-								        <h3>Cotodel Linked Account</h3>
-								      </div>
-								    </div>
-								  </div>
+									<div id="home" class="tab-pane in active">
+									                                  
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Approval & Payout Flow Settings</h4>
+                                            <div class="policies-wrap-in">
+                                                <div class="policies-wrap-in-left">
+                                                    <div class="policies-wrap-in-approval">
+                                                        <h4>Approval Flow</h4>
+                                                        <div class="approval-input">
+                                                            <input type="text" class="form-control form-control-50" placeholder="Employee">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Plus One Reporting Level">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Plus Two Reporting Level">
+                                                        </div>                                                    
+                                                    </div>
+                                                    <img src="img/green-right-arrow.svg" alt="">
+                                                    <div class="policies-wrap-in-approval policies-wrap-in-approval-50">
+                                                        <h4>Payout Authorisation Flow</h4>
+                                                        <div class="approval-input">
+                                                            <input type="text" class="form-control" placeholder="Human Resources">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Finance">
+                                                        </div>                                                    
+                                                    </div>
+                                                </div>
+                                                <div class="policies-wrap-in-right">
+                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalApproval">
+                                                        <img src="img/edit.svg" alt="">
+                                                      </button>                                                  
+                                                </div>                                              
+                                            </div>
+                                        </div>
+                                    </div>                               
 
-								  <div class="linked-bank-account-section" id="cotodellinkedbnkacntsctn" style="display: block;">
-								    <div class="text-left">
-								      <h3>Prepaid Account Details</h3>
-								    </div>
+                                      <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Advance Request Settings </h4>
+                                            <div class="policies-wrap-in d-block">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-block">
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="travelBooking">
+                                                                <label class="custom-control-label text-left"
+                                                                    for="travelBooking">Allow employees to request for
+                                                                    travel bookings.</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="cashBooking">
+                                                                <label class="custom-control-label text-left"
+                                                                    for="cashBooking">Allow employees to request for
+                                                                    cash advances.</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small pl-0">
+                                                                <label class="mb-0">Restrictions for usage of cash
+                                                                    advances:</label>
+                                                            </div>
+                                                        </div>
 
-								    <div class="linked-bank-account-innersection d-block">
-								      <div id="data-wrapper1">
-								      </div>
-								    </div>
+                                                        <div class="band-option d-flex-column">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"  onclick="toggleDiv(false)"
+                                                                    name="flexRadioDefault" id="allowAll">
+                                                                <label class="form-check-label" for="allowAll">
+                                                                    All employees are allowed
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" onclick="toggleDiv(true)"
+                                                                    name="flexRadioDefault" id="allowSpefic"
+                                                                    checked="">
+                                                                <label class="form-check-label" for="allowSpefic">
+                                                                    Specific employees are allowed
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="policies-wrap-in-left w-100 my-3">
+                                                       	   <div id="nameEmployeesCash"  class="incurring-exp w-100">
+                                                           </div> 
+                                                        </div>
+                                                        <div class="policies-wrap-in-left w-100">
+                                                            <div class="incurring-exp">
+                                                                <p>An employee is required to submit expense claims
+                                                                    against a cash advance within: 
+                                                                    <input type="text" id="disbursalDate"  class="form-control incurr" placeholder="60">
+                                                                    Days from the date of disbursal
+                                                                    of cash advance</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-block">
+                                                        <div class="policies-wrap-in-right w-100">
+                                                            <button type="button" class="btn p-0" data-toggle="modal"
+                                                                data-target="#ModalAdvanceRequest">
+                                                                <img src="img/edit.svg" alt="">
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-								    <div class="d-flex justify-content-end">
-								      <button class="btn btn-primary" id="continuebtn1">Continue</button>
-								    </div>
-								  </div>
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Expense Category Settings </h4>
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-policies" id="expensesTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>EXPENSE CATEGORY</th>
+                                                                <th>EXPENSE CODE</th>
+                                                                <th>EXPENSE LIMIT</th>
+                                                                <th>DAYS TO EXPIRY <div class="d-inline"><img src="img/infoo.svg" alt=""></div></th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                         <!--  <tr>
+                                                                <td>
+                                                                    <img src="img/Travel.svg" alt="" class="mr-2">Travel
+                                                                </td>
+                                                                <td>EXP01</td>
+                                                                <td><p>No Upper Limits</p></td>
+                                                                <td>30 Days</td>
+                                                                <td>
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/taxi.svg" alt="" class="mr-2">Conveyance
+                                                                </td>
+                                                                <td>EXP02</td>
+                                                                <td><p>Limits based on Duration</p><button class="button" onclick="toggleRow(this)">+</button></td>
+                                                                <td>60 Days</td>
+                                                                <td>
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/hotel.svg" alt="" class="mr-2">Stay
+                                                                </td>
+                                                                <td>EXP03</td>
+                                                                <td><p>Limits based on Employee Bands</p><button class="button" onclick="toggleRow(this)">+</button></td>
+                                                                <td>20 Days</td>
+                                                                <td>
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/food.svg" alt="" class="mr-2">Food
+                                                                </td>
+                                                                <td>EXP04</td>
+                                                                <td><p>Limits based on Employee Bands & Duration</p>
+                                                                <a href="#"><img src="img/remove-tr.svg" alt="" onclick="toggle();" ></a> 
+                                                                <button class="button" onclick="toggleRow(this)">+</button>
+                                                                </td>
+                                                                <td>20 Days</td>
+                                                                <td>
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr id="hidethis" class="hidden">
+                                                                <td colspan="5">
+                                                                    <div class="expense-table">
+                                                                        <table class="table mb-0">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th></th>
+                                                                                    <th><div class="band band1">Band 1</div></th>
+                                                                                    <th><div class="band band2">Band 2</div></th>
+                                                                                    <th><div class="band band3">Band 3</div></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><strong>Per Day</strong></td>
+                                                                                    <td><div class="perquarter"><span>INR</span><input type="text" placeholder="500"></div></td>
+                                                                                    <td><div class="perquarter"><span>INR</span><input type="text" placeholder="800"></div></td>
+                                                                                    <td><div class="perquarter"><span>INR</span><input type="text" placeholder="850"></div></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><strong>Per Month</strong></td>
+                                                                                    <td><div class="perquarter"><span>INR</span><input type="text" placeholder="10,000"></div></td>
+                                                                                    <td><div class="perquarter"><span>INR</span><input type="text" placeholder="16,000"></div></td>
+                                                                                    <td><div class="perquarter"><span>INR</span><input type="text" placeholder="1,00,00"></div></td>
+                                                                                </tr>   
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/cash.svg" alt="" class="mr-2">Cash Advance
+                                                                </td>
+                                                                <td>EXP05</td>
+                                                                <td class="d-block"><p class="d-inline">Per Quarter</p><div class="perquarter"><span>INR</span><input type="text" placeholder="50,000"></div></td>
+                                                                <td>20 Days</td>
+                                                                <td>
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="img/Miscellaneous.svg" alt="" class="mr-2">Miscellaneous
+                                                                </td>
+                                                                <td>EXP06</td>
+                                                                <td><p>No Upper Limits</p></td>
+                                                                <td>30 Days</td>
+                                                                <td>
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalExpenseCategory">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr> -->
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                     <div class="last-add">
+                                           			    <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                                        <div colspan="5" style="padding:.75rem;">
+                                                            <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalExpenseCategory" >+ Add Category</a>
+                                                        </div>
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-								  <!-- Amount Request Section (converted from modal) -->
-								  <div class="amount-request-section col-md-8" id="cotodelAmountRequest" style="display: none;">
-								    <div class="card">
-								      <div class="card-header">
-								        <h5 id="CnewAmount"><strong> Enter Prepaid Amount</strong></h5>
-								      </div>
-								      <div class="card-body">
-								        <form action="" class="advancerequestform">
-								          <div class="form-group">
-								            <input type="text" class="form-control" id="advanceAmount" placeholder="Enter amount">
-								          </div>
-										  <div class="error-msg" id="advanceAmountError" style="color:red"></div>
-										  <br>
-								          <div class="unstyled centered d-flex mt-2" id="checkboxContainer">
-								            <input class="styled-checkbox" id="confirmAmount" type="checkbox" value="value1">
-								            <label for="confirmAmount"></label>
-								            <p class="d-inline mb-0 ml-2">I confirm the changes</p>
-								          </div>
-								          <div class="error-msg" id="confirmAmountError" style="color:red"></div>
-										  
-								        </form>
-								        <div class="d-flex justify-content-center mt-3">
-											<button class="btn btn-primary w-100" id="renderBtn2" onclick="getSessionId()">Pay Now</button>
-											 </div>
-								      </div>
-								    </div>
-								  </div>
-								</div>
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Currency Conversion Settings </h4>
+                                            
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-policies">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>CHOOSE CURRENCY</th>
+                                                                <th class="conversion">CONVESRION METHOD</th>
+                                                                <th>CONVERSION RATE</th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-currency">
+                                                                        <select class="select-currency">
+                                                                            <option value="">Currency 1</option>
+                                                                        </select>
+                                                                        <img src="img/Arrow-grey.svg" alt="">
+                                                                        <select class="select-currency">
+                                                                            <option value="">Currency 2</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="position: relative;">
+                                                                    <div class="toggleWrapper">
+                                                                        <input type="checkbox" class="dn" id="dn"/>
+                                                                        <label for="dn" class="toggle">
+                                                                            <span class="toggle__handler"></span>       
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>0.012</td>
+                                                                <td>                                                                    
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalCurrencyConversion">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>                                                           
+                                                            <tr class="last-add">
+                                                                <td colspan="4">
+                                                                    <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalCurrencyConversion">+ Add Currency Conversion</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 								<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
 								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
 								<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
@@ -492,7 +771,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
 								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
 								 </div>
-								 
+								
 								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
 									
 									<script>
@@ -501,41 +780,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 							            getPaymentHistory();
 							        });
 							    	</script>
-								 								
-								<div id="menu4" class="tab-pane">
-									<div class="policies-wrap-in-table mt-5 mt-4">
-											<div class="table-responsive">
-												<table class="table table-reimbursements"
-													id="reimbursementTable">
-													<thead>
-														<tr>																																	
-															<th>Id</th>
-															
-															<th>Customer Name</th>																																			
-															<th>Customer Phone</th>
-															<th>Order Amount</th>
-															<th>Payment Currency</th>	
-															<th>Order Status</th>														
-															<th>Payment Time</th>
-															<th>Payment Id</th>
-															<th>Payment Status</th>
-															<th>Service Charge</th>
-															<th>Service Tax</th>
-															<th>Settlement Amount</th>
-															
-														</tr>
-													</thead>
-													<tbody>
-														<td></td>
-
-													</tbody>
 								
-												</table>
-												
-											</div>
-										</div>
-								  
-								</div>
 								
 							 </div>
 							 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
@@ -687,7 +932,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 				        name="orderId" >
 						
 						<div class="d-flex justify-content-center mt-2">
-						    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+						    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer; margin-top: 5px;" onclick="toggleOtpVisibility()"></i>
 						</div>
 						
 				    </div>
@@ -736,7 +981,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 					        name="orderId" >
 							
 							<div class="d-flex justify-content-center mt-2">
-							    <i class="fa-solid fa-eye" id="toggleOtpIcon1" style="cursor: pointer;" onclick="toggleOtpVisibility1()"></i>
+							    <i class="fa-solid fa-eye" id="toggleOtpIcon1" style="cursor: pointer;margin-top: 5px;" onclick="toggleOtpVisibility1()"></i>
 							</div>
 							
 					    </div>
@@ -994,7 +1239,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 	                                    <div class="error-msg" id="gstnNoError" style="color:red"></div>
 	                                    <hr>            
 	                                   	<div class="table-responsive">
-	                                   		<table id="bandTable" class="table no-bordered empolyee-band-head-modal newTable" colpadding="5">
+	                                   		<table id="bandTable" class="table no-bordered empolyee-band-head-modal newTableBand" colpadding="5">
 	                                   			<thead>
 	                                   				<tr>
 	                                   				   <th>Employee Bands</th>
@@ -1137,6 +1382,408 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 	    </div>
 	</div>
 	
+	
+	<!-- Modal Approval Payout Flow Settings -->
+	<div class="modal fade" id="ModalApproval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+	      <div class="modal-content">
+	        <div class="modal-header pb-0">
+	          <h5 class="modal-title" id="exampleModalCenterTitle">Approval &amp; Payout Flow Settings</h5>
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	        </div>
+	        <div class="modal-body">
+	            <div class="policies-wrap-in-approval">
+	                <h4>Approval Flow</h4>
+	                <div class="approval-input">
+	                    <div class="form-wrap form-control-50 active">
+	                        Employee
+	                    </div>
+	                    <img src="img/right-arrow-sm.svg" alt="">
+	                    <div class="form-wrap">
+	                        <label for="">Reporting Level 1 </label>
+	                        <img src="img/cross-green.svg" alt="">
+	                    </div>
+	                    <img src="img/right-arrow-sm.svg" alt="">
+	                    <div class="form-wrap">
+	                        <label for="">Reporting Level 2 </label>
+	                        <img src="img/cross-green.svg" alt="">
+	                    </div>
+	                    <img src="img/right-arrow-sm.svg" alt="">
+	                    <div class="form-wrap">
+	                        <label for="">Reporting Level 3 </label>
+	                        <img src="img/cross-green.svg" alt="">
+	                    </div>
+	                    <img src="img/right-arrow-sm.svg" alt="">
+	                    <div class="form-wrap">
+	                        <label for="">Reporting Level 4 </label>
+	                        <img src="img/cross-green.svg" alt="">
+	                    </div>
+	                </div>                                                    
+	            </div>
+	            <br>
+	            <div class="policies-wrap-in-approval w-64">
+	                <h4>Payout Authorisation Flow</h4>
+	                <div class="approval-input">                    
+	                    <div class="form-wrap">
+	                        <label for="">Add Another Level </label>
+	                        <img src="img/add-tr.svg" alt="">
+	                    </div>
+	                    <img src="img/right-arrow-sm.svg" alt="">
+	                    <div class="form-wrap">
+	                        <label for="">Human Resources </label>
+	                        <img src="img/cross-green.svg" alt="">
+	                    </div>
+	                    <img src="img/right-arrow-sm.svg" alt="">
+	                    <div class="form-wrap active">
+	                        <label for="">Finance & Accounts </label>
+	                    </div>                    
+	                </div>                                                    
+	            </div>
+	            <div class="d-block mt-3">
+	                <button class="btn btn-primary d-block btn-lg w-100">Count</button>
+	            </div>
+	        </div>        
+	      </div>
+	    </div>
+	  </div>
+
+
+	  <!-- Modal Advance Request -->
+	    <div class="modal fade" id="ModalAdvanceRequest" tabindex="-1" role="dialog"
+	        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	        <div class="modal-dialog modal-lg modal-dialog-centered modal-approval-wrap" role="document">
+	            <div class="modal-content">
+	            <form id="addAdvance">
+	                <div class="modal-header pb-0">
+	                    <h5 class="modal-title" id="exampleModalCenterTitle">Advance Request Settings</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <div class="policies-wrap-in-modal">
+	                        <div class="form-group">
+	                            <div class="custom-control custom-checkbox small">
+	                                <input type="checkbox" class="custom-control-input" id="travel">
+	                                <label class="custom-control-label text-left" for="travel">Allow employees to request for travel bookings.</label>
+	                            </div>
+	                        </div>
+	                        <hr>
+	                        <div class="form-group">
+	                            <div class="custom-control custom-checkbox small">
+	                                <input type="checkbox" class="custom-control-input" id="cash">
+	                                <label class="custom-control-label text-left" for="cash">Allow employees to request for cash advances.</label>
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <div class="custom-control custom-checkbox small pl-0">
+	                                <label class="mb-0">Restrictions for usage of cash advances:</label>
+	                            </div>
+	                        </div>
+	                        <div class="band-option d-flex-column">
+	                            <div class="form-check">
+	                                <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="toggleDivEdit(false)" id="all">
+	                                <label class="form-check-label" for="all">
+	                                    All employees are allowed
+	                                </label>
+	                            </div>
+	                            <div class="form-check">
+	                                <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="toggleDivEdit(true)" id="spefic" checked="">
+	                                <label class="form-check-label" for="spefic">
+	                                    Specific employees are allowed
+	                                </label>
+	                            </div>
+	                        </div>
+	                        <div id="speficEmployeesDiv"> 
+	                        <input type="text" class="form-control incurr mr-2 w-100"  id="speficEmployees"
+	                               placeholder="Enter comma seprated names of employees who are allowed cash advances">
+	                        </div>
+	                        <div class="error-msg" id="speficEmployeesError" style="color:red"></div>
+	                        
+	                        <div class="form-group mt-2">
+	                            <div class="custom-control custom-checkbox small pl-0">
+	                                <label class="mb-0">Define the number of days within which an employee is required to submit expense
+	                                    claims against the cash advance disbursed:</label>
+	                            </div>
+	                        </div>
+	                        <div class="incurring-exp-modal d-flex align-items-center" > 
+	                        <input type="text" class="form-control incurr mr-2" id="disbursmentDate" maxlength="3" 
+							style="width:50px; text-align: center;" placeholder="60" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+							> Days from the date of disbursal of cash advance
+	                            </p>
+	                        </div>
+	                        <div class="error-msg" id="disbursmentDateError" style="color:red"></div>
+	                    </div>
+	                    <div class="d-block mt-3">
+	                        <button class="btn btn-primary d-block btn-lg w-100" type="button" id="adavanceButton"  onclick="addAdvanceRequest()">Confirm</button>
+	                    </div>
+	                </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+
+	<!-- Modal Expense Category Settings -->
+	<div class="modal fade" id="ModalExpenseCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+	    
+	      <div class="modal-content">
+	        <div class="modal-header pb-0">
+	          <h5 class="modal-title" id="exampleModalCenterTitle">Expense Category</h5>
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	        </div>
+	        <form id="addExpenses" name="addExpenses"> 
+	        <div class="modal-body">
+	            <div class="card-form my-3">
+	                <label for="">Expense Category</label>
+	                <input type="text" id="expenseCategory" class="form-input">
+	            </div>
+	            <div class="error-msg" id="expenseCategoryError" style="color:red"></div>
+	            <div class="card-form mb-3">                                            
+	                <input style="width: 100%; margin: 0;" id="expanceCode" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
+	            </div>
+	            <div class="error-msg" id="expanceCodeError" style="color:red"></div>
+	             <div class="card-form mb-3">                                            
+	                <input style="width: 100%; margin: 0;" id="expanceLimit" type="text" class="form-input" placeholder="Expense Limit">
+	            </div>
+	            <div class="error-msg" id="expanceLimitError" style="color:red"></div>
+	            <div class="clearfix"></div>
+	            <div class="expense-inwrap">
+	                <h5>Optional Inputs</h5>
+	                <p>Set maximum limit for this expense category for a given period </p>
+	                <div class="expense-card-inner">
+	                    <div class="form-group">
+	                        <div class="custom-control custom-checkbox small">
+	                            <input type="checkbox" class="custom-control-input" id="distingushEmployeeBand" checked="" >
+	                            <label class="custom-control-label text-left" for="distingushEmployeeBand">Distinguish by Employee Bands </label>
+	                        </div>
+	                    </div>
+
+	                    <div class="expense-table">
+	                        <table class="table mb-0 newTable1" id="newTable1">
+	                            <thead>
+	                               <!--  <tr>
+	                                    <th></th>
+	                                    <th><div class="band band1"> Band 1</div>
+	                                    </th>
+	                                    <th><div class="band band2"> Band 2</div></th>
+	                                    <th><div class="band band3"> Band 3</div></th>
+	                                    <th></th> 
+	                                </tr> -->
+	                            </thead>
+	                            <tbody>
+	                               <!--  <tr>
+	                                    <td>
+	                                        <select name="period" id="period" class="form-select period">
+	                                            <option value="">Select Time Period</option>
+	                                            <option value="Perday" selected>Per Day</option>
+	                                             <option value="Week">Per Week</option>
+	                                             <option value="month">Per Month</option>
+	                                             <option value="Quater">Per Quater</option>
+	                                             <option value="year">Per Year</option>
+	                                        </select>
+	                                    </td>
+	                                    <td><div class="perquarter-in"><span>INR</span>
+			                                    <input type="text" placeholder="500" name="band1" class="form-control band1">
+			                                    <input type="hidden"  name="band1" class="form-control band1" value="Band 1">
+	                                    </div>
+	                                    </td>
+	                                    <td><div class="perquarter-in"><span>INR</span>
+	                                    <input type="text" placeholder="800" name="band2" class="form-control band2"></div>
+	                                    <input type="hidden"  name="band1" class="form-control band2" value="Band 2">
+	                                    </td>
+	                                    <td><div class="perquarter-in"><span>INR</span>
+	                                    <input type="text" placeholder="850" name="band3" class="form-control band3"></div>
+	                                    <input type="hidden"  name="band1" class="form-control band3" value="Band 3">
+	                                    </td>
+	                                    <td></td>
+	                                </tr> -->
+	                               <!--  <tr>
+	                                    <td>
+	                                        <select name="period" id="period1" class="form-select period">
+	                                            <option value="">Select Time Period</option>
+	                                            <option value="Perday">Per Day</option>
+	                                             <option value="Week">Per Week</option>
+	                                             <option value="month">Per Month</option>
+	                                             <option value="Quater">Per Quater</option>
+	                                             <option value="year">Per Year</option>
+	                                        </select>
+	                                    </td>
+	                                    <td ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 1" name="band1" class="form-control band1"></div></td>
+	                                    <td ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 2" name="band2" class="form-control band2"></div></td>
+	                                    <td  ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" name="band3" class="form-control band3"></div></td>
+	                                   <td  ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" name="band3" class="form-control band3"></div></td>
+	                                   <td  ><div class="perquarter-in"><span>INR</span><input type="text" placeholder="Expense Limit 3" name="band3" class="form-control band3"></div></td>
+	                                   
+	                                </tr>   --> 
+	                            </tbody>
+	                        </table>
+	                        <div>
+	                        <span class="errormulti-message" id="error1"></span>
+	                        <span class="errormulti-message" id="error2"></span>
+	                        <span class="errormulti-message" id="error3"></span>
+	                        <span class="errormulti-message" id="error4"></span>
+	                        <span class="errormulti-message" id="error5"></span>
+	                        <span class="errormulti-message" id="error6"></span>
+	                        </div>
+	                        <div>
+	                           <!-- <a id="addButton" type="button" onclick="addRow()" value="+ Add Another Limit" > <img src="img/add-tr.svg" alt="">Add Another Limit</a> -->
+	                          <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new" onclick="deleteTableRow()">- Delete</button>
+							  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new" onclick="newRow()">+ Add Another Limit</button>
+	                       	  <div class="clearfix"></div>
+	                        </div>
+	                    </div>
+
+	                </div>
+	                <p>Set time period in which an expense incurred can be submitted (in Days)</p>
+	                <div class="incurring-exp-modal">
+	                    <p><input type="text" class="form-control incurr ml-0" id="timeperiod" placeholder="20" maxlength="3"
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> Days</p>
+	                </div>
+	                 <div class="error-msg" id="timeperiodError" style="color:red"></div>
+	            </div>
+	            <div class="d-block mt-3">
+	            	<input type="hidden" id="categoryId" >
+	            	<div id="addCategoryButton" style="display: block">
+	                <button class="btn btn-primary d-block btn-lg w-100" type="button"  id="addcat" onclick="addExpensesCategory()" >Confirm</button>
+	                </div>
+	            </div>
+	        </div>    
+	         </form>    
+	      </div>
+	     
+	    </div>
+	  </div>
+
+	<!-- Modal Expense Category Settings edit-->
+	<div class="modalView" id="ModalExpenseCategoryEdit">
+	   
+	    <div class="modal-dialog modal-xl modal-dialog-centered modal-approval-wrap" role="document">
+	    
+	      <div class="modal-content">
+	        <div class="modal-header pb-0">
+	          <h5 class="modal-title" id="exampleModalCenterTitle">Expense Category</h5>
+	          <button type="button" class="close" data-dismiss="modal"  id="btnClose" aria-label="Close">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	        </div>
+	        <form id="addExpensesEdit" name="addExpensesEdit"> 
+	        <div class="modal-body">
+	            <div class="card-form my-3">
+	                <label for="">Expense Category</label>
+	                <input type="text" id="expenseCategoryEdit" class="form-input">
+	            </div>
+	            <div class="error-msg" id="expenseCategoryEditError" style="color:red"></div>
+	            <div class="card-form mb-3">                                            
+	                <input style="width: 100%; margin: 0;" id="expanceCodeEdit" type="text" class="form-input" placeholder="Expense Code (used for accounting purpose)">
+	            </div>
+	            <div class="error-msg" id="expanceCodeEditError" style="color:red"></div>
+	             <div class="card-form mb-3">                                            
+	                <input style="width: 100%; margin: 0;" id="expanceLimitEdit" type="text" class="form-input" placeholder="Expense Limit">
+	            </div>
+	            <div class="error-msg" id="expanceLimitEditError" style="color:red"></div>
+	            <div class="clearfix"></div>
+	            <div class="expense-inwrap">
+	                <h5>Optional Inputs</h5>
+	                <p>Set maximum limit for this expense category for a given period </p>
+	                <div class="expense-card-inner">
+	                    <div class="form-group">
+	                        <div class="custom-control custom-checkbox small">
+	                            <input type="checkbox" class="custom-control-input" id="distingushEmployeeBandEdit" checked="" >
+	                            <label class="custom-control-label text-left" for="distingushEmployeeBandEdit">Distinguish by Employee Bands </label>
+	                        </div>
+	                    </div>
+
+	                    <div class="expense-table">
+	                        <table class="table mb-0 newTableEdit" id="newTableEdit">
+	                            <thead>
+	                               
+	                            </thead>
+	                            <tbody>
+	                               
+	                            </tbody>
+	                        </table>
+	                        <div>
+	                        <span class="errormulti-messagee-edit" id="errorEdit1"></span>
+	                        <span class="errormulti-message-edit" id="errorEdit2"></span>
+	                        <span class="errormulti-message-edit" id="errorEdit3"></span>
+	                        <span class="errormulti-message-edit" id="errorEdit4"></span>
+	                        <span class="errormulti-message-edit" id="errorEdit5"></span>
+	                        <span class="errormulti-message-edit" id="errorEdit6"></span>
+	                        </div>
+	                        <div>
+	                         <!--  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="newRowEdit()">+ Add Another Limit</button>
+							  <button tabindex="8" type="button" name="imgSU" class="btn btn-primary" id="add-new-edit" onclick="deleteTableRowEdit()">- Delete</button> -->
+	                        </div>
+	                    </div>
+
+	                </div>
+	                <p>Set time period in which an expense incurred can be submitted (in Days)</p>
+	                <div class="incurring-exp-modal">
+	                    <p><input type="text" class="form-control incurr ml-0" id="timeperiodEdit" placeholder="20"> Days</p>
+	                </div>
+	                 <div class="error-msg" id="timeperiodEditError" style="color:red"></div>
+	            </div>
+	            <div class="d-block mt-3">
+	            	<input type="hidden" id="categoryId" >
+	                <div id="editCategoryButton">
+	                <button class="btn btn-primary d-block btn-lg w-100" type="button" id="editCategory" onclick="editExpensesCategory()" >Confirm</button>
+	                </div>
+	            </div>
+	        </div>    
+	         </form>    
+	      </div>
+	     
+	    </div>
+	  </div>
+	   <!-- Modal Currency Conversion -->
+	<div class="modal fade" id="ModalCurrencyConversion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-md modal-dialog-centered modal-approval-wrap" role="document">
+	      <div class="modal-content">
+	        <div class="modal-header pb-0">
+	          <h5 class="modal-title" id="exampleModalCenterTitle">Currency Conversion</h5>
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	        </div>
+	        <div class="modal-body">
+	            <div class="table-currency">
+	                <select class="select-currency">
+	                    <option value="">Currency 1</option>
+	                </select>
+	                <img src="img/Arrow-grey.svg" alt="">
+	                <select class="select-currency">
+	                    <option value="">Currency 2</option>
+	                </select>
+	            </div>
+	            <br>
+	            <div class="toggle-wrap">
+	                <div class="toggleWrapper">
+	                    <input type="checkbox" class="dn" id="dn">
+	                    <label for="dn" class="toggle">
+	                        <span class="toggle__handler"></span>       
+	                    </label>
+	                </div>
+	            </div>
+	            <br>
+	            <div class="conversion-div">
+	                <label for="">Conversion Rate</label>
+	                <input type="text" class="conversion-input" placeholder="0.012">
+	            </div>
+	            
+	            <div class="d-block mt-3">
+	                <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
+	            </div>
+	        </div>        
+	      </div>
+	    </div>
+	  </div>
+
+	
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -1158,6 +1805,36 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>
+
+	function newRow(){
+		    var rowCount = $('#newTable1 tr').length;
+		    if(rowCount <= 5){
+			   $("#newTable1 tbody").append($("#newTable1 tbody tr:last").clone());
+		    }
+	}
+	function deleteTableRow(){
+		 var rowCount = $('#newTable1 tr').length;
+		 if(rowCount >= 3){
+		    $('#newTable1 tbody tr:last').remove();
+		 }
+	}
+
+
+	function newRowEdit(){
+		    var rowCount = $('#newTableEdit tr').length;
+		    if(rowCount <= 5){
+			   $("#newTableEdit tbody").append($("#newTable tbody tr:last").clone());
+		    }
+	}
+	function deleteTableRowEdit(){
+		 var rowCount = $('#newTableEdit tr').length;
+		 if(rowCount >= 5){
+		    $('#newTableEdit tbody tr:last').remove();
+		 }
+	}
+	</script>	
+		
 	<script>
 		function toggleOtpVisibility2() {
 		    const icon = document.getElementById("toggleOtpIcon2");
@@ -1239,7 +1916,11 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 	        `;
 	    });
 
-	    document.getElementById("renderBtn2").addEventListener("click", function (event) {
+	
+	});
+	</script>
+<!--<script>
+	document.getElementById("renderBtn2").addEventListener("click", function (event) {
 	        if (!confirmCheckbox.checked) {
 	            confirmErrorMsg.textContent = "Please confirm the changes.";
 	            event.preventDefault();
@@ -1247,9 +1928,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 	            confirmErrorMsg.textContent = "";
 	        }
 	    });
-	});
-	</script>
-
+</script>-->
 	<script>	$(document).ready(function () {
 	    // Initially disable the button
 	    $("#renderBtn2").prop("disabled", true);
@@ -1435,7 +2114,8 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 
 	<script src="cotodel-js/linked-account.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
-	<script type="text/javascript" src="cotodel-js/cashfree.js"></script>
+	<!--<script type="text/javascript" src="cotodel-js/cashfree.js"></script>-->
+	<script type="text/javascript" src="cotodel-js/expenses-travel-polices.js"></script>
 	
 	<script>	
 		document.addEventListener("DOMContentLoaded", function() {
@@ -1447,7 +2127,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 	    }
 	});
 </script>
-	<script>
+	<!--<script>
 		document.getElementById("continuebtn1").addEventListener("click", function() {
 		  // Hide all other divs in menu3
 		  document.getElementById("cotodellinkaccbankform").style.display = "none";
@@ -1455,7 +2135,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">
 		  // Show only the cotodelAmountRequest div
 		  document.getElementById("cotodelAmountRequest").style.display = "block";
 		});
-	</script>
+	</script>-->
 	<script>	
 		document.addEventListener('DOMContentLoaded', function() {
 	    // Clear amount error when user types in the input

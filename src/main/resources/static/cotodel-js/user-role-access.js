@@ -211,9 +211,10 @@ function editUserRoleWithMoreUser() {
 											},
 											success: function(data) {
 												var obj = data;
-												window.location.href = "/roleAccess";
+												//window.location.href = "/roleAccess";
 												document.getElementById("signinLoader").style.display = "none";
-												
+												//getUserWithRole();
+												roleUpdate();
 											},
 											error: function(e) {
 												alert('Error: ' + e);
@@ -784,7 +785,8 @@ function getAddOTP(){
 							roleUpdate();
 							$("#roleAcessOTPModal").hide();
 							$("#roleAcessModalSuccessful").show();
-							window.location.href="/roleAccess";
+							//window.location.href="/roleAccess";
+							getUserWithRole();
 		  				}else if (obj['status'] == false) {
 							document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
 							document.getElementById("authenticate").disabled = false;
@@ -903,7 +905,8 @@ function getAddOTP(){
 							addRole();
 							$("#AddRoleAcessOTPModal").hide();
 							$("#roleAcessModalSuccessful").show();
-							window.location.href="/roleAccess";
+							getUserWithRole();
+							//window.location.href="/roleAccess";
 		  				}else if (obj['status'] == false) {
 							document.getElementById("otpError1").innerHTML="Please Enter Valid OTP..";
 						} else {
@@ -1137,7 +1140,7 @@ function getAddOTP(){
 		  	       submitButton.disabled = !checkbox.checked;
 		  	   }
 			   			   
-			   function cotodelLinkedBankDetail() {
+			 /*  function cotodelLinkedBankDetail() {
 			       document.getElementById("signinLoader").style.display = "flex";
 			       
 			       $.ajax({
@@ -1200,7 +1203,7 @@ function getAddOTP(){
 			               document.getElementById("signinLoader").style.display = "none";
 			           }
 			       });
-			   }
+			   }*/
 
 			   function resendCotodelOTP(){
 			   	

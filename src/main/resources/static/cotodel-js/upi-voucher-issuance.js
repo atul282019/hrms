@@ -447,16 +447,12 @@ function  getLinkedBankDetail(){
 			
 }
 
-
-
-
-
-function getIssueVoucherList(){
+function getIssueVoucherList1(){
 	document.getElementById("signinLoader").style.display="flex";
 	var employerid = document.getElementById("employerId").value;
 	$.ajax({
 		type: "POST",
-		url: "/getIssueVoucherList",
+		url: "/erupiVoucherCreateListRedeem",
 		data: {
 			//"employeeId": employerid,
 			"orgId": employerid,
@@ -466,7 +462,7 @@ function getIssueVoucherList(){
 			newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			var data2 = data1.data;
-			 //console.log(data2);
+			 console.log("/erupiVoucherCreateListRedeem data= ",data2);
 			document.getElementById("signinLoader").style.display="none";
 			
 			var table = $('#issueVoucherTable').DataTable( {
@@ -492,9 +488,28 @@ function getIssueVoucherList(){
 			    { "mData": "accountNumber"},   
 				{ "mData": "purposeDesc"},  
 				//{ "mData": "mcc"}, 
-				{ "mData": "amount"},
-				{ "mData": "creationDate"},
-				{ "mData": "expDate"},
+				{
+				  "mData": "amount",
+				  "render": function(data2, type, row) {
+				    if (data2 === "" || data2 === null) {
+				      return '';
+				    } else {
+				      return '₹'+""+ data2;
+				    }
+				  }
+				},
+				{ 
+				  "mData": "creationDate", 
+				  "render": function (data) {
+				      return formatDate(data);
+				  }
+				},
+				{ 
+				  "mData": "expDate", 
+				  "render": function (data) {
+				      return formatDate(data);
+				  }
+				},
 				{ "mData": "redemtionType"},
 				{ "mData": "type"},      
 				
@@ -617,6 +632,394 @@ function getIssueVoucherList(){
 		}
 	});
 }
+
+async function getVoucherTransactionList() {
+	/*/erupiVoucherCreateListRedeem*/
+	const orgId = document.getElementById('employerId').value;
+    $.ajax({
+        type: "POST",
+        url: "/getVoucherTransactionList",
+		data: { "orgId":orgId,
+				"limit":"10"	
+		 },
+        beforeSend: function(xhr) {
+            //xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+            newData = data;
+            console.log("Emp onboarding data", newData);
+            var data1 = jQuery.parseJSON(newData);
+            var data2 = data1.data;
+            
+            var table = $('#vouchersTableTransactionList').DataTable({
+                destroy: true,
+                "responsive": true,
+                searching: false,
+                bInfo: false,
+                paging: false,
+                "lengthChange": true,
+                "autoWidth": false,
+                "pagingType": "full_numbers",
+                "pageLength": 50,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "language": {
+					"emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+					},
+                
+                "aaData": data2,
+                "aoColumns": [
+                  //  { "mData": "creationDate" },
+					{ 
+					  "mData": "creationDate", 
+					  "render": function (data) {
+					      return formatDate(data);
+					  }
+					},
+					{ "mData": "merchanttxnId" },
+                    { "mData": "name"},
+                    { "mData": "purposeDesc" },
+					{ "mData": "merchanttxnId" },
+					{
+					  "mData": "amount",
+					  "render": function(data2, type, row) {
+					    if (data2 === "" || data2 === null) {
+					      return '';
+					    } else {
+					      return '₹'+""+data2;
+					    }
+					  }
+					},
+					
+					{ "mData": "merchanttxnId" },
+					
+                ],
+				createdRow: function (row, data2, dataIndex) 
+                {
+				var purposeDesc = data2.purposeDesc;
+                  if(purposeDesc=="Meal")
+                  {
+				 var imgTag = '<img src="img/food.svg" alt="" class="mr-2">'+purposeDesc;
+                   $(row).find('td:eq(3)').html(imgTag);
+                  }
+				 else if(purposeDesc=="Petroleum Vouhcer")
+                  {
+  			      var imgTag = '<img src="img/fuel-grey.png" alt="" class="mr-2">'+purposeDesc;
+                   $(row).find('td:eq(3)').html(imgTag);
+                  }	
+              }
+		});		
+							
+        },
+        error: function(e) {
+            alert('Failed to fetch JSON data' + e);
+        }
+    });
+}
+
+function erupiVoucherCreateListLimit() {
+  var employerid = document.getElementById("employerId").value;
+  $.ajax({
+    type: "POST",
+    url: "/erupiVoucherCreateListLimit",
+    data: {
+      "orgId": employerid,
+      "timePeriod": "CM",
+    },
+    success: function (data) {
+      newData = data;
+      var data1 = jQuery.parseJSON(newData);
+      console.log("erupiVoucherCreateListLimit() data1= ", data1);
+      var data2 = data1.data;
+
+      var table = $('#vouchersTableList').DataTable({
+        destroy: true,
+        lengthChange: true,
+        responsive: true,
+        searching: false,
+        bInfo: false,
+        paging: false,
+        autoWidth: false,
+        pagingType: "full_numbers",
+        pageLength: 50,
+        buttons: ["csv", "excel"],
+        language: {
+          "emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+        },
+        aaData: data2,
+        aoColumns: [
+          { "mData": "name" },
+          { "mData": "mobile" },
+          { "mData": "accountNumber" },
+          { "mData": "purposeDesc" },
+          { "mData": "type" },
+          {
+            "mData": "creationDate",
+            "render": function (data) {
+              return formatDate(data);
+            }
+          },
+          {
+            "mData": "expDate",
+            "render": function (data) {
+              return formatDate(data);
+            }
+          },
+          {
+            "mData": "amount",
+            "render": function (data2, type, row) {
+              return data2 ? '₹' + data2 : '';
+            }
+          },
+          { "mData": "redeemAmount" },
+          {
+            "mData": "id",
+            "render": function (data2, type, row) {
+              if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
+                return '';
+              }
+              return `
+                <div class="dropdown no-arrow ml-2">
+                  <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm" style="cursor:pointer;"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right shadow">
+                    <button class="dropdown-item py-2" onclick="openRevokeDialog('${encodeURIComponent(JSON.stringify(row))}')">Revoke</button>
+                    <button class="dropdown-item py-2" data-toggle="modal" data-target="#tableSendSms" onclick="sendsms('${encodeURIComponent(JSON.stringify(row))}')">Send SMS</button>
+                  </div>
+                </div>`;
+            }
+          }
+        ],
+
+        createdRow: function (row, data2, dataIndex) {
+          var purposeDesc = data2.purposeDesc;
+          if (purposeDesc === "Meal") {
+            $(row).find('td:eq(3)').html('<img src="img/food.svg" alt="" class="mr-2">' + purposeDesc);
+          } else if (purposeDesc === "Petroleum Vouhcer") {
+            $(row).find('td:eq(3)').html('<img src="img/fuel-grey.png" alt="" class="mr-2">' + purposeDesc);
+          }
+
+          var type = data2.type;
+          var typeIconHtml = '';
+          if (type === "fail") typeIconHtml = '<img src="img/table-fail.svg" alt="" class="mr-2">';
+          else if (type === "Created") typeIconHtml = '<img src="img/table-create.svg" alt="" class="mr-2">';
+          else if (type === "Revoke") typeIconHtml = '<img src="img/Revoke.svg" alt="" class="mr-2">';
+          else if (type === "Redeem") typeIconHtml = '<img src="img/Redeem.svg" alt="" class="mr-2">';
+          $(row).find('td:eq(4)').html(typeIconHtml);
+
+          var bankcode = data2.bankcode;
+          var bankIcon = data2.bankIcon;
+          var accountNumber = data2.accountNumber;
+          if (bankcode === "ICICI") {
+            var imgTag = '<img src="data:image/png;base64,' + bankIcon + '" alt="" width="16px">';
+            $(row).find('td:eq(2)').html(imgTag + " " + accountNumber);
+          }
+        }
+      });
+    },
+    error: function (e) {
+      alert('Failed to fetch JSON data' + e);
+    }
+  });
+}
+
+
+
+
+function getIssueVoucherList(){
+	document.getElementById("signinLoader").style.display="flex";
+	var employerid = document.getElementById("employerId").value;
+	$.ajax({
+		type: "POST",
+		url: "/getIssueVoucherList",
+		data: {
+			//"employeeId": employerid,
+			"orgId": employerid,
+			"timePeriod":"AH",
+		},
+		success: function(data) {
+			newData = data;
+			var data1 = jQuery.parseJSON(newData);
+			var data2 = data1.data;
+			 //console.log(data2);
+			document.getElementById("signinLoader").style.display="none";
+			
+			var table = $('#issueVoucherTable').DataTable( {
+	          destroy: true,	
+			 // "dom": 'rtip',
+			 //dom: 'Bfrtip',
+			 lengthChange: true,
+		     "responsive": true, searching: true,bInfo: false, paging: true,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
+             "buttons": ["csv", "excel"],
+             "language": {"emptyTable": "UPI Vouchers section is currently not enabled. Please link your bank account to enable this section."  },
+	         "aaData": data2,
+      		  "aoColumns": [ 
+				{ "mData": "id", "render": function (data2, type, row) {
+				   return ' <div class="table-check"><input type="hidden" class="checkBoxClass" value="'+data2+'" id="'+data2+'" name="revoke"></div>';
+			    }}, 
+				{ "mData": "name"},
+                { "mData": "mobile"},   
+				/*{ "mData": "accountNumber", "render": function (data2, type, row) {
+					
+				 return '<div class="tdflex"><img src="img/indianbank.png" width="16px" alt=""><span" ></span></div>';
+								  
+				}},*/
+			    { "mData": "accountNumber"},   
+				{ "mData": "purposeDesc"},  
+				//{ "mData": "mcc"}, 
+				{
+				  "mData": "amount",
+				  "render": function(data2, type, row) {
+				    if (data2 === "" || data2 === null) {
+				      return '';
+				    } else {
+				      return '₹'+""+ data2;
+				    }
+				  }
+				},
+				{ 
+				  "mData": "creationDate", 
+				  "render": function (data) {
+				      return formatDate(data);
+				  }
+				},
+				{ 
+				  "mData": "expDate", 
+				  "render": function (data) {
+				      return formatDate(data);
+				  }
+				},
+				{ "mData": "redemtionType"},
+				{ "mData": "type"},      
+				
+				{ "mData": "id", "render": function (data2, type, row) {
+				    if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
+				        return '';
+				    } else {
+				        return `
+				            <td>
+				                <div class="dropdown no-arrow ml-2">
+				                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				                        <i class="fas fa-ellipsis-v fa-sm"></i>
+				                    </a>
+				                    <br>
+				                    <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
+				                        <button 
+				                            class="dropdown-item py-2" 
+				                            value="${data2}" 
+				                            id="btnRevoke" 
+				                            onclick="openRevokeDialog('${encodeURIComponent(JSON.stringify(row))}')">
+				                            Revoke
+				                        </button>
+				                        <button 
+				                            class="dropdown-item py-2"  
+				                            data-toggle="modal" 
+				                            data-target="#tableSendSms" 
+				                            value="${data2}" 
+				                            id="btnSend" 
+				                            onclick="sendsms('${encodeURIComponent(JSON.stringify(row))}')">
+				                            Send SMS
+				                        </button>
+				                    </div>
+				                </div>
+				            </td>`;
+						}
+				    }}, 
+			
+    		 	],
+				
+				createdRow: function (row, data2, dataIndex) 
+                    {
+                   
+                 	var voucherDesc = data2.voucherDesc;
+                 	var type = data2.type;
+					
+                     if(voucherDesc=="Meal")
+                     {
+					 var imgTag = '<img src="img/food.svg" alt="" class="mr-2">'+voucherDesc;
+                      $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     if(voucherDesc=="Miscellaneous")
+                     {
+					 var imgTag = ' <img src="img/Miscellaneous.svg" alt="" class="mr-2">'+voucherDesc;
+ 					
+                      $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     
+                     if(voucherDesc=="Food")
+                     {
+						 var imgTag = ' <img src="img/food.svg" alt="" class="mr-2">'+voucherDesc;
+	 					 $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     
+                     if(voucherDesc=="Cash Advance")
+                     {
+					 var imgTag = '<img src="img/cash.svg" alt="" class="mr-2">'+voucherDesc;
+                      $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     if(voucherDesc=="Travel")
+                     {
+					 var imgTag = '<img src="img/Travel.svg" alt="" class="mr-2">'+voucherDesc;
+ 					
+                      $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     if(voucherDesc=="Stay")
+                     {
+					 var imgTag = '<img src="img/hotel.svg" alt="" class="mr-2">'+voucherDesc;
+                      $(row).find('td:eq(1)').html(imgTag);
+                     }
+                     
+                     if(type=="fail")
+                     {
+						var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
+						 $(row).find('td:eq(9)').html(imgTag);
+                    //  $(row).find('td:eq(10)').addClass('tdactive');
+                     }
+                     if(type=="Created")
+                     {
+						var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
+						 $(row).find('td:eq(9)').html(imgTag);
+                     // $(row).find('td:eq(10)').addClass('tdsubmitted');
+                     }
+					 if(type=="Revoke")
+                     {
+				
+						var imgTag = ' <img src="img/Revoke.svg" alt="" class="mr-2">';
+					    $(row).find('td:eq(9)').html(imgTag);
+					 
+                     }
+					 if(type=="Redeem")
+                     {
+						var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
+						 $(row).find('td:eq(9)').html(imgTag);
+                     }
+					 var bankcode = data2.bankcode;
+					 var bankIcon = data2.bankIcon;
+					 var accountNumber = data2.accountNumber;
+					 if(bankcode=="ICICI")
+                     {	
+	 					 var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt=""] width="16px" height=""16px>';
+	 					 $(row).find('td:eq(3)').html(imgTag+" "+accountNumber);
+                     }
+                  }
+			});
+      		//}).buttons().container().appendTo('#issueVoucherTable_wrapper .col-md-6:eq(0)');		
+			
+		},
+		error: function(e) {
+			alert('Failed to fetch JSON data' + e);
+		}
+	});
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+}
 function colosethis(){
 	
 	document.getElementById("tableRevoke").style.display="none";
@@ -723,7 +1126,7 @@ function sortTable(columnIndex) {
        }
 
 	   
-	   document.getElementById('downloadBtn').addEventListener('click', function () {
+	 /*  document.getElementById('downloadBtn').addEventListener('click', function () {
 	       const table = document.getElementById('issueVoucherTable');
 
 	      const clonedTable = table.cloneNode(true);
@@ -741,7 +1144,7 @@ function sortTable(columnIndex) {
 	       const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
 	       XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
 	   });
-	   
+	   */
 	   function requestedVoucherCount() {
 	   											   
 	   											    const employerId = document.getElementById('employerId').value;

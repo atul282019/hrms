@@ -95,9 +95,9 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 		  if(!rowarray6.equalsIgnoreCase("undefined")) {
 		  bandDetailRequest.setBandSixInr(rowArray[6]);
 		  }
-		  list.add(bandDetailRequest); }
-		 
-
+		  list.add(bandDetailRequest); 
+		  }
+		
 		expenseCategoryRequest.setList(list);
 	
 		String receivedHash = expenseCategoryRequest.getHash();
@@ -189,7 +189,6 @@ public class ExpensesTravelPoliciesController extends CotoDelBaseController {
 	        	  responseMap.put("status", true);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
 	        	
-	          
 	        } else {
               responseMap.put("status", false);
               responseMap.put("message", apiJsonResponse.getString("message"));

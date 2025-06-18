@@ -8,6 +8,7 @@ import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ExistingUserVoucherCreationRequest;
 import com.cotodel.hrms.web.response.RevokeVoucher;
 import com.cotodel.hrms.web.response.RoleAccessRequest;
+import com.cotodel.hrms.web.response.SingleVoucherCreationRequest;
 import com.cotodel.hrms.web.util.EncriptResponse;
 
 @Repository
@@ -16,6 +17,8 @@ public interface ErupiVoucherCreateDetailsService {
 	String createSingleVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
 	String getIssueVoucherList(String token, EncriptResponse erupiVoucherCreateDetails);
+	
+	String erupiVoucherCreateListRedeem(String token, EncriptResponse erupiVoucherCreateDetails);
 
 	String getVoucherSummaryList(String token, EncriptResponse erupiVoucherCreateDetails);
 
@@ -38,5 +41,7 @@ public interface ErupiVoucherCreateDetailsService {
 	String getTotalVoucherCount(String token, EncriptResponse erupiVoucherCreateDetails);
 
 	String revokeCreatedVoucherSingle(String token, EncriptResponse jsonObject);
+
+	String createSingleVoucherWithMultipleRequest(String token, EncriptResponse jsonObject);
 
 }

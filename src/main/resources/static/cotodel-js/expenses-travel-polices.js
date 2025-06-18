@@ -397,23 +397,25 @@ function editExpensesCategory(){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			// document.getElementById("signinLoader").style.display="none";
-			location.reload();
+			//location.reload();
 			if(data1.status==true){
 				
-				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
-				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
+				// document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
+				// document.getElementById("payrollsuccessmsgdiv").style.display="block";
 				 
 			}else if(data1.status==false){
 				
-				 document.getElementById("payrollfailmsg").innerHTML=data1.message;
-				 document.getElementById("payrollfailmsgDiv").style.display="block";
+				// document.getElementById("payrollfailmsg").innerHTML=data1.message;
+				// document.getElementById("payrollfailmsgDiv").style.display="block";
 				
 			}else{
 				
-				 document.getElementById("payrollfailmsgDiv").style.display="none";
-				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
+				// document.getElementById("payrollfailmsgDiv").style.display="none";
+				// document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			
 			getExpanceCategoryList();
+			document.getElementById("ModalExpenseCategoryEdit").style.display = "none";
          },
          error: function(e){
              alert('Error: ' + e);
@@ -707,7 +709,7 @@ async function addExpensesCategory(){
 	
     var allInputValues = [];
 	
-	 $('.newTable tbody tr').each(function () {
+	 $('.newTable1 tbody tr').each(function () {
 	        var period = $(this).find('select.period').val();
 	        var band1 = $(this).find('input.band1').val();
 	        var band2 = $(this).find('input.band2').val();
@@ -761,23 +763,26 @@ async function addExpensesCategory(){
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
 			document.getElementById("addcat").disabled = false;
-			location.reload();
+			//location.reload();
 			if(data1.status==true){
 				
-				 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
-				 document.getElementById("payrollsuccessmsgdiv").style.display="block";
+				 //document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
+				 //document.getElementById("payrollsuccessmsgdiv").style.display="block";
 				 
 			}else if(data1.status==false){
 				
-				 document.getElementById("payrollfailmsg").innerHTML=data1.message;
-				 document.getElementById("payrollfailmsgDiv").style.display="block";
+				 //document.getElementById("payrollfailmsg").innerHTML=data1.message;
+				 //document.getElementById("payrollfailmsgDiv").style.display="block";
 				
 			}else{
 				
-				 document.getElementById("payrollfailmsgDiv").style.display="none";
-				 document.getElementById("payrollsuccessmsgdiv").style.display="none";
+				// document.getElementById("payrollfailmsgDiv").style.display="none";
+				 //document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			
+			
 			getExpanceCategoryList();
+			$('#ModalExpenseCategory').modal('hide');
          },
          error: function(e){
              alert('Error: ' + e);
@@ -992,11 +997,10 @@ function deleteData(value){
 				},
             success: function(data){
             newData = data;
-            // console.log(newData);
             document.getElementById("signinLoader").style.display="none";
             var data1 = jQuery.parseJSON( newData );
-			//var data2 = data1.data;
-			location.reload();
+			//location.reload();
+			getExpanceCategoryList();
 			
            },
          error: function(e){
@@ -1079,12 +1083,14 @@ function deleteData(value){
             newData = data;
 			var data1 = jQuery.parseJSON(newData);
 			document.getElementById("signinLoader").style.display="none";
-			window.location.reload();
+			//window.location.reload();
 			
 			if(data1.status==true){	
+				
 			//	 document.getElementById("payrollsuccessmsg").innerHTML=data1.message;
 				// document.getElementById("payrollsuccessmsgdiv").style.display="block";
-				 
+				//document.getElementById("nameEmployeesCash").clear();
+				
 			}else if(data1.status==false){
 				 //document.getElementById("payrollfailmsg").innerHTML=data1.message;
 				 //document.getElementById("payrollfailmsgDiv").style.display="block";
@@ -1093,7 +1099,9 @@ function deleteData(value){
 				 //document.getElementById("payrollfailmsgDiv").style.display="none";
 				 //document.getElementById("payrollsuccessmsgdiv").style.display="none";
 			}
+			document.getElementById("nameEmployeesCash").innerHTML = '';
 			getExpanseTravelAdvance();
+			$('#ModalAdvanceRequest').modal('hide');
          },
          error: function(e){
              alert('Error: ' + e);
@@ -1217,7 +1225,7 @@ function getExpanseTravelAdvance() {
 
 
 function loadTableData(jsonData) {
-     const tableBody = document.getElementById('newTable').querySelector('thead');
+     const tableBody = document.getElementById('newTable1').querySelector('thead');
      //tableBody.innerHTML = '';
      jsonData.data.forEach(item => {
 	
@@ -1368,7 +1376,7 @@ function loadTableData(jsonData) {
   }
   
   function loadTableData2(jsonData) {
-        const tableBody = document.getElementById('newTable').querySelector('tbody');
+        const tableBody = document.getElementById('newTable1').querySelector('tbody');
    
     jsonData.data.forEach(item => {
 	
