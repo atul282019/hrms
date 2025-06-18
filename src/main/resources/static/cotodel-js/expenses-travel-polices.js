@@ -709,7 +709,7 @@ async function addExpensesCategory(){
 	
     var allInputValues = [];
 	
-	 $('.newTable tbody tr').each(function () {
+	 $('.newTable1 tbody tr').each(function () {
 	        var period = $(this).find('select.period').val();
 	        var band1 = $(this).find('input.band1').val();
 	        var band2 = $(this).find('input.band2').val();
@@ -997,11 +997,10 @@ function deleteData(value){
 				},
             success: function(data){
             newData = data;
-            // console.log(newData);
             document.getElementById("signinLoader").style.display="none";
             var data1 = jQuery.parseJSON( newData );
-			//var data2 = data1.data;
-			location.reload();
+			//location.reload();
+			getExpanceCategoryList();
 			
            },
          error: function(e){
@@ -1226,7 +1225,7 @@ function getExpanseTravelAdvance() {
 
 
 function loadTableData(jsonData) {
-     const tableBody = document.getElementById('newTable').querySelector('thead');
+     const tableBody = document.getElementById('newTable1').querySelector('thead');
      //tableBody.innerHTML = '';
      jsonData.data.forEach(item => {
 	
@@ -1377,7 +1376,7 @@ function loadTableData(jsonData) {
   }
   
   function loadTableData2(jsonData) {
-        const tableBody = document.getElementById('newTable').querySelector('tbody');
+        const tableBody = document.getElementById('newTable1').querySelector('tbody');
    
     jsonData.data.forEach(item => {
 	

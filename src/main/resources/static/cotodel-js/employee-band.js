@@ -370,7 +370,7 @@ function validateTab1(){
 			 formData.append("listArray", allInputValues);*/
 			 var listArray = [];
 	
-		 $('.newTable tbody tr').each(function () {
+		 $('.newTableBand tbody tr').each(function () {
 		        var employeeBandTier = $(this).find('select.dropdownvalue').val();
 		        var employeeBand = $(this).find('input.empolyeeinput01').val();       
 			    var rowvalue=employeeBand+"@"+employeeBandTier;
@@ -416,7 +416,7 @@ function validateTab1(){
 				document.getElementById("continew2").style.display="none";
 				document.getElementById("signinLoader").style.display="none";
 				getEmployeeBandWithTiers();
-				viewEmployeeBand();
+				viewEmployeeBandAdd();
 				//console.log(data1);
 				//console.log(data.status);
 				//document.getElementById("signinLoader").style.display="none";
@@ -553,7 +553,7 @@ function bindJsonToTable(jsonData) {
             });
         }
 
-    async function viewEmployeeBand() {
+    async function viewEmployeeBandAdd() {
 
 			var employerId=document.getElementById("employerId").value;
 			//document.getElementById("signinLoader2").style.display="flex";
