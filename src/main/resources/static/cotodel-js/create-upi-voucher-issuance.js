@@ -406,7 +406,7 @@ function  getBankDetailByBankAccountNumber(){
 		   let continueButton = document.getElementById("continueButton1"); // Target the specific button
 		  // let errorMessage = document.getElementById("amountError");
 
-		   document.getElementById("amount").value="";
+		  // document.getElementById("amount").value="";
 	   //document.getElementById("amount").value="";
 		   
 		   // errorMessage.style.display = "none"; // Hide error message
@@ -960,7 +960,7 @@ function getPrimaryBankDetail(){
 
 				      return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
 				  }
-				  function validateAmount() {
+				  /*function validateAmount() {
 			      // Get available balance (removing currency symbols & commas)
 			      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
 			      let amountInput = document.getElementById("amount");
@@ -969,14 +969,14 @@ function getPrimaryBankDetail(){
 
 			      // Convert values to float (handle decimal values correctly)
 			      let balance = parseFloat(availableBalance);
-			      let amount = parseFloat(amountInput.value.trim());
+			      let amount = parseFloat(amountInput);
 
 			      // Disable button by default
 			      // Ensure valid numbers before comparison
 				  var accountSeltWallet = document.getElementById("accountSeltWallet").value;
 			      // Validation: Ensure entered amount is <= available balance
 				  if(accountSeltWallet==="Wallet"){
-				      if (amount > balance || !balance) {
+				      if (amount > balance || !balance ) {
 				          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
 				          errorMessage.style.display = "inline"; // Show error message
 				          amountInput.value = balance; // Auto-trim input value
@@ -986,6 +986,43 @@ function getPrimaryBankDetail(){
 				          continueButton.disabled = false; // Enable button when valid
 				      }
 				  }
+			  }*/
+			  
+			  
+			  function validateAmount() {
+			      const availableBalance = document.querySelector(".text-wrapper-3")
+			                                       .textContent
+			                                       .replace(/[₹,]/g, '')
+			                                       .trim();
+			      const amountInput    = document.getElementById("amount");
+			      const continueButton = document.getElementById("continueButton1");
+			      const errorMessage   = document.getElementById("common-error-msg");
+			      const accountType    = document.getElementById("accountSeltWallet").value;
+
+			      const balance = parseFloat(availableBalance);
+			      const amount  = parseFloat(amountInput.value);
+
+			      // reset state
+			      errorMessage.style.display = "none";
+			      continueButton.disabled   = false;
+
+			      if (accountType === "Wallet") {
+			          if (balance === 0) {
+			              errorMessage.textContent   = "Please add balance in wallet";
+			              errorMessage.style.display = "inline";
+			              continueButton.disabled    = true;
+			          }
+			          else if (isNaN(amount) || amount > balance) {
+			              errorMessage.textContent   = "Maximum amount allowed is ₹" + balance;
+			              errorMessage.style.display = "inline";
+			              amountInput.value          = balance;
+			              continueButton.disabled    = true;
+			          }
+			      }
+			      // if accountType === "Self", we do nothing: any amount (even 0) is allowed
 			  }
+
+
+
 
 

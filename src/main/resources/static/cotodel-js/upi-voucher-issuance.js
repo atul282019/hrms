@@ -687,6 +687,7 @@ async function getVoucherTransactionList() {
                     { mData: "merchanttxnId" },
                     {
                         mData: "amount",
+						className: "text-right",
                         render: function(data2, type, row) {
                             if (data2 === "" || data2 === null) {
                                 return '';
@@ -727,9 +728,7 @@ function erupiVoucherCreateListLimit(timePeriod = "CM") {
       "timePeriod": timePeriod,
     },
     success: function (data) {
-      newData = data;
-      var data1 = jQuery.parseJSON(newData);
-      console.log("erupiVoucherCreateListLimit() data1= ", data1);
+      var data1 = jQuery.parseJSON(data);
       var data2 = data1.data;
 
       var table = $('#vouchersTableList').DataTable({
@@ -740,14 +739,21 @@ function erupiVoucherCreateListLimit(timePeriod = "CM") {
         bInfo: false,
         paging: false,
         autoWidth: false,
-        pagingType: "full_numbers",
         pageLength: 50,
         buttons: ["csv", "excel"],
         language: {
-          "emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+          "emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded...'
         },
         aaData: data2,
         aoColumns: [
+          {
+            "mData": null,
+            "orderable": false,
+            "className": 'dt-body-center',
+            "render": function (data, type, row) {
+              return '<input type="checkbox" class="rowCheckbox">';
+            }
+          },
           {
             "mData": "creationDate",
             "render": function (data) {
@@ -778,24 +784,37 @@ function erupiVoucherCreateListLimit(timePeriod = "CM") {
               return formatDate(data);
             }
           },
-          { "mData": "type" },
+          {
+            "mData": "type",
+            "render": function (data, type, row) {
+              let labelText = '', labelClass = '';
+              switch (data) {
+                case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
+                case "Redeem": labelText = "Redeemed"; labelClass = "pill bg-blue-txt-blue-pill"; break;
+                case "fail": labelText = "Failed"; labelClass = "pill bg-red-txt-red-pill"; break;
+                case "Revoke": labelText = "Revoked"; labelClass = "pill bg-grey-txt-grey-pill"; break;
+                default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+              }
+              return `<span class="${labelClass}">${labelText}</span>`;
+            }
+          },
           {
             "mData": "amount",
-            "render": function (data2, type, row) {
-              return data2 ? '₹' + data2 : '';
+            "render": function (data) {
+              return data ? '₹' + data : '';
             }
           },
           { "mData": "redeemAmount" },
           {
-            "mData": "id",
-            "render": function (data2, type, row) {
+            "mData": null,
+            "render": function (data, type, row) {
               if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
                 return '';
               }
               const encodedRow = encodeURIComponent(JSON.stringify(row));
               return `
                 <div class="dropdown no-arrow ml-2">
-                  <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                     <i class="fas fa-ellipsis-v fa-sm" style="cursor:pointer;"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right shadow">
@@ -806,50 +825,13 @@ function erupiVoucherCreateListLimit(timePeriod = "CM") {
                 </div>`;
             }
           }
-        ],
+        ]
+      });
 
-        createdRow: function (row, data2, dataIndex) {
-          var purposeDesc = data2.purposeDesc;
-          if (purposeDesc === "Meal") {
-            $(row).find('td:eq(4)').html('<img src="img/food.svg" alt="" class="mr-2">' + purposeDesc);
-          } else if (purposeDesc === "Petroleum Voucher") {
-            $(row).find('td:eq(4)').html('<img src="img/fuel-grey.png" alt="" class="mr-2">' + purposeDesc);
-          }
-
-          var type = data2.type;
-          let labelText = '', labelClass = '';
-          switch (type) {
-            case "Created":
-              labelText = "Active";
-              labelClass = "pill bg-lightgreen-txt-green-pill";
-              break;
-            case "Redeem":
-              labelText = "Redeemed";
-              labelClass = "pill bg-blue-txt-blue-pill";
-              break;
-            case "fail":
-              labelText = "Failed";
-              labelClass = "pill bg-red-txt-red-pill";
-              break;
-            case "Revoke":
-              labelText = "Revoked";
-              labelClass = "pill bg-grey-txt-grey-pill";
-              break;
-            default:
-              labelText = type;
-              labelClass = "pill bg-lightgrey-txt-grey-pill";
-          }
-          $(row).find('td:eq(6)').html(`<span class="${labelClass}">${labelText}</span>`);
-
-          var bankcode = data2.bankcode;
-          var bankIcon = data2.bankIcon;
-          var accountNumber = data2.accountNumber;
-          if (bankcode === "ICICI") {
-            var imgTag = '<img src="data:image/png;base64,' + bankIcon + '" alt="" width="16px">';
-            const last4 = accountNumber && accountNumber.length >= 4 ? accountNumber.slice(-4) : '';
-            $(row).find('td:eq(3)').html(imgTag + " xxxx" + last4);
-          }
-        }
+      // Select/Deselect all rows
+      $('#checkAll').on('click', function () {
+        var rows = $('#vouchersTableList').DataTable().rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"].rowCheckbox', rows).prop('checked', this.checked);
       });
     },
     error: function (e) {

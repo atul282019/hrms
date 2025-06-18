@@ -7486,7 +7486,7 @@ table.vcScheduledtable thead {
 				  border-radius: 20px;
 				  width: 500px;
 				  height: 296px;
-				  margin-left: 24px;
+				  /*margin-left: 24px;*/
 				  overflow-y: auto;
 				  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
 				  display: flex;
