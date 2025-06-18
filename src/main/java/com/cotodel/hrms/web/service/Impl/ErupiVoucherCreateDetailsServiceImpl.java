@@ -232,6 +232,10 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	}
 
 	@Override
+	public String erupiVoucherStatusHistory(String token, EncriptResponse erupiVoucherStatusHistory) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherStatusHistory), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.erupiVoucherStatusHistory);
+	}
+	@Override
 	public String voucherUserSearch(String token, EncriptResponse roleAccessRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(roleAccessRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.voucherUserSearch);
 	}

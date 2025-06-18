@@ -218,17 +218,19 @@ function focusBack(){
 
 
 function getLinkedBankDetail() {
-  var employerid = document.getElementById("employerId").value;
+  const employerid = document.getElementById("employerId").value;
+
   $.ajax({
     type: "POST",
     url: "/getErupiLinkBankAccountDetail",
-    data: { "orgId": employerid },
+    data: { orgId: employerid },
     success: function (data) {
       const select = document.getElementById("banklist");
       select.innerHTML = "";
 
       const parsed = JSON.parse(data).data;
-	  console.log("getLinkedBankDetail()=",parsed);
+      console.log("getLinkedBankDetail()=", parsed);
+
       const dropdownList = document.getElementById("dropdownList");
       dropdownList.innerHTML = "";
 
@@ -240,58 +242,83 @@ function getLinkedBankDetail() {
 
         const option = document.createElement("option");
         option.value = onlyBank.acNumber;
-        option.text = onlyBank.bankName + " | " + masked;
+        option.text = onlyBank.accountSeltWallet === "Wallet"
+          ? "cotowallet"
+          : `${onlyBank.bankName} | ${masked}`;
         select.appendChild(option);
 
-        document.getElementById("selectedBank").innerHTML = `
-          <div class="dropdown-item">
-            <div class="dropdown-bank-info">
-              <img src="data:image/png;base64,${onlyBank.bankIcon}" alt="logo">
-              <span>${onlyBank.bankName}</span>
-            </div>
-            <span class="dropdown-mask">${masked}</span>
-          </div>
-        `;
+        const selectedHTML = onlyBank.accountSeltWallet === "Wallet"
+          ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
+                <span style="font-weight: 500; color: #4A4E69;">coto</span><span style="font-weight: 700; color: #2F945A;">wallet</span>
+              </div>
+              <span class="dropdown-mask">${masked}</span>`
+          : `<div class="dropdown-item">
+                <div class="dropdown-bank-info">
+                  <img src="data:image/png;base64,${onlyBank.bankIcon}" alt="logo" style="width: 24px; height: 24px;">
+                  <span>${onlyBank.bankName}</span>
+                </div>
+                <span class="dropdown-mask">${masked}</span>
+             </div>`;
+
+        document.getElementById("selectedBank").innerHTML = selectedHTML;
         select.value = onlyBank.acNumber;
         getBankDetailByBankAccountNumber();
-        showLinkedAccAmount(onlyBank.acNumber);
-
+        showLinkedAccAmount(onlyBank.acNumber, onlyBank.accountSeltWallet);
       } else {
-        bankKeys.forEach((key, i) => {
+        let walletBank = null;
+
+        bankKeys.forEach((key) => {
           const bank = parsed[key];
           const masked = "XXXX" + bank.acNumber.slice(-4);
 
           const option = document.createElement("option");
           option.value = bank.acNumber;
-          option.text = bank.bankName + " | " + masked;
+          option.text = bank.accountSeltWallet === "Wallet"
+            ? "cotowallet"
+            : `${bank.bankName} | ${masked}`;
           select.appendChild(option);
 
           const div = document.createElement("div");
           div.className = "dropdown-item";
-          div.innerHTML = `
-            <div class="dropdown-bank-info">
-              <img src="data:image/png;base64,${bank.bankIcon}" alt="logo">
-              <span>${bank.bankName}</span>
-            </div>
-            <span class="dropdown-mask">${masked}</span>
-          `;
-          div.onclick = function () {
-            document.getElementById("selectedBank").innerHTML = `
-              <div class="dropdown-item">
-                <div class="dropdown-bank-info">
-                  <img src="data:image/png;base64,${bank.bankIcon}" alt="logo">
-                  <span>${bank.bankName}</span>
-                </div>
-                <span class="dropdown-mask">${masked}</span>
+
+          if (bank.accountSeltWallet === "Wallet") {
+            div.innerHTML = `
+			<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
+                <span style="font-weight: 500; color: #4A4E69;">coto</span><span style="font-weight: 700; color: #2F945A;">wallet</span>
               </div>
+              <span class="dropdown-mask">${masked}</span>
             `;
+          } else {
+            div.innerHTML = `
+              <div class="dropdown-bank-info">
+                <img src="data:image/png;base64,${bank.bankIcon}" alt="logo" style="width: 24px; height: 24px;">
+                <span>${bank.bankName}</span>
+              </div>
+              <span class="dropdown-mask">${masked}</span>
+            `;
+          }
+
+          div.onclick = function () {
+            document.getElementById("selectedBank").innerHTML = div.innerHTML;
             select.value = bank.acNumber;
             document.getElementById("dropdownList").style.display = "none";
             getBankDetailByBankAccountNumber();
-            showLinkedAccAmount(bank.acNumber,bank.accountSeltWallet);
+            showLinkedAccAmount(bank.acNumber, bank.accountSeltWallet);
           };
+
           dropdownList.appendChild(div);
+
+          if (bank.accountSeltWallet === "Wallet" && walletBank === null) {
+            walletBank = { bank, masked, div };
+          }
         });
+
+        if (walletBank) {
+          document.getElementById("selectedBank").innerHTML = walletBank.div.innerHTML;
+          select.value = walletBank.bank.acNumber;
+          getBankDetailByBankAccountNumber();
+          showLinkedAccAmount(walletBank.bank.acNumber, walletBank.bank.accountSeltWallet);
+        }
       }
     },
     error: function (e) {
@@ -311,8 +338,6 @@ document.addEventListener("click", function (e) {
     document.getElementById("dropdownList").style.display = "none";
   }
 });
-
-
 
 
 

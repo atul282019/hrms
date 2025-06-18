@@ -35,7 +35,9 @@ public interface ErupiVoucherCreateDetailsService {
 	String geterupiVoucherOldList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 
 	String exitingUserVoucherCreation(String token,ExistingUserVoucherCreationRequest existingUserVoucherCreationRequest);
-
+	
+	String erupiVoucherStatusHistory(String token, EncriptResponse erupiVoucherStatusHistory);
+	
 	String voucherUserSearch(String token, EncriptResponse roleAccessRequest);
 
 	String getTotalVoucherCount(String token, EncriptResponse erupiVoucherCreateDetails);

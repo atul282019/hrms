@@ -259,12 +259,13 @@ requestedVoucherCount()">
 									    <h3 class="mb-3">Details of UPI Vouchers & Transactions</h3>
 
 									    <div class="rightdownload mb-3 d-flex align-items-center" style="gap: 12px;">
-											<div style="font-size: 13px;color: #1F212C;">Clear Filters</div>
-									        <!-- Search Box -->
-									        <div style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="d-flex align-items-center">
-									            <img src="img/search.svg" alt="Search" style="margin-right: 6px;">
-									            <input type="text" placeholder="Search..." style="border: none; outline: none; width: 100%;">
-									        </div>
+											<div id="clearFilters" style="font-size: 13px; color: #1F212C; cursor: pointer;">Clear Filters</div>
+											    <!-- Search Box -->
+											    <div style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="d-flex align-items-center">
+											        <img src="img/search.svg" alt="Search" style="margin-right: 6px;">
+											        <input type="text" id="searchInput" placeholder="Search..." style="border: none; outline: none; width: 100%;">
+											    </div>
+									       
 
 									        <!-- Quick Filters -->
 									        <div style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
@@ -273,8 +274,10 @@ requestedVoucherCount()">
 									                Quick Filters
 									            </a>
 									            <div class="dropdown-menu">
-									                <a class="dropdown-item" href="#">Filter 1</a>
-									                <a class="dropdown-item" href="#">Filter 2</a>
+									                <a class="dropdown-item" href="#">Active</a>
+									                <a class="dropdown-item" href="#">Expired & Revoked</a>
+													<a class="dropdown-item" href="#">Issued Today</a>
+									                <a class="dropdown-item" href="#">Issued this Month</a>
 									            </div>
 									        </div>
 
@@ -349,13 +352,15 @@ requestedVoucherCount()">
 												 <thead>
 			 						                <tr>
 			 										 <!-- <th>S.NO</th>-->
-			 										  <th>Name</th>
-			 						                  <th>Mobile Number</th>	
+													 <th>Issue Date</th>	
+			 										  <th>Name & Mobile #</th>
+													  <th>Voucher ID</th>
 			 						                  <th>Bank A/c</th>
-			 										  <th>Voucher & Type</th>	
-			 										  <th>Status</th>	
-			 										  <th>Issue Date</th>	
+			 										  <th>Category</th>	
+			 										  
+			 										  
 			 										  <th>Expiry Date</th>	
+													  <th>Status</th>	
 			 										  <th>Issued</th>	
 			 										  <th>Redeemed</th>	
 													  <th>Actions</th>	
@@ -429,10 +434,10 @@ requestedVoucherCount()">
 													<thead>
 												      <tr>							
 													  <th>Date & Time</th>
-												      <th>TXN ID</th>	
-												      <th>Name</th>
+												      <th>Voucher ID</th>	
+												      <th>Name & Mobile #</th>
 													  <th>Catagory</th>	
-													  <th>Merchant</th>	
+													  <th>Merchant Name</th>	
 													  <th>Amount</th>	
 													  <th>Mode of Payment</th>	
 													  
@@ -540,6 +545,83 @@ requestedVoucherCount()">
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/upi-voucher-issuance.js"></script>
 
+	<script>
+		const searchInput = document.getElementById('searchInput');
+		const table = document.getElementById('vouchersTableList');
+		const tbody = table.querySelector('tbody');
+		const clearFiltersBtn = document.getElementById('clearFilters');
+
+		let cachedRows = [];
+
+		function enableClearButton(enabled) {
+		    clearFiltersBtn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+		    clearFiltersBtn.style.opacity = enabled ? '1' : '0.5';
+		    clearFiltersBtn.disabled = !enabled;
+		}
+
+		enableClearButton(false);
+
+		searchInput.addEventListener('input', () => {
+		    const query = searchInput.value.toLowerCase().trim();
+
+		    if (cachedRows.length === 0) {
+		        cachedRows = Array.from(tbody.querySelectorAll('tr'));
+		    }
+
+		    tbody.innerHTML = '';
+
+		    if (query === '') {
+		        cachedRows.forEach(row => tbody.appendChild(row.cloneNode(true)));
+		        enableClearButton(false);
+		        return;
+		    }
+
+		    const matches = cachedRows.filter(row => row.textContent.toLowerCase().includes(query));
+		    matches.forEach(row => tbody.appendChild(row.cloneNode(true)));
+		    enableClearButton(true);
+		});
+
+		function clearAllFilters() {
+		    if (clearFiltersBtn.style.cursor === 'not-allowed') return;
+		    searchInput.value = '';
+		    tbody.innerHTML = '';
+
+		    if (cachedRows.length === 0) {
+		        cachedRows = Array.from(tbody.querySelectorAll('tr'));
+		    }
+
+		    cachedRows.forEach(row => tbody.appendChild(row.cloneNode(true)));
+		    enableClearButton(false);
+		}
+
+		clearFiltersBtn.addEventListener('click', clearAllFilters);
+	</script>
+	<script>	document.addEventListener("DOMContentLoaded", function () {
+	  function updateSelectedLabel(label) {
+	    const dropdownLabel = document.querySelector(".dropdown-toggle.calender-time span");
+	    dropdownLabel.textContent = label;
+	  }
+
+	  function callPeriod(periodKey, label) {
+	    const periodMap = {
+	      currentMonth: "CM",
+	      lastMonth: "LM",
+	      currentFY: "CFY",
+	      lastFY: "LFY",
+	      allHistory: "AH"
+	    };
+	    const period = periodMap[periodKey] || "AH";
+	    updateSelectedLabel(label);
+	    erupiVoucherCreateListLimit(period);
+	  }
+
+	  document.getElementById("currentMonth").addEventListener("click", () => callPeriod("currentMonth", "Current Month"));
+	  document.getElementById("lastMonth").addEventListener("click", () => callPeriod("lastMonth", "Last Month"));
+	  document.getElementById("currentFY").addEventListener("click", () => callPeriod("currentFY", "Current Financial Year"));
+	  document.getElementById("lastFY").addEventListener("click", () => callPeriod("lastFY", "Last Financial Year"));
+	  document.getElementById("allHistory").addEventListener("click", () => callPeriod("allHistory", "All History"));
+	});
+</script>
 	<script type="text/javascript">
 
 	$(document).ready(function(){
@@ -1006,7 +1088,7 @@ requestedVoucherCount()">
 	       
 	    }
 		
-		function updateSelectedLabel(label) {
+		/*function updateSelectedLabel(label) {
 		        const dropdownLabel = document.querySelector(".dropdown-toggle.calender-time span");
 		        dropdownLabel.textContent = label;
 		    }
@@ -1032,7 +1114,7 @@ requestedVoucherCount()">
 		document.getElementById("allHistory").addEventListener("click", function () {
 			updateSelectedLabel("All History");
 			        callAPI("allHistory");
-		});
+		});*/
 		
 	});
 	
@@ -1394,4 +1476,169 @@ requestedVoucherCount()">
 				        </div>
 			</div>
 		</div>
+		<!-- Slide-in Modal -->
+		<!-- All inline styles replaced with unique CSS classes -->
+		<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay">
+		  <div class="voucher-modal-canvas" id="bs-canvas-right1">
+		    <div class="voucher-modal-scrollable-wrapper">
+		      <div class="voucher-modal-scrollable">
+		        <div class="voucher-header">
+		          <h5 class="voucher-title">Voucher Details</h5>
+		          <button class="voucher-close-btn bs-canvas-close" aria-label="Close">
+		            <i class="fas fa-times voucher-close-icon"></i>
+		          </button>
+		        </div>
+
+		        <div class="voucher-card">
+		          <div class="voucher-card-header">
+		            <div class="voucher-card-icon-box">
+		              <img src="img/food-icon-grey.png" alt="Meal Icon" width="24" height="24">
+		            </div>
+		            <div class="voucher-card-labels">
+		              <div class="voucher-label-row">
+		                <span class="voucher-label-title">Meal</span>
+		                <span class="voucher-label-title">₹15,000</span>
+		              </div>
+		              <div class="voucher-label-row">
+		                <span class="voucher-label-sub">Multiple</span>
+		                <span class="voucher-label-sub">Voucher value</span>
+		              </div>
+		            </div>
+		          </div>
+
+		          <div class="voucher-status-box">
+		            <span class="voucher-status-text">Active</span>
+		            <span class="voucher-status-text">Balance: <span class="voucher-balance">₹5,000</span></span>
+		          </div>
+
+		          <div class="voucher-meta">
+		            <div class="voucher-meta-row">
+		              <span class="voucher-meta-label">Issue Date</span>
+		              <span class="voucher-meta-label">Voucher ID</span>
+		            </div>
+		            <div class="voucher-meta-row">
+		              <span class="voucher-meta-value">25/10/2024</span>
+		              <span class="voucher-meta-value">ICICI00001145781</span>
+		            </div>
+		            <div class="voucher-meta-row">
+		              <span class="voucher-meta-label">Beneficiary</span>
+		              <span class="voucher-meta-label">Mobile Number</span>
+		            </div>
+		            <div class="voucher-meta-row">
+		              <span class="voucher-meta-value">Ramesh Kumar</span>
+		              <span class="voucher-meta-value">9910318405</span>
+		            </div>
+		            <div class="voucher-meta-row">
+		              <span class="voucher-meta-label">Bank A/c</span>
+		              <span class="voucher-meta-label">Expiry Date</span>
+		            </div>
+		            <div class="voucher-meta-row">
+		              <span class="voucher-meta-value">
+		                <img src="img/indianbank.png" alt="indianbank" class="voucher-bank-icon">xxx0569
+		              </span>
+		              <span class="voucher-meta-value">25/10/2025</span>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="voucher-redemption">
+		          <h6 class="voucher-redemption-title">Redemption Details</h6>
+		          <div class="voucher-redemption-card">
+		            <div class="voucher-redemption-label">Amount Spent</div>
+		            <div class="voucher-redemption-values">
+		              <div class="voucher-redemption-amount">₹10,000</div>
+		              <span class="voucher-status-pill">Partially Redeemed</span>
+		            </div>
+		          </div>
+		        </div>
+
+		        <ol class="voucher-transaction-list">
+		          <div class="voucher-transaction-line"></div>
+				  <!-- box1-->
+		          <li class="voucher-transaction-item">
+		            <div class="voucher-transaction-step">1</div>
+		            <div class="voucher-transaction-card">
+		              <div class="voucher-transaction-top">
+		                <div>
+		                  <div class="voucher-meta-label">Transaction date</div>
+		                  <div class="voucher-meta-value">25/10/2024</div>
+		                </div>
+		                <div>
+		                  <div class="voucher-meta-label">Transaction RRN</div>
+		                  <div class="voucher-meta-value">ICICI00001145781</div>
+		                </div>
+		              </div>
+		              <div class="voucher-transaction-bottom">
+		                <div>
+		                  <div class="voucher-meta-label">Merchant Name</div>
+		                  <div class="voucher-meta-value">Ramesh Kumar</div>
+		                </div>
+		                <div>
+		                  <div class="voucher-meta-label">Amount</div>
+		                  <div class="voucher-meta-value">₹1,200</div>
+		                </div>
+		              </div>
+		            </div>
+		          </li>
+				  <!-- box2-->
+				  <li class="voucher-transaction-item">
+		            <div class="voucher-transaction-step">2</div>
+		            <div class="voucher-transaction-card">
+		              <div class="voucher-transaction-top">
+		                <div>
+		                  <div class="voucher-meta-label">Transaction date</div>
+		                  <div class="voucher-meta-value">25/10/2024</div>
+		                </div>
+		                <div>
+		                  <div class="voucher-meta-label">Transaction RRN</div>
+		                  <div class="voucher-meta-value">ICICI00001145781</div>
+		                </div>
+		              </div>
+		              <div class="voucher-transaction-bottom">
+		                <div>
+		                  <div class="voucher-meta-label">Merchant Name</div>
+		                  <div class="voucher-meta-value">Ramesh Kumar</div>
+		                </div>
+		                <div>
+		                  <div class="voucher-meta-label">Amount</div>
+		                  <div class="voucher-meta-value">₹1,200</div>
+		                </div>
+		              </div>
+		            </div>
+		          </li>
+				  <!-- add as many box as wanted-->
+		        </ol>
+		      </div>
+		    </div>
+
+		    <div class="voucher-footer">
+		      <button class="voucher-download-btn">
+		        <i class="fas fa-download"></i>
+		        Download History
+		      </button>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Modal Script -->
+		<script>
+		  document.querySelectorAll('.view-voucher-details').forEach(btn => {
+		    btn.addEventListener('click', function () {
+		      document.getElementById('bs-canvas-right1').style.right = '0';
+		      document.getElementById('modal-overlay').style.display = 'block';
+		    });
+		  });
+
+		  document.querySelector('.bs-canvas-close').addEventListener('click', function () {
+		    document.getElementById('bs-canvas-right1').style.right = '-378px';
+		    document.getElementById('modal-overlay').style.display = 'none';
+		  });
+
+		  document.getElementById('modal-overlay').addEventListener('click', function (e) {
+		    if (e.target.id === 'modal-overlay') {
+		      document.getElementById('bs-canvas-right1').style.right = '-378px';
+		      this.style.display = 'none';
+		    }
+		  });
+		</script>
 

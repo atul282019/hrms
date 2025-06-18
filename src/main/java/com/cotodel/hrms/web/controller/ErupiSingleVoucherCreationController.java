@@ -480,6 +480,30 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
    
 	return profileRes;
 	}
+	@PostMapping(value="/erupiVoucherStatusHistory")
+	public @ResponseBody String erupiVoucherStatusHistory(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session,EmployeeMassterRequest roleAccessRequest) {
+			
+		String profileRes=null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(roleAccessRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  erupiVoucherCreateDetailsService.erupiVoucherStatusHistory(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
 	
 	 private String generateHash(String data) throws NoSuchAlgorithmException {
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");

@@ -102,6 +102,7 @@ public interface CommonUtils {
 	public static String getVoucherListWithIconNew ="/masterService/Api/get/voucherPriorityList"; 
 	public static String getPurposeListByVoucherCode ="/masterService/Api/get/mccByPurposeCodeList"; 
 	// old public static String voucherUserSearch="/userServices/Api/get/userSearchWithMobile";
+	public static String erupiVoucherStatusHistory="/empService/Api/get/erupiVoucherStatusHistory";
 	public static String voucherUserSearch="/empService/Api/get/employeeSearchWithMobile";
 	public static String getTotalVoucherCount = "/empService/Api/get/voucherSummaryTotalCount";
 	public static String getVoucherCreateBankList = "/empService/Api/get/voucherCreateBankList";
