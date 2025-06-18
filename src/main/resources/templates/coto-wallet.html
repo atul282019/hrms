@@ -438,12 +438,12 @@
 	                       </div>
 	                   </div>
 	   
-	                   <div class="info-alert d-flex align-items-centerr" style="display: none;"  id="tialAmountLimit" >
+	                  <!-- <div class="info-alert d-flex align-items-centerr" style="display: none;"  id="tialAmountLimit" >
 	                       <i class="bi bi-info-circle-fill me-2" style="margin-right: 13px;"></i>
 	                       <div>
 	                           Monthly limit for Product Trial is ₹2,000. You can only try ₹500 more.
 	                       </div>
-	                   </div>
+	                   </div>-->
 	   
 	                   <div class="d-grid mt-4">
 						<button type="button" class="btn btn-continue" data-bs-toggle="modal" onclick="updatePayment()">
@@ -623,19 +623,19 @@
      		            }
      		            // Populate the table dynamically
 						payment_history.forEach((payment_history) => {
-						    const row = `
-						    <tr>
-						        <td>${payment_history.id}</td>
-						        <td>${payment_history.customerName}</td>
-						        <td>${payment_history.customerPhone}</td>
-						        <td style="text-align:right">₹${Number(payment_history.orderAmount).toLocaleString('en-IN')}</td>
-						        <td>${payment_history.orderStatus}</td>
-						        <td>${payment_history.cfPaymentId}</td>
-						        <td>${payment_history.paymentStatus}</td>
-						        <td style="text-align:right">₹${Number(payment_history.serviceCharge).toLocaleString('en-IN')}</td>
-						        <td style="text-align:right">₹${Number(payment_history.settlementAmount).toLocaleString('en-IN')}</td>
-						    </tr>
-						    `;
+							const row = `
+							    <tr>
+							        <td>${payment_history.id}</td>
+							        <td>${payment_history.customerName}</td>
+							        <td>${payment_history.customerPhone}</td>
+							        <td style="text-align:right">₹${Number(payment_history.orderAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+							        <td>${payment_history.orderStatus}</td>
+							        <td>${payment_history.cfPaymentId}</td>
+							        <td>${payment_history.paymentStatus}</td>
+							        <td style="text-align:right">₹${Number(payment_history.serviceCharge).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+							        <td style="text-align:right">₹${Number(payment_history.settlementAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+							    </tr>
+							`;
 						    tableBody.append(row);
 						});
      		        },

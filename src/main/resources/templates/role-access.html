@@ -102,7 +102,7 @@ viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEm
                                 <li class="active" th:if="${session.user_role == 9 or session.user_role == 1}" ><a data-toggle="tab" href="#home1">Role Access</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
                                 <li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
-								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33">Workplace</a></li>
+								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33">Expenses & Advances</a></li>
 								<!--<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
                              -->
                             </ul>

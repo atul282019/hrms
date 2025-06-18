@@ -251,21 +251,21 @@
 		                    `;
 		                }
 
-		                const row = `
-		                <tr>
-		                    <td>${employer.id}</td>
-		                    <td>${employer.orderId}</td>
-		                    <td>${employer.accountHolderName}</td>
-		                   
-		                    <td>${employer.createdby}</td>
-		                    <td>${formatDate(employer.creationDate)}</td>
-		                    <td>${employer.amountLimit}</td>
-		                   
-		                    <td class="${statusColorClass} font-weight-bold">${employer.statusMessage}</td>
-		                    <td>${approver}</td>
-		                    <td>${actionMenu}</td>
-		                </tr>
-		                `;
+						const row = `
+						    <tr>
+						        <td>${employer.id}</td>
+						        <td>${employer.orderId}</td>
+						        <td>${employer.accountHolderName}</td>
+
+						        <td>${employer.createdby}</td>
+						        <td>${formatDate(employer.creationDate)}</td>
+						        <td class="text-right">₹${parseFloat(employer.amountLimit).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+
+						        <td class="${statusColorClass} font-weight-bold">${employer.statusMessage}</td>
+						        <td>${approver}</td>
+						        <td>${actionMenu}</td>
+						    </tr>
+						`;
 
 		                tableBody.append(row);
 		            });
