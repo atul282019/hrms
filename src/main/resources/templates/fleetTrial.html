@@ -66,6 +66,7 @@
 								  <label for="username">Full Name</label>
 								  <div id="usernameError1" class="error-msg"></div>
 								</div>
+								<div id="usernameError1" class="error-msg" style="margin-top: -10px;"><br></div>
 	                            
 								<div class="floating-group">
 									  <input type="email" id="email" class="form-control" placeholder=" " autocomplete="off" required>
@@ -176,6 +177,12 @@
 			            <div class="modal-content modal-bulk p-0">
 			                <div class="modal-header text-center">
 			                    <h5 class="modal-title w-100">Verify otp</h5>
+								<button type="button"
+							           style="border: none; background: none; font-size: 1.5rem; position: absolute; top: 10px; right: 0px; line-height: 1; padding: 0 20px;"
+							           aria-label="Close"
+							           onclick="closefleetOTPModal()">
+							       &times;
+							   </button>
 			                </div>				
 							<div class="modal-body text-center">
 							    <div class="otp-box-onboarding justify-content-center">
@@ -422,6 +429,11 @@
     <script src="js/sb-admin-2.min.js"></script>
 <!--	<script type="text/javascript" src="cotodel-js/mobileotp.js"></script>-->
 	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
+<script>
+	function closefleetOTPModal() {
+		    document.getElementById("fleetOTPModal").style.display = "none";
+		}
+</script>
 	<script>
 		  const termsCheckbox = document.getElementById('terms');
 		  const registerBtn = document.getElementById('registerBtn');
