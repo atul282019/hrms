@@ -167,7 +167,13 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		logger.info(data.toString());
 		return data.toString();
 	}
+	
+	
+	@Override
+	public String erupiVoucherRevokeBulk(String token, EncriptResponse erupiVoucherRevokeDetailsBulkRequest) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherRevokeDetailsBulkRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.erupiVoucherRevokeDetailsBulkRequest);
 
+	}
 	@Override
 	public String beneficiaryDeleteFromVoucherList(String token, EncriptResponse bulkVoucherRequest) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(bulkVoucherRequest), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.beneficiaryDeleteFromVoucherList);

@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
+import com.cotodel.hrms.web.response.ErupiVoucherRevokeDetailsBulkRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.BulkVoucherService;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
@@ -294,6 +295,30 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
 			String encriptResponse = erupiVoucherCreateDetailsService.beneficiaryDeleteFromVoucherList(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
+	}
+	
+	@PostMapping(value = "/erupiVoucherRevokeBulk")
+	public @ResponseBody String erupiVoucherRevokeBulk(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ErupiVoucherRevokeDetailsBulkRequest erupiVoucherRevokeDetailsBulkRequest) {
+		String profileRes = null;
+	
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherRevokeDetailsBulkRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = erupiVoucherCreateDetailsService.erupiVoucherRevokeBulk(tokengeneration.getToken(), jsonObject);
 
    
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);

@@ -482,12 +482,12 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	}
 	@PostMapping(value="/erupiVoucherStatusHistory")
 	public @ResponseBody String erupiVoucherStatusHistory(HttpServletRequest request, ModelMap model,Locale locale,
-			HttpSession session,EmployeeMassterRequest roleAccessRequest) {
+			HttpSession session,ErupiVoucherStatusSmsRequest ErupiVoucherStatusSmsRequest) {
 			
 		String profileRes=null;
 		
 		try {
-			String json = EncryptionDecriptionUtil.convertToJson(roleAccessRequest);
+			String json = EncryptionDecriptionUtil.convertToJson(ErupiVoucherStatusSmsRequest);
 
 			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 
