@@ -936,42 +936,49 @@ function getPrimaryBankDetail(){
 			      });
 				  
 				  
-				  function  showLinkedAccAmount(accountNumber){
-				  	
-				      //document.getElementById("signinLoader").style.display="flex";
-				   	//var employerid = document.getElementById("employerId").value;
-					//var accountNumber = document.getElementById("banklist").value;
-					var employerid = document.getElementById("employerId").value;
-					console.log("accountNumber,employerid ",accountNumber,employerid);
-				   	$.ajax({
-				  	type: "POST",
-				  	url:"/showLinkedAccAmount",
-				         data: {
-				  			"acNumber": accountNumber,
-							"orgId":employerid 
-				        		 },
-				        		
-				  			   success: function(data){
-								console.log("showLinkedAccAmount",data);
-				  	          
-								var obj = jQuery.parseJSON(data);
-								   // obj = obj.data;
+				  function showLinkedAccAmount(accountNumber, accountSeltWallet) {
+				  			      const employerid = document.getElementById("employerId").value;
+				  			      console.log("accountNumber, employerid", accountNumber, employerid);
 
-									if (obj.status==true) {
-									            // Update the balance in the HTML
-									            document.querySelector(".text-wrapper-3").textContent = obj.balance ? obj.balance:"Amount Not Available";
-												
-												document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
-									        }
-											// Format and display timestamp if available
-						            			
-				            },
-				          error: function(e){
-				              alert('Error: ' + e);
-				          }
-				     }); 
-				  			
-				  }
+				  			      if (accountSeltWallet === "Self") {
+				  			          document.querySelector(".button-check-balance").style.display = "block";
+				  			          document.querySelector(".tip-disabled").style.display = "block";
+
+				  			          document.querySelector(".div-2").style.display = "none";
+				  			          document.querySelector(".last-updated-on").style.display = "none";
+				  			          return;
+				  			      }
+
+				  			      document.querySelector(".button-check-balance").style.display = "none";
+				  			      document.querySelector(".tip-disabled").style.display = "none";
+
+				  			      document.querySelector(".div-2").style.display = "block";
+				  			      document.querySelector(".last-updated-on").style.display = "block";
+
+				  			      $.ajax({
+				  			          type: "POST",
+				  			          url: "/showLinkedAccAmount",
+				  			          data: {
+				  			              "acNumber": accountNumber,
+				  			              "orgId": employerid
+				  			          },
+				  			          success: function (data) {
+				  			              console.log("showLinkedAccAmount", data);
+				  			              const obj = jQuery.parseJSON(data);
+				  			              if (obj.status === true) {
+				  			                  const rawAmount = obj.balance;
+				  			                  const formattedAmount = (!isNaN(rawAmount) && rawAmount !== null)
+				  			                      ? Number(rawAmount).toLocaleString('en-IN')
+				  			                      : "Amount Not Available";
+				  			                  document.querySelector(".text-wrapper-3").textContent = formattedAmount;
+				  			              }
+				  			          },
+				  			          error: function (e) {
+				  			              alert('Error: ' + e);
+				  			          }
+				  			      });
+				  			  }
+
 				  function formatTimestamp(timestamp) {
 				      let dateObj = new Date(timestamp.replace(" ", "T")); // Ensure proper parsing
 

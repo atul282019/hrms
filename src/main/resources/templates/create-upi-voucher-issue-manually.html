@@ -554,6 +554,14 @@
         //var today = new Date().toISOString().split('T')[0];
        // document.getElementById("startDate").value = today;
     </script>
+	<style>	/* Wrap input to allow absolute positioning of dropdown */
+	.autocomp-input-wrap {
+	    position: relative;
+	    z-index: 1000; /* Ensure it's above table rows */
+	}
+
+	
+</style>
 	<style>	
 		 
 		.selectvouchers-topleft-cards {
@@ -1335,31 +1343,43 @@
 	      
 	    }
 
-	    function displaySuggestions(userList, inputElement, dropdown) {
-	        dropdown.innerHTML = '';
-	        userList.forEach(user => {
-	            const div = document.createElement('div');
-	            div.classList.add('autocomplete-suggestion');
-	            const base64Image = user.empPhoto 
-	                ? `<img class="user-photo" src="data:image/jpeg;base64,${user.empPhoto}" alt="Emp Photo" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`
-	                : `<img class="img-profile rounded-circle" src="img/no-image-available.png" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`;
+		function displaySuggestions(userList, inputElement, dropdown) {
+		    dropdown.innerHTML = '';
 
-	            div.innerHTML = `
-	                ${base64Image} &nbsp;
-	                <span class="user-profile">${user.username}</span> &nbsp;
-	                <span class="user-contact">${user.mobile}</span>
-	            `;
-	            div.addEventListener('click', function () {
-	                inputElement.value = user.username;
-	                // Assuming you want to populate the mobile field next to the inputElement
-	                inputElement.closest('tr').querySelector('input[placeholder="Enter Mobile Number"]').value = user.mobile;
-	                dropdown.style.display = 'none';
-	            });
+		    userList.forEach(user => {
+		        const div = document.createElement('div');
+		        div.classList.add('autocomplete-suggestion');
 
-	            dropdown.appendChild(div);
-	        });
-	        dropdown.style.display = userList.length > 0 ? 'block' : 'none';
-	    }
+		        const base64Image = user.empPhoto
+		            ? `<img class="user-photo" src="data:image/jpeg;base64,${user.empPhoto}" alt="Emp Photo" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`
+		            : `<img class="img-profile rounded-circle" src="img/no-image-available.png" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`;
+
+		        div.innerHTML = `
+		            ${base64Image} &nbsp;
+		            <span class="user-profile">${user.username}</span> &nbsp;
+		            <span class="user-contact">${user.mobile}</span>
+		        `;
+
+		        div.addEventListener('click', function () {
+		            inputElement.value = user.username;
+		            const mobileInput = inputElement.closest('tr').querySelector('input[placeholder="Enter Mobile Number"]');
+		            if (mobileInput) mobileInput.value = user.mobile;
+		            dropdown.style.display = 'none';
+		        });
+
+		        dropdown.appendChild(div);
+		    });
+
+		    // Calculate input position and apply to dropdown
+		    const rect = inputElement.getBoundingClientRect();
+		    dropdown.style.position = 'fixed';
+		    dropdown.style.top = `${rect.bottom + 5}px`; // 5px gap below input
+		    dropdown.style.left = `${rect.left}px`;
+		    dropdown.style.width = `${rect.width}px`; // Optional: match input width
+			dropdown.style.width = `300px`;
+		    dropdown.style.display = userList.length > 0 ? 'block' : 'none';
+		}
+
 
 		function showVoucherModal(inputElement) {
 		        const modal = document.getElementById('modalforvccategoryforbulkissuance');
@@ -1616,6 +1636,7 @@
             </div>
         </div>
     </div>
+
 	<script>
 	function closeOtpModal() {
 	    document.getElementById("otpModal1").style.display = "none";

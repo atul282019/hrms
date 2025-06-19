@@ -7671,6 +7671,12 @@ table.vcScheduledtable thead {
 				.active-pill {
 				  background-color: #2F945A;
 				}
+				
+				.bg-lightred-txt-red-pill 
+							{
+								background-color: #F248221A;
+							 	color: #F24822 !important;
+							}
 				.bg-lightyellow-txt-yellow-pill 
 					{
 						background-color: #FF95001A;

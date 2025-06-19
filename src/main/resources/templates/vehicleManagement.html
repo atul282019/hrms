@@ -372,7 +372,7 @@
  		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
  		                        <img src="img/modal-close.svg" alt="">
  		                    </button>
- 		                    <img src="img/close circle.png" alt="">
+ 		                    <img src="img/close circle.png" alt="close circle" style="margin-left:25px;">
  		                </div>
 						<div class="modal-bottom" id="failed" style="display: block;">
 							
@@ -1239,11 +1239,12 @@ function openModalConfirm() {
 				}else if(data1.status==false){
 					const vehicleDetailsModal = document.getElementById('editDetailsModal');
 					vehicleDetailsModal.style.display = 'none';
+					const modal = document.getElementById('ModalConfirmFail');
+					modal.style.display = 'block';
 					document.getElementById('successUpdate').style.display = 'none';
 					document.getElementById('failedUpdate').style.display = 'block';
-					document.getElementById('failedUpdateError').innerHTML=	data1.message;		
-					const modal = document.getElementById('ModalConfirmUpdate');
-					modal.style.display = 'block';
+					document.getElementById('failedError').innerHTML=	data1.message;		
+					
 					document.getElementById('driverName2').value="";
 					document.getElementById('clientName').value="";	
 				    document.getElementById("customTimePeriod").value="";

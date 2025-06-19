@@ -723,7 +723,7 @@ async function getVoucherTransactionList() {
 
 
 
-function erupiVoucherCreateListLimit(timePeriod = "AH") {
+function erupiVoucherCreateListLimit(timePeriod = "AH") { 
   var employerid = document.getElementById("employerId").value;
   $.ajax({
     type: "POST",
@@ -735,7 +735,9 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
     success: function (data) {
       var data1 = jQuery.parseJSON(data);
       var data2 = data1.data;
-		console.log("showing voucher in table /erupiVoucherCreateListLimit ",data2);
+      console.log("datad for /erupiVoucherCreateListLimit ", data2);
+      console.log("showing voucher in table /erupiVoucherCreateListLimit ", data2);
+
       var table = $('#vouchersTableList').DataTable({
         destroy: true,
         lengthChange: true,
@@ -756,6 +758,9 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
             "orderable": false,
             "className": 'dt-body-center',
             "render": function (data, type, row) {
+              if (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem") {
+                return '';
+              }
               return `<input type="checkbox" class="rowCheckbox" data-id="${row.id}">`;
             }
           },
@@ -773,16 +778,41 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
           },
           { "mData": "merchanttxnId" },
           {
-            "mData": "accountNumber",
-            "render": function (data) {
-              if (data && data.length >= 4) {
-                const last4 = data.slice(-4);
-                return `xxxx${last4}`;
-              }
-              return data;
+            "mData": null,
+            "render": function (data, type, row) {
+              const base64Icon = row.bankIcon;
+              const imgHTML = base64Icon
+                ? `<img src="data:image/png;base64,${base64Icon}" alt="Bank Icon" width="24" height="24">`
+                : '';
+
+              const maskedAccount = row.accountNumber && row.accountNumber.length >= 4
+                ? `xxxx${row.accountNumber.slice(-4)}`
+                : row.accountNumber || '';
+
+              return `
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  ${imgHTML}
+                  <span>${maskedAccount}</span>
+                </div>
+              `;
             }
           },
-          { "mData": "purposeDesc" },
+		  {
+		    "mData": null,
+		    "render": function (data, type, row) {
+		      const mccIcon = row.mccMainIcon;
+		      const imgHTML = mccIcon
+		        ? `<img src="data:image/png;base64,${mccIcon}" alt="MCC Icon" width="24" height="24">`
+		        : '';
+
+		      return `
+		        <div style="display: flex; align-items: center; gap: 8px;">
+		          ${imgHTML}
+		          <span>${row.purposeDesc || ''}</span>
+		        </div>
+		      `;
+		    }
+		  },
           {
             "mData": "expDate",
             "render": function (data) {
@@ -796,35 +826,41 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
               switch (data) {
                 case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
                 case "Redeemed": labelText = "Redeemed"; labelClass = "pill bg-lightyellow-txt-yellow-pill "; break;
-                case "fail": labelText = "Failed"; labelClass = "pill bg-red-txt-red-pill"; break;
+                case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
                 case "Revoke": labelText = "Revoked"; labelClass = "pill bg-grey-txt-grey-pill"; break;
                 default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
               }
               return `<span class="${labelClass}">${labelText}</span>`;
             }
           },
-		  {
-		    "mData": "amount",
-		  "class":"text-right",
-		  "render": function (data2, type, row) {
-		      if (!data2) return '';
-		      let amount = parseFloat(data2);
-		      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
-		      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-		      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
-		  }
-		  },
-          { "mData": "redeemAmount", 
-			"class":"text-right",
-					  "render": function (data2, type, row) {
-					      if (!data2) return '';
-					      let amount = parseFloat(data2);
-					      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
-					      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-					      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
-					  }
-			
-		  },
+          {
+            "mData": "amount",
+            "class": "text-right",
+            "render": function (data2, type, row) {
+              if (!data2) return '';
+              let amount = parseFloat(data2);
+              let formattedAmount = amount.toFixed(2);
+              let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              });
+              return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+            }
+          },
+          {
+            "mData": "redeemAmount",
+            "class": "text-right",
+            "render": function (data2, type, row) {
+              if (!data2) return '';
+              let amount = parseFloat(data2);
+              let formattedAmount = amount.toFixed(2);
+              let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              });
+              return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+            }
+          },
           {
             "mData": null,
             "render": function (data, type, row) {
@@ -860,6 +896,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
   });
 }
 
+
 // Helper function to send IDs
 function sendRowIdsToBackend(ids) {
 	console.log('Sent IDs:', ids);
@@ -874,6 +911,7 @@ function sendRowIdsToBackend(ids) {
 		var data1 = jQuery.parseJSON(response);
 		     var data2 = data1.data;
       console.log('Sent IDs:', ids);
+	  erupiVoucherCreateListLimit(timePeriod = "AH");//reload the table
     },
     error: function (xhr) {
       console.error('Failed to send IDs:', xhr);
@@ -1152,6 +1190,7 @@ function viewhistory(rowData) {
       document.getElementById("signinLoader").style.display = "none";
 
       const parsed = jQuery.parseJSON(data);
+	  console.log("data for /erupiVoucherStatusHistory ",parsed);
       if (!parsed.status || !parsed.details) {
         alert("Unable to load voucher history.");
         return;
