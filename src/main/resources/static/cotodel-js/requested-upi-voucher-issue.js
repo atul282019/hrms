@@ -263,51 +263,132 @@ function  getLinkedBankDetail(){
 			
 }*/
 function getLinkedBankDetail() {
-    var employerid = document.getElementById("employerId").value;
+  const employerid = document.getElementById("employerId").value;
 
-    $.ajax({
-        type: "POST",
-        url: "/getErupiLinkBankAccountDetail",
-        data: { "orgId": employerid },
-        beforeSend: function(xhr) {
-            // set headers if needed
-        },
-        success: function(data) {
-            $("#banklist option").remove();
-            var obj = jQuery.parseJSON(data);
-            obj = obj.data;
+  $.ajax({
+    type: "POST",
+    url: "/getErupiLinkBankAccountDetail",
+    data: { orgId: employerid },
+    success: function (data) {
+      const select = document.getElementById("banklist");
+      select.innerHTML = "";
 
-            var bankList = document.getElementById("banklist");
+      const parsed = JSON.parse(data).data;
+      console.log("getLinkedBankDetail()=", parsed);
 
-            // Add default option
-            var defaultOption = document.createElement("option");
-            defaultOption.text = "Select Bank";
-            defaultOption.value = "";
-            bankList.add(defaultOption);
+      const dropdownList = document.getElementById("dropdownList");
+      dropdownList.innerHTML = "";
 
-            let accounts = [];
+      const bankKeys = Object.keys(parsed);
 
-            for (var key in obj) {
-                var values = obj[key];
-                var option = document.createElement("option");
-                option.value = values.acNumber;
-                option.text = values.bankName + " | " + values.acNumber;
-                bankList.add(option);
-                accounts.push(values.acNumber);
-            }
+      if (bankKeys.length === 1) {
+        const onlyBank = parsed[bankKeys[0]];
+        const masked = "XXXX" + onlyBank.acNumber.slice(-4);
 
-            // Auto-select if only one bank account exists
-			
-            if (accounts.length === 1) {
-                bankList.value = accounts[0];
-				document.getElementById("recallBalance").click();
-            }
-        },
-        error: function(e) {
-            alert('Error: ' + e);
+        const option = document.createElement("option");
+        option.value = onlyBank.acNumber;
+        option.text = onlyBank.accountSeltWallet === "Wallet"
+          ? "cotowallet"
+          : `${onlyBank.bankName} | ${masked}`;
+        select.appendChild(option);
+
+        const selectedHTML = onlyBank.accountSeltWallet === "Wallet"
+          ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
+                <span style="font-weight: 500; color: #4A4E69;">coto</span>
+                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+             </div>
+             <span class="dropdown-mask">${masked}</span>
+             <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
+          : `<div class="dropdown-item">
+                <div class="dropdown-bank-info">
+                  <img src="data:image/png;base64,${onlyBank.bankIcon}" alt="logo" style="width: 24px; height: 24px;">
+                  <span>${onlyBank.bankName}</span>
+                </div>
+                <span class="dropdown-mask">${masked}</span>
+                <i class="bi bi-caret-down-fill dropdown-arrow"></i>
+             </div>`;
+
+        document.getElementById("selectedBank").innerHTML = selectedHTML;
+        select.value = onlyBank.acNumber;
+        getBankDetailByBankAccountNumber();
+        showLinkedAccAmount(onlyBank.acNumber, onlyBank.accountSeltWallet);
+      } else {
+        let walletBank = null;
+
+        bankKeys.forEach((key) => {
+          const bank = parsed[key];
+          const masked = "XXXX" + bank.acNumber.slice(-4);
+
+          const option = document.createElement("option");
+          option.value = bank.acNumber;
+          option.text = bank.accountSeltWallet === "Wallet"
+            ? "cotowallet"
+            : `${bank.bankName} | ${masked}`;
+          select.appendChild(option);
+
+          const div = document.createElement("div");
+          div.className = "dropdown-item";
+
+          if (bank.accountSeltWallet === "Wallet") {
+            div.innerHTML = `
+              <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
+                <span style="font-weight: 500; color: #4A4E69;">coto</span>
+                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+              </div>
+              <span class="dropdown-mask">${masked}</span>
+            `;
+          } else {
+            div.innerHTML = `
+              <div class="dropdown-bank-info">
+                <img src="data:image/png;base64,${bank.bankIcon}" alt="logo" style="width: 24px; height: 24px;">
+                <span>${bank.bankName}</span>
+              </div>
+              <span class="dropdown-mask">${masked}</span>
+            `;
+          }
+
+          div.onclick = function () {
+            const selectedHTML = div.innerHTML + '<i class="bi bi-caret-down-fill dropdown-arrow"></i>';
+            document.getElementById("selectedBank").innerHTML = selectedHTML;
+            select.value = bank.acNumber;
+            document.getElementById("dropdownList").style.display = "none";
+            getBankDetailByBankAccountNumber();
+            showLinkedAccAmount(bank.acNumber, bank.accountSeltWallet);
+          };
+
+          dropdownList.appendChild(div);
+
+          if (bank.accountSeltWallet === "Wallet" && walletBank === null) {
+            walletBank = { bank, masked, div };
+          }
+        });
+
+        if (walletBank) {
+          const selectedHTML = walletBank.div.innerHTML + '<i class="bi bi-caret-down-fill dropdown-arrow"></i>';
+          document.getElementById("selectedBank").innerHTML = selectedHTML;
+          select.value = walletBank.bank.acNumber;
+          getBankDetailByBankAccountNumber();
+          showLinkedAccAmount(walletBank.bank.acNumber, walletBank.bank.accountSeltWallet);
         }
-    });
+      }
+    },
+    error: function (e) {
+      alert("Error: " + e);
+    },
+  });
 }
+
+document.getElementById("selectedBank").addEventListener("click", function () {
+  const list = document.getElementById("dropdownList");
+  list.style.display = list.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", function (e) {
+  const dropdown = document.getElementById("customDropdown");
+  if (!dropdown.contains(e.target)) {
+    document.getElementById("dropdownList").style.display = "none";
+  }
+});
 
 /*function  getVoucherDetailByBoucherCode(){
 	createSingleVoucherValidation();
