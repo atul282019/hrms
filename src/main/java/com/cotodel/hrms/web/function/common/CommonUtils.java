@@ -86,6 +86,7 @@ public interface CommonUtils {
 	public static String resendErupiVoucheSmsSend="/empService/Api/get/erupiVoucherSms";
 	public static String bulkVoucherUpload = "/empService/Api/add/erupiVoucherBulkVoucherUploadNew";
 	public static String createBulkVoucher = "/empService/Api/add/erupiVoucherBulkVoucherCreate";
+	public static String erupiVoucherRevokeDetailsBulkRequest = "/empService/Api/update/erupiVoucherRevokeBulk";
 	public static String beneficiaryDeleteFromVoucherList = "/empService/Api/update/erupiVoucherDelete";
 	public static String getMCCMasterByPurposeCode="/masterService/Api/get/mccMasterListByPurposeCode";
 	public static String getMCCMasterDeailsByPurposeCodeAndMCC="/masterService/Api/get/mccMasterListByPurposeCodeAndMccCode";

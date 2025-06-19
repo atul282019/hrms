@@ -735,7 +735,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
     success: function (data) {
       var data1 = jQuery.parseJSON(data);
       var data2 = data1.data;
-
+		console.log("showing voucher in table /erupiVoucherCreateListLimit ",data2);
       var table = $('#vouchersTableList').DataTable({
         destroy: true,
         lengthChange: true,
@@ -756,7 +756,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
             "orderable": false,
             "className": 'dt-body-center',
             "render": function (data, type, row) {
-              return '<input type="checkbox" class="rowCheckbox">';
+              return `<input type="checkbox" class="rowCheckbox" data-id="${row.id}">`;
             }
           },
           {
@@ -860,6 +860,26 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
   });
 }
 
+// Helper function to send IDs
+function sendRowIdsToBackend(ids) {
+	console.log('Sent IDs:', ids);
+  $.ajax({
+    type: 'POST',
+    url: '/erupiVoucherRevokeBulk', // Replace with your actual endpoint
+    data: {
+		"arrayofid": ids	
+	} ,
+   
+    success: function (response) {
+		var data1 = jQuery.parseJSON(response);
+		     var data2 = data1.data;
+      console.log('Sent IDs:', ids);
+    },
+    error: function (xhr) {
+      console.error('Failed to send IDs:', xhr);
+    }
+  });
+}
 
 
 
