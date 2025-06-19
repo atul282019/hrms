@@ -360,6 +360,20 @@
  		                <div class="modal-bottom" id="success" style="display: block;">
  		                    <span >Vehicle Successfully Added</span>
  		                </div>
+ 		            </div>
+ 		        </div>
+ 		    </div>	
+			
+			
+			<div class="modalView" id="ModalConfirmFail">
+ 		        <div class="modal-dialog modal-dialog-centered">
+ 		            <div class="modal-content modal-bulk p-0">
+ 		                <div class="modal-top-fail text-center">
+ 		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
+ 		                        <img src="img/modal-close.svg" alt="">
+ 		                    </button>
+ 		                    <img src="img/close circle.png" alt="">
+ 		                </div>
 						<div class="modal-bottom" id="failed" style="display: block;">
 							
  		                    <span style="color: red;" id="failedError">Vehicle Updation Failed </span>
@@ -367,7 +381,6 @@
  		            </div>
  		        </div>
  		    </div>	
-			
 			<div class="modalView" id="ModalConfirmUpdate">
  		        <div class="modal-dialog modal-dialog-centered">
  		            <div class="modal-content modal-bulk p-0">
@@ -556,8 +569,8 @@
    					               <div class="did-floating-label-content mr-2" >
    					                 <!--<select class="did-floating-select" id="timePeriod" onchange="toggleCustomTextbox(this.value)">-->
 										<select class="did-floating-select" id="timePeriod">
-									   <option id="5 Year" >Select Time Period </option>
-   					                   <option id="Tagged until changed">Tagged until changed </option>
+									   <option id="" >Select Time Period </option>
+   					                   <option id="1825 Days">Tagged until changed </option>
    					                   <option id="7 Days">7 Days</option>
    					                   <option id="30 Days">30 Days</option>
    					                   <option id="90 Days">90 Days</option>
@@ -1106,7 +1119,7 @@ function openModalConfirm() {
 					document.getElementById('success').style.display = 'none';
 					document.getElementById('failed').style.display = 'failed';
 					document.getElementById('failedError').innerHTML=	data1.message;		
-					const modal = document.getElementById('ModalConfirm');
+					const modal = document.getElementById('ModalConfirmFail');
 					modal.style.display = 'block';
 					getVehicleManagementList();
 				}else{
@@ -1331,15 +1344,23 @@ function openModalConfirm() {
 
 	          if (vehicleType === "SUV / MUV" || vehicleType === "Hatchback") {
 	            imgTag = `<img src="img/car-icon.png" alt="" class="mr-2">${vehicleType}`;
-	          } else if (vehicleType === "Sedan") {
-	            imgTag = `<img src="img/car-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">${vehicleType}`;
+	          } else if (vehicleType === "Ambulance") {
+	            imgTag = `<img src="img/Ambulance 2.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">${vehicleType}`;
 	          } else if (vehicleType === "Truck" || vehicleType === "Mini Truck") {
 	            imgTag = `<img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">${vehicleType}`;
-	          } else if (vehicleType === "Two-Wheeler") {
-	            imgTag = `<img src="img/two-wheeler-icon.webp" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
-	          } else if (vehicleType === "Amb./Spl. Purp") {
-	            imgTag = `<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
-	          } else {
+	          } else if (vehicleType === "M-Cycle/Scooter") {
+	            imgTag = `<img src="img/Two-Wheeler 2.png" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
+	          } else if (vehicleType === "Goods Carrier") {
+	            imgTag = `<img src="img/Truck 2.png" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
+	          }
+			  else if (vehicleType === "M-Cycle/Scooter") {
+              imgTag = `<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
+            }
+			  else if (vehicleType === "M-Cycle/Scooter(2WN)") {
+			  imgTag = `<img src="img/Two-Wheeler 2.png" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
+			  }
+							
+			   else {
 	            imgTag = `<img src="img/car-icon.png" alt="" class="mr-2">${vehicleType}`;
 	          }
 
@@ -1618,6 +1639,20 @@ function openModalConfirm() {
 		    document.body.classList.remove('modal-open');
 		  });
 		});
+		
+		document.addEventListener('DOMContentLoaded', function () {
+			  const closeButton = document.querySelector('#ModalConfirmFail .close');
+			  closeButton.addEventListener('click', function () {
+			    const modal = document.getElementById('ModalConfirmFail');
+			    modal.style.display = 'none'; // Hide the modal
+			    // Remove the Bootstrap backdrop if exists
+			    const backdrop = document.querySelector('.modal-backdrop');
+			    if (backdrop) backdrop.remove();
+			    
+			    // Optional: Remove 'modal-open' from body to allow scrolling again
+			    document.body.classList.remove('modal-open');
+			  });
+			});
 	</script>
 	
 	<script>

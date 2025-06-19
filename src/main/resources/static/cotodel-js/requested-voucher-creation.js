@@ -72,8 +72,9 @@ function singleVoucherValidation(){
 			   			document.getElementById("amountError").innerHTML="Please enter amount";
 			   			return false;
 			   		}
-			           else if (isNaN(amountValue) || !validateAmount(amountValue)) {
+			           else if (isNaN(amountValue)) {
 			               amountError.textContent = "Please enter a valid amount (e.g., 10 or 10.50).";
+						   return false;
 			           } 
 			   		else if (amountValue === "0" || amountValue === "00" || amountValue === "000"
 			   			|| amountValue === "0000" || amountValue === "00000" || amountValue === "000000"

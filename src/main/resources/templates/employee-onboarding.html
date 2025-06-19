@@ -115,7 +115,7 @@
 									
 										<div class="did-floating-label-content">
 										    <input class="did-floating-input" type="text" id="name" maxlength="50"
-										        oninput="sanitizeInput(this)" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()"
+										        oninput="sanitizeInput(this)" onkeypress="resetErrorMessages()"
 										        placeholder=" ">
 										    <label class="did-floating-label">Name<span class="required-star">*</span></label>
 										</div>
@@ -148,7 +148,7 @@
 									<div id="employeeDiv" style="display: none;">
 										<div class="did-floating-label-content">
 										    <input class="did-floating-input" type="date" id="hireDate"
-										        onchange="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
+										         onkeypress="resetErrorMessages()">
 										    <label class="did-floating-label">Joining Date</label>
 										</div>
 
@@ -160,7 +160,7 @@
 
 										<div class="did-floating-label-content">
 										    <input class="did-floating-input" type="text" id="jobTitle" maxlength="50"
-										        oninput="sanitizeInput(this)" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()" placeholder=" ">
+										        oninput="sanitizeInput(this)"  onkeypress="resetErrorMessages()" placeholder=" ">
 										    <label class="did-floating-label">Job Title</label>
 										</div>
  										<div class="error-msg1" id="jobTitleError" style="color:red"></div>
@@ -169,15 +169,15 @@
                                             <input type="text" class="form-input" id="department" maxlength="50" oninput="sanitizeInput(this)" onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()" >
                                         </div>--> 
 										<div class="did-floating-label-content mr-2">
-										    <select class="did-floating-select" id="department" onchange="saveEmployeeValidation()" onkeypress="resetErrorMessages()">
+										    <select class="did-floating-select" id="department"  onkeypress="resetErrorMessages()">
 										        <option value="">Select Department</option>
 										    </select>
 										    <label class="did-floating-label">Department</label>
 										</div>
                                          <div class="error-msg1" id="departmentError" style="color:red"></div>
 										 <div class="did-floating-label-content mr-2">
-										     <select class="did-floating-select" id="reporting" onchange="saveEmployeeValidation()">
-										         <option value="-1" selected>Select Manager</option>
+										     <select class="did-floating-select" id="reporting" >
+										         <option value="" selected>Select Manager</option>
 										     </select>
 										     <label class="did-floating-label">Reporting Manager</label>
 										 </div>
@@ -186,7 +186,7 @@
 										    <div class="salary-wrapper">
 										        <img src="img/rupees.svg" alt="">
 										        <input class="did-floating-input" type="text" placeholder="0" id="salary" maxlength="6"
-										            onkeyup="saveEmployeeValidation()" onkeypress="resetErrorMessages()"
+										             onkeypress="resetErrorMessages()"
 										            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 										    </div>
 										</div>

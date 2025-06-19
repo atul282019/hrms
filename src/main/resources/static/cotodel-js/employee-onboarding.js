@@ -58,11 +58,11 @@ function validateAmount(amount) {
 		        //document.getElementById("name").focus();
 		        return false;
 		    }
-			else if(!regName.test(name))
-			{
-				document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
-				return false;
-			} 
+			//else if(!regName.test(name))
+			//{
+				//document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
+				//return false;
+			//} 
 					 else {
 		        document.getElementById("nameError").textContent = "";
 		    }
@@ -222,12 +222,13 @@ async function saveEmployeeOnboarding(){
 	    const jobTitle = document.getElementById("jobTitle").value;
 		const departmentDropdown = document.getElementById("department");
 		var department = departmentDropdown.options[departmentDropdown.selectedIndex].text;
+		var departmentval = departmentDropdown.options[departmentDropdown.selectedIndex].value;
 	    const reporting = document.getElementById("reporting");
 		const managerName1 = reporting.options[reporting.selectedIndex].text;
 		const managerName = reporting.options[reporting.selectedIndex].value;
 	    const ctc = document.getElementById("salary").value;
 	    const locationDropdown = document.getElementById("location");
-		const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].text; 
+		const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].value; 
 	    const residentOfIndia = document.getElementById("residence").value;
 		const Id = document.getElementById("Id").value;
 		const profilePhotoBase64 = document.getElementById("profilePhotoBase64").value;
@@ -257,11 +258,11 @@ async function saveEmployeeOnboarding(){
 		        document.getElementById("name").focus();
 		        return false;
 		    }
-			else if(!regName.test(name))
-			{
-				document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
-				return false;
-			} 
+			//else if(!regName.test(name))
+			//{
+				//document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
+				//return false;
+			//} 
 			 else {
 		        document.getElementById("nameError").textContent = "";
 		    }
@@ -313,28 +314,17 @@ async function saveEmployeeOnboarding(){
 			        document.getElementById("jobTitleError").textContent = "";
 			    }
 
-			    /*if (department === "" || departmentspace !== department) {
-			        document.getElementById("departmentError").textContent = departmentspace !== department 
-			            ? "Only single spaces are allowed."
-			            : "Please enter department";
-			        return false;
-			    }*/
-				if (department === "" ) 
+				if (departmentval === "" ) 
 				{
 			        document.getElementById("departmentError").textContent = "Please select department";
 			        return false;
 			    }	  			
-				/*else if (!regName.test(department)){
-				document.getElementById("departmentError").textContent = "Only Alpha Numeric Values Are Allowed in Department";
-				return false;
-				
-					}*/
 				
 				else {
 			        document.getElementById("departmentError").textContent = "";
 			    }
 
-		    if (managerName === "0") {
+		    if (managerName === "") {
 		        document.getElementById("reportingError").textContent = "Please select manager name";
 		        document.getElementById("reporting").focus();
 		        return false;
@@ -352,7 +342,7 @@ async function saveEmployeeOnboarding(){
 		        document.getElementById("salaryError").textContent = "";
 		    }
 
-		    if (location === "") {
+		    if (selectedLocation === "") {
 		        document.getElementById("locationError").textContent = "Please select location";
 		        document.getElementById("location").focus();
 		        return false;
@@ -377,11 +367,11 @@ async function saveEmployeeOnboarding(){
 		    document.getElementById("name").focus();
 		    return false;
 		}		
-		else if(!regName.test(name))
+		/*else if(!regName.test(name))
 		{
 			document.getElementById("nameError").textContent="Only Alphabets are allowed in Name";
 			return false;
-		} 
+		} */
 		 else {
 		    document.getElementById("nameError").textContent = "";
 		}
@@ -412,7 +402,7 @@ async function saveEmployeeOnboarding(){
 	        document.getElementById("empTypeError").textContent = "Please select employee type";
 	        return false;
 	    }
-		console.log("profile photo in base 64 before check",profilePhoto);
+	//	console.log("profile photo in base 64 before check",profilePhoto);
 			if(profilePhoto=="")
 			{
 				profilePhoto=profilePhotoBase64;
