@@ -228,7 +228,7 @@
 												  <th>Mobile Number</th>
 	                                              <!-- <th>DOB</th>-->
 	                                              <th>VOUCHER CATEGORY</th>
-	                                              <th>PURPOSE CODE</th>
+	                                             <!-- <th>PURPOSE CODE</th>-->
 	                                              <!--   <th>eMPLOYMENT TYPE</th>-->
 	                                              <th>AMOUNT</th>
 	                                              <!--  <th>DOJ</th>-->
@@ -304,7 +304,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="table-input" id="amount" placeholder="Enter Amount"
-													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');validateAmount1()" maxlength="6">
+													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6">
                                                 </td>
                                                 <td>
                                                     <div>
@@ -747,7 +747,7 @@
 		                    { "mData": "name" },
 		                    { "mData": "mobile" },
 		                    { "mData": "voucherType" },
-		                    { "mData": "voucherSubType" },
+		                   // { "mData": "voucherSubType" },
 		                    { "mData": "amount" },
 		                    { "mData": "remarks" },
 							{ "mData": "validity" },
@@ -858,7 +858,8 @@
 	    document.getElementById("requestId").value = rowData.id;
 	    document.getElementById("search").value = rowData.name;
 	    document.getElementById("mobile").value = rowData.mobile;
-	    document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType + "|" + rowData.voucherSubType;
+	    //document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType + "|" + rowData.voucherSubType;
+		document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType;
 
 	    // Always use row amount regardless of bank balance
 	    let rowAmount = parseFloat(rowData.amount) || 0;

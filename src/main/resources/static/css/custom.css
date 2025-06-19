@@ -1623,6 +1623,15 @@ table.table.table-unsucess tbody tr td.tdactive {
     position: relative;
 }
 
+
+.modal-top-fail {
+    min-height: 100px;
+    padding: 30px 20px;
+    background: #F248221A;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+}
+
 .modal-top .close {
     position: absolute;
     right: 20px;

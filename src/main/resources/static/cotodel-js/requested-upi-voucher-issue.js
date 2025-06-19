@@ -561,7 +561,7 @@ async function  issueVoucher(){
 	
 	var voucherType = document.getElementById("voucherType").value;;
 	var voucherCode = document.getElementById("voucherCode").value;
-	var voucherDesc = document.getElementById("voucherDesc").value;
+	var voucherDesc = document.getElementById("voucherType").value;;
 	var  purposeCode= document.getElementById("purposeCode").value;
 	var activeStatus = document.getElementById("activeStatus").value;
 	var createdby = document.getElementById("employerName").value;
@@ -619,7 +619,7 @@ async function  issueVoucher(){
 				   "mcc": mcc,
 				   "voucherType": voucherType,
 				   "voucherCode": voucherCode,
-				   "voucherDesc": voucherDesc,
+				   "voucherDesc": voucherType,
 				   "activeStatus": activeStatus,
 				   "bankcode":bankCode,
 				   "accountNumber":acNumber,
