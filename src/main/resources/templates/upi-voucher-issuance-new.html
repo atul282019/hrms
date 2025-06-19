@@ -1175,6 +1175,11 @@ requestedVoucherCount()">
 	
 </script>
 <script>
+		function closeRevokeUPIVoucherModal() {
+		    document.getElementById("RevokeUPIVoucherModal").style.display = "none";
+		}
+		</script>
+<script>
 			function toggleOtpVisibility2() {
 			    const icon = document.getElementById("toggleOtpIcon2");
 			    const inputs = document.querySelectorAll('.otp-box-onboarding input');
@@ -1335,6 +1340,12 @@ requestedVoucherCount()">
         <div class="modal-content modal-bulk p-0">
             <div class="modal-header pb-0 text-center">
                 <h5 class="modal-title w-100" id="exampleModalCenterTitle">Revoke UPI Voucher</h5>
+				<button type="button"
+				           style="border: none; background: none; font-size: 1.5rem; position: absolute; top: 10px; right: 0px; line-height: 1; padding: 0 20px;"
+				           aria-label="Close"
+				           onclick="closeRevokeUPIVoucherModal()">
+				       &times;
+				   </button>
             </div>
 			<div class="modal-body text-center">
 			                <div class="otp-box-onboarding justify-content-center">
