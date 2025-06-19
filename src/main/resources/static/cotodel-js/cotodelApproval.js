@@ -312,16 +312,19 @@
 		                console.log("showConfirmationModal",parsedData);
 		                // Populate modal fields with order details
 		                $("#popupFieldCustomerName").text(parsedData.data.customerName);
-		                $("#popupFieldOrderAmount").text(parsedData.data.orderAmount);
-		                $("#popupFieldOrderCurrency").text(parsedData.data.orderCurrency);
-		                $("#popupFieldserviceCharge").text(parsedData.data.serviceCharge);
+		               // $("#popupFieldOrderAmount").text(parsedData.data.orderAmount);
+		              /*  $("#popupFieldOrderCurrency").text(parsedData.data.orderCurrency);*/
+		              //  $("#popupFieldserviceCharge").text(parsedData.data.serviceCharge);
 		                $("#popupFieldCustomerPhone").text(parsedData.data.customerPhone);
 		                $("#popupFieldCustomerEmail").text(parsedData.data.customerEmail);
 		                $("#popupFieldOrderStatus").text(parsedData.data.order_status);
 		                $("#popupFieldCreatedAt").text(parsedData.data.created_at);
-		                $("#popupFieldserviceTax").text(parsedData.data.serviceTax);
+						$("#popupFieldOrderAmount").text(`₹${Number(parsedData.data.orderAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+						$("#popupFieldserviceCharge").text(`₹${Number(parsedData.data.serviceCharge).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+						$("#popupFieldsettlementAmount").text(`₹${Number(parsedData.data.settlementAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+		               // $("#popupFieldserviceTax").text(parsedData.data.serviceTax);
 		                $("#popupFieldOrderId").text(orderId);
-		                $("#popupFieldsettlementAmount").text(parsedData.data.settlementAmount);
+		                //$("#popupFieldsettlementAmount").text(parsedData.data.settlementAmount);
 
 		                // Hide loader and show details
 		                $("#modalLoader").hide();

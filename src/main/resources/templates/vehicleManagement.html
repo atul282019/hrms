@@ -569,12 +569,12 @@
    					               <div class="did-floating-label-content mr-2" >
    					                 <!--<select class="did-floating-select" id="timePeriod" onchange="toggleCustomTextbox(this.value)">-->
 										<select class="did-floating-select" id="timePeriod">
-									   <option id="" >Select Time Period </option>
-   					                   <option id="1825 Days">Tagged until changed </option>
-   					                   <option id="7 Days">7 Days</option>
-   					                   <option id="30 Days">30 Days</option>
-   					                   <option id="90 Days">90 Days</option>
-   									   <option id="360 Days">365 Days</option>
+									   <option value="" >Select Time Period </option>
+   					                   <option value="1825 Days">Tagged until changed </option>
+   					                   <option value="7 Days">7 Days</option>
+   					                   <option value="30 Days">30 Days</option>
+   					                   <option value="90 Days">90 Days</option>
+   									   <option value="360 Days">365 Days</option>
    					                 </select>
    					                 <label class="did-floating-label">Select Time Period</label>
 														  		
@@ -1153,7 +1153,7 @@ function openModalConfirm() {
 				    ].value;
 		const timePeriod = document.getElementById('timePeriod').options[
 		        document.getElementById('timePeriod').selectedIndex
-		    ].text;
+		    ].value;
 		
 		const assignmentTypeId = document.getElementById('assignmentType').options[
 		        document.getElementById('assignmentType').selectedIndex
@@ -1216,7 +1216,7 @@ function openModalConfirm() {
 				"driverId":driverId,		
 				"driverMobile":driverMobile,	
 				"timePeriod_id": timePeriod_id,		
-				"selectedTimeperiod": timePeriod,
+				"selectedTimeperiod": timePeriod_id,
 				"customTimePeriod":customTimePeriod
 			},
 			success: function(data){

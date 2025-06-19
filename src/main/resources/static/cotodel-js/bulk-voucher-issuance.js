@@ -29,13 +29,29 @@ $(document).on('change','.up', function(){
    		 var element = document.getElementById("tab2");
    		 element.classList.add("active");
    		 var element2 = document.getElementById("tab3");
-   		 element2.classList.add("active");
+   		 element2.classList.add("active");	 
+		 const table = document.getElementById("successUpload");
+		 const rows = table.querySelectorAll("tbody tr");
+		 let totalAmount = 0;
+		 let validRowCount = 0;
+		 rows.forEach(row => {
+		     const amountCell = row.cells[2]; // Assuming amount is in the 2nd column (index 1)
+		     const amount = parseFloat(amountCell.textContent.replace(/[₹,]/g, '').trim());
+		     if (!isNaN(amount)) {
+		         totalAmount += amount;
+		         validRowCount++;
+		     }
+		 });
+		 document.getElementById("totalNumberCount").textContent = `${validRowCount}`;
+		 document.getElementById("totalValueCount").textContent = `₹${totalAmount.toFixed(2)}`;
+		 document.getElementById("totalNumber2Count").innerText=`${validRowCount}`;
+		 document.getElementById("totalValue2Count").innerText=`₹${totalAmount.toFixed(2)}`;
+		
    	}
    	
    	function returnTab2(){
    			$("#selectvouchers-wrap-issue").hide();
-   			$("#BulkVoucherIssuanceTable").show();
-   			
+   			$("#BulkVoucherIssuanceTable").show();   			
    			var element = document.getElementById("tab3");
    			 element.classList.remove("active");
    			
@@ -305,7 +321,18 @@ async function saveBulkVoucherUpload(){
 				  "aoColumns": [ 
 			        { "mData": "beneficiaryName"},   
 			        { "mData": "mobile"},   
-				    { "mData": "amount"},
+					{ 
+					        "mData": "amount",
+					        "mRender": function(data, type, row) {
+					            if (!isNaN(data)) {
+					                return '₹' + Number(data).toLocaleString('en-IN', {
+					                    minimumFractionDigits: 2,
+					                    maximumFractionDigits: 2
+					                });
+					            }
+					            return data;
+					        }
+					    },
 					{ "mData": "startDate"},  
 					{ "mData": "expDate"}
 					
@@ -328,7 +355,18 @@ async function saveBulkVoucherUpload(){
 						{ "mData": "id"},	
 			            { "mData": "beneficiaryName"},   
 			            { "mData": "mobile"},   
-					    { "mData": "amount"},
+						{ 
+						        "mData": "amount",
+						        "mRender": function(data, type, row) {
+						            if (!isNaN(data)) {
+						                return '₹' + Number(data).toLocaleString('en-IN', {
+						                    minimumFractionDigits: 2,
+						                    maximumFractionDigits: 2
+						                });
+						            }
+						            return data;
+						        }
+						    },
 						{ "mData": "startDate"},  
 						{ "mData": "expDate"},
 						{ "mData": "id", "render": function (data2, type, row) {
@@ -1060,14 +1098,19 @@ function verfyIssueVoucherOTP() {
 				 document.getElementById("upi-voucher-wrapThree").style.display="block";
 				 const tableBody = document.getElementById("successFailVoucherTable").getElementsByTagName("tbody")[0];
 				 data1.data.forEach((item) => {
-				     const row = tableBody.insertRow();
-				     row.insertCell().textContent = item.name;
-				     row.insertCell().textContent = item.mobile;
-				     row.insertCell().textContent = item.voucherDesc;
-				     row.insertCell().textContent = item.redemtionType;
-				     row.insertCell().textContent = item.amount;
-					 row.insertCell().textContent = item.startDate;
-					 row.insertCell().textContent = item.expDate;
+					const row = tableBody.insertRow();
+					   row.insertCell().textContent = item.name;
+					   row.insertCell().textContent = item.mobile;
+					   row.insertCell().textContent = item.voucherDesc;
+					   row.insertCell().textContent = item.redemtionType;
+					   // Format amount with ₹, commas, and 2 decimal places
+					   const formattedAmount = "₹" + Number(item.amount).toLocaleString("en-IN", {
+					       minimumFractionDigits: 2,
+					       maximumFractionDigits: 2
+					   });
+					   row.insertCell().textContent = formattedAmount;
+					   row.insertCell().textContent = item.startDate;
+					   row.insertCell().textContent = item.expDate;
 				     // Add the response cell with an image
 				     const responseCell = row.insertCell();
 				     const img = document.createElement("img");

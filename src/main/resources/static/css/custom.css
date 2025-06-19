@@ -5528,7 +5528,9 @@ ol.carousel-signupindicators {
     z-index: 10000;
     border-radius: 12px;
 }
-
+.right-align {
+    text-align: right;
+}
 .autocomplete-suggestion {
     font-size: 14px;
     padding: 12px 10px;
