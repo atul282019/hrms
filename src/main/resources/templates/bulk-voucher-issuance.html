@@ -29,8 +29,8 @@
 
 	<link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
 	<link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
-
-	    <link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 </head>
 
@@ -379,7 +379,7 @@
                                            <div class="xxxx">xxxx3456</div>
                                            <img class="dropdown" src="img/arrowdown.svg" width="16px">
                                        </div>-->
-									   <select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber();showLinkedAccAmount(this.value)">
+									   <!--<select class="GeneralSelect" id="banklist" onchange="getBankDetailByBankAccountNumber();showLinkedAccAmount(this.value)">
 										 <option value="" class="test">Select Bank</option>
 	                                     </select>
 
@@ -389,7 +389,31 @@
                                                    class="text-wrapper-3">0,00,000</span></p>
                                            <img class="recall" id="recallBalance"src="img/recall.svg">
                                        </div>
-                                       <p class="last-updated-on">Last Updated on <span th:text="${session.formattedDate}" ></span></p>
+                                       <p class="last-updated-on">Last Updated on <span th:text="${session.formattedDate}" ></span></p>-->
+									   
+									   <select id="banklist" style="display:none"></select>
+									   		<div class="custom-dropdown" id="customDropdown">
+									   		  <div id="selectedBank" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+									   		    <span>Select Bank</span>
+									   		    <span style="margin-left: 8px;">&#9662;</span> <!-- ▼ Unicode dropdown arrow -->
+									   		  </div>
+									   		  <div class="dropdown-list" id="dropdownList"></div>
+									   		</div>
+									   		<button class="button-check-balance mt-2" style="display: none;" >Check Balance</button>
+									   		 <div class="tip-disabled mt-2" style="display: none;" >
+									   		     <img src="img/info.svg" alt="info icon">
+									   		     Check availability of funds to issue vouchers!
+									   		 </div>
+									   		 
+									   		  <div class="div-2 mt-5" style="text-align: right; margin-top: 20px !important;">
+									   		    <p class="element" style="display: inline-flex; align-items: center; justify-content: flex-end; margin: 0; gap: 2px;">
+									   		      <span class="span" style="font-size: 20px;">₹</span>
+									   		      <span class="text-wrapper-3" style="font-size: 20px;">1,23,456</span>
+									   		    </p>
+									   		  </div>
+									   		 <p class="last-updated-on"><!--<span th:text="${session.formattedDate}" ></span>-->
+									   		 	Available Balance
+									   		 	</p>
 
                                    </div>
                                    <div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
@@ -647,6 +671,54 @@
 	});
 
 	</script>
+		<style>	
+			 
+			.selectvouchers-topleft-cards {
+			    position: relative;
+			}
+			.custom-dropdown {
+			  position: relative;
+			  width: 300px;
+			  border: 1px solid #EDEDF0;
+			  border-radius: 10px;
+			  background: white;
+			  color: #1F212C;
+			  cursor: pointer;
+			  padding: 10px;
+			}
+			.dropdown-item {
+			  display: flex;
+			  justify-content: space-between;
+			  align-items: center;
+			  padding: 8px;
+			  
+			}
+			.dropdown-item img {
+			  width: 24px;
+			  margin-right: 10px;
+			}
+			.dropdown-bank-info {
+			  display: flex;
+			  align-items: center;
+			}
+			.dropdown-mask {
+			  margin-left: auto;
+			  color: #666;
+			  font-weight: 500;
+			}
+			.dropdown-list {
+			  position: absolute;
+			  width: 100%;
+			  background: white;
+			  border: 1px solid #EDEDF0;
+			  z-index: 10;
+			  display: none;
+			  max-height: 200px;
+			  overflow-y: auto;
+			  border-radius: 10px;
+			}
+
+	</style>
 	<style>
 		
 			@keyframes rotate360 {
@@ -750,7 +822,7 @@
 			    }
 			});
 
-			function showLinkedAccAmount(accountNumber) {
+			/*function showLinkedAccAmount(accountNumber) {
 			    var employerid = document.getElementById("employerId").value;
 			    console.log("Fetching balance for account:", accountNumber, "Employer ID:", employerid);
 
@@ -783,7 +855,49 @@
 			            alert('Error fetching balance.');
 			        }
 			    });
-			}
+			}*/
+			function showLinkedAccAmount(accountNumber, accountSeltWallet) {
+						  			      const employerid = document.getElementById("employerId").value;
+						  			      console.log("accountNumber, employerid", accountNumber, employerid);
+
+						  			      if (accountSeltWallet === "Self") {
+						  			          document.querySelector(".button-check-balance").style.display = "block";
+						  			          document.querySelector(".tip-disabled").style.display = "block";
+
+						  			          document.querySelector(".div-2").style.display = "none";
+						  			          document.querySelector(".last-updated-on").style.display = "none";
+						  			          return;
+						  			      }
+
+						  			      document.querySelector(".button-check-balance").style.display = "none";
+						  			      document.querySelector(".tip-disabled").style.display = "none";
+
+						  			      document.querySelector(".div-2").style.display = "block";
+						  			      document.querySelector(".last-updated-on").style.display = "block";
+
+						  			      $.ajax({
+						  			          type: "POST",
+						  			          url: "/showLinkedAccAmount",
+						  			          data: {
+						  			              "acNumber": accountNumber,
+						  			              "orgId": employerid
+						  			          },
+						  			          success: function (data) {
+						  			              console.log("showLinkedAccAmount", data);
+						  			              const obj = jQuery.parseJSON(data);
+						  			              if (obj.status === true) {
+						  			                  const rawAmount = obj.balance;
+						  			                  const formattedAmount = (!isNaN(rawAmount) && rawAmount !== null)
+						  			                      ? Number(rawAmount).toLocaleString('en-IN')
+						  			                      : "Amount Not Available";
+						  			                  document.querySelector(".text-wrapper-3").textContent = formattedAmount;
+						  			              }
+						  			          },
+						  			          error: function (e) {
+						  			              alert('Error: ' + e);
+						  			          }
+						  			      });
+						  			  }
 
 			function formatTimestamp(timestamp) {
 			    let dateObj = new Date(timestamp.replace(" ", "T"));
@@ -869,7 +983,7 @@
 			        name="orderId" >
 					
 					<div class="d-flex justify-content-center mt-2">
-					    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer;" onclick="toggleOtpVisibility()"></i>
+					    <i class="fa-solid fa-eye" id="toggleOtpIcon" style="cursor: pointer;margin-top: 5px;" onclick="toggleOtpVisibility()"></i>
 					</div>
 												
                     </div>
