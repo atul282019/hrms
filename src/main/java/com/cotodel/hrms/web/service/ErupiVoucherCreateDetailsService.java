@@ -29,8 +29,10 @@ public interface ErupiVoucherCreateDetailsService {
 	String erupiVoucheSmsSend(String token, EncriptResponse erupiVoucherStatusSmsRequest);
 
 	String issueBulkVoucher(String token, ErupiBulkVoucherCreateRequest erupiBulkVoucherCreateRequest);
-
+	
 	String beneficiaryDeleteFromVoucherList(String token, EncriptResponse bulkVoucherRequest);
+	
+	String erupiVoucherRevokeBulk(String token, EncriptResponse erupiVoucherRevokeDetailsBulkRequest);
 
 	String geterupiVoucherOldList(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
 

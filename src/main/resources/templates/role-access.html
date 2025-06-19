@@ -906,6 +906,12 @@ viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEm
             <div class="modal-content modal-bulk p-0">
                 <div class="modal-header text-center">
                     <h5 class="modal-title w-100">Confirm Role Access Changes</h5>
+					<button type="button"
+				           style="border: none; background: none; font-size: 1.5rem; position: absolute; top: 10px; right: 0px; line-height: 1; padding: 0 20px;"
+				           aria-label="Close"
+				           onclick="closeroleAcessOTPModal()">
+				       &times;
+				   </button>
                 </div>				
 				<div class="modal-body text-center">
 				    <div class="otp-box-onboarding justify-content-center">
@@ -955,6 +961,12 @@ viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEm
 	            <div class="modal-content modal-bulk p-0">
 	                <div class="modal-header text-center">
 	                    <h5 class="modal-title w-100">Confirm Add Users Roles</h5>
+						<button type="button"
+				           style="border: none; background: none; font-size: 1.5rem; position: absolute; top: 10px; right: 0px; line-height: 1; padding: 0 20px;"
+				           aria-label="Close"
+				           onclick="closeaddRoleAcessOTPModal()">
+				       &times;
+				   </button>
 	                </div>				
 					<div class="modal-body text-center">
 					    <div class="otp-box-onboarding justify-content-center">
@@ -1805,6 +1817,15 @@ viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEm
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	-->
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>
+	<script>
+		function closeroleAcessOTPModal() {
+		    document.getElementById("roleAcessOTPModal").style.display = "none";
+		}
+		function closeaddRoleAcessOTPModal() {
+					document.getElementById("roleAcessOTPModal").style.display = "none";
+				    document.getElementById("addRoleAcessOTPModal").style.display = "none";
+				}
+		</script>
 	<script>
 
 	function newRow(){

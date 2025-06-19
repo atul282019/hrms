@@ -304,7 +304,7 @@ requestedVoucherCount()">
                                     <div >
 										<div >
 											<div class="download-btn-container">												
-											<img src="img/Revoke-grey.svg" alt="Revoke Icon" style="margin-right: 10px;">
+											<img id="revokeTrigger" src="img/Revoke-grey.svg" alt="Revoke Icon" style="margin-right: 10px; cursor: pointer;">
 									    	<img src="img/download-grey.svg" alt="Download Icon">
 										  </div>
 										   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
@@ -547,7 +547,38 @@ requestedVoucherCount()">
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/upi-voucher-issuance.js"></script>
+<script>	$(document).ready(function () {
+	  // Header checkbox select all
+	  $('#checkAll').on('click', function () {
+	    const table = $('#vouchersTableList').DataTable();
+	    const rows = table.rows({ 'search': 'applied' }).nodes();
+	    const isChecked = this.checked;
 
+	    $('input.rowCheckbox', rows).each(function () {
+	      $(this).prop('checked', isChecked);
+	    });
+	  });
+
+	  // Row checkbox individual click (optional logic retained if needed)
+	  $(document).on('click', '.rowCheckbox', function () {
+	    // can be left empty or used for visual updates
+	  });
+
+	  // Click on revoke image triggers send of selected IDs
+	  $('#revokeTrigger').on('click', function () {
+	    const selectedIds = [];
+	    $('input.rowCheckbox:checked').each(function () {
+	      const id = $(this).data('id');
+	      if (id) selectedIds.push(id);
+	    });
+
+	    if (selectedIds.length > 0) {
+	      sendRowIdsToBackend(selectedIds);
+	    } else {
+	      alert("Please select at least one voucher to revoke.");
+	    }
+	  });
+	});</script>
 	<script>
 		const searchInput = document.getElementById('searchInput');
 		const table = document.getElementById('vouchersTableList');
