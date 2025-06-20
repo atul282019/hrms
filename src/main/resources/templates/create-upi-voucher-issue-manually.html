@@ -280,7 +280,7 @@
 												</td>
                                                 <td>
                                                     <div>
-                                                        <input type="date" class="table-input" placeholder="Salect Date">
+                                                        <input type="date" class="table-input table-dateed" placeholder="Salect Date" onclick="this.showPicker()">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -554,6 +554,24 @@
         //var today = new Date().toISOString().split('T')[0];
        // document.getElementById("startDate").value = today;
     </script>
+
+	<script>
+		window.addEventListener('DOMContentLoaded', function () {
+		    const today = new Date().toISOString().split("T")[0];
+		    document.querySelectorAll('.table-dateed').forEach(function(dateInput) {
+		        dateInput.setAttribute("min", today);
+		    });
+		});
+		</script>
+	<style>	/* Wrap input to allow absolute positioning of dropdown */
+	.autocomp-input-wrap {
+	    position: relative;
+	    z-index: 1; /* Ensure it's above table rows */
+	}
+
+	
+</style>
+
 	<style>	
 		 
 		.selectvouchers-topleft-cards {
@@ -561,7 +579,7 @@
 		}
 		.custom-dropdown {
 		  position: relative;
-		  width: 300px;
+		  width: 340px;
 		  border: 1px solid #EDEDF0;
 		  border-radius: 10px;
 		  background: white;
@@ -1273,7 +1291,7 @@
 	            <input type="text" class="table-input" placeholder="Enter Amount">
 	        </td>
 	        <td>
-	            <input type="date" class="table-input table-dateed" placeholder="Select Date">
+	            <input type="date" class="table-input table-dateed" placeholder="Select Date" onclick="this.showPicker()">
 	        </td>
 	        <td>
 	            <select class="GeneralSelect validity">
@@ -1290,7 +1308,11 @@
 	    `;
 
 	    // Insert before the error row (3rd last tr)
-	    tableBody.insertBefore(newRow, rows[rows.length - 2]);
+	    //tableBody.insertBefore(newRow, rows[rows.length - 2]);
+		tableBody.appendChild(newRow);
+		// Disable past dates
+		    const today = new Date().toISOString().split("T")[0];
+		    newRow.querySelector('.table-dateed').setAttribute("min", today);
 	}
 
 
@@ -1639,7 +1661,8 @@
 	}
 	</script>
 
-
+	
+	
 </body>
 
 </html>

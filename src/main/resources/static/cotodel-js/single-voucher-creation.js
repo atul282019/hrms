@@ -84,13 +84,24 @@ function singleVoucherValidation(){
 			if (dateInput) {
 			    dateInput.setAttribute('min', today);
 			}
-	        // Validate Start Date
-	        if (!dateInput || !dateInput.value) {
-	            overallIsValid = false;
-	            isValid = false;
-	            errorMessages.push(`Row ${index + 1}: Start date is required.`);
-	            if (dateInput) dateInput.style.borderColor = '#F24822';
-	        }
+			// Validate Start Date
+			if (!dateInput || !dateInput.value) {
+			    overallIsValid = false;
+			    isValid = false;
+			    errorMessages.push(`Row ${index + 1}: Start date is required.`);
+			    if (dateInput) dateInput.style.borderColor = '#F24822';
+			} else {
+			    const selectedDate = new Date(dateInput.value);
+			    const todayDate = new Date();
+			    todayDate.setHours(0, 0, 0, 0); // Normalize to midnight
+
+			    if (selectedDate < todayDate) {
+			        overallIsValid = false;
+			        isValid = false;
+			        errorMessages.push(`Row ${index + 1}: Start date cannot be in the past.`);
+			        dateInput.style.borderColor = '#F24822';
+			    }
+			}
 
 	        // Validate Validity
 	        if (!validitySelect || !validitySelect.value) {

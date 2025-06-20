@@ -84,75 +84,74 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				</nav>
 				
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
 				<div th:switch="${session.user_role}">
 				   <div th:case="2" >
 					
 					<section class="business-benefits py-5" id="businessSection" style="display: block;">
-								  <div class="container max-w-1440">
-								    <h5 class="benefits-section-heading mb-4">Business Benefits</h5>
-								    <div class="cd-benefits-flex justify-content-between align-items-start gap-4">
-								      <div class="cd-benefits-left">
-								        <div class="d-flex flex-column gap-5">
-								          <div class="benefit-card">
-								            <img src="img/Seamless Control over Expenses.png" class="benefit-icon">
-								            <p class="benefit-title">Seamless Control over Expenses</p>
-								            <p class="benefit-desc">Set-up Budgets and Parameters to issue vouchers across categories of spends</p>
-								          </div>
-								          <div class="benefit-card">
-								            <img src="img/Automatic Digital Reconciliation.png" class="benefit-icon">
-								            <p class="benefit-title">Automatic Digital Reconciliation</p>
-								            <p class="benefit-desc">Automated reconciliation across all spends with digital trail of all transactions done</p>
-								          </div>
-								          <div class="benefit-card">
-								            <img src="img/Convenient Form Factor.png" class="benefit-icon">
-								            <p class="benefit-title">Convenient Form Factor</p>
-								            <p class="benefit-desc">UPI is the preferred mode of payment now</p>
-								          </div>
-								          <div class="benefit-card">
-								            <img src="img/Actionable Insights & Analysis.png" class="benefit-icon">
-								            <p class="benefit-title">Actionable Insights & Analysis</p>
-								            <p class="benefit-desc">Get actionable insights, analytics & reports for your business spends in an efficient manner</p>
-								          </div>
-								        </div>
-								        <div class="d-flex flex-column gap-5">
-								          <div class="benefit-card">
-								            <img src="img/Full Control over Money.png" class="benefit-icon">
-								            <p class="benefit-title">Full Control over Money</p>
-								            <p class="benefit-desc">Money never leaves your Bank Account till transaction is done</p>
-								          </div>
-								          <div class="benefit-card">
-								            <img src="img/Seamless Onboarding without KYC.png" class="benefit-icon">
-								            <p class="benefit-title">Seamless Onboarding without KYC</p>
-								            <p class="benefit-desc">No KYC is needed to add a new employee/contractual worker</p>
-								          </div>
-								          <div class="benefit-card">
-								            <img src="img/Higher Redemption Touchpoints.png" class="benefit-icon">
-								            <p class="benefit-title">Higher Redemption Touchpoints</p>
-								            <p class="benefit-desc">Leveraging the existing network of QR codes</p>
-								          </div>
-								          <div class="benefit-card">
-								            <img src="img/Reduction in Admin Tasks & Delays.png" class="benefit-icon">
-								            <p class="benefit-title">Reduction in Admin Tasks & Delays</p>
-								            <p class="benefit-desc">No Paper-work or burden associated with sending money and managing spends</p>
-								          </div>
-								        </div>
-								      </div>
-									  <div class="cd-benefits-right">
-									    <iframe width="540" height="570" src="https://www.youtube.com/embed/3gI_suq55wQ"
-									            title="Fleet Expenses on UPI"  frameborder="0" allow="autoplay"
-									            allowfullscreen class="cd-video-frame">
-									    </iframe>
-									  </div>
-								    </div>
-								  </div>
-								</section>
+					  <div class="container max-w-1440">
+					    <h5 class="benefits-section-heading mb-4">Business Benefits</h5>
+					    <div class="cd-benefits-flex justify-content-between align-items-start gap-4">
+					      <div class="cd-benefits-left">
+					        <div class="d-flex flex-column gap-5">
+					          <div class="benefit-card">
+					            <img src="img/Seamless Control over Expenses.png" class="benefit-icon">
+					            <p class="benefit-title">Seamless Control over Expenses</p>
+					            <p class="benefit-desc">Set-up Budgets and Parameters to issue vouchers across categories of spends</p>
+					          </div>
+					          <div class="benefit-card">
+					            <img src="img/Automatic Digital Reconciliation.png" class="benefit-icon">
+					            <p class="benefit-title">Automatic Digital Reconciliation</p>
+					            <p class="benefit-desc">Automated reconciliation across all spends with digital trail of all transactions done</p>
+					          </div>
+					          <div class="benefit-card">
+					            <img src="img/Convenient Form Factor.png" class="benefit-icon">
+					            <p class="benefit-title">Convenient Form Factor</p>
+					            <p class="benefit-desc">UPI is the preferred mode of payment now</p>
+					          </div>
+					          <div class="benefit-card">
+					            <img src="img/Actionable Insights & Analysis.png" class="benefit-icon">
+					            <p class="benefit-title">Actionable Insights & Analysis</p>
+					            <p class="benefit-desc">Get actionable insights, analytics & reports for your business spends in an efficient manner</p>
+					          </div>
+					        </div>
+					        <div class="d-flex flex-column gap-5">
+					          <div class="benefit-card">
+					            <img src="img/Full Control over Money.png" class="benefit-icon">
+					            <p class="benefit-title">Full Control over Money</p>
+					            <p class="benefit-desc">Money never leaves your Bank Account till transaction is done</p>
+					          </div>
+					          <div class="benefit-card">
+					            <img src="img/Seamless Onboarding without KYC.png" class="benefit-icon">
+					            <p class="benefit-title">Seamless Onboarding without KYC</p>
+					            <p class="benefit-desc">No KYC is needed to add a new employee/contractual worker</p>
+					          </div>
+					          <div class="benefit-card">
+					            <img src="img/Higher Redemption Touchpoints.png" class="benefit-icon">
+					            <p class="benefit-title">Higher Redemption Touchpoints</p>
+					            <p class="benefit-desc">Leveraging the existing network of QR codes</p>
+					          </div>
+					          <div class="benefit-card">
+					            <img src="img/Reduction in Admin Tasks & Delays.png" class="benefit-icon">
+					            <p class="benefit-title">Reduction in Admin Tasks & Delays</p>
+					            <p class="benefit-desc">No Paper-work or burden associated with sending money and managing spends</p>
+					          </div>
+					        </div>
+					      </div>
+						  <div class="cd-benefits-right">
+						    <iframe width="540" height="570" src="https://www.youtube.com/embed/3gI_suq55wQ"
+						            title="Fleet Expenses on UPI"  frameborder="0" allow="autoplay"
+						            allowfullscreen class="cd-video-frame">
+						    </iframe>
+						  </div>
+					    </div>
+					  </div>
+					</section>
 				</div>
-				<div class="col-12" th:case="*" >
-				<div class="cd-container" id="profileContainer" style="display: block;"> 
+				<div class="col-12" th:case="*">
+				<div class="cd-container" id="profileContainer" style="display: none;"> 
 				  <div class="cd-wrapper">
-				    <div class="cd-setup-box" id="accountSetup" style="display: block;">
+				    <div class="cd-setup-box" id="accountSetup" style="display: none;">
 				      <div class="cd-setup-inner">
 				        <div class="cd-setup-left">
 				          <div>
@@ -160,10 +159,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				            <div class="cd-progress">
 				              <div class="cd-progress-bar" id="profile" ></div>
 				            </div>
-							<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
-							<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
-																																	
-	   
+																																
 				            <!--<p class="small" style="color: #4A4E69;">0 of 3 completed</p>-->
 							<p class="small" style="color: #4A4E69;" ><span id="profileComplete">0</span> of 3 completed</p>
 				          </div>
@@ -178,7 +174,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				                <div class="cd-step-number">1</div>
 				                <span>Enter Organization Details</span>
 				              </div>
-							  <a  class="cd-step-link" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1}" 
+							  <a  class="cd-step-link" id="anchorStart"  th:if="${session.user_role == 9 || session.user_role == 1 || session.user_role == 3}" 
 							  th:href="@{/settingOrganizationAccount}"><span id="btnText">Start</span><i class="fas fa-angle-right"></i></a>
 				             <!-- <a href="#" class="cd-step-link">
 				                <span>Start</span>
@@ -190,7 +186,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				                <div class="cd-step-number">2</div>
 				                <span>Setup/Link Bank Account</span>
 				              </div>
-							  <a  class="cd-step-link" id="anchorStartAccount"  th:if="${session.user_role == 9 || session.user_role == 1}" 
+							  <a  class="cd-step-link" id="anchorStartAccount"  th:if="${session.user_role == 9 || session.user_role == 1 || session.user_role == 3}" 
 							  th:href="@{/roleAccess}"><span id="btnTextAccount"></span><i class="fas fa-angle-right"></i></a>
 				            </div>
 				            <div class="cd-step-item bg-transparent" id="btnsetupPartner">
@@ -198,7 +194,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				                <div class="cd-step-number">3</div>
 				                <span>Add your Driver Partners & Vehicles</span>
 				              </div>
-							  <a  class="cd-step-link" id="anchorStartVehicles"  th:if="${session.user_role == 9 || session.user_role == 1}" 
+							  <a  class="cd-step-link" id="anchorStartVehicles"  th:if="${session.user_role == 9 || session.user_role == 1 || session.user_role == 3}" 
 							   th:href="@{/manageEmployee}"><span id="btnTextVehicles"></span><i class="fas fa-angle-right"></i></a>
 				            </div>
 				          </div>
@@ -270,243 +266,233 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				</div>
 				
 				<div class="cd-container" id="activeVoucherContainer" style="display: none;"> 
-								  <div class="cd-wrapper">
-									
-									<!-- Left Column -->
-									 <div class="voucher-summary">
-									   <div class="voucher-header">
-									     <span class="voucher-status">Active</span>
-									     <span class="voucher-title">UPI Vouchers</span>
-									     <select class="voucher-dropdown" id="bankListData">
-									       <option></option>
-									     </select>
-									   </div>
-									   <div class="voucher-body">
-									     <div class="voucher-amount">₹ 0</div>
-									     <div class="voucher-label">Voucher Amount Available</div>
+				  <div class="cd-wrapper">
+					
+					<!-- Left Column -->
+					 <div class="voucher-summary">
+					   <div class="voucher-header">
+					     <span class="voucher-status">Active</span>
+					     <span class="voucher-title">UPI Vouchers</span>
+					     <select class="voucher-dropdown" id="bankListData">
+					       <option></option>
+					     </select>
+					   </div>
+					   <div class="voucher-body">
+					     <div class="voucher-amount">₹ 0</div>
+					     <div class="voucher-label">Voucher Amount Available</div>
 
-										 <div class="voucher-progress">
-										        <svg class="voucher-progress-svg">
-										          <circle cx="65" cy="65" r="55" class="voucher-progress-bg" />
-										          <circle cx="65" cy="65" r="55" class="voucher-progress-bar" />
-										          <text x="65" y="55" class="voucher-progress-subtext" transform="rotate(180, 65, 65)">Spent</text>
-										          <text x="65" y="75" class="voucher-progress-text" transform="rotate(180, 65, 65)">75%</text>
-										        </svg>
-										      </div>
-									     <hr class="voucher-divider" />
-									     <div class="voucher-spent">₹ 0</div>
-									     <div class="voucher-label">Redeemed Amount</div>
-									   </div>
-									 </div>
+						 <div class="voucher-progress">
+						        <svg class="voucher-progress-svg">
+						          <circle cx="65" cy="65" r="55" class="voucher-progress-bg" />
+						          <circle cx="65" cy="65" r="55" class="voucher-progress-bar" />
+						          <text x="65" y="55" class="voucher-progress-subtext" transform="rotate(180, 65, 65)">Spent</text>
+						          <text x="65" y="75" class="voucher-progress-text" transform="rotate(180, 65, 65)">75%</text>
+						        </svg>
+						      </div>
+					     <hr class="voucher-divider" />
+					     <div class="voucher-spent">₹ 0</div>
+					     <div class="voucher-label">Redeemed Amount</div>
+					   </div>
+					 </div>
 
-									 <!-- Middle Column -->
-									 <div class="category-summary">
-									   <div class="category-filters">
-									     <select class="category-type">
-									       <option>All Categories</option>
-									     </select>
-									     <select class="category-period" id="timePeriod" onchange="loadCategoryVoucherData()">
-									       <option value="CM" selected>Current Month</option>
-										   <option value="LM">Last Month</option>
-										   <option value="CFY">Current Year</option>
-										   <option value="LFY">Last Year</option>
-										   <option value="AH">All</option>
-									     </select>
+					 <!-- Middle Column -->
+					 <div class="category-summary">
+					   <div class="category-filters">
+					     <select class="category-type">
+					       <option>All Categories</option>
+					     </select>
+					     <select class="category-period" id="timePeriod" onchange="loadCategoryVoucherData()">
+					       <option value="CM" selected>Current Month</option>
+						   <option value="LM">Last Month</option>
+						   <option value="CFY">Current Year</option>
+						   <option value="LFY">Last Year</option>
+						   <option value="AH">All</option>
+					     </select>
+					   </div>
+					   <div class="category-breakdown">
+					   
+					   </div>
+					 </div>
+					 
+				    <div class="cd-offer-box">
+				      <div class="mb-3">
+				        <h4 class="fw-bold text-dark">Offers</h4>
+				        <hr class="cd-offer-divider">
+				      </div>
+				      <div class="cd-offer-item">
+				        <img src="img/indian oil.png" alt="Indian Oil" class="cd-offer-icon" />
+				        <div class="cd-offer-content">
+				          <strong>Indian Oil</strong>
+				          <small class="text-success">
+				            <img src="img/tabler_discount.png" class="cd-discount-icon" />Get up to ₹50 Cashback
+				          </small>
+				        </div>
+				      </div>
+				      <div class="cd-offer-item">
+				        <img src="img/vehicle-icon.png" alt="Vehicles" class="cd-offer-icon" />
+				        <div class="cd-offer-content">
+				          <strong>Onboard 20+ Vehicles</strong>
+				          <small class="text-success">
+				            <img src="img/tabler_discount.png" class="cd-discount-icon" />Get up to ₹50 Cashback
+				          </small>
+				        </div>
+				      </div>
+				      <div class="cd-offer-item">
+				        <img src="img/ticket.png" class="cd-offer-icon" />
+				        <div class="cd-offer-content">
+				          <strong>Issue 5 Fuel Vouchers</strong>
+				          <small class="text-success">
+				            <img src="img/tabler_discount.png" class="cd-discount-icon" /> Get up to ₹50 Cashback
+				          </small>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
+				<div class="business-benefits01 py-5" id="userTransactionSection" style="display: none;">
+				<div class="container">
+					<!--<div class="download-btn-container">
+			        <img src="img/download-blue.svg" alt="Download Icon">
+			      </div>-->
+				   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+				     <li class="nav-item">
+				       <a class="nav-link active" data-bs-toggle="tab" href="#users" role="tab">Users</a>
+				     </li>
+				     <li class="nav-item">
+				       <a class="nav-link" data-bs-toggle="tab" href="#transactions" role="tab">Transactions</a>
+				     </li>
+				     <li class="nav-item">
+				       <a class="nav-link" data-bs-toggle="tab" href="#vouchers" role="tab">Vouchers</a>
+				     </li>
+				     <li class="nav-item">
+				       <a class="nav-link" data-bs-toggle="tab" href="#vehicles" role="tab">Vehicles</a>
+				     </li>
+				   </ul>
+				  
+				   <hr class="mt-0">
+
+				   <div class="tab-content mt-6">
+				     <div class="tab-pane fade show active" id="users" role="tabpanel">
+				       <div class="row g-3"> 
+						<div class="col-md-12">
+						          <div class="info-card ">
+									<div class="info-header">
+									     <div class="info-title">
+									       <img src="img/people-user.png" alt="People Icon" class="benefit-icon">
+									       Number of Users
+									     </div>
+									     <!--<img src="img/redirect-to-new-page-icon.png" style="width: 24px; height: 24px;">-->
 									   </div>
-									   <div class="category-breakdown">
+									   <div class="count-box-wrapper">
+									       <div class="count-box">
+											    <div style="cursor:pointer;" class="pill total-pill" onclick="loadActiveInactiveUserList()">Total <span id="totalCount"></span></div>
+											   <div style="cursor:pointer;" class="pill active-pill" onclick="activeUser()">Active <span id="activeCount"></span></div>
+									       </div>
 									   
-									   </div>
-									 </div>
-									
-									 
-								    <div class="cd-offer-box">
-								      <div class="mb-3">
-								        <h4 class="fw-bold text-dark">Offers</h4>
-								        <hr class="cd-offer-divider">
-								      </div>
-								      <div class="cd-offer-item">
-								        <img src="img/indian oil.png" alt="Indian Oil" class="cd-offer-icon" />
-								        <div class="cd-offer-content">
-								          <strong>Indian Oil</strong>
-								          <small class="text-success">
-								            <img src="img/tabler_discount.png" class="cd-discount-icon" />Get up to ₹50 Cashback
-								          </small>
-								        </div>
-								      </div>
-								      <div class="cd-offer-item">
-								        <img src="img/vehicle-icon.png" alt="Vehicles" class="cd-offer-icon" />
-								        <div class="cd-offer-content">
-								          <strong>Onboard 20+ Vehicles</strong>
-								          <small class="text-success">
-								            <img src="img/tabler_discount.png" class="cd-discount-icon" />Get up to ₹50 Cashback
-								          </small>
-								        </div>
-								      </div>
-								      <div class="cd-offer-item">
-								        <img src="img/ticket.png" class="cd-offer-icon" />
-								        <div class="cd-offer-content">
-								          <strong>Issue 5 Fuel Vouchers</strong>
-								          <small class="text-success">
-								            <img src="img/tabler_discount.png" class="cd-discount-icon" /> Get up to ₹50 Cashback
-								          </small>
-								        </div>
-								      </div>
-								    </div>
-								  </div>
-								</div>
-				
-								<div class="business-benefits01 py-5" id="userTransactionSection" style="display: none;">
-								<div class="container">
-									<!--<div class="download-btn-container">
-							        <img src="img/download-blue.svg" alt="Download Icon">
-							      </div>-->
-								   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
-								     <li class="nav-item">
-								       <a class="nav-link active" data-bs-toggle="tab" href="#users" role="tab">Users</a>
-								     </li>
-								     <li class="nav-item">
-								       <a class="nav-link" data-bs-toggle="tab" href="#transactions" role="tab">Transactions</a>
-								     </li>
-								     <li class="nav-item">
-								       <a class="nav-link" data-bs-toggle="tab" href="#vouchers" role="tab">Vouchers</a>
-								     </li>
-								     <li class="nav-item">
-								       <a class="nav-link" data-bs-toggle="tab" href="#vehicles" role="tab">Vehicles</a>
-								     </li>
-									
-									
-								   </ul>
-								  
-								   <hr class="mt-0">
 
-								   <div class="tab-content mt-6">
-								     <div class="tab-pane fade show active" id="users" role="tabpanel">
-								       <div class="row g-3"> 
-										<div class="col-md-12">
-										          <div class="info-card ">
-													<div class="info-header">
-													     <div class="info-title">
-													       <img src="img/people-user.png" alt="People Icon" class="benefit-icon">
-													       Number of Users
-													     </div>
-													     <!--<img src="img/redirect-to-new-page-icon.png" style="width: 24px; height: 24px;">-->
-													   </div>
-													   <div class="count-box-wrapper">
-													       <div class="count-box">
-															    <div style="cursor:pointer;" class="pill total-pill" onclick="loadActiveInactiveUserList()">Total <span id="totalCount"></span></div>
-															   <div style="cursor:pointer;" class="pill active-pill" onclick="activeUser()">Active <span id="activeCount"></span></div>
-													       </div>
-													   
+									     <!-- white table container outside of count-box bg area -->
+									     <div class="table-responsive table-white ">
+									       <table class="table mb-0" id="userTable">
+									         <thead>
+									           <tr>
+									             <th>USERS</th>
+									             <th>DEPARTMENT</th>
+									             <th>EMPLOYEE ID</th>
+												 <th>MOBILE</th>
+												 <th>EMAIL</th>
+												 <th>EMPLOYEE TYPE</th>
+									           </tr>
+									         </thead>
+									         <tbody id="userTableBody">
+									      
+									         </tbody>
+									       </table>
+									     </div>
+										 </div>
+										 <div style="text-align: right; color: #367AFF;"><a href="/manageEmployee">View All</a></div>
+						          </div>
+						        </div>
+				       </div>
+				     </div>
+					 
+					 
+					<!-- transactions tab-->
+				     <div class="tab-pane fade" id="transactions" role="tabpanel">
+						<div class="table-responsive">
+						  <table class="table table-reimbursements mb-0" id="vouchersTableTransactionList">
+						    <thead>
+						      <tr>							
+							  <th>Date & Time</th>
+						      <th>TXN ID</th>	
+						      <th>Name</th>
+							  <th>Catagory</th>	
+							  <th>Merchant</th>	
+							  <th>Amount</th>	
+							  <!--<th>Mode of Payment</th>	-->
+						      </tr>
+						    </thead>
+						    <tbody class="table-bordered">
+						   			
+						    </tbody>
+						  </table>
+						</div>
+						<br>
+					 <div style="text-align: right; color: #367AFF;"><a href="/upiVoucherIssuanceNew">View All</a></div>						
+				     </div>
+					 
+					 <!--vouchers tab-->
+				     <div class="tab-pane fade" id="vouchers" role="tabpanel" >
+						<div class="table-responsive">
+			            <table class="table table-reimbursements mb-0" id="vouchersTableList">
+			              <thead>
+			                <tr>
+							 <!-- <th>S.NO</th>-->
+							  <th>Name</th>
+			                  <th>Mobile Number</th>	
+			                  <th>Bank A/c</th>
+							  <th>Voucher & Type</th>	
+							  <th>Status</th>	
+							  <th>Issue Date</th>	
+							  <th>Expiry Date</th>	
+							  <th>Issued</th>	
+							  <th>Redeemed</th>		
+			                </tr>
+			              </thead>
+			              <tbody class="table-bordered" id="voucherTableListBody">
+			            
+			              </tbody>
+			            </table>
+			          </div>
+					  <div style="text-align: right; color: #367AFF;"><a href="/upiVoucherIssuanceNew">View All</a></div>
+					  <br>
+				     </div>
 
-													     <!-- white table container outside of count-box bg area -->
-													     <div class="table-responsive table-white ">
-													       <table class="table mb-0" id="userTable">
-													         <thead>
-													           <tr>
-													             <th>USERS</th>
-													             <th>DEPARTMENT</th>
-													             <th>EMPLOYEE ID</th>
-																 <th>MOBILE</th>
-																 <th>EMAIL</th>
-																 <th>EMPLOYEE TYPE</th>
-													           </tr>
-													         </thead>
-													         <tbody id="userTableBody">
-													      
-													         </tbody>
-													       </table>
-													     </div>
-														 </div>
-														 <div style="text-align: right; color: #367AFF;"><a href="/manageEmployee">View All</a></div>
-										          </div>
-												 
-										        </div>
-												
-								       </div>
-								     </div>
-									 
-									 
-									<!-- transactions tab-->
-								     <div class="tab-pane fade" id="transactions" role="tabpanel">
-										<div class="table-responsive">
-										  <table class="table table-reimbursements mb-0" id="vouchersTableTransactionList">
-										    <thead>
-										      <tr>							
-											  <th>Date & Time</th>
-										      <th>TXN ID</th>	
-										      <th>Name</th>
-											  <th>Catagory</th>	
-											  <th>Merchant</th>	
-											  <th>Amount</th>	
-											  <!--<th>Mode of Payment</th>	-->
-										      </tr>
-										    </thead>
-										    <tbody class="table-bordered">
-										   			
-										    </tbody>
-										  </table>
-										</div>
-										<br>
-									 <div style="text-align: right; color: #367AFF;"><a href="/upiVoucherIssuanceNew">View All</a></div>
-									
-										
-								     </div>
-									 
-									 <!--vouchers tab-->
-								     <div class="tab-pane fade" id="vouchers" role="tabpanel" >
-										<div class="table-responsive">
-							            <table class="table table-reimbursements mb-0" id="vouchersTableList">
-							              <thead>
-							                <tr>
-											 <!-- <th>S.NO</th>-->
-											  <th>Name</th>
-							                  <th>Mobile Number</th>	
-							                  <th>Bank A/c</th>
-											  <th>Voucher & Type</th>	
-											  <th>Status</th>	
-											  <th>Issue Date</th>	
-											  <th>Expiry Date</th>	
-											  <th>Issued</th>	
-											  <th>Redeemed</th>		
-							                </tr>
-							              </thead>
-							              <tbody class="table-bordered" id="voucherTableListBody">
-							            
-							              </tbody>
-							            </table>
-							          </div>
-									  <div style="text-align: right; color: #367AFF;"><a href="/upiVoucherIssuanceNew">View All</a></div>
-									  <br>
-									   
-								     </div>
-
-									 <!-- vehicles tab-->
-								     <div class="tab-pane fade" id="vehicles" role="tabpanel">
-												          <div class="table-responsive">
-												            <table class="table table-reimbursements mb-0" id="vehicleManagementTable1">
-												              <thead>
-												                <tr>
-																 <!-- <th>S.NO</th>-->
-																  <th>Vehicle Type</th>
-												                  <th>Registration #</th>	
-												                  <th>Make & Model</th>
-																  <th>Assigned Driver</th>			    
-												                </tr>
-												              </thead>
-												              <tbody class="table-bordered">
-												               
-																
-												              </tbody>
-												            </table>
-												          </div>
-														  <div style="text-align: right; color: #367AFF;"><a href="/vehiclemanagement">View All</a></div>
-														  <br>
-								     </div>
-								   </div>
-								 </div>
-								 </div>
-								 
-								 
+					 <!-- vehicles tab-->
+				     <div class="tab-pane fade" id="vehicles" role="tabpanel">
+				          <div class="table-responsive">
+				            <table class="table table-reimbursements mb-0" id="vehicleManagementTable1">
+				              <thead>
+				                <tr>
+								 <!-- <th>S.NO</th>-->
+								  <th>Vehicle Type</th>
+				                  <th>Registration #</th>	
+				                  <th>Make & Model</th>
+								  <th>Assigned Driver</th>			    
+				                </tr>
+				              </thead>
+				              <tbody class="table-bordered">
+				               
+				              </tbody>
+				            </table>
+				          </div>
+						  <div style="text-align: right; color: #367AFF;"><a href="/vehiclemanagement">View All</a></div>
+						  <br>
+				     </div>
+				   </div>
+				 </div>
+				 </div>
+				 								 
 				<section class="business-benefits py-5" id="businessSection" style="display: block;">
 				  <div class="container max-w-1440">
 				    <h5 class="benefits-section-heading mb-4">Business Benefits</h5>
@@ -559,20 +545,21 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				      </div>
 					  <div class="cd-benefits-right">
 					    <iframe width="540" height="570" src="https://www.youtube.com/embed/3gI_suq55wQ"
-					            title="Fleet Expenses on UPI"  frameborder="0" allow="autoplay"
-					            allowfullscreen class="cd-video-frame">
+				            title="Fleet Expenses on UPI"  frameborder="0" allow="autoplay"
+				            allowfullscreen class="cd-video-frame">
 					    </iframe>
 					  </div>
 				    </div>
 				  </div>
 				</section>
 				</div>
+				<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+				<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
+				<input type="hidden" class="form-input" id="employeeRole" name="employeeRole" th:value="${session.user_role}">												
 				</div>
-            <!-- End of Main Content -->
-							
+            <!-- End of Main Content -->							
         </div>
 		
-
 		<div class="lds-spinner" id="signinLoader" style="display: none">
 			<div></div>
 			<div></div>
@@ -592,7 +579,6 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 
     </div>
     <!-- End of Page Wrapper -->
-
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i> </a>
 	
@@ -614,21 +600,16 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/dashboard.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
-
-	<!-- Theme CSS -->
-	 
+	<!-- Theme CSS -->	 
 	 <link rel="stylesheet" type="text/css" href="css/custom.css">
-	
     <script>
-    $(document).ready(function(){
-   	 $(".innernav").click(function(){
-           $(".dropdownNav").addClass("active");
-       });
-   	 $('li.active').removeClass('active').removeAttr('aria-current'); 
-   	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-   });
+	    $(document).ready(function(){
+	   	 $(".innernav").click(function(){
+	           $(".dropdownNav").addClass("active");
+	       });
+	   	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+	   	  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+	   });
    
     </script>
 
@@ -647,7 +628,6 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 		    }
 		    return option.text;
 		}
-
 	</script>
 	<script>
     document.addEventListener("DOMContentLoaded", function () {
