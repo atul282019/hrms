@@ -816,6 +816,8 @@ function getBankListWithVocher() {
 		    document.getElementById("signinLoader").style.display = "flex";
 		    const employerId = document.getElementById("employerId").value;
 		    const employeeId = document.getElementById("employeeId").value;
+			const employeeRole = document.getElementById("employeeRole").value;
+			
 
 		    $.ajax({
 		        type: "POST",
@@ -848,15 +850,17 @@ function getBankListWithVocher() {
 		                    }
 		                };
 
+						if (profileCompanyComplete === "0") {
+							document.getElementById("profileContainer").style.display = "block";
+							document.getElementById("accountSetup").style.display = "block";
+		                }
 		                // Step 1: Company Profile
 		                if (profileCompanyComplete === "1") {
 		                    setAnchorStatus("anchorStart", "Completed", "", "#86889B");
 		                    setAnchorStatus("btnTextAccount", "Start", "/roleAccess", "#0d6efd");
 		                    document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
 		                    document.getElementById("btnsetupBankAccount").classList.remove("bg-transparent");
-		                }
-
-		                // Step 2: eRUPI Account
+		                } // Step 2: eRUPI Account
 		                if (profileCompanyComplete === "1") {
 		                    if (erupiLinkAccount === "1") {
 		                        setAnchorStatus("anchorStartAccount", "Completed", "", "#86889B");
