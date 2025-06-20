@@ -5278,6 +5278,7 @@ input.autocomp-input {
 }
 .autocomp-input-wrap {
     position: relative;
+	z-index: 500;
 }
 
 .loginNew-wrap {

@@ -4,6 +4,9 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <!-- Font Awesome 6 Free (Latest) -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
@@ -187,9 +190,11 @@ requestedVoucherCount()">
                                                 <div class="funds-mark"><div id="totalVoucher"></div>&nbsp; Vouchers &#8377;<strong id="totalvoucherValue">&#8377;0.00</strong></div>
 												<div class="infoo mx-2"><a href="#" id="btnforinfomodal"><img
 												 src="img/infoo.svg" width="34px" alt=""></a></div>
-												 <button class="fundmarked">
-												     <a href="#" id="fundmarked"><img src="img/fund-expand.svg" alt=""></a>
-												 </button>
+												 <!--<button class="fundmarked" >
+												    <a href="#" id="fundmarked"><img src="img/fund-expand-green.svg" alt=""></a>
+													 
+												 </button>-->
+												 <a href="#" id="fundmarked"><img src="img/fund-expand-green.svg" alt=""></a>
                                             </div>
                                         </div>
 
@@ -354,12 +359,12 @@ requestedVoucherCount()">
 			 										 <!-- <th>S.NO</th>-->
 													 <th><input type="checkbox" id="checkAll" style="margin-left: 12px;"></th>
 													 <th>Issue Date</th>	
-			 										  <th>Name & Mobile #</th>
+			 										  <th>Name & Mobile # <img src="img/Sorting-updown.svg" alt="sorting"></th>
 													  <th>Voucher ID</th>
 													  
-			 						                  <th>Bank A/c</th>
-			 										  <th>Category</th>	
-			 										  
+			 						                  <th>Bank A/c<img src="img/Sorting-updown.svg" alt="sorting"></th>
+			 										  <th>Category<img src="img/Sorting-updown.svg" alt="sorting"></th>	
+														<th>Redemptions</th>
 			 										  
 			 										  <th>Expiry Date</th>	
 													  <th>Status</th>	
@@ -439,7 +444,7 @@ requestedVoucherCount()">
 												      <th>Voucher ID</th>	
 													  <th>Transaction RRN</th>
 												      <th>Name & Mobile #</th>
-													  <th>Catagory</th>	
+													  <th>Category</th>	
 													  <th>Merchant Name</th>	
 													  <th>Amount</th>	
 													  <!--<th>Mode of Payment</th>-->
@@ -547,38 +552,166 @@ requestedVoucherCount()">
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/upi-voucher-issuance.js"></script>
-<script>	$(document).ready(function () {
-	  // Header checkbox select all
-	  $('#checkAll').on('click', function () {
-	    const table = $('#vouchersTableList').DataTable();
-	    const rows = table.rows({ 'search': 'applied' }).nodes();
-	    const isChecked = this.checked;
+	<!-- Include SheetJS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	    const downloadBtn = document.querySelector('.download-btn-container img[alt="Download Icon"]');
+	    
+	    downloadBtn.addEventListener("click", function () {
+	        const table = document.querySelector("#vouchersTableList");
+	        const headerCells = table.querySelectorAll("thead tr th");
+	        const rows = table.querySelectorAll("tbody tr");
+	        const data = [];
 
-	    $('input.rowCheckbox', rows).each(function () {
-	      $(this).prop('checked', isChecked);
+	        // Build header row (excluding 1st and last columns)
+	        const headerRow = Array.from(headerCells)
+	            .slice(1, -1)  // Exclude checkbox and last column
+	            .map(th => th.innerText.trim());
+	        data.push(headerRow);
+
+	        // Loop through each checked row
+	        rows.forEach(row => {
+	            const checkbox = row.querySelector("input.rowCheckbox");
+	            if (checkbox && checkbox.checked) {
+	                const cells = row.querySelectorAll("td");
+	                const rowData = Array.from(cells)
+	                    .slice(1, -1)  // Exclude checkbox and last column
+	                    .map(td => td.innerText.trim());
+	                data.push(rowData);
+	            }
+	        });
+
+	        // Abort if no data selected
+	        if (data.length <= 1) {
+	            alert("Please select at least one row to download.");
+	            return;
+	        }
+
+	        // Export to Excel
+	        const ws = XLSX.utils.aoa_to_sheet(data);
+	        const wb = XLSX.utils.book_new();
+	        XLSX.utils.book_append_sheet(wb, ws, "Vouchers");
+
+	        XLSX.writeFile(wb, "vouchers_selected.xlsx");
+	    });
+	});
+	</script>
+<script>	// Show modal with selected data
+	$('#revokeTrigger').on('click', function () {
+	  const selectedRows = $('.rowCheckbox:checked').map(function () {
+	    return $('#vouchersTableList').DataTable().row($(this).closest('tr')).data();
+	  }).get();
+
+	  if (selectedRows.length === 0) {
+	    alert("Please select at least one voucher to revoke.");
+	    return;
+	  }
+
+	  if (selectedRows.length > 5) {
+	    alert("You can revoke a maximum of 5 vouchers at a time.");
+	    return;
+	  }
+
+	  // Populate modal table
+	  const modalBody = $('#bulkRevokeTableBody');
+	  modalBody.empty();
+
+	  // Construct full table with header
+	  const table = $(`
+	    <table class="table table-reimbursements mb-0 w-100 text-nowrap">
+	      <thead>
+	        <tr>
+	          <th style="width: 100px;">Issue Date</th>
+	          <th style="width: 180px;">Name & Mobile</th>
+	          <th style="width: 200px;">Voucher ID</th>
+	          <th style="width: 120px;">Bank A/c</th>
+	          <th style="width: 140px;">Category</th>
+	          <th style="width: 140px;">Redemptions</th>
+	          <th style="width: 120px;">Expiry Date</th>
+	          <th style="width: 100px;">Status</th>
+	          <th style="width: 100px;">Issued</th>
+	          <th style="width: 100px;">Redeemed</th>
+	        </tr>
+	      </thead>
+	      <tbody></tbody>
+	    </table>
+	  `);
+
+	  selectedRows.forEach(row => {
+		const redemptionIcon = row.redemtionType === 'Single'
+		  ? 'img/single-redemption-green.svg'
+		  : row.redemtionType === 'MULTIPLE'
+		    ? 'img/tiffinbox.svg'
+		    : '';
+
+		const rowHtml = `
+		  <tr class="bulkRevokeRow">
+		    <td>${formatDate(row.creationDate)}</td>
+		    <td>${row.name}<br>${row.mobile}</td>
+		    <td>${row.merchanttxnId}</td>
+		    <td>
+		      <img src="data:image/png;base64,${row.bankIcon}" alt="bank" style="height: 16px; vertical-align: middle; margin-right: 4px;">
+		      xxxx${row.accountNumber.slice(-4)}
+		    </td>
+		    <td>
+		      <img src="data:image/png;base64,${row.mccMainIcon}" alt="category" style="height: 16px; vertical-align: middle; margin-right: 4px;">
+		      ${row.purposeDesc}
+		    </td>
+		    <td>
+		      <img src="${redemptionIcon}" alt="${row.redemtionType}" style="height: 16px; vertical-align: middle; margin-right: 4px;">
+		      ${row.redemtionType}
+		    </td>
+		    <td>${formatDate(row.expDate)}</td>
+		    <td>${row.type}</td>
+		    <td class="text-right">₹${parseFloat(row.amount).toLocaleString('en-IN')}</td>
+		    <td class="text-right">₹${parseFloat(row.redeemAmount || 0).toLocaleString('en-IN')}</td>
+		  </tr>
+		`;
+
+
+	    table.find('tbody').append(rowHtml);
+	  });
+	  modalBody.append(table);
+
+	  // Ensure modal is inside body before showing
+	  if (!$('#bulkrevokeModal').parent().is('body')) {
+	    $('#bulkrevokeModal').detach().appendTo('body');
+	  }
+
+	  $('#bulkrevokeModal').modal('show');
+	});
+
+	// Ensure modal appears above overlay
+	$('#bulkrevokeModal').on('shown.bs.modal', function () {
+	  $(this).css('z-index', 1055);
+	  $('.modal-backdrop').last().css('z-index', 1050);
+	});
+
+	// Send to backend on confirm revoke
+	  $(document).ready(function () {
+	    $('#bulkBtnRevoke').on('click', function () {
+	      const selectedIds = $('.rowCheckbox:checked').map(function () {
+	        return $(this).data('id');
+	      }).get();
+
+	      if (selectedIds.length === 0) {
+	        alert("Please select at least one voucher to revoke.");
+	        return;
+	      }
+
+	      // Store globally
+	      window.selectedVoucherIdsToRevoke = selectedIds;
+
+	      // Trigger OTP send
+	     // $('#bulkbtnRevoke').trigger('click'); // This triggers OTP process
+		 triggerBulkOtpSend();
 	    });
 	  });
 
-	  // Row checkbox individual click (optional logic retained if needed)
-	  $(document).on('click', '.rowCheckbox', function () {
-	    // can be left empty or used for visual updates
-	  });
 
-	  // Click on revoke image triggers send of selected IDs
-	  $('#revokeTrigger').on('click', function () {
-	    const selectedIds = [];
-	    $('input.rowCheckbox:checked').each(function () {
-	      const id = $(this).data('id');
-	      if (id) selectedIds.push(id);
-	    });
 
-	    if (selectedIds.length > 0) {
-	      sendRowIdsToBackend(selectedIds);
-	    } else {
-	      alert("Please select at least one voucher to revoke.");
-	    }
-	  });
-	});</script>
+</script>
 	<script>
 		const searchInput = document.getElementById('searchInput');
 		const table = document.getElementById('vouchersTableList');
@@ -1178,6 +1311,9 @@ requestedVoucherCount()">
 		function closeRevokeUPIVoucherModal() {
 		    document.getElementById("RevokeUPIVoucherModal").style.display = "none";
 		}
+		function closeRevokebulkUPIVoucherModal() {
+				    document.getElementById("RevokebulkUPIVoucherModal").style.display = "none";
+				}
 		</script>
 <script>
 			function toggleOtpVisibility2() {
@@ -1194,10 +1330,32 @@ requestedVoucherCount()">
 			    icon.classList.toggle('fa-eye');
 			    icon.classList.toggle('fa-eye-slash');
 			}
+			
+			function toggleOtpVisibility3() {
+			    const icon = document.getElementById("toggleOtpIcon3");
+			    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+			    const isHidden = inputs[0].type === 'password';
+			    inputs.forEach(input => {
+			        if (input.id.startsWith('password')) {
+			            input.type = isHidden ? 'text' : 'password';
+			        }
+			    });
+
+			    icon.classList.toggle('fa-eye');
+			    icon.classList.toggle('fa-eye-slash');
+			}
 			</script>
 <style>			.collapsed {
 			    display: none !important;
-			  }</style>
+			  }
+			  #bulkrevokeModal {
+			    z-index: 1055 !important;
+			  }
+
+			 
+
+		  </style>
 </body>
 
 </html>
@@ -1262,6 +1420,31 @@ requestedVoucherCount()">
             </div>
         </div>
     </div>
+</div>
+
+<div class="customModal" id="bulkrevokeModal">
+  <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-xxl" role="document">
+    <div class="modal-content modal-bulk p-0">
+      <div class="modal-header pb-0 text-center">
+        <h5 class="modal-title w-100">Are you sure?</h5>
+      </div>
+      <hr>
+      <p class="text-dark text-center">Please confirm if you would like to ‘Revoke’ these UPI Vouchers.</p>
+
+      <div class="modal-body text-center">
+        <div class="table-responsive">
+          <div id="bulkRevokeTableBody" style="font-size: 13px;">
+            <!-- Dynamic table will be injected here by JS -->
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
+          <button class="btn btn-border w-100" id="bulkBtnRevoke">REVOKE</button>
+          <button class="btn btn-primary w-100" id="bulkcancelbtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Modal Issue Vouchers -->
@@ -1382,6 +1565,61 @@ requestedVoucherCount()">
 			                </div>
 			                <div class="d-flex justify-content-center mt-3">
 								<button class="btn btn-primary w-100" id="authenticate" onclick="verfyIssueVoucherOTP()">Authenticate</button>
+			                </div>
+			            </div>
+			      
+        </div>
+    </div>
+</div>
+
+<!-- Modal revoke bulk Vouchers -->
+<div class="customModal" id="RevokebulkUPIVoucherModal" style="z-index: 1055; display: none; padding-top: 5%;">
+    <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg" role="document">
+        <div class="modal-content modal-bulk p-0">
+            <div class="modal-header pb-0 text-center">
+                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Revoke Bulk UPI Voucher</h5>
+				<button type="button"
+				           style="border: none; background: none; font-size: 1.5rem; position: absolute; top: 10px; right: 0px; line-height: 1; padding: 0 20px;"
+				           aria-label="Close"
+				           onclick="closeRevokebulkUPIVoucherModal()">
+				       &times;
+				   </button>
+            </div>
+			<div class="modal-body text-center">
+			                <div class="otp-box-onboarding justify-content-center">
+							
+								<input  class="form-control form-control-sm test" type="password" id="password111" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password1" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password222" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password2" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password333" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password3" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password444" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password4" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password555" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password5" maxlength="1" autocomplete="off" onkeypress="focusNext(this)" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="password" id="password666" 
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"
+							        name="password6" maxlength="1" autocomplete="off" onkeydown="focusBack()">
+							        <input  class="form-control form-control-sm test" type="hidden" id="orderId3" 
+							        name="orderId3" >
+									<div class="d-flex justify-content-center mt-2">
+									    <i class="fa-solid fa-eye" id="toggleOtpIcon3" style="cursor: pointer;margin-top: 5px; " onclick="toggleOtpVisibility3()"></i>
+									</div>
+			                </div>
+			               <label class="time-otp ml-0 text-dark" for="" id="countdown3" style="color: green;"></label>
+						  <!-- <div class="text-center" id="countdown" style="color: green;"></div>-->
+							<p id="resendCode3">Didn’t receive the code?  <a href="#" onclick="resendbulkrevokeVoucherOTP()">Resend OTP</a></p>
+							<p class="error-msg" id="otpError3" style="color:red"></p>
+			                    <p class="mb-0" id="maskedMobileDisplay3"></p>
+			                </div>
+			                <div class="d-flex justify-content-center mt-3">
+								<button class="btn btn-primary w-100" id="authenticate3" onclick="bulkverfyrevokeVoucherOTP()">Authenticate</button>
 			                </div>
 			            </div>
 			      
@@ -1557,24 +1795,24 @@ requestedVoucherCount()">
 
 		        <div class="voucher-card">
 		          <div class="voucher-card-header">
-		            <div class="voucher-card-icon-box">
-		              <img src="img/food-icon-grey.png" alt="Meal Icon" width="24" height="24">
-		            </div>
+					<div class="voucher-card-icon-box">
+					  <img id="voucherLogoImg" alt="Voucher Logo" width="24" height="24" style="display: none;">
+					</div>
 		            <div class="voucher-card-labels">
 		              <div class="voucher-label-row">
-		                <span class="voucher-label-title">Meal</span>
-		                <span class="voucher-label-title">₹15,000</span>
+		                <span class="voucher-label-title" id="voucherDesc">Meal</span>
+		                <span class="voucher-label-title" id="voucherAmount">₹15,000</span>
 		              </div>
 		              <div class="voucher-label-row">
-		                <span class="voucher-label-sub">Multiple</span>
+		                <span class="voucher-label-sub" >Multiple</span>
 		                <span class="voucher-label-sub">Voucher value</span>
 		              </div>
 		            </div>
 		          </div>
 
 		          <div class="voucher-status-box">
-		            <span class="voucher-status-text">Active</span>
-		            <span class="voucher-status-text">Balance: <span class="voucher-balance">₹5,000</span></span>
+		            <span class="voucher-status-text" id="voucherStatus">Active</span>
+		            <span class="voucher-status-text">Balance: <span class="voucher-balance" id="activeAmount">₹5,000</span></span>
 		          </div>
 
 		          <div class="voucher-meta">
@@ -1583,26 +1821,26 @@ requestedVoucherCount()">
 		              <span class="voucher-meta-label">Voucher ID</span>
 		            </div>
 		            <div class="voucher-meta-row">
-		              <span class="voucher-meta-value">25/10/2024</span>
-		              <span class="voucher-meta-value">ICICI00001145781</span>
+		              <span class="voucher-meta-value" id="issueDate">25/10/2024</span>
+		              <span class="voucher-meta-value" id="merchantTranId">ICICI00001145781</span>
 		            </div>
 		            <div class="voucher-meta-row">
 		              <span class="voucher-meta-label">Beneficiary</span>
 		              <span class="voucher-meta-label">Mobile Number</span>
 		            </div>
 		            <div class="voucher-meta-row">
-		              <span class="voucher-meta-value">Ramesh Kumar</span>
-		              <span class="voucher-meta-value">9910318405</span>
+		              <span class="voucher-meta-value" id="name">Ramesh Kumar</span>
+		              <span class="voucher-meta-value"id="voucherMobile">9910318405</span>
 		            </div>
 		            <div class="voucher-meta-row">
 		              <span class="voucher-meta-label">Bank A/c</span>
-		              <span class="voucher-meta-label">Expiry Date</span>
+		              <span class="voucher-meta-label" >Expiry Date</span>
 		            </div>
 		            <div class="voucher-meta-row">
-		              <span class="voucher-meta-value">
-		                <img src="img/indianbank.png" alt="indianbank" class="voucher-bank-icon">xxx0569
+		              <span class="voucher-meta-value" id="accountNumber">
+		                <!--<img src="img/indianbank.png" alt="indianbank" class="voucher-bank-icon">xxx0569-->
 		              </span>
-		              <span class="voucher-meta-value">25/10/2025</span>
+		              <span class="voucher-meta-value"id="expDate">25/10/2025</span>
 		            </div>
 		          </div>
 		        </div>
@@ -1610,7 +1848,7 @@ requestedVoucherCount()">
 		        <div class="voucher-redemption">
 		          <h6 class="voucher-redemption-title">Redemption Details</h6>
 		          <div class="voucher-redemption-card">
-		            <div class="voucher-redemption-label">Amount Spent</div>
+		            <div class="voucher-redemption-label" id="amountSpent">Amount Spent</div>
 		            <div class="voucher-redemption-values">
 		              <div class="voucher-redemption-amount">₹10,000</div>
 		              <span class="voucher-status-pill">Partially Redeemed</span>
