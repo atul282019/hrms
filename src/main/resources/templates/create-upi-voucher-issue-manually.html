@@ -554,10 +554,18 @@
         //var today = new Date().toISOString().split('T')[0];
        // document.getElementById("startDate").value = today;
     </script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function () {
+		    const today = new Date().toISOString().split("T")[0];
+		    document.querySelectorAll('.table-dateed').forEach(function(dateInput) {
+		        dateInput.setAttribute("min", today);
+		    });
+		});
+		</script>
 	<style>	/* Wrap input to allow absolute positioning of dropdown */
 	.autocomp-input-wrap {
 	    position: relative;
-	    z-index: 1000; /* Ensure it's above table rows */
+	    z-index: 1; /* Ensure it's above table rows */
 	}
 
 	
@@ -1298,7 +1306,11 @@
 	    `;
 
 	    // Insert before the error row (3rd last tr)
-	    tableBody.insertBefore(newRow, rows[rows.length - 2]);
+	    //tableBody.insertBefore(newRow, rows[rows.length - 2]);
+		tableBody.appendChild(newRow);
+		// Disable past dates
+		    const today = new Date().toISOString().split("T")[0];
+		    newRow.querySelector('.table-dateed').setAttribute("min", today);
 	}
 
 
@@ -1660,7 +1672,8 @@
 	}
 	</script>
 
-
+	
+	
 </body>
 
 </html>

@@ -5105,7 +5105,7 @@ table.table-upivouchers tbody td.tdreedeem {
     display: none;
     /* Hidden by default */
     position: fixed;
-    z-index: 1;
+    z-index: 11111;
     /* Sit on top */
     left: 0;
     top: 0;
