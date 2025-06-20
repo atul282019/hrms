@@ -89,7 +89,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				<div th:switch="${session.user_role}">
 				   <div th:case="2" >
 					
-					<section class="business-benefits py-5" id="businessSection" style="display: block;">
+					<section class="business-benefits py-5" id="businessSection" style="display: none;">
 								  <div class="container max-w-1440">
 								    <h5 class="benefits-section-heading mb-4">Business Benefits</h5>
 								    <div class="cd-benefits-flex justify-content-between align-items-start gap-4">
@@ -150,9 +150,9 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 								</section>
 				</div>
 				<div class="col-12" th:case="*" >
-				<div class="cd-container" id="profileContainer" style="display: block;"> 
+				<div class="cd-container" id="profileContainer" style="display: none;"> 
 				  <div class="cd-wrapper">
-				    <div class="cd-setup-box" id="accountSetup" style="display: block;">
+				    <div class="cd-setup-box" id="accountSetup" style="display: none;">
 				      <div class="cd-setup-inner">
 				        <div class="cd-setup-left">
 				          <div>

@@ -286,8 +286,8 @@
 							  <th>Order Status</th>		
 							  <th>Payment ID</th>	                  
 			                  <th>Payment Status</th>	
-			                  <th>Service Charges</th>
-							<!--  <th>Service Tax</th>-->
+			                  <!--<th>Service Charges</th>-->
+							  <th>Service Tax</th>
 							  <th>Settlement Amount</th>						    
 			                </tr>
 			              </thead>
@@ -640,7 +640,7 @@
 							        <td>${payment_history.orderStatus}</td>
 							        <td>${payment_history.cfPaymentId}</td>
 							        <td>${payment_history.paymentStatus}</td>
-							        <td style="text-align:right">₹${Number(payment_history.serviceCharge).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+							        <td style="text-align:right">₹${Number(payment_history.serviceTax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
 							        <td style="text-align:right">₹${Number(payment_history.settlementAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
 							    </tr>
 							`;

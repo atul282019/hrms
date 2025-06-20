@@ -124,8 +124,8 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 @PostMapping(value="/production-webhook-callback")
 public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
-		logger.info("webhook-callback called production");
-		logger.info("productionhook called"+payload);	
+		logger.info("production-webhook-callback");
+		logger.info("production-webhook-callback"+payload);	
 		String profileRes=null;
 	    ObjectMapper om = new ObjectMapper();
 		Root root = om.readValue(payload, Root.class); 
@@ -144,8 +144,8 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 @PostMapping(value="/preprod-webhook-callback")
 public ResponseEntity<Void> preprodWebhookCallback(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
-		logger.info("webhook-callback called production");
-		logger.info("productionhook called"+payload);	
+		logger.info("preprod-webhook-callback");
+		logger.info("preprod-webhook-callback"+payload);	
 		String profileRes=null;
 	    ObjectMapper om = new ObjectMapper();
 		Root root = om.readValue(payload, Root.class); 

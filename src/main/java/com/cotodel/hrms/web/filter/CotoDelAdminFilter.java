@@ -211,6 +211,18 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("staging_webhook");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/stagingWebhook")){
+				RequestDispatcher rd = request.getRequestDispatcher("stagingWebhook");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/preprod-webhook-callback")){
+				RequestDispatcher rd = request.getRequestDispatcher("preprod-webhook-callback");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/production-webhook-callback")){
+				RequestDispatcher rd = request.getRequestDispatcher("production-webhook-callback");
+				rd.forward(request, response);
+			}
 			
 			else if(requestURI.contains("/contact")){
 				RequestDispatcher rd = request.getRequestDispatcher("contact");
