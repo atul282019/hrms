@@ -7665,6 +7665,20 @@ table.vcScheduledtable thead {
 				  font-size: 0.8rem;
 				  
 				}
+				.pill-redeemed {
+								  display: inline-flex;
+								  align-items: center;
+								  justify-content: center;
+								  width: 80px;
+								  height: 23.23px;
+								  border-radius: 18.09px;
+								  padding: 3.62px 9.04px;
+								  background-color: #000; /* default fallback */
+								    color: #ffffff !important; /* ← ensures white text */
+								  font-weight: 500;
+								  font-size: 0.8rem;
+								  
+								}
 				.pill-wide {
 								  display: inline-flex;
 								  align-items: center;
@@ -8839,16 +8853,62 @@ table.vcScheduledtable thead {
 							  	    border-radius: 6px;
 							  	    font-size: 14px;
 							  	  }
-
+								  .voucher-status-box-failed 
+								  {
+		  						  	    display: flex;
+		  						  	    justify-content: space-between;
+		  						  	    align-items: center;
+		  						  	    padding: 0.5rem 0.75rem;
+		  						  	    margin-top: 1rem;
+		  						  	    background-color: #F248221A;
+		  						  	    border-radius: 6px;
+		  						  	    font-size: 14px;
+		  						  	  }
+									  .voucher-status-box-Revoke 
+		  							  {
+		  	  						  	    display: flex;
+		  	  						  	    justify-content: space-between;
+		  	  						  	    align-items: center;
+		  	  						  	    padding: 0.5rem 0.75rem;
+		  	  						  	    margin-top: 1rem;
+		  	  						  	    background-color: #FF95001A;
+		  	  						  	    border-radius: 6px;
+		  	  						  	    font-size: 14px;
+		  	  						  	  }
+										  .voucher-status-box-Expire 
+			  							  {
+			  	  						  	    display: flex;
+			  	  						  	    justify-content: space-between;
+			  	  						  	    align-items: center;
+			  	  						  	    padding: 0.5rem 0.75rem;
+			  	  						  	    margin-top: 1rem;
+			  	  						  	    background-color: #EDEDF0;
+			  	  						  	    border-radius: 6px;
+			  	  						  	    font-size: 14px;
+			  	  						  	  }
 							  	  .voucher-status-text {
 							  	    color: #2F945A;
 							  	  }
+							  .voucher-status-text-failed 
+							  {  color: #FF3B30;  }
+							  .voucher-status-text-Revoke
+	  						  { color: #FF9500;	 }
+							  .voucher-status-text-Expire 
+	  						  { color: #ACAEBA;	 }
 
 							  	  .voucher-balance {
 							  	    font-weight: 600;
 							  	    color: #2F945A;
 							  	  }
-
+								  .voucher-balance-failed
+								  {   font-weight: 700;
+				  						  	    color: #FF3B30;  }
+							  .voucher-balance-Revoke 
+							  {   font-weight: 700;
+		  						  	    color: #FF9500; }
+							  .voucher-balance-Expire 
+	  						  {   font-weight: 700;
+  						  	    color: #ACAEBA; }
 							  	  .voucher-meta {
 							  	    margin-top: 1rem;
 							  	    font-size: 12px;
@@ -9046,4 +9106,27 @@ table.vcScheduledtable thead {
 													    justify-content: center;
 													    gap: 8px;
 													}
+													.custom-back-button {
+													  width: 85px;
+													  height: 52px;
+													  padding: 12px 24px;
+													  border-radius: 8px;
+													  border: 1px solid #367AFF;
+													  background-color: transparent;
+													  color: #367AFF;
+													  font-family: inherit;
+													  font-size: 16px;
+													  line-height: 20px;
+													  cursor: pointer;
+													  display: inline-flex;
+													  align-items: center;
+													  justify-content: center;
+													  gap: 8px;
+													  transition: background-color 0.2s ease;
+													}
+
+													#vouchersTableList th {
+													  white-space: nowrap;
+													}
+
 											

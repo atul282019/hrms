@@ -988,7 +988,11 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
             "orderable": false,
             "className": 'dt-body-center',
             "render": function (data, type, row) {
-              return `<input type="checkbox" class="rowCheckbox" data-id="${row.id}">`;
+              const expDate = new Date(row.expDate);
+              const today = new Date();
+              const isExpired = expDate < today;
+              const isActive = row.type === "Created" && !isExpired;
+              return `<input type="checkbox" class="rowCheckbox" data-id="${row.id}" ${isActive ? "" : "disabled"}>`;
             }
           },
           {
@@ -1011,11 +1015,9 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
               const imgHTML = base64Icon
                 ? `<img src="data:image/png;base64,${base64Icon}" alt="Bank Icon" width="24" height="24">`
                 : '';
-
               const maskedAccount = row.accountNumber && row.accountNumber.length >= 4
                 ? `xxxx${row.accountNumber.slice(-4)}`
                 : row.accountNumber || '';
-
               return `
                 <div style="display: flex; align-items: center; gap: 8px;">
                   ${imgHTML}
@@ -1031,7 +1033,6 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
               const imgHTML = mccIcon
                 ? `<img src="data:image/png;base64,${mccIcon}" alt="MCC Icon" width="24" height="24">`
                 : '';
-
               return `
                 <div style="display: flex; align-items: center; gap: 8px;">
                   ${imgHTML}
@@ -1040,17 +1041,17 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
               `;
             }
           },
-		  {
-		    "mData": "redemtionType",
-		    "render": function (data, type, row) {
-		      const redemptionImage = data === "Single"
-		        ? `<img src="img/single-redemption-green.svg" alt="Single" width="24" height="24" style="margin-left: 8px;">`
-		        : data === "MULTIPLE"
-		          ? `<img src="img/tiffinbox.svg" alt="Multiple" width="24" height="24" style="margin-left: 8px;">`
-		          : '';
-		      return `<div style="display: flex; align-items: center;">${redemptionImage}${data}</div>`;
-		    }
-		  },
+          {
+            "mData": "redemtionType",
+            "render": function (data, type, row) {
+              const redemptionImage = data === "Single"
+                ? `<img src="img/single-redemption-green.svg" alt="Single" width="24" height="24" style="margin-left: 8px;">`
+                : data === "MULTIPLE"
+                  ? `<img src="img/tiffinbox.svg" alt="Multiple" width="24" height="24" style="margin-left: 8px;">`
+                  : '';
+              return `<div style="display: flex; align-items: center;">${redemptionImage}${data}</div>`;
+            }
+          },
           {
             "mData": "expDate",
             "render": function (data) {
@@ -1060,13 +1061,21 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
           {
             "mData": "type",
             "render": function (data, type, row) {
+              const expDate = new Date(row.expDate);
+              const today = new Date();
+              const isExpired = expDate < today;
               let labelText = '', labelClass = '';
-              switch (data) {
-                case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
-                case "Redeemed": labelText = "Redeemed"; labelClass = "pill-wide bg-lightyellow-txt-yellow-pill "; break;
-                case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
-                case "Revoke": labelText = "Revoked"; labelClass = "pill bg-grey-txt-grey-pill"; break;
-                default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+              if (isExpired && row.type === "Created") {
+                labelText = "Expired";
+                labelClass = "pill bg-grey-txt-grey-pill";
+              } else {
+                switch (data) {
+                  case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
+                  case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
+                  case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
+                  case "Revoke": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;
+                  default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+                }
               }
               return `<span class="${labelClass}">${labelText}</span>`;
             }
@@ -1103,16 +1112,16 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
             "mData": null,
             "render": function (data, type, row) {
               const encodedRow = encodeURIComponent(JSON.stringify(row));
-              const isDisabled = (row.type === "Revoke" || row.type === "fail" || row.type === "Redeem");
-
-              const revokeBtn = isDisabled
-                ? `<button class="dropdown-item py-2" disabled>Revoke</button>`
-                : `<button class="dropdown-item py-2" onclick="openRevokeDialog('${encodedRow}')">Revoke</button>`;
-
-              const smsBtn = isDisabled
-                ? `<button class="dropdown-item py-2" disabled>Send SMS</button>`
-                : `<button class="dropdown-item py-2" data-toggle="modal" data-target="#tableSendSms" onclick="sendsms('${encodedRow}')">Send SMS</button>`;
-
+              const expDate = new Date(row.expDate);
+              const today = new Date();
+              const isExpired = expDate < today;
+              const isActive = row.type === "Created" && !isExpired;
+              const revokeBtn = isActive
+                ? `<button class="dropdown-item py-2" onclick="openRevokeDialog('${encodedRow}')">Revoke</button>`
+                : `<button class="dropdown-item py-2" disabled>Revoke</button>`;
+              const smsBtn = isActive
+                ? `<button class="dropdown-item py-2" data-toggle="modal" data-target="#tableSendSms" onclick="sendsms('${encodedRow}')">Send SMS</button>`
+                : `<button class="dropdown-item py-2" disabled>Send SMS</button>`;
               return `
                 <div class="dropdown no-arrow ml-2">
                   <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -1129,10 +1138,26 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
         ]
       });
 
-      $('#checkAll').on('click', function () {
+      /*$('#checkAll').on('click', function () {
         var rows = $('#vouchersTableList').DataTable().rows({ 'search': 'applied' }).nodes();
         $('input[type="checkbox"].rowCheckbox', rows).prop('checked', this.checked);
-      });
+      });*/
+	  $('#checkAll').on('click', function () {
+	    const rows = $('#vouchersTableList').DataTable().rows({ 'search': 'applied' }).nodes();
+	    const checkboxes = $('input[type="checkbox"].rowCheckbox', rows);
+	    const isChecked = $(this).is(':checked');
+
+	    if (isChecked) {
+	      checkboxes.each(function () {
+	        if (!$(this).is(':disabled')) {
+	          $(this).prop('checked', true);
+	        }
+	      });
+	    } else {
+	      checkboxes.prop('checked', false);
+	    }
+	  });
+
     },
     error: function (e) {
       alert('Failed to fetch JSON data' + e);
@@ -1143,9 +1168,19 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
 
 
 
+
 // Helper function to send IDs
 function sendRowIdsToBackend(ids) {
+	
 	console.log('Sent IDs:', ids);
+	// Remove ALL modal backdrops
+   document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+
+   // Remove modal-open class from body
+   document.body.classList.remove('modal-open');
+
+   // Optional: Reset body overflow if it was locked
+   document.body.style.overflow = '';
   $.ajax({
     type: 'POST',
     url: '/erupiVoucherRevokeBulk', // Replace with your actual endpoint
@@ -1157,7 +1192,8 @@ function sendRowIdsToBackend(ids) {
 		var data1 = jQuery.parseJSON(response);
 		     var data2 = data1.data;
       console.log('Sent IDs:', ids);
-	  erupiVoucherCreateListLimit(timePeriod = "AH");//reload the table
+	  //erupiVoucherCreateListLimit(timePeriod = "AH");//reload the table
+	  window.location.href="/upiVoucherIssuanceNew";
     },
     error: function (xhr) {
       console.error('Failed to send IDs:', xhr);
@@ -1538,11 +1574,42 @@ function viewhistory(rowData) {
         document.getElementById("expDate").textContent = data1.expDate;
         document.getElementById("issueDate").textContent = data1.issueDate;
         document.getElementById("merchantTranId").textContent = data1.merchantTranId;
-        document.getElementById("activeAmount").textContent = data1.activeAmount;
-        document.getElementById("voucherStatus").textContent = data1.voucherStatus;
-        document.getElementById("amountSpent").textContent = data1.amountSpent;
+        document.getElementById("balanceAmount").textContent = `₹${data1.activeAmount}`;
+        document.getElementById("redemtionType").textContent = data1.redemtionType;
+		     document.getElementById("amountSpent").textContent = `₹${data1.amountSpent ?? 0}`;
 
-        // Mask and display account number with bank logo
+        const statusBox = document.querySelector(".voucher-status-box");
+        const statusTextEls = statusBox.querySelectorAll(".voucher-status-text");
+        const balanceEl = document.getElementById("balanceAmount");
+        const statusValue = data1.voucherStatus?.trim().toLowerCase();
+
+        document.getElementById("voucherStatus").textContent = data1.voucherStatus;
+
+        // Reset all known status classes
+        statusBox.className = "voucher-status-box";
+        statusTextEls.forEach(el => el.className = "voucher-status-text");
+        balanceEl.className = "voucher-balance";
+
+        // Apply CSS class based on status using switch-case
+        switch (statusValue) {
+          case "failed":
+            statusBox.classList.add("voucher-status-box-failed");
+            statusTextEls.forEach(el => el.classList.add("voucher-status-text-failed"));
+            balanceEl.classList.add("voucher-balance-failed");
+            break;
+          case "revoke":
+            statusBox.classList.add("voucher-status-box-Revoke");
+            statusTextEls.forEach(el => el.classList.add("voucher-status-text-Revoke"));
+            balanceEl.classList.add("voucher-balance-Revoke");
+            break;	
+		case "expired":
+		           statusBox.classList.add("voucher-status-box-Expire");
+		           statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
+		           balanceEl.classList.add("voucher-balance-Expire");
+		           break;
+          // Add more cases as needed for other statuses
+        }
+
         const accountDisplay = document.getElementById("accountNumber");
         const bankLogo = data1.bankLogo
           ? `<img src='data:image/png;base64,${data1.bankLogo}' alt='Bank' width='24' height='24' style='vertical-align:middle;margin-right:6px;'>`
@@ -1550,7 +1617,6 @@ function viewhistory(rowData) {
         const maskedAcc = data1.accountNumber?.slice(-4) ?? '';
         accountDisplay.innerHTML = `${bankLogo}xxxx${maskedAcc}`;
 
-        // Set dynamic base64 voucher logo if available
         if (data1.voucherLogo) {
           const logoEl = document.getElementById("voucherLogoImg");
           logoEl.src = `data:image/png;base64,${data1.voucherLogo}`;
@@ -1569,17 +1635,17 @@ function viewhistory(rowData) {
               <div class="voucher-transaction-top">
                 <div>
                   <div class="voucher-meta-label">Transaction date</div>
-                  <div class="voucher-meta-value">${txn.date}</div>
+                  <div class="voucher-meta-value">${txn.transactionDate}</div>
                 </div>
                 <div>
                   <div class="voucher-meta-label">Transaction RRN</div>
-                  <div class="voucher-meta-value">${txn.rrn}</div>
+                  <div class="voucher-meta-value">${txn.bankrrn}</div>
                 </div>
               </div>
               <div class="voucher-transaction-bottom">
                 <div>
                   <div class="voucher-meta-label">Merchant Name</div>
-                  <div class="voucher-meta-value">${txn.merchant}</div>
+                  <div class="voucher-meta-value">${txn.marchantName}</div>
                 </div>
                 <div>
                   <div class="voucher-meta-label">Amount</div>
@@ -1597,6 +1663,8 @@ function viewhistory(rowData) {
     }
   });
 }
+
+
 
 
 function revoke(){

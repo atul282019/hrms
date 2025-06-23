@@ -228,7 +228,8 @@ async function saveEmployeeOnboarding(){
 		const managerName = reporting.options[reporting.selectedIndex].value;
 	    const ctc = document.getElementById("salary").value;
 	    const locationDropdown = document.getElementById("location");
-		const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].value; 
+		//const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].value; 
+		const selectedLocation = locationDropdown.options[locationDropdown.selectedIndex].text; 
 	    const residentOfIndia = document.getElementById("residence").value;
 		const Id = document.getElementById("Id").value;
 		const profilePhotoBase64 = document.getElementById("profilePhotoBase64").value;
