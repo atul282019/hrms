@@ -15,7 +15,7 @@
 <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 
-<body id="page-top" onload="getPaymentHistory(),cotodelLinkedBankDetail(),getOrderDetail()">
+<body id="page-top" onload="getPaymentHistory(),cotodelLinkedBankDetail(),getOrderDetail(),getCurrentMonthAmountLimit()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -113,7 +113,7 @@
 					        <div style="flex-grow: 1;"></div>
 					        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
 					          <div class="cd-wallet-balance">
-					            <div class="cd-wallet-balance-amount">₹0.00</div>
+					            <div class="cd-wallet-balance-amount" id="walletBalance">₹0.00</div>
 					            <div class="cd-wallet-balance-label">Wallet Balance</div>
 					          </div>
 					          <div style="display: flex; gap: 8px;">
@@ -338,67 +338,67 @@
 					
 					<input type="hidden" id="order_id" th:value="${order_id}">
 								<div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section" style="display: none;">
-										                                                   <h5>Payment Receipt</h5>
-										                                                   <div class="primary-Details-wrap">
-																							<div class="Primary-details-info">
-																				                  <label> Customer ID</label>
-																				                  <p id="customerId"></p>
-																				              </div>
-																							<div class="Primary-details-info">
-																							                  <label>Name</label>
-																							                  <p id="name"></p>
-																							              </div>
-																							              
-																							              <div class="Primary-details-info">
-																							                  <label>Order Amount</label>
-																							                  <p id="amount"></p>
-																							              </div>
-																										  <div class="Primary-details-info">
-																						                  <label>Service Charge</label>
-																						                  <p id="serviceCharge"></p>
-																						              		</div>
-																										  <div class="Primary-details-info">
-																							                  <label>Service Tax</label>
-																							                  <p id="serviceTax"></p>
-																							              </div>
-																									  		<div class="Primary-details-info">
-																						                  <label>Settlement Amount</label>
-																							                  <p id="settlementAmount"></p>
-																							              </div>
-																										  <div class="Primary-details-info">
-																							                  <label>Order Status</label>
-																							                  <p id="order_status"></p>
-																							              </div>
-																							              <div class="Primary-details-info">
-																							                  <label>order Currency</label>
-																							                  <p id="currency"></p>
-																							              </div>
-																							              <div class="Primary-details-info">
-																							                  <label>Customer Email</label>
-																							                  <p id="customerEmail1"></p>
-																							              </div>
-																							              <div class="Primary-details-info">
-																							                  <label>Payment Date</label>
-																							                  <p id="created_at"></p>
-																							              </div>
-																										  <div class="Primary-details-info">
-																							                  <label>Payment Confirmation Id </label>
-																							                  <p id="cf_order_id"></p>
-																							              </div>
-																										  <div class="Primary-details-info">
-																							                  <label>Payment Methods</label>
-																							                  <p id="payment_methods"></p>
-																							              </div>
-																										  <div class="Primary-details-info">
-																							                  <label>Customer Phone Number</label>
-																							                  <p id="customerPhone"></p>
-																							              </div>
-																										  <div class="Primary-details-info">
-					  																			                  <label>Customer Order Id</label>
-					  																			                  <p id="orderId"></p>
-					  																			              </div>
-																											 </div>
-										                                               </div>		
+           <h5>Payment Receipt</h5>
+           <div class="primary-Details-wrap">
+			<div class="Primary-details-info">
+                  <label> Customer ID</label>
+                  <p id="customerId"></p>
+              </div>
+			<div class="Primary-details-info">
+			                  <label>Name</label>
+			                  <p id="name"></p>
+			              </div>
+			              
+			              <div class="Primary-details-info">
+			                  <label>Order Amount</label>
+			                  <p id="amount"></p>
+			              </div>
+						  <div class="Primary-details-info">
+		                  <label>Service Charge</label>
+		                  <p id="serviceCharge"></p>
+		              		</div>
+						  <div class="Primary-details-info">
+			                  <label>Service Tax</label>
+			                  <p id="serviceTax"></p>
+			              </div>
+					  		<div class="Primary-details-info">
+		                  <label>Settlement Amount</label>
+			                  <p id="settlementAmount"></p>
+			              </div>
+						  <div class="Primary-details-info">
+			                  <label>Order Status</label>
+			                  <p id="order_status"></p>
+			              </div>
+			              <div class="Primary-details-info">
+			                  <label>order Currency</label>
+			                  <p id="currency"></p>
+			              </div>
+			              <div class="Primary-details-info">
+			                  <label>Customer Email</label>
+			                  <p id="customerEmail1"></p>
+			              </div>
+			              <div class="Primary-details-info">
+			                  <label>Payment Date</label>
+			                  <p id="created_at"></p>
+			              </div>
+						  <div class="Primary-details-info">
+			                  <label>Payment Confirmation Id </label>
+			                  <p id="cf_order_id"></p>
+			              </div>
+						  <div class="Primary-details-info">
+			                  <label>Payment Methods</label>
+			                  <p id="payment_methods"></p>
+			              </div>
+						  <div class="Primary-details-info">
+			                  <label>Customer Phone Number</label>
+			                  <p id="customerPhone"></p>
+			              </div>
+						  <div class="Primary-details-info">
+				                  <label>Customer Order Id</label>
+				                  <p id="orderId"></p>
+				              </div>
+							 </div>
+       </div>		
 					 </div>
 				   </div>
 				 </div>
@@ -446,15 +446,15 @@
 	                       </div>
 	                   </div>
 	   
-	                  <!-- <div class="info-alert d-flex align-items-centerr" style="display: none;"  id="tialAmountLimit" >
+	                   <div class="info-alert align-items-centerr" id="tialAmountLimit" >
 	                       <i class="bi bi-info-circle-fill me-2" style="margin-right: 13px;"></i>
-	                       <div>
+	                       <div id="limitDisplayDiv"> 
 	                           Monthly limit for Product Trial is ₹2,000. You can only try ₹500 more.
 	                       </div>
-	                   </div>-->
+	                   </div>
 	   
 	                   <div class="d-grid mt-4">
-						<button type="button" class="btn btn-continue" data-bs-toggle="modal" onclick="updatePayment()">
+						<button type="button" class="btn btn-continue" data-bs-toggle="modal" onclick="updatePayment()" id="btnpayment">
 						        CONTINUE
 						    </button>
 	                   </div>
@@ -652,6 +652,63 @@
      		        }
      		    });
      		}  
+			
+			function getCurrentMonthAmountLimit() {
+			    const employerId = document.getElementById('employerId').value;
+
+			    $.ajax({
+			        type: "POST",
+			        url: "/currentMonthAmountLimit",
+			        data: { "orgId": employerId },
+					success: function(data) {
+					    const parseddata = JSON.parse(data);
+					    const walletAmount = Number(parseddata.data.walletAmount);
+					    const limitAmount = Number(parseddata.data.balanceAmount); // Remaining trial amount
+
+					    // Format and show wallet balance
+					    const formattedAmount = `₹${walletAmount.toLocaleString('en-IN', {
+					        minimumFractionDigits: 2,
+					        maximumFractionDigits: 2
+					    })}`;
+					    document.getElementById("walletBalance").innerHTML = formattedAmount;
+
+					    // Get DOM elements
+					    const radios = document.querySelectorAll("input[name='trialAmount']");
+					    const continueBtn = document.getElementById("btnpayment");
+					    const infoAlert = document.getElementById("tialAmountLimit");
+				        const limitDisplayDiv = document.getElementById("limitDisplayDiv");
+					    if (limitAmount <= 0) {
+					        // Disable all options and button
+					        radios.forEach(radio => radio.disabled = true);
+					        continueBtn.disabled = true;
+
+					        // Hide info alert
+					        infoAlert.style.display = "none";
+					    } else {
+					        // Enable valid options
+					        radios.forEach(radio => {
+					            const label = document.querySelector(`label[for='${radio.id}']`);
+					            const labelText = label.innerText.replace(/[₹,]/g, '').trim();
+					            const amount = Number(labelText);
+					            radio.disabled = amount > limitAmount;
+					        });
+					        continueBtn.disabled = false;
+
+					        // Show info alert with remaining balance
+					        infoAlert.style.display = "flex";
+					        limitDisplayDiv.innerText = 
+					            `Monthly limit for Product Trial is ₹2,500. You can only try ₹${limitAmount.toLocaleString('en-IN', {
+					                minimumFractionDigits: 2,
+					                maximumFractionDigits: 2
+					            })} more.`;
+					    }
+					},
+			        error: function(e) {
+			            alert('Error: ' + e.responseText);
+			        }
+			    });
+			}
+		
     </script>
 	<script>
 		function backPopup() {

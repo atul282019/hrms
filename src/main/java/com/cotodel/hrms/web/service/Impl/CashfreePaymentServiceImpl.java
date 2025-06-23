@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.CurrentMonthAmountLimit;
 import com.cotodel.hrms.web.response.OrderUserRequest;
 import com.cotodel.hrms.web.response.Root;
 import com.cotodel.hrms.web.service.CashfreePaymentService;
@@ -52,6 +53,11 @@ public class CashfreePaymentServiceImpl implements CashfreePaymentService{
 	public String preprodWebhookCallback(String token, Root root) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(root), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.preprodWebhookCallback);
 
+	}
+
+	@Override
+	public String getCurrentMonthAmountLimit(String token, CurrentMonthAmountLimit currentMonthAmountLimit) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(currentMonthAmountLimit), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.currentMonthAmountLimit);
 	}
 
 }

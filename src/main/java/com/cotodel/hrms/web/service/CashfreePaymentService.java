@@ -2,6 +2,7 @@ package com.cotodel.hrms.web.service;
 
 import org.springframework.stereotype.Repository;
 
+import com.cotodel.hrms.web.response.CurrentMonthAmountLimit;
 import com.cotodel.hrms.web.response.OrderUserRequest;
 import com.cotodel.hrms.web.response.Root;
 
@@ -21,5 +22,7 @@ public interface CashfreePaymentService {
 	String stagingWebhookSave(String token, Root root);
 
 	String preprodWebhookCallback(String token, Root root);
+
+	String getCurrentMonthAmountLimit(String token, CurrentMonthAmountLimit currentMonthAmountLimit);
 
 }

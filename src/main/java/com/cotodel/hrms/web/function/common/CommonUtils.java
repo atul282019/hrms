@@ -176,7 +176,7 @@ public interface CommonUtils {
 	public static String  getVoucherTransactionList = "/empService/Api/get/erupiVoucherCreateListRedeem";
 	public static String bulkVehicleUpload = "/empService/Api/add/vehicleBulkUploadNew";
 	public static String createbulkVehicle = "/empService/Api/add/vehicleBulkCreate";
-	
+	public static String currentMonthAmountLimit = "/cashFree/Api/get/currentMonthAmountLimit";
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
 	//public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";

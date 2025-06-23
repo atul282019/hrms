@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.CurrentMonthAmountLimit;
 import com.cotodel.hrms.web.response.OrderUserRequest;
 import com.cotodel.hrms.web.response.Root;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
@@ -207,4 +208,23 @@ public @ResponseBody String viewOrderIdList(HttpServletRequest request, ModelMap
 	   
 		return profileRes;
 	}
+
+
+
+@PostMapping(value="/currentMonthAmountLimit")
+public @ResponseBody String getCurrentMonthAmountLimit(HttpServletRequest request, ModelMap model,Locale locale,
+		HttpSession session,CurrentMonthAmountLimit currentMonthAmountLimit) {
+		logger.info("getPayrollMaster");	
+		String profileRes=null;
+		try {
+			profileRes = cashfreePaymentService.getCurrentMonthAmountLimit(tokengeneration.getToken(),currentMonthAmountLimit);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+	return profileRes;
 }
+
+}
+
