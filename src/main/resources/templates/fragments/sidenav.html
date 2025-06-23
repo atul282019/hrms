@@ -141,7 +141,7 @@
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                  <span>Cotodel Wallet Approvel</span></a>
          </li>
-		 <li class="nav-item" th:if="${ session.user_role == 9}">
+		 <li class="nav-item" th:if="${ session.user_role == 9 or session.user_role == 3}">
              <a class="nav-link" th:href="@{/cotowallet}">
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                  <span>Cotodel Wallet</span></a>

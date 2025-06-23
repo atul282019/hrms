@@ -5914,6 +5914,15 @@ tr.lasttr {
     padding: 10px 0;
 }
 
+
+.selectvouchers-topleft-repute {
+    display: flex;
+    border-radius: 10px;
+    background: #EDEDF0;
+    width: 30%;
+    padding: 10px 0;
+}
+
 .selectvouchers-topright {
     display: flex;
     width: 54%;
@@ -5923,6 +5932,15 @@ tr.lasttr {
 
 .selectvouchers-topleft-cards {
     width: 65%;
+    background: #fff;
+    padding: 10px;
+    margin: 0 10px;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.selectvouchers-topleft-cards-repute {
+    width: 100%;
     background: #fff;
     padding: 10px;
     margin: 0 10px;
