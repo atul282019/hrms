@@ -6,6 +6,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <!-- Font Awesome 6 Free (Latest) -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -272,19 +273,19 @@ requestedVoucherCount()">
 											    </div>
 									       
 
-									        <!-- Quick Filters -->
-									        <div style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
-									            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									                <img src="img/filter-icon.svg" alt="Filter" style="margin-right: 6px;">
-									                Quick Filters
-									            </a>
-									            <div class="dropdown-menu">
-									                <a class="dropdown-item" href="#">Active</a>
-									                <a class="dropdown-item" href="#">Expired & Revoked</a>
-													<a class="dropdown-item" href="#">Issued Today</a>
-									                <a class="dropdown-item" href="#">Issued this Month</a>
-									            </div>
-									        </div>
+											<!-- Quick Filters -->
+											<div id="quickFilters" style="width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
+											    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											        <img src="img/filter-icon.svg" alt="Filter" style="margin-right: 6px;">
+											        Quick Filters
+											    </a>
+											    <div class="dropdown-menu">
+											        <a id="filter-active" class="dropdown-item" href="#">Active</a>
+											        <a id="filter-expired-revoked" class="dropdown-item" href="#">Expired & Revoked</a>
+											        <a id="filter-issued-today" class="dropdown-item" href="#">Issued Today</a>
+											        <a id="filter-issued-this-month" class="dropdown-item" href="#">Issued this Month</a>
+											    </div>
+											</div>
 
 									        <!-- Select Time Period -->
 									        <div class="dropdown no-arrow">
@@ -330,7 +331,7 @@ requestedVoucherCount()">
 										   <div class="tab-content mt-3">
 											<!--vouchers tab-->
 											<div class="tab-pane fade show active" id="vouchers" role="tabpanel">
-											<div class="table-responsive">
+											<div class="table-responsive" style="border: 1px solid #EAF4EF; border-radius: 10px;">
 											   <table class="table table-reimbursements mb-0" id="vouchersTableList" style="font-size: 13px;">
 											     <!--<thead>
 											       <tr>
@@ -1313,6 +1314,14 @@ requestedVoucherCount()">
 		}
 		function closeRevokebulkUPIVoucherModal() {
 				    document.getElementById("RevokebulkUPIVoucherModal").style.display = "none";
+					// Remove ALL modal backdrops
+					   document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+
+					   // Remove modal-open class from body
+					   document.body.classList.remove('modal-open');
+
+					   // Optional: Reset body overflow if it was locked
+					   document.body.style.overflow = '';
 				}
 		</script>
 <script>
@@ -1804,7 +1813,7 @@ requestedVoucherCount()">
 		                <span class="voucher-label-title" id="voucherAmount">₹15,000</span>
 		              </div>
 		              <div class="voucher-label-row">
-		                <span class="voucher-label-sub" >Multiple</span>
+		                <span class="voucher-label-sub" id="redemtionType">Multiple</span>
 		                <span class="voucher-label-sub">Voucher value</span>
 		              </div>
 		            </div>
@@ -1812,7 +1821,7 @@ requestedVoucherCount()">
 
 		          <div class="voucher-status-box">
 		            <span class="voucher-status-text" id="voucherStatus">Active</span>
-		            <span class="voucher-status-text">Balance: <span class="voucher-balance" id="activeAmount">₹5,000</span></span>
+		            <span class="voucher-status-text">Balance: <span class="voucher-balance" id="balanceAmount">₹5,000</span></span>
 		          </div>
 
 		          <div class="voucher-meta">
@@ -1848,10 +1857,10 @@ requestedVoucherCount()">
 		        <div class="voucher-redemption">
 		          <h6 class="voucher-redemption-title">Redemption Details</h6>
 		          <div class="voucher-redemption-card">
-		            <div class="voucher-redemption-label" id="amountSpent">Amount Spent</div>
+		            <div class="voucher-redemption-label" >Amount Spent</div>
 		            <div class="voucher-redemption-values">
-		              <div class="voucher-redemption-amount">₹10,000</div>
-		              <span class="voucher-status-pill">Partially Redeemed</span>
+		              <div class="voucher-redemption-amount"id="amountSpent">₹10,000</div>
+		              <!--<span class="voucher-status-pill">Partially Redeemed</span>-->
 		            </div>
 		          </div>
 		        </div>
@@ -1924,6 +1933,139 @@ requestedVoucherCount()">
 		  </div>
 		</div>
 
+		<script>
+		document.addEventListener('DOMContentLoaded', function () {
+		    const filtersContainer = document.getElementById('quickFilters');
+		    const clearBtn = document.getElementById('clearFilters');
+		    const tableBody = document.querySelector('#vouchersTableList tbody');
+
+		    let originalRowsHTML = null; // Snapshot of original rows
+
+		    // Initial clear button state
+		    clearBtn.style.cursor = 'not-allowed';
+		    clearBtn.style.opacity = '0.5';
+		    clearBtn.dataset.enabled = 'false';
+
+		    function parseDate(dateStr) {
+		        if (!dateStr || !dateStr.includes('-')) return null;
+		        const [day, month, year] = dateStr.trim().split('-');
+		        const parsed = new Date(`${year}-${month}-${day}`);
+		        return isNaN(parsed.getTime()) ? null : parsed;
+		    }
+
+		    function setClearButtonState(enabled) {
+		        clearBtn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+		        clearBtn.style.opacity = enabled ? '1' : '0.5';
+		        clearBtn.dataset.enabled = enabled ? 'true' : 'false';
+		    }
+
+		    function filterRows(type) {
+		        const rows = tableBody.querySelectorAll('tr');
+
+		        // Store original data only once (before first filter)
+		        if (!originalRowsHTML) {
+		            originalRowsHTML = tableBody.innerHTML;
+		        }
+
+		        const today = new Date();
+		        const todayStr = today.toDateString();
+		        const month = today.getMonth();
+		        const year = today.getFullYear();
+
+		        rows.forEach(row => {
+		            const issueDateText = row.cells[1]?.textContent.trim();
+		            const statusText = row.cells[8]?.textContent.trim();
+		            const issueDate = parseDate(issueDateText);
+		            let show = false;
+
+		            if (!issueDate) return row.style.display = 'none';
+
+		            switch (type) {
+		                case 'active':
+		                    show = statusText === 'Active';
+		                    break;
+		                case 'expired-revoked':
+		                    show = ['Expired', 'Revoked'].includes(statusText);
+		                    break;
+		                case 'issued-today':
+		                    show = issueDate.toDateString() === todayStr;
+		                    break;
+		                case 'issued-this-month':
+		                    show = issueDate.getMonth() === month && issueDate.getFullYear() === year;
+		                    break;
+		            }
+
+		            row.style.display = show ? '' : 'none';
+		        });
+
+		        setClearButtonState(true);
+		    }
+
+		    filtersContainer.addEventListener('click', function (e) {
+		        const target = e.target;
+		        if (!target.classList.contains('dropdown-item')) return;
+		        e.preventDefault();
+
+		        const map = {
+		            'filter-active': 'active',
+		            'filter-expired-revoked': 'expired-revoked',
+		            'filter-issued-today': 'issued-today',
+		            'filter-issued-this-month': 'issued-this-month'
+		        };
+
+		        const filterType = map[target.id];
+		        if (filterType) filterRows(filterType);
+		    });
+
+		    clearBtn.addEventListener('click', function () {
+		        if (clearBtn.dataset.enabled !== 'true') return;
+
+		        // Restore original table rows
+		        if (originalRowsHTML) {
+		            tableBody.innerHTML = originalRowsHTML;
+		        }
+
+		        // Disable Clear button
+		        setClearButtonState(false);
+		    });
+		});
+		</script>
+
+
+
+		<script>
+		document.addEventListener('DOMContentLoaded', function () {
+		    const tabLinks = document.querySelectorAll('#dashboardTabs .nav-link');
+		    const downloadBtnContainer = document.querySelector('.download-btn-container');
+
+		    function showOrHideButtons() {
+		        const activeTab = document.querySelector('#dashboardTabs .nav-link.active');
+		        const tabTarget = activeTab?.getAttribute('href');
+
+		        if (tabTarget === '#vouchers') {
+		            downloadBtnContainer.style.display = '';
+		        } else {
+		            downloadBtnContainer.style.display = 'none';
+		        }
+		    }
+
+		    // Initial check on load
+		    showOrHideButtons();
+
+		    // Attach click listeners (fallback if Bootstrap events fail)
+		    tabLinks.forEach(tab => {
+		        tab.addEventListener('click', () => {
+		            // Give tab switch time to apply .active class
+		            setTimeout(showOrHideButtons, 10);
+		        });
+		    });
+		});
+		</script>
+
+
+
+
+		
 		<!-- Modal Script -->
 		<script>
 		  document.querySelectorAll('.view-voucher-details').forEach(btn => {

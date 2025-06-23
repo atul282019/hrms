@@ -1,4 +1,89 @@
-async function getEmployeeOnboardingById() {
+function autoFillEmployeeForm() {
+			    const employeeId = document.getElementById("employeeId").value;
+				
+
+			    $.ajax({
+			        type: "GET",
+			        url: "/getEmployeeOnboardingByUserDetailId",
+			        data: { "userDetailsId": employeeId },
+			        success: function(response) {
+			            var data1 = jQuery.parseJSON(response);
+						console.log("data1",data1);
+
+			            if (data1.status && data1.data) {
+			                var data = data1.data;
+
+							// Populate fields
+							//$("#fullName").text(data.name);
+							$("#empCode").text(data.empCode);
+
+							$("#jobTitle").text(data.jobTitle); //designation
+							$("#managerName").text(data.managerName); // mngr name
+							$("#depratment").text(data.depratment); // No marital status in response
+							//$("#creationDate").text(data.creationDate); // No handicapped status in response
+							$("#creationDate").text(data.creationDate ? formatDisplayDate(data.creationDate) : "N/A");
+							$("#empOrCont").text(data.empOrCont);
+							
+							
+							$("#mobile").text(data.mobile || "N/A");
+							$("#designation").text(data.jobTitle || "N/A");
+							$("#reportingManager").text(data.managerName || "N/A");
+							$("#empType").text(data.empOrCont || "N/A");
+							$("#herDate").text(data.herDate || "N/A");
+							$("#depratment").text(data.depratment|| "N/A");
+							$("#workAniv").text(data.herDate || "N/A");
+							//$("#payIncrease").text(data.herDate || "N/A");
+
+							var payIncreaseDate = data.herDate ? new Date(data.herDate) : null;
+
+							if (payIncreaseDate) {
+							    // Add one year
+							    payIncreaseDate.setFullYear(payIncreaseDate.getFullYear() + 1);
+
+							    // Format date to YYYY-MM-DD (adjust format if needed)
+							    var formattedDate = payIncreaseDate.toISOString().split("T")[0];
+
+							    // Set the updated date
+							    $("#payIncrease").text(formattedDate);}
+
+							$("#praise").text(formattedDate);
+							$("#profileEmail").text(data.email || "N/A");
+							$("#mngrName").text(data.managerName || "N/A");
+							$("#location").text(data.location || "N/A");
+
+							var profileImageBase64 = data.empPhoto; // Assuming API returns this field
+							        var defaultImage = "img/no-image-available.png"; // Default profile picture
+
+							        if (profileImageBase64) {
+							            // Assuming the image is a PNG or JPEG, update the `src` dynamically
+							            $(".profile-pic01").attr("src", "data:image/png;base64," + profileImageBase64);
+							        } else {
+							            $(".profile-pic01").attr("src", defaultImage);
+							        }
+							$("#Id").val(data.id);
+							$("#employerId").val(data.employerId);
+							$("#userDetailsId").val(data.userDetailsId);
+
+							       //getEmployeeOnboardingByManagerId(data.managerId);
+									getEmployeeOnboardingByManagerId(data.userDetailsId);   
+			            } else {
+			                console.log("No data found for the given Employee ID.");
+			            }
+			        },
+			        error: function(error) {
+			            console.log("Error fetching data: " + error.responseText);
+			        }
+			    });
+			}
+			function formatDisplayDate(dateStr) {
+			  const date = new Date(dateStr);
+			  return date.toLocaleDateString('en-GB', {
+			    day: '2-digit',
+			    month: 'short',
+			    year: 'numeric'
+			  }).replace(/ /g, ' ').replace(',', ',');
+			}
+/*async function getEmployeeOnboardingById() {
 		   // var employeeId = document.getElementById("employeeId").value;
 			const employeeId = document.getElementById("orgId").value;
 			const userDetailsId = sessionStorage.getItem("userDetailsId");
@@ -94,7 +179,7 @@ async function getEmployeeOnboardingById() {
 		            console.log("Error fetching data: " + error.responseText);
 		        }
 		    });
-		}
+		}*/
 	async function getEmployeeOnboardingByManagerId(managerId) {
 		
 
