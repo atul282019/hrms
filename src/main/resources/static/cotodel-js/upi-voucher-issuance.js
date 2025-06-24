@@ -628,9 +628,9 @@ function getBankListWithVocher() {
                 activeCount.textContent = parsedData.issueDetail.activeCount || "0";
                 activeAmount.innerHTML = formatRupee(parsedData.issueDetail.activeAmount);
                 //totalVoucher.innerHTML = parsedData.issueDetail.totalIssueCount || "0";
-				totalVoucher.innerHTML = jsonData.issueDetail.activeCount || "0";
+				totalVoucher.innerHTML = parsedData.issueDetail.activeCount || "0";
                 //totalvoucherValue.textContent = formatPlainAmount(parsedData.issueDetail.totalIssueAmount);4
-				totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.activeAmount);
+				totalvoucherValue.textContent = formatPlainAmount(parsedData.issueDetail.activeAmount);
                 totalvoucherValue.style.textAlign = "right";
                 totalvoucherValue.style.display = "block";
 
