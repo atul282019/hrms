@@ -812,7 +812,135 @@ function getBankListWithVocher() {
 					
 		}
 
-		function getProfileStatus() {
+
+		function getProfileStatus(){
+			//document.getElementById("signinLoader").style.display = "flex";
+			var employerId = document.getElementById("employerId").value;
+			var employeeId = document.getElementById("employeeId").value;
+			$.ajax({
+				type: "POST",
+				url: "/getCompanyProfileStatus",
+				data: {
+						"employerId":employerId,
+						"employeeId" :employeeId
+				},
+				beforeSend: function(xhr) {
+				},
+				success: function(data) {
+					try {
+			               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
+						  // document.getElementById("signinLoader").style.display = "none";
+			               if (parsedData.data && parsedData.data.profileTotal) {
+			                  //let profileComplete = parsedData.data.profileComplete;
+							  let profileComplete =parsedData.data.profileTotal;
+							  let profileCompanyComplete =parsedData.data.profileCompanyComplete;
+							  let erupiLinkAccount = parsedData.data.erupiLinkAccount;
+							  let profileVehicleComplete = parsedData.data.profileVehicleComplete;
+							  let profileDriverComplete = parsedData.data.profileDriverComplete;
+							  if (profileCompanyComplete === "0" ||  erupiLinkAccount==="0" || erupiLinkAccount==="0"
+								|| profileVehicleComplete==="0" || profileDriverComplete ==="0" ) {
+									document.getElementById("profileContainer").style.display = "block";
+									document.getElementById("accountSetup").style.display = "block";
+							  }
+			                   if (profileCompanyComplete === "1") {
+								let anchorStart = document.getElementById("anchorStart");
+								anchorStart.textContent = "Completed";
+							    anchorStart.href = ""; 
+								anchorStart.style = "color:#86889B"; 
+								
+								let anchorStartAccount = document.getElementById("btnTextAccount");
+								anchorStartAccount.textContent = "Start";
+								anchorStartAccount.href = "/roleAccess"; 
+								anchorStartAccount.style = "color:#0d6efd"; 
+														
+								document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+								document.getElementById("btnsetupBankAccount").classList.remove("bg-transparent");
+							   }
+							   if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1") {
+			   					let anchorStart = document.getElementById("anchorStart");
+			   					anchorStart.textContent = "Completed";
+			   				    anchorStart.href = ""; 
+			   					anchorStart.style = "color:#86889B"; 
+								
+								let anchorStartAccount = document.getElementById("anchorStartAccount");
+								anchorStartAccount.textContent = "Completed";
+								anchorStartAccount.href = ""; 
+								anchorStartAccount.style = "color:#86889B"; 
+								
+								let btnTextVehicles = document.getElementById("anchorStartVehicles");
+								btnTextVehicles.textContent = "Start";
+								btnTextVehicles.href = "/manageEmployee"; 
+								btnTextVehicles.style = "color:#0d6efd"; 
+								
+			   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+			   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
+								document.getElementById("btnsetupPartner").classList.remove("bg-transparent");
+								document.getElementById("bankContent").style.display = "block";
+								document.getElementById("bankContentInprogress").style.display = "none";
+			                   }else if(profileCompanyComplete === "1" &&  erupiLinkAccount==="2"){
+								let anchorStart = document.getElementById("anchorStart");
+			   					anchorStart.textContent = "Completed";
+			   				    anchorStart.href = ""; 
+			   					anchorStart.style = "color:#86889B"; 
+								
+								let anchorStartAccount = document.getElementById("anchorStartAccount");
+								anchorStartAccount.textContent = "Inprogress";
+								anchorStartAccount.href = ""; 
+								anchorStartAccount.style = "color:#FF9500"; 
+								
+			   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+			   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
+								document.getElementById("btnsetupPartner").classList.remove("bg-transparent");
+								document.getElementById("bankContent").style.display = "none";
+								document.getElementById("bankContentInprogress").style.display = "block";
+							   }
+							    if (profileCompanyComplete === "1" &&  erupiLinkAccount==="1" && profileDriverComplete==="1") {
+		   	   					let anchorStart = document.getElementById("anchorStart");
+		   	   					anchorStart.textContent = "Completed";
+		   	   				    anchorStart.href = ""; 
+		   	   					anchorStart.style = "color:#86889B"; 
+		   						
+		   						let anchorStartAccount = document.getElementById("anchorStartAccount");
+		   						anchorStartAccount.textContent = "Completed";
+		   						anchorStartAccount.href = ""; 
+		   						anchorStartAccount.style = "color:#86889B"; 
+								
+								let btnTextVehicles = document.getElementById("anchorStartVehicles");
+								btnTextVehicles.textContent = "Completed";
+								btnTextVehicles.href = ""; 
+								btnTextVehicles.style = "color:#86889B"; 
+							
+		   	   					document.getElementById("btnsetupStart").classList.add("cd-step-item", "bg-transparent");
+		   	   					document.getElementById("btnsetupBankAccount").classList.add("cd-step-item", "bg-transparent");
+		   						document.getElementById("btnsetupPartner").classList.add("cd-step-item", "bg-transparent");
+		   						
+								
+								document.getElementById("profileContainer").style.display = "block";
+								document.getElementById("accountSetup").style.display = "none";
+								document.getElementById("userTransactionSection").style.display = "block";
+								document.getElementById("activeVoucherContainer").style.display = "block";
+																				
+								document.getElementById("accountSetupDiv2").style.display = "none";
+								document.getElementById("offerbox1").style.display = "none";
+									
+		   	                   }
+			                   $('#profileComplete').html(profileComplete);
+			                   document.getElementById("profile").style.width = (66.33 * parseInt(profileComplete)) + "px";
+							   
+			               } else {
+			                   console.log("Unexpected response structure:", parsedData.message || "No message");
+			               }
+			           } catch (error) {
+			               console.error("Error parsing JSON:", error);
+			           }
+				},
+				error: function(e) {
+					alert('Error: ' + e);
+				}
+			});
+		} 
+
+/*		function getProfileStatus() {
 		    document.getElementById("signinLoader").style.display = "flex";
 		    const employerId = document.getElementById("employerId").value;
 		    const employeeId = document.getElementById("employeeId").value;
@@ -903,7 +1031,7 @@ function getBankListWithVocher() {
 		            alert('Error: ' + e.statusText || 'Request failed');
 		        }
 		    });
-		}
+		}*/
 function getBankListWithVocher() {
 	    const employerId = document.getElementById("employerId").value;
 
