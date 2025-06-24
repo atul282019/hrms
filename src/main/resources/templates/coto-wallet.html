@@ -15,7 +15,7 @@
 <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 
-<body id="page-top" onload="getPaymentHistory(),cotodelLinkedBankDetail(),getOrderDetail(),getCurrentMonthAmountLimit()">
+<body id="page-top" onload="getPaymentHistory(),cotodelLinkedBankDetail(),getOrderDetail(),getCurrentMonthAmountLimit(),showLinkedAccAmount()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -670,7 +670,7 @@
 					        minimumFractionDigits: 2,
 					        maximumFractionDigits: 2
 					    })}`;
-					    document.getElementById("walletBalance").innerHTML = formattedAmount;
+					   // document.getElementById("walletBalance").innerHTML = formattedAmount;
 
 					    // Get DOM elements
 					    const radios = document.querySelectorAll("input[name='trialAmount']");
@@ -816,6 +816,41 @@
 			  // Show only the cotodelAmountRequest div
 			  document.getElementById("cotodelAmountRequest").style.display = "block";
 			});
+			
+			function showLinkedAccAmount() {
+			    var employerid = document.getElementById("employerId").value;
+				var accountNumber = "12345678912345";
+			    $.ajax({
+			        type: "POST",
+			        url: "/showLinkedAccAmount",
+			        data: {
+			            "acNumber": accountNumber,
+			            "orgId": employerid
+			        },
+			        success: function(response) {
+			            console.log("API Response:", response);
+
+			            let obj = typeof response === "string" ? JSON.parse(response) : response;
+
+			            if (obj.status) {
+			                // Update balance
+			                  document.getElementById("walletBalance").innerHTML = "₹"+obj.balance || "Amount Not Available";
+
+			                // Update timestamp
+			                if (obj.timestamp) {
+			                    document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
+			                }
+			            } else {
+			                alert("Failed to fetch balance.");
+			            }
+			        },
+			        error: function(error) {
+			            console.error("Error fetching balance:", error);
+			            alert('Error fetching balance.');
+			        }
+			    });
+			}
+
 		</script>	
 </body>
 </html>

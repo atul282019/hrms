@@ -20,6 +20,8 @@ function loadVoucherData() {
           document.getElementById("offerbox1").style.display = "none";
           document.getElementById("accountSetupDiv2").style.display = "none";
           document.getElementById("businessSection").style.display = "none";
+		  document.getElementById("accountSetup").style.display = "none";
+		  
           document.getElementById("activeVoucherContainer").style.display = "block";
           document.getElementById("userTransactionSection").style.display = "block";
 
@@ -814,7 +816,7 @@ function getBankListWithVocher() {
 
 
 		function getProfileStatus(){
-			//document.getElementById("signinLoader").style.display = "flex";
+			document.getElementById("signinLoader").style.display = "flex";
 			var employerId = document.getElementById("employerId").value;
 			var employeeId = document.getElementById("employeeId").value;
 			$.ajax({
@@ -828,8 +830,10 @@ function getBankListWithVocher() {
 				},
 				success: function(data) {
 					try {
+						
+						   document.getElementById("signinLoader").style.display = "none";
 			               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
-						  // document.getElementById("signinLoader").style.display = "none";
+						  
 			               if (parsedData.data && parsedData.data.profileTotal) {
 			                  //let profileComplete = parsedData.data.profileComplete;
 							  let profileComplete =parsedData.data.profileTotal;
