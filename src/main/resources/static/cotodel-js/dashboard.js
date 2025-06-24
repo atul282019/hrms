@@ -25,6 +25,7 @@ function loadVoucherData() {
 
           populateVoucherDropdown(voucherData);
           populateVoucherUI(voucherData[0]); // Default load
+		 //populateVoucherUI({ accountNumber: "1234567890", totalAmount: "152", redeemAmount: "100" });  // 0% spent
         }
 
       } catch (error) {
@@ -600,32 +601,28 @@ function populateVoucherUI(data) {
   const accountNumber = data.accountNumber;
   const maskedAccount = 'xxxx' + accountNumber.slice(-4);
   const bankName = data.bankName || "Bank";
-  const totalAmount = data.totalAmount;
-  const balance = parseFloat(data.redeemAmount);
-  const spent = totalAmount;
-  const available = balance;
-  const total = spent + available;
 
-  const spentPercent = total > 0 ? parseFloat(((spent / total) * 100).toFixed(1)) : 0;
+  const total = parseFloat(data.totalAmount);
+  const available = parseFloat(data.redeemAmount);
+  const spent = total - available;
 
-  document.querySelector('.voucher-amount').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  const spentPercent = total > 0 ? ((available / total) * 100) : 0;
+
+  document.querySelector('.voucher-amount').textContent = `₹${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
   document.querySelector('.voucher-spent').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
-
-  const progressText = document.querySelector('.voucher-progress-text');
-  progressText.textContent = `${spentPercent}%`;
+  document.querySelector('.voucher-progress-text').textContent = `${spentPercent.toFixed(1)}%`;
 
   const progressCircle = document.querySelector('.voucher-progress-bar');
   const radius = 55;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference * (1 - spent / total);
-  progressCircle.setAttribute('stroke-dasharray', circumference);
-  progressCircle.setAttribute('stroke-dashoffset', offset);
 
-  const color = spentPercent < 50 ? '#2F945A' : spentPercent < 80 ? '#2F945A' : '#2F945A';
-  progressCircle.setAttribute('stroke', color);
-
-  //document.getElementById("signinLoader").style.display = "none";
+  progressCircle.style.strokeDasharray = `${circumference}`;
+  progressCircle.style.strokeDashoffset = `${circumference * (1 - available / total)}`;
 }
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function() {

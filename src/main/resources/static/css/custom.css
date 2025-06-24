@@ -5266,7 +5266,7 @@ tr.addrow-roleaccess {
     background: #EAF4EF;
 }
 input.autocomp-input {
-    width: 268px;
+	width: 268px;
     height: 44px;
     border-radius: 20px;
     border: none;
@@ -5277,8 +5277,7 @@ input.autocomp-input {
     background-size: 20px;
 }
 .autocomp-input-wrap {
-    position: relative;
-	z-index: 500;
+  position: relative;
 }
 
 .loginNew-wrap {
@@ -8055,14 +8054,12 @@ table.vcScheduledtable thead {
 						}
 
 						.voucher-progress-bar {
-						
 						  stroke-width: 10;
 						  fill: none;
-						  stroke-dasharray: 345;
-						  stroke-dashoffset: 1;
 						  stroke-linecap: round;
-						  transform: rotate(-180deg);
+						  transform: rotate(90deg);              /* Start from top */
 						  transform-origin: 65px 65px;
+						  stroke: #2F945A;                        /* Green as shown */
 						}
 
 						.voucher-progress-text {
