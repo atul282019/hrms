@@ -1364,12 +1364,17 @@
 			            const base64Image = user.empPhoto 
 			                ? `<img class="user-photo" src="data:image/jpeg;base64,${user.empPhoto}" alt="Emp Photo" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`
 			                : `<img class="img-profile rounded-circle" src="img/no-image-available.png" width="30" height="30" style="border-radius: 50%; vertical-align: middle;">`;
+							div.innerHTML = `
+							            <div style="display: flex; align-items: center; width: 100%; gap: 8px;">
+							                ${base64Image}
+							                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+							                    <span style="text-align: left; flex: 1;">${user.username}</span>
+							                    <span style="text-align: right; flex: 1;">${user.empCode}</span>
+							                    <span style="text-align: right; flex: 1;">${user.mobile}</span>
+							                </div>
+							            </div>
+							        `;
 
-			            div.innerHTML = `
-			                ${base64Image} &nbsp;
-			                <span class="user-profile">${user.username}</span> &nbsp;
-			                <span class="user-contact">${user.mobile}</span>
-			            `;
 			            div.addEventListener('click', function () {
 			                inputElement.value = user.username;
 			                // Assuming you want to populate the mobile field next to the inputElement
