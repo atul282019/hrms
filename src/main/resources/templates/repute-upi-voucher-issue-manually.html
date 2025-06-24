@@ -610,6 +610,11 @@
 				.rotate {
 				    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
 				} </style>
+				<script>
+					function closeOtpModal() {
+					    document.getElementById("otpModal1").style.display = "none";
+					}
+					</script>
 				<script>				document.getElementById("recallBalance").addEventListener("click", function() {
 				    var recallIcon = this;
 				    var selectedBankAccount = document.getElementById("banklist").value;
@@ -1483,7 +1488,13 @@
 	        <div class="modal-content modal-bulk">
 	            <div class="modal-header pb-0 text-center">
 	                <h5 class="modal-title w-100" id="exampleModalCenterTitle">Authentication for Issuance</h5>
-	            </div>
+					<button type="button"
+					           style="border: none; background: none; font-size: 1.5rem; position: absolute; top: 10px; right: 0px; line-height: 1; padding: 0 20px;"
+					           aria-label="Close"
+					           onclick="closeOtpModal()">
+					       &times;
+					   </button>
+				</div>
 	            <div class="modal-body text-center">
 	                <div class="otp-box-onboarding justify-content-center">
 					
