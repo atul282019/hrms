@@ -446,10 +446,9 @@
 	                       </div>
 	                   </div>
 	   
-	                   <div class="info-alert align-items-centerr" id="tialAmountLimit" >
+	                   <div class="info-alert align-items-centerr" id="tialAmountLimit" style="display: none;" >
 	                       <i class="bi bi-info-circle-fill me-2" style="margin-right: 13px;"></i>
 	                       <div id="limitDisplayDiv"> 
-	                           Monthly limit for Product Trial is ₹2,000. You can only try ₹500 more.
 	                       </div>
 	                   </div>
 	   
@@ -695,12 +694,14 @@
 					        continueBtn.disabled = false;
 
 					        // Show info alert with remaining balance
+							if (walletAmount !== 0) {
 					        infoAlert.style.display = "flex";
 					        limitDisplayDiv.innerText = 
 					            `Monthly limit for Product Trial is ₹2,500. You can only try ₹${limitAmount.toLocaleString('en-IN', {
 					                minimumFractionDigits: 2,
 					                maximumFractionDigits: 2
 					            })} more.`;
+								}
 					    }
 					},
 			        error: function(e) {
