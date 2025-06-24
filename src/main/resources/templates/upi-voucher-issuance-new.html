@@ -690,6 +690,9 @@ requestedVoucherCount()">
 	  $('.modal-backdrop').last().css('z-index', 1050);
 	});
 
+	
+
+	
 	// Send to backend on confirm revoke
 	  $(document).ready(function () {
 	    $('#bulkBtnRevoke').on('click', function () {
@@ -714,7 +717,7 @@ requestedVoucherCount()">
 
 
 </script>
-	<script>
+	<script>/*search filter*/
 		const searchInput = document.getElementById('searchInput');
 		const table = document.getElementById('vouchersTableList');
 		const tbody = table.querySelector('tbody');
@@ -765,7 +768,8 @@ requestedVoucherCount()">
 
 		clearFiltersBtn.addEventListener('click', clearAllFilters);
 	</script>
-	<script>		document.addEventListener("DOMContentLoaded", function () {
+	<script>/*date filter*/	
+			document.addEventListener("DOMContentLoaded", function () {
 	  function updateSelectedLabel(label) {
 	    const dropdownLabel = document.querySelector(".dropdown-toggle.calender-time span");
 	    dropdownLabel.textContent = label;
@@ -1933,103 +1937,155 @@ requestedVoucherCount()">
 		    </div>
 		  </div>
 		</div>
+		<script>/*script for closing bulk revoke modal*/
+			document.addEventListener('DOMContentLoaded', function () {
+			    const cancelBtn = document.getElementById('bulkcancelbtn');
+			    const modal = document.getElementById('bulkrevokeModal');
 
-		<script>
-		document.addEventListener('DOMContentLoaded', function () {
-		    const filtersContainer = document.getElementById('quickFilters');
-		    const clearBtn = document.getElementById('clearFilters');
-		    const tableBody = document.querySelector('#vouchersTableList tbody');
+			    cancelBtn.addEventListener('click', function () {
+			        modal.style.display = 'none';
+			        modal.classList.remove('show');
+			        document.body.classList.remove('modal-open');
+			        const backdrop = document.querySelector('.modal-backdrop');
+			        if (backdrop) backdrop.remove();
 
-		    let originalRowsHTML = null; // Snapshot of original rows
+			        // Trigger clear filters
+			        const clearFiltersBtn = document.getElementById('clearFilters');
+			        if (clearFiltersBtn) {
+			            clearFiltersBtn.click();
+			        }
 
-		    // Initial clear button state
-		    clearBtn.style.cursor = 'not-allowed';
-		    clearBtn.style.opacity = '0.5';
-		    clearBtn.dataset.enabled = 'false';
+			        // Now call list limit function
+			        //erupiVoucherCreateListLimit("AH");
+			    });
+			});
 
-		    function parseDate(dateStr) {
-		        if (!dateStr || !dateStr.includes('-')) return null;
-		        const [day, month, year] = dateStr.trim().split('-');
-		        const parsed = new Date(`${year}-${month}-${day}`);
-		        return isNaN(parsed.getTime()) ? null : parsed;
-		    }
+		</script>
 
-		    function setClearButtonState(enabled) {
-		        clearBtn.style.cursor = enabled ? 'pointer' : 'not-allowed';
-		        clearBtn.style.opacity = enabled ? '1' : '0.5';
-		        clearBtn.dataset.enabled = enabled ? 'true' : 'false';
-		    }
+		<script>/*quick filter*/
+			document.addEventListener('DOMContentLoaded', function () {
+			    const clearBtn = document.getElementById('clearFilters');
+			    const tableBody = document.querySelector('#vouchersTableList tbody');
+			    const dropdowns = {
+			        quickFilters: document.getElementById('quickFilters')
+			    };
+			    const originalDropdownHTML = {
+			        quickFilters: dropdowns.quickFilters.outerHTML
+			    };
+			    let originalRowsHTML = null;
 
-		    function filterRows(type) {
-		        const rows = tableBody.querySelectorAll('tr');
+			    function parseDate(dateStr) {
+			        if (!dateStr || !dateStr.includes('-')) return null;
+			        const [day, month, year] = dateStr.trim().split('-');
+			        const parsed = new Date(`${year}-${month}-${day}`);
+			        return isNaN(parsed.getTime()) ? null : parsed;
+			    }
 
-		        // Store original data only once (before first filter)
-		        if (!originalRowsHTML) {
-		            originalRowsHTML = tableBody.innerHTML;
-		        }
+			    function setClearButtonState(enabled) {
+			        clearBtn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+			        clearBtn.style.opacity = enabled ? '1' : '0.5';
+			        clearBtn.dataset.enabled = enabled ? 'true' : 'false';
+			    }
 
-		        const today = new Date();
-		        const todayStr = today.toDateString();
-		        const month = today.getMonth();
-		        const year = today.getFullYear();
+			    function filterRows(type) {
+			        const rows = tableBody.querySelectorAll('tr');
+			        if (!originalRowsHTML) originalRowsHTML = tableBody.innerHTML;
 
-		        rows.forEach(row => {
-		            const issueDateText = row.cells[1]?.textContent.trim();
-		            const statusText = row.cells[8]?.textContent.trim();
-		            const issueDate = parseDate(issueDateText);
-		            let show = false;
+			        const today = new Date();
+			        const todayStr = today.toDateString();
+			        const month = today.getMonth();
+			        const year = today.getFullYear();
 
-		            if (!issueDate) return row.style.display = 'none';
+			        rows.forEach(row => {
+			            const issueDateText = row.cells[1]?.textContent.trim();
+			            const statusText = row.cells[8]?.textContent.trim();
+			            const issueDate = parseDate(issueDateText);
+			            let show = false;
 
-		            switch (type) {
-		                case 'active':
-		                    show = statusText === 'Active';
-		                    break;
-		                case 'expired-revoked':
-		                    show = ['Expired', 'Revoked'].includes(statusText);
-		                    break;
-		                case 'issued-today':
-		                    show = issueDate.toDateString() === todayStr;
-		                    break;
-		                case 'issued-this-month':
-		                    show = issueDate.getMonth() === month && issueDate.getFullYear() === year;
-		                    break;
-		            }
+			            if (!issueDate) return row.style.display = 'none';
 
-		            row.style.display = show ? '' : 'none';
-		        });
+			            switch (type) {
+			                case 'active':
+			                    show = statusText === 'Active';
+			                    break;
+			                case 'expired-revoked':
+			                    show = ['Expired', 'Revoked'].includes(statusText);
+			                    break;
+			                case 'issued-today':
+			                    show = issueDate.toDateString() === todayStr;
+			                    break;
+			                case 'issued-this-month':
+			                    show = issueDate.getMonth() === month && issueDate.getFullYear() === year;
+			                    break;
+			            }
 
-		        setClearButtonState(true);
-		    }
+			            row.style.display = show ? '' : 'none';
+			        });
 
-		    filtersContainer.addEventListener('click', function (e) {
-		        const target = e.target;
-		        if (!target.classList.contains('dropdown-item')) return;
-		        e.preventDefault();
+			        setClearButtonState(true);
+			    }
 
-		        const map = {
-		            'filter-active': 'active',
-		            'filter-expired-revoked': 'expired-revoked',
-		            'filter-issued-today': 'issued-today',
-		            'filter-issued-this-month': 'issued-this-month'
-		        };
+			    document.body.addEventListener('click', function (e) {
+			        const target = e.target;
+			        if (!target.classList.contains('dropdown-item')) return;
+			        e.preventDefault();
 
-		        const filterType = map[target.id];
-		        if (filterType) filterRows(filterType);
-		    });
+			        const map = {
+			            'filter-active': ['quickFilters', 'Active'],
+			            'filter-expired-revoked': ['quickFilters', 'Expired & Revoked'],
+			            'filter-issued-today': ['quickFilters', 'Issued Today'],
+			            'filter-issued-this-month': ['quickFilters', 'Issued this Month']
+			        };
 
-		    clearBtn.addEventListener('click', function () {
-		        if (clearBtn.dataset.enabled !== 'true') return;
+			        const idToType = {
+			            'filter-active': 'active',
+			            'filter-expired-revoked': 'expired-revoked',
+			            'filter-issued-today': 'issued-today',
+			            'filter-issued-this-month': 'issued-this-month'
+			        };
 
-		        // Restore original table rows
-		        if (originalRowsHTML) {
-		            tableBody.innerHTML = originalRowsHTML;
-		        }
+			        const id = target.id;
+			        if (!map[id]) return;
 
-		        // Disable Clear button
-		        setClearButtonState(false);
-		    });
-		});
+			        const [dropdownKey, label] = map[id];
+			        const filterType = idToType[id];
+			        filterRows(filterType);
+
+			        const original = document.getElementById(dropdownKey);
+			        const selectedDiv = document.createElement('div');
+			        selectedDiv.id = dropdownKey;
+			        selectedDiv.className = 'd-flex align-items-center';
+			        selectedDiv.style.cssText = 'width: 190px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0; font-size: 14px; color: #1F212C;';
+			        selectedDiv.innerHTML = `<img src="img/filter-icon.svg" style="margin-right: 6px;">${label}`;
+
+			        original.replaceWith(selectedDiv);
+			    });
+
+			    clearBtn.addEventListener('click', function () {
+			        if (clearBtn.dataset.enabled !== 'true') return;
+
+			        if (originalRowsHTML) {
+			            tableBody.innerHTML = originalRowsHTML;
+			        }
+
+			        // Restore each original dropdown
+			        for (const key in originalDropdownHTML) {
+			            const container = document.getElementById(key);
+			            if (container) {
+			                container.outerHTML = originalDropdownHTML[key];
+			            }
+			        }
+					// Reset date filter text
+					   const dateFilterText = document.querySelector('.calender-time span');
+					   if (dateFilterText) {
+					       dateFilterText.textContent = 'Select Time Period';
+					   }
+
+			        setClearButtonState(false);
+					// erupiVoucherCreateListLimit(timePeriod = "AH")
+			    });
+			});
+
 		</script>
 
 
