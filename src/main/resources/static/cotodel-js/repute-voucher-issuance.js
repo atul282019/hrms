@@ -664,9 +664,10 @@ function  getLinkedBankDetail(){
 					 document.getElementById("nolinkBankAccount").style.display="none";
 	 				 document.getElementById("linkedAccount").style.display="block";
 	 				 const issueManually = document.getElementById('issueManually');
-	 				 const issueBulk = document.getElementById('issueBulk');
-	 				 issueManually.disabled =false;
-	 				 issueBulk.disabled =false;
+					 issueManually.disabled =false;
+	 				 //const issueBulk = document.getElementById('issueBulk');
+	 				 
+	 				// issueBulk.disabled =false;
 					 
 				   } else {
 					document.getElementById("nolinkBankAccount").style.display="block";
@@ -1742,7 +1743,7 @@ function sortTable(columnIndex) {
 	       XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
 	   });
 	   */
-	   function requestedVoucherCount() {
+	  /* function requestedVoucherCount() {
 	   											   
 	   											    const employerId = document.getElementById('employerId').value;
 
@@ -1771,3 +1772,4 @@ function sortTable(columnIndex) {
 	   											        }
 	   											    });
 	   											}
+*/
