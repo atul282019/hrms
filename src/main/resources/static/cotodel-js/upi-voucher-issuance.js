@@ -571,8 +571,10 @@ function getBankListWithVocher() {
                                 expRevokeAmount.innerHTML = formatRupee(jsonData.issueDetail.expRevokeAmount);
                                 activeCount.textContent = jsonData.issueDetail.activeCount || "0";
                                 activeAmount.innerHTML = formatRupee(jsonData.issueDetail.activeAmount);
-                                totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
-                                totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.totalIssueAmount);
+                                //totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
+								 totalVoucher.innerHTML = jsonData.issueDetail.activeCount || "0";
+                               //totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.totalIssueAmount);
+								totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.activeAmount);
                                 totalvoucherValue.style.textAlign = "right";
                                 totalvoucherValue.style.display = "block";
                             },
@@ -601,9 +603,11 @@ function getBankListWithVocher() {
                                 expRevokeAmount.innerHTML = formatRupee(jsonData.issueDetail.expRevokeAmount);
                                 activeCount.textContent = jsonData.issueDetail.activeCount || "0";
                                 activeAmount.innerHTML = formatRupee(jsonData.issueDetail.activeAmount);
-                                totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
-                                totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.totalIssueAmount);
-                                totalvoucherValue.style.textAlign = "right";
+								//totalVoucher.innerHTML = jsonData.issueDetail.totalIssueCount || "0";
+                                totalVoucher.innerHTML = jsonData.issueDetail.activeCount || "0";
+                                //totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.totalIssueAmount);
+								totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.activeAmount);
+								totalvoucherValue.style.textAlign = "right";
                                 totalvoucherValue.style.display = "block";
                             },
                             error: function (e) {
@@ -623,8 +627,10 @@ function getBankListWithVocher() {
                 expRevokeAmount.innerHTML = formatRupee(parsedData.issueDetail.expRevokeAmount);
                 activeCount.textContent = parsedData.issueDetail.activeCount || "0";
                 activeAmount.innerHTML = formatRupee(parsedData.issueDetail.activeAmount);
-                totalVoucher.innerHTML = parsedData.issueDetail.totalIssueCount || "0";
-                totalvoucherValue.textContent = formatPlainAmount(parsedData.issueDetail.totalIssueAmount);
+                //totalVoucher.innerHTML = parsedData.issueDetail.totalIssueCount || "0";
+				totalVoucher.innerHTML = jsonData.issueDetail.activeCount || "0";
+                //totalvoucherValue.textContent = formatPlainAmount(parsedData.issueDetail.totalIssueAmount);4
+				totalvoucherValue.textContent = formatPlainAmount(jsonData.issueDetail.activeAmount);
                 totalvoucherValue.style.textAlign = "right";
                 totalvoucherValue.style.display = "block";
 
