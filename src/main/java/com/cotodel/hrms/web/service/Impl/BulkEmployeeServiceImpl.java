@@ -25,6 +25,7 @@ import com.cotodel.hrms.web.response.BulkEmployeeRequest;
 import com.cotodel.hrms.web.response.UserRequest;
 import com.cotodel.hrms.web.service.BulkEmployeeService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -203,6 +204,20 @@ public class BulkEmployeeServiceImpl implements BulkEmployeeService {
 	        }
 	    }
 	    return true; // Row is empty
+	}
+
+
+	@Override
+	public String saveBulkEmpDetail(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.bulkEmpUpload);
+
+		
+	}
+	@Override
+	public String createBulkEmpDetail(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createbulkEmpUpload);
+
+		
 	}
 	
 }

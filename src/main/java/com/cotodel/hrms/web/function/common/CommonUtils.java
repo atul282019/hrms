@@ -177,6 +177,10 @@ public interface CommonUtils {
 	public static String bulkVehicleUpload = "/empService/Api/add/vehicleBulkUploadNew";
 	public static String createbulkVehicle = "/empService/Api/add/vehicleBulkCreate";
 	public static String currentMonthAmountLimit = "/cashFree/Api/get/currentMonthAmountLimit";
+	
+	
+	public static String bulkEmpUpload = "/empService/Api/add/employeeBulkVoucherUpload";
+	public static String createbulkEmpUpload = "/empService/Api/add/employeeBulkVoucherCreate";
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
 	//public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";

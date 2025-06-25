@@ -259,6 +259,7 @@ requestedVoucherCount()">
 
 									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
 									<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">
+									<input type="hidden" class="form-input" id="userRole" name="userRole" th:value="${session.user_role}">
         							<div class="upi-voucher-wrap">
 									<div class="d-flex align-items-center justify-content-between">
 									    <h3 class="mb-3">Details of UPI Vouchers & Transactions</h3>
@@ -308,10 +309,17 @@ requestedVoucherCount()">
 
                                     <div >
 										<div >
-											<div class="download-btn-container">												
-											<img id="revokeTrigger" src="img/Revoke-grey.svg" alt="Revoke Icon" style="margin-right: 10px; cursor: pointer;">
-									    	<img src="img/download-grey.svg" alt="Download Icon">
-										  </div>
+											<div class="download-btn-container">
+											    <div class="tooltip-wrapper" style="margin-right: 10px;">
+											        <img id="revokeTrigger" src="img/Revoke-grey.svg" alt="Revoke Icon">
+											        <div class="tooltip-text">Revoke bulk vouchers</div>
+											    </div>
+
+											    <div class="tooltip-wrapper">
+											        <img src="img/download-grey.svg" alt="Download Icon">
+											        <div class="tooltip-text">Download voucher details</div>
+											    </div>
+											</div>
 										   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
 										    
 										    
@@ -1366,6 +1374,36 @@ requestedVoucherCount()">
 			  #bulkrevokeModal {
 			    z-index: 1055 !important;
 			  }
+			 
+			  .tooltip-wrapper {
+			      position: relative;
+			      display: inline-block;
+			      cursor: pointer;
+			  }
+
+			  .tooltip-wrapper .tooltip-text {
+			      visibility: hidden;
+			      background-color: #333;
+			      color: #fff;
+			      text-align: center;
+			      border-radius: 4px;
+			      padding: 5px 8px;
+			      position: absolute;
+			      z-index: 1;
+			      bottom: 125%; /* show above */
+			      left: 50%;
+			      transform: translateX(-50%);
+			      white-space: nowrap;
+			      font-size: 12px;
+			      opacity: 0;
+			      transition: opacity 0.3s;
+			  }
+
+			  .tooltip-wrapper:hover .tooltip-text {
+			      visibility: visible;
+			      opacity: 1;
+			  }
+			 
 
 			 
 
@@ -1454,7 +1492,7 @@ requestedVoucherCount()">
 
         <div class="d-flex justify-content-center mt-3">
           <button class="btn btn-border w-100" id="bulkBtnRevoke">REVOKE</button>
-          <button class="btn btn-primary w-100" id="bulkcancelbtn">Cancel</button>
+          <button class="btn btn-primary w-100" id="bulkcancelbtn">Back</button>
         </div>
       </div>
     </div>

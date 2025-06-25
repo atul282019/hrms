@@ -1047,17 +1047,24 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
               `;
             }
           },
-          {
-            "mData": "redemtionType",
-            "render": function (data, type, row) {
-              const redemptionImage = data === "Single"
-                ? `<img src="img/single-redemption-green.svg" alt="Single" width="24" height="24" style="margin-left: 8px;">`
-                : data === "MULTIPLE"
-                  ? `<img src="img/tiffinbox.svg" alt="Multiple" width="24" height="24" style="margin-left: 8px;">`
-                  : '';
-              return `<div style="display: flex; align-items: center;">${redemptionImage}${data}</div>`;
-            }
-          },
+		  {
+		    "mData": "redemtionType",
+		    "render": function (data, type, row) {
+		      const normalized = (data || '').toLowerCase();
+
+		      const label = normalized === "multiple" ? "Multiple"
+		                 : normalized === "single"   ? "Single"
+		                 : data;
+
+		      const redemptionImage = label === "Single"
+		        ? `<img src="img/single-redemption-green.svg" alt="Single" width="24" height="24" style="margin-left: 8px;">`
+		        : label === "Multiple"
+		          ? `<img src="img/tiffinbox.svg" alt="Multiple" width="24" height="24" style="margin-left: 8px;">`
+		          : '';
+
+		      return `<div style="display: flex; align-items: center;">${redemptionImage}${label}</div>`;
+		    }
+		  },
           {
             "mData": "expDate",
             "render": function (data) {
@@ -1177,7 +1184,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
 
 // Helper function to send IDs
 function sendRowIdsToBackend(ids) {
-	
+	var userRole = document.getElementById("userRole").value;
 	console.log('Sent IDs:', ids);
 	// Remove ALL modal backdrops
    document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
@@ -1199,7 +1206,11 @@ function sendRowIdsToBackend(ids) {
 		     var data2 = data1.data;
       console.log('Sent IDs:', ids);
 	  //erupiVoucherCreateListLimit(timePeriod = "AH");//reload the table
-	  window.location.href="/upiVoucherIssuanceNew";
+	  alert("Selected Vouchers Revoked Successfully");
+	  if(userRole=="9"||userRole==9)
+	  {window.location.href="/upiVoucherIssuanceNew";}
+	  else
+		{window.location.href="/reputeUpiVoucherIssuance";}
     },
     error: function (xhr) {
       console.error('Failed to send IDs:', xhr);

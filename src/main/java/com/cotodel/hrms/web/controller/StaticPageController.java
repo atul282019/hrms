@@ -1904,6 +1904,29 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	return new ModelAndView("index", "command", "");
 }
+    @GetMapping(value="/bulkempUpload")
+	public ModelAndView bulkempUpload(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+ 
+			//	return new ModelAndView("bulk-vehicleupload", "command", "");
+				return new ModelAndView("bulk-empUpload_new", "command", "");
+			}
+			 return new ModelAndView("error", "command", "");
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	return new ModelAndView("index", "command", "");
+}
     
     @GetMapping(value="/savebulkvehicle")
 	public ModelAndView savebulkvehicle(Model model) {

@@ -9090,9 +9090,11 @@ table.vcScheduledtable thead {
 													    max-width: 350px;
 													    height: 36px;
 													    padding: 8px 16px;
-													    border: 1px solid #367AFF;
-													    border-radius: 8px;
-													    color: #367AFF;
+													    border: 1px solid #EBF2FF;
+														/*border: 1px solid #367AFF;
+														color: #367AFF;*/
+													    border-radius: 8px; 
+														color: #A3C2FF;
 													    background-color: transparent;
 													    font-size: 14px;
 													    font-weight: 500;
