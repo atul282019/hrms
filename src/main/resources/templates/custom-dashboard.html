@@ -413,7 +413,10 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 									       </table>
 									     </div>
 										 </div>
-										 <div style="text-align: right; color: #367AFF;"><a href="/manageEmployee">View All</a></div>
+										 <div style="text-align: right; color: #367AFF;" th:switch="${session.user_role}">
+											<a th:case="9"  href="/manageEmployee">View All</a>
+											<a th:case="*">View All</a>
+										</div>
 						          </div>
 						        </div>
 				       </div>
@@ -441,7 +444,12 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 						  </table>
 						</div>
 						<br>
-					 <div style="text-align: right; color: #367AFF;"><a href="/upiVoucherIssuanceNew">View All</a></div>						
+					 <div style="text-align: right; color: #367AFF;">
+						<div style="text-align: right; color: #367AFF;" th:switch="${session.user_role}">
+											<a th:case="9" href="/upiVoucherIssuanceNew">View All</a>
+											<a th:case="*" href="/reputeUpiVoucherIssuance">View All</a>
+										</div>
+					</div>						
 				     </div>
 					 
 					 <!--vouchers tab-->
@@ -467,7 +475,10 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 			              </tbody>
 			            </table>
 			          </div>
-					  <div style="text-align: right; color: #367AFF;"><a href="/upiVoucherIssuanceNew">View All</a></div>
+					  <div style="text-align: right; color: #367AFF;" th:switch="${session.user_role}">
+						<a th:case="9" href="/upiVoucherIssuanceNew">View All</a>
+						<a th:case="*" href="/reputeUpiVoucherIssuance">View All</a>
+					</div>
 					  <br>
 				     </div>
 

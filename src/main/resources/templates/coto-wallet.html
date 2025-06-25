@@ -116,12 +116,17 @@
 					            <div class="cd-wallet-balance-amount" id="walletBalance">₹0.00</div>
 					            <div class="cd-wallet-balance-label">Wallet Balance</div>
 					          </div>
-					          <div style="display: flex; gap: 8px;">
+					          <div style="display: flex; gap: 8px;" th:switch="${session.user_role}">
 								<button class="cd-wallet-button" data-bs-toggle="modal" data-bs-target="#ProductTrialModal">Pay & Trial&nbsp;<span style="font-size: 18px; font-weight: bold;">+</span>
 								</button>
-					            <a href="/upiVoucherIssuanceNew"> <button class="cd-wallet-button cd-wallet-button-disabled">
+					            <a th:case="9" href="/upiVoucherIssuanceNew" > <button class="cd-wallet-button cd-wallet-button-disabled">
 					              Redeem&nbsp;→
 					            </button> </a>
+								<a th:case="*" href="/reputeUpiVoucherIssuance" role="button">
+									<button class="cd-wallet-button cd-wallet-button-disabled">
+					              Redeem&nbsp;→
+					            </button> 
+			  			        </a>
 					          </div>
 					        </div>
 					      </div>
@@ -645,6 +650,7 @@
 							`;
 						    tableBody.append(row);
 						});
+						location.reload();
      		        },
      		        error: function(e) {
      		            alert('Error: ' + e.responseText);

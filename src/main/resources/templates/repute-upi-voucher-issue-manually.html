@@ -296,9 +296,9 @@
 													oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');validateAmount()" maxlength="6">
                                                 </td>
                                                 <td>
-                                                    <div>
-                                                        <input type="date" class="table-input" id="startDate" placeholder="Salect Date">
-                                                    </div>
+													<div onclick="openDatePicker()" style="width: fit-content;">
+													  <input type="date" class="table-input" id="startDate" placeholder="Select Date" readonly onfocus="this.removeAttribute('readonly');">
+													</div>
                                                 </td>
                                                 <td>
                                                     <select class="GeneralSelect validity" id="expiryDate">
@@ -764,7 +764,11 @@
 				}
 			});
 		}
-		
+		function openDatePicker() {
+		  const dateInput = document.getElementById('startDate');
+		  dateInput.showPicker && dateInput.showPicker(); // Chrome/Edge
+		  dateInput.focus(); // Fallback for other browsers
+		}	
 	function getRowData(btnIssue){
 		
 		$("#selectvouchers-wrap03").show();
@@ -1415,6 +1419,10 @@
 			   // Log the number of rows after deletion
 			   console.log("Number of rows after deletion:", tableBody.querySelectorAll("tr").length);
 	    }
+		
+		function closeVoucherModal() {
+		    document.getElementById("modalforvccategoryforbulkissuance").style.display = "none";
+		}
 	</script>
 	
     <!-- Modal Issue Vouchers -->
@@ -1472,7 +1480,7 @@
 
                             <div class="row">
                                 <div class="col-12 text-right mt-3">
-                                   <!-- <button class="btn btn-border-primary mb-1" onclick="window.location.href='create-upi-voucher-issue-manually.html';">Back</button>-->
+                                   <button class="btn btn-border-primary mb-1" onclick="closeVoucherModal()">Back</button>
                        			   <button class="btn btn-primary mb-1" onclick="getVoucherDetail()">Continue</button>
 								 </div>
                             </div>
