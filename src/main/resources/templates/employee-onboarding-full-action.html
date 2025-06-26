@@ -160,11 +160,12 @@
                                                         <div class="profile-tabs">
                                                             <ul class="nav nav-tabs">
                                                                 <li><a data-toggle="tab" href="#about-section" class="active about-tab">About</a></li>
-                                                                <li><a data-toggle="tab" href="" class="salary-tab">Salary</a></li><!-- href="#salary-section" -->
-                                                                <li><a data-toggle="tab" href="" class="attendance-tab">Attendance</a></li><!-- href="#attendance-section" -->
-                                                                <li><a data-toggle="tab" href="" class="apps-tab">Apps</a></li><!-- href="#apps-section" -->
-                                                                <li><a data-toggle="tab" href="" class="docs-tab">Docs</a></li><!-- href="#docs-section" -->
-                                                                <li><a data-toggle="tab" href="" class="onboarding-tab">Onboarding</a></li><!-- href="#onboarding-section" -->
+                                                                <!--<li><a data-toggle="tab" href="" class="salary-tab">Salary</a></li>
+                                                                <li><a data-toggle="tab" href="" class="attendance-tab">Attendance</a></li>
+                                                                <li><a data-toggle="tab" href="" class="apps-tab">Apps</a></li>
+                                                                <li><a data-toggle="tab" href="" class="docs-tab">Docs</a></li>
+                                                                <li><a data-toggle="tab" href="" class="onboarding-tab">Onboarding</a></li>-->
+																<li><a data-toggle="tab" href="#Transactions-History-section" class="Transactions-tab">Transactions History</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -211,7 +212,8 @@
 														              </div>
                                                     </div>
                                                 </div>
-
+                                            </div>
+												<div class="col-12 col-md-6">
                                                 <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
                                                   <h5>Reporting Team (<span id="teamCount">0</span>)</h5>
 												   
@@ -286,7 +288,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 col-md-6">
+                                            <!--<div class="col-12 col-md-6">
                                                 <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
                                                     <h5>Timeline</h5>
                                                     <div class="timeline-detl-wrap">
@@ -323,9 +325,108 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
-                                    </div>    
+                                    </div>
+									
+									<div class="row tab-pane" id="Transactions-History-section">
+																	<!-- tabs section-->
+																	<div class="business-benefits01 py-5" style="width: 100%; margin-left: -2px !important;">
+																	<div class="container-fluid">
+																		<div class="download-btn-container">
+																	    <img src="img/download-blue.svg" alt="Download Icon">
+																	  </div>
+																	   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+																	     
+																	     <li class="nav-item">
+																	       <a class="nav-link active" data-toggle="tab" href="#Vouchers" role="tab">Vouchers</a>
+																	     </li>
+																	     <li class="nav-item">
+																	       <a class="nav-link" data-toggle="tab" href="#Transactions" role="tab">Transactions</a>
+																	     </li>
+																	   </ul>
+																	  
+																	   <hr class="mt-0">
+
+																	   <div class="tab-content mt-3">
+
+																		<!-- transactions tab-->
+																	     <div class="tab-pane fade show active" id="Vouchers" role="tabpanel">
+																			
+																			<!-- empty table with error msg . msg to show when data is not present-->
+																			<div class="table-responsive" >
+																			   <table class="table table-reimbursements mb-0" id="vouchersTableList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+																			   
+																				 <thead>
+											 						                <tr>
+											 										 <!-- <th>S.NO</th>-->
+																					 <th><input type="checkbox" id="checkAll" style="margin-left: 12px;"></th>
+																					 <th>Issue Date <img src="img/Sorting-updown.svg" alt="sorting"></th>	
+											 										  <th>Name & Mobile # <img src="img/Sorting-updown.svg" alt="sorting"></th>
+																					  <th>Voucher ID</th>
+																					  
+											 						                  <th>Bank A/c<img src="img/Sorting-updown.svg" alt="sorting"></th>
+											 										  <th>Category<img src="img/Sorting-updown.svg" alt="sorting"></th>	
+																						<th>Redemptions</th>
+											 										  
+											 										  <th>Expiry Date</th>	
+																					  <th>Status</th>	
+											 										  <th>Issued</th>	
+											 										  <th>Redeemed</th>	
+																					  <th>Actions</th>	
+											 						                </tr>
+											 						              </thead>
+																			     <tbody class="table-bordered" >
+																			      
+																			     </tbody>
+																			   </table>
+																			 </div>
+																	     </div>
+																		 
+																		 <!--vouchers tab-->
+																	     <div class="tab-pane fade" id="Transactions" role="tabpanel">
+																			<div class="table-responsive">
+																	        <table class="table table-reimbursements mb-0">
+																	          <thead>
+																	            <tr>
+																				 <!-- <th>S.NO</th>-->
+																				  <th>Voucher ID</th>
+																	              
+																	              <th>Date & Time</th>	
+																				  	 
+																	              <th>TXN ID</th>
+																	             
+																				  <th>Catagory</th>	
+																				  <th>Merchant</th>	
+																				  <th>Amount</th>	
+																				  
+																				 
+																	            </tr>
+																	          </thead>
+																	          <tbody class="table-bordered">
+																	            <tr>
+																            	<td colspan="9" class="text-center">													
+																					As per the last update, this user has not used a UPI Vouchers to transact.
+																					</td>
+																				 
+																	            </tr>	
+																				<tr>
+																            	<td colspan="9" class="text-center">													
+																					
+																					If the user has already transacted, please refresh and check again after 60 minutes.</td>
+																				 
+																	            </tr>						
+																									
+																	          </tbody>
+																	        </table>
+																	      </div>
+																		 
+
+																	     </div>
+																	   </div>
+																	 </div>
+																	 </div>
+																  </div>    
                                 
                                     <div class="row tab-pane" id="salary-section">
                                         <div class="row">

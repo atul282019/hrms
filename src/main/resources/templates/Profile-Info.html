@@ -28,7 +28,7 @@
                      <!-- Topbar Navbar -->
                      <ul class="navbar-nav top-nav">
 
-                         <!-- Nav Item - User Information -->
+                         <!-- Nav Item - User Information 
                          <li class="nav-item">
                              <a class="nav-link active" href="#">
                                  <span class="mr-2 small">Dashboard</span>
@@ -40,7 +40,7 @@
                                  <span class="mr-2 small">Profile</span>
                                  <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
                              </a>
-                         </li>
+                         </li>-->
 
                      </ul>
 
@@ -230,7 +230,7 @@
 									   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
 									     
 									     <li class="nav-item">
-									       <a class="nav-link active" data-toggle="tab" href="#RewardsRedemption" role="tab">Rewards Redemption</a>
+									       <a class="nav-link active" data-toggle="tab" href="#Vouchers" role="tab">Vouchers</a>
 									     </li>
 									     <li class="nav-item">
 									       <a class="nav-link" data-toggle="tab" href="#Transactions" role="tab">Transactions</a>
@@ -242,44 +242,36 @@
 									   <div class="tab-content mt-3">
  
 										<!-- transactions tab-->
-									     <div class="tab-pane fade show active" id="RewardsRedemption" role="tabpanel">
+									     <div class="tab-pane fade show active" id="Vouchers" role="tabpanel">
 											
 											<!-- empty table with error msg . msg to show when data is not present-->
-											<div class="table-responsive">
-											  <table class="table table-reimbursements mb-0" >
-											    <thead>
-													<tr>
-
-											        <th>Voucher ID</th>	
-												  	 
-											        <th>Bank A/c</th>
-											       
-												  <th>Category</th>	
-												  <th>Redemption Type</th>	
-												  <th>Status</th>	
-												  <th>Issue Date</th>	
-												  <th>Expiry Date</th>
-												  <th>Issued</th>
-												  <th>Redeemed</th>
-											      </tr>
-											    </thead>
-											    <tbody class="table-bordered">
-													<tr>
-									            	<td colspan="12" class="text-center">													
-														As per the last update, there are no UPI Vouchers issued to this user. 
-														</td>
-													 
-										            </tr>	
-													<tr>
-									            	<td colspan="12" class="text-center">													
-														
-														If you have issued a UPI Voucher to this user already, please refresh and check again after 60 minutes.
-													</td>
-													 
-										            </tr>			
-											    </tbody>
-											  </table>
-											</div>
+											<div class="table-responsive" >
+													   <table class="table table-reimbursements mb-0" id="vouchersTableList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+													   
+														 <thead>
+					 						                <tr>
+					 										 <!-- <th>S.NO</th>-->
+															 <th><input type="checkbox" id="checkAll" style="margin-left: 12px;"></th>
+															 <th>Issue Date <img src="img/Sorting-updown.svg" alt="sorting"></th>	
+					 										  <th>Name & Mobile # <img src="img/Sorting-updown.svg" alt="sorting"></th>
+															  <th>Voucher ID</th>
+															  
+					 						                  <th>Bank A/c<img src="img/Sorting-updown.svg" alt="sorting"></th>
+					 										  <th>Category<img src="img/Sorting-updown.svg" alt="sorting"></th>	
+																<th>Redemptions</th>
+					 										  
+					 										  <th>Expiry Date</th>	
+															  <th>Status</th>	
+					 										  <th>Issued</th>	
+					 										  <th>Redeemed</th>	
+															  <th>Actions</th>	
+					 						                </tr>
+					 						              </thead>
+													     <tbody class="table-bordered" >
+													      
+													     </tbody>
+													   </table>
+													 </div>
 									     </div>
 										 
 										 <!--vouchers tab-->
