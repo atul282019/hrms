@@ -8692,440 +8692,444 @@ table.vcScheduledtable thead {
 				}
 				
 				
-				.voucher-modal-overlay {
-							    display: none;
-							    position: fixed;
-							    inset: 0;
-							    background: rgba(0, 0, 0, 0.5);
-							    z-index: 1040;
-							  }
+.voucher-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
 
-							  .voucher-modal-canvas {
-							    position: fixed;
-							    top: 0;
-							    right: -378px;
-							    width: 378px;
-							    height: 100vh;
-							    display: flex;
-							    flex-direction: column;
-							    background: white;
-							    z-index: 1050;
-							    transition: right 0.3s ease-in-out;
-							    border-left: 1px solid #e0e0e0;
-							  }
+  .voucher-modal-canvas {
+    position: fixed;
+    top: 0;
+    right: -378px;
+    width: 378px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    z-index: 1050;
+    transition: right 0.3s ease-in-out;
+    border-left: 1px solid #e0e0e0;
+  }
 
-							  .voucher-modal-scrollable-wrapper {
-							    flex: 1 1 auto;
-							    overflow-y: auto;
-							    overflow-x: hidden;
-								max-height: calc(100vh - 72px); /* Adjust based on your footer height */
-							  }
+  .voucher-modal-scrollable-wrapper {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+	max-height: calc(100vh - 72px); /* Adjust based on your footer height */
+  }
 
-							  .voucher-modal-scrollable {
-							    padding: 10px;
-							    display: flex;
-							    flex-direction: column;
-							  }
+  .voucher-modal-scrollable {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
 
-							  .voucher-footer {
-							    flex-shrink: 0;
-							    padding: 1rem;
-							    background: white;
-							    border-top: 1px solid #E5E7EB;
-							    position: sticky;
-							    bottom: 0;
-							    z-index: 2;
-							  }
+  .voucher-footer {
+    flex-shrink: 0;
+    padding: 1rem;
+    background: white;
+    border-top: 1px solid #E5E7EB;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+  }
 
-							  .voucher-download-btn {
-							    width: 100%;
-							    height: 44px;
-							    background-color: #367AFF;
-							    color: white;
-							    border: none;
-							    border-radius: 10px;
-							    padding: 10px 16px;
-							    font-weight: 500;
-							    font-size: 14px;
-							    display: flex;
-							    align-items: center;
-							    justify-content: center;
-							    gap: 8px;
-							    cursor: pointer;
-							  }
+  .voucher-download-btn {
+    width: 100%;
+    height: 44px;
+    background-color: #367AFF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
 
 
 
-							  	  .voucher-modal-scrollable {
-							  	    overflow-y: auto;
-							  	    overflow-x: hidden;
-							  	    padding: 10px;
-							  	    flex: 1 1 auto;
-							  	  }
+  	  .voucher-modal-scrollable {
+  	    overflow-y: auto;
+  	    overflow-x: hidden;
+  	    padding: 10px;
+  	    flex: 1 1 auto;
+  	  }
 
-							  	  .voucher-header {
-							  	    position: relative;
-							  	    margin-bottom: 1.5rem;
-							  	    width: 100%;
-							  	  }
+  	  .voucher-header {
+  	    position: relative;
+  	    margin-bottom: 1.5rem;
+  	    width: 100%;
+  	  }
 
-							  	  .voucher-title {
-							  	    font-weight: 700;
-							  	    margin-bottom: 0;
-							  	    padding-right: 40px;
-							  	  }
+  	  .voucher-title {
+  	    font-weight: 700;
+  	    margin-bottom: 0;
+  	    padding-right: 40px;
+  	  }
 
-							  	  .voucher-close-btn {
-							  	    position: absolute;
-							  	    top: 0;
-							  	    right: 10px;
-							  	    background: none;
-							  	    border: none;
-							  	    outline: none;
-							  	    padding: 0;
-							  	    margin: 0;
-							  	    cursor: pointer;
-							  	  }
+  	  .voucher-close-btn {
+  	    position: absolute;
+  	    top: 0;
+  	    right: 10px;
+  	    background: none;
+  	    border: none;
+  	    outline: none;
+  	    padding: 0;
+  	    margin: 0;
+  	    cursor: pointer;
+  	  }
 
-							  	  .voucher-close-icon {
-							  	    font-size: 18px;
-							  	    color: #000;
-							  	  }
+  	  .voucher-close-icon {
+  	    font-size: 18px;
+  	    color: #000;
+  	  }
 
-							  	  .voucher-card {
-							  	    padding: 1rem;
-							  	    margin-bottom: 1.25rem;
-							  	    border: 1px solid #E5E7EB;
-							  	    border-radius: 12px;
-							  	  }
+  	  .voucher-card {
+  	    padding: 1rem;
+  	    margin-bottom: 1.25rem;
+  	    border: 1px solid #E5E7EB;
+  	    border-radius: 12px;
+  	  }
 
-							  	  .voucher-card-header {
-							  	    display: flex;
-							  	    justify-content: space-between;
-							  	    align-items: start;
-							  	  }
+  	  .voucher-card-header {
+  	    display: flex;
+  	    justify-content: space-between;
+  	    align-items: start;
+  	  }
 
-							  	  .voucher-card-icon-box {
-							  	    background-color: #EDEDF0;
-							  	    padding: 10px;
-							  	    border-radius: 12px;
-							  	    width: 48px;
-							  	    height: 48px;
-							  	    display: flex;
-							  	    align-items: center;
-							  	    justify-content: center;
-							  	  }
+  	  .voucher-card-icon-box {
+  	    background-color: #EDEDF0;
+  	    padding: 10px;
+  	    border-radius: 12px;
+  	    width: 48px;
+  	    height: 48px;
+  	    display: flex;
+  	    align-items: center;
+  	    justify-content: center;
+  	  }
 
-							  	  .voucher-card-labels {
-							  	    flex: 1;
-							  	    min-width: 0;
-							  	    margin-left: 4px;
-							  	  }
+  	  .voucher-card-labels {
+  	    flex: 1;
+  	    min-width: 0;
+  	    margin-left: 4px;
+  	  }
 
-							  	  .voucher-label-row {
-							  	    display: flex;
-							  	    justify-content: space-between;
-							  	    align-items: center;
-							  	    width: 100%;
-							  	  }
+  	  .voucher-label-row {
+  	    display: flex;
+  	    justify-content: space-between;
+  	    align-items: center;
+  	    width: 100%;
+  	  }
 
-							  	  .voucher-label-title {
-							  	    font-weight: 600;
-							  	    font-size: 16px;
-							  	    color: #1F212C;
-							  	  }
+  	  .voucher-label-title {
+  	    font-weight: 600;
+  	    font-size: 16px;
+  	    color: #1F212C;
+  	  }
 
-							  	  .voucher-label-sub {
-							  	    font-size: 12px;
-							  	    color: #86889B;
-							  	  }
+  	  .voucher-label-sub {
+  	    font-size: 12px;
+  	    color: #86889B;
+  	  }
 
-							  	  .voucher-status-box {
-							  	    display: flex;
-							  	    justify-content: space-between;
-							  	    align-items: center;
-							  	    padding: 0.5rem 0.75rem;
-							  	    margin-top: 1rem;
-							  	    background-color: #EAF4EF;
-							  	    border-radius: 6px;
-							  	    font-size: 14px;
-							  	  }
-								  .voucher-status-box-failed 
-								  {
-		  						  	    display: flex;
-		  						  	    justify-content: space-between;
-		  						  	    align-items: center;
-		  						  	    padding: 0.5rem 0.75rem;
-		  						  	    margin-top: 1rem;
-		  						  	    background-color: #F248221A;
-		  						  	    border-radius: 6px;
-		  						  	    font-size: 14px;
-		  						  	  }
-									  .voucher-status-box-Revoke 
-		  							  {
-		  	  						  	    display: flex;
-		  	  						  	    justify-content: space-between;
-		  	  						  	    align-items: center;
-		  	  						  	    padding: 0.5rem 0.75rem;
-		  	  						  	    margin-top: 1rem;
-		  	  						  	    background-color: #FF95001A;
-		  	  						  	    border-radius: 6px;
-		  	  						  	    font-size: 14px;
-		  	  						  	  }
-										  .voucher-status-box-Expire 
-			  							  {
-			  	  						  	    display: flex;
-			  	  						  	    justify-content: space-between;
-			  	  						  	    align-items: center;
-			  	  						  	    padding: 0.5rem 0.75rem;
-			  	  						  	    margin-top: 1rem;
-			  	  						  	    background-color: #EDEDF0;
-			  	  						  	    border-radius: 6px;
-			  	  						  	    font-size: 14px;
-			  	  						  	  }
-							  	  .voucher-status-text {
-							  	    color: #2F945A;
-							  	  }
-							  .voucher-status-text-failed 
-							  {  color: #FF3B30;  }
-							  .voucher-status-text-Revoke
-	  						  { color: #FF9500;	 }
-							  .voucher-status-text-Expire 
-	  						  { color: #ACAEBA;	 }
+  	  .voucher-status-box {
+  	    display: flex;
+  	    justify-content: space-between;
+  	    align-items: center;
+  	    padding: 0.5rem 0.75rem;
+  	    margin-top: 1rem;
+  	    background-color: #EAF4EF;
+  	    border-radius: 6px;
+  	    font-size: 14px;
+  	  }
+	  .voucher-status-box-failed 
+	  {
+	  	    display: flex;
+	  	    justify-content: space-between;
+	  	    align-items: center;
+	  	    padding: 0.5rem 0.75rem;
+	  	    margin-top: 1rem;
+	  	    background-color: #F248221A;
+	  	    border-radius: 6px;
+	  	    font-size: 14px;
+	  	  }
+		  .voucher-status-box-Revoke 
+		  {
+		  	    display: flex;
+		  	    justify-content: space-between;
+		  	    align-items: center;
+		  	    padding: 0.5rem 0.75rem;
+		  	    margin-top: 1rem;
+		  	    background-color: #FF95001A;
+		  	    border-radius: 6px;
+		  	    font-size: 14px;
+		  	  }
+			  .voucher-status-box-Expire 
+			  {
+			  	    display: flex;
+			  	    justify-content: space-between;
+			  	    align-items: center;
+			  	    padding: 0.5rem 0.75rem;
+			  	    margin-top: 1rem;
+			  	    background-color: #EDEDF0;
+			  	    border-radius: 6px;
+			  	    font-size: 14px;
+			  	  }
+  	  .voucher-status-text {
+  	    color: #2F945A;
+  	  }
+  .voucher-status-text-failed 
+  {  color: #FF3B30;  }
+  .voucher-status-text-Revoke
+  { color: #FF9500;	 }
+  .voucher-status-text-Expire 
+  { color: #ACAEBA;	 }
 
-							  	  .voucher-balance {
-							  	    font-weight: 600;
-							  	    color: #2F945A;
-							  	  }
-								  .voucher-balance-failed
-								  {   font-weight: 700;
-				  						  	    color: #FF3B30;  }
-							  .voucher-balance-Revoke 
-							  {   font-weight: 700;
-		  						  	    color: #FF9500; }
-							  .voucher-balance-Expire 
-	  						  {   font-weight: 700;
-  						  	    color: #ACAEBA; }
-							  	  .voucher-meta {
-							  	    margin-top: 1rem;
-							  	    font-size: 12px;
-							  	    color: #6B7280;
-							  	  }
+  	  .voucher-balance {
+  	    font-weight: 600;
+  	    color: #2F945A;
+  	  }
+	  .voucher-balance-failed
+	  {   font-weight: 700;
+			  	    color: #FF3B30;  }
+  .voucher-balance-Revoke 
+  {   font-weight: 700;
+	  	    color: #FF9500; }
+  .voucher-balance-Expire 
+  {   font-weight: 700;
+    color: #ACAEBA; }
+  	  .voucher-meta {
+  	    margin-top: 1rem;
+  	    font-size: 12px;
+  	    color: #6B7280;
+  	  }
 
-							  	  .voucher-meta-row {
-							  	    display: flex;
-							  	    justify-content: space-between;
-							  	    margin-bottom: 0.25rem;
-							  	  }
+  	  .voucher-meta-row {
+  	    display: flex;
+  	    justify-content: space-between;
+  	    margin-bottom: 0.25rem;
+  	  }
 
-							  	  .voucher-meta-label {
-							  	    font-size: 12px;
-							  	    color: #86889B;
-							  	  }
+  	  .voucher-meta-label {
+  	    font-size: 12px;
+  	    color: #86889B;
+  	  }
 
-							  	  .voucher-meta-value {
-							  	    font-size: 14px;
-							  	    color: #4A4E69;
-							  	  }
+  	  .voucher-meta-value {
+  	    font-size: 14px;
+  	    color: #4A4E69;
+  	  }
 
-							  	  .voucher-bank-icon {
-							  	    height: 24px;
-							  	    width: 24px;
-							  	    margin-right: 4px;
-							  	    vertical-align: middle;
-							  	  }
+  	  .voucher-bank-icon {
+  	    height: 24px;
+  	    width: 24px;
+  	    margin-right: 4px;
+  	    vertical-align: middle;
+  	  }
 
-							  	  .voucher-redemption {
-							  	    margin-bottom: 1rem;
-							  	  }
+  	  .voucher-redemption {
+  	    margin-bottom: 1rem;
+  	  }
 
-							  	  .voucher-redemption-title {
-							  	    font-weight: 600;
-							  	    color: #1F212C;
-							  	    font-size: 16px;
-									margin: 0.5rem 0 0.25rem !important;
-							  	  }
+  	  .voucher-redemption-title {
+  	    font-weight: 600;
+  	    color: #1F212C;
+  	    font-size: 16px;
+		margin: 0.5rem 0 0.25rem !important;
+  	  }
 
-							  	  .voucher-redemption-card {
-							  	    border: 1px solid #E5E7EB;
-							  	    border-radius: 12px;
-							  	    padding: 16px;
-							  	    display: flex;
-							  	    justify-content: space-between;
-							  	    align-items: start;
-							  	  }
+  	  .voucher-redemption-card {
+  	    border: 1px solid #E5E7EB;
+  	    border-radius: 12px;
+  	    padding: 16px;
+  	    display: flex;
+  	    justify-content: space-between;
+  	    align-items: start;
+  	  }
 
-							  	  .voucher-redemption-label {
-							  	    font-size: 13px;
-							  	    color: #4A4E69;
-							  	  }
+  	  .voucher-redemption-label {
+  	    font-size: 13px;
+  	    color: #4A4E69;
+  	  }
 
-							  	  .voucher-redemption-values {
-							  	    display: flex;
-							  	    flex-direction: column;
-							  	    align-items: flex-end;
-							  	  }
+  	  .voucher-redemption-values {
+  	    display: flex;
+  	    flex-direction: column;
+  	    align-items: flex-end;
+  	  }
 
-							  	  .voucher-redemption-amount {
-							  	    font-weight: 600;
-							  	    font-size: 14px;
-							  	    margin-right: 8px;
-							  	    color: #1F212C;
-							  	  }
+  	  .voucher-redemption-amount {
+  	    font-weight: 600;
+  	    font-size: 14px;
+  	    margin-right: 8px;
+  	    color: #1F212C;
+  	  }
 
-							  	  .voucher-status-pill {
-							  	    background-color: #FF95001A;
-							  	    color: #FF9500;
-							  	    font-weight: 500;
-							  	    font-size: 12px;
-							  	    padding: 4px 10px;
-							  	    border-radius: 9999px;
-							  	    margin-top: 10px;
-							  	  }
+  	  .voucher-status-pill {
+  	    background-color: #FF95001A;
+  	    color: #FF9500;
+  	    font-weight: 500;
+  	    font-size: 12px;
+  	    padding: 4px 10px;
+  	    border-radius: 9999px;
+  	    margin-top: 10px;
+  	  }
 
-							  	  .voucher-transaction-list {
-							  	    list-style: none;
-							  	    position: relative;
-							  	    margin-left: 0;
-							  	    padding-left: 30px;
-							  	  }
+  	  .voucher-transaction-list {
+  	    list-style: none;
+  	    position: relative;
+  	    margin-left: 0;
+  	    padding-left: 30px;
+  	  }
 
-							  	  .voucher-transaction-line {
-							  	    position: absolute;
-							  	    left: 15px;
-							  	    top: 0;
-							  	    bottom: 0;
-							  	    width: 1px;
-							  	    border-left: 2px dashed #EDEDF0;
-							  	  }
+  	  .voucher-transaction-line {
+  	    position: absolute;
+  	    left: 15px;
+  	    top: 0;
+  	    bottom: 0;
+  	    width: 1px;
+  	    border-left: 2px dashed #EDEDF0;
+  	  }
 
-							  	  .voucher-transaction-item {
-							  	    position: relative;
-							  	    margin-bottom: 1.5rem;
-							  	  }
+  	  .voucher-transaction-item {
+  	    position: relative;
+  	    margin-bottom: 1.5rem;
+  	  }
 
-							  	  .voucher-transaction-step {
-							  	    position: absolute;
-							  	    left: -26px;
-							  	    top: 0;
-							  	    width: 24px;
-							  	    height: 24px;
-							  	    border-radius: 50%;
-							  	    background: white;
-							  	    border: 1px solid #86889B;
-							  	    text-align: center;
-							  	    font-size: 12px;
-							  	    line-height: 20px;
-							  	  }
+  .voucher-transaction-step {
+    position: absolute;
+    left: -26px;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #86889B;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+  }
 
-							  	  .voucher-transaction-card {
-							  	    border: 1px solid #E5E7EB;
-							  	    border-radius: 12px;
-							  	    padding: 16px;
-							  	    font-size: 13px;
-							  	  }
+  .voucher-transaction-card {
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 13px;
+  }
 
-							  	  .voucher-transaction-top,
-							  	  .voucher-transaction-bottom {
-							  	    display: flex;
-							  	    justify-content: space-between;
-							  	    margin-bottom: 16px;
-							  	  }
+  .voucher-transaction-top,
+  .voucher-transaction-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
 
-								  #bs-canvas-right1 {
-								  			  width: 378px;
-								  			  height: 1117px;
-								  			  padding: 20px;
-								  			  gap: 30px; /* ignored unless used in Flex/Grid */
-								  			  border-left: 1px solid #dee2e6;
-								  			  position: fixed;
-								  			  top: 0;
-								  			  right: -378px; /* start hidden */
-								  			  background: white;
-								  			  z-index: 1050;
-								  			  transition: right 0.3s ease-in-out;
-								  			}
-											
-											.balance-container {
-												    position: absolute;
-												    bottom: 0;
-												    right: 0;
-												    display: flex;
-												    flex-direction: column;
-												    align-items: flex-end;
-												    gap: 4px;
-												    padding: 8px;
-												}
-													.tip-disabled {
-												    width: 100%;
-												    max-width: 350px;
-												    height: 34px;
-												    padding: 8px 10px;
-												    border: 1px solid #EDEDF0;
-												    border-radius: 10px;
-												    display: flex;
-												    align-items: center;
-												    gap: 10px;
-												    font-size: 11px;
-												    font-weight: 400;
-												    color: #ACAEBA;
-												    background-color: #DCDCDC1A;
-												    white-space: nowrap;
-												    overflow: hidden;
-												    text-overflow: ellipsis;
-												    opacity: 0.6;
-												    pointer-events: none;
-												}
-												.tip-disabled img {
-												    width: 14px;
-												    height: 14px;
-												    flex-shrink: 0;
-												}
+  #bs-canvas-right1 {
+  			  width: 378px;
+  			  height: 1117px;
+  			  padding: 20px;
+  			  gap: 30px; /* ignored unless used in Flex/Grid */
+  			  border-left: 1px solid #dee2e6;
+  			  position: fixed;
+  			  top: 0;
+  			  right: -378px; /* start hidden */
+  			  background: white;
+  			  z-index: 1050;
+  			  transition: right 0.3s ease-in-out;
+  			}
+			
+			.balance-container {
+				    position: absolute;
+				    bottom: 0;
+				    right: 0;
+				    display: flex;
+				    flex-direction: column;
+				    align-items: flex-end;
+				    gap: 4px;
+				    padding: 8px;
+				}
+					.tip-disabled {
+				    width: 100%;
+				    max-width: 350px;
+				    height: 34px;
+				    padding: 8px 10px;
+				    border: 1px solid #EDEDF0;
+				    border-radius: 10px;
+				    display: flex;
+				    align-items: center;
+				    gap: 10px;
+				    font-size: 11px;
+				    font-weight: 400;
+				    color: #ACAEBA;
+				    background-color: #DCDCDC1A;
+				    white-space: nowrap;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
+				    opacity: 0.6;
+				    pointer-events: none;
+				}
+				.tip-disabled img {
+				    width: 14px;
+				    height: 14px;
+				    flex-shrink: 0;
+				}
 
-														
+						
 
-														
-												.button-check-balance {
-														width: 100%;
-													    max-width: 350px;
-													    height: 36px;
-													    padding: 8px 16px;
-													    border: 1px solid #EBF2FF;
-														/*border: 1px solid #367AFF;
-														color: #367AFF;*/
-													    border-radius: 8px; 
-														color: #A3C2FF;
-													    background-color: transparent;
-													    font-size: 14px;
-													    font-weight: 500;
-													    line-height: 20px;
-													    cursor: pointer;
-													    display: flex;
-													    align-items: center;
-													    justify-content: center;
-													    gap: 8px;
-													}
-													.custom-back-button {
-													  width: 85px;
-													  height: 52px;
-													  padding: 12px 24px;
-													  border-radius: 8px;
-													  border: 1px solid #367AFF;
-													  background-color: transparent;
-													  color: #367AFF;
-													  font-family: inherit;
-													  font-size: 16px;
-													  line-height: 20px;
-													  cursor: pointer;
-													  display: inline-flex;
-													  align-items: center;
-													  justify-content: center;
-													  gap: 8px;
-													  transition: background-color 0.2s ease;
-													}
+						
+				.button-check-balance {
+						width: 100%;
+					    max-width: 350px;
+					    height: 36px;
+					    padding: 8px 16px;
+					    border: 1px solid #EBF2FF;
+						/*border: 1px solid #367AFF;
+						color: #367AFF;*/
+					    border-radius: 8px; 
+						color: #A3C2FF;
+					    background-color: transparent;
+					    font-size: 14px;
+					    font-weight: 500;
+					    line-height: 20px;
+					    cursor: pointer;
+					    display: flex;
+					    align-items: center;
+					    justify-content: center;
+					    gap: 8px;
+					}
+					.custom-back-button {
+					  width: 85px;
+					  height: 52px;
+					  padding: 12px 24px;
+					  border-radius: 8px;
+					  border: 1px solid #367AFF;
+					  background-color: transparent;
+					  color: #367AFF;
+					  font-family: inherit;
+					  font-size: 16px;
+					  line-height: 20px;
+					  cursor: pointer;
+					  display: inline-flex;
+					  align-items: center;
+					  justify-content: center;
+					  gap: 8px;
+					  transition: background-color 0.2s ease;
+					}
 
-													#vouchersTableList th {
-													  white-space: nowrap;
-													}
+					#vouchersTableList th {
+					  white-space: nowrap;
+					}
 
-											
+												
+.text-left {
+    text-align: left !important;
+}
+																					

@@ -556,7 +556,7 @@ async function getEmployeeOnboarding() {
                     }},
                     { "mData": "name" },
                     { "mData": "mobile" },
-                    { "mData": "email" },
+                    { "mData": "email" , "className": "text-left"},
                     { "mData": "empOrCont" },
                     { "mData": "status", "render": function(data, type, row) {
                         return 'Active'; // Since we're only showing Active employees
