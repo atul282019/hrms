@@ -1,5 +1,5 @@
 
-function getSavedVoucherList() {
+function getSavedVoucherListForApprove() {
 		    const managerId = document.getElementById('empId').value;
 			document.getElementById("signinLoader").style.display="flex";
 			$.ajax({
@@ -13,7 +13,7 @@ function getSavedVoucherList() {
 					var vouchers=parseddata.data;
 					console.log("getSavedVoucherList()",vouchers);
 				
-					var table = $('#reimbursementTable').DataTable( {
+					var table = $('#approveVoucherList').DataTable( {
 			          destroy: true,	
 				     "responsive": true, searching: false,bInfo: false, paging: false,"lengthChange": true, "autoWidth": false,"pagingType": "full_numbers","pageLength": 50,
 			         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
@@ -21,10 +21,11 @@ function getSavedVoucherList() {
 			        
 			         "aaData": vouchers,
 			  		  "aoColumns": [ 
-					   {
-			             "mData": "id", "render": function (vouchers, type, row) {
-							 return ' <div class="table-check"><input type="hidden" value="'+vouchers+'" id="revokeId" name="revokeId" ></div>';
-			             }},
+					  /// {
+			          //   "mData": "id", "render": function (vouchers, type, row) {
+					//		 return ' <div class="table-check"><input type="hidden" value="'+vouchers+'" id="revokeId" name="revokeId" ></div>';
+			        //     }},
+						
 			            { "mData": "name"}, 
 						{ "mData": "mobile"},   
 			           // { "mData": "employeeId"},   
@@ -45,16 +46,22 @@ function getSavedVoucherList() {
 						{ 
 						  "mData": "creationDate",
 						  "render": function(vouchers, type, row) {
-						    if (!vouchers) return '';
-						    const date = new Date(vouchers);
-						    const yyyy = date.getFullYear();
-						    const mm = String(date.getMonth() + 1).padStart(2, '0');
-						    const dd = String(date.getDate()).padStart(2, '0');
-						    return `${yyyy}-${mm}-${dd}`;
+						      if (!vouchers) return '';
+						      const date = new Date(vouchers);
+						      const dd = String(date.getDate()).padStart(2, '0');
+						      const mm = String(date.getMonth() + 1).padStart(2, '0');
+						      const yyyy = date.getFullYear();
+						      return `${dd}-${mm}-${yyyy}`;
 						  }
-						},
+						  },
+						{
+					       "mData": "validity",
+					       "render": function (data, type, row) {
+					           return data + " Days";
+					       }
+					   },
 						{ "mData": "remarks"}, 
-						{"mData":"validity"},   
+						
 						{
 								"mData": "statusMessage",
 								"render": function (status, type, row) {

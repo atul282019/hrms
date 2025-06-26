@@ -98,12 +98,12 @@ viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEm
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
                         <div class="col-12">
-                            <ul class="nav nav-tabs expense-tabs">
-                                <li class="active" th:if="${session.user_role == 9 or session.user_role == 1 }" ><a data-toggle="tab" href="#home1">Role Access</a></li>
-                                <li th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11">Employee Bands</a></li>
-                                <li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
-								<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu33">Expenses & Advances</a></li>
-								<!--<li th:if="${session.user_role == 9 or session.user_role == 3}" ><a data-toggle="tab" href="#menu44">Payment History</a></li>
+                            <ul class="nav nav-underline">
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1 }" ><a data-toggle="tab" href="#home1" class="nav-link active">Role Access</a></li><!--
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11" class="nav-link">Employee Bands</a></li>-->
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
+								<!--<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu33">Expenses & Advances</a></li>
+								--><!--<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Payment History</a></li>
                              -->
                             </ul>
 

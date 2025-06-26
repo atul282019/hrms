@@ -116,47 +116,46 @@
 		                return;
 		            }
 
-		            // Populate the table dynamically
-		            vouchers.forEach(voucher => {
-						const formattedDate = voucher.creationDate ? voucher.creationDate.split("T")[0] : "N/A";
-						//const maskedMobile = voucher.mobile 
-						 //                   ? `XXX-XXX-${voucher.mobile.slice(-4)}` 
-						  //                  : "N/A";
-						  // Color-coded status message
-						      let status = voucher.statusMessage || "N/A";
-						      let colorClass = "";
+					vouchers.forEach(voucher => {
+					    const formattedDate = voucher.creationDate
+					        ? (() => {
+					            const date = new Date(voucher.creationDate);
+					            const dd = String(date.getDate()).padStart(2, '0');
+					            const mm = String(date.getMonth() + 1).padStart(2, '0');
+					            const yyyy = date.getFullYear();
+					            return `${dd}-${mm}-${yyyy}`;
+					        })()
+					        : "N/A";
 
-						      if (status === "Requested") {
-						          colorClass = "color: #ffc107; font-weight: bold;"; // Yellow
-						      } else if (status === "Voucher Created") {
-						          colorClass = "color: #28a745; font-weight: bold;"; // Green
-						      } else if (status === "Approved by manager") {
-						          colorClass = "color: #007bff; font-weight: bold;"; // Blue
-						      } else if (status === "Rejected by manager") {
-  						          colorClass = "color:#dc3545; font-weight:bold;"; // red
-  						      }
-							  
+					    let status = voucher.statusMessage || "N/A";
+					    let colorClass = "";
 
-		                const row = `
-		                    <tr>
-		                        <td>${voucher.name}</td>
-								<td>${voucher.mobile}</td>
-		                        <td>${voucher.voucherType}</td>
-		                        <td>${voucher.voucherSubType}</td>
-								
-		                       
-		                        <td>${voucher.amount}</td>
-		                        <td>${formattedDate }</td>
-								<td>${voucher.validity}</td>
-								<td>${voucher.remarks || "N/A"}</td>
-								<td><span style="${colorClass}">${status}</span></td>
-								
-		                        
-		                    </tr>
-		                `;
+					    if (status === "Requested") {
+					        colorClass = "color: #ffc107; font-weight: bold;";
+					    } else if (status === "Voucher Created") {
+					        colorClass = "color: #28a745; font-weight: bold;";
+					    } else if (status === "Approved by manager") {
+					        colorClass = "color: #007bff; font-weight: bold;";
+					    } else if (status === "Rejected by manager") {
+					        colorClass = "color:#dc3545; font-weight:bold;";
+					    }
 
-		                tableBody.append(row);
-		            });
+					    const row = `
+					    <tr>
+					        <td>${voucher.name}</td>
+					        <td>${voucher.mobile}</td>
+					        <td>${voucher.voucherType}</td>
+					        <td>${voucher.voucherSubType}</td>
+					        <td>${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2 }).format(voucher.amount || 0)}</td>
+					        <td>${formattedDate}</td>
+					        <td>${voucher.validity} days</td>
+					        <td>${voucher.remarks || "N/A"}</td>
+					        <td><span style="${colorClass}">${status}</span></td>
+					    </tr>
+					    `;
+
+					    tableBody.append(row);
+					});
 		        },
 		        error: function(e) {
 		            alert('Error: ' + e.responseText);

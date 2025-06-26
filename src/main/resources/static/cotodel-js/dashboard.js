@@ -273,7 +273,7 @@ function erupiVoucherCreateListLimit() {
       newData = data;
       var data1 = jQuery.parseJSON(newData);
       var data2 = data1.data;
-console.log("dashboard erupiVoucherCreateListLimit() ",data1);
+		console.log("dashboard erupiVoucherCreateListLimit() ",data1);
       var table = $('#vouchersTableList').DataTable({
         destroy: true,
         lengthChange: true,

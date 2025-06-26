@@ -953,6 +953,31 @@ public class StaticPageController extends CotoDelBaseController{
 	}
 	return new ModelAndView("index", "command", "");
 }
+
+	
+	@GetMapping(value="/requestApproveVouchers")
+	public ModelAndView requestApproveVouchers(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				if(obj.getUser_role()==3 || obj.getUser_role()==2 || obj.getUser_role()==1|| obj.getUser_role()==9) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("request-approve-vouchers", "command", "");
+			}
+			 return new ModelAndView("error", "command", "");
+		}
+		return new ModelAndView("index", "command", "");
+	}
+	return new ModelAndView("index", "command", "");
+}
+	
+	
 	@GetMapping(value="/expenseReimbursementsCompany")
 	public ModelAndView expenseReimbursementsCompany(Model model) {
 		String token = (String) session.getAttribute("hrms");
@@ -1678,7 +1703,7 @@ public class StaticPageController extends CotoDelBaseController{
 			if(token!=null) {
 				UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 				if(obj!=null) {
-					if(obj.getUser_role()==2 || obj.getUser_role()==3) {
+					if(obj.getUser_role()==2 || obj.getUser_role()==3 || obj.getUser_role()==9) {
 					model.addAttribute("name",obj.getName());
 					model.addAttribute("org",obj.getOrgName());
 					model.addAttribute("mobile",obj.getMobile());

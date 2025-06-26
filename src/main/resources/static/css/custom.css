@@ -6404,7 +6404,7 @@ table.vcScheduledtable thead {
 					    background-color:  #2F945A;
 					    color: #EAF4EF;
 					    font-weight: bold;
-					    text-align: center;
+					    text-align: left;
 					}
 					/* New class with rounded table header */
 					.table-reimbursements-alt thead tr:first-child th:first-child {

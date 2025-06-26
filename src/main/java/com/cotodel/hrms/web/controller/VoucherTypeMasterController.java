@@ -217,7 +217,7 @@ public class VoucherTypeMasterController extends CotoDelBaseController{
 			    }
 			    logger.info("obj.getOrgid()"+obj.getOrgid());
 			    //here we are comparing employeeid with orgid because we are getting empid in session 
-   if ((obj.getUser_role() == 2) && obj.getOrgid() == erupiVoucherCreateRequest.getEmployerId().intValue()) {
+   if ((obj.getUser_role() == 2 || obj.getUser_role() == 9 || obj.getUser_role() == 3) && obj.getOrgid() == erupiVoucherCreateRequest.getEmployerId().intValue()) {
         
         try {
            // jsonResponse = mapper.writeValueAsString(responseMap);

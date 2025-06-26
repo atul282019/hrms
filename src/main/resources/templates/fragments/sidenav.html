@@ -36,11 +36,18 @@
 		               <img src="img/menu-vehicle.png" alt="" class="mr-2">
 		               <span>Vehicle Management</span></a>
 		       </li>
-			   <li class="nav-item" th:if="${session.user_role == 3 or session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
+			  <!-- <li class="nav-item" th:if="${session.user_role == 3 or session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
    	             <a class="nav-link" th:href="@{/expenseReimbursements}">
    	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
    	                 <span>Expenses & Advances</span></a>
-   	         </li> 
+   	         </li>-->
+			 
+			 <li class="nav-item" th:if="${session.user_role == 3 or session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
+  	             <a class="nav-link" th:href="@{/requestApproveVouchers}">
+  	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
+  	                 <span>Request Approve Vouchers</span></a>
+  	         </li>
+						 
 			 <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 3}">
  			   <a class="nav-link" th:href="@{/roleAccess}">
  			       <img src="img/menu-admin-settings.svg" alt="" class="mr-2">
@@ -120,7 +127,7 @@
 	 	        <img src="img/menu-upi-voucher.svg" alt="" class="mr-2">
 	 	        <span>UPI Voucher Issuance</span></a>
 	 	 </li>
-		 <li class="nav-item" th:if="${session.user_role == 2 }">
+		<!-- <li class="nav-item" th:if="${session.user_role == 2 or session.user_role == 9}">
             <a class="nav-link" th:href="@{/requestVoucher}">
                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                 <span>Request Vouchers</span></a>
@@ -129,7 +136,7 @@
            <a class="nav-link" th:href="@{/requestedVoucherList}">
                <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                <span>Approve Vouchers</span></a>
-       </li>
+       </li>-->
 		 <li class="nav-item" th:if="${session.user_role == 12}">
              <a class="nav-link" th:href="@{/displayWaitlist}">
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
