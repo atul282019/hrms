@@ -1557,7 +1557,7 @@ function viewhistory(rowData) {
     }
   });
 }*/
-function viewhistory(rowData) {
+/*function viewhistory(rowData) {
   const employerId = document.getElementById("employerId").value;
 
   if (typeof rowData === "string") {
@@ -1679,7 +1679,134 @@ function viewhistory(rowData) {
       alert('Error: ' + e);
     }
   });
+}*/
+
+function viewhistory(rowData) {
+  const employerId = document.getElementById("employerId").value;
+
+  if (typeof rowData === "string") {
+    rowData = JSON.parse(decodeURIComponent(rowData));
+  }
+
+  document.getElementById("signinLoader").style.display = "flex";
+
+  $.ajax({
+    type: "POST",
+    url: "/erupiVoucherStatusHistory",
+    data: {
+      id: rowData.id
+    },
+    success: function (data) {
+      document.getElementById("signinLoader").style.display = "none";
+
+      const parsed = jQuery.parseJSON(data);
+      const data1 = parsed.data;
+      console.log("parsed for /erupiVoucherStatusHistory ", parsed);
+      console.log("data for /erupiVoucherStatusHistory ", data1);
+
+      if (parsed.status === true) {
+        document.getElementById("bs-canvas-right1").style.right = "0";
+        document.getElementById("modal-overlay").style.display = "block";
+
+        document.getElementById("voucherDesc").textContent = data1.voucherDesc;
+        document.getElementById("voucherAmount").textContent = `₹${data1.voucherAmount}`;
+        document.getElementById("name").textContent = data1.name;
+        document.getElementById("voucherMobile").textContent = data1.mobile;
+        document.getElementById("expDate").textContent = data1.expDate;
+        document.getElementById("issueDate").textContent = data1.issueDate;
+        document.getElementById("merchantTranId").textContent = data1.merchantTranId;
+        document.getElementById("balanceAmount").textContent = `₹${data1.activeAmount}`;
+        document.getElementById("redemtionType").textContent = data1.redemtionType;
+        document.getElementById("amountSpent").textContent = `₹${data1.amountSpent ?? 0}`;
+
+        const statusBox = document.querySelector(".voucher-status-box");
+        const statusTextEls = statusBox.querySelectorAll(".voucher-status-text");
+        const balanceEl = document.getElementById("balanceAmount");
+        const statusValue = data1.voucherStatus?.trim().toLowerCase();
+
+        document.getElementById("voucherStatus").textContent = data1.voucherStatus;
+
+        statusBox.className = "voucher-status-box";
+        statusTextEls.forEach(el => el.className = "voucher-status-text");
+        balanceEl.className = "voucher-balance";
+
+        switch (statusValue) {
+          case "failed":
+            statusBox.classList.add("voucher-status-box-failed");
+            statusTextEls.forEach(el => el.classList.add("voucher-status-text-failed"));
+            balanceEl.classList.add("voucher-balance-failed");
+            break;
+          case "revoke":
+            statusBox.classList.add("voucher-status-box-Revoke");
+            statusTextEls.forEach(el => el.classList.add("voucher-status-text-Revoke"));
+            balanceEl.classList.add("voucher-balance-Revoke");
+            break;
+          case "expired":
+            statusBox.classList.add("voucher-status-box-Expire");
+            statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
+            balanceEl.classList.add("voucher-balance-Expire");
+            break;
+        }
+
+        const accountDisplay = document.getElementById("accountNumber");
+        const bankLogo = data1.bankLogo
+          ? `<img src='data:image/png;base64,${data1.bankLogo}' alt='Bank' width='24' height='24' style='vertical-align:middle;margin-right:6px;'>`
+          : '';
+        const maskedAcc = data1.accountNumber?.slice(-4) ?? '';
+        accountDisplay.innerHTML = `${bankLogo}xxxx${maskedAcc}`;
+
+        if (data1.voucherLogo) {
+          const logoEl = document.getElementById("voucherLogoImg");
+          logoEl.src = `data:image/png;base64,${data1.voucherLogo}`;
+          logoEl.style.display = "inline-block";
+        }
+
+        const transactionList = document.querySelector(".voucher-transaction-list");
+        transactionList.innerHTML = "";
+
+        const redeemData = data1.redeemData || [];
+        if (redeemData.length > 1) {
+          transactionList.innerHTML = '<div class="voucher-transaction-line"></div>';
+        }
+
+        redeemData.forEach((txn, idx) => {
+          const item = document.createElement("li");
+          item.className = "voucher-transaction-item";
+          item.innerHTML = `
+            <div class="voucher-transaction-step">${idx + 1}</div>
+            <div class="voucher-transaction-card">
+              <div class="voucher-transaction-top">
+                <div>
+                  <div class="voucher-meta-label">Transaction date</div>
+                  <div class="voucher-meta-value">${txn.transactionDate}</div>
+                </div>
+                <div>
+                  <div class="voucher-meta-label">Transaction RRN</div>
+                  <div class="voucher-meta-value">${txn.bankrrn}</div>
+                </div>
+              </div>
+              <div class="voucher-transaction-bottom">
+                <div>
+                  <div class="voucher-meta-label">Merchant Name</div>
+                  <div class="voucher-meta-value">${txn.marchantName}</div>
+                </div>
+                <div>
+                  <div class="voucher-meta-label">Amount</div>
+                  <div class="voucher-meta-value">₹${txn.amount}</div>
+                </div>
+              </div>
+            </div>`;
+          transactionList.appendChild(item);
+        });
+      }
+    },
+    error: function (e) {
+      document.getElementById("signinLoader").style.display = "none";
+      alert('Error: ' + e);
+    }
+  });
 }
+
 
 
 

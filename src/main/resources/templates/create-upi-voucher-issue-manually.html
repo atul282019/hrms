@@ -556,13 +556,23 @@
     </script>
 
 	<script>
-		window.addEventListener('DOMContentLoaded', function () {
+		/*window.addEventListener('DOMContentLoaded', function () {
 		    const today = new Date().toISOString().split("T")[0];
 		    document.querySelectorAll('.table-dateed').forEach(function(dateInput) {
 		        dateInput.setAttribute("min", today);
 		    });
+		});*/
+		window.addEventListener('DOMContentLoaded', function () {
+		  const today = new Date().toISOString().split("T")[0];
+
+		  document.querySelectorAll('.table-dateed').forEach(function (dateInput) {
+		    dateInput.setAttribute("min", today);
+		    dateInput.value = today;
+		  });
 		});
+
 		</script>
+		
 	<style>	/* Wrap input to allow absolute positioning of dropdown */
 		.selectvouchers-table{
 			overflow: auto !important;
@@ -1036,7 +1046,7 @@
 
 </style>
 	<script>
-		function getVoucherListWithIcon() {
+		/*function getVoucherListWithIcon() {
 		    const voucherList = document.getElementById('voucherList');
 		    const purposeList = document.getElementById('purposeList');
 
@@ -1173,7 +1183,7 @@
 	                alert('Error: ' + e.responseText);
 	            }
 	        });
-	    }
+	    }functionality without auto select*/
     // Initialize
    // getVoucherListWithIcon();
 	</script>
@@ -1256,7 +1266,7 @@
 	</script>
 	
 	<script>	
-		function addNewVoucher(event) {
+		/*function addNewVoucher(event) {
 	    event.preventDefault();
 	    const tableBody = document.getElementById('voucherTableBody');
 	    const rows = tableBody.querySelectorAll('tr');
@@ -1312,7 +1322,60 @@
 		// Disable past dates
 		    const today = new Date().toISOString().split("T")[0];
 		    newRow.querySelector('.table-dateed').setAttribute("min", today);
-	}
+	}*/		function addNewVoucher(event) {
+		  event.preventDefault();
+		  const tableBody = document.getElementById('voucherTableBody');
+
+		  const newRow = document.createElement('tr');
+		  const today = new Date().toISOString().split("T")[0];
+
+		  newRow.innerHTML = `
+		    <td>
+		        <div class="autocomp-input-wrap table-input">
+		            <input type="text" class="autocomp-input" id="search" oninput="userSearchAndPopulate(this)"
+		                   placeholder="Enter Name" autocomplete="off">
+		            <div class="autocomplete-dropdown"></div>
+		        </div>
+		    </td>
+		    <td>
+		        <input type="text" class="table-input" placeholder="Enter Mobile Number">
+		    </td>
+		    <td>
+		        <input type="text" class="table-input table-input-voucher" onclick="showVoucherModal(this)" placeholder="Select Voucher">
+		        <input type="hidden" class="table-input table-input-voucher selectMCC"> 
+		        <input type="hidden" class="table-input table-input-voucher selectPurpose"> 
+		        <input type="hidden" class="table-input table-input-voucher selectMCCDescription"> 
+		        <input type="hidden" class="table-input table-input-voucher selectPurposeDescription">
+		    </td>
+		    <td>
+		        <select class="GeneralSelect redemptionType">
+		            <option value="Single">Single</option>
+		            <option value="MULTIPLE" selected>Multiple</option>
+		        </select>
+		    </td>
+		    <td>
+		        <input type="text" class="table-input" placeholder="Enter Amount">
+		    </td>
+		    <td>
+		        <input type="date" class="table-input table-dateed" min="${today}" value="${today}" placeholder="Select Date" onclick="this.showPicker()">
+		    </td>
+		    <td>
+		        <select class="GeneralSelect validity">
+		            <option value="1 days">1 day</option>
+		            <option value="7 days">7 days</option>
+		            <option value="30 days">30 days</option>
+		            <option value="90 days">90 days</option>
+		            <option value="365 Days">365 Days</option>
+		        </select>
+		    </td>
+		    <td>
+		        <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+		    </td>
+		  `;
+
+		  tableBody.appendChild(newRow);
+		}
+
 
 
 	    function userSearchAndPopulate(inputElement) {
@@ -1458,7 +1521,7 @@
 	        // Assuming currentRowInput is set correctly to the clicked input element
 	        if (currentRowInput) {
 	            const currentRow = currentRowInput.closest('tr');
-	            currentRow.querySelector('.table-input-voucher').value = selectedVoucherName + " | " + selectedPurposeName.substring(0, 5) + "...";
+	            currentRow.querySelector('.table-input-voucher').value = selectedVoucherName.substring(0, 5) + " | " + selectedPurposeName.substring(0, 5) + "...";
 								
 				currentRow.querySelector('.selectMCC').value =  selectedPurposeCode;
 	            currentRow.querySelector('.selectPurpose').value  = selectedVoucherCode;
