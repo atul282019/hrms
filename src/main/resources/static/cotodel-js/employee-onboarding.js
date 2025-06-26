@@ -191,7 +191,7 @@ function validateAmount(amount) {
 		    }
 			
 			
-			if (email === "" || !email.match(regEmail) || emailspace !== email) 
+			/*if (email === "" || !email.match(regEmail) || emailspace !== email) 
 			{
 		        document.getElementById("emailError").textContent = 
 	            emailspace !== email 
@@ -203,7 +203,7 @@ function validateAmount(amount) {
 	        return false;
 		    } else {
 		        document.getElementById("emailError").textContent = "";
-		    }
+		    }*/
 	     
 	    } else {
 	        document.getElementById("empTypeError").textContent = "Please select employee type";
@@ -385,7 +385,7 @@ async function saveEmployeeOnboarding(){
 		        document.getElementById("mobileError").textContent = "";
 		    }
 			
-			if (email === "" || !email.match(regEmail) || emailspace !== email) 
+			/*if (email === "" || !email.match(regEmail) || emailspace !== email) 
 				{
 			        document.getElementById("emailError").textContent = 
 		            emailspace !== email 
@@ -397,7 +397,7 @@ async function saveEmployeeOnboarding(){
 		        return false;
 		    } else {
 		        document.getElementById("emailError").textContent = "";
-		    }
+		    }*/
 	     
 	    } else {
 	        document.getElementById("empTypeError").textContent = "Please select employee type";
@@ -555,13 +555,13 @@ async function getEmployeeOnboarding() {
                         return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="' + data1 + '">';
                     }},
                     { "mData": "name" },
-                    { "mData": "mobile" },
+                    { "mData": "mobile", "className": "text-left"},
                     { "mData": "email" , "className": "text-left"},
                     { "mData": "empOrCont" },
                     { "mData": "status", "render": function(data, type, row) {
                         return 'Active'; // Since we're only showing Active employees
                     }},
-                    { "mData": "userDetailsId", "render": function(data1, type, row) {
+                    { "mData": "userDetailsId","className": "text-center", "render": function(data1, type, row) {
                         return '<td align="right"><button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="false" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button></td>';
                     }},
                 ]
