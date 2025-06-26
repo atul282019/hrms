@@ -606,11 +606,12 @@ function populateVoucherUI(data) {
 
   const total = parseFloat(data.totalAmount);
   const available = parseFloat(data.redeemAmount);
+  
   const spent = total - available;
 
   const spentPercent = total > 0 ? ((available / total) * 100) : 0;
 
-  document.querySelector('.voucher-amount').textContent = `₹${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+  document.querySelector('.voucher-amount').textContent = `₹${spent.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
   document.querySelector('.voucher-spent').textContent = `₹${available.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
   document.querySelector('.voucher-progress-text').textContent = `${spentPercent.toFixed(1)}%`;
 
