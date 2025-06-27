@@ -182,7 +182,7 @@
 										  <div class="div-2 mt-5" style="text-align: right; margin-top: 20px !important;">
 										    <p class="element" style="display: inline-flex; align-items: center; justify-content: flex-end; margin: 0; gap: 2px;">
 										      <span class="span" style="font-size: 20px;">₹</span>
-										      <span class="text-wrapper-3" style="font-size: 20px;">1,23,456</span>
+										      <span class="text-wrapper-3" style="font-size: 20px;">00.00</span>
 										    </p>
 										  </div>
 										 <p class="last-updated-on"><!--<span th:text="${session.formattedDate}" ></span>-->
@@ -227,16 +227,16 @@
 	                                              <th>Employee Name</th>
 												  <th>Mobile Number</th>
 	                                              <!-- <th>DOB</th>-->
-	                                              <th>VOUCHER CATEGORY</th>
+	                                              <th>Voucher Category</th>
 	                                             <!-- <th>PURPOSE CODE</th>-->
 	                                              <!--   <th>eMPLOYMENT TYPE</th>-->
-	                                              <th>AMOUNT</th>
+	                                              <th>Amount</th>
 	                                              <!--  <th>DOJ</th>-->
 	                                            <!--  <th>EMAIL</th>-->
-												  <th>EMPLOYEE REMARK</th>
-												  <th>VALIDITY IN DAYS</th>
-												  <th>STATUS</th>
-												  <th>ACTION</th>
+												  <th>Remarks</th>
+												  <th>Validity</th>
+												  <th>Status</th>
+												  <th>Action</th>
 	                                          </tr>
 	                                      </thead>
 	                                      <tbody>
@@ -264,9 +264,9 @@
                                                 <th>Name</th>
                                                 <th>Mobile Number</th>
                                                 <th>Voucher Type</th>
-                                                <th>Redemption Type</th>
+                                                <th>Redemptions Type</th>
                                               	<th>Requested Amount</th>
-												<th>Amount</th>
+												<th>Issue Amount</th>
                                                 <th>Start Date</th>
                                                 <th>Validity</th>
                                                 <th></th>
@@ -295,7 +295,7 @@
                                                     <select class="GeneralSelect" id="redemptionType">
                                                         <option value="" class="test">Choose Type </option>
                                                         <option value="Single">Single</option>
-                                                        <option value="Multi" selected>Multi</option>
+                                                        <option value="Multiple" selected>Multiple</option>
                                                     </select>
                                                 </td>
 												<td>
@@ -313,10 +313,12 @@
                                                 </td>
                                                 <td>
                                                     <select class="GeneralSelect" id="expiryDate">
+														<option value="1 Day" class="test">1 Day </option>
                                                         <option value="7 Days" class="test">7 Days </option>
 														<option value="15 Days">15 Days</option>
                                                         <option value="30 Days">30 Days</option>
                                                         <option value="90 Days">90 Days</option>
+														<option value="90 Days">365 Days</option>
                                                     </select>
                                                 </td>
                                                 <td>
@@ -393,10 +395,8 @@
 														<!--<td><span id="vmcclbl"></span></td>-->
 	                                                    <td><span id="amountlbl"></span></td>
 	                                                    <td><span id="startdatelbl"></span></td>
-	                                                    <td><span id="validitylbl"></span></td>
-	                                                           
+	                                                    <td><span id="validitylbl"></span></td>   
 	                                                </tr>
-	                                               
 	                                            </tbody>
 	                                    </table>
 	                                </div>
@@ -761,7 +761,10 @@
 				           }
 				       },
 		                    { "mData": "remarks" },
-							{ "mData": "validity" },
+						{ "mData": "validity","render": function (validity, type, row) {
+							
+							return validity + " days";
+						}},
 							{
 							"mData": "statusMessage",
 							"render": function (status, type, row) {
