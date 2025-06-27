@@ -1,5 +1,13 @@
 
 function resendVoucherOTP() {
+	document.getElementById("password1").value="";
+	document.getElementById("password2").value="";
+	 document.getElementById("password3").value="";
+	document.getElementById("password4").value="";
+	 document.getElementById("password5").value="";
+	 document.getElementById("password6").value="";
+	 document.getElementById("otpError").innerHTML="";
+	 
 	console.log("inside resendVoucherOTP()");
 	document.getElementById("authenticate").disabled = false;
 	var userName = document.getElementById("banklinkedMobile").value;
@@ -61,6 +69,8 @@ function verfyIssueVoucherOTP() {
   	var password4 = document.getElementById("password4").value;
   	var password5 = document.getElementById("password5").value;
   	var password6 = document.getElementById("password6").value;
+	
+	
   	var orderId = document.getElementById("orderId").value;
   	var employerMobile = document.getElementById("employerMobile").value;
   	
@@ -165,11 +175,19 @@ function verfyIssueVoucherOTP() {
 					issueVoucher();
   					$('#errorOtp').hide('slow');
   				}else if (obj['status'] == false) {
+					
 					document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
 					document.getElementById("authenticate").disabled = false;
+					document.getElementById("password1").value="";
+					document.getElementById("password2").value="";
+				 	document.getElementById("password3").value="";
+					document.getElementById("password4").value="";
+				 	document.getElementById("password5").value="";
+				 	document.getElementById("password6").value="";
 				} else {
   				
   				}
+				
   			},
   			error: function(e) {
   				alert('Error: ' + e);

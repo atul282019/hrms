@@ -1181,7 +1181,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
 
 
 
-
+/*
 // Helper function to send IDs
 function sendRowIdsToBackend(ids) {
 	var userRole = document.getElementById("userRole").value;
@@ -1212,6 +1212,43 @@ function sendRowIdsToBackend(ids) {
 	  {window.location.href="/upiVoucherIssuanceNew";}
 	  else
 		{window.location.href="/reputeUpiVoucherIssuance";}
+    },
+    error: function (xhr) {
+      console.error('Failed to send IDs:', xhr);
+    }
+  });
+}*/
+function sendRowIdsToBackend(ids) {
+  var userRole = document.getElementById("userRole").value;
+  console.log('Sent IDs:', ids);
+
+  // Remove all modal backdrops and reset body state
+  document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = '';
+
+  $.ajax({
+    type: 'POST',
+    url: '/erupiVoucherRevokeBulk',
+    data: {
+      "arrayofid": ids
+    },
+    success: function (response) {
+      var data1 = jQuery.parseJSON(response);
+      var data2 = data1.data;
+      console.log('Sent IDs:', ids);
+
+      // Show success modal
+      $('#bulkrevokeSuccess').modal('show');
+
+      // Redirect after modal display
+      setTimeout(function () {
+        if (userRole == "9" || userRole == 9) {
+          window.location.href = "/upiVoucherIssuanceNew";
+        } else {
+          window.location.href = "/reputeUpiVoucherIssuance";
+        }
+      }, 1500); // 1.5 seconds delay
     },
     error: function (xhr) {
       console.error('Failed to send IDs:', xhr);
