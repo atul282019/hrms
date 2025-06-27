@@ -11,5 +11,6 @@ public class ErupiVoucherPurposeCodeRequest {
 	
 	private Long orgId;
 	private String timePeriod;
+	private String mobile;
 
 }

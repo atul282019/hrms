@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="autoFillEmployeeForm()">
+<body id="page-top" onload="autoFillEmployeeForm(),erupiVoucherCreateListLimit(),getVoucherTransactionList()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -92,6 +92,7 @@
 				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
 				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
 				<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
+				<input type="hidden" class="form-input" id="mob" name="mob" th:value="${session.mobile}">
 				<!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
@@ -251,7 +252,7 @@
 														 <thead>
 					 						                <tr>
 					 										 <!-- <th>S.NO</th>-->
-															 <th><input type="checkbox" id="checkAll" style="margin-left: 12px;"></th>
+															 
 															 <th>Issue Date <img src="img/Sorting-updown.svg" alt="sorting"></th>	
 					 										  <th>Name & Mobile # <img src="img/Sorting-updown.svg" alt="sorting"></th>
 															  <th>Voucher ID</th>
@@ -264,7 +265,7 @@
 															  <th>Status</th>	
 					 										  <th>Issued</th>	
 					 										  <th>Redeemed</th>	
-															  <th>Actions</th>	
+															  
 					 						                </tr>
 					 						              </thead>
 													     <tbody class="table-bordered" >
@@ -277,41 +278,54 @@
 										 <!--vouchers tab-->
 									     <div class="tab-pane fade" id="Transactions" role="tabpanel">
 											<div class="table-responsive">
-									        <table class="table table-reimbursements mb-0">
-									          <thead>
-									            <tr>
-												 <!-- <th>S.NO</th>-->
-												  <th>Voucher ID</th>
-									              
-									              <th>Date & Time</th>	
-												  	 
-									              <th>TXN ID</th>
-									             
-												  <th>Catagory</th>	
-												  <th>Merchant</th>	
-												  <th>Amount</th>	
-												  
-												 
-									            </tr>
-									          </thead>
-									          <tbody class="table-bordered">
-									            <tr>
-								            	<td colspan="9" class="text-center">													
-													As per the last update, this user has not used a UPI Vouchers to transact.
-													</td>
-												 
-									            </tr>	
-												<tr>
-								            	<td colspan="9" class="text-center">													
-													
-													If the user has already transacted, please refresh and check again after 60 minutes.</td>
-												 
-									            </tr>						
-																	
-									          </tbody>
-									        </table>
-									      </div>
-										 
+								  <table class="table table-reimbursements mb-0" id="vouchersTableTransactionList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+									<thead>
+								      <tr>							
+									  <th>Date & Time</th>
+								      <th>Voucher ID</th>	
+									  <th>Transaction RRN</th>
+								      <th>Name & Mobile #</th>
+									  <th>Category</th>	
+									  <th>Merchant Name</th>	
+									  <th>Amount</th>	
+									  <!--<th>Mode of Payment</th>-->
+									  
+								      </tr>
+								    </thead>
+								    <tbody class="table-bordered" >
+								      <!--<tr>
+						       		  <td>21/04/2024<br>
+										17:57:13</td>
+									 <td>ICICI00001145781</td>
+									 <td>
+										CDL-0424-003
+								       </td>
+									   <td>Deepak Kumar<br>9910318405</td>
+									 <td><img src="img/fuel-grey.png" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Fuel
+										</td>
+										<td>Indian Oil</td>
+										<td style="text-align: right;">16,890</td>
+										
+										
+								      </tr>							
+									  <tr>
+							       		  <td>21/04/2024<br>
+											17:57:13</td>
+										 <td>ICICI00001145781</td>
+										 <td>
+											CDL-0424-003
+									       </td>
+										   <td>Atul Kumar<br>9910318405</td>
+										 <td><img src="img/food-icon-grey.png" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Food
+											</td>
+											<td>Anna Dosa</td>
+											<td style="text-align: right;">890</td>
+											
+											
+									      </tr>		-->				
+								    </tbody>
+								  </table>
+								</div>
 
 									     </div>
 									   </div>

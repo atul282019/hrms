@@ -254,3 +254,243 @@ function autoFillEmployeeForm() {
 			        }
 			    });
 			}
+			function formatDate(dateStr) {
+			    if (!dateStr) return '';
+			    const date = new Date(dateStr);
+			    const day = String(date.getDate()).padStart(2, '0');
+			    const month = String(date.getMonth() + 1).padStart(2, '0');
+			    const year = date.getFullYear();
+			    return `${day}-${month}-${year}`;
+			}
+			
+			function erupiVoucherCreateListLimit() {
+			  var employerid = document.getElementById("orgId").value;
+			  var mobile = document.getElementById("mob").value;
+			  var timePeriod = "AH";
+
+			  $.ajax({
+			    type: "POST",
+			    url: "/erupiVoucherCreateListLimit",
+			    data: {
+			      "orgId": employerid,
+			      "timePeriod": timePeriod,
+			      "mobile": mobile
+			    },
+			    success: function (data) {
+			      var data1 = jQuery.parseJSON(data);
+			      var data2 = data1.data;
+			      console.log("datad for /erupiVoucherCreateListLimit ", data2);
+
+			      var table = $('#vouchersTableList').DataTable({
+			        destroy: true,
+			        lengthChange: true,
+			        responsive: true,
+			        searching: false,
+			        bInfo: false,
+			        paging: false,
+			        autoWidth: false,
+			        pageLength: 50,
+			        buttons: ["csv", "excel"],
+			        language: {
+			          "emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded...'
+			        },
+			        aaData: data2,
+			        aoColumns: [
+			          {
+			            "mData": "creationDate",
+			            "render": function (data) {
+			              return formatDate(data);
+			            }
+			          },
+			          {
+			            "mData": null,
+			            "render": function (data, type, row) {
+			              return `<div>${row.name}</div><div>${row.mobile}</div>`;
+			            }
+			          },
+			          { "mData": "merchanttxnId" },
+			          {
+			            "mData": null,
+			            "render": function (data, type, row) {
+			              const base64Icon = row.bankIcon;
+			              const imgHTML = base64Icon
+			                ? `<img src="data:image/png;base64,${base64Icon}" alt="Bank Icon" width="24" height="24">`
+			                : '';
+			              const maskedAccount = row.accountNumber && row.accountNumber.length >= 4
+			                ? `xxxx${row.accountNumber.slice(-4)}`
+			                : row.accountNumber || '';
+			              return `<div style="display: flex; align-items: center; gap: 8px;">${imgHTML}<span>${maskedAccount}</span></div>`;
+			            }
+			          },
+			          {
+			            "mData": null,
+			            "render": function (data, type, row) {
+			              const mccIcon = row.mccMainIcon;
+			              const imgHTML = mccIcon
+			                ? `<img src="data:image/png;base64,${mccIcon}" alt="MCC Icon" width="24" height="24">`
+			                : '';
+			              return `<div style="display: flex; align-items: center; gap: 8px;">${imgHTML}<span>${row.purposeDesc || ''}</span></div>`;
+			            }
+			          },
+			          {
+			            "mData": "redemtionType",
+			            "render": function (data) {
+			              const normalized = (data || '').toLowerCase();
+			              const label = normalized === "multiple" ? "Multiple"
+			                : normalized === "single" ? "Single"
+			                : data;
+			              const redemptionImage = label === "Single"
+			                ? `<img src="img/single-redemption-green.svg" alt="Single" width="24" height="24" style="margin-left: 8px;">`
+			                : label === "Multiple"
+			                  ? `<img src="img/tiffinbox.svg" alt="Multiple" width="24" height="24" style="margin-left: 8px;">`
+			                  : '';
+			              return `<div style="display: flex; align-items: center;">${redemptionImage}${label}</div>`;
+			            }
+			          },
+			          {
+			            "mData": "expDate",
+			            "render": function (data) {
+			              return formatDate(data);
+			            }
+			          },
+			          {
+			            "mData": "type",
+			            "render": function (data, type, row) {
+			              const expDate = new Date(row.expDate);
+			              const today = new Date();
+			              const isExpired = expDate < today;
+			              let labelText = '', labelClass = '';
+			              if (isExpired && row.type === "Created") {
+			                labelText = "Expired";
+			                labelClass = "pill bg-grey-txt-grey-pill";
+			              } else {
+			                switch (data) {
+			                  case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
+			                  case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
+			                  case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
+			                  case "Revoke": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;
+			                  default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+			                }
+			              }
+			              return `<span class="${labelClass}">${labelText}</span>`;
+			            }
+			          },
+			          {
+			            "mData": "amount",
+			            "class": "text-right",
+			            "render": function (data2) {
+			              if (!data2) return '';
+			              let amount = parseFloat(data2).toFixed(2);
+			              return '<div class="amount-cell">₹' + parseFloat(amount).toLocaleString('en-IN', {
+			                minimumFractionDigits: 2,
+			                maximumFractionDigits: 2
+			              }) + '</div>';
+			            }
+			          },
+					  {
+					    "mData": "redeemAmount",
+					    "class": "text-right",
+					    "render": function (data2) {
+					      let amount = parseFloat(data2 || 0).toFixed(2);
+					      return '<div class="amount-cell">₹' + parseFloat(amount).toLocaleString('en-IN', {
+					        minimumFractionDigits: 2,
+					        maximumFractionDigits: 2
+					      }) + '</div>';
+					    }
+					  }
+			        ]
+			      });
+
+			    },
+			    error: function (e) {
+			      alert('Failed to fetch JSON data' + e);
+			    }
+			  });
+			}
+			async function getVoucherTransactionList() {
+				var orgId = document.getElementById("orgId").value;
+			  	var mobile = document.getElementById("mob").value;
+			    $.ajax({
+			        type: "POST",
+			        url: "/getVoucherTransactionList",
+					data: { 
+							"orgId":orgId,
+							"mobile":mobile,
+							"timePeriod":"AH"	
+					 },
+			        beforeSend: function(xhr) {
+			            //xhr.setRequestHeader(header, token);
+			        },
+			        success: function(data) {
+			            newData = data;
+			            console.log("Emp onboarding data", newData);
+			            var data1 = jQuery.parseJSON(newData);
+			            var data2 = data1.data;
+						console.log(" upi voucher issue getVoucherTransactionList()=",data1);
+			            
+			            var table = $('#vouchersTableTransactionList').DataTable({
+			                destroy: true,
+			                "responsive": true,
+			                searching: false,
+			                bInfo: false,
+			                paging: false,
+			                "lengthChange": true,
+			                "autoWidth": false,
+			                "pagingType": "full_numbers",
+			                "pageLength": 50,
+			                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+			                "language": {
+								"emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+								},
+			                
+			                "aaData": data2,
+			                "aoColumns": [
+			                  //  { "mData": "creationDate" },
+								{ 
+								  "mData": "creationDate", 
+								  "render": function (data) {
+								      return formatDate(data);
+								  }
+								},
+								{ "mData": "merchanttxnId" },
+								{ "mData": "bankrrn" },
+								{
+								  "mData": null,
+								  "render": function (data, type, row) {
+								    return `<div>${row.name}</div><div>${row.mobile}</div>`;
+								  }
+								},
+								{
+								  "mData": "purposeDesc",
+								  "render": function (data, type, row) {
+								   
+								      return '<img src="data:image/png;base64,' + row.mccMainIcon + '" alt="" width="24px" height="24px" style="margin-top:-5px;">'+ data;
+								    
+								  }
+								},
+								{ "mData": "payeeName" },
+								{
+								  "mData": "redeemAmount",
+								"class":"text-right",
+								"render": function (data2, type, row) {
+								    if (!data2) return '';
+								    let amount = parseFloat(data2);
+								    let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
+								    let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+								    return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+								}
+								},
+								
+								//{ "mData": "merchanttxnId" },
+								
+			                ],
+
+							
+					});		
+										
+			        },
+			        error: function(e) {
+			            alert('Failed to fetch JSON data' + e);
+			        }
+			    });
+			}

@@ -1206,7 +1206,8 @@ function sendRowIdsToBackend(ids) {
 		     var data2 = data1.data;
       console.log('Sent IDs:', ids);
 	  //erupiVoucherCreateListLimit(timePeriod = "AH");//reload the table
-	  alert("Selected Vouchers Revoked Successfully");
+	  //alert("Selected Vouchers Revoked Successfully");
+	  $('#bulkrevokeSuccess').modal('show'); // Show modal
 	  if(userRole=="9"||userRole==9)
 	  {window.location.href="/upiVoucherIssuanceNew";}
 	  else

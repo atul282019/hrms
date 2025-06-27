@@ -821,13 +821,20 @@ function validateAndConvertImageToBase64() {
 	                        return '<input type="hidden" class="form-input" id="userDetailsId" name="userDetailsId" value="' + data1 + '">';
 	                    }},
 	                    { "mData": "name" },
-	                    { "mData": "mobile" },
-	                    { "mData": "email" },
+	                    { "mData": "mobile" ,
+						  "class":"text-left",
+						},
+	                    { "mData": "email",
+						  "class":"text-left",
+						 },
 	                    { "mData": "empOrCont" },
-	                    { "mData": "status", "render": function(data, type, row) {
+	                    { "mData": "status",
+						  "class":"text-center", "render": function(data, type, row) {
 	                        return 'Deactive'; // All employees in this table are deactive
 	                    }},
-	                    { "mData": null, "render": function(data, type, row) {
+	                    { "mData": null,
+						  "class":"text-center",
+						  "render": function(data, type, row) {
 	                        // Show only Activate option for these deactive employees
 	                        return '<div class="dropdown">' +
 	                               '<button class="btn p-0" type="button" data-toggle="dropdown" aria-expanded="false" title="Options">' +

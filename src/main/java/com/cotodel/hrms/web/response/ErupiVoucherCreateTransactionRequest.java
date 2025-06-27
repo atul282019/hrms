@@ -11,5 +11,6 @@ public class ErupiVoucherCreateTransactionRequest {
 
 	private Long orgId;
 	private String timePeriod;
+	String mobile;
 	
 }
