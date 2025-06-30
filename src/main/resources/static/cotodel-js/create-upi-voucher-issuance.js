@@ -766,7 +766,8 @@ async function  issueVoucher(){
 	                               <td>${item.mobile}</td>
 	                               <td>${item.voucherDesc}</td>
 	                               <td>${item.redemtionType}</td>
-	                               <td>${item.amount}</td>
+	                              
+								  <td style="text-align: right;">₹${item.amount}</td>
 								   <td>${formatDate(item.startDate)}</td>
 								   <td>${formatDate(item.expDate)}</td>
 	                               <td>${imgTag}</td>
@@ -1017,7 +1018,7 @@ function getPrimaryBankDetail(){
 			  }*/
 			  
 			  
-			  function validateAmount() {
+			  /*function validateAmount() {
 			      const availableBalance = document.querySelector(".text-wrapper-3")
 			                                       .textContent
 			                                       .replace(/[₹,]/g, '')
@@ -1048,7 +1049,44 @@ function getPrimaryBankDetail(){
 			          }
 			      }
 			      // if accountType === "Self", we do nothing: any amount (even 0) is allowed
+			  }*/
+			  function validateAmount() {
+			    const availableBalance = document.querySelector(".text-wrapper-3")
+			                                     .textContent
+			                                     .replace(/[₹,]/g, '')
+			                                     .trim();
+			    const amountInput    = document.getElementById("amount");
+			    const continueButton = document.getElementById("continueButton1");
+			    const errorMessage   = document.getElementById("common-error-msg");
+			    const accountType    = document.getElementById("accountSeltWallet").value;
+
+			    const balance = parseFloat(availableBalance);
+			    const rawValue = amountInput.value.trim();
+			    const amount = parseFloat(rawValue);
+
+			    // Reset
+			    errorMessage.style.display = "none";
+			    continueButton.disabled = false;
+
+			    if (accountType === "Wallet") {
+			      if (balance === 0) {
+			        errorMessage.textContent = "Please add balance in wallet";
+			        errorMessage.style.display = "inline";
+			        continueButton.disabled = true;
+			      } else if (rawValue === "" || isNaN(amount) || amount <= 0) {
+			        // Handle empty, invalid, or zero-like input (0000, 0.00, .)
+			        errorMessage.textContent = "Please enter a valid amount";
+			        errorMessage.style.display = "inline";
+			        continueButton.disabled = true;
+			      } else if (amount > balance) {
+			        errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
+					amountInput.value          = balance;
+			        errorMessage.style.display = "inline";
+			        continueButton.disabled = true;
+			      }
+			    }
 			  }
+
 
 			  function getVoucherListWithIcon() {
 			      const voucherList = document.getElementById('voucherList');

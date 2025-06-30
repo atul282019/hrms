@@ -896,6 +896,14 @@
 	        });
 	    }
 	</script>
+	<script>
+	  document.addEventListener('click', function (e) {
+	    if (e.target.closest('#revokeUPIVcAuthenticate .close')) {
+	      document.getElementById('revokeUPIVcAuthenticate').style.display = 'none';
+	    }
+	  });
+	</script>
+
 
 			<!-- Modal UPI Voucher Revoked -->
 			<div class="customModal" id="revokeUPIVcAuthenticate">

@@ -146,7 +146,7 @@
 					        <td>${voucher.mobile}</td>
 					        <td>${voucher.voucherType}</td>
 					        <td>${voucher.voucherSubType}</td>
-					        <td>${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2 }).format(voucher.amount || 0)}</td>
+					        <td style="text-align: right;">${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2 }).format(voucher.amount || 0)}</td>
 					        <td>${formattedDate}</td>
 					        <td>${voucher.validity} days</td>
 					        <td>${voucher.remarks || "N/A"}</td>
