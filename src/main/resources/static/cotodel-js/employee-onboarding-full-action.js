@@ -105,6 +105,8 @@
 
 						        //getEmployeeOnboardingByManagerId(data.managerId);
 								getEmployeeOnboardingByManagerId(userDetailsId);
+								erupiVoucherCreateListLimit(data.mobile);
+								getVoucherTransactionList(data.mobile);
 						    } else {
 						        console.log("No data found for the given Employee ID");
 						    }
@@ -298,9 +300,9 @@
 			    const year = date.getFullYear();
 			    return `${day}-${month}-${year}`;
 			}
-			function erupiVoucherCreateListLimit() {
+			function erupiVoucherCreateListLimit(mobile) {
 			  var employerid = document.getElementById("orgId").value;
-			  var mobile = document.getElementById("mob").value;
+			  //var mobile = document.getElementById("mob").value;
 			  var timePeriod = "AH";
 
 			  $.ajax({
@@ -443,9 +445,9 @@
 			  });
 			}
 			
-			async function getVoucherTransactionList() {
+			async function getVoucherTransactionList(mobile) {
 						var orgId = document.getElementById("orgId").value;
-					  	var mobile = document.getElementById("mob").value;
+					  	//var mobile = document.getElementById("mob").value;
 					    $.ajax({
 					        type: "POST",
 					        url: "/getVoucherTransactionList",
