@@ -437,6 +437,14 @@ async function saveBulkVoucherUpload(){
    }
 
 function resendVoucherOTP() {
+	document.getElementById("password1").value="";
+  	 document.getElementById("password2").value="";
+  	 document.getElementById("password3").value="";
+  	 document.getElementById("password4").value="";
+  	 document.getElementById("password5").value="";
+  	 document.getElementById("password6").value="";
+	 
+	 
 	document.getElementById("authenticate").disabled = false;
 	var userName = document.getElementById("banklinkedMobile").value;
 	var orderId = document.getElementById("orderId").value;
@@ -1115,6 +1123,13 @@ function verfyIssueVoucherOTP() {
 					document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
 
 					document.getElementById("authenticate").disabled = false;
+					
+					document.getElementById("password1").value="";
+				  	 document.getElementById("password2").value="";
+				  	 document.getElementById("password3").value="";
+				  	 document.getElementById("password4").value="";
+				  	 document.getElementById("password5").value="";
+				  	 document.getElementById("password6").value="";
 				} else {
   				
   				}
