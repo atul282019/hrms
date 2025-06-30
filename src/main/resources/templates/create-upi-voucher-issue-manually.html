@@ -54,68 +54,71 @@
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+				<!-- Topbar -->
+				              
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav top-nav">
+<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
 
-                        <!-- Nav Item - User Information -->
-                        <!--<li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                <span class="mr-2 small">Dashboard</span>
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="mr-2 small">UPI Voucher  Issuance</span>
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                            </a>
-                        </li>-->
-                    </ul>
-					<!-- Right Icons + Profile -->
-								    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
-								      <!-- Wallet Icon -->
-								     <!-- <li class="nav-item mr-3">
-								        <a href="/settings/wallet" role="button">
-								          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
-								        </a>
-								      </li>-->
-									  <li class="nav-item mr-3">
-					  			        <a href="/cotowallet" role="button">
-					  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
-					  			        </a>
-					  			      </li>
-								      <!-- Notification Icon -->
-								      <li class="nav-item mr-3">
-								        <a href="#" role="button">
-								          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
-								        </a>
-								      </li>
+                   <!-- Topbar Navbar -->
+                   <ul class="navbar-nav top-nav">
 
-								      <!-- Profile Dropdown -->
-								      <li class="nav-item dropdown no-arrow">
-								        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
-								        </a>
-								        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-								          <a class="dropdown-item" href="/ProfileInfo">
-								            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								          </a>
-								       <!--   <a class="dropdown-item" href="#">
-								            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
-								          </a>-->
-								          <div class="dropdown-divider"></div>
-								          <a class="dropdown-item" href="/logout">
-								            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
-								          </a>
-								        </div>
-								      </li>
-								    </ul>
-                </nav>
+                       <!-- Nav Item - User Information -->
+                     <!--  <li class="nav-item">
+                           <a class="nav-link active" href="#">
+                               <span class="mr-2 small">Dashboard</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="#">
+                               <span class="mr-2 small">Employee Payroll</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>-->
 
-                <!-- End of Topbar -->
+                   </ul>
+
+				   <!-- Right Icons + Profile -->
+				   			    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+				   			      <!-- Wallet Icon -->
+				   			     <!-- <li class="nav-item mr-3">
+				   			        <a href="/settings/wallet" role="button">
+				   			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+				   			        </a>
+				   			      </li>-->
+				   				  <li class="nav-item mr-3">
+				     			        <a href="/cotowallet" role="button">
+				     			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+				     			        </a>
+				     			      </li>
+				   			      <!-- Notification Icon -->
+				   			      <li class="nav-item mr-3">
+				   			        <a href="#" role="button">
+				   			          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+				   			        </a>
+				   			      </li>
+
+				   			      <!-- Profile Dropdown -->
+				   			      <li class="nav-item dropdown no-arrow">
+				   			        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				   			          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+				   			        </a>
+				   			        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+				   			          <a class="dropdown-item" href="/ProfileInfo">
+				   			            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+				   			          </a>
+				   			       <!--   <a class="dropdown-item" href="#">
+				   			            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+				   			          </a>-->
+				   			          <div class="dropdown-divider"></div>
+				   			          <a class="dropdown-item" th:href="@{/logout}">
+				   			            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+				   			          </a>
+				   			        </div>
+				   			      </li>
+				   			    </ul>		
+           </nav>
+  <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
