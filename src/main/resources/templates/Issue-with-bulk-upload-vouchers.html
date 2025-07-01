@@ -206,11 +206,11 @@
 		    padding-right: 16px;
 		    margin: 0 auto;
 		    box-sizing: border-box;
-		    overflow-y: scroll;
-		    height: 500px;
+		   /*  overflow-y: scroll;*/
+		    height: 400px;
 
-		    scrollbar-width: thin;
-		    scrollbar-color: #2F945A #EAF4EF;
+		   /*  scrollbar-width: thin;*/
+		   /*  scrollbar-color: #2F945A #EAF4EF;*/
 		}
 
 		#voucherList::-webkit-scrollbar {
@@ -330,7 +330,7 @@
 					var selectedPurposeName =null;
 			        if (selectedVoucherItem) {
 			            // const selectedVoucherIcon = selectedVoucherItem.querySelector('img').src;
-					    selectedVoucherCode = selectedVoucherItem.getAttribute('data-value');
+					    selectedVoucherCode = selectedVoucherItem.querySelector('input[name="voucherCode"]').value;
 					    selectedVoucherName = selectedVoucherItem.querySelector('span').textContent;
 			            console.log("Selected Voucher Code:", selectedVoucherName);
 					
@@ -577,72 +577,77 @@
 	   
 	</script>
 	<script>
-	function getVoucherListWithIcon() {
-	    const voucherList = document.getElementById('voucherList');
-	    const purposeList = document.getElementById('purposeList');
+	  function getVoucherListWithIcon() {
+      const voucherList = document.getElementById('voucherList');
+      const purposeList = document.getElementById('purposeList');
 
-	    $.ajax({
-	        type: "GET",
-	        url: "/getVoucherListWithIcon",
-	        success: function(data) {
-	            const parsedData = jQuery.parseJSON(data);
-	            console.log("Get voucher list with data : ", parsedData);
+      $.ajax({
+          type: "GET",
+          url: "/getVoucherListWithIcon",
+          success: function(data) {
+              const parsedData = jQuery.parseJSON(data);
+              console.log("Get voucher list with data : ", parsedData);
 
-	            voucherList.innerHTML = `
-	                <ul id="topCategories" class="top-categories-box"></ul>
-	                <h5 style="color: #1F212C; margin: 16px 16px 10px 16px; font-size: 16px; font-weight: 600;">Other Categories</h5>
-	                <ul id="otherCategories" class="other-categories"></ul>
-	            `;
+              voucherList.innerHTML = `
+                  <ul id="topCategories" class="top-categories-box"></ul>
+                  <h5 style="color: #1F212C; margin: 16px 16px 10px 16px; font-size: 16px; font-weight: 600;">Other Categories</h5>
+                  <ul id="otherCategories" class="other-categories"></ul>
+              `;
 
-	            const topCategories = document.getElementById('topCategories');
-	            const otherCategories = document.getElementById('otherCategories');
-	            let fuelGasItem = null;
+              const topCategories = document.getElementById('topCategories');
+              const otherCategories = document.getElementById('otherCategories');
+              let fuelGasItem = null;
 
-	            parsedData.data.forEach((item, index) => {
-	                const li = document.createElement('li');
-	                li.classList.add('voucher-item');
-	                li.setAttribute('data-value', item.purposeCode);
+			  parsedData.data.forEach((item, index) => {
+			      const li = document.createElement('li');
+			      li.classList.add('voucher-item');
+			      li.setAttribute('data-value', item.id); // this is likely voucherCode
 
-	                const img = document.createElement('img');
-	                img.src = item.voucherIcon ? `data:image/png;base64,${item.voucherIcon}` : '';
-	                img.alt = item.voucherName;
+			      const img = document.createElement('img');
+			      img.src = item.voucherIcon ? `data:image/png;base64,${item.voucherIcon}` : '';
+			      img.alt = item.voucherName;
 
-	                const span = document.createElement('span');
-	                span.textContent = item.voucherName;
-	                span.style.fontWeight = '500';
+			      const span = document.createElement('span');
+			      span.textContent = item.voucherName;
+			      span.style.fontWeight = '500';
 
-	                li.appendChild(img);
-	                li.appendChild(span);
+			      // Create hidden input for voucher code
+			      const hiddenInput = document.createElement('input');
+			      hiddenInput.type = 'hidden';
+			      hiddenInput.name = 'voucherCode';
+			      hiddenInput.value = item.purposeCode; // fallback if voucherCode is not separate
 
-	                if (item.voucherName === "Fuel & Gas") fuelGasItem = li;
+			      li.appendChild(img);
+			      li.appendChild(span);
+			      li.appendChild(hiddenInput); // append hidden input
 
-	                if (index < 5) topCategories.appendChild(li);
-	                else otherCategories.appendChild(li);
-	            });
+			      if (item.voucherName === "Fuel & Gas") fuelGasItem = li;
 
-	            voucherList.addEventListener('click', event => {
-	                const clickedItem = event.target.closest('li.voucher-item');
-	                if (clickedItem) {
-	                    const purposeCode = clickedItem.getAttribute('data-value');
-	                    const voucherIcon = clickedItem.querySelector('img').src;
-	                    const voucherName = clickedItem.querySelector('span').textContent;
+			      if (index < 5) topCategories.appendChild(li);
+			      else otherCategories.appendChild(li);
+			  });
 
-	                    [...voucherList.querySelectorAll('li.voucher-item')].forEach(item => item.classList.remove('selected'));
-	                    [...purposeList.children].forEach(item => item.remove());
+              voucherList.addEventListener('click', event => {
+                  const clickedItem = event.target.closest('li.voucher-item');
+                  if (clickedItem) {
+                      const purposeCode = clickedItem.getAttribute('data-value');
 
-	                    clickedItem.classList.add('selected');
-	                    fetchPurposeListByVoucherCode(purposeCode);
-	                }
-	                document.getElementById("mccDiv").style.display = "block";
-	            });
+                      [...voucherList.querySelectorAll('li.voucher-item')].forEach(item => item.classList.remove('selected'));
+                      [...purposeList.children].forEach(item => item.remove());
+                      clickedItem.classList.add('selected');
 
-	            if (fuelGasItem) fuelGasItem.click();
-	        },
-	        error: function(e) {
-	            alert('Error: ' + e.responseText);
-	        }
-	    });
-	}
+                      fetchPurposeListByVoucherCode(purposeCode);
+                  }
+                  document.getElementById("mccDiv").style.display = "block";
+              });
+
+              if (fuelGasItem) fuelGasItem.click();
+          },
+          error: function(e) {
+              alert('Error: ' + e.responseText);
+          }
+      });
+  }
 
 	function fetchPurposeListByVoucherCode(purposeCode) {
 	    const purposeList = document.getElementById('purposeList');
@@ -650,7 +655,7 @@
 	    $.ajax({
 	        type: "GET",
 	        url: "/getPurposeListByVoucherCode",
-	        data: { purposeCode },
+	        data: { "id":purposeCode },
 	        success: function(data) {
 	            const parsedData = jQuery.parseJSON(data);
 

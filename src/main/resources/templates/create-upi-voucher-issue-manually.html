@@ -949,11 +949,11 @@
 	    padding-right: 16px;
 	    margin: 0 auto;
 	    box-sizing: border-box;
-	    overflow-y: scroll;
-	    height: 500px;
+	   /* overflow-y: scroll;*/
+	    height: 400px;
 
-	    scrollbar-width: thin;
-	    scrollbar-color: #2F945A #EAF4EF;
+	 /*   scrollbar-width: thin;*/
+	  /*  scrollbar-color: #2F945A #EAF4EF;*/
 	}
 
 	#voucherList::-webkit-scrollbar {
@@ -1503,7 +1503,7 @@
 	        let selectedPurposeName = null;
 
 	        if (selectedVoucherItem) {
-	            selectedVoucherCode = selectedVoucherItem.getAttribute('data-value');
+	            selectedVoucherCode = selectedVoucherItem.querySelector('input[name="voucherCode"]').value;
 	            selectedVoucherName = selectedVoucherItem.querySelector('span').textContent;
 	        } else {
 	            alert('No voucher selected!');

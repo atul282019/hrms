@@ -100,8 +100,8 @@ public interface CommonUtils {
 	public static String getEmployeeListMaster="/userServices/Api/get/userManagerList";
 	public static String getofficeLocationMaster="/userServices/Api/get/getCompaneyAddress";
 	public static String getVoucherListWithIcon ="/masterService/Api/get/voucherList"; 
-	public static String getVoucherListWithIconNew ="/masterService/Api/get/voucherPriorityList"; 
-	public static String getPurposeListByVoucherCode ="/masterService/Api/get/mccByPurposeCodeList"; 
+	public static String getVoucherListWithIconNew ="/masterService/Api/get/voucherCategoryList"; 
+	public static String getPurposeListByVoucherCode ="/masterService/Api/get/mccByCotoCatIdList"; 
 	// old public static String voucherUserSearch="/userServices/Api/get/userSearchWithMobile";
 	public static String erupiVoucherStatusHistory="/empService/Api/get/erupiVoucherStatusHistory";
 	public static String voucherUserSearch="/empService/Api/get/employeeSearchWithMobile";

@@ -1109,27 +1109,34 @@ function getPrimaryBankDetail(){
 			              const otherCategories = document.getElementById('otherCategories');
 			              let fuelGasItem = null;
 
-			              parsedData.data.forEach((item, index) => {
-			                  const li = document.createElement('li');
-			                  li.classList.add('voucher-item');
-			                  li.setAttribute('data-value', item.purposeCode);
+						  parsedData.data.forEach((item, index) => {
+						      const li = document.createElement('li');
+						      li.classList.add('voucher-item');
+						      li.setAttribute('data-value', item.id); // this is likely voucherCode
 
-			                  const img = document.createElement('img');
-			                  img.src = item.voucherIcon ? `data:image/png;base64,${item.voucherIcon}` : '';
-			                  img.alt = item.voucherName;
+						      const img = document.createElement('img');
+						      img.src = item.voucherIcon ? `data:image/png;base64,${item.voucherIcon}` : '';
+						      img.alt = item.voucherName;
 
-			                  const span = document.createElement('span');
-			                  span.textContent = item.voucherName;
-			                  span.style.fontWeight = '500';
+						      const span = document.createElement('span');
+						      span.textContent = item.voucherName;
+						      span.style.fontWeight = '500';
 
-			                  li.appendChild(img);
-			                  li.appendChild(span);
+						      // Create hidden input for voucher code
+						      const hiddenInput = document.createElement('input');
+						      hiddenInput.type = 'hidden';
+						      hiddenInput.name = 'voucherCode';
+						      hiddenInput.value = item.purposeCode; // fallback if voucherCode is not separate
 
-			                  if (item.voucherName === "Fuel & Gas") fuelGasItem = li;
+						      li.appendChild(img);
+						      li.appendChild(span);
+						      li.appendChild(hiddenInput); // append hidden input
 
-			                  if (index < 5) topCategories.appendChild(li);
-			                  else otherCategories.appendChild(li);
-			              });
+						      if (item.voucherName === "Fuel & Gas") fuelGasItem = li;
+
+						      if (index < 5) topCategories.appendChild(li);
+						      else otherCategories.appendChild(li);
+						  });
 
 			              voucherList.addEventListener('click', event => {
 			                  const clickedItem = event.target.closest('li.voucher-item');
@@ -1159,7 +1166,7 @@ function getPrimaryBankDetail(){
 			      $.ajax({
 			          type: "GET",
 			          url: "/getPurposeListByVoucherCode",
-			          data: { purposeCode },
+			          data: { "id":purposeCode },
 			          success: function(data) {
 			              const parsedData = jQuery.parseJSON(data);
 			              console.log("fetchPurposeListByVoucherCode : ", parsedData);
