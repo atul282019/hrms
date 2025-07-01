@@ -11,6 +11,27 @@
 			var data1 = jQuery.parseJSON(newData);
 
 			document.getElementById("signinLoader").style.display = "none";
+			// hiding checkbox its content back button and continue button
+			const checkboxContainer = document.getElementById("checkboxContainer");
+			const errorMsg = document.getElementById("styled-checkbox-40Error");
+			const backBtn = document.getElementById("BackroleAcess");
+			const confirmBtn = document.getElementById("editRole");
+
+			// Check if there's no data
+			if (!data1.data || data1.data.length === 0) {
+			    checkboxContainer.style.setProperty("display", "none", "important");
+			    errorMsg.style.display = "none";
+			    backBtn.style.display = "none";
+			    confirmBtn.style.display = "none";
+			    return;
+			} else {
+			    checkboxContainer.style.setProperty("display", "flex", "important");
+			    errorMsg.style.display = "block";
+			    backBtn.style.display = "inline-block";
+			    confirmBtn.style.display = "inline-block";
+			}//ends here
+
+
 			// Get unique role descriptions
 			const roleDescriptions = [...new Set(
 			    data1.data.flatMap(user => user.userRole.map(role => role.roleDesc))

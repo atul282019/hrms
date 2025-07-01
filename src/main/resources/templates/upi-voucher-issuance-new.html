@@ -624,6 +624,13 @@ requestedVoucherCount()">
 	    alert("You can revoke a maximum of 5 vouchers at a time.");
 	    return;
 	  }
+	  // Only allow Active vouchers (type === "Created")
+	  const invalidRows = selectedRows.filter(row => row.type !== "Created");
+
+	  if (invalidRows.length > 0) {
+	    alert("Only Active vouchers can be revoked.");
+	    return;
+	  }
 
 	  // Populate modal table
 	  const modalBody = $('#bulkRevokeTableBody');

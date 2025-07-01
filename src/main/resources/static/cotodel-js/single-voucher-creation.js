@@ -233,7 +233,23 @@ function singleVoucherValidation(){
 		       value = cell.textContent.trim();
 		     }
 
-		     newCell.textContent = value;
+		     //newCell.textContent = value;
+			 if (j === 4) {
+			     newCell.innerHTML = `<div >₹${parseFloat(value || 0).toFixed(2)}</div>`;
+			 } 
+			 else if (j === 5) {
+			     // Format Date to dd-mm-yyyy
+			     const dateObj = new Date(value);
+			     const dd = String(dateObj.getDate()).padStart(2, '0');
+			     const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+			     const yyyy = dateObj.getFullYear();
+			     const formattedDate = `${dd}-${mm}-${yyyy}`;
+			     newCell.textContent = formattedDate;
+			   }
+			   else {
+			     newCell.textContent = value;
+			 }
+
 		     newRow.appendChild(newCell);
 		   }
 

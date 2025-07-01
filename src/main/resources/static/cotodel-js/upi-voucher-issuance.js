@@ -993,13 +993,18 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
             "mData": null,
             "orderable": false,
             "className": 'dt-body-center',
-            "render": function (data, type, row) {
+            /*enables checkboxes only if voucher status is active 
+			"render": function (data, type, row) {
               const expDate = new Date(row.expDate);
               const today = new Date();
               const isExpired = expDate < today;
               const isActive = row.type === "Created" && !isExpired;
               return `<input type="checkbox" class="rowCheckbox" data-id="${row.id}" ${isActive ? "" : "disabled"}>`;
-            }
+            }*/
+			"render": function (data, type, row) {
+			  return `<input type="checkbox" class="rowCheckbox" data-id="${row.id}">`;
+			}
+
           },
           {
             "mData": "creationDate",

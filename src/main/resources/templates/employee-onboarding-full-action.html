@@ -105,7 +105,7 @@
                                             <div class="profile-pic01-wrap">
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <div class="profile-name-wrap">
+                                                        <!--<div class="profile-name-wrap">
                                                             <h4><span th:text="${name}"></span></h4><img src="img/linked.svg" class="ml-2" alt="">
                                                             <div style="position: relative; display: inline;">
                                                                 <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -113,12 +113,7 @@
 
                                                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                                     aria-labelledby="userDropdown">
-                                                                    <!--<a class="dropdown-item py-2" href="#">
-                                                                        Revise Salary
-                                                                    </a>
-                                                                    <a class="dropdown-item py-2" href="#">
-                                                                        Revise Position
-                                                                    </a>-->
+                                                                    
 																	<a class="dropdown-item py-2" href="/employeeOnBoarding?status=true">
                                                                         Change Reporting Manager
                                                                     </a>
@@ -127,7 +122,26 @@
                                                                     </a>
                                                                 </div>
                                                             </div>
-                                                        </div>                                                         
+                                                        </div>-->
+														<div class="profile-name-wrap" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+														  <div style="display: flex; align-items: center; gap: 8px;">
+														    <h4 style="margin: 0;"><span th:text="${name}"></span></h4>
+														    <img src="img/linked.svg" class="ml-2" alt="" style="height: 20px; vertical-align: middle;">
+														  </div>
+
+														  <!-- Right-aligned buttons -->
+														  <div style="display: flex; gap: 8px; align-items: center;">
+														    <button class="custom-back-button" onclick="window.location.href='/manageEmployee'" >Back</button>
+
+														    <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
+														      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+
+														    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+														      <a class="dropdown-item py-2" href="/employeeOnBoarding?status=true">Change Reporting Manager</a>
+														      <a class="dropdown-item py-2" href="#" onclick="deactivateEmployee()">Deactivate User</a>
+														    </div>
+														  </div>
+														</div>                                                         
                                                         
                                                         <div class="profile-add-wrap">
                                                              <div class="profile-add"><img src="img/mail.svg" alt="">  <span id="profileEmail">Loading...</span></div>
