@@ -1134,7 +1134,7 @@ function getPrimaryBankDetail(){
 
 						      if (item.voucherName === "Fuel & Gas") fuelGasItem = li;
 
-						      if (index < 5) topCategories.appendChild(li);
+						      if (index < 3) topCategories.appendChild(li);
 						      else otherCategories.appendChild(li);
 						  });
 
