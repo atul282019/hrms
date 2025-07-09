@@ -121,8 +121,15 @@ async function saveBulkVehicleUpload(){
 					
 					   
 				});
-			}else if(data1.status==false){
-				//document.getElementById("signinLoader").style.display="none";
+			}else if(data.status==false){
+				console.log("Closing modal..."); 
+				
+				setTimeout(function () {
+				  $('#Vehicleloading').modal('hide');
+				  $('body').removeClass('modal-open');
+				  $('.modal-backdrop').remove();
+				  document.getElementById("fileInputError").innerHTML = data.message;
+				}, 400); // small delay helps in some cases
 				
 			}
 	     },

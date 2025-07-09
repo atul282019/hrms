@@ -402,7 +402,7 @@ public class VehicleManagementController extends CotoDelBaseController {
 	            if (status && apiJsonResponse.has("data")) {
 	                responseMap.put("data", profileRes);
 	            } else {
-	            	//responseMap.put("data", profileRes);
+	            	responseMap.put("data", profileRes);
 	                responseMap.put("status", false);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
 	            }

@@ -632,7 +632,8 @@ async function  issueVoucher(){
 	        const redemptionSelect = row.querySelector('.redemptionType');
 	        const amountInput = row.querySelector('input[placeholder="Enter Amount"]');
 	        const dateInput = row.querySelector('input[type="date"]');
-	        const validitySelect = row.querySelector('.validity');
+	        //const validitySelect = row.querySelector('.validity');
+			const validityInput = row.querySelector('.validity-input');
 
 	      
             const rowData = {
@@ -648,7 +649,8 @@ async function  issueVoucher(){
                 redemptionType: redemptionSelect ? redemptionSelect.value : '',
 				amount: amountInput ? amountInput.value : '',
                 startDate: dateInput ? dateInput.value : '',
-                validity: validitySelect ? validitySelect.value : ''
+                //validity: validitySelect ? validitySelect.value : ''
+				validity: validityInput ? validityInput.getAttribute('data-validity') || '' : ''
             };
             tableData.push(rowData);
 			console.log("Issue Voucher");
@@ -765,9 +767,11 @@ async function  issueVoucher(){
 	                               <td>${item.name}</td>
 	                               <td>${item.mobile}</td>
 	                               <td>${item.voucherDesc}</td>
-	                               <td>${item.redemtionType}</td>
+	                               
+								   <td>${item.redemtionType.charAt(0).toUpperCase() + item.redemtionType.slice(1).toLowerCase()}</td>
+
 	                              
-								  <td style="text-align: right;">₹${item.amount}</td>
+								  <td>₹${item.amount}</td>
 								   <td>${formatDate(item.startDate)}</td>
 								   <td>${formatDate(item.expDate)}</td>
 	                               <td>${imgTag}</td>
