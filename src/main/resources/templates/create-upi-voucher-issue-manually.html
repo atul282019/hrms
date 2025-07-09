@@ -283,10 +283,10 @@
 												</td>
                                                 <td>
                                                     <div>
-                                                        <input type="date" class="table-input table-dateed" placeholder="Salect Date" onclick="this.showPicker()">
+                                                        <input type="date" class="table-input table-dateed" placeholder="Salect Date" onclick="this.showPicker()" readonly>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <!--<td>
                                                     <select class="GeneralSelect validity">
 														<option value="1 Days" class="test">2 Day </option>
                                                         <option value="7 Days" class="test">7 Days </option>
@@ -295,7 +295,29 @@
 														<option value="365 Days">365 Days</option>
 														
                                                     </select>
-                                                </td>
+                                                </td>-->
+												<td>
+												  <div style="position: relative;">
+												    <input type="number"
+												           class="table-input validity-input"
+												           placeholder="2 - 365"
+												           min="2"
+												           max="365"
+												           oninput="appendDaysSuffix(this)"
+												           style="padding-right: 10px; box-sizing: border-box;">
+
+												    <!-- Days label -->
+												    <span style="
+												      position: absolute;
+												      right: 32px;       /* Moves Days left of spinner */
+												      top: 50%;
+												      transform: translateY(-50%);
+												      pointer-events: none;
+												      color: #555;
+												      font-size: 14px;
+												    ">Days</span>
+												  </div>
+												</td>
                                                 <td>
                                                     <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
                                                 </td>
@@ -552,7 +574,21 @@
 	<script type="text/javascript" src="cotodel-js/create-upi-voucher-issuance.js"></script>
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
-	
+	<script>
+		function appendDaysSuffix(input) {
+		    let num = parseInt(input.value);
+		    if (!isNaN(num)) {
+		        if (num < 2) num = 2;
+		        if (num > 365) num = 365;
+		        input.value = num; // only number in UI field
+		        input.setAttribute('data-validity', num + ' Days'); // hidden value for API
+		    } else {
+		        input.removeAttribute('data-validity');
+		    }
+		}
+
+	</script>
+
 	<script>
         //var today = new Date().toISOString().split('T')[0];
        // document.getElementById("startDate").value = today;
@@ -1360,9 +1396,9 @@
 		        <input type="text" class="table-input" placeholder="Enter Amount">
 		    </td>
 		    <td>
-		        <input type="date" class="table-input table-dateed" min="${today}" value="${today}" placeholder="Select Date" onclick="this.showPicker()">
+		        <input type="date" class="table-input table-dateed" min="${today}" value="${today}" placeholder="Select Date" onclick="this.showPicker()" readonly>
 		    </td>
-		    <td>
+		    <!--<td>
 		        <select class="GeneralSelect validity">
 		            <option value="1 days">2 day</option>
 		            <option value="7 days">7 days</option>
@@ -1370,7 +1406,27 @@
 		            <option value="90 days">90 days</option>
 		            <option value="365 Days">365 Days</option>
 		        </select>
-		    </td>
+		    </td>-->
+			<td>
+			  <div style="position: relative;">
+			    <input type="number"
+			           class="table-input validity-input"
+			           placeholder="2 - 365"
+			           min="2"
+			           max="365"
+			           oninput="appendDaysSuffix(this)"
+			           style="padding-right: 10px; box-sizing: border-box;">
+			    <span style="
+			      position: absolute;
+			      right: 32px;       /* Moves Days left of spinner */
+			      top: 50%;
+			      transform: translateY(-50%);
+			      pointer-events: none;
+			      color: #555;
+			      font-size: 14px;
+			    ">Days</span>
+			  </div>
+			</td>
 		    <td>
 		        <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
 		    </td>

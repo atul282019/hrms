@@ -900,14 +900,23 @@ async function getVoucherTransactionList() {
                 "autoWidth": false,
                 "pagingType": "full_numbers",
                 "pageLength": 50,
+				
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 "language": {
 					"emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
 					},
-                
+				order: [[0, 'desc']],  // <--- force descending sort by creationDate
                 "aaData": data2,
                 "aoColumns": [
                   //  { "mData": "creationDate" },
+				  {
+				    "mData": null,
+				    "orderable": false,
+				    "className": "dt-body-center",
+				    "render": function (data, type, row, meta) {
+				      return `<input type="checkbox" class="rowCheckbox" value="${row.merchanttxnId}" style="margin-left: 12px;">`;
+				    }
+				  },
 					{ 
 					  "mData": "creationDate", 
 					  "render": function (data) {
