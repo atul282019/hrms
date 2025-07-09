@@ -55,13 +55,14 @@ public class StaticPageController extends CotoDelBaseController{
 	
 	
 	@GetMapping(value="/")
-	public String firstPage(Model model) {
-		 return "redirect:/home";
-	}	
-	@GetMapping(value="/home")
-	public ModelAndView home(Model model) {
+	public ModelAndView firstPage(Model model) {
 		return new ModelAndView("home", "command", "");
 	}	
+
+	/*
+	 * @GetMapping(value="/home") public ModelAndView home(Model model) { return new
+	 * ModelAndView("home", "command", ""); }
+	 */
 	@GetMapping(value="/solutions")
 	public ModelAndView soultions(Model model) {
 		return new ModelAndView("solutions", "command", "");

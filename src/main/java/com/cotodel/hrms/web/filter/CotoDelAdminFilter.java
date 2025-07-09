@@ -66,7 +66,11 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
         	res.setContentType("application/json");
         } 
 			
-
+        if (requestURI.contains(";jsessionid")) {
+            String cleanUri = requestURI.replaceAll(";jsessionid=[^?]*", "");
+            ((HttpServletResponse) response).sendRedirect(cleanUri);
+            return;
+        }
 		if (session == null) {
 			session = httpServletRequest.getSession(true);
 		}
