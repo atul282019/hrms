@@ -35,11 +35,22 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-icons.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="css/tiny-slider.css">
-
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
 	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style-new.css">
+
 	
-	<!-- Google tag (gtag.js) -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<!-- <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+	
+	
+<!-- jQuery and Owl Carousel JS -->
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+		<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RE141954R"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
@@ -174,6 +185,51 @@
 			    ]
 			}
 			</script>
+
+			<style>
+				.rounded-xl{border-radius: 20px;}
+
+				.bg-img,.home-section {
+					background: url('img/Hero-newbanner.svg') no-repeat center center;
+					background-size: cover;
+					 
+				}
+				.owl-carousel .owl-item img{
+					/* height: 50px; */
+   					object-fit: scale-down;
+				}
+				.owl-nav{display: flex;}
+				.row-gap-3{row-gap:1.5rem}
+
+				.owl-theme .owl-nav [class*=owl-]:hover{
+					background: unset;
+					color: unset;
+				}
+
+				.teamcard p.cdetails{
+					display: none;
+					transition: all 0.3s ease-in-out;
+
+				}
+
+				.teamcard:hover p.cdetails{
+					display: block;
+				}
+				.logo-carousel .owl-stage{display: flex; align-items: center;}
+				@media only screen and (max-width: 991px){
+					.imgsizeAdjust img.card-img-top {
+    					min-height: 156px;
+    					max-height: 156px;
+					}					
+				}
+				@media only screen and (min-width: 992px){
+					.imgsizeAdjust img.card-img-top {
+    					min-height: 256px;
+    					max-height: 256px;
+						object-fit: scale-down;
+					}					
+				}
+			</style>
 </head>
 
 <body>
@@ -247,36 +303,35 @@ Header END -->
 	<main>
 
 		<section id="Home" class="home-section">
-			<div class="container mt-md-5 mt-1">
-				<div class="row home-section-flex">
-					<div class="col-12 col-md-7 col-lg-8">
+			<div class="container ">
+				 <!-- home-section-flex -->
+				<div class="row align-items-center">
+					<div class="col-12 col-md-6 col-xl-7 order-0 order-md-1">
 						<div
 							class="hero-banner position-relative animate__animated animate__fadeInUp animate__delay-1s">
 							
-			             <img src="img/UPI-payments.webp"
+			             <img src="img/Hero-Image.png"
 			                 alt="Business expense management with UPI Digital vouchers"
 			                 title="Business expense management with UPI Digital vouchers"
-			                 fetchpriority="high">
+			                 fetchpriority="high" class="img-fluid ">
 							          
 						</div>
 					</div>
 
-					<div class="col-12 col-md-5 col-lg-4 home-section-content">					
-					 
-						<h2 class="h2-bold  color-prime-500 animate__animated animate__fadeInUp animate__delay-1s">
-							Business expense</h2>
-						<h2 class="h2-bold color-secnd-900 animate__animated animate__fadeInUp animate__delay-2s"style="white-space: nowrap;">made seamless like your</h2>
-						<h2 class="h2-bold color-prime-500 animate__animated animate__fadeInUp animate__delay-2s">personal UPI spends</h2>
-						
+					<div class="col-12 col-md-6 col-xl-5   home-section-content">
+						<h1 class="h2-bold color-prime-500 animate__animated animate__fadeInUp animate__delay-1s">
+							Business expenses</h1>
+						<h1 class="h2-bold color-secnd-900 animate__animated animate__fadeInUp animate__delay-2s">
+							made seamless like your</h1>
+							<h1 class="h2-bold color-prime-500 animate__animated animate__fadeInUp animate__delay-1s">
+							personal UPI spends</h1>
 						<p class="title-2 color-secnd-500 my-3 animate__animated animate__fadeInUp animate__delay-3s">
-							Seamlessly issue, manage & track your Business expenses <br> with Cotodel’s UPI Digital Vouchers!
+							Seamlessly issue, manage & track your Business expenses with Cotodel’s UPI Digital Vouchers!
 						</p>
 						<p class="animate__animated animate__fadeInUp animate__delay-4s mt-3" style="position: relative; z-index: 1;">
-							<!--<a  target="_blank" href="https://forms.office.com/Pages/ResponsePage.aspx?id=tpRMbvuuAUWB-APH-X1lQddSBGyRtRNGpFGr1_9ZmvRURDI1NURXN1dTR01XRUlSM0VBUVVPMk00US4u" 
-								class="btn btn-lg btn-blue bradius-8 text-white">Join the Waitlist <img src="img/Join-the-Waitlist.svg" alt="">
-							</a>-->
-							<a  target="_blank" href="/Industries" title="Join the waitlist to get exclusive access to Cotodel's expense management solution to bring your business spends and fleet expenses on UPI"
-								class="btn btn-lg btn-primary bradius-8 text-white ">Schedule a Demo &nbsp;<img src="img/Join-the-Waitlist.svg" alt="Join the Waitlist" title="Get exclusive access to our expense management solution for your business">
+							 
+							<a  target="_blank" href="/Industries.html" title="Join the waitlist to get exclusive access to Cotodel's expense management solution to bring your business spends and fleet expenses on UPI"
+								class="btn btn-lg btn-primary bradius-8 text-white ">Join the Waitlist &nbsp;<img src="img/Join-the-Waitlist.svg" alt="Join the Waitlist" title="Get exclusive access to our expense management solution for your business">
 							</a>
 						</p>
 					</div>
@@ -284,11 +339,197 @@ Header END -->
 			</div>
 		</section>
 
+		<section class="py-5 pb-0 text-center ">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h2 class="fw-bold color-prime-500">Meet the all-in-one Voucher Solution</h2>
+						<p class="col-md-6 mx-auto">UPI Digital Vouchers can be issued on-demand from a Business dashboard to all employees
+seamlessly with Cotodel</p>
+					</div>
+					<div class="col-12 mt-3">
+						<img src="img/meet-all-in-one.png" class="img-fluid" alt="">
+					</div>
+				</div>
+			</div>
+		</section>
+<section class="py-5 text-center  bg-img">
+  <div class="container">
+    <h2 class="fw-bold color-secnd-900 ">UPI = <span class=" color-prime-500">Convenience</span>, right?</h2>
+    <p class="text-muted mt-2">
+      We trust UPI for personal spends. Why not for business expenses? Because business needs control — now, UPI gives you that too.
+    </p>
+    <p class="color-prime-500 fw-semibold">
+      Yes, now with Cotodel, you can actually lock the purpose for which you want the spend to be done and all of this<br>
+      while using the existing UPI apps & QR codes!
+    </p>
+
+    <h2 class="fw-bold mt-4 mb-5 color-secnd-900">Can it be <span class="color-prime-500">Locked?</span></h2>
+
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-md-4">
+        <div class="border rounded-xl p-3 h-100 position-relative bg-white">
+          <div class="mb-3">
+            <img src="img/floatLock.svg" alt="Lock Icon" class="position-absolute" style="width: 40px; top:-16px;">
+          </div>
+          <img src="img/FAQs-Fleet-1.svg" class="img-fluid mb-3" alt="Category Level">
+        <hr>
+		  <p class="color-prime-500 ">Lock spends at a <span class="fw-semibold">Category level</span></p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-4">
+        <div class="border rounded-xl p-3 h-100 position-relative bg-white">
+          <div class="mb-3">
+            <img src="img/floatLock.svg" alt="Lock Icon" class="position-absolute" style="width: 40px; top:-16px;">
+          </div>
+          <img src="img/FAQs-Fleet-2.svg" class="img-fluid mb-3" alt="Brand Level">
+         <hr> 
+		  <p class="color-prime-500">Lock spends at a <span class="fw-semibold">Brand level</span></p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4">
+        <div class="border rounded-xl p-3 h-100 position-relative bg-white">
+          <div class="mb-3">
+            <img src="img/floatLock.svg" alt="Lock Icon" class="position-absolute" style="width: 40px; top:-16px;">
+          </div>
+          <img src="img/FAQs-Fleet-3.svg" class="img-fluid mb-3" alt="Merchant Level">
+         <hr>
+		  <p class="color-prime-500">Lock spends at a <span class=" fw-semibold">Merchant outlet level</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+		<h2 class="fw-bold mt-4 mb-5 color-secnd-900 text-center">All this using the  <span class="color-prime-500">existing UPI ecosystem!</span></h2>
+		 	 <div class="row g-4 justify-content-center">
+      <!-- Card 1 -->
+      <div class="col-md-5">
+        <div class="border rounded-xl p-3 h-100 position-relative bg-white">
+          
+          <img src="img/FAQsFleet1.jpg" class="img-fluid mb-3" alt="Category Level">
+        <hr>
+		  <p class="color-prime-500 ">Employee makes transaction using <span class="fw-semibold">existing UPI apps</span></p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-5">
+        <div class="border rounded-xl p-3 h-100 position-relative bg-white">
+          
+          <img src="img/FAQsFleet.jpg" class="img-fluid mb-3" alt="Brand Level">
+         <hr> 
+		  <p class="color-prime-500">Merchant accepts payment at the  <span class="fw-semibold">existing QR Code</span></p>
+        </div>
+      </div>
+ 
+    </div>
+	</div>
+</section>
+ 
+
+<section class="py-5">
+	<div class="container">
+		<h2 class="fw-bold  mb-5 color-prime-500 text-center">Issuance & Redemption of UPI Digital Vouchers</h2>
+	<div class="owl-carousel owl-theme step-carousel">
+		 <!-- Step 1 -->
+		<div class="row align-items-center item">
+			<div class="col-md-6">
+				
+		
+		
+		<div>
+			<h5 class="fw-bold">Step 1: Business</h5>
+			<p class="text-muted">
+			Business manager uses Cotodel’s Platform to select relevant category spends, enter voucher amount and define time validity to issue UPI Digital Vouchers to each driver partner
+			</p>
+		</div>
+	
+
+		
+			</div>
+
+			<div class="col-md-6">
+				<div class="rounded-3 p-4 text-center" style="background: #EAF4EF;">
+					<img src="img/UPI-Voucher-Issuance.png" class="img-fluid" alt="">
+				</div>
+			</div>
+		</div>
+
+		<!-- Step 2 -->
+		<div class="row align-items-center item">
+			<div class="col-md-6">
+				 
+				<div>
+					<h5 class="fw-bold">Step 2: Driver Partner</h5>
+					<p class="text-muted">
+					All UPI vouchers issued to Driver’s number get aggregated on their UPI Apps
+					</p>
+				</div>
+	 
+			</div>
+
+			<div class="col-md-6">
+				<div class="rounded-3 p-4 text-center" style="background: #EAF4EF;">
+					<img src="img/Step-2-Right.png" class="img-fluid" alt="">
+				</div>
+			</div>
+		</div>
+
+		<!-- Step 3 -->
+		<div class="row align-items-center item">
+			<div class="col-md-6">
+				 
+				<div>
+					<h5 class="fw-bold">Step 3: Driver Partner</h5>
+					<p class="text-muted">
+					Driver scans Merchants’s existing QR Code to make the payment using UPI Scanner
+					</p>
+				</div>
+	 
+			</div>
+
+			<div class="col-md-6">
+				<div class="rounded-3 p-4 text-center" style="background: #EAF4EF;">
+					<img src="img/Step-3-Right.png" class="img-fluid" alt="">
+				</div>
+			</div>
+		</div>
+		<!-- Step 4 -->
+		<div class="row align-items-center item">
+			<div class="col-md-6">
+				 
+				<div>
+					<h5 class="fw-bold">Step 4: Driver Partner</h5>
+					<p class="text-muted">
+					Basis Merchant eligibility, relevant UPI Digital Voucher pops-up automatically for payment at time of transaction</p>
+				</div>
+	 
+			</div>
+
+			<div class="col-md-6">
+				<div class="rounded-3 p-4 text-center" style="background: #EAF4EF;">
+					<img src="img/Step-4-Right.png" class="img-fluid" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+</section>
+
 		<!--<section class="solution-wrap bg-primary" id="Solutions">-->
-			<section class="solution-wrap container " id="Solutions">
-				<div class="row justify-content-center card-hero-wrap g-4">
+				<section class="solution-wrap  pt-0 bg-img" id="Solutions" >
+				<div class="container">
+					<!-- card-hero-wrap -->
+		            <div class="row justify-content-center  g-4">
 					
-					<div ><!-- style="margin-left: 18%;"-->
+					<div class="col-12"><!-- style="margin-left: 18%;"-->
 					  <h2 class="h2-bold text-black color-prime-500 animate__animated animate__fadeInUp animate__delay-3s"> <span class="color-prime-500">Solutions for </span>Different Industries </h2>
 					  <div class="head-p color-secnd-900 animate__animated animate__fadeInUp animate__delay-4s pt-2">
 					 Making your business spends across categories more targeted & intelligent with UPI
@@ -296,39 +537,150 @@ Header END -->
 					</div>
 											
 				    <!-- Card 1 - Left -->
-					  <div class="col-12 col-md-s animate__animated animate__fadeInUp animate__delay-3s">
-					        <div class="card-blog1 h-100">
-					            <div class="card-img-wrap">
-					                <img src="img/transportAndLogisticsnew.webp" alt="Fleet Expense Management" fetchpriority="high" title="Fuel spends solution for Fleets">
+					  <div class="col-12 col-md-6 animate__animated animate__fadeInUp animate__delay-3s">
+					        <div class="home-card bg-white overflow-hidden">
+					            <div class="card-img-wrap" >
+					                <img src="img/fuleUpi-new.jpg" class="img-fluid w-100" alt="Fleet Expense Management" fetchpriority="high" title="Fuel spends solution for Fleets">
 					            </div>
-					            <div class="shift-right">
-					                <p class="title-2 fw-bold color-secnd-900 card-blog1 h-100">Fleet Expense Management</p>
-					                <p class="text-secnd-500 color-secnd-500 my-3 card-blog1 h-100">Fuel spends solution for Transport & Logistics business</p>
-					                <a class="btn-primary fw-bold card-blog1 h-100" href="/solutions/fleetexpensemanagement" title="Cotodel's Fleet Expense Management page to optimise how your fleet's fuel spends are done and shift them on UPI" target="_blank">View More
-					                    <!--<img class="ms-2" src="img/right-arrow.svg" alt="Arrow" title="Read more about Fleet expense management">-->
+					            <div class="px-3 py-3">
+					                <p class="fs-4 fw-bold color-prime-500  h-100">Fleet Expense Management</p>
+					               
+									
+									 <ul class="list-unstyled mt-3">
+          <li class="d-flex align-items-start mb-3">
+            <span class="me-2 text-success">
+             <img src="img/icon-Frame.svg" class="img-fluid" alt="">
+            </span>
+            <span>
+              <strong>Control Fuel spends, prevent thefts & pilferage</strong>
+            </span>
+          </li>
+          <li class="d-flex align-items-start mb-3">
+            <span class="me-2 text-success">
+                          <img src="img/icon-Frame.svg" class="img-fluid" alt="">
+
+            </span>
+            <span>
+              End-to-end solution to manage <strong>Toll & Service</strong> spends
+            </span>
+          </li>
+          <li class="d-flex align-items-start mb-3">
+            <span class="me-2 text-success">
+            <img src="img/icon-Frame.svg" class="img-fluid" alt="">
+
+            </span>
+            <span>
+              <strong>Earn rewards</strong> & cashbacks with Branded vouchers
+            </span>
+          </li>
+        </ul>
+					              <hr>
+									<a class="btn-primary fw-bold  h-100" href="/solutions/fleetexpensemanagement" title="Cotodel's Fleet Expense Management page to optimise how your fleet's fuel spends are done and shift them on UPI" target="_blank">View More
+					                    <!-- <img class="ms-2" src="img/right-arrow.svg" alt="Arrow" title="Read more about Fleet expense management"> -->
+					                </a>
+					            </div>
+					        </div>
+					    </div>
+
+					    <!-- Card 2 - Right -->
+					    <div class="col-12 col-md-6 animate__animated animate__fadeInUp animate__delay-3s">
+					        <div class="home-card bg-white overflow-hidden">
+								<div class="card-img-wrap" >
+									<img src="img/upi-New.jpg" class="img-fluid w-100" alt="Fleet Expense Management" fetchpriority="high" title="Fuel spends solution for Fleets">
+					            </div>
+					            <div class="px-3 py-3">
+					                <p class="fs-4 fw-bold color-prime-500  h-100">Corporate Expense Management</p>
+					               
+									
+									 <ul class="list-unstyled mt-3">
+          <li class="d-flex align-items-start mb-3">
+            <span class="me-2 text-success">
+             <img src="img/icon-Frame.svg" class="img-fluid" alt="">
+            </span>
+            <span>
+              <strong>Administer expenses & allowances for all employees</strong>
+            </span>
+          </li>
+          <li class="d-flex align-items-start mb-3">
+            <span class="me-2 text-success">
+                          <img src="img/icon-Frame.svg" class="img-fluid" alt="">
+
+            </span>
+            <span>
+              End-to-end solution to manage spends <strong>across categories </strong> spends
+            </span>
+          </li>
+          <li class="d-flex align-items-start mb-3">
+            <span class="me-2 text-success">
+            <img src="img/icon-Frame.svg" class="img-fluid" alt="">
+
+            </span>
+            <span>
+              <strong>Earn rewards</strong>  & cashbacks with Branded vouchers
+            </span>
+          </li>
+        </ul>
+					              <hr>
+									<a class="btn-primary fw-bold  h-100" href="/solutions/fleetexpensemanagement" title="Cotodel's Fleet Expense Management page to optimise how your fleet's fuel spends are done and shift them on UPI" target="_blank">View More
+					                    <!-- <img class="ms-2" src="img/right-arrow.svg" alt="Arrow" title="Read more about Fleet expense management"> -->
+					                </a>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+				</div>
+				
+		</section>
+
+
+		<section class="solution-wrap   d-none"   >
+				<div class="container">
+					<!-- card-hero-wrap -->
+		            <div class="row justify-content-center  g-4">
+					
+					<div class="col-12"><!-- style="margin-left: 18%;"-->
+					  <h2 class="h2-bold text-black color-prime-500 animate__animated animate__fadeInUp animate__delay-3s"> <span class="color-prime-500">Solutions for </span>Different Industries </h2>
+					  <div class="head-p color-secnd-900 animate__animated animate__fadeInUp animate__delay-4s pt-2">
+					 Making your business spends across categories more targeted & intelligent with UPI
+					  </div>
+					</div>
+											
+				    <!-- Card 1 - Left -->
+					  <div class="col-12 col-md-6 animate__animated animate__fadeInUp animate__delay-3s">
+					        <div class="home-card bg-white">
+					            <div class="card-img-wrap" style="background: #ebf5ef;">
+					                <img src="img/transportAndLogisticsnew.webp" class="img-fluid" alt="Fleet Expense Management" fetchpriority="high" title="Fuel spends solution for Fleets">
+					            </div>
+					            <div class="px-3 py-3">
+					                <p class="title-2 fw-bold color-secnd-900  h-100">Fleet Expense Management</p>
+					                <p class="text-secnd-500 color-secnd-500 my-3 h-100">Fuel spends solution for Transport & Logistics business</p>
+					                <a class="btn-primary fw-bold  h-100" href="/solutions/fleetexpensemanagement" title="Cotodel's Fleet Expense Management page to optimise how your fleet's fuel spends are done and shift them on UPI" target="_blank">View More
+					                    <img class="ms-2" src="img/right-arrow.svg" alt="Arrow" title="Read more about Fleet expense management">
 					                </a>
 					            </div>
 					        </div>
 					    </div><br>
 
 					    <!-- Card 2 - Right -->
-					    <div class="col-12 col-md-s animate__animated animate__fadeInUp animate__delay-4s">
-					        <div class="card-blog1 h-100">
-					            <div class="card-img-wrap">
+					    <div class=" col-md-6 animate__animated animate__fadeInUp animate__delay-4s">
+					        <div class="home-card bg-white">
+					            <div class="card-img-wrap" style="background: #ebf5ef;">
 					                <img src="img/corporateExpensemanagement.webp" alt="Corporate Expense Management" title="Business spends solution for Corporates">
 					            </div>
-					            <div class="shift-right">
-					                <p class="title-2 fw-bold color-secnd-900 card-blog1 h-100">Corporate Expense Management</p>
-					                <p class="text-secnd-500 color-secnd-500 my-3 card-blog1 h-100">Business spends solution for Consulting & White-collared companies</p>
-					                <a class="btn-primary fw-bold card-blog1 h-100" href="/solutions/corporateexpensemanagement" title="Cotodel's Corporate Expense Management page to optimise how your business spends are done and shift them on UPI" target="_blank">View More
-					                    <!--<img class="ms-2" src="img/right-arrow.svg" alt="Right Arrow" title="Read more about Corporate expense management">-->
+					            <div class="px-3 py-3">
+					                <p class="title-2 fw-bold color-secnd-900  d-blog1 h-100">Corporate Expense Management</p>
+					                <p class="text-secnd-500 color-secnd-500 my-3  h-100">Business spends solution for Consulting & White-collared companies</p>
+					                <a class="btn-primary fw-bold  h-100" href="/solutions/corporateexpensemanagement" title="Cotodel's Corporate Expense Management page to optimise how your business spends are done and shift them on UPI" target="_blank">View More
+					                    <img class="ms-2" src="img/right-arrow.svg" alt="Right Arrow" title="Read more about Corporate expense management">
 					                </a>
 					            </div>
 					        </div>
 					    </div>
 					</div>
+				</div>
+				
 		</section>
-		<section class="why-ctd">
+		<section class="why-ctd py-5">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-12 mb-3 mb-lg-3">
@@ -338,7 +690,7 @@ Header END -->
 								</div>
 							</div>
 						</div>
-						<div class="container border rounded-4 p-4 shadow-sm ">
+						<div >
 									    <h4 class="fw-bold color-prime-500 mb-4">Benefits for Business</h4>
 									    <div class="row g-4">
 									      <!-- Card 1 -->
@@ -399,8 +751,8 @@ Header END -->
 									    </div>
 									  </div>
 
-						<br>
-						<div class="container border rounded-4 p-4 shadow-sm ">
+					 
+						<div class=" mt-4" >
 									    <h4 class="fw-bold color-prime-500 mb-4">Benefits for User</h4>
 									    <div class="row g-4">
 									      <!-- Card 1 -->
@@ -464,17 +816,34 @@ Header END -->
 									  </div>
 					</div>
 				</section>
+
+				<section class="bg-img py-4">
+					<h2 class="fw-bold mt-4 mb-5 color-prime-500 text-center ">Shift your Business Expenses on UPI</h2>
 				
-				<section class="about-wrap" id="About">
+				<div class="container">
+					 <div class="row">
+    <div class="col-md-12 text-center">
+      <!-- Video Thumbnail -->
+     <div class="video-thumbnail" data-toggle="modal" data-target="#videoModal">
+        <img src="img/shiftYour.png" alt="Video thumbnail" class="img-responsive center-block" />
+        <span class="play-button">&#9658;</span>
+      </div>
+    </div>
+  </div>
+				</div>
+				</section>
+				
+
+				<section class="about-wrap py-4" id="About">
 					<div class="container">
 						<div class="row position-relative">
 							<div
-								class="col-12 col-lg-8 animate__animated animate__fadeInUp animate__delay-3s position-relative z-index-9">
+								class="col-md-6 animate__animated animate__fadeInUp animate__delay-3s position-relative z-index-9">
 								<div >
 									<h2 class="h2-bold color-prime-500">About Us</h2>
-									<p class="text-secnd-900 color-secnd-900 mt-3 mb-2 mb-lg-5">We are here to making your Business payments as seamless as your personal UPI spends!
+									<p class="text-secnd-900 color-secnd-900 mt-3  ">We are here to making your Business payments as seamless as your personal UPI spends!
 									</p>
-									<div class="about-text-wrap mb-2 mb-lg-5">
+									<div class="about-text-wrap  ">
 										<div class="title-2 fw-bold color-prime-500 mb-1 mb-lg-2">Who we are</div>
 										<p class="color-secnd-500">Cotodel is committed to delivering a reinvigorated approach to how business spends are done. UPI has become the de-facto form of payment for all of us so why not have the same for all of our business payments as well? No matter the industry or size of your organisation, we want to help you provide a seamless experience when it comes to your business payments. </p>
 									</div>
@@ -485,8 +854,8 @@ Header END -->
 									</div>
 								</div>
 							</div>
-							<div class="about-img animate__animated animate__fadeInUp animate__delay-4s d-none d-lg-block">
-								<img src="img/Subscriber-bro.webp" alt="About Cotodel" title="Who we are & What we do">
+							<div class="col-md-6 animate__animated animate__fadeInUp animate__delay-4s   ">
+								<img src="img/About-Usnew.jpg" alt="About Cotodel" title="Who we are & What we do">
 							</div>
 
 						</div>
@@ -494,91 +863,332 @@ Header END -->
 				</section>
 				
 
-				<section class="Founding-wrap">
-					<div class="found-head color-prime-900 fw-bold">
-						From the Founding & Former teams of
+				<section class="  bg-img py-4">
+					<div class="container">
+					 <h2 class="h2-bold color-prime-500 text-center">Founding Team</h2>
+					 <p class="text-center color-secnd-900 mt-3  ">Industry-relevant experiences across Payments, Consumer, Tech & Scale</p>
+
+					 <div class="row justify-content-center align-items-start mt-5">
+						 <div class="col-md-3">
+							<div class="card teamcard h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+							<img src="img/Team-1.jpg" class="card-img-top" alt="Aviral Gupta">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+
+									<div>
+									<h5 class="card-title text-start mb-1">Aviral Gupta</h5>
+									<p class="card-subtitle text-muted mb-2">Co-Founder & CEO</p>
+									</div>
+									
+									<a href="#" class="text-decoration-none">
+									<i class="bi bi-linkedin fs-4"></i>
+									</a>
+								</div>
+							 
+								<p class="cdetails border-top pt-3">Attention to detail and expertise in the Payments domain define Aviral. Having worked at BharatPe and National Health Authority, he understands UPI extensively! Outside of work, Aviral enjoys spending his time travelling and doing photography. </p>
+							</div>
+							</div>
+						</div>
+
+							<!-- Vidit Sidana -->
+							<div class="col-md-3 ">
+								<div class="card teamcard h-100 shadow-sm border-0 rounded-4  overflow-hidden">
+								<img src="img/Team-2.jpg" class="card-img-top" alt="Vidit Sidana">
+								<div class="card-body">
+									<div class="d-flex justify-content-between align-items-center">
+
+									<div>
+									<h5 class="card-title mb-1 text-start">Vidit Sidana</h5>
+									<p class="card-subtitle text-muted mb-2">Co-Founder & CBO</p>
+									</div>
+									<a href="#" class="text-decoration-none">
+									<i class="bi bi-linkedin fs-4"></i>
+									</a>
+									</div>
+
+								 
+									<p class="cdetails border-top pt-3">A forever curious person who has been working in the Sales & Marketing domain with companies such as Bira, Licious & ITC.
+ 
+Vidit talks about everything Marketing & Branding (and FinTech these days) on LinkedIn whenever he is not watching or playing sports!</p>
+								</div>
+								</div>
+							</div>
+
+							<!-- Uzair Ahmed -->
+							<div class="col-md-3">
+								<div class="card teamcard h-100 shadow-sm border-0 rounded-4  overflow-hidden">
+								<img src="img/Team-3.jpg" class="card-img-top" alt="Uzair Ahmed">
+								<div class="card-body">
+									<div class="d-flex justify-content-between align-items-center">
+
+									<div>
+									<h5 class="card-title mb-1 text-start">Uzair Ahmed</h5>
+									<p class="card-subtitle text-muted mb-2">Co-Founder & CTO</p>
+									</div>
+									<a href="#" class="text-decoration-none">
+									<i class="bi bi-linkedin fs-4"></i>
+									</a>
+									</div>
+
+									<p class="cdetails border-top pt-3">
+										Having technical expertise to architect population scalable projects such as Aadhaar, CoWIN and IRCTC have been the talking landmarks of Uzair's career. 
+
+He is a cricket fan like the majority of us and historical places fascinate him.</p>
+								</div>
+								</div>
+							</div>
+					 </div>
 					</div>
 
-					<div class="row mx-auto my-auto mb-5 justify-content-center ">
-						<div class="slider responsive">
-							<div>
-								<img src="img/formerTeams/National-Health-Authority-black.svg" class="img-fluid" alt="National-Health-Authority" title="National-Health-Authority company logo">
-							</div>
-							<div>
+					 
+  <div class="container mt-5">
+    <div class="row align-items-center mb-4 justify-content-center">
+      <div class="col-md-4 col-xl-3 border-end">
+        <h5 class="fw-bold color-prime-900  text-start">From the Founding &<br>Former teams of</h5>
+      </div>
+      <div class="col-md-7">
+        <div class="logo-carousel owl-carousel owl-theme">
+         <div class="item">
+			 <img src="img/formerTeams/National-Health-Authority-black.svg" class="img-fluid" alt="National-Health-Authority" title="National-Health-Authority company logo">
+		 </div>
+		 <div class="item">
 								<img src="img/formerTeams/bharatpe-black.svg" class="img-fluid" alt="BharatPe" title="BharatPe company logo">
 							</div>
-							<div>
+							<div class="item">
 								<img src="img/formerTeams/hcl-black.svg" class="img-fluid" alt="HCL" title="HCL company logo">
 							</div>
-							<div>
+							<div class="item">
 								<img src="img/formerTeams/blinkit-black.svg" class="img-fluid" alt="Blinkit" title="Blinkit company logo">
 							</div>
-							<div>
+							<div class="item">
 								<img src="img/formerTeams/itc-black.svg" class="img-fluid" alt="ITC" title="ITC company logo">
 							</div>
-							<div>
+							<div class="item">
 								<img src="img/formerTeams/bira-black.svg" class="img-fluid" alt="Bira" title="Bira company logo">
 							</div>
-						
-						</div>
-					</div>
+        </div>
+      </div>
 
+	  <div class="col-12 col-md-6 mt-4">
+					      
+		<div class="card-alumni animate__animated animate__fadeInUp animate__delay-3s">
+			 <img src="img/allinoneAlumini.webp" alt="Cotodel Alumni" class="img-fluid" title="From the alumni of IIMA, LBS, SRCC">
+		</div>
+	</div>
+    </div>
+  </div>
+  
 				</section>
 				<!----------Former Teams END---------->
+ 
+					 <section class="py-4">
+						<div class="container">
+					 <h2 class="h2-bold color-prime-500  ">Key Features <span class="color-secnd-900"> of Our Platform</span></h2>
+					 <p class="text-secnd-900 color-secnd-900 mt-3  ">Cotodel is built on e-RUPI payment solution launched by National Payments Corporation of India (NPCI)</p>
 
-				<!--<section class="alumni-wrap ">
-						<div class="container ">
-							<div class="row">
-								<div class="found-head color-prime-900 fw-bold">
-									From the Alumni of
-								</div>
+					 <div class="row justify-content-center mt-5 row-gap-3 imgsizeAdjust">
+						 <div class="col-md-4">
+							<div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+							<img src="img/rolebase.svg" class="card-img-top" alt="Aviral Gupta">
+							<div class="card-body">
+								<h5 class="card-title text-start mb-1">Role-Based Web Portal</h5>
+									<p class="card-subtitle text-muted mb-2">Tailored access for administrators, issuers, and analysts.</p>
+									
 							</div>
-							<div class="row ">
-							<div class="col-12 col-md-4 ">
-								<div class="card-alumni animate__animated animate__fadeInUp animate__delay-3s">
-									<img src="img/allinoneAlumini.png" alt="">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-12 col-md-4">
-									<div class="card-alumni animate__animated animate__fadeInUp animate__delay-3s">
-										<img src="img/IIM-ahmedabad.png" alt="">
-									</div>
-								</div>
-
-								<div class="col-12 col-md-4">
-									<div class="card-alumni animate__animated animate__fadeInUp animate__delay-4s">
-										<img src="img/london-business-school.png" alt="">
-									</div>
-								</div>
-
-								<div class="col-12 col-md-4">
-									<div class="card-alumni animate__animated animate__fadeInUp animate__delay-5s">
-										<img src="img/SRCC.png" alt="">
-									</div>
-								</div>
 							</div>
 						</div>
-					</section>-->
-					<section class="alumni-wrap">
-					  <div class="container">
-					    <div class="row justify-content-center text-center">
-					      <div class="col-12 col-md-6">
-					        <div class="found-head color-prime-900 fw-bold mb-3">
-					          From the Alumni of
-					        </div>
-					        <div class="card-alumni animate__animated animate__fadeInUp animate__delay-3s">
-					          <img src="img/allinoneAlumini.webp" alt="Cotodel Alumni" class="img-fluid" title="From the alumni of IIMA, LBS, SRCC">
-					        </div>
-					      </div>
-					    </div>
-					  </div>
-					</section>
+
+							<!-- Vidit Sidana -->
+							<div class="col-md-4 ">
+								<div class="card h-100 shadow-sm border-0 rounded-4  overflow-hidden">
+								<img src="img/seamless.svg" class="card-img-top"  alt="Vidit Sidana">
+								<div class="card-body">
+									<h5 class="card-title text-start mb-1">Seamless Voucher Issuance</h5>
+									<p class="card-subtitle text-muted mb-2">Just link your bank to get started
+effortlessly.</p>
+								
+								</div>
+								</div>
+							</div>
+
+							<!-- Uzair Ahmed -->
+							<div class="col-md-4">
+								<div class="card h-100 shadow-sm border-0 rounded-4  overflow-hidden">
+								<img src="img/plug&play.svg" class="card-img-top" alt="Uzair Ahmed">
+								<div class="card-body">
+									<h5 class="card-title text-start mb-1">Plug-and-Play API Integration</h5>
+									<p class="card-subtitle text-muted mb-2">Easily integrate with your existing application through our secure APIs.</p>
+
+								</div>
+								</div>
+							</div>
+
+
+					 <!-- Uzair Ahmed -->
+							<div class="col-md-4">
+								<div class="card h-100 shadow-sm border-0 rounded-4  overflow-hidden">
+								<img src="img/scalevb.svg" class="card-img-top" alt="Uzair Ahmed" >
+								<div class="card-body">
+									<h5 class="card-title text-start mb-1">Scalable and Robust APIs</h5>
+									<p class="card-subtitle text-muted mb-2">Built for high-performance environments to handle growing demand.</p>
+
+								</div>
+								</div>
+							</div>
+
+
+								 <!-- Uzair Ahmed -->
+							<div class="col-md-4">
+								<div class="card h-100 shadow-sm border-0 rounded-4  overflow-hidden">
+								<img src="img/advacen.svg" class="card-img-top" alt="Uzair Ahmed">
+								<div class="card-body">
+									<h5 class="card-title text-start mb-1">Advanced Security Framework</h5>
+									<p class="card-subtitle text-muted mb-2">Two-layer security with end-to-end encrypted data flow.</p>
+
+								</div>
+								</div>
+							</div>
+
+					 <!-- Uzair Ahmed -->
+							<div class="col-md-4">
+								<div class="card h-100 shadow-sm border-0 rounded-4  overflow-hidden">
+								<img src="img/voucher.svg" class="card-img-top" alt="Uzair Ahmed">
+								<div class="card-body">
+									<h5 class="card-title text-start mb-1">Voucher Locking Functionality</h5>
+									<p class="card-subtitle text-muted mb-2">Lock vouchers at the merchant level via our API for enhanced control.</p>
+
+								</div>
+								</div>
+							</div>
+					 </div>
+					</div>
+					 </section>
+
+				 <section class="pt-4">
+					<div class="container">
+					 <h2 class="h2-bold color-prime-500 text-center ">Our Banking &  <span class="color-secnd-900"> Solution Partners</span></h2>
+					<div class="row justify-content-center mt-4">
+						<div class="col-md-3">
+							<img src="img/icicibank1.png" class="img-fluid" alt="">
+						</div>
+						<div class="col-md-3">
+							<img src="img/digilocker1.png" class="img-fluid" alt="">
+						</div>
+					</div>
+					</div>
+				 </section>
+				 <section class="pt-4 pb-0">
+					<div class="container">
+					 <h2 class="h2-bold color-prime-500  ">Category of  <span class="color-secnd-900"> Vouchers</span></h2>
+					 <p class="  color-secnd-900 mt-3  ">Cotodel's UPI Vouchers powered by e-RUPI can be locked at multiple categories!</p>
+					
+					 <div class="row g-4">
+
+      <!-- Fuel -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/fule.svg" alt="Fuel" class="img-fluid mb-3">
+          <div class="d-flex align-items-center border-top pt-2  gap-2">
+            <img src="img/fule-icon.svg" class="img-fluid" alt="">
+            <span class="fw-semibold color-secnd-900">Fuel</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service & Maintenance -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/Service-&-Maintenance.svg" alt="Service" class="img-fluid mb-3">
+          <div class="d-flex align-items-center border-top pt-2  gap-2">
+           <img src="img/serviceman-Icon.svg" class="img-fluid" alt="">
+            <span class="fw-semibold color-secnd-900">Service & Maintenance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- General Spends -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/General-Spends.svg" alt="General" class="img-fluid mb-3">
+          <div class="d-flex align-items-center border-top pt-2  gap-2">
+           <img src="img/gernalsp-icon.svg" class="img-fluid" alt="">
+          
+
+            <span class="fw-semibold color-secnd-900">General Spends</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meal & Food -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/Meal-Food.svg" alt="Meal" class="img-fluid mb-3">
+          <div class="d-flex align-items-center border-top pt-2  gap-2">
+          <img src="img/mealfood-icon.svg" class="img-fluid" alt="">
+            <span class="fw-semibold color-secnd-900">Meal & Food</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Travel -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/travel1.svg" alt="Travel" class="img-fluid mb-3">
+          <div class="d-flex align-items-center  border-top pt-2 gap-2">
+           <img src="img/travelsdd-icon.svg" class="img-fluid" alt="">
+
+            <span class="fw-semibold color-secnd-900">Travel</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stay -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/stay.svg" alt="Stay" class="img-fluid mb-3">
+          <div class="d-flex align-items-center border-top pt-2 gap-2">
+            <img src="img/staysdsd-Icon.svg" class="img-fluid" alt="">
+            <span class="fw-semibold 	color-secnd-900">Stay</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Telecom -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/telecom1.svg" alt="Telecom" class="img-fluid mb-3">
+          <div class="d-flex align-items-center border-top pt-2 gap-2">
+              <img src="img/telecomsdsd-Icon.svg" class="img-fluid" alt="">
+
+            <span class="fw-semibold color-secnd-900">Telecom</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Health & Wellness -->
+      <div class="col-sm-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3">
+          <img src="img/helthwn.svg" alt="Health" class="img-fluid mb-3">
+          <div class="d-flex align-items-center border-top pt-2 gap-2">
+             <img src="img/healthcinsd-Icon.svg" class="img-fluid" alt="">
+
+            <span class="fw-semibold color-secnd-900">Health & Wellness</span>
+          </div>
+        </div>
+      </div>
+
+	  <div class="col-12 text-center">
+		<h4 class="color-prime-500">+20 More</h4>
+	  </div>
+
+    </div>
+					</div>
+				 </section>
 					<!-- alumini section end-->
 					<section class="faq-wrap" id="FAQs">
 												<div class="container">
 													<div class="row">
-														<h2 class="h2-bold color-prime-500">FAQs</h2>
+														<h2 class="h2-bold color-prime-500 mb-0">FAQs</h2>
 														
 														
 														<div class="col-12 px-3">
@@ -694,22 +1304,7 @@ Header END -->
 																			The integration can be easily done in a few days without having to spend extra on a new software and without replacing your existing solution being used!</div>
 																	</div>
 																</div>
-																<!--<div class="accordion-item">
-																	<h2 class="accordion-header" id="headingOne1">
-																		<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-																			data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-																			Your solution is for which industry and company?
-																		</button>
-																	</h2>
-																	<div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingOne1"
-																		data-bs-parent="#accordionExample">
-																		<div class="accordion-body">
-																			Cotodel’s solution can be implemented across all types of industries and we have
-																			different solutions for each company, no matter how small or big your business
-																			is.
-																		</div>
-																	</div>
-																</div>-->
+																  
 																<div class="accordion-item">
 																	<h2 class="accordion-header" id="headingTwo2">
 																		<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -740,22 +1335,7 @@ Header END -->
 																		</div>
 																	</div>
 																</div>
-																<!--<div class="accordion-item">
-																<h2 class="accordion-header" id="headingThree31">
-																	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-																		data-bs-target="#collapseThree31" aria-expanded="false" aria-controls="collapseThree31">
-																		What are the guidelines and regulations around these UPI-enabled vouchers?
-																	</button>
-																</h2>
-																<div id="collapseThree31" class="accordion-collapse collapse"
-																	aria-labelledby="headingThree31" data-bs-parent="#accordionExample">
-																	<div class="accordion-body">
-																		Cotodel is working along with National Payments Corporation of India (NPCI) and 
-																		multiple Indian Banks to provide these solutions to companies and their employees.
-																		 NPCI and RBI have opened mandate for these vouchers to be issued by the private sector and 
-																		 we are complying with all the necessary guidelines and regulations for the same!</div>
-																</div>
-															</div>-->
+															 
 																<div class="accordion-item">
 																	<h2 class="accordion-header" id="headingFour44">
 																		<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -785,35 +1365,17 @@ Header END -->
 										<div class="contact-form animate__animated animate__fadeInUp animate__delay-3s text-start" >
 											<h2 class="h2-bold mb-4 color-prime-500">Let’s get in touch!</h2>
 											<p class="title-2 color-secnd-500 mb-2">Something interested you? Want to discuss anything?
-												<!--Cotodel
-												is here to help!
-												Reach us at <a href="mailto:business@cotodel.com"
-													class="color-prime-500">business@cotodel.com</a>-->
+												 
 											</p>
 											<p class="title-2 color-secnd-500">											Cotodel
 																							is here to help!</p>
 
-											<!-- <div class="d-block d-md-flex justify-content-between">
-												<div class="input-control">
-													<img src="img/User.svg" alt="">
-													<input type="text" class="input-form" placeholder="Full Name">
-												</div>
-
-												<div class="input-control mx-md-2">
-													<img src="img/PhoneCall.svg" alt="">
-													<input type="text" class="input-form" placeholder="Mobile Number">
-												</div>
-
-												<div class="input-control">
-													<img src="img/EnvelopeSimple.svg" alt="">
-													<input type="text" class="input-form" placeholder="Email">
-												</div>
-											</div> -->
+											 
 
 											<div
 												class="d-flex mt-2 mt-lg-4 flex-column flex-md-row align-items-md-center justify-content-start">
 												<a class="btn btn-lg btn-primary bradius-8 text-white mb-0" id="submitButton01"
-													target="_blank" href="/Industries" title="Join the waitlist to get exclusive access to Cotodel's expense management solution to bring your business spends and fleet expenses on UPI">Submit Details
+													target="_blank" href="/Industries.html" title="Join the waitlist to get exclusive access to Cotodel's expense management solution to bring your business spends and fleet expenses on UPI">Submit Details
 													<i class="bi bi-arrow-right"></i>
 												</a>
 												<p class="or">OR</p>
@@ -827,70 +1389,13 @@ Header END -->
 							</div>
 						</section>
 
-			<!--	<section class="our-bank">
-							<div class="container">
-								<div class="row">
-									<div class="col-12">
-										<div class="found-head color-prime-900 fw-bold">
-											Our Banking & solution partners
-										</div>
-
-										<div class="our-bank-partner">
-											<img src="img/DigiLocker.png" alt="">
-											<img src="img/IciciBank.png" alt="">
-											<img src="img/indian-bank.png" alt="">
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-						<section class="Founding-wrap">
-									<div class="found-head color-prime-900 fw-bold">
-										Our proud users
-									</div>
-
-									<div class="row mx-auto my-auto mb-1 justify-content-center" style="background: #1F212C;">
-										<div class="slider responsive">
-											<div>
-												<img src="img/formerTeams/National-Health-Authority.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/bharatpe.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/hcl.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/blinkit.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/itc.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/bira.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/licious.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/sunfeast.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/Aadhar.svg" class="img-fluid">
-											</div>
-											<div>
-												<img src="img/formerTeams/irctc.svg" class="img-fluid">
-											</div>
-										</div>
-									</div>
-
-								</section>-->
+		 
 								<section class="blogs-section" id="Blogs">
 																		<div class="container">
 																			<div class="row">
 																				<div class="col-12">
-																					<h2 class="h2-bold mb-4 color-prime-500"></h2>
-																					<h2 class="h2-bold mb-4 color-prime-500">Blogs</h2>
+																			 
+																					<h2 class="h2-bold color-prime-500">Blogs</h2>
 																					<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
 																					  <p class="text-secnd-900 color-secnd-900 mt-3 mb-2 mb-lg-5">
 																					    Thoughts from us & other industry leaders, providing actionable insights around payments and business spends!
@@ -922,7 +1427,7 @@ Header END -->
 																						          </div>
 																						          <h4 class="title-2 fw-bold color-secnd-900 shift-right">eRUPI: What is it | How does it work | Benefits</h4>
 																						          <p class="text-secnd-500 shift-right">UPI Digital Vouchers for your Targeted Spends</p>
-																						          <div class="d-flex gap-2 mb-2">
+																						          <div class="d-flex gap-2 mb-2 px-2">
 																						            <span class="voucher-tag">UPI Digital Vouchers</span>
 																						            <span class="voucher-tag">Business Spends on UPI</span>
 																						          </div>
@@ -940,7 +1445,7 @@ Header END -->
 																						          </div>
 																						          <h4 class="title-2 fw-bold color-secnd-900 shift-right">The Smart Fleet: Managing Vehicles, Expenses, and Payments with Ease</h4>
 																						          <p class="text-secnd-500 shift-right">More Than Just Vehicle Tracking </p>
-																						          <div class="d-flex gap-2 mb-2">
+																						          <div class="d-flex gap-2 mb-2 px-2">
 																						            <span class="voucher-tag">Fleet Management</span>
 																						            <span class="voucher-tag">Fuel Card</span>
 																						          </div>
@@ -960,7 +1465,7 @@ Header END -->
 																						          </div>
 																						          <h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI Lite: What is it | How does it work | Benefits</h4>
 																						          <p class="text-secnd-500 shift-right">Small Transactions Made Easy Digitally</p>
-																						          <div class="d-flex gap-2 mb-2">
+																						          <div class="d-flex gap-2 mb-2 px-2">
 																						            <span class="voucher-tag">UPI</span>
 																						            <span class="voucher-tag">Digital Spends</span>
 																						          </div>
@@ -978,7 +1483,7 @@ Header END -->
 																							          </div>
 																							          <h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI 123Pay: What is it | How does it work | Benefits</h4>
 																							          <p class="text-secnd-500 shift-right">Digital Payments Without Internet or Smartphones</p>
-																							          <div class="d-flex gap-2 mb-2">
+																							          <div class="d-flex gap-2 mb-2 px-2">
 																							            <span class="voucher-tag">UPI</span>
 																							            <span class="voucher-tag">Digital Spends</span>
 																							          </div>
@@ -996,7 +1501,7 @@ Header END -->
 																								          </div>
 																								          <h4 class="title-2 fw-bold color-secnd-900 shift-right">UPI Circle: What is it | How does it work | Benefits</h4>
 																								          <p class="text-secnd-500 shift-right">Delegate and manage payments securely</p>
-																								          <div class="d-flex gap-2 mb-2">
+																								          <div class="d-flex gap-2 mb-2 px-2">
 																								            <span class="voucher-tag">UPI</span>
 																								            <span class="voucher-tag">Digital Spends</span>
 																								          </div>
@@ -1006,72 +1511,7 @@ Header END -->
 																								      </a>
 																								    </div>
 
-																						<!--<div>
-																							<div class="card-blog">
-																								<div class="card-blog-icon">
-																									<img src="img/blog44.png" alt="">
-																								</div>
-																								<h4 class="title-2 fw-bold color-secnd-900">UPI Circle: What is it | How does it work | Benefits</h4>
-																								<p class="text-secnd-500">Delegate payments effortlessly. Manage them securely with confidence.</p><br>
-																								<a href="/blogs/upicircle" class="color-secnd-500">Read More <img class="ms-2"
-																										src="img/right-arrow.svg" alt=""></a>
-																							</div>
-																						</div>
-
-																						<div>
-																							<div class="card-blog">
-																								<div class="card-blog-icon">
-																									<img src="img/blog.svg" alt="">
-																								</div>
-																								<h4 class="title-2 fw-bold color-secnd-900">Industry leaders discuss organisational
-																									transformation </h4>
-																								<p class="text-secnd-500">Egestas elit dui scelerisque ut eu purus aliquam vitae
-																									habitasse.</p>
-																								<a href="#" class="color-secnd-500">Read More <img class="ms-2"
-																										src="img/right-arrow.svg" alt=""></a>
-																							</div>
-																						</div>
-
-																						<div>
-																							<div class="card-blog">
-																								<div class="card-blog-icon">
-																									<img src="img/blog.svg" alt="">
-																								</div>
-																								<h4 class="title-2 fw-bold color-secnd-900">Industry leaders discuss organisational
-																									transformation </h4>
-																								<p class="text-secnd-500">Egestas elit dui scelerisque ut eu purus aliquam vitae
-																									habitasse.</p>
-																								<a href="#" class="color-secnd-500">Read More <img class="ms-2"
-																										src="img/right-arrow.svg" alt=""></a>
-																							</div>
-																						</div>
-
-																						<div>
-																							<div class="card-blog">
-																								<div class="card-blog-icon">
-																									<img src="img/blog.svg" alt="">
-																								</div>
-																								<h4 class="title-2 fw-bold color-secnd-900">Industry leaders discuss organisational
-																									transformation </h4>
-																								<p class="text-secnd-500">Egestas elit dui scelerisque ut eu purus aliquam vitae
-																									habitasse.</p>
-																								<a href="#" class="color-secnd-500">Read More <img class="ms-2"
-																										src="img/right-arrow.svg" alt=""></a>
-																							</div>
-																						</div>
-
-																						<div>
-																							<div class="card-blog">
-																								<div class="card-blog-icon">
-																									<img src="img/blog.svg" alt="">
-																								</div>
-																								<h4 class="title-2 fw-bold color-secnd-900">Industry leaders discuss organisational
-																									transformation </h4>
-																								<p class="text-secnd-500">Egestas elit dui scelerisque ut eu purus aliquam vitae
-																									habitasse.</p>
-																								<a href="#" class="color-secnd-500">Read More <img class="ms-2"
-																										src="img/right-arrow.svg" alt=""></a>
-																							</div>-->
+																						 
 																						</div>
 
 																					</div>
@@ -1103,7 +1543,7 @@ Header END -->
 																			    <div class="footer-contact mt-4 mb-2 d-flex justify-content-start gap-5 flex-wrap">
 																			      <div>
 																			        <div class="footer-heading">ADDRESS</div>
-																			        <p>WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
+																			        <p>Cotodel Pvt Ldt.<br/> WeWork, Eldeco Centre, Malviya Nagar<br>New Delhi - 110017</p>
 																			      </div>
 																			      <div>
 																			        <span class="footer-heading">EMAIL</span>
@@ -1145,13 +1585,13 @@ Header END -->
 																			</footer>
 																	<!-- Modal1 -->
 																									 <div class="modal fade custom-modal" id="demoModal1" tabindex="-1" aria-hidden="true">
-																									 		   		   <div class="modal-dialog">
+																									 		   		   <div class="modal-dialog modal-dialog-centered">
 																									 		   		     <div class="modal-content">
 																									 		   		       <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
 																									 		   		       <div class="modal-header-custom">
-																									 		   		         <h5>Join the Waitlist</h5>
+																									 		   		         <h5 class="text-start ">Join the Waitlist</h5>
 																									 		   		       </div>
-																									 		   		       <p class="text-center">
+																									 		   		       <p class="">
 																									 		   		         18 billion UPI transactions are happening every month!<br>
 																									 		   		         Time to get your Business payments on UPI as well?
 																									 		   		       </p>
@@ -1177,13 +1617,25 @@ Header END -->
 		<!-- <div class="scroll-line"></div> -->
 		<span class="scoll-text"><i class="fab bi-arrow-up-circle-fill"></i></span>
 	</div>
-
+			 
+<!-- Modal -->
+<div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body" style="padding:0;">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe id="videoFrame" class="embed-responsive-item" src="" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 	<!-- =======================
 JS libraries, plugins and custom scripts -->
 
 	<!-- Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
 	<script src="js/bootstrap.bundle.min.js"></script>
 
 
@@ -1304,18 +1756,18 @@ JS libraries, plugins and custom scripts -->
 					}
 					/* modal css*/
 						  .custom-modal .modal-dialog {
-								      position: absolute;
+								      /* position: absolute;
 								      top: 260px;
 								      left: 463px;
 								      max-width: unset;
-								      margin: 0;
+								      margin: 0; */
 								    }
 
 								    .custom-modal .modal-content {
-								      width: 514px;
-								      height: 292px;
+								      /* width: 514px;
+								      height: 292px; */
 								      border-radius: 20px;
-								      padding: 50px;
+								      padding: 40px;
 								      border: 1px solid #ccc;
 								      background-color: #fff;
 								      display: flex;
@@ -1330,10 +1782,10 @@ JS libraries, plugins and custom scripts -->
 									      align-items: center;
 									      justify-content: center;
 									      gap: 30px;
-									      width: 169px;
+									       flex-flow: row ;
 									      margin-top: 10px;
 										  color:#2F945A;
-										  height: 56px;
+										 
 									    }
 
 									    .btn-success {
@@ -1360,6 +1812,25 @@ JS libraries, plugins and custom scripts -->
 									      font-size: 1.25rem;
 									    }
 
+										@media screen and (max-width:480px) {
+										  
+										  
+										 .custom-modal .modal-content { 
+										    width: 100%;
+										    height: auto;
+										    padding: 20px;
+										  }
+											
+										  .btn-group-custom{
+											gap:8px;
+											flex-flow: row wrap;
+										  }
+										  .btn-group-custom *{
+											width: 100%;
+											text-align: center;
+										  }
+										  
+										}
 
 </style>
 	
@@ -1493,211 +1964,73 @@ JS libraries, plugins and custom scripts -->
 		 });
 		 </script>
 												 
-												 
+	<script>
+   
+ 
+ var videoURL = "https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1";
+
+  $('#videoModal').on('show.bs.modal', function () {
+    $('#videoFrame').attr('src', videoURL);
+  });
+
+  $('#videoModal').on('hidden.bs.modal', function () {
+    $('#videoFrame').attr('src', '');
+  });
+</script>		
+<style>
+.video-thumbnail {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.video-thumbnail img {
+  border-radius: 8px;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 60px;
+  color: #ff0000;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+</style>
+
+
+<script>
+	 
+
+  $(document).ready(function(){
+    $('.logo-carousel').owlCarousel({
+      loop: true,
+      margin: 30,
+      nav: false,
+      autoplay: true,
+      autoplayTimeout: 2000,
+      responsive:{
+        0:{ items: 2 },
+        576:{ items: 3 },
+        768:{ items: 4 },
+        992:{ items: 6 }
+      }
+    });
+
+	$(".step-carousel").owlCarousel({
+      items: 1,
+      nav: true,
+      dots: false,
+      loop: true,
+	  autoplay: true,
+      autoplayTimeout: 5000,
+      navText: ['<i class="bi bi-arrow-left"></i>', '<i class="bi bi-arrow-right text-success"></i>']
+    });
+  });
+</script>
 
 </body>
 
 </html>
-
-<!--
-<div class="modal fade" id="solution01Modal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true"
-	role="dialog">
-	<div class="modal-dialog modal-lg modal-solution-in">
-		<div class="modal-content">
-			<div class="row mx-0">
-				<div class="col-12 col-md-6 px-0">
-					<div class="modal-cover">
-						<img src="img/modal-cover1.png" class="img-fluid" alt="">
-					</div>
-				</div>
-				<div class="col-12 col-md-6 pe-0">
-					<div class="modal-body p-0">
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						<h1 class="modal-title fs-4" id="exampleModalCenterTitle">Transport & Logistics</h1>						
-						<div class="text-prime color-prime-500 mt-1 mb-3">Fleet Expense Management</div>
-						<hr class="bg-primary m-0">
-						<p class="text-secnd-500 color-secnd-500 my-2">Give your fleet drivers UPI digital vouchers
-							without getting into the hassles of KYC and get a complete audit trail for their operational
-							spends</p>
-						<div class="upi-modal">
-							<img src="img/modal-upi.png" alt="">
-							<p>Prepaid Digital Vouchers:</p>
-						</div>
-
-						<div class="row">
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-fuel.png" alt="">
-									<span>Fuel</span>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-ant-design.png" alt="">
-									<span>Maintenance</span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-food.png" alt="">
-									<span>Food</span>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-Toll.png" alt="">
-									<span>Toll</span>
-								</div>
-							</div>
-						</div>
-						<div class="mt-3" style="position: relative; z-index: 1;"><a target="_blank" href="https://forms.office.com/Pages/ResponsePage.aspx?id=tpRMbvuuAUWB-APH-X1lQddSBGyRtRNGpFGr1_9ZmvRURDI1NURXN1dTR01XRUlSM0VBUVVPMk00US4u"
-								class="btn mb-0 btn-blue bradius-8 text-white">Join the Waitlist <img
-									src="img/rocketlaunch.svg" alt="">
-							</a></div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div class="modal fade" id="solution02Modal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true"
-	role="dialog">
-	<div class="modal-dialog modal-lg modal-solution-in">
-		<div class="modal-content">
-			<div class="row mx-0">
-				<div class="col-12 col-md-6 px-0">
-					<div class="modal-cover">
-						<img src="img/modal-cover2.png" class="img-fluid" alt="">
-					</div>
-				</div>
-				<div class="col-12 col-md-6 pe-0">
-					<div class="modal-body p-0">
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						<h1 class="modal-title fs-4" id="exampleModalCenterTitle">Retail & Trade</h1>						
-						<div class="text-prime color-prime-500 mt-1 mb-3">Channel Partner Incentives</div>
-						<hr class="bg-primary m-0">
-						<p class="text-secnd-500 color-secnd-500 my-2">Give your trade partners a digital loyalty solution that will offer rewards and incentive of real value, with flexibility to redeem through UPI in real time</p>
-						<div class="upi-modal">
-							<img src="img/modal-upi.png" alt="">
-							<p>Prepaid Digital Vouchers:</p>
-						</div>
-
-						<div class="row">
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-Gifts.png" alt="">
-									<span>Gift</span>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-hotel.png" alt="">
-									<span>Travel & Stay</span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-food.png" alt="">
-									<span>Food</span>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="modal-kit">
-									<img src="img/modal-Campaign.png" alt="">
-									<span>Campaigns</span>
-								</div>
-							</div>
-						</div>
-						<div class="mt-3" style="position: relative; z-index: 1;"><a target="_blank" href="https://forms.office.com/Pages/ResponsePage.aspx?id=tpRMbvuuAUWB-APH-X1lQddSBGyRtRNGpFGr1_9ZmvRURDI1NURXN1dTR01XRUlSM0VBUVVPMk00US4u"
-								class="btn mb-0 btn-blue bradius-8 text-white">Join the Waitlist <img
-									src="img/rocketlaunch.svg" alt="">
-							</a></div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div class="modal fade" id="solution03Modal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true"
-	role="dialog">
-	<div class="modal-dialog modal-lg modal-solution-in">
-		<div class="modal-content">
-			<div class="row mx-0">
-				<div class="col-12 col-md-6 px-0">
-					<div class="modal-cover">
-						<img src="img/modal-cover3.png" class="img-fluid" alt="">
-					</div>
-				</div>
-				<div class="col-12 col-md-6 pe-0">
-					<div class="modal-body p-0">
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						<h1 class="modal-title fs-4" id="exampleModalCenterTitle">Consulting & Advisory Companies</h1>						
-						<div class="text-prime color-prime-500 mt-1 mb-3">Expense Reimbursements & Benefits</div>
-						<hr class="bg-primary m-0">
-						<p class="text-secnd-500 color-secnd-500 my-2">Give your employees a seamless solution for their company reimbursements and a chance to increase their take-home salary with compliance-free tax flexi-benefits</p>
-						<div class="upi-modal">
-							<img src="img/modal-upi.png" alt="">
-							<p>Prepaid Digital Vouchers:</p>
-						</div>
-
-						<div class="row">
-							<div class="col-4">
-								<div class="modal-kit">
-									<img src="img/modal-food.png" alt="">
-									<span>Food</span>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="modal-kit">
-									<img src="img/modal-hotel.png" alt="">
-									<span>Stay</span>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="modal-kit">
-									<img src="img/modal-call.png" alt="">
-									<span>Telecom</span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-4">
-								<div class="modal-kit">
-									<img src="img/modal-Travel.png" alt="">
-									<span>Travel</span>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="modal-kit">
-									<img src="img/modal-fuel.png" alt="">
-									<span>Fuel</span>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="modal-kit">
-									<img src="img/modal-Uniform.png" alt="">
-									<span>Uniform</span>
-								</div>
-							</div>
-						</div>
-						<div class="mt-3" style="position: relative; z-index: 1;"><a target="_blank" href="https://forms.office.com/Pages/ResponsePage.aspx?id=tpRMbvuuAUWB-APH-X1lQddSBGyRtRNGpFGr1_9ZmvRURDI1NURXN1dTR01XRUlSM0VBUVVPMk00US4u"
-								class="btn mb-0 btn-blue bradius-8 text-white">Join the Waitlist <img
-									src="img/rocketlaunch.svg" alt="">
-							</a></div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>-->
+ 
