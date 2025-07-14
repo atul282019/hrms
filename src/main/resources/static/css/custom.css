@@ -9810,6 +9810,7 @@ table.vcScheduledtable thead {
 				.admin-ticket-message-green {
 				  background-color: #eaf4ef;
 				  border: 1px solid #bfdecc;
+				  border-radius: 16px 16px  16px 0;
 				}
 
 				.admin-ticket-message-white {
