@@ -181,6 +181,9 @@ public interface CommonUtils {
 	
 	public static String bulkEmpUpload = "/empService/Api/add/employeeBulkVoucherUpload";
 	public static String createbulkEmpUpload = "/empService/Api/add/employeeBulkVoucherCreate";
+	public static String submitTicket = "/empService/Api/add/ticket";
+	public static String getTicket = "/empService/Api/get/allTicket";
+	
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";
 	//public static String savejobTitlemasterDetailS="/empService/Api/add/jobTitleMasterDetails";

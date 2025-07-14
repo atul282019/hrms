@@ -9,4 +9,6 @@ public interface TicketSupportService {
 
 	String submitTicketDetails(String token, EncriptResponse jsonObject);
 
+	String getAllTicket(String token, EncriptResponse jsonObject);
+
 }

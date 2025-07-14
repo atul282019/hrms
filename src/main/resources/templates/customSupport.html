@@ -4,13 +4,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
 	<!-- Font Awesome 6 Free (Latest) -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" >
+<body id="page-top" onload="getSupportTicketListList()" >
 	
 <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 <!-- Page Wrapper -->
@@ -28,30 +26,12 @@
            <!-- Topbar Navbar -->
            <ul class="navbar-nav top-nav">
 
-               <!-- Nav Item - User Information -->
-             <!--  <li class="nav-item">
-                   <a class="nav-link active" href="#">
-                       <span class="mr-2 small">Dashboard</span>
-                       <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                   </a>
-               </li>
-               <li class="nav-item">
-                   <a class="nav-link" href="#">
-                       <span class="mr-2 small">Vehicle Management</span>
-                       <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                   </a>
-               </li>
--->
            </ul>
 
 		   <!-- Right Icons + Profile -->
 		    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
 		      <!-- Wallet Icon -->
-		     <!-- <li class="nav-item mr-3">
-		        <a href="/settings/wallet" role="button">
-		          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
-		        </a>
-		      </li>-->
+		    
 			  <li class="nav-item mr-3">
  			        <a href="/cotowallet" role="button">
  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
@@ -100,9 +80,7 @@
 		          </div>
 		        </div>				       
 		          <div class="table-responsive">
-		            <table class="table table-reimbursements mb-0" id="vehicleManagementTable">
-						<!-- in action column if data is closed then only show chat history dont allow user to chat
-						-->
+		            <table class="table table-reimbursements mb-0" id="supportTicketList">
 						<thead>
 		                <tr>		
 		                  <th>Ticket No.</th>	  
@@ -114,7 +92,7 @@
 		                </tr>
 		              </thead>
 		              <tbody class="table-bordered">
-						<tr>			 
+						<!--<tr>			 
 							 <td>
 					           5788904854
 					         </td>
@@ -130,38 +108,38 @@
 							   </a>
 							 </td>
 			                </tr>
-											<tr>													 
-												 <td>
-										           5788904854
-										         </td>
-												 
-												 <td>Wrong validity date</td>
-												 <td>08-07-2025<br>4:00 Pm</td>
-												 <td>Active</td>
-												 <td>Respond to message </td>
-												 <td>
-												   <a href="#" class="view-voucher-details">
-												     <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
-												     Chat with Customer Success Team
-												   </a>
-												 </td>
-								                </tr>
-												
-												<tr>
-												 <td>
-										           4755001323
-										         </td>
-												 <td>Net issue while redemption</td>
-												 <td>03-07-2025<br>8:00 Pm</td>
-												 <td>Closed</td>
-												 <td>Closed</td>
-												 <td>
-												   <a href="#" class="view-voucher-details">
-												     <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
-												     Chat with Customer Success Team
-												   </a>
-												 </td>
-								                </tr>
+							<tr>													 
+								 <td>
+						           5788904854
+						         </td>
+								 
+								 <td>Wrong validity date</td>
+								 <td>08-07-2025<br>4:00 Pm</td>
+								 <td>Active</td>
+								 <td>Respond to message </td>
+								 <td>
+								   <a href="#" class="view-voucher-details">
+								     <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
+								     Chat with Customer Success Team
+								   </a>
+								 </td>
+				                </tr>
+								
+								<tr>
+								 <td>
+						           4755001323
+						         </td>
+								 <td>Net issue while redemption</td>
+								 <td>03-07-2025<br>8:00 Pm</td>
+								 <td>Closed</td>
+								 <td>Closed</td>
+								 <td>
+								   <a href="#" class="view-voucher-details">
+								     <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
+								     Chat with Customer Success Team
+								   </a>
+								 </td>
+				                </tr>-->
 		              </tbody>
 		            </table>
 		          </div>
@@ -253,26 +231,7 @@
 			    </div>
 			  </div>
 			</div>
-			<script>
-					  document.querySelectorAll('.view-voucher-details').forEach(btn => {
-					    btn.addEventListener('click', function () {
-					      document.getElementById('bs-canvas-right1').style.right = '0';
-					      document.getElementById('modal-overlay').style.display = 'block';
-					    });
-					  });
-
-					  document.querySelector('.bs-canvas-close').addEventListener('click', function () {
-					    document.getElementById('bs-canvas-right1').style.right = '-378px';
-					    document.getElementById('modal-overlay').style.display = 'none';
-					  });
-
-					  document.getElementById('modal-overlay').addEventListener('click', function (e) {
-					    if (e.target.id === 'modal-overlay') {
-					      document.getElementById('bs-canvas-right1').style.right = '-378px';
-					      this.style.display = 'none';
-					    }
-					  });
-					</script>
+	
 			 <!-- add vehicle modal-->
 			 <div class="modal fade" id="AddVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			     <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
@@ -285,63 +244,16 @@
 			             </div>
 						 <div class="modal-body px-4">
 						   <form class="w-100">
-							<!--<div class="did-floating-label-content mb-3">
-					           <input 
-					             type="text"
-					             id="vehicleNumber"
-					             class="did-floating-input"
-					             placeholder="Enter Vehicle Number (e.g. DL1AB1234)" style="text-transform: uppercase;"
-					             maxlength="10" >
-					           <label class="did-floating-label">Enter Vehicle Number</label>
-					         </div>
-					         <div class="error-msg" id="vehicleNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
-					        
 							 <div class="did-floating-label-content mb-3">
-					           <input 
-					             type="text"
-					             id="vehicleManufactor"
-					             class="did-floating-input"
-					             placeholder="Enter vehicle manufacturer (eg. Mahindra, Toyota,etc.)"
-					             maxlength="50" >
-					           <label class="did-floating-label">Enter Vehicle manufacturer</label>
-					         </div>
-					         <div class="error-msg" id="vehicleManufactorError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
-							 
-							 <div class="did-floating-label-content mb-3">
-						             <input type="text" class="did-floating-input"
-									  placeholder="Enter Vehicle Model" id="vehicleModel">
-						             <label class="did-floating-label">Enter Vehicle Model</label>
-				           </div>
-						   <div class="error-msg" id="vehicleModelError" style="color: red; margin-top: -10px; font-size: 12px;"></div>								        
-						
-							   <div class="did-floating-label-content mb-3">
-					               <select class="did-floating-input" id="vehicleType">
-					                 <option value="" disabled selected hidden> Select Vehicle Type</option>
-					                 <option value="1">Mini Truck</option>
-					                 <option value="2">Truck</option>
-					                 <option value="3">Sedan</option>
-									 <option value="4">SUV / MUV</option>
- 					                 <option value="5">Hatchback</option>
- 					                 <option value="6">Two-Wheeler</option>
-									 <option value="7">Amb./Spl. Purp</option>
-					               </select>
-					               <label class="did-floating-label">Select Vehicle Type</label>
-				             </div>
-							 <div class="error-msg" id="VehicleTypeError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	--> 
-							   											   
-							   
-							   
-							  
-								 <div class="did-floating-label-content mb-3">
  					           <input 
  					             type="text"
- 					             id="vehicleNumber"
+ 					             id="subject"
  					             class="did-floating-input"
  					             placeholder="" style="text-transform: uppercase;"
- 					             maxlength="10" >
+ 					             maxlength="100" >
  					           <label class="did-floating-label">Subject</label>
  					         </div>
-							 <div class="error-msg" id="vehicleNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+							 <div class="error-msg" id="subjectError" style="margin-top: -10px; font-size: 12px;"></div>
 							 
 							 <div class="did-floating-label-content mb-3">
 								<textarea
@@ -352,24 +264,18 @@
 								></textarea>
   					           <label class="did-floating-label">Message</label>
   					         </div>
- 							 <div class="error-msg" id="vehicleNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+ 							 <div class="error-msg" id="messageError" style=" margin-top: -10px; font-size: 12px;"></div>
 							 <!-- File Upload Field -->
 							 <div class="did-floating-label-content mb-3">
 							   <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
-							   <input type="file" id="fileUpload" class="form-control">
+							   <input type="file" id="up" class="form-control" onchange="convertImageToBase64()" 
+							  >
 							 </div>
 						     <div class="d-grid">
-								<!--<button type="button" class="btn btn-primary w-100" style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" data-bs-toggle="modal" data-bs-target="#vehicleDetailsModal">
-		                         Validate
-		                     </button>-->
-							 <!--<button type="button" class="btn btn-primary w-100" 
-							 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" onclick="draftAndOpenPopup()">
-		                         Validate
-		                     </button>-->
-							 <div class="error-msg" id="VehicleNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+							 <div class="error-msg" id="fileInputError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
 							 						  
 							 <button type="button" class="btn btn-primary w-100" 
- 							 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" >
+ 							 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" onclick="saveTicket()">
  		                         Submit Ticket
  		                     </button>
 							 
@@ -381,495 +287,31 @@
 			     </div>
 			 </div>
 			
-			 <!-- Vehicle Details Modal -->
-			 <div class="modalView show" id="vehicleDetailsModal" >
-			     
-				<div class="modal-dialog  modal-dialog-vd">
-			       <div class="modal-content ">
-					<div class="modal-header pb-0">
-						<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Add Vehicle</Strong></h5>
-						<!--<button type="button" class="close p-0"  data-dismiss="modal" onclick="closeAdd()"
-						aria-label="Close" style="right: 10px; top: 0;">
-	                        <img src="img/modal-close.svg" alt="">
-	                    </button>-->
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAdd()">
-		                     <span aria-hidden="true">×</span>
-		                 </button>
-		             </div>
-			         <div class="modal-body">
-											 
-			           <div class="vehicle-card-vd mb-3">
-						<div class="d-flex align-items-center mb-2">
-						  <img src="img/vehicle-icon.png" alt="Vehicle Icon" style="height: 24px;" class="me-2">
-						  <span class="modal-title">Vehicle Details</span>
-						</div>
-						<hr class="custom-hr">
-			             <div class="row text-white mt-n2">
-			               <div class="col-md-4"> Registration Number <span id="rNumber"></span>  </div>
-			               <div class="col-md-3"> Car Make & Model<span id="rModel"> </span> </div>
-			               <div class="col-md-3">  Vehicle Class<span id="rClass"></span> </div>
-			               <div class="col-md-2">  Fuel  <span  id="rType"></span></div>
-			             </div>
-			           </div>
-					<div class="info-section-vd">
-					<div class="section-title-vd d-flex align-items-center justify-content-between" onclick="toggleSection('details-content', 'icon-details')">
-					  <span class="d-flex align-items-center">
-					     <img src="img/Additonal-Details.png" alt="Vehicle Icon" style="height: 24px;" class="me-2"></i>Additional Details
-					  </span>
-					  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-details">
+		
+		<!-- Vehicle Details Modal -->		  								
+					 <div class="lds-spinner" id="signinLoader" style="display: none">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
 					</div>
-				     <div class="row mt-2 text-muted" id="details-content" style="display: none;">
-				       <div class="col-md-3"> Chassis Number<br>  <span class="fw-bold text-dark" id="vehicle_chasi_number"></span> </div>
-				       <div class="col-md-3">  Engine Number<br> <span class="fw-bold text-dark" id="vehicle_engine_number"></span></div>
-				       <div class="col-md-3">  Color<br>  <span class="fw-bold text-dark" id="color"></span> </div>
-				       <div class="col-md-3"> Authority<br> <span class="fw-bold text-dark" id="registered_at"></span> </div>
-					   <div class="w-100 my-3"></div>
-				       <div class="col-md-3">  Manufacturing Date<br> <span class="fw-bold text-dark" id="manufacturing_date"></span>  </div>
-				       <div class="col-md-3">  Cubic Capacity<br> <span class="fw-bold text-dark" id="cubic_capacity"></span> </div>
-				       <div class="col-md-3">   Seats<br><span class="fw-bold text-dark" id="seat_capacity"></span>  </div>
-				       <div class="col-md-3"> Weight<br> <span class="fw-bold text-dark" id="unladen_weight"></span></div>
-					   <div class="w-100 my-3"></div>
-				       <div class="col-md-3">  Wheelbase<br> <span class="fw-bold text-dark"  id="wheelbase"></span>
-				       </div>
-				     </div>
-				   </div>
-	
-		           <div class="legal-section-vd">
-		             
-					 <div class="section-title-vd d-flex align-items-center justify-content-between" 								
-					      onclick="toggleSection('legal-content', 'icon-legal')">
-							  <span class="d-flex align-items-center">
-							    <img src="img/Legal&Compliance.png" style="height: 24px;" class="me-2"></i>Legal & Compliances
-							  </span>
-							  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-legal">
-							</div>
-		             <div class="row mt-2" id="legal-content" style="display: none;">
-		              
-					   <div class="col-md-3"> Insurance Company:<br>  <span class="fw-bold text-dark" id="insurance_company"></span></div>
-					   
-					   <div class="col-md-3">  Fitness:<br>  <span class="fw-bold text-dark" id="fit_up_to"></span> </div>		               
-					   <div class="col-md-3">  Tax:<br><span class="fw-bold text-dark" id="tax_paid_upto"></span> </div>
-					   <div class="col-md-3"> Financer:<br><span class="fw-bold text-dark" id="financer"></span></div>	               
-					   <div class="w-100 my-3"></div>					   
-					   <div class="col-md-3">Permit Number:<br>  <span class="fw-bold text-dark" id="permit_number"></span> </div>
-					   <input type="hidden" id="ownerNameView" name="ownerNameView" >
-					   <input type="hidden" id="ownerAddressView" name="ownerAddressView">
-		              
-		             </div>
-		           </div>
-
-					   <button class="btn btn-primary activate-btn-vd"
-					    style="background-color:  #367AFF;border-radius: 10px;padding: 12px 0;"
-					   onclick="saveOpenModalConfirm()">ACTIVATE
-					  </button>
-
-			         </div>
-			       </div>
-			     </div>
-			   </div>
-			  
-			 <!-- modal confirm -->
- 	<div class="modalView" id="ModalConfirm">
- 		        <div class="modal-dialog modal-dialog-centered">
- 		            <div class="modal-content modal-bulk p-0">
- 		                <div class="modal-top text-center">
- 		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
- 		                        <img src="img/modal-close.svg" alt="">
- 		                    </button>
- 		                    <img src="img/modal-success.svg" alt="">
- 		                </div>
- 		                <div class="modal-bottom" id="success" style="display: block;">
- 		                    <span >Vehicle Successfully Added</span>
- 		                </div>
- 		            </div>
- 		        </div>
- 		    </div>	
-			
-			
-			<div class="modalView" id="ModalConfirmFail">
- 		        <div class="modal-dialog modal-dialog-centered">
- 		            <div class="modal-content modal-bulk p-0">
- 		                <div class="modal-top-fail text-center">
- 		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
- 		                        <img src="img/modal-close.svg" alt="">
- 		                    </button>
- 		                    <img src="img/close circle.png" alt="close circle" style="margin-left:25px;">
- 		                </div>
-						<div class="modal-bottom" id="failed" style="display: block;">
-							
- 		                    <span style="color: red;" id="failedError">Vehicle Updation Failed </span>
- 		                </div>
- 		            </div>
- 		        </div>
- 		    </div>	
-			<div class="modalView" id="ModalConfirmUpdate">
- 		        <div class="modal-dialog modal-dialog-centered">
- 		            <div class="modal-content modal-bulk p-0">
- 		                <div class="modal-top text-center">
- 		                    <button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" 
-							style="right: 10px; top: 0;" onclick="closeModalConfirmUpdate()">
- 		                        <img src="img/modal-close.svg" alt="">
- 		                    </button>
- 		                    <img src="img/modal-success.svg" alt="">
- 		                </div>
- 		                <div class="modal-bottom" id="successUpdate" style="display: block;">
- 		                    <span >Driver Details Updated</span>
- 		                </div>
-						<div class="modal-bottom" id="failedUpdate" style="display: block;">
-							
- 		                    <span style="color: red;" id="failedUpdateError">Driver Details Updation Failed</span>
- 		                </div>
- 		            </div>
- 		        </div>
- 		    </div>			
-			<!-- modal confirm -->
-			<div class="modal fade" id="ModalConfirm1" tabindex="-1" aria-hidden="true">
-			  <div class="modal-dialog modal-dialog-centered">
-			    <div class="modal-content modal-bulk p-0">
-			      <div class="modal-top text-center position-relative">
-			        <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;">
-						<img src="img/modal-close.svg" alt="">
-					</button>
-			        <img src="img/modal-success.svg" alt="">
-			      </div>
-			      <div class="modal-bottom text-center">
-			        <span>Assignment Details Revised</span>
-			      </div>
-			    </div>
-			  </div>
-			</div>	
-			
-			<!-- view history modal-->
-			
-			<!-- Vehicle Details Modal -->
-			<!-- Vehicle Details Modal -->
-			<div class="modalView show" id="vehicleHistoryModal" tabindex="-1" aria-labelledby="vehicleHistoryModalLabel">
-			  <div class="modal-dialog modal-dialog-centered vehicle-modal-dialog" style="margin-top: -7vh;">
-			    <div class="modal-content vehicle-modal-content">
-			      <div class="modal-header pb-0">
-			        <h5 class="modal-title mx-auto text-left vehicle-history-title" id="exampleModalCenterTitleHistiry">History of Vehicle</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeHistory()">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div><br>
-
-			      <div id="vehicleDataContainer">
-			        <!-- Sample Data Block -->
-			        <div class="modal-body vehicle-modal-body">
-			          <div class="vehicle-details-wrapper">
-			            <div class="vehicle-dates">
-			              <div>
-			                <div class="vehicle-date-label">Ticket Creation date</div>
-			                <div class="vehicle-date-value">2024-06-01</div>
-			              </div>
-			              <div class="vehicle-date-line">
-			                <span class="vehicle-date-dash"></span>
-			              </div>
-			              <div>
-			                <div class="vehicle-date-label">Ticket Closing date</div>
-			                <div class="vehicle-date-value">2024-06-02</div>
-			              </div>
-			            </div>
-
-			            <div class="row text-left vehicle-data-box">
-			              <div class="col-md-4 mb-3 d-flex align-items-start">
-			                <!--<img src="img/Driver-icon.png" alt="Driver" class="vehicle-icon">-->
-			                <div>
-			                  <div class="vehicle-field-label">Issue</div>
-			                  <div class="vehicle-field-value">Cannot create voucher</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4 mb-3 d-flex align-items-start">
-			                <!--<img src="img/phone-icon1.png" alt="Mobile" class="vehicle-icon">-->
-			                <div>
-			                  <div class="vehicle-field-label">Ticket Number</div>
-			                  <div class="vehicle-field-value">T1234567890</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4 mb-3 d-flex align-items-start">
-			                <!--<img src="img/user-icon.png" alt="Client Name" class="vehicle-icon">-->
-			                <div>
-			                  <div class="vehicle-field-label">Message</div>
-			                  <div class="vehicle-field-value">I am getting cross after voucher creation</div>
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			        </div><br>
-
-			        <!-- Additional Block (Optional) -->
-			        <div class="modal-body vehicle-modal-body">
-			          <div class="vehicle-details-wrapper">
-			            <div class="vehicle-dates">
-			              <div>
-			                <div class="vehicle-date-label">Ticket Creation date</div>
-			                <div class="vehicle-date-value">2024-07-01</div>
-			              </div>
-			              <div class="vehicle-date-line">
-			                <span class="vehicle-date-dash"></span>
-			              </div>
-			              <div>
-			                <div class="vehicle-date-label">Ticket Closing date</div>
-			                <div class="vehicle-date-value">2024-07-05</div>
-			              </div>
-			            </div>
-
-			            <div class="row text-left vehicle-data-box">
-			              <div class="col-md-4 mb-3 d-flex align-items-start">
-			                <!--<img src="img/Driver-icon.png" alt="Driver" class="vehicle-icon">-->
-			                <div>
-			                  <div class="vehicle-field-label">Issue</div>
-			                  <div class="vehicle-field-value">Cannot revoke voucher</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4 mb-3 d-flex align-items-start">
-			                <!--<img src="img/phone-icon1.png" alt="Mobile" class="vehicle-icon">-->
-			                <div>
-			                  <div class="vehicle-field-label">Ticket Number</div>
-			                  <div class="vehicle-field-value">T0987654321</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4 mb-3 d-flex align-items-start">
-			                <!--<img src="img/user-icon.png" alt="Client Name" class="vehicle-icon">-->
-			                <div>
-			                  <div class="vehicle-field-label">Message</div>
-			                  <div class="vehicle-field-value">Revoke for bulk voucher not working</div>
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			        </div><br>
-
-			      </div>
-
-			      <div class="d-grid">
-			        <button onclick="downloadInExcel()" type="button" class="btn btn-primary w-100" style="background-color: #367AFF; border-radius: 10px;">
-			          <img src="img/download-white.png" alt="icon" style="height: 24px; margin-right: 8px; vertical-align: middle;">
-			          Download History
-			        </button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-
-						
-		<!-- Vehicle Details Modal -->
-	   <div class="modalView show" id="editDetailsModal" >
-	       
-	   <div class="modal-dialog  modal-dialog-vd">
-	         <div class="modal-content ">
-	   	<div class="modal-header pb-0">
-	   		<h5 class=" mx-auto fw-bold text-left w-100" id="exampleModalCenterTitle" style="color:#1F212C;"><Strong>Edit Assignment Details</Strong></h5>
-   		<button type="button" class="close p-0"  data-dismiss="modal" aria-label="Close" style="right: 10px; top: 0;"
-		 onclick="editDetailsModalClose()">
-                <img src="img/modal-close.svg" alt="">
-            </button>
-           </div>
-           <div class="modal-body">	 
-             <div class="vehicle-card-vd mb-3">
-   		<div class="d-flex align-items-center mb-2">
-   		  <img src="img/vehicle-icon.png" alt="Vehicle Icon" style="height: 24px;" class="me-2">
-   		  <span class="modal-title">Vehicle Details</span>
-   		</div>
-   		<hr class="custom-hr">
-               <div class="row text-white mt-n2">
-                 <div class="col-md-4">  Registration Number <span id="editVehicleNumber"></span></div>
-                 <div class="col-md-3">  Car Make & Model <span id="editVehicleModel"></span> </div>
-                 <div class="col-md-3">  Vehicle Class   <span id="editVehicleClass"></span>       </div>
-                 <div class="col-md-2">  Fuel<span id="editVehicleDesileType"></span> </div>
-               </div>
-             </div>
-   	   <!-- Ownership & Assignment Details Section -->
-   	        <div class="info-section-vd mb-3">
-   	          <div class="section-title-vd d-flex align-items-center mb-3">
-   	            <img src="img/ownership-icon.png" alt="Icon" style="height: 24px;width: 24px; margin-right: 0.5rem;">
-   	            Ownership & Assignment Details
-   	          </div>
-   			 <hr class="full-width-hr">
-					   
-			 <div class="mb-3">
-             <div style="background: #e9ecef; border-radius: 0.5rem; padding: 1rem; display: flex; justify-content: flex-start; gap: 2rem; flex-wrap: wrap;">
-               <div style="min-width: 200px;"  class="text-left">
-                 Owner Name<br> <strong  id="owner_name_edit"> </strong> </div>
-               <div style="min-width: 200px; " class="text-left">Owner Address<br>  <strong id="ownerpresent_address_edit"></strong></div>
-             </div>
-           </div>
- 					<!--         <div class="row mb-3">
- 					             <div class="col-md-6">
-									<div class="did-floating-label-content mr-2">
-	   					                <label type="text" class="did-floating-input" placeholder=" "id="ownerName" readonly>
-	   					                <label class="did-floating-label">Owner Name</label>
-	   					              </div>
- 					             </div>
- 					             <div class="col-md-6">
- 									<div class="did-floating-label-content mr-2">
- 					                <label type="text" class="did-floating-input" placeholder=" "id="ownerAddress" readonly>
- 					                <label class="did-floating-label">Owner Address</label>
- 					              </div>
- 					             </div>
- 					           </div>
-													   -->
-   					          <!-- <label class="mb-2 d-block text-left">Ownership</label>
-   					           <div class="row mb-3">
-   					             <div class="col-md-6">
-   					               <div class="did-floating-label-content mr-2">
-   					                 <select class="did-floating-select" id="ownershipModel">
-   					                   
-   					                   <option value="1">Owned</option>
-   					                   <option value="2">Leased</option>
-   					                 </select>
-   					                 <label class="did-floating-label">Select Ownership Model</label>
-   					               </div>
-   					             </div>
-   					             <div class="col-md-6">
-   									<div class="did-floating-label-content mr-2">
-   					                <input type="text" class="did-floating-input" placeholder=" "id="driverName1">
-   					                <label class="did-floating-label">Enter Driver Name</label>
-   					              </div>
-   					             </div>
-   					           </div>-->
-
-   					           <!-- Assignment Section -->
-   					           <label class="mb-2 d-block text-left">Assignment</label>
-   					           <div class="row">
-   					             <div class="col-md-6 mb-3">
-   					               <div class="did-floating-label-content mr-2">
-   					                 <select class="did-floating-select" id="assignmentType">
-										<option value="">Select Assignment Type</option>
-   					                   <option value="1">Permanent</option>
-   					                   <option value="2">Temporary</option>
-   					                 </select>
-   					                 <label class="did-floating-label">Select Assignment Type</label>
-   					               </div>
-								   <div class="error-msg" id="assignmentTypeError" style=" margin-top: -10px; font-size: 12px;"></div>	 
-								   						  
-   					             </div>
-   					             <div class="col-md-6 mb-3">
-   									<div class="did-floating-label-content mr-2">
-						               <input type="text" class="did-floating-input" placeholder=" " id="clientName">
-						               <label class="did-floating-label">Enter Client Name</label>				   		
-						             </div>
-									 <div class="error-msg" id="clientNameError" style=" margin-top: -10px; font-size: 12px;"></div>	 
-									 									   		
-   					             </div>
-   					             <div class="col-md-6 mb-3">
-									
-   									<div class="did-floating-label-content mr-2 search-select-wrapper input-with-icon">
-										
-										   <input type="text" class="did-floating-input search-select-input" id="driverName2" placeholder=" " onfocus="showSuggestions(this)" oninput="filterSuggestions(this)">
-										   <img src="img/search.svg" alt="icon" class="input-icon-right">
-										
-									   <label class="did-floating-label">Enter Driver Name</label>
-									  <div  style="display: none;" id="suggestion-box-div">
-									  <div id="suggestionBox" class="suggestion-box">
-									  </div>
-   									  </div>			   		
-   									</div>
-									<div class="error-msg" id="driverName2Error" style=" margin-top: -10px; font-size: 12px;"></div>	 
-																	  		
-   					             </div>
-   					             <div class="col-md-6 mb-3">
-   					               <div class="did-floating-label-content mr-2" >
-   					                 <!--<select class="did-floating-select" id="timePeriod" onchange="toggleCustomTextbox(this.value)">-->
-										<select class="did-floating-select" id="timePeriod">
-									   <option value="" >Select Time Period </option>
-   					                   <option value="1825 Days">Tagged until changed </option>
-   					                   <option value="7 Days">7 Days</option>
-   					                   <option value="30 Days">30 Days</option>
-   					                   <option value="90 Days">90 Days</option>
-   									   <option value="360 Days">365 Days</option>
-   					                 </select>
-   					                 <label class="did-floating-label">Select Time Period</label>
-														  		
-   					               </div>
-								   <div class="error-msg" id="timePeriodError" style=" margin-top: -10px; font-size: 12px;"></div>	 
-								   								 			
-								   <div id="customTextboxContainer" style="display: none; margin-top: 10px;">
-								       <input type="text" class="form-control" id="customTimePeriod" placeholder="Enter custom time period">
-								     </div>
-   					             </div>
-   					           </div>
-   					         </div>
-							 <div class="info-section-vd">
-		 					<div class="section-title-vd d-flex align-items-center justify-content-between" onclick="toggleSection('details-content_1', 'icon-details')">
-		 					  <span class="d-flex align-items-center">
-		 					     <img src="img/Additonal-Details.png" alt="Vehicle Icon" style="height: 24px;" class="me-2"></i>Additional Details
-		 					  </span>
-		 					  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-details">
-		 					</div>
-		 				     <div class="row mt-2 text-muted" id="details-content_1" style="display: none;">
-		 				       <div class="col-md-3"> Chassis Number<br>  <span class="fw-bold text-dark" id="vehicle_chasi_number_edit"></span> </div>
-		 				       <div class="col-md-3">  Engine Number<br> <span class="fw-bold text-dark" id="vehicle_engine_number_edit"></span></div>
-		 				       <div class="col-md-3">  Color<br>  <span class="fw-bold text-dark" id="color_edit"></span> </div>
-		 				       <div class="col-md-3"> Authority<br> <span class="fw-bold text-dark" id="registered_at"></span> </div>
-		 					   <div class="w-100 my-3"></div>
-		 				       <div class="col-md-3">  Manufacturing Date<br> <span class="fw-bold text-dark" id="manufacturing_date_edit"></span>  </div>
-		 				       <div class="col-md-3">  Cubic Capacity<br> <span class="fw-bold text-dark" id="cubic_capacity_edit"></span> </div>
-		 				       <div class="col-md-3">   Seats<br><span class="fw-bold text-dark" id="seat_capacity_edit"></span>  </div>
-		 				       <div class="col-md-3"> Weight<br> <span class="fw-bold text-dark" id="unladen_weight_edit"></span></div>
-		 					   <div class="w-100 my-3"></div>
-		 				       <div class="col-md-3">  Wheelbase<br> <span class="fw-bold text-dark"  id="wheelbase_edit"></span>
-		 				       </div>
-		 				     </div>
-		 				   </div>
-		 	
-		 		           <div class="legal-section-vd">
-		 		             
-		 					 <div class="section-title-vd d-flex align-items-center justify-content-between" 								
-		 					      onclick="toggleSection('legal-content_1', 'icon-legal')">
-		 							  <span class="d-flex align-items-center">
-		 							    <img src="img/Legal&Compliance.png" style="height: 24px;" class="me-2"></i>Legal & Compliances
-		 							  </span>
-		 							  <img src="img/Dropdown.png" alt="Toggle" class="toggle-icon" id="icon-legal">
-		 							</div>
-		 		             <div class="row mt-2" id="legal-content_1" style="display: none;">
-		 		              
-		 					   <div class="col-md-3"> Insurance Company:<br>  <span class="fw-bold text-dark" id="insurance_company_edit"></span></div>
-		 					   
-		 					   <div class="col-md-3">  Fitness:<br>  <span class="fw-bold text-dark" id="fit_up_to_edit"></span> </div>		               
-		 					   <div class="col-md-3">  Tax:<br><span class="fw-bold text-dark" id="tax_paid_upto_edit"></span> </div>
-		 					   <div class="col-md-3"> Financer:<br><span class="fw-bold text-dark" id="financer_edit"></span></div>	               
-		 					   <div class="w-100 my-3"></div>					   
-		 					   <div class="col-md-3">Permit Number:<br>  <span class="fw-bold text-dark" id="permit_number_edit"></span> </div>
-		 					
-		 		             </div>
-		 		           </div>
-						 <!--<button class="btn btn-primary activate-btn-vd"  onclick="openModalConfirm()">ACTIVATE</button>-->
-					   	   <div class="button-group-vd d-flex gap-3 justify-content-end">
-					   	     <button class="btn back-btn-vd" onclick="editDetailsModalClose()" >Back</button>
-					   	     <button class="btn save-btn-vd" onclick="saveUpdate()" id="btnUpdateTrip">SAVE</button>
-					   	      </div>
-
-					           </div>
-					         </div>
-					       </div>
-					     </div>
-												  								
-					 <!--<div class="lds-spinner" id="signinLoader" style="display: none">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>-->
 
                 </div>
                 <!-- /.container-fluid -->
-				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
-				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
-				<input type="hidden" class="form-input" id="vehicleId" name="vehicleId">
-				<input type="hidden" class="form-input" id="driverId" name="driverId">
-				<input type="hidden" class="form-input" id="driverName" name="driverName">
-				<input type="hidden" class="form-input" id="driverMobile" name="driverMobile">
-				<input type="hidden" class="form-input" id="requestType" name="requestType" value="manual"><!-- manual or apiresponse-->
-				
+				<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 	
+				<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+				<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">								
+				<input type="hidden" class="form-input" id="base64Output" name="base64Output"> 
+				<input type="hidden" class="form-input" id="fileName" name="fileName"> 
+			
             </div>
             <!-- End of Main Content -->
         </div>
@@ -902,254 +344,14 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <script type="text/javascript" src="cotodel-js/"></script>
+    <script type="text/javascript" src="cotodel-js/ticket-support.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 	
-	<script>
-	  function toggleCustomTextbox(value) {
-	    const customContainer = document.getElementById('customTextboxContainer');
-	    if (value === 'Tagged until changed') {
-	      customContainer.style.display = 'block';
-	    } else {
-	      customContainer.style.display = 'none';
-	    }
-	  }
-	</script>
    <script>
 	
-	function draftAndOpenPopup(){
-			    var vehicleNumber = document.getElementById("vehicleNumber").value;
-				document.getElementById("rNumber").innerText=vehicleNumber;
-				
-				var vehicleManufactor = document.getElementById("vehicleManufactor").value;							
-				
-				var vehicleModel = document.getElementById("vehicleModel").value;	
-				document.getElementById("rModel").innerText=vehicleModel;
-				
-				const vehicleTypeId = document.getElementById('vehicleType').options[
-			        document.getElementById('vehicleType').selectedIndex
-			    ].value;
-									
-				const vehicleType = document.getElementById('vehicleType').options[
-					        document.getElementById('vehicleType').selectedIndex
-					    ].text;
-				document.getElementById("rClass").innerText=vehicleType;
-				
-				const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
-			        document.getElementById('vehicleFuelType').selectedIndex
-			    ].value;
-				
-				const vehicleFuelType = document.getElementById('vehicleFuelType').options[
-				        document.getElementById('vehicleFuelType').selectedIndex
-				    ].text;
-				document.getElementById("rType").innerText=vehicleFuelType;		
-				var regex =	'^[A-Z]{2}\s?[0-9A-Z]{2}\s?[A-Z]{1,2}\s?[0-9]{4}$'
-
-				 
-				if(vehicleNumber =="" ){
-					document.getElementById("vehicleNumberError").textContent = "Please Enter Vehicle Number.";
-					return false;
-				}
-				//else if(!vehicleNumber.match(regex)){
-				//			document.getElementById("vehicleNumberError").textContent = "Please Enter Valid Vehicle Number.";
-				//			return false;
-				//		}
-				else{
-					document.getElementById("vehicleNumberError").textContent = "";
-				}
-				if(vehicleManufactor =="" ){
-						document.getElementById("vehicleManufactorError").textContent = "Please Enter Vehicle Manufacturer.";
-						return false;
-					}
-					else{
-						document.getElementById("vehicleManufactorError").textContent = "";
-					}
-					if(vehicleModel =="" ){
-						document.getElementById("vehicleModelError").textContent = "Please Enter Vehicle Model.";
-						return false;
-					}
-					else{
-						document.getElementById("vehicleModelError").textContent = "";
-					}
-					
-					if(vehicleTypeId =="" ){
-						document.getElementById("VehicleTypeError").textContent = "Please Select Vehicle Type.";
-						return false;
-					}
-					else{
-						document.getElementById("VehicleTypeError").textContent = "";
-					}
-					if(vehicleFuelTypeId =="" ){
-						document.getElementById("fuelTypeError").textContent = "Please Select Fuel Type.";
-						return false;
-					}
-					else{
-						document.getElementById("fuelTypeError").textContent = "";
-					}
-					
-				const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
-					  vehicleDetailsModal.style.display = 'block';
-			   const AddVehicleModal = document.getElementById('AddVehicleModal');
-			  		AddVehicleModal.style.display = 'none';	  
-			}
 	
-	function chekVechileNumber() {
-			var vehicleNumber =document.getElementById("vehicleNumber").value;
-			const orgId = document.getElementById('orgId').value;
-			const createdBy = document.getElementById('createdBy').value;
-			if(vehicleNumber===""){
-				document.getElementById('VehicleNumberError').innerHTML="Please Enter Vehicle Number";
-				return false;
-			}
-			else{
-				document.getElementById('VehicleNumberError').innerHTML="";
-			}
-		    $.ajax({
-		        type: "GET",
-		        url: "/getVehicleDetaiilByRC",
-				data: { 
-					"orgId" :orgId,
-					"id_number": vehicleNumber,
-					"createdBy":createdBy
-				},
-		        beforeSend: function(xhr) {
-		            //xhr.setRequestHeader(header, token);
-		        },
-		        success: function(data) {
-		            newData = data;
-		            console.log("Emp onboarding data", newData);
-		            var data1 = jQuery.parseJSON(newData);
-				if(data1.status==true){
-					document.getElementById("rNumber").innerText=data1.data.rc_number;
-					document.getElementById("rModel").innerText=data1.data.maker_model;
-					document.getElementById("rClass").innerText=data1.data.vehicle_category_description;
-					document.getElementById("rType").innerText=data1.data.fuel_type;
-					document.getElementById("vehicle_chasi_number").innerText=data1.data.vehicle_chasi_number; 
-					document.getElementById("vehicle_engine_number").innerText=data1.data.vehicle_engine_number; 
-					document.getElementById("color").innerText=data1.data.color; 
-					document.getElementById("registered_at").innerText=data1.data.registered_at; 
-					document.getElementById("manufacturing_date").innerText=data1.data.manufacturing_date;
-					document.getElementById("cubic_capacity").innerText=data1.data.cubic_capacity;
-					document.getElementById("seat_capacity").innerText=data1.data.seat_capacity;
-					document.getElementById("unladen_weight").innerText=data1.data.unladen_weight+" "+"kg";
-					document.getElementById("wheelbase").innerText=data1.data.wheelbase+" "+"mm";
-					document.getElementById("insurance_company").innerText=data1.data.insurance_company;
-					document.getElementById("fit_up_to").innerText=data1.data.fit_up_to;
-					document.getElementById("tax_paid_upto").innerText=data1.data.tax_paid_upto;					
-					document.getElementById("financer").innerText=data1.data.financer;
-					document.getElementById("permit_number").innerText=data1.data.permit_number;
-					document.getElementById("ownerNameView").value=data1.data.owner_name;
-					document.getElementById("ownerAddressView").value=data1.data.present_address;
-					          
-									   
-					const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
-					vehicleDetailsModal.style.display = 'block';
-			        const AddVehicleModal = document.getElementById('AddVehicleModal');
-			  		AddVehicleModal.style.display = 'none';	  
-				}else if(data1.status==false){
-					document.getElementById('VehicleNumberError').innerHTML=data1.message;
-				}else{
-				}
-		        },
-				error: function(e) {
-		            alert('Failed to fetch JSON data' + e);
-		        }
-		    });
-	     }
-
-	
-     function showSuggestions() {
-		var searchText =document.getElementById("driverName2").value;
-		const orgId = document.getElementById('orgId').value;
-	    $.ajax({
-	        type: "GET",
-	        url: "/getEmployeeDriver",
-			data: { 
-				"orgId" :orgId,
-				"name" :searchText
-			},
-	        beforeSend: function(xhr) {
-	            //xhr.setRequestHeader(header, token);
-	        },
-	        success: function(data) {
-	            newData = data;
-	            console.log("Emp onboarding data", newData);
-	            var data1 = jQuery.parseJSON(newData);
-			if(data1.status==true){
-				const suggestionBox = document.getElementById("suggestionBox");
-				const  suggestionboxdiv =  document.getElementById("suggestion-box-div");
-				suggestionBox.classList.add("suggestion-box");
-				 suggestionBox.innerHTML = ''; // Clear any existing suggestions
-				
-				 data1.data.forEach(entry => {
-				   const div = document.createElement("div");
-				   div.setAttribute("onclick", "selectSuggestion(this)");
-
-				   const nameSpan = document.createElement("span");
-				   nameSpan.classList.add("suggestion-text");
-				   nameSpan.innerText = entry.name;
-
-				   const icon = document.createElement("img");
-				   icon.src = "img/phone-icon.png";
-				   icon.classList.add("suggestion-icon");
-				   icon.style.width = "20px";
-				   icon.style.height = "20px";
-
-				   const mobileSpan = document.createElement("span");
-				   mobileSpan.classList.add("suggestion-text-mobile");
-				   mobileSpan.innerText = entry.mobile;
-
-				   const id = document.createElement("input");
-				   id.type = "hidden";
-				   id.classList.add("suggestion-text-id");
-				   id.innerText = entry.id;
-				   div.appendChild(id);
-				   div.appendChild(nameSpan);
-				   div.appendChild(icon);
-				   div.appendChild(mobileSpan);
-				   suggestionBox.appendChild(div);
-				 });
-
-				 suggestionBox.style.display = 'block'; // Show the box
-				 suggestionboxdiv.style.display = 'block';
-				
-			}else if(data1.status==false){
-			}else{
-			}
-
-	        },
-			error: function(e) {
-	            alert('Failed to fetch JSON data' + e);
-	        }
-	    });
-     }
-
-     function filterSuggestions(input) {
-       const query = input.value.toLowerCase();
-       const suggestions = input.nextElementSibling.nextElementSibling.querySelectorAll('div');
-       suggestions.forEach(el => {
-         el.style.display = el.textContent.toLowerCase().includes(query) ? 'flex' : 'none';
-       });
-     }
-
-     function selectSuggestion(element) {
-       const wrapper = element.closest('.search-select-wrapper');
-       const input = wrapper.querySelector('input');
-       const name = element.querySelector('.suggestion-text').textContent.trim();
-	   const mobile = element.querySelector('.suggestion-text-mobile').textContent.trim();
-	   const id = element.querySelector('.suggestion-text-id').textContent.trim();
-	  
-       input.value = name;
-       wrapper.querySelector('.suggestion-box').style.display = 'none';
-	  
-	   document.getElementById("driverId").value=id;
-	   document.getElementById("driverName").value=name;
-	   document.getElementById("driverMobile").value=mobile;
-	 
-     }
-
      // Hide dropdown when clicking outside
      document.addEventListener('click', function (event) {
        document.querySelectorAll('.search-select-wrapper').forEach(wrapper => {
@@ -1213,686 +415,8 @@ function openModalConfirm() {
 		editDetailsModal.style.display = 'none';
 				
 	}
-	
-	function saveOpenModalConfirm() {
-		
-		const orgId = document.getElementById('orgId').value;
-		const createdBy = document.getElementById('createdBy').value;
-		
-		var vehicleNumber = document.getElementById("vehicleNumber").value;
-		
-	//	var vehicleManufactor = document.getElementById("vehicleManufactor").value;
-	//	var vehicleModel = document.getElementById("vehicleModel").value;
-		
-	//	var vehicleTypeId = document.getElementById('vehicleType').options[
-    //    document.getElementById('vehicleType').selectedIndex
-	 //   ].value;
-	//	const vehicleType = document.getElementById('vehicleType').options[
-     //   document.getElementById('vehicleType').selectedIndex
-	//    ].text;
-		
-		//document.getElementById("rClass").innerText=vehicleType;
-		
-	//	const vehicleFuelTypeId = document.getElementById('vehicleFuelType').options[
-	 //   document.getElementById('vehicleFuelType').selectedIndex
-	//    ].value;
-	//	const vehicleFuelType = document.getElementById('vehicleFuelType').options[
-    //    document.getElementById('vehicleFuelType').selectedIndex
-    //    ].text;
-		
-	//document.getElementById("rType").innerText=vehicleFuelType;
-	  //  document.getElementById("rNumber").innerText=data1.data.rc_number;
-		var vehicleManufactor = document.getElementById("rModel").innerText;
-		var vehicleType =  document.getElementById("rClass").innerText;
-		var vehicleFuelType = document.getElementById("rType").innerText;
-		var maker_model  = document.getElementById("rModel").innerText;
-		var requestType  = 	document.getElementById('requestType').value;
-		var vehicle_chasi_number = document.getElementById("vehicle_chasi_number").innerText;
-		var vehicle_engine_number = document.getElementById("vehicle_engine_number").innerText;
-		var color = document.getElementById("color").innerText;
-		var registered_at =document.getElementById("registered_at").innerText; 
-		var manufacturing_date  = document.getElementById("manufacturing_date").innerText;
-		var cubic_capacity = document.getElementById("cubic_capacity").innerText;
-		var seat_capacity = document.getElementById("seat_capacity").innerText;
-		var unladen_weight = document.getElementById("unladen_weight").innerText;
-		var wheelbase = document.getElementById("wheelbase").innerText;
-		var insurance_company = document.getElementById("insurance_company").innerText;
-		var fit_up_to = document.getElementById("fit_up_to").innerText;
-		var tax_paid_upto = document.getElementById("tax_paid_upto").innerText;					
-		var financer = document.getElementById("financer").innerText;
-		var permit_number = document.getElementById("permit_number").innerText;
-		
-		var ownerNameView = document.getElementById("ownerNameView").value;
-		var ownerAddressView = document.getElementById("ownerAddressView").value;
-	
-	    $.ajax({
-	        type: "POST",
-	        url: "/addVehicleDetails",
-	        data:
-			{  
-			    "orgId":orgId,
-			    "createdBy":createdBy,
-				"vehicleNumber":vehicleNumber,
-				"vehicleManufactor":vehicleManufactor,
-				"vehicleType":vehicleType,
-				
-				"vehicleFuelType":vehicleFuelType,	
-				"vehicleModel": maker_model,
-				"creationType":"single",
-				"applicationType":"web",
-				"requestType":"API Call",
-				"vehicle_chasi_number":vehicle_chasi_number,	
-				"vehicle_engine_number":vehicle_engine_number,
-				"color":color,
-				"registered_at":registered_at,
-				"manufacturing_date":manufacturing_date,
-				"cubic_capacity":cubic_capacity,
-				"seat_capacity":seat_capacity,
-				"unladen_weight":unladen_weight,
-				"wheelbase":wheelbase,
-				"insurance_company":insurance_company,
-				"fit_up_to":fit_up_to,
-				"tax_paid_upto":tax_paid_upto,
-				"financer":financer,
-				"permit_number":permit_number,
-				"ownerName":ownerNameView,
-				"ownerAddress":ownerAddressView
-			},
-			success: function(data){
-	            newData = data;
-				var data1 = jQuery.parseJSON(newData);
-				
-				if(data1.status==true){
-					
-					const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
-					vehicleDetailsModal.style.display = 'none';
-					document.getElementById('success').style.display = 'block';
-					document.getElementById('failed').style.display = 'none';
-					
-					const modal = document.getElementById('ModalConfirm');
-					modal.style.display = 'block';
-					getVehicleManagementList();
-				    document.getElementById("vehicleNumber").value="";
-					//document.getElementById("vehicleManufactor").value="";							
-					//document.getElementById("vehicleModel").value="";	
-					
-				}else if(data1.status==false){
-					const vehicleDetailsModal = document.getElementById('vehicleDetailsModal');
-					vehicleDetailsModal.style.display = 'none';
-					document.getElementById('success').style.display = 'none';
-					document.getElementById('failed').style.display = 'failed';
-					document.getElementById('failedError').innerHTML=	data1.message;		
-					const modal = document.getElementById('ModalConfirmFail');
-					modal.style.display = 'block';
-					getVehicleManagementList();
-				}else{
-				
-				}
-	         },
-	         error: function(e){
-	             alert('Error: ' + e);
-	         }
-	    });
-	}
 
-	function saveUpdate(){
-	
-		var vehicleId = document.getElementById('vehicleId').value;
-		const orgId = document.getElementById('orgId').value;
-		const createdBy = document.getElementById('createdBy').value;
-
-		//var ownerName = document.getElementById("ownerName").value;
-		//var ownerAddress = document.getElementById("ownerAddress").value;
-	//	var ownershipId = document.getElementById('ownershipModel').options[
-	//		              document.getElementById('ownershipModel').selectedIndex
-	//				    ].value;
-	//	const ownership = document.getElementById('ownershipModel').options[
-	//	           document.getElementById('ownershipModel').selectedIndex
-	//		    ].text;
-				
-	//	var driverName1 = document.getElementById("driverName1").value;
-		const timePeriod_id = document.getElementById('timePeriod').options[
-				        document.getElementById('timePeriod').selectedIndex
-				    ].value;
-		const timePeriod = document.getElementById('timePeriod').options[
-		        document.getElementById('timePeriod').selectedIndex
-		    ].value;
-		
-		const assignmentTypeId = document.getElementById('assignmentType').options[
-		        document.getElementById('assignmentType').selectedIndex
-		    ].value;
-	   const assignmentType = document.getElementById('assignmentType').options[
-	        document.getElementById('assignmentType').selectedIndex
-	    ].text;
-						
-		var customTimePeriod = document.getElementById("customTimePeriod").value;
-		var clientName = document.getElementById("clientName").value;
-		var driverName2 = document.getElementById("driverName2").value;
-		
-		var driverId= document.getElementById("driverId").value;
-		var driverMobile = document.getElementById("driverMobile").value;
-		if(assignmentTypeId =="" ){
-				document.getElementById("assignmentTypeError").textContent = "Please Select Assignment Type.";
-				return false;
-			}
-			else{
-				document.getElementById("assignmentTypeError").textContent = "";
-			}
-			if(clientName =="" ){
-				document.getElementById("clientNameError").textContent = "Please Enter Client Name.";
-				return false;
-			}
-			else{
-				document.getElementById("clientNameError").textContent = "";
-			}
-			if(driverName2 =="" ){
-				document.getElementById("driverName2Error").textContent = "Please Enter Driver Name.";
-				return false;
-			}
-			else{
-				document.getElementById("driverName2Error").textContent = "";
-			}
-			if(timePeriod_id =="Select Time Period" ){
-				document.getElementById("timePeriodError").textContent = "Please Select Time Period.";
-				return false;
-			}
-			else{
-				document.getElementById("timePeriodError").textContent = "";
-			}
-		 document.getElementById('btnUpdateTrip').disabled=true;
-		 $.ajax({
-		     type: "POST",
-		     url: "/updateVehicleDetails",
-		     data:
-			{  
-				"vehicleSequenceId":vehicleId,
-			    "orgId":orgId,
-			    "createdBy":createdBy,
-				"ownerName":"",
-				"ownership_type_id":"",
-				"ownership_type":"",
-				"driverName":"",
-				"assignmentType_id":assignmentTypeId,	
-				"assignmentType":assignmentType,				
-				"clientName":clientName,				
-				"driverName2":driverName2,		
-				"driverId":driverId,		
-				"driverMobile":driverMobile,	
-				"timePeriod_id": timePeriod_id,		
-				"selectedTimeperiod": timePeriod_id,
-				"customTimePeriod":customTimePeriod
-			},
-			success: function(data){
-		         newData = data;
-				var data1 = jQuery.parseJSON(newData);
-				
-				if(data1.status==true){
-					const editDetailsModal = document.getElementById('editDetailsModal');
-					editDetailsModal.style.display = 'none';
-					document.getElementById('successUpdate').style.display = 'block';
-					document.getElementById('failedUpdate').style.display = 'none';
-					
-					const modal = document.getElementById('ModalConfirmUpdate');
-					modal.style.display = 'block';
-					document.getElementById('driverName2').value="";
-					document.getElementById('clientName').value="";	
-					document.getElementById("customTimePeriod").value="";
-					document.getElementById('btnUpdateTrip').disabled=false;
-					getVehicleManagementList();					
-				}else if(data1.status==false){
-					const vehicleDetailsModal = document.getElementById('editDetailsModal');
-					vehicleDetailsModal.style.display = 'none';
-					const modal = document.getElementById('ModalConfirmFail');
-					modal.style.display = 'block';
-					document.getElementById('successUpdate').style.display = 'none';
-					document.getElementById('failedUpdate').style.display = 'block';
-					document.getElementById('failedError').innerHTML=	data1.message;		
-					
-					document.getElementById('driverName2').value="";
-					document.getElementById('clientName').value="";	
-				    document.getElementById("customTimePeriod").value="";
-					document.getElementById('btnUpdateTrip').disabled=false;
-					getVehicleManagementList();
-				}else{
-				
-				}
-		      },
-		      error: function(e){
-		          alert('Error: ' + e);
-		      }
-		 });
-
-	}
-	async function getVehicleManagementList() {
-	  const orgId = document.getElementById('orgId').value;
-	  const createdBy = document.getElementById('createdBy').value;
-
-	  $.ajax({
-	    type: "GET",
-	    url: "/getVehicleList",
-	    data: {
-	      orgId: orgId,
-	      limit: "No"
-	    },
-	    beforeSend: function (xhr) {},
-	    success: function (data) {
-	      const data1 = jQuery.parseJSON(data);
-	      const filteredData = data1.data.filter(vehicle => vehicle.status === 1);
-
-	      $('#vehicleManagementTable').DataTable({
-	        destroy: true,
-	        responsive: true,
-	        searching: false,
-	        bInfo: false,
-	        paging: false,
-	        lengthChange: true,
-	        autoWidth: false,
-	        pagingType: "full_numbers",
-	        pageLength: 50,
-	        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-	        language: { emptyTable: "No Active Employees Found" },
-	        aaData: filteredData,
-	        aoColumns: [
-	          {
-	            mData: "vehicleNumber",
-	            render: function (data, type, row) {
-	              return `<span data-vehicle-seq-id="${row.vehicleSequenceId}">${data}</span>`;
-	            }
-	          },
-	          {
-	            mData: "vehicleType"
-	          },
-	          {
-	            mData: "vehicleFuelType"
-	          },
-	          {
-	            mData: "vehicleManufactor"
-	          },
-	          {
-	            mData: "driverName2",
-	            render: function (data1, type, row) {
-	              return data1 ? `${row.driverName2}<br>+91 ${row.driverMobile}` : 'Driver not assigned';
-	            }
-	          },
-	          {
-	            mData: "clientName",
-	            render: function (data1, type, row) {
-	              return data1 ? row.clientName : 'Client not assigned';
-	            }
-	          },
-	          {
-	            mData: "tripStatus",
-	            render: function (data1, type, row) {
-	              if (data1 !== "In progress") {
-	                return '<img src="img/history-icon-gray.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">No History';
-	              } else {
-	                return '<a href="#" onclick="viewHistory(this)"><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">View History</a>';
-	              }
-	            }
-	          },
-	          {
-	            mData: "tripStatus",
-	            render: function (data1, type, row) {
-	              //if (data1 === "In progress") {
-	              //  return '';
-	              //}
-				 //  else {
-	                return '<td><a onclick="viewData(this)"><img src="img/edit-pencil-blue.png" alt="Edit Pencil" style="height:24px; width:24px; margin-right:4px;"></a></td>';
-	             // }
-	            }
-	          }
-	        ],
-	        createdRow: function (row, data1) {
-	          const vehicleType = data1.vehicleType;
-	          let imgTag = '';
-
-	          if (vehicleType === "SUV / MUV" || vehicleType === "Hatchback") {
-	            imgTag = `<img src="img/car-icon.png" alt="" class="mr-2">${vehicleType}`;
-	          } else if (vehicleType === "Ambulance") {
-	            imgTag = `<img src="img/Ambulance 2.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">${vehicleType}`;
-	          } else if (vehicleType === "Truck" || vehicleType === "Mini Truck") {
-	            imgTag = `<img src="img/truck-icon.png" alt="Truck Icon" style="height:24px; width:24px; margin-right:4px;">${vehicleType}`;
-	          } else if (vehicleType === "M-Cycle/Scooter") {
-	            imgTag = `<img src="img/Two-Wheeler 2.png" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
-	          } else if (vehicleType === "Goods Carrier") {
-	            imgTag = `<img src="img/Truck 2.png" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
-	          }
-			  else if (vehicleType === "M-Cycle/Scooter") {
-              imgTag = `<img src="img/ambulance.webp" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
-            }
-			  else if (vehicleType === "M-Cycle/Scooter(2WN)") {
-			  imgTag = `<img src="img/Two-Wheeler 2.png" alt="" class="mr-2" style="height:24px; width:24px;">${vehicleType}`;
-			  }
-							
-			   else {
-	            imgTag = `<img src="img/car-icon.png" alt="" class="mr-2">${vehicleType}`;
-	          }
-
-	          $(row).find('td:eq(1)').html(imgTag);
-	        }
-	      });
-	    },
-	    error: function (e) {
-	      alert('Failed to fetch JSON data' + e);
-	    }
-	  });
-	}
-
-	
-	function viewHistory(value){
-			
-			var row = jQuery(value).closest('tr');
-		 //   var id = row.find('input[name="id"]').val();
-		 var vehicleSequenceId = row.find('td').eq(0).find('span').data('vehicle-seq-id');
-			const orgId = document.getElementById('orgId').value;
-			const createdBy = document.getElementById('createdBy').value;
-		    $.ajax({
-		        type: "GET",
-		        url: "/vehichleTripHistory",
-				data: { vehicleSequenceId },
-		        beforeSend: function(xhr) {
-		            //xhr.setRequestHeader(header, token);
-		        },
-		        success: function(data) {
-		            newData = data;
-		            console.log("Emp onboarding data", newData);
-		            var data1 = jQuery.parseJSON(newData);
-				if(data1.status==true){
-					const container = document.getElementById("vehicleDataContainer");
-					container.innerHTML = '';
-					 data1.data.forEach(item => {
-					   const html = `
-					   <div class="modal-body vehicle-modal-body">
-					     <div class="vehicle-details-wrapper">
-					       <div class="vehicle-dates">
-					         <div>
-					           <div class="vehicle-date-label">From</div>
-					           <div class="vehicle-date-value">${item.tripStartDate}</div>
-					         </div>
-					         <div class="vehicle-date-line">
-					           <span class="vehicle-date-dash"></span>
-					         </div>
-					         <div>
-					           <div class="vehicle-date-label">To</div>
-					           <div class="vehicle-date-value">${item.tripEndDate}</div>
-					         </div>
-					       </div>
-
-					       <div class="row text-left vehicle-data-box">
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/Driver-icon.png" alt="Driver" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Driver</div>
-					             <div class="vehicle-field-value">${item.driverName2}</div>
-					           </div>
-					         </div>
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/phone-icon1.png" alt="Mobile" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Mobile Number</div>
-					             <div class="vehicle-field-value">${item.driverMobile}</div>
-					           </div>
-					         </div>
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/user-icon.png" alt="Client Name" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Client Name</div>
-					             <div class="vehicle-field-value">${item.clientName}</div>
-					           </div>
-					         </div>
-					         <!-- Optional fields (DL Number, Client City) -->
-					         <!--
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/dl-icon.png" alt="DL Number" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">DL Number</div>
-					             <div class="vehicle-field-value">N/A</div>
-					           </div>
-					         </div>
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/user-icon.png" alt="Client City" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Client City</div>
-					             <div class="vehicle-field-value">N/A</div>
-					           </div>
-					         </div>
-					         -->
-					       </div>
-					     </div>
-						 </div>
-						 </br>
-					   `;
-
-					   container.insertAdjacentHTML('beforeend', html);
-					 });					
-					const vehicleHistoryModal = document.getElementById('vehicleHistoryModal');
-	 				vehicleHistoryModal.style.display = 'block';
-				}else if(data1.status==false){
-
-					const container = document.getElementById("vehicleDataContainer");
-					container.innerHTML = '';
-					 data1.data.forEach(item => {
-					   const html = `
-					   <div class="modal-body vehicle-modal-body">
-					     <div class="vehicle-details-wrapper">
-					       <div class="vehicle-dates">
-					         <div>
-					           <div class="vehicle-date-label">From</div>
-					           <div class="vehicle-date-value">${item.tripStartDate}</div>
-					         </div>
-					         <div class="vehicle-date-line">
-					           <span class="vehicle-date-dash"></span>
-					         </div>
-					         <div>
-					           <div class="vehicle-date-label">To</div>
-					           <div class="vehicle-date-value">${item.tripEndDate}</div>
-					         </div>
-					       </div>
-
-					       <div class="row text-left vehicle-data-box">
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/Driver-icon.png" alt="Driver" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Driver</div>
-					             <div class="vehicle-field-value">${item.driverName2}</div>
-					           </div>
-					         </div>
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/phone-icon1.png" alt="Mobile" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Mobile Number</div>
-					             <div class="vehicle-field-value">${item.driverMobile}</div>
-					           </div>
-					         </div>
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/user-icon.png" alt="Client Name" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Client Name</div>
-					             <div class="vehicle-field-value">${item.clientName}</div>
-					           </div>
-					         </div>
-					         <!-- Optional fields (DL Number, Client City) -->
-					         <!--
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/dl-icon.png" alt="DL Number" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">DL Number</div>
-					             <div class="vehicle-field-value">N/A</div>
-					           </div>
-					         </div>
-					         <div class="col-md-4 mb-3 d-flex align-items-start">
-					           <img src="img/user-icon.png" alt="Client City" class="vehicle-icon">
-					           <div>
-					             <div class="vehicle-field-label">Client City</div>
-					             <div class="vehicle-field-value">N/A</div>
-					           </div>
-					         </div>
-					         -->
-					       </div>
-					     </div>
-						 </div>
-						 </br>
-					   `;
-
-					   container.insertAdjacentHTML('beforeend', html);
-					 });	
-					const vehicleHistoryModal = document.getElementById('vehicleHistoryModal');
-					 				vehicleHistoryModal.style.display = 'block';
-				}else{
-				}
-
-		        },
-				error: function(e) {
-		            alert('Failed to fetch JSON data' + e);
-		        }								
-		    });		
-		}  
-		function viewData(value) {
-		  const row = jQuery(value).closest('tr');
-		  const vehicleSequenceId = row.find('td').eq(0).find('span').data('vehicle-seq-id');
-		  const orgId = document.getElementById('orgId').value;
-		  const createdBy = document.getElementById('createdBy').value;
-
-		  $.ajax({
-		    type: "GET",
-		    url: "/getVehicleManagementById",
-		    data: { vehicleSequenceId },
-		    beforeSend: function (xhr) {},
-		    success: function (data) {
-		      const data1 = jQuery.parseJSON(data);
-		      if (data1.status === true) {
-		        document.getElementById("editVehicleNumber").innerText = data1.data.vehicleNumber;
-		        document.getElementById("editVehicleModel").innerText = data1.data.vehicleModel;
-		        document.getElementById("editVehicleClass").innerText = data1.data.vehicleType;
-		        document.getElementById("editVehicleDesileType").innerText = data1.data.vehicleFuelType;
-		        document.getElementById("vehicleId").value = data1.data.vehicleSequenceId;
-		        document.getElementById("vehicle_chasi_number_edit").innerText = data1.data.vehicle_chasi_number;
-		        document.getElementById("vehicle_engine_number_edit").innerText = data1.data.vehicle_engine_number;
-		        document.getElementById("color_edit").innerText = data1.data.color;
-		        document.getElementById("manufacturing_date_edit").innerText = data1.data.manufacturing_date;
-		        document.getElementById("cubic_capacity_edit").innerText = data1.data.cubic_capacity;
-		        document.getElementById("seat_capacity_edit").innerText = data1.data.seat_capacity;
-		        document.getElementById("unladen_weight_edit").innerText = data1.data.unladen_weight;
-		        document.getElementById("wheelbase_edit").innerText = data1.data.wheelbase;
-		        document.getElementById("insurance_company_edit").innerText = data1.data.insurance_company;
-		        document.getElementById("fit_up_to_edit").innerText = data1.data.fit_up_to;
-		        document.getElementById("tax_paid_upto_edit").innerText = data1.data.tax_paid_upto;
-		        document.getElementById("financer_edit").innerText = data1.data.financer;
-		        document.getElementById("permit_number_edit").innerText = data1.data.permit_number;
-		        document.getElementById("owner_name_edit").innerHTML = data1.data.ownerName;
-		        document.getElementById("ownerpresent_address_edit").innerHTML = data1.data.ownerAddress;
-
-		        document.getElementById('editDetailsModal').style.display = 'block';
-		      }
-		    },
-		    error: function (e) {
-		      alert('Failed to fetch JSON data' + e);
-		    }
-		  });
-		}
-
-	  function downloadInExcel() {
-	    const tableData = [];
-	    
-	    // Select all vehicle detail wrappers
-	    document.querySelectorAll('.vehicle-details-wrapper').forEach((wrapper, index) => {
-	      const row = {};
-
-	      row['From Date'] = wrapper.querySelector('.vehicle-dates .vehicle-date-value:nth-child(2)')?.innerText || '';
-	      row['To Date'] = wrapper.querySelector('.vehicle-dates .vehicle-date-value:last-child')?.innerText || '';
-	      row['Driver Name'] = wrapper.querySelector('.vehicle-data-box .vehicle-field-value')?.innerText || '';
-	      row['Mobile Number'] = wrapper.querySelectorAll('.vehicle-data-box .vehicle-field-value')[1]?.innerText || '';
-	      row['Client Name'] = wrapper.querySelectorAll('.vehicle-data-box .vehicle-field-value')[2]?.innerText || '';
-	      // Add more fields if needed...
-
-	      tableData.push(row);
-	    });
-
-	    const worksheet = XLSX.utils.json_to_sheet(tableData);
-	    const workbook = XLSX.utils.book_new();
-	    XLSX.utils.book_append_sheet(workbook, worksheet, "TripData");
-
-	    XLSX.writeFile(workbook, "TripDetails.xlsx");
-	  }
-				
-	
 </script>
-	<script>
-	  function toggleVehicleTable() {
-	    const table = document.getElementById('vehicleTable');
-	    if (table.style.display === 'none' || table.style.display === '') {
-	      table.style.display = 'flex';
-	    } else {
-	      table.style.display = 'none';
-	    }
-	  }
-	</script>
-
-	<!-- JavaScript -->
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-		  const closeButton = document.querySelector('#ModalConfirm .close');
-		  closeButton.addEventListener('click', function () {
-		    const modal = document.getElementById('ModalConfirm');
-		    modal.style.display = 'none'; // Hide the modal
-		    // Remove the Bootstrap backdrop if exists
-		    const backdrop = document.querySelector('.modal-backdrop');
-		    if (backdrop) backdrop.remove();
-		    
-		    // Optional: Remove 'modal-open' from body to allow scrolling again
-		    document.body.classList.remove('modal-open');
-		  });
-		});
-		
-		document.addEventListener('DOMContentLoaded', function () {
-			  const closeButton = document.querySelector('#ModalConfirmFail .close');
-			  closeButton.addEventListener('click', function () {
-			    const modal = document.getElementById('ModalConfirmFail');
-			    modal.style.display = 'none'; // Hide the modal
-			    // Remove the Bootstrap backdrop if exists
-			    const backdrop = document.querySelector('.modal-backdrop');
-			    if (backdrop) backdrop.remove();
-			    
-			    // Optional: Remove 'modal-open' from body to allow scrolling again
-			    document.body.classList.remove('modal-open');
-			  });
-			});
-	</script>
-	
-	<script>
-		  document.addEventListener("DOMContentLoaded", function () {
-		    const closeBtn = document.querySelector('#vehicleDetailsModal .close');
-		    if (closeBtn) {
-		      closeBtn.addEventListener('click', function () {
-		        // Proper Bootstrap hide method
-		        $('#vehicleDetailsModal').modal('hide');
-		      });
-		    }
-		    // Optional: Reset modal content on hide to prevent residual changes
-		    $('#vehicleDetailsModal').on('hidden.bs.modal', function () {
-		      const modal = this;
-		      modal.querySelector('.modal-header').style.display = 'flex'; // Ensure header stays visible
-		    });
-		  });
-		</script>
-	<script>
-	  document.addEventListener("DOMContentLoaded", function () {
-	    const closeBtn = document.querySelector('#AddVehicleModal .close');
-
-	    if (closeBtn) {
-	      closeBtn.addEventListener('click', function () {
-	        // Proper Bootstrap hide method
-	        $('#AddVehicleModal').modal('hide');
-	      });
-	    }
-
-	    // Optional: Reset modal content on hide to prevent residual changes
-	    $('#AddVehicleModal').on('hidden.bs.modal', function () {
-	      const modal = this;
-	      modal.querySelector('.modal-header').style.display = 'flex'; // Ensure header stays visible
-	    });
-	  });
-	</script>
 
     <script>
         jQuery(document).ready(function($){
@@ -1936,7 +460,31 @@ function openModalConfirm() {
             $(".dropdownNav").addClass("active");
         });
     });
-		    
+	
+	    
+</script>
+
+<script>
+	// Event delegation: attach to table body
+	document.getElementById('supportTicketList').addEventListener('click', function (e) {
+	  if (e.target.closest('.view-voucher-details')) {
+	    document.getElementById('bs-canvas-right1').style.right = '0';
+	    document.getElementById('modal-overlay').style.display = 'block';
+	  }
+	});
+
+	// Close button
+	document.querySelector('.bs-canvas-close').addEventListener('click', function () {
+	  document.getElementById('bs-canvas-right1').style.right = '-378px';
+	  document.getElementById('modal-overlay').style.display = 'none';
+	});
+
+  document.getElementById('modal-overlay').addEventListener('click', function (e) {
+    if (e.target.id === 'modal-overlay') {
+      document.getElementById('bs-canvas-right1').style.right = '-378px';
+      this.style.display = 'none';
+    }
+  });
 </script>
 		<style>					
 			.modal-bulk1 {

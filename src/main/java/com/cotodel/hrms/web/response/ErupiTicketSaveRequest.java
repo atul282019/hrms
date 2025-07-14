@@ -23,10 +23,14 @@ public class ErupiTicketSaveRequest {
 	private String custTicketStatusDesc;	
 	private int respTicketStatus;	
 	private int respTicketStatusDesc;	
-	private byte[] ticketImg;	
-	private byte[] responseTktImg;	
+	private String ticketImg;	
+	private String responseTktImg;	
 	private String responedby;	
 	private String ticketno;
 	private String response;
+	private String clientKey;
+	private String hash;
+	
+	
 
 }
