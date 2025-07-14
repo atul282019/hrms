@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top" >
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+              <!-- <div th:insert="fragments/header.html :: header"></div>-->
+
+			  <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                     <!-- Topbar Navbar -->
+                     <ul class="navbar-nav top-nav">
+
+                         <!-- Nav Item - User Information 
+                         <li class="nav-item">
+                             <a class="nav-link active" href="#">
+                                 <span class="mr-2 small">Dashboard</span>
+                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="#">
+                                 <span class="mr-2 small">Profile</span>
+                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                             </a>
+                         </li>-->
+
+                     </ul>
+
+				<!-- Right Icons + Profile -->
+	 			    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+	 			      <!-- Wallet Icon -->
+	 			     <!-- <li class="nav-item mr-3">
+	 			        <a href="/settings/wallet" role="button">
+	 			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	 			        </a>
+	 			      </li>-->
+	 				  <li class="nav-item mr-3">
+	   			        <a href="/cotowallet" role="button">
+	   			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	   			        </a>
+	   			      </li>
+	 			      <!-- Notification Icon -->
+	 			      <li class="nav-item mr-3">
+	 			        <a href="#" role="button">
+	 			          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+	 			        </a>
+	 			      </li>
+
+	 			      <!-- Profile Dropdown -->
+	 			      <li class="nav-item dropdown no-arrow">
+	 			        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	 			          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+	 			        </a>
+	 			        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+	 			          <a class="dropdown-item" href="/ProfileInfo">
+	 			            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+	 			          </a>
+	 			       <!--   <a class="dropdown-item" href="#">
+	 			            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+	 			          </a>-->
+	 			          <div class="dropdown-divider"></div>
+	 			          <a class="dropdown-item" href="/logout">
+	 			            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+	 			          </a>
+	 			        </div>
+	 			      </li>
+	 			    </ul>		
+                </nav>
+                <!-- End of Topbar -->
+				
+				<input type="hidden" class="form-input" name="employerId" id="employerId" >
+				<input type="hidden" class="form-input" name="Id" id="Id" >
+				<input type="hidden" class="form-input" name="userDetailsId" id="userDetailsId" >
+				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
+				<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
+				<input type="hidden" class="form-input" id="mob" name="mob" th:value="${session.mobile}">
+				<!-- Begin Page Content -->
+				<section class="admin-ticket-section">
+				  <div class="admin-ticket-box">
+				    <div class="admin-ticket-header">
+				      <a href="#" class="admin-ticket-back">&#8592;</a>
+				      <h5 class="admin-ticket-title">Ticket No. 1234567890</h5>
+				    </div>
+
+				    <div class="admin-ticket-info-row">
+				      <div class="admin-ticket-info-item">
+				        <div class="admin-ticket-label">Sender Name</div>
+				        <div class="admin-ticket-value">Ramesh Kumar</div>
+				      </div>
+				      <div class="admin-ticket-info-item"style="display: flex; align-items: center; gap: 4px; white-space: nowrap;">
+				        <div class="admin-ticket-label">Company Name</div>
+						<div class="admin-ticket-value" >
+						  <span>XYZ Company</span>
+						  <a href="#" class="admin-ticket-link">View Details</a>
+						</div>
+				      </div>
+				      <div class="admin-ticket-info-item">
+				        <div class="admin-ticket-label">Ticket Date &amp; Time</div>
+				        <div class="admin-ticket-value">08-07-2025 | 4:00 PM</div>
+				      </div>
+				      <div class="admin-ticket-info-item">
+				        <div class="admin-ticket-label">Status</div>
+				        <div><span class="admin-ticket-status">Active</span></div>
+				      </div>
+				    </div>
+
+				    <div class="admin-ticket-subject">
+				      <span class="admin-ticket-label">Subject:</span>
+				      <span class="admin-ticket-value">Wrong validity date</span>
+				    </div>
+				  </div>
+				</section>
+				<br>
+				<section class="admin-ticket-chat">
+				  <div class="admin-ticket-date">Wed, 09/07</div>
+				  <div class="admin-ticket-messages">
+				    <div class="admin-ticket-message admin-ticket-message-green">
+				      <p class="mb-1">Aliquam a dui vel justo fringilla euismod id id enim. Nunc non semper tellus. Pellentesque vitae tellus non dui fermentum hendrerit. In vel imperdiet mi. Aliquam erat volutpat. Cras dapibus orci eu eros tempus efficitur. Nulla rhoncus arcu nec dictum condimentum.
+					  </p>
+				      <div class="admin-ticket-message-footer">
+				        <span style="margin-right:  12px;">Paras Gupta</span>
+				        <span>Wed, 09/07</span>
+				      </div>
+				    </div>
+
+				    <div class="admin-ticket-detail-box">
+				      <div class="admin-ticket-detail-header">
+				        <h6 class="mb-0">Voucher Details</h6>
+				        <button class="admin-ticket-detail-button">View Voucher Details</button>
+				      </div>
+					  <div class="admin-ticket-detail-content">
+					    <div class="admin-ticket-detail-info">
+					      <!-- Combined Icon + Meal/Multiple horizontally -->
+					      <div style="display: flex; align-items: center; gap: 10px;">
+					        <div class="admin-ticket-detail-icon">
+					          <img src="img/food-icon-grey.png" />
+					        </div>
+					        <div class="admin-ticket-meal-info">
+					          <div style="font-weight: 600;">Meal</div>
+					          <div style="font-size: 12px; color: #888;">Multiple</div>
+					        </div>
+					      </div>
+
+					      <!-- Moved amount box to the right of icon+text -->
+					      <div class="admin-ticket-amount-box">
+					        <div>₹15,000 <span style="font-weight: 400; font-size: 13px; color: #6c757d;">Voucher value</span></div>
+					        <div style="color: #28a745; font-weight: 600; font-size: 13px;">Active &nbsp; Balance: ₹5,000</div>
+					      </div>
+					    </div>
+					  
+				      <hr class="my-2" />
+				      <div class="row text-center text-muted small" style="white-space: nowrap;">
+				        <div class="col">
+				          <div>Issue Date</div>
+				          <div class="text-dark">25/10/2024</div>
+				        </div>
+				        <div class="col">
+				          <div>Voucher ID</div>
+				          <div class="text-dark">ICICI00001145781</div>
+				        </div>
+				        <div class="col">
+				          <div>Beneficiary</div>
+				          <div class="text-dark">Ramesh Kumar</div>
+				        </div>
+				        <div class="col">
+				          <div >Mobile Number</div>
+				          <div class="text-dark">9910318405</div>
+				        </div>
+				        <div class="col">
+				          <div>Bank A/c</div>
+				          <div class="text-dark"><img src="https://img.icons8.com/color/20/bank-card-back-side.png"/> xxx0569</div>
+				        </div>
+				        <div class="col">
+				          <div>Expiry Date</div>
+				          <div class="text-dark">25/10/2025</div>
+				        </div>
+				      </div>
+					  </div>
+				    </div>
+
+				    <div class="admin-ticket-message admin-ticket-message-white">
+				      <p class="mb-1">Aliquam a dui vel justo fringilla euismod id id enim. Nunc non semper tellus. Pellentesque vitae tellus non dui fermentum hendrerit. In vel imperdiet mi. Aliquam erat volutpat. Cras dapibus orci eu eros tempus efficitur. Nulla rhoncus arcu nec dictum condimentum.
+
+						
+					  </p>
+				      <div class="admin-ticket-message-footer">
+				        <span style="margin-right:  12px;">Paras Gupta</span>
+				        <span>Wed, 09/07</span>
+				      </div>
+				    </div>
+				  </div>
+				  <br>
+				</section>
+				<br>
+				<section class="admin-ticket-input">
+				  <div class="admin-ticket-input-group">
+				    <div class="admin-ticket-attach">
+				      <img src="https://img.icons8.com/ios-glyphs/30/000000/attach.png" alt="Attach" />
+				    </div>
+				    <div class="admin-ticket-input-box">
+				      <input type="text" placeholder="Type your response" />
+				      <div class="admin-ticket-send">
+				        <img src="img/plane-blue.png" alt="Send" />
+				      </div>
+				    </div>
+				  </div>
+				</section>
+				<br>
+				
+
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+	<!-- Theme css-->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	<script type="text/javascript" src="cotodel-js/"></script>
+
+</body>
+
+</html>
