@@ -38,7 +38,7 @@ async function saveTicket(){
 	
 	var fileInput = document.getElementById("up").value;
 	var base64file = document.getElementById("base64Output").value;
-	var createdby =  document.getElementById("employerName").value;
+	var createdby =  document.getElementById("employerMobile").value;
 	var orgId = document.getElementById("employerId").value;
 	
 	var subject = document.getElementById("subject").value;

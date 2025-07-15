@@ -102,7 +102,17 @@
                    <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                    <span>Bank Master</span></a>
            </li>
-		   
+		   <li class="nav-item" th:if="${session.user_role == 12 or session.user_role == 9}">
+              <a class="nav-link" th:href="@{/helpdeskaction}">
+                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+                  <span>Helpdesk Support</span></a>
+          </li>
+		<!--  <li class="nav-item" th:if="${session.user_role == 12 or session.user_role == 9}">
+             <a class="nav-link" th:href="@{/helpdeskadmin}">
+                 <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
+                 <span>Helpdesk Support</span></a>
+         </li>-->
+		    
 		 
 		           	
             <!-- <li class="nav-item" th:if="${session.user_role == 9}">
