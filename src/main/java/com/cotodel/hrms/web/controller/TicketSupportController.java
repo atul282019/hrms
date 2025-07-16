@@ -343,6 +343,31 @@ public class TicketSupportController extends CotoDelBaseController {
 	   
 	    	return profileRes;
 	    }
+	 
+
+		@GetMapping(value = "/ticketReplyHistory")
+		public @ResponseBody String ticketReplyHistory(HttpServletRequest request, ModelMap model, Locale locale,
+				HttpSession session, ErupiTicketSaveRequest erupiTicketSaveRequest) {
+			String profileRes = null;
+			
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(erupiTicketSaveRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  ticketSupportService.ticketReplyHistory(tokengeneration.getToken(), jsonObject);
+	  
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+	    	return profileRes;
+		}
+		
 	 private String generateHash(String data) throws NoSuchAlgorithmException {
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
 	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));

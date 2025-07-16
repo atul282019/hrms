@@ -35,5 +35,9 @@ public class TicketSupportServiceImpl implements TicketSupportService{
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.submitTicketReply);
 
 	}
+	@Override
+	public String ticketReplyHistory(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.ticketReplyHistory);
+	}
 
 }

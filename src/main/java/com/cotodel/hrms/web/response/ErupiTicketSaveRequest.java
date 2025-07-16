@@ -22,7 +22,7 @@ public class ErupiTicketSaveRequest {
 	private int custTicketStatus;	
 	private String custTicketStatusDesc;	
 	private int respTicketStatus;	
-	private int respTicketStatusDesc;	
+	private String respTicketStatusDesc;	
 	private String ticketImg;	
 	private String responseTktImg;	
 	private String responedby;	
@@ -30,6 +30,7 @@ public class ErupiTicketSaveRequest {
 	private String response;
 	private String clientKey;
 	private String hash;
+	private String name;
 	
 	
 

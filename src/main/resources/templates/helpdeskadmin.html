@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" onload="getTicketDetailById()">
+<body id="page-top" onload="getTicketDetailById(),getTicketTransactionHistoryById()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -150,14 +150,14 @@
 				    </div>
 
 				    <div class="admin-ticket-detail-box">
-				      <div class="admin-ticket-detail-header">
+				      <!--<div class="admin-ticket-detail-header">
 				        <h6 class="mb-0">Voucher Details</h6>
 				        <button class="admin-ticket-detail-button view-voucher-details">View Voucher Details</button>
-				      </div>
+				      </div>-->
 					  <div class="admin-ticket-detail-content">
 					    <div class="admin-ticket-detail-info">
-					      <!-- Combined Icon + Meal/Multiple horizontally -->
-					      <div style="display: flex; align-items: center; gap: 10px;">
+					       <span id="issueDescDetail"></span> 
+					     <!-- <div style="display: flex; align-items: center; gap: 10px;">
 					        <div class="admin-ticket-detail-icon">
 					          <img src="img/food-icon-grey.png" />
 					        </div>
@@ -167,15 +167,15 @@
 					        </div>
 					      </div>
 
-					      <!-- Moved amount box to the right of icon+text -->
+					       Moved amount box to the right of icon+text 
 					      <div class="admin-ticket-amount-box">
 					        <div>₹15,000 <span style="font-weight: 400; font-size: 13px; color: #6c757d;">Voucher value</span></div>
 					        <div style="color: #28a745; font-weight: 600; font-size: 13px;">Active &nbsp; Balance: ₹5,000</div>
-					      </div>
+					      </div>-->
 					    </div>
 					  
-				      <hr class="my-2" />
-				      <div class="row text-center text-muted small" style="white-space: nowrap;">
+				    <!--  <hr class="my-2" />-->
+				      <!--<div class="row text-center text-muted small" style="white-space: nowrap;">
 				        <div class="col">
 				          <div>Issue Date</div>
 				          <div class="text-dark">25/10/2024</div>
@@ -200,16 +200,16 @@
 				          <div>Expiry Date</div>
 				          <div class="text-dark">25/10/2025</div>
 				        </div>
-				      </div>
+				      </div>-->
 					  </div>
 				    </div>
 
-				    <div class="admin-ticket-message admin-ticket-message-white">
-				      <p class="mb-1">Aliquam a dui vel justo fringilla euismod id id enim. Nunc non semper tellus. Pellentesque vitae tellus non dui fermentum hendrerit. In vel imperdiet mi. Aliquam erat volutpat. Cras dapibus orci eu eros tempus efficitur. Nulla rhoncus arcu nec dictum condimentum.
-
-						
-					  </p>
-				      <div class="admin-ticket-message-footer">
+				    <div  id="ticketMessageContainer">
+				      <p class="mb-1">Aliquam a dui vel justo fringilla euismod id id enim. Nunc non semper tellus.
+						 Pellentesque vitae tellus non dui fermentum hendrerit. In vel imperdiet mi. Aliquam erat volutpat. 
+						 Cras dapibus orci eu eros tempus efficitur. Nulla rhoncus arcu nec dictum condimentum.
+						</p>
+				     <div class="admin-ticket-message-footer">
 				        <span style="margin-right:  12px;">Paras Gupta</span>
 				        <span>Wed, 09/07</span>
 				      </div>
@@ -232,6 +232,19 @@
 						<button type="button" style="border: none; background: none; padding: 0; cursor: pointer;" onclick="replyTicket()">
 						   <img src="img/plane-blue.png" alt="Send" />
 						 </button>
+				      </div>
+					  
+				    </div>
+					<div >
+				      <select id="ticketStatus" class="GeneralSelect redemptionType">
+						<option value="0">Select Status</option>
+
+						<option value="1">Hold</option>
+						<option value="2">Closed</option>
+					    <option value="3">Pending</option>
+						<option value="4">In Progress</option>
+				      </select>
+				      
 				      </div>
 					  
 				    </div>

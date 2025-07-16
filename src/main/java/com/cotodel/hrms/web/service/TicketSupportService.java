@@ -17,4 +17,6 @@ public interface TicketSupportService {
 
 	String replyTicket(String token, EncriptResponse jsonObject);
 
+	String ticketReplyHistory(String token, EncriptResponse jsonObject);
+
 }
