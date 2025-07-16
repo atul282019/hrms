@@ -2070,4 +2070,49 @@ public ModelAndView helpdeskadmin(Model model, @RequestParam String ticketId, Ht
 
     return new ModelAndView("index");
 }
+@GetMapping(value="/crmtab")
+public ModelAndView crmtab(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+
+			return new ModelAndView("crmtab", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("index", "command", "");
+}
+return new ModelAndView("index", "command", "");
+}
+
+@GetMapping(value="/companyprofile")
+public ModelAndView companyprofile(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+
+			return new ModelAndView("companyprofile", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("index", "command", "");
+}
+return new ModelAndView("index", "command", "");
+}
 }
