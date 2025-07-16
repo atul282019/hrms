@@ -5,7 +5,7 @@
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
 
-<body id="page-top" >
+<body id="page-top" onload="getTicketDetailById()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -87,62 +87,65 @@
                 <!-- End of Topbar -->
 				
 			
-				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+				<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
 				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
+				<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">	
 				<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
 				<input type="hidden" class="form-input" id="mob" name="mob" th:value="${session.mobile}">
+				<input type="hidden" id="ticketId" name="ticketId" th:value="${ticketId}" />
+				
 				<!-- Begin Page Content -->
 				<section class="admin-ticket-section">
 				  <div class="admin-ticket-box">
 				    <div class="admin-ticket-header">
 				      <a href="#" class="admin-ticket-back">&#8592;</a>
-				      <h5 class="admin-ticket-title">Ticket No. 1234567890</h5>
+				      <h5 class="admin-ticket-title" id=>Ticket No. <span id="tickeNo"></span></h5>
 				    </div>
 
 				    <div class="admin-ticket-info-row">
 				      <div class="admin-ticket-info-item">
 				        <div class="admin-ticket-label">Sender Name</div>
-				        <div class="admin-ticket-value">Ramesh Kumar</div>
+				        <div class="admin-ticket-value"> <span id="senderName"></span></div>
 				      </div>
 				      <div class="admin-ticket-info-item"style="display: flex; align-items: center; gap: 4px; white-space: nowrap;">
 				        <div class="admin-ticket-label">Company Name</div>
 						<div class="admin-ticket-value" >
-						  <span>XYZ Company</span>
+						  <span id="companyName"></span>
 						  <a href="#" class="admin-ticket-link">View Details</a>
 						</div>
 				      </div>
 				      <div class="admin-ticket-info-item">
 				        <div class="admin-ticket-label">Ticket Date &amp; Time</div>
-				        <div class="admin-ticket-value">08-07-2025 | 4:00 PM</div>
+				        <div class="admin-ticket-value"><!--08-07-2025 | 4:00 PM-->
+							<span id="dateTime"></span>
+						</div>
 				      </div>
 				      <div class="admin-ticket-info-item">
 				        <div class="admin-ticket-label">Status</div>
-				        <div><span class="admin-ticket-status">Active</span></div>
+				        <div><span class="admin-ticket-status" id="status"></span></div>
 				      </div>
 				    </div>
 
 				    <div class="admin-ticket-subject">
 				      <span class="admin-ticket-label">Subject:</span>
-				      <span class="admin-ticket-value">Wrong validity date</span>
+				      <span class="admin-ticket-value" id="subject"></span>
 				    </div>
 				  </div>
 				</section>
 				<br>
 				<section class="admin-ticket-chat">
-				  <div class="admin-ticket-date">Wed, 09/07</div>
+				  <div class="admin-ticket-date" id="submittedDate1">Wed, 09/07</div>
 				  <div class="admin-ticket-messages">
 				    <div class="admin-ticket-message admin-ticket-message-green">
-				      <p class="mb-1">Aliquam a dui vel justo fringilla euismod id id enim. Nunc non semper tellus. Pellentesque vitae tellus non dui fermentum hendrerit. In vel imperdiet mi. Aliquam erat volutpat. Cras dapibus orci eu eros tempus efficitur. Nulla rhoncus arcu nec dictum condimentum.
-					  </p>
+				      <p class="mb-1" id="ticketDetail">  </p>
 					  <br>
 					  <!-- Screenshot added below the text -->
-					  <span>Screenshot:</span>
-					   <img src="/img/Screenshot.png" alt="Attached Screenshot"  />
-					   <!-- style for image which is optional style="max-width: 100%; margin-top: 10px; border-radius: 8px; border: 1px solid #ddd;"-->
-
+					 <!-- <span>Screenshot:</span>-->
+					   <img src="/img/Screenshot.png" alt="Attached Screenshot"  id="imgTicket" style="height: 300px; width: 800px;"/>
+					  
 				      <div class="admin-ticket-message-footer">
-				        <span style="margin-right:  12px;">Paras Gupta</span>
-				        <span>Wed, 09/07</span>
+				        <span style="margin-right:  12px;" id="submittedBy"></span>
+				        <span id="submittedDate">Wed, 09/07</span>
 				      </div>
 				    </div>
 
@@ -218,16 +221,35 @@
 				<section class="admin-ticket-input">
 				  <div class="admin-ticket-input-group">
 				    <div class="admin-ticket-attach">
-				      <img src="https://img.icons8.com/ios-glyphs/30/000000/attach.png" alt="Attach" />
+				     <label for="fileInput" style="cursor: pointer;">
+						  <img src="https://img.icons8.com/ios-glyphs/30/000000/attach.png" alt="Attach" />
+						</label>
+						<input type="file" id="fileInput" style="display: none;" onchange="convertImageToBase64()" />
 				    </div>
 				    <div class="admin-ticket-input-box">
-				      <input type="text" placeholder="Type your response" />
+				      <input type="text" placeholder="Type your response" id="replyText" />
 				      <div class="admin-ticket-send">
-				        <img src="img/plane-blue.png" alt="Send" />
+						<button type="button" style="border: none; background: none; padding: 0; cursor: pointer;" onclick="replyTicket()">
+						   <img src="img/plane-blue.png" alt="Send" />
+						 </button>
 				      </div>
+					  
 				    </div>
+					
 				  </div>
 				</section>
+				<section class="admin-ticket-input">
+				  <div >
+				    <div>
+						<p id="fileName"></p>
+						<div class="error-msg" id="fileInputError" ></div>	 	
+						<input type="hidden" id="base64Output" name="base64Output"  />
+						<input type="hidden" id="fileName" name="fileName"  />
+				    </div>
+					
+				  </div>
+				</section>
+				
 				<br>
 				
 
@@ -236,6 +258,21 @@
             </div>
             <!-- End of Main Content -->
         </div>
+		
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -398,7 +435,7 @@
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+	<script type="text/javascript" src="cotodel-js/helpdesk-action-support.js"></script>
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<!--<script type="text/javascript" src="cotodel-js/"></script>-->
@@ -416,6 +453,12 @@
 		}
 	</style>
 	<script>
+	  document.getElementById('fileInput').addEventListener('change', function() {
+	    document.getElementById('fileName').textContent = "" + this.files[0].name;
+	  });
+	</script>
+	<script>
+		
 	  document.addEventListener("DOMContentLoaded", function () {
 	    const modalOverlay = document.getElementById('modal-overlay');
 	    const canvas = document.getElementById('bs-canvas-right1');
@@ -453,8 +496,8 @@
 	    $(document).ready(function(){
 	    	
 	    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
-			  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
-			  
+			  $('a[href="' +'/helpdeskaction"]').closest('li').addClass('active').attr('aria-current', 'page');   
+			
 	        $(".innernav").click(function(){
 	            $(".dropdownNav").addClass("active");
 	        });

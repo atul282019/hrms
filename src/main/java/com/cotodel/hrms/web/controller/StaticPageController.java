@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -2043,27 +2045,29 @@ public ModelAndView helpdeskaction(Model model) {
 }
 return new ModelAndView("index", "command", "");
 }
+@GetMapping("/helpdeskadmin")
+public ModelAndView helpdeskadmin(Model model, @RequestParam String ticketId, HttpSession session) {
+    String token = (String) session.getAttribute("hrms");
+    Integer id = (Integer) session.getAttribute("id");
 
-@GetMapping(value="/helpdeskadmin")
-public ModelAndView helpdeskadmin(Model model) {
-	String token = (String) session.getAttribute("hrms");
-	Integer id  = (Integer) session.getAttribute("id");
-	if(token!=null) {
-		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-		if(obj!=null) {
-			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
-			model.addAttribute("name",obj.getName());
-			model.addAttribute("org",obj.getOrgName());
-			model.addAttribute("mobile",obj.getMobile());
-			model.addAttribute("email",obj.getEmail());
-			model.addAttribute("employerId",id);
+    if (token != null) {
+        UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 
-			return new ModelAndView("helpdeskadmin", "command", "");
-		}
-		 return new ModelAndView("error", "command", "");
-	}
-	return new ModelAndView("index", "command", "");
-}
-return new ModelAndView("index", "command", "");
+        if (obj != null) {
+            if (obj.getUser_role() == 9 || obj.getUser_role() == 1) {
+                model.addAttribute("name", obj.getName());
+                model.addAttribute("org", obj.getOrgName());
+                model.addAttribute("mobile", obj.getMobile());
+                model.addAttribute("email", obj.getEmail());
+                model.addAttribute("employerId", id);
+                model.addAttribute("ticketId", ticketId); 
+                return new ModelAndView("helpdeskadmin");
+            }
+            return new ModelAndView("error");
+        }
+        return new ModelAndView("index");
+    }
+
+    return new ModelAndView("index");
 }
 }

@@ -15,10 +15,10 @@
     }
     body {
       background-color: #f4f4f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      
     }
+	.image-section{max-height: 88svh; overflow: hidden; border-radius: 20px;}
+
     .form-control {
       margin-bottom: 20px;
     }
@@ -26,6 +26,7 @@
       width: 100%;
     }
 	
+	.login-section {max-height: 88svh; height: 100%;}
 	.carousel-line-indicators {
 	  display: flex;
 	  gap: 12px;
@@ -45,6 +46,7 @@
 	  background-color: #2F945A;
 	  opacity: 1;
 	}
+
 
   </style>
   <script>
@@ -93,135 +95,149 @@
 
 </head>
 <body>
-  <div class="main-container">
-	<div class="logo-container">
-			  <img src="img/Cotodel Logo.svg" alt="Cotodel Logo" class="logo-img" />
+  <div class="main-container  py-3 overflow-hidden">
+	 
+			<div class="container-fluid container-xl h-100">
+				<div class="row mb-3 justify-content-center">
+					<div class="col-md-11 ">
+			  <img src="img/Cotodel Logo.svg" alt="Cotodel Logo" class="img-fluid me-auto d-block" />
+
+					</div>
+				</div>
+				<div class="row justify-content-center h-100">
+					<div class="col-lg-7">
+<div class="image-section position-relative   h-100" >
+						<div id="imageCarousel" class="carousel slide h-100 overflow-hidden" style="border-radius: 20px;" data-ride="carousel">
+							<div class="carousel-inner h-100">
+							<div class="carousel-item active h-100" data-index="0">
+								<img src="img/Image 1_SignIn.webp" class="img-fluid w-100 h-100" alt="Slide 1" style="object-fit: cover;">
+								<div class="carousel-caption d-none d-md-block text-left">
+								<div class="carousel-line-indicators mb-2">
+									<div class="line active" data-slide-to="0"></div>
+									<div class="line" data-slide-to="1"></div>
+								</div>
+								<h3 style="font-weight: 700;"><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+								</div>
+							</div>
+
+							<div class="carousel-item h-100" data-index="1">
+								<img src="img/corporate_women_login.webp" class="img-fluid w-100 h-100" alt="Slide 2" style="object-fit: cover;">
+								<div class="carousel-caption d-none d-md-block text-left">
+								<div class="carousel-line-indicators mb-2">
+									<div class="line" data-slide-to="0"></div>
+									<div class="line active" data-slide-to="1"></div>
+								</div>
+								<h3 style="font-weight: 700;"><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
+								</div>
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>
+						
+				<div class="col-lg-4">
+<div class="login-section ">
+						
+						<div class="login-body">
+							<form autocomplete="off" id="loginForm" name="loginForm">
+							<h4 class="login-title">Get started with your phone number</h4>
+
+							<div class="phone-input-container">
+							<div class="phone-prefix">
+								<img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon" />
+								<span>+91</span>
+							</div>
+							<input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
+							autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							</div>
+							<div class="error-msg" id="mobError" ></div>
+							<div  class="error-msg" id="errorOtp" ></div>	
+							
+
+							<p class="helper-text">We will send an OTP on the mobile number entered.</p>
+							
+
+							<!-- Inside .login-section -->
+							<div class="login-body" id="login-body">
+							<!-- Your phone input and login UI -->
+							<!-- Replace LOGIN button -->
+							<button class="btn login-btn" onclick="getOTP();"  id="optBtn" type="button" disabled >Send OTP</button>
+							</div>
+
+							<!-- OTP Form -->
+							<div id="otp-section" style="display:none;">
+							<h4 class="login-title">Enter OTP</h4>
+							<!--<p class="helper-text">OTP code has been sent to your phone <strong>xx405</strong></p>-->
+							<span id="maskedMobileDisplay"></span>
+
+							<div id="otpInputBox" >
+							<div class="d-flex justify-content-between mb-3 " style="margin-top: 15px;">
+								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+								id="password1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password1">
+								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
+								id="password2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password2">
+								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"
+								id="password3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password3">
+								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+								id="password4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password4">
+								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+								id="password5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password5">
+								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
+								id="password6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password6">
+								<input  class="form-control form-control-sm test" type="hidden" id="orderId" name="orderId" >
+																						
+								<div>
+																							
+								<input type="hidden" id="errorMessage" th:value="${message}" ></input>
+								<input type="hidden" id="mo" th:value="${mobile}" ></input>
+								<input type="hidden" id="orderid" th:value="${orderid}" ></input>
+									
+							</div>		
+							<span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" class="eye-icon" role="button" aria-label="Toggle OTP visibility" tabindex="0">
+								<i class="fas fa-eye"></i>
+								</span>
+								</div>
+							</div>
+							<div  class="error-msg" id="otpError" style="margin-top: -15px; margin-bottom: 20px;"></div>	
+								
+							<p id="otpCountdownText">
+								You can resend the OTP after: 
+								<span id="countdown" style="color: green;"></span> seconds
+							</p>
+							
+							<p class="text-muted" id="resendOTPText" style="display: none; ">Didn’t receive the code? <a href="#" onclick="resendOTP()">Resend OTP</a></p>
+							<!--<button class="btn login-btn">LOGIN</button>-->
+							<button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn login-btn" disabled>LOGIN</button>
+							</div>
+							
+							<div class="or-divider">
+							<!--	<span>or login with</span>-->
+							</div>
+
+							<div class="social-buttons">
+								<!--<button class="btn social-btn"><img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" />
+									Google</button>
+								<button class="btn social-btn"><img src="img/repute-logo.png" alt="Repute" /> Repute</button>-->
+							</div>
+						</div>
+						</form>
+
+						<hr class="footer-divider" />
+						<div class="login-footer">
+							New to Cotodel? <a href="/Industries">Register for Demo</a>
+						</div>
+						<div class="lds-spinner" id="loginLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+						</div>
+				</div>
+						
+		     </div>
 			</div>
-			<div class="image-section position-relative">
-			  <div id="imageCarousel" class="carousel slide h-100" data-ride="carousel">
-			    <div class="carousel-inner h-100">
-			      <div class="carousel-item active h-100" data-index="0">
-			        <img src="/img/Image 1_SignIn.webp" class="d-block w-100 h-100" alt="Slide 1" style="object-fit: cover;">
-			        <div class="carousel-caption d-none d-md-block text-left">
-			          <div class="carousel-line-indicators mb-2">
-			            <div class="line active" data-slide-to="0"></div>
-			            <div class="line" data-slide-to="1"></div>
-			          </div>
-			          <h3 style="font-weight: 700;"><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
-			        </div>
-			      </div>
-
-			      <div class="carousel-item h-100" data-index="1">
-			        <img src="/img/corporate_women_login.webp" class="d-block w-100 h-100" alt="Slide 2" style="object-fit: cover;">
-			        <div class="carousel-caption d-none d-md-block text-left">
-			          <div class="carousel-line-indicators mb-2">
-			            <div class="line" data-slide-to="0"></div>
-			            <div class="line active" data-slide-to="1"></div>
-			          </div>
-			          <h3 style="font-weight: 700;"><span style="color: #2F945A;">Business expenses</span> made seamless like your <span style="color: #2F945A;">personal UPI spends</span></h3>
-			        </div>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-
 	
-	<div class="login-section">
-	
-	  <div class="login-body">
-		<form autocomplete="off" id="loginForm" name="loginForm">
-	    <h4 class="login-title">Get started with your phone number</h4>
-
-	    <div class="phone-input-container">
-	      <div class="phone-prefix">
-	        <img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon" />
-	        <span>+91</span>
-	      </div>
-		  <input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
-        autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-	    </div>
-		<div class="error-msg" id="mobError" ></div>
-		<div  class="error-msg" id="errorOtp" ></div>	
-		
-
-	    <p class="helper-text">We will send an OTP on the mobile number entered.</p>
-		
-
-		<!-- Inside .login-section -->
-		<div class="login-body" id="login-body">
-		  <!-- Your phone input and login UI -->
-		  <!-- Replace LOGIN button -->
-		  <button class="btn login-btn" onclick="getOTP();"  id="optBtn" type="button" disabled >Send OTP</button>
-		</div>
-
-		<!-- OTP Form -->
-		<div id="otp-section" style="display:none;">
-		  <h4 class="login-title">Enter OTP</h4>
-		  <!--<p class="helper-text">OTP code has been sent to your phone <strong>xx405</strong></p>-->
-		  <span id="maskedMobileDisplay"></span>
-
-		  <div id="otpInputBox" >
-		  <div class="d-flex justify-content-between mb-3 " style="margin-top: 15px;">
-		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
-			id="password1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password1">
-		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
-			id="password2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password2">
-		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"
-			id="password3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password3">
-		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
-			id="password4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password4">
-		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
-			id="password5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password5">
-		    <input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
-			id="password6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password6">
-			<input  class="form-control form-control-sm test" type="hidden" id="orderId" name="orderId" >
-																	
-			<div>
-																		
-			<input type="hidden" id="errorMessage" th:value="${message}" ></input>
-			<input type="hidden" id="mo" th:value="${mobile}" ></input>
-			<input type="hidden" id="orderid" th:value="${orderid}" ></input>
-				
-		   </div>		
-		   <span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" class="eye-icon" role="button" aria-label="Toggle OTP visibility" tabindex="0">
-		      <i class="fas fa-eye"></i>
-		    </span>
-		      </div>
-		  </div>
-		  <div  class="error-msg" id="otpError" style="margin-top: -15px; margin-bottom: 20px;"></div>	
-   			
-		  <p id="otpCountdownText">
-		    You can resend the OTP after: 
-		    <span id="countdown" style="color: green;"></span> seconds
-		  </p>
-		  
-		  <p class="text-muted" id="resendOTPText" style="display: none; ">Didn’t receive the code? <a href="#" onclick="resendOTP()">Resend OTP</a></p>
-		  <!--<button class="btn login-btn">LOGIN</button>-->
-		  <button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn login-btn" disabled>LOGIN</button>
-		</div>
-		
-	    <div class="or-divider">
-		<!--	<span>or login with</span>-->
-		</div>
-
-	    <div class="social-buttons">
-		      <!--<button class="btn social-btn"><img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" />
-				 Google</button>
-		      <button class="btn social-btn"><img src="img/repute-logo.png" alt="Repute" /> Repute</button>-->
-	    </div>
-	  </div>
-	</form>
-
-	  <hr class="footer-divider" />
-	  <div class="login-footer">
-	    New to Cotodel? <a href="/Industries">Register for Demo</a>
-	  </div>
-	  <div class="lds-spinner" id="loginLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-
-	</div>
+			
   </div>
  
-  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/custom-neha.css">
   <!-- Bootstrap core JavaScript-->
       <script src="vendor/jquery/jquery.min.js"></script>
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

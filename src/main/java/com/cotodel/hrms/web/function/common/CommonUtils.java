@@ -183,6 +183,10 @@ public interface CommonUtils {
 	public static String createbulkEmpUpload = "/empService/Api/add/employeeBulkVoucherCreate";
 	public static String submitTicket = "/empService/Api/add/ticket";
 	public static String getTicket = "/empService/Api/get/allTicket";
+	public static String getAdminTicketForAction = "/empService/Api/get/allTicketAdmin";
+	public static String getTicketDetailById = "/empService/Api/get/ticketById";
+	public static String submitTicketReply = "/empService/Api/add/ticketTransaction";
+	
 	
 	//public static String savemanagerMasterDetailS="/empService/Api/add/managerMasterDetails";
 	//public static String getmanagerMasterDetailSwithId="/empService/Api/get/managerMasterList";

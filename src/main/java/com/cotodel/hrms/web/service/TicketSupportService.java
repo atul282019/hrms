@@ -11,4 +11,10 @@ public interface TicketSupportService {
 
 	String getAllTicket(String token, EncriptResponse jsonObject);
 
+	String getTicketListForAction(String token, EncriptResponse jsonObject);
+
+	String getTicketDetailById(String token, EncriptResponse jsonObject);
+
+	String replyTicket(String token, EncriptResponse jsonObject);
+
 }
