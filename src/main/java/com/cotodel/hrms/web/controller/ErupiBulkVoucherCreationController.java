@@ -1,5 +1,7 @@
 package com.cotodel.hrms.web.controller;
 
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
@@ -14,12 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,6 +35,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,6 +52,14 @@ import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import java.io.IOException;
+import com.cotodel.hrms.web.util.MessageConstant;
+
+
+
 
 @Controller
 @CrossOrigin
@@ -356,6 +371,113 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		}
 		return null;
 	}
+//	@PostMapping("/generateVoucherExcelTemp")
+//	public ResponseEntity<ByteArrayResource> generateTempExcel(@RequestBody List<Map<String, String>> filteredData) {
+//	    try {
+//	        File file = new File("/opt/cotodel/key/Bulk_Voucher_Templates.xlsx");
+//	        if (!file.exists()) {
+//	            System.err.println("❌ Excel template file not found at: " + file.getAbsolutePath());
+//	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//	        }
+//
+//	        FileInputStream fis = new FileInputStream(file);
+//	        Workbook workbook = new XSSFWorkbook(fis);
+//	        Sheet sheet = workbook.createSheet("Organization Users");
+//
+//	        Row header = sheet.createRow(0);
+//	        header.createCell(0).setCellValue("User's Name");
+//	        header.createCell(1).setCellValue("User's Mobile Number");
+//
+//	        int rowIdx = 1;
+//	        for (Map<String, String> emp : filteredData) {
+//	            Row row = sheet.createRow(rowIdx++);
+//	            row.createCell(0).setCellValue(emp.getOrDefault("name", ""));
+//	            row.createCell(1).setCellValue(emp.getOrDefault("mobile", ""));
+//	        }
+//	        //sheet.protectSheet("lock123");//lock the sheet so user cannot edit it password for unlocking is lock123
+//	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//	        workbook.write(out);
+//	        workbook.close();
+//
+//	        ByteArrayResource resource = new ByteArrayResource(out.toByteArray());
+//	        HttpHeaders headers = new HttpHeaders();
+//	        headers.add("Content-Disposition", "attachment; filename=ModifiedVoucherExcelTemp.xlsx");
+//
+//	        return ResponseEntity.ok()
+//	                .headers(headers)
+//	                .contentLength(resource.contentLength())
+//	                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+//	                .body(resource);
+//	    } catch (Exception e) {
+//	        e.printStackTrace(); // Log actual error for debug
+//	        return ResponseEntity.internalServerError().build();
+//	    }
+//	}
+	@PostMapping("/generateVoucherExcelTemp")
+	public ResponseEntity<ByteArrayResource> generateTempExcel(@RequestBody List<Map<String, String>> filteredData) {
+	    try {
+	        File file = new File("/opt/cotodel/key/Bulk_Voucher_Templates.xlsx");
+
+	        if (!file.exists()) {
+	            System.err.println("❌ Excel template file not found at: " + file.getAbsolutePath());
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	        }
+
+	        FileInputStream fis = new FileInputStream(file);
+	        Workbook workbook = new XSSFWorkbook(fis);
+
+	        String sheetName = "Organization Users";
+	        Sheet sheet = workbook.getSheet(sheetName);
+
+	        // If sheet doesn't exist, create it
+	        if (sheet == null) {
+	            sheet = workbook.createSheet(sheetName);
+	        } else {
+	            // If sheet exists, clear previous rows
+	            int lastRow = sheet.getLastRowNum();
+	            for (int i = 0; i <= lastRow; i++) {
+	                Row row = sheet.getRow(i);
+	                if (row != null) sheet.removeRow(row);
+	            }
+	        }
+
+	        // ✅ Write header
+	        Row header = sheet.createRow(0);
+	        header.createCell(0).setCellValue("User's Name");
+	        header.createCell(1).setCellValue("User's Mobile Number");
+
+	        // ✅ Write data rows
+	        int rowIdx = 1;
+	        for (Map<String, String> emp : filteredData) {
+	            Row row = sheet.createRow(rowIdx++);
+	            row.createCell(0).setCellValue(emp.getOrDefault("name", ""));
+	            row.createCell(1).setCellValue(emp.getOrDefault("mobile", ""));
+	        }
+
+	        // Optional: Protect the sheet
+	        // sheet.protectSheet("lock123");
+
+	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+	        workbook.write(out);
+	        workbook.close();
+
+	        ByteArrayResource resource = new ByteArrayResource(out.toByteArray());
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.add("Content-Disposition", "attachment; filename=ModifiedVoucherExcelTemp.xlsx");
+
+	        return ResponseEntity.ok()
+	                .headers(headers)
+	                .contentLength(resource.contentLength())
+	                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+	                .body(resource);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.internalServerError().build();
+	    }
+	}
+
+	
 
 	 private String generateHash(String data) throws NoSuchAlgorithmException {
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");

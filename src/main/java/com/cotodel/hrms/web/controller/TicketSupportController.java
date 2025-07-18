@@ -185,7 +185,9 @@ public class TicketSupportController extends CotoDelBaseController {
 		    }
 		    
 		    String dataString =erupiTicketSaveRequest.getOrgId() +erupiTicketSaveRequest.getSubject()+
-		    		erupiTicketSaveRequest.getIssueDesc()+erupiTicketSaveRequest.getCreatedby() +
+		    		//erupiTicketSaveRequest.getIssueDesc()+
+		    		erupiTicketSaveRequest.getResponseIssueDesc()+
+		    		erupiTicketSaveRequest.getCreatedby() +
 		    		erupiTicketSaveRequest.getTicketImg() +CLIENT_KEY + SECRET_KEY;
 
 		    String computedHash = null;

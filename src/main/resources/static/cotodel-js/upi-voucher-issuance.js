@@ -1018,7 +1018,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
           {
             "mData": "creationDate",
             "render": function (data) {
-              return formatDate(data);
+              return formatDateTime(data);
             }
           },
           {
@@ -1463,15 +1463,29 @@ function getIssueVoucherList(){
 		}
 	});
 }
-
-function formatDate(dateStr) {
+function formatDate(dateStr) { 
     if (!dateStr) return '';
     const date = new Date(dateStr);
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
+} 
+function formatDateTime(dateStr) { 
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${day}-${month}-${year}<br>${hours}:${minutes}:${seconds}`;
 }
+
 function colosethis(){
 	
 	document.getElementById("tableRevoke").style.display="none";
@@ -1765,39 +1779,50 @@ function viewhistory(rowData) {
         document.getElementById("name").textContent = data1.name;
         document.getElementById("voucherMobile").textContent = data1.mobile;
         document.getElementById("expDate").textContent = data1.expDate;
-        document.getElementById("issueDate").textContent = data1.issueDate;
+        //document.getElementById("issueDate").textContent = data1.issueDate;
+		document.getElementById("issueDate").textContent = formatDate(data1.issueDate);
         document.getElementById("merchantTranId").textContent = data1.merchantTranId;
         document.getElementById("balanceAmount").textContent = `₹${data1.activeAmount}`;
         document.getElementById("redemtionType").textContent = data1.redemtionType;
         document.getElementById("amountSpent").textContent = `₹${data1.amountSpent ?? 0}`;
-
+		document.getElementById("umn").textContent = data1.umn;
         const statusBox = document.querySelector(".voucher-status-box");
         const statusTextEls = statusBox.querySelectorAll(".voucher-status-text");
         const balanceEl = document.getElementById("balanceAmount");
-        const statusValue = data1.voucherStatus?.trim().toLowerCase();
+       	//const statusValue = data1.voucherStatus?.trim().toLowerCase();
+	   
 
-        document.getElementById("voucherStatus").textContent = data1.voucherStatus;
+        //document.getElementById("voucherStatus").textContent = data1.voucherStatus;
+		const status = data1.voucherStatus;
+		const capitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
+		document.getElementById("voucherStatus").textContent = capitalizedStatus;
+
 
         statusBox.className = "voucher-status-box";
         statusTextEls.forEach(el => el.className = "voucher-status-text");
         balanceEl.className = "voucher-balance";
 
-        switch (statusValue) {
-          case "failed":
+        switch (capitalizedStatus) {
+          case "Failed":
             statusBox.classList.add("voucher-status-box-failed");
             statusTextEls.forEach(el => el.classList.add("voucher-status-text-failed"));
             balanceEl.classList.add("voucher-balance-failed");
             break;
-          case "revoke":
+          case "Revoke":
             statusBox.classList.add("voucher-status-box-Revoke");
             statusTextEls.forEach(el => el.classList.add("voucher-status-text-Revoke"));
             balanceEl.classList.add("voucher-balance-Revoke");
             break;
-          case "expired":
+          case "Expired":
             statusBox.classList.add("voucher-status-box-Expire");
             statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
             balanceEl.classList.add("voucher-balance-Expire");
             break;
+		case "Redeemed":
+		    statusBox.classList.add("voucher-status-box-Expire");
+		    statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
+		    balanceEl.classList.add("voucher-balance-Expire");
+		    break;
         }
 
         const accountDisplay = document.getElementById("accountNumber");
@@ -1849,6 +1874,13 @@ function viewhistory(rowData) {
               </div>
             </div>`;
           transactionList.appendChild(item);
+		  // Insert dotted line only between items, not after the last
+		  if (idx < redeemData.length - 1) {
+		      const line = document.createElement("div");
+		      line.className = "voucher-transaction-line";
+		      transactionList.appendChild(line);
+		    }
+			
         });
       }
     },

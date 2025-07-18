@@ -163,7 +163,7 @@
 
 			      <!-- Chat Area -->
 				  <div class="voucher-modal-scrollable" id="chat-box">
-				      <div class="chat-msg admin-msg">
+				      <!--<div class="chat-msg admin-msg">
 				        <p>Hello! How can I help you today?</p>
 				        <span class="chat-timestamp">10:00 AM</span>
 				      </div>
@@ -215,7 +215,7 @@
 				      <div class="chat-msg user-msg">
 				        <p>The ticket was marked as resolved but the issue still persists.</p>
 				        <span class="chat-timestamp">10:07 AM</span>
-				      </div>
+				      </div>-->
 				    </div>
 
 			      <!-- Input Area -->
@@ -225,7 +225,7 @@
 				      <input type="file" id="chatFileUpload" hidden>
 				    </label>
 				    <input type="text" id="chatInput" class="chat-input" placeholder="Type a message...">
-				    <button id="sendChatBtn" class="chat-send-btn">Send</button>
+				    <button id="sendChatBtn" class="chat-send-btn" onclick="replyTicket()">Send</button>
 				  </div>
 
 			    </div>
@@ -308,9 +308,11 @@
                 <!-- /.container-fluid -->
 				<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 	
 				<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
 				<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">								
 				<input type="hidden" class="form-input" id="base64Output" name="base64Output"> 
-				<input type="hidden" class="form-input" id="fileName" name="fileName"> 
+				<input type="hidden" class="form-input" id="fileName" name="fileName">
+				<input type="hidden" id="ticketId" name="ticketId" value=""/> 
 			
             </div>
             <!-- End of Main Content -->
@@ -398,8 +400,18 @@ function openModalConfirm() {
 		vehicleDetailsModal.style.display = 'none';
 	}
 	function closeexampleModalCenterTitle(){
-		const vehicleDetailsModal = document.getElementById('AddVehicleModal');
-		vehicleDetailsModal.style.display = 'none';
+		/*const vehicleDetailsModal = document.getElementById('AddVehicleModal');
+		vehicleDetailsModal.style.display = 'none';*/
+		const modal = $('#AddVehicleModal');
+
+		// Bootstrap hide modal properly
+		modal.modal('hide');
+
+		// Remove remaining backdrop if needed (fail-safe)
+		$('.modal-backdrop').remove();
+
+		// Remove modal-open class from body (fail-safe)
+		$('body').removeClass('modal-open').css('padding-right', '');
 	}
 	function closeHistory(){
 		const vehicleHistoryModal = document.getElementById('vehicleHistoryModal');

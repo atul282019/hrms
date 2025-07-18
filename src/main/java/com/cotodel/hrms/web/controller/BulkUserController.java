@@ -1,11 +1,14 @@
 package com.cotodel.hrms.web.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -13,12 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,6 +36,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -47,6 +55,8 @@ import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @Controller
 @CrossOrigin
@@ -117,6 +127,49 @@ public class BulkUserController extends CotoDelBaseController{
 		}
 		return null;
 	}
+	@PostMapping("/generateExcelTemp")
+	public ResponseEntity<ByteArrayResource> generateTempExcel(@RequestBody List<Map<String, String>> filteredData) {
+	    try {
+	        File file = new File("/opt/cotodel/key/BulkUserTemplate.xlsx");
+	        if (!file.exists()) {
+	            System.err.println("❌ Excel template file not found at: " + file.getAbsolutePath());
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	        }
+
+	        FileInputStream fis = new FileInputStream(file);
+	        Workbook workbook = new XSSFWorkbook(fis);
+	        Sheet sheet = workbook.createSheet("Organization Users");
+
+	        Row header = sheet.createRow(0);
+	        header.createCell(0).setCellValue("User's Name");
+	        header.createCell(1).setCellValue("User's Mobile Number");
+
+	        int rowIdx = 1;
+	        for (Map<String, String> emp : filteredData) {
+	            Row row = sheet.createRow(rowIdx++);
+	            row.createCell(0).setCellValue(emp.getOrDefault("name", ""));
+	            row.createCell(1).setCellValue(emp.getOrDefault("mobile", ""));
+	        }
+	        //sheet.protectSheet("lock123");//lock the sheet so user cannot edit it password for unlocking is lock123
+	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+	        workbook.write(out);
+	        workbook.close();
+
+	        ByteArrayResource resource = new ByteArrayResource(out.toByteArray());
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.add("Content-Disposition", "attachment; filename=ModifiedBulkUserTemplate.xlsx");
+
+	        return ResponseEntity.ok()
+	                .headers(headers)
+	                .contentLength(resource.contentLength())
+	                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+	                .body(resource);
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Log actual error for debug
+	        return ResponseEntity.internalServerError().build();
+	    }
+	}
+
 	@PostMapping(value="/saveBulkemp")
 	public @ResponseBody String saveBulkemp(HttpServletResponse response, HttpServletRequest request,
 			EmployeeBulkUploadRequest employeeBulkUploadRequest, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {

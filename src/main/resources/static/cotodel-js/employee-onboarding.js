@@ -530,6 +530,13 @@ async function getEmployeeOnboarding() {
             var filteredData = data2.filter(function(employee) {
                 return employee.status === 1;
             });
+			// Save Name and Mobile only for temporary session use
+	            const nameMobileOnly = filteredData.map(emp => ({
+	                name: emp.name,
+	                mobile: emp.mobile
+	            }));
+	            sessionStorage.setItem("nameMobileOnly", JSON.stringify(nameMobileOnly));
+ 
             
             var table = $('#employeeTable').DataTable({
                 destroy: true,

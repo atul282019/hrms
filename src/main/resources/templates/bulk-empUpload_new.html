@@ -164,8 +164,9 @@
                                     <div class="bg-white py-3 px-2 mb-3 w-100 br-10">
                                         <div class="col-12 col-md-10">
                                             <div class="d-flex align-items-center mb-4">	
-                                                  <a class="btn btn-outline-green ml-0" th:href="@{/bulkUserTemplate}" >Download Template</a>
-                                                <p class="mb-0">Last updated on <span th:text="${session.formattedDate}" ></span></p>
+                                                  <!--<a class="btn btn-outline-green ml-0" th:href="@{/bulkUserTemplate}" >Download Template</a>-->
+												  <a class="btn btn-outline-green ml-0" href="#" onclick="downloadModifiedExcel()">Download Template</a>
+												   <p class="mb-0">Last updated on <span th:text="${session.formattedDate}" ></span></p>
                                             </div>
 
 											<ul class="bulk-list">
@@ -685,7 +686,33 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	<script>
 	
+	function downloadModifiedExcel() {
+	    const payload = JSON.parse(sessionStorage.getItem('nameMobileOnly') || '[]');
+	    if (!payload.length) {
+	        alert("No data to export. Please load data first.");
+	        return;
+	    }
+	    fetch('/generateExcelTemp', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/json' },
+	        body: JSON.stringify(payload)
+	    })
+	    .then(res => res.blob())
+	    .then(blob => {
+	        const url = window.URL.createObjectURL(blob);
+	        const a = document.createElement('a');
+	        a.href = url;
+	        a.download = "ModifiedBulkUserTemplate.xlsx";
+	        document.body.appendChild(a);
+	        a.click();
+	        a.remove();
+	    })
+	    .catch(err => alert("Excel download failed."));
+	}
+	</script>
+
 	<script>	function ExportToExcel(type, fn, dl) {
 	        var elt = document.getElementById('failedUpload');
 	        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });

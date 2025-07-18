@@ -42,7 +42,7 @@ function convertImageToBase64() {
 		var name =  document.getElementById("createdBy").value;
 		var createdby =  document.getElementById("employerMobile").value;
 		var orgId = document.getElementById("employerId").value;
-		var issueDesc = document.getElementById("replyText").value;
+		var responseIssueDesc = document.getElementById("replyText").value;
 		
 		var dropdown = document.getElementById("ticketStatus");
 		var respTicketStatus = dropdown.value;
@@ -51,7 +51,7 @@ function convertImageToBase64() {
 		const clientKey = "client-secret-key"; // Extra security measure
 		const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 
-		const dataString = orgId+issueDesc+createdby+base64file+clientKey+secretKey;
+		const dataString = orgId+responseIssueDesc+createdby+base64file+clientKey+secretKey;
 
 		const encoder = new TextEncoder();
 		const data = encoder.encode(dataString);
@@ -60,20 +60,20 @@ function convertImageToBase64() {
 		const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 		
 	
-		if(issueDesc =="" || issueDesc == null){
+		if(responseIssueDesc =="" || responseIssueDesc == null){
 				 document.getElementById("fileInputError").innerHTML="Please Enter Error Description";
 				 return false;
 			}
 			else{
 				document.getElementById("fileInputError").innerHTML="";
 			}
-		if(fileInput =="" || fileInput == null){
+		/*if(fileInput =="" || fileInput == null){
 			 document.getElementById("fileInputError").innerHTML="Please Select File";
 			 return false;
 		}
 		else{
 			document.getElementById("fileInputError").innerHTML="";
-		}
+		}*/
 		document.getElementById("signinLoader").style.display="flex";
 		$.ajax({
 			type: "POST",
@@ -82,7 +82,7 @@ function convertImageToBase64() {
 		      data: {
 				        "id":ticketId,
 						"orgId":orgId,
-						"issueDesc":issueDesc,
+						"responseIssueDesc":responseIssueDesc,
 						"respTicketStatus":respTicketStatus,
 						"respTicketStatusDesc":respTicketStatusDesc,
 						"ticketImg":base64file,
@@ -190,6 +190,7 @@ async function getTicketDetailById() {
 	  document.getElementById("signinLoader").style.display="none";
       const data1 = jQuery.parseJSON(data);
    	  var data2 = data1.data;
+	  console.log("/getTicketDetailByTicketId first function data",data1);
 	  const rawDate = new Date(data2.creationDate);
 
 	  // Format: 'Wed, 09/07'
@@ -207,9 +208,10 @@ async function getTicketDetailById() {
 	  document.getElementById("submittedBy").innerHTML=data2.name;
 	  document.getElementById("submittedDate").innerHTML=`${weekday}, ${day}/${month}`;
 	  document.getElementById("submittedDate1").innerHTML=`${weekday}, ${day}/${month}`;
-	  document.getElementById("ticketDetail").innerHTML=data2.subject;
-	 document.getElementById("imgTicket").src = "data:image/png;base64," + data2.ticketImg;
-	 document.getElementById("issueDescDetail").innerHTML=data2.issueDesc;
+	  document.getElementById("ticketDetail").innerHTML=data2.issueDesc;
+	  //document.getElementById("ticketDetail").innerHTML=data2.subject;
+	 //document.getElementById("imgTicket").src = "data:image/png;base64," + data2.ticketImg;
+	 //document.getElementById("issueDescDetail").innerHTML=data2.issueDesc;
 	 
     },
     error: function (e) {
@@ -218,8 +220,79 @@ async function getTicketDetailById() {
   });
 }
 
-
 async function getTicketTransactionHistoryById() {
+  const orgId = document.getElementById("employerId").value;
+  const ticketId = document.getElementById("ticketId").value;
+  //document.getElementById("signinLoader").style.display = "flex";
+
+  $.ajax({
+    type: "GET",
+    url: "/ticketReplyHistory",
+    data: { orgId, id: ticketId },
+    success: function (data) {
+      //document.getElementById("signinLoader").style.display = "none";
+      const data1 = jQuery.parseJSON(data);
+      const data2 = data1.data;
+	  console.log("/ticketReplyHistory admin side",data2);
+      const container = $('#ticketMessageContainer');
+      container.empty();
+
+      if (data1.status && Array.isArray(data2)) {
+        data2.forEach(item => {
+          const responseIssueDesc = item.responseIssueDesc;
+          const issueDesc = item.issueDesc;
+          const senderName = item.name || item.createdby || 'Unknown';
+          const creationDate = new Date(item.creationdate);
+          const formattedDate = creationDate.toLocaleDateString('en-GB', {
+            weekday: 'short', day: '2-digit', month: '2-digit'
+          }).replace(',', '');
+
+          let messageHTML = '';
+
+          if (responseIssueDesc && responseIssueDesc.trim() !== '') {
+            messageHTML += `
+			<br>
+              <div class="admin-ticket-message admin-ticket-message-white">
+                <p class="mb-1">${responseIssueDesc}</p>
+                <div class="admin-ticket-message-footer">
+                  <span style="margin-right: 12px;">${senderName}</span>
+                  <span>${formattedDate}</span>
+                </div>
+              </div>
+			  
+            `;
+          }
+
+          if (issueDesc && issueDesc.trim() !== '') {
+            messageHTML += `
+			<br>
+			<div class="admin-ticket-message admin-ticket-message-green">
+           <p class="mb-1">${issueDesc}</p>
+           <div class="admin-ticket-message-footer">
+             <span style="margin-right: 12px;">${senderName}</span>
+             <span>${formattedDate}</span>
+           </div>
+         </div>
+		 
+            `;
+          }
+
+          if (messageHTML !== '') {
+            container.append(messageHTML);
+          }
+        });
+      } else {
+        //container.html('<p>No messages found.</p>');
+		container.html('<br><br>');
+      }
+    },
+    error: function () {
+      $('#ticketMessageContainer').html('<p>Error loading messages.</p>');
+    }
+  });
+}
+
+/*async function getTicketTransactionHistoryById() {
   var orgId = document.getElementById("employerId").value;
   var ticketId = document.getElementById("ticketId").value;
   document.getElementById("signinLoader").style.display="flex";
@@ -240,7 +313,8 @@ async function getTicketTransactionHistoryById() {
 	      container.empty(); // Clear previous content
 	
 	      data2.forEach(item => {
-	        const issueDesc = item.issueDesc || 'No description';
+	        const responseIssueDesc = item.responseIssueDesc || 'No description';
+			const issueDesc = item.issueDesc;
 	        const senderName = item.name || item.createdby || 'Unknown';
 	        const creationDate = new Date(item.creationdate);
 	        const formattedDate = creationDate.toLocaleDateString('en-GB', {
@@ -251,12 +325,14 @@ async function getTicketTransactionHistoryById() {
 	
 	        const messageHTML = `
 	          <div class="admin-ticket-message admin-ticket-message-white">
-	            <p class="mb-1">${issueDesc}</p>
+	            <p class="mb-1">${responseIssueDesc}</p>
 	            <div class="admin-ticket-message-footer">
 	              <span style="margin-right: 12px;">${senderName}</span>
 	              <span>${formattedDate}</span>
 	            </div>
-	          
+				
+			
+				
 	        `;
 	        container.append(messageHTML);
 	      });
@@ -268,4 +344,4 @@ async function getTicketTransactionHistoryById() {
 	    $('#ticketMessageContainer').html('<p>Error loading messages.</p>');
 	  }
   });
-}
+}*/

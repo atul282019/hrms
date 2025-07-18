@@ -9182,6 +9182,11 @@ table.vcScheduledtable thead {
     align-self: flex-end;
     background: #EAF4EF;
   }
+  /* Add this to maintain border when focused */
+  .chat-input:focus {
+    border: 1px solid #2F945A !important;
+    outline: none !important;
+  }
 
   .chat-input-bar {
     padding: 12px;
@@ -9892,10 +9897,16 @@ table.vcScheduledtable thead {
 				}
 
 				.admin-ticket-input {
-				  width: 100%;
-				  display: flex;
-				  justify-content: center;
-				  margin-top: 20px;
+					position: fixed;
+					bottom: 0;
+					left: 80px;
+					width: 100%;
+					
+					padding: 10px 0;
+					display: flex;
+					justify-content: center;
+					
+					
 				}
 
 				.admin-ticket-input-group {
@@ -9941,4 +9952,9 @@ table.vcScheduledtable thead {
 				  align-items: center;
 				  justify-content: center;
 				  cursor: pointer;
-				}														
+/*this is for umn number which is shown in transaction history*/				}
+#umn {
+			  word-break: break-word;
+			  white-space: normal;
+			  line-height: 1.4;
+					}														
