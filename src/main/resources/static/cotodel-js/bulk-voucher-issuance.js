@@ -1331,3 +1331,86 @@ function verfyIssueVoucherOTP() {
   		 }); 
   		
   }
+  
+  
+  
+  async function getEmployeeOnboarding() {
+      //const employeeId = document.getElementById("employeeId").value;
+  	const employeeId="";
+      const employerId = document.getElementById("employerId").value;
+
+      const clientKey = "client-secret-key";
+      const secretKey = "0123456789012345";
+      const dataString = employerId + employeeId + clientKey + secretKey;
+
+      const encoder = new TextEncoder();
+      const data = encoder.encode(dataString);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+      const requestData = {
+        employerId,
+        employeeId,
+        key: clientKey,
+        hash: hashHex
+      };
+
+      try {
+        const response = await fetch("/getEmployeeOnboarding", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData)
+        });
+
+        const jsonText = await response.text();
+        const data1 = JSON.parse(jsonText);
+        const filteredData = (data1.data || []).filter(emp => emp.status === 1);
+
+        const nameMobileOnly = filteredData.map(emp => ({
+          name: emp.name,
+          mobile: emp.mobile
+        }));
+
+        // ✅ Set to hidden input
+        document.getElementById("nameMobileOnlyHidden").value = JSON.stringify(nameMobileOnly);
+        return true;
+
+      } catch (error) {
+        alert("Error fetching employee data");
+        return false;
+      }
+    }
+
+    		  
+
+    async function downloadModifiedExcel() {
+      const isSuccess = await getEmployeeOnboarding();
+
+      if (!isSuccess) return;
+
+      const hiddenValue = document.getElementById("nameMobileOnlyHidden").value;
+      const payload = hiddenValue ? JSON.parse(hiddenValue) : [];
+
+      if (!payload.length) {
+        alert("No data to export.");
+        return;
+      }
+
+      fetch('/generateVoucherExcelTemp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(res => res.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = "ModifiedVoucherExcelTemp.xlsx";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        })
+        .catch(() => alert("Excel download failed."));
+    }

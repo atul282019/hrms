@@ -251,7 +251,7 @@
 									<input type="hidden" class="form-input" id="payerva" name="payerva"> 
 									<input type="hidden" class="form-input" id="base64Output" name="base64Output"> 
 									<input type="hidden" class="form-input" id="fileName" name="fileName"> 
-									
+									<input type="hidden" id="nameMobileOnlyHidden" />
 									
 																		
 								   <div class="clearfix"></div>
@@ -659,30 +659,90 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 	<script>
-		
-		function downloadModifiedExcel() {
-		    const payload = JSON.parse(sessionStorage.getItem('nameMobileOnly') || '[]');
-		    if (!payload.length) {
-		        alert("No data to export. Please load data first.");
-		        return;
-		    }
-		    fetch('/generateVoucherExcelTemp', {
-		        method: 'POST',
-		        headers: { 'Content-Type': 'application/json' },
-		        body: JSON.stringify(payload)
-		    })
-		    .then(res => res.blob())
-		    .then(blob => {
-		        const url = window.URL.createObjectURL(blob);
-		        const a = document.createElement('a');
-		        a.href = url;
-		        a.download = "ModifiedVoucherExcelTemp.xlsx";
-		        document.body.appendChild(a);
-		        a.click();
-		        a.remove();
-		    })
-		    .catch(err => alert("Excel download failed."));
-		}
+/*this script is for dynamically appending the current employees to the excel with the help of session
+		async function getEmployeeOnboarding() {
+					//document.getElementById("signinLoader").style.display="flex";
+				    var employeeId = document.getElementById("employeeId").value;
+				    var employerId = document.getElementById("employerId").value;
+				    
+					const clientKey = "client-secret-key"; // Extra security measure
+				    const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+				    // Concatenate data (must match backend)
+				    const dataString = employerId+employeeId+clientKey+secretKey;
+
+				    // Generate SHA-256 hash
+				    const encoder = new TextEncoder();
+				    const data = encoder.encode(dataString);
+				    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+				    const hashArray = Array.from(new Uint8Array(hashBuffer));
+				    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+					const requestData = {
+							employerId:employerId,
+							employeeId:employeeId,
+					        key: clientKey,  // Extra key for validation
+					        hash: hashHex
+					    };
+				    $.ajax({
+				        type: "POST",
+				        url: "/getEmployeeOnboarding",
+						contentType: "application/json",
+						data: JSON.stringify(requestData),
+				        beforeSend: function(xhr) {
+				            //xhr.setRequestHeader(header, token);
+				        },
+				        success: function(data) {
+							//document.getElementById("signinLoader").style.display="none";
+				            newData = data;
+				            console.log("Emp onboarding data", newData);
+				            var data1 = jQuery.parseJSON(newData);
+				            var data2 = data1.data;
+				            
+				            // Filter employees with status 1 (Active)
+				            var filteredData = data2.filter(function(employee) {
+				                return employee.status === 1;
+				            });
+							// Save Name and Mobile only for temporary session use
+					            const nameMobileOnly = filteredData.map(emp => ({
+					                name: emp.name,
+					                mobile: emp.mobile
+					            }));
+					            sessionStorage.setItem("nameMobileOnly", JSON.stringify(nameMobileOnly));
+				 
+				            
+
+				        },
+				        error: function(e) {
+				            alert('Failed to fetch JSON data' + e);
+				        }
+				    });
+				}
+				  
+
+				function downloadModifiedExcel() {
+					getEmployeeOnboarding();
+				    const payload = JSON.parse(sessionStorage.getItem('nameMobileOnly') || '[]');
+				    if (!payload.length) {
+				        alert("No data to export. Please load data first.");
+				        return;
+				    }
+				    fetch('/generateVoucherExcelTemp', {
+				        method: 'POST',
+				        headers: { 'Content-Type': 'application/json' },
+				        body: JSON.stringify(payload)
+				    })
+				    .then(res => res.blob())
+				    .then(blob => {
+				        const url = window.URL.createObjectURL(blob);
+				        const a = document.createElement('a');
+				        a.href = url;
+				        a.download = "ModifiedVoucherExcelTemp.xlsx";
+				        document.body.appendChild(a);
+				        a.click();
+				        a.remove();
+				    })
+				    .catch(err => alert("Excel download failed."));
+				}*/
 		</script>
 		<script type="text/javascript">
 
