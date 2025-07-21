@@ -28,7 +28,7 @@ public class LoginSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http.logout()
 		.logoutUrl("/logout")                                           
-		.logoutSuccessUrl("/login")                             
+		.logoutSuccessUrl("/")                             
 		.invalidateHttpSession(true) //true by default                              
 		.addLogoutHandler(new SecurityContextLogoutHandler())
 		.addLogoutHandler(new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY))

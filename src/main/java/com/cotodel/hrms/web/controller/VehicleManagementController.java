@@ -251,38 +251,6 @@ public class VehicleManagementController extends CotoDelBaseController {
    
     	return profileRes;
 	}
-	
-//	@PostMapping(value="/saveBulkVehicleDetail")
-//	public String saveBulkVehicleDetail(HttpServletResponse response, HttpServletRequest request,
-//			@ModelAttribute("formData") BulkEmployeeRequest bulkEmployeeRequest, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
-//		
-//		String profileRes=null;JSONObject profileJsonRes=null;
-//		HashMap<String, String> otpMap = new  HashMap<String, String> ();
-//		ObjectMapper mapper = new ObjectMapper();
-//		String res = null; 
-//		int orgid=(int)request.getSession(true).getAttribute("id");
-//		Long emplrid=(long)orgid;
-//		bulkEmployeeRequest.setEmployerId(emplrid);
-//		profileRes = vehicleManagementService.saveBulkVehicleDetail(tokengeneration.getToken(),bulkEmployeeRequest);
-//		profileJsonRes= new JSONObject(profileRes);
-//		if(profileJsonRes.getString("status").equalsIgnoreCase("SUCCESS")) { 
-//			otpMap.put("status", MessageConstant.RESPONSE_SUCCESS);
-//		}else {
-//			//loginservice.sendEmailVerificationCompletion(userForm);
-//			otpMap.put("status", MessageConstant.RESPONSE_FAILED);
-//		}
-//		try {
-//			res = mapper.writeValueAsString(otpMap);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		  session.setAttribute("list",profileRes); logger.info(profileRes);
-//		  model.addAttribute("list",profileRes); 
-//		  return "bulk-table-invitelist";
-//		  
-//	}
-	
-
 	@GetMapping(value = "/getVehicleTemplate")
 	public ResponseEntity<InputStreamResource> getVoucherTemplate() {
 		try {

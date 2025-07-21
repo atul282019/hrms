@@ -23,7 +23,8 @@ public class LogoutController {
 	    new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY)
 	            .logout(request, response, null);
 	    
-	    return "redirect:/index";
+	    //return "redirect:/index";
+	    return "redirect:/";
 	
 	}
 	
