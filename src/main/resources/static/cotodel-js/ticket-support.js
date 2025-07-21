@@ -150,8 +150,8 @@ async function getSupportTicketListList() {
           { mData: "subject" },
 		  {
 		    mData: "creationdate",
-		    render: function (data) {
-		      const dateObj = new Date(data);
+		    render: function (data2) {
+		      const dateObj = new Date(data2);
 		      const day = String(dateObj.getDate()).padStart(2, '0');
 		      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
 		      const year = dateObj.getFullYear();

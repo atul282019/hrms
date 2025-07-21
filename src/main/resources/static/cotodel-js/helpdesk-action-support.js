@@ -334,11 +334,11 @@ async function changeTicketStatus(){
 	
 
 	if(issueDesc =="" || issueDesc == null){
-			 document.getElementById("fileInputError").innerHTML="Please Enter Error Description";
+			 document.getElementById("fileInputError2").innerHTML="Please Enter Error Description";
 			 return false;
 		}
 		else{
-			document.getElementById("fileInputError").innerHTML="";
+			document.getElementById("fileInputError2").innerHTML="";
 		}
 	
 	document.getElementById("signinLoader").style.display="flex";
