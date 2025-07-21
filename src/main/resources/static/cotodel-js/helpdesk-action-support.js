@@ -210,7 +210,7 @@ async function getTicketDetailById() {
 	  document.getElementById("submittedDate1").innerHTML=`${weekday}, ${day}/${month}`;
 	  document.getElementById("ticketDetail").innerHTML=data2.issueDesc;
 	  //document.getElementById("ticketDetail").innerHTML=data2.subject;
-	 //document.getElementById("imgTicket").src = "data:image/png;base64," + data2.ticketImg;
+	 document.getElementById("imgTicket").src = "data:image/png;base64," + data2.ticketImg;
 	 //document.getElementById("issueDescDetail").innerHTML=data2.issueDesc;
 	 
     },
