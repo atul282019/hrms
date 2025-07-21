@@ -73,7 +73,10 @@
 		        <div class="d-flex justify-content-between align-items-center mb-3">
 		          <h4 class="fw-bold">Support</h4>
 		          <div>
-					<button class="btn btn-custom me-2" data-bs-toggle="modal" data-bs-target="#AddVehicleModal">
+					<!--<button class="btn btn-custom me-2" data-bs-toggle="modal" data-bs-target="#AddVehicleModal">
+		              <i class="bi bi-plus-lg"></i> Raise Ticket
+		            </button>-->
+					<button class="btn btn-custom me-2"  type="button" id="raiseTicket">
 		              <i class="bi bi-plus-lg"></i> Raise Ticket
 		            </button>
 		 
@@ -232,6 +235,77 @@
 			  </div>
 			</div>
 	
+			
+			<!-- All inline styles replaced with unique CSS classes -->
+					<!-- Modal Wrapper -->
+					<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay2">
+					  <div class="voucher-modal-canvas" id="bs-canvas-right2" style="position: fixed; right: -378px; top: 0; height: 100%; width: 378px; background: #fff; transition: right 0.3s ease-in-out; z-index: 1050; box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);">
+					    <div class="voucher-modal-scrollable-wrapper" style="display: flex; flex-direction: column; height: 100%;">
+
+					      <!-- Header -->
+					      <div class="voucher-header">
+					        <h5 class="voucher-title">Submit Ticket</h5>
+					        <button class="voucher-close-btn bs-canvas-close2" aria-label="Close">
+					          <i class="fas fa-times voucher-close-icon"></i>
+					        </button>
+					      </div>
+
+					      <!-- Chat Area -->
+						  <div class="voucher-modal-scrollable" id="chat-box">
+							<form class="w-100">
+													 <div class="did-floating-label-content mb-3">
+												           <input 
+												             type="text"
+												             id="subject"
+												             class="did-floating-input"
+												             placeholder="" style="text-transform: uppercase;"
+												             maxlength="100" >
+												           <label class="did-floating-label">Subject</label>
+												         </div>
+													 <div class="error-msg" id="subjectError" style="margin-top: -10px; font-size: 12px;"></div>
+													 
+													 <div class="did-floating-label-content mb-3">
+														<textarea
+														  id="message"
+														  class="did-floating-input"
+														  placeholder=""
+														  style="height: 100px; resize: vertical; vertical-align: top; padding-top: 8px;"
+														></textarea>
+							 					           <label class="did-floating-label">Message</label>
+							 					         </div>
+														 <div class="error-msg" id="messageError" style=" margin-top: -10px; font-size: 12px;"></div>
+													 <!-- File Upload Field -->
+													 <div class="did-floating-label-content mb-3">
+													   <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
+													   <input type="file" id="up" class="form-control" onchange="convertImageToBase64()" 
+													  >
+													 </div>
+												     <div class="d-grid">
+													 <div class="error-msg" id="fileInputError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+													 						  
+													 <button type="button" class="chat-send-btn w-100" 
+														 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" onclick="saveTicket()">
+									                         Submit Ticket
+									                     </button>
+														 <!--<button id="sendChatBtn" class="chat-send-btn" onclick="replyTicket()">Send</button>
+												  -->   </div>
+												   </form>  
+						    </div>
+
+					      <!-- Input Area -->
+						<!--  <div class="chat-input-bar">
+						    <label for="chatFileUpload" class="chat-attachment-label">
+						      <i class="fas fa-paperclip"></i>
+						      <input type="file" id="chatFileUpload" hidden>
+						    </label>
+						    <input type="text" id="chatInput" class="chat-input" placeholder="Type a message...">
+						    <button id="sendChatBtn" class="chat-send-btn" onclick="replyTicket()">Send</button>
+						  </div>-->
+
+					    </div>
+					  </div>
+					</div>
+					
 			 <!-- add vehicle modal-->
 			 <div class="modal fade" id="AddVehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			     <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
@@ -497,6 +571,18 @@ function openModalConfirm() {
       this.style.display = 'none';
     }
   });
+  
+  document.getElementById('raiseTicket').addEventListener('click', function (e) {
+  	  
+  	    document.getElementById('bs-canvas-right2').style.right = '0';
+  	    document.getElementById('modal-overlay2').style.display = 'block';
+  	
+  	});
+	
+	document.querySelector('.bs-canvas-close2').addEventListener('click', function () {
+		  document.getElementById('bs-canvas-right2').style.right = '-378px';
+		  document.getElementById('modal-overlay2').style.display = 'none';
+		});
 </script>
 		<style>					
 			.modal-bulk1 {

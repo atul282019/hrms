@@ -104,9 +104,12 @@ async function saveTicket(){
 				 document.getElementById("subjectError").innerHTML="";
 				 document.getElementById("messageError").innerHTML="";
 				 document.getElementById("fileInputError").innerHTML="";
-		   
+				 document.getElementById('bs-canvas-right2').style.right = '-378px';
+				 document.getElementById('modal-overlay2').style.display = 'none';
 			}else if(data.status==false){
-				$('#AddVehicleModal').modal('show');
+				//$('#AddVehicleModal').modal('show');
+				document.getElementById('bs-canvas-right2').style.right = '0';
+			    document.getElementById('modal-overlay2').style.display = 'block';
 			}
 	     },
 	     error: function(e){
