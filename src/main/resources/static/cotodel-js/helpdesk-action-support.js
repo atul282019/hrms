@@ -310,6 +310,75 @@ function formatFullDateTime(dateStr) {
 }
 
 
+async function changeTicketStatus(){
+	var ticketId = document.getElementById("ticketId").value;
+	var name =  document.getElementById("createdBy").value;
+	var createdby =  document.getElementById("employerMobile").value;
+	var orgId = document.getElementById("employerId").value;
+	var issueDesc = document.getElementById("enterChatRemarks").value;
+	var base64file = document.getElementById("base64Output").value;
+	var dropdown = document.getElementById("ticketStatus1");
+	var respTicketStatus = dropdown.value;
+	var respTicketStatusDesc = dropdown.options[dropdown.selectedIndex].text;
+	
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+	const dataString = orgId+issueDesc+createdby+base64file+clientKey+secretKey;
+
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	
+
+	if(issueDesc =="" || issueDesc == null){
+			 document.getElementById("fileInputError").innerHTML="Please Enter Error Description";
+			 return false;
+		}
+		else{
+			document.getElementById("fileInputError").innerHTML="";
+		}
+	
+	document.getElementById("signinLoader").style.display="flex";
+	$.ajax({
+		type: "POST",
+	     url:"/replyTicket",
+		 dataType: 'json',   
+	      data: {
+			        "id":ticketId,
+					"orgId":orgId,
+					"issueDesc":issueDesc,
+					"respTicketStatus":respTicketStatus,
+					"respTicketStatusDesc":respTicketStatusDesc,
+					"ticketImg":base64file,
+					"createdby":createdby,
+					"name":name,
+					"clientKey":clientKey,
+				    "hash":hashHex
+			 },  		 
+	        success:function(data){
+			document.getElementById("signinLoader").style.display="none";
+	        var data1 = data.data;
+		    var data2 = jQuery.parseJSON(data1);
+		    console.log("data2",data2);
+			if(data2.status==true){
+				dropdown = document.getElementById("ticketStatus1")="";
+				 document.getElementById("enterChatRemarks").value="";
+				getTicketTransactionHistoryById(ticketId);
+				
+			}else if(data.status==false){
+				$('#AddVehicleModal').modal('show');
+			}
+	     },
+	     error: function(e){
+	         alert('Error: ' + e);
+	     }
+	});	
+	
+}
+
 /*async function getTicketTransactionHistoryById() {
   var orgId = document.getElementById("employerId").value;
   var ticketId = document.getElementById("ticketId").value;
