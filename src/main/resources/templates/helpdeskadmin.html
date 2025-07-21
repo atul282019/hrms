@@ -4,6 +4,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+ <!-- Bootstrap CSS -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+ <!-- Bootstrap Icons -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+ <!-- Font Awesome (if needed for download icon) -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <body id="page-top" onload="getTicketDetailById(),getTicketTransactionHistoryById()">
 
@@ -121,8 +127,12 @@
 						</div>
 				      </div>
 				      <div class="admin-ticket-info-item">
-				        <div class="admin-ticket-label">Status</div>
+				        <!--<div class="admin-ticket-label">Status</div>-->
+						<a href="#" id="openModalBtn1" class="btn btn-link" style="margin-right: 15px !important;">
+												  <i class="bi bi-arrow-right"></i>
+												</a>
 				        <div><span class="admin-ticket-status" id="status"></span></div>
+						
 				      </div>
 				    </div>
 
@@ -292,149 +302,50 @@
     <!-- End of Page Wrapper -->
 	<!-- Slide-in Modal -->
 	<!-- All inline styles replaced with unique CSS classes -->
-	<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay">
-	  <div class="voucher-modal-canvas" id="bs-canvas-right1">
-	    <div class="voucher-modal-scrollable-wrapper">
-	      <div class="voucher-modal-scrollable">
-	        <div class="voucher-header">
-	          <h5 class="voucher-title">Voucher Details</h5>
-	          <button class="voucher-close-btn bs-canvas-close" aria-label="Close">
-	            <i class="fas fa-times voucher-close-icon"></i>
-	          </button>
-	        </div>
+	<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay1">
+		  <div class="voucher-modal-canvas" id="bs-canvas-right2">
+		  <div class="voucher-modal-scrollable-wrapper">
+  <div class="voucher-modal-scrollable">
+    <div class="voucher-header">
+      <h5 class="voucher-title">Select Ticket Details</h5>
+      <button class="voucher-close-btn bs-canvas-close" aria-label="Close">
+        <i class="fas fa-times voucher-close-icon"></i>
+      </button>
+    </div>
 
-	        <div class="voucher-card">
-	          <div class="voucher-card-header">
-				<div class="voucher-card-icon-box">
-				  <!--<img id="voucherLogoImg" alt="Voucher Logo" width="24" height="24" style="display: none;">-->
-				  <img src="img/food-icon-grey.png" />
-				</div>
-	            <div class="voucher-card-labels">
-	              <div class="voucher-label-row">
-					
-	                <span class="voucher-label-title" id="voucherDesc">Meal</span>
-	                <span class="voucher-label-title" id="voucherAmount">₹15,000</span>
-	              </div>
-	              <div class="voucher-label-row">
-	                <span class="voucher-label-sub" id="redemtionType">Multiple</span>
-	                <span class="voucher-label-sub">Voucher value</span>
-	              </div>
-	            </div>
-	          </div>
+    <!-- Dropdown -->
+    <div class="form-group mb-3">
+      <select id="ticketStatus1" class="form-control">
+        <option value="0">Select Status</option>
+        <option value="1">Hold</option>
+        <option value="2">Closed</option>
+        <option value="3">In Progress</option>
+      </select>
+    </div>
 
-	          <div class="voucher-status-box">
-	            <span class="voucher-status-text" id="voucherStatus">Active</span>
-	            <span class="voucher-status-text">Balance: <span class="voucher-balance" id="balanceAmount">₹5,000</span></span>
-	          </div>
+    <!-- Textarea -->
+    <div class="form-group mb-3">
+      <textarea class="form-control" placeholder="Enter Remarks"></textarea>
+    </div>
+  </div>
+</div>
 
-	          <div class="voucher-meta">
-	            <div class="voucher-meta-row">
-	              <span class="voucher-meta-label">Issue Date</span>
-	              <span class="voucher-meta-label">Voucher ID</span>
-	            </div>
-	            <div class="voucher-meta-row">
-	              <span class="voucher-meta-value" id="issueDate">25/10/2024</span>
-	              <span class="voucher-meta-value" id="merchantTranId">ICICI00001145781</span>
-	            </div>
-	            <div class="voucher-meta-row">
-	              <span class="voucher-meta-label">Beneficiary</span>
-	              <span class="voucher-meta-label">Mobile Number</span>
-	            </div>
-	            <div class="voucher-meta-row">
-	              <span class="voucher-meta-value" id="name">Ramesh Kumar</span>
-	              <span class="voucher-meta-value"id="voucherMobile">9910318405</span>
-	            </div>
-	            <div class="voucher-meta-row">
-	              <span class="voucher-meta-label">Bank A/c</span>
-	              <span class="voucher-meta-label" >Expiry Date</span>
-	            </div>
-	            <div class="voucher-meta-row">
-	              <span class="voucher-meta-value" id="accountNumber">
-	                <!--<img src="img/indianbank.png" alt="indianbank" class="voucher-bank-icon">xxx0569-->
-	              </span>
-	              <span class="voucher-meta-value"id="expDate">25/10/2025</span>
-	            </div>
-	          </div>
-	        </div>
-
-	        <div class="voucher-redemption">
-	          <h6 class="voucher-redemption-title">Redemption Details</h6>
-	          <div class="voucher-redemption-card">
-	            <div class="voucher-redemption-label" >Amount Spent</div>
-	            <div class="voucher-redemption-values">
-	              <div class="voucher-redemption-amount"id="amountSpent">₹10,000</div>
-	              <!--<span class="voucher-status-pill">Partially Redeemed</span>-->
-	            </div>
-	          </div>
-	        </div>
-
-	        <ol class="voucher-transaction-list">
-	          <div class="voucher-transaction-line"></div>
-			  <!-- box1-->
-	          <li class="voucher-transaction-item">
-	            <div class="voucher-transaction-step">1</div>
-	            <div class="voucher-transaction-card">
-	              <div class="voucher-transaction-top">
-	                <div>
-	                  <div class="voucher-meta-label">Transaction date</div>
-	                  <div class="voucher-meta-value">25/10/2024</div>
-	                </div>
-	                <div>
-	                  <div class="voucher-meta-label">Transaction RRN</div>
-	                  <div class="voucher-meta-value">ICICI00001145781</div>
-	                </div>
-	              </div>
-	              <div class="voucher-transaction-bottom">
-	                <div>
-	                  <div class="voucher-meta-label">Merchant Name</div>
-	                  <div class="voucher-meta-value">Ramesh Kumar</div>
-	                </div>
-	                <div>
-	                  <div class="voucher-meta-label">Amount</div>
-	                  <div class="voucher-meta-value">₹1,200</div>
-	                </div>
-	              </div>
-	            </div>
-	          </li>
-			  <!-- box2-->
-			  <li class="voucher-transaction-item">
-	            <div class="voucher-transaction-step">2</div>
-	            <div class="voucher-transaction-card">
-	              <div class="voucher-transaction-top">
-	                <div>
-	                  <div class="voucher-meta-label">Transaction date</div>
-	                  <div class="voucher-meta-value">25/10/2024</div>
-	                </div>
-	                <div>
-	                  <div class="voucher-meta-label">Transaction RRN</div>
-	                  <div class="voucher-meta-value">ICICI00001145781</div>
-	                </div>
-	              </div>
-	              <div class="voucher-transaction-bottom">
-	                <div>
-	                  <div class="voucher-meta-label">Merchant Name</div>
-	                  <div class="voucher-meta-value">Ramesh Kumar</div>
-	                </div>
-	                <div>
-	                  <div class="voucher-meta-label">Amount</div>
-	                  <div class="voucher-meta-value">₹1,200</div>
-	                </div>
-	              </div>
-	            </div>
-	          </li>
-			  <!-- add as many box as wanted-->
-	        </ol>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
+			
+		    <div class="voucher-footer">
+		      <button class="voucher-download-btn">
+		       Submit
+		      </button>
+		    </div>
+		  </div>
+		</div>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 	<!-- Theme css-->
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -452,7 +363,63 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<!--<script type="text/javascript" src="cotodel-js/"></script>-->
+	<style>	#bs-canvas-right2 {
+	  position: absolute;
+	  right: 0;
+	  top: 0;
+	  width: 380px;
+	  height: 100%;
+	  background: #fff;
+	  transform: translateX(100%);
+	  transition: transform 0.3s ease-in-out;
+	  z-index: 1001;
+	}
+
+	#bs-canvas-right2.show-canvas {
+	  transform: translateX(0);
+	}
+</style>
+	<script>
+	  document.addEventListener("DOMContentLoaded", function () {
+	    const openBtn = document.getElementById("openModalBtn1");
+	    const overlay = document.getElementById("modal-overlay1");
+	    const canvas = document.getElementById("bs-canvas-right2");
+	    const closeBtn = overlay.querySelector(".bs-canvas-close");
+
+	    // Open modal
+	    openBtn.addEventListener("click", function (e) {
+	      e.preventDefault();
+	      overlay.style.display = "block";
+	      setTimeout(() => {
+	        canvas.classList.add("show-canvas");
+	      }, 10); // slight delay for transition
+	    });
+
+	    // Close modal on close button
+	    closeBtn.addEventListener("click", function () {
+	      canvas.classList.remove("show-canvas");
+	      setTimeout(() => {
+	        overlay.style.display = "none";
+	      }, 300); // match transition duration
+	    });
+
+	    // Close modal on clicking outside canvas
+	    overlay.addEventListener("click", function (e) {
+	      if (e.target === overlay) {
+	        canvas.classList.remove("show-canvas");
+	        setTimeout(() => {
+	          overlay.style.display = "none";
+	        }, 300);
+	      }
+	    });
+	  });
+	</script>
+
+
+
+
 	<style>	
+		
 		.voucher-modal-overlay {
 		  display: none;
 		  position: fixed;
