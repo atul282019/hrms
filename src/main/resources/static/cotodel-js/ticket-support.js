@@ -121,81 +121,6 @@ async function saveTicket(){
 	});	
 	
 }
-/*async function getSupportTicketListList() {
-  var orgId = document.getElementById("employerId").value;
-  document.getElementById("signinLoader").style.display="flex";
-  $.ajax({
-    type: "GET",
-    url: "/getAllTicket",
-    data: {
-      orgId: orgId
-    },
-    beforeSend: function (xhr) {},
-    success: function (data) {
-	  document.getElementById("signinLoader").style.display="none";
-      const data1 = jQuery.parseJSON(data);
-   		var data2 = data1.data;
-      $('#supportTicketList').DataTable({
-        destroy: true,
-        responsive: true,
-        searching: false,
-        bInfo: false,
-        paging: false,
-        lengthChange: true,
-        autoWidth: false,
-        pagingType: "full_numbers",
-        pageLength: 50,
-        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        language: { emptyTable: "No Tickets Found" },
-        aaData: data2,
-		aoColumns: [
-		  { mData: "ticketnumber" },
-		  { mData: "subject" },
-	
-		  { mData: "creationdate",
-			render: function (data, type, row) {
-			   const dateObj = new Date(data);
-			   const day = String(dateObj.getDate()).padStart(2, '0');
-			   const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-			   const year = dateObj.getFullYear();
-
-			   let hours = dateObj.getHours();
-			   const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-			   const ampm = hours >= 12 ? 'Pm' : 'Am';
-			   hours = hours % 12 || 12;
-
-			   const formattedDate = `${day}-${month}-${year}`;
-			   const formattedTime = `${hours}:${minutes} ${ampm}`;
-
-			   return `${formattedDate}<br>${formattedTime}`;
-			 }
-		  },
-		  { mData: "subject" },
-		  {
-		    mData: "status",
-		    render: function (data) {
-		      return data === 0 ? "Submitted" : "Closed";
-		    }
-		  },
-		  {
-		    mData: "status",
-		    render: function (data, type, row) {
-		      if (data !== 1) {
-		        return '<a href="#" class="view-voucher-details"> <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;"> Chat with Customer Success Team </a>';
-		      } else {
-		        return '<a href="#" class="view-voucher-details"><img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">Chat with Customer Success Team </a>';
-		      }
-		    }
-		  }
-		]
-      });
-    },
-    error: function (e) {
-      alert('Failed to fetch JSON data' + e);
-    }
-  });
-} */
-
 // Updated: getSupportTicketListList
 async function getSupportTicketListList() {
   const orgId = document.getElementById("employerId").value;
@@ -297,10 +222,11 @@ async function getTicketTransactionHistoryById(ticketId) {
         data2.forEach(item => {
           const responseIssueDesc = item.responseIssueDesc;
           const issueDesc = item.issueDesc;
+		 
           const senderName = item.name || item.createdby || 'Unknown';
 
           const formattedDate = formatDateTime(item.creationdate);
-
+		  const responseDate = formatDateTime(item.responseDate);
           let messageHTML = '';
 
           if (responseIssueDesc && responseIssueDesc.trim() !== '') {
@@ -318,11 +244,12 @@ async function getTicketTransactionHistoryById(ticketId) {
             messageHTML += `
               <div class="chat-msg user-msg">
                 <p>${issueDesc}</p>
+				<p>${responseDate}</p>
               </div>
               <div class="chat-gap"></div>
             `;
           }
-
+		 	
           if (messageHTML !== '') {
             container.append(messageHTML);
           }

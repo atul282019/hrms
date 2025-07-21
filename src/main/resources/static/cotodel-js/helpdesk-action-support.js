@@ -224,20 +224,19 @@ async function getTicketDetailById() {
     }
   });
 }
+
 async function getTicketTransactionHistoryById() {
   const orgId = document.getElementById("employerId").value;
   const ticketId = document.getElementById("ticketId").value;
-  //document.getElementById("signinLoader").style.display = "flex";
 
   $.ajax({
     type: "GET",
     url: "/ticketReplyHistory",
     data: { orgId, id: ticketId },
     success: function (data) {
-      //document.getElementById("signinLoader").style.display = "none";
       const data1 = jQuery.parseJSON(data);
       const data2 = data1.data;
-	  console.log("/ticketReplyHistory admin side",data2);
+      console.log("/ticketReplyHistory admin side", data2);
       const container = $('#ticketMessageContainer');
       container.empty();
 
@@ -246,16 +245,15 @@ async function getTicketTransactionHistoryById() {
           const responseIssueDesc = item.responseIssueDesc;
           const issueDesc = item.issueDesc;
           const senderName = item.name || item.createdby || 'Unknown';
-          const creationDate = new Date(item.creationdate);
-          const formattedDate = creationDate.toLocaleDateString('en-GB', {
-            weekday: 'short', day: '2-digit', month: '2-digit'
-          }).replace(',', '');
+
+          // ✅ Use formatted date function
+          const formattedDate = formatFullDateTime(item.creationdate);
 
           let messageHTML = '';
 
           if (responseIssueDesc && responseIssueDesc.trim() !== '') {
             messageHTML += `
-			<br>
+              <br>
               <div class="admin-ticket-message admin-ticket-message-white">
                 <p class="mb-1">${responseIssueDesc}</p>
                 <div class="admin-ticket-message-footer">
@@ -263,21 +261,19 @@ async function getTicketTransactionHistoryById() {
                   <span>${formattedDate}</span>
                 </div>
               </div>
-			  
             `;
           }
 
           if (issueDesc && issueDesc.trim() !== '') {
             messageHTML += `
-			<br>
-			<div class="admin-ticket-message admin-ticket-message-green">
-           <p class="mb-1">${issueDesc}</p>
-           <div class="admin-ticket-message-footer">
-             <span style="margin-right: 12px;">${senderName}</span>
-             <span>${formattedDate}</span>
-           </div>
-         </div>
-		 
+              <br>
+              <div class="admin-ticket-message admin-ticket-message-green">
+                <p class="mb-1">${issueDesc}</p>
+                <div class="admin-ticket-message-footer">
+                  <span style="margin-right: 12px;">${senderName}</span>
+                  <span>${formattedDate}</span>
+                </div>
+              </div>
             `;
           }
 
@@ -286,8 +282,7 @@ async function getTicketTransactionHistoryById() {
           }
         });
       } else {
-        //container.html('<p>No messages found.</p>');
-		container.html('<br><br>');
+        container.html('<br><br>');
       }
     },
     error: function () {
@@ -295,6 +290,25 @@ async function getTicketTransactionHistoryById() {
     }
   });
 }
+
+// ✅ Date formatter: Thu 18/07/2025 | 06:08 PM
+function formatFullDateTime(dateStr) {
+  const dateObj = new Date(dateStr);
+
+  const weekday = dateObj.toLocaleDateString('en-GB', { weekday: 'short' });
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const year = dateObj.getFullYear();
+
+  let hours = dateObj.getHours();
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  hours = String(hours).padStart(2, '0');
+
+  return `${weekday} ${day}/${month}/${year} | ${hours}:${minutes} ${ampm}`;
+}
+
 
 /*async function getTicketTransactionHistoryById() {
   var orgId = document.getElementById("employerId").value;

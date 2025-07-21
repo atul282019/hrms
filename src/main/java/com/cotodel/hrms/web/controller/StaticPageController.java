@@ -583,9 +583,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}	
 		  return "error";
 		}
-		return "index";
+		return "home";
 	}
-	return "index";
+	return "home";
 }
 	@GetMapping(value="/tempLogin")
 	public String dashboard1(Model model, @RequestParam("mobile") String mobile,@RequestParam("email") String email) {
@@ -631,9 +631,9 @@ public class StaticPageController extends CotoDelBaseController{
 			 return new ModelAndView("error", "command", "");
 		}
 		model.addAttribute("id",id);
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 
 	@GetMapping(value="/bulkInvite")
@@ -654,9 +654,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	@GetMapping(value="/bulkupload")
 	public ModelAndView bulkUser(Model model) {
@@ -677,9 +677,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 
 	@GetMapping(value="/bulkUserList")
@@ -701,9 +701,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/manageEmployee")
@@ -725,9 +725,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 //		@GetMapping(value="/manageEmployeeContractor")
 //		public ModelAndView manageEmployeeContractor(Model model) {
@@ -772,9 +772,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 	
 	@GetMapping(value="/dashBoardNew")
@@ -794,9 +794,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/companyDetailNew")
@@ -816,9 +816,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/employeeOnboarding")
@@ -838,9 +838,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/employeeOnboarding-full-action")
@@ -861,9 +861,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 
 	
@@ -884,9 +884,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/expanceTravel")
@@ -906,9 +906,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/expenseReimbursements")
@@ -928,9 +928,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 
 	
@@ -951,9 +951,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	
@@ -974,9 +974,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/employeeBand")
@@ -996,9 +996,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 
@@ -1019,9 +1019,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 
 	@GetMapping(value="/bulkVoucherIssuance")
@@ -1041,9 +1041,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 //	@GetMapping(value="/expenseReimbursementsNew")
 //	public ModelAndView expenseReimbursementsNew(Model model) {
@@ -1129,9 +1129,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/voucherTypeMaster")
@@ -1152,9 +1152,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@PostMapping("/editBankMaster")
@@ -1340,9 +1340,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/roleAccess")
@@ -1362,9 +1362,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 @GetMapping(value="/settings/{tab}")
 	public ModelAndView roleAccessWallet(@PathVariable String tab, Model model) {
@@ -1384,9 +1384,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/userVoucheCreation")
@@ -1406,9 +1406,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/erupiDashboard")
@@ -1428,9 +1428,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
 	@GetMapping(value="/ProfileInfo")
@@ -1452,9 +1452,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }		
 	@GetMapping(value="/upiVoucherIssuanceNew")
 	public ModelAndView upiVoucherIssuanceNew(Model model) {
@@ -1473,9 +1473,9 @@ public class StaticPageController extends CotoDelBaseController{
 			   }
 			 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 	
 	@GetMapping(value="/upiVoucherIssuanceNewcopy")
@@ -1495,9 +1495,9 @@ public class StaticPageController extends CotoDelBaseController{
 			   }
 			 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 	
 	@GetMapping(value="/reputeUpiVoucherIssuance")
@@ -1519,9 +1519,9 @@ public class StaticPageController extends CotoDelBaseController{
 			   }
 			 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 	
 	/// new voucher design 
@@ -1542,9 +1542,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 	
 	@GetMapping(value="/reputeUpiVoucherIssuanceManually")
@@ -1564,9 +1564,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 	
 	@GetMapping(value="/requestedUpiVoucherIssuance")
@@ -1586,9 +1586,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 	
 	/// new voucher design 
@@ -1609,9 +1609,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 
 		@GetMapping("/editVoucherMaster")
@@ -1628,7 +1628,7 @@ public class StaticPageController extends CotoDelBaseController{
 		    return new ModelAndView("edit-Voucher-Master", "command", ""); // This refers to the Thymeleaf template for editing
 		}
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 		@GetMapping(value="/settingOrganizationAccount")
 		public ModelAndView settingOrganizationAccount(Model model) {
@@ -1648,9 +1648,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 		
 		@GetMapping(value="/waitList")
@@ -1693,9 +1693,9 @@ public class StaticPageController extends CotoDelBaseController{
 				} 
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 		@GetMapping(value="/requestedVoucherList")
 		public ModelAndView requestedVoucherList(Model model) {
@@ -1715,9 +1715,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 		
 		@GetMapping(value="/directorOnboarding")
@@ -1738,9 +1738,9 @@ public class StaticPageController extends CotoDelBaseController{
 				}
 				 return new ModelAndView("error", "command", "");
 			}
-			return new ModelAndView("index", "command", "");
+			return new ModelAndView("home", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
 		
 	public static ReputeCompanyDetails parseJson(String json) {
@@ -1770,9 +1770,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	@GetMapping(value="/deactiveEmployee")
 	public ModelAndView deactiveEmployee(Model model) {
@@ -1793,9 +1793,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 	
     @GetMapping(value = "/transport")
@@ -1835,9 +1835,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 
     @GetMapping(value="/cotodelApproval")
@@ -1858,9 +1858,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
     
     @GetMapping(value="/editvehicle")
@@ -1881,9 +1881,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
     @GetMapping(value="/bulkvehicleupload")
 	public ModelAndView bulkvehicleupload(Model model) {
@@ -1904,9 +1904,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
     @GetMapping(value="/bulkempUpload")
 	public ModelAndView bulkempUpload(Model model) {
@@ -1927,9 +1927,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
     
     @GetMapping(value="/savebulkvehicle")
@@ -1950,9 +1950,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
     @GetMapping(value="/vehiclemanagement")
    	public ModelAndView editvehicle(Model model) {
@@ -1972,9 +1972,9 @@ public class StaticPageController extends CotoDelBaseController{
    			}
    			 return new ModelAndView("error", "command", "");
    		}
-   		return new ModelAndView("index", "command", "");
+   		return new ModelAndView("home", "command", "");
    	}
-   	return new ModelAndView("index", "command", "");
+   	return new ModelAndView("home", "command", "");
    }
 @GetMapping(value="/customSupport")
 	public ModelAndView customSupport(Model model) {
@@ -1994,9 +1994,9 @@ public class StaticPageController extends CotoDelBaseController{
 			}
 			 return new ModelAndView("error", "command", "");
 		}
-		return new ModelAndView("index", "command", "");
+		return new ModelAndView("home", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
 
 @GetMapping(value="/helpdeskaction")
@@ -2017,9 +2017,9 @@ public ModelAndView helpdeskaction(Model model) {
 		}
 		 return new ModelAndView("error", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
-return new ModelAndView("index", "command", "");
+return new ModelAndView("home", "command", "");
 }
 @GetMapping("/helpdeskadmin")
 public ModelAndView helpdeskadmin(Model model, @RequestParam String ticketId, HttpSession session) {
@@ -2041,10 +2041,10 @@ public ModelAndView helpdeskadmin(Model model, @RequestParam String ticketId, Ht
             }
             return new ModelAndView("error");
         }
-        return new ModelAndView("index");
+        return new ModelAndView("home");
     }
 
-    return new ModelAndView("index");
+    return new ModelAndView("home");
 }
 @GetMapping(value="/crmtab")
 public ModelAndView crmtab(Model model) {
@@ -2064,9 +2064,9 @@ public ModelAndView crmtab(Model model) {
 		}
 		 return new ModelAndView("error", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
-return new ModelAndView("index", "command", "");
+return new ModelAndView("home", "command", "");
 }
 
 @GetMapping(value="/companyprofile")
@@ -2087,9 +2087,9 @@ public ModelAndView companyprofile(Model model) {
 		}
 		 return new ModelAndView("error", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
-return new ModelAndView("index", "command", "");
+return new ModelAndView("home", "command", "");
 }
 
 @GetMapping(value="/crmtab1")
@@ -2110,8 +2110,8 @@ public ModelAndView crmtab1(Model model) {
 		}
 		 return new ModelAndView("error", "command", "");
 	}
-	return new ModelAndView("index", "command", "");
+	return new ModelAndView("home", "command", "");
 }
-return new ModelAndView("index", "command", "");
+return new ModelAndView("home", "command", "");
 }
 }
