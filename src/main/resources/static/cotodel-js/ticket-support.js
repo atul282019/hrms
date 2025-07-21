@@ -101,6 +101,9 @@ async function saveTicket(){
 					     
 		         $('#AddVehicleModal').modal('hide');
 				 getSupportTicketListList();
+
+				 document.getElementById("subject").value="";
+				 document.getElementById("message").value="";
 				 document.getElementById("subjectError").innerHTML="";
 				 document.getElementById("messageError").innerHTML="";
 				 document.getElementById("fileInputError").innerHTML="";
@@ -220,20 +223,23 @@ async function getSupportTicketListList() {
         aoColumns: [
           { mData: "ticketnumber" },
           { mData: "subject" },
-          {
-            mData: "creationdate",
-            render: function (data) {
-              const dateObj = new Date(data);
-              const day = String(dateObj.getDate()).padStart(2, '0');
-              const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-              const year = dateObj.getFullYear();
-              let hours = dateObj.getHours();
-              const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-              const ampm = hours >= 12 ? 'Pm' : 'Am';
-              hours = hours % 12 || 12;
-              return `${day}-${month}-${year}<br>${hours}:${minutes} ${ampm}`;
-            }
-          },
+		  {
+		    mData: "creationdate",
+		    render: function (data) {
+		      const dateObj = new Date(data);
+		      const day = String(dateObj.getDate()).padStart(2, '0');
+		      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+		      const year = dateObj.getFullYear();
+
+		      let hours = dateObj.getHours();
+		      const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+		      const ampm = hours >= 12 ? 'PM' : 'AM';
+		      hours = hours % 12 || 12;
+		      hours = String(hours).padStart(2, '0');
+
+		      return `${day}-${month}-${year}<br>${hours}:${minutes} ${ampm}`;
+		    }
+		  },
           { mData: "subject" },
           {
             mData: "status",
@@ -276,17 +282,14 @@ function openTicketModal(ticketId) {
 // Refactor this to accept ticketId as param
 async function getTicketTransactionHistoryById(ticketId) {
   const orgId = document.getElementById("employerId").value;
-  //document.getElementById("signinLoader").style.display = "flex";
 
   $.ajax({
     type: "GET",
     url: "/ticketReplyHistory",
     data: { orgId, id: ticketId },
     success: function (data) {
-      //document.getElementById("signinLoader").style.display = "none";
       const data1 = jQuery.parseJSON(data);
       const data2 = data1.data;
-      console.log("/ticketReplyHistory data", data2);
       const container = $('#chat-box');
       container.empty();
 
@@ -295,10 +298,8 @@ async function getTicketTransactionHistoryById(ticketId) {
           const responseIssueDesc = item.responseIssueDesc;
           const issueDesc = item.issueDesc;
           const senderName = item.name || item.createdby || 'Unknown';
-          const creationDate = new Date(item.creationdate);
-          const formattedDate = creationDate.toLocaleDateString('en-GB', {
-            weekday: 'short', day: '2-digit', month: '2-digit'
-          }).replace(',', '');
+
+          const formattedDate = formatDateTime(item.creationdate);
 
           let messageHTML = '';
 
@@ -335,6 +336,24 @@ async function getTicketTransactionHistoryById(ticketId) {
     }
   });
 }
+
+// Format: Thu 17/07 | 06:08 PM
+function formatDateTime(dateStr) {
+  const dateObj = new Date(dateStr);
+
+  const weekday = dateObj.toLocaleDateString('en-GB', { weekday: 'short' });
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+
+  let hours = dateObj.getHours();
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  hours = String(hours).padStart(2, '0');
+
+  return `${weekday} ${day}/${month} | ${hours}:${minutes} ${ampm}`;
+}
+
 /*async function getTicketTransactionHistoryById1() {
 	// this is backup function
   var orgId = document.getElementById("employerId").value;

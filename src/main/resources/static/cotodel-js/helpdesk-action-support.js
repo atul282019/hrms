@@ -173,53 +173,57 @@ async function getSupportTicketActionList() {
   });
 }
 
-
 async function getTicketDetailById() {
   var orgId = document.getElementById("employerId").value;
   var ticketId = document.getElementById("ticketId").value;
-  document.getElementById("signinLoader").style.display="flex";
+  document.getElementById("signinLoader").style.display = "flex";
+
   $.ajax({
     type: "GET",
     url: "/getTicketDetailByTicketId",
     data: {
       orgId: orgId,
-	  "id":ticketId
+      "id": ticketId
     },
     beforeSend: function (xhr) {},
     success: function (data) {
-	  document.getElementById("signinLoader").style.display="none";
+      document.getElementById("signinLoader").style.display = "none";
       const data1 = jQuery.parseJSON(data);
-   	  var data2 = data1.data;
-	  console.log("/getTicketDetailByTicketId first function data",data1);
-	  const rawDate = new Date(data2.creationDate);
+      var data2 = data1.data;
+      console.log("/getTicketDetailByTicketId first function data", data1);
 
-	  // Format: 'Wed, 09/07'
-	  const options = { weekday: 'short' };
-	  const weekday = rawDate.toLocaleDateString('en-US', options);
-	  const day = String(rawDate.getDate()).padStart(2, '0');
-	  const month = String(rawDate.getMonth() + 1).padStart(2, '0');
+      const rawDate = new Date(data2.creationDate);
 
-	  document.getElementById("tickeNo").innerHTML=data2.ticketNo;
-	  document.getElementById("senderName").innerHTML=data2.name;
-	  document.getElementById("companyName").innerHTML=data2.organizationName;
-	  document.getElementById("dateTime").innerHTML=data2.creationDate;
-	  document.getElementById("status").innerHTML=data2.statusDesc;
-	  document.getElementById("subject").innerHTML=data2.subject;
-	  document.getElementById("submittedBy").innerHTML=data2.name;
-	  document.getElementById("submittedDate").innerHTML=`${weekday}, ${day}/${month}`;
-	  document.getElementById("submittedDate1").innerHTML=`${weekday}, ${day}/${month}`;
-	  document.getElementById("ticketDetail").innerHTML=data2.issueDesc;
-	  //document.getElementById("ticketDetail").innerHTML=data2.subject;
-	 document.getElementById("imgTicket").src = "data:image/png;base64," + data2.ticketImg;
-	 //document.getElementById("issueDescDetail").innerHTML=data2.issueDesc;
-	 
+      // Format: 'Thu 18/07 | 06:08 PM'
+      const weekday = rawDate.toLocaleDateString('en-GB', { weekday: 'short' });
+      const day = String(rawDate.getDate()).padStart(2, '0');
+      const month = String(rawDate.getMonth() + 1).padStart(2, '0');
+
+      let hours = rawDate.getHours();
+      const minutes = String(rawDate.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      hours = String(hours).padStart(2, '0');
+
+      const formattedDateTime = `${weekday} ${day}/${month} | ${hours}:${minutes} ${ampm}`;
+
+      document.getElementById("tickeNo").innerHTML = data2.ticketNo;
+      document.getElementById("senderName").innerHTML = data2.name;
+      document.getElementById("companyName").innerHTML = data2.organizationName;
+      document.getElementById("dateTime").innerHTML = data2.creationDate; // original full datetime
+      document.getElementById("status").innerHTML = data2.statusDesc;
+      document.getElementById("subject").innerHTML = data2.subject;
+      document.getElementById("submittedBy").innerHTML = data2.name;
+      document.getElementById("submittedDate").innerHTML = formattedDateTime;
+      document.getElementById("submittedDate1").innerHTML = formattedDateTime;
+      document.getElementById("ticketDetail").innerHTML = data2.issueDesc;
+      document.getElementById("imgTicket").src = "data:image/png;base64," + data2.ticketImg;
     },
     error: function (e) {
       alert('Failed to fetch JSON data' + e);
     }
   });
 }
-
 async function getTicketTransactionHistoryById() {
   const orgId = document.getElementById("employerId").value;
   const ticketId = document.getElementById("ticketId").value;
