@@ -9906,7 +9906,7 @@ table.vcScheduledtable thead {
 					display: flex;
 					justify-content: center;
 					
-					
+					/*background-color: white;*/
 				}
 
 				.admin-ticket-input-group {
