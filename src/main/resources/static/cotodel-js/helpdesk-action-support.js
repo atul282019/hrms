@@ -67,13 +67,13 @@ function convertImageToBase64() {
 			else{
 				document.getElementById("fileInputError").innerHTML="";
 			}
-		/*if(fileInput =="" || fileInput == null){
-			 document.getElementById("fileInputError").innerHTML="Please Select File";
+		if(respTicketStatus =="" || respTicketStatus == null){
+			 document.getElementById("fileInputError").innerHTML="Please Select Status";
 			 return false;
 		}
 		else{
 			document.getElementById("fileInputError").innerHTML="";
-		}*/
+		}
 		document.getElementById("signinLoader").style.display="flex";
 		$.ajax({
 			type: "POST",
@@ -364,9 +364,13 @@ async function changeTicketStatus(){
 		    var data2 = jQuery.parseJSON(data1);
 		    console.log("data2",data2);
 			if(data2.status==true){
-				dropdown = document.getElementById("ticketStatus1")="";
+				 document.getElementById("ticketStatus1").value="";
 				 document.getElementById("enterChatRemarks").value="";
-				getTicketTransactionHistoryById(ticketId);
+				 getTicketTransactionHistoryById(ticketId);
+				 const canvas = document.getElementById("bs-canvas-right2");
+				 const overlay = document.getElementById("modal-overlay1");
+				 canvas.classList.remove("show-canvas");
+				 overlay.style.display = "none";
 				
 			}else if(data.status==false){
 				$('#AddVehicleModal').modal('show');
