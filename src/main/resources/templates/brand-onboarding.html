@@ -93,8 +93,15 @@
                                                         
 														<div class="profile-name-wrap" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
 														  <div style="display: flex; align-items: center; gap: 8px;">
+
 														    <h4 style="margin: 0;"><span th:text="${name}"></span>Outlet Name</h4>
 														  
+
+															
+														    <h4 style="margin: 0;"><i class="bi bi-chevron-left" style="margin-right: 10px;"></i><span th:text="${name}"></span>Brand Name<span class="pill bg-lightgreen-txt-green-pill mt-3" style="margin-left: 15px;">Activated</td></span></h4>
+														    <!--<img src="img/linked.svg" class="ml-2" alt="" style="height: 20px; vertical-align: middle;">
+														  -->
+
 															</div>
 
 														  <!-- Right-aligned buttons -->
@@ -112,7 +119,7 @@
 														</div>                                                         
                                                 
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-16">
                                                         <div class="profile-info-wrap">
                                                             <div class="profile-info">
                                                                 <label for="">Outlet Type</label>
@@ -142,6 +149,7 @@
                                                     <div class="col-12">
                                                         <div class="profile-tabs">
                                                             <ul class="nav nav-tabs">
+
                                                                 <li><a data-toggle="tab" href="#about-section" class="active about-tab">Linked UPI Devices</a></li>
                                                                 <li><a data-toggle="tab" href="" class="salary-tab">Monthly Statics</a></li>
                                                                 <!--<li><a data-toggle="tab" href="" class="attendance-tab">Attendance</a></li>
@@ -149,6 +157,16 @@
                                                                 <li><a data-toggle="tab" href="" class="docs-tab">Docs</a></li>
                                                                 <li><a data-toggle="tab" href="" class="onboarding-tab">Onboarding</a></li>-->
 																<li><a data-toggle="tab" href="#Transactions-History-section" class="Transactions-tab">User-level Statics</a></li>
+
+                                                                <li><a data-toggle="tab" href="#LinkedUPIDevices" class="active about-tab">Linked UPI Devices</a></li>
+                                                                <!--<li><a data-toggle="tab" href="" class="salary-tab">Salary</a></li>
+                                                                <li><a data-toggle="tab" href="" class="attendance-tab">Attendance</a></li>
+                                                                <li><a data-toggle="tab" href="" class="apps-tab">Apps</a></li>
+                                                                <li><a data-toggle="tab" href="" class="docs-tab">Docs</a></li>
+                                                                <li><a data-toggle="tab" href="" class="onboarding-tab">Onboarding</a></li>-->
+																<li><a data-toggle="tab" href="#Outlet-levelStatistics" class="Outlet-levelStatistics">Outlet-level Statistics</a></li>
+																<li><a data-toggle="tab" href="#User-levelStatistics" class="User-levelStatistics">User-level Statistics</a></li>
+
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -159,7 +177,7 @@
                                 </div>
 
                                 <div class="tab-content">
-                                    <div class="row tab-pane in active" id="about-section">
+                                    <div class="row tab-pane in active" id="LinkedUPIDevices">
                                         <div class="container-fluid p-0 p-md-1 mt-4 bg-white">
 		    <div class="row">
 		      <div class="col-12 col-md-12 px-4">
@@ -186,13 +204,16 @@
 						 <th>State of UPI QR</th>
 						 <th>Status</th>
 						 <th>Added by</th>
+						 <th>Deployment</th>
 						 <th>Created on</th>
 						 <th>Last Updated on</th>
+						 <th></th>
 		                </tr>
 		              </thead>
 		              <tbody class="table-bordered">
-						<tr>
-						        <td colspan="8" class="text-center">
+						<!-- show this row when there is no data in the table
+							<tr>
+						        <td colspan="12" class="text-center">
 						          Currently, no UPI devices have been linked. Click 
 						          
 						          <span style="color: #367AFF; text-decoration: underline; cursor: pointer;">
@@ -200,7 +221,52 @@
 						          </span> 
 						          to link your first UPI Device.
 						        </td>
-						      </tr>
+						      </tr>--->
+							  <tr>
+							    <td>1</td>
+							    <td>Physical QR Code</td>
+							    <td>88675sfe@abcdpay</td>
+							    <td>Static</td>
+							    <td class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Enabled</td>
+								
+							    <td>Rajesh Shukla</td>
+								<td class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Deployed</td>
+							    <td>14/07/25</td>
+							    <td>14/07/25</td>
+							    <td>
+							      <i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+							    </td>
+							  </tr>
+							  <tr>
+  						    <td>2</td>
+  						    <td>Physical QR Code</td>
+  						    <td>88675sfe@abcdpay</td>
+  						    <td>Static</td>
+  						    <td class="pill-rectangle bg-grey-txt-grey-pill mt-2">Disabled</td>
+  							
+  						    <td>Rajesh Shukla</td>
+  							<td class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Deployed</td>
+  						    <td>14/07/25</td>
+  						    <td>14/07/25</td>
+  						    <td>
+  						      <i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+  						    </td>
+  						  </tr>
+						  <tr>
+						    <td>3</td>
+						    <td>Digital POS Machine</td>
+						    <td>88675sfe@abcdpay</td>
+						    <td>Static</td>
+						    <td >-</td>
+							
+						    <td>Rajesh Shukla</td>
+							<td class="pill-rectangle bg-lightyellow-txt-yellow-pill mt-2">Sent for Deployment<img src="img/info-yellow.svg" alt="info-yellow" style="height:24px; width:24px;"></td>
+						    <td>14/07/25</td>
+						    <td>14/07/25</td>
+						    <td>
+						      <i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+						    </td>
+						  </tr>
 		              </tbody>
 		            </table>
 		          </div>
@@ -210,160 +276,350 @@
 		    </div>
                                     </div>
 									
-									<div class="row tab-pane" id="Transactions-History-section">
+									<div class="row tab-pane" id="Outlet-levelStatistics">
 																	<!-- tabs section-->
-																	
-																  </div>    
+																<div class="upi-voucher-wrap">
+						<div class="d-flex align-items-center justify-content-between">
+						    <h3 class="mb-3">Outlet-Level Statistics</h3>
+
+						    <div class="rightdownload mb-3 d-flex align-items-center" style="gap: 12px;">
+								
+						       
+
+								<!-- Quick Filters -->
+								<div id="quickFilters" style="width: 160px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
+								    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								        <!--<img src="img/filter-icon.svg" alt="Filter" style="margin-right: 6px;">-->
+								        Quick Filters
+							    </a>
+								    <div class="dropdown-menu">
+								        <a id="filter-active" class="dropdown-item" href="#">Active</a>
+								        <a id="filter-expired-revoked" class="dropdown-item" href="#">Expired & Revoked</a>
+								        <a id="filter-issued-today" class="dropdown-item" href="#">Issued Today</a>
+								        <a id="filter-issued-this-month" class="dropdown-item" href="#">Issued this Month</a>
+								    </div>
+								</div>
+
+						       
+						        
+						    </div>
+						</div>
+
+                        <div >
+							<div >
+								
+							   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+							    
+							    
+							     <li class="nav-item">
+							       <a class="nav-link active" data-toggle="tab" href="#VoucherPurchases" role="tab">Voucher Purchases</a>
+							     </li>
+								 <li class="nav-item">
+							       <a class="nav-link" data-toggle="tab" href="#VoucherRedemptions" role="tab">Voucher Redemptions</a>
+							     </li>
+								
+								
+							   </ul>
+							  
+							   <hr class="mt-0">
+
+							   <div class="tab-content mt-3">
+								<!--vouchers tab-->
+								<div class="tab-pane fade show active" id="VoucherPurchases" role="tabpanel">
+								<div class="table-responsive" >
+								   <table class="table table-reimbursements mb-0" id="vouchersTableList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+								     <!--<thead>
+								       <tr>
+										<th style="width: 40px;">
+								          <input type="checkbox" id="checkAll">
+								        </th>
+									  <th>Issue Date</th>
+								         
+								         <th>Name & Mobile#</th>	
+									  	 
+								         <th>Voucher ID</th>
+								        
+									  <th>Bank A/c</th>	
+									  <th>Category</th>	
+									  <th>Redemptions</th>	
+									  <th>Expiry Date</th>	
+									  <th>Status</th>	
+									  <th>Redemption Status</th>	
+									  <th>Issued</th>
+									  <th>Redeemed</th>		  
+									  <th></th>
+								       </tr>
+								     </thead>-->
+									 <thead>
+ 						                <tr>
+ 										 <!-- <th>S.NO</th>-->
+										
+										 <th>Day</th>	
+ 										  <th>Number of Vouchers</th>
+										 
+										  
+ 						                  <th>Total Value</th>
+ 										  <th>Average Voucher Value</th>	
+											<th>Number of Users</th>
+ 										  
+ 										  <th>Purchase Value / User</th>	
+										  
+ 						                </tr>
+ 						              </thead>
+								     <tbody class="table-bordered" >
+								       <!--<tr>
+										<td>
+								          <input type="checkbox" class="rowCheckbox">
+								        </td>
+								        <td > 25/10/2024</td>
+									 <td>Deepak Kumar<br>9910318405</td>
+									 <td>ICICI00001145781</td>
+									 <td>
+								         <img src="img/indianbank.png" alt="indianbank" style="height:24px; width:24px; margin-right:4px;"> xxx0569
+								        </td>
+									 <td><img src="img/cup-1.svg" alt="info" style="height:24px; width:24px; ">Meal 
+										</td>
+										<td><img src="img/tiffinbox.svg" alt="tiffinbox" style="height:24px; width:24px;">Multiple</td>
+										<td>25/11/2024</td>
+										<td class="pill bg-lightgreen-txt-green-pill mt-3">Active</td>
+										<td style="vertical-align: middle;">
+										  <div class="pill-wide bg-lightgreen-txt-green-pill">Not Redeemed</div>
+										</td>
+										<td>₹50,000</td>
+										<td style="text-align: right;">-<img src="img/history-icon-gray.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+										<td>
+								       	<i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+									   </td>
+								       </tr>
+									   
+									     <tr>
+									   <td>
+									        <input type="checkbox" class="rowCheckbox">
+									      </td>
+									      <td> 25/10/2024</td>
+									   <td>Atul Kumar<br>9910318405</td>
+									   <td>ICICI00001145781</td>
+									   <td>
+									       <img src="img/indianbank.png" alt="indianbank" style="height:24px; width:24px; margin-right:4px;"> xxx8798
+									      </td>
+									   <td><img src="img/fuel-1.svg" alt="info" style="height:24px; width:24px; ">Fuel
+									   </td>
+									   <td><img src="img/single-redemption-green.svg" alt="single-redemption-green" style="height:24px; width:24px;">Single</td>
+									   <td>25/11/2024</td>
+									   <td class="pill bg-grey-txt-grey-pill  mt-3">Expired</td>
+									   
+									   <td style="vertical-align: middle;">
+										  <div class="pill-wide bg-grey-txt-grey-pill">Fully Redeemed</div>
+										</td>
+									   <td>₹50,000</td>
+									   <td style="text-align: right;">-<img src="img/history-icon-gray.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+									   <td>
+								       	<i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+									   </td>
+									     </tr>	-->	
+										 <tr><td>1</td>	
+										 <td>₹1,000</td>	
+										 <td>2</td>	
+										 <td>₹1,000</td>	
+										 <td>₹1,000</td>	
+										 <td>₹1,000</td>						
+										 </tr>
+										 <tr><td>2</td>	
+ 										 <td>₹1,000</td>	
+ 										 <td>2</td>	
+ 										 <td>₹1,000</td>	
+ 										 <td>₹1,000</td>	
+ 										 <td>₹1,000</td>						
+ 										 </tr>				
+								     </tbody>
+								   </table>
+								 </div>
+
+
+								 
+								</div>
+
+								 
+								<!-- transactions tab-->
+							     <div class="tab-pane fade" id="VoucherRedemptions" role="tabpanel">
+									<div class="table-responsive">
+									  <table class="table table-reimbursements mb-0" id="vouchersTableTransactionList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+										<thead>
+									      <tr>	
+										 
+										  <th>Day</th>
+									      <th>Number of Transactions</th>	
+										  <th>Total Value</th>
+									      <th>Average Order Value</th>
+										  <th>Number of Users</th>	
+										  <th>Transactions / User</th>	
+										  <th>Redemption Value / User</th>	
+										  <th></th>
+										  <!--<th>Mode of Payment</th>-->
+										  
+									      </tr>
+									    </thead>
+									    <tbody class="table-bordered" >
+									      <!--<tr>
+							       		  <td>21/04/2024<br>
+											17:57:13</td>
+										 <td>ICICI00001145781</td>
+										 <td>
+											CDL-0424-003
+									       </td>
+										   <td>Deepak Kumar<br>9910318405</td>
+										 <td><img src="img/fuel-grey.png" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Fuel
+											</td>
+											<td>Indian Oil</td>
+											<td style="text-align: right;">16,890</td>
+											
+											
+									      </tr>							
+										  <tr>
+								       		  <td>21/04/2024<br>
+												17:57:13</td>
+											 <td>ICICI00001145781</td>
+											 <td>
+												CDL-0424-003
+										       </td>
+											   <td>Atul Kumar<br>9910318405</td>
+											 <td><img src="img/food-icon-grey.png" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Food
+												</td>
+												<td>Anna Dosa</td>
+												<td style="text-align: right;">890</td>
+												
+												
+										      </tr>		-->		
+											  <tr><td>1</td>	
+		  									 <td>2</td>	
+		  									 <td>₹1,000</td>	
+		  									 <td>₹1000</td>	
+		  									 <td>100</td>	
+		  									 <td>₹1,000</td>
+											 <td>₹1,000</td>
+											 <td>
+					 					      <i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+					 					    </td>						
+		  									 </tr>
+											 <tr><td>2</td>	
+	 	  									 <td>2</td>	
+	 	  									 <td>₹1,000</td>	
+	 	  									 <td>₹1000</td>	
+	 	  									 <td>10</td>	
+	 	  									 <td>₹1,000</td>
+	 										 <td>₹1,000</td>
+	 										 <td>
+	 				 					      <i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+	 				 					    </td>						
+	 	  									 </tr>		
+									    </tbody>
+									  </table>
+									</div>											
+							     </div>
+								 
+
+
+							   </div>
+							 </div>
+                            
+                        </div>
+                    </div>	
+		  </div>    
                                 
-                                    <div class="row tab-pane" id="salary-section">
-                                        <div class="row">
-                                            <div class="col-12 col-md-6">
-                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
-                                                    <h5>Salary Details</h5>
-                                                    <div class="primary-Details-wrap">
-                                                        <div class="Primary-details-info">
-                                                            <label for="">First Name</label>
-                                                            <p>Sagar</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Middle Name</label>
-                                                            <p>Narendra Kumar</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Last Name</label>
-                                                            <p>Jariwal</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Gender</label>
-                                                            <p>Male</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Date of Birth</label>
-                                                            <p>02 Sept. 2001</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Martial Status</label>
-                                                            <p>Single</p>
-                                                        </div>
-                                                        <div class="Primary-details-info">
-                                                            <label for="">Physically Handicapped</label>
-                                                            <p>No</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="row tab-pane" id="User-levelStatistics">
+										<div class="container-fluid p-0 p-md-1 mt-4 bg-white">
+												    <div class="row">
+												      <div class="col-12 col-md-12 px-4">
+														<br>
+												        <div class="d-flex justify-content-between align-items-center mb-3">
+												          <h4 class="fw-bold">User-level Statistics</h4>
+														  <div class="rightdownload mb-3 d-flex align-items-center" style="gap: 12px;">
+														  							
+									  					       
 
-                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
-                                                    <h5>Reporting Team (12)</h5>
-                                                    <div class="Reporting-team-wrap">
-                                                        <div class="Reporting-team-info row">
-                                                            <div class="col-3 text-center">
-                                                                <img src="img/sm-profile.svg" alt="">
-                                                            </div>
-                                                            <div class="col-9">
-                                                                <p>Victor Pacho</p>
-                                                                <label for="">Senior Engineer</label>
-                                                            </div>
-                                                        </div>
+									  							<!-- Quick Filters -->
+									  							<div id="quickFilters" style="width: 160px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
+									  							    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									  							        <!--<img src="img/filter-icon.svg" alt="Filter" style="margin-right: 6px;">-->
+									  							        Quick Filters
+									  						    </a>
+									  							    <div class="dropdown-menu">
+									  							        <a id="filter-active" class="dropdown-item" href="#">Active</a>
+									  							        <a id="filter-expired-revoked" class="dropdown-item" href="#">Expired & Revoked</a>
+									  							        <a id="filter-issued-today" class="dropdown-item" href="#">Issued Today</a>
+									  							        <a id="filter-issued-this-month" class="dropdown-item" href="#">Issued this Month</a>
+									  							    </div>
+									  							</div>
 
-                                                        <div class="Reporting-team-info row">
-                                                            <div class="col-3 text-center">
-                                                                <img src="img/sm-profile.svg" alt="">
-                                                            </div>
-                                                            <div class="col-9">
-                                                                <p>Pablo Escobar</p>
-                                                                <label for="">Full Stack Devloper</label>
-                                                            </div>
-                                                        </div>
+									  					       
+									  					        
+									  					    </div>
+												        </div>				       
+												          <div class="table-responsive">
+												            <table class="table table-reimbursements mb-0" id="supportTicketList">
+																<thead>
+												                <tr>		
+												                  <th>Issue Date</th>	  
+																  <th>Name & Mobile #</th>
+																 <th>Voucher ID</th>
+																 <th>Redemptions</th>
+																 <th>Expiry Date</th>
+																 <th>Status</th>
+																
+																 <th>Issued</th>
+																 <th>Redemption Status</th>
+																 <th>Redeemed</th>
+																 <th></th>
+												                </tr>
+												              </thead>
+												              <tbody class="table-bordered">
+																<!-- show this for empty table
+																	<tr>
+															        <td colspan="8" class="text-center">
+															          Currently, no vouchers have been purchased by your customers. If a recent purchase has taken place, please check again after 24 Hours.
+															        </td>
+															      </tr>-->
+																  <tr>
+																	<td>25/10/2024</td>	
+						  	 	  									 <td>Deepak Kumar<br>
+																		9910318405</td>	
+						  	 	  									 <td>ICICI00001145781</td>	
+																	 <td><img src="img/tiffinbox.svg" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Multiple
+																	 										</td>
+						  	 	  									 <td>25/11/2024</td>	
+						  	 	  									 <td class="pill-rectangle bg-lightgreen-txt-green-pill mt-4">Active</td>
+																	
+						  	 										 <td>₹50,000</td>
+																	 <td class="pill-rectangle bg-lightgreen-txt-green-pill mt-4">Not Redeemed</td>
+																	 <td style="text-align: right;">-<img src="img/history-icon-gray.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+						  	 										 <td>
+						  	 				 					      <i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+						  	 				 					    </td>						
+						  	 	  									 </tr>
+																	 <tr>
+ 																	<td>25/10/2024</td>	
+ 						  	 	  									 <td>Deepak Kumar<br>
+ 																		9910318405</td>	
+ 						  	 	  									 <td>ICICI00001145781</td>	
+ 																	 <td><img src="img/single-redemption-green.svg" alt="tiffinbox" style="height:24px; width:24px; margin-right:10px;">Single
+ 																	 										</td>
+ 						  	 	  									 <td>25/11/2024</td>	
+ 						  	 	  									 <td class="pill-rectangle bg-grey-txt-grey-pill mt-4">Expired</td>
+ 																	 
+ 						  	 										 <td>₹50,000</td>
+																	 <td class="pill-rectangle bg-grey-txt-grey-pill mt-4">Fully Redeemed</td>
+ 																	 <td style="text-align: right;">₹2,000<img src="img/history-icon.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+ 						  	 										 <td>
+ 						  	 				 					      <i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+ 						  	 				 					    </td>						
+ 						  	 	  									 </tr>			
+												              </tbody>
+												            </table>
+												          </div>
+												        </div>
 
-                                                        <div class="Reporting-team-info row">
-                                                            <div class="col-3 text-center">
-                                                                <img src="img/sm-profile.svg" alt="">
-                                                            </div>
-                                                            <div class="col-9">
-                                                                <p>Penea Huwera</p>
-                                                                <label for="">Web Devloper</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="Reporting-team-info row">
-                                                            <div class="col-3 text-center">
-                                                                <img src="img/sm-profile.svg" alt="">
-                                                            </div>
-                                                            <div class="col-9">
-                                                                <p>Natalia</p>
-                                                                <label for="">Ui Designer</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="Reporting-team-info row">
-                                                            <div class="col-3 text-center">
-                                                                <img src="img/sm-profile.svg" alt="">
-                                                            </div>
-                                                            <div class="col-9">
-                                                                <p>Judi</p>
-                                                                <label for="">Full Stack Devloper</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="Reporting-team-info row">
-                                                            <div class="col-3 text-center">
-                                                                <img src="img/sm-profile.svg" alt="">
-                                                            </div>
-                                                            <div class="col-9">
-                                                                <p>Carlos</p>
-                                                                <label for="">Web Devloper</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="Reporting-team-info row mb-0">
-                                                            <div class="col-12">
-                                                                <a href="#">View All</a>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12 col-md-6">
-                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
-                                                    <h5>Timeline</h5>
-                                                    <div class="timeline-detl-wrap">
-                                                        <div class="timeline-detl-info timeline-line row">
-                                                            <div class="col-2 col-md-1">
-                                                                <img src="img/thumb.svg" alt="">
-                                                            </div>
-                                                            <div class="col-10 col-md-11">
-                                                                <label for="">Work Anniversary - 3rd</label>
-                                                                <p>Jan 24,2020</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="timeline-detl-info timeline-line row">
-                                                            <div class="col-2 col-md-1">
-                                                                <img src="img/pay.svg" alt="">
-                                                            </div>
-                                                            <div class="col-10 col-md-11">
-                                                                <label for="">Pay Increase</label>
-                                                                <p>Jan 24,2020</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="timeline-detl-info row">
-                                                            <div class="col-2 col-md-1">
-                                                                <img src="img/star award.svg" alt="">
-                                                            </div>
-                                                            <div class="col-10 col-md-11">
-                                                                <label for="">Praise - Super Start Worker</label>
-                                                                <p>Jan 24,2020</p>
-                                                                <div class="info-msg">
-                                                                    <strong>Raj Kumar Srinath</strong>
-                                                                    <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+												      </div>
+												    </div>
                                     </div>
 
                                     <div class="row tab-pane" id="attendance-section">
@@ -1101,7 +1357,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	<script type="text/javascript" src="cotodel-js/employee-onboarding-full-action.js"></script>
+	<script type="text/javascript" src="cotodel-js/"></script>
 	<style>	#bs-canvas-right2 {
 		  position: absolute;
 		  right: 0;
