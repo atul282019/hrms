@@ -100,9 +100,10 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
                         <div class="col-12">
                             <ul class="nav nav-underline">
                                 <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1 }" ><a data-toggle="tab" href="#home1" class="nav-link active">Role Access</a></li>
-                               <!-- <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11" class="nav-link">Employee Bands</a></li>
-                              -->  <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu22">Bank A/C Linking</a></li><!--
-								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu33">Expenses & Advances</a></li>-->
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11" class="nav-link">Employee Bands</a></li>
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
+								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu33">Expenses & Advances</a></li>
+								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Brand Management</a></li>
 								<!--<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Payment History</a></li>
                              -->
                             </ul>
@@ -212,7 +213,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
                                 </div>
                                 <div id="menu11" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}">
 								
-									<div class="tab-content" id="defaultDiv" style="display: block">
+								<div class="tab-content" id="defaultDiv" style="display: block">
 	                               <div id="home" class="tab-pane in active">
 	                                   <div class="employee-band-wrap">
 	                                       <h4>Employee Bands</h4>
@@ -774,13 +775,84 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 								
 								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
 									
-									<script>
-							        document.addEventListener("DOMContentLoaded", function () {
-							            console.log("Calling the  getPaymentHistory(); function...");
-							            getPaymentHistory();
-							        });
-							    	</script>
-								
+									<div class="tab-content" >
+		                               <div id="home" class="tab-pane in active" style="display: block;">
+		                                   <div class="employee-band-wrap">
+		                                       <h4>Brand Management</h4>
+		                                       <p>Cotodel offers you an industry-first UPI-based loyalty solution to drive the growth of your Brand.
+											   </p>
+                                           <h5>'Activate Brand Management’</h5> <p>to make your users experience the magic of UPI-based loyalty for your Brand. </p>
+                                            <div class="d-flex justify-content-center mt-2 w-50">
+                                                <a class="btn btn-primary mx-2 w-100" href="/brandOnboarding">Activate Brand Management</a>
+                                          </div>
+		                                   </div>
+		                               </div>
+									   
+									   <div class="tab-pane in active" style="display: none;">
+	   									<div class="container my-4">
+	   							   				  <div class="card custom-card shadow-sm">
+	   							   				    <div class="mb-3">
+	   							   				      <h5 class="fw-bold mb-1 text-left" style="color: #1F212C;font-weight:700;">Outlet Management</h5>
+	   							   				      <hr style="width: 100%; border-color: #EDEDF0; margin: 4px 0;">
+	   							   				    </div>
+
+	   							   				    <div class="info-row text-left color-third">
+	   							   				      <div class="info-text">
+	   							   				        <p class="mb-1 black">How many outlets does your brand have?</p>
+	   							   				        <p class="black-bold">Multiple - 150 Outlets</p>
+	   							   				      </div>
+	   							   				      <button class="edit-btn">
+	   							   				        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+	   							   				          <path d="M12 20h9"></path>
+	   							   				          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+	   							   				        </svg>
+	   							   				        Edit
+	   							   				      </button>
+	   							   				    </div>
+
+	   							   				    <div class="text-left color-third mb-3">
+	   							   				      <p class="mb-1 black">Do you have an online store for sales?</p>
+	   							   				      <p class="black-bold">Online and Offline</p>
+	   							   				    </div><br>
+	   							   				  </div>
+	   							   				</div>
+	   							   				<div class="container my-4">
+	   			   								  <div class="card custom-card shadow-sm">
+	   			   								    <div class="mb-3">
+	   			   								      <h5 class="fw-bold mb-1 text-left" style="color: #1F212C;font-weight:700;">Geography Management</h5>
+	   			   								      <hr style="width: 100%; border-color: #EDEDF0; margin: 4px 0;">
+	   			   								    </div>
+
+	   			   								    <div class="info-row text-left color-third">
+	   			   								      <div class="info-text">
+	   			   								        <p class="mb-1 black">Would you like to segment your outlets by geography?</p>
+	   			   								        
+	   			   								      </div>
+	   			   								      <button class="edit-btn" style="display: none;">
+	   			   								        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+	   			   								          <path d="M12 20h9"></path>
+	   			   								          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+	   			   								        </svg>
+	   			   								        Edit
+	   			   								      </button>
+	   			   									  
+	   			   									  <button class="btn btn-custom me-2" id="activateBtn">Activate</button>
+	   			   									  
+	   			   								    </div>
+
+	   			   								    <div class="text-left color-third mb-3">
+	   			   										<p style="margin-bottom: 16px;">You have listed the following geographies to segment your outlets:</p>
+	   			   										   
+	   			   										   <div class="geo-tag">#1 <strong>East Region</strong></div>
+	   			   										   <div class="geo-tag">#2 <strong>West Region</strong></div>
+	   			   										   <div class="geo-tag">#3 <strong>North Region</strong></div>
+	   			   										   <div class="geo-tag">#4 <strong>South Region</strong></div>
+	   			   										 </div>
+	   			   								    </div><br>
+	   		   								  </div>
+	   									
+	   								</div>
+		                           </div>
 								
 							 </div>
 							 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
@@ -2336,6 +2408,55 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 			font-weight: 700;
 		}
 	</style>
+	<style>
+					  .custom-card {
+					    width: 110%;
+					   
+					    border-radius: 20px;
+					    padding: 20px;
+					    border-bottom: 1px solid #e0e0e0;
+					    gap: 20px;
+					    opacity: 1;
+					    margin-left: -65px;
+					  }
+
+					  .edit-btn {
+					    background-color: #f5f5f5;
+					    border: none;
+					    border-radius: 999px;
+					    padding: 6px 16px;
+					    font-size: 14px;
+					    display: flex;
+					    align-items: center;
+					  }
+
+					  .edit-btn svg {
+					    margin-right: 6px;
+					  }
+
+					  .info-row {
+					    display: flex;
+					    justify-content: space-between;
+					    align-items: flex-start;
+					    margin-bottom: 12px;
+					  }
+
+					  .info-text {
+					    flex-grow: 1;
+					  }
+					  .geo-tag {
+					    background-color: white;
+					    border: 1px solid #EDEDF0;
+					    border-radius: 8px;
+					    padding: 10px 14px;
+					    margin-bottom: 8px;
+					    font-weight: 700;
+					    color: #4A4E69;
+					    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+						width: 589px;
+					  }
+					</style>
+
 </body>
 
 </html>
