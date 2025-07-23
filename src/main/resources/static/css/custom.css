@@ -9972,4 +9972,101 @@ table.vcScheduledtable thead {
 			  word-break: break-word;
 			  white-space: normal;
 			  line-height: 1.4;
-					}														
+					}
+					/* css for brand onboarding & geographymanagement*/
+					.custom-card {
+								    width: 110%;
+								   
+								    border-radius: 20px;
+								    padding: 20px;
+								    border-bottom: 1px solid #e0e0e0;
+								    gap: 20px;
+								    opacity: 1;
+								    margin-left: -65px;
+								  }
+
+								  .edit-btn {
+								    background-color: #f5f5f5;
+								    border: none;
+								    border-radius: 999px;
+								    padding: 6px 16px;
+								    font-size: 14px;
+								    display: flex;
+								    align-items: center;
+								  }
+
+								  .edit-btn svg {
+								    margin-right: 6px;
+								  }
+
+								  .info-row {
+								    display: flex;
+								    justify-content: space-between;
+								    align-items: flex-start;
+								    margin-bottom: 12px;
+								  }
+
+								  .info-text {
+								    flex-grow: 1;
+								  }
+								  .geo-tag {
+								    background-color: white;
+								    border: 1px solid #EDEDF0;
+								    border-radius: 8px;
+								    padding: 10px 14px;
+								    margin-bottom: 8px;
+								    font-weight: 700;
+								    color: #4A4E69;
+								    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+									width: 589px;
+								  }
+								  .geo-input-group {
+								  				    position: relative;
+								  				    margin-bottom: 16px;
+								  				  }
+
+								  				  .geo-input-group input {
+								  				    width: 100%;
+								  				    padding: 10px 12px;
+								  				    border-radius: 10px;
+								  				    border: 1px solid #ddd;
+								  				    font-size: 14px;
+								  				    outline: none;
+								  				    box-sizing: border-box;
+								  				  }
+
+								  				  .geo-input-group input:focus {
+								  				    border: 1px solid #3478FF;
+								  				  }
+
+								  				  .geo-number {
+								  				    position: absolute;
+								  				    top: -8px;
+								  				    left: 12px;
+								  				    background: white;
+								  				    padding: 0 6px;
+								  				    font-size: 12px;
+								  				    color: #777;
+								  				  }
+
+								  				  .delete-geo {
+								  				    position: absolute;
+								  				    right: 10px;
+								  				    top: 50%;
+								  				    transform: translateY(-50%);
+								  				    cursor: pointer;
+								  				    color: #333;
+								  				  }
+
+								  				  .add-geo-btn, .continue-btn {
+								  				    background-color: #3478FF;
+								  				    color: white;
+								  				    border: none;
+								  				    width: 100%;
+								  				    padding: 12px;
+								  				    font-weight: 600;
+								  				    font-size: 14px;
+								  				    border-radius: 6px;
+								  				    margin-top: 10px;
+								  				    cursor: pointer;
+								  				  }														
