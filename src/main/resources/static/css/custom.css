@@ -7681,6 +7681,21 @@ table.vcScheduledtable thead {
 				  font-size: 0.8rem;
 				  
 				}
+				.pill-rectangle {
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					/* REMOVE width: 66px; */
+					height: 26px;
+					border-radius: 6px;
+					padding: 3.62px 9.04px;
+					background-color: #000;
+					color: #ffffff !important;
+					font-weight: 500;
+					font-size: 0.8rem;
+					margin-right: 8px; /* optional */
+								  
+								}
 				.pill-redeemed {
 								  display: inline-flex;
 								  align-items: center;
