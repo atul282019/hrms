@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top" onload="autoFillEmployeeForm(),erupiVoucherCreateListLimit(),getVoucherTransactionList()">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+              <!-- <div th:insert="fragments/header.html :: header"></div>-->
+
+			  <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                     <!-- Topbar Navbar -->
+                     <ul class="navbar-nav top-nav">
+
+                         <!-- Nav Item - User Information 
+                         <li class="nav-item">
+                             <a class="nav-link active" href="#">
+                                 <span class="mr-2 small">Dashboard</span>
+                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="#">
+                                 <span class="mr-2 small">Profile</span>
+                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                             </a>
+                         </li>-->
+
+                     </ul>
+
+				<!-- Right Icons + Profile -->
+	 			    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+	 			      <!-- Wallet Icon -->
+	 			     <!-- <li class="nav-item mr-3">
+	 			        <a href="/settings/wallet" role="button">
+	 			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	 			        </a>
+	 			      </li>-->
+	 				  <li class="nav-item mr-3">
+	   			        <a href="/cotowallet" role="button">
+	   			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	   			        </a>
+	   			      </li>
+	 			      <!-- Notification Icon -->
+	 			      <li class="nav-item mr-3">
+	 			        <a href="#" role="button">
+	 			          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+	 			        </a>
+	 			      </li>
+
+	 			      <!-- Profile Dropdown -->
+	 			      <li class="nav-item dropdown no-arrow">
+	 			        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	 			          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+	 			        </a>
+	 			        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+	 			          <a class="dropdown-item" href="/ProfileInfo">
+	 			            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+	 			          </a>
+	 			       <!--   <a class="dropdown-item" href="#">
+	 			            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+	 			          </a>-->
+	 			          <div class="dropdown-divider"></div>
+	 			          <a class="dropdown-item" href="/logout">
+	 			            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+	 			          </a>
+	 			        </div>
+	 			      </li>
+	 			    </ul>		
+                </nav>
+                <!-- End of Topbar -->
+				
+				<input type="hidden" class="form-input" name="employerId" id="employerId" >
+				<input type="hidden" class="form-input" name="Id" id="Id" >
+				<input type="hidden" class="form-input" name="userDetailsId" id="userDetailsId" >
+				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
+				<input type="hidden" class="form-input" id="employeeId" name="employeeId" th:value="${session.empId}">
+				<input type="hidden" class="form-input" id="mob" name="mob" th:value="${session.mobile}">
+				<!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-1 ml-2 p-1 p-md-3 bulk-wrap">                                
+                                <div class="bg-white py-0 px-0 mb-3 w-100 br-10">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-3 col-md-2">
+                                            <img src="img/cotodel_logoNew.svg" class="client-logo img-fluid" alt="Client Logo">
+                                        </div>
+                                        <div class="col-12 col-sm-9 col-md-10 pl-md-0">
+                                            <div class="profile-pic01-wrap">
+                                                <div class="row">
+                                                    <div class="col-12">
+														<div class="profile-name-wrap" style="display: flex; justify-content: space-between; align-items: center;">
+														  
+														  <!-- Left: Username + Icon -->
+														  <div style="display: flex; align-items: center; margin-bottom: 20px;">
+															<h4 style="margin: 0;">Cotodel</h4>
+														  </div>
+
+														  <!-- Right: Buttons 
+														  <div style="display: flex; gap: 8px; align-items: center;">
+														    <button class="custom-back-button" onclick="window.location.href='/dashboard'">Back</button>
+														    <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
+														      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														      Actions
+														    </button> -->
+
+															<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+															     aria-labelledby="userDropdown">
+															  
+															  <a class="dropdown-item py-2" href="#">Revise Salary</a>
+															  <a class="dropdown-item py-2" href="#">Revise Position</a>
+															  <a class="dropdown-item py-2" href="#" onclick="deactivateEmployee()">Deactivate User</a>
+
+															</div>
+
+														  </div>
+
+														</div>
+                                                         
+                                                        
+														<div class="col-12">
+	                                                        <div class="profile-info-wrap">
+	                                                            <div class="profile-info">
+	                                                                <label for="">Adimin Name</label>
+	                                                               <p id="designation"></p>
+	                                                            </div>
+	
+	                                                            <div class="profile-info">
+	                                                                <label for="">Emial</label>
+	                                                                <p id="depratment"></p>
+	                                                            </div>
+	
+	                                                            <div class="profile-info">
+	                                                                <label for="">Mobile Number</label>
+	                                                                <p id="mngrName"></p>
+	                                                            </div>
+	
+	                                                            <div class="profile-info">
+	                                                                <label for="">Location</label>
+	                                                                <p id="empType"></p>
+	                                                            </div>
+	                                                        </div>
+	                                                    </div>
+
+
+                                                    </div>                                              
+													<div class="col-12 mt-0">
+													  <div class="profile-tabs">
+													    <ul class="nav nav-tabs">
+													      <li><a data-toggle="tab" href="#about-section" class="active about-tab">About</a></li>
+													      <li><a data-toggle="tab" href="#Transactions-History-section" class="Transactions-tab">Transactions History</a></li>
+													      <li><a data-toggle="tab" href="#users-section" class="users-tab">Users</a></li>
+													      <li><a data-toggle="tab" href="#billing-section" class="billing-tab">Billing</a></li>
+													      <li><a data-toggle="tab" href="#banks-section" class="banks-tab">Banks</a></li>
+													    </ul>
+													  </div>
+													</div>
+
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="tab-content">
+								  <div class="row tab-pane in active" id="about-section">
+								    <div class="row">
+								      <!-- Two columns: Left for Primary, Right for Reporting -->
+									  <div class="col-12 col-md-6">
+									    <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 client-details-section">
+									      <h5>Organization Details</h5>
+
+									      <!-- Top green info row -->
+										  <div class="d-flex flex-wrap justify-content-start align-items-center p-3 mb-4 gap-4" style="background-color: #e9f6f1; border-radius: 10px;">
+										    <div class="col-6">
+										      <div class="small" style="color: #2F945A;">Type of Services</div>
+										      <strong class="mt-2 d-block" style="color: #2F945A;">Fleet</strong>
+										    </div>
+											<div class="col-6">
+											  <div class="small" style="color: #2F945A;">No. of Users</div>
+											  <strong class="mt-2 d-block" style="color: #2F945A;">100</strong>
+											</div>
+
+										  </div>
+
+
+
+									      <!-- Two-column layout for details -->
+									      <div class="row">
+											<div class="col-6 mb-3">
+											  <div class="text-muted small">GST</div>
+											  <div class="mt-1" style="color: #1F212C;">07AAACZ4279R1ZF</div>
+											</div>
+
+
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">Legal Name Of Business</div>
+									          <div class="mt-1" style="color: #1F212C;">Cotodel Technologies Private Limited</div>
+									        </div>
+
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">Trade Name</div>
+									          <div class="mt-1" style="color: #1F212C;">Cotodel Technologies Private Limited</div>
+									        </div>
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">Organization Type</div>
+									          <div class="mt-1" style="color: #1F212C;">Private Limited Company</div>
+									        </div>
+
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">Address Field 1</div>
+									          <div class="mt-1" style="color: #1F212C;">Building Name: &amp; Building Number: Floor Number</div>
+									        </div>
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">Address Field 2</div>
+									          <div class="mt-1" style="color: #1F212C;">Street Name: "Block A, Shivalik Colony, Malviya Nagar</div>
+									        </div>
+
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">District Name</div>
+									          <div class="mt-1" style="color: #1F212C;">South Delhi</div>
+									        </div>
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">Pincode</div>
+									          <div class="mt-1" style="color: #1F212C;">110017</div>
+									        </div>
+
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">State Name</div>
+									          <div class="mt-1" style="color: #1F212C;">Delhi</div>
+									        </div>
+									        <div class="col-6 mb-3">
+									          <div class="text-muted small">Setup Date</div>
+									          <div class="mt-1" style="color: #1F212C;">20 June 2024</div>
+									        </div>
+									      </div>
+									    </div>
+									  </div>
+
+
+
+
+									  <div class="col-12 col-md-6">
+									    <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+									      <h5>Support Tickets</h5>
+									      <div class="table-responsive">
+									        <table class="table table-reimbursements">
+									          <thead >
+									            <tr>
+									              <th>Ticket No.</th>
+									              <th>Subject</th>
+									              <th>Ticket Date & Time</th>
+									              <th>Status</th>
+									              <th></th>
+									            </tr>
+									          </thead>
+									          <tbody class="table-bordered">
+									            <tr>
+									              <td>1234567890</td>
+									              <td>Wrong validity date</td>
+									              <td>08-07-2025<br>4:00 PM</td>
+									              <td><span class="badge badge-success">Active</span></td>
+												  <td style="text-align: center;">
+												    <button style="border: none; background: none; font-size: 22px; cursor: pointer; line-height: 1;">
+												      &#8942;
+												    </button>
+												  </td>
+
+									            </tr>
+									            <tr>
+									              <td>1234567890</td>
+									              <td>Wrong validity date</td>
+									              <td>08-07-2025<br>4:00 PM</td>
+									              <td><span class="badge badge-secondary">Closed</span></td>
+												  <td style="text-align: center;">
+												    <button style="border: none; background: none; font-size: 22px; cursor: pointer; line-height: 1;">
+												      &#8942;
+												    </button>
+												  </td>									           
+											   </tr>
+									            <tr>
+									              <td>1234567890</td>
+									              <td>Net issue while redemption</td>
+									              <td>08-07-2025<br>4:00 PM</td>
+									              <td><span class="badge badge-secondary">Closed</span></td>
+												  <td style="text-align: center;">
+  												    <button style="border: none; background: none; font-size: 22px; cursor: pointer; line-height: 1;">
+  												      &#8942;
+  												    </button>
+  												  </td>									           
+												   </tr>
+									            <tr>
+									              <td>1234567890</td>
+									              <td>Net issue while redemption</td>
+									              <td>08-07-2025<br>4:00 PM</td>
+									              <td><span class="badge badge-secondary">Closed</span></td>
+												  <td style="text-align: center;">
+  												    <button style="border: none; background: none; font-size: 22px; cursor: pointer; line-height: 1;">
+  												      &#8942;
+  												    </button>
+  												  </td>									           
+											   </tr>
+												
+									            <tr>
+									              <td>1234567890</td>
+									              <td>Net issue while redemption</td>
+									              <td>08-07-2025<br>4:00 PM</td>
+									              <td><span class="badge badge-secondary">Closed</span></td>
+												  <td style="text-align: center;">
+  												    <button style="border: none; background: none; font-size: 22px; cursor: pointer; line-height: 1;">
+  												      &#8942;
+  												    </button>
+  												  </td>									        
+											      </tr>
+									          </tbody>
+									        </table>
+									      </div>
+									    </div>
+									  </div>
+
+
+
+								   
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+	<!-- Theme css-->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	<script type="text/javascript" src="cotodel-js/Profile-Info.js"></script>
+	
+	<style>
+		
+		.client-logo {
+		    margin-top: 80px; /* adjust as needed */
+		    max-height: 80px;
+		    object-fit: contain;
+		}
+		.icon-black {
+		  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+		}
+		.client-details-section {
+		  min-height: 100%;
+		  
+		}  
+	  .table.table-bordered {
+	    border: 1px solid #dee2e6;
+	    border-radius: 10px;
+	    border-collapse: separate !important;
+	    border-spacing: 0;
+	    overflow: hidden;
+	  
+
+	   }
+
+	   .table.table-bordered th:first-child {
+	     border-top-left-radius: 10px;
+	   }
+
+	   .table.table-bordered th:last-child {
+	     border-top-right-radius: 10px;
+	   }
+
+
+		  </style>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<body id="page-top" >
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+              <!-- <div th:insert="fragments/header.html :: header"></div>-->
+
+			  <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                     <!-- Topbar Navbar -->
+                     <ul class="navbar-nav top-nav">
+
+                         <!-- Nav Item - User Information -->
+                       <!--  <li class="nav-item">
+                             <a class="nav-link active" href="#">
+                                 <span class="mr-2 small">Dashboard</span>
+                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="#">
+                                 <span class="mr-2 small">Expenses & Advances</span>
+                                 <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                             </a>
+                         </li>
+-->
+                     </ul>
+
+					 <!-- Right Icons + Profile -->
+					 			    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+					 			      <!-- Wallet Icon -->
+					 			     <!-- <li class="nav-item mr-3">
+					 			        <a href="/settings/wallet" role="button">
+					 			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+					 			        </a>
+					 			      </li>-->
+					 				  <li class="nav-item mr-3">
+					   			        <a href="/cotowallet" role="button">
+					   			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+					   			        </a>
+					   			      </li>
+					 			      <!-- Notification Icon -->
+					 			      <li class="nav-item mr-3">
+					 			        <a href="#" role="button">
+					 			          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+					 			        </a>
+					 			      </li>
+
+					 			      <!-- Profile Dropdown -->
+					 			      <li class="nav-item dropdown no-arrow">
+					 			        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					 			          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+					 			        </a>
+					 			        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+					 			          <a class="dropdown-item" href="/ProfileInfo">
+					 			            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+					 			          </a>
+					 			       <!--   <a class="dropdown-item" href="#">
+					 			            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+					 			          </a>-->
+					 			          <div class="dropdown-divider"></div>
+					 			          <a class="dropdown-item" href="/logout">
+					 			            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+					 			          </a>
+					 			        </div>
+					 			      </li>
+					 			    </ul>
+                </nav>
+                <!-- End of Topbar -->
+				
+				<input type="hidden" class="form-input" name="employerId" id="employerId" >
+				<input type="hidden" class="form-input" name="Id" id="Id" >
+				<input type="hidden" class="form-input" name="userDetailsId" id="userDetailsId" >
+				<input type="hidden" class="form-input" id="mob" name="mob" th:value="${session.mobile}">
+				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
+				<!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-1 ml-2 p-1 p-md-3 bulk-wrap">                                
+                                <div class="bg-white py-0 px-0 mb-3 w-100 br-10">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-3 col-md-2">
+                                            <img src="img/profile-pic01.svg" class="profile-pic01 img-fluid" alt="">
+                                        </div>
+                                        <div class="col-12 col-sm-9 col-md-10 pl-md-0">
+                                            <div class="profile-pic01-wrap">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <!--<div class="profile-name-wrap">
+                                                            <h4><span th:text="${name}"></span></h4><img src="img/linked.svg" class="ml-2" alt="">
+                                                            <div style="position: relative; display: inline;">
+                                                                <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
+                                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions </button>
+
+                                                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                                                    aria-labelledby="userDropdown">
+                                                                    
+																	<a class="dropdown-item py-2" href="/employeeOnBoarding?status=true">
+                                                                        Change Reporting Manager
+                                                                    </a>
+                                                                    <a class="dropdown-item py-2" href="#" onclick="deactivateEmployee()">
+                                                                        Deactivate User
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+														<div class="profile-name-wrap" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+														  <div style="display: flex; align-items: center; gap: 8px;">
+														    <h4 style="margin: 0;"><span th:text="${name}"></span>Brand Name</h4>
+														    <!--<img src="img/linked.svg" class="ml-2" alt="" style="height: 20px; vertical-align: middle;">
+														  -->
+															</div>
+
+														  <!-- Right-aligned buttons -->
+														  <div style="display: flex; gap: 8px; align-items: center;">
+														    <!--<button class="custom-back-button" onclick="window.location.href='/manageEmployee'" >Back</button>-->
+
+														    <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
+														      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+
+														    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+														      <a class="dropdown-item py-2" href="/employeeOnBoarding?status=true">Change Reporting Manager</a>
+														      <a class="dropdown-item py-2" href="#" onclick="deactivateEmployee()">Deactivate User</a>
+														    </div>
+														  </div>
+														</div>                                                         
+                                                        
+                                                        <!--<div class="profile-add-wrap">
+                                                             <div class="profile-add"><img src="img/mail.svg" alt="">  <span id="profileEmail">Loading...</span></div>
+                                                            <div class="profile-add"><img src="img/call.svg" alt="">+91 <span id="mobile"></span></div>
+                                                            <div class="profile-add"><img src="img/location.svg" alt=""><span id="location">India, Gurgaon</span></div>
+                                                        </div>-->
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="profile-info-wrap">
+                                                            <div class="profile-info">
+                                                                <label for="">Outlet Type</label>
+                                                               <p id="Outlettype">sg</p>
+                                                            </div>
+
+                                                            <div class="profile-info">
+                                                                <label for="">Branch Manager</label>
+                                                                <p id="BranchManager">sdh</p>
+                                                            </div>
+
+                                                            <div class="profile-info">
+                                                                <label for="">Contact Number</label>
+                                                                <p id="ContactNumber">sdh</p>
+                                                            </div>
+
+                                                            <div class="profile-info">
+                                                                <label for="">Location</label>
+                                                                <p id="Location">vgg</p>
+                                                            </div>
+															<div class="profile-info">
+                                                               <label for="">Region/Zone</label>
+                                                               <p id="RegionZone">qgqwwt</p>
+                                                           </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="profile-tabs">
+                                                            <ul class="nav nav-tabs">
+                                                                <li><a data-toggle="tab" href="#about-section" class="active about-tab">About</a></li>
+                                                                <!--<li><a data-toggle="tab" href="" class="salary-tab">Salary</a></li>
+                                                                <li><a data-toggle="tab" href="" class="attendance-tab">Attendance</a></li>
+                                                                <li><a data-toggle="tab" href="" class="apps-tab">Apps</a></li>
+                                                                <li><a data-toggle="tab" href="" class="docs-tab">Docs</a></li>
+                                                                <li><a data-toggle="tab" href="" class="onboarding-tab">Onboarding</a></li>-->
+																<li><a data-toggle="tab" href="#Transactions-History-section" class="Transactions-tab">Transactions History</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="row tab-pane in active" id="about-section">
+                                        <div class="container-fluid p-0 p-md-1 mt-4 bg-white">
+		    <div class="row">
+		      <div class="col-12 col-md-12 px-4">
+				<br>
+		        <div class="d-flex justify-content-between align-items-center mb-3">
+		          <h4 class="fw-bold">Linked UPI Devices</h4>
+		          <div>
+					<!--<button class="btn btn-custom me-2" data-bs-toggle="modal" data-bs-target="#AddVehicleModal">
+		              <i class="bi bi-plus-lg"></i> Raise Ticket
+		            </button>-->
+					<button class="btn btn-custom me-2"  type="button" id="raiseTicket">
+		             Link Device <i class="bi bi-plus-lg"></i> 
+		            </button>
+		 
+		          </div>
+		        </div>				       
+		          <div class="table-responsive">
+		            <table class="table table-reimbursements mb-0" id="supportTicketList">
+						<thead>
+		                <tr>		
+		                  <th>Day</th>	  
+						  <th>Type of Device</th>
+						 <th>UPI ID</th>
+						 <th>Status</th>
+						 <th>Deployment</th>
+						 <th>Added by</th>
+						 <th>Created on</th>
+						 <th>Last Updated on</th>
+		                </tr>
+		              </thead>
+		              <tbody class="table-bordered">
+						<tr>
+						        <td colspan="8" class="text-center">
+						          Currently, no UPI devices have been linked. Click 
+						          
+						          <span style="color: #367AFF; text-decoration: underline; cursor: pointer;">
+						            Add Device
+						          </span> 
+						          to link your first UPI Device.
+						        </td>
+						      </tr>
+		              </tbody>
+		            </table>
+		          </div>
+		        </div>
+
+		      </div>
+		    </div>
+                                    </div>
+									
+									<div class="row tab-pane" id="Transactions-History-section">
+																	<!-- tabs section-->
+																	
+																  </div>    
+                                
+                                    <div class="row tab-pane" id="salary-section">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Salary Details</h5>
+                                                    <div class="primary-Details-wrap">
+                                                        <div class="Primary-details-info">
+                                                            <label for="">First Name</label>
+                                                            <p>Sagar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Middle Name</label>
+                                                            <p>Narendra Kumar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Last Name</label>
+                                                            <p>Jariwal</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Gender</label>
+                                                            <p>Male</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Date of Birth</label>
+                                                            <p>02 Sept. 2001</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Martial Status</label>
+                                                            <p>Single</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Physically Handicapped</label>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Reporting Team (12)</h5>
+                                                    <div class="Reporting-team-wrap">
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Victor Pacho</p>
+                                                                <label for="">Senior Engineer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Pablo Escobar</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Penea Huwera</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Natalia</p>
+                                                                <label for="">Ui Designer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Judi</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Carlos</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row mb-0">
+                                                            <div class="col-12">
+                                                                <a href="#">View All</a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Timeline</h5>
+                                                    <div class="timeline-detl-wrap">
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/thumb.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Work Anniversary - 3rd</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/pay.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Pay Increase</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/star award.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Praise - Super Start Worker</label>
+                                                                <p>Jan 24,2020</p>
+                                                                <div class="info-msg">
+                                                                    <strong>Raj Kumar Srinath</strong>
+                                                                    <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row tab-pane" id="attendance-section">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Attendance Details</h5>
+                                                    <div class="primary-Details-wrap">
+                                                        <div class="Primary-details-info">
+                                                            <label for="">First Name</label>
+                                                            <p>Sagar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Middle Name</label>
+                                                            <p>Narendra Kumar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Last Name</label>
+                                                            <p>Jariwal</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Gender</label>
+                                                            <p>Male</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Date of Birth</label>
+                                                            <p>02 Sept. 2001</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Martial Status</label>
+                                                            <p>Single</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Physically Handicapped</label>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Reporting Team (12)</h5>
+                                                    <div class="Reporting-team-wrap">
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Victor Pacho</p>
+                                                                <label for="">Senior Engineer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Pablo Escobar</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Penea Huwera</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Natalia</p>
+                                                                <label for="">Ui Designer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Judi</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Carlos</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row mb-0">
+                                                            <div class="col-12">
+                                                                <a href="#">View All</a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Timeline</h5>
+                                                    <div class="timeline-detl-wrap">
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/thumb.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Work Anniversary - 3rd</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/pay.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Pay Increase</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/star award.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Praise - Super Start Worker</label>
+                                                                <p>Jan 24,2020</p>
+                                                                <div class="info-msg">
+                                                                    <strong>Raj Kumar Srinath</strong>
+                                                                    <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row tab-pane" id="apps-section">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Apps Details</h5>
+                                                    <div class="primary-Details-wrap">
+                                                        <div class="Primary-details-info">
+                                                            <label for="">First Name</label>
+                                                            <p>Sagar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Middle Name</label>
+                                                            <p>Narendra Kumar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Last Name</label>
+                                                            <p>Jariwal</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Gender</label>
+                                                            <p>Male</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Date of Birth</label>
+                                                            <p>02 Sept. 2001</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Martial Status</label>
+                                                            <p>Single</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Physically Handicapped</label>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Reporting Team (12)</h5>
+                                                    <div class="Reporting-team-wrap">
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Victor Pacho</p>
+                                                                <label for="">Senior Engineer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Pablo Escobar</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Penea Huwera</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Natalia</p>
+                                                                <label for="">Ui Designer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Judi</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Carlos</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row mb-0">
+                                                            <div class="col-12">
+                                                                <a href="#">View All</a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Timeline</h5>
+                                                    <div class="timeline-detl-wrap">
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/thumb.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Work Anniversary - 3rd</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/pay.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Pay Increase</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/star award.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Praise - Super Start Worker</label>
+                                                                <p>Jan 24,2020</p>
+                                                                <div class="info-msg">
+                                                                    <strong>Raj Kumar Srinath</strong>
+                                                                    <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row tab-pane" id="docs-section">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Docs Details</h5>
+                                                    <div class="primary-Details-wrap">
+                                                        <div class="Primary-details-info">
+                                                            <label for="">First Name</label>
+                                                            <p>Sagar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Middle Name</label>
+                                                            <p>Narendra Kumar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Last Name</label>
+                                                            <p>Jariwal</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Gender</label>
+                                                            <p>Male</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Date of Birth</label>
+                                                            <p>02 Sept. 2001</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Martial Status</label>
+                                                            <p>Single</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Physically Handicapped</label>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Reporting Team (12)</h5>
+                                                    <div class="Reporting-team-wrap">
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Victor Pacho</p>
+                                                                <label for="">Senior Engineer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Pablo Escobar</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Penea Huwera</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Natalia</p>
+                                                                <label for="">Ui Designer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Judi</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Carlos</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row mb-0">
+                                                            <div class="col-12">
+                                                                <a href="#">View All</a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Timeline</h5>
+                                                    <div class="timeline-detl-wrap">
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/thumb.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Work Anniversary - 3rd</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/pay.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Pay Increase</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/star award.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Praise - Super Start Worker</label>
+                                                                <p>Jan 24,2020</p>
+                                                                <div class="info-msg">
+                                                                    <strong>Raj Kumar Srinath</strong>
+                                                                    <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row tab-pane" id="onboarding-section">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Onboarding Details</h5>
+                                                    <div class="primary-Details-wrap">
+                                                        <div class="Primary-details-info">
+                                                            <label for="">First Name</label>
+                                                            <p>Sagar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Middle Name</label>
+                                                            <p>Narendra Kumar</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Last Name</label>
+                                                            <p>Jariwal</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Gender</label>
+                                                            <p>Male</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Date of Birth</label>
+                                                            <p>02 Sept. 2001</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Martial Status</label>
+                                                            <p>Single</p>
+                                                        </div>
+                                                        <div class="Primary-details-info">
+                                                            <label for="">Physically Handicapped</label>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Reporting Team (12)</h5>
+                                                    <div class="Reporting-team-wrap">
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Victor Pacho</p>
+                                                                <label for="">Senior Engineer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Pablo Escobar</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Penea Huwera</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Natalia</p>
+                                                                <label for="">Ui Designer</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Judi</p>
+                                                                <label for="">Full Stack Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row">
+                                                            <div class="col-3 text-center">
+                                                                <img src="img/sm-profile.svg" alt="">
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <p>Carlos</p>
+                                                                <label for="">Web Devloper</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="Reporting-team-info row mb-0">
+                                                            <div class="col-12">
+                                                                <a href="#">View All</a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section">
+                                                    <h5>Timeline</h5>
+                                                    <div class="timeline-detl-wrap">
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/thumb.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Work Anniversary - 3rd</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info timeline-line row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/pay.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Pay Increase</label>
+                                                                <p>Jan 24,2020</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-detl-info row">
+                                                            <div class="col-2 col-md-1">
+                                                                <img src="img/star award.svg" alt="">
+                                                            </div>
+                                                            <div class="col-10 col-md-11">
+                                                                <label for="">Praise - Super Start Worker</label>
+                                                                <p>Jan 24,2020</p>
+                                                                <div class="info-msg">
+                                                                    <strong>Raj Kumar Srinath</strong>
+                                                                    <p>Innovative problem solver with a passion for developing efficient and elegant solutions. Proficient in multiple programming languages and frameworks, adept at quickly learning new technologies and adapting to evolving project requirements... Read More</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+	
+	<!-- modal -->
+		<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay1" style="display: block;">
+  <div class="voucher-modal-canvas" id="bs-canvas-right2">
+    <div class="voucher-modal-scrollable-wrapper">
+      <div class="voucher-modal-scrollable">
+        <div class="voucher-header d-flex justify-content-between align-items-center p-3 border-bottom">
+          <h5 class="voucher-title mb-0">Activate Brand Management</h5>
+          <button class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="margin-right: -65px;">
+            <i class="fas fa-times voucher-close-icon"></i>
+          </button>
+        </div>
+
+        <div class="p-3">
+          <!-- Question 1 -->
+          <p class="mb-2 fw-bold">How many outlets does your brand have?</p>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet">
+            <label class="form-check-label" for="oneOutlet" style="margin-left: -17px !important; ">One</label>
+          </div>
+          <div class="form-check d-flex align-items-center gap-2 mb-4">
+            <input class="form-check-input" type="radio" name="outletCount" id="multipleOutlets" checked>
+            <label class="form-check-label me-2" for="multipleOutlets">Multiple</label>
+            <input type="text"  class="form-control form-control-sm w-auto" value="150 Outlets" style="border-radius: 6px;">
+          </div>
+
+          <!-- Question 2 -->
+          <p class="mb-2 fw-bold">Do you have an online store for sales?</p>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="salesMode" id="onlineOffline" checked>
+            <label class="form-check-label" for="onlineOffline">Online and Offline</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="salesMode" id="onlineOnly">
+            <label class="form-check-label" for="onlineOnly">Online Only</label>
+          </div>
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="salesMode" id="offlineOnly">
+            <label class="form-check-label" for="offlineOnly">Offline Only</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer: button excluded as per user -->
+    <div class="voucher-footer">
+		<button
+		  class="voucher-download-btn"
+		  type="button"
+		  data-bs-toggle="modal"
+		  data-bs-target="#PaymentSuccessModal"
+		>
+		  Submit
+		</button>
+    </div>
+  </div>
+</div>
+<!-- Payment Success Modal -->
+	   <div class="modal fade" id="PaymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+	       <div class="modal-dialog modal-dialog-centered" >
+			
+	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+				<button
+				  type="button"
+				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+				  aria-label="Close"
+				  data-bs-dismiss="modal"
+				  style="margin-right: -65px; outline: none; box-shadow: none;"
+				>
+				  <i class="fas fa-times voucher-close-icon"></i>
+				</button>
+	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+	                   <!-- Success Icon -->
+	                   <div class="success-icon mb-4">
+	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
+	                   </div>
+	                   <!-- Title -->
+	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Activated</h5>
+	                   <!-- Subtext -->
+	                   <p class="text-muted mb-4">
+	                       Your Brand Management is successfully activated!
+	                   </p>
+	                   <!-- OK Button -->
+					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal">OK</button>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	<script type="text/javascript" src="cotodel-js/employee-onboarding-full-action.js"></script>
+	<style>	#bs-canvas-right2 {
+		  position: absolute;
+		  right: 0;
+		  top: 0;
+		  width: 380px;
+		  height: 100%;
+		  background: #fff;
+		  transform: translateX(100%);
+		  transition: transform 0.3s ease-in-out;
+		  z-index: 1001;
+		}
+
+		#bs-canvas-right2.show-canvas {
+		  transform: translateX(0);
+		}	  	  
+		.form-check {
+		              display: flex;
+		              align-items: center;
+		              gap: 8px;
+		              flex-direction: row;
+		            }
+					.form-check-label {
+					  background-color: transparent !important;
+					  margin: 0;
+					  order: 1; /* ← CHANGE to 1 if textbox is 2 */
+					}
+
+					.form-check input[type="text"] {
+					  order: 2;
+					}
+					input[type="radio"].form-check-input {
+					  position: relative;
+					  display: inline-block;
+					  vertical-align: middle;
+					  width: 16px;
+					  height: 16px;
+					  border: 2px solid #999;
+					  border-radius: 50%;
+					  background-color: transparent;
+					  cursor: pointer;
+					  appearance: none;
+					  -webkit-appearance: none;
+					  -moz-appearance: none;
+					}
+
+					input[type="radio"].form-check-input:checked::before {
+					  content: "";
+					  position: absolute;
+					  top: 50%;
+					  left: 50%;
+					  transform: translate(-50%, -50%);
+					  width: 8px;
+					  height: 8px;
+					  border-radius: 50%;
+					  background-color: #367AFF;
+					}
+
+	</style>
+	<script>
+		window.onload = function () {
+		    getEmployeeOnboardingById();
+			getEmployeeOnboardingByManagerId();
+			
+		};
+		
+		$(document).ready(function(){
+			    	
+			    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+					  $('a[href="/manageEmployee"]').closest('li').addClass('active').attr('aria-current', 'page');   
+					  
+			        $(".innernav").click(function(){
+			            $(".dropdownNav").addClass("active");
+			        });
+			    });
+			    
+	</script>
+    <script>
+        $(document).on('change','.up', function(){
+		   	var names = [];
+		   	var length = $(this).get(0).files.length;
+			    for (var i = 0; i < $(this).get(0).files.length; ++i) {
+			        names.push($(this).get(0).files[i].name);
+			    }
+			    // $("input[name=file]").val(names);
+				if(length>2){
+				  var fileName = names.join(', ');
+				  $(this).closest('.form-group').find('.form-control').attr("value",length+" files selected");
+				}
+				else{
+					$(this).closest('.form-group').find('.form-control').attr("value",names);
+				}
+	   });
+    </script>
+	
+	<script>
+	  window.addEventListener("DOMContentLoaded", function () {
+	    // Show modal canvas
+	    document.getElementById("bs-canvas-right2").classList.add("show-canvas");
+
+	    // Close modal when clicking close button
+	    document.querySelector(".bs-canvas-close").addEventListener("click", function () {
+	      document.getElementById("modal-overlay1").style.display = "none";
+	    });
+	  });
+	</script>
+
+
+</body>
+
+</html>

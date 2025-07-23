@@ -575,7 +575,7 @@
 	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
 	<script type="text/javascript" src="cotodel-js/single-voucher-creation.js"></script>
 	<script>
-		function appendDaysSuffix(input) {
+		/*function appendDaysSuffix(input) {
 		    let num = parseInt(input.value);
 		    if (!isNaN(num)) {
 		        if (num < 2) num = 2;
@@ -584,6 +584,18 @@
 		        input.setAttribute('data-validity', num + ' Days'); // hidden value for API
 		    } else {
 		        input.removeAttribute('data-validity');
+		    }
+		}*/
+		function appendDaysSuffix(input) {
+		    const value = parseInt(input.value, 10);
+		 
+		    if (isNaN(value)) return;
+		 
+		    if (value < 2 || value > 365) {
+		        input.setCustomValidity("Please enter a number between 2 and 365.");
+		        input.reportValidity();
+		    } else {
+		        input.setCustomValidity("");
 		    }
 		}
 

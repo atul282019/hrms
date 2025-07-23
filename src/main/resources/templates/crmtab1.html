@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+
+<body id="page-top">
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:insert="fragments/sidenav.html :: sidevav"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                
+
+				<nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+				                   <!-- Topbar Navbar -->
+				                   <ul class="navbar-nav top-nav">
+
+				                       <!-- Nav Item - User Information -->
+				                     <!--  <li class="nav-item">
+				                           <a class="nav-link active" href="#">
+				                               <span class="mr-2 small">Dashboard</span>
+				                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+				                           </a>
+				                       </li>
+				                       <li class="nav-item">
+				                           <a class="nav-link" href="#">
+				                               <span class="mr-2 small">Employee Payroll</span>
+				                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+				                           </a>
+				                       </li>-->
+
+				                   </ul>
+
+								   <!-- Right Icons + Profile -->
+								   			    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+								   			      <!-- Wallet Icon -->
+								   			     <!-- <li class="nav-item mr-3">
+								   			        <a href="/settings/wallet" role="button">
+								   			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+								   			        </a>
+								   			      </li>-->
+								   				  <li class="nav-item mr-3">
+								     			        <a href="/cotowallet" role="button">
+								     			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+								     			        </a>
+								     			      </li>
+								   			      <!-- Notification Icon -->
+								   			      <li class="nav-item mr-3">
+								   			        <a href="#" role="button">
+								   			          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+								   			        </a>
+								   			      </li>
+
+								   			      <!-- Profile Dropdown -->
+								   			      <li class="nav-item dropdown no-arrow">
+								   			        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								   			          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+								   			        </a>
+								   			        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+								   			          <a class="dropdown-item" href="/ProfileInfo">
+								   			            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								   			          </a>
+								   			       <!--   <a class="dropdown-item" href="#">
+								   			            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+								   			          </a>-->
+								   			          <div class="dropdown-divider"></div>
+								   			          <a class="dropdown-item" href="/logout">
+								   			            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+								   			          </a>
+								   			        </div>
+								   			      </li>
+								   			    </ul>		
+				           </nav>
+                <!-- End of Topbar -->
+
+                 <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        
+                        <div class="col-12 col-md-12 px-4">    
+
+							<div class="mt-4 bg-white p-2 br-10">
+							  <div class="row">
+							    <div class="col-12 organisation-wrap">
+							      <div class="d-flex justify-content-between">
+							        
+							        <!-- Left buttons -->
+							        <div class="d-flex gap-2">
+							          <a class="btn btn-white">User Onboarding</a>
+							          <a class="btn btn-white">Assigned Clients</a>
+							        </div>
+
+							        <!-- Right button -->
+							        <div class="d-flex justify-content-end">
+							          <a class="btn btn-white">Add New</a>
+							        </div>
+							        
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							
+
+							<style>
+							  .custom-blue-btn {
+							    background-color: #367AFF;
+							    color: #ffffff;
+							    border: none;
+							    width: 200px; /* Fixed width for both buttons */
+							    padding: 10px 15px; /* Added padding for better click area */
+							    text-align: center; /* Center text */
+							    display: block; /* Ensure full width is clickable */
+							    border-radius: 5px; /* Added for better appearance */
+							    transition: background-color 0.3s ease; /* Smooth hover effect */
+							  }
+
+							  .custom-blue-btn:hover {
+							    background-color: #255bcc;
+							    color: #ffffff;
+							    text-decoration: none; /* Remove underline on hover */
+							  }
+
+							  .managemp-btn-wrap {
+							    display: flex;
+							    flex-direction: column;
+							    align-items: flex-start;
+							  }
+
+							  .managemp-btn-wrap .btn:not(:last-child) {
+							    margin-bottom: 50px; /* Equivalent to gap-3 */
+							  }
+
+							  /* Optional: Add more spacing on smaller screens */
+							  @media (max-width: 576px) {
+							    .managemp-btn-wrap {
+							      align-items: center !important; /* Center buttons on mobile */
+							    }
+							    .custom-blue-btn {
+							      width: 100%; /* Full width buttons on mobile */
+							    }
+							  }
+							</style>
+							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectvouchers-wrap03" style="display: none;">
+							    <div class="d-flex">
+							        <h3>Enter Details </h3>
+							    </div>
+
+							    <div>
+							        <p>Please input the details for new clients.</p>
+							    </div>
+
+							    <div class="table-responsive" >
+							        <table class="table table-reimbursements selectvouchers-table" id="sourceTable">
+							            <thead>
+							                <tr>
+
+											   <th onclick="sortTable(1)">Client Name </th>
+											   <th onclick="sortTable(2)">Contact Name </th>
+											   <th onclick="sortTable(3)">Type </th>
+											   <th onclick="sortTable(4)">Size </th>
+												<th onclick="sortTable(5)">Status </th>
+												<th onclick="sortTable(5)">Assigned To </th>
+							                    <th></th>
+							                </tr>
+							            </thead>
+							            <tbody id="voucherTableBody">
+							               <tr>
+							                    <td>
+							                        <div class="autocomp-input-wrap table-input">
+							                            <input type="text" class="autocomp-input" id="search" oninput="userSearchAndPopulate(this)"
+							                                placeholder="Enter Name" autocomplete="off">
+							                            <div id="autocomplete-suggestions" class="autocomplete-dropdown">
+															
+														</div>
+							                        </div>
+							                    </td>
+												<td>
+												  <input type="text" 
+												         class="table-input" 
+												         placeholder="Contact Name" 
+												         id="ContactName" 
+												         
+												         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); ">
+												</td>
+												<td>
+							                        <select class="GeneralSelect ">
+							                            <option value="Fleet">Fleet</option>
+							                            <option value="Corporate" selected>Corporate</option>
+							                        </select>
+							                    </td>
+							                    <td>
+							                        <select class="GeneralSelect">
+							                            <option value="0-10"selected>0-10</option>
+							                            <option value="10-50" >10-50</option>
+														<option value="100" >100</option>
+														<option value="100+" >100+</option>
+							                        </select>
+							                    </td>
+												<td>
+												  <input type="text" 
+												         class="table-input" 
+												         placeholder="Enter Status" 
+												         id="Status" 
+												         
+												         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); ">
+												</td>
+												<td>
+											  <input type="text" 
+											         class="table-input" 
+											         placeholder="Assigne name" 
+											         id="Assigne name" 
+											         
+											         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); ">
+											</td>
+							                 
+												
+							                    <td>
+							                        <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+							                    </td>
+							                </tr>
+											
+							            </tbody>
+										<tr class="text-center">
+										  <td colspan="8" style="background: #EAF4EF; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+										    <a href="#" style="color: #2F945A; font-weight: 700;" onclick="addNewVoucher(event)">+ Add New Voucher</a>
+										  </td>
+										</tr>
+							        </table>
+									<div id="common-error-msg" style="color: #F24822; display: none;"></div>
+							    </div>
+
+							    <div class="w-100 my-3 text-right">
+							        <button class="btn btn-border-primary"
+							            onclick="window.location.href='/upiVoucherIssuanceNew';">Back</button>
+							        <button type="button" class="btn btn-primary"id="continueButton1" onclick="singleVoucherValidation()">Save</button>
+							    </div>								
+							</div>
+                          
+                            <div class="mt-4 tabs-details-tbl" >
+                            	<div class="table-responsive">    
+                                            <table class="table table-sucess table-bordered" id="employeeTable">
+                                            
+                                                <thead>
+                                                    <tr>	
+                                                   		
+                                                        <th onclick="sortTable(1)">Client Name </th>
+                                                        <th onclick="sortTable(2)">Contact Name </th>
+                                                        <th onclick="sortTable(3)">Type </th>
+                                                        <th onclick="sortTable(4)">Size </th>
+														<th onclick="sortTable(5)">Status </th>
+														<th onclick="sortTable(5)">Assigned To </th>
+														<th onclick="sortTable(6)" ></th>
+                                                       
+                                                    </tr>
+                                                </thead>
+												<tbody class="table-bordered">
+									               <tr>
+													<td>
+													  <a href="/companyprofile" class="client-link">Cotodel</a>
+													</td>
+
+
+													 <td> Arsalan</td>
+													 <td>Fleet </td>
+													 <td>1000</td>
+													 <td class="text-left">Demo Completed</td>
+													 <td class="text-left">Vidit</td>
+													 <td class="text-center">
+	  												 <button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="true" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button>
+	  												 </td>	
+												     </tr>
+													 
+													  <tr>
+														<td>
+														  <a href="companyprofile.html" class="client-link" target="_blank">Infosys</a>
+														</td>
+
+	 												 <td> Sanjay Singh</td>
+	 												 <td>Corporate </td>
+	 												 <td>8500</td>
+	 												 <td class="text-left">Demo Booked</td>
+	 												 <td class="text-left">Aviral</td>
+	 												 <td class="text-center">
+	 												 <button class="btn p-0" type="button" data-toggle="canvas" data-target="#bs-canvas-right" aria-expanded="true" aria-controls="bs-canvas-right" onclick="viewData(this)" title="Profile"><i class="fas fa-ellipsis-v fa-sm"></i></button>
+	 												 </td>			
+                                              
+                                                   
+                                                </tbody>
+                                            </table>
+                                        </div>
+                            
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+					<div class="lds-spinner" id="signinLoader" style="display: none">
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																		<div></div>
+																	</div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+	<div id="bs-canvas-right" class="bs-canvas bs-canvas-right position-fixed bg-white h-100">
+		       <button type="button" class="bs-canvas-close float-right test" aria-label="Close" aria-expanded="false"><span aria-hidden="true">&times;</span></button>
+		       <div class="bs-canvas-top">
+				<div class="bs-canvas-top company-info-box p-3 mb-0">
+				  <h3 class="mb-3 font-weight-bold " id="companyName"style= "color:#2F945A;">Cotodel</h3>
+	 
+				  <div class="info-row mb-2">
+				    <strong>Contact Name:</strong> <span id="contactName">Arsalan</span>
+				  </div>
+				  <div class="info-row mb-2">
+				    <strong>Phone:</strong> <span id="contactPhone">+91-9876543210</span>
+				  </div>
+				  <div class="info-row mb-2">
+				    <strong>Email:</strong> <span id="contactEmail">arsalan@example.com</span>
+				  </div>
+				  <div class="info-row mb-2">
+				    <strong>Type:</strong> <span id="companyType">Fleet</span>
+				  </div>
+				  <div class="info-row">
+				    <strong>Size:</strong> <span id="companySize">1000</span>
+				  </div>
+				</div>
+				<div class="mt-4 tabs-details-tbl">
+				<h4>Action History</h4>
+					<div class="table-responsive"style="size:12px;">    
+				                <table class="table table-sucess table-bordered" id="employeeTable" >
+				                    <thead>
+				                        <tr>		
+				                            <th onclick="sortTable(1)">Date</th>
+				                            <th onclick="sortTable(2)">Time</th>
+				                            <th onclick="sortTable(3)">Action </th>
+				                            <th onclick="sortTable(4)">Remark</th>                       
+				                        </tr>
+				                    </thead>
+								<tbody class="table-bordered">
+					               <tr>
+									
+									 <td> 05-11-2025</td>
+									 <td>12:00 PM</td>
+									 <td>Demo Scheduled</td>
+									 <td class="text-left">The Demo went succesfully.</td>
+										
+								     </tr>
+									 
+									  <tr>
+										<td> 05-11-2025</td>
+									 <td>12:00 PM</td>
+									 <td>Demo Scheduled</td>
+									 <td class="text-left">The Demo went succesfully.</td>
+											
+				                    <tbody style="background: #fff;" id="employeeTableBody">
+				                       
+				                    </tbody>
+				                </table>
+				            </div>
+
+				    </div>
+				
+		       </div>
+
+
+			   <div class="bs-canvas-mid p-4">
+	 
+			     <!-- Status Dropdown -->
+			     <div class="form-group mb-4">
+			       <label for="statusSelect"><strong>Status</strong></label>
+			       <select class="form-control" id="statusSelect">
+			         <option selected disabled>Select status</option>
+			         <option>Demo Booked</option>
+			         <option>Demo Completed</option>
+			         <option>Commercial Sent</option>
+					 <option>Agreement Signed</option>
+					 <option>Client Onboarded</option>
+					 <option>Deal Closed</option>
+			       </select>
+			     </div>
+	 
+			     <!-- Assign To Dropdown -->
+			     <div class="form-group mb-4">
+			       <label for="assignToSelect"><strong>Assign To</strong></label>
+			       <select class="form-control" id="assignToSelect">
+			         <option selected disabled>Select assignee</option>
+			         <option>Vidit</option>
+			         <option>Arsalan</option>
+			         <option>Neha</option>
+			       </select>
+			     </div>
+				 <div class="form-group mb-4">
+				   <label for="assignmentDate"><strong>Follow-up Date</strong></label>
+				   <input type="date" class="form-control" id="Follow-upDate" name="Follow-upDate">
+				 </div>
+				 <div class="mt-4 tabs-details-tbl">
+				 	<h4>Remarks</h4>
+				 		<div class="table-responsive"style="size:12px;">    
+				 	                <table class="table table-sucess table-bordered" id="employeeTable" >
+				 	                    <thead>
+				 	                        <tr>		
+				 	                            <th onclick="sortTable(1)">Date</th>
+				 	                            <th onclick="sortTable(2)">Time</th>
+				 	                            <th onclick="sortTable(3)">Contact</th>
+												<th onclick="sortTable(4)">Department</th>
+				 	                            <th onclick="sortTable(4)">Remark</th>                       
+				 	                        </tr>
+				 	                    </thead>
+				 					<tbody class="table-bordered">
+				 		               <tr>
+				 						
+				 						 <td> 05-11-2025</td>
+				 						 <td>12:00 PM</td>
+				 						 <td>Rohit</td>
+										 <td>Hr</td>
+				 						 <td class="text-left">The client was interested in Branded Vouchers. Wants to understand about intergration. </td>
+				 							
+				 					     </tr>
+				 						 
+				 						  <tr>
+				 							<td> 05-11-2025</td>
+				 						 <td>12:00 PM</td>
+				 						 <td>Rohan</td>
+										 <td>Finance</td>
+				 						 <td class="text-left">The client is asking for commercials. </td>
+				 								
+				 	                    <tbody style="background: #fff;" id="employeeTableBody">
+				 	                       
+				 	                    </tbody>
+				 	                </table>
+				 	            </div>
+
+				 	    </div><br>
+			     <!-- Remark Textarea -->
+			     <div class="form-group mb-4">
+			       <label for="remarks"><strong>Remarks</strong></label>
+			       <textarea class="form-control" id="remarks" rows="3" placeholder="Enter any remarks here..."></textarea>
+			     </div>
+	           
+				 <div class="form-group mb-4 text-left">
+					<button type="button" class="btn w-100" style="background-color: #2F945A; color: #fff; border: none;" onclick="submitAction()">Take Action</button>
+				 </div>
+	 
+			    
+		</div>
+		
+		
+	 	
+   </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script type="text/javascript" src="cotodel-js/crmtab.js"></script>
+ <script>
+	function deleteRow(button) {
+	    const tableBody = document.getElementById("voucherTableBody");
+	    const rows = tableBody.querySelectorAll("tr");
+
+	    if (rows.length <= 1) {
+	        alert("Cannot delete the first row.");
+	        return;
+	    }
+
+	    const row = button.parentElement.parentElement;
+	    tableBody.removeChild(row);
+	}
+		function addNewVoucher(event) {
+		  event.preventDefault();
+		  const tableBody = document.getElementById('voucherTableBody');
+
+		  const newRow = document.createElement('tr');
+		  const today = new Date().toISOString().split("T")[0];
+
+		  newRow.innerHTML = `
+		  <tr>
+		  						                    <td>
+		  						                        <div class="autocomp-input-wrap table-input">
+		  						                            <input type="text" class="autocomp-input" id="search" oninput="userSearchAndPopulate(this)"
+		  						                                placeholder="Enter Name" autocomplete="off">
+		  						                            <div id="autocomplete-suggestions" class="autocomplete-dropdown">
+		  														
+		  													</div>
+		  						                        </div>
+		  						                    </td>
+		  											<td>
+		  											  <input type="text" 
+		  											         class="table-input" 
+		  											         placeholder="Contact Name" 
+		  											         id="ContactName" 
+		  											         
+		  											         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); ">
+		  											</td>
+		  											<td>
+		  						                        <select class="GeneralSelect ">
+		  						                            <option value="Fleet">Fleet</option>
+		  						                            <option value="Corporate" selected>Corporate</option>
+		  						                        </select>
+		  						                    </td>
+		  						                    <td>
+		  						                        <select class="GeneralSelect">
+		  						                            <option value="0-10"selected>0-10</option>
+		  						                            <option value="10-50" >10-50</option>
+		  													<option value="100" >100</option>
+		  													<option value="100+" >100+</option>
+		  						                        </select>
+		  						                    </td>
+		  											<td>
+		  											  <input type="text" 
+		  											         class="table-input" 
+		  											         placeholder="Enter Status" 
+		  											         id="Status" 
+		  											         
+		  											         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); ">
+		  											</td>
+		  											<td>
+		  										  <input type="text" 
+		  										         class="table-input" 
+		  										         placeholder="Assigne name" 
+		  										         id="Assigne name" 
+		  										         
+		  										         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); ">
+		  										</td>
+		  						                 
+		  											
+		  						                    <td>
+		  						                        <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
+		  						                    </td>
+		  						                </tr>
+		  										
+		  						          
+		  `;
+
+		  tableBody.appendChild(newRow);
+		}
+
+</script>
+
+    <script>
+        jQuery(document).ready(function($){
+            var bsOverlay = $('.bs-canvas-overlay');
+            $('[data-toggle="canvas"]').on('click', function(){
+                var ctrl = $(this), 
+                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+                $(elm).addClass('mr-0');
+                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+                if(bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+            
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function(){
+                var elm;
+                if($(this).hasClass('bs-canvas-close')) {
+                    elm = $(this).closest('.bs-canvas');
+                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+                } else {
+                    elm = $('.bs-canvas')
+                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");	
+                }
+                elm.removeClass('mr-0');
+                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+                if(bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+		function viewData(value){
+				
+				 var row = jQuery(value).closest('tr');
+				 
+				 //var id = row[0].children[0].innerHTML;
+				 //var userDetailsId= row[0].children[1].innerHTML;
+				 var id = row.find('input[name="id"]').val();
+				    var userDetailsId = row.find('input[name="userDetailsId"]').val();
+
+				    // Debugging output
+				    console.log("Extracted ID:", id, "Extracted userDetailsId:", userDetailsId);
+				    
+				    //alert("id = " + id + " userDetailsId = " + userDetailsId);
+				 pupolateData(id,userDetailsId);
+				
+				 jQuery(document).ready(function($){
+			            var bsOverlay = $('.bs-canvas-overlay');
+			            $('[data-toggle="canvas"]').on('click', function(){
+			                var ctrl = $(this), 
+			                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+			                $(elm).addClass('mr-0');
+			                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+			                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+			                if(bsOverlay.length)
+			                    bsOverlay.addClass('show');
+			                return false;
+			            });
+			            
+			            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function(){
+			                var elm;
+			                if($(this).hasClass('bs-canvas-close')) {
+			                    elm = $(this).closest('.bs-canvas');
+			                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+			                } else {
+			                    elm = $('.bs-canvas')
+			                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");	
+			                }
+			                elm.removeClass('mr-0');
+			                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+			                if(bsOverlay.length)
+			                    bsOverlay.removeClass('show');
+			                return false;
+			            });
+			        });
+			 }
+        </script>
+        
+	<script>
+		    $(document).ready(function(){
+		    	
+		    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
+				  $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');   
+				  
+		        $(".innernav").click(function(){
+		            $(".dropdownNav").addClass("active");
+		        });
+		    });
+		    
+		 function viewData(value){
+			
+			 var row = jQuery(value).closest('tr');
+			 
+			 //var id = row[0].children[0].innerHTML;
+			 //var userDetailsId= row[0].children[1].innerHTML;
+			 var id = row.find('input[name="id"]').val();
+			    var userDetailsId = row.find('input[name="userDetailsId"]').val();
+
+			    // Debugging output
+			    console.log("Extracted ID:", id, "Extracted userDetailsId:", userDetailsId);
+			    
+			    //alert("id = " + id + " userDetailsId = " + userDetailsId);
+			 //pupolateData(id,userDetailsId);
+			
+			 jQuery(document).ready(function($){
+		            var bsOverlay = $('.bs-canvas-overlay');
+		            $('[data-toggle="canvas"]').on('click', function(){
+		                var ctrl = $(this), 
+		                    elm = ctrl.is('button') ? ctrl.data('target') : ctrl.attr('href');
+		                $(elm).addClass('mr-0');
+		                $(elm + ' .bs-canvas-close').attr('aria-expanded', "true");
+		                $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "true");
+		                if(bsOverlay.length)
+		                    bsOverlay.addClass('show');
+		                return false;
+		            });
+		            
+		            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function(){
+		                var elm;
+		                if($(this).hasClass('bs-canvas-close')) {
+		                    elm = $(this).closest('.bs-canvas');
+		                    $('[data-target="' + elm + '"], a[href="' + elm + '"]').attr('aria-expanded', "false");
+		                } else {
+		                    elm = $('.bs-canvas')
+		                    $('[data-toggle="canvas"]').attr('aria-expanded', "false");	
+		                }
+		                elm.removeClass('mr-0');
+		                $('.bs-canvas-close', elm).attr('aria-expanded', "false");
+		                if(bsOverlay.length)
+		                    bsOverlay.removeClass('show');
+		                return false;
+		            });
+		        });
+		 }
+		</script>
+		
+		
+		
+
+
+    <style>
+		#employeeTable td:nth-child(5),
+		   #employeeTable td:nth-child(6) {
+		       text-align: center;
+		   }
+		 
+
+
+	</style>
+  
+</body>
+
+</html>
