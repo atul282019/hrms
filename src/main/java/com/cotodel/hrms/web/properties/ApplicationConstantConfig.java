@@ -42,4 +42,8 @@ public class ApplicationConstantConfig {
 	
 	@Value("${cashfree.payment.base.url}")
 	public String cashfreePaymentBaseUrl;
+	
+	@Value("${brand.service.base.url}")
+	public String brandServiceBaseUrl;
+	
 }

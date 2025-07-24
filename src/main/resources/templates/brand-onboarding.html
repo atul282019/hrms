@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
- <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
+ <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <body id="page-top" >
@@ -58,9 +58,6 @@
 	 			          <a class="dropdown-item" href="/ProfileInfo">
 	 			            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
 	 			          </a>
-	 			       <!--   <a class="dropdown-item" href="#">
-	 			            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
-	 			          </a>-->
 	 			          <div class="dropdown-divider"></div>
 	 			          <a class="dropdown-item" href="/logout">
 	 			            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
@@ -70,12 +67,6 @@
 	 			    </ul>
                 </nav>
                 <!-- End of Topbar -->
-				
-				<input type="hidden" class="form-input" name="employerId" id="employerId" >
-				<input type="hidden" class="form-input" name="Id" id="Id" >
-				<input type="hidden" class="form-input" name="userDetailsId" id="userDetailsId" >
-				<input type="hidden" class="form-input" id="mob" name="mob" th:value="${session.mobile}">
-				<input type="hidden" class="form-input" id="orgId" name="orgId" th:value="${session.id}">
 				<!-- Begin Page Content -->
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
@@ -1229,9 +1220,11 @@
                         </div>
                     </div>
 
-                    
-
-                </div>
+				<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 	
+				<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+				<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">	
+					
+				</div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -1243,7 +1236,7 @@
     <!-- End of Page Wrapper -->
 	
 	<!-- modal -->
-		<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay1" style="display: block;">
+<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay1" style="display: block;">
   <div class="voucher-modal-canvas" id="bs-canvas-right2">
     <div class="voucher-modal-scrollable-wrapper">
       <div class="voucher-modal-scrollable">
@@ -1256,29 +1249,29 @@
 
         <div class="p-3">
           <!-- Question 1 -->
-          <p class="mb-2 fw-bold">How many outlets does your brand have?</p>
+          <p class="mb-2 fw""-bold">How many outlets does your brand have?</p>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet">
+            <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet" value="oneOutlet">
             <label class="form-check-label" for="oneOutlet" style="margin-left: -17px !important; ">One</label>
           </div>
           <div class="form-check d-flex align-items-center gap-2 mb-4">
-            <input class="form-check-input" type="radio" name="outletCount" id="multipleOutlets" checked>
+            <input class="form-check-input" type="radio" name="outletCount" id="multipleOutlets" checked value="multipleOutlets">
             <label class="form-check-label me-2" for="multipleOutlets">Multiple</label>
-            <input type="text"  class="form-control form-control-sm w-auto" value="150 Outlets" style="border-radius: 6px;">
+            <input type="text"  class="form-control form-control-sm w-auto" placeholder="No of Outlets" style="border-radius: 6px;">
           </div>
 
           <!-- Question 2 -->
           <p class="mb-2 fw-bold">Do you have an online store for sales?</p>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="salesMode" id="onlineOffline" checked>
+            <input class="form-check-input" type="radio" name="salesMode" id="onlineOffline" checked value="Online and Offline">
             <label class="form-check-label" for="onlineOffline">Online and Offline</label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="salesMode" id="onlineOnly">
+            <input class="form-check-input" type="radio" name="salesMode" id="onlineOnly" value="Online Only">
             <label class="form-check-label" for="onlineOnly">Online Only</label>
           </div>
           <div class="form-check mb-4">
-            <input class="form-check-input" type="radio" name="salesMode" id="offlineOnly">
+            <input class="form-check-input" type="radio" name="salesMode" id="offlineOnly" value="Offline Only">
             <label class="form-check-label" for="offlineOnly">Offline Only</label>
           </div>
         </div>
@@ -1287,14 +1280,9 @@
 
     <!-- Footer: button excluded as per user -->
     <div class="voucher-footer">
-		<button
-		  class="voucher-download-btn"
-		  type="button"
-		  data-bs-toggle="modal"
-		  data-bs-target="#PaymentSuccessModal"
-		>
-		  Submit
-		</button>
+		<!--<button class="voucher-download-btn" type="button" data-bs-toggle="modal"
+		  data-bs-target="#PaymentSuccessModal">Submit</button>-->
+		  <button class="voucher-download-btn" type="button" onclick="activateBrand()">Submit</button>
     </div>
   </div>
 </div>
@@ -1353,7 +1341,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	<script type="text/javascript" src="cotodel-js/"></script>
+	<script type="text/javascript" src="cotodel-js/band-management.js"></script>
 	<style>	#bs-canvas-right2 {
 		  position: absolute;
 		  right: 0;
@@ -1413,11 +1401,6 @@
 
 	</style>
 	<script>
-		window.onload = function () {
-		    getEmployeeOnboardingById();
-			getEmployeeOnboardingByManagerId();
-			
-		};
 		
 		$(document).ready(function(){
 			    	
