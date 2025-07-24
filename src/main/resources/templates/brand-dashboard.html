@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!--<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
+viewEmployeeBand(),cotodelLinkedBankDetail()">-->
+
+<body id="page-top" >
+<!-- viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()-->
+
+    <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+			      
+		<div th:insert="fragments/sidenav.html :: sidevav"></div>
+		
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+
+                        <!-- Nav Item - User Information -->
+                        <!--<li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="mr-2 small">Dashboard</span>
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                            </a>
+                        </li>
+						<li class="nav-item">
+                           <a class="nav-link" href="#">
+                               <span class="mr-2 small">Admin Settings</span>
+                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
+                           </a>
+                       </li>-->
+
+                    </ul>
+					<!-- Right Icons + Profile -->
+								    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+								      <!-- Wallet Icon -->
+								     <!-- <li class="nav-item mr-3">
+								        <a href="/settings/wallet" role="button">
+								          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+								        </a>
+								      </li>-->
+									  <li class="nav-item mr-3">
+					  			        <a href="/cotowallet" role="button">
+					  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+					  			        </a>
+					  			      </li>
+								      <!-- Notification Icon -->
+								      <li class="nav-item mr-3">
+								        <a href="#" role="button">
+								          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+								        </a>
+								      </li>
+
+								      <!-- Profile Dropdown -->
+								      <li class="nav-item dropdown no-arrow">
+								        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+								        </a>
+								        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+								          <a class="dropdown-item" href="/ProfileInfo">
+								            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								          </a>
+								       <!--   <a class="dropdown-item" href="#">
+								            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+								          </a>-->
+								          <div class="dropdown-divider"></div>
+								          <a class="dropdown-item" href="/logout">
+								            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+								          </a>
+								        </div>
+								      </li>
+								    </ul>
+                </nav>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-underline">
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1 }" ><a data-toggle="tab" href="#home1" class="nav-link active">Home</a></li>
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11" class="nav-link">Outlets</a></li>
+                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu22">Schemes</a></li>
+								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu33">Analytics</a></li>
+								<!--<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Brand Management</a></li>
+								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Payment History</a></li>
+                             -->
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home1" class="tab-pane in active" th:if="${session.user_role == 9 or session.user_role == 1}">
+									<style>
+									    .brand-dashboard-card {
+									      width: 100%;
+										  max-width: 460px;
+									      height: 200px;
+									      border-radius: 16px;
+									      padding: 10px;
+									      border-bottom: 1px solid #e0e0e0;
+									      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+									      display: flex;
+									      flex-direction: column;
+									      justify-content: space-between;
+									    }
+									    .brand-dashboard-title {
+									      font-weight: 600;
+									      color: #3c3f53;
+									      font-size: 1rem;
+									    }
+									    .brand-dashboard-section {
+									      display: flex;
+									      justify-content: space-between;
+									      align-items: center;
+									    }
+									    .brand-dashboard-item {
+									      display: flex;
+									      flex-direction: column;
+									      align-items: center;
+									      text-align: center;
+									      flex: 1;
+									    }
+									    .brand-dashboard-item:not(:last-child) {
+									      border-right: 1px solid #eee;
+									    }
+									    .brand-dashboard-icon {
+									      font-size: 1.8rem;
+									      color: #28a745;
+									      margin-bottom: 4px;
+									    }
+									    .brand-dashboard-value {
+											color: #1F212C;
+									      font-weight: bold;
+									      font-size: 19px;
+									    }
+									    .brand-dashboard-label {
+									      color: #86889B;
+										  font-size: 13px;
+										  margin-bottom: 5px;
+									    }
+									    @media (max-width: 768px) {
+									      .brand-dashboard-card {
+									        max-width: 100%;
+									        margin-bottom: 20px;
+									      }
+									    }
+										.container {
+										  max-width: 1422px;
+										  margin: 0 auto;
+										}
+
+									  </style>
+									  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+									  <div class="container py-4">
+									     <div class="row g-3 justify-content-center">
+									       <!-- Card 1 -->
+									       <div class="col-md-4">
+									         <div class="brand-dashboard-card bg-white">
+									           <div class="brand-dashboard-title">UPI Voucher Bought this month</div>
+									           <div class="brand-dashboard-section">
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/li_user.svg"></div>
+									               <div class="brand-dashboard-value">0</div>
+									               <div class="brand-dashboard-label">Users</div>
+									             </div>
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/voucher-ticket.svg"></div>
+									               <div class="brand-dashboard-value">0</div>
+									               <div class="brand-dashboard-label">Vouchers</div>
+									             </div>
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/Rupee-Circle.svg"></div>
+									               <div class="brand-dashboard-value">₹0.00</div>
+									               <div class="brand-dashboard-label">Value</div>
+									             </div>
+									           </div>
+									         </div>
+									       </div>
+
+									       <!-- Card 2 -->
+									       <div class="col-md-4">
+									         <div class="brand-dashboard-card bg-white">
+									           <div class="brand-dashboard-title">Amount Redeemed this Month</div>
+									           <div class="brand-dashboard-section">
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/History-green.svg"></div>
+									               <div class="brand-dashboard-value">₹0.00</div>
+									               <div class="brand-dashboard-label">Vouchers from past Month</div>
+									             </div>
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/calendar-green.svg"></div>
+									               <div class="brand-dashboard-value">₹0.00</div>
+									               <div class="brand-dashboard-label">Vouchers from Current Month</div>
+									             </div>
+									           </div>
+									         </div>
+									       </div>
+
+									       <!-- Card 3 -->
+									       <div class="col-md-4">
+									         <div class="brand-dashboard-card bg-white">
+									           <div class="brand-dashboard-title">Outlets Activity this Month</div>
+									           <div class="brand-dashboard-section">
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/Outlet-green.svg"></div>
+									               <div class="brand-dashboard-value">0</div>
+									               <div class="brand-dashboard-label">Active Outlets</div>
+									             </div>
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/Outlet-Onboard.svg"></div>
+									               <div class="brand-dashboard-value">0</div>
+									               <div class="brand-dashboard-label">Onboarded</div>
+									             </div>
+									             <div class="brand-dashboard-item">
+									               <div class="brand-dashboard-icon"><img src="img/Outlet-Deactivate.svg"></div>
+									               <div class="brand-dashboard-value">0</div>
+									               <div class="brand-dashboard-label">Deactivated</div>
+									             </div>
+									           </div>
+									         </div>
+									       </div>
+									     </div>
+									   </div>
+   
+									   
+									   
+									   <!-- tabs section-->
+													<div class="upi-voucher-wrap">
+									   					<div class="d-flex align-items-center justify-content-between">
+									   					    <h3 class="mb-3"></h3>
+
+									   					    <div class="rightdownload mb-3 d-flex align-items-center" style="gap: 12px;">
+									   							
+									   					       
+
+									   							<!-- Quick Filters -->
+									   							<div id="quickFilters" style="width: 160px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
+									   							    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									   							        <!--<img src="img/filter-icon.svg" alt="Filter" style="margin-right: 6px;">-->
+									   							        Quick Filters
+									   						    </a>
+									   							    <div class="dropdown-menu">
+									   							        <a id="filter-active" class="dropdown-item" href="#">Active</a>
+									   							        <a id="filter-expired-revoked" class="dropdown-item" href="#">Expired & Revoked</a>
+									   							        <a id="filter-issued-today" class="dropdown-item" href="#">Issued Today</a>
+									   							        <a id="filter-issued-this-month" class="dropdown-item" href="#">Issued this Month</a>
+									   							    </div>
+									   							</div>
+
+									   					       
+									   					        
+									   					    </div>
+									   					</div>
+
+									                       <div >
+									   						<div >
+									   							
+									   						   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+									   						    
+									   						    
+									   						     <li class="nav-item">
+									   						       <a class="nav-link active" data-toggle="tab" href="#Purchases" role="tab">Purchases</a>
+									   						     </li>
+									   							 <li class="nav-item">
+									   						       <a class="nav-link" data-toggle="tab" href="#Redemptions" role="tab">Redemptions</a>
+									   						     </li>
+																 <li class="nav-item">
+	 								   						       <a class="nav-link " data-toggle="tab" href="#Live-Vouchers" role="tab">Live - Vouchers</a>
+	 								   						     </li>
+	 								   							 <li class="nav-item">
+	 								   						       <a class="nav-link" data-toggle="tab" href="#Live-Transactions" role="tab">Live - Transactions</a>
+	 								   						     </li>
+									   							
+									   						   </ul>
+									   						  
+									   						   <hr class="mt-0">
+
+									   						   <div class="tab-content mt-3">
+									   							<!--vouchers tab-->
+									   							<div class="tab-pane fade show active" id="Purchases" role="tabpanel">
+									   							<div class="table-responsive" >
+									   							   <table class="table table-reimbursements mb-0" id="PurchasesTableList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+									   							     <!--<thead>
+									   							       <tr>
+									   									<th style="width: 40px;">
+									   							          <input type="checkbox" id="checkAll">
+									   							        </th>
+									   								  <th>Issue Date</th>
+									   							         
+									   							         <th>Name & Mobile#</th>	
+									   								  	 
+									   							         <th>Voucher ID</th>
+									   							        
+									   								  <th>Bank A/c</th>	
+									   								  <th>Category</th>	
+									   								  <th>Redemptions</th>	
+									   								  <th>Expiry Date</th>	
+									   								  <th>Status</th>	
+									   								  <th>Redemption Status</th>	
+									   								  <th>Issued</th>
+									   								  <th>Redeemed</th>		  
+									   								  <th></th>
+									   							       </tr>
+									   							     </thead>-->
+									   								 <thead>
+									   					                <tr>
+									   									 <!-- <th>S.NO</th>-->
+									   									
+									   									 <th>#</th>	
+									   									  <th>Outlet Name</th>
+									   									 
+									   									  
+									   					                  <th>Vouchers</th>
+									   									  <th>Value</th>	
+									   										<th>Average Voucher Value</th>
+									   									  
+									   									  <th>Users</th>	
+																		  <th># of Purchases / User</th>	
+		  								   								  <th>Voucher Value / User</th>
+		  								   								 
+									   					                </tr>
+									   					              </thead>
+									   							     <tbody class="table-bordered" >
+									   							       <!--<tr>
+									   									<td>
+									   							          <input type="checkbox" class="rowCheckbox">
+									   							        </td>
+									   							        <td > 25/10/2024</td>
+									   								 <td>Deepak Kumar<br>9910318405</td>
+									   								 <td>ICICI00001145781</td>
+									   								 <td>
+									   							         <img src="img/indianbank.png" alt="indianbank" style="height:24px; width:24px; margin-right:4px;"> xxx0569
+									   							        </td>
+									   								 <td><img src="img/cup-1.svg" alt="info" style="height:24px; width:24px; ">Meal 
+									   									</td>
+									   									<td><img src="img/tiffinbox.svg" alt="tiffinbox" style="height:24px; width:24px;">Multiple</td>
+									   									<td>25/11/2024</td>
+									   									<td class="pill bg-lightgreen-txt-green-pill mt-3">Active</td>
+									   									<td style="vertical-align: middle;">
+									   									  <div class="pill-wide bg-lightgreen-txt-green-pill">Not Redeemed</div>
+									   									</td>
+									   									<td>₹50,000</td>
+									   									<td style="text-align: right;">-<img src="img/history-icon-gray.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+									   									<td>
+									   							       	<i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+									   								   </td>
+									   							       </tr>
+									   								   
+									   								     <tr>
+									   								   <td>
+									   								        <input type="checkbox" class="rowCheckbox">
+									   								      </td>
+									   								      <td> 25/10/2024</td>
+									   								   <td>Atul Kumar<br>9910318405</td>
+									   								   <td>ICICI00001145781</td>
+									   								   <td>
+									   								       <img src="img/indianbank.png" alt="indianbank" style="height:24px; width:24px; margin-right:4px;"> xxx8798
+									   								      </td>
+									   								   <td><img src="img/fuel-1.svg" alt="info" style="height:24px; width:24px; ">Fuel
+									   								   </td>
+									   								   <td><img src="img/single-redemption-green.svg" alt="single-redemption-green" style="height:24px; width:24px;">Single</td>
+									   								   <td>25/11/2024</td>
+									   								   <td class="pill bg-grey-txt-grey-pill  mt-3">Expired</td>
+									   								   
+									   								   <td style="vertical-align: middle;">
+									   									  <div class="pill-wide bg-grey-txt-grey-pill">Fully Redeemed</div>
+									   									</td>
+									   								   <td>₹50,000</td>
+									   								   <td style="text-align: right;">-<img src="img/history-icon-gray.png" alt="info" style="height:24px; width:24px; margin-left:14px;"></td>
+									   								   <td>
+									   							       	<i class="fas fa-ellipsis-v fa-sm view-voucher-details" style="cursor: pointer;"></i>
+									   								   </td>
+									   								     </tr>	-->	
+									   									 <tr>
+																			<td>1</td>	
+																			<td style="display: flex; justify-content: space-between; align-items: center;">
+																			  A Outlet
+																			  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+																			</td>	
+									   									 <td>75,000</td>	
+									   									 <td>₹75,00,000</td>	
+									   									 <td>₹1,200</td>	
+									   									 <td>30,000</td>	
+																		 <td>20</td>	
+																		 <td>₹1,200</td>				
+									   									 </tr>
+																		 <tr>
+ 																		<td>2</td>	
+																		<td style="display: flex; justify-content: space-between; align-items: center;">
+																		  A Outlet
+																		  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+																		</td>	
+ 								   									 <td>75,000</td>	
+ 								   									 <td>₹75,00,000</td>	
+ 								   									 <td>₹1,200</td>	
+ 								   									 <td>30,000</td>	
+ 																	 <td>20</td>	
+ 																	 <td>₹1,200</td>				
+ 								   									 </tr>	
+									   							     </tbody>
+									   							   </table>
+									   							 </div>
+
+
+									   							 
+									   							</div>
+
+									   							 
+									   							<!-- transactions tab-->
+									   						     <div class="tab-pane fade" id="Redemptions" role="tabpanel">
+									   								<div class="table-responsive">
+									   								  <table class="table table-reimbursements mb-0" id="vouchersTableTransactionList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+																		<thead>
+									   					                <tr>
+									   									 <th>#</th>	
+									   									  <th>Outlet Name</th>								   									  
+									   					                  <th>No. of Transactions</th>
+									   									  <th>Total Value</th>	
+									   										<th>Average Order Value</th>									   									  
+									   									  <th>Number of Users</th>	
+																		  <th>Transactions / User</th>	
+		  								   								  <th>Redemption Value / User</th>	  								   								 
+									   					                </tr>
+									   					              </thead>
+									   								    <tbody class="table-bordered" >
+																			  <tr>
+																				<td>1</td>	
+																				<td style="display: flex; justify-content: space-between; align-items: center;">
+																				  A Outlet
+																				  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+																				</td>	
+										   									 <td>2</td>	
+										   									 <td>₹1,000</td>	
+										   									 <td>₹1,000</td>	
+										   									 <td>100</td>	
+																			 <td>₹1,000</td>	
+ 										   									 <td>₹1,000</td>				
+										   									 </tr>
+																			 <tr>
+																		<td>1</td>	
+																		<td style="display: flex; justify-content: space-between; align-items: center;">
+																		  A Outlet
+																		  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+																		</td>	
+								   									 <td>2</td>	
+								   									 <td>₹1,000</td>	
+								   									 <td>₹1,000</td>	
+								   									 <td>100</td>	
+																	 <td>₹1,000</td>	
+									   									 <td>₹1,000</td>				
+								   									 </tr>			
+									   								    </tbody>
+									   								  </table>
+									   								</div>											
+									   						     </div>
+									   							 
+																 
+																 <!-- Live - Vouchers tab-->
+				   						     <div class="tab-pane fade" id="Live-Vouchers" role="tabpanel">
+				   								<div class="table-responsive">
+				   								  <table class="table table-reimbursements mb-0" id="LiveVouchersList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+													<thead>
+				   					                <tr>
+				   									 <th>Date & Time</th>	
+				   									  <th>Outlet Name</th>								   									  
+				   					                  <th>Name & Mobile #</th>
+				   									  <th>Voucher ID</th>	
+				   										<th>Redemptions</th>									   									  
+				   									  <th>Expiry Date</th>	
+													  <th>Voucher Value</th>	
+					   								 								   								 
+				   					                </tr>
+				   					              </thead>
+				   								    <tbody class="table-bordered" >
+														  <tr>
+															<td>21/04/2024<br>
+															17:57:13</td>	
+															<td style="display: flex; justify-content: space-between; align-items: center;">
+															  A Outlet
+															  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+															</td>	
+					   									 <td>Deepak Kumar<br>9910318405</td>	
+					   									 <td>ICICI00001145781</td>	
+					   									 <td>Multiple</td>	
+					   									 <td>25/11/2024</td>	
+														 <td>₹50,000</td>	
+					   											
+					   									 </tr>
+														 <tr>
+	 														<td>21/04/2024<br>
+	 														17:57:13</td>	
+	 														<td style="display: flex; justify-content: space-between; align-items: center;">
+	 														  A Outlet
+	 														  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+	 														</td>	
+	 				   									 <td>Deepak Kumar<br>9910318405</td>	
+	 				   									 <td>ICICI00001145781</td>	
+	 				   									 <td>Multiple</td>	
+	 				   									 <td>25/11/2024</td>	
+	 													 <td>₹50,000</td>	
+	 				   											
+	 				   									 </tr>			
+				   								    </tbody>
+				   								  </table>
+				   								</div>											
+				   						     </div>
+											 
+											 
+											 <div class="tab-pane fade" id="Live-Transactions" role="tabpanel">
+			   								<div class="table-responsive">
+			   								  <table class="table table-reimbursements mb-0" id="LiveVouchersList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
+												<thead>
+			   					                <tr>
+			   									 <th>Date & Time</th>	
+			   									  <th>Outlet Name</th>								   									  
+			   					                  <th>Voucher ID</th>
+			   									  <th>TXN ID</th>	
+			   										<th>Name & Mobile #</th>									   									  
+			   									  <th>Catagory</th>	
+												  <th>Amount</th>	
+				   								 								   								 
+			   					                </tr>
+			   					              </thead>
+			   								    <tbody class="table-bordered" >
+													  <tr>
+														<td>21/04/2024<br>
+														17:57:13</td>	
+														<td style="display: flex; justify-content: space-between; align-items: center;">
+														  A Outlet
+														  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+														</td>
+														<td>CDL-0424-001</td>
+														<td>CDL-0424-001</td>
+				   									 <td>Deepak Kumar<br>9910318405</td>	
+				   									
+				   									 <td><img src="img/fuel-grey.png">Fuel</td>	
+													 <td style="display: flex; justify-content: space-between; align-items: center;">
+													   <span>INR</span>
+													   <span>16,890</span>
+													 </td>
+	
+													
+				   											
+				   									 </tr>
+													 <tr>
+ 														<td>21/04/2024<br>
+ 														17:57:13</td>	
+ 														<td style="display: flex; justify-content: space-between; align-items: center;">
+ 														  A Outlet
+ 														  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+ 														</td>
+ 														<td>CDL-0424-001</td>
+ 														<td>CDL-0424-001</td>
+ 				   									 <td>Deepak Kumar<br>9910318405</td>	
+ 				   									
+ 				   									 <td><img src="img/food-icon-grey.png">Food</td>	
+ 													 <td style="display: flex; justify-content: space-between; align-items: center;">
+ 													   <span>INR</span>
+ 													   <span>16,890</span>
+ 													 </td>
+ 	
+ 													
+ 				   											
+			 				   									 </tr>		
+						   								    </tbody>
+						   								  </table>
+						   								</div>											
+						   						     </div>
+			
+			
+					   						   </div>
+					   						 </div>
+					                           
+					                       </div>
+					                   </div>	  
+
+                                </div>
+                                <div id="menu11" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}">
+								
+								<div class="tab-content" id="defaultDiv" style="display: block">
+	                               <div id="home" class="tab-pane in active">
+	                                   <div class="employee-band-wrap">
+	                                       <h4>Employee Bands</h4>
+	                                       <p>For your understanding, Employee Bands are devised to help you segment your organization’s employees 
+	                                           based on work experience, seniority, roles, pay-grade or any other criteria defined by your organization.</p>
+	                                           <h5>Employee Bands are currently ‘Deactivated’</h5>
+	                                           <p><b>By activating Employee Bands,</b> you can introduce segmentation and set guidelines
+	                                            for the administration of employee benefits and expense allowances.</p>
+	                                            <div class="d-flex justify-content-center mt-2 w-50">
+	                                                <a class="btn btn-primary mx-2 w-100" data-toggle="modal" data-target="#ModalEmployeeBandSetting">Activate Employee Bands</a>
+	                                          </div>
+	                                   </div>
+	                               </div>
+								   
+	                           </div>
+	                           
+	                            <div class="tab-content" style="display: none" id="viewBandDiv" >
+	                               <div id="home" class="tab-pane in active">
+	                                   <div class="bandsetting">
+	                                       <h4>Expense Reimbursements </h4>
+	                                       <div class="bandsetting01-wrap">
+	                                           <div class="left-bandsetting d-flex">
+	                                               <div class="table-check">
+	                                                   <input type="checkbox" id="customCheck3" checked>
+	                                               </div>
+	                                               <p>Employee Bands are activated. This helps introduce segmentation and
+	                                                   set guidelines for the administration of employee benefits and
+	                                                   expense allowances.</p>
+	                                           </div>
+	                                           <div class="right-bandsetting">
+	                                               <button type="button" class="btn p-0">
+	                                                   <img src="img/edit.svg" alt="" data-toggle="modal" data-target="#ModalEmployeeBandActivation">
+	                                               </button>
+	                                           </div>
+	                                       </div>
+	                                   </div>
+
+	                                   <div class="bandsetting" >
+	                                       <h4>Employee Band Settings </h4>
+	                                       <div class="bandsetting01-wrap">
+	                                           <div class="left-bandsetting">
+	                                               <div>
+	                                                   <label>Number of Employee Bands</label> <input type="text" id="Noofband" class="num" readonly>
+	                                               </div>
+	                                               <div>
+	                                                   <label>Employee Bands represented by:</label><br>
+		                                                    <div class="band-option">
+		                                                         <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="NumericView"
+		                                                    id="numericFigure">
+		                                                <label class="form-check-label" for="numericView">
+		                                                    Numeric Figures
+		                                                </label>
+		                                            </div>
+		                                            
+		                                            <div class="form-check">
+		                                                <input class="form-check-input" type="radio" name="numericFigureView" value="AlphabeticalView"
+		                                                    id="AlphabeticalFigureView" >
+		                                                <label class="form-check-label" for="AlphabeticalFigureView">
+		                                                    Alphabetical Figures
+		                                                </label>
+		                                            </div>
+	                                                   </div>
+	                                               </div>
+	                                               <div>
+	                                                   <label>Starting Employee Band that defines the order of
+	                                                       seniority</label> <input type="text"
+	                                                       placeholder="Employee Band A1" class="employee">
+	                                                   <div class="exclaimation"><img src="img/exclaimation.svg" alt=""
+	                                                           data-toggle="tooltip" data-placement="top"
+	                                                           title="The selected band forms the starting point for the order of seniority. In case A or 1 is selected, the order of seniority will be in a chronological order, with A or 1 as the base, and vice-versa.">
+	                                                   </div>
+	                                               </div>
+
+	                                               <div class="table-responsive">
+	                                                   <table class="table emp_Bnd_Tbl" id="viewEmployeeBandTable">
+	                                                       <thead>
+	                                                           <tr>
+	                                                               <th>Employee Bands</th>
+	                                                               <th colspan="3">Additional Tiers</th>
+	                                                           </tr>
+	                                                       </thead>
+	                                                       <tbody>
+	                                                          
+	                                                       </tbody>
+	                                                   </table>
+	                                               </div>
+
+	                                           </div>
+	                                           <div class="right-bandsetting">
+	                                               <button type="button" class="btn p-0" data-toggle="modal"
+	                                                   data-target="#ModalEmployeeBandSetting">
+	                                                   <img src="img/edit.svg" alt="">
+	                                               </button>
+	                                           </div>
+
+
+	                                       </div>
+	                                   </div>
+
+
+	                               </div>
+	                           </div>
+									
+								 </div>
+                                <div id="menu22" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}"> 
+									<div id="menu2" class="tab-pane">
+									    <div class="policies-section-bank" id="linkaccbankform" style="display: none;">
+									        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+									            <div class="text-center">
+									                <h3>Bank A/c Linking</h3>
+									            </div>
+
+									            <div class="form-linkedbank">
+									                <div class="did-floating-label-content mr-2">
+									                    <select class="did-floating-select" id="bankName" onchange="resetErrorMessages()">
+									                       
+									                    </select>
+									                    <label class="did-floating-label">Select Bank<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content mr-2">
+								                    <select class="did-floating-select" id="bankAccType" onchange="resetErrorMessages()">
+								                       <option value="SAVING">Saving</option>
+													   <option value="CURRENT">Current</option>
+								                    </select>
+								                    <label class="did-floating-label">Select Account Type<span class="required-star">*</span></label>
+								                </div>
+												<div class="error-msg" id="bankAccTypeError" style="color:red"></div>
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " onkeyup="validateBankname()" id="bankingName" oninput="sanitizeInput(this)" onkeypress="resetErrorMessages()">
+									                    <label class="did-floating-label" >Enter Name as on the Bank
+									                        Account<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankingNameError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="password" placeholder=" " id="bankAccNumber" 
+														  minlength="10" maxlength="16" onkeypress="resetErrorMessages()"
+														oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+									                    <label class="did-floating-label">Enter Bank A/c Number<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankAccNumberError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="bankAccNumberConfirm" onkeyup="validate()" 
+														 onkeypress="resetErrorMessages()" maxlength="16"
+														 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+									                    <label class="did-floating-label">Re-enter Bank A/c Number<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankAccNumberConfirmError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+									              
+									                <div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="bankIfsc"
+														maxlength="11" onkeyup="validateIFSC()" style="text-transform:uppercase" onkeypress="resetErrorMessages()">
+									                    <label class="did-floating-label">Enter IFSC Code<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="bankIfscError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="moblieLink" onkeypress="resetErrorMessages()"
+														maxlength="10" onkeyup="validateMobile()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+									                    <label class="did-floating-label">Enter Mobile Number<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="moblieLinkError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="tid" maxlength="25"
+														onkeypress="resetErrorMessages()" >
+									                    <label class="did-floating-label">Tid<span class="required-star">*</span></label>
+								 					</div>
+													<div class="error-msg" id="tidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="merchantId" maxlength="25"
+														onkeypress="resetErrorMessages()" onkeyup="validateMerchantId()">
+									                    <label class="did-floating-label">Merchant Id<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="merchantIdError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="submerchantid" maxlength="25"
+														onkeypress="resetErrorMessages()" onkeyup="validateSubMerchantId()">
+									                    <label class="did-floating-label"> Sub Merchant Id<span class="required-star">*</span></label>
+									                </div>
+													<div class="error-msg" id="submerchantidError" style="color: red; margin-top: -10px; font-size: 12px;"></div>
+													<div class="did-floating-label-content">
+									                    <input class="did-floating-input" type="text" placeholder=" " id="payerva" onkeypress="resetErrorMessages()"
+														maxlength="25" onkeyup="validatePayerva()">
+									                    <label class="did-floating-label">Payerva<span class="required-star">*</span></label>
+									                </div>
+													<div class="clearfix"></div>
+													<div class="error-msg" id="payervaError" style="color:red"></div>
+												
+													<div class="clearfix"></div>
+													<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+										            	<div id="otsuccmsg"></div>   
+										            </div>
+										            
+										            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+										            	<div id="otfailmsg"></div>
+										            </div><br>
+													                        
+									                <div class="d-flex justify-content-center mt-3">
+														<input type="button" class="btn btn-primary w-100" id="linkBankBtn" value="AUTHENTICATE" onclick="submitLinkBankAccount()"> 
+														
+									                </div>
+									            </div>
+									        </div>
+									    </div>
+
+
+									    <div class="linked-bank-account-section" id="linkedbnkacntsctn" style="display: block;">
+									            <div class="text-left">
+									                <h3>Linked Bank Account Details</h3>
+									            </div>
+									            <div class="linked-bank-account-innersection d-block">
+													<div id="data-wrapper"> </div>
+									            </div>
+									            <div class="d-flex justify-content-end">
+									                <button class="btn btn-primary" id="linkedanotheraccount">Link Another Bank Account</button>
+									            </div>
+									    </div>
+
+									</div>
+								</div>
+								
+                                <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
+									<div id="home" class="tab-pane in active">
+									                                  
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Approval & Payout Flow Settings</h4>
+                                            <div class="policies-wrap-in">
+                                                <div class="policies-wrap-in-left">
+                                                    <div class="policies-wrap-in-approval">
+                                                        <h4>Approval Flow</h4>
+                                                        <div class="approval-input">
+                                                            <input type="text" class="form-control form-control-50" placeholder="Employee">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Plus One Reporting Level">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Plus Two Reporting Level">
+                                                        </div>                                                    
+                                                    </div>
+                                                    <img src="img/green-right-arrow.svg" alt="">
+                                                    <div class="policies-wrap-in-approval policies-wrap-in-approval-50">
+                                                        <h4>Payout Authorisation Flow</h4>
+                                                        <div class="approval-input">
+                                                            <input type="text" class="form-control" placeholder="Human Resources">
+                                                            <img src="img/right-arrow-sm.svg" alt="">
+                                                            <input type="text" class="form-control" placeholder="Finance">
+                                                        </div>                                                    
+                                                    </div>
+                                                </div>
+                                                <div class="policies-wrap-in-right">
+                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalApproval">
+                                                        <img src="img/edit.svg" alt="">
+                                                      </button>                                                  
+                                                </div>                                              
+                                            </div>
+                                        </div>
+                                    </div>                               
+
+                                      <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Advance Request Settings </h4>
+                                            <div class="policies-wrap-in d-block">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-block">
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="travelBooking">
+                                                                <label class="custom-control-label text-left"
+                                                                    for="travelBooking">Allow employees to request for
+                                                                    travel bookings.</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="cashBooking">
+                                                                <label class="custom-control-label text-left"
+                                                                    for="cashBooking">Allow employees to request for
+                                                                    cash advances.</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-checkbox small pl-0">
+                                                                <label class="mb-0">Restrictions for usage of cash
+                                                                    advances:</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="band-option d-flex-column">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"  onclick="toggleDiv(false)"
+                                                                    name="flexRadioDefault" id="allowAll">
+                                                                <label class="form-check-label" for="allowAll">
+                                                                    All employees are allowed
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" onclick="toggleDiv(true)"
+                                                                    name="flexRadioDefault" id="allowSpefic"
+                                                                    checked="">
+                                                                <label class="form-check-label" for="allowSpefic">
+                                                                    Specific employees are allowed
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="policies-wrap-in-left w-100 my-3">
+                                                       	   <div id="nameEmployeesCash"  class="incurring-exp w-100">
+                                                           </div> 
+                                                        </div>
+                                                        <div class="policies-wrap-in-left w-100">
+                                                            <div class="incurring-exp">
+                                                                <p>An employee is required to submit expense claims
+                                                                    against a cash advance within: 
+                                                                    <input type="text" id="disbursalDate"  class="form-control incurr" placeholder="60">
+                                                                    Days from the date of disbursal
+                                                                    of cash advance</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-block">
+                                                        <div class="policies-wrap-in-right w-100">
+                                                            <button type="button" class="btn p-0" data-toggle="modal"
+                                                                data-target="#ModalAdvanceRequest">
+                                                                <img src="img/edit.svg" alt="">
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Expense Category Settings </h4>
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-policies" id="expensesTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>EXPENSE CATEGORY</th>
+                                                                <th>EXPENSE CODE</th>
+                                                                <th>EXPENSE LIMIT</th>
+                                                                <th>DAYS TO EXPIRY <div class="d-inline"><img src="img/infoo.svg" alt=""></div></th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                      
+                                                        </tbody>
+                                                    </table>
+                                                     <div class="last-add">
+                                           			    <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}">
+                                                        <div colspan="5" style="padding:.75rem;">
+                                                            <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalExpenseCategory" >+ Add Category</a>
+                                                        </div>
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policies-section">
+                                        <div class="policies-wrap">
+                                            <h4>Currency Conversion Settings </h4>
+                                            
+                                            <div class="policies-wrap-in-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-policies">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>CHOOSE CURRENCY</th>
+                                                                <th class="conversion">CONVESRION METHOD</th>
+                                                                <th>CONVERSION RATE</th>
+                                                                <th>ACTIONS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="table-currency">
+                                                                        <select class="select-currency">
+                                                                            <option value="">Currency 1</option>
+                                                                        </select>
+                                                                        <img src="img/Arrow-grey.svg" alt="">
+                                                                        <select class="select-currency">
+                                                                            <option value="">Currency 2</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="position: relative;">
+                                                                    <div class="toggleWrapper">
+                                                                        <input type="checkbox" class="dn" id="dn"/>
+                                                                        <label for="dn" class="toggle">
+                                                                            <span class="toggle__handler"></span>       
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>0.012</td>
+                                                                <td>                                                                    
+                                                                    <button type="button" class="btn p-0" data-toggle="modal" data-target="#ModalCurrencyConversion">
+                                                                        <img src="img/edit.svg" alt="">
+                                                                    </button> 
+                                                                    <a href="#"><img src="img/delete.svg" alt="" class="ml-4"></a>
+                                                                </td>
+                                                            </tr>                                                           
+                                                            <tr class="last-add">
+                                                                <td colspan="4">
+                                                                    <a href="#" class="add-ctgry" data-toggle="modal" data-target="#ModalCurrencyConversion">+ Add Currency Conversion</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+								<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+								<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+								
+								<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+								<input type="hidden" class="form-input" id="CId" name="CId" > 
+								<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+								<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+								<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+								<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+								<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+								<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+								<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+								<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+								 </div>
+								
+								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
+									
+									<div class="tab-content" >
+		                               <div id="home" class="tab-pane in active">
+		                                   <div class="employee-band-wrap">
+		                                       <h4>Brand Management</h4>
+		                                       <p>Cotodel offers you an industry-first UPI-based loyalty solution to drive the growth of your Brand.
+											   </p>
+                                           <h5>'Activate Brand Management’</h5> <p>to make your users experience the magic of UPI-based loyalty for your Brand. </p>
+                                            <div class="d-flex justify-content-center mt-2 w-50">
+                                                <a class="btn btn-primary mx-2 w-100" href="/brandOnboarding">Activate Brand Management</a>
+                                          </div>
+		                                   </div>
+		                               </div>
+									   
+									   <div class="tab-pane in active" style="display: block;">
+	   									<div class="container my-4">
+	   							   				  <div class="card custom-card shadow-sm">
+	   							   				    <div class="mb-3">
+	   							   				      <h5 class="fw-bold mb-1 text-left" style="color: #1F212C;font-weight:700;">Outlet Management</h5>
+	   							   				      <hr style="width: 100%; border-color: #EDEDF0; margin: 4px 0;">
+	   							   				    </div>
+
+	   							   				    <div class="info-row text-left color-third">
+	   							   				      <div class="info-text">
+	   							   				        <p class="mb-1 black">How many outlets does your brand have?</p>
+	   							   				        <p class="black-bold">Multiple - 150 Outlets</p>
+	   							   				      </div>
+	   							   				      <button class="edit-btn">
+	   							   				        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+	   							   				          <path d="M12 20h9"></path>
+	   							   				          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+	   							   				        </svg>
+	   							   				        Edit
+	   							   				      </button>
+	   							   				    </div>
+
+	   							   				    <div class="text-left color-third mb-3">
+	   							   				      <p class="mb-1 black">Do you have an online store for sales?</p>
+	   							   				      <p class="black-bold">Online and Offline</p>
+	   							   				    </div><br>
+	   							   				  </div>
+	   							   				</div>
+	   							   				<div class="container my-4">
+	   			   								  <div class="card custom-card shadow-sm">
+	   			   								    <div class="mb-3">
+	   			   								      <h5 class="fw-bold mb-1 text-left" style="color: #1F212C;font-weight:700;">Geography Management</h5>
+	   			   								      <hr style="width: 100%; border-color: #EDEDF0; margin: 4px 0;">
+	   			   								    </div>
+
+	   			   								    <div class="info-row text-left color-third">
+	   			   								      <div class="info-text">
+	   			   								        <p class="mb-1 black">Would you like to segment your outlets by geography?</p>
+	   			   								        
+	   			   								      </div>
+	   			   								      <button class="edit-btn" style="display: none;">
+	   			   								        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+	   			   								          <path d="M12 20h9"></path>
+	   			   								          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+	   			   								        </svg>
+	   			   								        Edit
+	   			   								      </button>
+	   			   									  
+	   			   									  <a class="btn btn-custom me-2" id="activateBtn" href="/geographymanagement">Activate</a>
+	   			   									  
+	   			   								    </div>
+
+	   			   								    <div class="text-left color-third mb-3">
+	   			   										<p style="margin-bottom: 16px;">You have listed the following geographies to segment your outlets:</p>
+	   			   										   
+	   			   										   <div class="geo-tag">#1 <strong>East Region</strong></div>
+	   			   										   <div class="geo-tag">#2 <strong>West Region</strong></div>
+	   			   										   <div class="geo-tag">#3 <strong>North Region</strong></div>
+	   			   										   <div class="geo-tag">#4 <strong>South Region</strong></div>
+	   			   										 </div>
+	   			   								    </div><br>
+	   		   								  </div>
+	   									
+	   								</div>
+		                           </div>
+								
+							 </div>
+							 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+							<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+							<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+							<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+							<input type="hidden" class="form-input" id="CId" name="CId" > 
+							<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+							<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+							<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+							<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+							<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+							<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+							<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+							<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+                           </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+		
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+			
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	<script type="text/javascript" src="cotodel-js/"></script>
+	<!--
+	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
+	
+	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>-->
+	
+	<script>
+		$(document).ready(function () {
+		    // Handle tab clicks
+		    $('.expense-tabs a').on('click', function (e) {
+		        e.preventDefault();
+		        $('.expense-tabs li').removeClass('active');
+		        $(this).parent().addClass('active');
+		        $(this).tab('show');
+		    });
+		    // Initialize all tabs properly
+		    $('[data-toggle="tab"]').tab();
+		    // Force Bootstrap to properly initialize the first tab
+		    $('.expense-tabs li.active a').tab('show');
+		    // Alternative approach - trigger a click on the first tab
+		    // Uncomment this if the above doesn't work
+		    // $('.expense-tabs li.active a').trigger('click');
+		});
+	</script>
+	
+	
+	<script src="cotodel-js/linked-account.js"></script>
+	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
+	<!--<script type="text/javascript" src="cotodel-js/cashfree.js"></script>-->
+	<script type="text/javascript" src="cotodel-js/expenses-travel-polices.js"></script>
+	
+	
+
+</body>
+
+</html>
