@@ -67,6 +67,7 @@
                 </nav>
                 <!-- End of Topbar -->
 				<!-- Begin Page Content -->
+
                 <div class="container-fluid p-0 p-md-1">
                     <div class="row">
                         <div class="col-12 col-md-12">
@@ -97,6 +98,7 @@
 														  <!-- Right-aligned buttons -->
 														  <div style="display: flex; gap: 8px; align-items: center;">
 														    <!--<button class="custom-back-button" onclick="window.location.href='/manageEmployee'" >Back</button>-->
+
 
 														    <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
 														      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
@@ -1406,7 +1408,6 @@
 		    position: relative;
 		    margin-bottom: 16px;
 		  }
-
 		  .geo-input-group input {
 		    width: 100%;
 		    padding: 10px 12px;
@@ -1455,6 +1456,21 @@
 
 		</style>
 	
+
+		input[type="radio"].form-check-input:checked::before {
+		  content: "";
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  width: 8px;
+		  height: 8px;
+		  border-radius: 50%;
+		  background-color: #367AFF;
+		}
+				
+
+	</style>
 	<script>
 		
 		$(document).ready(function(){
