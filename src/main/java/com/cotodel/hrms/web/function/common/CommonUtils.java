@@ -188,4 +188,9 @@ public interface CommonUtils {
 	public static String submitTicketReply = "/empService/Api/add/ticketTransaction";
 	public static String ticketReplyHistory = "/empService/Api/get/ticketTransHistory";
 	
+	public static String activateBrandManagement = "/erupiBrandService/Api/add/erupiBrandOutletDetails";
+	public static String brandOutletList = "/erupiBrandService/Api/get/erupiBrandOutletList";
+	public static String addBrandDetails = "/erupiBrandService/Api/add/erupiBrandDetails";
+	public static String addGeograpichDetails="/erupiBrandService/Api/add/erupiBrandGeo";
+	
 }
