@@ -49,7 +49,7 @@ function validateAmount(amount) {
 		const employeeType = document.getElementById("employeeType").value;
 		const employeeTypeText = document.getElementById("employeeType").text;
 				
-	    if (employeeType==1) {
+	    if (employeeType==1  || employeeType==5) {
 			
 			if (name === "" || namespace !== name) {
 	        document.getElementById("nameError").textContent = namespace !== name 
@@ -251,7 +251,7 @@ async function saveEmployeeOnboarding(){
 		const dropdown = document.getElementById("employeeType");
 		const emporcount = dropdown.options[dropdown.selectedIndex].text;
 		  
-	    if (employeeType==1) {	
+	    if (employeeType==1 || employeeType==5) {	
 			if (name === "" || namespace !== name) {
 	        document.getElementById("nameError").textContent = namespace !== name 
 	            ? "Only single spaces are allowed." 

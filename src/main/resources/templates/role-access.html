@@ -11,7 +11,7 @@
 viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 
 <body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
-getGeographicListByOrgId()">
+getBrandOutletList(),getGeographicListByOrgId()">
 <!-- viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()-->
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
@@ -777,7 +777,7 @@ getGeographicListByOrgId()">
 								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
 									
 									<div class="tab-content" >
-		                               <div id="home" class="tab-pane in active">
+		                               <div class="tab-pane in active" style="display: block;" id="activateBrand">
 		                                   <div class="employee-band-wrap">
 		                                       <h4>Brand Management</h4>
 		                                       <p>Cotodel offers you an industry-first UPI-based loyalty solution to drive the growth of your Brand.
@@ -790,7 +790,7 @@ getGeographicListByOrgId()">
 		                                   </div>
 		                               </div>
 									   
-									   <div class="tab-pane in active" style="display: block;">
+									   <div class="tab-pane in active" style="display: none;" id="activateGeo">
 	   									<div class="container my-4">
 	   							   				  <div class="card custom-card shadow-sm">
 	   							   				    <div class="mb-3">
@@ -801,7 +801,7 @@ getGeographicListByOrgId()">
 	   							   				    <div class="info-row text-left color-third">
 	   							   				      <div class="info-text">
 	   							   				        <p class="mb-1 black">How many outlets does your brand have?</p>
-	   							   				        <p class="black-bold">Multiple - 150 Outlets</p>
+	   							   				        <p class="black-bold" >Multiple - <span id="outletNo"></span> Outlets</p>
 	   							   				      </div>
 	   							   				      <button class="edit-btn">
 	   							   				        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -814,7 +814,7 @@ getGeographicListByOrgId()">
 
 	   							   				    <div class="text-left color-third mb-3">
 	   							   				      <p class="mb-1 black">Do you have an online store for sales?</p>
-	   							   				      <p class="black-bold">Online and Offline</p>
+	   							   				      <p class="black-bold" id="storeType">Online and Offline</p>
 	   							   				    </div><br>
 	   							   				  </div>
 	   							   				</div>
@@ -825,31 +825,38 @@ getGeographicListByOrgId()">
 	   			   								      <hr style="width: 100%; border-color: #EDEDF0; margin: 4px 0;">
 	   			   								    </div>
 
-	   			   								    <div class="info-row text-left color-third">
+	   			   								    <div class="info-row text-left color-third" id="geoSave" style="display: block;">
 	   			   								      <div class="info-text">
 	   			   								        <p class="mb-1 black">Would you like to segment your outlets by geography?</p>
 	   			   								        
 	   			   								      </div>
-	   			   								      <button class="edit-btn" style="display: none;">
-	   			   								        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-	   			   								          <path d="M12 20h9"></path>
-	   			   								          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
-	   			   								        </svg>
-	   			   								        Edit
-	   			   								      </button>
-													  
-	   			   									 <!-- <a class="btn btn-custom me-2" id="activateBtn" href="/geographymanagement">Activate</a>-->
+													  <button class="edit-btn" style="display: block;">
+      			   								        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      			   								          <path d="M12 20h9"></path>
+      			   								          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+      			   								        </svg>
+      			   								        Edit
+      			   								      </button>
 													  <a class="btn btn-custom me-2" id="activateBtn" onclick=" openGeoGraphic()">Activate</a>
 	   			   								    </div>
 
-	   			   								    <div class="text-left color-third mb-3">
-	   			   										<p style="margin-bottom: 16px;">You have listed the following geographies to segment your outlets:</p>
-	   			   										   
-	   			   										   <div class="geo-tag">#1 <strong>East Region</strong></div>
-	   			   										   <div class="geo-tag">#2 <strong>West Region</strong></div>
-	   			   										   <div class="geo-tag">#3 <strong>North Region</strong></div>
-	   			   										   <div class="geo-tag">#4 <strong>South Region</strong></div>
+	   			   								    <div class="text-left color-third mb-3" id="geoEdit" style="display: none;">
+	   			   										<div class="info-row text-left color-third">
+		   							   				      <div class="info-text">
+															<p style="margin-bottom: 16px;">You have listed the following geographies to segment your outlets:</p>
+																													
+		   							   				      </div>
+		   							   				      <button class="edit-btn">
+		   							   				        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+		   							   				          <path d="M12 20h9"></path>
+		   							   				          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+		   							   				        </svg>
+		   							   				        Edit
+		   							   				      </button>
+		   							   				    </div>
+	   			   										   <div id="geoContainerView"></div>
 	   			   										 </div>
+														
 	   			   								    </div><br>
 	   		   								  </div>
 	   									
@@ -1807,6 +1814,11 @@ getGeographicListByOrgId()">
 
 	          <div class="p-3">
 	            <!-- Question 1 -->
+				<div class="form-check mb-2">
+					<label class="form-check-label me-2" for="brandName">Brand Name</label>
+					              <input type="text" id="brandName"  class="form-control form-control-sm w-auto" placeholder="Brand Name"
+					  			 style="border-radius: 6px;">
+	            </div>
 	            <p class="mb-2 fw-bold">How many outlets does your brand have?</p>
 	            <div class="form-check mb-2">
 	              <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet" value="oneOutlet">
@@ -1865,7 +1877,7 @@ getGeographicListByOrgId()">
 	  				  <div id="geoContainer">
 	  				    <div class="geo-input-group">
 	  				      <span class="geo-number">#1</span>
-	  				      <input type="text" placeholder="East Region">
+	  				      <input type="text" placeholder="Enter Region">
 	  				    </div>
 	  				  </div>
 
@@ -2476,6 +2488,11 @@ getGeographicListByOrgId()">
 		      });
 		    }
 		  });
+		</script>
+
+		<script>
+		 
+		  
 		</script>
 	<style>
 			#bs-canvas-right2 {

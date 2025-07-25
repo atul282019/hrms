@@ -36,7 +36,7 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 	public String getBrandOutletList(String token, EncriptResponse jsonObject) {
 		 return CommonUtility.userRequest(token,
 			        MessageConstant.gson.toJson(jsonObject),
-			        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.brandOutletList
+			        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.brandList
 			    );
 	}
 

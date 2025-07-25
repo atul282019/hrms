@@ -1,8 +1,59 @@
 
+
+let geoCount = 1;
+
+	  function addGeography() {
+	    geoCount++;
+	    const container = document.getElementById("geoContainer");
+
+	    const newGroup = document.createElement("div");
+	    newGroup.className = "geo-input-group";
+
+	    newGroup.innerHTML = `
+	      <span class="geo-number">#${geoCount}</span>
+	      <input type="text" placeholder="Enter Region">
+	      <span class="delete-geo" onclick="removeGeography(this)">
+	        <img src="img/delete.svg" alt="delete">
+	      </span>
+	    `;
+
+	    container.appendChild(newGroup);
+	  }
+
+	  function removeGeography(element) {
+	    const group = element.closest('.geo-input-group');
+	    group.remove();
+	    updateNumbers();
+	  }
+
+	  function updateNumbers() {
+	    const groups = document.querySelectorAll('#geoContainer .geo-input-group');
+	    groups.forEach((group, index) => {
+	      const numberSpan = group.querySelector('.geo-number');
+	      numberSpan.textContent = `#${index + 1}`;
+
+	      const deleteSpan = group.querySelector('.delete-geo');
+	      // Show delete only if not first item
+	      if (index === 0) {
+	        if (deleteSpan) deleteSpan.remove();
+	      } else {
+	        if (!deleteSpan) {
+	          const newDelete = document.createElement('span');
+	          newDelete.className = 'delete-geo';
+	          newDelete.onclick = function () { removeGeography(this); };
+	          newDelete.innerHTML = `<img src="img/delete.svg" alt="delete">`;
+	          group.appendChild(newDelete);
+	        }
+	      }
+	    });
+	    geoCount = groups.length;
+	  }
+	  
 async function activateBrand(){
 	alert("Offline Only");
-	var createdby = document.getElementById("employerMobile").value;
+	var createdby = document.getElementById("userMobile").value;
 	var orgId = document.getElementById("employerId").value;
+	var brandName = document.getElementById("brandName").value;
 	const outletCountRadioValue = document.querySelector('input[name="outletCount"]:checked').value;
 	var multipleValue = document.getElementById("noOfOutlet").value;
 	const salesMode = document.querySelector('input[name="salesMode"]:checked').id;
@@ -43,6 +94,7 @@ async function activateBrand(){
 					"orgid":orgId,
 					"storetypedesc":salesMode,
 					"outletsNo":outletCount,
+					"brandname":brandName,
 					"createdby":createdby,
 					"clientKey":clientKey,
 				    "hash":hashHex
@@ -94,13 +146,13 @@ async function getAllGeographyValues() {
 		        // alert("Please fill all geography fields.");
 		         return false;
 		     }
-		  var createdby = document.getElementById("employerMobile").value;
+		  var createdby = document.getElementById("userMobile").value;
 		  var orgId = document.getElementById("employerId").value;
-	      inputs.forEach(input => {
-	        values.push({ name: input.value.trim() });
-	      });
+	     // inputs.forEach(input => {
+	    //    values.push({ name: input.value.trim() });
+	    //  });
 
-		  var createdby = document.getElementById("employerMobile").value;
+		  var createdby = document.getElementById("userMobile").value;
 		  	var orgId = document.getElementById("employerId").value;
 		  	
 		  	const clientKey = "client-secret-key"; // Extra security measure
@@ -166,17 +218,23 @@ async function getAllGeographyValues() {
 			        var data1 = data.data;
 			        console.log("data",data);
 				    console.log("data1",data1);
-					if(data.status==true){
-						//$('#PaymentSuccessModal').modal('show');
-				        /* $('#AddVehicleModal').modal('hide');
-						 getSupportTicketListList();
+					if(data.status==true && data1.length >=0){
+						
+						 document.getElementById('geoSave').style.display = 'none';
+						 document.getElementById('geoEdit').style.display = 'block';
+						 const geoContainer = document.getElementById("geoContainerView");
+						   const geoList = data.data[0].geographicLocation;
 
-						 document.getElementById('bs-canvas-right2').style.right = '-378px';
-						 document.getElementById('modal-overlay2').style.display = 'none';*/
+						   geoList.forEach((geo, index) => {
+						       const div = document.createElement("div");
+						       div.className = "geo-tag";
+						       div.innerHTML = `#${index + 1} <strong>${geo.name}</strong>`;
+						       geoContainer.appendChild(div);
+						     });
 					}else if(data.status==false){
-						//$('#PaymentSuccessModal').modal('show');
-						//document.getElementById('bs-canvas-right2').style.right = '0';
-					    //document.getElementById('modal-overlay2').style.display = 'block';
+
+						document.getElementById('geoSave').style.display = 'block';
+						document.getElementById('geoEdit').style.display = 'none';
 					}
 			     },
 			     error: function(e){
@@ -185,3 +243,34 @@ async function getAllGeographyValues() {
 			});	
 			
 		}
+		
+		async function getBrandOutletList(){
+					var orgId = document.getElementById("employerId").value;
+					//alert("brandmanagement"+orgId);
+					$.ajax({
+						type: "GET",
+					     url:"/getBrandOutletList",
+						 dataType: 'json',   
+					      data: {
+									"orgid":orgId,
+							 },  		 
+					        success:function(data){
+					        var data1 = data.data;
+							if(data.status==true && data1.length >=0){
+								
+								document.getElementById('outletNo').innerHTML = data1[0].outletsNo;
+								document.getElementById('storeType').innerHTML = data1[0].storetypedesc;
+
+								 document.getElementById('activateBrand').style.display = 'none';
+								 document.getElementById('activateGeo').style.display = 'block';
+							}else if(data.status==false){
+								document.getElementById('id="activateBrand"').style.display = 'block';
+							    document.getElementById('activateGeo').style.display = 'none';
+							}
+					     },
+					     error: function(e){
+					         alert('Error: ' + e);
+					     }
+					});	
+					
+				}
