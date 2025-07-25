@@ -1257,7 +1257,9 @@
           <div class="form-check d-flex align-items-center gap-2 mb-4">
             <input class="form-check-input" type="radio" name="outletCount" id="multipleOutlets" checked value="multipleOutlets">
             <label class="form-check-label me-2" for="multipleOutlets">Multiple</label>
-            <input type="text"  class="form-control form-control-sm w-auto" placeholder="No of Outlets" style="border-radius: 6px;">
+            <input type="text" id="noOfOutlet"  class="form-control form-control-sm w-auto" placeholder="No of Outlets"
+			 style="border-radius: 6px;"
+			 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
           </div>
 
           <!-- Question 2 -->
@@ -1341,7 +1343,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	<script type="text/javascript" src="cotodel-js/band-management.js"></script>
+	<script type="text/javascript" src="cotodel-js/brand-management.js"></script>
 	<style>	#bs-canvas-right2 {
 		  position: absolute;
 		  right: 0;

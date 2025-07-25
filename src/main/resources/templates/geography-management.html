@@ -1256,40 +1256,22 @@
 		        <div class="voucher-body">
 		          <p class="mb-3">Please mark the names of your geographies.</p>
 
-		          <div class="geo-input-group">
-		            <span class="geo-number">#1</span>
-		            <input type="text" value="East Region" >
-		          </div>
+				  <div id="geoContainer">
+				    <div class="geo-input-group">
+				      <span class="geo-number">#1</span>
+				      <input type="text" placeholder="East Region">
+				    </div>
+				  </div>
 
-		          <div class="geo-input-group">
-		            <span class="geo-number">#2</span>
-		            <input type="text" value="West Region" >
-		          </div>
-
-		          <div class="geo-input-group">
-		            <span class="geo-number">#3</span>
-		            <input type="text" value="North Region" >
-		            <span class="delete-geo"><img src="img/delete.svg" alt="delete" ></span>
-		          </div>
-
-		          <div class="geo-input-group">
-		            <span class="geo-number">#4</span>
-		            <input type="text" value="South Region">
-		            <span class="delete-geo"><img src="img/delete.svg" alt="delete" ></span>
-		          </div>
-
-		          <button class="add-geo-btn">Add Geography &nbsp; +</button>
+		          <button class="add-geo-btn" type="button" onclick="addGeography()">Add Geography &nbsp; +</button>
 		        </div>
 		      </div>
 		    </div>
 
 		    <div class="voucher-footer">
-		      <button 
-			  class="continue-btn"
-			  type="button"
-			  data-bs-toggle="modal"
-			  data-bs-target="#PaymentSuccessModal">CONTINUE</button>
-		    </div>
+		      <!--<button  class="continue-btn" type="button"  data-bs-toggle="modal" data-bs-target="#PaymentSuccessModal">CONTINUE</button>-->
+			  <button  class="continue-btn" type="button" onclick="getAllGeographyValues()">CONTINUE</button> 
+		   </div>
 		  </div>
 		</div>
 <!-- Payment Success Modal -->
@@ -1315,7 +1297,7 @@
 	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Activated</h5>
 	                   <!-- Subtext -->
 	                   <p class="text-muted mb-4">
-	                       Your Brand Management is successfully activated!
+	                       Your Geographies Location is successfully updated!
 	                   </p>
 	                   <!-- OK Button -->
 					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal">OK</button>
@@ -1514,6 +1496,58 @@
 	  });
 	</script>
 
+	<script>
+	  let geoCount = 1;
+
+	  function addGeography() {
+	    geoCount++;
+	    const container = document.getElementById("geoContainer");
+
+	    const newGroup = document.createElement("div");
+	    newGroup.className = "geo-input-group";
+
+	    newGroup.innerHTML = `
+	      <span class="geo-number">#${geoCount}</span>
+	      <input type="text" placeholder="Enter Region">
+	      <span class="delete-geo" onclick="removeGeography(this)">
+	        <img src="img/delete.svg" alt="delete">
+	      </span>
+	    `;
+
+	    container.appendChild(newGroup);
+	  }
+
+	  function removeGeography(element) {
+	    const group = element.closest('.geo-input-group');
+	    group.remove();
+	    updateNumbers();
+	  }
+
+	  function updateNumbers() {
+	    const groups = document.querySelectorAll('#geoContainer .geo-input-group');
+	    groups.forEach((group, index) => {
+	      const numberSpan = group.querySelector('.geo-number');
+	      numberSpan.textContent = `#${index + 1}`;
+
+	      const deleteSpan = group.querySelector('.delete-geo');
+	      // Show delete only if not first item
+	      if (index === 0) {
+	        if (deleteSpan) deleteSpan.remove();
+	      } else {
+	        if (!deleteSpan) {
+	          const newDelete = document.createElement('span');
+	          newDelete.className = 'delete-geo';
+	          newDelete.onclick = function () { removeGeography(this); };
+	          newDelete.innerHTML = `<img src="img/delete.svg" alt="delete">`;
+	          group.appendChild(newDelete);
+	        }
+	      }
+	    });
+	    geoCount = groups.length;
+	  }
+	  
+	  
+	</script>
 
 </body>
 

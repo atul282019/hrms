@@ -165,7 +165,7 @@
                 <span>Support</span></a>
         </li>-->
 		
-	   <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
+	   <li class="nav-item" th:if="${session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
 	            <a class="nav-link" th:href="@{/customSupport}">
 	                <img src="img/support.png" alt="" class="mr-2">
 	                <span>Customer Support</span></a>
