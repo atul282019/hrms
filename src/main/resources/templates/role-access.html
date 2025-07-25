@@ -10,7 +10,8 @@
 <!--<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
 viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 
-<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster()">
+<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
+getGeographicListByOrgId()">
 <!-- viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()-->
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
@@ -443,7 +444,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 								
                                 <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
 									<div id="home" class="tab-pane in active">
-									                                  
+									<!--                                  
                                     <div class="policies-section">
                                         <div class="policies-wrap">
                                             <h4>Approval & Payout Flow Settings</h4>
@@ -476,7 +477,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
                                                 </div>                                              
                                             </div>
                                         </div>
-                                    </div>                               
+                                    </div>                               -->
 
                                       <div class="policies-section">
                                         <div class="policies-wrap">
@@ -700,7 +701,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
                                             </div>
                                         </div>
                                     </div>
-
+<!--
                                     <div class="policies-section">
                                         <div class="policies-wrap">
                                             <h4>Currency Conversion Settings </h4>
@@ -755,7 +756,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
 								<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
 								<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
@@ -783,7 +784,8 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 											   </p>
                                            <h5>'Activate Brand Management’</h5> <p>to make your users experience the magic of UPI-based loyalty for your Brand. </p>
                                             <div class="d-flex justify-content-center mt-2 w-50">
-                                                <a class="btn btn-primary mx-2 w-100" href="/brandOnboarding">Activate Brand Management</a>
+                                                <!--<a class="btn btn-primary mx-2 w-100" href="/brandOnboarding">Activate Brand Management</a>-->
+												<button class="btn btn-primary mx-2 w-100" type="button" onclick="openActivateBrand()" >Activate Brand Management</button>
                                           </div>
 		                                   </div>
 		                               </div>
@@ -1823,50 +1825,92 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 	     
 	    </div>
 	  </div>
-	   <!-- Modal Currency Conversion -->
-	<div class="modal fade" id="ModalCurrencyConversion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	    <div class="modal-dialog modal-md modal-dialog-centered modal-approval-wrap" role="document">
-	      <div class="modal-content">
-	        <div class="modal-header pb-0">
-	          <h5 class="modal-title" id="exampleModalCenterTitle">Currency Conversion</h5>
-	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	            <span aria-hidden="true">&times;</span>
-	          </button>
+
+	  	<!-- modal -->
+	  <div class="" id="modal-overlay1" style="display: block;">
+	    <div class="voucher-modal-canvas" id="bs-canvas-right2">
+	      <div class="voucher-modal-scrollable-wrapper">
+	        <div class="voucher-modal-scrollable">
+	          <div class="voucher-header d-flex justify-content-between align-items-center p-3 border-bottom">
+	            <h5 class="voucher-title mb-0">Activate Brand Management</h5>
+	            <button class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="margin-right: -65px;">
+	              <i class="fas fa-times voucher-close-icon"></i>
+	            </button>
+	          </div>
+
+	          <div class="p-3">
+	            <!-- Question 1 -->
+	            <p class="mb-2 fw""-bold">How many outlets does your brand have?</p>
+	            <div class="form-check mb-2">
+	              <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet" value="oneOutlet">
+	              <label class="form-check-label" for="oneOutlet" style="margin-left: -17px !important; ">One</label>
+	            </div>
+	            <div class="form-check d-flex align-items-center gap-2 mb-4">
+	              <input class="form-check-input" type="radio" name="outletCount" id="multipleOutlets" checked value="multipleOutlets">
+	              <label class="form-check-label me-2" for="multipleOutlets">Multiple</label>
+	              <input type="text" id="noOfOutlet"  class="form-control form-control-sm w-auto" placeholder="No of Outlets"
+	  			 style="border-radius: 6px;"
+	  			 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+	            </div>
+
+	            <!-- Question 2 -->
+	            <p class="mb-2 fw-bold">Do you have an online store for sales?</p>
+	            <div class="form-check mb-2">
+	              <input class="form-check-input" type="radio" name="salesMode" id="onlineOffline" checked value="Online and Offline">
+	              <label class="form-check-label" for="onlineOffline">Online and Offline</label>
+	            </div>
+	            <div class="form-check mb-2">
+	              <input class="form-check-input" type="radio" name="salesMode" id="onlineOnly" value="Online Only">
+	              <label class="form-check-label" for="onlineOnly">Online Only</label>
+	            </div>
+	            <div class="form-check mb-4">
+	              <input class="form-check-input" type="radio" name="salesMode" id="offlineOnly" value="Offline Only">
+	              <label class="form-check-label" for="offlineOnly">Offline Only</label>
+	            </div>
+	          </div>
 	        </div>
-	        <div class="modal-body">
-	            <div class="table-currency">
-	                <select class="select-currency">
-	                    <option value="">Currency 1</option>
-	                </select>
-	                <img src="img/Arrow-grey.svg" alt="">
-	                <select class="select-currency">
-	                    <option value="">Currency 2</option>
-	                </select>
-	            </div>
-	            <br>
-	            <div class="toggle-wrap">
-	                <div class="toggleWrapper">
-	                    <input type="checkbox" class="dn" id="dn">
-	                    <label for="dn" class="toggle">
-	                        <span class="toggle__handler"></span>       
-	                    </label>
-	                </div>
-	            </div>
-	            <br>
-	            <div class="conversion-div">
-	                <label for="">Conversion Rate</label>
-	                <input type="text" class="conversion-input" placeholder="0.012">
-	            </div>
-	            
-	            <div class="d-block mt-3">
-	                <button class="btn btn-primary d-block btn-lg w-100">Confirm</button>
-	            </div>
-	        </div>        
+	      </div>
+
+	      <!-- Footer: button excluded as per user -->
+	      <div class="voucher-footer">
+	  		<!--<button class="voucher-download-btn" type="button" data-bs-toggle="modal"
+	  		  data-bs-target="#PaymentSuccessModal">Submit</button>-->
+	  		  <button class="voucher-download-btn" type="button" onclick="activateBrand()">Submit</button>
 	      </div>
 	    </div>
 	  </div>
+	  <!-- Payment Success Modal -->
+	  	   <div class="modal fade" id="PaymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+	  	       <div class="modal-dialog modal-dialog-centered" >
+	  			
+	  	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+	  				<button
+	  				  type="button"
+	  				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+	  				  aria-label="Close"
+	  				  data-bs-dismiss="modal"
+	  				  style="margin-right: -65px; outline: none; box-shadow: none;"
+	  				>
+	  				  <i class="fas fa-times voucher-close-icon"></i>
+	  				</button>
+	  	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+	  	                   <!-- Success Icon -->
+	  	                   <div class="success-icon mb-4">
+	  	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
+	  	                   </div>
+	  	                   <!-- Title -->
+	  	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Activated</h5>
+	  	                   <!-- Subtext -->
+	  	                   <p class="text-muted mb-4">
+	  	                       Your Brand Management is successfully activated!
+	  	                   </p>
+	  	                   <!-- OK Button -->
+	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal">OK</button>
+	  	               </div>
+	  	           </div>
+	  	       </div>
+	  	   </div>
 
-	
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -1888,6 +1932,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
 	
 	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>-->
+	<script type="text/javascript" src="cotodel-js/brand-management.js"></script>
 	<script>
 		function closeroleAcessOTPModal() {
 		    document.getElementById("roleAcessOTPModal").style.display = "none";
@@ -2400,7 +2445,201 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
             }
         }
 
+		function openActivateBrand(){
+			document.getElementById("bs-canvas-right2").classList.add("show-canvas");
+			document.getElementById("modal-overlay1").style.display = "block";
+		}
     </script>
+	<script>
+		  window.addEventListener("DOMContentLoaded", function () {
+		    // Show modal canvas
+		    document.getElementById("bs-canvas-right2").classList.add("show-canvas");
+
+		    // Close modal when clicking close button
+		    document.querySelector(".bs-canvas-close").addEventListener("click", function () {
+		      document.getElementById("modal-overlay1").style.display = "none";
+		    });
+		  });
+		</script>
+		
+		<script>
+			  window.addEventListener("DOMContentLoaded", function () {
+			    // Show modal canvas
+			    document.getElementById("bs-canvas-right2").classList.add("show-canvas");
+
+			    // Close modal when clicking close button
+			    document.querySelector(".bs-canvas-close").addEventListener("click", function () {
+			      document.getElementById("modal-overlay1").style.display = "none";
+			    });
+			  });
+			</script>
+	<style>	#bs-canvas-right2 {
+		  position: absolute;
+		  right: 0;
+		  top: 0;
+		  width: 380px;
+		  height: 100%;
+		  background: #fff;
+		  transform: translateX(100%);
+		  transition: transform 0.3s ease-in-out;
+		  z-index: 1001;
+		}
+
+		#bs-canvas-right2.show-canvas {
+		  transform: translateX(0);
+		}	  	  
+		.form-check {
+		              display: flex;
+		              align-items: center;
+		              gap: 8px;
+		              flex-direction: row;
+		            }
+					.form-check-label {
+					  background-color: transparent !important;
+					  margin: 0;
+					  order: 1; /* ← CHANGE to 1 if textbox is 2 */
+					}
+
+					.form-check input[type="text"] {
+					  order: 2;
+					}
+					input[type="radio"].form-check-input {
+					  position: relative;
+					  display: inline-block;
+					  vertical-align: middle;
+					  width: 16px;
+					  height: 16px;
+					  border: 2px solid #999;
+					  border-radius: 50%;
+					  background-color: transparent;
+					  cursor: pointer;
+					  appearance: none;
+					  -webkit-appearance: none;
+					  -moz-appearance: none;
+					}
+
+					input[type="radio"].form-check-input:checked::before {
+					  content: "";
+					  position: absolute;
+					  top: 50%;
+					  left: 50%;
+					  transform: translate(-50%, -50%);
+					  width: 8px;
+					  height: 8px;
+					  border-radius: 50%;
+					  background-color: #367AFF;
+					}
+
+	</style>
+	
+	<style>	#bs-canvas-right2 {
+				  position: absolute;
+				  right: 0;
+				  top: 0;
+				  width: 380px;
+				  height: 100%;
+				  background: #fff;
+				  transform: translateX(100%);
+				  transition: transform 0.3s ease-in-out;
+				  z-index: 1001;
+				}
+
+				#bs-canvas-right2.show-canvas {
+				  transform: translateX(0);
+				}	  	  
+			.form-check {
+		      display: flex;
+		      align-items: center;
+		      gap: 8px;
+		      flex-direction: row;
+		    }
+			.form-check-label {
+			  background-color: transparent !important;
+			  margin: 0;
+			  order: 1; /* ← CHANGE to 1 if textbox is 2 */
+			}
+
+			.form-check input[type="text"] {
+			  order: 2;
+			}
+			input[type="radio"].form-check-input {
+			  position: relative;
+			  display: inline-block;
+			  vertical-align: middle;
+			  width: 16px;
+			  height: 16px;
+			  border: 2px solid #999;
+			  border-radius: 50%;
+			  background-color: transparent;
+			  cursor: pointer;
+			  appearance: none;
+			  -webkit-appearance: none;
+			  -moz-appearance: none;
+			}
+
+			input[type="radio"].form-check-input:checked::before {
+			  content: "";
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			  width: 8px;
+			  height: 8px;
+			  border-radius: 50%;
+			  background-color: #367AFF;
+			}
+			.geo-input-group {
+			    position: relative;
+			    margin-bottom: 16px;
+			  }
+			  .geo-input-group input {
+			    width: 100%;
+			    padding: 10px 12px;
+			    border-radius: 10px;
+			    border: 1px solid #ddd;
+			    font-size: 14px;
+			    outline: none;
+			    box-sizing: border-box;
+			  }
+
+			  .geo-input-group input:focus {
+			    border: 1px solid #3478FF;
+			  }
+
+			  .geo-number {
+			    position: absolute;
+			    top: -8px;
+			    left: 12px;
+			    background: white;
+			    padding: 0 6px;
+			    font-size: 12px;
+			    color: #777;
+			  }
+
+			  .delete-geo {
+			    position: absolute;
+			    right: 10px;
+			    top: 50%;
+			    transform: translateY(-50%);
+			    cursor: pointer;
+			    color: #333;
+			  }
+
+			  .add-geo-btn, .continue-btn {
+			    background-color: #3478FF;
+			    color: white;
+			    border: none;
+			    width: 100%;
+			    padding: 12px;
+			    font-weight: 600;
+			    font-size: 14px;
+			    border-radius: 6px;
+			    margin-top: 10px;
+			    cursor: pointer;
+			  }
+
+			</style>
+			
 	<style>
 		.card-title{
 			color: #000000;
@@ -2408,53 +2647,53 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 		}
 	</style>
 	<style>
-					  .custom-card {
-					    width: 110%;
-					   
-					    border-radius: 20px;
-					    padding: 20px;
-					    border-bottom: 1px solid #e0e0e0;
-					    gap: 20px;
-					    opacity: 1;
-					    margin-left: -65px;
-					  }
+		  .custom-card {
+		    width: 110%;
+		   
+		    border-radius: 20px;
+		    padding: 20px;
+		    border-bottom: 1px solid #e0e0e0;
+		    gap: 20px;
+		    opacity: 1;
+		    margin-left: -65px;
+		  }
 
-					  .edit-btn {
-					    background-color: #f5f5f5;
-					    border: none;
-					    border-radius: 999px;
-					    padding: 6px 16px;
-					    font-size: 14px;
-					    display: flex;
-					    align-items: center;
-					  }
+		  .edit-btn {
+		    background-color: #f5f5f5;
+		    border: none;
+		    border-radius: 999px;
+		    padding: 6px 16px;
+		    font-size: 14px;
+		    display: flex;
+		    align-items: center;
+		  }
 
-					  .edit-btn svg {
-					    margin-right: 6px;
-					  }
+		  .edit-btn svg {
+		    margin-right: 6px;
+		  }
 
-					  .info-row {
-					    display: flex;
-					    justify-content: space-between;
-					    align-items: flex-start;
-					    margin-bottom: 12px;
-					  }
+		  .info-row {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: flex-start;
+		    margin-bottom: 12px;
+		  }
 
-					  .info-text {
-					    flex-grow: 1;
-					  }
-					  .geo-tag {
-					    background-color: white;
-					    border: 1px solid #EDEDF0;
-					    border-radius: 8px;
-					    padding: 10px 14px;
-					    margin-bottom: 8px;
-					    font-weight: 700;
-					    color: #4A4E69;
-					    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-						width: 589px;
-					  }
-					</style>
+		  .info-text {
+		    flex-grow: 1;
+		  }
+		  .geo-tag {
+		    background-color: white;
+		    border: 1px solid #EDEDF0;
+		    border-radius: 8px;
+		    padding: 10px 14px;
+		    margin-bottom: 8px;
+		    font-weight: 700;
+		    color: #4A4E69;
+		    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+			width: 589px;
+		  }
+		</style>
 
 </body>
 
