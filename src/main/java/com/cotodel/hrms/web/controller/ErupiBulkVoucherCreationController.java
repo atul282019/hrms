@@ -416,7 +416,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	@PostMapping("/generateVoucherExcelTemp")
 	public ResponseEntity<ByteArrayResource> generateTempExcel(@RequestBody List<Map<String, String>> filteredData) {
 	    try {
-	        File file = new File("/opt/cotodel/key/Bulk_Voucher_Templates.xlsx");
+	        File file = new File("/opt/cotodel/key/ModifiedVoucherExcelTemp.xlsx");
 
 	        if (!file.exists()) {
 	            System.err.println("❌ Excel template file not found at: " + file.getAbsolutePath());
