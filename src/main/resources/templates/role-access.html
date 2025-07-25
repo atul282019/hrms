@@ -837,8 +837,9 @@ getGeographicListByOrgId()">
 	   			   								        </svg>
 	   			   								        Edit
 	   			   								      </button>
-	   			   									  
-	   			   									  <a class="btn btn-custom me-2" id="activateBtn" href="/geographymanagement">Activate</a>
+													  
+	   			   									 <!-- <a class="btn btn-custom me-2" id="activateBtn" href="/geographymanagement">Activate</a>-->
+													  <a class="btn btn-custom me-2" id="activateBtn" onclick=" openGeoGraphic()">Activate</a>
 	   			   								    </div>
 
 	   			   								    <div class="text-left color-third mb-3">
@@ -938,40 +939,6 @@ getGeographicListByOrgId()">
             </div>
         </div>
     </div>
-
-   <!--<div class="customModal modal btnroleAcessModal1">
-        <div class="modal-dialog modal-dialog-centered modal-approval-wrap modal-lg">
-            <div class="modal-content modal-bulk p-0">
-                <div class="modal-header pb-0">
-                    <h5 class="modal-title">Role Access</h5>
-                    <span id="closeBtn1" class="close">&times;</span>
-                </div>
-                <div class="modal-body pt-0">
-                    <div class="roleAccessModal-wrap">
-                        <h5>Title:</h5>
-                        <ul>
-                            <li>Exhausted Vouchers: Completely redeemed</li>
-                            <li>Revoked Vouchers: Partially redeemed</li>
-                        </ul>
-                    </div>
-                    <div class="roleAccessModal-wrap">
-                        <h5>Title:</h5>
-                        <ul>
-                            <li>Exhausted Vouchers: Completely redeemed</li>
-                            <li>Revoked Vouchers: Partially redeemed</li>
-                        </ul>
-                    </div>
-                    <div class="roleAccessModal-wrap">
-                        <h5>Title:</h5>
-                        <ul>
-                            <li>Exhausted Vouchers: Completely redeemed</li>
-                            <li>Revoked Vouchers: Partially redeemed</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
 
 
     <div class="customModal modal" id="roleAcessOTPModal">
@@ -1879,6 +1846,40 @@ getGeographicListByOrgId()">
 	      </div>
 	    </div>
 	  </div>
+	  
+	  <!-- modal -->
+	  		<div class="" id="modal-overlay2" style="display: block;">
+	  		  <div class="voucher-modal-canvas" id="bs-canvas-right3">
+	  		    <div class="voucher-modal-scrollable-wrapper">
+	  		      <div class="voucher-modal-scrollable">
+	  		        <div class="voucher-header mt-2">
+	  		          <h5 class="voucher-title">Define Geographies</h5>
+	  		          <button class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
+	  		            <i class="fas fa-times voucher-close-icon"></i>
+	  		          </button>
+	  		        </div>
+
+	  		        <div class="voucher-body">
+	  		          <p class="mb-3">Please mark the names of your geographies.</p>
+
+	  				  <div id="geoContainer">
+	  				    <div class="geo-input-group">
+	  				      <span class="geo-number">#1</span>
+	  				      <input type="text" placeholder="East Region">
+	  				    </div>
+	  				  </div>
+
+	  		          <button class="add-geo-btn" type="button" onclick="addGeography()">Add Geography &nbsp; +</button>
+	  		        </div>
+	  		      </div>
+	  		    </div>
+
+	  		    <div class="voucher-footer">
+	  		      <!--<button  class="continue-btn" type="button"  data-bs-toggle="modal" data-bs-target="#PaymentSuccessModal">CONTINUE</button>-->
+	  			  <button  class="continue-btn" type="button" onclick="getAllGeographyValues()">CONTINUE</button> 
+	  		   </div>
+	  		  </div>
+	  		</div>
 	  <!-- Payment Success Modal -->
 	  	   <div class="modal fade" id="PaymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
 	  	       <div class="modal-dialog modal-dialog-centered" >
@@ -2449,6 +2450,11 @@ getGeographicListByOrgId()">
 			document.getElementById("bs-canvas-right2").classList.add("show-canvas");
 			document.getElementById("modal-overlay1").style.display = "block";
 		}
+		
+		function openGeoGraphic(){
+			document.getElementById("bs-canvas-right3").classList.add("show-canvas");
+			document.getElementById("modal-overlay2").style.display = "block";
+		}
     </script>
 	<script>
 		  window.addEventListener("DOMContentLoaded", function () {
@@ -2465,11 +2471,11 @@ getGeographicListByOrgId()">
 		<script>
 			  window.addEventListener("DOMContentLoaded", function () {
 			    // Show modal canvas
-			    document.getElementById("bs-canvas-right2").classList.add("show-canvas");
+			    document.getElementById("bs-canvas-right3").classList.add("show-canvas");
 
 			    // Close modal when clicking close button
 			    document.querySelector(".bs-canvas-close").addEventListener("click", function () {
-			      document.getElementById("modal-overlay1").style.display = "none";
+			      document.getElementById("modal-overlay2").style.display = "none";
 			    });
 			  });
 			</script>
@@ -2532,7 +2538,7 @@ getGeographicListByOrgId()">
 
 	</style>
 	
-	<style>	#bs-canvas-right2 {
+	<style>	#bs-canvas-right3 {
 				  position: absolute;
 				  right: 0;
 				  top: 0;
