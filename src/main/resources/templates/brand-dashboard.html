@@ -8,13 +8,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-
-<!--<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
-viewEmployeeBand(),cotodelLinkedBankDetail()">-->
-
 <body id="page-top" >
-<!-- viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()-->
-
+	
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
     <!-- Page Wrapper -->
@@ -34,64 +29,49 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav top-nav">
-
                         <!-- Nav Item - User Information -->
-                        <!--<li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                <span class="mr-2 small">Dashboard</span>
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                            </a>
-                        </li>
-						<li class="nav-item">
-                           <a class="nav-link" href="#">
-                               <span class="mr-2 small">Admin Settings</span>
-                               <i class="fas fa-ellipsis-v fa-sm fa-fw"></i>
-                           </a>
-                       </li>-->
-
                     </ul>
 					<!-- Right Icons + Profile -->
-								    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
-								      <!-- Wallet Icon -->
-								     <!-- <li class="nav-item mr-3">
-								        <a href="/settings/wallet" role="button">
-								          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
-								        </a>
-								      </li>-->
-									  <li class="nav-item mr-3">
-					  			        <a href="/cotowallet" role="button">
-					  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
-					  			        </a>
-					  			      </li>
-								      <!-- Notification Icon -->
-								      <li class="nav-item mr-3">
-								        <a href="#" role="button">
-								          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
-								        </a>
-								      </li>
+					    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+					      <!-- Wallet Icon -->
+					     <!-- <li class="nav-item mr-3">
+					        <a href="/settings/wallet" role="button">
+					          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+					        </a>
+					      </li>-->
+						  <li class="nav-item mr-3">
+		  			        <a href="/cotowallet" role="button">
+		  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+		  			        </a>
+		  			      </li>
+					      <!-- Notification Icon -->
+					      <li class="nav-item mr-3">
+					        <a href="#" role="button">
+					          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+					        </a>
+					      </li>
 
-								      <!-- Profile Dropdown -->
-								      <li class="nav-item dropdown no-arrow">
-								        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
-								        </a>
-								        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-								          <a class="dropdown-item" href="/ProfileInfo">
-								            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								          </a>
-								       <!--   <a class="dropdown-item" href="#">
-								            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
-								          </a>-->
-								          <div class="dropdown-divider"></div>
-								          <a class="dropdown-item" href="/logout">
-								            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
-								          </a>
-								        </div>
-								      </li>
-								    </ul>
+					      <!-- Profile Dropdown -->
+					      <li class="nav-item dropdown no-arrow">
+					        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+					        </a>
+					        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+					          <a class="dropdown-item" href="/ProfileInfo">
+					            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+					          </a>
+					       <!--   <a class="dropdown-item" href="#">
+					            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+					          </a>-->
+					          <div class="dropdown-divider"></div>
+					          <a class="dropdown-item" href="/logout">
+					            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+					          </a>
+					        </div>
+					      </li>
+					    </ul>
                 </nav>
 
                 <!-- End of Topbar -->
@@ -105,9 +85,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
                                 <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11" class="nav-link">Outlets</a></li>
                                 <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu22">Schemes</a></li>
 								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu33">Analytics</a></li>
-								<!--<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Brand Management</a></li>
-								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Payment History</a></li>
-                             -->
+							
                             </ul>
 
                             <div class="tab-content">
@@ -209,9 +187,6 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 									   							        <a id="filter-issued-this-month" class="dropdown-item" href="#">Issued this Month</a>
 									   							    </div>
 									   							</div>
-
-									   					       
-									   					        
 									   					    </div>
 									   					</div>
 
@@ -219,8 +194,6 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 									   						<div >
 									   							
 									   						   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
-									   						    
-									   						    
 									   						     <li class="nav-item">
 									   						       <a class="nav-link active" data-toggle="tab" href="#Purchases" role="tab">Purchases</a>
 									   						     </li>
@@ -243,28 +216,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 									   							<div class="tab-pane fade show active" id="Purchases" role="tabpanel">
 									   							<div class="table-responsive" >
 									   							   <table class="table table-reimbursements mb-0" id="PurchasesTableList" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
-									   							     <!--<thead>
-									   							       <tr>
-									   									<th style="width: 40px;">
-									   							          <input type="checkbox" id="checkAll">
-									   							        </th>
-									   								  <th>Issue Date</th>
-									   							         
-									   							         <th>Name & Mobile#</th>	
-									   								  	 
-									   							         <th>Voucher ID</th>
-									   							        
-									   								  <th>Bank A/c</th>	
-									   								  <th>Category</th>	
-									   								  <th>Redemptions</th>	
-									   								  <th>Expiry Date</th>	
-									   								  <th>Status</th>	
-									   								  <th>Redemption Status</th>	
-									   								  <th>Issued</th>
-									   								  <th>Redeemed</th>		  
-									   								  <th></th>
-									   							       </tr>
-									   							     </thead>-->
+									   							
 									   								 <thead>
 									   					                <tr>
 									   									 <!-- <th>S.NO</th>-->
@@ -523,12 +475,12 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
  													 </td>
  	
  													
- 				   											
-			 				   									 </tr>		
-						   								    </tbody>
-						   								  </table>
-						   								</div>											
-						   						     </div>
+		   											
+	 				   								 </tr>		
+				   								    </tbody>
+				   								  </table>
+				   								</div>											
+				   						     </div>
 			
 			
 					   						   </div>
@@ -676,34 +628,34 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 												    </div>
 													
 													
-								 </div>
-                                <div id="menu22" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}"> 
-									
-								</div>
-								
-                                <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
-									
-								 </div>
-								
-								 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
-									
-									
-								
-							 </div>
-							 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
-							<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
-							<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
-							<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
-							<input type="hidden" class="form-input" id="CId" name="CId" > 
-							<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
-							<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
-							<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
-							<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
-							<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
-							<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
-							<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
-							<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
-                           </div>
+						 </div>
+                        <div id="menu22" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 1 or session.user_role == 3}"> 
+							
+						</div>
+						
+                        <div id="menu33" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
+							
+						 </div>
+						
+						 <div id="menu44" class="tab-pane" th:if="${session.user_role == 9 or session.user_role == 3}">
+							
+						
+							
+						 </div>
+						 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+						<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+						<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
+						<input type="hidden" class="form-input" id="paymentSession" name="paymentSession"> 
+						<input type="hidden" class="form-input" id="CId" name="CId" > 
+						<input type="hidden" class="form-input" id="ClinkId" name="ClinkId" > 
+						<input type="hidden" class="form-input" id="CbankCode" name="CbankCode" > 
+						<input type="hidden" class="form-input" id="CbankName" name="CbankName" > 
+						<input type="hidden" class="form-input" id="CaccountHolderName" name="CaccountHolderName" > 
+						<input type="hidden" class="form-input" id="CacNumber" name="CacNumber" > 
+						<input type="hidden" class="form-input" id="CaccountType" name="CaccountType" > 
+						<input type="hidden" class="form-input" id="CifscCode" name="CifscCode" >
+						<input type="hidden" class="form-input" id="Cbalance" name="Cbalance" > 
+                       </div>
                         </div>
                     </div>
 
@@ -756,13 +708,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-	<!--<script type="text/javascript" src="cotodel-js/"></script>
-	
-	<script type="text/javascript" src="cotodel-js/employee-profile.js"></script>
-	
-	<script type="text/javascript" src="cotodel-js/employee-band.js"></script>-->
-	
-	<!-- Required Bootstrap 4 and jQuery CDN (Include once) -->
+	<script type="text/javascript" src="cotodel-js/brand-management.js"></script>
 	
 	<!-- Script to open modal -->
 	<script>
@@ -823,12 +769,6 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 			});
 	</script>
 	
-	
-	<script src="cotodel-js/linked-account.js"></script>
-	<script type="text/javascript" src="cotodel-js/sanitize-input.js"></script>
-	<!--<script type="text/javascript" src="cotodel-js/cashfree.js"></script>-->
-	<script type="text/javascript" src="cotodel-js/expenses-travel-polices.js"></script>
-	
 	<div class="" id="modal-overlay2" style="display:none;">
 		  <div class="voucher-modal-canvas" id="bs-canvas-right3">
 		    <div class="voucher-modal-scrollable-wrapper">
@@ -841,13 +781,9 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 		        </div>
 
 		        <div class="voucher-body">
-		         
-
 				  <div id="geoContainer">
 					<div class="did-floating-label-content">
-					    <input class="did-floating-input" type="text" id="name" 
-					       
-					        placeholder=" ">
+					    <input class="did-floating-input" type="text" id="name" placeholder=" ">
 					    <label class="did-floating-label">Name</label>
 					</div>
 					
@@ -859,21 +795,15 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 					    <label class="did-floating-label">Outlet Type </span></label>
 					</div>
 						<div class="did-floating-label-content">
-						    <input class="did-floating-input" type="text" id="name" 
-						       
-						        placeholder=" ">
+						    <input class="did-floating-input" type="text" id="name"  placeholder=" ">
 						    <label class="did-floating-label">Outlet Manager</label>
 						</div>
 						<div class="did-floating-label-content">
-						    <input class="did-floating-input" type="number" id="phno" 
-						       
-						        placeholder=" ">
+						    <input class="did-floating-input" type="number" id="phno" placeholder=" ">
 						    <label class="did-floating-label">Contact Number</label>
 						</div>
 						<div class="did-floating-label-content">
-						    <input class="did-floating-input" type="text" id="name" 
-						       
-						        placeholder=" ">
+						    <input class="did-floating-input" type="text" id="name" placeholder=" ">
 						    <label class="did-floating-label">Location</label>
 						</div>
 						<div class="did-floating-label-content mr-2">
@@ -894,9 +824,6 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 		        </div>
 		      </div>
 		    </div>
-
-		    
-			
 		   </div>
 	</div>
 	<!-- Payment Success Modal -->
@@ -927,55 +854,55 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 	  </div>
 	</div>
 		   
-		   <style>
+	<style>
 		   									
-			#bs-canvas-right2 {
-				  position: absolute;
-				  right: 0;
-				  top: 0;
-				  width: 380px;
-				  height: 100%;
-				  background: #fff;
-				  transform: translateX(100%);
-				  transition: transform 0.3s ease-in-out;
-				  z-index: 1001;
-				}
+	#bs-canvas-right2 {
+		  position: absolute;
+		  right: 0;
+		  top: 0;
+		  width: 380px;
+		  height: 100%;
+		  background: #fff;
+		  transform: translateX(100%);
+		  transition: transform 0.3s ease-in-out;
+		  z-index: 1001;
+		}
 
-				#bs-canvas-right2.show-canvas {
-				  transform: translateX(0);
-				}
-				#modal-overlay2 {
-				  display: none;
-				  position: fixed;
-				  top: 0;
-				  left: 0;
-				  width: 100%;
-				  height: 100%;
-				  background-color: rgba(0, 0, 0, 0.85); /* Bootstrap-like black */
-				  z-index: 1000; /* Just below bs-canvas */
-				}
-				#bs-canvas-right3 
-				{
-						  position: absolute;
-						  right: 0;
-						  top: 0;
-						  width: 380px;
-						  height: 100%;
-						  background: #fff;
-						  transform: translateX(100%);
-						  transition: transform 0.3s ease-in-out;
-						  z-index: 1001;
-						}
+		#bs-canvas-right2.show-canvas {
+		  transform: translateX(0);
+		}
+		#modal-overlay2 {
+		  display: none;
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background-color: rgba(0, 0, 0, 0.85); /* Bootstrap-like black */
+		  z-index: 1000; /* Just below bs-canvas */
+		}
+		#bs-canvas-right3 
+		{
+		  position: absolute;
+		  right: 0;
+		  top: 0;
+		  width: 380px;
+		  height: 100%;
+		  background: #fff;
+		  transform: translateX(100%);
+		  transition: transform 0.3s ease-in-out;
+		  z-index: 1001;
+		}
 
-						#bs-canvas-right3.show-canvas {
-						  transform: translateX(0);
-						}						
+		#bs-canvas-right3.show-canvas {
+		  transform: translateX(0);
+		}						
 
-						.container {
-						  max-width: 1422px;
-						  margin: 0 auto;
-						}
-						.tooltip-container {
+		.container {
+		  max-width: 1422px;
+		  margin: 0 auto;
+		}
+		.tooltip-container {
 	    position: relative;
 	    display: inline-block;
 	    cursor: pointer;
@@ -1027,7 +954,7 @@ viewEmployeeBand(),cotodelLinkedBankDetail()">-->
 	  .green { background: #BFDECC; }
 	  .yellow { background: #FFCC004D; }
 	  .gray { background: #C7C8D1; }
-		  </style>
+ </style>
 </body>
 
 </html>
