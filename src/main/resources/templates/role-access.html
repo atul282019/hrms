@@ -1794,7 +1794,7 @@ getGeographicListByOrgId()">
 	  </div>
 
 	  	<!-- modal -->
-	  <div class="" id="modal-overlay1" style="display: block;">
+	  <div class="" id="modal-overlay1" style="display: none;">
 	    <div class="voucher-modal-canvas" id="bs-canvas-right2">
 	      <div class="voucher-modal-scrollable-wrapper">
 	        <div class="voucher-modal-scrollable">
@@ -1807,7 +1807,7 @@ getGeographicListByOrgId()">
 
 	          <div class="p-3">
 	            <!-- Question 1 -->
-	            <p class="mb-2 fw""-bold">How many outlets does your brand have?</p>
+	            <p class="mb-2 fw-bold">How many outlets does your brand have?</p>
 	            <div class="form-check mb-2">
 	              <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet" value="oneOutlet">
 	              <label class="form-check-label" for="oneOutlet" style="margin-left: -17px !important; ">One</label>
@@ -1848,13 +1848,13 @@ getGeographicListByOrgId()">
 	  </div>
 	  
 	  <!-- modal -->
-	  		<div class="" id="modal-overlay2" style="display: block;">
+	  		<div class="" id="modal-overlay2" style="display:none;">
 	  		  <div class="voucher-modal-canvas" id="bs-canvas-right3">
 	  		    <div class="voucher-modal-scrollable-wrapper">
 	  		      <div class="voucher-modal-scrollable">
 	  		        <div class="voucher-header mt-2">
 	  		          <h5 class="voucher-title">Define Geographies</h5>
-	  		          <button class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
+	  		          <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
 	  		            <i class="fas fa-times voucher-close-icon"></i>
 	  		          </button>
 	  		        </div>
@@ -2451,35 +2451,34 @@ getGeographicListByOrgId()">
 			document.getElementById("modal-overlay1").style.display = "block";
 		}
 		
-		function openGeoGraphic(){
-			document.getElementById("bs-canvas-right3").classList.add("show-canvas");
-			document.getElementById("modal-overlay2").style.display = "block";
-		}
+	
     </script>
 	<script>
-		  window.addEventListener("DOMContentLoaded", function () {
-		    // Show modal canvas
-		    document.getElementById("bs-canvas-right2").classList.add("show-canvas");
-
-		    // Close modal when clicking close button
-		    document.querySelector(".bs-canvas-close").addEventListener("click", function () {
-		      document.getElementById("modal-overlay1").style.display = "none";
-		    });
+		 
+		  // Close modal when clicking close button
+		  document.querySelector(".bs-canvas-close").addEventListener("click", function () {
+		    document.getElementById("modal-overlay1").style.display = "none";
 		  });
 		</script>
 		
 		<script>
-			  window.addEventListener("DOMContentLoaded", function () {
-			    // Show modal canvas
-			    document.getElementById("bs-canvas-right3").classList.add("show-canvas");
+		  function openGeoGraphic() {
+		    document.getElementById("bs-canvas-right3").classList.add("show-canvas");
+		    document.getElementById("modal-overlay2").style.display = "block";
+		  }
 
-			    // Close modal when clicking close button
-			    document.querySelector(".bs-canvas-close").addEventListener("click", function () {
-			      document.getElementById("modal-overlay2").style.display = "none";
-			    });
-			  });
-			</script>
-	<style>	#bs-canvas-right2 {
+		  document.addEventListener("DOMContentLoaded", function () {
+		    const closeBtn = document.getElementById("close-geo-modal-btn");
+		    if (closeBtn) {
+		      closeBtn.addEventListener("click", function () {
+		        document.getElementById("modal-overlay2").style.display = "none";
+		        document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
+		      });
+		    }
+		  });
+		</script>
+	<style>
+			#bs-canvas-right2 {
 		  position: absolute;
 		  right: 0;
 		  top: 0;
@@ -2493,7 +2492,8 @@ getGeographicListByOrgId()">
 
 		#bs-canvas-right2.show-canvas {
 		  transform: translateX(0);
-		}	  	  
+		}
+	  		  	  
 		.form-check {
 		              display: flex;
 		              align-items: center;
@@ -2538,7 +2538,8 @@ getGeographicListByOrgId()">
 
 	</style>
 	
-	<style>	#bs-canvas-right3 {
+	<style>
+			#bs-canvas-right3 {
 				  position: absolute;
 				  right: 0;
 				  top: 0;
@@ -2550,7 +2551,7 @@ getGeographicListByOrgId()">
 				  z-index: 1001;
 				}
 
-				#bs-canvas-right2.show-canvas {
+				#bs-canvas-right3.show-canvas {
 				  transform: translateX(0);
 				}	  	  
 			.form-check {
@@ -2594,55 +2595,7 @@ getGeographicListByOrgId()">
 			  border-radius: 50%;
 			  background-color: #367AFF;
 			}
-			.geo-input-group {
-			    position: relative;
-			    margin-bottom: 16px;
-			  }
-			  .geo-input-group input {
-			    width: 100%;
-			    padding: 10px 12px;
-			    border-radius: 10px;
-			    border: 1px solid #ddd;
-			    font-size: 14px;
-			    outline: none;
-			    box-sizing: border-box;
-			  }
 
-			  .geo-input-group input:focus {
-			    border: 1px solid #3478FF;
-			  }
-
-			  .geo-number {
-			    position: absolute;
-			    top: -8px;
-			    left: 12px;
-			    background: white;
-			    padding: 0 6px;
-			    font-size: 12px;
-			    color: #777;
-			  }
-
-			  .delete-geo {
-			    position: absolute;
-			    right: 10px;
-			    top: 50%;
-			    transform: translateY(-50%);
-			    cursor: pointer;
-			    color: #333;
-			  }
-
-			  .add-geo-btn, .continue-btn {
-			    background-color: #3478FF;
-			    color: white;
-			    border: none;
-			    width: 100%;
-			    padding: 12px;
-			    font-weight: 600;
-			    font-size: 14px;
-			    border-radius: 6px;
-			    margin-top: 10px;
-			    cursor: pointer;
-			  }
 
 			</style>
 			
@@ -2652,55 +2605,6 @@ getGeographicListByOrgId()">
 			font-weight: 700;
 		}
 	</style>
-	<style>
-		  .custom-card {
-		    width: 110%;
-		   
-		    border-radius: 20px;
-		    padding: 20px;
-		    border-bottom: 1px solid #e0e0e0;
-		    gap: 20px;
-		    opacity: 1;
-		    margin-left: -65px;
-		  }
-
-		  .edit-btn {
-		    background-color: #f5f5f5;
-		    border: none;
-		    border-radius: 999px;
-		    padding: 6px 16px;
-		    font-size: 14px;
-		    display: flex;
-		    align-items: center;
-		  }
-
-		  .edit-btn svg {
-		    margin-right: 6px;
-		  }
-
-		  .info-row {
-		    display: flex;
-		    justify-content: space-between;
-		    align-items: flex-start;
-		    margin-bottom: 12px;
-		  }
-
-		  .info-text {
-		    flex-grow: 1;
-		  }
-		  .geo-tag {
-		    background-color: white;
-		    border: 1px solid #EDEDF0;
-		    border-radius: 8px;
-		    padding: 10px 14px;
-		    margin-bottom: 8px;
-		    font-weight: 700;
-		    color: #4A4E69;
-		    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-			width: 589px;
-		  }
-		</style>
-
 </body>
 
 </html>
