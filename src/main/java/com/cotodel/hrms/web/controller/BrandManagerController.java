@@ -1,11 +1,19 @@
 package com.cotodel.hrms.web.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +37,8 @@ import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 @CrossOrigin
 public class BrandManagerController extends CotoDelBaseController{
 	
+	private static final Logger logger = LoggerFactory.getLogger(BrandManagerController.class);
+
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	@Autowired
@@ -36,6 +46,31 @@ public class BrandManagerController extends CotoDelBaseController{
 	
 	@Autowired
 	public BrandManagementService brandManagementService;
+	
+	@GetMapping(value = "/getOutletTemplate")
+	public ResponseEntity<InputStreamResource> getOutletTemplate() {
+		try {
+			//String filePath ="D:\\opt\\file\\"; //local path 
+			String filePath ="/opt/cotodel/key/";
+			String fileName = "Bulk_Outlet_Templates.xlsx";
+			File file = new File(filePath+fileName);
+			HttpHeaders headers = new HttpHeaders();    
+			
+			headers.add("content-disposition", "inline;filename=" +fileName);
+
+			InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+			return ResponseEntity.ok()
+					.headers(headers)
+					.contentLength(file.length())
+					.contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+					.body(resource);
+
+		}catch (Exception e) {
+			logger.info(e.getMessage());// TODO: handle exception
+		}
+		return null;
+	}
 	
 	@PostMapping(value = "/addOutletDetail")
 	public @ResponseBody String activateBrandManagement(HttpServletRequest request, ModelMap model, Locale locale,
