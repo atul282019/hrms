@@ -7,12 +7,8 @@
 <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!--<body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
-viewEmployeeBand(),cotodelLinkedBankDetail()">-->
-
 <body id="page-top" onload="getUserWithRole(),editUserRoleWithMoreUser(),getLinkedBankDetail(),getBankMaster(),
 getBrandOutletList(),getGeographicListByOrgId()">
-<!-- viewEmployeeBandAdd(),getExpanceCategoryList(),getExpanseTravelAdvance(), viewEmployeeBand()-->
 
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -830,7 +826,7 @@ getBrandOutletList(),getGeographicListByOrgId()">
 	   			   								        <p class="mb-1 black">Would you like to segment your outlets by geography?</p>
 	   			   								        
 	   			   								      </div>
-													  <button class="edit-btn" style="display: block;">
+													  <button class="edit-btn" style="display: none;" id="editgio">
       			   								        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
       			   								          <path d="M12 20h9"></path>
       			   								          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
@@ -1819,6 +1815,7 @@ getBrandOutletList(),getGeographicListByOrgId()">
 					              <input type="text" id="brandName"  class="form-control form-control-sm w-auto" placeholder="Brand Name"
 					  			 style="border-radius: 6px;">
 	            </div>
+				<div class="error-msg" id="brandNameError" ></div>
 	            <p class="mb-2 fw-bold">How many outlets does your brand have?</p>
 	            <div class="form-check mb-2">
 	              <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet" value="oneOutlet">
@@ -1831,7 +1828,7 @@ getBrandOutletList(),getGeographicListByOrgId()">
 	  			 style="border-radius: 6px;"
 	  			 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	            </div>
-
+				<div class="error-msg" id="outletCountError" ></div>
 	            <!-- Question 2 -->
 	            <p class="mb-2 fw-bold">Do you have an online store for sales?</p>
 	            <div class="form-check mb-2">
@@ -1846,6 +1843,7 @@ getBrandOutletList(),getGeographicListByOrgId()">
 	              <input class="form-check-input" type="radio" name="salesMode" id="offlineOnly" value="Offline Only">
 	              <label class="form-check-label" for="offlineOnly">Offline Only</label>
 	            </div>
+				<div class="error-msg" id="salesModeError" ></div>
 	          </div>
 	        </div>
 	      </div>
@@ -1903,6 +1901,7 @@ getBrandOutletList(),getGeographicListByOrgId()">
 	  				  aria-label="Close"
 	  				  data-bs-dismiss="modal"
 	  				  style="margin-right: -65px; outline: none; box-shadow: none;"
+					 
 	  				>
 	  				  <i class="fas fa-times voucher-close-icon"></i>
 	  				</button>
@@ -1918,7 +1917,7 @@ getBrandOutletList(),getGeographicListByOrgId()">
 	  	                       Your Brand Management is successfully activated!
 	  	                   </p>
 	  	                   <!-- OK Button -->
-	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal">OK</button>
+	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
 	  	               </div>
 	  	           </div>
 	  	       </div>
@@ -1927,6 +1926,8 @@ getBrandOutletList(),getGeographicListByOrgId()">
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -2488,12 +2489,9 @@ getBrandOutletList(),getGeographicListByOrgId()">
 		      });
 		    }
 		  });
+		 
 		</script>
 
-		<script>
-		 
-		  
-		</script>
 	<style>
 		#bs-canvas-right2 
 		{

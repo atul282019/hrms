@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-<body id="page-top" onload="getOutletDetail()">
+<body id="page-top" onload="getOutletDetail(), getGeographicDropdownList()">
 	
     <div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>
 
@@ -543,12 +543,12 @@
 												            <table class="table table-reimbursements mb-0" id="outletDetailTable">
 												              <thead>
 												                <tr>
-												                  <th>#</th>
+												                 <!-- <th>#</th>-->
 												                  <th>Outlet Name</th>
 												                  <th>Outlet Type</th>
 												                  <th>Location</th>
 																  <th>Geography</th>
-																  <th>Zone / Region</th>
+																 
 																  <th>Contact Person</th>
 																  <th>
 																    Linked UPI Devices
@@ -768,36 +768,37 @@
 					    <input class="did-floating-input" type="text" id="outletName" placeholder="">
 					    <label class="did-floating-label">Name</label>
 					</div>
-					
+					<div class="error-msg" id="outletNameError" style="margin-top: -10px; font-size: 12px;"></div>
 					<div class="did-floating-label-content mr-2">
 					    <select class="did-floating-select" id="outletType">
 					        <option value="">Outlet Type</option>
-							<option value="1">Company Owned</option>
+							<option value="Company Owned">Company Owned</option>
 					    </select>
 					    <label class="did-floating-label">Outlet Type </span></label>
 					</div>
+					<div class="error-msg" id="outletTypeError" style="margin-top: -10px; font-size: 12px;"></div>
 						<div class="did-floating-label-content">
 						    <input class="did-floating-input" type="text" id="outletManager"  placeholder="">
 						    <label class="did-floating-label">Outlet Manager</label>
 						</div>
+						<div class="error-msg" id="outletManagerError" style="margin-top: -10px; font-size: 12px;"></div>
 						<div class="did-floating-label-content">
-						    <input class="did-floating-input" type="number" id="outletContact" placeholder="">
+						    <input class="did-floating-input" type="text" id="outletContact" placeholder="" maxlength="10" 
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 						    <label class="did-floating-label">Contact Number</label>
 						</div>
+						<div class="error-msg" id="outletContactError" style="margin-top: -10px; font-size: 12px;"></div>
 						<div class="did-floating-label-content">
 						    <input class="did-floating-input" type="text" id="outletLocation" placeholder="">
 						    <label class="did-floating-label">Location</label>
 						</div>
+						<div class="error-msg" id="outletLocationError" style="margin-top: -10px; font-size: 12px;"></div>
 						<div class="did-floating-label-content mr-2">
 						    <select class="did-floating-select" id="geography" >
-						        <option value="">Select Geography</option>
-								<option value="1">East</option>
-								<option value="2">West</option>
-								<option value="3">North</option>
-								<option value="4">South</option>
 						    </select>
 						    <label class="did-floating-label">Geography Type </span></label>
 						</div>
+						<div class="error-msg" id="geographyError" style="margin-top: -10px; font-size: 12px;"></div>
 				  </div>
 
 				  <button class="add-geo-btn" type="button" id="openSuccessModalBtn" onclick="addBrandOutlet()">
@@ -936,6 +937,17 @@
 	  .green { background: #BFDECC; }
 	  .yellow { background: #FFCC004D; }
 	  .gray { background: #C7C8D1; }
+	  
+	  .outlet{
+		width: 1382;
+			  height: 47;
+			  gap: 10px;
+			  angle: 0 deg;
+			  opacity: 1;
+			  padding-top: 10px;
+			  padding-bottom: 10px;
+	  }
+
  </style>
 </body>
 

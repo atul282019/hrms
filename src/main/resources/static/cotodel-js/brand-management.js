@@ -50,7 +50,6 @@ let geoCount = 1;
 	  }
 	  
 async function activateBrand(){
-	alert("Offline Only");
 	var createdby = document.getElementById("userMobile").value;
 	var orgId = document.getElementById("employerId").value;
 	var brandName = document.getElementById("brandName").value;
@@ -59,13 +58,17 @@ async function activateBrand(){
 	const salesMode = document.querySelector('input[name="salesMode"]:checked').id;
 
 	let outletCount = outletCountRadioValue;
-
+	if (brandName === "") {
+		   document.getElementById("brandNameError").innerHTML="Please enter brand name.";
+	       document.getElementById("outletName").focus();
+	       return false;
+	   }
 	if (outletCountRadioValue === "multipleOutlets") {
 	    if (multipleValue.trim() === "") {
-	        alert("Please enter number of outlets.");
+			document.getElementById("outletCountError").innerHTML="Please enter number of outlets.";
 			return false;
 	    } else if (isNaN(multipleValue) || Number(multipleValue) <= 0) {
-	        alert("Number of outlets must be a positive number.");
+			document.getElementById("outletCountError").innerHTML="Number of outlets must be a positive number.";
 	        return false;
 	    } else {
 	        outletCount = multipleValue;
@@ -104,6 +107,9 @@ async function activateBrand(){
 	        console.log("data",data);
 		    console.log("data1",data1);
 			if(data.status==true){
+				getBrandOutletList();
+				document.getElementById("bs-canvas-right2").classList.remove("show-canvas");
+				document.getElementById("modal-overlay1").style.display = "none";
 				$('#PaymentSuccessModal').modal('show');
 		        /* $('#AddVehicleModal').modal('hide');
 				 getSupportTicketListList();
@@ -111,6 +117,7 @@ async function activateBrand(){
 				 document.getElementById('bs-canvas-right2').style.right = '-378px';
 				 document.getElementById('modal-overlay2').style.display = 'none';*/
 			}else if(data.status==false){
+				getBrandOutletList();
 				$('#PaymentSuccessModal').modal('show');
 				//document.getElementById('bs-canvas-right2').style.right = '0';
 			    //document.getElementById('modal-overlay2').style.display = 'block';
@@ -122,6 +129,37 @@ async function activateBrand(){
 	});	
 	
 }
+
+async function getBrandOutletList(){
+			var orgId = document.getElementById("employerId").value;
+			//alert("brandmanagement"+orgId);
+			$.ajax({
+				type: "GET",
+			     url:"/getBrandOutletList",
+				 dataType: 'json',   
+			      data: {
+							"orgid":orgId,
+					 },  		 
+			        success:function(data){
+			        var data1 = data.data;
+					if(data.status==true && data1.length >=0){
+						
+						document.getElementById('outletNo').innerHTML = data1[0].outletsNo;
+						document.getElementById('storeType').innerHTML = data1[0].storetypedesc;
+
+						 document.getElementById('activateBrand').style.display = 'none';
+						 document.getElementById('activateGeo').style.display = 'block';
+					}else if(data.status==false){
+						document.getElementById('activateBrand').style.display = 'block';
+					    document.getElementById('activateGeo').style.display = 'none';
+					}
+			     },
+			     error: function(e){
+			         alert('Error: ' + e);
+			     }
+			});	
+			
+		}
 async function getAllGeographyValues() {
 	      const inputs = document.querySelectorAll('#geoContainer .geo-input-group input');
 	      const values = [];
@@ -184,15 +222,13 @@ async function getAllGeographyValues() {
 		  	        console.log("data",data);
 		  			if(data.status==true){
 		  				$('#PaymentSuccessModal').modal('show');
-		  		        /* $('#AddVehicleModal').modal('hide');
-		  				 getSupportTicketListList();
-
-		  				 document.getElementById('bs-canvas-right2').style.right = '-378px';
-		  				 document.getElementById('modal-overlay2').style.display = 'none';*/
+						getGeographicListByOrgId();
+						document.getElementById('editgio').style.display="block";
+						document.getElementById("modal-overlay2").style.display = "none";
+					    document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
+		  		      
 		  			}else if(data.status==false){
 		  				$('#PaymentSuccessModal').modal('show');
-		  				//document.getElementById('bs-canvas-right2').style.right = '0';
-		  			    //document.getElementById('modal-overlay2').style.display = 'block';
 		  			}
 		  	     },
 		  	     error: function(e){
@@ -252,7 +288,37 @@ async function addBrandOutlet(){
 			var outletContact = document.getElementById("outletContact").value;
 			var outletLocation = document.getElementById("outletLocation").value;
 			var geography = document.getElementById("geography").value;
-		
+			if (outletName === "") {
+				   document.getElementById("outletNameError").innerHTML="Please enter Outlet Name.";
+			       document.getElementById("outletName").focus();
+			       return false;
+			   }
+			   if (outletType === "") {
+				   document.getElementById("outletTypeError").innerHTML="Please select Outlet Type.";
+			       document.getElementById("outletType").focus();
+			       return false;
+			   }
+			   if (outletManager === "") {
+				   document.getElementById("outletManagerError").innerHTML="Please enter Outlet Manager name.";
+			       document.getElementById("outletManager").focus();
+			       return false;
+			   }
+			   if (outletContact === "") {
+				   document.getElementById("outletContactError").innerHTML="Please enter Outlet Contact.";
+			       document.getElementById("outletContact").focus();
+			       return false;
+			   }
+			   if (outletLocation === "") {
+				   document.getElementById("outletLocationError").innerHTML="Please enter Outlet Location.";
+			       document.getElementById("outletLocation").focus();
+			       return false;
+			   }
+			   if (geography === "") {
+				   document.getElementById("geographyError").innerHTML="Please select Geography.";
+			       document.getElementById("geography").focus();
+			       return false;
+			   }
+			   
 			$.ajax({
 				type: "POST",
 			     url:"/addOutletDetail",
@@ -270,7 +336,9 @@ async function addBrandOutlet(){
 			        success:function(data){
 			        var data1 = data.data;
 					if(data.status==true){
-						
+						getOutletDetail();
+						document.getElementById("modal-overlay2").style.display = "none";
+					    document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
 						$('#PaymentSuccessModal').modal('show');
 					}else if(data.status==false){
 						$('#PaymentSuccessModal').modal('show');
@@ -282,9 +350,8 @@ async function addBrandOutlet(){
 			});	
 			
 		}
-				
+				/*
 async function activateBrand(){
-	alert("Offline Only");
 	var createdby = document.getElementById("userMobile").value;
 	var orgId = document.getElementById("employerId").value;
 	var brandName = document.getElementById("brandName").value;
@@ -293,13 +360,17 @@ async function activateBrand(){
 	const salesMode = document.querySelector('input[name="salesMode"]:checked').id;
 
 	let outletCount = outletCountRadioValue;
-
+	if (brandName === "") {
+		   document.getElementById("brandNameError").innerHTML="Please enter brand name.";
+	       document.getElementById("outletName").focus();
+	       return false;
+	   }
 	if (outletCountRadioValue === "multipleOutlets") {
 	    if (multipleValue.trim() === "") {
-	        alert("Please enter number of outlets.");
+			document.getElementById("outletCountError").innerHTML="Please enter number of outlets.";
 			return false;
 	    } else if (isNaN(multipleValue) || Number(multipleValue) <= 0) {
-	        alert("Number of outlets must be a positive number.");
+			document.getElementById("outletCountError").innerHTML="Number of outlets must be a positive number.";
 	        return false;
 	    } else {
 	        outletCount = multipleValue;
@@ -325,13 +396,13 @@ async function activateBrand(){
 	     url:"/addBrandDetails",
 		 dataType: 'json',   
 	      data: {
-					"orgid":orgId,
-					"storetypedesc":salesMode,
-					"outletsNo":outletCount,
-					"brandname":brandName,
-					"createdby":createdby,
-					"clientKey":clientKey,
-				    "hash":hashHex
+				"orgid":orgId,
+				"storetypedesc":salesMode,
+				"outletsNo":outletCount,
+				"brandname":brandName,
+				"createdby":createdby,
+				"clientKey":clientKey,
+			    "hash":hashHex
 			 },  		 
 	        success:function(data){
 	        var data1 = data.data;
@@ -339,11 +410,11 @@ async function activateBrand(){
 		    console.log("data1",data1);
 			if(data.status==true){
 				$('#PaymentSuccessModal').modal('show');
-		        /* $('#AddVehicleModal').modal('hide');
+		         $('#AddVehicleModal').modal('hide');
 				 getSupportTicketListList();
 
 				 document.getElementById('bs-canvas-right2').style.right = '-378px';
-				 document.getElementById('modal-overlay2').style.display = 'none';*/
+				 document.getElementById('modal-overlay2').style.display = 'none';
 			}else if(data.status==false){
 				$('#PaymentSuccessModal').modal('show');
 				//document.getElementById('bs-canvas-right2').style.right = '0';
@@ -356,60 +427,119 @@ async function activateBrand(){
 	});	
 	
 }
+*/async function getOutletDetail() {
+    var orgId = document.getElementById("employerId").value;
 
-async function getOutletDetail(){
-			var orgId = document.getElementById("employerId").value;
-		
-			$.ajax({
-				type: "GET",
-			     url:"/getOutletDetail",
-				 dataType: 'json',   
-			      data: {
-							"orgid":orgId,
-					 },  		 
-					 success: function(data) {
-					           
-					             var data2 = data.data;
-					 			
-					             var table = $('#outletDetailTable').DataTable({
-					                 destroy: true,
-					                 "responsive": true,
-					                 searching: false,
-					                 bInfo: false,
-					                 paging: false,
-					                 "lengthChange": true,
-					                 "autoWidth": false,
-					                 "pagingType": "full_numbers",
-					                 "pageLength": 50,
-					                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-					                 "language": {
-					 					"emptyTable": 'No Record Founds'
-					 					},
-					                 "aaData": data2,
-					                 "aoColumns": [
-					 					{ 
-					 					  "mData": "name", 
-					 					},
-					 					{ "mData": "mgrName" },
-					                     { "mData": "mgrMobile"},
-					                     { "mData": "location" },
-					 					{ "mData": "location" },
-										{ "mData": "location" },
-										{ "mData": "location" },
-										{ "mData": "location" },
-										{ "mData": "location" },
-					 					
-					                 ],
-					 				createdRow: function (row, data2, dataIndex) 
-					                 {
-					 				
-					               }
-					 		});		
-					 							
-					         },
-					         error: function(e) {
-					             alert('Failed to fetch JSON data' + e);
-					         }
-			});	
-			
-		}
+    $.ajax({
+        type: "GET",
+        url: "/getOutletDetail",
+        dataType: "json",
+        data: {
+            orgid: orgId,
+        },
+        success: function(response) {
+            var outletData = response.data;
+
+            var table = $('#outletDetailTable').DataTable({
+                destroy: true,
+                responsive: true,
+                searching: false,
+                bInfo: false,
+                paging: false,
+                lengthChange: false,
+                autoWidth: false,
+                pagingType: "full_numbers",
+                pageLength: 50,
+                buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                language: {
+                    emptyTable: 'Currently, no outlets have been added. Click <a class="outlet" onclick="openGeoGraphic()">Add Manually</a> to add your first outlet.'
+                },
+                aaData: outletData,
+                aoColumns: [
+                    { mData: "name" },
+                    { mData: "typeDesc" },
+                    { mData: "location" },
+                    { mData: "geocatid" },
+                    {
+                        mData: null,
+                        render: function (data, type, row) {
+                            return `${row.mgrName}<br>${row.mgrMobile || ''}`;
+                        }
+                    },
+                    {
+                        mData: "id",
+                        render: function (data, type, row) {
+                            return `
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <div class="circle green" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">1</div>
+                                    <div class="circle yellow" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">2</div>
+                                    <div class="circle gray" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">3</div>
+                                </div>`;
+                        }
+                    },
+					{
+					    mData: "creationdate",
+					    render: function (data, type, row) {
+					        if (!data) return "";
+					        const date = new Date(data);
+					        const day = String(date.getDate()).padStart(2, '0');
+					        const month = String(date.getMonth() + 1).padStart(2, '0');
+					        const year = date.getFullYear();
+					        return `${day}/${month}/${year}`;
+					    }
+					},
+                    { mData: "status" }
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    // Optional: Add row-level customization here
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching outlet details:', error);
+            alert('Failed to fetch outlet details.');
+        }
+    });
+}
+
+function getGeographicDropdownList() {
+    var orgId = document.getElementById("employerId").value;
+
+    $.ajax({
+        type: "GET",
+        url: "/getBrupiBrandGeoList",
+        data: {
+            "orgid": orgId,
+        },
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            if (
+                response.status &&
+                response.data &&
+                response.data.length > 0 &&
+                response.data[0].geographicLocation
+            ) {
+                var geoList = response.data[0].geographicLocation;
+                var $dropdown = $("#geography");
+
+                $dropdown.empty(); 
+                $dropdown.append(
+                    $("<option>").val("").text("Geography")
+                );
+
+                geoList.forEach(function(location) {
+                    $dropdown.append(
+                        $("<option>").val(location.id).text(location.name)
+                    );
+                });
+            } else {
+                alert("No geography data available.");
+            }
+        },
+        error: function(e) {
+            console.error("Error fetching geography data", e);
+            alert("Failed to load geographic locations.");
+        }
+    });
+}

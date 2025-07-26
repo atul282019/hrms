@@ -2114,51 +2114,51 @@ public ModelAndView crmtab1(Model model) {
 }
 return new ModelAndView("home", "command", "");
 }
-//@GetMapping(value="/brandOnboarding")
-//public ModelAndView brandOnboarding(Model model) {
-//	String token = (String) session.getAttribute("hrms");
-//	Integer id  = (Integer) session.getAttribute("id");
-//	if(token!=null) {
-//		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//		if(obj!=null) {
-//			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
-//			model.addAttribute("name",obj.getName());
-//			model.addAttribute("org",obj.getOrgName());
-//			model.addAttribute("mobile",obj.getMobile());
-//			model.addAttribute("email",obj.getEmail());
-//			model.addAttribute("employerId",id);
-//
-//			return new ModelAndView("brand-onboarding", "command", "");
-//		}
-//		 return new ModelAndView("error", "command", "");
-//	}
-//	return new ModelAndView("home", "command", "");
-//}
-//return new ModelAndView("home", "command", "");
-//}
-//
-//@GetMapping(value="/geographymanagement")
-//public ModelAndView geographymanagement(Model model) {
-//	String token = (String) session.getAttribute("hrms");
-//	Integer id  = (Integer) session.getAttribute("id");
-//	if(token!=null) {
-//		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//		if(obj!=null) {
-//			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
-//			model.addAttribute("name",obj.getName());
-//			model.addAttribute("org",obj.getOrgName());
-//			model.addAttribute("mobile",obj.getMobile());
-//			model.addAttribute("email",obj.getEmail());
-//			model.addAttribute("employerId",id);
-//
-//			return new ModelAndView("geography-management", "command", "");
-//		}
-//		 return new ModelAndView("error", "command", "");
-//	}
-//	return new ModelAndView("home", "command", "");
-//}
-//return new ModelAndView("home", "command", "");
-//}
+@GetMapping(value="/brandOnboarding")
+public ModelAndView brandOnboarding(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+
+			return new ModelAndView("brand-onboarding", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
+
+@GetMapping(value="/geographymanagement")
+public ModelAndView geographymanagement(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+
+			return new ModelAndView("geography-management", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
 
 @GetMapping(value="/brandDashboard")
 public ModelAndView brandDashboard(Model model) {
