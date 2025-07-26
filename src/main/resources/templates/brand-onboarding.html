@@ -175,7 +175,7 @@
 					<!--<button class="btn btn-custom me-2" data-bs-toggle="modal" data-bs-target="#AddVehicleModal">
 		              <i class="bi bi-plus-lg"></i> Raise Ticket
 		            </button>-->
-					<button class="btn btn-custom me-2"  type="button" id="raiseTicket">
+					<button class="btn btn-custom me-2"  type="button" id="raiseTicket" onclick="openGeoGraphic()">
 		             Link Device <i class="bi bi-plus-lg"></i> 
 		            </button>
 		 
@@ -1236,7 +1236,7 @@
     <!-- End of Page Wrapper -->
 	
 	<!-- modal -->
-<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay1" style="display: block;">
+<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay1" style="display: none;">
   <div class="voucher-modal-canvas" id="bs-canvas-right2">
     <div class="voucher-modal-scrollable-wrapper">
       <div class="voucher-modal-scrollable">
@@ -1288,6 +1288,129 @@
     </div>
   </div>
 </div>
+<!-- modal 2 linkdevice modal -->
+<!-- modal 2 linkdevice modal -->
+<div class="" id="modal-overlay2" style="display:none;">
+  <div class="voucher-modal-canvas" id="bs-canvas-right3">
+    <div class="voucher-modal-scrollable-wrapper">
+      <div class="voucher-modal-scrollable">
+        <div class="voucher-header mt-2 d-flex justify-content-between align-items-center">
+          <h5 class="voucher-title font-weight-bold" style="margin-left: 20px;">Add UPI Device</h5>
+          <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="outline: none; box-shadow: none;margin-right: -50px;">
+            <i class="fas fa-times voucher-close-icon"></i>
+          </button>
+        </div>
+
+        <div class="voucher-body p-3">
+
+          <div class="did-floating-label-content mb-3">
+            <select class="did-floating-select" id="deviceType">
+              <option value="Physical QR Code" selected>Physical QR Code</option>
+              <option value="Digital POS Machine">Digital POS Machine</option>
+            </select>
+            <label class="did-floating-label">Type of Device</label>
+          </div>
+
+          <div class="did-floating-label-content mb-3">
+            <select class="did-floating-select" id="qrState">
+              <option value="Static" selected>Static</option>
+              <option value="Dynamic">Dynamic</option>
+            </select>
+            <label class="did-floating-label">State of UPI QR</label>
+          </div>
+
+          <!-- Uploaded Section -->
+		  <div class="text-center p-3 mb-3" style="border: 1px solid #C7C8D1; border-radius: 16px;">
+            <div class="mb-2">
+              <img src="img/check-circle-green.svg" style="width: 48px;height: 48px;">
+            </div>
+            <div class="mb-2 font-weight-bold text-secondary">Uploaded</div>
+            <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
+			<button
+			  style="
+			  display: none;
+			    background-color: #367AFF;
+			    color: white;
+			    width: 104px;
+			    height: 46px;
+			    border: none;
+			    border-radius: 8px;
+			    padding: 12px 24px;
+			    font-size: 16px;
+			    font-weight: 500;
+			    cursor: pointer;
+			  "
+			>
+			  Upload
+			</button>
+            <img src="img/testimg.png" alt="Uploaded QR" class="img-fluid rounded mb-2" style="max-height: 220px; object-fit: contain;">
+			<div class="d-flex justify-content-between align-items-start p-3" style="background-color: #EAF4EF; border: 1px solid #BFDECC; border-radius: 10px;">
+			  <div class="d-flex flex-column">
+			    <span style="color: #4A4E69; font-weight: 500;margin-left: -39px;">my-QR.jpg</span>
+			    <div class="d-flex align-items-center gap-2 mt-1" style="font-size: 12px; color: #6C757D;">
+			      <span>1MB •</span>
+			      
+			      <span style="color: #27AE60; font-weight: 500;"> <img src="img/check-circle-green.svg" style="width: 24px;height: 24px;"> Uploaded</span>
+			    </div>
+			  </div>
+			  <div style="cursor: pointer; color: #4A4E69; font-size: 16px;">&#10005;</div>
+			</div>
+          </div>
+
+          <!-- UPI ID -->
+          <div class="did-floating-label-content mb-4">
+            <input class="did-floating-input" type="text" id="upiId" placeholder="" value="88675sfe@abcdpay" />
+            <label class="did-floating-label">UPI ID</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Button -->
+    <div class="voucher-footer text-center p-3">
+      <!--<button class="voucher-download-btn btn btn-primary btn-block font-weight-bold" type="button">-->
+		<button
+		  class="voucher-download-btn btn btn-primary btn-block font-weight-bold"
+		  type="button"
+		  data-bs-toggle="modal"
+		  data-bs-target="#PaymentSuccessModal1"
+		>
+        SUBMIT FOR APPROVAL
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Payment Success Modal -->
+	   <div class="modal fade" id="PaymentSuccessModal1" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+	       <div class="modal-dialog modal-dialog-centered" >
+			
+	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+				<button
+				  type="button"
+				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+				  aria-label="Close"
+				  data-bs-dismiss="modal"
+				  style="margin-right: -65px; outline: none; box-shadow: none;"
+				>
+				  <i class="fas fa-times voucher-close-icon"></i>
+				</button>
+	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+	                   <!-- Success Icon -->
+	                   <div class="success-icon mb-4">
+	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
+	                   </div>
+	                   <!-- Title -->
+	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Done</h5>
+	                   <!-- Subtext -->
+	                   <p class="text-muted mb-4">
+	                       Request for UPI Device addition submitted successfully!
+	                   </p>
+	                   <!-- OK Button -->
+					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal">OK</button>
+	               </div>
+	           </div>
+	       </div>
+	   </div>
 <!-- Payment Success Modal -->
 	   <div class="modal fade" id="PaymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
 	       <div class="modal-dialog modal-dialog-centered" >
@@ -1344,7 +1467,33 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 	<script type="text/javascript" src="cotodel-js/brand-management.js"></script>
-	<style>	#bs-canvas-right2 {
+	<style>
+		#bs-canvas-right3 
+				{
+				  position: absolute;
+				  right: 0;
+				  top: 0;
+				  width: 380px;
+				  height: 100%;
+				  background: #fff;
+				  transform: translateX(100%);
+				  transition: transform 0.3s ease-in-out;
+				  z-index: 1001;
+				}
+
+				#bs-canvas-right3.show-canvas {
+				  transform: translateX(0);
+				}	
+		#modal-overlay2 {
+		  display: none;
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background-color: rgba(0, 0, 0, 0.85); /* Bootstrap-like black */
+		  z-index: 1000; /* Just below bs-canvas */
+		}	#bs-canvas-right2 {
 		  position: absolute;
 		  right: 0;
 		  top: 0;
@@ -1402,6 +1551,22 @@
 					}
 
 	</style>
+	<script>
+				  function openGeoGraphic() {
+				    document.getElementById("bs-canvas-right3").classList.add("show-canvas");
+				    document.getElementById("modal-overlay2").style.display = "block";
+				  }
+
+				  document.addEventListener("DOMContentLoaded", function () {
+				    const closeBtn = document.getElementById("close-geo-modal-btn");
+				    if (closeBtn) {
+				      closeBtn.addEventListener("click", function () {
+				        document.getElementById("modal-overlay2").style.display = "none";
+				        document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
+				      });
+				    }
+				  });
+				</script>
 	<script>
 		
 		$(document).ready(function(){
