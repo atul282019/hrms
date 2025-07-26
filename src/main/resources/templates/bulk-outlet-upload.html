@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bulk Outlet Management</title>
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="css/slick/slick-theme.css" />
+	 <link rel="stylesheet" href="css/custom.css">
+</head>
+<body id="page-top"  >
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+		<!-- Sidebar -->
+		    <div th:insert="fragments/sidenav.html :: sidevav"></div>
+       <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav top-nav">
+                        <!-- Nav Item - User Information -->
+                    </ul>
+					<!-- Right Icons + Profile -->
+			    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+			      <!-- Wallet Icon -->
+			    
+				  <li class="nav-item mr-3">
+  			        <a href="/cotowallet" role="button">
+  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+  			        </a>
+  			      </li>
+			      <!-- Notification Icon -->
+			      <li class="nav-item mr-3">
+			        <a href="#" role="button">
+			          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+			        </a>
+			      </li>
+
+			      <!-- Profile Dropdown -->
+			      <li class="nav-item dropdown no-arrow">
+			        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="User" style="width: 32px; height: 32px;">
+			        </a>
+			        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+			          <a class="dropdown-item" href="/ProfileInfo">
+			            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+			          </a>
+			       <!--   <a class="dropdown-item" href="#">
+			            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+			          </a>-->
+			          <div class="dropdown-divider"></div>
+			          <a class="dropdown-item" href="/logout">
+			            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+			          </a>
+			        </div>
+			      </li>
+			    </ul>
+                </nav>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid p-0 p-md-1">
+
+                    <div class="row BulkVoucherIssuance-wrap" id="BulkVoucherIssuance-wrap">
+                        <div class="col-12">
+                            <div class="ml-2 p-3">
+                                <div class="row organisation-wrap">
+                                    <h3 class="mb-1">Bulk add Vehicles</h3>
+                                </div>
+                            </div>
+							<form action="" id="empdetailForm" name="empdetailForm" method="Post" enctype="multipart/form-data">
+                            <div class="mt-1 ml-2 p-3 bulk-wrap">
+                                <div class="row">
+                                    <div class="bg-white py-3 px-2 mb-3 w-100 br-10">
+                                        <div class="col-12 col-md-10">
+                                            <div class="d-flex align-items-center mb-4">	
+                                                  <a class="btn btn-outline-green ml-0" th:href="@{/getOutletTemplate}" >Download Template</a>
+                                                <p class="mb-0">Last updated on <span th:text="${session.formattedDate}" ></span></p>
+                                            </div>
+
+                                            <ul class="bulk-list">
+												<li><span>1.</span>Please download our template.</li>
+					                            <li><span>2.</span>Edit this file in excel, and add all your outlets.</li>
+					                            <li><span>3.</span>Save and upload this file below. Any other file will be rejected.</li>
+					                            
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white py-3 px-2 mb-3 w-100 br-10">
+                                        <div class="col-12 col-md-12">
+                                            <h5>Template file instructions</h5>
+                                            <ul class="bulk-list">
+												<li><span>1.</span>Please do not add/remove columns.</li>
+				                              <li><span>2.</span>If there is no data for a particular cell, leave it empty. Don’t enter “-”, “NA” etc.</li>
+											  <li><span>3.</span>Please do not use all capital letters in address, name, title etc.</li>
+				                            </ul>
+											
+                                            <div class="form-group choose-file" style="max-width: 600px;">
+                                                <div class="input-group">
+                                                  <input type="text" class="form-control" readonly>                                                  
+                                                    <div class="input-group-btn">
+                                                        <span class="fileUpload">
+                                                            <span class="upl" id="upload">Choose file</span>
+															    <input type="file" class="upload up" id="up" name="up" 
+																accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
+																onchange="convertImageToBase64()"> 
+                                                            </span>
+                                                    </div>
+                                                 </div>
+												
+                                            </div> 
+											<div class="error-msg" id="fileInputError" style="color:red"></div>	                                          
+                                            <div class="clearfix"></div>
+
+                                        </div>
+                                    </div>
+									<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
+																		
+									<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
+									<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">
+									
+									<input type="hidden" class="form-input" id="createdby" name="createdby"> 
+									
+									
+									<input type="hidden" class="form-input" id="orgId" name="orgId"> 
+									<input type="hidden" class="form-input" id="orgCode" name="orgCode"> 
+									<input type="hidden" class="form-input" id="base64Output" name="base64Output"> 
+									<input type="hidden" class="form-input" id="fileName" name="fileName"> 
+								   <div class="clearfix"></div>
+										<div class="error-msg" id="payervaError" style="color:red"></div>
+										<div class="clearfix"></div>
+										<div id="otmsgdiv" style="display:none" class="alert alert-success text-center">
+							            	<div id="otsuccmsg"></div>   
+							            </div>
+							            <div id="otfailmsgDiv" style="display:none" class="alert alert-danger text-center">
+							            	<div id="otfailmsg"></div>
+							        </div>															
+                                    <div class="w-100 my-3 text-left">
+                                        <a class="btn btn-border-primary btn-lg w-16" 
+										th:href="@{/vehiclemanagement}">Back</a>	
+										<input type="button" class="btn btn-primary btn-lg" id="bulksubmit" onclick="saveBulkOutletUpload()" value="Upload & Continue" disabled> </input>
+										
+                                    </div>
+                                                    
+                                </div>                                
+
+                            </div>
+							</form>
+                        </div>
+                    </div>
+					
+                    <div class="row BulkVoucherIssuanceTable" id="BulkVoucherIssuanceTable" style="display: none;">
+                        <div class="col-12 col-md-12">
+                            <div class="mt-4 ml-2 p-3">
+                                <div class="successful-wrap">
+                                    <h2 class="mb-1 text-green">Successful Upload <div class="count"><span id="success"></span><strong id="successTotal"></strong></div></h2>
+                                    <div class="alert alert-sucess">
+                                        View/Edit Details and Confirm Upload 
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-sucess table-bordered" id="successUpload">
+                                            <thead>
+                                                <tr>
+                                                    <!--<th>Redemtion Type</th>-->
+                                                    <th>Outlet Registration #</th>
+                                                    <!--<th>mobile</th>
+                                                    <th>amount</th>
+                                                    <th>startDate</th>
+                                                    <th>expDate</th>-->
+                                                   
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="text-right my-3">
+                                        <button class="btn btn-outline-reject"onclick="window.location.href='/bulkvehicleupload'">Cancel</button>
+                                        <button class="btn btn-confirm" id="continueButton" onclick="createBulkVehicle()" disabled>Continue
+											<!--<a class="text-white" style="text-decoration: none;" onclick="nextTab()" >Continue</a>-->
+											</button>
+                                    </div>
+                                </div>
+
+                                <div class="unsuccessful-wrap">
+                                    <h2 class="mb-1 text-green">Unsuccessful Upload <div class="count"><span id="failed"></span><strong id="failedTotal"></strong></div></h2>
+                                    <div class="alert alert-unsucess">
+                                     Download Unsuccessful Upload  to try again 
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-unsucess" cellspacing="0" cellpadding="0" id="failedUpload">
+                                            <thead>
+                                                <tr>
+													<!--<th>Redemtion Type</th>-->
+                                                    <th>Reason</th>
+                                                    <th>Outlet Registration #</th>
+                                                    <!--<th>amount</th>
+                                                    <th>startDate</th>
+                                                    <th>expDate</th>
+													<th>Error Msg</th>-->
+                                                
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="text-right my-3">
+										<button class="btn btn-outline-download" id="downloadBtn" data-toggle="modal" data-target="#ModalDownload1">Download</button>
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+			  </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+		
+		<div class="lds-spinner" id="signinLoader" style="display: none">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+				
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+	
+	<!-- Modal Confirm -->
+	<div class="modal fade" id="ModalBulkConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content modal-bulk">
+	        <div class="modal-top text-center">          
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+	            <img src="img/modal-close.svg" alt="">
+	        </button>        
+	        <img src="img/modal-success.svg" alt="">
+	        </div>
+	        <div class="modal-bottom">
+	            <div class="count"><span id="correctConfirm"></span><strong id="correctTotal"></strong></div>
+	            <br>
+	            <span>Upload Successful</span>
+	        </div>
+	    </div>
+	    </div>
+	</div>
+
+	<!-- Modal Reject -->
+	<div class="modal fade" id="ModalBulkReject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content modal-bulk">
+	        <div class="modal-top text-center">          
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+	            <img src="img/modal-close.svg" alt="">
+	        </button>        
+	        <img src="img/modal-reject.svg" alt="">
+	        </div>
+	        <div class="modal-bottom">
+	            <div class="count"><span id="rejectConfirm"></span><strong id="rejectTotal"></strong></div>
+	            <br>
+	            <span>Upload Rejected</span>
+	        </div>
+	    </div>
+	    </div>
+	</div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	<script src="js/xsls-export.js"></script>
+	<script type="text/javascript" src="cotodel-js/bulk-outlet.js"></script>
+
+	<script type="text/javascript" src="js/slick/slick.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<!-- Bootstrap JS (must come after jQuery) -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	
+   <script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		  $('li.active').removeClass('active').removeAttr('aria-current'); 
+		  $('a[href="' +'/brandDashboard"]').closest('li').addClass('active').attr('aria-current', 'page');   
+		  
+	   $(".innernav").click(function(){
+	       $(".dropdownNav").addClass("active");
+	   });
+	});
+
+	</script>
+	<style>
+	/* Container within modal */
+	.car-container {
+	  position: relative;
+	  width: 100%;
+	  height: 50px;
+	  overflow: hidden;
+	  margin-bottom: 1rem;
+	}
+
+	/* Car image */
+	.car-moving {
+	  position: absolute;
+	  top: 0;
+	  right: 250px;
+	  width: 60px;
+	  height: 30px;
+	  animation: moveCar var(--car-speed, 4s) linear infinite;
+	}
+
+	/* Animation only within container width */
+	@keyframes moveCar {
+	  0% {
+	    transform: translateX(0);
+	  }
+	  100% {
+	    transform: translateX(calc(100% + 80px));
+	  }
+	}
+
+	/* Optional speed control */
+	.speed-slow   { --car-speed: 8s; }
+	.speed-medium { --car-speed: 5s; }
+	.speed-fast   { --car-speed: 2s; }
+	</style>
+	<style>
+
+	@keyframes rotate360 {
+	    from {
+	        transform: rotate(360deg);
+	    }
+	    to {
+	        transform: rotate(0deg);
+	    }
+	}
+	.rotate {
+	    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
+	} </style>
+			<script>	
+				document.getElementById("recallBalance2").addEventListener("click", function() {
+				    const recallIcon = this;
+				    const selectedBankAccount = document.getElementById("banklist2").value;
+				    // Add rotation class
+				    recallIcon.classList.add("rotate");
+
+				    setTimeout(() => {
+				        recallIcon.classList.remove("rotate");
+				    }, 600);
+
+				    if (selectedBankAccount) {
+				        showLinkedAccAmount2(selectedBankAccount, 'bank-section-2');
+				    } else {
+				        alert("Please select a bank account first.");
+				    }
+				});
+
+				function showLinkedAccAmount2(accountNumber, sectionId) {
+				    const employerId = document.getElementById("employerId").value;
+				    const section = document.getElementById(sectionId);
+
+				    console.log("Fetching balance for account:", accountNumber, "Employer ID:", employerId);
+
+				    $.ajax({
+				        type: "POST",
+				        url: "/showLinkedAccAmount",
+				        data: {
+				            "acNumber": accountNumber,
+				            "orgId": employerId
+				        },
+				        success: function(response) {
+				            let obj = typeof response === "string" ? JSON.parse(response) : response;
+
+				            if (obj.status) {
+				                // Update balance within the correct section
+				                section.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
+
+				                // Update timestamp
+				                if (obj.timestamp) {
+				                    section.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
+				                }
+				            } else {
+				                alert("Failed to fetch balance.");
+				            }
+				        },
+				        error: function(error) {
+				            console.error("Error fetching balance:", error);
+				            alert('Error fetching balance.');
+				        }
+				    });
+				}
+		</script>
+	<style>	@keyframes rotate360 {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.rotate {
+    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
+} </style>
+<script>				document.getElementById("recallBalance").addEventListener("click", function() {
+    var recallIcon = this;
+    var selectedBankAccount = document.getElementById("banklist").value;
+    // Add rotation class
+    recallIcon.classList.add("rotate");
+    setTimeout(() => {
+        recallIcon.classList.remove("rotate");
+    }, 600);
+
+    // Validate selection
+    if (selectedBankAccount) {
+        showLinkedAccAmount(selectedBankAccount);
+    } else {
+        alert("Please select a bank account first.");
+    }
+});
+
+function showLinkedAccAmount(accountNumber) {
+    var employerid = document.getElementById("employerId").value;
+    console.log("Fetching balance for account:", accountNumber, "Employer ID:", employerid);
+    $.ajax({
+        type: "POST",
+        url: "/showLinkedAccAmount",
+        data: {
+            "acNumber": accountNumber,
+            "orgId": employerid
+        },
+        success: function(response) {
+            console.log("API Response:", response);
+
+            let obj = typeof response === "string" ? JSON.parse(response) : response;
+
+            if (obj.status) {
+                // Update balance
+                document.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
+
+                // Update timestamp
+                if (obj.timestamp) {
+                    document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
+                }
+            } else {
+                alert("Failed to fetch balance.");
+            }
+        },
+        error: function(error) {
+            console.error("Error fetching balance:", error);
+            alert('Error fetching balance.');
+        }
+    });
+}
+
+		function formatTimestamp(timestamp) {
+		    let dateObj = new Date(timestamp.replace(" ", "T"));
+
+		    let hours = dateObj.getHours().toString().padStart(2, '0'); 
+		    let minutes = dateObj.getMinutes().toString().padStart(2, '0');
+		    let seconds = dateObj.getSeconds().toString().padStart(2, '0');
+
+		    let day = dateObj.getDate();
+		    let month = dateObj.toLocaleString('en-US', { month: 'short' });
+		    let year = dateObj.getFullYear();
+		    let weekday = dateObj.toLocaleString('en-US', { weekday: 'short' });
+
+		    return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
+		}
+
+
+		</script>
+		<!-- Updated Add Vehicle Modal to match the design -->
+		<div class="modal fade" id="Vehicleloading" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document" style="max-width: 750px;">
+		    <div class="modal-content modal-bulk text-center p-4">
+		      <div class="modal-body">
+				<div class="car-container">
+				<!--  <img src="img/animated-car.png" alt="Car" class="car-moving speed-medium">
+				--></div>
+		        <h5 class="vehicle-history-title" style="text-align: center;">Upload in Progress</h5><hr>
+		        <div class="my-3 p-2" style="background-color: #367AFF1A; color: #4A4E69; border-radius:10px;">
+		          Estimated Time: 3-4 Minutes
+		        </div>
+		        <p class="vehicle-date-value">Please wait.<br></p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+			
+<!-- Modal Download -->
+<div class="modal fade" id="ModalDownload1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-bulk">
+        <div class="modal-top text-center">          
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <img src="img/modal-close.svg" alt="">
+        </button>        
+        <div class="count">
+			<!--<span>7</span><strong>10</strong>-->
+			<span id="successUploadDownload"></span><strong id="successUploadTotal">
+		</div>
+            <br>
+            <span>Upload Successful</span>
+        </div>
+        <div class="modal-bottom">
+            <div class="count">
+				<span id="failedUploadDownload"></span><strong id="failedUploadTotal"></strong>
+			</div>
+            <br>
+            <span>Review Pending Unsuccessful Upload</span>
+        </div>
+    </div>
+    </div>
+</div>
+	
+</body>
+
+<!-- Modal -->
+	<div id="confirmationDialog" style="display: none;">
+		<div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document">
+	         <div class="modal-content">
+	                <div class="modal-header pb-0">
+                    <h5 class="modal-title" id="">Are you sure you want to delete this beneficiary ? </h5>
+                    
+                </div>
+	                <div class="modal-body confirmbox">
+	                    <div class="d-flex justify-content-center mt-4">
+							<button id="yes" onclick="confirmRevokeDialog()">Yes</button>
+							<button id="no" onclick="closeDialog()">No</button>
+                    </div>
+	                
+	            </div>
+			 </div>
+		</div>
+	</div>
+	<script>
+	  $('#Vehicleloading').on('shown.bs.modal', function () {
+	    $('.car-moving').addClass('car-moving');
+	  });
+	</script>
+
+	<script>
+	function toggleOtpVisibility() {
+	    const icon = document.getElementById("toggleOtpIcon");
+	    const inputs = document.querySelectorAll('.otp-box-onboarding input');
+
+	    const isHidden = inputs[0].type === 'password';
+	    inputs.forEach(input => {
+	        if (input.id.startsWith('password')) {
+	            input.type = isHidden ? 'text' : 'password';
+	        }
+	    });
+
+	    icon.classList.toggle('fa-eye');
+	    icon.classList.toggle('fa-eye-slash');
+	}
+	</script>
+					
+</html>

@@ -64,4 +64,10 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 			    );
 	}
 
+	@Override
+	public String saveBulkOutletDetail(String token, EncriptResponse jsonObject) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
