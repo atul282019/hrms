@@ -8,9 +8,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BrandManagementRequest {
-	private Long orgId;
-	private String id_number;
-	private String createdBy;
-	private String ifsc;
-	private boolean ifsc_details;
+	private Long id;	
+	private Long orgid;	
+	private int brandid;	
+	private int geocatid;	
+	private String name;	
+	private int typeid;	
+	private String typeDesc;	
+	private String mgrName;	
+	private String mgrMobile;	
+	private String address;	
+	private String location;	
+	private int status;	
+	private String appType;	
+	private String creationdate;	
+	private String createdby;	
+	private String updatedate;	
+	private String updateby;	
+	private String extra1;	
+	private String bulkSingle;	
+	private String outletImg;
+	private String response;
 }

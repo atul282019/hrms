@@ -244,33 +244,172 @@ async function getAllGeographyValues() {
 			
 		}
 		
-		async function getBrandOutletList(){
-					var orgId = document.getElementById("employerId").value;
-					//alert("brandmanagement"+orgId);
-					$.ajax({
-						type: "GET",
-					     url:"/getBrandOutletList",
-						 dataType: 'json',   
-					      data: {
-									"orgid":orgId,
-							 },  		 
-					        success:function(data){
-					        var data1 = data.data;
-							if(data.status==true && data1.length >=0){
-								
-								document.getElementById('outletNo').innerHTML = data1[0].outletsNo;
-								document.getElementById('storeType').innerHTML = data1[0].storetypedesc;
+async function addBrandOutlet(){
+			var orgId = document.getElementById("employerId").value;
+			var outletName = document.getElementById("outletName").value;
+			var outletType = document.getElementById("outletType").value;
+			var outletManager = document.getElementById("outletManager").value;
+			var outletContact = document.getElementById("outletContact").value;
+			var outletLocation = document.getElementById("outletLocation").value;
+			var geography = document.getElementById("geography").value;
+		
+			$.ajax({
+				type: "POST",
+			     url:"/addOutletDetail",
+				 dataType: 'json',   
+			      data: {
+							"orgid":orgId,
+							"mgrName":outletManager,
+							"name":outletName,
+							"mgrMobile":outletContact,
+							"typeDesc":outletType,
+							"location":outletLocation,
+							"geocatid":geography,
+							"appType":"web",
+					 },  		 
+			        success:function(data){
+			        var data1 = data.data;
+					if(data.status==true){
+						
+						$('#PaymentSuccessModal').modal('show');
+					}else if(data.status==false){
+						$('#PaymentSuccessModal').modal('show');
+					}
+			     },
+			     error: function(e){
+			         alert('Error: ' + e);
+			     }
+			});	
+			
+		}
+				
+async function activateBrand(){
+	alert("Offline Only");
+	var createdby = document.getElementById("userMobile").value;
+	var orgId = document.getElementById("employerId").value;
+	var brandName = document.getElementById("brandName").value;
+	const outletCountRadioValue = document.querySelector('input[name="outletCount"]:checked').value;
+	var multipleValue = document.getElementById("noOfOutlet").value;
+	const salesMode = document.querySelector('input[name="salesMode"]:checked').id;
 
-								 document.getElementById('activateBrand').style.display = 'none';
-								 document.getElementById('activateGeo').style.display = 'block';
-							}else if(data.status==false){
-								document.getElementById('id="activateBrand"').style.display = 'block';
-							    document.getElementById('activateGeo').style.display = 'none';
-							}
-					     },
-					     error: function(e){
-					         alert('Error: ' + e);
-					     }
-					});	
-					
-				}
+	let outletCount = outletCountRadioValue;
+
+	if (outletCountRadioValue === "multipleOutlets") {
+	    if (multipleValue.trim() === "") {
+	        alert("Please enter number of outlets.");
+			return false;
+	    } else if (isNaN(multipleValue) || Number(multipleValue) <= 0) {
+	        alert("Number of outlets must be a positive number.");
+	        return false;
+	    } else {
+	        outletCount = multipleValue;
+	    }
+	}
+	else{
+		outletCount=1;
+	}
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+	const dataString = orgId+createdby+clientKey+secretKey;
+
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	
+	$.ajax({
+		type: "POST",
+	     url:"/addBrandDetails",
+		 dataType: 'json',   
+	      data: {
+					"orgid":orgId,
+					"storetypedesc":salesMode,
+					"outletsNo":outletCount,
+					"brandname":brandName,
+					"createdby":createdby,
+					"clientKey":clientKey,
+				    "hash":hashHex
+			 },  		 
+	        success:function(data){
+	        var data1 = data.data;
+	        console.log("data",data);
+		    console.log("data1",data1);
+			if(data.status==true){
+				$('#PaymentSuccessModal').modal('show');
+		        /* $('#AddVehicleModal').modal('hide');
+				 getSupportTicketListList();
+
+				 document.getElementById('bs-canvas-right2').style.right = '-378px';
+				 document.getElementById('modal-overlay2').style.display = 'none';*/
+			}else if(data.status==false){
+				$('#PaymentSuccessModal').modal('show');
+				//document.getElementById('bs-canvas-right2').style.right = '0';
+			    //document.getElementById('modal-overlay2').style.display = 'block';
+			}
+	     },
+	     error: function(e){
+	         alert('Error: ' + e);
+	     }
+	});	
+	
+}
+
+async function getOutletDetail(){
+			var orgId = document.getElementById("employerId").value;
+		
+			$.ajax({
+				type: "GET",
+			     url:"/getOutletDetail",
+				 dataType: 'json',   
+			      data: {
+							"orgid":orgId,
+					 },  		 
+					 success: function(data) {
+					           
+					             var data2 = data.data;
+					 			
+					             var table = $('#outletDetailTable').DataTable({
+					                 destroy: true,
+					                 "responsive": true,
+					                 searching: false,
+					                 bInfo: false,
+					                 paging: false,
+					                 "lengthChange": true,
+					                 "autoWidth": false,
+					                 "pagingType": "full_numbers",
+					                 "pageLength": 50,
+					                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+					                 "language": {
+					 					"emptyTable": 'No Record Founds'
+					 					},
+					                 "aaData": data2,
+					                 "aoColumns": [
+					 					{ 
+					 					  "mData": "name", 
+					 					},
+					 					{ "mData": "mgrName" },
+					                     { "mData": "mgrMobile"},
+					                     { "mData": "location" },
+					 					{ "mData": "location" },
+										{ "mData": "location" },
+										{ "mData": "location" },
+										{ "mData": "location" },
+										{ "mData": "location" },
+					 					
+					                 ],
+					 				createdRow: function (row, data2, dataIndex) 
+					                 {
+					 				
+					               }
+					 		});		
+					 							
+					         },
+					         error: function(e) {
+					             alert('Failed to fetch JSON data' + e);
+					         }
+			});	
+			
+		}

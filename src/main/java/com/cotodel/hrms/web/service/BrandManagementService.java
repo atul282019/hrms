@@ -17,4 +17,6 @@ public interface BrandManagementService {
 
 	String getBrupiBrandGeoList(String token, EncriptResponse jsonObject);
 
+	String getOutletDetail(String token, EncriptResponse jsonObject);
+
 }

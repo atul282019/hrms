@@ -37,28 +37,51 @@ public class BrandManagerController extends CotoDelBaseController{
 	@Autowired
 	public BrandManagementService brandManagementService;
 	
-//	@PostMapping(value = "/activateBrandManagement")
-//	public @ResponseBody String activateBrandManagement(HttpServletRequest request, ModelMap model, Locale locale,
-//			HttpSession session, BrandManagementRequest brandManagementRequest) {
-//		String profileRes = null;
-//		
-//		try {
-//			String json = EncryptionDecriptionUtil.convertToJson(brandManagementRequest);
-//
-//			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse =  brandManagementService.activateBrandManagement(tokengeneration.getToken(), jsonObject);
-// 
-//			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//   
-//		return profileRes;	
-//}
+	@PostMapping(value = "/addOutletDetail")
+	public @ResponseBody String activateBrandManagement(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, BrandManagementRequest brandManagementRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(brandManagementRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  brandManagementService.activateBrandManagement(tokengeneration.getToken(), jsonObject);
+ 
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+		return profileRes;	
+}
+
+	@GetMapping(value = "/getOutletDetail")
+	public @ResponseBody String getOutletDetail(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, BrandManagementRequest brandManagementRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(brandManagementRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  brandManagementService.getOutletDetail(tokengeneration.getToken(), jsonObject);
+ 
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+		return profileRes;	
+}
 
 	@PostMapping(value = "/addBrandDetails")
 	public @ResponseBody String addBrandDetails(HttpServletRequest request, ModelMap model, Locale locale,
