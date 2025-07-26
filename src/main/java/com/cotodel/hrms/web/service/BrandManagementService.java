@@ -19,4 +19,6 @@ public interface BrandManagementService {
 
 	String getOutletDetail(String token, EncriptResponse jsonObject);
 
+	String saveBulkOutletDetail(String token, EncriptResponse jsonObject);
+
 }

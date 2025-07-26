@@ -1,11 +1,27 @@
 package com.cotodel.hrms.web.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,21 +30,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cotodel.hrms.web.jwt.util.JwtTokenValidator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BrandManagementRequest;
+import com.cotodel.hrms.web.response.BulkOutletManagementRequest;
 import com.cotodel.hrms.web.response.ErupiBrandDetailsRequest;
 import com.cotodel.hrms.web.response.ErupiBrandGeoRequest;
-import com.cotodel.hrms.web.response.TravelRequest;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.BrandManagementService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @CrossOrigin
 public class BrandManagerController extends CotoDelBaseController{
 	
+	private static final Logger logger = LoggerFactory.getLogger(BrandManagerController.class);
+	private static final String SECRET_KEY = "0123456789012345"; // Must match frontend
+    private static final String CLIENT_KEY = "client-secret-key"; // Extra validation
+
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	@Autowired
@@ -36,6 +61,31 @@ public class BrandManagerController extends CotoDelBaseController{
 	
 	@Autowired
 	public BrandManagementService brandManagementService;
+	
+	@GetMapping(value = "/getOutletTemplate")
+	public ResponseEntity<InputStreamResource> getOutletTemplate() {
+		try {
+			//String filePath ="D:\\opt\\file\\"; //local path 
+			String filePath ="/opt/cotodel/key/";
+			String fileName = "Bulk_Outlet_Templates.xlsx";
+			File file = new File(filePath+fileName);
+			HttpHeaders headers = new HttpHeaders();    
+			
+			headers.add("content-disposition", "inline;filename=" +fileName);
+
+			InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+			return ResponseEntity.ok()
+					.headers(headers)
+					.contentLength(file.length())
+					.contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+					.body(resource);
+
+		}catch (Exception e) {
+			logger.info(e.getMessage());// TODO: handle exception
+		}
+		return null;
+	}
 	
 	@PostMapping(value = "/addOutletDetail")
 	public @ResponseBody String activateBrandManagement(HttpServletRequest request, ModelMap model, Locale locale,
@@ -171,5 +221,132 @@ public class BrandManagerController extends CotoDelBaseController{
 		}
    return profileRes;
 }
+	
+	@PostMapping(value="/saveBulkOutlet")
+	public @ResponseBody String saveBulkOutlet(HttpServletResponse response, HttpServletRequest request,
+			BulkOutletManagementRequest bulkOutletManagementRequest, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {
 
+	    String profileRes = null;
+	    Map<String, Object> responseMap = new HashMap<>();
+	    ObjectMapper mapper = new ObjectMapper();
+	    
+	    String receivedHash = bulkOutletManagementRequest.getHash();
+
+	    // Validate client key only
+	    if (!CLIENT_KEY.equals(bulkOutletManagementRequest.getClientKey())) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Invalid client key");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+	    System.out.println("vehicleManagementBulkUploadRequest.getOrgId() " + bulkOutletManagementRequest.getOrgId());
+        System.out.println("vehicleManagementBulkUploadRequest.getFileName() " + bulkOutletManagementRequest.getFileName());
+        System.out.println("vehicleManagementBulkUploadRequest.getFile() " + bulkOutletManagementRequest.getFile());
+        System.out.println("vehicleManagementBulkUploadRequest.getCreatedBy() " + bulkOutletManagementRequest.getCreatedBy());
+	    
+	    // Prepare data string for hashing
+	    String dataString = bulkOutletManagementRequest.getOrgId() + bulkOutletManagementRequest.getFileName() + bulkOutletManagementRequest.getFile() +
+	            
+	    		bulkOutletManagementRequest.getCreatedBy() + CLIENT_KEY + SECRET_KEY;
+
+	    String computedHash = null;
+	    try {
+	        computedHash = generateHash(dataString);
+	        System.out.println("computedHash: " + computedHash);
+	        System.out.println("dataString: " + dataString);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+
+	    // Validate hash
+	    boolean isValid = computedHash != null && computedHash.equals(receivedHash);
+	    if (!isValid) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Request Tempered");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+
+	    // Get token from session
+	    String token = (String) session.getAttribute("hrms");
+	    if (token == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: No token found.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+	    // Validate Token
+	    UserDetailsEntity obj = (UserDetailsEntity) JwtTokenValidator.parseToken(token);
+	    if (obj == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Invalid token.");
+        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+	    // Check User Role and Organization ID
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == bulkOutletManagementRequest.getOrgId().intValue()) {
+	        try {
+	            String json = EncryptionDecriptionUtil.convertToJson(bulkOutletManagementRequest);
+	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+	            String encriptResponse = brandManagementService.saveBulkOutletDetail(tokengeneration.getToken(), jsonObject);
+
+	            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+	            profileRes = EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+	            JSONObject apiJsonResponse = new JSONObject(profileRes);
+	            boolean status = apiJsonResponse.getBoolean("status");
+	            responseMap.put("status", status);
+	            responseMap.put("message", apiJsonResponse.getString("message"));
+
+	            if (status && apiJsonResponse.has("data")) {
+	                responseMap.put("data", profileRes);
+	            } else {
+	            	responseMap.put("data", profileRes);
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
+
+	    try {
+	        return mapper.writeValueAsString(responseMap);
+	    } catch (JsonProcessingException e) {
+	        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	    }
+	} 
+
+
+	 private String generateHash(String data) throws NoSuchAlgorithmException {
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : hashBytes) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    }
+	 
 }
