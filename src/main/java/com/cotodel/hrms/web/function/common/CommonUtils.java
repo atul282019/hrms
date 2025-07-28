@@ -195,6 +195,7 @@ public interface CommonUtils {
 	public static String addGeograpichDetails="/erupiBrandService/Api/add/erupiBrandGeoList";
 	public static String getBrupiBrandGeoList="/erupiBrandService/Api/get/erupiBrandGeoList";
 	public static String getOutletDetail="/erupiBrandService/Api/get/erupiBrandOutletList";
-	
+	public static String bulkOutletUpload ="/erupiBrandService/Api/add/outletBulkUpload";
+	public static String confirmBulkOutletUpload= "/erupiBrandService/Api/add/outletBulkCreate";
 	
 }

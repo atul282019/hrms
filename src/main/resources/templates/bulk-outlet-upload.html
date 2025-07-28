@@ -148,6 +148,7 @@
 									<input type="hidden" class="form-input" id="orgCode" name="orgCode"> 
 									<input type="hidden" class="form-input" id="base64Output" name="base64Output"> 
 									<input type="hidden" class="form-input" id="fileName" name="fileName"> 
+									<input type="hidden" class="form-input" id="outletIds" name="outletIds">
 								   <div class="clearfix"></div>
 										<div class="error-msg" id="payervaError" style="color:red"></div>
 										<div class="clearfix"></div>
@@ -184,13 +185,13 @@
                                         <table class="table table-sucess table-bordered" id="successUpload">
                                             <thead>
                                                 <tr>
-                                                    <!--<th>Redemtion Type</th>-->
-                                                    <th>Outlet Registration #</th>
-                                                    <!--<th>mobile</th>
-                                                    <th>amount</th>
-                                                    <th>startDate</th>
-                                                    <th>expDate</th>-->
-                                                   
+                                                    <th>Outlet Name</th>
+													<th>Outlet Type</th>
+													<th>Outlet Manager</th>
+													<th>Contact Number</th>
+													<th>Location</th>
+													<th>Geography</th>
+                                                  
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -201,9 +202,9 @@
 
                                     <div class="text-right my-3">
                                         <button class="btn btn-outline-reject"onclick="window.location.href='/bulkvehicleupload'">Cancel</button>
-                                        <button class="btn btn-confirm" id="continueButton" onclick="createBulkVehicle()" disabled>Continue
-											<!--<a class="text-white" style="text-decoration: none;" onclick="nextTab()" >Continue</a>-->
-											</button>
+                                        <button class="btn btn-confirm" id="continueButton" onclick="createBulkOutlet()" disabled>Continue
+										<!--<a class="text-white" style="text-decoration: none;" onclick="nextTab()" >Continue</a>-->
+										</button>
                                     </div>
                                 </div>
 
@@ -217,13 +218,15 @@
                                         <table class="table table-unsucess" cellspacing="0" cellpadding="0" id="failedUpload">
                                             <thead>
                                                 <tr>
-													<!--<th>Redemtion Type</th>-->
-                                                    <th>Reason</th>
-                                                    <th>Outlet Registration #</th>
-                                                    <!--<th>amount</th>
-                                                    <th>startDate</th>
-                                                    <th>expDate</th>
-													<th>Error Msg</th>-->
+													<tr>
+	                                                    <th>Outlet Name</th>
+														<th>Outlet Type</th>
+														<th>Outlet Manager</th>
+														<th>Contact Number</th>
+														<th>Location</th>
+														<th>Geography</th>
+	                                                  
+	                                                </tr>
                                                 
                                                 </tr>
                                             </thead>
@@ -402,59 +405,7 @@
 	.rotate {
 	    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
 	} </style>
-			<script>	
-				document.getElementById("recallBalance2").addEventListener("click", function() {
-				    const recallIcon = this;
-				    const selectedBankAccount = document.getElementById("banklist2").value;
-				    // Add rotation class
-				    recallIcon.classList.add("rotate");
-
-				    setTimeout(() => {
-				        recallIcon.classList.remove("rotate");
-				    }, 600);
-
-				    if (selectedBankAccount) {
-				        showLinkedAccAmount2(selectedBankAccount, 'bank-section-2');
-				    } else {
-				        alert("Please select a bank account first.");
-				    }
-				});
-
-				function showLinkedAccAmount2(accountNumber, sectionId) {
-				    const employerId = document.getElementById("employerId").value;
-				    const section = document.getElementById(sectionId);
-
-				    console.log("Fetching balance for account:", accountNumber, "Employer ID:", employerId);
-
-				    $.ajax({
-				        type: "POST",
-				        url: "/showLinkedAccAmount",
-				        data: {
-				            "acNumber": accountNumber,
-				            "orgId": employerId
-				        },
-				        success: function(response) {
-				            let obj = typeof response === "string" ? JSON.parse(response) : response;
-
-				            if (obj.status) {
-				                // Update balance within the correct section
-				                section.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
-
-				                // Update timestamp
-				                if (obj.timestamp) {
-				                    section.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
-				                }
-				            } else {
-				                alert("Failed to fetch balance.");
-				            }
-				        },
-				        error: function(error) {
-				            console.error("Error fetching balance:", error);
-				            alert('Error fetching balance.');
-				        }
-				    });
-				}
-		</script>
+	
 	<style>	@keyframes rotate360 {
     from {
         transform: rotate(360deg);
@@ -467,91 +418,24 @@
 .rotate {
     animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
 } </style>
-<script>				document.getElementById("recallBalance").addEventListener("click", function() {
-    var recallIcon = this;
-    var selectedBankAccount = document.getElementById("banklist").value;
-    // Add rotation class
-    recallIcon.classList.add("rotate");
-    setTimeout(() => {
-        recallIcon.classList.remove("rotate");
-    }, 600);
 
-    // Validate selection
-    if (selectedBankAccount) {
-        showLinkedAccAmount(selectedBankAccount);
-    } else {
-        alert("Please select a bank account first.");
-    }
-});
-
-function showLinkedAccAmount(accountNumber) {
-    var employerid = document.getElementById("employerId").value;
-    console.log("Fetching balance for account:", accountNumber, "Employer ID:", employerid);
-    $.ajax({
-        type: "POST",
-        url: "/showLinkedAccAmount",
-        data: {
-            "acNumber": accountNumber,
-            "orgId": employerid
-        },
-        success: function(response) {
-            console.log("API Response:", response);
-
-            let obj = typeof response === "string" ? JSON.parse(response) : response;
-
-            if (obj.status) {
-                // Update balance
-                document.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
-
-                // Update timestamp
-                if (obj.timestamp) {
-                    document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
-                }
-            } else {
-                alert("Failed to fetch balance.");
-            }
-        },
-        error: function(error) {
-            console.error("Error fetching balance:", error);
-            alert('Error fetching balance.');
-        }
-    });
-}
-
-		function formatTimestamp(timestamp) {
-		    let dateObj = new Date(timestamp.replace(" ", "T"));
-
-		    let hours = dateObj.getHours().toString().padStart(2, '0'); 
-		    let minutes = dateObj.getMinutes().toString().padStart(2, '0');
-		    let seconds = dateObj.getSeconds().toString().padStart(2, '0');
-
-		    let day = dateObj.getDate();
-		    let month = dateObj.toLocaleString('en-US', { month: 'short' });
-		    let year = dateObj.getFullYear();
-		    let weekday = dateObj.toLocaleString('en-US', { weekday: 'short' });
-
-		    return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
-		}
-
-
-		</script>
-		<!-- Updated Add Vehicle Modal to match the design -->
-		<div class="modal fade" id="Vehicleloading" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document" style="max-width: 750px;">
-		    <div class="modal-content modal-bulk text-center p-4">
-		      <div class="modal-body">
-				<div class="car-container">
-				<!--  <img src="img/animated-car.png" alt="Car" class="car-moving speed-medium">
-				--></div>
-		        <h5 class="vehicle-history-title" style="text-align: center;">Upload in Progress</h5><hr>
-		        <div class="my-3 p-2" style="background-color: #367AFF1A; color: #4A4E69; border-radius:10px;">
-		          Estimated Time: 3-4 Minutes
-		        </div>
-		        <p class="vehicle-date-value">Please wait.<br></p>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+	<!-- Updated Add Vehicle Modal to match the design -->
+	<div class="modal fade" id="Vehicleloading" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-approval-wrap" role="document" style="max-width: 750px;">
+	    <div class="modal-content modal-bulk text-center p-4">
+	      <div class="modal-body">
+			<div class="car-container">
+			<!--  <img src="img/animated-car.png" alt="Car" class="car-moving speed-medium">
+			--></div>
+	        <h5 class="vehicle-history-title" style="text-align: center;">Upload in Progress</h5><hr>
+	        <div class="my-3 p-2" style="background-color: #367AFF1A; color: #4A4E69; border-radius:10px;">
+	          Estimated Time: 3-4 Minutes
+	        </div>
+	        <p class="vehicle-date-value">Please wait.<br></p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 			
 <!-- Modal Download -->
 <div class="modal fade" id="ModalDownload1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -603,23 +487,5 @@ function showLinkedAccAmount(accountNumber) {
 	  $('#Vehicleloading').on('shown.bs.modal', function () {
 	    $('.car-moving').addClass('car-moving');
 	  });
-	</script>
-
-	<script>
-	function toggleOtpVisibility() {
-	    const icon = document.getElementById("toggleOtpIcon");
-	    const inputs = document.querySelectorAll('.otp-box-onboarding input');
-
-	    const isHidden = inputs[0].type === 'password';
-	    inputs.forEach(input => {
-	        if (input.id.startsWith('password')) {
-	            input.type = isHidden ? 'text' : 'password';
-	        }
-	    });
-
-	    icon.classList.toggle('fa-eye');
-	    icon.classList.toggle('fa-eye-slash');
-	}
-	</script>
-					
+	</script>		
 </html>

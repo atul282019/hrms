@@ -28,7 +28,7 @@ async function saveBulkOutletUpload(){
 	$('#Vehicleloading').modal('show');
 	$.ajax({
 		type: "POST",
-	     url:"/saveBulkVehicle",
+	     url:"saveBulkOutlet",
 		 dataType: 'json',   
 	      data: {
 					"orgId":orgId,
@@ -57,8 +57,8 @@ async function saveBulkOutletUpload(){
 				//document.getElementById("continueButton").disabled = false;
 				 var success = data2.data.success;
 				 //send all success ids to backend while stroing in html
-				 const vehicleIds = success.map(item => item.id);
-				 document.getElementById("vehicleIds").value = vehicleIds.join(",");
+				 const outletIds = success.map(item => item.id);
+				 document.getElementById("outletIds").value = outletIds.join(",");
 				 
 				 var fail = data2.data.fail;
 				 // Set counts for both modals
@@ -96,14 +96,16 @@ async function saveBulkOutletUpload(){
 			      "language": {"emptyTable": "No Data available"  },
 			     "aaData": success,
 				  "aoColumns": [ 
-			        { "mData": "rc_number"},   
+			        { "mData": "outletName"},   
+					{ "mData": "outletType"},   
+					{ "mData": "outletMager"},   
+					{ "mData": "outletContact"},   
+					{ "mData": "outletLocation"},   
+					{ "mData": "outletGeography"},   
 					
 				 	],
 					
 				});
-				
-
-					
 				var table = $('#failedUpload').DataTable( {
 					
 		          destroy: true,	
@@ -114,8 +116,12 @@ async function saveBulkOutletUpload(){
 	             "language": {"emptyTable": "No Data available"  },
 		         "aaData": fail,
 	      		  "aoColumns": [ 
-					{ "mData": "message"},   
-					{ "mData": "vehicleNumber"},   
+					{ "mData": "outletName"},   
+					{ "mData": "outletType"},   
+					{ "mData": "outletMager"},   
+					{ "mData": "outletContact"},   
+					{ "mData": "outletLocation"},   
+					{ "mData": "outletGeography"},     
 
 	    		 	],
 					
@@ -140,16 +146,11 @@ async function saveBulkOutletUpload(){
 	
 }
 
-async function createBulkVehicle(){
-	
-
-	
+async function createBulkOutlet(){
 	var createdby =  document.getElementById("employerName").value;
 	var orgId = document.getElementById("employerId").value;
-	var arrayofidStr = document.getElementById("vehicleIds").value;
+	var arrayofidStr = document.getElementById("outletIds").value;
 	const arrayofid = arrayofidStr.split(",");
-	
-		
 	const clientKey = "client-secret-key"; // Extra security measure
 	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 
@@ -161,14 +162,11 @@ async function createBulkVehicle(){
 	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
 	const hashArray = Array.from(new Uint8Array(hashBuffer));
 	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-	
-
 	//document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "POST",
-	     url:"/createBulkVehicle",
+	     url:"/createBulkOutlet",
 		 dataType: 'json',   
-		// traditional: true,
 	      data: {
 					"orgId":orgId,
 					"arrayofid": arrayofid,					
@@ -182,40 +180,10 @@ async function createBulkVehicle(){
 		   console.log("data1",data1);
 		   var data2 = jQuery.parseJSON(data1);
 		   console.log("data2",data2);
-			//document.getElementById("signinLoader").style.display="none";
 			if(data2.status==true){
-				//document.getElementById("continueButton").disabled = false;
-				 var success = data2.data.success;
-				 //send all success ids to backend while stroing in html
-			//	 const vehicleIds = success.map(item => item.id);
-			//	 document.getElementById("vehicleIds").value = vehicleIds.join(",");
-				 
-				 var fail = data2.data.fail;
-				/* if (success.length === 0 ) {
-				         document.getElementById("continueButton").disabled = true;
-				     } else {
-				         document.getElementById("continueButton").disabled = false;
-				     }
-
-				 document.getElementById("BulkVoucherIssuanceTable").style.display="block";
-				 document.getElementById("BulkVoucherIssuance-wrap").style.display="none";
-				 
-				 document.getElementById("failed").innerHTML=data2.data.failCount;
-				 document.getElementById("success").innerHTML=data2.data.successCount;
-				 document.getElementById("successTotal").innerHTML=data2.data.totalCount;
-				 document.getElementById("failedTotal").innerHTML=data2.data.totalCount;
-				 document.getElementById("failedUploadDownload").innerHTML=data2.data.failCount;
- 				 document.getElementById("successUploadDownload").innerHTML=data2.data.successCount;
- 				 document.getElementById("successUploadTotal").innerHTML=data2.data.totalCount;
- 				 document.getElementById("failedUploadTotal").innerHTML=data2.data.totalCount;*/
-				
-
-		window.location.href="/vehiclemanagement";
-					
-
+			window.location.href="/brandDashboard";
 			}else if(data1.status==false){
-				document.getElementById("signinLoader").style.display="none";
-				
+				document.getElementById("signinLoader").style.display="none";		
 			}
 	     },
 	     error: function(e){
@@ -229,8 +197,7 @@ function convertImageToBase64() {
            const fileInput = document.getElementById('up');
            const output = document.getElementById('base64Output');
 		   const outputFileName = document.getElementById('fileName');
-		  
-		  
+		  		  
            if (!fileInput.files || fileInput.files.length === 0) {
 			 document.getElementById("fileInputError").innerHTML="Please select file";
 			 return;
@@ -253,8 +220,7 @@ function convertImageToBase64() {
                const base64String = event.target.result.split(',')[1]; 
                output.value = base64String; 
 			   console.log("FileName:", fileInput.files[0].name);
-			   outputFileName.value =fileInput.files[0].name;
-			
+			   outputFileName.value =fileInput.files[0].name;			
 			   document.querySelector('.form-group.choose-file .form-control').value = fileInput.files[0].name;
            };
            reader.readAsDataURL(file);
