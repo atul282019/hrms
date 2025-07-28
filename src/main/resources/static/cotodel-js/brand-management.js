@@ -466,17 +466,31 @@ async function activateBrand(){
                             return `${row.mgrName}<br>${row.mgrMobile || ''}`;
                         }
                     },
-                    {
-                        mData: "id",
-                        render: function (data, type, row) {
-                            return `
-                                <div style="display: flex; gap: 8px; align-items: center;">
-                                    <div class="circle green" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">1</div>
-                                    <div class="circle yellow" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">2</div>
-                                    <div class="circle gray" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">3</div>
-                                </div>`;
-                        }
-                    },
+					{
+					    mData: "id",
+					    render: function (data, type, row) {
+					        let html = '';
+
+					        if (row.status === 'completed') {
+					            html = `
+					                <div style="display: flex; gap: 8px; align-items: center;">
+					                    <div class="circle green" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">1</div>
+					                </div>
+									<div style="display: flex; gap: 8px; align-items: center;">
+					                    <div class="circle yellow" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">2</div>
+					                </div>
+									<div class="circle gray" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">3</div>
+									`;
+					        }  else {
+					            html = `
+					                <div style="text-decoration: underline; text-decoration-color: #367AFF; color: #367AFF;cursor: pointer;">
+					                    <a href="/brandOnboarding">Link New UPI Devices</a>
+					                </div>`;
+					        }
+
+					        return html;
+					    }
+					},
 					{
 					    mData: "creationdate",
 					    render: function (data, type, row) {
@@ -543,3 +557,67 @@ function getGeographicDropdownList() {
         }
     });
 }
+
+function userSearchAndPopulate(inputElement) {
+	        const query = inputElement.value.toLowerCase();
+	        const suggestionsDropdown = inputElement.nextElementSibling;
+
+			const searchInput = document.getElementById('outletManager').value;
+			//const searchInput2 = document.getElementById('search');
+			//const mobile = document.getElementById('mobile');
+		    const employerId = document.getElementById('employerId').value;
+
+						$.ajax({
+			            type: "POST",
+			            url: "/voucherUserSearch",
+			            dataType: 'json',
+			            data: {
+			                "orgId": employerId,
+			                "userName": query
+			            },
+			            success: function (data) {
+			                //document.getElementById("signinLoader").style.display = "none";
+					          // const query = searchInput2.value.toLowerCase();
+					           if (query) {
+								  const filteredUsers = data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
+								  displaySuggestions(filteredUsers, inputElement, suggestionsDropdown);
+					           } else {
+					               suggestionsDropdown.style.display = 'none';
+					           }
+					     
+			               
+			            },
+			            error: function (e) {
+			                document.getElementById("signinLoader").style.display = "none";
+			                console.error('Error:', e);
+			                alert('An error occurred while fetching the data.');
+			            }
+
+	      });
+	      
+	    }
+
+		 function displaySuggestions(userList, inputElement, dropdown) {
+	        dropdown.innerHTML = '';
+	        userList.forEach(user => {
+	            const div = document.createElement('div');
+	            div.classList.add('autocomplete-suggestion');
+					div.innerHTML = `
+					            <div style="display: flex; align-items: center; width: 100%; gap: 8px;">
+					                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+					                    <span style="text-align: left; flex: 1;">${user.username}</span>
+					                </div>
+					            </div>
+					        `;
+
+	            div.addEventListener('click', function () {
+	                inputElement.value = user.username;
+	                // Assuming you want to populate the mobile field next to the inputElement
+	                inputElement.closest('tr').querySelector('input[placeholder="Enter Mobile Number"]').value = user.mobile;
+	                dropdown.style.display = 'none';
+	            });
+
+	            dropdown.appendChild(div);
+	        });
+	        dropdown.style.display = userList.length > 0 ? 'block' : 'none';
+	    }

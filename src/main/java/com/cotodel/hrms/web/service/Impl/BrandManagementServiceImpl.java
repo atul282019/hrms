@@ -66,8 +66,18 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 
 	@Override
 	public String saveBulkOutletDetail(String token, EncriptResponse jsonObject) {
-		// TODO Auto-generated method stub
-		return null;
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(jsonObject),
+			        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.bulkOutletUpload
+			    );
+	}
+
+	@Override
+	public String createBulkOutlet(String token, EncriptResponse jsonObject) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(jsonObject),
+			        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.confirmBulkOutletUpload
+			    );
 	}
 
 }

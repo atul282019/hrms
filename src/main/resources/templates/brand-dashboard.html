@@ -778,10 +778,16 @@
 					</div>
 					<div class="error-msg" id="outletTypeError" style="margin-top: -10px; font-size: 12px;"></div>
 						<div class="did-floating-label-content">
-						    <input class="did-floating-input" type="text" id="outletManager"  placeholder="">
+							<input class="did-floating-input" type="text" id="outletManager"  placeholder="" oninput="userSearchAndPopulate(this)">
+							<label class="did-floating-label">Outlet Manager</label>
+						   <!-- <input class="did-floating-input" type="text" id="outletManager"  placeholder="" oninput="userSearchAndPopulate(this)">
 						    <label class="did-floating-label">Outlet Manager</label>
+							<div id="autocomplete-suggestions" class="autocomplete-dropdown" style="display: block;"><div class="autocomplete-suggestion"></div>
+							</div>-->
 						</div>
+						
 						<div class="error-msg" id="outletManagerError" style="margin-top: -10px; font-size: 12px;"></div>
+						
 						<div class="did-floating-label-content">
 						    <input class="did-floating-input" type="text" id="outletContact" placeholder="" maxlength="10" 
 							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">

@@ -85,7 +85,7 @@
 														<div class="profile-name-wrap" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
 														  <div style="display: flex; align-items: center; gap: 8px;">
 
-														    <h4 style="margin: 0;"><i class="bi bi-chevron-left" style="margin-right: 10px;"></i><span th:text="${name}"></span>Brand Name<span class="pill bg-lightgreen-txt-green-pill mt-3" style="margin-left: 15px;">Activated</td></span></h4>
+														    <h4 style="margin: 0;"><a href="/brandDashboard"><i class="bi bi-chevron-left" style="margin-right: 10px;"></i></a><span th:text="${name}"></span>Brand Name<span class="pill bg-lightgreen-txt-green-pill mt-3" style="margin-left: 15px;">Activated</td></span></h4>
 														    <!--<img src="img/linked.svg" class="ml-2" alt="" style="height: 20px; vertical-align: middle;">
 														  -->
 
@@ -1572,7 +1572,7 @@
 		$(document).ready(function(){
 			    	
 			    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
-					  $('a[href="/roleAccess"]').closest('li').addClass('active').attr('aria-current', 'page');   
+					  $('a[href="/brandDashboard"]').closest('li').addClass('active').attr('aria-current', 'page');   
 					  
 			        $(".innernav").click(function(){
 			            $(".dropdownNav").addClass("active");
