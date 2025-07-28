@@ -33,11 +33,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+//import com.cotodel.hrms.web.jwt.util.JwtTokenValidator;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BankVerificationRequest;
 import com.cotodel.hrms.web.response.BulkEmployeeRequest;
 import com.cotodel.hrms.web.response.EmployeeOnboardingDriverRequest;
 import com.cotodel.hrms.web.response.RCRequest;
+import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.VehicleBulkCreateRequest;
 import com.cotodel.hrms.web.response.VehicleManagementBulkUploadRequest;
 import com.cotodel.hrms.web.response.VehicleManagementRequest;
@@ -49,6 +52,7 @@ import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @RestController
 @CrossOrigin
@@ -329,31 +333,31 @@ public class VehicleManagementController extends CotoDelBaseController {
 
 
 	    // Get token from session
-//	    String token = (String) session.getAttribute("hrms");
-//	    if (token == null) {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: No token found.");
-//	        try {
-//	            return mapper.writeValueAsString(responseMap);
-//	        } catch (JsonProcessingException e) {
-//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-//	        }
-//	    }
+	    String token = (String) session.getAttribute("hrms");
+	    if (token == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: No token found.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
 //	    // Validate Token
-//	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//	    if (obj == null) {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: Invalid token.");
-//	        try {
-//	            return mapper.writeValueAsString(responseMap);
-//	        } catch (JsonProcessingException e) {
-//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-//	        }
-//	    }
+	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+	    if (obj == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Invalid token.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
 	    // Check User Role and Organization ID
-	   // if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == bulkVoucherRequest.getOrgId().intValue()) {
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == vehicleManagementBulkUploadRequest.getOrgId().intValue()) {
 	        try {
 	            String json = EncryptionDecriptionUtil.convertToJson(vehicleManagementBulkUploadRequest);
 	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
@@ -380,10 +384,10 @@ public class VehicleManagementController extends CotoDelBaseController {
 	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
 	            e.printStackTrace();
 	        }
-//	    } else {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
-//	    }
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
 
 	    try {
 	        return mapper.writeValueAsString(responseMap);
@@ -447,31 +451,31 @@ public class VehicleManagementController extends CotoDelBaseController {
 
 
 	    // Get token from session
-//	    String token = (String) session.getAttribute("hrms");
-//	    if (token == null) {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: No token found.");
-//	        try {
-//	            return mapper.writeValueAsString(responseMap);
-//	        } catch (JsonProcessingException e) {
-//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-//	        }
-//	    }
+	    String token = (String) session.getAttribute("hrms");
+	    if (token == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: No token found.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
 //	    // Validate Token
-//	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//	    if (obj == null) {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: Invalid token.");
-//	        try {
-//	            return mapper.writeValueAsString(responseMap);
-//	        } catch (JsonProcessingException e) {
-//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-//	        }
-//	    }
+	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+	    if (obj == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Invalid token.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
-	    // Check User Role and Organization ID
-	   // if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == bulkVoucherRequest.getOrgId().intValue()) {
+	  //   Check User Role and Organization ID
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == vehicleBulkCreateRequest.getOrgId().intValue()) {
 	        try {
 	            String json = EncryptionDecriptionUtil.convertToJson(vehicleBulkCreateRequest);
 	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
@@ -497,10 +501,10 @@ public class VehicleManagementController extends CotoDelBaseController {
 	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
 	            e.printStackTrace();
 	        }
-//	    } else {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
-//	    }
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
 
 	    try {
 	        return mapper.writeValueAsString(responseMap);

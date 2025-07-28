@@ -829,7 +829,10 @@ function getBankListWithVocher() {
 				success: function(data) {
 					try {
 						
-						   document.getElementById("signinLoader").style.display = "none";
+						   //document.getElementById("signinLoader").style.display = "none";
+						   setTimeout(function() {
+						       document.getElementById("signinLoader").style.display = "none";
+						   }, 1500); // 1500ms = 1.5 seconds
 			               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
 						  
 			               if (parsedData.data && parsedData.data.profileTotal) {
