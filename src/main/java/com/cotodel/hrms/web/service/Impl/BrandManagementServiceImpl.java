@@ -80,4 +80,12 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 			    );
 	}
 
+	@Override
+	public String erupiBrandOutletById(String token, EncriptResponse jsonObject) {
+		 return CommonUtility.userRequest(token,
+			        MessageConstant.gson.toJson(jsonObject),
+			        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.brandOutletDetailById
+			    );
+	}
+
 }

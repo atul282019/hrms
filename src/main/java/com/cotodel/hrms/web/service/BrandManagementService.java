@@ -23,4 +23,6 @@ public interface BrandManagementService {
 
 	String createBulkOutlet(String token, EncriptResponse jsonObject);
 
+	String erupiBrandOutletById(String token, EncriptResponse jsonObject);
+
 }

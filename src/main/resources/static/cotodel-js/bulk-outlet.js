@@ -121,7 +121,9 @@ async function saveBulkOutletUpload(){
 					{ "mData": "outletMager"},   
 					{ "mData": "outletContact"},   
 					{ "mData": "outletLocation"},   
-					{ "mData": "outletGeography"},     
+					{ "mData": "outletGeography"},   
+					{ "mData": "message"},   
+
 
 	    		 	],
 					

@@ -2138,7 +2138,7 @@ public ModelAndView crmtab1(Model model) {
 return new ModelAndView("home", "command", "");
 }
 @GetMapping(value="/brandOnboarding")
-public ModelAndView brandOnboarding(Model model) {
+public ModelAndView brandOnboarding(Model model, @RequestParam(value = "id", required = false) Integer passedId, HttpSession session) {
 	String token = (String) session.getAttribute("hrms");
 	Integer id  = (Integer) session.getAttribute("id");
 	if(token!=null) {
@@ -2150,7 +2150,7 @@ public ModelAndView brandOnboarding(Model model) {
 			model.addAttribute("mobile",obj.getMobile());
 			model.addAttribute("email",obj.getEmail());
 			model.addAttribute("employerId",id);
-
+			 model.addAttribute("brandoutletid", passedId);
 			return new ModelAndView("brand-onboarding", "command", "");
 		}
 		 return new ModelAndView("error", "command", "");

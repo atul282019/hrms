@@ -197,5 +197,6 @@ public interface CommonUtils {
 	public static String getOutletDetail="/erupiBrandService/Api/get/erupiBrandOutletList";
 	public static String bulkOutletUpload ="/erupiBrandService/Api/add/outletBulkUpload";
 	public static String confirmBulkOutletUpload= "/erupiBrandService/Api/add/outletBulkCreate";
+	public static String brandOutletDetailById="/erupiBrandService/Api/get/erupiBrandOutletById";
 	
 }

@@ -134,6 +134,29 @@ public class BrandManagerController extends CotoDelBaseController{
 		return profileRes;	
 }
 
+@GetMapping(value = "/erupiBrandOutletById")
+	public @ResponseBody String erupiBrandOutletById(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, BrandManagementRequest brandManagementRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(brandManagementRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  brandManagementService.erupiBrandOutletById(tokengeneration.getToken(), jsonObject);
+ 
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+		return profileRes;	
+}
+
 	@PostMapping(value = "/addBrandDetails")
 	public @ResponseBody String addBrandDetails(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ErupiBrandDetailsRequest erupiBrandDetailsRequest) {
@@ -360,10 +383,10 @@ public class BrandManagerController extends CotoDelBaseController{
 	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 	        }
 	    }
-	    System.out.println("vehicleManagementBulkUploadRequest.getOrgId() " + outletBulkCreateRequest.getOrgId());
+	    System.out.println("outletBulkCreateRequest.getOrgId() " + outletBulkCreateRequest.getOrgId());
         System.out.println("arrayJoined " + arrayJoined);
-//        System.out.println("vehicleManagementBulkUploadRequest.getFile() " +vehicleBulkCreateRequest.getFile());
-        System.out.println("vehicleManagementBulkUploadRequest.getCreatedBy() " + outletBulkCreateRequest.getCreatedby());
+//        System.out.println("outletBulkCreateRequest.getFile() " +vehicleBulkCreateRequest.getFile());
+        System.out.println("outletBulkCreateRequest.getCreatedBy() " + outletBulkCreateRequest.getCreatedby());
 	    
 	    // Prepare data string for hashing
 	    String dataString = outletBulkCreateRequest.getOrgId() +
@@ -394,32 +417,33 @@ public class BrandManagerController extends CotoDelBaseController{
 
 
 	    // Get token from session
-//	    String token = (String) session.getAttribute("hrms");
-//	    if (token == null) {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: No token found.");
-//	        try {
-//	            return mapper.writeValueAsString(responseMap);
-//	        } catch (JsonProcessingException e) {
-//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-//	        }
-//	    }
+	    String token = (String) session.getAttribute("hrms");
+	    if (token == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: No token found.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
 //	    // Validate Token
-//	    UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-//	    if (obj == null) {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: Invalid token.");
-//	        try {
-//	            return mapper.writeValueAsString(responseMap);
-//	        } catch (JsonProcessingException e) {
-//	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-//	        }
-//	    }
+	    UserDetailsEntity obj = (UserDetailsEntity) JwtTokenValidator.parseToken(token);
+	    if (obj == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Invalid token.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
 
 	    // Check User Role and Organization ID
-	   // if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == bulkVoucherRequest.getOrgId().intValue()) {
-	        try {
+	     //if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == outletBulkCreateRequest.getOrgId().longValue()) {
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3)) {    
+	     try {
 	            String json = EncryptionDecriptionUtil.convertToJson(outletBulkCreateRequest);
 	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 	            String encriptResponse = brandManagementService.createBulkOutlet(tokengeneration.getToken(), jsonObject);
@@ -444,10 +468,10 @@ public class BrandManagerController extends CotoDelBaseController{
 	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
 	            e.printStackTrace();
 	        }
-//	    } else {
-//	        responseMap.put("status", false);
-//	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
-//	    }
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
 
 	    try {
 	        return mapper.writeValueAsString(responseMap);

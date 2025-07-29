@@ -6,7 +6,7 @@
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<body id="page-top" >
+<body id="page-top" onload="getOutletDetailsById()" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -93,15 +93,15 @@
 
 														  <!-- Right-aligned buttons -->
 														  <div style="display: flex; gap: 8px; align-items: center;">
-														    <!--<button class="custom-back-button" onclick="window.location.href='/manageEmployee'" >Back</button>-->
-
+														   <!-- <button class="custom-back-button" onclick="window.location.href='/manageEmployee'" >Back</button>
+-->
 														    <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
 														      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
 
-														    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+														  <!--  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 														      <a class="dropdown-item py-2" >Change Reporting Manager</a>
 														      <a class="dropdown-item py-2" href="#">Deactivate User</a>
-														    </div>
+														    </div>-->
 														  </div>
 														</div>                                                         
                                                 
@@ -110,26 +110,26 @@
                                                         <div class="profile-info-wrap">
                                                             <div class="profile-info">
                                                                 <label for="">Outlet Type</label>
-                                                               <p id="Outlettype">sg</p>
+                                                               <p id="outlettype"></p>
                                                             </div>
 
                                                             <div class="profile-info">
                                                                 <label for="">Branch Manager</label>
-                                                                <p id="BranchManager">sdh</p>
+                                                                <p id="branchManager"></p>
                                                             </div>
 
                                                             <div class="profile-info">
                                                                 <label for="">Contact Number</label>
-                                                                <p id="ContactNumber">sdh</p>
+                                                                <p id="contactNumber"></p>
                                                             </div>
 
                                                             <div class="profile-info">
                                                                 <label for="">Location</label>
-                                                                <p id="Location">vgg</p>
+                                                                <p id="location"></p>
                                                             </div>
 															<div class="profile-info">
                                                                <label for="">Region/Zone</label>
-                                                               <p id="RegionZone">qgqwwt</p>
+                                                               <p id="regionZone"></p>
                                                            </div>
                                                         </div>
                                                     </div>
@@ -163,9 +163,9 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-content">
-                                    <div class="row tab-pane in active" id="LinkedUPIDevices">
-                                        <div class="container-fluid p-0 p-md-1 mt-4 bg-white">
+           			 <div class="tab-content">
+                		<div class="row tab-pane in active" id="LinkedUPIDevices">
+                  <div class="container-fluid p-0 p-md-1 mt-4 bg-white">
 		    <div class="row">
 		      <div class="col-12 col-md-12 px-4">
 				<br>
@@ -261,18 +261,16 @@
 
 		      </div>
 		    </div>
-                                    </div>
-									
-									<div class="row tab-pane" id="Outlet-levelStatistics">
-																	<!-- tabs section-->
-																<div class="upi-voucher-wrap">
+                        </div>
+						
+						<div class="row tab-pane" id="Outlet-levelStatistics">
+						 <!-- tabs section-->
+						<div class="upi-voucher-wrap">
 						<div class="d-flex align-items-center justify-content-between">
 						    <h3 class="mb-3">Outlet-Level Statistics</h3>
 
 						    <div class="rightdownload mb-3 d-flex align-items-center" style="gap: 12px;">
 								
-						       
-
 								<!-- Quick Filters -->
 								<div id="quickFilters" style="width: 160px; height: 44px; border-radius: 10px; padding: 10px; border: 1px solid #EDEDF0;" class="dropdown d-flex align-items-center">
 								    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -286,9 +284,6 @@
 								        <a id="filter-issued-this-month" class="dropdown-item" href="#">Issued this Month</a>
 								    </div>
 								</div>
-
-						       
-						        
 						    </div>
 						</div>
 
@@ -296,15 +291,12 @@
 							<div >
 								
 							   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
-							    
-							    
 							     <li class="nav-item">
 							       <a class="nav-link active" data-toggle="tab" href="#VoucherPurchases" role="tab">Voucher Purchases</a>
 							     </li>
 								 <li class="nav-item">
 							       <a class="nav-link" data-toggle="tab" href="#VoucherRedemptions" role="tab">Voucher Redemptions</a>
 							     </li>
-								
 								
 							   </ul>
 							  
@@ -1223,7 +1215,7 @@
 				<input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 	
 				<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
 				<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">	
-					
+				<input type="hidden" class="form-input" id="brandOutletId" name="brandOutletId" th:value="${brandoutletid}"> 
 				</div>
                 <!-- /.container-fluid -->
 
@@ -1608,8 +1600,43 @@
 	      document.getElementById("modal-overlay1").style.display = "none";
 	    });
 	  });
+	  
+	  async function getOutletDetailsById(){
+	  				var orgId = document.getElementById("employerId").value;
+					var brandOutletId = document.getElementById("brandOutletId").value;
+	  				//alert("brandmanagement"+orgId);
+	  				$.ajax({
+	  					type: "GET",
+	  				     url:"/erupiBrandOutletById",
+	  					 dataType: 'json',   
+	  				      data: {
+	  								"orgid":orgId,
+									"id":brandOutletId,
+	  						 },  		 
+	  				        success:function(data){
+	  				        var data1 = data.data;
+	  						if(data.status==true){
+	  							
+	  							document.getElementById('outlettype').innerHTML = data1.name;
+	  							document.getElementById('branchManager').innerHTML = data1.mgrName;
+								
+								document.getElementById('contactNumber').innerHTML = data1.mgrMobile;
+	  							document.getElementById('location').innerHTML = data1.location;
+								document.getElementById('regionZone').innerHTML = data1.geocatname;
+								
+	  						}else if(data.status==false){
+	  						}
+	  				     },
+	  				     error: function(e){
+	  				         alert('Error: ' + e);
+	  				     }
+	  				});	
+	  				
+	  			}
 	</script>
+	
 
+	
 
 </body>
 

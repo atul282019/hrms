@@ -287,7 +287,11 @@ async function addBrandOutlet(){
 			var outletManager = document.getElementById("outletManager").value;
 			var outletContact = document.getElementById("outletContact").value;
 			var outletLocation = document.getElementById("outletLocation").value;
-			var geography = document.getElementById("geography").value;
+		
+			var dropdown = document.getElementById("geography");
+			  var geography = dropdown.value;
+			  var geographyText = dropdown.options[dropdown.selectedIndex].text;
+			  
 			if (outletName === "") {
 				   document.getElementById("outletNameError").innerHTML="Please enter Outlet Name.";
 			       document.getElementById("outletName").focus();
@@ -331,6 +335,7 @@ async function addBrandOutlet(){
 							"typeDesc":outletType,
 							"location":outletLocation,
 							"geocatid":geography,
+							"geocatname":geographyText,
 							"appType":"web",
 					 },  		 
 			        success:function(data){
@@ -459,7 +464,7 @@ async function activateBrand(){
                     { mData: "name" },
                     { mData: "typeDesc" },
                     { mData: "location" },
-                    { mData: "geocatid" },
+                    { mData: "geocatname" },
                     {
                         mData: null,
                         render: function (data, type, row) {
@@ -484,7 +489,7 @@ async function activateBrand(){
 					        }  else {
 					            html = `
 					                <div style="text-decoration: underline; text-decoration-color: #367AFF; color: #367AFF;cursor: pointer;">
-					                    <a href="/brandOnboarding">Link New UPI Devices</a>
+									<a href="/brandOnboarding?id=${row.id}">Link New UPI Devices</a>
 					                </div>`;
 					        }
 
@@ -502,7 +507,15 @@ async function activateBrand(){
 					        return `${day}/${month}/${year}`;
 					    }
 					},
-                    { mData: "status" }
+					{
+					  mData: "status",
+					  render: function(data, type, row) {
+					    if (data == 1) {
+					      return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Activated</span>`;
+					    } else {
+					     return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">deactivated</span>`;
+					    }
+					  }}
                 ],
                 createdRow: function(row, data, dataIndex) {
                     // Optional: Add row-level customization here

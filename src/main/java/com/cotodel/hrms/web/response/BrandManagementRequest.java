@@ -12,6 +12,7 @@ public class BrandManagementRequest {
 	private Long orgid;	
 	private int brandid;	
 	private int geocatid;	
+	private String geocatname;	
 	private String name;	
 	private int typeid;	
 	private String typeDesc;	
