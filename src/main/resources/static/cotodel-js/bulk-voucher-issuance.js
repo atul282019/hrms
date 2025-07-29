@@ -1196,7 +1196,7 @@ function verfyIssueVoucherOTP() {
 			"mcc":purposeCode,
 			"payerVA":payerva,
 			"mandateType":"01",
-			"type":"CREATE",
+			"type":"",
 			"bankcode":bankCode,
 			"accountNumber":acNumber,
 			"voucherCode":voucherCode,
