@@ -1178,7 +1178,7 @@ function verfyIssueVoucherOTP() {
 
     // Concatenate data (must match backend)
 
-	const dataString = employerId+voucherCode+purposeCode+payerva+"01"+"CREATE"+
+	const dataString = employerId+voucherCode+purposeCode+payerva+"01"+""+
 	bankCode+acNumber+voucherCode+voucherName+merchentid+submurchentid+createdby+clientKey+secretKey;
 
     // Generate SHA-256 hash

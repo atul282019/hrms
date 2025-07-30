@@ -132,7 +132,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("subMerchantId", erupiVoucherCreateDetails.getSubMerchantId());
 		data.put("mcc", erupiVoucherCreateDetails.getMcc());
 		data.put("merchantId", erupiVoucherCreateDetails.getMerchantId());
-		data.put("type", "CREATE");
+		data.put("type", "");
 		data.put("createdby", erupiVoucherCreateDetails.getCreatedby());
 	    data.put("redemtionType", "SINGLE");
 		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());

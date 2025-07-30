@@ -25,4 +25,6 @@ public interface BrandManagementService {
 
 	String erupiBrandOutletById(String token, EncriptResponse jsonObject);
 
+	String saveBrandOutletDeviceDetails(String token, EncriptResponse jsonObject);
+
 }

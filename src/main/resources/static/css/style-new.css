@@ -98,7 +98,7 @@ body {
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
-  /*color: var(--bs-body-color);*/
+  color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
@@ -157,7 +157,8 @@ h1,
 
 h1,
 .h1 {
-  font-size: calc(2.15rem + 1.8vw);
+  font-size: clamp(20px, 40px, 8vw)
+    /*calc(2.15rem + 1.8vw);*/
 }
 
 @media (min-width: 1200px) {

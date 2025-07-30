@@ -552,7 +552,7 @@ function getGeographicDropdownList() {
 
                 $dropdown.empty(); 
                 $dropdown.append(
-                    $("<option>").val("").text("Geography")
+                    $("<option>").val("").text("Select Geography")
                 );
 
                 geoList.forEach(function(location) {
@@ -634,3 +634,114 @@ function userSearchAndPopulate(inputElement) {
 	        });
 	        dropdown.style.display = userList.length > 0 ? 'block' : 'none';
 	    }
+
+		
+			  
+		async function addUPIDevice(){
+			
+			
+			var dropdown = document.getElementById("deviceType");
+		    var deviceTypeId = dropdown.value;
+		    var deviceTypeText = dropdown.options[dropdown.selectedIndex].text;
+			
+			var qrState = document.getElementById("qrState");
+			var qrStateId = qrState.value;
+		    var qrStateText = qrState.options[dropdown.selectedIndex].text;
+			var orgId = document.getElementById("employerId").value;
+			var upiId = document.getElementById("upiId").value;
+			var outlettype = document.getElementById("outlettype").innerHTML;
+			var branchManager = document.getElementById("branchManager").innerHTML;
+			var contactNumber = document.getElementById("contactNumber").innerHTML;
+			var location = document.getElementById("location").innerHTML;
+			var regionZone = document.getElementById("regionZone").innerHTML;
+			
+			var brandOutletId = document.getElementById("brandOutletId").innerHTML;
+			const clientKey = "client-secret-key"; // Extra security measure
+			const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+		    // Concatenate data (must match backend)
+			const dataString = orgId+clientKey+secretKey;
+
+			const encoder = new TextEncoder();
+			const data = encoder.encode(dataString);
+			const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+			const hashArray = Array.from(new Uint8Array(hashBuffer));
+			const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+			
+			$.ajax({
+				type: "POST",
+			     url:"/addOutletDeviceDetails",
+				 dataType: 'json',   
+			      data: {
+							"orgid":orgId,
+							"outletid":brandOutletId,
+							"deviceTypeId":deviceTypeId,
+							"qrStateId":qrStateId,
+							"deviceTypeDesc":deviceTypeText,
+							"qrStateDesc":qrStateText,
+							"upiId":upiId,
+							"clientKey":clientKey,
+						    "hash":hashHex
+					 },  		 
+			        success:function(data){
+			        var data1 = data.data;
+			        console.log("data",data);
+				    console.log("data1",data1);
+					if(data.status==true){
+						//getBrandOutletList();
+						//document.getElementById("bs-canvas-right2").classList.remove("show-canvas");
+						document.getElementById("PaymentSuccessModal1").style.display = "block";
+						$('#PaymentSuccessModal1').modal('show');
+				        /* $('#AddVehicleModal').modal('hide');
+						 getSupportTicketListList();
+
+						 document.getElementById('bs-canvas-right2').style.right = '-378px';
+						 document.getElementById('modal-overlay2').style.display = 'none';*/
+					}else if(data.status==false){
+						//getBrandOutletList();
+						$('#PaymentSuccessModal').modal('show');
+						//document.getElementById('bs-canvas-right2').style.right = '0';
+					    //document.getElementById('modal-overlay2').style.display = 'block';
+					}
+			     },
+			     error: function(e){
+			         alert('Error: ' + e);
+			     }
+			});	
+			
+		}
+		function convertImageToBase64() {
+		           const fileInput = document.getElementById('up');
+		           const output = document.getElementById('base64Output');
+				   const outputFileName = document.getElementById('fileName');
+				  
+				  
+		           if (!fileInput.files || fileInput.files.length === 0) {
+					 document.getElementById("fileInputError").innerHTML="Please select file";
+					 return;
+		           }
+		           var filePath = fileInput.value;
+		               var allowedExtensions =  /(\.jpg|\.jpeg|\.png|)$/i;
+					  // var allowedExtensions =  /(\.xlsx)$/i;
+		               if (!allowedExtensions.exec(filePath)) {
+						  document.getElementById("fileInputError").innerHTML="Invalid file type";
+		                   fileInput.value = '';
+		                   return false;
+		               } 
+					   else{
+						document.getElementById("fileInputError").innerHTML="";
+					   }
+					  		
+		           const file = fileInput.files[0];	   
+		           const reader = new FileReader();
+		           reader.onload = function(event) {
+		               const base64String = event.target.result.split(',')[1]; 
+		               output.value = base64String; 
+					   console.log("FileName:", fileInput.files[0].name);
+					   outputFileName.value =fileInput.files[0].name;
+					
+				//	   document.querySelector('.form-group.choose-file .form-control').value = fileInput.files[0].name;
+		           };
+		           reader.readAsDataURL(file);
+				  // document.getElementById("bulksubmit").disabled=false;
+		    }

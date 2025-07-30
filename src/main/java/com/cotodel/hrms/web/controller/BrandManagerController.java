@@ -38,6 +38,7 @@ import com.cotodel.hrms.web.response.BrandManagementRequest;
 import com.cotodel.hrms.web.response.BulkOutletManagementRequest;
 import com.cotodel.hrms.web.response.ErupiBrandDetailsRequest;
 import com.cotodel.hrms.web.response.ErupiBrandGeoRequest;
+import com.cotodel.hrms.web.response.ErupiBrandOutletDeviceDetailsRequest;
 import com.cotodel.hrms.web.response.OutletBulkCreateRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.BrandManagementService;
@@ -447,6 +448,116 @@ public class BrandManagerController extends CotoDelBaseController{
 	            String json = EncryptionDecriptionUtil.convertToJson(outletBulkCreateRequest);
 	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
 	            String encriptResponse = brandManagementService.createBulkOutlet(tokengeneration.getToken(), jsonObject);
+
+	            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+	            profileRes = EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+
+	            JSONObject apiJsonResponse = new JSONObject(profileRes);
+	            boolean status = apiJsonResponse.getBoolean("status");
+	            responseMap.put("status", status);
+	            responseMap.put("message", apiJsonResponse.getString("message"));
+
+	            if (status && apiJsonResponse.has("data")) {
+	                responseMap.put("data", profileRes);
+	            } else {
+	                responseMap.put("status", false);
+	                responseMap.put("message", apiJsonResponse.getString("message"));
+	            }
+
+	        } catch (Exception e) {
+	            responseMap.put("status", false);
+	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    } else {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Insufficient permissions.");
+	    }
+
+	    try {
+	        return mapper.writeValueAsString(responseMap);
+	    } catch (JsonProcessingException e) {
+	        return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	    }
+	} 
+	
+	@PostMapping(value="/addOutletDeviceDetails")
+	public @ResponseBody String saveBrandOutletDeviceDetails(HttpServletResponse response, HttpServletRequest request,
+			ErupiBrandOutletDeviceDetailsRequest erupiBrandOutletDeviceDetailsRequest, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {
+
+	    String profileRes = null;
+	    Map<String, Object> responseMap = new HashMap<>();
+	    ObjectMapper mapper = new ObjectMapper();
+	    
+	    String receivedHash = erupiBrandOutletDeviceDetailsRequest.getHash();
+	    
+	    // Validate client key only
+	    if (!CLIENT_KEY.equals(erupiBrandOutletDeviceDetailsRequest.getClientKey())) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Invalid client key");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+	    // Prepare data string for hashing
+	    String dataString = erupiBrandOutletDeviceDetailsRequest.getOrgid() + CLIENT_KEY + SECRET_KEY;
+
+	    String computedHash = null;
+	    try {
+	        computedHash = generateHash(dataString);
+	        System.out.println("computedHash: " + computedHash);
+	        System.out.println("dataString: " + dataString);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+
+	    // Validate hash
+	    boolean isValid = computedHash != null && computedHash.equals(receivedHash);
+	    //isValid=true;
+	    if (!isValid) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Request Tempered");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+
+	    // Get token from session
+	    String token = (String) session.getAttribute("hrms");
+	    if (token == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: No token found.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+	    // Validate Token
+	    UserDetailsEntity obj = (UserDetailsEntity) JwtTokenValidator.parseToken(token);
+	    if (obj == null) {
+	        responseMap.put("status", false);
+	        responseMap.put("message", "Unauthorized: Invalid token.");
+	        try {
+	            return mapper.writeValueAsString(responseMap);
+	        } catch (JsonProcessingException e) {
+	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+	        }
+	    }
+
+	    // Check User Role and Organization ID
+	     //if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == outletBulkCreateRequest.getOrgId().longValue()) {
+	    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3)) {    
+	     try {
+	            String json = EncryptionDecriptionUtil.convertToJson(erupiBrandOutletDeviceDetailsRequest);
+	            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+	            String encriptResponse = brandManagementService.saveBrandOutletDeviceDetails(tokengeneration.getToken(), jsonObject);
 
 	            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 	            profileRes = EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);

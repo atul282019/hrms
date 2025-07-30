@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -37,57 +35,47 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
 <body>
-	
-
-  <div class="main-section">
-	
-    <div class="left-section text-body" >
-		<a class="navbar-brand" href="/" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends ">
-						<img src="img/Cotodel Logo.svg" class="navbar-brand-item" alt="Cotodel Business Payments logo" title="Cotodel Business Payments logo" fetchpriority="high">
-					</a><br>	
-      <h2>Contact Us</h2>
-      <p>Do you want to improve the way your business spends are being done? Want to discuss anything?</p>
-      <p>Cotodel is here to help!</p>
-      <a href="mailto:business@cotodel.com" title="Contact & mail Cotodel's Business team to onboard your business & fleet spends on UPI ">business@cotodel.com</a>
 	 
-    </div>
-	
-	
-  	<div class="right-section">
-		<div class="navbar-top-right">
-		    <nav class="navbar navbar-expand-lg navbar-light bg-white text-dark py-3">
+  <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 px-md-5 px-3 pt-4" style="background: #f8f9fa;">
+		 <img src="img/Cotodel Logo.svg" class="navbar-brand-item mb-5 mt-3" alt="Cotodel Business Payments logo" title="Cotodel Business Payments logo" fetchpriority="high">
+
+			<h2 class="fw-bold">Contact Us</h2>
+		<p>Do you want to improve the way your business spends are being done? Want to discuss anything?</p>
+		<p>Cotodel is here to help!</p>
+		<a href="mailto:business@cotodel.com" class="pb-5" title="Contact & mail Cotodel's Business team to onboard your business & fleet spends on UPI ">business@cotodel.com</a>
+		
+			<img src="img/women-similing-with-phone.webp" class="img-fluid" alt="Onboard your business payments on UPI" title="Contact Cotodel to shift your business spends on UPI">
+		</div>
+		<div class="col-md-6">
+			   <nav class="navbar navbar-expand-lg navbar-light bg-white text-dark mt-4 mb-5">
 		      <div class="container-fluid">
 		        <div class="collapse navbar-collapse justify-content-end show">
 		          <ul class="navbar-nav ms-auto">
 		            <li class="nav-item">
 		              <a class="nav-link" href="/" title="Cotodel Home Page to understand about UPI Digital Vouchers for your business spends ">Home</a>
 		            </li>
-		           <!--<li class="nav-item">
-		              <a class="nav-link active border-bottom border-success" href="#">Solutions</a>
-		            </li>-->
+		           
 		          </ul>
 		        </div>
 		      </div>
 		    </nav>
-		  </div>
-
-		<div class="border1">
-      <h4>Let’s get in touch!</h4>
-      <p class="text-muted">Be the first to get exclusive access to our market-defining product.</p>
-      <div class="d-flex align-items-center gap-2">
-        <a href="/waitlist" title="Join the waitlist to get exclusive access to Cotodel's expense management solution to bring your business spends and fleet expenses on UPI" class="btn btn-success d-flex align-items-center gap-1 px-4" >Submit Details →</a>
-        <span>OR</span>
-        <a href="https://wa.me/+919910558848" class="btn btn-success d-flex align-items-center gap-1 px-4" title="Message us to implement Smart Digital UPI Vouchers to simplify your business spends.">
-         Chat with Us <i class="bi bi-whatsapp"></i> 
-        </a>
-      </div>	
+			<div class="border1 p-4  mx-auto">
+		<h4>Let’s get in touch!</h4>
+		<p class="text-muted">Be the first to get exclusive access to our market-defining product.</p>
+		<div class="d-flex align-items-center gap-2 flex-wrap">
+			<a href="/waitlist" title="Join the waitlist to get exclusive access to Cotodel's expense management solution to bring your business spends and fleet expenses on UPI" class="btn btn-success d-flex align-items-center gap-1 px-4" >Submit Details →</a>
+			<span>OR</span>
+			<a href="https://wa.me/+919910558848" class="btn btn-success d-flex align-items-center gap-1 px-4" title="Message us to implement Smart Digital UPI Vouchers to simplify your business spends.">
+			Chat with Us <i class="bi bi-whatsapp"></i> 
+			</a>
+		</div>	
+			</div>
 		</div>
-	  
-    <div class="image-overlap">
-      <img src="img/women-similing-with-phone.webp" alt="Onboard your business payments on UPI" title="Contact Cotodel to shift your business spends on UPI">
-    </div>
+	</div>
   </div>
-  
+   
   <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
 	<div class="modal-dialog custom-position">
 		<div class="modal-content">
@@ -177,6 +165,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		    </div>
 	</div>
   </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -274,23 +263,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       max-width: 700px;
       border-radius: 8px;
     }
-  .border1
-  { 
-	margin-top: 17%;
+  .border1  { 
 	text-align: left;
-	width: 90%; 
-	height: 160px;
 	border: 1px solid #dee2e6;
 	border-radius: 20px;
-	margin-right: auto; 
-	
-	padding-right:1rem 1.5rem;
-	padding-top: 20px;
-	padding-left: 25px;
-	padding-bottom: 20px;
 	position: relative;
-	  z-index: 3;
-	
+	z-index: 3;
+	max-width: 75%;
   }
   .custom-position {
     position: absolute;
@@ -306,6 +285,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       transform: none;
       left: auto;
     }
+  }
+  @media only screen and (max-width: 576px) {
+	  .border1{
+	   width: 100%;
+	  }
   }
   .modal-sm {
       max-width: 420px;

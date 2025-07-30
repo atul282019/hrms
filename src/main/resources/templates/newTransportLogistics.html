@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="css/animate.min.css">
   <link rel="stylesheet" type="text/css" href="css/tiny-slider.css">
   <!-- Theme CSS -->
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style-new.css">
   
   
   <meta name="keywords" content="Fuel Cards, Fuel Expense Management, Fleet Management, Fleet Expense Management, Logistics & Transport, Save on Fuel Spends, Fuel Spends Solution,
@@ -306,37 +306,38 @@
 		  }
 		  /* modal css*/
 		  .custom-modal .modal-dialog {
-				      position: absolute;
+				      /* position: absolute;
 				      top: 260px;
 				      left: 463px;
 				      max-width: unset;
-				      margin: 0;
+				      margin: 0; */
 				    }
 
 				    .custom-modal .modal-content {
-				      width: 514px;
-				      height: 292px;
-				      border-radius: 20px;
-				      padding: 50px;
-				      border: 1px solid #ccc;
-				      background-color: #fff;
-				      display: flex;
-				      flex-direction: column;
-				      align-items: center;
-				      justify-content: space-between;
-				      box-shadow: none;
-				    }
+								      /* width: 514px;
+								      height: 292px; */
+								      border-radius: 20px;
+								      padding: 40px;
+								      border: 1px solid #ccc;
+								      background-color: #fff;
+								      display: flex;
+								      flex-direction: column;
+								      align-items: center;
+								      justify-content: space-between;
+								      box-shadow: none;
+					}
 
-					.btn-group-custom {
-					      display: flex;
-					      align-items: center;
-					      justify-content: center;
-					      gap: 30px;
-					      width: 169px;
-					      margin-top: 10px;
-						  color:#2F945A;
-						  height: 56px;
-					    }
+
+						.btn-group-custom {
+									      display: flex;
+									      align-items: center;
+									      justify-content: center;
+									      gap: 30px;
+									       flex-flow: row ;
+									      margin-top: 10px;
+										  color:#2F945A;
+										 
+									    }
 
 					    .btn-success {
 					      min-width: 170px;
@@ -361,6 +362,26 @@
 					      background: transparent;
 					      font-size: 1.25rem;
 					    }
+
+						@media screen and (max-width:480px) {
+
+										 .custom-modal .modal-content {
+										    width: 100%;
+										    height: auto;
+										    padding: 20px;
+										  }
+											
+										  .btn-group-custom{
+											gap:8px;
+											flex-flow: row wrap;
+										  }
+										  .btn-group-custom *{
+											width: 100%;
+											text-align: center;
+										  }
+										  
+						}
+
 </style>
 </head>
 
@@ -403,7 +424,7 @@
   </header>
 
   <section class="section container">
-	<p>	Give your fleet drivers UPI-enabled digital vouchers which can be either locked at all Petrol pumps or even at a specific branded petrol pump of your choice. Another added advantage is that these vouchers can be issued instantly to each driver’s mobile number without any onboarding documents or KYC needed  from them!  </p>
+	<p>	Give your fleet drivers UPI-enabled digital vouchers which can be either locked at all Petrol pumps or even at a specific branded petrol pump of your choice. Another added advantage is that these vouchers can be issued instantly to each driver’s mobile number without any onboarding documents or KYC needed from them!  </p>
 	 
 	<p>There is no change in both Consumer as well as Merchant behaviour from their regular UPI transaction which they are anyway doing currently for their personal spends. The issued voucher automatically pops up on the consumer’s existing UPI apps once a relevant merchant QR code is scanned. All you have to do is select the payment instrument as the voucher instead of your Bank Account or Card and make the payment from the issued voucher. The merchant also accepts direct debit transactions on the same QR codes which are already installed at their outlets and do not need to add a new QR code or download any new app for this! </p>
     <h5 class="highlight"><strong>What makes it different from a regular UPI transaction?</strong></h5>
@@ -413,7 +434,7 @@
     <p class="highlight rounded-3" style="background-color:#EAF4EF; padding: 20px 20px; ">Join Bharat's smartest payments platform to manage & save on your Fleet’s Fuel Expenses!</p>
 	</section>
   
- <section class="container" >
+ <section class="container pt-0 pb-3" >
     <div class="d-flex justify-content-center">
       <img src="img/payingShell_services.webp" alt="UPI Digital voucher for Fuel" title="UPI Digital voucher for your Fleet expense management" class="img-fluid" style="max-width: 100%; height: auto;">
     </div>
@@ -545,7 +566,7 @@
   </div>
 <!-- footer-->
 				   
-	   <section class="section container">
+	   <section class="section container py-0">
 	     <h5 class="highlight">What makes Cotodel better than Fuel Cards?</h5>
 	     <p>Yes, Fuel cards do exist through which the purpose of the spend done can be locked but the entire shift is of the Form Factor of payment! All of us have become so used to making transactions from our UPI apps on our mobile phones directly which eliminates the need to carry physical cards or download a new app to do spends via a digital card.</p>
 
@@ -566,7 +587,7 @@
 			-->
 	   												<div class="container">
 	   													
-	   														<h2 class="h2-bold color-prime-500 mb-4">FAQs</h2>
+	   														<h2 class="h2-bold color-prime-500  ">FAQs</h2>
 															<div class="row align-items-start">
 	   														
 	   														<div class="col-lg-7">

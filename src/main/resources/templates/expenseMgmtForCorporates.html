@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" href="css/animate.min.css">
   <link rel="stylesheet" type="text/css" href="css/tiny-slider.css">
   <!-- Theme CSS -->
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style-new.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -310,29 +310,29 @@
 		  				    }
 
 		  				    .custom-modal .modal-content {
-		  				      width: 514px;
-		  				      height: 292px;
-		  				      border-radius: 20px;
-		  				      padding: 50px;
-		  				      border: 1px solid #ccc;
-		  				      background-color: #fff;
-		  				      display: flex;
-		  				      flex-direction: column;
-		  				      align-items: center;
-		  				      justify-content: space-between;
-		  				      box-shadow: none;
-		  				    }
+								      /* width: 514px;
+								      height: 292px; */
+								      border-radius: 20px;
+								      padding: 40px;
+								      border: 1px solid #ccc;
+								      background-color: #fff;
+								      display: flex;
+								      flex-direction: column;
+								      align-items: center;
+								      justify-content: space-between;
+								      box-shadow: none;
+								    }
 
 		  					.btn-group-custom {
-		  					      display: flex;
-		  					      align-items: center;
-		  					      justify-content: center;
-		  					      gap: 30px;
-		  					      width: 169px;
-		  					      margin-top: 10px;
-		  						  color:#2F945A;
-		  						  height: 56px;
-		  					    }
+									      display: flex;
+									      align-items: center;
+									      justify-content: center;
+									      gap: 30px;
+									       flex-flow: row ;
+									      margin-top: 10px;
+										  color:#2F945A;
+										 
+									    }
 
 		  					    .btn-success {
 		  					      min-width: 170px;
@@ -357,7 +357,24 @@
 		  					      background: transparent;
 		  					      font-size: 1.25rem;
 		  					    }
- 
+ @media screen and (max-width:480px) {
+
+										 .custom-modal .modal-content {
+										    width: 100%;
+										    height: auto;
+										    padding: 20px;
+										  }
+											
+										  .btn-group-custom{
+											gap:8px;
+											flex-flow: row wrap;
+										  }
+										  .btn-group-custom *{
+											width: 100%;
+											text-align: center;
+										  }
+										  
+						}
 </style>
 </head>
  
@@ -410,7 +427,7 @@
     <p class="highlight rounded-3" style="background-color:#EAF4EF; padding: 20px 20px; ">Join Bharat's smartest payments platform to manage & save on your Employee’s Corporate Spends!</p>
   </section>
   
-  <section class="container my-5" >
+  <section class="container py-0" >
     <div class="d-flex justify-content-center">
       <img src="img/mock-full.webp" alt="UPI Digital voucher for Business spends" title="UPI Digital voucher for your Corporate expense management" class="img-fluid" style="max-width: 100%; height: auto;">
     </div>
