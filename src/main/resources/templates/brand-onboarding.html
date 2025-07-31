@@ -84,24 +84,19 @@
                                                         
 														<div class="profile-name-wrap" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
 														  <div style="display: flex; align-items: center; gap: 8px;">
-
-														    <h4 style="margin: 0;"><a href="/brandDashboard"><i class="bi bi-chevron-left" style="margin-right: 10px;"></i></a><span th:text="${name}"></span>Brand Name<span class="pill bg-lightgreen-txt-green-pill mt-3" style="margin-left: 15px;">Activated</td></span></h4>
-														    <!--<img src="img/linked.svg" class="ml-2" alt="" style="height: 20px; vertical-align: middle;">
-														  -->
-
-															</div>
+														    <h4 style="margin: 0;"><a href="/brandDashboard"><i class="bi bi-chevron-left" style="margin-right: 10px;"></i></a><span th:text="${name}"></span>Outlet Name<span class="pill bg-lightgreen-txt-green-pill mt-3" style="margin-left: 15px;">Activated</td></span></h4>
+														  </div>
 
 														  <!-- Right-aligned buttons -->
 														  <div style="display: flex; gap: 8px; align-items: center;">
-														   <!-- <button class="custom-back-button" onclick="window.location.href='/manageEmployee'" >Back</button>
--->
 														    <button class="btn p-0 btn btn-confirm1 dropdown-toggle" href="#" id="userDropdown" role="button"
 														      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
 
-														  <!--  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-														      <a class="dropdown-item py-2" >Change Reporting Manager</a>
-														      <a class="dropdown-item py-2" href="#">Deactivate User</a>
-														    </div>-->
+														    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+														      <a class="dropdown-item py-2" onclick="openEditoutlet()">Edit Outlet Details</a>
+														      <a class="dropdown-item py-2" href="#">Deactivate Outlet</a>
+															 
+														    </div>
 														  </div>
 														</div>                                                         
                                                 
@@ -1224,63 +1219,9 @@
 </div>
 <!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-	
-	<!-- modal -->
-<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay1" style="display: none;">
-  <div class="voucher-modal-canvas" id="bs-canvas-right2">
-    <div class="voucher-modal-scrollable-wrapper">
-      <div class="voucher-modal-scrollable">
-        <div class="voucher-header d-flex justify-content-between align-items-center p-3 border-bottom">
-          <h5 class="voucher-title mb-0">Activate Brand Management</h5>
-          <button class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="margin-right: -65px;">
-            <i class="fas fa-times voucher-close-icon"></i>
-          </button>
-        </div>
-
-        <div class="p-3">
-          <!-- Question 1 -->
-          <p class="mb-2 fw-bold">How many outlets does your brand have?</p>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet" value="oneOutlet">
-            <label class="form-check-label" for="oneOutlet" style="margin-left: -17px !important; ">One</label>
-          </div>
-          <div class="form-check d-flex align-items-center gap-2 mb-4">
-            <input class="form-check-input" type="radio" name="outletCount" id="multipleOutlets" checked value="multipleOutlets">
-            <label class="form-check-label me-2" for="multipleOutlets">Multiple</label>
-            <input type="text" id="noOfOutlet"  class="form-control form-control-sm w-auto" placeholder="No of Outlets"
-			 style="border-radius: 6px;"
-			 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-          </div>
-
-          <!-- Question 2 -->
-          <p class="mb-2 fw-bold">Do you have an online store for sales?</p>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="salesMode" id="onlineOffline" checked value="Online and Offline">
-            <label class="form-check-label" for="onlineOffline">Online and Offline</label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="radio" name="salesMode" id="onlineOnly" value="Online Only">
-            <label class="form-check-label" for="onlineOnly">Online Only</label>
-          </div>
-          <div class="form-check mb-4">
-            <input class="form-check-input" type="radio" name="salesMode" id="offlineOnly" value="Offline Only">
-            <label class="form-check-label" for="offlineOnly">Offline Only</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer: button excluded as per user -->
-    <div class="voucher-footer">
-		<!--<button class="voucher-download-btn" type="button" data-bs-toggle="modal"
-		  data-bs-target="#PaymentSuccessModal">Submit</button>-->
-		  <button class="voucher-download-btn" type="button" onclick="activateBrand()">Submit</button>
-    </div>
-  </div>
 </div>
-<!-- modal 2 linkdevice modal -->
+<!-- End of Page Wrapper -->
+
 <!-- modal 2 linkdevice modal -->
 <div class="" id="modal-overlay2" style="display:none;">
   <div class="voucher-modal-canvas" id="bs-canvas-right3">
@@ -1294,7 +1235,6 @@
         </div>
 
         <div class="voucher-body p-3">
-
           <div class="did-floating-label-content mb-3">
             <select class="did-floating-select" id="deviceType">
               <option value="Physical QR Code" selected>Physical QR Code</option>
@@ -1441,7 +1381,70 @@
 	           </div>
 	       </div>
 	   </div>
+	   <div class="" id="modal-overlay4" style="display:none;">
+	   	  <div class="voucher-modal-canvas" id="bs-canvas-right4">
+	   	    <div class="voucher-modal-scrollable-wrapper">
+	   	      <div class="voucher-modal-scrollable">
+	   	        <div class="voucher-header mt-2">
+	   	          <h5 class="voucher-title">Edit Outlet Details</h5>
+	   	          <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
+	   	            <i class="fas fa-times voucher-close-icon"></i>
+	   	          </button>
+	   	        </div>
 
+	   	        <div class="voucher-body">
+	   			  <div id="geoContainer">
+	   				<div class="did-floating-label-content">
+	   				    <input class="did-floating-input" type="text" id="outletName" placeholder="">
+	   				    <label class="did-floating-label">Name</label>
+	   				</div>
+	   				<div class="error-msg" id="outletNameError" style="margin-top: -10px; font-size: 12px;"></div>
+	   				<div class="did-floating-label-content mr-2">
+	   				    <select class="did-floating-select" id="outletType">
+	   				        <option value="">Outlet Type</option>
+	   						<option value="Company Owned">Company Owned</option>
+	   				    </select>
+	   				    <label class="did-floating-label">Outlet Type </span></label>
+	   				</div>
+	   				<div class="error-msg" id="outletTypeError" style="margin-top: -10px; font-size: 12px;"></div>
+	   					<div class="did-floating-label-content">
+	   						<input class="did-floating-input" type="text" id="outletManager"  placeholder="" oninput="userSearchAndPopulate(this)">
+	   						<label class="did-floating-label">Outlet Manager</label>
+	   					   <!-- <input class="did-floating-input" type="text" id="outletManager"  placeholder="" oninput="userSearchAndPopulate(this)">
+	   					    <label class="did-floating-label">Outlet Manager</label>
+	   						<div id="autocomplete-suggestions" class="autocomplete-dropdown" style="display: block;"><div class="autocomplete-suggestion"></div>
+	   						</div>-->
+	   					</div>
+	   					
+	   					<div class="error-msg" id="outletManagerError" style="margin-top: -10px; font-size: 12px;"></div>
+	   					
+	   					<div class="did-floating-label-content">
+	   					    <input class="did-floating-input" type="text" id="outletContact" placeholder="" maxlength="10" 
+	   						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+	   					    <label class="did-floating-label">Contact Number</label>
+	   					</div>
+	   					<div class="error-msg" id="outletContactError" style="margin-top: -10px; font-size: 12px;"></div>
+	   					<div class="did-floating-label-content">
+	   					    <input class="did-floating-input" type="text" id="outletLocation" placeholder="">
+	   					    <label class="did-floating-label">Location</label>
+	   					</div>
+	   					<div class="error-msg" id="outletLocationError" style="margin-top: -10px; font-size: 12px;"></div>
+	   					<div class="did-floating-label-content mr-2">
+	   					    <select class="did-floating-select" id="geography" >
+	   					    </select>
+	   					    <label class="did-floating-label">Geography Type </span></label>
+	   					</div>
+	   					<div class="error-msg" id="geographyError" style="margin-top: -10px; font-size: 12px;"></div>
+	   			  </div>
+
+	   			  <button class="add-geo-btn" type="button" id="openSuccessModalBtn" onclick="addBrandOutlet()">
+	   			    Add Outlet &nbsp; +
+	   			  </button>
+	   	        </div>
+	   	      </div>
+	   	    </div>
+	   	   </div>
+	   </div>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -1566,13 +1569,28 @@
 	    }
 	  });
 	</script>
+	
+	<script>
+		  function openEditoutlet() {
+		    document.getElementById("bs-canvas-right4").classList.add("show-canvas");
+		    document.getElementById("modal-overlay4").style.display = "block";
+		  }
+
+		  document.addEventListener("DOMContentLoaded", function () {
+		    const closeBtn = document.getElementById("close-geo-modal-btn");
+		    if (closeBtn) {
+		      closeBtn.addEventListener("click", function () {
+		        document.getElementById("modal-overlay4").style.display = "none";
+		        document.getElementById("bs-canvas-right4").classList.remove("show-canvas");
+		      });
+		    }
+		  });
+		</script>
 	<script>
 		
 	$(document).ready(function(){
-	    	
 	    	 $('li.active').removeClass('active').removeAttr('aria-current'); 
 			  $('a[href="/brandDashboard"]').closest('li').addClass('active').attr('aria-current', 'page');   
-			  
 	        $(".innernav").click(function(){
 	            $(".dropdownNav").addClass("active");
 	        });
@@ -1596,7 +1614,7 @@
 			}
 	   });
     </script>
-	
+	<!--
 	<script>
 	  window.addEventListener("DOMContentLoaded", function () {
 	    // Show modal canvas
@@ -1611,7 +1629,7 @@
 
 	</script>
 	
-
+-->
 	
 
 </body>
