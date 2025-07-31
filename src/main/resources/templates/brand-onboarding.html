@@ -6,7 +6,7 @@
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<body id="page-top" onload="getOutletDetailsById(),getDeviceDetailList()" >
+<body id="page-top" onload="getOutletDetailsById(),getDeviceDetailList(),getGeographicDropdownList()" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -94,7 +94,7 @@
 
 														    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 														      <button class="dropdown-item py-2" onclick="openEditoutlet()">Edit Outlet Details</button>
-														      <a class="dropdown-item py-2" href="#">Deactivate Outlet</a>
+														      <a class="dropdown-item py-2" href="#" onclick="deactivateOutlet()">Deactivate Outlet</a>
 															 
 														    </div>
 														  </div>
@@ -180,7 +180,7 @@
 		            <table class="table table-reimbursements mb-0" id="linkedDeviceList">
 						<thead>
 		                <tr>		
-		                  <th>Day</th>	  
+		               <!--   <th>Day</th>	  -->
 						  <th>Type of Device</th>
 						 <th>UPI ID</th>
 						 <th>State of UPI QR</th>
@@ -591,7 +591,7 @@
 
 			      </div>
 			    </div>
-</div>
+			</div>
 
                 <div class="row tab-pane" id="attendance-section">
                     <div class="row">
@@ -1387,7 +1387,7 @@
 	   	      <div class="voucher-modal-scrollable">
 	   	        <div class="voucher-header mt-2">
 	   	          <h5 class="voucher-title">Edit Outlet Details</h5>
-	   	          <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
+	   	          <button id="close-outletedit-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
 	   	            <i class="fas fa-times voucher-close-icon"></i>
 	   	          </button>
 	   	        </div>
@@ -1395,20 +1395,21 @@
 	   	        <div class="voucher-body">
 	   			  <div id="geoContainer">
 	   				<div class="did-floating-label-content">
-	   				    <input class="did-floating-input" type="text" id="outletName" placeholder="">
+	   				    <input class="did-floating-input" type="text" id="outletNameEdit" placeholder="" >
 	   				    <label class="did-floating-label">Name</label>
 	   				</div>
 	   				<div class="error-msg" id="outletNameError" style="margin-top: -10px; font-size: 12px;"></div>
 	   				<div class="did-floating-label-content mr-2">
-	   				    <select class="did-floating-select" id="outletType">
+	   				    <select class="did-floating-select" id="outletTypeEdit">
 	   				        <option value="">Outlet Type</option>
 	   						<option value="Company Owned">Company Owned</option>
+							<option value="Franchise / Dealer Owned">Franchise / Dealer Owned</option>
 	   				    </select>
 	   				    <label class="did-floating-label">Outlet Type </span></label>
 	   				</div>
 	   				<div class="error-msg" id="outletTypeError" style="margin-top: -10px; font-size: 12px;"></div>
 	   					<div class="did-floating-label-content">
-	   						<input class="did-floating-input" type="text" id="outletManager"  placeholder="" oninput="userSearchAndPopulate(this)">
+	   						<input class="did-floating-input" type="text" id="outletManagerEdit"  placeholder="" oninput="userSearchAndPopulate(this)">
 	   						<label class="did-floating-label">Outlet Manager</label>
 	   					   <!-- <input class="did-floating-input" type="text" id="outletManager"  placeholder="" oninput="userSearchAndPopulate(this)">
 	   					    <label class="did-floating-label">Outlet Manager</label>
@@ -1419,13 +1420,13 @@
 	   					<div class="error-msg" id="outletManagerError" style="margin-top: -10px; font-size: 12px;"></div>
 	   					
 	   					<div class="did-floating-label-content">
-	   					    <input class="did-floating-input" type="text" id="outletContact" placeholder="" maxlength="10" 
+	   					    <input class="did-floating-input" type="text" id="outletContactEdit" placeholder="" maxlength="10" 
 	   						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	   					    <label class="did-floating-label">Contact Number</label>
 	   					</div>
 	   					<div class="error-msg" id="outletContactError" style="margin-top: -10px; font-size: 12px;"></div>
 	   					<div class="did-floating-label-content">
-	   					    <input class="did-floating-input" type="text" id="outletLocation" placeholder="">
+	   					    <input class="did-floating-input" type="text" id="outletLocationEdit" placeholder="">
 	   					    <label class="did-floating-label">Location</label>
 	   					</div>
 	   					<div class="error-msg" id="outletLocationError" style="margin-top: -10px; font-size: 12px;"></div>
@@ -1437,8 +1438,8 @@
 	   					<div class="error-msg" id="geographyError" style="margin-top: -10px; font-size: 12px;"></div>
 	   			  </div>
 
-	   			  <button class="add-geo-btn" type="button" id="openSuccessModalBtn" onclick="addBrandOutlet()">
-	   			    Add Outlet &nbsp; +
+	   			  <button class="add-geo-btn" type="button" id="openSuccessModalBtn" onclick="editBrandOutletDetails()">
+	   			    UPDATE DETAILS &nbsp; +
 	   			  </button>
 	   	        </div>
 	   	      </div>
@@ -1604,7 +1605,7 @@
 		  }
 
 		  document.addEventListener("DOMContentLoaded", function () {
-		    const closeBtn = document.getElementById("close-geo-modal-btn");
+		    const closeBtn = document.getElementById("close-outletedit-modal-btn");
 		    if (closeBtn) {
 		      closeBtn.addEventListener("click", function () {
 		        document.getElementById("modal-overlay4").style.display = "none";

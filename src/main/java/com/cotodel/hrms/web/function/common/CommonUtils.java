@@ -200,4 +200,7 @@ public interface CommonUtils {
 	public static String brandOutletDetailById="/erupiBrandService/Api/get/erupiBrandOutletById";
 	public static String saveBrandOutletDeviceDetails="/erupiBrandService/Api/add/erupiBrandOutletDeviceDetails";
 	public static String getDeviceDetailList="/erupiBrandService/Api/get/erupiBrandOutletDeviceList";
+	public static String deactivateOutlet="";
+	public static String editOutletDetail="/erupiBrandService/Api/update/updateBrandOutletDetails";
+	
 }

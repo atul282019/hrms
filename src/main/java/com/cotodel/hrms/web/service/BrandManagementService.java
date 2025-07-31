@@ -29,4 +29,8 @@ public interface BrandManagementService {
 
 	String getDeviceDetailList(String token, EncriptResponse jsonObject);
 
+	String deactivateOutlet(String token, EncriptResponse jsonObject);
+
+	String editBrandOutletDetail(String token, EncriptResponse jsonObject);
+
 }

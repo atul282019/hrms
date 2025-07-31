@@ -36,6 +36,7 @@ import com.cotodel.hrms.web.jwt.util.JwtTokenValidator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BrandManagementRequest;
 import com.cotodel.hrms.web.response.BulkOutletManagementRequest;
+import com.cotodel.hrms.web.response.EmployeeDeactiveRequest;
 import com.cotodel.hrms.web.response.ErupiBrandDetailsRequest;
 import com.cotodel.hrms.web.response.ErupiBrandGeoRequest;
 import com.cotodel.hrms.web.response.ErupiBrandOutletDeviceDetailsRequest;
@@ -111,7 +112,29 @@ public class BrandManagerController extends CotoDelBaseController{
    
 		return profileRes;	
 }
+	@PostMapping(value = "/editBrandOutletDetail")
+	public @ResponseBody String editBrandOutletDetail(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, BrandManagementRequest brandManagementRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(brandManagementRequest);
 
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  brandManagementService.editBrandOutletDetail(tokengeneration.getToken(), jsonObject);
+ 
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+		return profileRes;	
+}
+	
 	@GetMapping(value = "/getOutletDetail")
 	public @ResponseBody String getOutletDetail(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, BrandManagementRequest brandManagementRequest) {
@@ -612,6 +635,30 @@ public class BrandManagerController extends CotoDelBaseController{
 		}
    return profileRes;
 }
+	
+	@PostMapping(value="/deactivateOutlet")
+	public @ResponseBody String deactivateOutlet(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,BrandManagementRequest brandManagementRequest) {
+		String profileRes=null;
+
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(brandManagementRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = brandManagementService.deactivateOutlet(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return profileRes;
+		
+	}
 	 private String generateHash(String data) throws NoSuchAlgorithmException {
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
 	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));

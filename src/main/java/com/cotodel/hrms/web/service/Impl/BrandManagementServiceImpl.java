@@ -104,4 +104,20 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 		    );
 	}
 
+	@Override
+	public String deactivateOutlet(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(jsonObject),
+		        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.deactivateOutlet
+		    );
+	}
+
+	@Override
+	public String editBrandOutletDetail(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(jsonObject),
+		        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.editOutletDetail
+		    );
+	}
+
 }

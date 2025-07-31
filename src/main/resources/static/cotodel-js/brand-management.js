@@ -462,7 +462,23 @@ async function getOutletDetail() {
                 },
                 aaData: outletData,
                 aoColumns: [
-                    { mData: "name" },
+                   
+					{
+					  mData: "name",
+					  render: function(data, type, row) {
+						if (data == 1) {
+  						return `<div style="display: flex; justify-content: space-between; align-items: center;margin-top: 12px;">
+						  ${row.name}
+						  <i class="fas fa-chevron-right" style="color: #2F945A;"></i>
+						</div>`;
+						}
+						else{
+							return `<div style="display: flex; justify-content: space-between; align-items: center;margin-top: 12px;">
+							  ${row.name}
+							</div>`;
+						}
+					  
+					  }},
                     { mData: "typeDesc" },
                     { mData: "location" },
                     { mData: "geocatname" },
@@ -649,6 +665,7 @@ function userSearchAndPopulate(inputElement) {
 			var qrStateId = qrState.value;
 		    var qrStateText = qrState.options[dropdown.selectedIndex].text;
 			var orgId = document.getElementById("employerId").value;
+			 var username =document.getElementById("employerName").value; 
 			var upiId = document.getElementById("upiId").value;
 			var outlettype = document.getElementById("outlettype").innerHTML;
 			var branchManager = document.getElementById("branchManager").innerHTML;
@@ -680,6 +697,7 @@ function userSearchAndPopulate(inputElement) {
 							"qrStateId":qrStateId,
 							"deviceTypeDesc":deviceTypeText,
 							"qrStateDesc":qrStateText,
+							"createdby":username,
 							"upiId":upiId,
 							"clientKey":clientKey,
 						    "hash":hashHex
@@ -768,6 +786,14 @@ async function getOutletDetailsById(){
 				document.getElementById('location').innerHTML = data1.location;
 				document.getElementById('regionZone').innerHTML = data1.geocatname;
 				
+				document.getElementById('outletNameEdit').value = data1.name;
+				document.getElementById('outletTypeEdit').value = data1.name;
+				document.getElementById('outletManagerEdit').value = data1.mgrName;
+				
+				document.getElementById('outletContactEdit').value = data1.mgrMobile;
+				document.getElementById('outletLocationEdit').value = data1.location;
+				document.getElementById('geography').value = data1.geocatname;
+				
 			}else if(data.status==false){
 			}
 	     },
@@ -806,12 +832,12 @@ async function getDeviceDetailList() {
                 },
                 aaData: outletData,
                 aoColumns: [
-                    { mData: "deviceTypeDesc" },
+                   // { mData: "deviceTypeDesc" },
                     { mData: "deviceTypeDesc" },
                     { mData: "upiId" },
                     { mData: "qrStateDesc" },
-					{ mData: "qrStateDesc" },
-					{ mData: "qrStateDesc" },
+					//{ mData: "qrStateDesc" },
+					//{ mData: "qrStateDesc" },
 					{
 					  mData: "status",
 					  render: function(data, type, row) {
@@ -821,6 +847,7 @@ async function getDeviceDetailList() {
 					     return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Disabled</span>`;
 					    }
 					  }},
+					  { mData: "createdby"},
                     /*{
                         mData: null,
                         render: function (data, type, row) {
@@ -863,6 +890,17 @@ async function getDeviceDetailList() {
 					        return `${day}/${month}/${year}`;
 					    }
 					},
+					{
+					    mData: "creationdate",
+					    render: function (data, type, row) {
+					        if (!data) return "";
+					        const date = new Date(data);
+					        const day = String(date.getDate()).padStart(2, '0');
+					        const month = String(date.getMonth() + 1).padStart(2, '0');
+					        const year = date.getFullYear();
+					        return `${day}/${month}/${year}`;
+					    }
+					},
 					
                 ],
                 createdRow: function(row, data, dataIndex) {
@@ -876,3 +914,107 @@ async function getDeviceDetailList() {
         }
     });
 }
+
+async function editBrandOutletDetails(){
+		var orgId = document.getElementById("employerId").value;
+		var outletName = document.getElementById("outletNameEdit").value;
+		var outletType = document.getElementById("outletTypeEdit").value;
+		var outletManager = document.getElementById("outletManagerEdit").value;
+		var outletContact = document.getElementById("outletContactEdit").value;
+		var outletLocation = document.getElementById("outletLocationEdit").value;
+		var dropdown = document.getElementById("geography");
+	    var geography = dropdown.value;
+	    var geographyText = dropdown.options[dropdown.selectedIndex].text;
+	    var brandOutletId = document.getElementById("brandOutletId").value;
+		  
+		if (outletName === "") {
+			   document.getElementById("outletNameError").innerHTML="Please enter Outlet Name.";
+		       document.getElementById("outletName").focus();
+		       return false;
+		   }
+		   if (outletType === "") {
+			   document.getElementById("outletTypeError").innerHTML="Please select Outlet Type.";
+		       document.getElementById("outletType").focus();
+		       return false;
+		   }
+		   if (outletManager === "") {
+			   document.getElementById("outletManagerError").innerHTML="Please enter Outlet Manager name.";
+		       document.getElementById("outletManager").focus();
+		       return false;
+		   }
+		   if (outletContact === "") {
+			   document.getElementById("outletContactError").innerHTML="Please enter Outlet Contact.";
+		       document.getElementById("outletContact").focus();
+		       return false;
+		   }
+		   if (outletLocation === "") {
+			   document.getElementById("outletLocationError").innerHTML="Please enter Outlet Location.";
+		       document.getElementById("outletLocation").focus();
+		       return false;
+		   }
+		   if (geography === "") {
+			   document.getElementById("geographyError").innerHTML="Please select Geography.";
+		       document.getElementById("geography").focus();
+		       return false;
+		   }
+		   
+		$.ajax({
+			type: "POST",
+		     url:"/editBrandOutletDetail",
+			 dataType: 'json',   
+		      data: {
+						"id":brandOutletId,
+						"orgid":orgId,
+						"mgrName":outletManager,
+						"name":outletName,
+						"mgrMobile":outletContact,
+						"typeDesc":outletType,
+						"location":outletLocation,
+						"geocatid":geography,
+						"geocatname":geographyText,
+						"appType":"web",
+				 },  		 
+		        success:function(data){
+		        var data1 = data.data;
+				if(data.status==true){
+					getOutletDetail();
+					document.getElementById("modal-overlay2").style.display = "none";
+				    document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
+					$('#PaymentSuccessModal').modal('show');
+				}else if(data.status==false){
+					$('#PaymentSuccessModal').modal('show');
+				}
+		     },
+		     error: function(e){
+		         alert('Error: ' + e);
+		     }
+		});	
+		
+	}
+
+function deactivateOutlet() {
+		    const employerId = document.getElementById("employerId").value;
+		    const Id = document.getElementById("brandOutletId").value;
+		    if (!Id) {
+		        alert("Employee ID is missing.");
+		        return;
+		    }
+		    if (confirm("Are you sure you want to deactivate this outlet?")) {
+		        $.ajax({
+		            type: "POST",
+		            url: "/deactivateOutlet",
+		            data: {
+		                "employerId": employerId,
+		                "id": Id,
+		                "status": "Deactive"
+		            },
+		             dataType: "json", 
+		            success: function(response) {
+		                alert("Outlet deactivated successfully!");
+		            },
+		            error: function(error) {
+		                alert("Error deactivating Outlet: " + error.responseText);
+		            }
+		        });
+		    }
+		}

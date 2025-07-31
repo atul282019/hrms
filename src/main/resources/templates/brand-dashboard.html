@@ -540,7 +540,7 @@
 														      </div>
 														    </div>
 												          <div class="table-responsive">
-												            <table class="table table-reimbursements mb-0" id="outletDetailTable">
+												            <table class="table table-reimbursements mb-0" id="outletDetailTable" style="border: 1px solid #EAF4EF; border-radius: 10px;font-size: 13px;">
 												              <thead>
 												                <tr>
 												                 <!-- <th>#</th>-->
@@ -640,7 +640,7 @@
 						 <input type="hidden" class="form-input" id="employerId" name="employerId" th:value="${session.id}"> 
 						<input type="hidden" class="form-input" id="employerName" name="employerName" th:value="${session.username}"> 
 						<input type="hidden" class="form-input" id="userMobile" name="userMobile" th:value="${session.mobile}"> 
-			
+						
                        </div>
                         </div>
                     </div>
@@ -772,6 +772,7 @@
 					    <select class="did-floating-select" id="outletType">
 					        <option value="">Outlet Type</option>
 							<option value="Company Owned">Company Owned</option>
+							<option value="Franchise / Dealer Owned">Franchise / Dealer Owned</option>
 					    </select>
 					    <label class="did-floating-label">Outlet Type </span></label>
 					</div>
