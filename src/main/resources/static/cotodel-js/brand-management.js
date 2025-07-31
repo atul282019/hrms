@@ -432,7 +432,8 @@ async function activateBrand(){
 	});	
 	
 }
-*/async function getOutletDetail() {
+*/
+async function getOutletDetail() {
     var orgId = document.getElementById("employerId").value;
 
     $.ajax({
@@ -745,3 +746,133 @@ function userSearchAndPopulate(inputElement) {
 		           reader.readAsDataURL(file);
 				  // document.getElementById("bulksubmit").disabled=false;
 		    }
+async function getOutletDetailsById(){
+	var orgId = document.getElementById("employerId").value;
+	var brandOutletId = document.getElementById("brandOutletId").value;
+	$.ajax({
+		type: "GET",
+	     url:"/erupiBrandOutletById",
+		 dataType: 'json',   
+	      data: {
+					"orgid":orgId,
+					"id":brandOutletId,
+			 },  		 
+	        success:function(data){
+	        var data1 = data.data;
+			if(data.status==true){
+				
+				document.getElementById('outlettype').innerHTML = data1.name;
+				document.getElementById('branchManager').innerHTML = data1.mgrName;
+				
+				document.getElementById('contactNumber').innerHTML = data1.mgrMobile;
+				document.getElementById('location').innerHTML = data1.location;
+				document.getElementById('regionZone').innerHTML = data1.geocatname;
+				
+			}else if(data.status==false){
+			}
+	     },
+	     error: function(e){
+	         alert('Error: ' + e);
+	     }
+	});	
+	
+}
+async function getDeviceDetailList() {
+    var orgId = document.getElementById("employerId").value;
+
+    $.ajax({
+        type: "GET",
+        url: "/getDeviceDetailList",
+        dataType: "json",
+        data: {
+            orgid: orgId,
+        },
+        success: function(response) {
+            var outletData = response.data;
+
+            var table = $('#linkedDeviceList').DataTable({
+                destroy: true,
+                responsive: true,
+                searching: false,
+                bInfo: false,
+                paging: false,
+                lengthChange: false,
+                autoWidth: false,
+                pagingType: "full_numbers",
+                pageLength: 50,
+                buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                language: {
+                    emptyTable: 'Currently, no outlets have been added. Click <a class="outlet" onclick="openGeoGraphic()">Add Manually</a> to add your first outlet.'
+                },
+                aaData: outletData,
+                aoColumns: [
+                    { mData: "deviceTypeDesc" },
+                    { mData: "deviceTypeDesc" },
+                    { mData: "upiId" },
+                    { mData: "qrStateDesc" },
+					{ mData: "qrStateDesc" },
+					{ mData: "qrStateDesc" },
+					{
+					  mData: "status",
+					  render: function(data, type, row) {
+					    if (data == 1) {
+					      return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Enabled</span>`;
+					    } else {
+					     return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Disabled</span>`;
+					    }
+					  }},
+                    /*{
+                        mData: null,
+                        render: function (data, type, row) {
+                            return `${row.mgrName}<br>${row.mgrMobile || ''}`;
+                        }
+                    },*/
+					{
+					    mData: "id",
+					    render: function (data, type, row) {
+					        let html = '';
+
+					        if (row.status === 'completed') {
+					            html = `
+					                <div style="display: flex; gap: 8px; align-items: center;">
+					                    <div class="circle green" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">1</div>
+					                </div>
+									<div style="display: flex; gap: 8px; align-items: center;">
+					                    <div class="circle yellow" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">2</div>
+					                </div>
+									<div class="circle gray" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">3</div>
+									`;
+					        }  else {
+					            html = `
+					                <div style="text-decoration: underline; text-decoration-color: #367AFF; color: #367AFF;cursor: pointer;">
+									<a href="/brandOnboarding?id=${row.id}">Link New UPI Devices</a>
+					                </div>`;
+					        }
+
+					        return html;
+					    }
+					},
+					{
+					    mData: "creationdate",
+					    render: function (data, type, row) {
+					        if (!data) return "";
+					        const date = new Date(data);
+					        const day = String(date.getDate()).padStart(2, '0');
+					        const month = String(date.getMonth() + 1).padStart(2, '0');
+					        const year = date.getFullYear();
+					        return `${day}/${month}/${year}`;
+					    }
+					},
+					
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    // Optional: Add row-level customization here
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching outlet details:', error);
+            alert('Failed to fetch outlet details.');
+        }
+    });
+}

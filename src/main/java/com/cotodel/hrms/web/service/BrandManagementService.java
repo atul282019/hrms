@@ -27,4 +27,6 @@ public interface BrandManagementService {
 
 	String saveBrandOutletDeviceDetails(String token, EncriptResponse jsonObject);
 
+	String getDeviceDetailList(String token, EncriptResponse jsonObject);
+
 }

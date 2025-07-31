@@ -96,4 +96,12 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 			    );
 	}
 
+	@Override
+	public String getDeviceDetailList(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(jsonObject),
+		        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.getDeviceDetailList
+		    );
+	}
+
 }
