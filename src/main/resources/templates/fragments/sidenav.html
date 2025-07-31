@@ -36,7 +36,7 @@
 		               <img src="img/menu-vehicle.png" alt="" class="mr-2">
 		               <span>Vehicle Management</span></a>
 		       </li>
-			 <!--  <li class="nav-item" th:if="${session.user_role == 9}">
+			  <li class="nav-item" th:if="${session.user_role == 9}">
 	   		         <a class="nav-link" th:href="@{/brandDashboard}">
 	   		               <img src="img/menu-brand.png" alt="" class="mr-2">
 	   		               <span>Brand Management</span></a>
@@ -46,7 +46,7 @@
    	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
    	                 <span>Expenses & Advances</span></a>
    	         </li>
-			 -->
+			 
 			 <li class="nav-item" th:if="${session.user_role == 3 or session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
   	             <a class="nav-link" th:href="@{/requestApproveVouchers}">
   	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
@@ -164,13 +164,13 @@
                  <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
                  <span>Cotodel Wallet</span></a>
          </li>
-		<li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
+	<!--	<li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
             <a class="nav-link" href="https://helpdesk.cotodel.com/helpdesk/" target="_blank">
                 <img src="img/support.png" alt="" class="mr-2">
                 <span>Support</span></a>
-        </li>
+        </li>-->
 		
-	<!--  <li class="nav-item" th:if="${session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
+	  <li class="nav-item" th:if="${session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
 	            <a class="nav-link" th:href="@{/customSupport}">
 	                <img src="img/support.png" alt="" class="mr-2">
 	                <span>Customer Support</span></a>
@@ -179,7 +179,7 @@
 	           <a class="nav-link" th:href="@{/helpdeskaction}">
 	               <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
 	               <span>Helpdesk Support</span></a>
-	       </li>-->
+	       </li>
 		<!--  <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9}">
                <a class="nav-link" th:href="@{/payment}">
                    <img src="img/menu-employee-incentives.svg" alt="" class="mr-2">
