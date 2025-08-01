@@ -202,7 +202,7 @@ public interface CommonUtils {
 	public static String getDeviceDetailList="/erupiBrandService/Api/get/erupiBrandOutletDeviceList";
 	public static String deactivateOutlet="/erupiBrandService/Api/update/brandOutletDetailsDeActive";
 	public static String editOutletDetail="/erupiBrandService/Api/update/updateBrandOutletDetails";
-	public static String activateDeactivateLinkedDevice="";
-	public static String reviewLinkedDevice="";
+	public static String activateDeactivateLinkedDevice="/erupiBrandService/Api/update/outletDeviceDetailsDeActive";
+	public static String reviewLinkedDevice="/erupiBrandService/Api/get/erupiBrandOutletDevice";
 	
 }

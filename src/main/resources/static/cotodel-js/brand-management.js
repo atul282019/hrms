@@ -679,7 +679,7 @@ function userSearchAndPopulate(inputElement) {
 			var branchManager = document.getElementById("branchManager").innerHTML;
 			var contactNumber = document.getElementById("contactNumber").innerHTML;
 			var location = document.getElementById("location").innerHTML;
-			var regionZone = document.getElementById("regionZone").innerHTML;
+			var base64Image = document.getElementById("base64Image").value;
 			
 			var brandOutletId = document.getElementById("brandOutletId").innerHTML;
 			const clientKey = "client-secret-key"; // Extra security measure
@@ -707,6 +707,7 @@ function userSearchAndPopulate(inputElement) {
 							"qrStateDesc":qrStateText,
 							"createdby":username,
 							"upiId":upiId,
+							"upiImg": base64Image,
 							"clientKey":clientKey,
 						    "hash":hashHex
 					 },  		 
@@ -854,7 +855,7 @@ async function getDeviceDetailList() {
 					    if (data == 1) {
 					      return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Enabled</span>`;
 					    } else {
-					     return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Disabled</span>`;
+					     return `<span class="pill-rectangle bg-grey-txt-grey-pill mt-2">Disabled</span>`;
 					    }
 					  }},
 					 
@@ -906,9 +907,9 @@ async function getDeviceDetailList() {
 					    }
 					},	
 					
-					{ mData: "creationdate",
+					{ mData: "id",
 					    render: function (data, type, row) {
-						return '<div class="d-flex align-items-center"> <div class="dropdown no-arrow ml-2 show"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-154px, -85px, 0px);" x-placement="top-end"><button class="dropdown-item py-2" onclick="deleteExpance(this)"> Review  </button>  <button class="dropdown-item py-2" id="btnView" onclick="viewExpance(this)"> Enable/Disable</button> </div> </div> </div>';
+						return '<div class="d-flex align-items-center"> <div class="dropdown no-arrow ml-2 show"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-154px, -85px, 0px);" x-placement="top-end"><button class="dropdown-item py-2" onclick="review(this)"> Review  </button>  <button class="dropdown-item py-2" id="btnView" onclick="enableDisable(this)"> Enable / Disable</button> </div> </div> </div>';
 					    }
 					},					
 					
@@ -1027,4 +1028,47 @@ function deactivateOutlet() {
 		            }
 		        });
 		    }
+		}
+		
+		function review(element) {
+		    const rowData = $('#linkedDeviceList').DataTable().row($(element).closest('tr')).data();
+		    const deviceId = rowData.id;
+			$.ajax({
+				        type: "GET",
+				        url: "/getLinkedDeviceDetail",
+						data: {
+			                "id": deviceId,
+			            },
+			             dataType: "json", 
+				        success: function(response) {
+				           // alert("Device status updated successfully.");
+							document.getElementById("bs-canvas-right-view").classList.add("show-canvas");
+						    document.getElementById("modal-overlay-view").style.display = "block";
+				           // getDeviceDetailList(); 
+				        },
+				        error: function(xhr, status, error) {
+				            console.error("Error updating status:", error);
+				            alert("Failed to update device status.");
+				        }
+				    });
+		}
+		function enableDisable(element) {
+		    const rowData = $('#linkedDeviceList').DataTable().row($(element).closest('tr')).data();
+		    const deviceId = rowData.id;
+		    $.ajax({
+		        type: "POST",
+		        url: "/activateDeactivateLinkedDevice",
+				data: {
+		                "id": deviceId,
+		            },
+		             dataType: "json", 
+		        success: function(response) {
+		            alert("Device status updated successfully.");
+		            getDeviceDetailList();
+		        },
+		        error: function(xhr, status, error) {
+		            console.error("Error updating status:", error);
+		            alert("Failed to update device status.");
+		        }
+		    });
 		}

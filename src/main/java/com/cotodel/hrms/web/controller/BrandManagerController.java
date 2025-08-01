@@ -683,6 +683,29 @@ public class BrandManagerController extends CotoDelBaseController{
 		return profileRes;
 		
 	}
+	
+	@GetMapping(value = "/getLinkedDeviceDetail")
+	public @ResponseBody String getLinkedDeviceDetail(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ErupiBrandOutletDeviceDetailsRequest erupiBrandOutletDeviceDetailsRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiBrandOutletDeviceDetailsRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  brandManagementService.getLinkedDeviceDetail(tokengeneration.getToken(), jsonObject);
+
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   return profileRes;
+}
+	
 	 private String generateHash(String data) throws NoSuchAlgorithmException {
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
 	        byte[] hashBytes = digest.digest(data.getBytes(StandardCharsets.UTF_8));

@@ -1215,6 +1215,8 @@
 <input type="hidden" class="form-input" id="brandOutletId" name="brandOutletId" th:value="${brandoutletid}">
 <input type="hidden" class="form-input" id="fileName" name="fileName" >
 <input type="hidden" class="form-input" id="base64Output" name="base64Output">
+<input type="hidden" class="form-input" id="base64Image" name="base64Image">
+
 </div>
 <!-- /.container-fluid -->
 
@@ -1293,10 +1295,36 @@
 		      <div style="cursor: pointer; color: #4A4E69; font-size: 16px;" onclick="removeUploaded()">&#10005;</div>
 		    </div>
 		  </div>
-		  <div class="did-floating-label-content mb-3">
+		<!--  <div class="did-floating-label-content mb-3">
 		  	    <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
 		  	    <input type="file" id="up" class="form-control" accept="image/*" onchange="previewImage(event)">
-		  	  </div>
+		  	  </div>-->
+			  <div class="text-center p-3 mb-3" style="border: 1px dashed #C7C8D1; border-radius: 16px;" id="uploadBtnSection">
+	              <div class="mb-2">
+	                <img src="img/upload-img-icon.svg" style="width: 48px;height: 48px;">
+	              </div>
+	              <div class="mb-2 font-weight-bold text-secondary">Upload Image of UPI QR Code</div>
+	              <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
+				  <!-- Styled Upload Button with Hidden File Input -->
+				  <label for="fileInput" style="
+				      background-color: #367AFF;
+				      color: white;
+				      width: 104px;
+				      height: 46px;
+				      border: none;
+				      border-radius: 8px;
+				      padding: 12px 24px;
+				      font-size: 16px;
+				      font-weight: 500;
+				      cursor: pointer;
+				      display: inline-block;
+				      text-align: center;
+				      line-height: 22px;
+				  ">
+				    Upload
+				  </label>
+				  <input type="file" id="fileInput" style="display: none;" onchange="previewImage(event)">
+	            </div>
 		  <div class="error-msg" id="fileInputError" style="margin-top: -10px; font-size: 12px;"></div>
 		
           <div class="did-floating-label-content mb-4">
@@ -1444,37 +1472,164 @@
 	   			  </div>
 				  
 				  <!-- Uploaded Section -->
-				  		  <div class="text-center p-3 mb-3" style="border: 1px dashed #C7C8D1; border-radius: 16px;">
-				              <div class="mb-2">
-				                <img src="img/upload-img-icon.svg" style="width: 48px;height: 48px;">
-				              </div>
-				              <div class="mb-2 font-weight-bold text-secondary">Upload Image of UPI QR Code</div>
-				              <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
-				  			<button
-				  			  style="
-				  			 
-				  			    background-color: #367AFF;
-				  			    color: white;
-				  			    width: 104px;
-				  			    height: 46px;
-				  			    border: none;
-				  			    border-radius: 8px;
-				  			    padding: 12px 24px;
-				  			    font-size: 16px;
-				  			    font-weight: 500;
-				  			    cursor: pointer;
-				  			  "
-				  			>
-				  			  Upload
-				  			</button>
-				            </div>
-	   			  <button class="add-geo-btn" type="button" id="openSuccessModalBtn" onclick="editBrandOutletDetails()">
+				  
+				  <!-- Uploaded Section -->
+				  		  <div id="uploadedSectionOutlet" class="text-center p-3 mb-3" style="border: 1px solid #C7C8D1; border-radius: 16px; display: none;">
+				  		    <div class="mb-2">
+				  		      <img src="img/check-circle-green.svg" style="width: 48px;height: 48px;">
+				  		    </div>
+				  		    <div class="mb-2 font-weight-bold text-secondary">Uploaded</div>
+				  		    <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, up to 2MB.</div>
+				  		    <img id="uploadedImageOutlet" src="" alt="Uploaded Image" class="img-fluid rounded mb-2" style="max-height: 220px; object-fit: contain;">
+				  		    <div class="d-flex justify-content-between align-items-start p-3" style="background-color: #EAF4EF; border: 1px solid #BFDECC; border-radius: 10px;">
+				  		      <div class="d-flex flex-column">
+				  		        <span id="fileNameOutlet" style="color: #4A4E69; font-weight: 500;margin-left: -39px;"></span>
+				  		        <div class="d-flex align-items-center gap-2 mt-1" style="font-size: 12px; color: #6C757D;">
+				  		          <span id="fileSizeOutlet">•</span>
+				  		          <span style="color: #27AE60; font-weight: 500;"> 
+				  		            <img src="img/check-circle-green.svg" style="width: 24px;height: 24px;"> Uploaded
+				  		          </span>
+				  		        </div>
+				  		      </div>
+				  		      <div style="cursor: pointer; color: #4A4E69; font-size: 16px;" onclick="removeUploadedOutlet()">&#10005;</div>
+				  		    </div>
+				  		  </div>
+				  		<!--  <div class="did-floating-label-content mb-3">
+				  		  	    <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
+				  		  	    <input type="file" id="up" class="form-control" accept="image/*" onchange="previewImage(event)">
+				  		  	  </div>-->
+				  			  <div class="text-center p-3 mb-3" style="border: 1px dashed #C7C8D1; border-radius: 16px;" id="uploadBtnSectionOutlet">
+				  	              <div class="mb-2">
+				  	                <img src="img/upload-img-icon.svg" style="width: 48px;height: 48px;">
+				  	              </div>
+				  	              <div class="mb-2 font-weight-bold text-secondary">Upload Image of UPI QR Code</div>
+				  	              <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
+				  				  <!-- Styled Upload Button with Hidden File Input -->
+				  				  <label for="fileInputOutlet" style="
+				  				      background-color: #367AFF;
+				  				      color: white;
+				  				      width: 104px;
+				  				      height: 46px;
+				  				      border: none;
+				  				      border-radius: 8px;
+				  				      padding: 12px 24px;
+				  				      font-size: 16px;
+				  				      font-weight: 500;
+				  				      cursor: pointer;
+				  				      display: inline-block;
+				  				      text-align: center;
+				  				      line-height: 22px;
+				  				  ">
+				  				    Upload
+				  				  </label>
+				  				  <input type="file" id="fileInputOutlet" style="display: none;" onchange="previewImageOutletEdit(event)">
+				  	            </div>
+				  		  <div class="error-msg" id="fileInputOutletError" style="margin-top: -10px; font-size: 12px;"></div>		
+				  
+				  
+				  	   <button class="add-geo-btn" type="button" id="openSuccessModalBtn" onclick="editBrandOutletDetails()">
 	   			    UPDATE DETAILS &nbsp; +
 	   			  </button>
 	   	        </div>
 	   	      </div>
 	   	    </div>
 	   	   </div>
+	   </div>
+	   
+	   <div class="" id="modal-overlay-view" style="display:none;">
+	     <div class="voucher-modal-canvas" id="bs-canvas-right-view">
+	       <div class="voucher-modal-scrollable-wrapper">
+	         <div class="voucher-modal-scrollable">
+	           <div class="voucher-header mt-2 d-flex justify-content-between align-items-center">
+	             <h5 class="voucher-title font-weight-bold" style="margin-left: 20px;">UPI Device Details</h5>
+	             <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="outline: none; box-shadow: none;margin-right: -50px;">
+	               <i class="fas fa-times voucher-close-icon"></i>
+	             </button>
+	           </div>
+
+	           <div class="voucher-body p-3">
+	             <div class="did-floating-label-content mb-3">
+	               <select class="did-floating-select" id="deviceTypeReview">
+	                 <option value="Physical QR Code" selected>Physical QR Code</option>
+	                 <option value="Digital POS Machine">Digital POS Machine</option>
+	               </select>
+	               <label class="did-floating-label">Type of Device</label>
+	             </div>
+
+	             <div class="did-floating-label-content mb-3">
+	               <select class="did-floating-select" id="qrStateReview">
+	                 <option value="Static" selected>Static</option>
+	                 <option value="Dynamic">Dynamic</option>
+	               </select>
+	               <label class="did-floating-label">State of UPI QR</label>
+	             </div>
+
+	             <!-- Uploaded Section -->
+	   		  <!-- Uploaded Section -->
+	   		  <div id="uploadedSectionReview" class="text-center p-3 mb-3" style="border: 1px solid #C7C8D1; border-radius: 16px; display: none;">
+	   		    <div class="mb-2">
+	   		      <img src="img/check-circle-green.svg" style="width: 48px;height: 48px;">
+	   		    </div>
+	   		    <div class="mb-2 font-weight-bold text-secondary">Uploaded</div>
+	   		    <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, up to 2MB.</div>
+	   		    <img id="uploadedImageReview" src="" alt="Uploaded Image" class="img-fluid rounded mb-2" style="max-height: 220px; object-fit: contain;">
+	   		    <div class="d-flex justify-content-between align-items-start p-3" style="background-color: #EAF4EF; border: 1px solid #BFDECC; border-radius: 10px;">
+	   		      <div class="d-flex flex-column">
+	   		        <span id="fileNameReview" style="color: #4A4E69; font-weight: 500;margin-left: -39px;"></span>
+	   		        <div class="d-flex align-items-center gap-2 mt-1" style="font-size: 12px; color: #6C757D;">
+	   		          <span id="fileSizeReview">•</span>
+	   		          <span style="color: #27AE60; font-weight: 500;"> 
+	   		            <img src="img/check-circle-green.svg" style="width: 24px;height: 24px;"> Uploaded
+	   		          </span>
+	   		        </div>
+	   		      </div>
+	   		    <!--  <div style="cursor: pointer; color: #4A4E69; font-size: 16px;" onclick="removeUploaded()">&#10005;</div>-->
+	   		    </div>
+	   		  </div>
+	   		<!--  <div class="did-floating-label-content mb-3">
+	   		  	    <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
+	   		  	    <input type="file" id="up" class="form-control" accept="image/*" onchange="previewImage(event)">
+	   		  	  </div>-->
+	   			  <div class="text-center p-3 mb-3" style="border: 1px dashed #C7C8D1; border-radius: 16px;" id="uploadBtnSectionReview">
+	   	          <!--    <div class="mb-2">
+	   	                <img src="img/upload-img-icon.svg" style="width: 48px;height: 48px;">
+	   	              </div>
+	   	              <div class="mb-2 font-weight-bold text-secondary">Upload Image of UPI QR Code</div>-->
+	   	             <!-- <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
+	   				   Styled Upload Button with Hidden File Input 
+	   				  <label for="fileInput" style="
+	   				      background-color: #367AFF;
+	   				      color: white;
+	   				      width: 104px;
+	   				      height: 46px;
+	   				      border: none;
+	   				      border-radius: 8px;
+	   				      padding: 12px 24px;
+	   				      font-size: 16px;
+	   				      font-weight: 500;
+	   				      cursor: pointer;
+	   				      display: inline-block;
+	   				      text-align: center;
+	   				      line-height: 22px;
+	   				  ">
+	   				    Upload
+	   				  </label>
+	   				  <input type="file" id="fileInput" style="display: none;" onchange="previewImage(event)">-->
+	   	            </div>
+	   		<!--  <div class="error-msg" id="fileInputError" style="margin-top: -10px; font-size: 12px;"></div>-->
+	   		
+	             <div class="did-floating-label-content mb-4">
+	               <input class="did-floating-input" type="text" id="upiIdReview" placeholder="" value="88675sfe@abcdpay" />
+	               <label class="did-floating-label">UPI ID</label>
+	             </div>
+	           </div>
+	         </div>
+	       </div>
+
+	       <!-- Footer Button -->
+	       <div class="voucher-footer text-center p-3">
+	       </div>
+	     </div>
 	   </div>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -1564,7 +1719,42 @@
 		  transition: transform 0.3s ease-in-out;
 		  z-index: 1001;
 		}
+		#bs-canvas-right-view 
+			{
+			  position: absolute;
+			  right: 0;
+			  top: 0;
+			  width: 380px;
+			  height: 100%;
+			  background: #fff;
+			  transform: translateX(100%);
+			  transition: transform 0.3s ease-in-out;
+			  z-index: 1001;
+			}
 
+			#bs-canvas-right-view.show-canvas {
+			  transform: translateX(0);
+			}	
+			#modal-overlay-view {
+			  display: none;
+			  position: fixed;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			  background-color: rgba(0, 0, 0, 0.85); /* Bootstrap-like black */
+			  z-index: 1000; /* Just below bs-canvas */
+			}	#bs-canvas-right-view {
+			  position: absolute;
+			  right: 0;
+			  top: 0;
+			  width: 380px;
+			  height: 100%;
+			  background: #fff;
+			  transform: translateX(100%);
+			  transition: transform 0.3s ease-in-out;
+			  z-index: 1001;
+			}
 		#bs-canvas-right2.show-canvas {
 		  transform: translateX(0);
 		}	  	  
@@ -1611,6 +1801,25 @@
 	}
 
 	</style>
+	
+	
+	<script>
+		  function openGeoGraphic() {
+		    document.getElementById("bs-canvas-right-view").classList.add("show-canvas");
+		    document.getElementById("modal-overlay-view").style.display = "block";
+		  }
+
+		  document.addEventListener("DOMContentLoaded", function () {
+		    const closeBtn = document.getElementById("close-geo-modal-btn");
+		    if (closeBtn) {
+		      closeBtn.addEventListener("click", function () {
+		        document.getElementById("modal-overlay-view").style.display = "none";
+		        document.getElementById("bs-canvas-right-view").classList.remove("show-canvas");
+		      });
+		    }
+		  });
+		</script>
+		
 	<script>
 	  function openGeoGraphic() {
 	    document.getElementById("bs-canvas-right3").classList.add("show-canvas");
@@ -1709,17 +1918,63 @@
 
     const reader = new FileReader();
     reader.onload = function (e) {
+	  const base64Data = e.target.result;
+	  document.getElementById("base64Image").value = base64Data;
       document.getElementById('uploadedImage').src = e.target.result;
       document.getElementById('fileName').innerText = file.name;
       document.getElementById('fileSize').innerText = (file.size / 1024).toFixed(1) + " KB •";
       document.getElementById('uploadedSection').style.display = 'block';
+	  document.getElementById('uploadBtnSection').style.display = 'none';
+	  
     };
     reader.readAsDataURL(file);
   }
 
   function removeUploaded() {
     document.getElementById('uploadedSection').style.display = 'none';
-    document.getElementById('up').value = ""; // Clear the file input
+	document.getElementById('uploadBtnSection').style.display = 'block';
+    document.getElementById('fileInput').value = ""; // Clear the file input
+  }
+</script>
+
+
+<script>
+  function previewImageOutletEdit(event) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    // File size validation (<= 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      alert("File size must be less than or equal to 2MB");
+      return;
+    }
+
+    // File type validation
+    const validTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      alert("Only JPG, JPEG, PNG, or SVG files are allowed.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+	  const base64Data = e.target.result;
+	  document.getElementById("base64Image").value = base64Data;
+      document.getElementById('uploadedImageOutlet').src = e.target.result;
+      document.getElementById('fileNameOutlet').innerText = file.name;
+      document.getElementById('fileSizeOutlet').innerText = (file.size / 1024).toFixed(1) + " KB •";
+      document.getElementById('uploadedSectionOutlet').style.display = 'block';
+	  document.getElementById('uploadBtnSectionOutlet').style.display = 'none';
+	  
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeUploadedOutlet() {
+    document.getElementById('uploadedSectionOutlet').style.display = 'none';
+	document.getElementById('uploadBtnSectionOutlet').style.display = 'block';
+    document.getElementById('fileInputOutlet').value = ""; // Clear the file input
   }
 </script>
 
