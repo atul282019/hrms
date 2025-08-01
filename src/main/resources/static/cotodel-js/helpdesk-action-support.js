@@ -1,4 +1,4 @@
-function convertImageToBase64() {
+/*function convertImageToBase64() {
            const fileInput = document.getElementById('fileInput');
            const output = document.getElementById('base64Output');
 		   const outputFileName = document.getElementById('fileName');
@@ -32,8 +32,39 @@ function convertImageToBase64() {
            };
            reader.readAsDataURL(file);
 		  // document.getElementById("bulksubmit").disabled=false;
-    }
+    }*/
+	function convertImageToBase64() {
+	    const fileInput = document.getElementById('fileInput');
+	    const output = document.getElementById('base64Output');
+	    const outputFileName = document.getElementById('fileName');
+	    const fileError = document.getElementById('fileInputError');
 
+	    if (!fileInput.files || fileInput.files.length === 0) {
+	        fileError.innerHTML = "Please select file";
+	        return;
+	    }
+
+	    const file = fileInput.files[0];
+
+	    // Validate by MIME type
+	    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+	    if (!allowedMimeTypes.includes(file.type)) {
+	        fileError.innerHTML = "Invalid file type. Please select a valid image.";
+	        fileInput.value = '';
+	        return;
+	    } else {
+	        fileError.innerHTML = "";
+	    }
+
+	    const reader = new FileReader();
+	    reader.onload = function(event) {
+	        const base64String = event.target.result.split(',')[1];
+	        output.value = base64String;
+	        outputFileName.value = file.name;
+	        console.log("FileName:", file.name);
+	    };
+	    reader.readAsDataURL(file);
+	}
 
 	async function replyTicket(){
 		var ticketId = document.getElementById("ticketId").value;

@@ -104,7 +104,7 @@
 				<section class="admin-ticket-section">
 				  <div class="admin-ticket-box">
 				    <div class="admin-ticket-header">
-				      <a href="#" class="admin-ticket-back">&#8592;</a>
+				      <a href="/helpdeskaction" class="admin-ticket-back">&#8592;</a>
 				      <h5 class="admin-ticket-title" id=>Ticket No. <span id="tickeNo"></span></h5>
 				    </div>
 
@@ -234,7 +234,7 @@
 				     <label for="fileInput" style="cursor: pointer;">
 						  <img src="https://img.icons8.com/ios-glyphs/30/000000/attach.png" alt="Attach" />
 						</label>
-						<input type="file" id="fileInput" style="display: none;" onchange="convertImageToBase64()" />
+						<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="convertImageToBase64()" />
 				    </div>
 				    <div class="admin-ticket-input-box">
 				      <input type="text" placeholder="Type your response" id="replyText" />

@@ -1,4 +1,4 @@
-function convertImageToBase64() {
+/*function convertImageToBase64() {
            const fileInput = document.getElementById('up');
            const output = document.getElementById('base64Output');
 		   const outputFileName = document.getElementById('fileName');
@@ -32,8 +32,41 @@ function convertImageToBase64() {
            };
            reader.readAsDataURL(file);
 		  // document.getElementById("bulksubmit").disabled=false;
-    }
+    }*/
+	function convertImageToBase641() {
+		
+		document.getElementById('fileInputError').innerHTML="";// clear if error exists
+	    const fileInput = document.getElementById('chatFileUpload');
+	    const output = document.getElementById('base64Output');
+	    const outputFileName = document.getElementById('fileName');
+	    const fileError = document.getElementById('fileInputError');
 
+	    if (!fileInput.files || fileInput.files.length === 0) {
+	        fileError.innerHTML = "Please select file";
+	        return;
+	    }
+
+	    const file = fileInput.files[0];
+
+	    // Validate by MIME type
+	    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+	    if (!allowedMimeTypes.includes(file.type)) {
+	        fileError.innerHTML = "Invalid file type. Please select a valid image.";
+	        fileInput.value = '';
+	        return;
+	    } else {
+	        fileError.innerHTML = "";
+	    }
+
+	    const reader = new FileReader();
+	    reader.onload = function(event) {
+	        const base64String = event.target.result.split(',')[1];
+	        output.value = base64String;
+	        outputFileName.value = file.name;
+	        console.log("FileName:", file.name);
+	    };
+	    reader.readAsDataURL(file);
+	}
 async function saveTicket(){
 	
 	var fileInput = document.getElementById("up").value;
@@ -134,6 +167,7 @@ async function getSupportTicketListList() {
       document.getElementById("signinLoader").style.display = "none";
       const data1 = jQuery.parseJSON(data);
       const data2 = data1.data;
+	  console.log("getSupportTicketListList() data2",data2);
 
       $('#supportTicketList').DataTable({
         destroy: true,
@@ -165,7 +199,7 @@ async function getSupportTicketListList() {
 		      return `${day}-${month}-${year}<br>${hours}:${minutes} ${ampm}`;
 		    }
 		  },
-          { mData: "subject" },
+          { mData: "statusDesc" },
           {
             mData: "status",
             render: function (data) {
@@ -400,7 +434,8 @@ async function replyTicket(){
 				getTicketTransactionHistoryById(ticketId);
 				
 			}else if(data.status==false){
-				$('#AddVehicleModal').modal('show');
+				//$('#AddVehicleModal').modal('show');
+				document.getElementById('fileInputError').innerHTML=data.message;
 			}
 	     },
 	     error: function(e){
