@@ -527,10 +527,18 @@ async function getOutletDetail() {
 					{
 					  mData: "status",
 					  render: function(data, type, row) {
-					    if (data == 1) {
+					    if (data == 0) {
 					      return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Activated</span>`;
 					    } else {
-					     return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">deactivated</span>`;
+					     return `<span style="							width: 80;
+							height: 26;
+							border-radius: 6px;
+							padding: 4px;
+							gap: 4px;
+							angle: 0 deg;
+							opacity: 1;
+							background: #EDEDF0;
+							2">deactivated</span>`;
 					    }
 					  }}
                 ],
@@ -767,6 +775,7 @@ function userSearchAndPopulate(inputElement) {
 async function getOutletDetailsById(){
 	var orgId = document.getElementById("employerId").value;
 	var brandOutletId = document.getElementById("brandOutletId").value;
+	document.getElementById("signinLoader").style.display="flex";
 	$.ajax({
 		type: "GET",
 	     url:"/erupiBrandOutletById",
@@ -778,8 +787,8 @@ async function getOutletDetailsById(){
 	        success:function(data){
 	        var data1 = data.data;
 			if(data.status==true){
-				
-				document.getElementById('outlettype').innerHTML = data1.name;
+				document.getElementById('OutletNameView').innerHTML = data1.name;
+				document.getElementById('outlettype').innerHTML = data1.typeDesc;
 				document.getElementById('branchManager').innerHTML = data1.mgrName;
 				
 				document.getElementById('contactNumber').innerHTML = data1.mgrMobile;
@@ -787,7 +796,7 @@ async function getOutletDetailsById(){
 				document.getElementById('regionZone').innerHTML = data1.geocatname;
 				
 				document.getElementById('outletNameEdit').value = data1.name;
-				document.getElementById('outletTypeEdit').value = data1.name;
+				document.getElementById('outletTypeEdit').value = data1.typeDesc;
 				document.getElementById('outletManagerEdit').value = data1.mgrName;
 				
 				document.getElementById('outletContactEdit').value = data1.mgrMobile;
@@ -796,6 +805,7 @@ async function getOutletDetailsById(){
 				
 			}else if(data.status==false){
 			}
+			document.getElementById("signinLoader").style.display="none";
 	     },
 	     error: function(e){
 	         alert('Error: ' + e);
@@ -847,7 +857,7 @@ async function getDeviceDetailList() {
 					     return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Disabled</span>`;
 					    }
 					  }},
-					  { mData: "createdby"},
+					 
                     /*{
                         mData: null,
                         render: function (data, type, row) {
@@ -860,25 +870,19 @@ async function getDeviceDetailList() {
 					        let html = '';
 
 					        if (row.status === 'completed') {
-					            html = `
-					                <div style="display: flex; gap: 8px; align-items: center;">
-					                    <div class="circle green" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">1</div>
-					                </div>
-									<div style="display: flex; gap: 8px; align-items: center;">
-					                    <div class="circle yellow" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">2</div>
-					                </div>
-									<div class="circle gray" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">3</div>
-									`;
-					        }  else {
-					            html = `
-					                <div style="text-decoration: underline; text-decoration-color: #367AFF; color: #367AFF;cursor: pointer;">
-									<a href="/brandOnboarding?id=${row.id}">Link New UPI Devices</a>
-					                </div>`;
+					            html = `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Deployed</span>`;
+									
+					        }  else if(row.status === 'completed'){
+					            html = `<span class="pill-rectangle bg-lightyellow-txt-yellow-pill mt-2">Sent for Deployment</span>`;
 					        }
+							else{
+								html = `<span class="pill-rectangle bg-grey-txt-grey-pill mt-2">Rejected</span>`;
+							}
 
 					        return html;
 					    }
 					},
+					{ mData: "createdby"},
 					{
 					    mData: "creationdate",
 					    render: function (data, type, row) {
@@ -900,7 +904,13 @@ async function getDeviceDetailList() {
 					        const year = date.getFullYear();
 					        return `${day}/${month}/${year}`;
 					    }
-					},
+					},	
+					
+					{ mData: "creationdate",
+					    render: function (data, type, row) {
+						return '<div class="d-flex align-items-center"> <div class="dropdown no-arrow ml-2 show"> <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="fas fa-ellipsis-v fa-sm"></i></a><br> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-154px, -85px, 0px);" x-placement="top-end"><button class="dropdown-item py-2" onclick="deleteExpance(this)"> Review  </button>  <button class="dropdown-item py-2" id="btnView" onclick="viewExpance(this)"> Enable/Disable</button> </div> </div> </div>';
+					    }
+					},					
 					
                 ],
                 createdRow: function(row, data, dataIndex) {
@@ -1006,7 +1016,7 @@ function deactivateOutlet() {
 		            data: {
 		                "employerId": employerId,
 		                "id": Id,
-		                "status": "Deactive"
+		                "status": 1 //for deactivateee and 0 for activate
 		            },
 		             dataType: "json", 
 		            success: function(response) {

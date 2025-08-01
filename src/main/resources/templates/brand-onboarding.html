@@ -84,7 +84,9 @@
                                                         
 														<div class="profile-name-wrap" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
 														  <div style="display: flex; align-items: center; gap: 8px;">
-														    <h4 style="margin: 0;"><a href="/brandDashboard"><i class="bi bi-chevron-left" style="margin-right: 10px;"></i></a><span th:text="${name}"></span>Outlet Name<span class="pill bg-lightgreen-txt-green-pill mt-3" style="margin-left: 15px;">Activated</td></span></h4>
+														    <h4 style="margin: 0;"><a href="/brandDashboard"><i class="bi bi-chevron-left" style="margin-right: 10px;">
+															</i></a><span th:text="${name}"></span><span id="OutletNameView"></span><span class="pill bg-lightgreen-txt-green-pill mt-3" 
+																style="margin-left: 15px;" id="outletAction">Activated</td></span></h4>
 														  </div>
 
 														  <!-- Right-aligned buttons -->
@@ -94,7 +96,7 @@
 
 														    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 														      <button class="dropdown-item py-2" onclick="openEditoutlet()">Edit Outlet Details</button>
-														      <a class="dropdown-item py-2" href="#" onclick="deactivateOutlet()">Deactivate Outlet</a>
+														      <a class="dropdown-item py-2" href="#" onclick="deactivateOutlet()">Activate / Deactivate Outlet</a>
 															 
 														    </div>
 														  </div>
@@ -185,11 +187,13 @@
 						 <th>UPI ID</th>
 						 <th>State of UPI QR</th>
 						 <th>Status</th>
-						 <th>Added by</th>
+						 
 						 <th>Deployment</th>
+						 <th>Added by</th>
 						 <th>Created on</th>
 						 <th>Last Updated on</th>
 						 <th></th>
+						
 		                </tr>
 		              </thead>
 		              <tbody class="table-bordered">
@@ -1217,6 +1221,22 @@
     </div>
     <!-- End of Main Content -->
 </div>
+
+<div class="lds-spinner" id="signinLoader" style="display: none">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+
 <!-- End of Content Wrapper -->
 
 </div>
@@ -1252,48 +1272,33 @@
           </div>
 
           <!-- Uploaded Section -->
-		  <!--<div class="text-center p-3 mb-3" style="border: 1px solid #C7C8D1; border-radius: 16px;">
-            <div class="mb-2">
-              <img src="img/check-circle-green.svg" style="width: 48px;height: 48px;">
-            </div>
-            <div class="mb-2 font-weight-bold text-secondary">Uploaded</div>
-            <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
-			<button
-			  style="
-			  display: none;
-			    background-color: #367AFF;
-			    color: white;
-			    width: 104px;
-			    height: 46px;
-			    border: none;
-			    border-radius: 8px;
-			    padding: 12px 24px;
-			    font-size: 16px;
-			    font-weight: 500;
-			    cursor: pointer;
-			  "
-			>
-			  Upload
-			</button>
-            <img src="img/testimg.png" alt="Uploaded QR" class="img-fluid rounded mb-2" style="max-height: 220px; object-fit: contain;">
-			<div class="d-flex justify-content-between align-items-start p-3" style="background-color: #EAF4EF; border: 1px solid #BFDECC; border-radius: 10px;">
-			  <div class="d-flex flex-column">
-			    <span style="color: #4A4E69; font-weight: 500;margin-left: -39px;">my-QR.jpg</span>
-			    <div class="d-flex align-items-center gap-2 mt-1" style="font-size: 12px; color: #6C757D;">
-			      <span>1MB •</span>
-			      
-			      <span style="color: #27AE60; font-weight: 500;"> <img src="img/check-circle-green.svg" style="width: 24px;height: 24px;"> Uploaded</span>
-			    </div>
-			  </div>
-			  <div style="cursor: pointer; color: #4A4E69; font-size: 16px;">&#10005;</div>
-			</div>
-          </div>-->
-
-          <!-- UPI ID -->
+		  <!-- Uploaded Section -->
+		  <div id="uploadedSection" class="text-center p-3 mb-3" style="border: 1px solid #C7C8D1; border-radius: 16px; display: none;">
+		    <div class="mb-2">
+		      <img src="img/check-circle-green.svg" style="width: 48px;height: 48px;">
+		    </div>
+		    <div class="mb-2 font-weight-bold text-secondary">Uploaded</div>
+		    <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, up to 2MB.</div>
+		    <img id="uploadedImage" src="" alt="Uploaded Image" class="img-fluid rounded mb-2" style="max-height: 220px; object-fit: contain;">
+		    <div class="d-flex justify-content-between align-items-start p-3" style="background-color: #EAF4EF; border: 1px solid #BFDECC; border-radius: 10px;">
+		      <div class="d-flex flex-column">
+		        <span id="fileName" style="color: #4A4E69; font-weight: 500;margin-left: -39px;"></span>
+		        <div class="d-flex align-items-center gap-2 mt-1" style="font-size: 12px; color: #6C757D;">
+		          <span id="fileSize">•</span>
+		          <span style="color: #27AE60; font-weight: 500;"> 
+		            <img src="img/check-circle-green.svg" style="width: 24px;height: 24px;"> Uploaded
+		          </span>
+		        </div>
+		      </div>
+		      <div style="cursor: pointer; color: #4A4E69; font-size: 16px;" onclick="removeUploaded()">&#10005;</div>
+		    </div>
+		  </div>
 		  <div class="did-floating-label-content mb-3">
-		   <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
-		   <input type="file" id="up" class="form-control" onchange="convertImageToBase64()">
-		 </div>
+	  	    <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
+	  	    <input type="file" id="up" class="form-control" accept="image/*" onchange="previewImage(event)">
+	  	  </div>
+		  <div class="error-msg" id="fileInputError" style="margin-top: -10px; font-size: 12px;"></div>
+		
           <div class="did-floating-label-content mb-4">
             <input class="did-floating-input" type="text" id="upiId" placeholder="" value="88675sfe@abcdpay" />
             <label class="did-floating-label">UPI ID</label>
@@ -1658,7 +1663,41 @@
 	</script>
 	
 -->
-	
+<script>
+  function previewImage(event) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    // File size validation (<= 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      alert("File size must be less than or equal to 2MB");
+      return;
+    }
+
+    // File type validation
+    const validTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      alert("Only JPG, JPEG, PNG, or SVG files are allowed.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      document.getElementById('uploadedImage').src = e.target.result;
+      document.getElementById('fileName').innerText = file.name;
+      document.getElementById('fileSize').innerText = (file.size / 1024).toFixed(1) + " KB •";
+      document.getElementById('uploadedSection').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeUploaded() {
+    document.getElementById('uploadedSection').style.display = 'none';
+    document.getElementById('up').value = ""; // Clear the file input
+  }
+</script>
+
 
 </body>
 
