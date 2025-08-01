@@ -1548,80 +1548,51 @@
 	           </div>
 
 	           <div class="voucher-body p-3">
-	             <div class="did-floating-label-content mb-3">
-	               <select class="did-floating-select" id="deviceTypeReview">
-	                 <option value="Physical QR Code" selected>Physical QR Code</option>
-	                 <option value="Digital POS Machine">Digital POS Machine</option>
-	               </select>
-	               <label class="did-floating-label">Type of Device</label>
-	             </div>
+	             
 
-	             <div class="did-floating-label-content mb-3">
-	               <select class="did-floating-select" id="qrStateReview">
-	                 <option value="Static" selected>Static</option>
-	                 <option value="Dynamic">Dynamic</option>
-	               </select>
-	               <label class="did-floating-label">State of UPI QR</label>
-	             </div>
+				<div class="voucher-card">
+					          <div class="voucher-card-header">								
+					            <div class="voucher-card-labels">
+					              <div class="voucher-label-row">
+					                <span class="voucher-label-title" id="voucherDesc">Device 4</span>			                
+					              </div><hr>			             
+					            </div>
+					          </div>
+					          <div class="voucher-meta">
+					            <div class="voucher-meta-row">
+					              <span class="voucher-meta-label">State of UPI QR</span>
+					              <span class="voucher-meta-value">Static</span>
+					            </div>
+					            <div class="voucher-meta-row">
+					              <span class="voucher-meta-label" id="issueDate">Type of Device</span>
+					              <span class="voucher-meta-value" id="merchantTranId">Physical QR Code</span>
+					            </div>
+					            <div class="voucher-meta-row">
+					              <span class="voucher-meta-label">UPI ID</span>
+					              <span class="voucher-meta-value"style="size:13px;">123456789@okicici</span>
+					            </div>
+					            <div class="voucher-meta-row">
+					              <span class="voucher-meta-label" id="name">Status</span>
+					              <span ><span class="pill bg-lightgreen-txt-green-pill">Enabled</span></span>
+					            </div>
+					            <div class="voucher-meta-row">
+					              <span class="voucher-meta-label">Deployment</span>
+					              <span class="pill-rectangle bg-lightyellow-txt-yellow-pill" style="margin-right: -8px;">Sent for Deployment<img src="img/info-yellow.svg" alt="info-yellow" style="height:24px; width:24px;"></span>
+					            </div>
+								
+					          </div><br>
+							  <img src="img/testimg.png" alt="Uploaded QR" class="img-fluid rounded mb-2" style="max-height: 204px; object-fit: contain;width: 318px;">
+					        </div>
 
-	             <!-- Uploaded Section -->
-	   		  <!-- Uploaded Section -->
-	   		  <div id="uploadedSectionReview" class="text-center p-3 mb-3" style="border: 1px solid #C7C8D1; border-radius: 16px; display: none;">
-	   		    <div class="mb-2">
-	   		      <img src="img/check-circle-green.svg" style="width: 48px;height: 48px;">
-	   		    </div>
-	   		    <div class="mb-2 font-weight-bold text-secondary">Uploaded</div>
-	   		    <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, up to 2MB.</div>
-	   		    <img id="uploadedImageReview" src="" alt="Uploaded Image" class="img-fluid rounded mb-2" style="max-height: 220px; object-fit: contain;">
-	   		    <div class="d-flex justify-content-between align-items-start p-3" style="background-color: #EAF4EF; border: 1px solid #BFDECC; border-radius: 10px;">
-	   		      <div class="d-flex flex-column">
-	   		        <span id="fileNameReview" style="color: #4A4E69; font-weight: 500;margin-left: -39px;"></span>
-	   		        <div class="d-flex align-items-center gap-2 mt-1" style="font-size: 12px; color: #6C757D;">
-	   		          <span id="fileSizeReview">•</span>
-	   		          <span style="color: #27AE60; font-weight: 500;"> 
-	   		            <img src="img/check-circle-green.svg" style="width: 24px;height: 24px;"> Uploaded
-	   		          </span>
-	   		        </div>
-	   		      </div>
-	   		    <!--  <div style="cursor: pointer; color: #4A4E69; font-size: 16px;" onclick="removeUploaded()">&#10005;</div>-->
-	   		    </div>
-	   		  </div>
-	   		<!--  <div class="did-floating-label-content mb-3">
-	   		  	    <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
-	   		  	    <input type="file" id="up" class="form-control" accept="image/*" onchange="previewImage(event)">
-	   		  	  </div>-->
-	   			  <div class="text-center p-3 mb-3" style="border: 1px dashed #C7C8D1; border-radius: 16px;" id="uploadBtnSectionReview">
-	   	          <!--    <div class="mb-2">
-	   	                <img src="img/upload-img-icon.svg" style="width: 48px;height: 48px;">
-	   	              </div>
-	   	              <div class="mb-2 font-weight-bold text-secondary">Upload Image of UPI QR Code</div>-->
-	   	             <!-- <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
-	   				   Styled Upload Button with Hidden File Input 
-	   				  <label for="fileInput" style="
-	   				      background-color: #367AFF;
-	   				      color: white;
-	   				      width: 104px;
-	   				      height: 46px;
-	   				      border: none;
-	   				      border-radius: 8px;
-	   				      padding: 12px 24px;
-	   				      font-size: 16px;
-	   				      font-weight: 500;
-	   				      cursor: pointer;
-	   				      display: inline-block;
-	   				      text-align: center;
-	   				      line-height: 22px;
-	   				  ">
-	   				    Upload
-	   				  </label>
-	   				  <input type="file" id="fileInput" style="display: none;" onchange="previewImage(event)">-->
-	   	            </div>
-	   		<!--  <div class="error-msg" id="fileInputError" style="margin-top: -10px; font-size: 12px;"></div>-->
+							<div class="did-floating-label-content">
+		   					    <input class="did-floating-input" type="text" id="outletContactEdit" placeholder="" >
+		   					    <label class="did-floating-label">Remark</label>
+		   					</div>
+
+	   
+
 	   		
-	             <div class="did-floating-label-content mb-4">
-	               <input class="did-floating-input" type="text" id="upiIdReview" placeholder="" value="88675sfe@abcdpay" />
-	               <label class="did-floating-label">UPI ID</label>
-	             </div>
+	             
 	           </div>
 	         </div>
 	       </div>
