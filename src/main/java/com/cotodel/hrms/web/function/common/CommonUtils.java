@@ -187,7 +187,7 @@ public interface CommonUtils {
 	public static String getTicketDetailById = "/empService/Api/get/ticketById";
 	public static String submitTicketReply = "/empService/Api/add/ticketTransaction";
 	public static String ticketReplyHistory = "/empService/Api/get/ticketTransHistory";
-	
+	///brnad api
 	public static String activateBrandManagement = "/erupiBrandService/Api/add/erupiBrandOutletDetails";
 	public static String brandList = "/erupiBrandService/Api/get/erupiBrandList";
 	public static String brandOutletList = "/erupiBrandService/Api/get/erupiBrandOutletList";
@@ -202,5 +202,7 @@ public interface CommonUtils {
 	public static String getDeviceDetailList="/erupiBrandService/Api/get/erupiBrandOutletDeviceList";
 	public static String deactivateOutlet="/erupiBrandService/Api/update/brandOutletDetailsDeActive";
 	public static String editOutletDetail="/erupiBrandService/Api/update/updateBrandOutletDetails";
+	public static String activateDeactivateLinkedDevice="";
+	public static String reviewLinkedDevice="";
 	
 }

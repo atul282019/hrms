@@ -120,4 +120,20 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 		    );
 	}
 
+	@Override
+	public String activateDeactivateLinkedDevice(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(jsonObject),
+		        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.activateDeactivateLinkedDevice
+		    );
+	}
+
+	@Override
+	public String getLinkedDeviceDetail(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(jsonObject),
+		        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.reviewLinkedDevice
+		    );
+	}
+
 }
