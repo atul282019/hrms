@@ -204,5 +204,6 @@ public interface CommonUtils {
 	public static String editOutletDetail="/erupiBrandService/Api/update/updateBrandOutletDetails";
 	public static String activateDeactivateLinkedDevice="/erupiBrandService/Api/update/outletDeviceDetailsDeActive";
 	public static String reviewLinkedDevice="/erupiBrandService/Api/get/erupiBrandOutletDevice";
+	public static String readDataFromImage="/empService/Api/get/upiName";
 	
 }

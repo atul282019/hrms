@@ -36,10 +36,10 @@ import com.cotodel.hrms.web.jwt.util.JwtTokenValidator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BrandManagementRequest;
 import com.cotodel.hrms.web.response.BulkOutletManagementRequest;
-import com.cotodel.hrms.web.response.EmployeeDeactiveRequest;
 import com.cotodel.hrms.web.response.ErupiBrandDetailsRequest;
 import com.cotodel.hrms.web.response.ErupiBrandGeoRequest;
 import com.cotodel.hrms.web.response.ErupiBrandOutletDeviceDetailsRequest;
+import com.cotodel.hrms.web.response.ExpenseBillReaderRequest;
 import com.cotodel.hrms.web.response.OutletBulkCreateRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.BrandManagementService;
@@ -277,9 +277,7 @@ public class BrandManagerController extends CotoDelBaseController{
 	    String profileRes = null;
 	    Map<String, Object> responseMap = new HashMap<>();
 	    ObjectMapper mapper = new ObjectMapper();
-	    
 	    String receivedHash = bulkOutletManagementRequest.getHash();
-
 	    // Validate client key only
 	    if (!CLIENT_KEY.equals(bulkOutletManagementRequest.getClientKey())) {
 	        responseMap.put("status", false);
@@ -290,16 +288,9 @@ public class BrandManagerController extends CotoDelBaseController{
 	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 	        }
 	    }
-//	    System.out.println("vehicleManagementBulkUploadRequest.getOrgId() " + bulkOutletManagementRequest.getOrgId());
-//        System.out.println("vehicleManagementBulkUploadRequest.getFileName() " + bulkOutletManagementRequest.getFileName());
-//        System.out.println("vehicleManagementBulkUploadRequest.getFile() " + bulkOutletManagementRequest.getFile());
-//        System.out.println("vehicleManagementBulkUploadRequest.getCreatedBy() " + bulkOutletManagementRequest.getCreatedBy());
-//	    
 	    // Prepare data string for hashing
-	    String dataString = bulkOutletManagementRequest.getOrgId() + bulkOutletManagementRequest.getFileName() + bulkOutletManagementRequest.getFile() +
-	            
-	    		bulkOutletManagementRequest.getCreatedBy() + CLIENT_KEY + SECRET_KEY;
-
+	    String dataString = bulkOutletManagementRequest.getOrgId() + bulkOutletManagementRequest.getFileName() + bulkOutletManagementRequest.getFile() +        
+	    bulkOutletManagementRequest.getCreatedBy() + CLIENT_KEY + SECRET_KEY;
 	    String computedHash = null;
 	    try {
 	        computedHash = generateHash(dataString);
@@ -320,8 +311,6 @@ public class BrandManagerController extends CotoDelBaseController{
 	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 	        }
 	    }
-
-
 	    // Get token from session
 	    String token = (String) session.getAttribute("hrms");
 	    if (token == null) {
@@ -360,7 +349,6 @@ public class BrandManagerController extends CotoDelBaseController{
 	            boolean status = apiJsonResponse.getBoolean("status");
 	            responseMap.put("status", status);
 	            responseMap.put("message", apiJsonResponse.getString("message"));
-
 	            if (status && apiJsonResponse.has("data")) {
 	                responseMap.put("data", profileRes);
 	            } else {
@@ -368,7 +356,6 @@ public class BrandManagerController extends CotoDelBaseController{
 	                responseMap.put("status", false);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
 	            }
-
 	        } catch (Exception e) {
 	            responseMap.put("status", false);
 	            responseMap.put("message", "Internal Server Error: " + e.getMessage());
@@ -415,7 +402,7 @@ public class BrandManagerController extends CotoDelBaseController{
 	    // Prepare data string for hashing
 	    String dataString = outletBulkCreateRequest.getOrgId() +
 	            
-	    		outletBulkCreateRequest.getCreatedby() +arrayJoined+ CLIENT_KEY + SECRET_KEY;
+	    outletBulkCreateRequest.getCreatedby() +arrayJoined+ CLIENT_KEY + SECRET_KEY;
 
 	    String computedHash = null;
 	    try {
@@ -438,7 +425,6 @@ public class BrandManagerController extends CotoDelBaseController{
 	            return "{\"status\":false, \"message\":\"JSON processing error\"}";
 	        }
 	    }
-
 
 	    // Get token from session
 	    String token = (String) session.getAttribute("hrms");
@@ -513,7 +499,6 @@ public class BrandManagerController extends CotoDelBaseController{
 	    ObjectMapper mapper = new ObjectMapper();
 	    
 	    String receivedHash = erupiBrandOutletDeviceDetailsRequest.getHash();
-	    
 	    // Validate client key only
 	    if (!CLIENT_KEY.equals(erupiBrandOutletDeviceDetailsRequest.getClientKey())) {
 	        responseMap.put("status", false);
@@ -705,6 +690,27 @@ public class BrandManagerController extends CotoDelBaseController{
 		}
    return profileRes;
 }
+	
+
+	@PostMapping("/readDataFromImage")
+	public String readDataFromImage(@RequestBody Map<String, String> request) {
+	    String base64File = request.get("file");
+	    String fileName = request.get("fileName");
+	    String fileType = request.get("fileType");
+	    ExpenseBillReaderRequest  expenseBillReaderRequest = new ExpenseBillReaderRequest();
+		String profileRes = null;
+		expenseBillReaderRequest.setFile(base64File);
+		expenseBillReaderRequest.setFileName(fileName);
+		expenseBillReaderRequest.setFileType(fileType);
+		try {
+			 profileRes =  brandManagementService.readDataFromImage(tokengeneration.getToken(), expenseBillReaderRequest);
+			} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 return profileRes;
+}
+	
 	
 	 private String generateHash(String data) throws NoSuchAlgorithmException {
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");

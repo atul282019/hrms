@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.cotodel.hrms.web.function.common.CommonUtils;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.ExpenseBillReaderRequest;
 import com.cotodel.hrms.web.service.BrandManagementService;
 import com.cotodel.hrms.web.util.CommonUtility;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -133,6 +134,14 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 		return CommonUtility.userRequest(token,
 		        MessageConstant.gson.toJson(jsonObject),
 		        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.reviewLinkedDevice
+		    );
+	}
+
+	@Override
+	public String readDataFromImage(String token,  ExpenseBillReaderRequest expenseBillReaderRequest) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(expenseBillReaderRequest),
+		        applicationConstantConfig.employerServiceBaseUrl +CommonUtils.readDataFromImage
 		    );
 	}
 

@@ -1243,7 +1243,20 @@
 
 </div>
 <!-- End of Page Wrapper -->
-
+<!--<div class="lds-spinner" id="signinLoader2" style="display: none">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>-->
 <!-- modal 2 linkdevice modal -->
 <div class="" id="modal-overlay2" style="display:none;">
   <div class="voucher-modal-canvas" id="bs-canvas-right3">
@@ -1346,7 +1359,7 @@
 		>
         SUBMIT FOR APPROVAL
       </button>		-->
-  		<button class="voucher-download-btn btn btn-primary btn-block font-weight-bold" type="button" onclick="addUPIDevice()">
+  		<button class="voucher-download-btn btn btn-primary btn-block font-weight-bold" type="button" onclick="addUPIDevice()" disabled>
 	        SUBMIT FOR APPROVAL
 	      </button>
     </div>
@@ -1585,15 +1598,10 @@
 		   					    <input class="did-floating-input" type="text" id="outletContactEdit" placeholder="" >
 		   					    <label class="did-floating-label">Remark</label>
 		   					</div>
-
-	   
-
-	   		
-	             
 	           </div>
 	         </div>
 	       </div>
-
+		   
 	       <!-- Footer Button -->
 	       <div class="voucher-footer text-center p-3">
 	       </div>
@@ -1864,16 +1872,15 @@
 
 	</script>
 	
--->
-<script>
+--><script>
   function previewImage(event) {
     const file = event.target.files[0];
 
     if (!file) return;
 
     // File size validation (<= 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      alert("File size must be less than or equal to 2MB");
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File size must be less than or equal to 10 MB");
       return;
     }
 
@@ -1886,57 +1893,66 @@
 
     const reader = new FileReader();
     reader.onload = function (e) {
-	  const base64Data = e.target.result;
-	  document.getElementById("base64Image").value = base64Data;
-      document.getElementById('uploadedImage').src = e.target.result;
+      const base64Data = e.target.result;
+	  const base64DataPart = e.target.result.split(',')[1]; // Only base64 part
+
+      // Display image preview
+      document.getElementById("base64Image").value = base64Data;
+      document.getElementById('uploadedImage').src = base64Data;
       document.getElementById('fileName').innerText = file.name;
       document.getElementById('fileSize').innerText = (file.size / 1024).toFixed(1) + " KB •";
       document.getElementById('uploadedSection').style.display = 'block';
-	  document.getElementById('uploadBtnSection').style.display = 'none';
-	  
+      document.getElementById('uploadBtnSection').style.display = 'none';
+
+      // Call upload
+      uploadImage(base64DataPart, file.name);
     };
-	uploadImage();
+
     reader.readAsDataURL(file);
   }
 
   function removeUploaded() {
     document.getElementById('uploadedSection').style.display = 'none';
-	document.getElementById('uploadBtnSection').style.display = 'block';
+    document.getElementById('uploadBtnSection').style.display = 'block';
     document.getElementById('fileInput').value = ""; // Clear the file input
+    document.getElementById('uploadedImage').src = "";
+    document.getElementById('base64Image').value = "";
+    document.getElementById('fileName').innerText = "";
+    document.getElementById('fileSize').innerText = "";
+  }
+
+  function uploadImage(base64Image, fileName) {
+	document.getElementById("signinLoader").style.display="block";
+    $.ajax({
+      type: "POST",
+      url: "/readDataFromImage",
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({
+        file: base64Image,
+        fileName: fileName,
+        fileType: "image"
+      }),
+      success: function(response) {
+      //  console.log("Success:", response);
+     //   alert("OCR result: " + JSON.stringify(response));
+		
+		document.getElementById("upiId").value=response.data.upi;
+		document.querySelector(".voucher-download-btn").disabled = false;
+		document.getElementById("signinLoader").style.display="none";
+      },
+      error: function(xhr, status, error) {
+		document.getElementById("signinLoader").style.display="none";
+        console.error("Error:", xhr.responseText);
+        alert("Upload failed: " + xhr.status);
+      }
+    });
   }
 </script>
 
 <script>
 	
-	function uploadImage() {
-	    var fileInput = document.getElementById("fileInput");
-	    var file = fileInput.files[0];
-
-	    if (!file) {
-	        alert("Please select an image file.");
-	        return;
-	    }
-
-	    var formData = new FormData();
-	    formData.append("image", file);
-
-	    $.ajax({
-	        url: "http://ocr.cotodel.com/ocr",
-	        type: "POST",
-	        data: formData,
-	        processData: false, // Don't process the files
-	        contentType: false, // Let jQuery set the correct content type
-	        success: function(response) {
-	            console.log("Success:", response);
-	            alert("OCR result: " + JSON.stringify(response));
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("Error:", xhr.responseText);
-	            alert("Upload failed: " + xhr.status);
-	        }
-	    });
-	}
-
+	
 	
 </script>
 <script>
@@ -1946,8 +1962,8 @@
     if (!file) return;
 
     // File size validation (<= 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      alert("File size must be less than or equal to 2MB");
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File size must be less than or equal to 10 MB");
       return;
     }
 

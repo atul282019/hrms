@@ -2,6 +2,7 @@ package com.cotodel.hrms.web.service;
 
 import org.springframework.stereotype.Repository;
 
+import com.cotodel.hrms.web.response.ExpenseBillReaderRequest;
 import com.cotodel.hrms.web.util.EncriptResponse;
 
 @Repository
@@ -36,5 +37,7 @@ public interface BrandManagementService {
 	String activateDeactivateLinkedDevice(String token, EncriptResponse jsonObject);
 
 	String getLinkedDeviceDetail(String token, EncriptResponse jsonObject);
+
+	String readDataFromImage(String token, ExpenseBillReaderRequest expenseBillReaderRequest);
 
 }
