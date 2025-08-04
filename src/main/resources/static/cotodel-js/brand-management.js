@@ -877,7 +877,7 @@ async function getDeviceDetailList() {
 					            html = `<span class="pill-rectangle bg-lightyellow-txt-yellow-pill mt-2">Sent for Deployment</span>`;
 					        }
 							else{
-								html = `<span class="pill-rectangle bg-grey-txt-grey-pill mt-2">Rejected</span>`;
+								 html = `<span class="pill-rectangle bg-lightyellow-txt-yellow-pill mt-2">Sent for Deployment</span>`;
 							}
 
 					        return html;
@@ -1041,7 +1041,27 @@ function deactivateOutlet() {
 			            },
 			             dataType: "json", 
 				        success: function(response) {
-				           // alert("Device status updated successfully.");
+				 			document.getElementById("viewDeviceName").innerHTML=response.data.deviceTypeDesc;
+							document.getElementById("viewStateUPI").innerHTML=response.data.qrStateDesc;
+							document.getElementById("viewTypeOfDevice").innerHTML=response.data.deviceTypeDesc;
+							document.getElementById("viewUPIId").innerHTML=response.data.upiId;
+							//document.getElementById("viewStatus").innerHTML=response.data.status;
+							const statusElement = document.getElementById("viewStatus");
+							if (response.data.status === 0) {
+							    statusElement.className = "pill-rectangle bg-grey-txt-grey-pill mt-2";
+							    statusElement.innerHTML = "Disabled";
+							} else {
+							    statusElement.className = "pill bg-lightgreen-txt-green-pill";
+							    statusElement.innerHTML = "Enabled";
+							}
+							if (response.data.upiImg && response.data.upiImg.trim() !== "") {
+							    document.getElementById("ViewImg").src = response.data.upiImg;;
+							} else {
+							    document.getElementById("ViewImg").src = "img/profile-pic01.svg";
+							    // Or just clear the src if you prefer
+							    // document.getElementById("ViewImg").src = "";
+							}
+							
 							document.getElementById("bs-canvas-right-view").classList.add("show-canvas");
 						    document.getElementById("modal-overlay-view").style.display = "block";
 				           // getDeviceDetailList(); 

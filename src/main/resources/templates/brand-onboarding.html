@@ -1542,38 +1542,35 @@
 	         <div class="voucher-modal-scrollable">
 	           <div class="voucher-header mt-2 d-flex justify-content-between align-items-center">
 	             <h5 class="voucher-title font-weight-bold" style="margin-left: 20px;">UPI Device Details</h5>
-	             <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="outline: none; box-shadow: none;margin-right: -50px;">
+	             <button id="close-geo-modal-btn-review" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="outline: none; box-shadow: none;margin-right: -50px;">
 	               <i class="fas fa-times voucher-close-icon"></i>
 	             </button>
 	           </div>
-
 	           <div class="voucher-body p-3">
-	             
-
 				<div class="voucher-card">
 					          <div class="voucher-card-header">								
 					            <div class="voucher-card-labels">
 					              <div class="voucher-label-row">
-					                <span class="voucher-label-title" id="voucherDesc">Device 4</span>			                
+					                <span class="voucher-label-title" id="viewDeviceName"></span>			                
 					              </div><hr>			             
 					            </div>
 					          </div>
 					          <div class="voucher-meta">
 					            <div class="voucher-meta-row">
 					              <span class="voucher-meta-label">State of UPI QR</span>
-					              <span class="voucher-meta-value">Static</span>
+					              <span class="voucher-meta-value" id="viewStateUPI"></span>
 					            </div>
 					            <div class="voucher-meta-row">
 					              <span class="voucher-meta-label" id="issueDate">Type of Device</span>
-					              <span class="voucher-meta-value" id="merchantTranId">Physical QR Code</span>
+					              <span class="voucher-meta-value" id="viewTypeOfDevice"></span>
 					            </div>
 					            <div class="voucher-meta-row">
 					              <span class="voucher-meta-label">UPI ID</span>
-					              <span class="voucher-meta-value"style="size:13px;">123456789@okicici</span>
+					              <span class="voucher-meta-value"style="size:13px;" id="viewUPIId"></span>
 					            </div>
 					            <div class="voucher-meta-row">
 					              <span class="voucher-meta-label" id="name">Status</span>
-					              <span ><span class="pill bg-lightgreen-txt-green-pill">Enabled</span></span>
+					              <span ><span class="pill bg-lightgreen-txt-green-pill" id="viewStatus"></span></span>
 					            </div>
 					            <div class="voucher-meta-row">
 					              <span class="voucher-meta-label">Deployment</span>
@@ -1581,7 +1578,7 @@
 					            </div>
 								
 					          </div><br>
-							  <img src="img/testimg.png" alt="Uploaded QR" class="img-fluid rounded mb-2" style="max-height: 204px; object-fit: contain;width: 318px;">
+							  <img src="img/testimg.png" alt="Uploaded QR" id="ViewImg" class="img-fluid rounded mb-2" style="max-height: 204px; object-fit: contain;width: 318px;">
 					        </div>
 
 							<div class="did-floating-label-content">
@@ -1781,7 +1778,7 @@
 		  }
 
 		  document.addEventListener("DOMContentLoaded", function () {
-		    const closeBtn = document.getElementById("close-geo-modal-btn");
+		    const closeBtn = document.getElementById("close-geo-modal-btn-review");
 		    if (closeBtn) {
 		      closeBtn.addEventListener("click", function () {
 		        document.getElementById("modal-overlay-view").style.display = "none";
@@ -1898,6 +1895,7 @@
 	  document.getElementById('uploadBtnSection').style.display = 'none';
 	  
     };
+	uploadImage();
     reader.readAsDataURL(file);
   }
 
@@ -1908,7 +1906,39 @@
   }
 </script>
 
+<script>
+	
+	function uploadImage() {
+	    var fileInput = document.getElementById("fileInput");
+	    var file = fileInput.files[0];
 
+	    if (!file) {
+	        alert("Please select an image file.");
+	        return;
+	    }
+
+	    var formData = new FormData();
+	    formData.append("image", file);
+
+	    $.ajax({
+	        url: "http://ocr.cotodel.com/ocr",
+	        type: "POST",
+	        data: formData,
+	        processData: false, // Don't process the files
+	        contentType: false, // Let jQuery set the correct content type
+	        success: function(response) {
+	            console.log("Success:", response);
+	            alert("OCR result: " + JSON.stringify(response));
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error:", xhr.responseText);
+	            alert("Upload failed: " + xhr.status);
+	        }
+	    });
+	}
+
+	
+</script>
 <script>
   function previewImageOutletEdit(event) {
     const file = event.target.files[0];
