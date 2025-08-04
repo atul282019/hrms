@@ -1759,9 +1759,7 @@ function viewhistory(rowData) {
   $.ajax({
     type: "POST",
     url: "/erupiVoucherStatusHistory",
-    data: {
-      id: rowData.id
-    },
+    data: { id: rowData.id },
     success: function (data) {
       document.getElementById("signinLoader").style.display = "none";
 
@@ -1779,24 +1777,20 @@ function viewhistory(rowData) {
         document.getElementById("name").textContent = data1.name;
         document.getElementById("voucherMobile").textContent = data1.mobile;
         document.getElementById("expDate").textContent = data1.expDate;
-        //document.getElementById("issueDate").textContent = data1.issueDate;
-		document.getElementById("issueDate").textContent = formatDate(data1.issueDate);
+        document.getElementById("issueDate").textContent = formatDate(data1.issueDate);
         document.getElementById("merchantTranId").textContent = data1.merchantTranId;
         document.getElementById("balanceAmount").textContent = `₹${data1.activeAmount}`;
         document.getElementById("redemtionType").textContent = data1.redemtionType;
         document.getElementById("amountSpent").textContent = `₹${data1.amountSpent ?? 0}`;
-		document.getElementById("umn").textContent = data1.umn;
+        document.getElementById("umn").textContent = data1.umn;
+
         const statusBox = document.querySelector(".voucher-status-box");
         const statusTextEls = statusBox.querySelectorAll(".voucher-status-text");
         const balanceEl = document.getElementById("balanceAmount");
-       	//const statusValue = data1.voucherStatus?.trim().toLowerCase();
-	   
 
-        //document.getElementById("voucherStatus").textContent = data1.voucherStatus;
-		const status = data1.voucherStatus;
-		const capitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
-		document.getElementById("voucherStatus").textContent = capitalizedStatus;
-
+        const status = data1.voucherStatus;
+        const capitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
+        document.getElementById("voucherStatus").textContent = capitalizedStatus;
 
         statusBox.className = "voucher-status-box";
         statusTextEls.forEach(el => el.className = "voucher-status-text");
@@ -1814,15 +1808,11 @@ function viewhistory(rowData) {
             balanceEl.classList.add("voucher-balance-Revoke");
             break;
           case "Expired":
+          case "Redeemed":
             statusBox.classList.add("voucher-status-box-Expire");
             statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
             balanceEl.classList.add("voucher-balance-Expire");
             break;
-		case "Redeemed":
-		    statusBox.classList.add("voucher-status-box-Expire");
-		    statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
-		    balanceEl.classList.add("voucher-balance-Expire");
-		    break;
         }
 
         const accountDisplay = document.getElementById("accountNumber");
@@ -1842,46 +1832,56 @@ function viewhistory(rowData) {
         transactionList.innerHTML = "";
 
         const redeemData = data1.redeemData || [];
-        if (redeemData.length > 1) {
-          transactionList.innerHTML = '<div class="voucher-transaction-line"></div>';
-        }
+		
 
-        redeemData.forEach((txn, idx) => {
-          const item = document.createElement("li");
-          item.className = "voucher-transaction-item";
-          item.innerHTML = `
-            <div class="voucher-transaction-step">${idx + 1}</div>
-            <div class="voucher-transaction-card">
-              <div class="voucher-transaction-top">
-                <div>
-                  <div class="voucher-meta-label">Transaction date</div>
-                  <div class="voucher-meta-value">${txn.transactionDate}</div>
+        // If no transaction history
+        if (redeemData.length === 0) {
+          const noHistoryMsg = document.createElement("li");
+          noHistoryMsg.className = "voucher-transaction-item no-history";
+          noHistoryMsg.textContent = "No transaction history available.";
+          transactionList.appendChild(noHistoryMsg);
+        } else {
+          if (redeemData.length > 1) {
+            transactionList.innerHTML = '<div class="voucher-transaction-line"></div>';
+          }
+
+          redeemData.forEach((txn, idx) => {
+            const item = document.createElement("li");
+            item.className = "voucher-transaction-item";
+            item.innerHTML = `
+              <div class="voucher-transaction-step">${idx + 1}</div>
+              <div class="voucher-transaction-card">
+                <div class="voucher-transaction-top">
+                  <div>
+                    <div class="voucher-meta-label">Transaction date</div>
+                    <div class="voucher-meta-value">${txn.transactionDate}</div>
+                  </div>
+                  <div>
+                    <div class="voucher-meta-label">Transaction RRN</div>
+                    <div class="voucher-meta-value">${txn.bankrrn}</div>
+                  </div>
                 </div>
-                <div>
-                  <div class="voucher-meta-label">Transaction RRN</div>
-                  <div class="voucher-meta-value">${txn.bankrrn}</div>
+                <div class="voucher-transaction-bottom">
+                  <div>
+                    <div class="voucher-meta-label">Merchant Name</div>
+                    <div class="voucher-meta-value">${txn.marchantName}</div>
+                  </div>
+                  <div>
+                    <div class="voucher-meta-label">Amount</div>
+                    <div class="voucher-meta-value">₹${txn.amount}</div>
+                  </div>
                 </div>
-              </div>
-              <div class="voucher-transaction-bottom">
-                <div>
-                  <div class="voucher-meta-label">Merchant Name</div>
-                  <div class="voucher-meta-value">${txn.marchantName}</div>
-                </div>
-                <div>
-                  <div class="voucher-meta-label">Amount</div>
-                  <div class="voucher-meta-value">₹${txn.amount}</div>
-                </div>
-              </div>
-            </div>`;
-          transactionList.appendChild(item);
-		  // Insert dotted line only between items, not after the last
-		  if (idx < redeemData.length - 1) {
-		      const line = document.createElement("div");
-		      line.className = "voucher-transaction-line";
-		      transactionList.appendChild(line);
-		    }
-			
-        });
+              </div>`;
+            transactionList.appendChild(item);
+
+            // Insert dotted line between items
+            if (idx < redeemData.length - 1) {
+              const line = document.createElement("div");
+              line.className = "voucher-transaction-line";
+              transactionList.appendChild(line);
+            }
+          });
+        }
       }
     },
     error: function (e) {
@@ -1890,6 +1890,7 @@ function viewhistory(rowData) {
     }
   });
 }
+
 
 
 

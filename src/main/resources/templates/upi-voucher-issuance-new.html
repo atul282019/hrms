@@ -2158,12 +2158,21 @@ requestedVoucherCount()">
 			    };
 			    let originalRowsHTML = null;
 
-			    function parseDate(dateStr) {
+			    /*function parseDate(dateStr) {
 			        if (!dateStr || !dateStr.includes('-')) return null;
 			        const [day, month, year] = dateStr.trim().split('-');
 			        const parsed = new Date(`${year}-${month}-${day}`);
 			        return isNaN(parsed.getTime()) ? null : parsed;
-			    }
+			    }*/
+				function parseDate(dateStr) 
+				{
+				    if (!dateStr) return null;
+				    const match = dateStr.match(/\d{2}-\d{2}-\d{4}/); // match dd-mm-yyyy
+				    if (!match) return null;
+				    const [day, month, year] = match[0].split('-');
+				    const parsed = new Date(`${year}-${month}-${day}`);
+				    return isNaN(parsed) ? null : parsed;
+				}
 
 			    function setClearButtonState(enabled) {
 			        clearBtn.style.cursor = enabled ? 'pointer' : 'not-allowed';
