@@ -292,7 +292,7 @@ async function getBrandOutletList(){
 
 		    $.ajax({
 		        type: "POST",
-		        url: "/addGeograpgicDetails",
+		        url: "/editGeograpgicDetails",
 		        contentType: "application/json",
 		        data: JSON.stringify({
 		            orgid: orgId,

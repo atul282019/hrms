@@ -42,4 +42,6 @@ public interface BrandManagementService {
 
 	String editActiveBrandDetails(String token, EncriptResponse jsonObject);
 
+	String editGeograpgicDetails(String token, EncriptResponse jsonObject);
+
 }

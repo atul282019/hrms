@@ -249,6 +249,30 @@ public class BrandManagerController extends CotoDelBaseController{
    
 		return profileRes;	
 }
+	
+
+	@PostMapping(value = "/editGeograpgicDetails")
+	public @ResponseBody String editGeograpgicDetails(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session,@RequestBody ErupiBrandGeoRequest erupiBrandGeoRequest,BindingResult result) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiBrandGeoRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  brandManagementService.editGeograpgicDetails(tokengeneration.getToken(), jsonObject);
+ 
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+		return profileRes;	
+}
 	@GetMapping(value = "/getBrandOutletList")
 	public @ResponseBody String getBrandOutletList(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, ErupiBrandDetailsRequest brandManagementRequest) {
