@@ -1273,8 +1273,6 @@
             </select>
             <label class="did-floating-label">State of UPI QR</label>
           </div>
-
-          <!-- Uploaded Section -->
 		  <!-- Uploaded Section -->
 		  <div id="uploadedSection" class="text-center p-3 mb-3" style="border: 1px solid #C7C8D1; border-radius: 16px; display: none;">
 		    <div class="mb-2">
@@ -1296,10 +1294,7 @@
 		      <div style="cursor: pointer; color: #4A4E69; font-size: 16px;" onclick="removeUploaded()">&#10005;</div>
 		    </div>
 		  </div>
-		<!--  <div class="did-floating-label-content mb-3">
-		  	    <label for="fileUpload" style="font-size: 14px; margin-bottom: 5px;">Attach File</label>
-		  	    <input type="file" id="up" class="form-control" accept="image/*" onchange="previewImage(event)">
-		  	  </div>-->
+		
 			  <div class="text-center p-3 mb-3" style="border: 1px dashed #C7C8D1; border-radius: 16px;" id="uploadBtnSection">
 	              <div class="mb-2">
 	                <img src="img/upload-img-icon.svg" style="width: 48px;height: 48px;">
@@ -1307,24 +1302,13 @@
 	              <div class="mb-2 font-weight-bold text-secondary">Upload Image of UPI QR Code</div>
 	              <div class="mb-2 text-muted small">JPG, JPEG, PNG or SVG, upto 2MB.</div>
 				  <!-- Styled Upload Button with Hidden File Input -->
-				  <label for="fileInput" style="
-				      background-color: #367AFF;
-				      color: white;
-				      width: 104px;
-				      height: 46px;
-				      border: none;
-				      border-radius: 8px;
-				      padding: 12px 24px;
-				      font-size: 16px;
-				      font-weight: 500;
-				      cursor: pointer;
-				      display: inline-block;
-				      text-align: center;
-				      line-height: 22px;
-				  ">
+				  <label for="fileInput" style=" background-color: #367AFF;color: white; width: 104px; height: 46px;border: none;
+				      border-radius: 8px; padding: 12px 24px; font-size: 16px;
+				      font-weight: 500;cursor: pointer; display: inline-block; text-align: center; line-height: 22px; ">
 				    Upload
 				  </label>
 				  <input type="file" id="fileInput" style="display: none;" onchange="previewImage(event)">
+				  
 	            </div>
 		  <div class="error-msg" id="fileInputError" style="margin-top: -10px; font-size: 12px;"></div>
 		
@@ -1334,19 +1318,25 @@
           </div>
         </div>
       </div>
+	  <div class="lds-spinner" id="signinLoader2" style="display: none">
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  				<div></div>
+	  			</div>
     </div>
-
+	
     <!-- Footer Button -->
     <div class="voucher-footer text-center p-3">
-      <!--<button class="voucher-download-btn btn btn-primary btn-block font-weight-bold" type="button">-->
-	<!--	<button
-		  class="voucher-download-btn btn btn-primary btn-block font-weight-bold"
-		  type="button"
-		  data-bs-toggle="modal"
-		  data-bs-target="#PaymentSuccessModal1"
-		>
-        SUBMIT FOR APPROVAL
-      </button>		-->
+	
   		<button class="voucher-download-btn btn btn-primary btn-block font-weight-bold" type="button" onclick="addUPIDevice()" disabled>
 	        SUBMIT FOR APPROVAL
 	      </button>
@@ -1911,7 +1901,7 @@
   }
 
   function uploadImage(base64Image, fileName) {
-	//document.getElementById("signinLoader").style.display="block";
+  document.getElementById("signinLoader2").style.display="block";
     $.ajax({
       type: "POST",
       url: "/readDataFromImage",
@@ -1928,10 +1918,10 @@
 		
 		document.getElementById("upiId").value=response.data.upi;
 		document.querySelector(".voucher-download-btn").disabled = false;
-	//	document.getElementById("signinLoader").style.display="none";
+		document.getElementById("signinLoader2").style.display="none";
       },
       error: function(xhr, status, error) {
-		//document.getElementById("signinLoader").style.display="none";
+		document.getElementById("signinLoader2").style.display="none";
         console.error("Error:", xhr.responseText);
         alert("Upload failed: " + xhr.status);
       }
