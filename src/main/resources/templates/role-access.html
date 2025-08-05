@@ -1957,7 +1957,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	  		      <div class="voucher-modal-scrollable">
 	  		        <div class="voucher-header mt-2">
 	  		          <h5 class="voucher-title">Edit Geographies</h5>
-	  		          <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
+	  		          <button id="close-geo-modal-editbtn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
 	  		            <i class="fas fa-times voucher-close-icon"></i>
 	  		          </button>
 	  		        </div>
@@ -2612,7 +2612,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 
 			               // Show the modal popup
 			               document.getElementById("modal-overlay-edit").style.display = "block";
-						   document.getElementById("bs-canvas-right-edit").classList.remove("show-canvas");
+						   document.getElementById("bs-canvas-right-edit").classList.add("show-canvas");
 			           } else if (data.status === false) {
 			               document.getElementById('geoSave').style.display = 'block';
 			               document.getElementById('geoEdit').style.display = 'none';
@@ -2634,16 +2634,20 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 			   });
 		  	  }
 
-		  document.addEventListener("DOMContentLoaded", function () {
-		    const closeBtn = document.getElementById("close-geo-modal-btn");
-		    if (closeBtn) {
-		      closeBtn.addEventListener("click", function () {
-		        document.getElementById("modal-overlay2").style.display = "none";
-		        document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
-		      });
-		    }
-		  });
-		 
+			  document.addEventListener("DOMContentLoaded", function () {
+			    const closeBtn = document.getElementById("close-geo-modal-editbtn");
+			    if (closeBtn) {
+			      closeBtn.addEventListener("click", function () {
+			        const canvas = document.getElementById("bs-canvas-right-edit");
+			        const overlay = document.getElementById("modal-overlay-edit");
+
+			        // Hide instantly
+			        canvas.classList.remove("show-canvas");
+			        overlay.style.display = "none";
+			      });
+			    }
+			  });
+
 		</script>
 
 	<style>
