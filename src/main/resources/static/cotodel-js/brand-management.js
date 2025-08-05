@@ -50,6 +50,7 @@ let geoCount = 1;
 	  }
 	  
 async function activateBrand(){
+	document.getElementById("addBrandBtn").disabled = true;
 	var createdby = document.getElementById("userMobile").value;
 	var orgId = document.getElementById("employerId").value;
 	var brandName = document.getElementById("brandName").value;
@@ -104,8 +105,7 @@ async function activateBrand(){
 			 },  		 
 	        success:function(data){
 	        var data1 = data.data;
-	        console.log("data",data);
-		    console.log("data1",data1);
+	        document.getElementById("addBrandBtn").disabled = false;
 			if(data.status==true){
 				getBrandOutletList();
 				document.getElementById("bs-canvas-right2").classList.remove("show-canvas");
@@ -131,6 +131,7 @@ async function activateBrand(){
 }
 
 async function editActivateBrand(){
+	document.getElementById("editBrandBtn").disabled = true;
 	var createdby = document.getElementById("userMobile").value;
 	var orgId = document.getElementById("employerId").value;
 	var brandName = document.getElementById("brandNameEdit").value;
@@ -189,6 +190,7 @@ async function editActivateBrand(){
 	        var data1 = data.data;
 	        console.log("data",data);
 		    console.log("data1",data1);
+			document.getElementById("editBrandBtn").disabled = false;
 			if(data.status==true){
 				getBrandOutletList();
 				document.getElementById("bs-canvas-right4").classList.remove("show-canvas");
@@ -249,6 +251,7 @@ async function getBrandOutletList(){
 		}
 
 		async function getAllGeographyValuesEdit() {
+			document.getElementById("geoEditBtn").disabled = true;
 		    const inputGroups = document.querySelectorAll('#geoContainer2 .geo-input-group');
 			var jioMainId = document.getElementById("jioMainId").value;
 		    const values = [];
@@ -305,12 +308,13 @@ async function getBrandOutletList(){
 		        success: function (data) {
 		            var data = jQuery.parseJSON(data);
 		            console.log("data", data);
+					document.getElementById("geoEditBtn").disabled = false;
 		            if (data.status === true) {
 		                $('#PaymentSuccessModal').modal('show');
 		                getGeographicListByOrgId();
 		                document.getElementById('editgio').style.display = "block";
-		                document.getElementById("modal-overlay2").style.display = "none";
-		                document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
+		                document.getElementById("modal-overlay-edit").style.display = "none";
+		                document.getElementById("bs-canvas-right-edit").classList.remove("show-canvas");
 		            } else {
 		                $('#PaymentSuccessModal').modal('show');
 		            }
@@ -324,6 +328,7 @@ async function getBrandOutletList(){
 				
 
 async function getAllGeographyValues() {
+	      document.getElementById("addGeoBtn").disabled = true;
 	      const inputs = document.querySelectorAll('#geoContainer .geo-input-group input');
 	      const values = [];
 		  
@@ -382,7 +387,7 @@ async function getAllGeographyValues() {
 		  			}),		 
 		  	        success:function(data){
 		  	        var data = jQuery.parseJSON(data);
-		  	        console.log("data",data);
+		  	       document.getElementById("addGeoBtn").disabled = false;
 		  			if(data.status==true){
 		  				$('#PaymentSuccessModal').modal('show');
 						getGeographicListByOrgId();
@@ -403,46 +408,48 @@ async function getAllGeographyValues() {
 	    }
 		
 
-		async function getGeographicListByOrgId(){
-			var orgId = document.getElementById("employerId").value;
-			//alert("brandmanagement"+orgId);
-			$.ajax({
-				type: "GET",
-			     url:"/getBrupiBrandGeoList",
-				 dataType: 'json',   
-			      data: {
-							"orgid":orgId,
-					 },  		 
-			        success:function(data){
-			        var data1 = data.data;
-			        console.log("data",data);
-				    console.log("data1",data1);
-					if(data.status==true && data1.length >=0){
+		async function getGeographicListByOrgId() {
+		    var orgId = document.getElementById("employerId").value;
+
+		    $.ajax({
+		        type: "GET",
+		        url: "/getBrupiBrandGeoList",
+		        dataType: 'json',
+		        data: {
+		            "orgid": orgId,
+		        },
+		        success: function (data) {
+		            var data1 = data.data;
+		            console.log("data", data);
+		            console.log("data1", data1);
+
+		            const geoContainer = document.getElementById("geoContainerView");
+		            geoContainer.innerHTML = ""; // 🔴 CLEAR existing content before rebinding
+
+		            if (data.status === true && data1.length > 0) {
+		                document.getElementById('geoSave').style.display = 'none';
+		                document.getElementById('geoEdit').style.display = 'block';
+
+		                const geoList = data.data[0].geographicLocation;
+
+		                geoList.forEach((geo, index) => {
+		                    const div = document.createElement("div");
+		                    div.className = "geo-tag";
+		                    div.innerHTML = `#${index + 1} <strong>${geo.name}</strong>`;
+		                    geoContainer.appendChild(div);
+		                });
 						
-						 document.getElementById('geoSave').style.display = 'none';
-						 document.getElementById('geoEdit').style.display = 'block';
-						 const geoContainer = document.getElementById("geoContainerView");
-						   const geoList = data.data[0].geographicLocation;
-
-						   geoList.forEach((geo, index) => {
-						       const div = document.createElement("div");
-						       div.className = "geo-tag";
-						       div.innerHTML = `#${index + 1} <strong>${geo.name}</strong>`;
-						       geoContainer.appendChild(div);
-						     });
-					}else if(data.status==false){
-
-						document.getElementById('geoSave').style.display = 'block';
-						document.getElementById('geoEdit').style.display = 'none';
-					}
-			     },
-			     error: function(e){
-			         alert('Error: ' + e);
-			     }
-			});	
-			
+		            } else {
+		                document.getElementById('geoSave').style.display = 'block';
+		                document.getElementById('geoEdit').style.display = 'none';
+		            }
+		        },
+		        error: function (e) {
+		            alert('Error: ' + e);
+		        }
+		    });
 		}
-		
+
 async function addBrandOutlet(){
 			var orgId = document.getElementById("employerId").value;
 			var outletName = document.getElementById("outletName").value;
@@ -826,7 +833,7 @@ function userSearchAndPopulate(inputElement) {
 		
 			  
 		async function addUPIDevice(){
-			
+			document.getElementById("addUpiDeviceBtn").disabled = true;
 			
 			var dropdown = document.getElementById("deviceType");
 		    var deviceTypeId = dropdown.value;
@@ -876,23 +883,18 @@ function userSearchAndPopulate(inputElement) {
 					 },  		 
 			        success:function(data){
 			        var data1 = data.data;
-			        console.log("data",data);
-				    console.log("data1",data1);
+					document.getElementById("addUpiDeviceBtn").disabled = false;
 					if(data.status==true){
 						//getBrandOutletList();
-						//document.getElementById("bs-canvas-right2").classList.remove("show-canvas");
+						document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
+						document.getElementById('modal-overlay2').style.display = 'none';
 						document.getElementById("PaymentSuccessModal1").style.display = "block";
 						$('#PaymentSuccessModal1').modal('show');
-				        /* $('#AddVehicleModal').modal('hide');
-						 getSupportTicketListList();
-
-						 document.getElementById('bs-canvas-right2').style.right = '-378px';
-						 document.getElementById('modal-overlay2').style.display = 'none';*/
+				       
 					}else if(data.status==false){
-						//getBrandOutletList();
-						$('#PaymentSuccessModal').modal('show');
-						//document.getElementById('bs-canvas-right2').style.right = '0';
-					    //document.getElementById('modal-overlay2').style.display = 'block';
+						$('#PaymentSuccessModal').modal('hide');
+						document.getElementById("bs-canvas-right3").classList.add("show-canvas");
+						document.getElementById('modal-overlay2').style.display = 'block';
 					}
 			     },
 			     error: function(e){
