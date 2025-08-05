@@ -18,4 +18,6 @@ public class ErupiBrandDetailsRequest {
 	private String storetypedesc;	
 	private int storetypeId;	
 	private String extra1;
+	private String response;
+	private String updatedby;
 }

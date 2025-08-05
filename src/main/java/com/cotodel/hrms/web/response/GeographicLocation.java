@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GeographicLocation {
 	private String name;
+	private String id;
 }

@@ -203,6 +203,29 @@ public class BrandManagerController extends CotoDelBaseController{
    
 		return profileRes;	
 }
+	@PostMapping(value = "/editActiveBrandDetails")
+	public @ResponseBody String editActiveBrandDetails(HttpServletRequest request, ModelMap model, Locale locale,
+			HttpSession session, ErupiBrandDetailsRequest erupiBrandDetailsRequest) {
+		String profileRes = null;
+		
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(erupiBrandDetailsRequest);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse =  brandManagementService.editActiveBrandDetails(tokengeneration.getToken(), jsonObject);
+ 
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
+		return profileRes;	
+}
+	
 	
 	@PostMapping(value = "/addGeograpgicDetails")
 	public @ResponseBody String addGeograpgicDetails(HttpServletRequest request, ModelMap model, Locale locale,

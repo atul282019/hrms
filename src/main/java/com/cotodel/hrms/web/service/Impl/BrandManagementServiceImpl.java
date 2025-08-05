@@ -145,4 +145,12 @@ public class BrandManagementServiceImpl implements BrandManagementService{
 		    );
 	}
 
+	@Override
+	public String editActiveBrandDetails(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,
+		        MessageConstant.gson.toJson(jsonObject),
+		        applicationConstantConfig.brandServiceBaseUrl +CommonUtils.editActiveBrandDetails
+		    );
+	}
+
 }

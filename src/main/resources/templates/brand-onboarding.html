@@ -6,7 +6,7 @@
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block>
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<body id="page-top" onload="getOutletDetailsById(),getDeviceDetailList(),getGeographicDropdownList()" >
+<body id="page-top" onload="getDeviceDetailList(),getOutletDetailsById(),getGeographicDropdownList()" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -1293,6 +1293,7 @@
 		      </div>
 		      <div style="cursor: pointer; color: #4A4E69; font-size: 16px;" onclick="removeUploaded()">&#10005;</div>
 		    </div>
+			
 		  </div>
 		
 			  <div class="text-center p-3 mb-3" style="border: 1px dashed #C7C8D1; border-radius: 16px;" id="uploadBtnSection">
@@ -1319,19 +1320,19 @@
         </div>
       </div>
 	  <div class="lds-spinner" id="signinLoader2" style="display: none">
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  				<div></div>
-	  			</div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  </div>
     </div>
 	
     <!-- Footer Button -->
@@ -1342,6 +1343,7 @@
 	      </button>
     </div>
   </div>
+  
 </div>
 <!-- Payment Success Modal -->
 	   <div class="modal fade" id="PaymentSuccessModal1" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
@@ -1901,7 +1903,7 @@
   }
 
   function uploadImage(base64Image, fileName) {
-  document.getElementById("signinLoader2").style.display="block";
+  //document.getElementById("signinLoader2").style.display="block";
     $.ajax({
       type: "POST",
       url: "/readDataFromImage",
@@ -1918,10 +1920,10 @@
 		
 		document.getElementById("upiId").value=response.data.upi;
 		document.querySelector(".voucher-download-btn").disabled = false;
-		document.getElementById("signinLoader2").style.display="none";
+		//document.getElementById("signinLoader2").style.display="none";
       },
       error: function(xhr, status, error) {
-		document.getElementById("signinLoader2").style.display="none";
+		//document.getElementById("signinLoader2").style.display="none";
         console.error("Error:", xhr.responseText);
         alert("Upload failed: " + xhr.status);
       }

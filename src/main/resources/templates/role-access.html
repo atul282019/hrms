@@ -799,7 +799,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	   							   				        <p class="mb-1 black">How many outlets does your brand have?</p>
 	   							   				        <p class="black-bold" >Multiple - <span id="outletNo"></span> Outlets</p>
 	   							   				      </div>
-	   							   				      <button class="edit-btn">
+	   							   				      <button class="edit-btn" onclick="openActivateBrandEdit()" type="button">
 	   							   				        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 	   							   				          <path d="M12 20h9"></path>
 	   							   				          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
@@ -833,7 +833,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
       			   								        </svg>
       			   								        Edit
       			   								      </button>
-													  <a class="btn btn-custom me-2" id="activateBtn" onclick=" openGeoGraphic()">Activate</a>
+													  <a class="btn btn-custom me-2" id="activateBtn" onclick="openGeoGraphic()">Activate</a>
 	   			   								    </div>
 
 	   			   								    <div class="text-left color-third mb-3" id="geoEdit" style="display: none;">
@@ -842,7 +842,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 															<p style="margin-bottom: 16px;">You have listed the following geographies to segment your outlets:</p>
 																													
 		   							   				      </div>
-		   							   				      <button class="edit-btn">
+		   							   				      <button class="edit-btn" type="button" onclick="openGeoGraphicEdit()">
 		   							   				        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 		   							   				          <path d="M12 20h9"></path>
 		   							   				          <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
@@ -1795,8 +1795,8 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	     
 	    </div>
 	  </div>
-
-	  	<!-- modal -->
+	  	
+	  <!-- modal -->
 	  <div class="" id="modal-overlay1" style="display: none;">
 	    <div class="voucher-modal-canvas" id="bs-canvas-right2">
 	      <div class="voucher-modal-scrollable-wrapper">
@@ -1857,6 +1857,65 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	    </div>
 	  </div>
 	  
+	  <div class="" id="modal-overlay3" style="display: none;">
+	  	    <div class="voucher-modal-canvas" id="bs-canvas-right4">
+	  	      <div class="voucher-modal-scrollable-wrapper">
+	  	        <div class="voucher-modal-scrollable">
+	  	          <div class="voucher-header d-flex justify-content-between align-items-center p-3 border-bottom">
+	  	            <h5 class="voucher-title mb-0">Edit Brand Management</h5>
+	  	            <button class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close" style="margin-right: -65px;">
+	  	              <i class="fas fa-times voucher-close-icon"></i>
+	  	            </button>
+	  	          </div>
+
+	  	          <div class="p-3">
+	  	            <!-- Question 1 -->
+	  				<div class="form-check mb-2">
+	  					<label class="form-check-label me-2" for="brandNameEdit">Brand Name</label>
+	  					              <input type="text" id="brandNameEdit"  class="form-control form-control-sm w-auto" placeholder="Brand Name"
+	  					  			 style="border-radius: 6px;">
+	  	            </div>
+	  				<div class="error-msg" id="brandNameEditError" ></div>
+	  	            <p class="mb-2 fw-bold">How many outlets does your brand have?</p>
+	  	            <div class="form-check mb-2">
+	  	              <input class="form-check-input" type="radio" name="outletCount" id="oneOutlet" value="oneOutlet">
+	  	              <label class="form-check-label" for="oneOutlet" style="margin-left: -17px !important; ">One</label>
+	  	            </div>
+	  	            <div class="form-check d-flex align-items-center gap-2 mb-4">
+	  	              <input class="form-check-input" type="radio" name="outletCountEdit" id="multipleOutletsEdit" checked value="multipleOutlets">
+	  	              <label class="form-check-label me-2" for="multipleOutletsEdit">Multiple</label>
+	  	              <input type="text" id="noOfOutletEdit"  class="form-control form-control-sm w-auto" placeholder="No of Outlets"
+	  	  			 style="border-radius: 6px;"
+	  	  			 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+	  	            </div>
+	  				<div class="error-msg" id="outletCountEditError" ></div>
+	  	            <!-- Question 2 -->
+	  	            <p class="mb-2 fw-bold">Do you have an online store for sales?</p>
+	  	            <div class="form-check mb-2">
+	  	              <input class="form-check-input" type="radio" name="salesModeEdit" id="onlineOfflineEdit" checked value="Online and Offline">
+	  	              <label class="form-check-label" for="onlineOfflineEdit">Online and Offline</label>
+	  	            </div>
+	  	            <div class="form-check mb-2">
+	  	              <input class="form-check-input" type="radio" name="salesModeEdit" id="onlineOnlyEdit" value="Online Only">
+	  	              <label class="form-check-label" for="onlineOnlyEdit">Online Only</label>
+	  	            </div>
+	  	            <div class="form-check mb-4">
+	  	              <input class="form-check-input" type="radio" name="salesModeEdit" id="offlineOnlyEdit" value="Offline Only">
+	  	              <label class="form-check-label" for="offlineOnlyEdit">Offline Only</label>
+	  	            </div>
+	  				<div class="error-msg" id="salesModeEditError" ></div>
+	  	          </div>
+	  	        </div>
+	  	      </div>
+
+	  	      <!-- Footer: button excluded as per user -->
+	  	      <div class="voucher-footer">
+				<input type="hidden" id="BrandEditId" name="BrandEditId">
+	  	  		  <button class="voucher-download-btn" type="button" onclick="editActivateBrand()">Submit</button>
+	  	      </div>
+	  	    </div>
+	  	  </div>
+	  	  
 	  <!-- modal -->
 	  		<div class="" id="modal-overlay2" style="display:none;">
 	  		  <div class="voucher-modal-canvas" id="bs-canvas-right3">
@@ -1890,6 +1949,41 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	  		   </div>
 	  		  </div>
 	  		</div>
+			
+			
+			<div class="" id="modal-overlay-edit" style="display:none;">
+	  		  <div class="voucher-modal-canvas" id="bs-canvas-right-edit">
+	  		    <div class="voucher-modal-scrollable-wrapper">
+	  		      <div class="voucher-modal-scrollable">
+	  		        <div class="voucher-header mt-2">
+	  		          <h5 class="voucher-title">Edit Geographies</h5>
+	  		          <button id="close-geo-modal-btn" class="voucher-close-btn bs-canvas-close btn btn-link p-0" aria-label="Close"  style="margin-right: -65px; outline: none; box-shadow: none;">
+	  		            <i class="fas fa-times voucher-close-icon"></i>
+	  		          </button>
+	  		        </div>
+
+	  		        <div class="voucher-body">
+	  		          <p class="mb-3">Please mark the names of your geographies.</p>
+
+	  				  <div id="geoContainer2">
+	  				    <div class="geo-input-group">
+	  				      <span class="geo-number">#1</span>
+	  				      <input type="text" placeholder="Enter Region">
+	  				    </div>
+	  				  </div>
+
+	  		          <button class="add-geo-btn" type="button" onclick="addGeography()">Add Geography &nbsp; +</button>
+	  		        </div>
+	  		      </div>
+	  		    </div>
+
+	  		    <div class="voucher-footer">
+					<input  type="hidden" id="jioMainId">
+	  			  <button  class="continue-btn" type="button" onclick="getAllGeographyValuesEdit()">CONTINUE</button> 
+	  		   </div>
+	  		  </div>
+	  		</div>
+
 	  <!-- Payment Success Modal -->
 	  	   <div class="modal fade" id="PaymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
 	  	       <div class="modal-dialog modal-dialog-centered" >
@@ -2464,7 +2558,10 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 			document.getElementById("modal-overlay1").style.display = "block";
 		}
 		
-	
+		function openActivateBrandEdit(){
+			            document.getElementById("bs-canvas-right4").classList.add("show-canvas");
+						document.getElementById("modal-overlay3").style.display = "block";
+				}
     </script>
 	<script>
 		 
@@ -2479,6 +2576,63 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 		    document.getElementById("bs-canvas-right3").classList.add("show-canvas");
 		    document.getElementById("modal-overlay2").style.display = "block";
 		  }
+		  function openGeoGraphicEdit() {
+			var orgId = document.getElementById("employerId").value;
+			   $.ajax({
+			       type: "GET",
+			       url: "/getBrupiBrandGeoList",
+			       dataType: 'json',
+			       data: {
+			           "orgid": orgId,
+			       },
+			       success: function (data) {
+			           var data1 = data.data;
+			           console.log("data", data);
+
+			           if (data.status === true && data1.length >= 0) {
+			               document.getElementById('geoSave').style.display = 'none';
+			               document.getElementById('geoEdit').style.display = 'block';
+						   document.getElementById('jioMainId').value=data1[0].id;
+						   
+			               const geoContainer = document.getElementById("geoContainer2");
+			               geoContainer.innerHTML = ""; // Clear old entries
+
+			               const geoList = data1[0].geographicLocation;
+
+			               geoList.forEach((geo, index) => {
+			                   const div = document.createElement("div");
+			                   div.className = "geo-input-group";
+			                   div.innerHTML = `
+			                       <span class="geo-number">#${index + 1}</span>
+								   <input type="hidden" placeholder="Enter Region" value="${geo.id}">
+			                       <input type="text" placeholder="Enter Region" value="${geo.name}">
+			                   `;
+			                   geoContainer.appendChild(div);
+			               });
+
+			               // Show the modal popup
+			               document.getElementById("modal-overlay-edit").style.display = "block";
+						   document.getElementById("bs-canvas-right-edit").classList.remove("show-canvas");
+			           } else if (data.status === false) {
+			               document.getElementById('geoSave').style.display = 'block';
+			               document.getElementById('geoEdit').style.display = 'none';
+
+			               // Open modal for fresh entry
+			               document.getElementById("geoContainer").innerHTML = `
+			                   <div class="geo-input-group">
+			                       <span class="geo-number">#1</span>
+			                       <input type="text" placeholder="Enter Region">
+			                   </div>
+			               `;
+						   document.getElementById("modal-overlay-edit").style.display = "block";
+						   document.getElementById("bs-canvas-right-edit").classList.remove("show-canvas");
+			           }
+			       },
+			       error: function (e) {
+			           alert('Error: ' + e);
+			       }
+			   });
+		  	  }
 
 		  document.addEventListener("DOMContentLoaded", function () {
 		    const closeBtn = document.getElementById("close-geo-modal-btn");
@@ -2524,7 +2678,42 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 
 				#bs-canvas-right3.show-canvas {
 				  transform: translateX(0);
-				}		  	  
+				}
+				
+				#bs-canvas-right-edit 
+						{
+						  position: absolute;
+						  right: 0;
+						  top: 0;
+						  width: 380px;
+						  height: 100%;
+						  background: #fff;
+						  transform: translateX(100%);
+						  transition: transform 0.3s ease-in-out;
+						  z-index: 1001;
+						}
+
+						#bs-canvas-right-edit.show-canvas {
+						  transform: translateX(0);
+						}
+								
+								
+				#bs-canvas-right4 
+						{
+						  position: absolute;
+						  right: 0;
+						  top: 0;
+						  width: 380px;
+						  height: 100%;
+						  background: #fff;
+						  transform: translateX(100%);
+						  transition: transform 0.3s ease-in-out;
+						  z-index: 1001;
+						}
+
+						#bs-canvas-right4.show-canvas {
+						  transform: translateX(0);
+						}		  	  
 		.form-check {
 		              display: flex;
 		              align-items: center;

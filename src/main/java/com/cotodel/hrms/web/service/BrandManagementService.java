@@ -40,4 +40,6 @@ public interface BrandManagementService {
 
 	String readDataFromImage(String token, ExpenseBillReaderRequest expenseBillReaderRequest);
 
+	String editActiveBrandDetails(String token, EncriptResponse jsonObject);
+
 }
