@@ -1221,42 +1221,30 @@
 <!-- /.container-fluid -->
 
     </div>
+
+	<div class="lds-spinner" id="signinLoader" style="display: none">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
     <!-- End of Main Content -->
 </div>
 
-<div class="lds-spinner" id="signinLoader" style="display: none">
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>
 
 <!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->
-<!--<div class="lds-spinner" id="signinLoader2" style="display: none">
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>-->
+
 <!-- modal 2 linkdevice modal -->
 <div class="" id="modal-overlay2" style="display:none;">
   <div class="voucher-modal-canvas" id="bs-canvas-right3">
@@ -1341,7 +1329,7 @@
 		  <div class="error-msg" id="fileInputError" style="margin-top: -10px; font-size: 12px;"></div>
 		
           <div class="did-floating-label-content mb-4">
-            <input class="did-floating-input" type="text" id="upiId" placeholder="" value="88675sfe@abcdpay" />
+            <input class="did-floating-input" type="text" id="upiId" placeholder="88675sfe@abcdpay"  />
             <label class="did-floating-label">UPI ID</label>
           </div>
         </div>
@@ -1923,7 +1911,7 @@
   }
 
   function uploadImage(base64Image, fileName) {
-	document.getElementById("signinLoader").style.display="block";
+	//document.getElementById("signinLoader").style.display="block";
     $.ajax({
       type: "POST",
       url: "/readDataFromImage",
@@ -1940,10 +1928,10 @@
 		
 		document.getElementById("upiId").value=response.data.upi;
 		document.querySelector(".voucher-download-btn").disabled = false;
-		document.getElementById("signinLoader").style.display="none";
+	//	document.getElementById("signinLoader").style.display="none";
       },
       error: function(xhr, status, error) {
-		document.getElementById("signinLoader").style.display="none";
+		//document.getElementById("signinLoader").style.display="none";
         console.error("Error:", xhr.responseText);
         alert("Upload failed: " + xhr.status);
       }
