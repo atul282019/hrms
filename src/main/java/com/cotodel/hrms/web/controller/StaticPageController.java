@@ -1389,49 +1389,49 @@ public class StaticPageController extends CotoDelBaseController{
 	return new ModelAndView("home", "command", "");
 }
 	
-	@GetMapping(value="/userVoucheCreation")
-	public ModelAndView userVoucheCreationr(Model model) {
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				if(obj.getUser_role()==9) {
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("employerId",id);
-				return new ModelAndView("voucher-creation", "command", "");
-			}
-			 return new ModelAndView("error", "command", "");
-		}
-		return new ModelAndView("home", "command", "");
-	}
-	return new ModelAndView("home", "command", "");
-}
-	
-	@GetMapping(value="/erupiDashboard")
-	public ModelAndView erupiDashboard(Model model) {
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				if(obj.getUser_role()==9) {
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("employerId",id);
-				return new ModelAndView("erupi-dashboard", "command", "");
-			}
-			 return new ModelAndView("error", "command", "");
-		}
-		return new ModelAndView("home", "command", "");
-	}
-	return new ModelAndView("home", "command", "");
-}
+//	@GetMapping(value="/userVoucheCreation")
+//	public ModelAndView userVoucheCreationr(Model model) {
+//		String token = (String) session.getAttribute("hrms");
+//		Integer id  = (Integer) session.getAttribute("id");
+//		if(token!=null) {
+//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//			if(obj!=null) {
+//				if(obj.getUser_role()==9) {
+//				model.addAttribute("name",obj.getName());
+//				model.addAttribute("org",obj.getOrgName());
+//				model.addAttribute("mobile",obj.getMobile());
+//				model.addAttribute("email",obj.getEmail());
+//				model.addAttribute("employerId",id);
+//				return new ModelAndView("voucher-creation", "command", "");
+//			}
+//			 return new ModelAndView("error", "command", "");
+//		}
+//		return new ModelAndView("home", "command", "");
+//	}
+//	return new ModelAndView("home", "command", "");
+//}
+//	
+//	@GetMapping(value="/erupiDashboard")
+//	public ModelAndView erupiDashboard(Model model) {
+//		String token = (String) session.getAttribute("hrms");
+//		Integer id  = (Integer) session.getAttribute("id");
+//		if(token!=null) {
+//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//			if(obj!=null) {
+//				if(obj.getUser_role()==9) {
+//				model.addAttribute("name",obj.getName());
+//				model.addAttribute("org",obj.getOrgName());
+//				model.addAttribute("mobile",obj.getMobile());
+//				model.addAttribute("email",obj.getEmail());
+//				model.addAttribute("employerId",id);
+//				return new ModelAndView("erupi-dashboard", "command", "");
+//			}
+//			 return new ModelAndView("error", "command", "");
+//		}
+//		return new ModelAndView("home", "command", "");
+//	}
+//	return new ModelAndView("home", "command", "");
+//}
 	
 	@GetMapping(value="/ProfileInfo")
 	public ModelAndView ProfileInfo(Model model) {
@@ -1478,28 +1478,28 @@ public class StaticPageController extends CotoDelBaseController{
 		return new ModelAndView("home", "command", "");
 	}
 	
-	@GetMapping(value="/upiVoucherIssuanceNewcopy")
-	public ModelAndView upiVoucherIssuanceNewcopy(Model model) {
-		String token = (String) session.getAttribute("hrms");
-		Integer id  = (Integer) session.getAttribute("id");
-		if(token!=null) {
-			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
-			if(obj!=null) {
-				if(obj.getUser_role()==9) {
-				model.addAttribute("name",obj.getName());
-				model.addAttribute("org",obj.getOrgName());
-				model.addAttribute("mobile",obj.getMobile());
-				model.addAttribute("email",obj.getEmail());
-				model.addAttribute("employerId",id);
-				return new ModelAndView("upi-voucher-issuance-new-copy", "command", "");
-			   }
-			 return new ModelAndView("error", "command", "");
-			}
-			return new ModelAndView("home", "command", "");
-		}
-		return new ModelAndView("home", "command", "");
-	}
-	
+//	@GetMapping(value="/upiVoucherIssuanceNewcopy")
+//	public ModelAndView upiVoucherIssuanceNewcopy(Model model) {
+//		String token = (String) session.getAttribute("hrms");
+//		Integer id  = (Integer) session.getAttribute("id");
+//		if(token!=null) {
+//			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+//			if(obj!=null) {
+//				if(obj.getUser_role()==9) {
+//				model.addAttribute("name",obj.getName());
+//				model.addAttribute("org",obj.getOrgName());
+//				model.addAttribute("mobile",obj.getMobile());
+//				model.addAttribute("email",obj.getEmail());
+//				model.addAttribute("employerId",id);
+//				return new ModelAndView("upi-voucher-issuance-new-copy", "command", "");
+//			   }
+//			 return new ModelAndView("error", "command", "");
+//			}
+//			return new ModelAndView("home", "command", "");
+//		}
+//		return new ModelAndView("home", "command", "");
+//	}
+//	
 	@GetMapping(value="/reputeUpiVoucherIssuance")
 	public ModelAndView reputeUpiVoucherIssuance(Model model) {
 		String token = (String) session.getAttribute("hrms");
