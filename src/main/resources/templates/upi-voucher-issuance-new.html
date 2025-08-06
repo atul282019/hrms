@@ -719,10 +719,15 @@ requestedVoucherCount()">
 	</script>
 <script>	// Show modal with selected data
 	$('#revokeTrigger').on('click', function () {
-	  const selectedRows = $('.rowCheckbox:checked').map(function () {
+	 /*const selectedRows = $('.rowCheckbox:checked').map(function () {
 	    return $('#vouchersTableList').DataTable().row($(this).closest('tr')).data();
-	  }).get();
-
+	  }).get();*/
+	  const tableinstance = $('#vouchersTableList').DataTable();
+	     const selectedRows = $('#vouchersTableList tbody tr:visible')
+	         .find('.rowCheckbox:checked')
+	         .map(function () {
+	             return tableinstance.row($(this).closest('tr')).data();
+	         }).get();
 	  if (selectedRows.length === 0) {
 	    alert("Please select at least one voucher to revoke.");
 	    return;
@@ -766,7 +771,7 @@ requestedVoucherCount()">
 	  `);
 
 	  selectedRows.forEach(row => {
-		const redemptionIcon = row.redemtionType === 'SINGLE'
+		const redemptionIcon = (row.redemtionType === 'SINGLE' || row.redemtionType === 'Single')
 		  ? 'img/single-redemption-green.svg'
 		  : row.redemtionType === 'MULTIPLE'
 		    ? 'img/tiffinbox.svg'

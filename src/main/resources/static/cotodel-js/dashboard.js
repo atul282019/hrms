@@ -605,7 +605,12 @@ function loadCategoryVoucherData(){
 		                `;
 		                categoryBreakdown.appendChild(categoryItem);
 		            });
-		        }
+		        } 
+				else if(response.status==false && response.data=="")
+					{
+						const categoryBreakdown = document.querySelector('.category-breakdown');
+							            categoryBreakdown.innerHTML = ''; // Clear existing items
+					}
 		    } catch (error) {
 		        console.error("Error parsing JSON:", error);
 		    }

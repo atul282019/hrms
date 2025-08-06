@@ -1224,7 +1224,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
 	   });
 
 	   // ✅ your check all logic stays the same
-	   $('#checkAll').on('click', function () {
+	  /* $('#checkAll').on('click', function () {
 	     const rows = table.rows({ search: 'applied' }).nodes();
 	     const isChecked = $(this).is(':checked');
 	     $('input[type="checkbox"].rowCheckbox', rows).each(function () {
@@ -1232,7 +1232,17 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
 	         $(this).prop('checked', isChecked);
 	       }
 	     });
-	   });
+	   });*/	 
+	   // ✅ Header checkbox — only check visible, non-disabled rows
+	 $('#checkAll').on('click', function () {
+	     const isChecked = $(this).is(':checked');
+	     $('#vouchersTableList tbody tr:visible').each(function () {
+	         const checkbox = $(this).find('.rowCheckbox');
+	         if (!checkbox.is(':disabled')) {
+	             checkbox.prop('checked', isChecked);
+	         }
+	     });
+	 });
 
     },
     error: function (e) {

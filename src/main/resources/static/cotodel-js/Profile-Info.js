@@ -295,6 +295,7 @@ function autoFillEmployeeForm() {
 			          "emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded...'
 			        },
 			        aaData: data2,
+					order: [[0, 'desc']],
 			        aoColumns: [
 			          /*{
 			            "mData": "creationDate",
@@ -464,6 +465,7 @@ function autoFillEmployeeForm() {
 								},
 			                
 			                "aaData": data2,
+							
 			                "aoColumns": [
 			                  //  { "mData": "creationDate" },
 								/*{ 
