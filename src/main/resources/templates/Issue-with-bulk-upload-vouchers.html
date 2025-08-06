@@ -349,9 +349,12 @@
 			            alert('No purpose selected!');
 						return false;
 			        }
-					localStorage.setItem("voucherCode",selectedVoucherCode);
+					let parts = selectedPurposeCode.split("|");
+					console.log(parts[0]); // "5411"
+					console.log(parts[1]); // "3A"
+					localStorage.setItem("voucherCode",parts[0]);
 					localStorage.setItem("voucherName",selectedVoucherName);
-					localStorage.setItem("purposeCode",selectedPurposeCode);
+					localStorage.setItem("purposeCode",parts[1]);
 					localStorage.setItem("purposeName",selectedPurposeName);
 					
 					window.location.href = "/bulkVoucherIssuance";
@@ -670,7 +673,7 @@
 	            parsedData.data.forEach((item, idx) => {
 	                const li = document.createElement('li');
 	                li.classList.add('purpose-item');
-	                li.setAttribute('data-value', item.mcc);
+	                li.setAttribute('data-value', item.mcc+"|"+item.purposeCode);
 
 	                const radioInput = document.createElement('input');
 	                radioInput.type = 'radio';

@@ -1,7 +1,5 @@
 
-
 let geoCount = 1;
-
 	  function addGeography() {
 	    geoCount++;
 	    const container = document.getElementById("geoContainer");
@@ -112,15 +110,12 @@ async function activateBrand(){
 				document.getElementById("modal-overlay1").style.display = "none";
 				$('#PaymentSuccessModal').modal('show');
 		        /* $('#AddVehicleModal').modal('hide');
-				 getSupportTicketListList();
-
-				 document.getElementById('bs-canvas-right2').style.right = '-378px';
-				 document.getElementById('modal-overlay2').style.display = 'none';*/
+				 getSupportTicketListList();*/
 			}else if(data.status==false){
 				getBrandOutletList();
-				$('#PaymentSuccessModal').modal('show');
-				//document.getElementById('bs-canvas-right2').style.right = '0';
-			    //document.getElementById('modal-overlay2').style.display = 'block';
+				//$('#PaymentSuccessModal').modal('show');
+				document.getElementById("bs-canvas-right2").classList.add("show-canvas");
+				document.getElementById("modal-overlay1").style.display = "block";
 			}
 	     },
 	     error: function(e){
@@ -196,16 +191,12 @@ async function editActivateBrand(){
 				document.getElementById("bs-canvas-right4").classList.remove("show-canvas");
 				document.getElementById("modal-overlay3").style.display = "none";
 				$('#PaymentSuccessModal').modal('show');
-		        /* $('#AddVehicleModal').modal('hide');
-				 getSupportTicketListList();
-
-				 document.getElementById('bs-canvas-right2').style.right = '-378px';
-				 document.getElementById('modal-overlay2').style.display = 'none';*/
+		     
 			}else if(data.status==false){
 				getBrandOutletList();
 				$('#PaymentSuccessModal').modal('show');
-				//document.getElementById('bs-canvas-right2').style.right = '0';
-			    //document.getElementById('modal-overlay2').style.display = 'block';
+				document.getElementById("bs-canvas-right4").classList.ad("show-canvas");
+				document.getElementById("modal-overlay3").style.display = "block";
 			}
 	     },
 	     error: function(e){
@@ -217,7 +208,6 @@ async function editActivateBrand(){
 
 async function getBrandOutletList(){
 			var orgId = document.getElementById("employerId").value;
-			//alert("brandmanagement"+orgId);
 			$.ajax({
 				type: "GET",
 			     url:"/getBrandOutletList",
@@ -259,13 +249,12 @@ async function getBrandOutletList(){
 
 		    inputGroups.forEach(group => {
 		        const inputs = group.querySelectorAll('input');
-		        const geoIdInput = inputs[0]; // hidden input (geo.id)
-		        const geoNameInput = inputs[1]; // visible input (geo.name)
+		        const geoIdInput = inputs[0]; 
+		        const geoNameInput = inputs[1]; 
 
 		        const geoId = geoIdInput ? geoIdInput.value.trim() : null;
 		        const geoName = geoNameInput ? geoNameInput.value.trim() : '';
 
-		        // Validation: highlight if name is empty
 		        if (!geoName) {
 		            geoNameInput.style.border = "2px solid red";
 		            hasError = true;
@@ -324,40 +313,27 @@ async function getBrandOutletList(){
 		        }
 		    });
 		}
-
-				
-
 async function getAllGeographyValues() {
 	      document.getElementById("addGeoBtn").disabled = true;
 	      const inputs = document.querySelectorAll('#geoContainer .geo-input-group input');
 	      const values = [];
-		  
 		  let hasError = false;
-
 		     inputs.forEach(input => {
 		         const trimmed = input.value.trim();
-
-		         // Add validation: show red border if empty
 		         if (!trimmed) {
 		             input.style.border = "2px solid red";
 		             hasError = true;
 		         } else {
-		             input.style.border = ""; // remove red border if previously shown
+		             input.style.border = ""; 
 		             values.push({ name: trimmed });
 		         }
 		     });
-
-		     // Stop if any field is empty
 		     if (hasError) {
-		        // alert("Please fill all geography fields.");
 		         return false;
 		     }
 		  var createdby = document.getElementById("userMobile").value;
 		  var orgId = document.getElementById("employerId").value;
-	     // inputs.forEach(input => {
-	    //    values.push({ name: input.value.trim() });
-	    //  });
-
+	    
 		  var createdby = document.getElementById("userMobile").value;
 		  	var orgId = document.getElementById("employerId").value;
 		  	
@@ -393,8 +369,7 @@ async function getAllGeographyValues() {
 						getGeographicListByOrgId();
 						document.getElementById('editgio').style.display="block";
 						document.getElementById("modal-overlay2").style.display = "none";
-					    document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
-		  		      
+					    document.getElementById("bs-canvas-right3").classList.remove("show-canvas");		  		      
 		  			}else if(data.status==false){
 		  				$('#PaymentSuccessModal').modal('show');
 		  			}
@@ -407,10 +382,8 @@ async function getAllGeographyValues() {
 		  	
 	    }
 		
-
 		async function getGeographicListByOrgId() {
-		    var orgId = document.getElementById("employerId").value;
-
+		var orgId = document.getElementById("employerId").value;
 		    $.ajax({
 		        type: "GET",
 		        url: "/getBrupiBrandGeoList",
@@ -422,9 +395,8 @@ async function getAllGeographyValues() {
 		            var data1 = data.data;
 		            console.log("data", data);
 		            console.log("data1", data1);
-
 		            const geoContainer = document.getElementById("geoContainerView");
-		            geoContainer.innerHTML = ""; // 🔴 CLEAR existing content before rebinding
+		            geoContainer.innerHTML = "";
 
 		            if (data.status === true && data1.length > 0) {
 		                document.getElementById('geoSave').style.display = 'none';
@@ -525,87 +497,9 @@ async function addBrandOutlet(){
 			});	
 			
 		}
-				/*
-async function activateBrand(){
-	var createdby = document.getElementById("userMobile").value;
-	var orgId = document.getElementById("employerId").value;
-	var brandName = document.getElementById("brandName").value;
-	const outletCountRadioValue = document.querySelector('input[name="outletCount"]:checked').value;
-	var multipleValue = document.getElementById("noOfOutlet").value;
-	const salesMode = document.querySelector('input[name="salesMode"]:checked').id;
-
-	let outletCount = outletCountRadioValue;
-	if (brandName === "") {
-		   document.getElementById("brandNameError").innerHTML="Please enter brand name.";
-	       document.getElementById("outletName").focus();
-	       return false;
-	   }
-	if (outletCountRadioValue === "multipleOutlets") {
-	    if (multipleValue.trim() === "") {
-			document.getElementById("outletCountError").innerHTML="Please enter number of outlets.";
-			return false;
-	    } else if (isNaN(multipleValue) || Number(multipleValue) <= 0) {
-			document.getElementById("outletCountError").innerHTML="Number of outlets must be a positive number.";
-	        return false;
-	    } else {
-	        outletCount = multipleValue;
-	    }
-	}
-	else{
-		outletCount=1;
-	}
-	const clientKey = "client-secret-key"; // Extra security measure
-	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
-
-    // Concatenate data (must match backend)
-	const dataString = orgId+createdby+clientKey+secretKey;
-
-	const encoder = new TextEncoder();
-	const data = encoder.encode(dataString);
-	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-	const hashArray = Array.from(new Uint8Array(hashBuffer));
-	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-	
-	$.ajax({
-		type: "POST",
-	     url:"/addBrandDetails",
-		 dataType: 'json',   
-	      data: {
-				"orgid":orgId,
-				"storetypedesc":salesMode,
-				"outletsNo":outletCount,
-				"brandname":brandName,
-				"createdby":createdby,
-				"clientKey":clientKey,
-			    "hash":hashHex
-			 },  		 
-	        success:function(data){
-	        var data1 = data.data;
-	        console.log("data",data);
-		    console.log("data1",data1);
-			if(data.status==true){
-				$('#PaymentSuccessModal').modal('show');
-		         $('#AddVehicleModal').modal('hide');
-				 getSupportTicketListList();
-
-				 document.getElementById('bs-canvas-right2').style.right = '-378px';
-				 document.getElementById('modal-overlay2').style.display = 'none';
-			}else if(data.status==false){
-				$('#PaymentSuccessModal').modal('show');
-				//document.getElementById('bs-canvas-right2').style.right = '0';
-			    //document.getElementById('modal-overlay2').style.display = 'block';
-			}
-	     },
-	     error: function(e){
-	         alert('Error: ' + e);
-	     }
-	});	
-	
-}
-*/
+			
 async function getOutletDetail() {
     var orgId = document.getElementById("employerId").value;
-
     $.ajax({
         type: "GET",
         url: "/getOutletDetail",
@@ -615,7 +509,6 @@ async function getOutletDetail() {
         },
         success: function(response) {
             var outletData = response.data;
-
             var table = $('#outletDetailTable').DataTable({
                 destroy: true,
                 responsive: true,
@@ -700,15 +593,8 @@ async function getOutletDetail() {
 					    if (data == 0) {
 					      return `<span class="pill-rectangle bg-lightgreen-txt-green-pill mt-2">Activated</span>`;
 					    } else {
-					     return `<span style="							width: 80;
-							height: 26;
-							border-radius: 6px;
-							padding: 4px;
-							gap: 4px;
-							angle: 0 deg;
-							opacity: 1;
-							background: #EDEDF0;
-							2">deactivated</span>`;
+					     return `<span style=" width: 80; height: 26; border-radius: 6px; padding: 4px;  gap: 4px;
+							angle: 0 deg; opacity: 1; background: #EDEDF0;  2">deactivated</span>`;
 					    }
 					  }}
                 ],
@@ -726,7 +612,6 @@ async function getOutletDetail() {
 
 function getGeographicDropdownList() {
     var orgId = document.getElementById("employerId").value;
-
     $.ajax({
         type: "GET",
         url: "/getBrupiBrandGeoList",
@@ -775,169 +660,153 @@ function userSearchAndPopulate(inputElement) {
 			//const mobile = document.getElementById('mobile');
 		    const employerId = document.getElementById('employerId').value;
 
-						$.ajax({
-			            type: "POST",
-			            url: "/voucherUserSearch",
-			            dataType: 'json',
-			            data: {
-			                "orgId": employerId,
-			                "userName": query
-			            },
-			            success: function (data) {
-			                //document.getElementById("signinLoader").style.display = "none";
-					          // const query = searchInput2.value.toLowerCase();
-					           if (query) {
-								  const filteredUsers = data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
-								  displaySuggestions(filteredUsers, inputElement, suggestionsDropdown);
-					           } else {
-					               suggestionsDropdown.style.display = 'none';
-					           }
-					     
-			               
-			            },
-			            error: function (e) {
-			                document.getElementById("signinLoader").style.display = "none";
-			                console.error('Error:', e);
-			                alert('An error occurred while fetching the data.');
-			            }
-
-	      });
-	      
-	    }
-
-		 function displaySuggestions(userList, inputElement, dropdown) {
-	        dropdown.innerHTML = '';
-	        userList.forEach(user => {
-	            const div = document.createElement('div');
-	            div.classList.add('autocomplete-suggestion');
-					div.innerHTML = `
-					            <div style="display: flex; align-items: center; width: 100%; gap: 8px;">
-					                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-					                    <span style="text-align: left; flex: 1;">${user.username}</span>
-					                </div>
-					            </div>
-					        `;
-
-	            div.addEventListener('click', function () {
-	                inputElement.value = user.username;
-	                // Assuming you want to populate the mobile field next to the inputElement
-	                inputElement.closest('tr').querySelector('input[placeholder="Enter Mobile Number"]').value = user.mobile;
-	                dropdown.style.display = 'none';
-	            });
-
-	            dropdown.appendChild(div);
-	        });
-	        dropdown.style.display = userList.length > 0 ? 'block' : 'none';
-	    }
-
-		
-			  
-		async function addUPIDevice(){
-			document.getElementById("addUpiDeviceBtn").disabled = true;
-			
-			var dropdown = document.getElementById("deviceType");
-		    var deviceTypeId = dropdown.value;
-		    var deviceTypeText = dropdown.options[dropdown.selectedIndex].text;
-			
-			var qrState = document.getElementById("qrState");
-			var qrStateId = qrState.value;
-		    var qrStateText = qrState.options[dropdown.selectedIndex].text;
-			var orgId = document.getElementById("employerId").value;
-			 var username =document.getElementById("employerName").value; 
-			var upiId = document.getElementById("upiId").value;
-			var outlettype = document.getElementById("outlettype").innerHTML;
-			var branchManager = document.getElementById("branchManager").innerHTML;
-			var contactNumber = document.getElementById("contactNumber").innerHTML;
-			var location = document.getElementById("location").innerHTML;
-			var base64Image = document.getElementById("base64Image").value;
-			
-			var brandOutletId = document.getElementById("brandOutletId").innerHTML;
-			const clientKey = "client-secret-key"; // Extra security measure
-			const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
-
-		    // Concatenate data (must match backend)
-			const dataString = orgId+clientKey+secretKey;
-
-			const encoder = new TextEncoder();
-			const data = encoder.encode(dataString);
-			const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-			const hashArray = Array.from(new Uint8Array(hashBuffer));
-			const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-			
 			$.ajax({
-				type: "POST",
-			     url:"/addOutletDeviceDetails",
-				 dataType: 'json',   
-			      data: {
-							"orgid":orgId,
-							"outletid":brandOutletId,
-							"deviceTypeId":deviceTypeId,
-							"qrStateId":qrStateId,
-							"deviceTypeDesc":deviceTypeText,
-							"qrStateDesc":qrStateText,
-							"createdby":username,
-							"upiId":upiId,
-							"upiImg": base64Image,
-							"clientKey":clientKey,
-						    "hash":hashHex
-					 },  		 
-			        success:function(data){
-			        var data1 = data.data;
-					document.getElementById("addUpiDeviceBtn").disabled = false;
-					if(data.status==true){
-						//getBrandOutletList();
-						document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
-						document.getElementById('modal-overlay2').style.display = 'none';
-						document.getElementById("PaymentSuccessModal1").style.display = "block";
-						$('#PaymentSuccessModal1').modal('show');
-				       
-					}else if(data.status==false){
-						$('#PaymentSuccessModal').modal('hide');
-						document.getElementById("bs-canvas-right3").classList.add("show-canvas");
-						document.getElementById('modal-overlay2').style.display = 'block';
-					}
-			     },
-			     error: function(e){
-			         alert('Error: ' + e);
-			     }
-			});	
-			
-		}
-		function convertImageToBase64() {
-		           const fileInput = document.getElementById('up');
-		           const output = document.getElementById('base64Output');
-				   const outputFileName = document.getElementById('fileName');
-				  
-				  
-		           if (!fileInput.files || fileInput.files.length === 0) {
-					 document.getElementById("fileInputError").innerHTML="Please select file";
-					 return;
-		           }
-		           var filePath = fileInput.value;
-		               var allowedExtensions =  /(\.jpg|\.jpeg|\.png|)$/i;
-					  // var allowedExtensions =  /(\.xlsx)$/i;
-		               if (!allowedExtensions.exec(filePath)) {
-						  document.getElementById("fileInputError").innerHTML="Invalid file type";
-		                   fileInput.value = '';
-		                   return false;
-		               } 
-					   else{
-						document.getElementById("fileInputError").innerHTML="";
-					   }
-					  		
-		           const file = fileInput.files[0];	   
-		           const reader = new FileReader();
-		           reader.onload = function(event) {
-		               const base64String = event.target.result.split(',')[1]; 
-		               output.value = base64String; 
-					   console.log("FileName:", fileInput.files[0].name);
-					   outputFileName.value =fileInput.files[0].name;
-					
-				//	   document.querySelector('.form-group.choose-file .form-control').value = fileInput.files[0].name;
-		           };
-		           reader.readAsDataURL(file);
-				  // document.getElementById("bulksubmit").disabled=false;
-		    }
+            type: "POST",
+            url: "/voucherUserSearch",
+            dataType: 'json',
+            data: {
+                "orgId": employerId,
+                "userName": query
+            },
+            success: function (data) {
+                //document.getElementById("signinLoader").style.display = "none";
+		          // const query = searchInput2.value.toLowerCase();
+		           if (query) {
+					  const filteredUsers = data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
+					  displaySuggestions(filteredUsers, inputElement, suggestionsDropdown);
+		           } else {
+		               suggestionsDropdown.style.display = 'none';
+		           }			               
+            },
+            error: function (e) {
+                document.getElementById("signinLoader").style.display = "none";
+                console.error('Error:', e);
+                alert('An error occurred while fetching the data.');
+            }
+	      });
+  }
+
+ function displaySuggestions(userList, inputElement, dropdown) {
+    dropdown.innerHTML = '';
+    userList.forEach(user => {
+        const div = document.createElement('div');
+        div.classList.add('autocomplete-suggestion');
+			div.innerHTML = `
+			            <div style="display: flex; align-items: center; width: 100%; gap: 8px;">
+			                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+			                    <span style="text-align: left; flex: 1;">${user.username}</span>
+			                </div>
+			            </div>
+			        `;
+
+        div.addEventListener('click', function () {
+            inputElement.value = user.username;
+            inputElement.closest('tr').querySelector('input[placeholder="Enter Mobile Number"]').value = user.mobile;
+            dropdown.style.display = 'none';
+        });
+
+        dropdown.appendChild(div);
+    });
+    dropdown.style.display = userList.length > 0 ? 'block' : 'none';
+}	  
+async function addUPIDevice(){
+	document.getElementById("addUpiDeviceBtn").disabled = true;
+	
+	var dropdown = document.getElementById("deviceType");
+    var deviceTypeId = dropdown.value;
+    var deviceTypeText = dropdown.options[dropdown.selectedIndex].text;
+	
+	var qrState = document.getElementById("qrState");
+	var qrStateId = qrState.value;
+    var qrStateText = qrState.options[dropdown.selectedIndex].text;
+	var orgId = document.getElementById("employerId").value;
+	 var username =document.getElementById("employerName").value; 
+	var upiId = document.getElementById("upiId").value;
+	var base64Image = document.getElementById("base64Image").value;
+	
+	var brandOutletId = document.getElementById("brandOutletId").innerHTML;
+	const clientKey = "client-secret-key"; // Extra security measure
+	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
+
+    // Concatenate data (must match backend)
+	const dataString = orgId+clientKey+secretKey;
+
+	const encoder = new TextEncoder();
+	const data = encoder.encode(dataString);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+	
+	$.ajax({
+		type: "POST",
+	     url:"/addOutletDeviceDetails",
+		 dataType: 'json',   
+	      data: {
+					"orgid":orgId,
+					"outletid":brandOutletId,
+					"deviceTypeId":deviceTypeId,
+					"qrStateId":qrStateId,
+					"deviceTypeDesc":deviceTypeText,
+					"qrStateDesc":qrStateText,
+					"createdby":username,
+					"upiId":upiId,
+					"upiImg": base64Image,
+					"clientKey":clientKey,
+				    "hash":hashHex
+			 },  		 
+	        success:function(data){
+	        var data1 = data.data;
+			document.getElementById("addUpiDeviceBtn").disabled = false;
+			if(data.status==true){
+				//getBrandOutletList();
+				document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
+				document.getElementById('modal-overlay2').style.display = 'none';
+				document.getElementById("PaymentSuccessModal1").style.display = "block";
+				$('#PaymentSuccessModal1').modal('show');
+		       
+			}else if(data.status==false){
+				$('#PaymentSuccessModal').modal('hide');
+				document.getElementById("bs-canvas-right3").classList.add("show-canvas");
+				document.getElementById('modal-overlay2').style.display = 'block';
+			}
+	     },
+	     error: function(e){
+	         alert('Error: ' + e);
+	     }
+	});	
+	
+}
+function convertImageToBase64() {
+           const fileInput = document.getElementById('up');
+           const output = document.getElementById('base64Output');
+		   const outputFileName = document.getElementById('fileName');	  
+           if (!fileInput.files || fileInput.files.length === 0) {
+			 document.getElementById("fileInputError").innerHTML="Please select file";
+			 return;
+           }
+           var filePath = fileInput.value;
+               var allowedExtensions =  /(\.jpg|\.jpeg|\.png|)$/i;
+			  // var allowedExtensions =  /(\.xlsx)$/i;
+               if (!allowedExtensions.exec(filePath)) {
+				  document.getElementById("fileInputError").innerHTML="Invalid file type";
+                   fileInput.value = '';
+                   return false;
+               } 
+			   else{
+				document.getElementById("fileInputError").innerHTML="";
+			   }
+			  		
+           const file = fileInput.files[0];	   
+           const reader = new FileReader();
+           reader.onload = function(event) {
+               const base64String = event.target.result.split(',')[1]; 
+               output.value = base64String; 
+			   console.log("FileName:", fileInput.files[0].name);
+			   outputFileName.value =fileInput.files[0].name;
+           };
+           reader.readAsDataURL(file);
+		  // document.getElementById("bulksubmit").disabled=false;
+    }
 async function getOutletDetailsById(){
 	var orgId = document.getElementById("employerId").value;
 	var brandOutletId = document.getElementById("brandOutletId").value;
@@ -1023,13 +892,6 @@ async function getDeviceDetailList() {
 					     return `<span class="pill-rectangle bg-grey-txt-grey-pill mt-2">Disabled</span>`;
 					    }
 					  }},
-					 
-                    /*{
-                        mData: null,
-                        render: function (data, type, row) {
-                            return `${row.mgrName}<br>${row.mgrMobile || ''}`;
-                        }
-                    },*/
 					{
 					    mData: "id",
 					    render: function (data, type, row) {
@@ -1169,91 +1031,91 @@ async function editBrandOutletDetails(){
 	}
 
 function deactivateOutlet() {
-		    const employerId = document.getElementById("employerId").value;
-		    const Id = document.getElementById("brandOutletId").value;
-		    if (!Id) {
-		        alert("Employee ID is missing.");
-		        return;
-		    }
-		    if (confirm("Are you sure you want to deactivate this outlet?")) {
-		        $.ajax({
-		            type: "POST",
-		            url: "/deactivateOutlet",
-		            data: {
-		                "employerId": employerId,
-		                "id": Id,
-		                "status": 1 //for deactivateee and 0 for activate
-		            },
-		             dataType: "json", 
-		            success: function(response) {
-		                alert("Outlet deactivated successfully!");
-		            },
-		            error: function(error) {
-		                alert("Error deactivating Outlet: " + error.responseText);
-		            }
-		        });
-		    }
-		}
-		
-		function review(element) {
-		    const rowData = $('#linkedDeviceList').DataTable().row($(element).closest('tr')).data();
-		    const deviceId = rowData.id;
-			$.ajax({
-				        type: "GET",
-				        url: "/getLinkedDeviceDetail",
-						data: {
-			                "id": deviceId,
-			            },
-			             dataType: "json", 
-				        success: function(response) {
-				 			document.getElementById("viewDeviceName").innerHTML=response.data.deviceTypeDesc;
-							document.getElementById("viewStateUPI").innerHTML=response.data.qrStateDesc;
-							document.getElementById("viewTypeOfDevice").innerHTML=response.data.deviceTypeDesc;
-							document.getElementById("viewUPIId").innerHTML=response.data.upiId;
-							//document.getElementById("viewStatus").innerHTML=response.data.status;
-							const statusElement = document.getElementById("viewStatus");
-							if (response.data.status === 0) {
-							    statusElement.className = "pill-rectangle bg-grey-txt-grey-pill mt-2";
-							    statusElement.innerHTML = "Disabled";
-							} else {
-							    statusElement.className = "pill bg-lightgreen-txt-green-pill";
-							    statusElement.innerHTML = "Enabled";
-							}
-							if (response.data.upiImg && response.data.upiImg.trim() !== "") {
-							    document.getElementById("ViewImg").src = response.data.upiImg;;
-							} else {
-							    document.getElementById("ViewImg").src = "img/profile-pic01.svg";
-							    // Or just clear the src if you prefer
-							    // document.getElementById("ViewImg").src = "";
-							}
-							
-							document.getElementById("bs-canvas-right-view").classList.add("show-canvas");
-						    document.getElementById("modal-overlay-view").style.display = "block";
-				           // getDeviceDetailList(); 
-				        },
-				        error: function(xhr, status, error) {
-				            console.error("Error updating status:", error);
-				            alert("Failed to update device status.");
-				        }
-				    });
-		}
-		function enableDisable(element) {
-		    const rowData = $('#linkedDeviceList').DataTable().row($(element).closest('tr')).data();
-		    const deviceId = rowData.id;
-		    $.ajax({
-		        type: "POST",
-		        url: "/activateDeactivateLinkedDevice",
+    const employerId = document.getElementById("employerId").value;
+    const Id = document.getElementById("brandOutletId").value;
+    if (!Id) {
+        alert("Employee ID is missing.");
+        return;
+    }
+    if (confirm("Are you sure you want to deactivate this outlet?")) {
+        $.ajax({
+            type: "POST",
+            url: "/deactivateOutlet",
+            data: {
+                "employerId": employerId,
+                "id": Id,
+                "status": 1 //for deactivateee and 0 for activate
+            },
+             dataType: "json", 
+            success: function(response) {
+                alert("Outlet deactivated successfully!");
+            },
+            error: function(error) {
+                alert("Error deactivating Outlet: " + error.responseText);
+            }
+        });
+    }
+}
+
+function review(element) {
+    const rowData = $('#linkedDeviceList').DataTable().row($(element).closest('tr')).data();
+    const deviceId = rowData.id;
+	$.ajax({
+		        type: "GET",
+		        url: "/getLinkedDeviceDetail",
 				data: {
-		                "id": deviceId,
-		            },
-		             dataType: "json", 
+	                "id": deviceId,
+	            },
+	             dataType: "json", 
 		        success: function(response) {
-		            alert("Device status updated successfully.");
-		            getDeviceDetailList();
+		 			document.getElementById("viewDeviceName").innerHTML=response.data.deviceTypeDesc;
+					document.getElementById("viewStateUPI").innerHTML=response.data.qrStateDesc;
+					document.getElementById("viewTypeOfDevice").innerHTML=response.data.deviceTypeDesc;
+					document.getElementById("viewUPIId").innerHTML=response.data.upiId;
+					//document.getElementById("viewStatus").innerHTML=response.data.status;
+					const statusElement = document.getElementById("viewStatus");
+					if (response.data.status === 0) {
+					    statusElement.className = "pill-rectangle bg-grey-txt-grey-pill mt-2";
+					    statusElement.innerHTML = "Disabled";
+					} else {
+					    statusElement.className = "pill bg-lightgreen-txt-green-pill";
+					    statusElement.innerHTML = "Enabled";
+					}
+					if (response.data.upiImg && response.data.upiImg.trim() !== "") {
+					    document.getElementById("ViewImg").src = response.data.upiImg;;
+					} else {
+					    document.getElementById("ViewImg").src = "img/profile-pic01.svg";
+					    // Or just clear the src if you prefer
+					    // document.getElementById("ViewImg").src = "";
+					}
+					
+					document.getElementById("bs-canvas-right-view").classList.add("show-canvas");
+				    document.getElementById("modal-overlay-view").style.display = "block";
+		           // getDeviceDetailList(); 
 		        },
 		        error: function(xhr, status, error) {
 		            console.error("Error updating status:", error);
 		            alert("Failed to update device status.");
 		        }
 		    });
-		}
+}
+function enableDisable(element) {
+    const rowData = $('#linkedDeviceList').DataTable().row($(element).closest('tr')).data();
+    const deviceId = rowData.id;
+    $.ajax({
+        type: "POST",
+        url: "/activateDeactivateLinkedDevice",
+		data: {
+                "id": deviceId,
+            },
+             dataType: "json", 
+        success: function(response) {
+            alert("Device status updated successfully.");
+            getDeviceDetailList();
+        },
+        error: function(xhr, status, error) {
+            console.error("Error updating status:", error);
+            alert("Failed to update device status.");
+        }
+    });
+}

@@ -1180,7 +1180,7 @@ function getPrimaryBankDetail(){
 			              parsedData.data.forEach((item, idx) => {
 			                  const li = document.createElement('li');
 			                  li.classList.add('purpose-item');
-			                  li.setAttribute('data-value', item.mcc);
+			                  li.setAttribute('data-value', item.mcc+"|"+item.purposeCode);
 
 			                  const radioInput = document.createElement('input');
 			                  radioInput.type = 'radio';

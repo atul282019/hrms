@@ -224,7 +224,7 @@ async function saveBulkVoucherUpload(){
 	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
 
     // Concatenate data (must match backend)
-	const dataString = orgId+fileName+base64file+purposeCode+voucherCode
+	const dataString = orgId+fileName+base64file+voucherCode+purposeCode
 	+voucherName+createdby+clientKey+secretKey;
 
 	const encoder = new TextEncoder();
@@ -250,10 +250,10 @@ async function saveBulkVoucherUpload(){
 					"fileName":fileName,
 					"file":base64file,
 					//"accountId":1,
-					"mcc": purposeCode,
+					"mcc": voucherCode,
 					//"mccDesc": purposeName,
 					//"mandateType":"01",
-					"voucherCode": voucherCode,
+					"voucherCode":purposeCode,
 					"voucherDesc": voucherName,
 					//"voucherType": "Bulk",
 					"createdby":createdby,
