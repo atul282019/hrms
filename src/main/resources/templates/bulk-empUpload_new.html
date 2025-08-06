@@ -79,11 +79,14 @@
 								          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
 								        </a>
 								      </li>-->
-									  <li class="nav-item mr-3">
-					  			        <a href="/cotowallet" role="button">
-					  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
-					  			        </a>
-					  			      </li>
+									  <li class="nav-item mr-3" th:switch="${session.user_role}">
+				  	  			        <a th:case="2" role="button">
+				  	  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+				  	  			        </a>
+				  						<a th:case="*" href="/cotowallet" role="button">
+				  	  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+				  	  			        </a>
+				  	  			      </li>
 								      <!-- Notification Icon -->
 								      <li class="nav-item mr-3">
 								        <a href="#" role="button">
@@ -658,9 +661,9 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -686,6 +689,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script>
 	
 	function downloadModifiedExcel() {
