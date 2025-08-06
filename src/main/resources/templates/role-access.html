@@ -1852,7 +1852,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	      <div class="voucher-footer">
 	  		<!--<button class="voucher-download-btn" type="button" data-bs-toggle="modal"
 	  		  data-bs-target="#PaymentSuccessModal">Submit</button>-->
-	  		  <button class="voucher-download-btn" type="button" onclick="activateBrand()">Submit</button>
+	  		  <button class="voucher-download-btn" type="button" onclick="activateBrand()" id="addBrandBtn">Submit</button>
 	      </div>
 	    </div>
 	  </div>
@@ -1911,7 +1911,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	  	      <!-- Footer: button excluded as per user -->
 	  	      <div class="voucher-footer">
 				<input type="hidden" id="BrandEditId" name="BrandEditId">
-	  	  		  <button class="voucher-download-btn" type="button" onclick="editActivateBrand()">Submit</button>
+	  	  		  <button class="voucher-download-btn" type="button" onclick="editActivateBrand()"  id="editBrandBtn">Submit</button>
 	  	      </div>
 	  	    </div>
 	  	  </div>
@@ -1945,7 +1945,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 
 	  		    <div class="voucher-footer">
 	  		      <!--<button  class="continue-btn" type="button"  data-bs-toggle="modal" data-bs-target="#PaymentSuccessModal">CONTINUE</button>-->
-	  			  <button  class="continue-btn" type="button" onclick="getAllGeographyValues()">CONTINUE</button> 
+	  			  <button  class="continue-btn" type="button" onclick="getAllGeographyValues()" id="addGeoBtn">CONTINUE</button> 
 	  		   </div>
 	  		  </div>
 	  		</div>
@@ -1979,7 +1979,7 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 
 	  		    <div class="voucher-footer">
 					<input  type="hidden" id="jioMainId">
-	  			  <button  class="continue-btn" type="button" onclick="getAllGeographyValuesEdit()">CONTINUE</button> 
+	  			  <button  class="continue-btn" type="button" onclick="getAllGeographyValuesEdit()" id="geoEditBtn">CONTINUE</button> 
 	  		   </div>
 	  		  </div>
 	  		</div>
