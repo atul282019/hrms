@@ -1007,7 +1007,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
         destroy: true,
         lengthChange: true,
         responsive: true,
-        searching: false,
+        searching: true,
         bInfo: false,
         paging: false,
         autoWidth: false,
@@ -1209,21 +1209,30 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
         var rows = $('#vouchersTableList').DataTable().rows({ 'search': 'applied' }).nodes();
         $('input[type="checkbox"].rowCheckbox', rows).prop('checked', this.checked);
       });*/
-	  $('#checkAll').on('click', function () {
-	    const rows = $('#vouchersTableList').DataTable().rows({ 'search': 'applied' }).nodes();
-	    const checkboxes = $('input[type="checkbox"].rowCheckbox', rows);
-	    const isChecked = $(this).is(':checked');
+	  
+	  // Search input
+	   $('#searchInput').on('keyup', function () {
+	     table.search(this.value).draw();
+	     enableClearButton(this.value.trim() !== '');
+	   });
 
-	    if (isChecked) {
-	      checkboxes.each(function () {
-	        if (!$(this).is(':disabled')) {
-	          $(this).prop('checked', true);
-	        }
-	      });
-	    } else {
-	      checkboxes.prop('checked', false);
-	    }
-	  });
+	   // Clear filters button
+	   $('#clearFilters').on('click', function () {
+	     $('#searchInput').val('');
+	     table.search('').draw();
+	     enableClearButton(false);
+	   });
+
+	   // ✅ your check all logic stays the same
+	   $('#checkAll').on('click', function () {
+	     const rows = table.rows({ search: 'applied' }).nodes();
+	     const isChecked = $(this).is(':checked');
+	     $('input[type="checkbox"].rowCheckbox', rows).each(function () {
+	       if (!$(this).is(':disabled')) {
+	         $(this).prop('checked', isChecked);
+	       }
+	     });
+	   });
 
     },
     error: function (e) {

@@ -858,7 +858,7 @@ requestedVoucherCount()">
 
 		enableClearButton(false);
 
-		searchInput.addEventListener('input', () => {
+		/*searchInput.addEventListener('input', () => {
 		    const query = searchInput.value.toLowerCase().trim();
 
 		    if (cachedRows.length === 0) {
@@ -876,7 +876,7 @@ requestedVoucherCount()">
 		    const matches = cachedRows.filter(row => row.textContent.toLowerCase().includes(query));
 		    matches.forEach(row => tbody.appendChild(row.cloneNode(true)));
 		    enableClearButton(true);
-		});
+		});*/
 
 		function clearAllFilters() {
 		    if (clearFiltersBtn.style.cursor === 'not-allowed') return;
@@ -889,6 +889,7 @@ requestedVoucherCount()">
 
 		    cachedRows.forEach(row => tbody.appendChild(row.cloneNode(true)));
 		    enableClearButton(false);
+			erupiVoucherCreateListLimit("AH");// again get the data on clearing the filter
 		}
 
 		clearFiltersBtn.addEventListener('click', clearAllFilters);
@@ -1491,7 +1492,10 @@ requestedVoucherCount()">
 			    icon.classList.toggle('fa-eye-slash');
 			}
 			</script>
-<style>			.collapsed {
+<style>			.dataTables_filter {
+			  display: none;
+			}			
+			.collapsed {
 			    display: none !important;
 			  }
 			  #bulkrevokeModal {

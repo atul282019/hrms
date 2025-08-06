@@ -767,7 +767,7 @@ async function  issueVoucher(){
 	                               <td>${item.voucherDesc}</td>
 	                               <td>${item.redemtionType}</td>
 	                              
-								  <td style="text-align: right;">₹${item.amount}</td>
+								  <td >₹${item.amount}</td>
 								   <td>${formatDate(item.startDate)}</td>
 								   <td>${formatDate(item.expDate)}</td>
 	                               <td>${imgTag}</td>
