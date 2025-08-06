@@ -75,7 +75,7 @@ async function getVoucherTransactionList() {
         type: "POST",
         url: "/getVoucherTransactionList",
 		data: { "orgId":orgId,
-				 "timePeriod":"AH"	
+				 "timePeriod":"Yes"	
 		 },
         beforeSend: function(xhr) {
             //xhr.setRequestHeader(header, token);
@@ -105,12 +105,32 @@ async function getVoucherTransactionList() {
                 "aaData": data2,
                 "aoColumns": [
                   //  { "mData": "creationDate" },
-					{ 
+					/*{ 
 					  "mData": "creationDate", 
 					  "render": function (data) {
 					      return formatDate(data);
 					  }
-					},
+					}*/
+					{
+  					  "mData": "creationDate",
+  					  "render": function (data, type) {
+  					    if (type === 'sort' || type === 'type') {
+  					      // Parse into Date object so sorting works
+  					      const date = new Date(data);
+  					      const y = date.getFullYear();
+  					      const m = String(date.getMonth() + 1).padStart(2, '0');
+  					      const d = String(date.getDate()).padStart(2, '0');
+  					      const hh = String(date.getHours()).padStart(2, '0');
+  					      const mm = String(date.getMinutes()).padStart(2, '0');
+  					      const ss = String(date.getSeconds()).padStart(2, '0');
+
+  					      // Return sortable string
+  					      return `${y}-${m}-${d}T${hh}:${mm}:${ss}`;
+  					    }
+  					    // For display in the table
+  					    return formatDateTime(data);
+  					  }
+  					},
 					{ "mData": "bankrrn" },
                     { "mData": "name"},
                     { "mData": "purposeDesc" },
