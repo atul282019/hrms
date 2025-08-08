@@ -186,15 +186,16 @@ async function editActivateBrand(){
 	        console.log("data",data);
 		    console.log("data1",data1);
 			document.getElementById("editBrandBtn").disabled = false;
+			
 			if(data.status==true){
 				getBrandOutletList();
 				document.getElementById("bs-canvas-right4").classList.remove("show-canvas");
 				document.getElementById("modal-overlay3").style.display = "none";
-				$('#PaymentSuccessModal').modal('show');
+				$('#brandEditSuccessModal').modal('show');
 		     
 			}else if(data.status==false){
 				getBrandOutletList();
-				$('#PaymentSuccessModal').modal('show');
+				$('#brandEditfailModal').modal('show');
 				document.getElementById("bs-canvas-right4").classList.ad("show-canvas");
 				document.getElementById("modal-overlay3").style.display = "block";
 			}
@@ -298,14 +299,15 @@ async function getBrandOutletList(){
 		            var data = jQuery.parseJSON(data);
 		            console.log("data", data);
 					document.getElementById("geoEditBtn").disabled = false;
+					
 		            if (data.status === true) {
-		                $('#PaymentSuccessModal').modal('show');
+		                $('#geoEditSuccessModal').modal('show');
 		                getGeographicListByOrgId();
 		                document.getElementById('editgio').style.display = "block";
 		                document.getElementById("modal-overlay-edit").style.display = "none";
 		                document.getElementById("bs-canvas-right-edit").classList.remove("show-canvas");
 		            } else {
-		                $('#PaymentSuccessModal').modal('show');
+		                $('#geoEditfailModal').modal('show');
 		            }
 		        },
 		        error: function (e) {
@@ -365,13 +367,13 @@ async function getAllGeographyValues() {
 		  	        var data = jQuery.parseJSON(data);
 		  	       document.getElementById("addGeoBtn").disabled = false;
 		  			if(data.status==true){
-		  				$('#PaymentSuccessModal').modal('show');
+		  				$('#geoSuccessModal').modal('show');
 						getGeographicListByOrgId();
 						document.getElementById('editgio').style.display="block";
 						document.getElementById("modal-overlay2").style.display = "none";
 					    document.getElementById("bs-canvas-right3").classList.remove("show-canvas");		  		      
 		  			}else if(data.status==false){
-		  				$('#PaymentSuccessModal').modal('show');
+		  				$('#geofailModal').modal('show');
 		  			}
 		  	     },
 		  	     error: function(e){
@@ -488,7 +490,7 @@ async function addBrandOutlet(){
 					    document.getElementById("bs-canvas-right3").classList.remove("show-canvas");
 						$('#PaymentSuccessModal').modal('show');
 					}else if(data.status==false){
-						$('#PaymentSuccessModal').modal('show');
+						$('#brandfailModal').modal('show');
 					}
 			     },
 			     error: function(e){

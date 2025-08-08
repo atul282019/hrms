@@ -2016,7 +2016,230 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
 	  	           </div>
 	  	       </div>
 	  	   </div>
-
+		   <!-- geoEdit Success Modal -->
+		     	   <div class="modal fade" id="geoEditSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+		     	       <div class="modal-dialog modal-dialog-centered" >
+		     			
+		     	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+		     				<button
+		     				  type="button"
+		     				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+		     				  aria-label="Close"
+		     				  data-bs-dismiss="modal"
+		     				  style="margin-right: -65px; outline: none; box-shadow: none;"
+		   				 
+		     				>
+		     				  <i class="fas fa-times voucher-close-icon"></i>
+		     				</button>
+		     	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+		     	                   <!-- Success Icon -->
+		     	                   <div class="success-icon mb-4">
+		     	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
+		     	                   </div>
+		     	                   <!-- Title -->
+		     	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Edited</h5>
+		     	                   <!-- Subtext -->
+		     	                   <p class="text-muted mb-4">
+		     	                       Your Geography information is successfully edited.
+		     	                   </p>
+		     	                   <!-- OK Button -->
+		     					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
+		     	               </div>
+		     	           </div>
+		     	       </div>
+		     	   </div>
+				   <!-- brandEditSuccess Modal -->
+				   	     	   <div class="modal fade" id="brandEditSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+				   	     	       <div class="modal-dialog modal-dialog-centered" >
+				   	     			
+				   	     	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+				   	     				<button
+				   	     				  type="button"
+				   	     				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+				   	     				  aria-label="Close"
+				   	     				  data-bs-dismiss="modal"
+				   	     				  style="margin-right: -65px; outline: none; box-shadow: none;"
+				   	   				 
+				   	     				>
+				   	     				  <i class="fas fa-times voucher-close-icon"></i>
+				   	     				</button>
+				   	     	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+				   	     	                   <!-- Success Icon -->
+				   	     	                   <div class="success-icon mb-4">
+				   	     	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
+				   	     	                   </div>
+				   	     	                   <!-- Title -->
+				   	     	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Edited</h5>
+				   	     	                   <!-- Subtext -->
+				   	     	                   <p class="text-muted mb-4">
+				   	     	                       Brand information successfully edited.
+				   	     	                   </p>
+				   	     	                   <!-- OK Button -->
+				   	     					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
+				   	     	               </div>
+				   	     	           </div>
+				   	     	       </div>
+				   	     	   </div>
+		   <!--geo Success Modal -->
+		   	  	   <div class="modal fade" id="geoSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+		   	  	       <div class="modal-dialog modal-dialog-centered" >
+		   	  			
+		   	  	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+		   	  				<button
+		   	  				  type="button"
+		   	  				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+		   	  				  aria-label="Close"
+		   	  				  data-bs-dismiss="modal"
+		   	  				  style="margin-right: -65px; outline: none; box-shadow: none;"
+		   					 
+		   	  				>
+		   	  				  <i class="fas fa-times voucher-close-icon"></i>
+		   	  				</button>
+		   	  	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+		   	  	                   <!-- Success Icon -->
+		   	  	                   <div class="success-icon mb-4">
+		   	  	                       <img src="img/green-check-circle-filled.png" alt="Success" style="width: 48px; height: 48px;">
+		   	  	                   </div>
+		   	  	                   <!-- Title -->
+		   	  	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Added</h5>
+		   	  	                   <!-- Subtext -->
+		   	  	                   <p class="text-muted mb-4">
+		   	  	                       You have added geographies to segment your outlets successfully!
+		   	  	                   </p>
+		   	  	                   <!-- OK Button -->
+		   	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
+		   	  	               </div>
+		   	  	           </div>
+		   	  	       </div>
+		   	  	   </div>
+				   <!--brandEditfail Modal -->
+				     	   	  	   <div class="modal fade" id="geoEditfailModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+				     	   	  	       <div class="modal-dialog modal-dialog-centered" >
+				     	   	  			
+				     	   	  	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+				     	   	  				<button
+				     	   	  				  type="button"
+				     	   	  				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+				     	   	  				  aria-label="Close"
+				     	   	  				  data-bs-dismiss="modal"
+				     	   	  				  style="margin-right: -65px; outline: none; box-shadow: none;"
+				     	   					 
+				     	   	  				>
+				     	   	  				  <i class="fas fa-times voucher-close-icon"></i>
+				     	   	  				</button>
+				     	   	  	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+				     	   	  	                   <!-- Success Icon -->
+				     	   	  	                   <div class="success-icon mb-4">
+				     	   	  	                       <img src="img/failed-red.svg" alt="Success" style="width: 48px; height: 48px;">
+				     	   	  	                   </div>
+				     	   	  	                   <!-- Title -->
+				     	   	  	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Error</h5>
+				     	   	  	                   <!-- Subtext -->
+				     	   	  	                   <p class="text-muted mb-4">
+				     	   	  	                       Cannot edit your geography information.
+				     	   	  	                   </p>
+				     	   	  	                   <!-- OK Button -->
+				     	   	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
+				     	   	  	               </div>
+				     	   	  	           </div>
+				     	   	  	       </div>
+				     	   	  	   </div>
+   <!--geo Success Modal -->
+   	   	  	   <div class="modal fade" id="geofailModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+   	   	  	       <div class="modal-dialog modal-dialog-centered" >
+   	   	  			
+   	   	  	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+   	   	  				<button
+   	   	  				  type="button"
+   	   	  				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+   	   	  				  aria-label="Close"
+   	   	  				  data-bs-dismiss="modal"
+   	   	  				  style="margin-right: -65px; outline: none; box-shadow: none;"
+   	   					 
+   	   	  				>
+   	   	  				  <i class="fas fa-times voucher-close-icon"></i>
+   	   	  				</button>
+   	   	  	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+   	   	  	                   <!-- Success Icon -->
+   	   	  	                   <div class="success-icon mb-4">
+   	   	  	                       <img src="img/failed-red.svg" alt="Success" style="width: 48px; height: 48px;">
+   	   	  	                   </div>
+   	   	  	                   <!-- Title -->
+   	   	  	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Error</h5>
+   	   	  	                   <!-- Subtext -->
+   	   	  	                   <p class="text-muted mb-4">
+   	   	  	                       Failed to add geographies. Please try again or check your network connection.
+   	   	  	                   </p>
+   	   	  	                   <!-- OK Button -->
+   	   	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
+   	   	  	               </div>
+   	   	  	           </div>
+   	   	  	       </div>
+   	   	  	   </div>
+			   <!--brandEditfailModal Modal -->
+			        	   	  	   <div class="modal fade" id="brandEditfailModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+			        	   	  	       <div class="modal-dialog modal-dialog-centered" >
+			        	   	  			
+			        	   	  	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+			        	   	  				<button
+			        	   	  				  type="button"
+			        	   	  				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+			        	   	  				  aria-label="Close"
+			        	   	  				  data-bs-dismiss="modal"
+			        	   	  				  style="margin-right: -65px; outline: none; box-shadow: none;"
+			        	   					 
+			        	   	  				>
+			        	   	  				  <i class="fas fa-times voucher-close-icon"></i>
+			        	   	  				</button>
+			        	   	  	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+			        	   	  	                   <!-- Success Icon -->
+			        	   	  	                   <div class="success-icon mb-4">
+			        	   	  	                       <img src="img/failed-red.svg" alt="Success" style="width: 48px; height: 48px;">
+			        	   	  	                   </div>
+			        	   	  	                   <!-- Title -->
+			        	   	  	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Error</h5>
+			        	   	  	                   <!-- Subtext -->
+			        	   	  	                   <p class="text-muted mb-4">
+			        	   	  	                       Cannot edit Brand Management.
+			        	   	  	                   </p>
+			        	   	  	                   <!-- OK Button -->
+			        	   	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
+			        	   	  	               </div>
+			        	   	  	           </div>
+			        	   	  	       </div>
+			        	   	  	   </div>
+   <!--brandfailModal Modal -->
+     	   	  	   <div class="modal fade" id="brandfailModal" tabindex="-1" aria-labelledby="paymentSuccessModalTitle" aria-hidden="true">
+     	   	  	       <div class="modal-dialog modal-dialog-centered" >
+     	   	  			
+     	   	  	           <div class="modal-content rounded-3" style="width: 500px; height: 308px; border-radius: 20px; opacity: 1; padding: 50px; gap: 40px; ">
+     	   	  				<button
+     	   	  				  type="button"
+     	   	  				  class="voucher-close-btn bs-canvas-close btn btn-link p-0"
+     	   	  				  aria-label="Close"
+     	   	  				  data-bs-dismiss="modal"
+     	   	  				  style="margin-right: -65px; outline: none; box-shadow: none;"
+     	   					 
+     	   	  				>
+     	   	  				  <i class="fas fa-times voucher-close-icon"></i>
+     	   	  				</button>
+     	   	  	               <div class="modal-body text-center py-5" style="margin-top: -45px;">
+     	   	  	                   <!-- Success Icon -->
+     	   	  	                   <div class="success-icon mb-4">
+     	   	  	                       <img src="img/failed-red.svg" alt="Success" style="width: 48px; height: 48px;">
+     	   	  	                   </div>
+     	   	  	                   <!-- Title -->
+     	   	  	                   <h5 class=" mb-3" id="paymentSuccessModalTitle"style="color:#1F212C; foont-weight:700;">Error</h5>
+     	   	  	                   <!-- Subtext -->
+     	   	  	                   <p class="text-muted mb-4">
+     	   	  	                       Your Brand Management is not activated!
+     	   	  	                   </p>
+     	   	  	                   <!-- OK Button -->
+     	   	  					   <button type="button" class="btn btn-pay-now w-100 mt-4" data-bs-dismiss="modal" >OK</button>
+     	   	  	               </div>
+     	   	  	           </div>
+     	   	  	       </div>
+     	   	  	   </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
