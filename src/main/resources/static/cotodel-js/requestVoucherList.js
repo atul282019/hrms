@@ -29,7 +29,7 @@ function getSavedVoucherListForApprove() {
 			            { "mData": "name"}, 
 						{ "mData": "mobile"},   
 			           // { "mData": "employeeId"},   
-					    { "mData": "voucherType"},
+					    { "mData": "purposeDescription"},
 					 //   { "mData": "voucherSubType"},   
 					 	   
 						{ "mData": "amount",
@@ -54,12 +54,12 @@ function getSavedVoucherListForApprove() {
 						      return `${dd}-${mm}-${yyyy}`;
 						  }
 						  },
-						{
+						/*{
 					       "mData": "validity",
 					       "render": function (data, type, row) {
 					           return data + " Days";
 					       }
-					   },
+					   },*/
 						{ "mData": "remarks"}, 
 						
 						{
@@ -119,7 +119,7 @@ function getSavedVoucherListForApprove() {
 				var employerId = document.getElementById("employerId").value;
 				var employeeId = document.getElementById("empId").value;
 				var revokeId = document.getElementById("revokeId").value;
-				var username = document.getElementById("Name").value;
+				var username = document.getElementById("username").value;
 				 document.getElementById("signinLoader").style.display="flex";
 				  	$.ajax({
 				 	type: "POST",
@@ -143,6 +143,7 @@ function getSavedVoucherListForApprove() {
 							document.getElementById("signinLoader").style.display="none";
 							
 							if(data1.status==true){
+							getSavedVoucherListForApprove();
 							$('#revokeUPIVcAuthenticate').show();				
 							$('#revokeModal').hide();
 							}
@@ -166,7 +167,7 @@ function getSavedVoucherListForApprove() {
 				var employerId = document.getElementById("employerId").value;
 				var employeeId = document.getElementById("empId").value;
 				var revokeId = document.getElementById("revokeId").value;
-				var username = document.getElementById("Name").value;
+				var username = document.getElementById("username").value;
 				var rejectRemark = document.getElementById("rejectRemark").value;
 				if (rejectRemark === "") {
 			        document.getElementById("rejectRemarkerror").innerHTML = "Please Enter Reject Remark";
@@ -199,6 +200,7 @@ function getSavedVoucherListForApprove() {
 							document.getElementById("signinLoader").style.display="none";
 							
 							if(data1.status==true){
+							getSavedVoucherListForApprove();
 							$('#revokeUPIVcAuthenticateReject').show();				
 							$('#revokeModal').hide();
 							}

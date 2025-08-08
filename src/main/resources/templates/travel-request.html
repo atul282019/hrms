@@ -146,7 +146,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 					<div class="row">
 						<div class="col-12">
 							<ul  class="nav nav-underline">
-								<li class="nav-item" ><a data-toggle="tab" href="#home" class="nav-link active">Expense Reimbursements </a></li>
+								<li class="nav-item" ><a data-toggle="tab" href="#home" class="nav-link active">Travel Request</a></li>
                                 <li class="nav-item" th:if="${session.user_role == 1 or session.user_role == 9 or session.user_role == 3}"><a data-toggle="tab" href="#menu1" id="pendingApproval" class="nav-link">Pending Approvals</a></li>
                                <!-- <li><a data-toggle="tab" href="#menu2">Linked Bank Account</a></li>-->
                             </ul>
@@ -155,7 +155,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 								<div id="home" class="tab-pane in active">
 
 									<div class="policies-section">
-										<div class="policies-wrap">
+										<!--<div class="policies-wrap">
 											<div
 												class="d-flex justify-content-between border-btm modal-head-secd px-0 py-3">
 												<div>
@@ -165,8 +165,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 													<a href="#" id="downloadExcel" class="mx-1">
 													    <img src="img/download-black.svg" alt="Download">
 													</a>
-													<!--<a href="#"
-														class="mx-1"><img src="img/delete-black.svg" alt=""></a>-->
+													<a href="#"
+														class="mx-1"><img src="img/delete-black.svg" alt=""></a>
 													<a href="#" class="mx-1"><img src="img/info-black.svg"
 														alt=""></a>
 												</div>
@@ -207,8 +207,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 													</div>
 												</div>
 											</div>
-										</div>
-<!--
+										</div>-->
+
 										<div class="policies-wrap">
 
 											<div
@@ -220,8 +220,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 													<a href="#" id="downloadExcel2" class="mx-1">
 													    <img src="img/download-black.svg" alt="Download">
 													</a>
-													 <a href="#"
-														class="mx-1"><img src="img/delete-black.svg" alt=""></a>
+													<!-- <a href="#"
+														class="mx-1"><img src="img/delete-black.svg" alt=""></a>-->
 													<a href="#" class="mx-1"><img src="img/info-black.svg"
 														alt=""></a>
 												</div>
@@ -236,7 +236,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 																<th >EXPENSE ID</th>
 																<th>DATE & TIME</th>
 																<th>CATEGORY</th>
-																<th>TITLE</th>
+																<!--<th>TITLE</th>-->
 																<th>AMOUNT</th>
 																<th>APPROVED AMOUNT</th>
 																<th>APPROVED BY</th>
@@ -263,12 +263,12 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 											</div>
 
 										</div>
--->
+
 									</div>
 
 								</div>
 								<div id="menu1" class="tab-pane ">
-                                    <div class="policies-section">
+                                  <!--  <div class="policies-section">
 
                                         <div class="policies-wrap">
                                             <div
@@ -285,7 +285,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                                                             aria-haspopup="true" aria-expanded="false"> Sort by
                                                             <img src="img/Short.svg" alt="" class="ml-2">
                                                         </a>
-                                                        <!-- Dropdown - User Information -->
+                                                         Dropdown - User Information 
                                                         <div class="dropdown-menu dropdown-menu-right shadow"
                                                             aria-labelledby="userDropdown">
                                                             <a class="dropdown-item py-2" href="#">Category</a>
@@ -324,9 +324,9 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                                                 </table>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 								<!--cash Travel Request Advace-->
-						<!--		
+								
 								<div class="policies-section">
 
                                 <div class="policies-wrap">
@@ -344,7 +344,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                                                     aria-haspopup="true" aria-expanded="false"> Sort by
                                                     <img src="img/Short.svg" alt="" class="ml-2">
                                                 </a>
-                                                 Dropdown - User Information 
+                                                <!-- Dropdown - User Information -->
                                                 <div class="dropdown-menu dropdown-menu-right shadow"
                                                     aria-labelledby="userDropdown">
                                                     <a class="dropdown-item py-2" href="#">Category</a>
@@ -369,7 +369,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                                                     </th>
 													
                                                     <th>EXPENSE ID</th>
-                                                    <th>DATE & TIME</th>
+                                                 <!--   <th>DATE & TIME</th>-->
                                                     <th>CATEGORY</th>
 													<th>NAME</th>
 													<th>DEPARTMENT</th>
@@ -384,7 +384,7 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                                         </table>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
 
 								
 								<!--Cansh Travel Advance Request end-->
@@ -401,8 +401,8 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
                                             <div class="custom-alert custom-alert-info">No Pending expense
                                                 claims/advance settlements are there to show.</div>
                                         </div>
-                                    </div>-->
-
+                                    </div>
+-->
                                 </div>
 							</div>
 						</div>
@@ -2995,13 +2995,13 @@ getExpanceCategoryApprovalList(),getCashAdvanceRequestList(),getTravelExpenseApp
 	                            Travel Request
 	                        </label>
 	                    </div>
-	                    <div class="form-check">
+	                  <!--  <div class="form-check">
 	                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
 	                            >
 	                        <label class="form-check-label" for="flexRadioDefault2">
 	                            Cash Advance
 	                        </label>
-	                    </div>
+	                    </div>-->
 	                </form>
 	                <div class="d-flex justify-content-center mt-3">
 	                    <button class="btn btn-primary w-100" id="continueButton">Continue</button>

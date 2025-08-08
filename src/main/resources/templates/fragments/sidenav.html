@@ -43,8 +43,13 @@
 	   		       </li>
 			 <li class="nav-item" th:if="${session.user_role == 3 or session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
    	             <a class="nav-link" th:href="@{/expenseReimbursements}">
-   	                 <img src="img/menu-expenses-advances.svg" alt="" class="mr-2">
-   	                 <span>Expenses & Advances</span></a>
+   	                 <img src="img/expenses-h.svg" alt="" class="mr-2">
+   	                 <span>Expense Request</span></a>
+   	         </li>
+			 <li class="nav-item" th:if="${session.user_role == 3 or session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">
+   	             <a class="nav-link" th:href="@{/travelRequest}">
+   	                 <img src="img/travel-request-h.svg" alt="" class="mr-2">
+   	                 <span>Travel Request</span></a>
    	         </li>
 			 
 			 <li class="nav-item" th:if="${session.user_role == 3 or session.user_role == 2 or session.user_role == 1 or session.user_role == 9}">

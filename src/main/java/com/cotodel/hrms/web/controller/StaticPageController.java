@@ -933,6 +933,28 @@ public class StaticPageController extends CotoDelBaseController{
 	return new ModelAndView("home", "command", "");
 }
 
+	@GetMapping(value="/travelRequest")
+	public ModelAndView travelRequest(Model model) {
+		String token = (String) session.getAttribute("hrms");
+		Integer id  = (Integer) session.getAttribute("id");
+		if(token!=null) {
+			UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+			if(obj!=null) {
+				if(obj.getUser_role()==3 || obj.getUser_role()==2 || obj.getUser_role()==1|| obj.getUser_role()==9) {
+				model.addAttribute("name",obj.getName());
+				model.addAttribute("org",obj.getOrgName());
+				model.addAttribute("mobile",obj.getMobile());
+				model.addAttribute("email",obj.getEmail());
+				model.addAttribute("employerId",id);
+				return new ModelAndView("travel-request", "command", "");
+			}
+			 return new ModelAndView("error", "command", "");
+		}
+		return new ModelAndView("home", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+
 	
 	@GetMapping(value="/requestApproveVouchers")
 	public ModelAndView requestApproveVouchers(Model model) {
