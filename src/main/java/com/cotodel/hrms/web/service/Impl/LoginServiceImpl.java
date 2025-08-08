@@ -34,41 +34,41 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	public ApplicationConstantConfig applicationConstantConfig;
-	
+
 	//private static final Logger logger = LogManager.getLogger(LoginServiceImpl.class);
-	
+
 	@Override
-	public String sendOtp(String token, EncriptResponse userForm) {	
+	public String sendOtp(String token, EncriptResponse userForm) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendOtpNew);
 	}
-	
+
 //	public static String sendOtpRequest(String mobile) {
 //		JSONObject request= new JSONObject();
-//		request.put("mobile", mobile);	
+//		request.put("mobile", mobile);
 //		return request.toString();
 //	}
-	
+
 	@Override
-	public String resendOtp(String token, EncriptResponse userForm) {	
+	public String resendOtp(String token, EncriptResponse userForm) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.resendOtpNew);
 	}
-	
+
 //	public static String sendOtpRequest(String mobile,String orderId) {
 //		JSONObject request= new JSONObject();
-//		request.put("mobile", mobile);	
-//		request.put("orderId", orderId);	
+//		request.put("mobile", mobile);
+//		request.put("orderId", orderId);
 //		return request.toString();
 //	}
-//	
+//
 	@Override
 	public String verifyOtp(String token,EncriptResponse userForm) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userForm), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtpNew);
 	}
-	
-	
+
+
 	public static String verifyOtpOrLoginRequest(String mobile,String otp,String orderId) {
 		JSONObject request= new JSONObject();
-		request.put("mobile", mobile);	
+		request.put("mobile", mobile);
 		request.put("otp", otp);
 		request.put("orderId", orderId);
 		return request.toString();
@@ -78,20 +78,20 @@ public class LoginServiceImpl implements LoginService {
 	public String registerUser(String token,UserRegistrationRequest req) {
 		return CommonUtility.userRequest(token,registerUserRequest(req), applicationConstantConfig.userServiceBaseUrl +CommonUtils.registerUserUrl);
 	}
-	
+
 	public static String registerUserRequest(UserRegistrationRequest req) {
 		JSONObject request= new JSONObject();
-		request.put("email", req.getEmail());	
-		request.put("org_name", req.getOrgname());	
-		request.put("mobile", req.getMobile());	
-		request.put("username", req.getUsername());	
+		request.put("email", req.getEmail());
+		request.put("org_name", req.getOrgname());
+		request.put("mobile", req.getMobile());
+		request.put("username", req.getUsername());
 		return request.toString();
 	}
 
 
 	@Override
 	public void sendEmailToEmployee(UserRegistrationRequest req) {
-		
+
 		 // Set up mail server properties
 	        Properties properties = new Properties();
 	        properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -104,7 +104,7 @@ public class LoginServiceImpl implements LoginService {
 	                return new PasswordAuthentication("cotodel917@gmail.com", "CotoDel@123");
 	            }
 	        });
-			
+
 			Message msg = new MimeMessage(session);
 				try {
 					msg.setHeader("Content-Type", "text/plain; charset=UTF-8");
@@ -118,10 +118,10 @@ public class LoginServiceImpl implements LoginService {
 				    String encoded = DatatypeConverter.printBase64Binary(bytes);
 				    byte[] byt = req.getEmail().getBytes(StandardCharsets.UTF_8);
 				    String emailbyt = DatatypeConverter.printBase64Binary(byt);
-				    
+
 				    String confirmationUrl = "http://localhost:9191/cotodel/confirm?token="+encoded.replaceAll("==","")+"/"+emailbyt;
 				    String emailBody = "Click the link to verify your email: " + confirmationUrl;
-				    
+
 					String link="<p></p><a href=" +"http://localhost:9191/cotodel/confirm/"+emailbyt.replaceAll("==","")+"/"+encoded.replaceAll("==","") +"><h3>Please click here to verify....<h3></a>";
 					MimeBodyPart messageBodyPart = new MimeBodyPart();
 					//String password =generatePassword(8);
@@ -138,12 +138,12 @@ public class LoginServiceImpl implements LoginService {
 				} catch (MessagingException e) {
 					e.printStackTrace();
 				}
-			
+
 			}
-	
+
 	@Override
 	public void sendEmailVerificationCompletion(UserRegistrationRequest req) {
-		
+
 		 // Set up mail server properties
 	        Properties properties = new Properties();
 	        properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -156,7 +156,7 @@ public class LoginServiceImpl implements LoginService {
 	                return new PasswordAuthentication("cotodel917@gmail.com", "CotoDel@123");
 	            }
 	        });
-			
+
 			Message msg = new MimeMessage(session);
 				try {
 					msg.setHeader("Content-Type", "text/plain; charset=UTF-8");
@@ -170,7 +170,7 @@ public class LoginServiceImpl implements LoginService {
 				   // String encoded = DatatypeConverter.printBase64Binary(bytes);
 				    //byte[] byt = req.getEmail().getBytes(StandardCharsets.UTF_8);
 				   // String emailbyt = DatatypeConverter.printBase64Binary(byt);
-				    
+
 					String link="<h3>Email Verification Successfully Completed now you can sign in....<h3>";
 					MimeBodyPart messageBodyPart = new MimeBodyPart();
 					messageBodyPart.setContent(link, "text/html");
@@ -183,17 +183,17 @@ public class LoginServiceImpl implements LoginService {
 				} catch (MessagingException e) {
 					e.printStackTrace();
 				}
-			
+
 			}
 
 	@Override
 	public String verifyRegisterUser(String toekn,UserRegistrationRequest userForm) {
 		return CommonUtility.userRequest(toekn,registerVerifyRequest(userForm), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyEmail);
-		
+
 	}
 	public static String registerVerifyRequest(UserRegistrationRequest req) {
-		JSONObject request= new JSONObject();		
-		request.put("email", req.getMobile());	
+		JSONObject request= new JSONObject();
+		request.put("email", req.getMobile());
 		return request.toString();
 	}
 
@@ -224,5 +224,9 @@ public class LoginServiceImpl implements LoginService {
 	public String verifyOtpWithOutRegister(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtpWithOutRegister);
 	}
-	
+
+	@Override
+	public String loginwithPwd(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl +CommonUtils.loginwithPwd);
+	}
 }

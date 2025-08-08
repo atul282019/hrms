@@ -25,20 +25,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 
-	
+
 	//Logger logger = LoggerFactory.getLogger(CotoDelAdminFilter.class);
-	
+
 	FilterConfig filterConfig = null;
 
+	@Override
 	public void init(FilterConfig filterConfig){
 		this.filterConfig = filterConfig;
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{
-		 
+
 		HttpServletRequest httpServletRequest = (HttpServletRequest)request;
 		String requestURI = httpServletRequest.getRequestURI();
-		
+
 		boolean isStaticResource1 = httpServletRequest.getRequestURI().contains("cotodel-js/");
 		boolean isStaticResource2 = httpServletRequest.getRequestURI().contains("vendor/");
 		boolean isStaticResource3 = httpServletRequest.getRequestURI().contains("images/");
@@ -52,8 +54,8 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		boolean isStaticResourcewebfontssolutions = httpServletRequest.getRequestURI().contains("/solutions");
 
 		HttpSession session = httpServletRequest.getSession(false);
-		
-		
+
+
 		HttpServletResponse res = (HttpServletResponse) response;
 		//logger.info("inside cors filter method == "+httpServletRequest.getMethod()+" || "+httpServletRequest.getRequestURI());
         res.setHeader("Access-Control-Allow-Origin", "*");
@@ -64,8 +66,8 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
         if ("OPTIONS".equalsIgnoreCase(httpServletRequest.getMethod())) {
         	res.setStatus(HttpServletResponse.SC_OK);
         	res.setContentType("application/json");
-        } 
-			
+        }
+
         if (requestURI.contains(";jsessionid")) {
             String cleanUri = requestURI.replaceAll(";jsessionid=[^?]*", "");
             ((HttpServletResponse) response).sendRedirect(cleanUri);
@@ -78,9 +80,9 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 		//String login = (String) session.getAttribute("Bis_Login");
 		//logger.info("login"+login);
 		//logger.info("request uri-------------"+requestURI);
-		if(login==null){	
-			if( isStaticResourceImg || isStaticResource1 || isStaticResource2 || isStaticResource3 
-					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass || isStaticResourcewebfonts || isStaticResourceFiles 
+		if(login==null){
+			if( isStaticResourceImg || isStaticResource1 || isStaticResource2 || isStaticResource3
+					|| isStaticResourceJs || isStaticResourceCss || isStaticResourceSass || isStaticResourcewebfonts || isStaticResourceFiles
 					||isStaticResourcewebfontsblog || isStaticResourcewebfontssolutions) {
 						chain.doFilter(request, response);
 			}
@@ -106,6 +108,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 			}
 			else if(requestURI.contains("/userLogin")){
 				RequestDispatcher rd = request.getRequestDispatcher("userLogin");
+				rd.forward(request, response);
+			}
+			else if(requestURI.contains("/Pwdlogin")){
+				RequestDispatcher rd = request.getRequestDispatcher("Pwdlogin");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/registerUser")){
@@ -227,7 +233,7 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("production-webhook-callback");
 				rd.forward(request, response);
 			}
-			
+
 			else if(requestURI.contains("/contact")){
 				RequestDispatcher rd = request.getRequestDispatcher("contact");
 				rd.forward(request, response);
@@ -326,11 +332,12 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 			}
 		}else{
 			chain.doFilter(request, response);
-		} 
+		}
 	}
-	
+
+	@Override
 	public void destroy() {
-		
+
 	}
-	
+
 }

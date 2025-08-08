@@ -1,4 +1,9 @@
+
 function getOTP() {
+	const toggle = document.getElementById("loginToggle");
+	 if (toggle) {
+	   toggle.disabled = true;
+	 }
 	console.log("get otp called");
     var regMobile = /^[6-9]\d{9}$/gi;
     var userName = document.getElementById("mobile").value;
@@ -32,7 +37,7 @@ function getOTP() {
 
             if (obj.status === true) {
 				
-
+				
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + userName.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerHTML = `Enter the OTP send to ${maskedMobile}`;
@@ -548,3 +553,34 @@ function refreshCountdown() {
         }
     }, 1000);
 }
+
+function loginwithPwd() {
+	var x = true;
+		var mobile = document.getElementById("mobile").value;
+		var userpwd = document.getElementById("pwd").value;
+		
+		
+		if (document.getElementById("mobile").value == "") {
+			document.getElementById("mobError").innerHTML="Please Enter mobile..";
+			
+			x = false;
+	
+		}
+		if (document.getElementById("pwd").value == "") {
+					document.getElementById("mobError").innerHTML="Please Enter Password";
+					
+					x = false;
+			
+				}
+		console.log("document.forms[0]",document.forms[0]);
+			//var formData = new FormData(loginForm);
+			//formData.append("loginId", loginId);
+		if (x) {
+			document.forms[0].action = "/Pwdlogin";
+			document.forms[0].method = "post";
+			document.forms[0].submit();
+			console.log("document.forms[0]",document.forms[0]);
+		}
+}
+
+

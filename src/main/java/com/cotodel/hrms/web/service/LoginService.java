@@ -2,7 +2,6 @@ package com.cotodel.hrms.web.service;
 
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.util.EncriptResponse;
-import com.cotodel.hrms.web.util.MessageConstant;
 
 public interface LoginService {
 
@@ -18,5 +17,6 @@ public interface LoginService {
 	String getReputeToken(String token, EncriptResponse jsonObjectRepute);
 	String otpWithOutRegister(String token, EncriptResponse jsonObject);
 	String verifyOtpWithOutRegister(String token, EncriptResponse jsonObject);
+	String loginwithPwd(String token, EncriptResponse jsonObject);
 
 }

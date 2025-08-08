@@ -629,8 +629,13 @@ function populateVoucherUI(data) {
   const maskedAccount = 'xxxx' + accountNumber.slice(-4);
   const bankName = data.bankName || "Bank";
 
-  const total = parseFloat(data.totalAmount);
+  /*const total = parseFloat(data.totalAmount);
   const available = parseFloat(data.redeemAmount);
+  data.totalAmount=null;
+  data.redeemAmount=null;*/
+  const total = Number.isFinite(parseFloat(data.totalAmount)) ? parseFloat(data.totalAmount) : 0;
+  const available = Number.isFinite(parseFloat(data.redeemAmount)) ? parseFloat(data.redeemAmount) : 0;
+
   
   const spent = total - available;
 
@@ -645,7 +650,11 @@ function populateVoucherUI(data) {
   const circumference = 2 * Math.PI * radius;
 
   progressCircle.style.strokeDasharray = `${circumference}`;
-  progressCircle.style.strokeDashoffset = `${circumference * (1 - available / total)}`;
+  //progressCircle.style.strokeDashoffset = `${circumference * (1 - available / total)}`;
+  progressCircle.style.strokeDashoffset = (total > 0) 
+    ? `${circumference * (1 - available / total)}` 
+    : `${circumference}`;
+
 }
 
 

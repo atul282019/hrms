@@ -13,6 +13,7 @@ public interface CommonUtils {
 	public static String resendOtpNew = "/userServices/Api/getOtpResend";
 	public static String verifyOtpNew = "/userServices/Api/verifyOtpNew";
 	public static String verifyOtpWithOutRegister = "/userServices/Api/get/verifyOtpWithOutRegister";
+	public static String loginwithPwd = "/userServices/api/users/login";
 	public static String regiUserBulk = "/empService/Api/add/saveBulkEmplOnboarding";
 	public static String verifyOtp = "/userServices/Api/verifyOtp";
 
@@ -20,22 +21,22 @@ public interface CommonUtils {
 	public static String companyProfileStatus = "/userServices/Api/get/getEmployerComplete";
 
 	public static String saveEmployee = "/empService/Api/add/employeeDetails";
-	
+
 	public static String getRole  = "/userServices/Api/get/Roles";
 	public static String singleUserCreation  = "/userServices/Api/add/saveUsers";
 	public static String getSingleUser  = "/userServices/Api/get/userList";
 	public static String getBulkEmail  = "/userServices/Api/get/sendBulkEmail";
 
 	public static String getEmployeeDetails  = "/empService/Api/get/empAllDetails";
-	
+
 	public static String saveEmpOnboarding = "/empService/Api/add/saveEmplOnboarding";
 	public static String getEmployeeOnboarding ="/empService/Api/get/empOnboardingList";
 	public static String getEmployeeOnboardingFailList ="/empService/Api/get/empOnboardingFailList";
 	public static String getEmployeeOnboardingById ="/empService/Api/get/empOnboardingById";
 	public static String getEmployeeOnboardingByUserDetailId ="/empService/Api/get/empOnboardingByUserDetailId";
-	public static String getEmployeeOnboardingByIdManagerId ="/empService/Api/get/empOnboardingByManagerId";	
+	public static String getEmployeeOnboardingByIdManagerId ="/empService/Api/get/empOnboardingByManagerId";
 	public static String confirmBulkEmplOnboarding = "/empService/Api/add/confirmBulkEmplOnboarding";
-	public static String saveWaitlist = "/userServices/Api/add/saveWaitingListUsers"; 
+	public static String saveWaitlist = "/userServices/Api/add/saveWaitingListUsers";
 	public static String saveEmployeeProfile = "/empService/Api/add/saveEmplOnboardingNew";
 	public static String updateEmployeeProfile = "/empService/Api/update/updateEmplOnboardingNew";
 	public static String deactiveEmployeeProfile = "/empService/Api/update/emplOnboardingStatus";
@@ -52,7 +53,7 @@ public interface CommonUtils {
 	public static String getExpensesReimbursement = "/empService/Api/get/expenseReimbFileDownloadByEmpID";
 	public static String viewExpensesReimbursement = "/empService/Api/get/expenseReimbFileDownloadByID";
 	public static String deleteExpenseReimbursement = "/empService/Api/delete/expenseReimbFileDeleteByID";
-	public static String addExpensesReimbursementDraft ="/empService/Api/add/expenseReimbursementFileUpload"; 
+	public static String addExpensesReimbursementDraft ="/empService/Api/add/expenseReimbursementFileUpload";
 	public static String addErupiLinkAccount ="/empService/Api/add/erupiLinkAccount";
 	public static String getErupiLinkAccountDetail  ="/empService/Api/get/erupiLinkAccountList";
 	public static String getErupiLinkAccountDetailWithStatus  ="/empService/Api/get/erupiLinkAccountListWithStatus";
@@ -60,7 +61,7 @@ public interface CommonUtils {
 	public static String getVoucherDetailByBoucherCode  = "/empService/Api/get/voucherTypeMaster";
 	public static String createSingleVoucherOLD = "/empService/Api/add/erupiVoucherInitiateDetailsNew";   //old api
 	public static String createSingleVoucher = "/empService/Api/add/erupiVoucherSingleCreation";
-	
+
 	public static String getLinkedDetailByAccountNumber = "/empService/Api/get/erupiLinkAccountDetails";
 	public static String verifyVoucherIssueOTP ="/userServices/Api/verifyOtpWithoutUser";
 	public static String getIssuseVoucherList ="/empService/Api/get/erupiVoucherCreateList";
@@ -99,9 +100,9 @@ public interface CommonUtils {
 	public static String getEmployeeType="/masterService/Api/get/employeeTypeMasterList";
 	public static String getEmployeeListMaster="/userServices/Api/get/userManagerList";
 	public static String getofficeLocationMaster="/userServices/Api/get/getCompaneyAddress";
-	public static String getVoucherListWithIcon ="/masterService/Api/get/voucherList"; 
-	public static String getVoucherListWithIconNew ="/masterService/Api/get/voucherCategoryList"; 
-	public static String getPurposeListByVoucherCode ="/masterService/Api/get/mccByCotoCatIdList"; 
+	public static String getVoucherListWithIcon ="/masterService/Api/get/voucherList";
+	public static String getVoucherListWithIconNew ="/masterService/Api/get/voucherCategoryList";
+	public static String getPurposeListByVoucherCode ="/masterService/Api/get/mccByCotoCatIdList";
 	// old public static String voucherUserSearch="/userServices/Api/get/userSearchWithMobile";
 	public static String erupiVoucherStatusHistory="/empService/Api/get/erupiVoucherStatusHistory";
 	public static String voucherUserSearch="/empService/Api/get/employeeSearchWithMobile";
@@ -110,15 +111,15 @@ public interface CommonUtils {
 	public static String getVoucherCreateSummaryDetailByAccount = "/empService/Api/get/voucherCreateSummaryDetailByAccount";
 	public static String getcaptcha = "/userServices/Api/get/captcha";
 	public static String getDepartmentMaster = "/masterService/Api/get/departmentMasterList";
-	public static String getExpensesReimbursementApprovalList ="/empService/Api/get/expenseReimbFileByEmpId"; 
-	public static String getErupiLinkAccountDetails ="/empService/Api/get/erupiLinkAccountDetails"; 
-	public static String saveCotodelbankdetails ="/empService/Api/add/linkMultipleAccount"; 
+	public static String getExpensesReimbursementApprovalList ="/empService/Api/get/expenseReimbFileByEmpId";
+	public static String getErupiLinkAccountDetails ="/empService/Api/get/erupiLinkAccountDetails";
+	public static String saveCotodelbankdetails ="/empService/Api/add/linkMultipleAccount";
 	public static String getSavedCBankDetails ="/empService/Api/get/linkMultipleAccountList";
-	public static String cApproveReject ="/empService/Api/update/linkMultipleAccountUpdate"; 
+	public static String cApproveReject ="/empService/Api/update/linkMultipleAccountUpdate";
 	public static String showLinkedAccAmount ="/empService/Api/get/linkMultipleAccountAmount";
-	public static String getExpensesReimbursementDetailById ="/empService/Api/get/expenseReimbFileById"; 
+	public static String getExpensesReimbursementDetailById ="/empService/Api/get/expenseReimbFileById";
 	public static String getOcrDetails ="/empService/Api/get/ocrDetails";
-	public static String expensesReimbursementUpdate ="/empService/Api/update/expenseReimbursementUpdate"; 
+	public static String expensesReimbursementUpdate ="/empService/Api/update/expenseReimbursementUpdate";
 	public static String gstDetailService ="/gstPanService/Api/get/gstDetails";
 	public static String saveCompanyDetail = "/userServices/Api/add/saveEmployerDetails";
 	public static String updateCompanyDetail = "/userServices/Api/update/updateEmployerDetails";
@@ -140,7 +141,7 @@ public interface CommonUtils {
 	public static String getReputeEmployeeList = "/repute_marketplace/Api/get/employeeList";
 	public static String getReputeSingleEmployeeDetails  = "/repute_marketplace/Api/get/employeeSingle";
 	public static String getReputeEmployeeStatusUpdate = "/repute_marketplace/Api/get/employeeList";
-	
+
 	public static String updateReputeEmployeeDetailByWebhoock = "/userServices/Api/update/updateReputeDetails";
 	public static String saveDirectorOnboarding = "/empService/Api/add/directorOnboarding";
 	public static String getDirectorOnboarding = "/empService/Api/get/directorOnboarding";
@@ -156,18 +157,18 @@ public interface CommonUtils {
 	public static String getTravelRequestRequestById ="/empService/Api/get/advanceTravelById";
 	public static String getExpanseLimitByExpenseTitleId  =	"/empService/Api/get/expenseCategoryBandId";
 	public static String employerOnboarding = "userServices/Api/add/saveEmployerOnBoardingDetails";
-		 
+
 	public static String getVehicleManagementList="/empService/Api/get/getVehicleManagement";
 	public static String addVehicleDetails="/empService/Api/add/VehicleManagement";
 	public static String getVehicleManagementById = "/empService/Api/get/getVehicleManagementById";
 	public static String getDriverDetail = "/empService/Api/get/getEmployeeDriver";
 	public static String updateVehicleDetails = "/empService/Api/add/tripVehicleDetails";
 	public static String vehichleTripHistory =  "/empService/Api/get/getTripHistoryList";
-	
+
 	public static String preprodWebhookCallback ="http://13.234.119.146:9085/cashFree/Api/get/cashFreeOrderIdUpdate";
 	public static String getVehicleNumberDetaiilByVehicleNumber ="/gstPanService/Api/get/checkVehicleNo";
 	public static String checkAccountNumberValidation ="/get/bankVerification";
-	
+
 	public static String activeInactiveVoucherAmount = "/empService/Api/get/voucherAmount";
 	public static String usedAmountByCategories = "/empService/Api/get/erupiVoucherCreateListByPurposeCode";
 	public static String  empOnboardingListTotalActive ="/empService/Api/get/empOnboardingListTotalActive";
@@ -177,8 +178,8 @@ public interface CommonUtils {
 	public static String bulkVehicleUpload = "/empService/Api/add/vehicleBulkUploadNew";
 	public static String createbulkVehicle = "/empService/Api/add/vehicleBulkCreate";
 	public static String currentMonthAmountLimit = "/cashFree/Api/get/currentMonthAmountLimit";
-	
-	
+
+
 	public static String bulkEmpUpload = "/empService/Api/add/employeeBulkVoucherUpload";
 	public static String createbulkEmpUpload = "/empService/Api/add/employeeBulkVoucherCreate";
 	public static String submitTicket = "/empService/Api/add/ticket";
@@ -207,5 +208,5 @@ public interface CommonUtils {
 	public static String readDataFromImage="/empService/Api/get/upiName";
 	public static String editActiveBrandDetails="/erupiBrandService/Api/update/updateBrandDetails";
 	public static String updateBrandGeoList="/erupiBrandService/Api/update/updateBrandGeoList";
-	
+
 }

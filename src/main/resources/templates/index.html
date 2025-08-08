@@ -140,7 +140,18 @@
 						
 						<div class="login-body">
 							<form autocomplete="off" id="loginForm" name="loginForm">
-							<h4 class="login-title">Get started with your phone number</h4>
+								<!-- Flex container: text left, switch right -->
+								<div style="display: flex; align-items: center; justify-content: space-between;">
+								  <h4 class="login-title" style="margin: 0;">Get started with your phone number</h4>
+
+								  <!-- Switch with tooltip -->
+								  <div class="custom-tooltip-wrapper" data-tooltip="Login with password" >
+								    <label class="custom-switch">
+								      <input type="checkbox" id="loginToggle">
+								      <span class="custom-slider"></span>
+								    </label>
+								  </div>
+								</div>
 
 							<div class="phone-input-container">
 							<div class="phone-prefix">
@@ -156,13 +167,31 @@
 
 							<p class="helper-text">We will send an OTP on the mobile number entered.</p>
 							
+							<!-- Custom Switch Styles -->
+							<!-- Styles -->
+						
 
+							
+						
 							<!-- Inside .login-section -->
 							<div class="login-body" id="login-body">
 							<!-- Your phone input and login UI -->
 							<!-- Replace LOGIN button -->
-							<button class="btn login-btn" onclick="getOTP();"  id="optBtn" type="button" disabled >Send OTP</button>
+							<button class="btn login-btn" onclick="requestOTP();"  id="optBtn" type="button" disabled >Send OTP</button>
 							</div>
+							
+							<!-- login without otp-->
+							<div class="login-body" id="directloginbody">
+								<br>
+						
+							<div class="did-floating-label-content">
+							    <input class="did-floating-input" type="password" id="pwd" name="pwd"
+							        placeholder=" ">
+							    <label class="did-floating-label">Password<span class="required-star">*</span></label>
+							</div>
+							<div  class="error-msg" id="loginerrorMsg" ></div>	
+							<button class="btn login-btn"   id="directlogin" onclick="loginwithPwd()" type="button" disabled>Login</button>
+							</div><!-- login without otp ends here-->
 
 							<!-- OTP Form -->
 							<div id="otp-section" style="display:none;">
@@ -250,7 +279,55 @@
  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
-  
+  <script>
+	window.requestOTP = function requestOTP() {
+	    /*const toggle = document.getElementById("loginToggle");
+		if (toggle) {
+			      toggle.disabled = true; // lock switch after requesting OTP
+			    }
+			disable the button	
+				*/
+		const customtooltipwrapper=document.querySelector(".custom-tooltip-wrapper");
+		customtooltipwrapper.style.display="none";
+		
+	    
+	    console.log("OTP requested: toggle disabled");
+		getOTP();//calling actual get otp function
+	   
+	  };
+	document.addEventListener("DOMContentLoaded", function () {
+	  const toggle = document.querySelector(".custom-switch input");
+	  const phoneLogin = document.getElementById("login-body");
+	  const passwordLogin = document.getElementById("directloginbody");
+	  const helperText = document.querySelector(".helper-text");
+	  const passwordInput = document.getElementById("pwd");
+	  const directLoginBtn = document.getElementById("directlogin");
+
+	  // Initial state
+	  passwordLogin.style.display = "none";
+	  directLoginBtn.disabled = true;
+
+	  // Toggle switch logic
+	  toggle.addEventListener("change", function () {
+	    const showPasswordLogin = this.checked;
+
+	    phoneLogin.style.display = showPasswordLogin ? "none" : "block";
+	    passwordLogin.style.display = showPasswordLogin ? "block" : "none";
+	    if (helperText) {
+	      helperText.style.display = showPasswordLogin ? "none" : "block";
+	    }
+
+	    // Reset password input and disable button on switch
+	    passwordInput.value = "";
+	    directLoginBtn.disabled = true;
+	  });
+
+	  // Enable button when password input is not empty
+	  passwordInput.addEventListener("input", function () {
+	    directLoginBtn.disabled = this.value.trim() === "";
+	  });
+	});
+	</script>
   <script>
     $('#imageCarousel').carousel({
       interval: 10000, // 10 seconds per slide
@@ -316,8 +393,23 @@
 		if(error==="Invalid Request !!"){
 	    document.getElementById("loginIdDiv").style.display="none";
 	    document.getElementById("optBtn").style.display="block";
-	    }
-		
+	    } 
+		else if(error==="FAILURE")
+{				const toggle = document.querySelector(".custom-switch input");
+				toggle.checked = true; // Switch ON
+			// in case of wrong password
+			const phoneLogin = document.getElementById("login-body");
+			phoneLogin.style.display =  "none" ;
+			const passwordLogin = document.getElementById("directloginbody");
+			passwordLogin.style.display =  "block" ;
+			const helperText = document.querySelector(".helper-text");
+			helperText.style.display =  "none" ;
+			$('#loginerrorMsg').text("Please Enter Correct Password");
+			setTimeout(function() {
+			  $('#loginerrorMsg').text("");// clear the msg after 6 sec
+			}, 6000); // 10 seconds
+			
+		}
 		else if(error==="Incorrect OTP ||"){
 			//hide otp button and helper text above it 
 			$("#optBtn").hide();
