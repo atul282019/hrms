@@ -223,52 +223,6 @@ function focusBack(){
 	})
 }
 
-
-
-
-/* old workingfunction 
-function  getLinkedBankDetail(){
- 	var employerid = document.getElementById("employerId").value;
- 	$.ajax({
-	type: "POST",
-	url:"/getErupiLinkBankAccountDetail",
-       data: {
-			"orgId": employerid
-      		 },
-      		  beforeSend : function(xhr) {
-			//xhr.setRequestHeader(header, token);
-			},
-			   success: function(data){
-			            newData = data;
-			            console.log(newData);
-						$("#banklist option").remove();
-			            var obj = jQuery.parseJSON( data );
-			             obj = obj.data;
-			        	 var count=0;
-			         	for (var key in obj) {
-
-			             var values =  obj[key];
-			             var x = document.getElementById("banklist");
-			             if(count==0){
-			             var option = document.createElement("option");
-			             option.text ="Select Bank";
-			             option.value = "";
-			             x.add(option);
-			             }
-			             var option = document.createElement("option");
-			             option.value = values.acNumber;
-			             option.text = values.bankName+" | "+values.acNumber;
-			             x.add(option);
-
-			             count++;
-			             }
-          },
-        error: function(e){
-            alert('Error: ' + e);
-        }
-   }); 
-			
-}*/
 function getLinkedBankDetail() {
   const employerid = document.getElementById("employerId").value;
 
@@ -397,49 +351,6 @@ document.addEventListener("click", function (e) {
   }
 });
 
-/*function  getVoucherDetailByBoucherCode(){
-	createSingleVoucherValidation();
- 	var voucherCode = document.getElementById("selectedOptionsDropdown").value;
- 	$.ajax({
-	type: "POST",
-	url:"/getmccMasterListByPurposeCode",
-       data: {
-			"purposeCode": voucherCode
-      		 },
-      		  beforeSend : function(xhr) {
-			//xhr.setRequestHeader(header, token);
-			},
-		success: function(data){
-		           newData = data;
-		           console.log(newData);
-				$("#voucherTypeMCC option").remove();
-		           var obj = jQuery.parseJSON( data );
-		            obj = obj.data;
-		       	 var count=0;
-		        	for (var key in obj) {
-
-		            var values =  obj[key];
-		            var x = document.getElementById("voucherTypeMCC");
-		            if(count==0){
-		            var option = document.createElement("option");
-		            option.text ="Select Voucher Type MCC";
-		            option.value = "";
-		            x.add(option);
-		            }
-		            var option = document.createElement("option");
-		            option.text = values.mccDesc;
-		            option.value = values.mcc;
-		            x.add(option);
-
-		            count++;
-		            }   
-		        },
-		        error: function(e){
-		            alert('Error: ' + e);
-		        }
-   }); 
-			
-}*/
 
 function  getBankDetailByBankAccountNumber(){
  	var accountNumber = document.getElementById("banklist").value;
@@ -821,53 +732,6 @@ async function  issueVoucher(){
 	   }); 
 			
 	}
-/*
-function getVoucherSummaryList(){
-			var employerid = document.getElementById("employerId").value;
-			$.ajax({
-				type: "POST",
-				url: "/getVoucherSummaryList",
-				data: {
-					"orgId": employerid,
-					//"workflowid":100003
-				},
-				success: function(data) {
-					newData = data;
-					var data1 = jQuery.parseJSON(newData);
-					var data2 = data1.data;
-					console.log(data2);
-					 
-					 const container = document.getElementById('jsonData');	
-					
-							data1.data.forEach(voucher => {
-							    const voucherDiv = document.createElement('div');
-							    voucherDiv.classList.add('selectvouchers-carosel-cards');
-							    voucherDiv.innerHTML = `
-							        <div>
-							            <h5>
-							                <img src="data:image/png;base64,${voucher.voucherIcon}" class="logo" width="20px" height="20px">
-							                ${voucher.voucherName}
-							            </h5>
-							            <div class="d-flex justify-content-between my-1 mb-3">
-							                <span class="info"></span> ${voucher.count}
-							            </div>
-							            <div class="d-flex justify-content-between my-1">
-							                <span></span> ₹${voucher.totalAmount}
-							            </div>
-							        </div>
-							    `;
-							    container.appendChild(voucherDiv);
-							});
-
-													
-																									
-					},
-					error: function(e) {
-						alert('Failed to fetch JSON data' + e);
-				}
-			});
-		}
-*/
 
 function getPrimaryBankDetail(){
 			var employerid = document.getElementById("employerId").value;
@@ -916,142 +780,142 @@ function getPrimaryBankDetail(){
 			});
 		}
 		function toggleSubmitButton() {
-			       const checkbox = document.getElementById('customCheck45');
-			       const submitButton = document.getElementById('submitButton');
-			       
-			       // Enable the button only if the checkbox is checked
-			       submitButton.disabled = !checkbox.checked;
-			   }
+	       const checkbox = document.getElementById('customCheck45');
+	       const submitButton = document.getElementById('submitButton');
+	       
+	       // Enable the button only if the checkbox is checked
+	       submitButton.disabled = !checkbox.checked;
+	   }
 
-			   document.getElementById('downloadBtn').addEventListener('click', function () {
-			          const table = document.getElementById('successFailVoucherTable');
+	   document.getElementById('downloadBtn').addEventListener('click', function () {
+	          const table = document.getElementById('successFailVoucherTable');
 
-			         const clonedTable = table.cloneNode(true);
-			          const columnsToRemove = [8,9]; 
-			          columnsToRemove.sort((a, b) => b - a);
+	         const clonedTable = table.cloneNode(true);
+	          const columnsToRemove = [8,9]; 
+	          columnsToRemove.sort((a, b) => b - a);
 
-			          const rows = clonedTable.rows;
-			          for (let i = 0; i < rows.length; i++) {
-			              columnsToRemove.forEach((colIndex) => {
-			                  if (rows[i].cells.length > colIndex) {
-			                      rows[i].deleteCell(colIndex);
-			                  }
-			              });
-			          }
-			          const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
-			          XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
-			      });
+	          const rows = clonedTable.rows;
+	          for (let i = 0; i < rows.length; i++) {
+	              columnsToRemove.forEach((colIndex) => {
+	                  if (rows[i].cells.length > colIndex) {
+	                      rows[i].deleteCell(colIndex);
+	                  }
+	              });
+	          }
+	          const workbook = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
+	          XLSX.writeFile(workbook, 'issueVoucherTable.xlsx');
+	      });
+		  
 				  
-				  
-				  function showLinkedAccAmount(accountNumber, accountSeltWallet) {
-				  			      const employerid = document.getElementById("employerId").value;
-				  			      console.log("accountNumber, employerid", accountNumber, employerid);
+  function showLinkedAccAmount(accountNumber, accountSeltWallet) {
+  			      const employerid = document.getElementById("employerId").value;
+  			      console.log("accountNumber, employerid", accountNumber, employerid);
 
-				  			      if (accountSeltWallet === "Self") {
-				  			          document.querySelector(".button-check-balance").style.display = "block";
-				  			          document.querySelector(".tip-disabled").style.display = "block";
+  			      if (accountSeltWallet === "Self") {
+  			          document.querySelector(".button-check-balance").style.display = "block";
+  			          document.querySelector(".tip-disabled").style.display = "block";
 
-				  			          document.querySelector(".div-2").style.display = "none";
-				  			          document.querySelector(".last-updated-on").style.display = "none";
-				  			          return;
-				  			      }
+  			          document.querySelector(".div-2").style.display = "none";
+  			          document.querySelector(".last-updated-on").style.display = "none";
+  			          return;
+  			      }
 
-				  			      document.querySelector(".button-check-balance").style.display = "none";
-				  			      document.querySelector(".tip-disabled").style.display = "none";
+  			      document.querySelector(".button-check-balance").style.display = "none";
+  			      document.querySelector(".tip-disabled").style.display = "none";
 
-				  			      document.querySelector(".div-2").style.display = "block";
-				  			      document.querySelector(".last-updated-on").style.display = "block";
+  			      document.querySelector(".div-2").style.display = "block";
+  			      document.querySelector(".last-updated-on").style.display = "block";
 
-				  			      $.ajax({
-				  			          type: "POST",
-				  			          url: "/showLinkedAccAmount",
-				  			          data: {
-				  			              "acNumber": accountNumber,
-				  			              "orgId": employerid
-				  			          },
-				  			          success: function (data) {
-				  			              console.log("showLinkedAccAmount", data);
-				  			              const obj = jQuery.parseJSON(data);
-				  			              if (obj.status === true) {
-				  			                  const rawAmount = obj.balance;
-				  			                  const formattedAmount = (!isNaN(rawAmount) && rawAmount !== null)
-				  			                      ? Number(rawAmount).toLocaleString('en-IN')
-				  			                      : "Amount Not Available";
-				  			                  document.querySelector(".text-wrapper-3").textContent = formattedAmount;
-				  			              }
-				  			          },
-				  			          error: function (e) {
-				  			              alert('Error: ' + e);
-				  			          }
-				  			      });
-				  			  }
+  			      $.ajax({
+  			          type: "POST",
+  			          url: "/showLinkedAccAmount",
+  			          data: {
+  			              "acNumber": accountNumber,
+  			              "orgId": employerid
+  			          },
+  			          success: function (data) {
+  			              console.log("showLinkedAccAmount", data);
+  			              const obj = jQuery.parseJSON(data);
+  			              if (obj.status === true) {
+  			                  const rawAmount = obj.balance;
+  			                  const formattedAmount = (!isNaN(rawAmount) && rawAmount !== null)
+  			                      ? Number(rawAmount).toLocaleString('en-IN')
+  			                      : "Amount Not Available";
+  			                  document.querySelector(".text-wrapper-3").textContent = formattedAmount;
+  			              }
+  			          },
+  			          error: function (e) {
+  			              alert('Error: ' + e);
+  			          }
+  			      });
+  			  }
 
-				  function formatTimestamp(timestamp) {
-				      let dateObj = new Date(timestamp.replace(" ", "T")); // Ensure proper parsing
+  function formatTimestamp(timestamp) {
+      let dateObj = new Date(timestamp.replace(" ", "T")); // Ensure proper parsing
 
-				      let hours = dateObj.getHours().toString().padStart(2, '0');
-				      let minutes = dateObj.getMinutes().toString().padStart(2, '0');
-				      let seconds = dateObj.getSeconds().toString().padStart(2, '0');
+      let hours = dateObj.getHours().toString().padStart(2, '0');
+      let minutes = dateObj.getMinutes().toString().padStart(2, '0');
+      let seconds = dateObj.getSeconds().toString().padStart(2, '0');
 
-				      let day = dateObj.getDate();
-				      let month = dateObj.toLocaleString('en-US', { month: 'short' }); // "Mar"
-				      let year = dateObj.getFullYear();
-				      let weekday = dateObj.toLocaleString('en-US', { weekday: 'short' }); // "Fri"
+      let day = dateObj.getDate();
+      let month = dateObj.toLocaleString('en-US', { month: 'short' }); // "Mar"
+      let year = dateObj.getFullYear();
+      let weekday = dateObj.toLocaleString('en-US', { weekday: 'short' }); // "Fri"
 
-				      return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
-				  }
-				  function validateAmount() {
-				  	   				      // Get available balance (removing currency symbols & commas)
-				  	   				      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
-				  	   				      let amountInput = document.getElementById("amount");
-				  	   				      let continueButton = document.getElementById("continueButton1"); // Target the specific button
-				  	   				      let errorMessage = document.getElementById("amountError");
+      return `${hours}:${minutes}:${seconds} ${weekday} ${day} ${month} ${year}`;
+  }
+  function validateAmount() {
+		      // Get available balance (removing currency symbols & commas)
+		      let availableBalance = document.querySelector(".text-wrapper-3").textContent.replace(/[₹,]/g, '').trim();
+		      let amountInput = document.getElementById("amount");
+		      let continueButton = document.getElementById("continueButton1"); // Target the specific button
+		      let errorMessage = document.getElementById("amountError");
 
-				  	   				      // Convert values to float (handle decimal values correctly)
-				  	   				      let balance = parseFloat(availableBalance);
-				  	   				      let amount = parseFloat(amountInput.value.trim());
+		      // Convert values to float (handle decimal values correctly)
+		      let balance = parseFloat(availableBalance);
+		      let amount = parseFloat(amountInput.value.trim());
 
-				  	   				      // Disable button by default
-				  	   				      continueButton.disabled = true;
+		      // Disable button by default
+		      continueButton.disabled = true;
 
-				  	   				      // Ensure valid numbers before comparison
-				  	   				     
+		      // Ensure valid numbers before comparison
+		     
 
-				  	   				      // Validation: Ensure entered amount is <= available balance
-				  	   				      if (amount > balance || !balance) {
-				  	   				          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
-				  	   				          errorMessage.style.display = "inline"; // Show error message
-				  	   				          amountInput.value = balance; // Auto-trim input value
-				  	   				      } else {
-				  	   				          errorMessage.style.display = "none"; // Hide error message
-				  	   				          continueButton.disabled = false; // Enable button when valid
-				  	   				      }
-				  	   				  }
-									  
-									  function validateAmount1() {
-									    const requested = parseFloat(document.getElementById("requestedamount").value);
-									    const amountInput = document.getElementById("amount");
-									    const entered = parseFloat(amountInput.value);
-									    const errorDiv = document.getElementById("amountError");
+		      // Validation: Ensure entered amount is <= available balance
+		      if (amount > balance || !balance) {
+		          errorMessage.textContent = "Maximum amount allowed is ₹" + balance;
+		          errorMessage.style.display = "inline"; // Show error message
+		          amountInput.value = balance; // Auto-trim input value
+		      } else {
+		          errorMessage.style.display = "none"; // Hide error message
+		          continueButton.disabled = false; // Enable button when valid
+		      }
+		  }
+		  
+		  function validateAmount1() {
+		    const requested = parseFloat(document.getElementById("requestedamount").value);
+		    const amountInput = document.getElementById("amount");
+		    const entered = parseFloat(amountInput.value);
+		    const errorDiv = document.getElementById("amountError");
 
-									    // Extract available balance from text, remove ₹, commas
-									    const balanceText = document.querySelector(".text-wrapper-3").textContent.replace(/[^0-9.]/g, "");
-									    const availableBalance = parseFloat(balanceText);
+		    // Extract available balance from text, remove ₹, commas
+		    const balanceText = document.querySelector(".text-wrapper-3").textContent.replace(/[^0-9.]/g, "");
+		    const availableBalance = parseFloat(balanceText);
 
-									    if (!isNaN(requested) && !isNaN(entered) && !isNaN(availableBalance)) {
-									      if (entered > requested) {
-									        errorDiv.textContent = "Entered amount cannot exceed the requested amount.";
-									        amountInput.value = requested;
-									      } else if (entered > availableBalance) {
-									        errorDiv.textContent = "Entered amount cannot exceed available balance.";
-									        amountInput.value = availableBalance;
-									      } else {
-									        errorDiv.textContent = "";
-									      }
-									    } else {
-									      errorDiv.textContent = "";
-									    }
-									  }
+		    if (!isNaN(requested) && !isNaN(entered) && !isNaN(availableBalance)) {
+		      if (entered > requested) {
+		        errorDiv.textContent = "Entered amount cannot exceed the requested amount.";
+		        amountInput.value = requested;
+		      } else if (entered > availableBalance) {
+		        errorDiv.textContent = "Entered amount cannot exceed available balance.";
+		        amountInput.value = availableBalance;
+		      } else {
+		        errorDiv.textContent = "";
+		      }
+		    } else {
+		      errorDiv.textContent = "";
+		    }
+		  }
 
 
  
