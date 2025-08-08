@@ -234,7 +234,7 @@
 	                                              <!--  <th>DOJ</th>-->
 	                                            <!--  <th>EMAIL</th>-->
 												  <th>Remarks</th>
-												  <th>Validity</th>
+												 <!-- <th>Validity</th>-->
 												  <th>Status</th>
 												  <th>Action</th>
 	                                          </tr>
@@ -660,42 +660,7 @@
 		        alert("Please select a bank account first.");
 		    }
 		});
-
-		/*function showLinkedAccAmount(accountNumber) {
-		    var employerid = document.getElementById("employerId").value;
-		    console.log("Fetching balance for account:", accountNumber, "Employer ID:", employerid);
-
-		    $.ajax({
-		        type: "POST",
-		        url: "/showLinkedAccAmount",
-		        data: {
-		            "acNumber": accountNumber,
-		            "orgId": employerid
-		        },
-		        success: function(response) {
-		            console.log("API Response:", response);
-
-		            let obj = typeof response === "string" ? JSON.parse(response) : response;
-
-		            if (obj.status) {
-		                // Update balance
-		                document.querySelector(".text-wrapper-3").textContent = obj.balance || "Amount Not Available";
-
-		                // Update timestamp
-		                if (obj.timestamp) {
-		                    document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);
-		                }
-		            } else {
-		                alert("Failed to fetch balance.");
-		            }
-		        },
-		        error: function(error) {
-		            console.error("Error fetching balance:", error);
-		            alert('Error fetching balance.');
-		        }
-		    });
-		}*/
-
+		
 		function formatTimestamp(timestamp) {
 		    let dateObj = new Date(timestamp.replace(" ", "T"));
 
@@ -718,11 +683,11 @@
 		
 		function getRequestedEmployeeList(){ 
 		    document.getElementById("signinLoader").style.display="flex";
-		    const employerId = document.getElementById('employerId').value;
+		    const orgId = document.getElementById('employerId').value;
 		    $.ajax({
 		        type: "GET",
 		        url: "/getRequestedVoucherApproveList",
-		        data: { employerId },
+		        data: { orgId },
 		        success: function(data) {
 		            newData = data;
 		            var data1 = jQuery.parseJSON(newData);
@@ -746,7 +711,7 @@
 		                aoColumns: [
 		                    { "mData": "name" },
 		                    { "mData": "mobile" },
-		                    { "mData": "voucherType" },
+		                    { "mData": "purposeDescription" },
 		                   // { "mData": "voucherSubType" },
 						   { 
 				           "mData": "amount",
@@ -761,10 +726,10 @@
 				           }
 				       },
 		                    { "mData": "remarks" },
-						{ "mData": "validity","render": function (validity, type, row) {
+						//{ "mData": "validity","render": function (validity, type, row) {
 							
-							return validity + " days";
-						}},
+						//	return validity + " days";
+						//}},
 							{
 							"mData": "statusMessage",
 							"render": function (status, type, row) {
@@ -815,46 +780,6 @@
 		    });
 		}
 
-	/* old working function 
-	function getRowData(btnIssue) {
-		var selectedBank = document.getElementById("banklist").value;
-		    
-		    if (!selectedBank) {
-		        alert("Please select a bank account before selecting a row.");
-				return;
-		    }
-			
-	    var table = $('#employeelist').DataTable();
-	    var row = $(btnIssue).closest('tr');
-	    var rowData = table.row(row).data();
-	    
-	    console.log("Id of selected record", rowData.id);
-	    
-	    document.getElementById("requestId").value = rowData.id;
-	    document.getElementById("search").value = rowData.name;
-	    document.getElementById("mobile").value = rowData.mobile;
-	    document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType + "|" + rowData.voucherSubType;
-	    
-	    // Get the available balance from .text-wrapper-3
-	    let availableBalanceText = document.querySelector(".text-wrapper-3").innerText.replace(/[^0-9.]/g, "");
-	    let availableBalance = parseFloat(availableBalanceText.replace(/,/g, '')) || 0; // Convert to number
-
-	    // Get row amount and compare
-	    let requestedAmount = parseFloat(rowData.amount) || 0;
-	    let finalAmount = (requestedAmount > availableBalance) ? availableBalance : requestedAmount;
-	    
-	    document.getElementById("amount").value = finalAmount.toFixed(2);
-		document.getElementById("requestedamount").value = finalAmount.toFixed(2);
-
-	    document.getElementById("voucherCode").value = rowData.purposeCode;
-	    document.getElementById("purposeCode").value = rowData.mcc;
-	    document.getElementById("voucherType").value = rowData.voucherType;
-	    document.getElementById("voucherSubType").value = rowData.voucherSubType;
-	    document.getElementById("mcc").value = rowData.mcc;
-	    
-	    $("#selectvouchers-wrap03").show();
-	    $("#selectemployee-wrap03").hide();
-	}*/
 	function getRowData(btnIssue) {
 	    var selectedBank = document.getElementById("banklist").value;
 	    
@@ -872,10 +797,8 @@
 	    document.getElementById("requestId").value = rowData.id;
 	    document.getElementById("search").value = rowData.name;
 	    document.getElementById("mobile").value = rowData.mobile;
-	    //document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType + "|" + rowData.voucherSubType;
 		document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType;
 
-	    // Always use row amount regardless of bank balance
 	    let rowAmount = parseFloat(rowData.amount) || 0;
 
 	    document.getElementById("amount").value = rowAmount.toFixed(2);
@@ -883,7 +806,8 @@
 
 	    document.getElementById("voucherCode").value = rowData.purposeCode;
 	    document.getElementById("purposeCode").value = rowData.mcc;
-	    document.getElementById("voucherType").value = rowData.voucherType;
+	    document.getElementById("voucherType").value = rowData.purposeDescription;
+		document.getElementById("btnforvccategoryforbulkissuance").value = rowData.purposeDescription;
 	    document.getElementById("voucherSubType").value = rowData.voucherSubType;
 	    document.getElementById("mcc").value = rowData.mcc;
 	
@@ -901,8 +825,6 @@
 		
 	
 	}
-
-
 	function backEmployeeList(){
 
 		$("#selectvouchers-wrap03").hide();
@@ -1057,26 +979,26 @@
 	<script>
 	
 	function getTotalVoucherCount(){
-				var employerid = document.getElementById("employerId").value;
-				$.ajax({
-					type: "POST",
-					url: "/getTotalVoucherCount",
-					data: {
-						"orgId": employerid,
-						"workflowid":100003
-					},
-					success: function(data) {
-						newData = data;
-						var data1 = jQuery.parseJSON(newData);
-						document.getElementById("totalNumber").innerText=data1.totalCount;
-						document.getElementById("totalValue").innerText="₹"+data1.totalAmount;
-						
-						},
-						error: function(e) {
-							alert('Failed to fetch JSON data' + e);
-					}
-				});
+		var employerid = document.getElementById("employerId").value;
+		$.ajax({
+			type: "POST",
+			url: "/getTotalVoucherCount",
+			data: {
+				"orgId": employerid,
+				"workflowid":100003
+			},
+			success: function(data) {
+				newData = data;
+				var data1 = jQuery.parseJSON(newData);
+				document.getElementById("totalNumber").innerText=data1.totalCount;
+				document.getElementById("totalValue").innerText="₹"+data1.totalAmount;
+				
+				},
+				error: function(e) {
+					alert('Failed to fetch JSON data' + e);
 			}
+		});
+	}
 				
 	</script>
 	<script>

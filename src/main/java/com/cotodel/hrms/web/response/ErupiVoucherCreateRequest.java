@@ -1,5 +1,7 @@
 package com.cotodel.hrms.web.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,31 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ErupiVoucherCreateRequest {
-//	private Long id;
-//	private Long employerId;
-//	private Long employeeId;
-//	private String name;
-//	private String voucherType;
-//	private String voucherSubType;
-//	private Integer voucherQuantity;
-//	private Float amount;
-//	private String remarks; 
-//	private String response;
-//	private Integer mobno;
+
 	private Long id;
-	private Long employerId;
+	private Long orgId;
 	private Long employeeId;
-	private String name;
-	private String mobile;
-	private String voucherType;
-	private String voucherSubType;
-	private String amount;
-	private String remarks;
+	private String employeeName;
+	private String employeeMobile;
+	private String createdby;
 	private String response;
-	private String purposeCode;	
-	private String mcc;
-	private Integer validity;
 	private String clientKey;
-	private String hash;   
+	private String hash;
+	List<VoucherRequestData> voucherRequestData;
 
 }
