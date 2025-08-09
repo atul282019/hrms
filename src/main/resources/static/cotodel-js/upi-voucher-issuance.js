@@ -2192,12 +2192,12 @@ function sortTable(columnIndex) {
 	   */
 	   function requestedVoucherCount() {
 	   											   
-	   											    const employerId = document.getElementById('employerId').value;
+	   											    const orgId = document.getElementById('employerId').value;
 
 	   											    $.ajax({
 	   											        type: "GET",
 	   											        url: "/getRequestedVoucherApproveList",
-	   											        data: { employerId },
+	   											        data: { orgId },
 	   											        success: function (data) {
 	   											            const data1 = jQuery.parseJSON(data);
 	   											            const data2 = data1.data;

@@ -2051,7 +2051,7 @@ public ModelAndView helpdeskaction(Model model) {
 	if(token!=null) {
 		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 		if(obj!=null) {
-			if(obj.getUser_role()==9 || obj.getUser_role()==1) {
+			if(obj.getUser_role()==7) {
 			model.addAttribute("name",obj.getName());
 			model.addAttribute("org",obj.getOrgName());
 			model.addAttribute("mobile",obj.getMobile());
@@ -2075,7 +2075,7 @@ public ModelAndView helpdeskadmin(Model model, @RequestParam String ticketId, Ht
         UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
 
         if (obj != null) {
-            if (obj.getUser_role() == 9 || obj.getUser_role() == 1) {
+            if (obj.getUser_role() == 7) {
                 model.addAttribute("name", obj.getName());
                 model.addAttribute("org", obj.getOrgName());
                 model.addAttribute("mobile", obj.getMobile());

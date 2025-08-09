@@ -237,7 +237,7 @@ public class TicketSupportController extends CotoDelBaseController {
 		    }
 
 //		     Check User Role and Organization ID
-		    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1  || obj.getUser_role() == 2 || obj.getUser_role() == 3) && obj.getOrgid() == erupiTicketSaveRequest.getOrgId().intValue()) {
+		    if ((obj.getUser_role() == 9 || obj.getUser_role() == 1  || obj.getUser_role() == 2 || obj.getUser_role() == 3 || obj.getUser_role() == 7) && obj.getOrgid() == erupiTicketSaveRequest.getOrgId().intValue()) {
 		        try {
 		            String json = EncryptionDecriptionUtil.convertToJson(erupiTicketSaveRequest);
 		            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);

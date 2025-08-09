@@ -150,7 +150,7 @@ async function getSupportTicketActionList() {
     type: "GET",
     url: "/getTicketListForAction",
     data: {
-      orgId: orgId
+      //orgId: orgId
     },
     beforeSend: function (xhr) {},
     success: function (data) {
@@ -380,7 +380,7 @@ async function changeTicketStatus(){
 	      data: {
 			        "id":ticketId,
 					"orgId":orgId,
-					"issueDesc":issueDesc,
+					"responseIssueDesc":issueDesc,
 					"respTicketStatus":respTicketStatus,
 					"respTicketStatusDesc":respTicketStatusDesc,
 					"ticketImg":base64file,

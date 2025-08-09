@@ -788,33 +788,29 @@
 					    const continueBtn = document.getElementById("btnpayment");
 					    const infoAlert = document.getElementById("tialAmountLimit");
 				        const limitDisplayDiv = document.getElementById("limitDisplayDiv");
-					    if (limitAmount <= 0) {
-					        // Disable all options and button
-					        radios.forEach(radio => radio.disabled = true);
-					        continueBtn.disabled = true;
-
-					        // Hide info alert
-					        infoAlert.style.display = "none";
-					    } else {
-					        // Enable valid options
-					        radios.forEach(radio => {
-					            const label = document.querySelector(`label[for='${radio.id}']`);
-					            const labelText = label.innerText.replace(/[₹,]/g, '').trim();
-					            const amount = Number(labelText);
-					            radio.disabled = amount > limitAmount;
-					        });
-					        continueBtn.disabled = false;
+					    ///if (limitAmount <= 0) {
+					    //    radios.forEach(radio => radio.disabled = true);
+					//        continueBtn.disabled = true;
+					 //       infoAlert.style.display = "none";
+					//    } else {
+					//        radios.forEach(radio => {
+					//            const label = document.querySelector(`label[for='${radio.id}']`);
+					//            const labelText = label.innerText.replace(/[₹,]/g, '').trim();
+					//            const amount = Number(labelText);
+					//            //radio.disabled = amount > limitAmount;
+					//        });
+					//        continueBtn.disabled = false;
 
 					        // Show info alert with remaining balance
-							if (walletAmount !== 0) {
-					        infoAlert.style.display = "flex";
-					        limitDisplayDiv.innerText = 
-					            `Monthly limit for Product Trial is ₹2,500. You can only try ₹${limitAmount.toLocaleString('en-IN', {
-					                minimumFractionDigits: 2,
-					                maximumFractionDigits: 2
-					            })} more.`;
-								}
-					    }
+							//if (walletAmount !== 0) {
+					     //   infoAlert.style.display = "flex";
+					     //   limitDisplayDiv.innerText = 
+					     //       `Monthly limit for Product Trial is ₹2,500. You can only try ₹${limitAmount.toLocaleString('en-IN', {
+					     //           minimumFractionDigits: 2,
+					      //          maximumFractionDigits: 2
+					      //      })} more.`;
+							//	}
+					   // }
 					},
 			        error: function(e) {
 			            alert('Error: ' + e.responseText);
