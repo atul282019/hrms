@@ -27,28 +27,28 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 	public ApplicationConstantConfig applicationConstantConfig;
 
 	@Override
-	public String createSingleVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+	public String createSingleVoucher(String token, SingleVoucherCreationRequest erupiVoucherCreateDetails) {
 		return CommonUtility.bulkUserRequest(token,createVoucherRequestJson(erupiVoucherCreateDetails), 
 				applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucherOLD,applicationConstantConfig.apiSignaturePublicPath,
 				applicationConstantConfig.apiSignaturePrivatePath);
 		
 	}
 	
-	public  String createVoucherRequestJson(ErupiVoucherCreateDetails erupiVoucherCreateDetails){
+	public  String createVoucherRequestJson(SingleVoucherCreationRequest erupiVoucherCreateDetails){
 		JSONObject data= new JSONObject();
 
 		JSONObject voucherId= new JSONObject();
-		voucherId.put("id", erupiVoucherCreateDetails.getVoucherId());
-		
-		data.put("voucherId", voucherId);
-		data.put("requestId", erupiVoucherCreateDetails.getRequestId());
-		
-		data.put("name", erupiVoucherCreateDetails.getName());
-		data.put("mobile", erupiVoucherCreateDetails.getMobile());
-		data.put("amount", erupiVoucherCreateDetails.getAmount());
-		data.put("startDate", erupiVoucherCreateDetails.getStartDate());
-		data.put("expDate",erupiVoucherCreateDetails.getExpDate() );
-		data.put("purposeCode", erupiVoucherCreateDetails.getPurposeCode());
+//		voucherId.put("id", erupiVoucherCreateDetails.getVoucherId());
+//		
+//		data.put("voucherId", voucherId);
+//		data.put("requestId", erupiVoucherCreateDetails.getRequestId());
+//		
+//		data.put("name", erupiVoucherCreateDetails.getName());
+//		data.put("mobile", erupiVoucherCreateDetails.getMobile());
+//		data.put("amount", erupiVoucherCreateDetails.getAmount());
+//		data.put("startDate", erupiVoucherCreateDetails.getStartDate());
+//		data.put("expDate",erupiVoucherCreateDetails.getExpDate() );
+//		data.put("purposeCode", erupiVoucherCreateDetails.getPurposeCode());
 		data.put("consent", erupiVoucherCreateDetails.getConsent());
 		data.put("otpValidationStatus", "");
 		data.put("creationDate", "");
@@ -62,19 +62,19 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("merchanttxnid", erupiVoucherCreateDetails.getMerchanttxnid());
 		data.put("creationmode", "");
 		data.put("bulktblId","" );
-		data.put("redemtionType", erupiVoucherCreateDetails.getRedemtionType());
-		data.put("mcc", erupiVoucherCreateDetails.getMcc());
+//		data.put("redemtionType", erupiVoucherCreateDetails.getRedemtionType());
+//		data.put("mcc", erupiVoucherCreateDetails.getMcc());
 		data.put("extra1", "");
 		data.put("extra2","");
 		data.put("extra3", "");
 
-		data.put("beneficiaryID",erupiVoucherCreateDetails.getMobile());
+//		data.put("beneficiaryID",erupiVoucherCreateDetails.getMobile());
 		data.put("payerVA", erupiVoucherCreateDetails.getPayerVA());
 		data.put("bankcode", erupiVoucherCreateDetails.getBankcode());
 		data.put("type", "");
-		data.put("voucherCode", erupiVoucherCreateDetails.getVoucherCode());
-		data.put("voucherType", erupiVoucherCreateDetails.getVoucherType());
-		data.put("voucherDesc", erupiVoucherCreateDetails.getVoucherDesc());
+//		data.put("voucherCode", erupiVoucherCreateDetails.getVoucherCode());
+//		data.put("voucherType", erupiVoucherCreateDetails.getVoucherType());
+//		data.put("voucherDesc", erupiVoucherCreateDetails.getVoucherDesc());
 		data.put("merchantId", erupiVoucherCreateDetails.getMerchantId());
 		data.put("subMerchantId", erupiVoucherCreateDetails.getSubMerchantId());
 		
@@ -83,7 +83,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		data.put("clientKey",erupiVoucherCreateDetails.getClientKey());
 		data.put("hash",erupiVoucherCreateDetails.getHash());
 		
-		data.put("validity",erupiVoucherCreateDetails.getValidity());
+//		data.put("validity",erupiVoucherCreateDetails.getValidity());
 		
 		logger.info(data.toString());
 		return data.toString();

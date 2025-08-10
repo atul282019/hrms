@@ -212,18 +212,26 @@
 								  -->
                             </div>
 							<div class="upi-voucher-wrap selectvouchers-bottom" id="selectemployee-wrap03">
-	                              <div class="d-flex">
+	                              <!--<div class="d-flex">
 	                                  <h3>Employee List </h3>
 	                              </div>
 
 	                              <div>
 	                                  <p>Please input the details for the issuance of vouchers.</p>
-	                              </div>
-
+	                              </div>-->
+								  <div class="text-end mb-3">
+								             <button type="button" class="btn btn-custom" id="approveVoucherBtn">
+								                 Approve
+								             </button>
+								         </div>
+										
 	                              <div class="table-responsive">
 	                                  <table class="table table-reimbursements selectvouchers-table" id="employeelist">
 	                                      <thead>
-	                                          <tr>
+	                                          <tr>											<!-- NEW: Header checkbox -->
+											         <th style="width:40px;">
+											           <input type="checkbox" id="selectAllEmployees" title="Select all" />
+											         </th>
 	                                              <th>Employee Name</th>
 												  <th>Mobile Number</th>
 	                                              <!-- <th>DOB</th>-->
@@ -236,7 +244,7 @@
 												  <th>Remarks</th>
 												 <!-- <th>Validity</th>-->
 												  <th>Status</th>
-												  <th>Action</th>
+												  <!--<th>Action</th>-->
 	                                          </tr>
 	                                      </thead>
 	                                      <tbody>
@@ -273,7 +281,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="voucherTableBody">
-                                            <tr>
+                                           <!--<tr>
                                                 <td>
                                                     <div class="autocomp-input-wrap table-input">
                                                         <input type="text" class="autocomp-input " id="search"
@@ -352,7 +360,7 @@
                                            <td>
 											
                                            </td>
-                                       </tr>
+                                       </tr> --> 
                                         </tbody>
                                     </table>
                                 </div>
@@ -680,157 +688,268 @@
 	</script>
 	
 	<script>
-		
-		function getRequestedEmployeeList(){ 
-		    document.getElementById("signinLoader").style.display="flex";
-		    const orgId = document.getElementById('employerId').value;
-		    $.ajax({
-		        type: "GET",
-		        url: "/getRequestedVoucherApproveList",
-		        data: { orgId },
-		        success: function(data) {
-		            newData = data;
-		            var data1 = jQuery.parseJSON(newData);
-		            var data2 = data1.data;
-		            console.log("getRequestedEmployeeList()", data2);
-		            document.getElementById("signinLoader").style.display="none";
+	  // --- Utilities ---
+	  function formatINR(amount) {
+	    const n = parseFloat(amount);
+	    if (Number.isNaN(n)) return amount;
+	    return '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+	  }
 
-		            var table = $('#employeelist').DataTable({
-		                destroy: true,
-		                lengthChange: true,
-		                responsive: true,
-		                searching: true,
-		                bInfo: false,
-		                paging: true,
-		                autoWidth: false,
-		                pagingType: "full_numbers",
-		                pageLength: 50,
-		                buttons: ["csv", "excel"],
-		                language: { "emptyTable": "Records Not Available." },
-		                aaData: data2,
-		                aoColumns: [
-		                    { "mData": "name" },
-		                    { "mData": "mobile" },
-		                    { "mData": "purposeDescription" },
-		                   // { "mData": "voucherSubType" },
-						   { 
-				           "mData": "amount",
-				           "mRender": function(data, type, row) {
-				               if (!isNaN(data)) {
-				                   return '₹' + Number(data).toLocaleString('en-IN', {
-				                       minimumFractionDigits: 2,
-				                       maximumFractionDigits: 2
-				                   });
-				               }
-				               return data;
-				           }
-				       },
-		                    { "mData": "remarks" },
-						//{ "mData": "validity","render": function (validity, type, row) {
-							
-						//	return validity + " days";
-						//}},
-							{
-							"mData": "statusMessage",
-							"render": function (status, type, row) {
-								let style = "";
-								if (status === "Requested") {
-									style = "color:#ffc107; font-weight:bold;";
-								} else if (status === "Voucher Created") {
-									style = "color:#28a745; font-weight:bold;";
-								} else if (status === "Approved by manager") {
-									style = "color:#007bff; font-weight:bold;";
-								}
-								else if(status==="Rejected by manager"){
-									style ="color:#dc3545; font-weight:bold;";
-									}
-								return `<span style="${style}">${status || "N/A"}</span>`;
-							}
-						}, 
-		                    { "mData": "id", "render": function (data2, type, row) {
-		                        if (row.statusMessage !== "Voucher Created") {
-		                            return `
-		                                <td>
-		                                    <div class="dropdown no-arrow ml-2">
-		                                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		                                            <i class="fas fa-ellipsis-v fa-sm"></i>
-		                                        </a>
-		                                        <br>
-		                                        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userDropdown">
-		                                            <button 
-		                                                class="dropdown-item py-2" 
-		                                                value="${data2}" 
-		                                                id="btnIssue" 
-		                                                onclick="getRowData(this)">
-		                                                Issue Voucher
-		                                            </button>
-		                                        </div>
-		                                    </div>
-		                                </td>`;
-		                        } else {
-		                            return '';
-		                        }
-		                    }}
-		                ],
-		            });
-		        },
-		        error: function(e) {
-		            alert('Failed to fetch JSON data' + e);
-		        }
-		    });
-		}
+	  // --- State ---
+	  let employeeTable = null;
+	  const selectedIds = new Set();
 
-	function getRowData(btnIssue) {
-	    var selectedBank = document.getElementById("banklist").value;
-	    
-	    if (!selectedBank) {
-	        alert("Please select a bank account before selecting a row.");
-	        return;
+	  // --- View helpers ---
+	  function buildVoucherRow(rowData) {
+		console.log("Row data",rowData);
+	    const requested = parseFloat(rowData.amount) || 0;
+	    const todayISO = new Date().toISOString().slice(0, 10);
+	    return `
+	      <tr data-request-id="${rowData.id}">
+	        <td>
+	          <div class="autocomp-input-wrap table-input">
+	            <input type="text" class="autocomp-input" value="${rowData.name || ''}" placeholder="Enter Name" autocomplete="off" />
+	          </div>
+	        </td>
+	        <td>
+	          <input type="text" class="table-input" value="${rowData.mobile || ''}" maxlength="10"
+	            oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Enter Mobile Number" />
+	        </td>
+	        <td>
+	          <input type="text" class="table-input" value="${rowData.purposeDescription || ''}" placeholder="Select Voucher" />
+	        </td>
+	        <td>
+	          <select class="GeneralSelect">
+	            <option value="" class="test">Choose Type</option>
+	            <option value="Single">Single</option>
+	            <option value="Multiple" selected>Multiple</option>
+	          </select>
+	        </td>
+	        <td>
+	          <input type="text" class="table-input requested-amount" value="${requested.toFixed(2)}" placeholder="Requested Amount" readonly />
+	        </td>
+	        <td>
+	          <input type="text" class="table-input issue-amount" value="${requested.toFixed(2)}" placeholder="Enter Amount"
+	                 oninput="this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');" maxlength="6" />
+	        </td>
+	        <td>
+	          <div><input type="date" class="table-input" value="${todayISO}" /></div>
+	        </td>
+	        <td>
+	          <select class="GeneralSelect">
+	            <option value="1 Day">1 Day</option>
+	            <option value="7 Days">7 Days</option>
+	            <option value="15 Days">15 Days</option>
+	            <option value="30 Days" selected>30 Days</option>
+	            <option value="90 Days">90 Days</option>
+	            <option value="365 Days">365 Days</option>
+	          </select>
+	        </td>
+	        <td>
+	          <a href="#" class="delete-voucher-row" title="Remove"><img src="img/delete.svg" alt=""></a>
+			  
+			  <input type="hidden" class="selectMCC" value="${rowData.mcc || ''}" />
+			    <input type="hidden" class="selectMCCDescription" value="${rowData.mccDescription || ''}" />
+			    <input type="hidden" class="selectPurpose" value="${rowData.purposeCode || ''}" />
+			    <input type="hidden" class="selectPurposeDescription" value="${rowData.purposeDescription || ''}" />
+				<input type="hidden" class="selectPurposeDescription" value="${rowData.voucherDesc || ''}" />
+	        </td>
+	      </tr>`;
+	  }
+
+	  function updateTotals() {
+	    const rows = document.querySelectorAll('#voucherTableBody tr');
+	    const count = rows.length;
+	    let total = 0;
+	    rows.forEach(r => {
+	      const v = parseFloat(r.querySelector('.issue-amount')?.value || '0');
+	      if (!Number.isNaN(v)) total += v;
+	    });
+	    const countEl = document.getElementById('totalNumberCount');
+	    const valueEl = document.getElementById('totalValueCount');
+	    if (countEl) countEl.textContent = count;
+	    if (valueEl) valueEl.textContent = formatINR(total);
+	  }
+
+	  function renderVoucherRowsFromSelection() {
+	    const tbody = document.getElementById('voucherTableBody');
+	    tbody.innerHTML = '';
+	    if (!employeeTable) return;
+	    employeeTable.rows().every(function () {
+	      const data = this.data();
+	      if (selectedIds.has(String(data.id))) {
+	        tbody.insertAdjacentHTML('beforeend', buildVoucherRow(data));
+	      }
+	    });
+	    tbody.querySelectorAll('.delete-voucher-row').forEach(a => {
+	      a.addEventListener('click', function (e) {
+	        e.preventDefault();
+	        const tr = this.closest('tr');
+	        const id = tr.getAttribute('data-request-id');
+	        tr.remove();
+	        if (id) {
+	          selectedIds.delete(String(id));
+	          $('#employeelist tbody input.row-select[data-id="' + id + '"]').prop('checked', false);
+	          reconcileHeaderCheckbox();
+	        }
+	        updateTotals();
+	        togglePanels();
+	      });
+	    });
+	    tbody.querySelectorAll('.issue-amount').forEach(inp => {
+	      inp.addEventListener('input', updateTotals);
+	    });
+	    updateTotals();
+	  }
+
+	  function togglePanels() {
+	    const hasSelection = selectedIds.size > 0;
+	    $("#selectvouchers-wrap03").toggle(hasSelection);
+	    $("#selectemployee-wrap03").toggle(!hasSelection);
+	  }
+
+	  function reconcileHeaderCheckbox() {
+	    const $rows = $('#employeelist tbody input.row-select:enabled');
+	    const total = $rows.length;
+	    const checked = $rows.filter(':checked').length;
+	    const $header = $('#selectAllEmployees');
+	    if (checked === 0) {
+	      $header.prop('checked', false).prop('indeterminate', false);
+	    } else if (checked === total) {
+	      $header.prop('checked', true).prop('indeterminate', false);
+	    } else {
+	      $header.prop('checked', false).prop('indeterminate', true);
 	    }
-	    
-	    var table = $('#employeelist').DataTable();
-	    var row = $(btnIssue).closest('tr');
-	    var rowData = table.row(row).data();
+	    // Optional: badge on Approve
+	    const badge = checked > 0 ? ` (${checked})` : '';
+	    $('#approveVoucherBtn').text('Approve' + badge);
+	  }
 
-	    console.log("Id of selected record", rowData.id);
+	  function backEmployeeList() {
+	    selectedIds.clear();
+	    $('#voucherTableBody').empty();
+	    $('#employeelist tbody input.row-select').prop('checked', false);
+	    $('#selectAllEmployees').prop('checked', false).prop('indeterminate', false);
+	    updateTotals();
+	    togglePanels();
+	    reconcileHeaderCheckbox();
+	  }
+	  window.backEmployeeList = backEmployeeList;
 
-	    document.getElementById("requestId").value = rowData.id;
-	    document.getElementById("search").value = rowData.name;
-	    document.getElementById("mobile").value = rowData.mobile;
-		document.getElementById("btnforvccategoryforbulkissuance").value = rowData.voucherType;
+	  // --- Data load + table ---
+	  function getRequestedEmployeeList() {
+	    document.getElementById('signinLoader').style.display = 'flex';
+	    const orgId = document.getElementById('employerId').value;
 
-	    let rowAmount = parseFloat(rowData.amount) || 0;
+	    $.ajax({
+	      type: 'GET',
+	      url: '/getRequestedVoucherApproveList',
+	      data: { orgId },
+	      success: function (data) {
+	        const data1 = jQuery.parseJSON(data);
+	        const rows = data1.data || [];
+			console.log("/getRequestedVoucherApproveList data",rows);
+	        document.getElementById('signinLoader').style.display = 'none';
 
-	    document.getElementById("amount").value = rowAmount.toFixed(2);
-	    document.getElementById("requestedamount").value = rowAmount.toFixed(2);
+	        if (employeeTable) {
+	          employeeTable.clear().destroy();
+	          $('#employeelist tbody').empty();
+	        }
 
-	    document.getElementById("voucherCode").value = rowData.purposeCode;
-	    document.getElementById("purposeCode").value = rowData.mcc;
-	    document.getElementById("voucherType").value = rowData.purposeDescription;
-		document.getElementById("btnforvccategoryforbulkissuance").value = rowData.purposeDescription;
-	    document.getElementById("voucherSubType").value = rowData.voucherSubType;
-	    document.getElementById("mcc").value = rowData.mcc;
-	
-		document.getElementById("totalNumberCount").textContent = 1;
+	        employeeTable = $('#employeelist').DataTable({
+	          destroy: true,
+	          lengthChange: true,
+	          responsive: true,
+	          searching: false,
+	          bInfo: false,
+	          paging: false,
+	          autoWidth: false,
+	          pagingType: 'full_numbers',
+	          pageLength: 50,
+	          buttons: ['csv', 'excel'],
+	          language: { emptyTable: 'Records Not Available.' },
+	          aaData: rows,
+	          rowId: function (row) { return String(row.id); },
+	          columnDefs: [ { orderable: false, targets: 0 } ],
+	          aoColumns: [
+	            {
+	              mData: null,
+	              sClass: 'text-center',
+	              mRender: function (data, type, row) {
+	                const disabled = row.statusMessage === 'Voucher Created' ? 'disabled' : '';
+	                const checked = selectedIds.has(String(row.id)) ? 'checked' : '';
+	                return `<input type="checkbox" class="row-select" data-id="${row.id}" ${checked} ${disabled}/>`;
+	              }
+	            },
+	            { mData: 'name' },
+	            { mData: 'mobile' },
+	            { mData: 'purposeDescription' },
+	            { mData: 'amount', mRender: function (data) { return !isNaN(data) ? formatINR(data) : data; } },
+	            { mData: 'remarks' },
+	            {
+	              mData: 'statusMessage',
+	              mRender: function (status) {
+	                let style = '';
+	                if (status === 'Requested') style = 'color:#ffc107; font-weight:bold;';
+	                else if (status === 'Voucher Created') style = 'color:#28a745; font-weight:bold;';
+	                else if (status === 'Approved by manager') style = 'color:#007bff; font-weight:bold;';
+	                else if (status === 'Rejected by manager') style = 'color:#dc3545; font-weight:bold;';
+	                return `<span style="${style}">${status || 'N/A'}</span>`;
+	              }
+	            }
+	          ]
+	        });
 
-		const amount = parseFloat(rowData.amount) || 0;
-		document.getElementById("totalValueCount").textContent = 
-		    '₹' + amount.toLocaleString('en-IN', {
-		        minimumFractionDigits: 2,
-		        maximumFractionDigits: 2
-		    });
-			
-	    $("#selectvouchers-wrap03").show();
-	    $("#selectemployee-wrap03").hide();
-		
-	
-	}
-	function backEmployeeList(){
+	        // --- Handlers ---
+	        // Row checkbox: update selection only
+	        $('#employeelist tbody').off('change.rowselect').on('change.rowselect', 'input.row-select', function () {
+	          const id = $(this).data('id');
+	          if ($(this).is(':checked')) selectedIds.add(String(id));
+	          else selectedIds.delete(String(id));
+	          reconcileHeaderCheckbox();
+	        });
 
-		$("#selectvouchers-wrap03").hide();
-		$("#selectemployee-wrap03").show();
-	}
+	        // Header select-all: update selection only
+	        $('#selectAllEmployees').off('change').on('change', function () {
+	          const shouldCheck = $(this).is(':checked');
+	          $('#employeelist tbody input.row-select:enabled').each(function () {
+	            const id = $(this).data('id');
+	            $(this).prop('checked', shouldCheck);
+	            if (shouldCheck) selectedIds.add(String(id));
+	            else selectedIds.delete(String(id));
+	          });
+	          reconcileHeaderCheckbox();
+	        });
+
+	        // Approve: validate + render
+	        $(document).off('click.approve').on('click', '#approveVoucherBtn', function () {
+	          const selectedBank = document.getElementById('banklist')?.value;
+	          if (!selectedBank) {
+	            alert('Please select a bank account before approving.');
+	            return;
+	          }
+	          if (selectedIds.size === 0) {
+	            alert('Please select at least one employee before approving.');
+	            return;
+	          }
+	          renderVoucherRowsFromSelection();
+	          togglePanels();
+	        });
+
+	        employeeTable.on('draw', reconcileHeaderCheckbox);
+	        reconcileHeaderCheckbox();
+	      },
+	      error: function (e) {
+	        alert('Failed to fetch JSON data ' + e);
+	      }
+	    });
+	  }
+	  window.getRequestedEmployeeList = getRequestedEmployeeList;
+
+	  // Optional: auto-load
+	  // $(document).ready(getRequestedEmployeeList);
 	</script>
+
 	<script>
 			$('.responsive-content').slick({
             dots: false,

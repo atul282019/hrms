@@ -60,21 +60,34 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
 	//single voucher Issue backup
 	@PostMapping(value="/createSingleVoucherRequested")
-	public @ResponseBody String createSingleVoucherOLD(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session,
-			ErupiVoucherCreateDetails erupiVoucherCreateDetails) {
+	public @ResponseBody String createSingleVoucherOLD(HttpServletRequest request,
+			@RequestBody SingleVoucherCreationRequest erupiVoucherCreateDetails, BindingResult result, HttpSession session, 
+			ModelMap model,Locale locale)	
+	{
 		
 		String receivedHash = erupiVoucherCreateDetails.getHash();
 		 // Validate client key first
         if (!CLIENT_KEY.equals(erupiVoucherCreateDetails.getClientKey())) {
           //  return Map.of("isValid", false, "message", "Invalid client key");
         }
-        String dataString = erupiVoucherCreateDetails.getName()+erupiVoucherCreateDetails.getMobile()+erupiVoucherCreateDetails.getStartDate()
-        +erupiVoucherCreateDetails.getValidity()+erupiVoucherCreateDetails.getPurposeCode()+erupiVoucherCreateDetails.getConsent()
-        +erupiVoucherCreateDetails.getCreatedby()+ erupiVoucherCreateDetails.getOrgId()+
-        erupiVoucherCreateDetails.getMerchantId()+erupiVoucherCreateDetails.getSubMerchantId()+erupiVoucherCreateDetails.getRedemtionType()+
-        erupiVoucherCreateDetails.getMcc()+erupiVoucherCreateDetails.getVoucherCode()+
-        erupiVoucherCreateDetails.getVoucherDesc() +erupiVoucherCreateDetails.getBankcode()+erupiVoucherCreateDetails
-        .getAccountNumber()+erupiVoucherCreateDetails.getPayerVA()+erupiVoucherCreateDetails.getMandateType()+erupiVoucherCreateDetails.getAmount()+
+        String dataString = 
+//        		erupiVoucherCreateDetails.getName()+
+//        		erupiVoucherCreateDetails.getMobile()+
+//        		erupiVoucherCreateDetails.getStartDate()
+//        +erupiVoucherCreateDetails.getValidity()+
+//        erupiVoucherCreateDetails.getPurposeCode()+
+        erupiVoucherCreateDetails.getConsent()
+        +erupiVoucherCreateDetails.getCreatedby()+ 
+        erupiVoucherCreateDetails.getOrgId()+
+        erupiVoucherCreateDetails.getMerchantId()+
+        erupiVoucherCreateDetails.getSubMerchantId()+
+//        erupiVoucherCreateDetails.getRedemtionType()+
+//        erupiVoucherCreateDetails.getMcc()+
+//        erupiVoucherCreateDetails.getVoucherCode()+
+//        erupiVoucherCreateDetails.getVoucherDesc() +
+        erupiVoucherCreateDetails.getBankcode()+erupiVoucherCreateDetails
+        .getAccountNumber()+erupiVoucherCreateDetails.getPayerVA()+erupiVoucherCreateDetails.getMandateType()+
+        //erupiVoucherCreateDetails.getAmount()+
         CLIENT_KEY+SECRET_KEY;
 		   
 
@@ -95,15 +108,15 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
     ObjectMapper mapper = new ObjectMapper();
  
     // Get token from session
-    if (!isValid) {
-        responseMap.put("status", false);
-        responseMap.put("message", "Request Tempered");
-        try {
-            return mapper.writeValueAsString(responseMap);
-        } catch (JsonProcessingException e) {
-            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-        }
-    }
+//    if (!isValid) {
+//        responseMap.put("status", false);
+//        responseMap.put("message", "Request Tempered");
+//        try {
+//            return mapper.writeValueAsString(responseMap);
+//        } catch (JsonProcessingException e) {
+//            return "{\"status\":false, \"message\":\"JSON processing error\"}";
+//        }
+//    }
     String token = (String) session.getAttribute("hrms");
     
     if (token == null) {

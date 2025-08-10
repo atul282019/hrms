@@ -1,153 +1,88 @@
-function singleVoucherValidation(){
-				
-            	var banklist = document.getElementById("banklist").value; 
-				var voucher = document.getElementById("btnforvccategoryforbulkissuance").value;
-				var parts = voucher.split("|");
-				var voucherName = parts[0]; // "4C"
-				//var PurposeCode = parts[1]; // "5111"
-			   	var beneficiaryName = document.getElementById("search").value;
-			   	var beneficiaryMobile = document.getElementById("mobile").value;
-				var redemptionType = document.getElementById("redemptionType").value;
-			   	var amount = document.getElementById("amount").value;
-			   	var startDate = document.getElementById("startDate").value;
-			   	var validity = document.getElementById("expiryDate").value;
-			   	
-			   	var voucherCode = document.getElementById("voucherCode").value;
-			   	var voucherType = document.getElementById("voucherType").value;;
-			   	var voucherSubType = document.getElementById("voucherSubType").value;
-			   	var voucherDesc = document.getElementById("voucherDesc").value;
-			   	var purposeCode= document.getElementById("purposeCode").value;
-			   	var activeStatus = document.getElementById("activeStatus").value;
-			   	var createdby = document.getElementById("employerName").value;
-			   	var bankCode = document.getElementById("bankCode").value;
-			   	var mcc = parts[1]; 
-			   	var payerva = document.getElementById("payerva").value;
-			   	
-			   /*	 document.getElementById("voucherlbl").innerHTML=voucherName;
-			   	 document.getElementById("redemptionLbl").innerHTML = document.getElementById("redemptionType").value; 
-			   	 //document.getElementById("redemptionLbl").innerHTML = PurposeCode;
-			   	 document.getElementById("namelbl").innerHTML = beneficiaryName;
-			   	 document.getElementById("mobilelbl").innerHTML = beneficiaryMobile;
-			   	 document.getElementById("amountlbl").innerHTML = $("#amount").val();
-			   	 document.getElementById("startdatelbl").innerHTML = $("#startDate").val();*/
-			   	 //document.getElementById("validitylbl").innerHTML = $("#expiryDate").val();
-			     var employerId = document.getElementById("employerId").value;
-			     var employerName = document.getElementById("employerName").value;
-			   	const amountValue = amount.trim();
-			   			  
-			   	if(banklist=="" || banklist==null){
-			   				alert("Please select bank");
-			   				return false;
-			   	}
-			   	if(beneficiaryName=="" || beneficiaryName==null){
-			   			document.getElementById("beneficiaryNameError").innerHTML="Please enter beneficiary name";
-			   			return false;
-			   		}
-			   	else{
-			   		document.getElementById("beneficiaryNameError").innerHTML="";
-			   	}
-			   	if(beneficiaryMobile=="" || beneficiaryMobile==null){
-			   			document.getElementById("beneficiaryMobileError").innerHTML="Please enter beneficiary mobile number";
-			   			return false;
-			   		}
-			   	else{
-			   		document.getElementById("beneficiaryMobileError").innerHTML="";
-			   	}
-				if(voucher=="" || voucher==null){
-			   			document.getElementById("voucherError").innerHTML="Please select voucher";
-			   			return false;
-			   		}
-			   	else{
-			   		document.getElementById("voucherError").innerHTML="";
-			   	}
-				if(redemptionType=="" || redemptionType==null){
-				   			document.getElementById("redemptionTypeError").innerHTML="Please select redemption type";
-				   			return false;
-				   		}
-				   	else{
-				   		document.getElementById("redemptionTypeError").innerHTML="";
-				   	}
+// Continue → validate each source row and paint target table
+ function singleVoucherValidation() {
+   const banklist = document.getElementById('banklist')?.value || '';
+   if (!banklist) { alert('Please select bank'); return false; }
 
-			   	if(amount=="" || amount==null){
-			   			document.getElementById("amountError").innerHTML="Please enter amount";
-			   			return false;
-			   		}
-			           else if (isNaN(amountValue)) {
-			               amountError.textContent = "Please enter a valid amount (e.g., 10 or 10.50).";
-						   return false;
-			           } 
-			   		else if (amountValue === "0" || amountValue === "00" || amountValue === "000"
-			   			|| amountValue === "0000" || amountValue === "00000" || amountValue === "000000"
-			   		) {
-			                   amount.value = ""; // Clear the input
-			                   amountError.textContent = "Zero is not allowed.";
-			   				return false;
-			               }
-			   		else {
-			               amountError.textContent = "";
-			         }
-			   	
-			   	if(startDate=="" || startDate==null){
-			   			document.getElementById("startDateError").innerHTML="Please select voucher start date";
-			   			return false;
-			   		}
-			   		else{
-			   			document.getElementById("startDateError").innerHTML="";
-			   		}
+   const sourceRows = document.querySelectorAll('#sourceTable tbody tr');
+   if (sourceRows.length === 0) { alert('No voucher rows to process.'); return false; }
 
-			   	if(validity=="" || validity==null){
-			   			document.getElementById("expiryDateError").innerHTML="Please select validity";
-			   			return false;
-			   		}
-			   		else{
-			   			document.getElementById("expiryDateError").innerHTML="";
-			   		}
-				   var element = document.getElementById("lable2");
-				   							   	element.classList.add("active");
-				   var element = document.getElementById("lable3");
-				   	   	element.classList.add("active");
-				   	   	
-						const sourceRows = document.querySelectorAll("#sourceTable tbody tr");
-									 const targetBody = document.querySelector("#targetTable tbody");
+   const targetBody = document.querySelector('#targetTable tbody');
+   targetBody.innerHTML = '';
 
-									 targetBody.innerHTML = ""; // Clear previous content
+   let hasError = false;
+   sourceRows.forEach(row => {
+     const nameEl = row.querySelector('td:nth-child(1) input');
+     const mobEl = row.querySelector('td:nth-child(2) input');
+     const voucherEl = row.querySelector('td:nth-child(3) input');
+     const redemptionEl = row.querySelector('td:nth-child(4) select');
+     const reqAmtEl = row.querySelector('td:nth-child(5) input');
+     const issAmtEl = row.querySelector('td:nth-child(6) input');
+     const startEl = row.querySelector('td:nth-child(7) input[type="date"]');
+     const validityEl = row.querySelector('td:nth-child(8) select');
 
-									 // Loop through all rows except the last two (error row + add-new row)
-									 for (let i = 0; i < sourceRows.length - 1; i++) {
-									   const row = sourceRows[i];
-									   const cells = row.querySelectorAll("td");
-									   const newRow = document.createElement("tr");
+     const name = (nameEl?.value || '').trim();
+     const mobile = (mobEl?.value || '').trim();
+     const voucherType = (voucherEl?.value || '').trim();
+     const redemption = redemptionEl ? redemptionEl.options[redemptionEl.selectedIndex].text : '';
+     const reqAmt = parseFloat(reqAmtEl?.value || '');
+     const issAmt = parseFloat(issAmtEl?.value || '');
+     const startDate = (startEl?.value || '').trim();
+     const validity = validityEl ? validityEl.options[validityEl.selectedIndex].text : '';
 
-									   // Skip last <td> (delete icon)
-									   for (let j = 0; j < cells.length - 1; j++) {
-									     const cell = cells[j];
-									     const newCell = document.createElement("td");
-									     let value = "";
+     // minimal validations (why: prevent empty/invalid entries reaching backend)
+     setInvalid(nameEl, !name);
+     setInvalid(mobEl, !(mobile && mobile.length === 10));
+     setInvalid(voucherEl, !voucherType);
+     setInvalid(redemptionEl, !redemption);
+     setInvalid(issAmtEl, !(Number.isFinite(issAmt) && issAmt > 0));
+     setInvalid(startEl, !startDate);
+     setInvalid(validityEl, !validity);
 
-									     // Check for input, select, or plain text
-									     const input = cell.querySelector("input");
-									     const select = cell.querySelector("select");
+     if (!name || mobile.length !== 10 || !voucherType || !redemption || !Number.isFinite(issAmt) || issAmt <= 0 || !startDate || !validity) {
+       hasError = true;
+       return; // skip appending row
+     }
 
-									     if (input) {
-									       value = input.value.trim();
-									     } else if (select) {
-									       value = select.options[select.selectedIndex].text;
-									     } else {
-									       value = cell.textContent.trim();
-									     }
+     const tr = document.createElement('tr');
+     tr.innerHTML = `
+       <td>${name}</td>
+       <td>${mobile}</td>
+       <td>${voucherType}</td>
+       <td>${redemption}</td>
+       <td>${Number.isFinite(reqAmt) ? reqAmt.toFixed(2) : ''}</td>
+       <td>${issAmt.toFixed(2)}</td>
+       <td>${startDate}</td>
+       <td>${validity}</td>`;
+     targetBody.appendChild(tr);
+   });
 
-									     newCell.textContent = value;
-									     newRow.appendChild(newCell);
-									   }
+   if (hasError) { alert('Please fix the highlighted fields.'); return false; }
 
-									   targetBody.appendChild(newRow);
-									 }
-								   var element = document.getElementById("lable2");
-								   							   	element.classList.add("active");
-								   var element = document.getElementById("lable3");
-								   	   	element.classList.add("active");
-								   	   	
-									$("#selectvouchers-wrap04").show();
-									$("#selectvouchers-wrap03").hide();
-	}
-			
+   // Go to verify screen
+   $('#selectvouchers-wrap04').show();
+   $('#selectvouchers-wrap03').hide();
+   return true;
+ }
+ window.singleVoucherValidation = singleVoucherValidation;
+
+ // Verify step helpers
+ $(document).on('change', '#customCheck45', function() {
+   const checked = $(this).is(':checked');
+   $('#submitButton').prop('disabled', !checked);
+   $('#errorMessage').text(checked ? '' : 'Please confirm before issuing.');
+ });
+ $(document).on('click', '#verifyDetailBack', function() {
+   $('#selectvouchers-wrap04').hide();
+   $('#selectvouchers-wrap03').show();
+ });
+ function setInvalid(el, on, msg) { // why: minimal inline validation
+    if (!el) return;
+    if (on) el.classList.add('is-invalid'); else el.classList.remove('is-invalid');
+    if (msg) {
+      const id = el.getAttribute('aria-describedby');
+      if (id) {
+        const holder = document.getElementById(id);
+        if (holder) holder.textContent = msg;
+      }
+    }
+  }

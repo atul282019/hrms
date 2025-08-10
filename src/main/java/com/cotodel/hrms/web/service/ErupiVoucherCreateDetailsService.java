@@ -14,7 +14,7 @@ import com.cotodel.hrms.web.util.EncriptResponse;
 @Repository
 public interface ErupiVoucherCreateDetailsService {
 
-	String createSingleVoucher(String token, ErupiVoucherCreateDetails erupiVoucherCreateDetails);
+	String createSingleVoucher(String token, SingleVoucherCreationRequest erupiVoucherCreateDetails);
 
 	String getIssueVoucherList(String token, EncriptResponse erupiVoucherCreateDetails);
 	
