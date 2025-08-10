@@ -428,8 +428,8 @@
 	               </div>
 	   
 	               <div class="modal-body">
-	                   <p class="text-muted mb-3">Select Amount for Product Trial</p>	   
-	                   <div class="trial-radio mb-4">
+	                   <p class="text-muted mb-3">Enter Amount for Product Trial</p>	   
+	                   <!--<div class="trial-radio mb-4">
 	                       <div class="form-check">
 	                           <input type="radio" name="trialAmount" id="amount500" checked >
 	                           <label for="amount500">₹500</label>
@@ -449,8 +449,30 @@
 	                           <input type="radio" name="trialAmount" id="amount2000"  >
 	                           <label for="amount2000">₹2,000</label>
 	                       </div>
-	                   </div>
-	   
+	                   </div>-->
+					   <div class="did-floating-label-content">
+					       <input 
+					           class="did-floating-input" 
+					           type="number" 
+					           id="useramount" 
+					           name="useramount"
+					           placeholder=" " 
+					           min="1" 
+					           max="50000" 
+					           step="1" 
+					           inputmode="numeric"
+					           oninput="
+					               this.value = this.value.replace(/[^0-9]/g, ''); 
+					               if (this.value !== '' && parseInt(this.value, 10) > 50000) {
+					                   this.value = 50000;
+					               }
+					           "
+					       >
+					       <label class="did-floating-label">
+					           Amount<span class="required-star"></span>
+					       </label>
+					   </div>
+						<div  class="error-msg" id="amounterrorMsg" ></div><br>	
 	                   <div class="info-alert align-items-centerr" id="tialAmountLimit" style="display: none;" >
 	                       <i class="bi bi-info-circle-fill me-2" style="margin-right: 13px;"></i>
 	                       <div id="limitDisplayDiv"> 
@@ -835,7 +857,7 @@
 		}
 		
 		function updatePayment() {
-			const radios = document.getElementsByName("trialAmount");
+			/*const radios = document.getElementsByName("trialAmount");
 			    let selectedAmount = 0;
 			    radios.forEach((radio) => {
 			        if (radio.checked) {
@@ -844,8 +866,26 @@
 			            selectedAmount = parseInt(labelText.replace(/[₹,]/g, ""));
 			        }
 			    });
+				
 
 				const serviceFee = Math.round(selectedAmount * 0.01); // rounds to nearest rupee
+				const totalAmount = selectedAmount + serviceFee;*/
+				
+				const amountField = document.getElementById("useramount");
+				   let selectedAmount = parseInt(amountField.value, 10); // direct parse
+				   // Validation checks
+				   if (isNaN(selectedAmount) || selectedAmount <= 0) {
+				       document.getElementById("amounterrorMsg").innerText = "Please enter a valid amount.";
+				       return;
+				   }
+				   if (selectedAmount > 50000) {
+				       document.getElementById("amounterrorMsg").innerText = "Amount cannot be more than ₹50,000.";
+				       return;
+				   } else {
+				       document.getElementById("amounterrorMsg").innerText = "";
+				   }
+
+				const serviceFee = Math.round(selectedAmount * 0.00); // rounds to nearest rupee
 				const totalAmount = selectedAmount + serviceFee;
 
 			    // Update the UI
