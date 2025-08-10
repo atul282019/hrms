@@ -64,7 +64,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 			@RequestBody SingleVoucherCreationRequest erupiVoucherCreateDetails, BindingResult result, HttpSession session, 
 			ModelMap model,Locale locale)	
 	{
-		
+		String encryptedResponse=null;
 		String receivedHash = erupiVoucherCreateDetails.getHash();
 		 // Validate client key first
         if (!CLIENT_KEY.equals(erupiVoucherCreateDetails.getClientKey())) {
@@ -143,8 +143,21 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
     if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiVoucherCreateDetails.getOrgId().intValue()) {
         try {
             // Call Service
-            String encryptedResponse = erupiVoucherCreateDetailsService.createSingleVoucher(tokengeneration.getToken(),erupiVoucherCreateDetails);
+            //String encryptedResponse = erupiVoucherCreateDetailsService.createSingleVoucher(tokengeneration.getToken(),erupiVoucherCreateDetails);
+        	try {
+    			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
 
+    			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+    			 encryptedResponse = erupiVoucherCreateDetailsService.createSingleVoucher(tokengeneration.getToken(),jsonObject);
+            	
+    			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encryptedResponse, EncriptResponse.class);
+
+    			encryptedResponse =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+    		} catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
             JSONObject apiJsonResponse = new JSONObject(encryptedResponse);
             
             boolean status = apiJsonResponse.getBoolean("status");
