@@ -752,7 +752,8 @@
 			    <input type="hidden" class="selectMCCDescription" value="${rowData.mccDescription || ''}" />
 			    <input type="hidden" class="selectPurpose" value="${rowData.purposeCode || ''}" />
 			    <input type="hidden" class="selectPurposeDescription" value="${rowData.purposeDescription || ''}" />
-				<input type="hidden" class="selectPurposeDescription" value="${rowData.voucherDesc || ''}" />
+				<input type="hidden" class="voucherDesc" value="${rowData.purposeDescription || ''}" />
+				<input type="hidden" class="requestId" value="${rowData.id || ''}" />
 	        </td>
 	      </tr>`;
 	  }

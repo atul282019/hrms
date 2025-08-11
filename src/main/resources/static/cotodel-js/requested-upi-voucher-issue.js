@@ -550,6 +550,7 @@ async function issueVoucher() {
 
     rows.forEach(row => {
         tableData.push({
+			requestId:row.querySelector('.requestId')?.value || '',
             name: row.querySelector('td:nth-child(1) input')?.value || '',
             mobile: row.querySelector('td:nth-child(2) input')?.value || '',
             voucher: row.querySelector('td:nth-child(3) input')?.value || '',
@@ -558,11 +559,12 @@ async function issueVoucher() {
             purposeCode: row.querySelector('.selectPurpose')?.value || '',
             purposeDescription: row.querySelector('.selectMCCDescription')?.value || '',
             voucherCode: row.querySelector('.selectPurpose')?.value || '',
-            voucherDesc: row.querySelector('.selectMCCDescription')?.value || '',
+            voucherDesc: row.querySelector('.voucherDesc')?.value || '',
             redemptionType: row.querySelector('td:nth-child(4) select')?.value || '',
             amount: row.querySelector('td:nth-child(6) input')?.value || '',
             startDate: row.querySelector('td:nth-child(7) input')?.value || '',
             validity: row.querySelector('td:nth-child(8) select')?.value || ''
+			
         });
     });
 

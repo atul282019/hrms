@@ -59,9 +59,10 @@ public interface CommonUtils {
 	public static String getErupiLinkAccountDetailWithStatus  ="/empService/Api/get/erupiLinkAccountListWithStatus";
 	public static String getBankMaster  = "/empService/Api/get/getBankMasterDetailsList";
 	public static String getVoucherDetailByBoucherCode  = "/empService/Api/get/voucherTypeMaster";
-	public static String createSingleVoucherOLD = "/empService/Api/add/erupiVoucherInitiateDetailsNew";   //old api
+	//public static String createSingleVoucherOLD = "/empService/Api/add/erupiVoucherInitiateDetailsNew";   //old 
 	public static String createSingleVoucher = "/empService/Api/add/erupiVoucherSingleCreation";
-
+	public static String erupiVoucherInitiateDetailsRequest = "/empService/Api/add/erupiVoucherInitiateDetailsRequest";
+	
 	public static String getLinkedDetailByAccountNumber = "/empService/Api/get/erupiLinkAccountDetails";
 	public static String verifyVoucherIssueOTP ="/userServices/Api/verifyOtpWithoutUser";
 	public static String getIssuseVoucherList ="/empService/Api/get/erupiVoucherCreateList";

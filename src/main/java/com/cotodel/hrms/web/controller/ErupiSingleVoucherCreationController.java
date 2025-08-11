@@ -163,28 +163,16 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
             boolean status = apiJsonResponse.getBoolean("status");
 	        responseMap.put("status", status);
 	        responseMap.put("message", apiJsonResponse.getString("message"));
+	       
 
 	        if (status && apiJsonResponse.has("data")) {
-	        	JSONObject data = apiJsonResponse.getJSONObject("data");
-	        	ErupiVoucherCreateDetails voucher = new ErupiVoucherCreateDetails();
-	        	voucher.setName(data.getString("name"));
-	        	voucher.setMobile(data.getString("mobile"));
-	        	voucher.setVoucherDesc(data.getString("voucherDesc"));
-	        	voucher.setRedemtionType(data.getString("redemtionType"));
-	        	
-	        	Float amount = data.getFloat("amount");
-	        	voucher.setAmount(amount.toString());
-	        	voucher.setStartDate(data.getString("startDate"));
-	        	voucher.setValidity(data.getString("validity"));
-	        	voucher.setType(data.getString("type"));
-	        	voucher.setResponse(data.getString("response"));
-	        	voucher.setExpDate(data.getString("expDate"));
-	        	responseMap.put("data", voucher); // Could be primitive or string
+	        	 List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
+	        	responseMap.put("data", dataList); // Could be primitive or string
 	          
 	        } else {
-                responseMap.put("status", false);
-                responseMap.put("message", apiJsonResponse.getString("message"));
-            }
+               responseMap.put("status", false);
+               responseMap.put("message", apiJsonResponse.getString("message"));
+           }
 
         } catch (Exception e) {
             responseMap.put("status", false);

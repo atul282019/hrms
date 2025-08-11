@@ -36,7 +36,7 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		 * applicationConstantConfig.apiSignaturePrivatePath);
 		 */
 		
-		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucherOLD);
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(erupiVoucherCreateDetails), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.erupiVoucherInitiateDetailsRequest);
 		
 	}
 	
