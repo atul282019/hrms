@@ -35,11 +35,17 @@
 		          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
 		        </a>
 		      </li>-->
-			  <li class="nav-item mr-3">
- 			        <a href="/cotowallet" role="button">
- 			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
- 			        </a>
- 			      </li>
+			  <li class="nav-item mr-3" th:switch="${session.user_role}">
+		        <a th:case="2" role="button">
+		          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+		        </a>
+			<a th:case="7" role="button">
+	          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	        </a>
+				<a th:case="*" href="/cotowallet" role="button">
+		          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+		        </a>
+		      </li>
 		      <!-- Notification Icon -->
 		      <li class="nav-item mr-3">
 		        <a href="#" role="button">

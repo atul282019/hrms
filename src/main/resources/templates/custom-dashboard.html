@@ -45,6 +45,9 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 	  			        <a th:case="2" role="button">
 	  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
 	  			        </a>
+						<a th:case="7" role="button">
+	  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
+	  			        </a>
 						<a th:case="*" href="/cotowallet" role="button">
 	  			          <img src="img/Wallet-icon.png" alt="Wallet" class="nav-icon-img" >
 	  			        </a>
@@ -151,6 +154,68 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 					  </div>
 					</section>
 				</div>
+				<div th:case="7" >
+									
+									<section class="business-benefits py-5" id="businessSection" style="display: block;">
+									  <div class="container max-w-1440">
+									    <h5 class="benefits-section-heading mb-4">Business Benefits</h5>
+									    <div class="cd-benefits-flex justify-content-between align-items-start gap-4">
+									      <div class="cd-benefits-left">
+									        <div class="d-flex flex-column gap-5">
+									          <div class="benefit-card">
+									            <img src="img/Seamless Control over Expenses.png" class="benefit-icon">
+									            <p class="benefit-title">Seamless Control over Expenses</p>
+									            <p class="benefit-desc">Set-up Budgets and Parameters to issue vouchers across categories of spends</p>
+									          </div>
+									          <div class="benefit-card">
+									            <img src="img/Automatic Digital Reconciliation.png" class="benefit-icon">
+									            <p class="benefit-title">Automatic Digital Reconciliation</p>
+									            <p class="benefit-desc">Automated reconciliation across all spends with digital trail of all transactions done</p>
+									          </div>
+									          <div class="benefit-card">
+									            <img src="img/Convenient Form Factor.png" class="benefit-icon">
+									            <p class="benefit-title">Convenient Form Factor</p>
+									            <p class="benefit-desc">UPI is the preferred mode of payment now</p>
+									          </div>
+									          <div class="benefit-card">
+									            <img src="img/Actionable Insights & Analysis.png" class="benefit-icon">
+									            <p class="benefit-title">Actionable Insights & Analysis</p>
+									            <p class="benefit-desc">Get actionable insights, analytics & reports for your business spends in an efficient manner</p>
+									          </div>
+									        </div>
+									        <div class="d-flex flex-column gap-5">
+									          <div class="benefit-card">
+									            <img src="img/Full Control over Money.png" class="benefit-icon">
+									            <p class="benefit-title">Full Control over Money</p>
+									            <p class="benefit-desc">Money never leaves your Bank Account till transaction is done</p>
+									          </div>
+									          <div class="benefit-card">
+									            <img src="img/Seamless Onboarding without KYC.png" class="benefit-icon">
+									            <p class="benefit-title">Seamless Onboarding without KYC</p>
+									            <p class="benefit-desc">No KYC is needed to add a new employee/contractual worker</p>
+									          </div>
+									          <div class="benefit-card">
+									            <img src="img/Higher Redemption Touchpoints.png" class="benefit-icon">
+									            <p class="benefit-title">Higher Redemption Touchpoints</p>
+									            <p class="benefit-desc">Leveraging the existing network of QR codes</p>
+									          </div>
+									          <div class="benefit-card">
+									            <img src="img/Reduction in Admin Tasks & Delays.png" class="benefit-icon">
+									            <p class="benefit-title">Reduction in Admin Tasks & Delays</p>
+									            <p class="benefit-desc">No Paper-work or burden associated with sending money and managing spends</p>
+									          </div>
+									        </div>
+									      </div>
+										  <div class="cd-benefits-right">
+										    <iframe width="540" height="570" src="https://www.youtube.com/embed/3gI_suq55wQ"
+										            title="Fleet Expenses on UPI"  frameborder="0" allow="autoplay"
+										            allowfullscreen class="cd-video-frame">
+										    </iframe>
+										  </div>
+									    </div>
+									  </div>
+									</section>
+								</div>
 				<div class="col-12" th:case="*">
 				<div class="cd-container" id="profileContainer" style="display: none;"> 
 				  <div class="cd-wrapper">
