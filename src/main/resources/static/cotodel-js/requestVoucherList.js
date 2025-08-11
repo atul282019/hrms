@@ -60,7 +60,8 @@ function getSavedVoucherListForApprove() {
 					           return data + " Days";
 					       }
 					   },*/
-						{ "mData": "remarks"}, 
+						{ "mData": "remarks"},
+						{"mData":"apprejBy"},  
 						
 						{
 								"mData": "statusMessage",
@@ -79,7 +80,7 @@ function getSavedVoucherListForApprove() {
 									return `<span style="${style}">${status || "N/A"}</span>`;
 								}
 							},
-							{"mData":"apprejBy"},         
+							        
 						{ "mData": "statusMessage", "render": function (creationDate, type, row) {
 						    if (row.statusMessage !== "Requested" || row.statusMessage !== "Requested") {
 						        return '';
