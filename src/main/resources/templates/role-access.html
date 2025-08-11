@@ -97,9 +97,9 @@ getBrandOutletList(),getGeographicListByOrgId()"><!--
                         <div class="col-12">
                             <ul class="nav nav-underline">
                                 <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1 }" ><a data-toggle="tab" href="#home1" class="nav-link active">Role Access</a></li>
-                                <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11" class="nav-link">Employee Bands</a></li>
+                               <!-- <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 1  or session.user_role == 3}" id="bandli"><a data-toggle="tab" href="#menu11" class="nav-link">Employee Bands</a></li>-->
                                 <li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu22">Bank A/C Linking</a></li>
-								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu33">Expenses & Advances</a></li>
+			<!--					<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu33">Expenses & Advances</a></li>-->
 								<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Brand Management</a></li>
 								<!--<li  class="nav-item" th:if="${session.user_role == 9 or session.user_role == 3}" ><a class="nav-link" data-toggle="tab" href="#menu44">Payment History</a></li>
                              -->
