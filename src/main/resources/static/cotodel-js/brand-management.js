@@ -654,62 +654,60 @@ function getGeographicDropdownList() {
 }
 
 function userSearchAndPopulate(inputElement) {
-	        const query = inputElement.value.toLowerCase();
-	        const suggestionsDropdown = inputElement.nextElementSibling;
+  const query = inputElement.value.toLowerCase();
+  // FIX: grab the actual dropdown (nextElementSibling is the <label/>)
+  const suggestionsDropdown = document.getElementById('autocomplete-suggestions');
 
-			const searchInput = document.getElementById('outletManager').value;
-			//const searchInput2 = document.getElementById('search');
-			//const mobile = document.getElementById('mobile');
-		    const employerId = document.getElementById('employerId').value;
+  const employerId = document.getElementById('employerId').value;
 
-			$.ajax({
-            type: "POST",
-            url: "/voucherUserSearch",
-            dataType: 'json',
-            data: {
-                "orgId": employerId,
-                "userName": query
-            },
-            success: function (data) {
-                //document.getElementById("signinLoader").style.display = "none";
-		          // const query = searchInput2.value.toLowerCase();
-		           if (query) {
-					  const filteredUsers = data.data.filter(user => user.username.toLowerCase().includes(query) || user.username.toLowerCase().includes(query));
-					  displaySuggestions(filteredUsers, inputElement, suggestionsDropdown);
-		           } else {
-		               suggestionsDropdown.style.display = 'none';
-		           }			               
-            },
-            error: function (e) {
-                document.getElementById("signinLoader").style.display = "none";
-                console.error('Error:', e);
-                alert('An error occurred while fetching the data.');
-            }
-	      });
-  }
+  $.ajax({
+    type: 'POST',
+    url: '/voucherUserSearch',
+    dataType: 'json',
+    data: { orgId: employerId, userName: query },
+    success: function (data) {
+      if (query) {
+        const filteredUsers = (data.data || []).filter(u =>
+          (u.username || '').toLowerCase().includes(query)
+        );
+        displaySuggestions(filteredUsers, inputElement, suggestionsDropdown);
+      } else {
+        suggestionsDropdown.style.display = 'none';
+      }
+    },
+    error: function (e) {
+      console.error('Error:', e);
+      alert('An error occurred while fetching the data.');
+    }
+  });
+}
 
- function displaySuggestions(userList, inputElement, dropdown) {
-    dropdown.innerHTML = '';
-    userList.forEach(user => {
-        const div = document.createElement('div');
-        div.classList.add('autocomplete-suggestion');
-			div.innerHTML = `
-			            <div style="display: flex; align-items: center; width: 100%; gap: 8px;">
-			                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-			                    <span style="text-align: left; flex: 1;">${user.username}</span>
-			                </div>
-			            </div>
-			        `;
+function displaySuggestions(userList, inputElement, dropdown) {
+  dropdown.innerHTML = '';
+  (userList || []).forEach((user) => {
+    const div = document.createElement('div');
+    div.classList.add('autocomplete-suggestion');
+    // Show name (left) and number (right)
+    div.innerHTML = `
+      <div style="display:flex; align-items:center; width:95%;">
+        <span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${user.username || ''}</span>
+        <span style="margin-right:50px; white-space:nowrap; opacity:.8;">${user.mobile || ''}</span>
+      </div>
+    `;
 
-        div.addEventListener('click', function () {
-            inputElement.value = user.username;
-            inputElement.closest('tr').querySelector('input[placeholder="Enter Mobile Number"]').value = user.mobile;
-            dropdown.style.display = 'none';
-        });
-
-        dropdown.appendChild(div);
+    div.addEventListener('click', function () {
+      // Fill both fields
+      inputElement.value = user.username || '';
+      // Prefer explicit #outletContact, fallback to same-row input
+      const phoneInput = document.getElementById('outletContact')
+        || inputElement.closest('tr')?.querySelector('input[placeholder="Enter Mobile Number"]');
+      if (phoneInput) phoneInput.value = (user.mobile || '').toString().replace(/[^0-9]/g, '').slice(0, 10);
+      dropdown.style.display = 'none';
     });
-    dropdown.style.display = userList.length > 0 ? 'block' : 'none';
+
+    dropdown.appendChild(div);
+  });
+  dropdown.style.display = (userList && userList.length > 0) ? 'block' : 'none';
 }	  
 async function addUPIDevice(){
 	document.getElementById("addUpiDeviceBtn").disabled = true;
