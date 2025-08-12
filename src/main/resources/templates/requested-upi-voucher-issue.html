@@ -242,6 +242,7 @@
 	                                              <!--  <th>DOJ</th>-->
 	                                            <!--  <th>EMAIL</th>-->
 												  <th>Remarks</th>
+												  <th>Approved By</th>
 												 <!-- <th>Validity</th>-->
 												  <th>Status</th>
 												  <!--<th>Action</th>-->
@@ -918,6 +919,7 @@
 	            { mData: 'purposeDescription' },
 	            { mData: 'amount', mRender: function (data) { return !isNaN(data) ? formatINR(data) : data; } },
 	            { mData: 'remarks' },
+				{ mData: 'apprejBy' },
 	            {
 	              mData: 'statusMessage',
 	              mRender: function (status) {
