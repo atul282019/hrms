@@ -61,6 +61,7 @@
    // Go to verify screen
    $('#selectvouchers-wrap04').show();
    $('#selectvouchers-wrap03').hide();
+   document.getElementById("lable2").classList.add("active");
    return true;
  }
  window.singleVoucherValidation = singleVoucherValidation;

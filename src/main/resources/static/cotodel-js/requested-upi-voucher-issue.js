@@ -535,6 +535,7 @@ function  createSingleVoucherValidation(){
         }
 		$("#selectvouchers-wrap04").show();
 		$("#selectvouchers-wrap03").hide();
+	
 		
 }
 async function issueVoucher() {
