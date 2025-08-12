@@ -246,11 +246,22 @@ async function getTicketTransactionHistoryById(ticketId) {
     data: { orgId, id: ticketId },
     success: function (data) {
       const data1 = jQuery.parseJSON(data);
-      const data2 = data1.data;
+	  console.log("/ticketReplyHistory",data1);
+	  const data2 = data1.data;
       const container = $('#chat-box');
       container.empty();
+	  // Show the first default issueDesc if present
+	       if (data1.issueDesc && data1.issueDesc.trim() !== '') {
+	         container.append(`
+	           <div class="chat-msg user-msg">
+	             <p>${data1.issueDesc}</p>
+	           </div>
+	           <div class="chat-gap"></div>
+	         `);
+	       }
 
       if (data1.status && Array.isArray(data2)) {
+		
         data2.forEach(item => {
           const responseIssueDesc = item.responseIssueDesc;
           const issueDesc = item.issueDesc;
