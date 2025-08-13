@@ -187,6 +187,7 @@ public interface CommonUtils {
 	public static String getTicket = "/empService/Api/get/allTicket";
 	public static String getAdminTicketForAction = "/empService/Api/get/allTicketAdmin";
 	public static String getTicketDetailById = "/empService/Api/get/ticketById";
+	public static String changeTicketStatus = "/empService/Api/get/ticketTransHistoryLatest";
 	public static String submitTicketReply = "/empService/Api/add/ticketTransaction";
 	public static String ticketReplyHistory = "/empService/Api/get/ticketTransHistory";
 	///brnad api

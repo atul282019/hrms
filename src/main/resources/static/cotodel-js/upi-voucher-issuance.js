@@ -1140,7 +1140,8 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
                   case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
                   case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
                   case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
-                  case "Revoke": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;
+                  case "Revoke": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;	
+				  case "Partially Redeemed": labelText = "Partially Redeemed"; labelClass = "pill-wide bg-lightyellow-txt-yellow-pill"; break;
                   default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
                 }
               }

@@ -30,6 +30,12 @@ public class TicketSupportServiceImpl implements TicketSupportService{
 	public String getTicketDetailById(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.getTicketDetailById);
 	}
+	
+	@Override
+	public String getTicketstatus(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.changeTicketStatus);
+
+	}
 	@Override
 	public String replyTicket(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.submitTicketReply);
