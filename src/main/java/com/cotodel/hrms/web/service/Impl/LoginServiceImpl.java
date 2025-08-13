@@ -229,4 +229,15 @@ public class LoginServiceImpl implements LoginService {
 	public String loginwithPwd(String token, EncriptResponse jsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl +CommonUtils.loginwithPwd);
 	}
+
+	@Override
+	public String sendOtpWith2Factor(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendOtp2FactorWithTemplateId);
+	}
+
+	@Override
+	public String otpVerifyWithTemplate(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtp);
+
+	}
 }

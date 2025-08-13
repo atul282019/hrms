@@ -15,7 +15,13 @@ public class UserForm {
 	private String mobile;
 	private String orderId;
 	private String countdown;
-	
+	private String template;
+	public String getTemplate() {
+		return template;
+	}
+	public void setTemplate(String template) {
+		this.template = template;
+	}
 	public String getUserName() {
 		return userName;
 	}

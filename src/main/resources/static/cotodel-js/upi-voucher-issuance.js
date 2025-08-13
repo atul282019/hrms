@@ -3,10 +3,11 @@ $(document).ready(function() {
 			  var employerMobile = document.getElementById("employerMobile").value;
 			  document.getElementById("authenticate").disabled = false;
 		      $.ajax({
-		        url:"/smsOtpSender",
+		        url:"/smsOtpSenderWithTemplate",
 		        type: 'POST',
 				data: {
 							"mobile": employerMobile,
+							"template": "Cotodel Voucher Activity",
 						},
 				dataType: 'json',
 				success: function(data) {
@@ -292,7 +293,7 @@ function verfyIssueVoucherOTP() {
   	
   	$.ajax({
   			type: "POST",
-  			url:"/verifyOTP",
+  			url:"/otpVerifyWithTemplate",
   			dataType: 'json',
   			data: {
   				"password1": password1,

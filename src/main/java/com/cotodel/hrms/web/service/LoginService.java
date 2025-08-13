@@ -1,5 +1,6 @@
 package com.cotodel.hrms.web.service;
 
+import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.response.UserRegistrationRequest;
 import com.cotodel.hrms.web.util.EncriptResponse;
 
@@ -18,5 +19,7 @@ public interface LoginService {
 	String otpWithOutRegister(String token, EncriptResponse jsonObject);
 	String verifyOtpWithOutRegister(String token, EncriptResponse jsonObject);
 	String loginwithPwd(String token, EncriptResponse jsonObject);
+	String sendOtpWith2Factor(String token, EncriptResponse jsonObject);
+	String otpVerifyWithTemplate(String token, EncriptResponse jsonObject);
 
 }

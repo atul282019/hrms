@@ -59,6 +59,54 @@ public class OtpSenderController extends CotoDelBaseController{
 		return profileRes;
 	}	
 	
+	@PostMapping(value="/smsOtpSenderWithTemplate")
+	public @ResponseBody String sendOtpWith2Factor(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
+		String profileRes=null;
+
+		try {
+			//String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userForm);
+			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return profileRes;
+	}	
+	
+	@PostMapping(value="/otpVerifyWithTemplate")
+	public @ResponseBody String otpVerifyWithTemplate(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
+		String profileRes=null;
+		String otp= userForm.getPassword1()+userForm.getPassword2()+userForm.getPassword3()+userForm.getPassword4()+userForm.getPassword5()+userForm.getPassword6();
+		 userForm.setOtp(otp);
+		try {
+			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = loginservice.otpVerifyWithTemplate(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return profileRes;
+	}	
+	
 	@PostMapping(value="/otpWithOutRegister")
 	public @ResponseBody String otpWithOutRegister(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
 		String profileRes=null;

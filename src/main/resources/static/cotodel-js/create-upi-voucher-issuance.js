@@ -153,7 +153,7 @@ function verfyIssueVoucherOTP() {
 	document.getElementById("authenticate").disabled = true;
   	$.ajax({
   			type: "POST",
-  			url:"/verifyOTP",
+  			url:"/otpVerifyWithTemplate",
   			dataType: 'json',
   			data: {
   				"password1": password1,

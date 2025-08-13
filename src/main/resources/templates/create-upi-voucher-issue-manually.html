@@ -793,10 +793,11 @@
 		  var employerMobile = document.getElementById("employerMobile").value;
 		  document.getElementById("authenticate").disabled = false;
 	      $.ajax({
-	        url:"/smsOtpSender",
+	        url:"/smsOtpSenderWithTemplate",
 	        type: 'POST',
 			data: {
 						"mobile": employerMobile,
+						"template": "Cotodel Voucher Activity",
 					},
 			dataType: 'json',
 			success: function(data) {
