@@ -941,14 +941,14 @@ function verifyEmail(){
  			var obj = data;
  	        if (obj['status'] == true) {
  				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
- 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;												
+ 				document.getElementById("maskedMobileDisplay1").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Role.`;												
  	            // If successful, open the OTP modal
  				var timeleft = "60";
  				var resendCodeElement = document.getElementById("resendCode");
  	               // Hide the "Resend OTP" link initially
  	               resendCodeElement.style.display = "none";
  				var downloadTimer = setInterval(function() {
- 					document.getElementById("countdownadd").innerHTML = "00:"+timeleft;
+ 					document.getElementById("countdown").innerHTML = "00:"+timeleft;
  					timeleft -= 1;
  					//document.getElementById("optBtn").style.display = "none";
  					document.getElementById("orderId").value= obj['orderId'];

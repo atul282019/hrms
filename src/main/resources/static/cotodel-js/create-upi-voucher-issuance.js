@@ -15,13 +15,20 @@ function resendVoucherOTP() {
 	var employerMobile = document.getElementById("employerMobile").value;
 	
 	$.ajax({
-		type: "POST",
+		/*type: "POST",
 		url:"/smsOtpResender",
 		dataType: 'json',
 		data: {
 			"mobile": userName,
 			"orderId":orderId
-		},
+		},*/
+		url:"/smsOtpSenderWithTemplate",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+		"mobile":  userName,
+		"template": "Cotodel Voucher Activity",
+		}, 
 		success: function(data) {
 			var obj = data;
 			//document.getElementById("loginLoader").style.display = "none";

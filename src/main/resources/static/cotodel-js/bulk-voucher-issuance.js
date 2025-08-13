@@ -466,6 +466,7 @@ function resendVoucherOTP() {
 		},*/
 		url:"/smsOtpSenderWithTemplate",
 		type: 'POST',
+		dataType: 'json',
 		data: {
 			"mobile": userName,
 			"template": "Cotodel Voucher Activity",
@@ -473,7 +474,7 @@ function resendVoucherOTP() {
 		success: function(data) {
 			var obj = data;
 			//document.getElementById("loginLoader").style.display = "none";
-			if (obj['status'] == true) {
+			if (obj['status'] == true ) {
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
 				document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate issuance.`;				
