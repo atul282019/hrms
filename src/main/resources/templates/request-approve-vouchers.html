@@ -178,7 +178,7 @@
   					<td>
   					  <div style="position: relative;">
   					    <input type="text" class="table-input validity-input"
-  					    placeholder="Enter Remarks"style="padding-right: 10px; box-sizing: border-box;">
+  					    placeholder="Enter Remarks"style="padding-right: 10px; box-sizing: border-box;" maxlength="50">
   					</td>
                       <td>
                           <a href="#" onclick="deleteRow(this)"><img src="img/delete.svg" alt=""></a>
@@ -558,7 +558,7 @@
           <td>
               <div style="position: relative;">
                   <input type="text" class="table-input validity-input" 
-                      placeholder="Enter Remarks" style="padding-right: 10px; box-sizing: border-box;">
+                      placeholder="Enter Remarks" style="padding-right: 10px; box-sizing: border-box;" maxlength="50">
               </div>
           </td>
           <td>
@@ -1251,4 +1251,120 @@
 	  </div>
 	</div>
 </html>
+<style>	/* Top box categories */
+	/* Page root optional cleanup */
+	body {
+	    margin: 0;
+	    padding: 0;
+	    box-sizing: border-box;
+	    font-family: Arial, sans-serif;
+	}
 
+	/* Parent container */
+	/* Parent container */
+	#voucherList {
+	    width: 100%;
+	    max-width: 1200px;
+	    padding-left: 16px;
+	    padding-right: 16px;
+	    margin: 0 auto;
+	    box-sizing: border-box;
+	   /* overflow-y: scroll;*/
+	    height: 400px;
+
+	 /*   scrollbar-width: thin;*/
+	  /*  scrollbar-color: #2F945A #EAF4EF;*/
+	}
+
+	#voucherList::-webkit-scrollbar {
+	    width: 8px;
+	}
+
+	#voucherList::-webkit-scrollbar-track {
+	    background: #EAF4EF;
+	    border-radius: 8px;
+	}
+
+	#voucherList::-webkit-scrollbar-thumb {
+	    background-color: #2F945A;
+	    border-radius: 8px;
+	    border: 2px solid #EAF4EF;
+	}
+
+	/* Top box categories */
+	.top-categories-box {
+	    background-color: #EAF4EF;
+	    padding: 20px;
+	    border-radius: 20px;
+	    list-style: none;
+	    width: 100%;
+	    max-width: 600px; /* optional to control max width of the box */
+	    margin: 10px auto;
+	    box-sizing: border-box;
+	}
+
+	/* Section title */
+	#voucherList h5 {
+	    color: #1F212C;
+	    margin: 10px 0;
+	    font-size: 16px;
+	    font-weight: 600;
+	}
+
+	/* Other categories list */
+	.other-categories {
+		margin-top: 10px;
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	    width: 100%;
+	    max-width: 600px;
+	    margin: 0 auto;
+	    box-sizing: border-box;
+	}
+
+	/* List item */
+	.voucher-item {
+	    display: flex;
+	    align-items: center;
+	    gap: 12px;
+	    padding: 8px 12px;
+	    border-radius: 8px;
+	    cursor: pointer;
+	    transition: background-color 0.1s ease, color 0.1s ease;
+	    width: 100%;
+	    box-sizing: border-box;
+	    background-color: transparent;
+	    position: relative;
+	    z-index: 1;
+	}
+
+	/* Hover effect */
+	.voucher-item:hover {
+	    background-color: #2F945A !important;
+	    color: #FFFFFF !important;
+	}
+
+	.voucher-item:hover span {
+	    color: #FFFFFF !important;
+	}
+
+	/* Selected item stays green */
+	.voucher-item.selected {
+	    background-color: #2F945A;
+	    color: #FFFFFF;
+	}
+
+	.voucher-item.selected span {
+	    color: #FFFFFF;
+	}
+
+	/* Image style */
+	.voucher-item img {
+	    height: 32px;
+	    width: 32px;
+	    flex-shrink: 0;
+	}
+
+
+</style>

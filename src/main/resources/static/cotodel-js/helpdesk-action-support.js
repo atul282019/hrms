@@ -278,10 +278,12 @@ async function getTicketstatus() {
 
 	  const statusElement = document.getElementById("status");
 	  const openModalBtn1 = document.getElementById("openModalBtn1");
+	  const chatbardiv = document.getElementById("chatbardiv");
 
 	  // Remove all classes except the default
 	  statusElement.className = "admin-ticket-status";
 	  openModalBtn1.disabled = false;
+	  chatbardiv.style.display = ""; // reset visible by default
 	  
 	  switch (data2.respTicketStatus) {
 	      case 0:
@@ -297,6 +299,8 @@ async function getTicketstatus() {
 	          statusElement.classList.add("admin-ticket-status-red");
 			  openModalBtn1.removeAttribute("href"); // prevent click
 		     openModalBtn1.classList.add("disabled"); // optional styling
+			 chatbardiv.style.display = "none"; // hide chatbar
+			
 	          break;
 	      case 3:
 	          statusElement.innerHTML = "In Progress";

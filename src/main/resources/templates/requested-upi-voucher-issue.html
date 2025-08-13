@@ -727,7 +727,7 @@
 	          </select>
 	        </td>
 	        <td>
-	          <input type="text" class="table-input requested-amount" value="${requested.toFixed(2)}" placeholder="Requested Amount" readonly />
+	          <input type="text" class="table-input requested-amount" style="color:#ACAEBA" value="${requested.toFixed(2)}" placeholder="Requested Amount" readonly />
 	        </td>
 	        <td>
 	         <input type="text" class="table-input issue-amount" value="${requested.toFixed(2)}" placeholder="Enter Amount" inputmode="decimal" />
@@ -1047,11 +1047,17 @@
 		  var employerMobile = document.getElementById("employerMobile").value;
 		  document.getElementById("authenticate").disabled = false;
 	      $.ajax({
-	        url:"/smsOtpSender",
+	       /* url:"/smsOtpSender",
 	        type: 'POST',
 			data: {
 						"mobile": employerMobile,
-					},
+					},*/
+			url:"/smsOtpSenderWithTemplate",
+			type: 'POST',
+			data: {
+						"mobile": employerMobile,
+						"template": "Cotodel Voucher Activity",
+			},
 			dataType: 'json',
 			success: function(data) {
 			var obj = data;

@@ -842,11 +842,17 @@ function getOTP() {
     document.getElementById("signinLoader").style.display = "flex";
  
     $.ajax({
-        type: "POST",
+       /* type: "POST",
         url: "/smsOtpSender",
         dataType: 'json',
         data: {
 			 "mobile": userMobile
+		},*/
+		url:"/smsOtpSenderWithTemplate",
+		type: 'POST',
+		data: {
+					"mobile": employerMobile,
+					"template": "Cotodel Voucher Activity",
 		},
         success: function (data) {
             var obj = data;
@@ -915,10 +921,16 @@ function resendOTP() {
 	document.getElementById("signinLoader").style.display = "flex";
 	
     $.ajax({
-        type: "POST",
+        /*type: "POST",
         url: "/smsOtpResender",
         dataType: 'json',
-        data: { "mobile": userMobile, "orderId": orderId },
+        data: { "mobile": userMobile, "orderId": orderId },*/
+		url:"/smsOtpSenderWithTemplate",
+		type: 'POST',
+		data: {
+					"mobile": userMobile,
+					"template": "Cotodel Voucher Activity",
+		},
         success: function (data) {
             var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
@@ -1032,7 +1044,8 @@ function verfyIssueVoucherOTP() {
 	//document.getElementById("authenticate").disabled = true;
   	$.ajax({
   			type: "POST",
-  			url:"/verifyOTP",
+  			//url:"/verifyOTP",
+			url:"/otpVerifyWithTemplate",
   			dataType: 'json',
   			data: {
   				"password1": password1,

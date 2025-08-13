@@ -750,11 +750,17 @@ function verifyEmail(){
  	   var userMobile = document.getElementById("mobile").value;
  	  //if (checkbox.checked) {
  		$.ajax({
- 			type: 'POST',
+ 			/*type: 'POST',
  	        url:"/otpWithOutRegister",
  			data: {
  						"mobile": userMobile,
- 					},
+ 					},*/
+			url:"/smsOtpSenderWithTemplate",
+			type: 'POST',
+			data: {
+						"mobile": userMobile,
+						"template": "Sign Up SMS",
+			},
  			dataType: 'json',
  			success: function(data) {
  			var obj = data;
@@ -856,11 +862,17 @@ function verifyEmail(){
  	   var userMobile = document.getElementById("mobile").value;
  	  //if (checkbox.checked) {
  		$.ajax({
- 			type: 'POST',
+ 			/*type: 'POST',
  	        url:"/otpWithOutRegister",
  			data: {
  						"mobile": userMobile,
- 					},
+ 					},*/
+			url:"/smsOtpSenderWithTemplate",
+			type: 'POST',
+			data: {
+				"mobile": userMobile,
+				"template": "Sign Up SMS",
+			},	 
  			dataType: 'json',
  			success: function(data) {
  			var obj = data;
@@ -912,12 +924,18 @@ function verifyEmail(){
  	var userMobile = document.getElementById("mobile").value;
  	var orderId = document.getElementById("orderId").value;
  		$.ajax({
- 			type: 'POST',
+ 			/*type: 'POST',
  	        url:"/smsOtpResender",
  			data: {
  						"mobile": userMobile,
  						"orderId": orderId
- 					},
+ 					},*/
+			url:"/smsOtpSenderWithTemplate",
+			type: 'POST',
+			data: {
+						"mobile": userMobile,
+						"template": "Cotodel Voucher Activity",
+			},
  			dataType: 'json',
  			success: function(data) {
  			var obj = data;
@@ -1037,7 +1055,8 @@ function verifyEmail(){
  			document.getElementById("authenticate").disabled = true;
  		  	$.ajax({
  		  			type: "POST",
- 		  			url:"/verifyOTP",
+ 		  			//url:"/verifyOTP",
+					url:"/otpVerifyWithTemplate",
  		  			dataType: 'json',
  		  			data: {
  		  				"password1": password1,

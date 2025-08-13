@@ -89,11 +89,17 @@ $(document).on('change','.up', function(){
 			      var employerMobile = document.getElementById("employerMobile").value;
 				  document.getElementById("authenticate").disabled = false;
 			      $.ajax({
-			        url:"/smsOtpSender",
+			        /*url:"/smsOtpSender",
 			        type: 'POST',
 					data: {
 								"mobile": employerMobile,
-						  },
+						  },*/
+					  url:"/smsOtpSenderWithTemplate",
+					  type: 'POST',
+					  data: {
+					  			"mobile": employerMobile,
+					  			"template": "Cotodel Voucher Activity",
+					  },
 					dataType: 'json',
 					success: function(data) {
 					var obj = data;
@@ -451,12 +457,18 @@ function resendVoucherOTP() {
 	var employerMobile = document.getElementById("employerMobile").value;
 	
 	$.ajax({
-		type: "POST",
+		/*type: "POST",
 		url:"/smsOtpResender",
 		dataType: 'json',
 		data: {
 			"mobile": userName,
 			"orderId":orderId
+		},*/
+		url:"/smsOtpSenderWithTemplate",
+		type: 'POST',
+		data: {
+			"mobile": userName,
+			"template": "Cotodel Voucher Activity",
 		},
 		success: function(data) {
 			var obj = data;
@@ -1098,7 +1110,8 @@ function verfyIssueVoucherOTP() {
 	document.getElementById("authenticate").disabled = true;
   	$.ajax({
   			type: "POST",
-  			url:"/verifyOTP",
+  			//url:"/verifyOTP",
+			url:"/otpVerifyWithTemplate",
   			dataType: 'json',
   			data: {
   				"password1": password1,
