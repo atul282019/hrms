@@ -268,6 +268,12 @@ public class ErupiVoucherCreateDetailsServiceImpl implements ErupiVoucherCreateD
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.createSingleVoucher);
 	}
 
+	@Override
+	public String sendWhatsupMessage(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl+CommonUtils.sendWhatsApp);
+
+	}
+
 
 
 }

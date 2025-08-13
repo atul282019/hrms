@@ -218,5 +218,5 @@ public interface CommonUtils {
 	public static String readDataFromImage="/empService/Api/get/upiName";
 	public static String editActiveBrandDetails="/erupiBrandService/Api/update/updateBrandDetails";
 	public static String updateBrandGeoList="/erupiBrandService/Api/update/updateBrandGeoList";
-
+	public static String sendWhatsApp ="/userServices/Api/get/sendWhatsApp";
 }

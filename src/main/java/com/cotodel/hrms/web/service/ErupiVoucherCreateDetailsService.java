@@ -48,4 +48,6 @@ public interface ErupiVoucherCreateDetailsService {
 
 	String createSingleVoucherWithMultipleRequest(String token, EncriptResponse jsonObject);
 
+	String sendWhatsupMessage(String token, EncriptResponse jsonObject);
+
 }

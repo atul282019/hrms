@@ -83,6 +83,30 @@ public class OtpSenderController extends CotoDelBaseController{
 		return profileRes;
 	}	
 	
+	@PostMapping(value="/otpWithoutLogin")
+	public @ResponseBody String otpWithoutLogin(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
+		String profileRes=null;
+
+		try {
+			//String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userForm);
+			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return profileRes;
+	}	
+	
 	@PostMapping(value="/otpVerifyWithTemplate")
 	public @ResponseBody String otpVerifyWithTemplate(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {
 		String profileRes=null;

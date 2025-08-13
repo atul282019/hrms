@@ -755,7 +755,7 @@ function verifyEmail(){
  			data: {
  						"mobile": userMobile,
  					},*/
-			url:"/smsOtpSenderWithTemplate",
+			url:"/otpWithoutLogin",
 			type: 'POST',
 			data: {
 						"mobile": userMobile,
@@ -867,7 +867,7 @@ function verifyEmail(){
  			data: {
  						"mobile": userMobile,
  					},*/
-			url:"/smsOtpSenderWithTemplate",
+			url:"/otpWithoutLogin",
 			type: 'POST',
 			data: {
 				"mobile": userMobile,
@@ -930,7 +930,7 @@ function verifyEmail(){
  						"mobile": userMobile,
  						"orderId": orderId
  					},*/
-			url:"/smsOtpSenderWithTemplate",
+			url:"/otpWithoutLogin",
 			type: 'POST',
 			data: {
 						"mobile": userMobile,
@@ -1183,7 +1183,7 @@ function verifyEmail(){
 		   			//document.getElementById("authenticate").disabled = true;
 		   		  	$.ajax({
 		   		  			type: "POST",
-		   		  			url:"verifyOtpWithOutRegister",
+		   		  			url:"/otpVerifyWithTemplate",
 		   		  			dataType: 'json',
 		   		  			data: {
 		   		  				"password1": password1,
@@ -1308,7 +1308,7 @@ function verifyEmail(){
 				  	   			//document.getElementById("authenticate").disabled = true;
 				  	   		  	$.ajax({
 				  	   		  			type: "POST",
-				  	   		  			url:"verifyOtpWithOutRegister",
+				  	   		  			url:"/otpVerifyWithTemplate",
 				  	   		  			dataType: 'json',
 				  	   		  			data: {
 				  	   		  				"password1": password1,

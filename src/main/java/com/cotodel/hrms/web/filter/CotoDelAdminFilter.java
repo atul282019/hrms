@@ -106,6 +106,10 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("smsOtpSender");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/otpWithoutLogin")){
+				RequestDispatcher rd = request.getRequestDispatcher("otpWithoutLogin");
+				rd.forward(request, response);
+			}
 			else if(requestURI.contains("/userLogin")){
 				RequestDispatcher rd = request.getRequestDispatcher("userLogin");
 				rd.forward(request, response);
@@ -326,6 +330,11 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("verifyOtpWithOutRegister");
 				rd.forward(request, response);
 			}
+			else if(requestURI.contains("/otpVerifyWithTemplate")){
+				RequestDispatcher rd = request.getRequestDispatcher("otpVerifyWithTemplate");
+				rd.forward(request, response);
+			}
+			
 			else{
 				RequestDispatcher rd = request.getRequestDispatcher("/");
 					rd.forward(request, response);
