@@ -75,9 +75,9 @@
 		var orgId = document.getElementById("employerId").value;
 		var responseIssueDesc = document.getElementById("replyText").value;
 		
-		var dropdown = document.getElementById("ticketStatus");
+		/*var dropdown = document.getElementById("ticketStatus");
 		var respTicketStatus = dropdown.value;
-		var respTicketStatusDesc = dropdown.options[dropdown.selectedIndex].text;
+		var respTicketStatusDesc = dropdown.options[dropdown.selectedIndex].text;*/
 		
 		const clientKey = "client-secret-key"; // Extra security measure
 		const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
@@ -98,13 +98,13 @@
 			else{
 				document.getElementById("fileInputError").innerHTML="";
 			}
-		if(respTicketStatus =="" || respTicketStatus == null){
+		/*if(respTicketStatus =="" || respTicketStatus == null){
 			 document.getElementById("fileInputError").innerHTML="Please Select Status";
 			 return false;
 		}
 		else{
 			document.getElementById("fileInputError").innerHTML="";
-		}
+		}*/
 		document.getElementById("signinLoader").style.display="flex";
 		$.ajax({
 			type: "POST",
@@ -114,8 +114,8 @@
 				        "id":ticketId,
 						"orgId":orgId,
 						"responseIssueDesc":responseIssueDesc,
-						"respTicketStatus":respTicketStatus,
-						"respTicketStatusDesc":respTicketStatusDesc,
+						//"respTicketStatus":respTicketStatus,
+						//"respTicketStatusDesc":respTicketStatusDesc,
 						"ticketImg":base64file,
 						"createdby":createdby,
 						"name":name,
@@ -242,20 +242,78 @@ async function getTicketDetailById() {
       document.getElementById("senderName").innerHTML = data2.name;
       document.getElementById("companyName").innerHTML = data2.organizationName;
       document.getElementById("dateTime").innerHTML = data2.creationDate; // original full datetime
-      document.getElementById("status").innerHTML = data2.statusDesc;
+     // document.getElementById("status").innerHTML = data2.statusDesc;
       document.getElementById("subject").innerHTML = data2.subject;
       document.getElementById("submittedBy").innerHTML = data2.name;
       document.getElementById("submittedDate").innerHTML = formattedDateTime;
       document.getElementById("submittedDate1").innerHTML = formattedDateTime;
       document.getElementById("ticketDetail").innerHTML = data2.issueDesc;
       document.getElementById("imgTicket").src = "data:image/png;base64," + data2.ticketImg;
+	  getTicketstatus();
     },
     error: function (e) {
       alert('Failed to fetch JSON data' + e);
     }
   });
 }
+async function getTicketstatus() {
+  var orgId = document.getElementById("employerId").value;
+  var ticketId = document.getElementById("ticketId").value;
+ 
 
+  $.ajax({
+    type: "GET",
+    url: "/getTicketstatus",
+    data: {
+      orgId: orgId,
+      "id": ticketId
+    },
+    beforeSend: function (xhr) {},
+    success: function (data) {
+     
+      const data1 = jQuery.parseJSON(data);
+      var data2 = data1.data;
+	 
+      console.log("/getTicketstatus", data1);
+
+	  const statusElement = document.getElementById("status");
+	  const openModalBtn1 = document.getElementById("openModalBtn1");
+
+	  // Remove all classes except the default
+	  statusElement.className = "admin-ticket-status";
+	  openModalBtn1.disabled = false;
+	  
+	  switch (data2.respTicketStatus) {
+	      case 0:
+	          statusElement.innerHTML = "Submitted";
+	          statusElement.classList.add("admin-ticket-status");
+	          break;
+	      case 1:
+	          statusElement.innerHTML = "Hold";
+	          statusElement.classList.add("admin-ticket-status-hold");
+	          break;
+	      case 2:
+	          statusElement.innerHTML = "Closed";
+	          statusElement.classList.add("admin-ticket-status-red");
+			  openModalBtn1.removeAttribute("href"); // prevent click
+		     openModalBtn1.classList.add("disabled"); // optional styling
+	          break;
+	      case 3:
+	          statusElement.innerHTML = "In Progress";
+	          statusElement.classList.add("admin-ticket-status-InProgress");
+	          break;
+	  }
+
+     
+     
+	  
+ 
+    },
+    error: function (e) {
+      alert('Failed to fetch JSON data' + e);
+    }
+  });
+}
 async function getTicketTransactionHistoryById() {
   const orgId = document.getElementById("employerId").value;
   const ticketId = document.getElementById("ticketId").value;
@@ -346,7 +404,7 @@ async function changeTicketStatus(){
 	var name =  document.getElementById("createdBy").value;
 	var createdby =  document.getElementById("employerMobile").value;
 	var orgId = document.getElementById("employerId").value;
-	var issueDesc = document.getElementById("enterChatRemarks").value;
+	var enterChatRemarks = document.getElementById("enterChatRemarks").value;
 	var base64file = document.getElementById("base64Output").value;
 	var dropdown = document.getElementById("ticketStatus1");
 	var respTicketStatus = dropdown.value;
@@ -354,7 +412,7 @@ async function changeTicketStatus(){
 	
 	const clientKey = "client-secret-key"; // Extra security measure
 	const secretKey = "0123456789012345"; // SAME KEY AS BACKEND
-
+	var issueDesc="";
 	const dataString = orgId+issueDesc+createdby+base64file+clientKey+secretKey;
 
 	const encoder = new TextEncoder();
@@ -364,8 +422,8 @@ async function changeTicketStatus(){
 	const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 	
 
-	if(issueDesc =="" || issueDesc == null){
-			 document.getElementById("fileInputError2").innerHTML="Please Enter Error Description";
+	if(enterChatRemarks =="" || enterChatRemarks == null){
+			 document.getElementById("fileInputError2").innerHTML="Please Enter Remarks";
 			 return false;
 		}
 		else{
@@ -380,7 +438,7 @@ async function changeTicketStatus(){
 	      data: {
 			        "id":ticketId,
 					"orgId":orgId,
-					"responseIssueDesc":issueDesc,
+					"remarks":enterChatRemarks,
 					"respTicketStatus":respTicketStatus,
 					"respTicketStatusDesc":respTicketStatusDesc,
 					"ticketImg":base64file,

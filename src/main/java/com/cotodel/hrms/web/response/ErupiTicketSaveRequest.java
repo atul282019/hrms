@@ -31,6 +31,8 @@ public class ErupiTicketSaveRequest {
 	private String clientKey;
 	private String hash;
 	private String name;
+	private String remarks;
+	 
 	
 	
 

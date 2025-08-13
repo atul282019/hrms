@@ -9794,6 +9794,36 @@ table.vcScheduledtable thead {
 				  font-size: 13px;
 				  margin-left: -12px;
 				}
+				.admin-ticket-status-red 
+				{
+				  background-color: #F248221A;
+				  color: #F24822;
+				  font-weight: 500;
+				  padding: 2px 10px;
+				  border-radius: 12px;
+				  font-size: 13px;
+				  margin-left: -12px;
+				}
+				.admin-ticket-status-hold 
+				{
+				  background-color: #EDEDF0;
+				  color: #ACAEBA;
+				  font-weight: 500;
+				  padding: 2px 10px;
+				  border-radius: 12px;
+				  font-size: 13px;
+				  margin-left: -12px;
+				}
+				.admin-ticket-status-InProgress 
+				{
+				  background-color: #FF95001A;
+				  color: #FF9500;
+				  font-weight: 500;
+				  padding: 2px 10px;
+				  border-radius: 12px;
+				  font-size: 13px;
+				  margin-left: -12px;
+				}
 
 				.admin-ticket-subject {
 				  display: flex;

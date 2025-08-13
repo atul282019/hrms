@@ -16,6 +16,8 @@ public interface TicketSupportService {
 	String getTicketDetailById(String token, EncriptResponse jsonObject);
 
 	String replyTicket(String token, EncriptResponse jsonObject);
+	
+	String getTicketstatus(String token, EncriptResponse jsonObject);
 
 	String ticketReplyHistory(String token, EncriptResponse jsonObject);
 

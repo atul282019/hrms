@@ -346,6 +346,29 @@ public class TicketSupportController extends CotoDelBaseController {
 	    	return profileRes;
 	    }
 	 
+	 @GetMapping("/getTicketstatus")
+	    public @ResponseBody String getTicketstatus(HttpServletRequest request, ModelMap model, Locale locale,
+				HttpSession session, ErupiTicketSaveRequest erupiTicketSaveRequest) {
+		 String profileRes = null;
+		
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(erupiTicketSaveRequest);
+
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse =  ticketSupportService.getTicketstatus(tokengeneration.getToken(), jsonObject);
+	  
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+	    	return profileRes;
+	    }
+	 
 
 		@GetMapping(value = "/ticketReplyHistory")
 		public @ResponseBody String ticketReplyHistory(HttpServletRequest request, ModelMap model, Locale locale,
