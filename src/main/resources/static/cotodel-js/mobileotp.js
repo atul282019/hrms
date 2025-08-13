@@ -30,7 +30,9 @@ function getOTP() {
         type: "POST",
         url: "/smsOtpSender",
         dataType: 'json',
-        data: { "mobile": userName },
+        data: { "mobile": userName,
+				"template":""
+		},
         success: function (data) {
             var obj = data;
             document.getElementById("loginLoader").style.display = "none";
