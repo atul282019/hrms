@@ -157,6 +157,7 @@ async function getSupportTicketActionList() {
 	  document.getElementById("signinLoader").style.display="none";
       const data1 = jQuery.parseJSON(data);
    		var data2 = data1.data;
+		console.log("/getTicketListForAction",data2);
       $('#TicketSupportActionTable').DataTable({
         destroy: true,
         responsive: true,
@@ -181,7 +182,13 @@ async function getSupportTicketActionList() {
 		  {
 		    mData: "status",
 		    render: function (data) {
-		      return data === 0 ? "Submitted" : "Closed";
+		      switch (data) {
+		        case 0: return "Submitted";
+		        case 1: return "Hold";
+		        case 2: return "Closed";
+		        case 3: return "In Progress";
+		        default: return "Unknown";
+		      }
 		    }
 		  },
 		  { mData: "creationDate"},
@@ -464,7 +471,7 @@ async function changeTicketStatus(){
 				 const overlay = document.getElementById("modal-overlay1");
 				 canvas.classList.remove("show-canvas");
 				 overlay.style.display = "none";
-				
+				window.location.href="/helpdeskaction";
 			}else if(data.status==false){
 				$('#AddVehicleModal').modal('show');
 			}

@@ -102,11 +102,11 @@ async function saveTicket(){
 			document.getElementById("messageError").innerHTML="";
 		}
 	if(fileInput =="" || fileInput == null){
-		 document.getElementById("fileInputError").innerHTML="Please Select File";
+		 document.getElementById("fileInputError1").innerHTML="Please Select File";
 		 return false;
 	}
 	else{
-		document.getElementById("fileInputError").innerHTML="";
+		document.getElementById("fileInputError1").innerHTML="";
 	}
 	$('#Vehicleloading').modal('show');
 	$.ajax({
@@ -198,20 +198,22 @@ async function getSupportTicketListList() {
 		    }
 		  },
           { mData: "statusDesc" },
-          {
+          /*{
             mData: "status",
             render: function (data) {
               return data === 0 ? "Submitted" : "Closed";
             }
-          },
+          },*/
           {
             mData: null,
-            render: function (data, type, row) {
-              return `<a href="#" class="view-voucher-details" data-id="${row.id}">
-                        <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
-                        Chat with Customer Success Team
-                      </a>`;
-            }
+			render: function (data, type, row) {
+			  return `
+			    <a href="#" class="view-voucher-details" data-id="${row.id}" data-status="${row.status}" data-status-desc="${row.statusDesc}">
+			      <img src="img/history-icon.png" alt="History Icon" style="height:24px; width:24px; margin-right:4px;">
+			      Chat with Customer Success Team
+			    </a>`;
+			}
+
           }
         ]
       });
@@ -219,7 +221,14 @@ async function getSupportTicketListList() {
       // Add click handler after table renders
       $('#supportTicketList tbody').on('click', '.view-voucher-details', function (e) {
         e.preventDefault();
-        const ticketId = $(this).data('id');
+		const status = $(this).attr('data-status');
+		const statusDesc = $(this).attr('data-status-desc');
+		console.log("Set status:", status, "Desc:", statusDesc);
+
+		$('#currstatus').val(status);
+		$('#currstatusDesc').val(statusDesc);
+
+		const ticketId = $(this).attr('data-id');
         openTicketModal(ticketId);
       });
     },
@@ -454,6 +463,8 @@ async function customerReplyTicket(){
 	var createdby =  document.getElementById("employerMobile").value;
 	var orgId = document.getElementById("employerId").value;
 	var issueDesc = document.getElementById("chatInput").value;
+	var currstatus = document.getElementById("currstatus").value;
+	var currstatusDesc = document.getElementById("currstatusDesc").value;
 	
 	const clientKey = "client-secret-key"; 
 	const secretKey = "0123456789012345"; 
@@ -484,8 +495,8 @@ async function customerReplyTicket(){
 			        "id":ticketId,
 					"orgId":orgId,
 					"issueDesc":issueDesc,
-					"respTicketStatus":"0",
-					"respTicketStatusDesc":"",
+					"respTicketStatus":currstatus,
+					"respTicketStatusDesc":currstatusDesc,
 					"ticketImg":base64file,
 					"createdby":createdby,
 					"name":name,

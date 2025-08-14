@@ -849,9 +849,10 @@ function getOTP() {
 			 "mobile": userMobile
 		},*/
 		url:"/smsOtpSenderWithTemplate",
+		dataType: 'json',
 		type: 'POST',
 		data: {
-					"mobile": employerMobile,
+					"mobile": userMobile,
 					"template": "Cotodel Voucher Activity",
 		},
         success: function (data) {
@@ -926,6 +927,7 @@ function resendOTP() {
         dataType: 'json',
         data: { "mobile": userMobile, "orderId": orderId },*/
 		url:"/smsOtpSenderWithTemplate",
+		dataType: 'json',
 		type: 'POST',
 		data: {
 					"mobile": userMobile,
