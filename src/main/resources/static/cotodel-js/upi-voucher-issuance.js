@@ -55,51 +55,58 @@ $(document).ready(function() {
 		    });
 		  });
 		  
+		 
+
 		  function triggerBulkOtpSend() {
-			
-		    const employerMobile = document.getElementById("employerMobile").value;
-		    document.getElementById("authenticate").disabled = false;
+		  		
+		  	    const employerMobile = document.getElementById("employerMobile").value;
+		  	    document.getElementById("authenticate3").disabled = false;
 
-		    $.ajax({
-		      url: "/smsOtpSender",
-		      type: 'POST',
-		      data: { "mobile": employerMobile },
-		      dataType: 'json',
-		      success: function(data) {
-		        const obj = data;
-		        if (obj['status'] === true) {
-		          const maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
-		          document.getElementById("maskedMobileDisplay3").innerText =
-		            `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Revoke.`;
+		  	    $.ajax({
+		  	      /*url: "/smsOtpSender",
+		  	      type: 'POST',
+		  	      data: { "mobile": employerMobile },
+		  	      dataType: 'json',*/
+		  		  url:"/smsOtpSenderWithTemplate",
+		    	        type: 'POST',
+		    			data: {
+		    						"mobile": employerMobile,
+		    						"template": "Cotodel Voucher Activity",
+		    					},
+		    			dataType: 'json',
+		  	      success: function(data) {
+		  	        const obj = data;
+		  	        if (obj['status'] === true) {
+		  	          const maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
+		  	          document.getElementById("maskedMobileDisplay3").innerText =
+		  	            `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Revoke.`;
 
-		          let timeleft = 60;
-		          const resendCodeElement = document.getElementById("resendCode3");
-		          resendCodeElement.style.display = "none";
+		  	          let timeleft = 60;
+		  	          const resendCodeElement = document.getElementById("resendCode3");
+		  	          resendCodeElement.style.display = "none";
 
-		          const downloadTimer = setInterval(function () {
-		            document.getElementById("countdown3").innerHTML = "00:" + timeleft;
-		            timeleft -= 1;
-		            document.getElementById("orderId3").value = obj['orderId'];
-		            if (timeleft < 0) {
-		              clearInterval(downloadTimer);
-		              resendCodeElement.style.display = "block";
-		              document.getElementById("authenticate3").disabled = true;
-		            }
-		          }, 1000);
+		  	          const downloadTimer = setInterval(function () {
+		  	            document.getElementById("countdown3").innerHTML = "00:" + timeleft;
+		  	            timeleft -= 1;
+		  	            document.getElementById("orderId3").value = obj['orderId'];
+		  	            if (timeleft < 0) {
+		  	              clearInterval(downloadTimer);
+		  	              resendCodeElement.style.display = "block";
+		  	              document.getElementById("authenticate3").disabled = true;
+		  	            }
+		  	          }, 1000);
 
-		          $("#RevokebulkUPIVoucherModal").modal('show');
-		          $("#bulkrevokeModal").hide();
-		        } else {
-		          alert("Error: " + obj.message);
-		        }
-		      },
-		      error: function() {
-		        alert("An error occurred. Please try again.");
-		      }
-		    });
-		  }
-
-		
+		  	          $("#RevokebulkUPIVoucherModal").modal('show');
+		  	          $("#bulkrevokeModal").hide();
+		  	        } else {
+		  	          alert("Error: " + obj.message);
+		  	        }
+		  	      },
+		  	      error: function() {
+		  	        alert("An error occurred. Please try again.");
+		  	      }
+		  	    });
+		  	  }
 
 
 				  function resendVoucherOTP() {
@@ -111,13 +118,20 @@ $(document).ready(function() {
 				  	document.getElementById("signinLoader").style.display = "flex";
 				  	document.getElementById("authenticate").disabled = false;
 				  	$.ajax({
-				  		type: "POST",
+				  		/*type: "POST",
 				  		url:"/smsOtpResender",
 				  		dataType: 'json',
 				  		data: {
 				  			"mobile": employerMobile,
 				  			"orderId":orderId
-				  		},
+				  		},*/
+						url:"/smsOtpSenderWithTemplate",
+				        type: 'POST',
+						dataType: 'json',
+						data: {
+									"mobile": employerMobile,
+									"template": "Cotodel Voucher Activity",
+								},
 				  		success: function(data) {
 				  			var obj = data;
 				  			document.getElementById("signinLoader").style.display = "none";
@@ -152,22 +166,29 @@ $(document).ready(function() {
 				  		}
 				  	});
 				  }
-function resendbulkreoVoucherOTP() {
+function resendbulkrevokeVoucherOTP() {
 	
 	//var userName = document.getElementById("banklinkedMobile").value;
 
 	var employerMobile = document.getElementById("employerMobile").value;
 	var orderId = document.getElementById("orderId").value;
 	document.getElementById("signinLoader").style.display = "flex";
-	document.getElementById("authenticate").disabled = false;
+	document.getElementById("authenticate3").disabled = false;
 	$.ajax({
-		type: "POST",
+		/*type: "POST",
 		url:"/smsOtpResender",
 		dataType: 'json',
 		data: {
 			"mobile": employerMobile,
 			"orderId":orderId
-		},
+		},*/
+		url:"/smsOtpSenderWithTemplate",
+        type: 'POST',
+		dataType: 'json',
+		data: {
+					"mobile": employerMobile,
+					"template": "Cotodel Voucher Activity",
+				},
 		success: function(data) {
 			var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
@@ -425,7 +446,8 @@ function bulkverfyrevokeVoucherOTP() {
   	
   	$.ajax({
   			type: "POST",
-  			url:"/verifyOTP",
+  			//url:"/verifyOTP",
+			url:"/otpVerifyWithTemplate",
   			dataType: 'json',
   			data: {
   				"password1": password1,
