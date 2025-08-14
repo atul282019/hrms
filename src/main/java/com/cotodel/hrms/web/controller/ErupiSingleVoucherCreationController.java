@@ -33,7 +33,9 @@ import com.cotodel.hrms.web.response.SingleVoucherCreationRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.VoucherData;
 import com.cotodel.hrms.web.response.WhatsAppRequest;
+import com.cotodel.hrms.web.service.EmailService;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
+import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
@@ -56,6 +58,8 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	
 	@Autowired
 	TokenGenerationImpl tokengeneration;
+	@Autowired
+	EmailServiceImpl emailService;
 	
 	@Autowired
 	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
@@ -241,7 +245,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	public @ResponseBody String createSingleVoucher(HttpServletRequest request,
 			@RequestBody SingleVoucherCreationRequest erupiVoucherCreateDetails, BindingResult result, HttpSession session, 
 			ModelMap model,Locale locale) {
-		
+		String emailRequest =null;
 		String receivedHash = erupiVoucherCreateDetails.getHash();
 		 // Validate client key first
         if (!CLIENT_KEY.equals(erupiVoucherCreateDetails.getClientKey())) {
@@ -370,6 +374,8 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	            			// TODO Auto-generated catch block
 	            			e.printStackTrace();
 	            		}
+	                    
+	                    emailRequest =	emailService.sendEmail("atulyadavmca@gmail.com");
 	                }
 	            }
 
