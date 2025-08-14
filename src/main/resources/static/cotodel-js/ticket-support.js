@@ -197,7 +197,39 @@ async function getSupportTicketListList() {
 		      return `${day}-${month}-${year}<br>${hours}:${minutes} ${ampm}`;
 		    }
 		  },
-          { mData: "statusDesc" },
+          //{ mData: "statusDesc" },
+		  {
+		    mData: "statusDesc",
+		    render: function (data) {
+		      let label = "";
+		      let cssClass = "";
+
+		      switch (data) {
+		        case "Submitted":
+		          label = "Submitted";
+		          cssClass = "admin-ticket-status";
+		          break;
+		        case "Hold":
+		          label = "Hold";
+		          cssClass = "admin-ticket-status-hold";
+		          break;
+		        case "Closed":
+		          label = "Closed"; // replace label
+		          cssClass = "admin-ticket-status-red";
+		          break;
+		        case "In Progress":
+		          label = "In Progress";
+		          cssClass = "admin-ticket-status-InProgress";
+		          break;
+		        default:
+		          label = data;
+		          cssClass = "admin-ticket-status";
+		          break;
+		      }
+
+		      return `<span class="${cssClass}">${label}</span>`;
+		    }
+		  },
           /*{
             mData: "status",
             render: function (data) {
