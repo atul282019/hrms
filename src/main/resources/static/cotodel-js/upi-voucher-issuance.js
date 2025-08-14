@@ -1150,7 +1150,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
           },
           {
             "mData": "type",
-            "render": function (data, type, row) {
+            /*"render": function (data, type, row) {
               const expDate = new Date(row.expDate);
               const today = new Date();
               const isExpired = expDate < today;
@@ -1169,7 +1169,36 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
                 }
               }
               return `<span class="${labelClass}">${labelText}</span>`;
-            }
+            }*/
+			"render": function (data, type, row) {
+			  // Safely parse dd-mm-yyyy to Date
+			  function parseDDMMYYYY(dateStr) {
+			    const [dd, mm, yyyy] = dateStr.split('-');
+			    return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+			  }
+
+			  const expDate = parseDDMMYYYY(row.expDate);
+			  const today = new Date();
+			  today.setHours(0, 0, 0, 0); // Compare only date part
+
+			  const isExpired = expDate < today;
+			  let labelText = '', labelClass = '';
+			  if (isExpired && row.type === "Created") {
+			    labelText = "Expired";
+			    labelClass = "pill bg-grey-txt-grey-pill";
+			  } else {
+			    switch (data) {
+			      case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
+			      case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
+			      case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
+			      case "Revoke": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;
+			      case "Partially Redeemed": labelText = "Partially Redeemed"; labelClass = "pill-wide bg-lightyellow-txt-yellow-pill"; break;
+			      default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+			    }
+			  }
+			  return `<span class="${labelClass}">${labelText}</span>`;
+			}
+
           },
           {
             "mData": "amount",

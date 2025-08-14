@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,8 @@ import com.cotodel.hrms.web.response.BulkVoucherRequest;
 import com.cotodel.hrms.web.response.ErupiBulkVoucherCreateRequest;
 import com.cotodel.hrms.web.response.ErupiVoucherRevokeDetailsBulkRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
+import com.cotodel.hrms.web.response.VoucherData;
+import com.cotodel.hrms.web.response.WhatsAppRequest;
 import com.cotodel.hrms.web.service.BulkVoucherService;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -276,8 +279,55 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	        responseMap.put("message", apiJsonResponse.getString("message"));
 
 	        if (status && apiJsonResponse.has("data")) {
+	        	
+	        	 // Extract the array
+	            JSONArray dataArray = apiJsonResponse.getJSONArray("data");
+	            logger.info("voucher dataArray"+dataArray);// TODO: handle exception
+	            // Map JSON array to List<VoucherData>
+	            ObjectMapper objMapper = new ObjectMapper();
+	            List<VoucherData> voucherList = objMapper.readValue(
+	                dataArray.toString(),
+	                objMapper.getTypeFactory().constructCollectionType(List.class, VoucherData.class)
+	            );
+
+	            // Iterate only successful vouchers
+	            for (VoucherData item : voucherList) {
+	                if ("SUCCESS".equalsIgnoreCase(item.getResponse())) {
+	                    System.out.println("Name: " + item.getName());
+	                    System.out.println("Amount: " + item.getAmount());
+	                    System.out.println("Response: " + item.getResponse());
+	                    WhatsAppRequest whatsapp = new WhatsAppRequest();
+	                    whatsapp.setSource("new-landing-page form");
+	                    whatsapp.setCampaignName("Voucher_Issuance");
+	                    whatsapp.setFirstName(item.getName());
+	                    whatsapp.setAmount(item.getAmount());
+	                    whatsapp.setCategory(item.getVoucherDesc());
+	                    whatsapp.setMobile(item.getMobile());
+	                    whatsapp.setOrganizationName("Cotodel");
+	                    whatsapp.setValidity(item.getValidity());
+	                    whatsapp.setType(item.getRedemtionType());
+	                    whatsapp.setUserName("Cotodel Communications");
+	                    try {
+	            			String json = EncryptionDecriptionUtil.convertToJson(whatsapp);
+
+	            			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+	            			String encriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), jsonObject);
+	               
+	            			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+	            			encryptedResponse =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	            		} catch (Exception e) {
+	            			// TODO Auto-generated catch block
+	            			e.printStackTrace();
+	            		}
+	                }
+	            }
+	        	
 	            List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
 	            responseMap.put("data", dataList);
+	            
+	            
 	        } else {
                 responseMap.put("status", false);
                 responseMap.put("message", apiJsonResponse.getString("message"));
