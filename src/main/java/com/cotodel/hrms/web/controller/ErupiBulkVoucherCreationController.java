@@ -281,6 +281,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	        if (status && apiJsonResponse.has("data")) {
 	        	
 	        	 // Extract the array
+	        	
 	            JSONArray dataArray = apiJsonResponse.getJSONArray("data");
 	            logger.info("voucher dataArray"+dataArray);// TODO: handle exception
 	            // Map JSON array to List<VoucherData>
