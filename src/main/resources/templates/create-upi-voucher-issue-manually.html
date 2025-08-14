@@ -1406,7 +1406,8 @@
 		        </select>
 		    </td>
 		    <td>
-		        <input type="text" class="table-input" placeholder="Enter Amount">
+		        <input type="text" class="table-input" placeholder="Enter Amount"
+				maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
 		    </td>
 		    <td>
 		        <input type="date" class="table-input table-dateed" min="${today}" value="${today}" placeholder="Select Date" onclick="this.showPicker()" readonly>

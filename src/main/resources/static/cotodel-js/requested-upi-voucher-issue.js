@@ -571,7 +571,7 @@ async function issueVoucher() {
             redemptionType: row.querySelector('td:nth-child(4) select')?.value || '',
             amount: row.querySelector('td:nth-child(6) input')?.value || '',
             startDate: row.querySelector('td:nth-child(7) input')?.value || '',
-            validity: row.querySelector('td:nth-child(8) select')?.value || ''
+            validity: row.querySelector('td:nth-child(8) input')?.value || ''
 			
         });
     });
