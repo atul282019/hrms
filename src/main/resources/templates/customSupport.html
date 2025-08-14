@@ -93,7 +93,7 @@
 						  <th>Subject</th>
 						 <th>Ticket Date&Time</th>
 						 <th>Status</th>
-						 <th>Current Status</th>
+						 <!--<th>Current Status</th>-->
 						 <th>Chat History</th>
 		                </tr>
 		              </thead>
@@ -284,7 +284,7 @@
 													  >
 													 </div>
 												     <div class="d-grid">
-													 <div class="error-msg" id="fileInputError" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
+													 <div class="error-msg" id="fileInputError1" style="color: red; margin-top: -10px; font-size: 12px;"></div>	 
 													 						  
 													 <!--<button type="button" class="chat-send-btn w-100" 
 														 style="background-color:  #367AFF;border-radius: 10px;padding: 10px 0;" onclick="saveTicket()">
@@ -390,6 +390,8 @@
 				<input type="hidden" class="form-input" id="createdBy" name="createdBy" th:value="${session.username}">
 				<input type="hidden" class="form-input" id="employerMobile" name="employerMobile" th:value="${session.mobile}">								
 				<input type="hidden" class="form-input" id="base64Output" name="base64Output"> 
+				<input type="hidden" class="form-input" id="currstatus" name="currstatus">
+				<input type="hidden" class="form-input" id="currstatusDesc" name="currstatusDesc">
 				<input type="hidden" class="form-input" id="fileName" name="fileName">
 				<input type="hidden" id="ticketId" name="ticketId" value=""/> 
 			
