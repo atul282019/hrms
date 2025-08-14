@@ -262,7 +262,13 @@ public class LoginController extends CotoDelBaseController{
 						screenName="custom-dashboard";
 						model.addAttribute("name",profileJsonRes.getJSONObject("data").getString("email"));
 						break;
+					case "7":
+						//screenName="dashboard";
+						screenName="custom-dashboard";
+						model.addAttribute("name",profileJsonRes.getJSONObject("data").getString("email"));
+						break;
 					}
+					
 					return screenName;
 				}else if(profileJsonRes.getString("message").equalsIgnoreCase("Invalid Request")){
 					    session.setAttribute("message", "Incorrect OTP ||");
