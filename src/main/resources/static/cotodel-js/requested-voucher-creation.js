@@ -1,3 +1,20 @@
+document.addEventListener('input', function (e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+    e.target.style.border = '';
+    e.target.style.backgroundColor = '';
+  }
+});
+
+function setInvalid(el, isInvalid) {
+  if (!el) return;
+  if (isInvalid) {
+    el.style.border = '2px solid red';
+    el.style.backgroundColor = '#ffe6e6';
+  } else {
+    el.style.border = '';
+    el.style.backgroundColor = '';
+  }
+}
 // Continue → validate each source row and paint target table
  function singleVoucherValidation() {
    const banklist = document.getElementById('banklist')?.value || '';
@@ -18,7 +35,7 @@
      const reqAmtEl = row.querySelector('td:nth-child(5) input');
      const issAmtEl = row.querySelector('td:nth-child(6) input');
      const startEl = row.querySelector('td:nth-child(7) input[type="date"]');
-     const validityEl = row.querySelector('td:nth-child(8) select');
+     const validityEl = row.querySelector('td:nth-child(8) input');
 
      const name = (nameEl?.value || '').trim();
      const mobile = (mobEl?.value || '').trim();
@@ -27,7 +44,7 @@
      const reqAmt = parseFloat(reqAmtEl?.value || '');
      const issAmt = parseFloat(issAmtEl?.value || '');
      const startDate = (startEl?.value || '').trim();
-     const validity = validityEl ? validityEl.options[validityEl.selectedIndex].text : '';
+     const validity = (validityEl?.value || '').trim();
 
      // minimal validations (why: prevent empty/invalid entries reaching backend)
      setInvalid(nameEl, !name);
@@ -76,7 +93,7 @@
    $('#selectvouchers-wrap04').hide();
    $('#selectvouchers-wrap03').show();
  });
- function setInvalid(el, on, msg) { // why: minimal inline validation
+/* function setInvalid(el, on, msg) { // why: minimal inline validation
     if (!el) return;
     if (on) el.classList.add('is-invalid'); else el.classList.remove('is-invalid');
     if (msg) {
@@ -86,4 +103,4 @@
         if (holder) holder.textContent = msg;
       }
     }
-  }
+  }*/

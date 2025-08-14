@@ -736,14 +736,24 @@
 	          <div><input type="date" class="table-input" value="${todayISO}" /></div>
 	        </td>
 	        <td>
-	          <select class="GeneralSelect">
-	            <option value="1 Day">1 Day</option>
-	            <option value="7 Days">7 Days</option>
-	            <option value="15 Days">15 Days</option>
-	            <option value="30 Days" selected>30 Days</option>
-	            <option value="90 Days">90 Days</option>
-	            <option value="365 Days">365 Days</option>
-	          </select>
+				<div style="position: relative;">
+							    <input type="number"
+							           class="table-input validity-input"
+							           placeholder="2 - 365"
+							           min="2"
+							           max="365"
+							           oninput="appendDaysSuffix(this)"
+							           style="padding-right: 10px; box-sizing: border-box;">
+							    <span style="
+							      position: absolute;
+							      right: 32px;       /* Moves Days left of spinner */
+							      top: 50%;
+							      transform: translateY(-50%);
+							      pointer-events: none;
+							      color: #555;
+							      font-size: 14px;
+							    ">Days</span>
+							  </div>
 	        </td>
 	        <td>
 	          <a href="#" class="delete-voucher-row" title="Remove"><img src="img/delete.svg" alt=""></a>
