@@ -171,6 +171,51 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	       
 
 	        if (status && apiJsonResponse.has("data")) {
+
+	        	 // Extract the array
+	            JSONArray dataArray = apiJsonResponse.getJSONArray("data");
+
+	            // Map JSON array to List<VoucherData>
+	            ObjectMapper objMapper = new ObjectMapper();
+	            List<VoucherData> voucherList = objMapper.readValue(
+	                dataArray.toString(),
+	                objMapper.getTypeFactory().constructCollectionType(List.class, VoucherData.class)
+	            );
+
+	            // Iterate only successful vouchers
+	            for (VoucherData item : voucherList) {
+	                if ("SUCCESS".equalsIgnoreCase(item.getResponse())) {
+	                    System.out.println("Name: " + item.getName());
+	                    System.out.println("Amount: " + item.getAmount());
+	                    System.out.println("Response: " + item.getResponse());
+	                    WhatsAppRequest whatsapp = new WhatsAppRequest();
+	                    whatsapp.setSource("new-landing-page form");
+	                    whatsapp.setCampaignName("Voucher_Issuance");
+	                    whatsapp.setFirstName(item.getName());
+	                    whatsapp.setAmount(item.getAmount());
+	                    whatsapp.setCategory(item.getVoucherDesc());
+	                    whatsapp.setMobile(item.getMobile());
+	                    whatsapp.setOrganizationName("Cotodel");
+	                    whatsapp.setValidity(item.getValidity());
+	                    whatsapp.setType(item.getRedemtionType());
+	                    whatsapp.setUserName("Cotodel Communications");
+	                    try {
+	            			String json = EncryptionDecriptionUtil.convertToJson(whatsapp);
+
+	            			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+	            			String encriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), jsonObject);
+	               
+	            			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+	            			encryptedResponse =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	            		} catch (Exception e) {
+	            			// TODO Auto-generated catch block
+	            			e.printStackTrace();
+	            		}
+	                }
+	            }
+	        	
 	        	 List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
 	        	responseMap.put("data", dataList); // Could be primitive or string
 	          
