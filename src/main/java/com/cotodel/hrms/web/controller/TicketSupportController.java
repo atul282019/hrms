@@ -203,6 +203,7 @@ public class TicketSupportController extends CotoDelBaseController {
 		    boolean isValid = computedHash != null && computedHash.equals(receivedHash);
 		    if (isValid) {
 		        responseMap.put("status", false);
+		        
 		        responseMap.put("message", "Request Tempered");
 		        try {
 		            return mapper.writeValueAsString(responseMap);
