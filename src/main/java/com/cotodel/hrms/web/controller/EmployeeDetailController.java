@@ -30,6 +30,7 @@ import com.cotodel.hrms.web.response.EmployeeDeactiveRequest;
 import com.cotodel.hrms.web.response.EmployeeOnboarding;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
+import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.Base64FileUtil;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -56,6 +57,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
+	@Autowired
+	EmailServiceImpl emailService;
 	
 	@PostMapping(value="/employeeRegistration")
 	public @ResponseBody String saveEmployeeOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session, @RequestBody Map<String, String> requestData) {
@@ -227,6 +230,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	            if (apiJsonResponse.getBoolean("status")) {
 	                responseMap.put("status", true);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
+	                String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
 	            } else {
 	                responseMap.put("status", false);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
