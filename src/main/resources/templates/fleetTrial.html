@@ -311,7 +311,14 @@
 										        </div>
 										    </div>
 										</div>
+										
+</script>
 		<style>
+			/* Keep backdrop below the modal */
+			.modal-backdrop { z-index: 1040 !important; }
+			/* Ensure modal is above backdrop even if a parent creates a stacking context */
+			.modal { z-index: 1055 !important; }
+
 			body.modal-open {
 			    overflow: hidden !important; /* force no page scroll */
 			}

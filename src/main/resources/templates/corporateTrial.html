@@ -55,6 +55,11 @@ html, body  {
 @media screen and (max-width:480px) {
 	.loginNew-wrap-corporate{padding: 0;}
 }
+/* Keep backdrop below the modal */
+			.modal-backdrop { z-index: 1040 !important; }
+			/* Ensure modal is above backdrop even if a parent creates a stacking context */
+			.modal { z-index: 1055 !important; }
+
 </style>
 <body>
 
