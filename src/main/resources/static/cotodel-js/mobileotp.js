@@ -89,7 +89,7 @@ function getOTP() {
             }
         },
         error: function (e) {
-            alert('Error: ' + e);
+            alert('Error: ' + "Connection Timeout");
         }
     });
 }

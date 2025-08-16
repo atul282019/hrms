@@ -29,7 +29,11 @@ import com.cotodel.hrms.web.response.DirectorOnboarding;
 import com.cotodel.hrms.web.response.EmployeeDeactiveRequest;
 import com.cotodel.hrms.web.response.EmployeeOnboarding;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
+import com.cotodel.hrms.web.response.UserForm;
+import com.cotodel.hrms.web.response.WhatsAppRequest;
 import com.cotodel.hrms.web.service.EmployeeDetailService;
+import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
+import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.Base64FileUtil;
@@ -59,6 +63,13 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	
 	@Autowired
 	EmailServiceImpl emailService;
+	
+
+	@Autowired
+	LoginService loginservice;
+	
+	@Autowired
+	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
 	
 	@PostMapping(value="/employeeRegistration")
 	public @ResponseBody String saveEmployeeOnboarding(HttpServletRequest request, ModelMap model,Locale locale,HttpSession session, @RequestBody Map<String, String> requestData) {
@@ -230,7 +241,51 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	            if (apiJsonResponse.getBoolean("status")) {
 	                responseMap.put("status", true);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
-	                String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+	                
+	                // Start SMS and Email service
+	                UserForm userForm = new UserForm();
+	                userForm.setMobile(employeeOnboarding.getMobile());
+	                userForm.setTemplate("Cotodel Voucher Activity");
+	                try {
+	                String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
+
+	    			EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+
+	    			String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userFormjsonObject);
+
+	       
+	    			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+	    			String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	    			String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+	    			
+	    			WhatsAppRequest whatsapp = new WhatsAppRequest();
+	                whatsapp.setSource("new-landing-page form");
+	                whatsapp.setCampaignName("Voucher_Issuance");
+	                whatsapp.setFirstName(employeeOnboarding.getName());
+	                //whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
+	                //whatsapp.setCategory(item.getVoucherDesc());
+	                whatsapp.setMobile(employeeOnboarding.getMobile());
+	                whatsapp.setOrganizationName("Cotodel");
+	                //whatsapp.setValidity(item.getValidity());
+	                //whatsapp.setType(item.getRedemtionType());
+	                whatsapp.setUserName("Cotodel Communications");
+	    			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);
+
+	    			EncriptResponse whatsappJsonObject=EncryptionDecriptionUtil.encriptResponse(whatsappJson, applicationConstantConfig.apiSignaturePublicPath);
+
+	    			String whatsappEncriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), whatsappJsonObject);
+	       
+	    			EncriptResponse whatsappReqEnc =EncryptionDecriptionUtil.convertFromJson(whatsappEncriptResponse, EncriptResponse.class);
+
+	    			String whatsappRes =  EncryptionDecriptionUtil.decriptResponse(whatsappReqEnc.getEncriptData(), whatsappReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	
+	    			
+	                } catch (Exception e) {
+	    			// TODO Auto-generated catch block
+	    			e.printStackTrace();
+	    		}
+	             //End Start SMS and Email service
 	            } else {
 	                responseMap.put("status", false);
 	                responseMap.put("message", apiJsonResponse.getString("message"));

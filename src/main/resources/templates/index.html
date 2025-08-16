@@ -578,7 +578,11 @@
 	            }
 	        },
 	        error: function (e) {
-	            alert('Error: ' + e);
+				document.getElementById("optBtn").disabled = false;
+				document.getElementById("optBtn").style.display = "block";
+				document.getElementById("loginLoader").style.display = "none";
+	            alert('Error: ' + "Connection Timeout");
+				
 	        }
 	    });
 	}</script>

@@ -19,13 +19,20 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cotodel.hrms.web.function.common.CommonUtils;
+import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.service.EmailService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
 public class EmailServiceImpl implements EmailService{
+	@Autowired
+	public ApplicationConstantConfig applicationConstantConfig;
 	
 	private static final Logger logger = LogManager.getLogger(EmailServiceImpl.class);
 	
@@ -89,4 +96,14 @@ public class EmailServiceImpl implements EmailService{
 						return message;
 	}
 
+	
+	public String sendSMS(String token, String mobile, String templateId) {
+		return CommonUtility.userRequest(token,smsRequest(mobile,templateId),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendOtpNew);
+	}
+	public static String smsRequest(String mobile,String templateId) {
+		JSONObject request= new JSONObject();
+		request.put("mobile", "9205431193");
+		request.put("template", templateId);
+		return request.toString();
+	}
 }
