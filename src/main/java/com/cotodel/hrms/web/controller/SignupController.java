@@ -21,8 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.CaptchaSession;
 import com.cotodel.hrms.web.response.EmployerDetailsRequest;
+import com.cotodel.hrms.web.response.SMSRequest;
 import com.cotodel.hrms.web.response.UserWaitList;
+import com.cotodel.hrms.web.response.WhatsAppRequest;
+import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
+import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.SingleUserCreationService;
+import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
@@ -45,6 +50,14 @@ public class SignupController  extends CotoDelBaseController{
 	
 	@Autowired
 	TokenGenerationImpl tokengeneration; 
+	
+	@Autowired
+	EmailServiceImpl emailService;
+	
+	@Autowired
+	LoginService loginservice;
+	@Autowired
+	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
 	
 	@PostMapping(value="/registerUser")
 	public @ResponseBody String registerUser(HttpServletRequest request, EmployerDetailsRequest userForm) {
@@ -81,6 +94,50 @@ public class SignupController  extends CotoDelBaseController{
 	        profileJsonRes = new JSONObject(profileRes);
 
 	        if (profileJsonRes.getBoolean("status")) {
+	        	// Start SMS and Email service
+	        	SMSRequest smsRequest = new SMSRequest();
+	        	smsRequest.setMobile(userForm.getMobile());
+	        	smsRequest.setMessage("Hi, your Cotodel account has been successfully created for your business. Let’s reduce pilferages for your operational spends!");
+	            try {
+	            String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
+
+				EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+
+				String userFormResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
+	   
+				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
+
+				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+				String emailRequest =	emailService.sendEmail(userForm.getEmail());
+	            } catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	            try {
+	            	WhatsAppRequest whatsapp = new WhatsAppRequest();
+	                whatsapp.setSource("new-landing-page form");
+	                whatsapp.setCampaignName("Sign Up Confirmation - Schedule Demo");
+	                whatsapp.setFirstName(userForm.getName());
+	                //whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
+	                //whatsapp.setCategory(item.getVoucherDesc());
+	                whatsapp.setMobile(userForm.getMobile());
+	                whatsapp.setOrganizationName("Cotodel");
+	                //whatsapp.setValidity(item.getValidity());
+	                //whatsapp.setType(item.getRedemtionType());
+	                whatsapp.setUserName("Cotodel Communications");
+	    			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);
+
+	    			EncriptResponse whatsappJsonObject=EncryptionDecriptionUtil.encriptResponse(whatsappJson, applicationConstantConfig.apiSignaturePublicPath);
+
+	    			String whatsappEncriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), whatsappJsonObject);
+	       
+	    			EncriptResponse whatsappReqEnc =EncryptionDecriptionUtil.convertFromJson(whatsappEncriptResponse, EncriptResponse.class);
+
+	    			String whatsappRes =  EncryptionDecriptionUtil.decriptResponse(whatsappReqEnc.getEncriptData(), whatsappReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	    		} catch (Exception e) {
+	    			// TODO Auto-generated catch block
+	    			e.printStackTrace();
+	    		}
 	            // loginservice.sendEmailToEmployee(userForm);
 	        }
 

@@ -240,4 +240,9 @@ public class LoginServiceImpl implements LoginService {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.verifyOtp);
 
 	}
+
+	@Override
+	public String sendTransactionalSMS(String token, EncriptResponse userFormjsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userFormjsonObject),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendTransactionalSMS);
+	}
 }

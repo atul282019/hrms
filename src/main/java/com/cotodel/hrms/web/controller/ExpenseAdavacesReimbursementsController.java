@@ -31,11 +31,11 @@ import com.cotodel.hrms.web.response.ErupiLinkBankAccount;
 import com.cotodel.hrms.web.response.ExpensesReimbursementRequest;
 import com.cotodel.hrms.web.response.LinkMultipleAccountRequest;
 import com.cotodel.hrms.web.response.Ocr;
+import com.cotodel.hrms.web.response.SMSRequest;
 import com.cotodel.hrms.web.response.TravelAdvanceRequestUpdate;
 import com.cotodel.hrms.web.response.TravelReimbursement;
 import com.cotodel.hrms.web.response.TravelRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
-import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.response.WhatsAppRequest;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
 import com.cotodel.hrms.web.service.ExpensesReimbursementService;
@@ -436,15 +436,16 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
                 responseMap.put("message", apiJsonResponse.getString("message"));
                 
     				// Start SMS and Email service
-    	            UserForm userForm = new UserForm();
+                    SMSRequest userForm = new SMSRequest();
     	            userForm.setMobile((String) session.getAttribute("mobile"));
-    	            userForm.setTemplate("Activation Confirmation");
+    	            //userForm.setTemplate("Activation Confirmation");
+    	            userForm.setMessage("Congratulations! Your bank account is now live on Cotodel. You can start issuing UPI vouchers. Next step: Onboard your team!");
     	            try {
     	            String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
 
     				EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
 
-    				String userFormResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userFormjsonObject);
+    				String userFormResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
     	   
     				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
 
