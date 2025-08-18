@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.SMSRequest;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
@@ -82,6 +83,32 @@ public class OtpSenderController extends CotoDelBaseController{
 		
 		return profileRes;
 	}	
+	
+	
+	@PostMapping(value="/smsOtpWithTemplateMobileAndAmount")
+	public @ResponseBody String sendOtpWith2FactorUsingDoubleVariable(HttpServletRequest request,@ModelAttribute("userForm") SMSRequest userForm,Locale locale,Model model) {
+		String profileRes=null;
+
+		try {
+			//String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userForm);
+			String json = EncryptionDecriptionUtil.convertToJson(userForm);
+
+			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), jsonObject);
+
+   
+			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return profileRes;
+	}	
+	
 	
 	@PostMapping(value="/otpWithoutLogin")
 	public @ResponseBody String otpWithoutLogin(HttpServletRequest request,@ModelAttribute("userForm") UserForm userForm,Locale locale,Model model) {

@@ -420,7 +420,8 @@
 
 	    document.getElementById("totalRowCount").textContent = `${validRowCount}`;
 	    document.getElementById("totalAmount").textContent = `₹${totalAmount.toFixed(2)}`;
-
+		document.getElementById("totalRowCountHidden").value = `${validRowCount}`;
+		document.getElementById("totalAmountHidden").value = `${totalAmount.toFixed(2)}`;
 	    const commonErrorMsg = document.getElementById('common-error-msg');
 	    if (!overallIsValid) {
 	        commonErrorMsg.textContent = errorMessages.join('\n');

@@ -30,6 +30,7 @@ import com.cotodel.hrms.web.response.ErupiVoucherCreateDetails;
 import com.cotodel.hrms.web.response.ErupiVoucherStatusSmsRequest;
 import com.cotodel.hrms.web.response.RevokeResponse;
 import com.cotodel.hrms.web.response.RevokeVoucher;
+import com.cotodel.hrms.web.response.SMSRequest;
 import com.cotodel.hrms.web.response.SingleVoucherCreationRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserForm;
@@ -558,8 +559,9 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	            			        RevokeResponse.class
 	            			    );
 	            
-	            UserForm userForm = new UserForm();
+				SMSRequest userForm = new SMSRequest();
 	            userForm.setMobile(revokeResponse .getMobile());
+	            userForm.setValue(revokeResponse .getRevokeAmount());
 	            userForm.setTemplate("Revoke");
 	            try {
 	            String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
@@ -579,14 +581,14 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	            try {
 	            	WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                whatsapp.setSource("new-landing-page form");
-	                whatsapp.setCampaignName("Voucher_Issuance");
+	                whatsapp.setCampaignName("Voucher Revoke");
 	                whatsapp.setFirstName(revokeResponse.getName());
-	                whatsapp.setAmount(revokeResponse.getAmount());
-	                //whatsapp.setCategory(item.getVoucherDesc());
+	                whatsapp.setAmount(revokeResponse.getRevokeAmount());
+	                whatsapp.setCategory(revokeResponse.getVoucherDesc());
 	                whatsapp.setMobile(revokeResponse.getMobile());
 	                whatsapp.setOrganizationName("Cotodel");
-	                //whatsapp.setValidity(item.getValidity());
-	                //whatsapp.setType(item.getRedemtionType());
+	                whatsapp.setValidity(revokeResponse.getValidity());
+	                whatsapp.setType(revokeResponse.getRedemtionType());
 	                whatsapp.setUserName("Cotodel Communications");
 	    			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);
 

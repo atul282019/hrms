@@ -201,11 +201,13 @@
                                            <span>Number</span>
                                         <!--   <span id="totalNumber"></span>--> 
 										   <span id="totalRowCount">0</span>
+										   <input type="hidden" name="totalRowCountHidden" id="totalRowCountHidden" >
                                        </div>
                                        <div class="d-flex justify-content-between my-1">
                                            <span>Value</span>
                                           <!-- <span id="totalValue"></span>-->
 										   <span id="totalAmount">₹0.00</span>
+										   <input type="hidden" name="totalAmountHidden" id="totalAmountHidden" >
                                        </div>
                                    </div>
                                 </div>
@@ -791,13 +793,15 @@
 	  		  }
 	  		
 		  var employerMobile = document.getElementById("employerMobile").value;
+		  var amount = document.getElementById("totalAmountHidden").value;
 		  document.getElementById("authenticate").disabled = false;
 	      $.ajax({
-	        url:"/smsOtpSenderWithTemplate",
+	        url:"/smsOtpWithTemplateMobileAndAmount",
 	        type: 'POST',
 			data: {
 						"mobile": employerMobile,
 						"template": "Cotodel Voucher Activity",
+						"value": amount,
 					},
 			dataType: 'json',
 			success: function(data) {

@@ -18,6 +18,9 @@ public interface CommonUtils {
 	//with Dynamic template Id send otp
 	public static String sendOtp2FactorWithTemplateId = "/userServices/Api/get/sendOtp";
 	
+	// body mobile and msg
+	public static String sendTransactionalSMS = "/userServices/Api/get/sendTransOtp";
+	
 	public static String verifyOtpWithOutRegister = "/userServices/Api/get/verifyOtpWithOutRegister";
 	public static String loginwithPwd = "/userServices/api/users/login";
 	public static String regiUserBulk = "/empService/Api/add/saveBulkEmplOnboarding";

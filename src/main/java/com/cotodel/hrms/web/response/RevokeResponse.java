@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RevokeResponse {
+	private String revokeAmount;
 	 private String name;
      private String mobile;
      private String amount;
