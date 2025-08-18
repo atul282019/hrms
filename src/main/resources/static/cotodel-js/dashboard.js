@@ -8,7 +8,7 @@ function loadVoucherData() {
   
   $.ajax({
     type: "POST",
-    url: "/activeInactiveVoucherAmount",
+    url: "/activeInactiveVoucherAmount", 
     data: { "orgId": employerId },
     success: function(response) {
       try {
