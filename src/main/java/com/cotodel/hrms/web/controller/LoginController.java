@@ -3,6 +3,7 @@ package com.cotodel.hrms.web.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,19 +16,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cotodel.hrms.web.jwt.util.JwtTokenGenerator;
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
+import com.cotodel.hrms.web.response.EmployeeProfileRequest;
 import com.cotodel.hrms.web.response.LoginWithPwd;
 import com.cotodel.hrms.web.response.ReputeTokenRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserForm;
+import com.cotodel.hrms.web.response.UserOtpRequest;
 import com.cotodel.hrms.web.service.LoginService;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
@@ -409,6 +414,30 @@ public class LoginController extends CotoDelBaseController{
             screenName = null;
         }
     }
+    @PostMapping(value="/updatepassword")
+	public @ResponseBody String updatepassword(HttpServletRequest request, ModelMap model,Locale locale,
+			HttpSession session, UserOtpRequest userotprequest) {
+			logger.info("/updatepassword");	
+			String token = (String) session.getAttribute("hrms");
+			String profileRes=null;
+		
+			try {
+				String json = EncryptionDecriptionUtil.convertToJson(userotprequest);
 
+				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+				String encriptResponse = loginservice.updatepassword(tokengeneration.getToken(), jsonObject);
+
+	   
+				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	   
+		return profileRes;
+	}
 
 }

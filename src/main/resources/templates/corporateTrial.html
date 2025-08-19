@@ -214,6 +214,10 @@ html, body  {
 				            <div class="modal-content modal-bulk p-0">
 				                <div class="modal-header text-center">
 				                    <h5 class="modal-title w-100">Verify otp</h5>
+									<button type="button" class="close" onclick="closeCorporateOtpModal()" aria-label="Close">
+									  <span aria-hidden="true">&times;</span>
+									</button>
+
 				                </div>				
 								<div class="modal-body text-center">
 								    <div class="otp-box-onboarding justify-content-center">
@@ -480,11 +484,18 @@ html, body  {
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 	<script type="text/javascript" src="cotodel-js/registerotp.js"></script>
+	<script> 			function closeCorporateOtpModal() {
+			document.getElementById("corporateOTPModal").style.display = "none";
+			document.body.classList.remove("modal-open");
+			document.querySelectorAll(".modal-backdrop").forEach(e => e.remove());
+				}
+	</script>
 	<script>
 	  const termsCheckbox = document.getElementById('terms');
 	  const registerBtn = document.getElementById('registerBtn');

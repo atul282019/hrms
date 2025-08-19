@@ -272,7 +272,7 @@
 								</form>
 
 								<div class="links-container" style="text-align: right; margin-bottom: 10px;">
-								  <a href="#"  onclick="showForgotPassword()" style="color:#367AFF; margin-right:10px; font-size: 13px;">Forgot Password?</a>
+								  <a href="#"  onclick="handleForgotPassword(event)"  style="color:#367AFF; margin-right:10px; font-size: 13px;">Forgot Password?</a>
 								  <a href="#"  onclick="selectOtpLogin()" style="color:#367AFF; font-size: 13px;">Login with OTP</a>
 								</div>
 								
@@ -350,7 +350,7 @@
 						          style="background:#EAF0FF; border:none; color:#367AFF; font-weight:600; padding:10px; border-radius:8px;">
 						    SETUP PASSWORD
 						  </button>-->
-						  <button class="btn login-btn"   id="setuppassword"  type="button" disabled>SETUP PASSWORD</button>
+						  <button class="btn login-btn"   id="setuppassword" onclick="setPassword()"  type="button" disabled>SETUP PASSWORD</button>
 						</div>
 						  <!--<div class="text-center mt-4">
 						    <small>New to Cotodel? <a href="/Industries" style="color:#367AFF;">Register for Demo</a></small>
@@ -421,11 +421,31 @@
       el.classList.add("fa-eye");
     }
   }
+  function handleForgotPassword(event) {
+    event.preventDefault();
+
+    const mobileOrEmail = document.getElementById("dynamicInput").value.trim();
+
+    // Check if it's a valid 10-digit mobile number
+    const mobileRegex = /^[6-9]\d{9}$/;
+
+    if (!mobileOrEmail || !mobileRegex.test(mobileOrEmail)) {
+      // Show error under input
+      document.getElementById("loginerrorMsg").textContent = "Please enter a valid mobile number first";
+      setTimeout(() => {
+        document.getElementById("loginerrorMsg").textContent = "";
+      }, 4000);
+      return;
+    }
+
+    // ✅ If valid mobile → go to Forgot Password flow
+    showForgotPassword();
+  }
 
   // Validation
   const passwordInput = document.getElementById("newPassword");
   const confirmInput = document.getElementById("confirmPassword");
-  const setupBtn = document.getElementById("setupPasswordBtn");
+  const setupBtn = document.getElementById("setuppassword"); // <-- fix ID
 
   passwordInput.addEventListener("input", validatePassword);
   confirmInput.addEventListener("input", validatePassword);
@@ -450,7 +470,11 @@
 
     updateStrength(rulesPassed);
 
-    setupBtn.disabled = !(rulesPassed === 5 && password === confirm);
+    // ✅ Enable only if all rules pass AND confirm matches
+    const allRulesPassed = rulesPassed === 5;
+    const passwordsMatch = password && password === confirm;
+
+    setupBtn.disabled = !(allRulesPassed && passwordsMatch);
     setupBtn.style.background = setupBtn.disabled ? "#EAF0FF" : "#367AFF";
     setupBtn.style.color = setupBtn.disabled ? "#367AFF" : "#fff";
   }
@@ -475,7 +499,6 @@
 
   function updateStrength(rulesPassed) {
     const strengthEl = document.getElementById("passwordStrength");
-	const setuppassword_button = document.getElementById("setuppassword");
 
     if (rulesPassed <= 2) {
       strengthEl.textContent = "Weak";
@@ -486,11 +509,11 @@
     } else if (rulesPassed === 5) {
       strengthEl.textContent = "Strong";
       strengthEl.style.color = "#367AFF";
-	  setuppassword_button.disabled=false;
     } else {
       strengthEl.textContent = "";
     }
   }
+
 
 
 </script>

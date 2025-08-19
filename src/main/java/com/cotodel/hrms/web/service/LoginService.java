@@ -22,5 +22,6 @@ public interface LoginService {
 	String sendOtpWith2Factor(String token, EncriptResponse jsonObject);
 	String otpVerifyWithTemplate(String token, EncriptResponse jsonObject);
 	String sendTransactionalSMS(String token, EncriptResponse userFormjsonObject);
+	String updatepassword(String token, EncriptResponse jsonObject);
 
 }
