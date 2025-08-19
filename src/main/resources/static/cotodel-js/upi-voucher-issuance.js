@@ -1172,14 +1172,34 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
             }*/
 			"render": function (data, type, row) {
 			  // Safely parse dd-mm-yyyy to Date
-			  function parseDDMMYYYY(dateStr) {
+			  /*function parseDDMMYYYY(dateStr) {
 			    const [dd, mm, yyyy] = dateStr.split('-');
 			    return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+			  }*/
+			  // Adjust parsing depending on backend format (yyyy-mm-dd)
+			  function parseDate(dateStr) {
+			    if (!dateStr) return null;
+			    
+			    // If format looks like yyyy-mm-dd
+			    if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+			      return new Date(dateStr + "T00:00:00");
+			    }
+			    
+			    // If format looks like dd-mm-yyyy
+			    if (/^\d{2}-\d{2}-\d{4}/.test(dateStr)) {
+			      const [dd, mm, yyyy] = dateStr.split('-');
+			      return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+			    }
+			    
+			    return new Date(dateStr); // fallback
 			  }
 
-			  const expDate = parseDDMMYYYY(row.expDate);
+
+			  //const expDate = parseDDMMYYYY(row.expDate);
+			  const expDate = parseDate(row.expDate);
 			  const today = new Date();
 			  today.setHours(0, 0, 0, 0); // Compare only date part
+			  //console.log("Exp date parsed:", expDate, "Row expDate:", row.expDate,"merchanttxnId",row.merchanttxnId, "Today:", today);
 
 			  const isExpired = expDate < today;
 			  let labelText = '', labelClass = '';

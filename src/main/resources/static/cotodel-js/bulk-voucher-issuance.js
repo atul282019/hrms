@@ -210,7 +210,19 @@ function convertImageToBase64() {
 		}
 		
 	}
-	
+	// Reusable date formatter
+	function formatDateToDDMMYY(dateStr) {
+	    if (!dateStr) return "";
+	    let dateObj = new Date(dateStr);
+
+	    if (isNaN(dateObj)) return dateStr; // if invalid, return as-is
+
+	    let dd = String(dateObj.getDate()).padStart(2, '0');
+	    let mm = String(dateObj.getMonth() + 1).padStart(2, '0'); 
+	    let yy = String(dateObj.getFullYear()).slice(-2);
+
+	    return dd + "-" + mm + "-" + yy;
+	}	
 async function saveBulkVoucherUpload(){
 	
 	var fileInput = document.getElementById("up").value;
@@ -339,8 +351,16 @@ async function saveBulkVoucherUpload(){
 					            return data;
 					        }
 					    },
-					{ "mData": "startDate"},  
-					{ "mData": "expDate"}
+					{ "mData": "startDate",
+						"mRender": function (data) {
+						            return formatDateToDDMMYY(data);
+						        }
+					},  
+					{ "mData": "expDate",
+						"mRender": function (data) {
+						            return formatDateToDDMMYY(data);
+						        }
+					}
 					
 				 	],
 					
@@ -373,8 +393,16 @@ async function saveBulkVoucherUpload(){
 						            return data;
 						        }
 						    },
-						{ "mData": "startDate"},  
-						{ "mData": "expDate"},
+						{ "mData": "startDate",
+							"mRender": function (data) {
+							            return formatDateToDDMMYY(data);
+							        }
+						},  
+						{ "mData": "expDate",
+							"mRender": function (data) {
+							            return formatDateToDDMMYY(data);
+							        }
+						},
 						{ "mData": "id", "render": function (data2, type, row) {
 						   return '<td> <button value="'+data2+'" id="btnDelete" onclick="openRevokeDialog(this)" > <a href="#"><img src="img/delete.svg" alt=""></a> </button> </td>';
 						}}, 
@@ -395,8 +423,16 @@ async function saveBulkVoucherUpload(){
 					{ "mData": "beneficiaryName"},   
 					{ "mData": "mobile"},   
 					 { "mData": "amount"},
-					{ "mData": "startDate"},  
-					{ "mData": "expDate"},
+					{ "mData": "startDate",
+						"mRender": function (data) {
+						            return formatDateToDDMMYY(data);
+						        }
+					},  
+					{ "mData": "expDate",
+						"mRender": function (data) {
+						            return formatDateToDDMMYY(data);
+						        }
+					},
 					{ "mData": "message"}
 	    		 	],
 					createdRow: function (row, data2, dataIndex) 
@@ -1265,8 +1301,8 @@ function verfyIssueVoucherOTP() {
 					       maximumFractionDigits: 2
 					   });
 					   row.insertCell().textContent = formattedAmount;
-					   row.insertCell().textContent = item.startDate;
-					   row.insertCell().textContent = item.expDate;
+					   row.insertCell().textContent = formatDateToDDMMYY(item.startDate);
+					   row.insertCell().textContent = formatDateToDDMMYY(item.expDate);
 				     // Add the response cell with an image
 				     const responseCell = row.insertCell();
 				     const img = document.createElement("img");
