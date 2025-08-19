@@ -257,8 +257,12 @@
 		 }
 			 
 	}*/
-	
 	function singleVoucherValidation() {
+	    // Get available balance as number
+	    const availableBalance = parseFloat(
+	        document.querySelector(".text-wrapper-3")
+	            .textContent.replace(/[₹,]/g, '').trim()
+	    ) || 0;
 
 	    var banklistElem = document.getElementById("banklist");
 	    var banklist = banklistElem.value;
@@ -290,19 +294,11 @@
 	        const redemptionSelect = row.querySelector('.redemptionType');
 	        const amountInput = row.querySelector('input[placeholder="Enter Amount"]');
 	        const dateInput = row.querySelector('input[type="date"]');
+	        const validityInput = row.querySelector('.validity-input');
 
-	        // ✅ NEW: validity as input
-			const validityInput = row.querySelector('.validity-input');
-
-
-	        // Reset field highlights
-	        if (nameInput) nameInput.style.borderColor = '';
-	        if (mobileInput) mobileInput.style.borderColor = '';
-	        if (voucherInput) voucherInput.style.borderColor = '';
-	        if (redemptionSelect) redemptionSelect.style.borderColor = '';
-	        if (amountInput) amountInput.style.borderColor = '';
-	        if (dateInput) dateInput.style.borderColor = '';
-	        if (validityInput) validityInput.style.borderColor = '';
+	        // Reset highlights
+	        [nameInput, mobileInput, voucherInput, redemptionSelect, amountInput, dateInput, validityInput]
+	            .forEach(el => { if (el) el.style.borderColor = ''; });
 
 	        // Validate Name
 	        if (!nameInput || !nameInput.value) {
@@ -336,11 +332,16 @@
 	            if (redemptionSelect) redemptionSelect.style.borderColor = '#F24822';
 	        }
 
-	        // Validate Amount
+	        // ✅ Validate Amount against availableBalance
 	        if (!amountInput || isNaN(amountInput.value) || amountInput.value <= 0) {
 	            overallIsValid = false;
 	            isValid = false;
 	            errorMessages.push(`Row ${index + 1}: Amount must be a positive number.`);
+	            if (amountInput) amountInput.style.borderColor = '#F24822';
+	        } else if (parseFloat(amountInput.value) > availableBalance) {
+	            overallIsValid = false;
+	            isValid = false;
+	            errorMessages.push(`Row ${index + 1}: Amount cannot exceed available balance (₹${availableBalance}).`);
 	            if (amountInput) amountInput.style.borderColor = '#F24822';
 	        }
 
@@ -368,7 +369,7 @@
 	            }
 	        }
 
-	        // ✅ Validate Validity Text Input (New)
+	        // ✅ Validate Validity
 	        if (!validityInput || isNaN(validityInput.value) || validityInput.value < 2 || validityInput.value > 365) {
 	            overallIsValid = false;
 	            isValid = false;
@@ -376,17 +377,7 @@
 	            if (validityInput) validityInput.style.borderColor = '#F24822';
 	        }
 
-	        // ❌ Old dropdown validation (commented)
-	/*
-	        const validitySelect = row.querySelector('.validity');
-	        if (!validitySelect || !validitySelect.value) {
-	            overallIsValid = false;
-	            isValid = false;
-	            errorMessages.push(`Row ${index + 1}: Validity is required.`);
-	            if (validitySelect) validitySelect.style.borderColor = '#F24822';
-	        }
-	*/
-
+	        // Collect valid row
 	        if (isValid) {
 	            const rowData = {
 	                name: nameInput ? nameInput.value : '',
@@ -399,15 +390,13 @@
 	                redemptionType: redemptionSelect ? redemptionSelect.value : '',
 	                amount: amountInput ? amountInput.value : '',
 	                startDate: dateInput ? dateInput.value : '',
-	               //validity: validityInput ? validityInput.value + ' Days' : ''
-				   validity: validityInput ? validityInput.getAttribute('data-validity') || '' : ''
-
+	                validity: validityInput ? validityInput.getAttribute('data-validity') || '' : ''
 	            };
 	            tableData.push(rowData);
 	        }
 	    });
 
-	    // Total & UI Feedback
+	    // ✅ Total & UI Feedback
 	    let totalAmount = 0;
 	    let validRowCount = tableData.length;
 
@@ -418,10 +407,19 @@
 	        }
 	    });
 
+	    // ✅ Final check: total should not exceed availableBalance
+	    if (totalAmount > availableBalance) {
+	        overallIsValid = false;
+	        errorMessages.push(
+	            `Total voucher amount (₹${totalAmount.toFixed(2)}) cannot exceed available balance (₹${availableBalance}).`
+	        );
+	    }
+
 	    document.getElementById("totalRowCount").textContent = `${validRowCount}`;
 	    document.getElementById("totalAmount").textContent = `₹${totalAmount.toFixed(2)}`;
-		document.getElementById("totalRowCountHidden").value = `${validRowCount}`;
-		document.getElementById("totalAmountHidden").value = `${totalAmount.toFixed(2)}`;
+	    document.getElementById("totalRowCountHidden").value = `${validRowCount}`;
+	    document.getElementById("totalAmountHidden").value = `${totalAmount.toFixed(2)}`;
+
 	    const commonErrorMsg = document.getElementById('common-error-msg');
 	    if (!overallIsValid) {
 	        commonErrorMsg.textContent = errorMessages.join('\n');
@@ -470,11 +468,9 @@
 	                const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
 	                const yyyy = dateObj.getFullYear();
 	                newCell.textContent = `${dd}-${mm}-${yyyy}`;
-	            }
-				else if (j === 6) {
-					newCell.textContent = value.includes('Days') ? value : `${value} Days`;
-				}
-				 else {
+	            } else if (j === 6) {
+	                newCell.textContent = value.includes('Days') ? value : `${value} Days`;
+	            } else {
 	                newCell.textContent = value;
 	            }
 
@@ -484,5 +480,3 @@
 	        targetBody.appendChild(newRow);
 	    }
 	}
-
-		

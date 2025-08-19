@@ -1062,13 +1062,13 @@ function getPrimaryBankDetail(){
 			                                     .textContent
 			                                     .replace(/[₹,]/g, '')
 			                                     .trim();
-			    const amountInput    = document.getElementById("amount");
+			    const amountInput    =document.querySelector(".amount").value.trim();// document.getElementById("amount");
 			    const continueButton = document.getElementById("continueButton1");
 			    const errorMessage   = document.getElementById("common-error-msg");
 			    const accountType    = document.getElementById("accountSeltWallet").value;
 
 			    const balance = parseFloat(availableBalance);
-			    const rawValue = amountInput.value.trim();
+			    const rawValue = amountInput.trim();
 			    const amount = parseFloat(rawValue);
 
 			    // Reset

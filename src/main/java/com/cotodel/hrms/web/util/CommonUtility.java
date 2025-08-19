@@ -67,6 +67,7 @@ public class CommonUtility {
 
 			returnStr = restTemplate.postForObject(url, entity, String.class);
 			logger.info(" response Json---"+returnStr);
+			System.out.println(" response Json---"+returnStr);
 			return returnStr;
 		}catch(HttpStatusCodeException e) {
 			logger.error("HttpStatusCodeException error in---"+url+"-"+e.getResponseBodyAsString());
