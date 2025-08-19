@@ -558,11 +558,12 @@ function refreshCountdown() {
 
 function loginwithPwd() {
 	var x = true;
-		var mobile = document.getElementById("mobile").value;
-		var userpwd = document.getElementById("pwd").value;
+		const mobile = document.getElementById("dynamicInput").value;
+		const userpwd = document.getElementById("pwd").value;
+		const form = document.getElementById("pwdForm");
 		
 		
-		if (document.getElementById("mobile").value == "") {
+		/*if (document.getElementById("mobile").value == "") {
 			document.getElementById("mobError").innerHTML="Please Enter mobile..";
 			
 			x = false;
@@ -573,16 +574,22 @@ function loginwithPwd() {
 					
 					x = false;
 			
-				}
-		console.log("document.forms[0]",document.forms[0]);
+				}*/
+		console.log("pwdForm",form);
 			//var formData = new FormData(loginForm);
 			//formData.append("loginId", loginId);
 		if (x) {
-			document.forms[0].action = "/Pwdlogin";
+			/*document.forms[0].action = "/Pwdlogin";
 			document.forms[0].method = "post";
 			document.forms[0].submit();
-			console.log("document.forms[0]",document.forms[0]);
+			console.log("document.forms[0]",document.forms[0]);*/
+			form.action = "/Pwdlogin";
+		    form.method = "post";
+		    form.submit(); // server returns view (index/custom-dashboard)
 		}
+		
+
+					
 }
 
 

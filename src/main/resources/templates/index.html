@@ -106,7 +106,7 @@
 				</div>
 				<div class="row justify-content-center h-100">
 					<div class="col-lg-7">
-<div class="image-section position-relative   h-100" >
+					<div class="image-section position-relative   h-100" >
 						<div id="imageCarousel" class="carousel slide h-100 overflow-hidden" style="border-radius: 20px;" data-ride="carousel">
 							<div class="carousel-inner h-100">
 							<div class="carousel-item active h-100" data-index="0">
@@ -135,115 +135,158 @@
 						</div>
 					</div>
 						
-				<div class="col-lg-4">
-<div class="login-section ">
+					<div class="col-lg-4"> 
+			<div class="login-section ">
 						
 						<div class="login-body">
 							<form autocomplete="off" id="loginForm" name="loginForm">
-								<h4 class="login-title" style="margin: 0;">Get started with your phone number</h4>
+								<h4 class="login-title" style="margin: 0;">Get started with your email or phone number</h4>
 								<!-- Flex container: text left, switch right -->
 								
-
-							<div class="phone-input-container mt-3">
-							<div class="phone-prefix">
-								<img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon" />
-								<span>+91</span>
-							</div>
-							<input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
-							autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-							</div>
-							<div class="error-msg" id="mobError" ></div>
-							<div  class="error-msg" id="errorOtp" ></div>	
-							<br>
-							<div id="showhideotpSwitch"style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
-
-							  <!-- Left Label -->
-							  <span style="color: #6D7072;">Login with OTP</span>
-
-							  <!-- Switch -->
-							  <div class="custom-tooltip-wrapper" data-tooltip="Login with password">
-							    <label class="custom-switch">
-							      <input type="checkbox" id="loginToggle">
-							      <span class="custom-slider"></span>
-							    </label>
-							  </div>
-
-							  <!-- Right Label -->
-							  <span style="color: #6D7072;">Login with password</span>
-							</div>
-							<p class="helper-text">We will send an OTP on the mobile number entered.</p>
+								<div >
+								<br>									   							
+   						   <ul class="nav nav-underline" id="dashboardTabs" role="tablist">
+   						     <li class="nav-item">
+   						       <a class="nav-link active" data-toggle="tab" href="#LoginwithOTP" role="tab">Login with OTP</a>
+   						     </li>
+   							 <li class="nav-item">
+   						       <a class="nav-link" data-toggle="tab" href="#LoginwithPassword" role="tab">Login with Password</a>
+   						     </li>
 							
-							<!-- Custom Switch Styles -->
-							<!-- Styles -->
-						
+   							
+   						   </ul>
+   						  
+   						   <hr class="mt-0">
 
-							
-						
-							<!-- Inside .login-section -->
-							<div class="login-body" id="login-body">
-							<!-- Your phone input and login UI -->
-							<!-- Replace LOGIN button -->
-							<button class="btn login-btn" onclick="requestOTP();"  id="optBtn" type="button" disabled >Send OTP</button>
-							</div>
-							
-							<!-- login without otp-->
-							<div class="login-body" id="directloginbody">
-								<br>
-						
-							<div class="did-floating-label-content">
-							    <input class="did-floating-input" type="password" id="pwd" name="pwd"
-							        placeholder=" ">
-							    <label class="did-floating-label">Password<span class="required-star"></span></label>
-							</div>
-							<div  class="error-msg" id="loginerrorMsg" ></div>	
-							<button class="btn login-btn"   id="directlogin" onclick="loginwithPwd()" type="button" disabled>Login</button>
-							</div><!-- login without otp ends here-->
-
-							<!-- OTP Form -->
-							<div id="otp-section" style="display:none;">
-							<h4 class="login-title">Enter OTP</h4>
-							<!--<p class="helper-text">OTP code has been sent to your phone <strong>xx405</strong></p>-->
-							<span id="maskedMobileDisplay"></span>
-
-							<div id="otpInputBox" >
-							<div class="d-flex justify-content-between mb-3 " style="margin-top: 15px;">
-								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
-								id="password1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password1">
-								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
-								id="password2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password2">
-								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"
-								id="password3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password3">
-								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
-								id="password4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password4">
-								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
-								id="password5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password5">
-								<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
-								id="password6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password6">
-								<input  class="form-control form-control-sm test" type="hidden" id="orderId" name="orderId" >
-																						
-								<div>
-																							
-								<input type="hidden" id="errorMessage" th:value="${message}" ></input>
-								<input type="hidden" id="mo" th:value="${mobile}" ></input>
-								<input type="hidden" id="orderid" th:value="${orderid}" ></input>
-									
-							</div>		
-							<span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" class="eye-icon" role="button" aria-label="Toggle OTP visibility" tabindex="0">
-								<i class="fas fa-eye"></i>
-								</span>
+   						   <div class="tab-content mt-3">
+   							<!--vouchers tab-->
+   							<div class="tab-pane fade show active" id="LoginwithOTP" role="tabpanel">
+								<div class="phone-input-container mt-3">
+								<div class="phone-prefix">
+									<img src="https://flagcdn.com/w40/in.png" alt="IN" class="flag-icon" />
+									<span>+91</span>
 								</div>
-							</div>
-							<div  class="error-msg" id="otpError" style="margin-top: -15px; margin-bottom: 20px;"></div>	
+								<input class="form-control phone-input" placeholder="Enter Your Mobile No." type="text" id="mobile" name="mobile"
+								autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+								</div>
+								<div class="error-msg" id="mobError" ></div>
+								<div  class="error-msg" id="errorOtp" ></div>	
+								<!--<br>
+								<div id="showhideotpSwitch"style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+
+								 
+								  <span style="color: #6D7072;">Login with OTP</span>
+
+								 
+								  <div class="custom-tooltip-wrapper" data-tooltip="Login with password">
+								    <label class="custom-switch">
+								      <input type="checkbox" id="loginToggle">
+								      <span class="custom-slider"></span>
+								    </label>
+								  </div>
+
+								  
+								  <span style="color: #6D7072;">Login with password</span>
+								</div>-->
+								<p class="helper-text">We will send an OTP on the mobile number entered.</p>
+
+								<!-- Custom Switch Styles -->
+								<!-- Styles -->
+
+
+
+
+								<!-- Inside .login-section -->
+								<div class="login-body" id="login-body">
+								<!-- Your phone input and login UI -->
+								<!-- Replace LOGIN button -->
+								<button class="btn login-btn" onclick="getOTP();"  id="optBtn" type="button" disabled >Send OTP</button>
+								</div>
+
 								
-							<p id="otpCountdownText">
-								You can resend the OTP after: 
-								<span id="countdown" style="color: green;"></span> seconds
-							</p>
-							
-							<p class="text-muted" id="resendOTPText" style="display: none; ">Didn’t receive the code? <a href="#" onclick="resendOTP()">Resend OTP</a></p>
-							<!--<button class="btn login-btn">LOGIN</button>-->
-							<button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn login-btn" disabled>LOGIN</button>
-							</div>
+
+								<!-- OTP Form -->
+								<div id="otp-section" style="display:none;">
+								<h4 class="login-title">Enter OTP</h4>
+								<!--<p class="helper-text">OTP code has been sent to your phone <strong>xx405</strong></p>-->
+								<span id="maskedMobileDisplay"></span>
+
+								<div id="otpInputBox" >
+								<div class="d-flex justify-content-between mb-3 " style="margin-top: 15px;">
+									<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+									id="password1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password1">
+									<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
+									id="password2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password2">
+									<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"
+									id="password3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password3">
+									<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+									id="password4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password4">
+									<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off" 
+									id="password5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password5">
+									<input type="password" class="form-control text-center otp-input" maxlength="1" autocomplete="off"  
+									id="password6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');"name="password6">
+									<input  class="form-control form-control-sm test" type="hidden" id="orderId" name="orderId" >
+																							
+									<div>
+																								
+									<input type="hidden" id="errorMessage" th:value="${message}" ></input>
+									<input type="hidden" id="mo" th:value="${mobile}" ></input>
+									<input type="hidden" id="orderid" th:value="${orderid}" ></input>
+										
+								</div>		
+								<span id="toggleOtpVisibility" onclick="toggleOtpVisibility()" class="eye-icon" role="button" aria-label="Toggle OTP visibility" tabindex="0">
+									<i class="fas fa-eye"></i>
+									</span>
+									</div>
+								</div>
+								<div  class="error-msg" id="otpError" style="margin-top: -15px; margin-bottom: 20px;"></div>	
+									
+								<p id="otpCountdownText">
+									You can resend the OTP after: 
+									<span id="countdown" style="color: green;"></span> seconds
+								</p>
+
+								<p class="text-muted" id="resendOTPText" style="display: none; ">Didn’t receive the code? <a href="#" onclick="resendOTP()">Resend OTP</a></p>
+								<!--<button class="btn login-btn">LOGIN</button>-->
+								<button type="button"  style="display:none" onclick="submitAction()" id="verifyotpdiv" class="btn login-btn" disabled>LOGIN</button>
+								</div>
+								</form>
+   							</div>
+
+   							 
+   							<!-- LoginwithPassword tab-->
+   						     <div class="tab-pane fade" id="LoginwithPassword" role="tabpanel">
+								<!-- login without otp-->
+								<div class="login-body" id="directloginbody">
+									<form id="pwdForm" method="post" name="pwdForm"> 
+									<div class="did-floating-label-content">
+									  <input class="did-floating-input" type="text" id="dynamicInput" name="mobile" placeholder=" ">
+									  <label id="dynamicLabel" class="did-floating-label">Mobile Or Email<span class="required-star"></span></label>
+									</div>
+								<div class="did-floating-label-content">
+								    <input class="did-floating-input" type="password" id="pwd" name="pwd"
+								        placeholder=" ">
+								    <label class="did-floating-label">Password<span class="required-star"></span></label>
+									 <span toggle="#pwd" class="fa fa-fw fa-eye field-icon toggle-password" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
+								</div>
+								</form>
+
+								<div class="links-container" style="text-align: right; margin-bottom: 10px;">
+								  <a href="#"  onclick="showForgotPassword()" style="color:#367AFF; margin-right:10px; font-size: 13px;">Forgot Password?</a>
+								  <a href="#"  onclick="selectOtpLogin()" style="color:#367AFF; font-size: 13px;">Login with OTP</a>
+								</div>
+								
+								<div  class="error-msg" id="loginerrorMsg" ></div>	
+								<button class="btn login-btn"   id="directlogin" onclick="loginwithPwd()" type="button" disabled>Login</button>
+								</div><!-- login without otp ends here-->
+   																		
+   						     </div>
+   							
+
+		   </div>
+		 </div>
+
+
 							
 							<div class="or-divider">
 							<!--	<span>or login with</span>-->
@@ -255,12 +298,66 @@
 								<button class="btn social-btn"><img src="img/repute-logo.png" alt="Repute" /> Repute</button>-->
 							</div>
 						</div>
-						</form>
+						
 
 						<hr class="footer-divider" />
 						<div class="login-footer">
 							New to Cotodel? <a href="/Industries">Register for Demo</a>
 						</div>
+						
+						<!-- Forgot Password Section -->
+						<div id="forgotPasswordSection" style="display:none;">
+
+						  <h4 class="mb-4" style="font-weight:600;">Setup your Password</h4>
+
+						  <!-- Enter Password
+						  <div class="form-group position-relative">
+						    <input type="password" id="newPassword" class="form-control" placeholder="Enter Password" />
+						    <span toggle="#newPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+						          onclick="togglePasswordVisibility('newPassword', this)"
+						          style="position: absolute; right: 12px; top: 20px; cursor: pointer;"></span>
+						  </div> -->
+						  <div class="form-group position-relative">
+						    <input type="password" id="newPassword" class="form-control" placeholder="Enter Password" />
+						    <span id="passwordStrength" 
+						          style="position:absolute; right:40px; top:12px; font-size:14px; font-weight:600;">
+						    </span>
+						    <span toggle="#newPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+						          onclick="togglePasswordVisibility('newPassword', this)"
+						          style="position: absolute; right: 12px; top: 20px; cursor: pointer;"></span>
+						  </div>
+
+						  <!-- Password rules -->
+						  <div class="d-flex flex-wrap mb-3" style="gap:10px; font-size:14px; color:#6D7072;">
+						    <span id="upperReq">1 uppercase character</span>
+						    <span id="lowerReq">1 lowercase character</span>
+						    <span id="numReq">1 number</span>
+						    <span id="specialReq">1 special character</span>
+						    <span id="lengthReq">8-15 characters</span>
+						  </div>
+
+
+						  <!-- Confirm Password -->
+						  <div class="form-group position-relative">
+						    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" />
+						    <span toggle="#confirmPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+						          onclick="togglePasswordVisibility('confirmPassword', this)"
+						          style="position: absolute; right: 12px; top: 20px; cursor: pointer;"></span>
+						  </div>
+
+						  <!-- Submit 
+						  <button id="setupPasswordBtn" class="btn btn-primary w-100" type="button" disabled
+						          style="background:#EAF0FF; border:none; color:#367AFF; font-weight:600; padding:10px; border-radius:8px;">
+						    SETUP PASSWORD
+						  </button>-->
+						  <button class="btn login-btn"   id="setuppassword"  type="button" disabled>SETUP PASSWORD</button>
+						</div>
+						  <!--<div class="text-center mt-4">
+						    <small>New to Cotodel? <a href="/Industries" style="color:#367AFF;">Register for Demo</a></small>
+						  </div>-->
+						</div>
+
+						
 						<div class="lds-spinner" id="loginLoader" style="display:none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
 						</div>
@@ -285,59 +382,165 @@
  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+  <style>  .rule-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+</style>
+<script>
+  const passwordInput1 = document.getElementById("pwd");
+  const loginButton = document.getElementById("directlogin");
+
+  passwordInput1.addEventListener("input", function () {
+    if (passwordInput1.value.trim() !== "") {
+      loginButton.disabled = false;
+    } else {
+      loginButton.disabled = true;
+    }
+  });
+</script>
+
+  <script>  
+	function selectOtpLogin() {
+	  // Switch to OTP tab using Bootstrap
+	  $('#dashboardTabs a[href="#LoginwithOTP"]').tab('show');
+	}
+
+	// Toggle password visibility
+  function togglePasswordVisibility(id, el) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+      input.type = "text";
+      el.classList.remove("fa-eye");
+      el.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      el.classList.remove("fa-eye-slash");
+      el.classList.add("fa-eye");
+    }
+  }
+
+  // Validation
+  const passwordInput = document.getElementById("newPassword");
+  const confirmInput = document.getElementById("confirmPassword");
+  const setupBtn = document.getElementById("setupPasswordBtn");
+
+  passwordInput.addEventListener("input", validatePassword);
+  confirmInput.addEventListener("input", validatePassword);
+
+  function validatePassword() {
+    const password = passwordInput.value;
+    const confirm = confirmInput.value;
+
+    const upper = /[A-Z]/.test(password);
+    const lower = /[a-z]/.test(password);
+    const number = /\d/.test(password);
+    const special = /[@$!%*?&#]/.test(password);
+    const length = password.length >= 8 && password.length <= 15;
+
+    const rulesPassed = [upper, lower, number, special, length].filter(Boolean).length;
+
+    updateRule("upperReq", upper);
+    updateRule("lowerReq", lower);
+    updateRule("numReq", number);
+    updateRule("specialReq", special);
+    updateRule("lengthReq", length);
+
+    updateStrength(rulesPassed);
+
+    setupBtn.disabled = !(rulesPassed === 5 && password === confirm);
+    setupBtn.style.background = setupBtn.disabled ? "#EAF0FF" : "#367AFF";
+    setupBtn.style.color = setupBtn.disabled ? "#367AFF" : "#fff";
+  }
+
+  function updateRule(ruleId, isValid) {
+    const rule = document.getElementById(ruleId);
+
+    if (isValid) {
+      if (!rule.querySelector("img")) {
+        const img = document.createElement("img");
+        img.src = "img/check-circle-fullgreen.png";
+        img.classList.add("rule-icon");
+        rule.prepend(img);
+      }
+      rule.style.color = "#2F945A";
+    } else {
+      const img = rule.querySelector("img");
+      if (img) img.remove();
+      rule.style.color = "#6D7072";
+    }
+  }
+
+  function updateStrength(rulesPassed) {
+    const strengthEl = document.getElementById("passwordStrength");
+	const setuppassword_button = document.getElementById("setuppassword");
+
+    if (rulesPassed <= 2) {
+      strengthEl.textContent = "Weak";
+      strengthEl.style.color = "#FF545A";
+    } else if (rulesPassed >= 3 && rulesPassed < 5) {
+      strengthEl.textContent = "Medium";
+      strengthEl.style.color = "#FEBC2F";
+    } else if (rulesPassed === 5) {
+      strengthEl.textContent = "Strong";
+      strengthEl.style.color = "#367AFF";
+	  setuppassword_button.disabled=false;
+    } else {
+      strengthEl.textContent = "";
+    }
+  }
+
+
+</script>
   <script>
-	window.requestOTP = function requestOTP() {
-	    /*const toggle = document.getElementById("loginToggle");
-		if (toggle) {
-			      toggle.disabled = true; // lock switch after requesting OTP
-			    }
-			disable the button	
-				
-				
-		const customtooltipwrapper=document.querySelector(".custom-tooltip-wrapper");
-		customtooltipwrapper.style.display="none";*/
-		const showhideotpSwitch=document.getElementById("showhideotpSwitch");
-				showhideotpSwitch.style.display="none";
+	function showForgotPassword() {
+		document.querySelector(".footer-divider").style.display = "none";
+		document.querySelector(".social-buttons").style.display = "none";
+		document.querySelector(".login-footer").style.display = "none";
+	  document.querySelector(".or-divider").style.display = "none";
+	  document.querySelector(".login-body").style.display = "none";
+	  document.getElementById("forgotPasswordSection").style.display = "block";
+	}
+
+	
+    const togglePassword = document.querySelector("#togglePassword");
+    const passwordField = document.querySelector("#pwd");
+
+    togglePassword.addEventListener("click", function () {
+      const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+      passwordField.setAttribute("type", type);
+      if (type === "text") {
+        this.classList.remove("fa-eye");
+        this.classList.add("fa-eye-slash");
+      } else {
+        this.classList.remove("fa-eye-slash");
+        this.classList.add("fa-eye");
+      }
+    });
+	
+	
 		
-	    
-	    console.log("OTP requested: toggle disabled");
-		getOTP();//calling actual get otp function
-	   
-	  };
-	document.addEventListener("DOMContentLoaded", function () {
-	  const toggle = document.querySelector(".custom-switch input");
-	  const phoneLogin = document.getElementById("login-body");
-	  const passwordLogin = document.getElementById("directloginbody");
-	  const helperText = document.querySelector(".helper-text");
-	  const passwordInput = document.getElementById("pwd");
-	  const directLoginBtn = document.getElementById("directlogin");
+  </script>
 
-	  // Initial state
-	  passwordLogin.style.display = "none";
-	  directLoginBtn.disabled = true;
 
-	  // Toggle switch logic
-	  toggle.addEventListener("change", function () {
-	    const showPasswordLogin = this.checked;
 
-	    phoneLogin.style.display = showPasswordLogin ? "none" : "block";
-	    passwordLogin.style.display = showPasswordLogin ? "block" : "none";
-	    if (helperText) {
-	      helperText.style.display = showPasswordLogin ? "none" : "block";
-		  //helperText.style.display=showPasswordLogin ? "hidden": "block";
-	    }
+  <script>
+	/* script to toggle the label for mobile/email in password section*/
+    const input = document.getElementById("dynamicInput");
+    const label = document.getElementById("dynamicLabel");
 
-	    // Reset password input and disable button on switch
-	    passwordInput.value = "";
-	    directLoginBtn.disabled = true;
-	  });
+    input.addEventListener("input", () => {
+      const value = input.value.trim();
 
-	  // Enable button when password input is not empty
-	  passwordInput.addEventListener("input", function () {
-	    directLoginBtn.disabled = this.value.trim() === "";
-	  });
-	});
-	</script>
+      if (/^[0-9]+$/.test(value)) {
+        label.innerHTML = "Mobile<span class='required-star'></span>";
+      } else if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        label.innerHTML = "Email<span class='required-star'></span>";
+      } 
+    });
+  </script>
   <script>
     $('#imageCarousel').carousel({
       interval: 10000, // 10 seconds per slide
