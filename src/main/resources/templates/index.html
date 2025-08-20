@@ -344,7 +344,8 @@
 						          onclick="togglePasswordVisibility('confirmPassword', this)"
 						          style="position: absolute; right: 12px; top: 20px; cursor: pointer;"></span>
 						  </div>
-
+						  <!-- Password match message -->
+						  <div id="passwordMatchMsg" style="font-size:14px; display:none; margin-top:-10px; margin-bottom:15px;"></div>
 						  <!-- Submit 
 						  <button id="setupPasswordBtn" class="btn btn-primary w-100" type="button" disabled
 						          style="background:#EAF0FF; border:none; color:#367AFF; font-weight:600; padding:10px; border-radius:8px;">
@@ -477,6 +478,16 @@
     setupBtn.disabled = !(allRulesPassed && passwordsMatch);
     setupBtn.style.background = setupBtn.disabled ? "#EAF0FF" : "#367AFF";
     setupBtn.style.color = setupBtn.disabled ? "#367AFF" : "#fff";
+	
+	const matchMsg = document.getElementById("passwordMatchMsg");
+	  if (passwordsMatch) {
+	    matchMsg.style.display = "block";
+	    matchMsg.innerHTML = `<img src="img/check-circle-fullgreen.png" 
+	                             style="width:16px; height:16px; margin-right:6px; vertical-align:middle;">
+	                          <span style="color:#2F945A;">Password matched successfully</span>`;
+	  } else {
+	    matchMsg.style.display = "none";
+	  }
   }
 
   function updateRule(ruleId, isValid) {
