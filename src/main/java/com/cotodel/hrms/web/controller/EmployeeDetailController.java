@@ -59,6 +59,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	@Autowired
 	EmployeeDetailService employeeDetailService;
 
+	
 	@Autowired
 	TokenGenerationImpl tokengeneration;
 	
