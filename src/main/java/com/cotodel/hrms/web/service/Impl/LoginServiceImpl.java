@@ -245,4 +245,9 @@ public class LoginServiceImpl implements LoginService {
 	public String sendTransactionalSMS(String token, EncriptResponse userFormjsonObject) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(userFormjsonObject),  applicationConstantConfig.userServiceBaseUrl +CommonUtils.sendTransactionalSMS);
 	}
+	
+	@Override
+	public String updatepassword(String token, EncriptResponse jsonObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonObject), applicationConstantConfig.userServiceBaseUrl +CommonUtils.updatepassword);
+	}
 }

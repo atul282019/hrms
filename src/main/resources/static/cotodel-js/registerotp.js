@@ -682,7 +682,13 @@ function verifyEmail(){
  }
  
  function OTPforfleet(){
- 	
+	document.getElementById("password1").value="";
+		  	 document.getElementById("password2").value="";
+		  	 document.getElementById("password3").value="";
+		  	 document.getElementById("password4").value="";
+		  	 document.getElementById("password5").value="";
+		  	 document.getElementById("password6").value="";
+			 document.getElementById("otpError").innerHTML="";
 	const name = document.getElementById("username").value.trim();
 	    const emailInput = document.getElementById("email").value.trim();
 	    const email = emailInput.toLowerCase();
@@ -801,7 +807,13 @@ function verifyEmail(){
  }
  
  function OTPforCorporate(){
- 	
+			 document.getElementById("password1").value="";
+		  	 document.getElementById("password2").value="";
+		  	 document.getElementById("password3").value="";
+		  	 document.getElementById("password4").value="";
+		  	 document.getElementById("password5").value="";
+		  	 document.getElementById("password6").value="";
+			 document.getElementById("otpError").innerHTML="";
      const name = document.getElementById("username").value.trim();
      const emailInput = document.getElementById("email").value.trim();
      const email = emailInput.toLowerCase();

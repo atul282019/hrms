@@ -592,4 +592,37 @@ function loginwithPwd() {
 					
 }
 
+function setPassword() {
+	
+	var mobile = document.getElementById("dynamicInput").value;
+	var confirmPassword = document.getElementById("confirmPassword").value;
+	
+	
+	//document.getElementById("loginLoader").style.display = "flex";
+	$.ajax({
+		type: "POST",
+		url:"/updatepassword",
+		dataType: 'json',
+		data: {
+			"mobile": mobile,
+			"password":confirmPassword
+		},
+		success: function(data) {
+			var obj = data;
+			//document.getElementById("loginLoader").style.display = "none";
+			if (obj['status'] == true) {
+				window.location.href="/login";
+			}else if (obj['status'] == false) {
+
+			
+			} else {
+				
+			}
+		},
+		error: function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
 
