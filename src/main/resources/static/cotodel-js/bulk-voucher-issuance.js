@@ -100,18 +100,26 @@ $(document).on('change','.up', function(){
 				  document.getElementById('submitButton').disabled=true;
 			      var employerMobile = document.getElementById("employerMobile").value;
 				  document.getElementById("authenticate").disabled = false;
+				  var totalNumberCount = document.getElementById("totalNumber2Count").innerHTML;
 			      $.ajax({
 			        /*url:"/smsOtpSender",
 			        type: 'POST',
 					data: {
 								"mobile": employerMobile,
-						  },*/
+						  },
 					  url:"/smsOtpSenderWithTemplate",
 					  type: 'POST',
 					  data: {
 					  			"mobile": employerMobile,
 					  			"template": "Cotodel Voucher Activity",
-					  },
+					  },*/
+					  url:"/smsOtpWithTemplateMobileAndAmount",
+		  			type: 'POST',
+		  			data: {
+				  			"mobile": employerMobile,
+				  			"template": "OTP Number Vouchers Issuance",
+				  			"value" : totalNumberCount,
+			  			},
 					dataType: 'json',
 					success: function(data) {
 					var obj = data;
@@ -503,6 +511,10 @@ function resendVoucherOTP() {
 	var userName = document.getElementById("banklinkedMobile").value;
 	var orderId = document.getElementById("orderId").value;
 	var employerMobile = document.getElementById("employerMobile").value;
+
+	var totalNumberCount = document.getElementById("totalNumber2Count").innerHTML;
+				     
+						  
 	
 	$.ajax({
 		/*type: "POST",
@@ -511,14 +523,23 @@ function resendVoucherOTP() {
 		data: {
 			"mobile": userName,
 			"orderId":orderId
-		},*/
+		},
 		url:"/smsOtpSenderWithTemplate",
 		type: 'POST',
 		dataType: 'json',
 		data: {
 			"mobile": userName,
 			"template": "Cotodel Voucher Activity",
-		},
+		},*/
+		url:"/smsOtpWithTemplateMobileAndAmount",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+	  			"mobile": employerMobile,
+	  			"template": "OTP Number Vouchers Issuance",
+	  			"value" : totalNumberCount,
+  			},
+			
 		success: function(data) {
 			var obj = data;
 			//document.getElementById("loginLoader").style.display = "none";
