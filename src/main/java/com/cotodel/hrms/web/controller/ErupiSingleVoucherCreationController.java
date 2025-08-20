@@ -462,6 +462,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 			HttpSession session, EmployeeMassterRequest erupiVoucherCreateDetails) {
 		
 		String profileRes=null;
+		
 			
 			try {
 				String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
@@ -533,6 +534,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	public @ResponseBody String revokeCreatedVoucher(HttpServletRequest request, ModelMap model, Locale locale,
 			HttpSession session, RevokeVoucher erupiVoucherCreateDetails) {
 		String profileRes = null;
+		String smsResponse =null;
 		//profileRes = erupiVoucherCreateDetailsService.revokeCreatedVoucher(tokengeneration.getToken(),	erupiVoucherCreateDetails);
 
 		try {
@@ -559,21 +561,30 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	            			        RevokeResponse.class
 	            			    );
 	            
-				SMSRequest userForm = new SMSRequest();
-	            userForm.setMobile(revokeResponse .getMobile());
-	            userForm.setValue(revokeResponse .getRevokeAmount());
-	            userForm.setTemplate("Revoke");
+				
+	            SMSRequest smsRequest = new SMSRequest();
+	        	smsRequest.setMobile(revokeResponse .getMobile());
+	        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
+	        	
+	        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# Spends is revoked! View details and manage via your Cotodel dashboard.";
+	        	String finalMessage = template
+	        	        .replace("#VAR1#", revokeResponse .getRevokeAmount())
+	        	        .replace("#VAR2#", revokeResponse.getVoucherDesc());
+	        	
+	        	smsRequest.setMessage(finalMessage);
+	        	
 	            try {
-	            String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
+	            String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
 
 				EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
 
-				String userFormResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userFormjsonObject);
+				String userFormResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
 	   
 				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
 
-				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-				//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+				 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+				 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
+				 //String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

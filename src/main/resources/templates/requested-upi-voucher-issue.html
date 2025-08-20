@@ -1056,17 +1056,19 @@
 	  		
 		  var employerMobile = document.getElementById("employerMobile").value;
 		  document.getElementById("authenticate").disabled = false;
+		  var  totalNumberCount = document.getElementById("totalNumberCount").innerHTML;
 	      $.ajax({
 	       /* url:"/smsOtpSender",
 	        type: 'POST',
 			data: {
 						"mobile": employerMobile,
 					},*/
-			url:"/smsOtpSenderWithTemplate",
+			url:"/smsOtpWithTemplateMobileAndAmount",
 			type: 'POST',
 			data: {
 						"mobile": employerMobile,
-						"template": "Cotodel Voucher Activity",
+						"template": "OTP Number Vouchers Issuance",
+						"value" : totalNumberCount,
 			},
 			dataType: 'json',
 			success: function(data) {

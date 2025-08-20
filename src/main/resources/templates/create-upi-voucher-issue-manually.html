@@ -793,15 +793,16 @@
 	  		  }
 	  		
 		  var employerMobile = document.getElementById("employerMobile").value;
-		  var amount = document.getElementById("totalAmountHidden").value;
+		  var rowcount = parseInt(document.getElementById("totalRowCount").innerHTML);
+
 		  document.getElementById("authenticate").disabled = false;
 	      $.ajax({
 	        url:"/smsOtpWithTemplateMobileAndAmount",
 	        type: 'POST',
 			data: {
 						"mobile": employerMobile,
-						"template": "Cotodel Voucher Activity",
-						"value": amount,
+						"template": "OTP Number Vouchers Issuance",
+						"value": rowcount,
 					},
 			dataType: 'json',
 			success: function(data) {
