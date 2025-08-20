@@ -744,6 +744,34 @@ requestedVoucherCount()">
 	    alert("Only Active vouchers can be revoked.");
 	    return;
 	  }
+	  
+	  //  Check expiry date
+	   function parseDate(dateStr) {
+	     if (!dateStr) return null;
+
+	     if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+	       return new Date(dateStr + "T00:00:00");
+	     }
+	     if (/^\d{2}-\d{2}-\d{4}/.test(dateStr)) {
+	       const [dd, mm, yyyy] = dateStr.split('-');
+	       return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+	     }
+	     return new Date(dateStr);
+	   }
+
+	   const today = new Date();
+	   today.setHours(0, 0, 0, 0);
+
+	   const expiredRows = selectedRows.filter(row => {
+	     const expDate = parseDate(row.expDate);
+	     return expDate && expDate < today;
+	   });
+
+	   if (expiredRows.length > 0) {
+	     alert("Cannot revoke expired vouchers.");
+	     return;
+	   }
+
 
 	  // Populate modal table
 	  const modalBody = $('#bulkRevokeTableBody');

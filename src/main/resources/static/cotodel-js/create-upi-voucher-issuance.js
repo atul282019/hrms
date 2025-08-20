@@ -13,7 +13,7 @@ function resendVoucherOTP() {
 	var userName = document.getElementById("banklinkedMobile").value;
 	var orderId = document.getElementById("orderId").value;
 	var employerMobile = document.getElementById("employerMobile").value;
-	
+	var rowcount = parseInt(document.getElementById("totalRowCount").innerHTML);
 	$.ajax({
 		/*type: "POST",
 		url:"/smsOtpResender",
@@ -22,13 +22,15 @@ function resendVoucherOTP() {
 			"mobile": userName,
 			"orderId":orderId
 		},*/
-		url:"/smsOtpSenderWithTemplate",
+		
+		url:"/smsOtpWithTemplateMobileAndAmount",
 		type: 'POST',
 		dataType: 'json',
 		data: {
-		"mobile":  userName,
-		"template": "Cotodel Voucher Activity",
-		}, 
+				"mobile":  employerMobile,
+				"template": "OTP Number Vouchers Issuance",
+				"value":rowcount
+				}, 
 		success: function(data) {
 			var obj = data;
 			//document.getElementById("loginLoader").style.display = "none";
