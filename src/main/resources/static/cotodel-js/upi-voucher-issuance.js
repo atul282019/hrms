@@ -2,12 +2,14 @@ $(document).ready(function() {
 		    $('#btnRevoke').click(function() {
 			  var employerMobile = document.getElementById("employerMobile").value;
 			  document.getElementById("authenticate").disabled = false;
+			
 		      $.ajax({
-		        url:"/smsOtpSenderWithTemplate",
+		        url:"/smsOtpWithTemplateMobileAndAmount",
 		        type: 'POST',
 				data: {
 							"mobile": employerMobile,
-							"template": "Cotodel Voucher Activity",
+							"template": "OTP Number Vouchers Revoke",
+							"value":"1"
 						},
 				dataType: 'json',
 				success: function(data) {
@@ -57,21 +59,22 @@ $(document).ready(function() {
 		  
 		 
 
-		  function triggerBulkOtpSend() {
+		  function triggerBulkOtpSend(selectedIds) {
 		  		
 		  	    const employerMobile = document.getElementById("employerMobile").value;
 		  	    document.getElementById("authenticate3").disabled = false;
-
+				
 		  	    $.ajax({
 		  	      /*url: "/smsOtpSender",
 		  	      type: 'POST',
 		  	      data: { "mobile": employerMobile },
 		  	      dataType: 'json',*/
-		  		  url:"/smsOtpSenderWithTemplate",
+		  		  url:"/smsOtpWithTemplateMobileAndAmount",
 		    	        type: 'POST',
 		    			data: {
 		    						"mobile": employerMobile,
-		    						"template": "Cotodel Voucher Activity",
+		    						"template": "OTP Number Vouchers Revoke",
+									"value":selectedIds
 		    					},
 		    			dataType: 'json',
 		  	      success: function(data) {

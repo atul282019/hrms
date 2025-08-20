@@ -28,6 +28,7 @@ import com.cotodel.hrms.web.response.BulkConfirmationRequest;
 import com.cotodel.hrms.web.response.DirectorOnboarding;
 import com.cotodel.hrms.web.response.EmployeeDeactiveRequest;
 import com.cotodel.hrms.web.response.EmployeeOnboarding;
+import com.cotodel.hrms.web.response.SMSRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
 import com.cotodel.hrms.web.response.UserForm;
 import com.cotodel.hrms.web.response.WhatsAppRequest;
@@ -241,17 +242,22 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	            if (apiJsonResponse.getBoolean("status")) {
 	                responseMap.put("status", true);
 	                responseMap.put("message", apiJsonResponse.getString("message"));
-	                
-	                // Start SMS and Email service
-	                UserForm userForm = new UserForm();
-	                userForm.setMobile(employeeOnboarding.getMobile());
-	                userForm.setTemplate("Cotodel Voucher Activity");
+	               
+	                SMSRequest smsRequest = new SMSRequest();
+		        	smsRequest.setMobile(employeeOnboarding.getMobile());
+		        	
+		        	String template = "Hi, #VAR1# has added you to the Cotodel Dashboard to manage your business expenses! Log in to Cotodel now to access UPI Vouchers.";
+		        	String finalMessage = template
+		        	        .replace("#VAR1#", "Cotodel");
+		        	       // .replace("#VAR2#", voucherCode);
+		        	
+		        	smsRequest.setMessage(finalMessage);
 	                try {
-	                String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
+	                String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
 
 	    			EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
 
-	    			String encriptResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userFormjsonObject);
+	    			String encriptResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
 
 	       
 	    			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
