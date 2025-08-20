@@ -135,7 +135,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 			// Start SMS and Email service
             UserForm userForm = new UserForm();
             userForm.setMobile((String) session.getAttribute("mobile"));
-            userForm.setTemplate("Cotodel Voucher Activity");
+            userForm.setTemplate("CotoWallet Loading");
             try {
             String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
 
@@ -203,7 +203,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 			// Start SMS and Email service
             UserForm userForm = new UserForm();
             userForm.setMobile((String) session.getAttribute("mobile"));
-            userForm.setTemplate("Cotodel Voucher Activity");
+            userForm.setTemplate("CotoWallet Loading");
             try {
             String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
 
@@ -271,7 +271,7 @@ public ResponseEntity<Void> preprodWebhookCallback(@RequestBody(required = false
 			// Start SMS and Email service
             UserForm userForm = new UserForm();
             userForm.setMobile((String) session.getAttribute("mobile"));
-            userForm.setTemplate("Cotodel Voucher Activity");
+            userForm.setTemplate("CotoWallet Loading");
             try {
             String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
 
@@ -338,7 +338,7 @@ public ResponseEntity<Void> staging_webhook(@RequestBody(required = false) Strin
 			// Start SMS and Email service
             UserForm userForm = new UserForm();
             userForm.setMobile((String) session.getAttribute("mobile"));
-            userForm.setTemplate("Cotodel Voucher Activity");
+            userForm.setTemplate("CotoWallet Loading");
             try {
             String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
 
