@@ -97,7 +97,13 @@ public class SignupController  extends CotoDelBaseController{
 	        	// Start SMS and Email service
 	        	SMSRequest smsRequest = new SMSRequest();
 	        	smsRequest.setMobile(userForm.getMobile());
-	        	smsRequest.setMessage("Hi, your Cotodel account has been successfully created for your business. Let’s reduce pilferages for your operational spends!");
+	        	
+	        	String template = "Hi, #VAR1# has added you to the Cotodel Dashboard to manage your business expenses! Log in to Cotodel now to access UPI Vouchers.";
+	        	String finalMessage = template
+	        	        .replace("#VAR1#", userForm.getName());
+	        	       // .replace("#VAR2#", voucherCode);
+	        	
+	        	smsRequest.setMessage(finalMessage);
 	            try {
 	            String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
 
