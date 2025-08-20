@@ -75,6 +75,18 @@ $(document).on('change','.up', function(){
 			  const checkbox = document.getElementById('customCheck45');
 		  	  const errorMessage = document.getElementById('errorMessage');
 			  const banklist = document.getElementById('banklist').value;
+			  const totalValueCountAmtText = document.getElementById('totalValueCount').innerText;
+			  const amountInAccText = document.querySelector('.text-wrapper-3').innerText;
+
+			  // Remove ₹, commas, and spaces
+			  const totalValueCountAmt = Number(totalValueCountAmtText.replace(/[^0-9.-]/g, ""));
+			  const amountInAcc = Number(amountInAccText.replace(/[^0-9.-]/g, ""));
+
+			  if (totalValueCountAmt > amountInAcc) {
+			      errorMessage.textContent = "Amount in the account is not sufficient to issue voucher";
+			      return false;
+			  }
+			   
 			  if(banklist =="" || banklist == null){
 			  				 alert("Please Select Bank");
 			  				 return false;
@@ -1350,7 +1362,7 @@ function verfyIssueVoucherOTP() {
   });
 
   
-  function deleteBeneficiay(value){
+  /*function deleteBeneficiay(value){
   		 document.getElementById("signinLoader").style.display="flex";
   		  	$.ajax({
   		 	type: "POST",
@@ -1381,6 +1393,62 @@ function verfyIssueVoucherOTP() {
   		 }); 
   		
   }
+  */
+ // this function updates the voucher value and voucher amount on deleting a specific row
+  function deleteBeneficiay(value) {
+      document.getElementById("signinLoader").style.display = "flex";
+
+      $.ajax({
+          type: "POST",
+          url: "/beneficiaryDeleteFromVoucherList",
+          data: { "id": value },
+          success: function(data) {
+              document.getElementById("signinLoader").style.display = "none";
+
+              var data1 = jQuery.parseJSON(data);
+              var table = $('#issueVoucherTable').DataTable();
+
+              // Find the row with matching id
+              var row = table.rows().nodes().to$().filter(function () {
+                  return $(this).find('button#btnDelete').val() == value;
+              });
+
+              if (row.length > 0) {
+                  // Get the amount from the row (5th column index = 4)
+                  var amountText = row.find("td:eq(4)").text().trim();
+                  var amount = Number(amountText.replace(/[^0-9.-]/g, ""));
+
+                  // Subtract from total amount
+                  var totalEl = document.getElementById("totalValueCount");
+                  var currentTotal = Number(totalEl.innerText.replace(/[^0-9.-]/g, ""));
+                  var newTotal = currentTotal - amount;
+                  totalEl.innerText = newTotal.toLocaleString('en-IN', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                  });
+
+                  // Update total number count
+                  var countEl = document.getElementById("totalNumberCount");
+                  var currentCount = Number(countEl.innerText.replace(/[^0-9]/g, ""));
+                  var newCount = currentCount > 0 ? currentCount - 1 : 0;
+                  countEl.innerText = newCount;
+
+                  // ✅ Copy values into secondary IDs
+                  document.getElementById("totalValue2Count").innerText = totalEl.innerText;
+                  document.getElementById("totalNumber2Count").innerText = countEl.innerText;
+
+                  // Remove row from DataTable
+                  table.row(row).remove().draw();
+              }
+          },
+          error: function(e) {
+              alert('Error: ' + e);
+          }
+      });
+  }
+
+
+
   
   
   
