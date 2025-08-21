@@ -3,13 +3,11 @@ package com.cotodel.hrms.web.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +16,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,23 +40,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.BulkEmployeeRequest;
+import com.cotodel.hrms.web.response.BulkEmployeeResponse;
 import com.cotodel.hrms.web.response.EmployeeBulkCreateRequest;
 import com.cotodel.hrms.web.response.EmployeeBulkUploadRequest;
+import com.cotodel.hrms.web.response.SMSRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
-
+import com.cotodel.hrms.web.response.VoucherData;
+import com.cotodel.hrms.web.response.WhatsAppRequest;
 import com.cotodel.hrms.web.service.BulkEmployeeService;
+import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
+import com.cotodel.hrms.web.service.LoginService;
+import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.cotodel.hrms.web.util.JwtTokenValidator;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @Controller
 @CrossOrigin
@@ -74,6 +77,15 @@ public class BulkUserController extends CotoDelBaseController{
 
 	@Autowired
 	TokenGenerationImpl tokengeneration;
+	
+	@Autowired
+	EmailServiceImpl emailService;
+	
+	@Autowired
+	LoginService loginservice;
+	
+	@Autowired
+	ErupiVoucherCreateDetailsService erupiVoucherCreateDetailsService;
 	
 	@PostMapping(value="/saveBulkFile")
 	public String saveEmployeeDetail(HttpServletResponse response, HttpServletRequest request,
@@ -291,6 +303,7 @@ public class BulkUserController extends CotoDelBaseController{
 			EmployeeBulkCreateRequest employeeBulkCreateRequest, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {
 
 	    String profileRes = null;
+	    String whatsappResponse = null;
 	    Map<String, Object> responseMap = new HashMap<>();
 	    ObjectMapper mapper = new ObjectMapper();
 	    
@@ -376,6 +389,80 @@ public class BulkUserController extends CotoDelBaseController{
 
 	            if (status && apiJsonResponse.has("data")) {
 	                responseMap.put("data", profileRes);
+	                // Map JSON array to List<VoucherData>
+	                JSONArray dataArray = apiJsonResponse.getJSONArray("data");
+		            ObjectMapper objMapper = new ObjectMapper();
+		            List<BulkEmployeeResponse> bulkEmployeeResponse = objMapper.readValue(
+		                dataArray.toString(),
+		                objMapper.getTypeFactory().constructCollectionType(List.class, BulkEmployeeResponse.class)
+		            );
+
+		            // Iterate only successful vouchers
+		            for (BulkEmployeeResponse item : bulkEmployeeResponse) {
+		                if ("SUCCESS".equalsIgnoreCase(item.getResponse())) {
+		                    
+		                	System.out.println("Name: " + item.getName());
+		                    System.out.println("Amount: " + item.getBeneficiaryName());
+		                    System.out.println("Response: " + item.getMobile());
+		                    
+		                    SMSRequest smsRequest = new SMSRequest();
+				        	smsRequest.setMobile(item.getMobile());
+				        	
+				        	String template = "Hi, #VAR1# has added you to the Cotodel Dashboard to manage your business expenses! Log in to Cotodel now to access UPI Vouchers.";
+				        	String finalMessage = template
+				        	        .replace("#VAR1#", "Cotodel");
+				        	       // .replace("#VAR2#", voucherCode);
+				        	
+				        	smsRequest.setMessage(finalMessage);
+			                try {
+			                String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
+
+			    			EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+
+			    			String encriptsmsResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
+
+			       
+			    			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptsmsResponse, EncriptResponse.class);
+
+			    			String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			    			//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+			    			
+			                }
+			                catch (Exception e) {
+		            			// TODO Auto-generated catch block
+		            			e.printStackTrace();
+		            		}
+		                    WhatsAppRequest whatsapp = new WhatsAppRequest();
+		                    whatsapp.setSource("new-landing-page form");
+		                    whatsapp.setCampaignName("Voucher_Issuance");
+		                    whatsapp.setFirstName(item.getBeneficiaryName());
+		                   // whatsapp.setAmount(item.getAmount());
+		                    //whatsapp.setCategory(item.getVoucherDesc());
+		                    whatsapp.setMobile(item.getMobile());
+		                    whatsapp.setOrganizationName("Cotodel");
+		                   /// whatsapp.setValidity(item.getValidity());
+		                   // whatsapp.setType(item.getRedemtionType());
+		                    whatsapp.setUserName("Cotodel Communications");
+		                    try {
+		            			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);
+
+		            			EncriptResponse whatsappjsonObject=EncryptionDecriptionUtil.encriptResponse(whatsappJson, applicationConstantConfig.apiSignaturePublicPath);
+
+		            			String whatsappencriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), whatsappjsonObject);
+		               
+		            			EncriptResponse whatsuserReqEnc =EncryptionDecriptionUtil.convertFromJson(whatsappencriptResponse, EncriptResponse.class);
+
+		            			whatsappResponse =  EncryptionDecriptionUtil.decriptResponse(whatsuserReqEnc.getEncriptData(), whatsuserReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+		            		} catch (Exception e) {
+		            			// TODO Auto-generated catch block
+		            			e.printStackTrace();
+		            		}
+		                    
+		                }
+			                
+		            }
+		        	   
+	             
 	            } else {
 	            	//responseMap.put("data", profileRes);
 	                responseMap.put("status", false);
