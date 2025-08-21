@@ -834,13 +834,13 @@ function getDetailByPanNo(panValue){
 	        alert("Unable to fetch employer data. Please try again.");
 	    }
 	});
-	
+	 
 }
 
 function getOTP() {
     var userMobile = document.getElementById("userMobile").value;
     document.getElementById("signinLoader").style.display = "flex";
- 
+	document.getElementById("resendOTPText").style.display = "none";
     $.ajax({
        /* type: "POST",
         url: "/smsOtpSender",
@@ -884,6 +884,7 @@ function getOTP() {
 				       if (timeleft < 0) {
 						clearInterval(downloadTimer);
                         document.getElementById("countdown").innerHTML = " ";
+						document.getElementById("resendOTPText").style.display = "block";
 				       }
 				   }, 1000); 
             } else if (obj.status === false) {
