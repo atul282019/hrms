@@ -834,7 +834,7 @@ function getDetailByPanNo(panValue){
 	        alert("Unable to fetch employer data. Please try again.");
 	    }
 	});
-	
+	 
 }
 
 function getOTP() {
