@@ -47,7 +47,6 @@ import com.cotodel.hrms.web.response.EmployeeBulkCreateRequest;
 import com.cotodel.hrms.web.response.EmployeeBulkUploadRequest;
 import com.cotodel.hrms.web.response.SMSRequest;
 import com.cotodel.hrms.web.response.UserDetailsEntity;
-import com.cotodel.hrms.web.response.VoucherData;
 import com.cotodel.hrms.web.response.WhatsAppRequest;
 import com.cotodel.hrms.web.service.BulkEmployeeService;
 import com.cotodel.hrms.web.service.ErupiVoucherCreateDetailsService;
@@ -56,6 +55,7 @@ import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.GraphMailSender;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.cotodel.hrms.web.util.MessageConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -425,7 +425,7 @@ public class BulkUserController extends CotoDelBaseController{
 			    			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptsmsResponse, EncriptResponse.class);
 
 			    			String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			    			//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+			    			//String emailRequest =	GraphMailSender.sendEmail(tokengeneration.getToken(),  item.getEmail(), to,subject, bodyText);
 			    			
 			                }
 			                catch (Exception e) {
