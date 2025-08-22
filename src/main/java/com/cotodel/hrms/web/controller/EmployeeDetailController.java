@@ -268,8 +268,8 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    			
 	    			WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                whatsapp.setSource("new-landing-page form");
-	                whatsapp.setCampaignName("Voucher_Issuance");
-	                whatsapp.setFirstName(employeeOnboarding.getName());
+	                whatsapp.setCampaignName("Employee_add_confirmation");
+	                whatsapp.setFirstName((String) session.getAttribute("usernamme"));
 	                //whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
 	                //whatsapp.setCategory(item.getVoucherDesc());
 	                whatsapp.setMobile(employeeOnboarding.getMobile());

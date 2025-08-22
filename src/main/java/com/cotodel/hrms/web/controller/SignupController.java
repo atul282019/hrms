@@ -122,7 +122,7 @@ public class SignupController  extends CotoDelBaseController{
 	            try {
 	            	WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                whatsapp.setSource("new-landing-page form");
-	                whatsapp.setCampaignName("Sign Up Confirmation - Schedule Demo");
+	                whatsapp.setCampaignName("Signup_confirmation");
 	                whatsapp.setFirstName(userForm.getName());
 	                //whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
 	                //whatsapp.setCategory(item.getVoucherDesc());

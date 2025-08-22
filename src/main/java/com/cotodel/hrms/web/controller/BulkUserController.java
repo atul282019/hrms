@@ -401,9 +401,9 @@ public class BulkUserController extends CotoDelBaseController{
 		            for (BulkEmployeeResponse item : bulkEmployeeResponse) {
 		                if ("SUCCESS".equalsIgnoreCase(item.getResponse())) {
 		                    
-		                	System.out.println("Name: " + item.getName());
-		                    System.out.println("Amount: " + item.getBeneficiaryName());
-		                    System.out.println("Response: " + item.getMobile());
+		                	//System.out.println("Name: " + item.getName());
+		                    //System.out.println("Amount: " + item.getBeneficiaryName());
+		                    //System.out.println("Response: " + item.getMobile());
 		                    
 		                    SMSRequest smsRequest = new SMSRequest();
 				        	smsRequest.setMobile(item.getMobile());
@@ -434,8 +434,8 @@ public class BulkUserController extends CotoDelBaseController{
 		            		}
 		                    WhatsAppRequest whatsapp = new WhatsAppRequest();
 		                    whatsapp.setSource("new-landing-page form");
-		                    whatsapp.setCampaignName("Voucher_Issuance");
-		                    whatsapp.setFirstName(item.getBeneficiaryName());
+		                    whatsapp.setCampaignName("Employee_add_confirmation");
+		                    whatsapp.setFirstName((String) session.getAttribute("usernamme"));
 		                   // whatsapp.setAmount(item.getAmount());
 		                    //whatsapp.setCategory(item.getVoucherDesc());
 		                    whatsapp.setMobile(item.getMobile());

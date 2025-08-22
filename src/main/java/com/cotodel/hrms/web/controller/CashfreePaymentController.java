@@ -156,7 +156,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
             try {
             	WhatsAppRequest whatsapp = new WhatsAppRequest();
                 whatsapp.setSource("new-landing-page form");
-                whatsapp.setCampaignName("Voucher_Issuance");
+                whatsapp.setCampaignName("cotowallet_confirmation");
                 whatsapp.setFirstName((String) session.getAttribute("usernamme"));
                 whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
                 //whatsapp.setCategory(item.getVoucherDesc());
@@ -223,7 +223,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
             try {
             	WhatsAppRequest whatsapp = new WhatsAppRequest();
                 whatsapp.setSource("new-landing-page form");
-                whatsapp.setCampaignName("Voucher_Issuance");
+                whatsapp.setCampaignName("cotowallet_confirmation");
                 whatsapp.setFirstName((String) session.getAttribute("usernamme"));
                 whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
                 //whatsapp.setCategory(item.getVoucherDesc());
@@ -290,7 +290,7 @@ public ResponseEntity<Void> preprodWebhookCallback(@RequestBody(required = false
             try {
             	WhatsAppRequest whatsapp = new WhatsAppRequest();
                 whatsapp.setSource("new-landing-page form");
-                whatsapp.setCampaignName("Voucher_Issuance");
+                whatsapp.setCampaignName("cotowallet_confirmation");
                 whatsapp.setFirstName((String) session.getAttribute("usernamme"));
                 whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
                 //whatsapp.setCategory(item.getVoucherDesc());
@@ -358,7 +358,7 @@ public ResponseEntity<Void> staging_webhook(@RequestBody(required = false) Strin
             try {
             	WhatsAppRequest whatsapp = new WhatsAppRequest();
                 whatsapp.setSource("new-landing-page form");
-                whatsapp.setCampaignName("Voucher_Issuance");
+                whatsapp.setCampaignName("cotowallet_confirmation");
                 whatsapp.setFirstName((String) session.getAttribute("usernamme"));
                 whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
                 //whatsapp.setCategory(item.getVoucherDesc());

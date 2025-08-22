@@ -946,7 +946,7 @@ function verifyEmail(){
 			type: 'POST',
 			data: {
 						"mobile": userMobile,
-						"template": "Cotodel Voucher Activity",
+						"template": "Sign Up SMS",
 			},
  			dataType: 'json',
  			success: function(data) {

@@ -197,13 +197,13 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	                    System.out.println("Response: " + item.getResponse());
 	                    WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                    whatsapp.setSource("new-landing-page form");
-	                    whatsapp.setCampaignName("Voucher_Issuance");
+	                    whatsapp.setCampaignName("Voucher_issuance_user");
 	                    whatsapp.setFirstName(item.getName());
 	                    whatsapp.setAmount(item.getAmount());
 	                    whatsapp.setCategory(item.getVoucherDesc());
 	                    whatsapp.setMobile(item.getMobile());
 	                    whatsapp.setOrganizationName("Cotodel");
-	                    whatsapp.setValidity(item.getValidity());
+	                    whatsapp.setValidity(item.getExpDate());
 	                    whatsapp.setType(item.getRedemtionType());
 	                    whatsapp.setUserName("Cotodel Communications");
 	                    try {
@@ -358,13 +358,13 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	                    System.out.println("Response: " + item.getResponse());
 	                    WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                    whatsapp.setSource("new-landing-page form");
-	                    whatsapp.setCampaignName("Voucher_Issuance");
+	                    whatsapp.setCampaignName("Voucher_issuance_user");
 	                    whatsapp.setFirstName(item.getName());
 	                    whatsapp.setAmount(item.getAmount());
 	                    whatsapp.setCategory(item.getVoucherDesc());
 	                    whatsapp.setMobile(item.getMobile());
 	                    whatsapp.setOrganizationName("Cotodel");
-	                    whatsapp.setValidity(item.getValidity());
+	                    whatsapp.setValidity(item.getExpDate());
 	                    whatsapp.setType(item.getRedemtionType());
 	                    whatsapp.setUserName("Cotodel Communications");
 	                    try {
@@ -561,7 +561,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	            			        RevokeResponse.class
 	            			    );
 	            
-				
+			
 	            SMSRequest smsRequest = new SMSRequest();
 	        	smsRequest.setMobile(revokeResponse .getMobile());
 	        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
@@ -592,13 +592,13 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	            try {
 	            	WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                whatsapp.setSource("new-landing-page form");
-	                whatsapp.setCampaignName("Voucher Revoke");
+	                whatsapp.setCampaignName("revoke_voucher_user");
 	                whatsapp.setFirstName(revokeResponse.getName());
 	                whatsapp.setAmount(revokeResponse.getRevokeAmount());
 	                whatsapp.setCategory(revokeResponse.getVoucherDesc());
 	                whatsapp.setMobile(revokeResponse.getMobile());
 	                whatsapp.setOrganizationName("Cotodel");
-	                whatsapp.setValidity(revokeResponse.getValidity());
+	                whatsapp.setValidity(revokeResponse.getExpDate());
 	                whatsapp.setType(revokeResponse.getRedemtionType());
 	                whatsapp.setUserName("Cotodel Communications");
 	    			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);
@@ -639,55 +639,55 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 			
-			//End Start SMS and Email service
-			JSONObject apiJsonResponse = new JSONObject(profileRes); 
-	        boolean status = apiJsonResponse.getBoolean("status");
-			if(status && apiJsonResponse.has("data")) {
-				// Start SMS and Email service
-	            UserForm userForm = new UserForm();
-	            userForm.setMobile((String) session.getAttribute("mobile"));
-	            userForm.setTemplate("Cotodel Voucher Activity");
-	            try {
-	            String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
-
-				EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
-
-				String userFormResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userFormjsonObject);
-	   
-				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
-
-				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-				//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
-	            } catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	            try {
-	            	WhatsAppRequest whatsapp = new WhatsAppRequest();
-	                whatsapp.setSource("new-landing-page form");
-	                whatsapp.setCampaignName("Voucher_Issuance");
-	                whatsapp.setFirstName((String) session.getAttribute("usernamme"));
-	                //whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
-	                //whatsapp.setCategory(item.getVoucherDesc());
-	                whatsapp.setMobile((String) session.getAttribute("mobile"));
-	                whatsapp.setOrganizationName("Cotodel");
-	                //whatsapp.setValidity(item.getValidity());
-	                //whatsapp.setType(item.getRedemtionType());
-	                whatsapp.setUserName("Cotodel Communications");
-	    			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);
-
-	    			EncriptResponse whatsappJsonObject=EncryptionDecriptionUtil.encriptResponse(whatsappJson, applicationConstantConfig.apiSignaturePublicPath);
-
-	    			String whatsappEncriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), whatsappJsonObject);
-	       
-	    			EncriptResponse whatsappReqEnc =EncryptionDecriptionUtil.convertFromJson(whatsappEncriptResponse, EncriptResponse.class);
-
-	    			String whatsappRes =  EncryptionDecriptionUtil.decriptResponse(whatsappReqEnc.getEncriptData(), whatsappReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-	    		} catch (Exception e) {
-	    			// TODO Auto-generated catch block
-	    			e.printStackTrace();
-	    		}
-			}
+//			//End Start SMS and Email service
+//			JSONObject apiJsonResponse = new JSONObject(profileRes); 
+//	        boolean status = apiJsonResponse.getBoolean("status");
+//			if(status && apiJsonResponse.has("data")) {
+//				// Start SMS and Email service
+//	            UserForm userForm = new UserForm();
+//	            userForm.setMobile((String) session.getAttribute("mobile"));
+//	            userForm.setTemplate("Cotodel Voucher Activity");
+//	            try {
+//	            String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
+//
+//				EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+//
+//				String userFormResponse = loginservice.sendOtpWith2Factor(tokengeneration.getToken(), userFormjsonObject);
+//	   
+//				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
+//
+//				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//				//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+//	            } catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	            try {
+//	            	WhatsAppRequest whatsapp = new WhatsAppRequest();
+//	                whatsapp.setSource("new-landing-page form");
+//	                whatsapp.setCampaignName("Voucher_Issuance");
+//	                whatsapp.setFirstName((String) session.getAttribute("usernamme"));
+//	                //whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
+//	                //whatsapp.setCategory(item.getVoucherDesc());
+//	                whatsapp.setMobile((String) session.getAttribute("mobile"));
+//	                whatsapp.setOrganizationName("Cotodel");
+//	                //whatsapp.setValidity(item.getValidity());
+//	                //whatsapp.setType(item.getRedemtionType());
+//	                whatsapp.setUserName("Cotodel Communications");
+//	    			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);
+//
+//	    			EncriptResponse whatsappJsonObject=EncryptionDecriptionUtil.encriptResponse(whatsappJson, applicationConstantConfig.apiSignaturePublicPath);
+//
+//	    			String whatsappEncriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), whatsappJsonObject);
+//	       
+//	    			EncriptResponse whatsappReqEnc =EncryptionDecriptionUtil.convertFromJson(whatsappEncriptResponse, EncriptResponse.class);
+//
+//	    			String whatsappRes =  EncryptionDecriptionUtil.decriptResponse(whatsappReqEnc.getEncriptData(), whatsappReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//	    		} catch (Exception e) {
+//	    			// TODO Auto-generated catch block
+//	    			e.printStackTrace();
+//	    		}
+//			}
 	         //End Start SMS and Email service
 		
 		} catch (Exception e) {
