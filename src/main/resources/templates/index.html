@@ -736,7 +736,7 @@
 	    document.getElementById("loginIdDiv").style.display="none";
 	    document.getElementById("optBtn").style.display="block";
 	    } 
-		else if(error==="FAILURE" || error==="User not found or inactive or wrong password")
+		else if(error==="FAILURE" || error==="Invalid username or password. Please try again.")
 {				/*const toggle = document.querySelector(".custom-switch input");
 				toggle.checked = true; // Switch ON
 			// in case of wrong password
@@ -746,23 +746,24 @@
 			passwordLogin.style.display =  "block" ;
 			const helperText = document.querySelector(".helper-text");
 			helperText.style.display =  "none" ;*/
+			$('#dashboardTabs a[href="#LoginwithPassword"]').tab('show');//auto select the password tab and show the msg
 			if(error==="FAILURE" )
 			{ $('#errorOtp').
-				//$('#loginerrorMsg').text("Please Enter Correct Password");
-				$('#errorOtp').text("Please Enter Correct Password");
+				$('#loginerrorMsg').text("Please Enter Correct Password");
+				//$('#errorOtp').text("Please Enter Correct Password");
 				setTimeout(function() {
-				 // $('#loginerrorMsg').text("");// clear the msg after 6 sec
-				  $('#errorOtp').text("");
+				  $('#loginerrorMsg').text("");// clear the msg after 6 sec
+				 // $('#errorOtp').text("");
 				}, 7000); // 10 seconds
 			}
-			else if(error==="User not found or inactive or wrong password")
+			else if(error==="Invalid username or password. Please try again.")
 			{
-				//$('#loginerrorMsg').text("User not found or inactive");
-				$('#errorOtp').text("User not found or inactive or wrong password");
+				$('#loginerrorMsg').text("Invalid username or password. Please try again.");
+				//$('#errorOtp').text("Invalid username or password. Please try again.");
 					setTimeout(function() {
-					//  $('#loginerrorMsg').text("");// clear the msg after 6 sec
-					  $('#errorOtp').text("");
-					}, 7000); // 10 seconds
+					 $('#loginerrorMsg').text("");// clear the msg after 6 sec
+					  //$('#errorOtp').text("");
+					}, 8000); // 10 seconds
 			}
 		}
 		else if(error==="Incorrect OTP ||"){
@@ -932,6 +933,12 @@
 		document.getElementById("password4").value = "";
 		document.getElementById("password5").value = "";
 		document.getElementById("password6").value = "";
+		
+		// Remove error class from all otp-inputs
+		document.querySelectorAll("#otpInputBox .otp-input").forEach(el => {
+		  el.classList.remove("error");
+		});
+		$("#otpError").text("");
 	    var regMobile = /^[6-9]\d{9}$/gi;
 	    var userName = document.getElementById("mobile").value;
 	    var orderId = document.getElementById("orderId").value;

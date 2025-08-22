@@ -561,20 +561,26 @@ function loginwithPwd() {
 		const mobile = document.getElementById("dynamicInput").value;
 		const userpwd = document.getElementById("pwd").value;
 		const form = document.getElementById("pwdForm");
+		const mobileRegex = /^[6-9]\d{9}$/;
 		
-		
-		/*if (document.getElementById("mobile").value == "") {
-			document.getElementById("mobError").innerHTML="Please Enter mobile..";
+		if (mobile == "") {
+			document.getElementById("loginerrorMsg").innerHTML="Please Enter mobile..";
 			
 			x = false;
 	
 		}
-		if (document.getElementById("pwd").value == "") {
-					document.getElementById("mobError").innerHTML="Please Enter Password";
+		else if (!mobileRegex.test(mobile)) {
+		    document.getElementById("loginerrorMsg").innerHTML = "Invalid Mobile Number. Must be 10 digits starting with 6-9.";
+		    x = false;
+		} else {
+		    document.getElementById("loginerrorMsg").innerHTML = "";
+		}
+		if (userpwd == "") {
+					document.getElementById("loginerrorMsg").innerHTML="Please Enter Password";
 					
 					x = false;
 			
-				}*/
+				}
 		console.log("pwdForm",form);
 			//var formData = new FormData(loginForm);
 			//formData.append("loginId", loginId);
