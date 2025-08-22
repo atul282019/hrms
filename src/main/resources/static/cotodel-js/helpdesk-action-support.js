@@ -191,7 +191,25 @@ async function getSupportTicketActionList() {
 		      }
 		    }
 		  },
-		  { mData: "creationDate"},
+		  { mData: "creationDate",
+			"render": function (data, type) {
+			  		      if (type === 'sort' || type === 'type') {
+			  		        // Parse into Date object so sorting works
+			  		        const date = new Date(data);
+			  		        const y = date.getFullYear();
+			  		        const m = String(date.getMonth() + 1).padStart(2, '0');
+			  		        const d = String(date.getDate()).padStart(2, '0');
+			  		        const hh = String(date.getHours()).padStart(2, '0');
+			  		        const mm = String(date.getMinutes()).padStart(2, '0');
+			  		        const ss = String(date.getSeconds()).padStart(2, '0');
+
+			  		        // Return sortable string
+			  		        return `${y}-${m}-${d}T${hh}:${mm}:${ss}`;
+			  		      }
+			  		      // For display in the table
+			  		      return formatDateTime(data);
+			  		    }
+		  },
 		  {
 		    mData: "status",
 		    render: function (data, type, row) {
@@ -482,7 +500,20 @@ async function changeTicketStatus(){
 	});	
 	
 }
+function formatDateTime(dateStr) { 
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
 
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${day}-${month}-${year}<br>${hours}:${minutes}:${seconds}`;
+}
 /*async function getTicketTransactionHistoryById() {
   var orgId = document.getElementById("employerId").value;
   var ticketId = document.getElementById("ticketId").value;
