@@ -234,10 +234,10 @@ public class LoginController extends CotoDelBaseController{
 					    
 					 // extract pwdFlag from response
 					    String pwdFlag = profileJsonRes.getJSONObject("data").getString("pwdFlag");
-					    Integer roleId = profileJsonRes.getJSONObject("data").getInt("role_id");
-					    
-
-					    if (roleId != 9 && "N".equalsIgnoreCase(pwdFlag)) {
+					    //Integer roleId = profileJsonRes.getJSONObject("data").getInt("role_id");
+					   
+					    //roleId != 9 &&
+					    if ("N".equalsIgnoreCase(pwdFlag) ) {
 					        String triggerId = java.util.UUID.randomUUID().toString();
 					        session.setAttribute("callForgotPassword", "true");
 					        session.setAttribute("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
