@@ -34,7 +34,7 @@
 
 </head>
 
-<body id="page-top" onload="getLinkedBankDetail(), getPrimaryBankDetail()" >
+<body id="page-top" onload="getLinkedBankDetail(),getLinkedBankDetail2(), getPrimaryBankDetail()" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -522,18 +522,27 @@
 						                <div class="text-wrapper">Indian Bank</div>
 						                <div class="xxxx">xxxx3456</div>
 						                <img class="dropdown" src="img/arrowdown.svg" width="16px">
-						            </div>-->
+						            </div>
 								   <select class="GeneralSelect" id="banklist2" onchange="getBankDetailByBankAccountNumber2();showLinkedAccAmount2(this.value, 'bank-section-2')">
 								
-						              </select>
+						              </select>-->
+									  <select id="banklist2" style="display:none"></select>
+									  <div class="custom-dropdown" id="customDropdown2">
+									    <div id="selectedBank2" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+									      <span>Select Bank</span>
+									      <span style="margin-left: 8px;">&#9662;</span>
+									    </div>
+									    <div class="dropdown-list" id="dropdownList2"></div>
+									  </div>
+
 
 						            <div class="div-2">
 						                <div class="text-wrapper-2">Available Balance</div>
 						                <p class="element"><span class="span">₹</span> <span
-						                        class="text-wrapper-3" >0,00,000</span></p>
-						                <img class="recall" id="recallBalance2" src="img/recall.svg">
+						                        class="text-wrapper-3" id="balanceText2" >0,00,000</span></p>
+						              <!--   <img class="recall" id="recallBalance2" src="img/recall.svg">-->
 						            </div>
-						            <p class="last-updated-on">Last Updated on <span th:text="${session.formattedDate}" ></span></p>
+						            <p class="last-updated-on">Available Balance <!--<span th:text="${session.formattedDate}" ></span>--></p>
 
 						        </div>
 						        <div class="selectvouchers-topleft-cards selectvouchers-topleft-primary">
@@ -838,7 +847,7 @@
 				    }
 				});
 
-				function showLinkedAccAmount2(accountNumber, sectionId) {
+				/*function showLinkedAccAmount2(accountNumber, sectionId) {
 				    const employerId = document.getElementById("employerId").value;
 				    const section = document.getElementById(sectionId);
 
@@ -871,7 +880,51 @@
 				            alert('Error fetching balance.');
 				        }
 				    });
+				}*/
+				function showLinkedAccAmount2(accountNumber, sectionId) {
+				    const employerId = document.getElementById("employerId").value;
+				    const section = document.getElementById(sectionId);
+
+				    console.log("Fetching balance for account:", accountNumber, "Employer ID:", employerId);
+
+				    $.ajax({
+				        type: "POST",
+				        url: "/showLinkedAccAmount",
+				        data: {
+				            "acNumber": accountNumber,
+				            "orgId": employerId
+				        },
+				        success: function(response) {
+				            let obj = typeof response === "string" ? JSON.parse(response) : response;
+
+				            if (obj.status) {
+				                // ✅ Format balance using Indian number system
+				                const balanceElement = document.getElementById("balanceText2");
+				                if (balanceElement) {
+				                    let formattedBalance = obj.balance
+				                        ? Number(obj.balance).toLocaleString("en-IN")  // adds commas in Indian style
+				                        : "Amount Not Available";
+				                    balanceElement.textContent = formattedBalance;
+				                }
+
+				                // ✅ Update timestamp within the correct section
+				                if (obj.timestamp && section) {
+				                    const tsEl = section.querySelector(".last-updated-on span");
+				                    if (tsEl) {
+				                        tsEl.textContent = formatTimestamp(obj.timestamp);
+				                    }
+				                }
+				            } else {
+				                alert("Failed to fetch balance.");
+				            }
+				        },
+				        error: function(error) {
+				            console.error("Error fetching balance:", error);
+				            alert('Error fetching balance.');
+				        }
+				    });
 				}
+
 
 
 
