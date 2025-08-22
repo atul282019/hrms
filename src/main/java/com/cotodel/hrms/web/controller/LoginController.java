@@ -57,6 +57,8 @@ public class LoginController extends CotoDelBaseController{
 	@PostMapping(value="/userLogin")
 	public String validateLogin(HttpServletResponse response, HttpServletRequest request,
 			@ModelAttribute("userForm") UserForm userForm, BindingResult result, HttpSession session, Model model,RedirectAttributes redirect) {
+		
+		
 		String profileRes=null;JSONObject profileJsonRes=null;String screenName="index";
 		String profileResRepute=null;
 		Integer orgid=null;
@@ -229,6 +231,22 @@ public class LoginController extends CotoDelBaseController{
 						//return JSONUtil.setJSONResonse(MessageConstant.RESPONSE_SUCCESS, MessageConstant.TRUE, userRole,token);
 					    request.getSession(true).setAttribute("hrms", token);
 					    // switch case to identify the user screen login
+					    
+					 // extract pwdFlag from response
+					    String pwdFlag = profileJsonRes.getJSONObject("data").getString("pwdFlag");
+					    Integer roleId = profileJsonRes.getJSONObject("data").getInt("role_id");
+					    
+
+					    if (roleId != 9 && "N".equalsIgnoreCase(pwdFlag)) {
+					        String triggerId = java.util.UUID.randomUUID().toString();
+					        session.setAttribute("callForgotPassword", "true");
+					        session.setAttribute("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
+					        session.setAttribute("triggerId", triggerId); // ✅ store unique ID
+					        return "redirect:/login";
+					    }
+
+
+
 
 					switch (String.valueOf(profileJsonRes.getJSONObject("data").getInt("role_id"))) {
 					case "0":
@@ -351,6 +369,8 @@ public class LoginController extends CotoDelBaseController{
                 if (profileJsonRes.getBoolean("status") &&
                         profileJsonRes.getString("message")
                                 .equalsIgnoreCase(MessageConstant.RESPONSE_SUCCESS)) {
+                	
+                	
 
                     // Set session data
                     session.setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));
@@ -359,10 +379,22 @@ public class LoginController extends CotoDelBaseController{
                     session.setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
                     session.setAttribute("user_role", profileJsonRes.getJSONObject("data").getInt("role_id"));
                     session.setAttribute("formattedDate", formattedDate);
+                    
+                    
+
 
                     // Role based session data
                     int roleId = profileJsonRes.getJSONObject("data").getInt("role_id");
-                    if (roleId == 1 || roleId == 3 || roleId == 9) {
+                     String mobile= profileJsonRes.getJSONObject("data").getString("mobile");
+                    if (roleId == 9) {
+                    	 session.setAttribute("otp_after_pwd", "true");
+                    	    session.setAttribute("mobile", mobile);
+                    	    session.setAttribute("otp_once_token", String.valueOf(System.currentTimeMillis()));// unique token to see if user has come using authentication already
+                        return "redirect:/login";
+                    }
+                    
+                    
+                    if (roleId == 1 || roleId == 3) {
                         session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
                         session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
                         orgid = profileJsonRes.getJSONObject("data").getInt("employerid");
