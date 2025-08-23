@@ -738,7 +738,10 @@ requestedVoucherCount()">
 	    return;
 	  }
 	  // Only allow Active vouchers (type === "Created")
-	  const invalidRows = selectedRows.filter(row => row.type !== "Created");
+	  //const invalidRows = selectedRows.filter(row => row.type !== "Created");
+	  const invalidRows = selectedRows.filter(row =>
+	    row.type !== "Created" && row.type !== "Partially Redeemed"
+	  );
 
 	  if (invalidRows.length > 0) {
 	    alert("Only Active vouchers can be revoked.");
