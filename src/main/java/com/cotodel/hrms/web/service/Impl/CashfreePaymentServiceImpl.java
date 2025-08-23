@@ -8,8 +8,10 @@ import com.cotodel.hrms.web.properties.ApplicationConstantConfig;
 import com.cotodel.hrms.web.response.CurrentMonthAmountLimit;
 import com.cotodel.hrms.web.response.OrderUserRequest;
 import com.cotodel.hrms.web.response.Root;
+import com.cotodel.hrms.web.response.WhatsAppRequest;
 import com.cotodel.hrms.web.service.CashfreePaymentService;
 import com.cotodel.hrms.web.util.CommonUtility;
+import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.MessageConstant;
 
 @Service
@@ -59,5 +61,12 @@ public class CashfreePaymentServiceImpl implements CashfreePaymentService{
 	public String getCurrentMonthAmountLimit(String token, CurrentMonthAmountLimit currentMonthAmountLimit) {
 		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(currentMonthAmountLimit), applicationConstantConfig.cashfreePaymentBaseUrl+CommonUtils.currentMonthAmountLimit);
 	}
+
+	@Override
+	public String getTotalWalletAmountUsingMobileNo(String token, EncriptResponse jsonappObject) {
+		return CommonUtility.userRequest(token,MessageConstant.gson.toJson(jsonappObject), applicationConstantConfig.employerServiceBaseUrl+CommonUtils.currentWalletBalance);
+	}
+
+
 
 }

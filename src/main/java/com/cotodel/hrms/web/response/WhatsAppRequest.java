@@ -20,5 +20,6 @@ public class WhatsAppRequest {
     private String category;
     private String validity;
     private String source;
+    private String balance;
 
 }

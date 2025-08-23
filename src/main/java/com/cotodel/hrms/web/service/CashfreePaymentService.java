@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import com.cotodel.hrms.web.response.CurrentMonthAmountLimit;
 import com.cotodel.hrms.web.response.OrderUserRequest;
 import com.cotodel.hrms.web.response.Root;
+import com.cotodel.hrms.web.response.WhatsAppRequest;
+import com.cotodel.hrms.web.util.EncriptResponse;
 
 @Repository
 public interface CashfreePaymentService {
@@ -24,5 +26,7 @@ public interface CashfreePaymentService {
 	String preprodWebhookCallback(String token, Root root);
 
 	String getCurrentMonthAmountLimit(String token, CurrentMonthAmountLimit currentMonthAmountLimit);
+
+	String getTotalWalletAmountUsingMobileNo(String token, EncriptResponse jsonappObject);
 
 }

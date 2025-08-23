@@ -165,7 +165,7 @@ public interface CommonUtils {
 	public static String cashFreePaymentOrderDetailByOrderId = "/cashFree/Api/get/cashFreeOrderId";
 	public static String viewcashFreePaymentOrderDetailByOrderId = "/cashFree/Api/get/cashFreeOrderIdView";
 	public static String paymentCallBackDataSave = "/cashFree/Api/get/cashFreeOrderIdUpdate";
-	public static String stagingWebhookSave = "http://13.234.119.146:8085/cashFree/Api/get/cashFreeOrderIdUpdate";
+	public static String stagingWebhookSave = "http://52.66.10.111:8085/cashFree/Api/get/cashFreeOrderIdUpdate";
 	public static String viewcashFreePaymentOrderDetailList = "/cashFree/Api/get/cashFreeOrderIdList";
 	public static String getTravelRequestApprovalList ="/empService/Api/get/advanceTravelRequest";
 	public static String getTravelRequestRequestById ="/empService/Api/get/advanceTravelById";
@@ -179,7 +179,7 @@ public interface CommonUtils {
 	public static String updateVehicleDetails = "/empService/Api/add/tripVehicleDetails";
 	public static String vehichleTripHistory =  "/empService/Api/get/getTripHistoryList";
 
-	public static String preprodWebhookCallback ="http://13.234.119.146:9085/cashFree/Api/get/cashFreeOrderIdUpdate";
+	public static String preprodWebhookCallback ="http://52.66.10.111:8085/cashFree/Api/get/cashFreeOrderIdUpdate";
 	public static String getVehicleNumberDetaiilByVehicleNumber ="/gstPanService/Api/get/checkVehicleNo";
 	public static String checkAccountNumberValidation ="/get/bankVerification";
 
@@ -192,6 +192,7 @@ public interface CommonUtils {
 	public static String bulkVehicleUpload = "/empService/Api/add/vehicleBulkUploadNew";
 	public static String createbulkVehicle = "/empService/Api/add/vehicleBulkCreate";
 	public static String currentMonthAmountLimit = "/cashFree/Api/get/currentMonthAmountLimit";
+	public static String currentWalletBalance = "/empService/Api/get/linkMultipleAccountAmountByMobile";
 
 
 	public static String bulkEmpUpload = "/empService/Api/add/employeeBulkVoucherUpload";
