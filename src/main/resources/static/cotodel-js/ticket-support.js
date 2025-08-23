@@ -199,25 +199,25 @@ async function getSupportTicketListList() {
 		  },
           //{ mData: "statusDesc" },
 		  {
-		    mData: "statusDesc",
+		    mData: "status",
 		    render: function (data) {
 		      let label = "";
 		      let cssClass = "";
 
 		      switch (data) {
-		        case "Submitted":
+		        case 0:
 		          label = "Submitted";
 		          cssClass = "admin-ticket-status";
 		          break;
-		        case "Hold":
+		        case 1:
 		          label = "Hold";
 		          cssClass = "admin-ticket-status-hold";
 		          break;
-		        case "Closed":
+		        case 2:
 		          label = "Closed"; // replace label
 		          cssClass = "admin-ticket-status-red";
 		          break;
-		        case "In Progress":
+		        case 3:
 		          label = "In Progress";
 		          cssClass = "admin-ticket-status-InProgress";
 		          break;
@@ -317,9 +317,10 @@ async function getTicketTransactionHistoryById(ticketId) {
             messageHTML += `
               <div class="chat-msg admin-msg">
                 <p>${responseIssueDesc}</p>
-                <span style="margin-right: 12px;">${senderName}</span>
-                <span>${formattedDate}</span>
+				<!--<span style="margin-right: 12px;">${senderName}</span>-->
               </div>
+			  
+             <span>${formattedDate}</span>
               <div class="chat-gap"></div>
             `;
           }
@@ -328,8 +329,9 @@ async function getTicketTransactionHistoryById(ticketId) {
             messageHTML += `
               <div class="chat-msg user-msg">
                 <p>${issueDesc}</p>
-				<p>${responseDate}</p>
+				
               </div>
+			  <p style="margin-left: 150px;">${responseDate}</p>
               <div class="chat-gap"></div>
             `;
           }

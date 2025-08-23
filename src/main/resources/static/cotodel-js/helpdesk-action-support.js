@@ -74,6 +74,17 @@
 		var createdby =  document.getElementById("employerMobile").value;
 		var orgId = document.getElementById("employerId").value;
 		var responseIssueDesc = document.getElementById("replyText").value;
+		var statusText = document.getElementById("status").innerHTML;
+		// Map text to numeric status
+		   const statusMap = {
+		       "Submitted": 0,
+		       "Closed": 1,
+		       "Hold": 2,
+		       "In Progress": 3
+		   };
+
+		   const respTicketStatus = statusMap[statusText] ?? null;
+		   const respTicketStatusDesc = statusText;
 		
 		/*var dropdown = document.getElementById("ticketStatus");
 		var respTicketStatus = dropdown.value;
@@ -114,8 +125,8 @@
 				        "id":ticketId,
 						"orgId":orgId,
 						"responseIssueDesc":responseIssueDesc,
-						//"respTicketStatus":respTicketStatus,
-						//"respTicketStatusDesc":respTicketStatusDesc,
+						"respTicketStatus": respTicketStatus,
+			           	"respTicketStatusDesc": respTicketStatusDesc,
 						"ticketImg":base64file,
 						"createdby":createdby,
 						"name":name,
