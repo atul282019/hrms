@@ -26,4 +26,5 @@ import com.microsoft.aad.msal4j.IClientCredential;
 public class GraphMailSender {
 
 	
+	
     }
