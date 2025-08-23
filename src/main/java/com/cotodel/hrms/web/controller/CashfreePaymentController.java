@@ -230,9 +230,9 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 			
 
 			logger.info("mobileNoResponse ---"+profileRes);
-			JSONObject apiJsonResponse2 = new JSONObject(mobileNoResponse);
+			JSONObject apiJsonResponse2 = new JSONObject(profileRes);
 	        boolean status2 = apiJsonResponse2.getBoolean("status");
-	        if(status2) {
+	       // if(status2) {
 				WhatsAppRequest app = new WhatsAppRequest();
 				app.setMobile(root.data.customer_details.customer_phone);
 			
@@ -249,6 +249,9 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 				logger.info("mobileNoResponse ---"+mobileNoResponse);
 				JSONObject apiJsonResponse = new JSONObject(mobileNoResponse);
 		         String totalAmount = apiJsonResponse.getString("balance");
+		        Float amt=Float.valueOf(totalAmount);
+		        Float ordamt=Float.valueOf(root.data.order.order_amount);
+		        Float total=amt+ordamt;
 		        
 				 SMSRequest userForm = new SMSRequest();
 		            userForm.setMobile(root.data.customer_details.customer_phone);
@@ -257,7 +260,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 		            String template = "Your CotoWallet has been successfully loaded with â‚¹#VAR1#. Your CotoWallet total balance is â‚¹#VAR2#. - Cotodel";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", Integer.toString(root.data.order.order_amount))
-		        	        .replace("#VAR2#", totalAmount);
+		        	        .replace("#VAR2#", total.toString());
 		        	System.out.println("Mobile Template "+finalMessage);
 		        	userForm.setMessage(finalMessage);
 	            try {
@@ -287,7 +290,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 	                System.out.println("production-webhook-callback mobile Number whatsapp"+root.data.customer_details.customer_phone);
 	                whatsapp.setOrganizationName("Cotodel");
 	                //whatsapp.setValidity(item.getValidity());
-	                whatsapp.setBalance(totalAmount);
+	                whatsapp.setBalance(total.toString());
 	                whatsapp.setUserName("Cotodel Communications");
 	    			String json = EncryptionDecriptionUtil.convertToJson(whatsapp);
 
@@ -305,7 +308,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 	    		}
 	         //End Start SMS and Email service
 				
-	        }
+	       // }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
