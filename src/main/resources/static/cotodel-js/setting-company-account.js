@@ -256,11 +256,11 @@ function fetchOrgDetails(type) {
 				document.getElementById("legalName").focus();
 				return false;
 	        }
-			else if(!legalName.match(alphanumeric)){
+			/*else if(!legalName.match(alphanumeric)){
 				document.getElementById("LegalNameError").innerHTML="Only AlphaNumerics are allowed in Legal Name for Business";
 				document.getElementById("legalName").focus();
 				return false;
-			} 
+			} */
 			else {    
 				status.textContent="";
 	        }
@@ -269,11 +269,11 @@ function fetchOrgDetails(type) {
 				document.getElementById("tradeName").focus();
 				return false;
 	        }
-			else if(!tradeName.match(tradename_regex)){
+			/*else if(!tradeName.match(tradename_regex)){
 				document.getElementById("tradeNameError").innerHTML="Only AlphaNumerics are allowed in Trade Name";
 				document.getElementById("tradeName").focus();
 				return false;
-				} 
+				} */
 						
 			 else {    
 			status.textContent="";
@@ -366,11 +366,11 @@ function fetchOrgDetails(type) {
 								document.getElementById("legalName").focus();
 								return false;
 					        }
-							else if(!legalName.match(alphanumeric)){
+							/*else if(!legalName.match(alphanumeric)){
 								document.getElementById("LegalNameError").innerHTML="Only AlphaNumerics are allowed in Legal Name for Business";
 								document.getElementById("legalName").focus();
 								return false;
-							} 
+							} */
 							else {    
 								status.textContent="";
 					        }
@@ -379,11 +379,11 @@ function fetchOrgDetails(type) {
 								document.getElementById("tradeName").focus();
 								return false;
 					        }
-							else if(!tradeName.match(tradename_regex)){
+							/*else if(!tradeName.match(tradename_regex)){
 								document.getElementById("tradeNameError").innerHTML="Only AlphaNumerics are allowed in Trade Name";
 								document.getElementById("tradeName").focus();
 								return false;
-								} 
+								} */
 										
 							 else {    
 							status.textContent="";
