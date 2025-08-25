@@ -31,6 +31,7 @@ import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.GraphMailSender;
 
 
 @Controller
@@ -65,7 +66,8 @@ public class SignupController  extends CotoDelBaseController{
 	    JSONObject profileJsonRes = null;
 	    // String captchaSecurity = "";
 	    JSONObject responseJson = new JSONObject();
-
+	    String subject = null; 
+		String bodyText = null;
 	    // captchaSecurity = (String) session.getAttribute("CAPTCHA");
 	    // if(request.getSession(true).getAttribute("CAPTCHA") != null){
 	    //     captchaSecurity = (String) request.getSession(true).getAttribute("CAPTCHA");
@@ -97,14 +99,16 @@ public class SignupController  extends CotoDelBaseController{
 	        	// Start SMS and Email service
 	        	SMSRequest smsRequest = new SMSRequest();
 	        	smsRequest.setMobile(userForm.getMobile());
-	        	
-	        	String template = "Hi, #VAR1# has added you to the Cotodel Dashboard to manage your business expenses! Log in to Cotodel now to access UPI Vouchers.";
-	        	String finalMessage = template
-	        	        .replace("#VAR1#", userForm.getName());
+	        	smsRequest.setMessage("Hi, your Cotodel account has been successfully created for your business. Let’s reduce pilferages for your operational spends!");
+	            
+	        	//String template = "Hi, #VAR1# has added you to the Cotodel Dashboard to manage your business expenses! Log in to Cotodel now to access UPI Vouchers.";
+	        	//String finalMessage = template
+	        	//        .replace("#VAR1#", userForm.getName());
 	        	       // .replace("#VAR2#", voucherCode);
 	        	
-	        	smsRequest.setMessage(finalMessage);
-	            try {
+	        	//smsRequest.setMessage(finalMessage);
+	        	
+	        	try {
 	            String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
 
 				EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
@@ -114,7 +118,10 @@ public class SignupController  extends CotoDelBaseController{
 				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
 
 				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-				String emailRequest =	emailService.sendEmail(userForm.getEmail());
+				
+				bodyText = "<!DOCTYPE html>\r\n";
+				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
+    					userForm.getEmail(),  "",  bodyText);
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

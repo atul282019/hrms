@@ -102,7 +102,7 @@ public class EmailServiceImpl implements EmailService{
 	}
 	public static String smsRequest(String mobile,String templateId) {
 		JSONObject request= new JSONObject();
-		request.put("mobile", "9205431193");
+		request.put("mobile", mobile);
 		request.put("template", templateId);
 		return request.toString();
 	}
