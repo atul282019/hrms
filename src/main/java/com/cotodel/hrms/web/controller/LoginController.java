@@ -235,7 +235,7 @@ public class LoginController extends CotoDelBaseController{
 					 // extract pwdFlag from response
 					    String pwdFlag = profileJsonRes.getJSONObject("data").getString("pwdFlag");
 					    //Integer roleId = profileJsonRes.getJSONObject("data").getInt("role_id");
-					   
+					    //String pwdFlag ="N";
 					    //roleId != 9 &&
 					    if ("N".equalsIgnoreCase(pwdFlag) ) {
 					        String triggerId = java.util.UUID.randomUUID().toString();
@@ -446,30 +446,155 @@ public class LoginController extends CotoDelBaseController{
             screenName = null;
         }
     }
+//    @PostMapping(value="/updatepassword")
+//	public @ResponseBody String updatepassword(HttpServletRequest request, ModelMap model,Locale locale,
+//			HttpSession session, UserOtpRequest userotprequest) {
+//			logger.info("/updatepassword");	
+//			String token = (String) session.getAttribute("hrms");
+//			String profileRes=null;
+//		
+//			try {
+//				String json = EncryptionDecriptionUtil.convertToJson(userotprequest);
+//
+//				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+//
+//				String encriptResponse = loginservice.updatepassword(tokengeneration.getToken(), jsonObject);
+//
+//	   
+//				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+//
+//				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+//				logger.info("profileRes "+profileRes);	
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	   
+//		return profileRes;
+//	}
     @PostMapping(value="/updatepassword")
-	public @ResponseBody String updatepassword(HttpServletRequest request, ModelMap model,Locale locale,
-			HttpSession session, UserOtpRequest userotprequest) {
-			logger.info("/updatepassword");	
-			String token = (String) session.getAttribute("hrms");
-			String profileRes=null;
-		
-			try {
-				String json = EncryptionDecriptionUtil.convertToJson(userotprequest);
+    public String updatepassword(HttpServletRequest request, ModelMap model,
+                                 Locale locale, HttpSession session,
+                                 UserOtpRequest userotprequest,
+                          
+                                 BindingResult result) {
+        logger.info("/updatepassword");
+        
+        LoginWithPwd loginWithPwd=new LoginWithPwd();
+        loginWithPwd.setMobile(userotprequest.getMobile());
+        loginWithPwd.setPwd(userotprequest.getPassword());
+        String profileRes = null;
 
-				EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+        try {
+            // 🔐 Update password
+            String json = EncryptionDecriptionUtil.convertToJson(userotprequest);
+            EncriptResponse jsonObject = EncryptionDecriptionUtil.encriptResponse(
+                    json, applicationConstantConfig.apiSignaturePublicPath);
 
-				String encriptResponse = loginservice.updatepassword(tokengeneration.getToken(), jsonObject);
+            String encriptResponse = loginservice.updatepassword(
+                    tokengeneration.getToken(), jsonObject);
 
-	   
-				EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+            EncriptResponse userReqEnc = EncryptionDecriptionUtil.convertFromJson(
+                    encriptResponse, EncriptResponse.class);
 
-				profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	   
-		return profileRes;
-	}
+            profileRes = EncryptionDecriptionUtil.decriptResponse(
+                    userReqEnc.getEncriptData(),
+                    userReqEnc.getEncriptKey(),
+                    applicationConstantConfig.apiSignaturePrivatePath);
+
+            logger.info("profileRes " + profileRes);
+
+            // ✅ If update successful → run login logic
+            if (!ObjectUtils.isEmpty(profileRes)) {
+                JSONObject responseJson = new JSONObject(profileRes);
+                if (responseJson.getBoolean("status")
+                        && responseJson.getString("message")
+                                       .equalsIgnoreCase(MessageConstant.RESPONSE_SUCCESS)) {
+                	
+
+                    // ---------- Begin: Pwdlogin logic copied here ----------
+                    String loginJson = EncryptionDecriptionUtil.convertToJson(loginWithPwd);
+                    EncriptResponse loginReqEnc = EncryptionDecriptionUtil.encriptResponse(
+                            loginJson, applicationConstantConfig.apiSignaturePublicPath);
+
+                    String loginEncRes = loginservice.loginwithPwd(
+                            tokengeneration.getToken(), loginReqEnc);
+
+                    EncriptResponse loginUserReqEnc = EncryptionDecriptionUtil.convertFromJson(
+                            loginEncRes, EncriptResponse.class);
+
+                    String loginProfileRes = EncryptionDecriptionUtil.decriptResponse(
+                            loginUserReqEnc.getEncriptData(),
+                            loginUserReqEnc.getEncriptKey(),
+                            applicationConstantConfig.apiSignaturePrivatePath);
+
+                    logger.info(loginProfileRes);
+
+                    if (!ObjectUtils.isEmpty(loginProfileRes)) {
+                        JSONObject profileJsonRes = new JSONObject(loginProfileRes);
+
+                        if (profileJsonRes.getBoolean("status") &&
+                            profileJsonRes.getString("message")
+                                          .equalsIgnoreCase(MessageConstant.RESPONSE_SUCCESS)) {
+
+                            Date currentDate = new Date();
+                            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss E d MMM yyyy");
+                            String formattedDate = formatter.format(currentDate);
+
+                            session.setAttribute("email", profileJsonRes.getJSONObject("data").getString("email"));
+                            session.setAttribute("mobile", profileJsonRes.getJSONObject("data").getString("mobile"));
+                            session.setAttribute("organizationName", profileJsonRes.getJSONObject("data").getString("organizationName"));
+                            session.setAttribute("username", profileJsonRes.getJSONObject("data").getString("username"));
+                            session.setAttribute("user_role", profileJsonRes.getJSONObject("data").getInt("role_id"));
+                            session.setAttribute("formattedDate", formattedDate);
+
+                            int roleId = profileJsonRes.getJSONObject("data").getInt("role_id");
+                            String mobile = profileJsonRes.getJSONObject("data").getString("mobile");
+
+//                            if (roleId == 9) {
+//                                session.setAttribute("otp_after_pwd", "true");
+//                                session.setAttribute("mobile", mobile);
+//                                session.setAttribute("otp_once_token", String.valueOf(System.currentTimeMillis()));
+//                                return "redirect:/login";
+//                            }
+
+                            session.setAttribute("id", profileJsonRes.getJSONObject("data").getInt("employerid"));
+                            session.setAttribute("empId", profileJsonRes.getJSONObject("data").getInt("id"));
+                            int orgid = profileJsonRes.getJSONObject("data").getInt("employerid");
+
+                            String token = JwtTokenGenerator.generateToken(
+                                    profileJsonRes.getJSONObject("data").getString("email"),
+                                    profileJsonRes.getJSONObject("data").getString("mobile"),
+                                    profileJsonRes.getJSONObject("data").getString("username"),
+                                    roleId,
+                                    orgid,
+                                    MessageConstant.SECRET);
+                            session.setAttribute("hrms", token);
+
+                            switch (String.valueOf(roleId)) {
+                                case "0":
+                                    model.addAttribute("message", "No Role assigned to User. Please contact Admin!!");
+                                    return "index";
+                                default:
+                                    model.addAttribute("name", profileJsonRes.getJSONObject("data").getString("email"));
+                                    return "custom-dashboard";
+                            }
+                        } else {
+                            model.addAttribute("message", profileJsonRes.getString("message"));
+                            return "index";
+                        }
+                    } else {
+                        model.addAttribute("message", "Invalid Credentials");
+                        return "index";
+                    }
+                    // ---------- End: Pwdlogin logic ----------
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error in updatepassword", e);
+        }
+        return profileRes; // fallback
+    }
+
 
 }

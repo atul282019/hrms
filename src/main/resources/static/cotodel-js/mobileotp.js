@@ -598,7 +598,7 @@ function loginwithPwd() {
 					
 }
 
-function setPassword() {
+/*function setPassword() {
 	
 	var mobile = document.getElementById("dynamicInput").value;
 	var confirmPassword = document.getElementById("confirmPassword").value;
@@ -629,6 +629,56 @@ function setPassword() {
 			alert('Error: ' + e);
 		}
 	});
+}
+*/
+function setPassword() {
+    const captchaInput = document.getElementById("captcha").value;
+
+    // Step 1: Verify captcha
+    $.ajax({
+        type: "GET",
+        url: "/verifyCaptcha",
+        data: { captchaInput: captchaInput },
+        success: function(res) {
+            if (res.status === "success") {
+                // ✅ Captcha correct → proceed to submit password form
+                submitPasswordForm();
+            } else {
+                document.getElementById("captchaError").innerText = "Invalid CAPTCHA!";
+                reCaptcha(); // refresh captcha
+            }
+        },
+        error: function() {
+            document.getElementById("captchaError").innerText = "Error verifying CAPTCHA!";
+        }
+    });
+}
+function  submitPasswordForm() {
+    const mobile = document.querySelector("#pwdForm #dynamicInput").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // create a new form dynamically
+    const form = document.createElement("form");
+    form.method = "post";
+    form.action = "/updatepassword";
+
+    // add mobile
+    const mobileField = document.createElement("input");
+    mobileField.type = "hidden";
+    mobileField.name = "mobile";
+    mobileField.value = mobile;
+    form.appendChild(mobileField);
+
+    // add password
+    const passwordField = document.createElement("input");
+    passwordField.type = "hidden";
+    passwordField.name = "password";
+    passwordField.value = confirmPassword;
+    form.appendChild(passwordField);
+
+    // append new form to body and submit
+    document.body.appendChild(form);
+    form.submit();
 }
 
 

@@ -293,7 +293,8 @@
 								<div  class="error-msg" id="loginerrorMsg" ></div>	
 								<button class="btn login-btn"   id="directlogin" onclick="loginwithPwd()" type="button" disabled>Login</button>
 								</div><!-- login without otp ends here-->
-										
+									
+								
    						     </div>
    							
 
@@ -365,8 +366,35 @@
 						          style="background:#EAF0FF; border:none; color:#367AFF; font-weight:600; padding:10px; border-radius:8px;">
 						    SETUP PASSWORD
 						  </button>-->
-						  <button class="btn login-btn"   id="setuppassword" onclick="setPassword()"  type="button" disabled>SETUP PASSWORD</button>
+						  
+						  <div class="custom-in">
+						    <label for="captchaInput">Captcha letters are case sensitive</label>
+						    <div id="captchaContainer" style="position: relative;">
+						        <!-- CAPTCHA image -->
+						        
+								<img id="captcha_id" name="captcha_id"  alt="Captcha" th:src="@{/captcha}" draggable="false">
+
+						        <!-- Refresh icon positioned on the right side of the captcha image -->
+						      <img src="/img/recall.svg" alt="Refresh" id="refreshCaptcha" 
+						             style="position: absolute; top: 50%; right: 40px; transform: translateY(-50%); cursor: pointer;" 
+						             onclick="reCaptcha()">
+						    </div>
+						    <input type="text" 
+							class="form-control mt-2" 
+							id="captcha" name="captcha" 
+							placeholder="Enter CAPTCHA" 
+							required
+							oncopy="return false;" 
+				            onpaste="return false;" 
+				            oncut="return false;" 
+				            autocomplete="off">
+						    <div class="custom-errormsg" id="captchaError" style="color:red"></div>
 						</div>
+						
+						  <button class="btn login-btn"   id="setuppassword" onclick="setPassword()"  type="button" disabled>SETUP PASSWORD</button>
+						  
+					  
+					  </div>
 						  <!--<div class="text-center mt-4">
 						    <small>New to Cotodel? <a href="/Industries" style="color:#367AFF;">Register for Demo</a></small>
 						  </div>-->
@@ -397,6 +425,8 @@
  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="cotodel-js/mobileotp.js"></script>
+  <script type="text/javascript" src="cotodel-js/re-captcha.js"></script>
+  <script type="text/javascript" src="cotodel-js/registerotp.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
         console.log("✅ DOM loaded");

@@ -736,7 +736,7 @@ async function  issueVoucher(){
            //console.log(newData);
            var data1 = jQuery.parseJSON( newData );
 		   var data2 = data1.data;
-		   console.log(""+data2);
+		   console.log("/createSingleVoucher",data2);
 		   document.getElementById("signinLoader").style.display="none";
 		   			
 		   			if(data1.status==true){

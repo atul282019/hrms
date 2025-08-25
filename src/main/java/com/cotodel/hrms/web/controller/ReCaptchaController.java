@@ -97,4 +97,18 @@ public class ReCaptchaController extends CotoDelBaseController{
 		   }
 		   return captchaStrBuffer.toString();
 	}
+	   @GetMapping("/verifyCaptcha")
+	   @ResponseBody
+	   public Map<String, Object> verifyCaptcha(HttpSession session, String captchaInput) {
+	       Map<String, Object> response = new HashMap<>();
+	       String sessionCaptcha = (String) session.getAttribute("CAPTCHA");
+
+	       if (sessionCaptcha != null && sessionCaptcha.equals(captchaInput)) {
+	           response.put("status", "success");
+	       } else {
+	           response.put("status", "fail");
+	       }
+	       return response;
+	   }
+
 }
