@@ -1643,7 +1643,7 @@ effortlessly.</p>
 																															   <i class="bi bi-arrow-right"></i>
 																									 		   		         </a>
 																									 		   		         <span>OR</span>
-																									 		   		         <button class="btn btn-success" id="whatsappButton">
+																									 		   		         <button class="btn btn-success" id="whatsappButton2">
 																									 		   		           Chat with Us <i class="bi bi-whatsapp ms-1"></i>
 																									 		   		         </button>
 																									 		   		       </div>
@@ -1716,9 +1716,9 @@ JS libraries, plugins and custom scripts -->
 	  $('.blogs-slider').slick('slickNext');
 	});
 </script>
-	<script>	document.getElementById('whatsappButton').addEventListener('click', function () {
+<!--	<script>	document.getElementById('whatsappButton').addEventListener('click', function () {
 				window.open('https://wa.me/919910558848', '_blank'); // Open the URL in a new tab
-			});</script>
+			});</script>-->
 	<style>
 		.btn.btn-primary:hover {
 		    background-color: #367AFF !important;
@@ -2091,6 +2091,47 @@ JS libraries, plugins and custom scripts -->
   });
 </script>
 
+<script>
+  document.getElementById("whatsappButton").addEventListener("click", function () {
+      // Prevent duplicate loading
+      if (!document.getElementById("aisensy-wa-widget")) {
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js";
+          script.id = "aisensy-wa-widget";
+          script.setAttribute("widget-id", "aaak7c");
+          document.body.appendChild(script);
+      }
+  });
+</script>
+
+
+<script>
+  document.getElementById("whatsappButton2").addEventListener("click", function () {
+      // Prevent duplicate loading
+      if (!document.getElementById("aisensy-wa-widget")) {
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js";
+          script.id = "aisensy-wa-widget";
+          script.setAttribute("widget-id", "aaak7c");
+          document.body.appendChild(script);
+      }
+  });
+</script>
+<!--
+<script>
+  window.onload = function () {
+      if (!document.getElementById("aisensy-wa-widget")) {
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js";
+          script.id = "aisensy-wa-widget";
+          script.setAttribute("widget-id", "aaak7c");
+          document.body.appendChild(script);
+      }
+  };
+</script>-->
 </body>
 
 </html>
