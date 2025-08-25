@@ -153,7 +153,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 			SMSRequest userForm = new SMSRequest();
 	            userForm.setMobile(root.data.customer_details.customer_phone);
 	            System.out.println("stagingWebhook mobile Number "+root.data.customer_details.customer_phone);
-	            String template = "Your CotoWallet has been successfully loaded with â‚¹#VAR1#. Your CotoWallet total balance is â‚¹#VAR2#. - Cotodel";
+	            String template = "You have successfully added â‚¹#VAR1# to your Cotodel Account. Your Coto Balance is â‚¹#VAR2#. - Cotodel";
 	        		String finalMessage = template
 	        	        .replace("#VAR1#", Integer.toString(root.data.order.order_amount))
 	        	        .replace("#VAR2#", totalAmount);
@@ -185,7 +185,6 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
                 whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
                 //whatsapp.setCategory(item.getVoucherDesc());
                 whatsapp.setMobile(root.data.customer_details.customer_name);
-                System.out.println("Whats app mobile Number"+root.data.customer_details.customer_phone);
                 whatsapp.setOrganizationName("Cotodel");
                 //whatsapp.setValidity(item.getValidity());
                 whatsapp.setBalance(totalAmount);
@@ -217,19 +216,16 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 @PostMapping(value="/production-webhook-callback")
 public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
 	
-		logger.info("production-webhook-callback");
 		logger.info("production-webhook-callback"+payload);	
 		String profileRes = null;
 		String mobileNoResponse = null;
 	    ObjectMapper om = new ObjectMapper();
 		Root root = om.readValue(payload, Root.class); 
-		
-		
 		try {
 			profileRes = cashfreePaymentService.paymentCallBackData(tokengeneration.getToken(),root);
 			
 
-			logger.info("mobileNoResponse ---"+profileRes);
+			logger.info("production-webhook-callback data save ---"+profileRes);
 			JSONObject apiJsonResponse2 = new JSONObject(profileRes);
 	        boolean status2 = apiJsonResponse2.getBoolean("status");
 	       // if(status2) {
@@ -246,7 +242,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 
 				mobileNoResponse =  EncryptionDecriptionUtil.decriptResponse(encriptResponseMobileEnc.getEncriptData(), encriptResponseMobileEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 				
-				logger.info("mobileNoResponse ---"+mobileNoResponse);
+				logger.info("production-webhook-callback  get wallet  total amount ---"+mobileNoResponse);
 				JSONObject apiJsonResponse = new JSONObject(mobileNoResponse);
 		         String totalAmount = apiJsonResponse.getString("balance");
 		        Float amt=Float.valueOf(totalAmount);
@@ -257,7 +253,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 		            userForm.setMobile(root.data.customer_details.customer_phone);
 		            System.out.println("stagingWebhook mobile Number "+root.data.customer_details.customer_name);
 		            
-		            String template = "Your CotoWallet has been successfully loaded with â‚¹#VAR1#. Your CotoWallet total balance is â‚¹#VAR2#. - Cotodel";
+		            String template = "You have successfully added â‚¹#VAR1# to your Cotodel Account. Your Coto Balance is â‚¹#VAR2#. - Cotodel";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", Integer.toString(root.data.order.order_amount))
 		        	        .replace("#VAR2#", total.toString());
@@ -274,6 +270,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+				logger.info("production webhook smsSend Response ---"+smsResponse);
 				//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -287,7 +284,6 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 	                whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
 	                //whatsapp.setCategory(item.getVoucherDesc());
 	                whatsapp.setMobile(root.data.customer_details.customer_phone);
-	                System.out.println("production-webhook-callback mobile Number whatsapp"+root.data.customer_details.customer_phone);
 	                whatsapp.setOrganizationName("Cotodel");
 	                //whatsapp.setValidity(item.getValidity());
 	                whatsapp.setBalance(total.toString());
@@ -301,7 +297,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 	    			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 	    			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-	    			logger.info("whatsapp production-webhook-callback response Json---"+profileRes);
+	    			logger.info("production-webhook-callback whatsapp response Json---"+profileRes);
 	            } catch (Exception e) {
 	    			// TODO Auto-generated catch block
 	    			e.printStackTrace();
