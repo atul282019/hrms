@@ -334,6 +334,35 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	            			e.printStackTrace();
 	            		}
 	                }
+	                String smsResponse =null;
+	                SMSRequest smsRequest = new SMSRequest();
+		        	smsRequest.setMobile(item .getMobile());
+		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
+		        	
+		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
+		        	String finalMessage = template
+		        	        .replace("#VAR1#", item.getAmount())
+		        	        .replace("#VAR2#",item.getVoucherDesc());
+		        	
+		        	smsRequest.setMessage(finalMessage);
+		        	
+		            try {
+		            String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
+
+					EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+
+					String userFormResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
+		   
+					EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
+
+					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
+					 //String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+		            } catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	                
 	            }
 	        	
 	            List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();

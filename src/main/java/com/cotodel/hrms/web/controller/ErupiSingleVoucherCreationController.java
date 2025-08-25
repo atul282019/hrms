@@ -221,6 +221,36 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	            			e.printStackTrace();
 	            		}
 	                }
+	                
+	                String smsResponse =null;
+	                SMSRequest smsRequest = new SMSRequest();
+		        	smsRequest.setMobile(item .getMobile());
+		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
+		        	
+		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
+		        	String finalMessage = template
+		        	        .replace("#VAR1#", item.getAmount())
+		        	        .replace("#VAR2#",item.getVoucherDesc());
+		        	
+		        	smsRequest.setMessage(finalMessage);
+		        	
+		            try {
+		            String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
+
+					EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+
+					String userFormResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
+		   
+					EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
+
+					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
+					 //String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+		            } catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	                
 	            }
 	        	
 	        	 List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
@@ -315,6 +345,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
     if ((obj.getUser_role() == 9 || obj.getUser_role() == 1 || obj.getUser_role() == 3) && obj.getOrgid() == erupiVoucherCreateDetails.getOrgId().intValue()) {
         try {
         	String profileRes = null;
+        	String smsResponse =null;
     		
             // Call Service
            // String encryptedResponse = erupiVoucherCreateDetailsService.createSingleVoucherWithMultipleRequest(tokengeneration.getToken(),erupiVoucherCreateDetails);
@@ -384,7 +415,41 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	                    
 	                    emailRequest =	emailService.sendEmail("atulyadavmca@gmail.com");
 	                }
+	                
+	                SMSRequest smsRequest = new SMSRequest();
+		        	smsRequest.setMobile(item .getMobile());
+		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
+		        	
+		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
+		        	String finalMessage = template
+		        	        .replace("#VAR1#", item.getAmount())
+		        	        .replace("#VAR2#",item.getVoucherDesc());
+		        	
+		        	smsRequest.setMessage(finalMessage);
+		        	
+		            try {
+		            String userFormjson = EncryptionDecriptionUtil.convertToJson(smsRequest);
+
+					EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+
+					String userFormResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
+		   
+					EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
+
+					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
+					 //String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+		            } catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		            
 	            }
+	            
+	            
+	            
+	            
+	            
 
 	        	 List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
 	        	responseMap.put("data", dataList); // Could be primitive or string

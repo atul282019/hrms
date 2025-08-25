@@ -623,6 +623,7 @@ function loadCategoryVoucherData(){
 		},
 		success: function(response) {
 		    var response = JSON.parse(response);
+			console.log("loadCategoryVoucherData()",response);
 		    try {
 		        if (response.status && response.data && response.data.length > 0) {
 		            const categoryBreakdown = document.querySelector('.category-breakdown');
