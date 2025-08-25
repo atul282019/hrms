@@ -374,7 +374,7 @@ function bulkverfyrevokeVoucherOTP() {
   	var password6 = document.getElementById("password666").value;
   	var orderId = document.getElementById("orderId3").value;
   	var employerMobile = document.getElementById("employerMobile").value;
-  	
+  	var x=true;
   	if (document.getElementById("employerMobile").value == "") {
   		document.getElementById("mobError").innerHTML="Please Enter mobile..";
   		
@@ -451,7 +451,9 @@ function bulkverfyrevokeVoucherOTP() {
   	else{
   		document.getElementById("otpError3").innerHTML="";
   	}
-  	
+	
+	if(x){ 
+		document.getElementById("signinLoader").style.display="flex";
   	$.ajax({
   			type: "POST",
   			//url:"/verifyOTP",
@@ -478,6 +480,7 @@ function bulkverfyrevokeVoucherOTP() {
 				document.getElementById("password666").value="";
 				//document.getElementById("authenticate").disabled = false;
   				if (obj['status']== true) {
+					//document.getElementById("signinLoader").style.display="none";
 					$('#RevokebulkUPIVoucherModal').hide();
 					if (window.selectedVoucherIdsToRevoke && window.selectedVoucherIdsToRevoke.length > 0) {
 					    sendRowIdsToBackend(window.selectedVoucherIdsToRevoke);
@@ -485,6 +488,7 @@ function bulkverfyrevokeVoucherOTP() {
 						
 					  }
   				}else if (obj['status'] == false) {
+					document.getElementById("signinLoader").style.display="none";
 					document.getElementById("otpError3").textContent=obj['message'];
 					document.getElementById("otpError3").style.display="block";
 					$('#RevokebulkUPIVoucherModal').show();
@@ -497,6 +501,7 @@ function bulkverfyrevokeVoucherOTP() {
   				alert('Error: ' + e);
   			}
   		});
+		}
   }
 
   
@@ -1397,6 +1402,7 @@ function sendRowIdsToBackend(ids) {
 
       // Redirect after modal display
       setTimeout(function () {
+		document.getElementById("signinLoader").style.display="none";
         if (userRole == "9" || userRole == 9) {
           window.location.href = "/upiVoucherIssuanceNew";
         } else {

@@ -350,7 +350,7 @@
 
                                     <div class="text-right my-3">
 								<!--<button class="btn btn-outline-download" id="downloadBtn" data-toggle="modal" data-target="#ModalDownload1">Download</button>-->
-								<button class="btn btn-outline-download" id="downloadBtn" >Download</button>
+								<button class="btn btn-outline-download" id="downloadBtn"  onclick="ExportToExcel('xlsx')">Download</button>
                                     </div>
                                 </div>
 
@@ -675,6 +675,13 @@
 		<script src="js/xsls-export.js"></script>
 		<script type="text/javascript" src="js/slick/slick.min.js"></script>
 	<script type="text/javascript" src="cotodel-js/bulk-vehicle.js"></script>
+	<script>	function ExportToExcel(type, fn, dl) {
+	        var elt = document.getElementById('failedUpload');
+	        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+	        return dl ?
+	            XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+	            XLSX.writeFile(wb, fn || ('Failed_Vehicle.' + (type || 'xlsx')));
+	    }</script>
 	<script type="text/javascript">
 
 	$(document).ready(function(){
