@@ -180,7 +180,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
             try {
             	WhatsAppRequest whatsapp = new WhatsAppRequest();
                 whatsapp.setSource("new-landing-page form");
-                whatsapp.setCampaignName("cotowallet_confirmation");
+                whatsapp.setCampaignName("250825_Coto Balance");
                 whatsapp.setFirstName(root.data.customer_details.customer_name);
                 whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
                 //whatsapp.setCategory(item.getVoucherDesc());

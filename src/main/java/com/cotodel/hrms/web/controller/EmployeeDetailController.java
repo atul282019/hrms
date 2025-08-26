@@ -340,7 +340,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    			
 	    			WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                whatsapp.setSource("new-landing-page form");
-	                whatsapp.setCampaignName("Employee_add_confirmation");
+	                whatsapp.setCampaignName("250825_Employee Add");
 	                whatsapp.setFirstName((String) session.getAttribute("usernamme"));
 	                whatsapp.setMobile(employeeOnboarding.getMobile());
 	                whatsapp.setOrganizationName("Cotodel");
