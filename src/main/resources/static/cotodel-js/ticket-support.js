@@ -67,6 +67,7 @@ function convertImageToBase64() {
 	}
 async function saveTicket(){
 	
+	
 	var fileInput = document.getElementById("up").value;
 	var base64file = document.getElementById("base64Output").value;
 	var createdby =  document.getElementById("employerMobile").value;
@@ -108,6 +109,8 @@ async function saveTicket(){
 	else{
 		document.getElementById("fileInputError1").innerHTML="";
 	}
+	document.getElementById("customerTicketSubmit").disabled=true;
+	document.getElementById("signinLoader").style.display = "flex";
 	$('#Vehicleloading').modal('show');
 	$.ajax({
 		type: "POST",
@@ -123,6 +126,10 @@ async function saveTicket(){
 				    "hash":hashHex
 			 },  		 
 	        success:function(data){
+			document.getElementById("signinLoader").style.display = "none";
+			document.getElementById("customerTicketSubmit").disabled=false;
+			document.getElementById("up").value="";
+			
 	        var data1 = data.data;
 	        console.log("data",data);
 		    console.log("data1",data1);
