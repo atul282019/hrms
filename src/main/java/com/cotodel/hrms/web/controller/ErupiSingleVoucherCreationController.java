@@ -42,6 +42,7 @@ import com.cotodel.hrms.web.service.Impl.EmailServiceImpl;
 import com.cotodel.hrms.web.service.Impl.TokenGenerationImpl;
 import com.cotodel.hrms.web.util.EncriptResponse;
 import com.cotodel.hrms.web.util.EncryptionDecriptionUtil;
+import com.cotodel.hrms.web.util.GraphMailSender;
 import com.cotodel.hrms.web.util.JwtTokenValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,6 +78,8 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 			ModelMap model,Locale locale)	
 	{
 		String encryptedResponse=null;
+		String bodyText = null;
+		String email = (String) session.getAttribute("email");
 		String receivedHash = erupiVoucherCreateDetails.getHash();
 		 // Validate client key first
         if (!CLIENT_KEY.equals(erupiVoucherCreateDetails.getClientKey())) {
@@ -245,7 +248,78 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-					 //String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+					 
+					 bodyText = "<!DOCTYPE html>\r\n"
+	        					+ "<html lang=\"en\">\r\n"
+	        					+ "<head>\r\n"
+	        					+ "  <meta charset=\"UTF-8\">\r\n"
+	        					+ "  <title>Welcome to Cotodel</title>\r\n"
+	        					+ "</head>\r\n"
+	        					+ "<body style=\"margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f5f5f5;\">\r\n"
+	        					+ "  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#f5f5f5\">\r\n"
+	        					+ "    <tr>\r\n"
+	        					+ "      <td align=\"center\">\r\n"
+	        					+ "        <!-- Main Container -->\r\n"
+	        					+ "        <table width=\"600\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#ffffff; border-radius:8px; overflow:hidden;\">\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Header -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td bgcolor=\"#0a8f64\" style=\"padding:20px; color:#ffffff; font-size:18px; font-weight:bold;\">\r\n"
+	        					+ "              <img src=\"https://staging.cotodel.com/img/Hero-Image.png\" alt=\"Cotodel\" style=\"height:32px; vertical-align:middle;\"> \r\n"
+	        					+ "              <span style=\"margin-left:10px; font-size:16px; font-weight:normal;\">Business expenses made seamless like your personal UPI spends</span>\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Banner Image -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td align=\"center\" style=\"padding:20px;\">\r\n"
+	        					+ "              <img src=\"https://staging.cotodel.com/img/welcome-illustration.png\" alt=\"Welcome\" width=\"100%\" style=\"max-width:560px; border-radius:6px;\">\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Content -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td style=\"padding:20px; color:#333333; font-size:14px; line-height:22px;\">\r\n"
+	        					+ "              <h2 style=\"margin:0; font-size:18px; color:#0a8f64;\">Welcome," +session.getAttribute("organizationName")+ "!</h2>\r\n"
+	        					+ "              <p>Your organization has onboarded you to Cotodel. Start managing your business expenses as seamlessly as your personal UPI spends!</p>\r\n"
+	        					+ "              <p>If you have any concerns, please reach out to your Business admin or contact us at \r\n"
+	        					+ "                <a href=\"mailto:support@cotodel.com\" style=\"color:#0a8f64; text-decoration:none;\">support@cotodel.com</a>.\r\n"
+	        					+ "              </p>\r\n"
+	        					+ "              <p>Sincerely,<br>Team Cotodel</p>\r\n"
+	        					+ "              <!-- CTA Button -->\r\n"
+	        					+ "              <p style=\"text-align:center; margin:30px 0;\">\r\n"
+	        					+ "                <a href=\"https://www.cotodel.com/login\" \r\n"
+	        					+ "                   style=\"background-color:#0a8f64; color:#ffffff; padding:12px 28px; \r\n"
+	        					+ "                          text-decoration:none; border-radius:6px; font-weight:bold;\">\r\n"
+	        					+ "                  Log In to Cotodel\r\n"
+	        					+ "                </a>\r\n"
+	        					+ "              </p>\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Footer -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td bgcolor=\"#f0f0f0\" style=\"padding:20px; text-align:center; font-size:12px; color:#666666;\">\r\n"
+	        					+ "              <img src=\"https://staging.cotodel.com/img/cotodel_logo_New.svg\" alt=\"Cotodel\" style=\"height:28px; margin-bottom:10px;\"><br>\r\n"
+	        					+ "              ADDRESS: WeWork, Eldeco Centre, Nehru Place, New Delhi - 110017<br><br>\r\n"
+	        					+ "              <a href=\"https://www.linkedin.com/company/cotopay/posts/?feedView=all\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">LinkedIn</a> | \r\n"
+	        					+ "              <a href=\"https://www.instagram.com/cotodelsolutions\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Instagram</a> | \r\n"
+	        					+ "              <a href=\"https://x.com/CotodelSolution\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Twitter</a> | \r\n"
+	        					+ "              <a href=\"https://www.facebook.com/cotopay/\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Facebook</a><br><br>\r\n"
+	        					+ "              © 2025 Cotodel - All rights reserved<br>\r\n"
+	        					+ "              <a href=\"https://www.cotodel.com/unsubscribe\" style=\"color:#999999; text-decoration:none;\">Click to unsubscribe</a>\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "        </table>\r\n"
+	        					+ "      </td>\r\n"
+	        					+ "    </tr>\r\n"
+	        					+ "  </table>\r\n"
+	        					+ "</body>\r\n"
+	        					+ "</html>\r\n"
+	        					+ "";
+	    				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
+	        			email,  "📲 Your UPI Voucher is Issued",  bodyText);
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -283,6 +357,8 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 			@RequestBody SingleVoucherCreationRequest erupiVoucherCreateDetails, BindingResult result, HttpSession session, 
 			ModelMap model,Locale locale) {
 		String emailRequest =null;
+		String bodyText = null;
+		String email = (String) session.getAttribute("email");
 		String receivedHash = erupiVoucherCreateDetails.getHash();
 		 // Validate client key first
         if (!CLIENT_KEY.equals(erupiVoucherCreateDetails.getClientKey())) {
@@ -438,20 +514,84 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-					 //String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+					bodyText = "<!DOCTYPE html>\r\n"
+	        					+ "<html lang=\"en\">\r\n"
+	        					+ "<head>\r\n"
+	        					+ "  <meta charset=\"UTF-8\">\r\n"
+	        					+ "  <title>Welcome to Cotodel</title>\r\n"
+	        					+ "</head>\r\n"
+	        					+ "<body style=\"margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f5f5f5;\">\r\n"
+	        					+ "  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#f5f5f5\">\r\n"
+	        					+ "    <tr>\r\n"
+	        					+ "      <td align=\"center\">\r\n"
+	        					+ "        <!-- Main Container -->\r\n"
+	        					+ "        <table width=\"600\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#ffffff; border-radius:8px; overflow:hidden;\">\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Header -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td bgcolor=\"#0a8f64\" style=\"padding:20px; color:#ffffff; font-size:18px; font-weight:bold;\">\r\n"
+	        					+ "              <img src=\"https://staging.cotodel.com/img/Hero-Image.png\" alt=\"Cotodel\" style=\"height:32px; vertical-align:middle;\"> \r\n"
+	        					+ "              <span style=\"margin-left:10px; font-size:16px; font-weight:normal;\">Business expenses made seamless like your personal UPI spends</span>\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Banner Image -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td align=\"center\" style=\"padding:20px;\">\r\n"
+	        					+ "              <img src=\"https://staging.cotodel.com/img/welcome-illustration.png\" alt=\"Welcome\" width=\"100%\" style=\"max-width:560px; border-radius:6px;\">\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Content -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td style=\"padding:20px; color:#333333; font-size:14px; line-height:22px;\">\r\n"
+	        					+ "              <h2 style=\"margin:0; font-size:18px; color:#0a8f64;\">Welcome," +session.getAttribute("organizationName")+ "!</h2>\r\n"
+	        					+ "              <p>Your organization has onboarded you to Cotodel. Start managing your business expenses as seamlessly as your personal UPI spends!</p>\r\n"
+	        					+ "              <p>If you have any concerns, please reach out to your Business admin or contact us at \r\n"
+	        					+ "                <a href=\"mailto:support@cotodel.com\" style=\"color:#0a8f64; text-decoration:none;\">support@cotodel.com</a>.\r\n"
+	        					+ "              </p>\r\n"
+	        					+ "              <p>Sincerely,<br>Team Cotodel</p>\r\n"
+	        					+ "              <!-- CTA Button -->\r\n"
+	        					+ "              <p style=\"text-align:center; margin:30px 0;\">\r\n"
+	        					+ "                <a href=\"https://www.cotodel.com/login\" \r\n"
+	        					+ "                   style=\"background-color:#0a8f64; color:#ffffff; padding:12px 28px; \r\n"
+	        					+ "                          text-decoration:none; border-radius:6px; font-weight:bold;\">\r\n"
+	        					+ "                  Log In to Cotodel\r\n"
+	        					+ "                </a>\r\n"
+	        					+ "              </p>\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "          <!-- Footer -->\r\n"
+	        					+ "          <tr>\r\n"
+	        					+ "            <td bgcolor=\"#f0f0f0\" style=\"padding:20px; text-align:center; font-size:12px; color:#666666;\">\r\n"
+	        					+ "              <img src=\"https://staging.cotodel.com/img/cotodel_logo_New.svg\" alt=\"Cotodel\" style=\"height:28px; margin-bottom:10px;\"><br>\r\n"
+	        					+ "              ADDRESS: WeWork, Eldeco Centre, Nehru Place, New Delhi - 110017<br><br>\r\n"
+	        					+ "              <a href=\"https://www.linkedin.com/company/cotopay/posts/?feedView=all\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">LinkedIn</a> | \r\n"
+	        					+ "              <a href=\"https://www.instagram.com/cotodelsolutions\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Instagram</a> | \r\n"
+	        					+ "              <a href=\"https://x.com/CotodelSolution\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Twitter</a> | \r\n"
+	        					+ "              <a href=\"https://www.facebook.com/cotopay/\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Facebook</a><br><br>\r\n"
+	        					+ "              © 2025 Cotodel - All rights reserved<br>\r\n"
+	        					+ "              <a href=\"https://www.cotodel.com/unsubscribe\" style=\"color:#999999; text-decoration:none;\">Click to unsubscribe</a>\r\n"
+	        					+ "            </td>\r\n"
+	        					+ "          </tr>\r\n"
+	        					+ "          \r\n"
+	        					+ "        </table>\r\n"
+	        					+ "      </td>\r\n"
+	        					+ "    </tr>\r\n"
+	        					+ "  </table>\r\n"
+	        					+ "</body>\r\n"
+	        					+ "</html>\r\n"
+	        					+ "";
+	    				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
+	        			email,  "📲 Your UPI Voucher is Issued",  bodyText);
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		            
 	            }
-	            
-	            
-	            
-	            
-	            
-
-	        	 List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
+	        	List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
 	        	responseMap.put("data", dataList); // Could be primitive or string
 	          
 	        } else {
@@ -600,8 +740,8 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 			HttpSession session, RevokeVoucher erupiVoucherCreateDetails) {
 		String profileRes = null;
 		String smsResponse =null;
-		//profileRes = erupiVoucherCreateDetailsService.revokeCreatedVoucher(tokengeneration.getToken(),	erupiVoucherCreateDetails);
-
+		String bodyText = null;
+		String email = (String) session.getAttribute("email");
 		try {
 			String json = EncryptionDecriptionUtil.convertToJson(erupiVoucherCreateDetails);
 
@@ -649,7 +789,79 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 				 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 				 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-				 //String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+
+
+ 				bodyText = "<!DOCTYPE html>\r\n"
+     					+ "<html lang=\"en\">\r\n"
+     					+ "<head>\r\n"
+     					+ "  <meta charset=\"UTF-8\">\r\n"
+     					+ "  <title>Welcome to Cotodel</title>\r\n"
+     					+ "</head>\r\n"
+     					+ "<body style=\"margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f5f5f5;\">\r\n"
+     					+ "  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#f5f5f5\">\r\n"
+     					+ "    <tr>\r\n"
+     					+ "      <td align=\"center\">\r\n"
+     					+ "        <!-- Main Container -->\r\n"
+     					+ "        <table width=\"600\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color:#ffffff; border-radius:8px; overflow:hidden;\">\r\n"
+     					+ "          \r\n"
+     					+ "          <!-- Header -->\r\n"
+     					+ "          <tr>\r\n"
+     					+ "            <td bgcolor=\"#0a8f64\" style=\"padding:20px; color:#ffffff; font-size:18px; font-weight:bold;\">\r\n"
+     					+ "              <img src=\"https://staging.cotodel.com/img/Hero-Image.png\" alt=\"Cotodel\" style=\"height:32px; vertical-align:middle;\"> \r\n"
+     					+ "              <span style=\"margin-left:10px; font-size:16px; font-weight:normal;\">Business expenses made seamless like your personal UPI spends</span>\r\n"
+     					+ "            </td>\r\n"
+     					+ "          </tr>\r\n"
+     					+ "          \r\n"
+     					+ "          <!-- Banner Image -->\r\n"
+     					+ "          <tr>\r\n"
+     					+ "            <td align=\"center\" style=\"padding:20px;\">\r\n"
+     					+ "              <img src=\"https://staging.cotodel.com/img/welcome-illustration.png\" alt=\"Welcome\" width=\"100%\" style=\"max-width:560px; border-radius:6px;\">\r\n"
+     					+ "            </td>\r\n"
+     					+ "          </tr>\r\n"
+     					+ "          \r\n"
+     					+ "          <!-- Content -->\r\n"
+     					+ "          <tr>\r\n"
+     					+ "            <td style=\"padding:20px; color:#333333; font-size:14px; line-height:22px;\">\r\n"
+     					+ "              <h2 style=\"margin:0; font-size:18px; color:#0a8f64;\">Welcome," +session.getAttribute("organizationName")+ "!</h2>\r\n"
+     					+ "              <p>Your organization has onboarded you to Cotodel. Start managing your business expenses as seamlessly as your personal UPI spends!</p>\r\n"
+     					+ "              <p>If you have any concerns, please reach out to your Business admin or contact us at \r\n"
+     					+ "                <a href=\"mailto:support@cotodel.com\" style=\"color:#0a8f64; text-decoration:none;\">support@cotodel.com</a>.\r\n"
+     					+ "              </p>\r\n"
+     					+ "              <p>Sincerely,<br>Team Cotodel</p>\r\n"
+     					+ "              <!-- CTA Button -->\r\n"
+     					+ "              <p style=\"text-align:center; margin:30px 0;\">\r\n"
+     					+ "                <a href=\"https://www.cotodel.com/login\" \r\n"
+     					+ "                   style=\"background-color:#0a8f64; color:#ffffff; padding:12px 28px; \r\n"
+     					+ "                          text-decoration:none; border-radius:6px; font-weight:bold;\">\r\n"
+     					+ "                  Log In to Cotodel\r\n"
+     					+ "                </a>\r\n"
+     					+ "              </p>\r\n"
+     					+ "            </td>\r\n"
+     					+ "          </tr>\r\n"
+     					+ "          \r\n"
+     					+ "          <!-- Footer -->\r\n"
+     					+ "          <tr>\r\n"
+     					+ "            <td bgcolor=\"#f0f0f0\" style=\"padding:20px; text-align:center; font-size:12px; color:#666666;\">\r\n"
+     					+ "              <img src=\"https://staging.cotodel.com/img/cotodel_logo_New.svg\" alt=\"Cotodel\" style=\"height:28px; margin-bottom:10px;\"><br>\r\n"
+     					+ "              ADDRESS: WeWork, Eldeco Centre, Nehru Place, New Delhi - 110017<br><br>\r\n"
+     					+ "              <a href=\"https://www.linkedin.com/company/cotopay/posts/?feedView=all\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">LinkedIn</a> | \r\n"
+     					+ "              <a href=\"https://www.instagram.com/cotodelsolutions\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Instagram</a> | \r\n"
+     					+ "              <a href=\"https://x.com/CotodelSolution\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Twitter</a> | \r\n"
+     					+ "              <a href=\"https://www.facebook.com/cotopay/\" style=\"color:#0a8f64; text-decoration:none; margin:0 8px;\">Facebook</a><br><br>\r\n"
+     					+ "              © 2025 Cotodel - All rights reserved<br>\r\n"
+     					+ "              <a href=\"https://www.cotodel.com/unsubscribe\" style=\"color:#999999; text-decoration:none;\">Click to unsubscribe</a>\r\n"
+     					+ "            </td>\r\n"
+     					+ "          </tr>\r\n"
+     					+ "          \r\n"
+     					+ "        </table>\r\n"
+     					+ "      </td>\r\n"
+     					+ "    </tr>\r\n"
+     					+ "  </table>\r\n"
+     					+ "</body>\r\n"
+     					+ "</html>\r\n"
+     					+ "";
+ 				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
+     			email,  "📲 Your UPI Voucher is Issued",  bodyText);
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
