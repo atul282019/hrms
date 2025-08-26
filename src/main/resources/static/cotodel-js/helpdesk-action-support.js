@@ -74,7 +74,8 @@
 		var createdby =  document.getElementById("employerMobile").value;
 		var orgId = document.getElementById("employerId").value;
 		var responseIssueDesc = document.getElementById("replyText").value;
-		var statusText = document.getElementById("status").innerHTML;
+		var ticketStatus1 = document.getElementById("ticketStatus1").value;
+		var statusText = document.getElementById("status").innerHTML; 
 		// Map text to numeric status
 		   const statusMap = {
 		       "Submitted": 0,
@@ -109,6 +110,14 @@
 			else{
 				document.getElementById("fileInputError").innerHTML="";
 			}
+			if(ticketStatus1 =="" || ticketStatus1 == null){
+				 document.getElementById("fileInputError").innerHTML="Selecting status is mandatory";
+				 return false;
+			}
+			else{
+				document.getElementById("fileInputError").innerHTML="";
+			}
+			
 		/*if(respTicketStatus =="" || respTicketStatus == null){
 			 document.getElementById("fileInputError").innerHTML="Please Select Status";
 			 return false;
@@ -144,7 +153,9 @@
 					getTicketTransactionHistoryById();
 					
 				}else if(data.status==false){
+					document.getElementById("fileInputError").innerHTML=data.message;
 					$('#AddVehicleModal').modal('show');
+					
 				}
 		     },
 		     error: function(e){

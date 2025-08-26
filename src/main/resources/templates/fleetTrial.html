@@ -325,6 +325,16 @@
 										
 </script>
 		<style>
+			
+			#signinLoader {
+			  position: fixed;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			  z-index: 2000; /* higher than modal backdrop */
+			}
+
+			
 			/* Keep backdrop below the modal */
 			.modal-backdrop { z-index: 1040 !important; }
 			/* Ensure modal is above backdrop even if a parent creates a stacking context */

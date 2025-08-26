@@ -2226,4 +2226,115 @@ public ModelAndView brandDashboard(Model model) {
 }
 return new ModelAndView("home", "command", "");
 }
+
+@GetMapping(value="/EmailerFleetSignUp")
+public ModelAndView EmailerFleetSignUp(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+			return new ModelAndView("Emailer_Fleet_Sign Up", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
+ 
+@GetMapping(value="/EmailerCorpSignUp")
+public ModelAndView EmailerCorpSignUp(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+			return new ModelAndView("Emailer_Corp_Sign Up", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
+
+
+@GetMapping(value="/EmailerFleetBankAC")
+public ModelAndView EmailerFleetBankAC(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+			return new ModelAndView("Emailer_Fleet_BankAC", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
+@GetMapping(value="/BankACEmailerCorp")
+public ModelAndView BankACEmailerCorp(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+			return new ModelAndView("BankACEmailerCorp", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
+
+@GetMapping(value="/AddEmpEmailerCorp")
+public ModelAndView AddEmpEmailerCorp(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+			return new ModelAndView("AddEmpEmailerCorp", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
+
 }

@@ -310,6 +310,14 @@ html, body  {
 
 					
 	<style>
+
+		#signinLoader {
+		  position: fixed;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  z-index: 2000; /* higher than modal backdrop */
+		}
 		body.modal-open {
 		    overflow: hidden !important; /* force no page scroll */
 		}

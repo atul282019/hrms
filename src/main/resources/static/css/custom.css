@@ -4006,6 +4006,7 @@ input.incur-input {
 
 input[type=file] {
     padding: 10px;
+	border:none;
   
 }
 

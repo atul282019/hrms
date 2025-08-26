@@ -102,13 +102,13 @@ async function saveTicket(){
 		else{
 			document.getElementById("messageError").innerHTML="";
 		}
-	if(fileInput =="" || fileInput == null){
+	/*if(fileInput =="" || fileInput == null){
 		 document.getElementById("fileInputError1").innerHTML="Please Select File";
 		 return false;
 	}
 	else{
 		document.getElementById("fileInputError1").innerHTML="";
-	}
+	}*/
 	document.getElementById("customerTicketSubmit").disabled=true;
 	document.getElementById("signinLoader").style.display = "flex";
 	$('#Vehicleloading').modal('show');
@@ -151,6 +151,7 @@ async function saveTicket(){
 				//$('#AddVehicleModal').modal('show');
 				document.getElementById('bs-canvas-right2').style.right = '0';
 			    document.getElementById('modal-overlay2').style.display = 'block';
+				document.getElementById("fileInputError1").innerHTML=data.message;
 			}
 	     },
 	     error: function(e){
