@@ -317,7 +317,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	                    whatsapp.setCampaignName("Voucher_issuance_user");
 	                    whatsapp.setFirstName(item.getName());
 	                    whatsapp.setAmount(item.getAmount());
-	                    whatsapp.setCategory(item.getVoucherDesc());
+	                    whatsapp.setCategory(item.getMccDescription());
 	                    whatsapp.setMobile(item.getMobile());
 	                    whatsapp.setOrganizationName("Cotodel");
 	                    whatsapp.setValidity(item.getExpDate());
@@ -346,7 +346,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", item.getAmount())
-		        	        .replace("#VAR2#",item.getVoucherDesc());
+		        	        .replace("#VAR2#",item.getMccDescription());
 		        	
 		        	smsRequest.setMessage(finalMessage);
 		        	
@@ -529,7 +529,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# Spends is revoked! View details and manage via your Cotodel dashboard.";
 		        	String finalMessage = template
 		        	.replace("#VAR1#", item.getRevokeAmount())
-        	        .replace("#VAR2#",item.getVoucherDesc());
+        	        .replace("#VAR2#",item.getMccDescription());
         	
 		        	smsRequest.setMessage(finalMessage);
 		        	
@@ -627,7 +627,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		                whatsapp.setCampaignName("revoke_voucher_user");
 		                whatsapp.setFirstName(item.getName());
 		                whatsapp.setAmount(item.getRevokeAmount());
-		                whatsapp.setCategory(item.getVoucherDesc());
+		                whatsapp.setCategory(item.getMccDescription());
 		                whatsapp.setMobile(item.getMobile());
 		                whatsapp.setOrganizationName("Cotodel");
 		                whatsapp.setValidity(item.getExpDate());

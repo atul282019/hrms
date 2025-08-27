@@ -203,7 +203,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	                    whatsapp.setCampaignName("Voucher_issuance_user");
 	                    whatsapp.setFirstName(item.getName());
 	                    whatsapp.setAmount(item.getAmount());
-	                    whatsapp.setCategory(item.getVoucherDesc());
+	                    whatsapp.setCategory(item.getMccDescription());
 	                    whatsapp.setMobile(item.getMobile());
 	                    whatsapp.setOrganizationName("Cotodel");
 	                    whatsapp.setValidity(item.getExpDate());
@@ -233,7 +233,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", item.getAmount())
-		        	        .replace("#VAR2#",item.getVoucherDesc());
+		        	        .replace("#VAR2#",item.getMccDescription());
 		        	
 		        	smsRequest.setMessage(finalMessage);
 		        	
@@ -468,7 +468,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	                    whatsapp.setCampaignName("Voucher_issuance_user");
 	                    whatsapp.setFirstName(item.getName());
 	                    whatsapp.setAmount(item.getAmount());
-	                    whatsapp.setCategory(item.getVoucherDesc());
+	                    whatsapp.setCategory(item.getMccDescription());
 	                    whatsapp.setMobile(item.getMobile());
 	                    whatsapp.setOrganizationName("Cotodel");
 	                    whatsapp.setValidity(item.getExpDate());
@@ -499,7 +499,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", item.getAmount())
-		        	        .replace("#VAR2#",item.getVoucherDesc());
+		        	        .replace("#VAR2#",item.getMccDescription());
 		        	
 		        	smsRequest.setMessage(finalMessage);
 		        	
@@ -774,7 +774,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# Spends is revoked! View details and manage via your Cotodel dashboard.";
 	        	String finalMessage = template
 	        	        .replace("#VAR1#", revokeResponse .getRevokeAmount())
-	        	        .replace("#VAR2#", revokeResponse.getVoucherDesc());
+	        	        .replace("#VAR2#", revokeResponse.getMccDescription());
 	        	
 	        	smsRequest.setMessage(finalMessage);
 	        	

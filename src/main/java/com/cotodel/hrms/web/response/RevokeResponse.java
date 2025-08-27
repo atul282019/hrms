@@ -39,6 +39,7 @@ public class RevokeResponse {
      private String voucherCode;
      private String voucherType;
      private String voucherDesc;
+     private String MccDescription;
      private String merchantId;
      private String subMerchantId;
      private String mandateType;
