@@ -819,7 +819,7 @@ requestedVoucherCount()">
 		    </td>
 		    <td>
 		      <img src="data:image/png;base64,${row.mccMainIcon}" alt="category" style="height: 16px; vertical-align: middle; margin-right: 4px;">
-		      ${row.purposeDesc}
+		      ${row.mccDesc}
 		    </td>
 		    <td>
 		      <img src="${redemptionIcon}" alt="${row.redemtionType}" style="height: 16px; vertical-align: middle; margin-right: 4px;">
@@ -1200,7 +1200,7 @@ requestedVoucherCount()">
 				  document.getElementById("popupFieldName").textContent = rowData.name; 
 				  document.getElementById("popupFieldMobile").textContent = rowData.mobile; 
 				  document.getElementById("popupFieldAmount").textContent = rowData.amount; 
-				  document.getElementById("popupFieldpurposeDesc").textContent = rowData.purposeDesc; 
+				  document.getElementById("popupFieldpurposeDesc").textContent = rowData.mccDesc; 
 				  
 				  document.getElementById("popupFieldStartDate").textContent = formatDate(rowData.creationDate);
 				  document.getElementById("popupFieldExpiryDate").textContent = formatDate(rowData.expDate);

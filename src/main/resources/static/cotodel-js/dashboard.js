@@ -133,7 +133,7 @@ async function getVoucherTransactionList() {
   					},
 					{ "mData": "bankrrn" },
                     { "mData": "name"},
-                    { "mData": "purposeDesc" },
+                    { "mData": "mccDesc" },
 					{ "mData": "payeeName" },
 					{
 					  "mData": "redeemAmount",
@@ -313,8 +313,72 @@ function erupiVoucherCreateListLimit() {
           { "mData": "name" },
           { "mData": "mobile" },
           { "mData": "accountNumber" },
-          { "mData": "purposeDesc" },
-          { "mData": "type" },
+		  {
+	          "mData": null,
+	          "render": function (data, type, row) {
+	            const mccIcon = row.mccMainIcon;
+	            const imgHTML = mccIcon
+	              ? `<img src="data:image/png;base64,${mccIcon}" alt="MCC Icon" width="24" height="24">`
+	              : '';
+	            return `
+	              <div style="display: flex; align-items: center; gap: 8px;">
+	                ${imgHTML}
+	                <span>${row.mccDesc || ''}</span>
+	              </div>
+	            `;
+	          }
+	        },
+			{
+	           "mData": "type",
+			   "render": function (data, type, row) {
+			   			  // Safely parse dd-mm-yyyy to Date
+			   			  /*function parseDDMMYYYY(dateStr) {
+			   			    const [dd, mm, yyyy] = dateStr.split('-');
+			   			    return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+			   			  }*/
+			   			  // Adjust parsing depending on backend format (yyyy-mm-dd)
+			   			  function parseDate(dateStr) {
+			   			    if (!dateStr) return null;
+			   			    
+			   			    // If format looks like yyyy-mm-dd
+			   			    if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+			   			      return new Date(dateStr + "T00:00:00");
+			   			    }
+			   			    
+			   			    // If format looks like dd-mm-yyyy
+			   			    if (/^\d{2}-\d{2}-\d{4}/.test(dateStr)) {
+			   			      const [dd, mm, yyyy] = dateStr.split('-');
+			   			      return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+			   			    }
+			   			    
+			   			    return new Date(dateStr); // fallback
+			   			  }
+
+
+			   			  //const expDate = parseDDMMYYYY(row.expDate);
+			   			  const expDate = parseDate(row.expDate);
+			   			  const today = new Date();
+			   			  today.setHours(0, 0, 0, 0); // Compare only date part
+			   			  //console.log("Exp date parsed:", expDate, "Row expDate:", row.expDate,"merchanttxnId",row.merchanttxnId, "Today:", today);
+
+			   			  const isExpired = expDate < today;
+			   			  let labelText = '', labelClass = '';
+			   			  if (isExpired && row.type === "Created") {
+			   			    labelText = "Expired";
+			   			    labelClass = "pill bg-grey-txt-grey-pill";
+			   			  } else {
+			   			    switch (data) {
+			   			      case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
+			   			      case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
+			   			      case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
+			   			      case "Revoke": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;
+			   			      case "Partially Redeemed": labelText = "Partially Redeemed"; labelClass = "pill-wide bg-lightyellow-txt-yellow-pill"; break;
+			   			      default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+			   			    }
+			   			  }
+			   			  return `<span class="${labelClass}">${labelText}</span>`;
+			   			}
+	         },
           /*{
             "mData": "creationDate",
             "render": function (data) {
@@ -380,26 +444,18 @@ function erupiVoucherCreateListLimit() {
           },
           { "mData": "redeemAmount" ,
 			"class":"text-right",
-								  "render": function (data2, type, row) {
-								      if (!data2) return '';
-								      let amount = parseFloat(data2);
-								      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
-								      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-								      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
-								  }
+			  "render": function (data2, type, row) {
+			      if (!data2) return '';
+			      let amount = parseFloat(data2);
+			      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
+			      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+			      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+			  }
 		   },
         ],
 
         createdRow: function (row, data2, dataIndex) {
-          var purposeDesc = data2.purposeDesc;
-
-          if (purposeDesc == "Meal") {
-            var imgTag = '<img src="img/food.svg" alt="" class="mr-2">' + purposeDesc;
-            $(row).find('td:eq(3)').html(imgTag);
-          } else if (purposeDesc == "Petroleum Voucher") {
-            var imgTag = '<img src="img/fuel-grey.png" alt="" class="mr-2">' + purposeDesc;
-            $(row).find('td:eq(3)').html(imgTag);
-          }
+          
 
           var type = data2.type;
           if (type == "fail") {

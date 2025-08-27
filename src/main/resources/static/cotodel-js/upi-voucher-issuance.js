@@ -988,7 +988,7 @@ async function getVoucherTransactionList() {
 					  }
 					},
 					{
-					  "mData": "purposeDesc",
+					  "mData": "mccDesc",
 					  "render": function (data, type, row) {
 					   
 					      return '<img src="data:image/png;base64,' + row.mccMainIcon + '" alt="" width="24px" height="24px" style="margin-top:-10px;">'+ data;
@@ -1132,7 +1132,7 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
               return `
                 <div style="display: flex; align-items: center; gap: 8px;">
                   ${imgHTML}
-                  <span>${row.purposeDesc || ''}</span>
+                  <span>${row.mccDesc || ''}</span>
                 </div>
               `;
             }
