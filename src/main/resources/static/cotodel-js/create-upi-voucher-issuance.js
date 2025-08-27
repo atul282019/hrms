@@ -270,14 +270,14 @@ function focusBack(){
         const option = document.createElement("option");
         option.value = onlyBank.acNumber;
         option.text = onlyBank.accountSeltWallet === "Wallet"
-          ? "cotowallet"
+          ? "cotoBalance"
           : `${onlyBank.bankName} | ${masked}`;
         select.appendChild(option);
 
         const selectedHTML = onlyBank.accountSeltWallet === "Wallet"
           ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
              </div>
              <span class="dropdown-mask">${masked}</span>
              <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
@@ -315,7 +315,7 @@ function focusBack(){
             div.innerHTML = `
               <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
               </div>
               <span class="dropdown-mask">${masked}</span>
             `;
@@ -773,7 +773,7 @@ async function  issueVoucher(){
 	                           <tr>
 	                               <td>${item.name}</td>
 	                               <td>${item.mobile}</td>
-	                               <td>${item.voucherDesc}</td>
+	                               <td>${item.mccDescription}</td>
 	                               <td>${item.redemtionType}</td>
 	                              
 								  <td >₹${item.amount}</td>

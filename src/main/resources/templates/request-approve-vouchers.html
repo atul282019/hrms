@@ -746,7 +746,9 @@
 
 		        if (currentRowInput) {
 		            const currentRow = currentRowInput.closest('tr');
-		            currentRow.querySelector('.table-input-voucher').value = selectedVoucherName.substring(0, 5) + " | " + selectedPurposeName.substring(0, 5) + "...";
+		            //currentRow.querySelector('.table-input-voucher').value = selectedVoucherName.substring(0, 5) + " | " + selectedPurposeName.substring(0, 5) + "...";
+					currentRow.querySelector('.table-input-voucher').value = selectedPurposeName;
+										
 					let parts = selectedPurposeCode.split("|");
 					console.log(parts[0]); // "5411"
 					console.log(parts[1]); // "3A"

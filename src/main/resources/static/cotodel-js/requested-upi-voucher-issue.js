@@ -265,14 +265,14 @@ function getLinkedBankDetail() {
         const option = document.createElement("option");
         option.value = onlyBank.acNumber;
         option.text = onlyBank.accountSeltWallet === "Wallet"
-          ? "cotowallet"
+          ? "cotoBalance"
           : `${onlyBank.bankName} | ${masked}`;
         select.appendChild(option);
 
         const selectedHTML = onlyBank.accountSeltWallet === "Wallet"
           ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
              </div>
              <span class="dropdown-mask">${masked}</span>
              <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
@@ -299,7 +299,7 @@ function getLinkedBankDetail() {
           const option = document.createElement("option");
           option.value = bank.acNumber;
           option.text = bank.accountSeltWallet === "Wallet"
-            ? "cotowallet"
+            ? "cotoBalance"
             : `${bank.bankName} | ${masked}`;
           select.appendChild(option);
 
@@ -310,7 +310,7 @@ function getLinkedBankDetail() {
             div.innerHTML = `
               <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
               </div>
               <span class="dropdown-mask">${masked}</span>
             `;

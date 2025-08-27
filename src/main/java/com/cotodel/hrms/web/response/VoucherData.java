@@ -47,4 +47,5 @@ public class VoucherData {
     private String requestId;
     private String clientKey;
     private String hash;
+    private String mccDescription;
 }

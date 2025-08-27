@@ -289,7 +289,7 @@ async function saveBulkVoucherUpload(){
 					"file":base64file,
 					//"accountId":1,
 					"mcc": voucherCode,
-					//"mccDesc": purposeName,
+					"mccDescription": purposeName,
 					//"mandateType":"01",
 					"voucherCode":purposeCode,
 					"voucherDesc": voucherName,
@@ -708,7 +708,7 @@ function getLinkedBankDetail2() {
         option.value = onlyBank.acNumber;
         option.text =
           onlyBank.accountSeltWallet === "Wallet"
-            ? "cotowallet"
+            ? "cotoBalance"
             : `${onlyBank.bankName} | ${masked}`;
         select.appendChild(option);
 
@@ -716,7 +716,7 @@ function getLinkedBankDetail2() {
           onlyBank.accountSeltWallet === "Wallet"
             ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
              </div>
              <span class="dropdown-mask">${masked}</span>
              <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
@@ -744,7 +744,7 @@ function getLinkedBankDetail2() {
           option.value = bank.acNumber;
           option.text =
             bank.accountSeltWallet === "Wallet"
-              ? "cotowallet"
+              ? "cotoBalance"
               : `${bank.bankName} | ${masked}`;
           select.appendChild(option);
 
@@ -755,7 +755,7 @@ function getLinkedBankDetail2() {
             div.innerHTML = `
               <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
               </div>
               <span class="dropdown-mask">${masked}</span>
             `;
@@ -846,14 +846,14 @@ function getLinkedBankDetail() {
         const option = document.createElement("option");
         option.value = onlyBank.acNumber;
         option.text = onlyBank.accountSeltWallet === "Wallet"
-          ? "cotowallet"
+          ? "cotoBalance"
           : `${onlyBank.bankName} | ${masked}`;
         select.appendChild(option);
 
         const selectedHTML = onlyBank.accountSeltWallet === "Wallet"
           ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
              </div>
              <span class="dropdown-mask">${masked}</span>
              <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
@@ -880,7 +880,7 @@ function getLinkedBankDetail() {
           const option = document.createElement("option");
           option.value = bank.acNumber;
           option.text = bank.accountSeltWallet === "Wallet"
-            ? "cotowallet"
+            ? "cotoBalance"
             : `${bank.bankName} | ${masked}`;
           select.appendChild(option);
 
@@ -891,7 +891,7 @@ function getLinkedBankDetail() {
             div.innerHTML = `
               <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
                 <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">wallet</span>
+                <span style="font-weight: 700; color: #2F945A;">Balance</span>
               </div>
               <span class="dropdown-mask">${masked}</span>
             `;
@@ -1377,7 +1377,7 @@ function verfyIssueVoucherOTP() {
 	var voucherCode = localStorage.getItem("voucherCode");
     var voucherName = localStorage.getItem("voucherName");
 	var purposeCode = localStorage.getItem("purposeCode");
-	//var purposeName = localStorage.getItem("purposeName");
+	var purposeName = localStorage.getItem("purposeName");
 	const table = document.getElementById('issueVoucherTable');
 	      const firstColumnData = [];
 	      
@@ -1427,6 +1427,7 @@ function verfyIssueVoucherOTP() {
 			"merchantId":merchentid,
 			"subMerchantId":submurchentid,
 			"createdby":createdby,
+			"mccDescription":purposeName,
 			"arrayofid":firstColumnData,
 			"hash":hashHex,
 			"clientKey":clientKey
@@ -1466,7 +1467,7 @@ function verfyIssueVoucherOTP() {
 					const row = tableBody.insertRow();
 					   row.insertCell().textContent = item.name;
 					   row.insertCell().textContent = item.mobile;
-					   row.insertCell().textContent = item.voucherDesc;
+					   row.insertCell().textContent = item.mccDescription;
 					   row.insertCell().textContent = item.redemtionType;
 					   // Format amount with ₹, commas, and 2 decimal places
 					   const formattedAmount = "₹" + Number(item.amount).toLocaleString("en-IN", {

@@ -23,6 +23,7 @@ public class ErupiBulkVoucherCreateRequest {
 	private String voucherCode;
 	private String voucherType;
 	private String voucherDesc;
+	private String mccDescription;
 	private String name;	
 	private String bankcode;	
 	private String mobile;			

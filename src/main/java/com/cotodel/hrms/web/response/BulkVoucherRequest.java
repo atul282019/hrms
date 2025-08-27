@@ -35,7 +35,7 @@ public class BulkVoucherRequest {
 	private String createdby;
 	
 	private String voucherDesc;
-	
+    private String mccDescription;
 	private String purposeCode;
 	private String accountId;
 	
