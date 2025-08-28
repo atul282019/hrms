@@ -2,7 +2,7 @@ $(document).ready(function() {
 		    $('#btnRevoke').click(function() {
 			  var employerMobile = document.getElementById("employerMobile").value;
 			  document.getElementById("authenticate").disabled = false;
-			
+			  document.getElementById("signinLoader").style.display = "flex";
 		      $.ajax({
 		        url:"/smsOtpWithTemplateMobileAndAmount",
 		        type: 'POST',
@@ -15,6 +15,7 @@ $(document).ready(function() {
 				success: function(data) {
 				var obj = data;
 		        if (obj['status'] == true) {
+					document.getElementById("signinLoader").style.display = "none";
 					// Mask the mobile number (show only last 4 digits)
 					var maskedMobile = "XXXXXX" + employerMobile.toString().slice(-4);
 				    document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}. Enter OTP to validate Revoke.`;				
@@ -2231,6 +2232,7 @@ function revoke(){
 					if(data1.status==true){
 					$('#revokeUPIVcAuthenticate').show();				
 					$('#RevokeUPIVoucherModal').hide();
+					//window.location.href="/upiVoucherIssuanceNew";
 					}
 					else{
 						$('#revokeUPIVcAuthenticateFail').show();		

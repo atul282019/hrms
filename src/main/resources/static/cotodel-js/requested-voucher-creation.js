@@ -108,7 +108,7 @@ function singleVoucherValidation() {
       <td>${redemption}</td>
       <td>${Number.isFinite(reqAmt) ? reqAmt.toFixed(2) : ''}</td>
       <td>${issAmt.toFixed(2)}</td>
-      <td>${startDate}</td>
+      <td>${formatDateToDDMMYYYY(startDate)}</td>
       <td>${validity}</td>`;
     targetBody.appendChild(tr);
   }
@@ -139,3 +139,13 @@ $(document).on('click', '#verifyDetailBack', function() {
   $('#selectvouchers-wrap04').hide();
   $('#selectvouchers-wrap03').show();
 });
+function formatDateToDDMMYYYY(dateStr) {
+  const date = new Date(dateStr);
+  if (isNaN(date)) return ''; // handle invalid dates
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // months are 0-based
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}

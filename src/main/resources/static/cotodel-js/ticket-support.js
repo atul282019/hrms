@@ -5,19 +5,20 @@ function convertImageToBase64() {
 		  
 		  
            if (!fileInput.files || fileInput.files.length === 0) {
-			 document.getElementById("fileInputError").innerHTML="Please select file";
+			 document.getElementById("fileInputError1").innerHTML="Please select file";
 			 return;
            }
            var filePath = fileInput.value;
-               var allowedExtensions =  /(\.jpg|\.jpeg|\.png|)$/i;
+		   var allowedExtensions =  /\.(jpg|jpeg|png)$/i;
+              // var allowedExtensions =  /(\.jpg|\.jpeg|\.png|)$/i;
 			  // var allowedExtensions =  /(\.xlsx)$/i;
                if (!allowedExtensions.exec(filePath)) {
-				  document.getElementById("fileInputError").innerHTML="Invalid file type";
+				  document.getElementById("fileInputError1").innerHTML="Invalid file type";
                    fileInput.value = '';
                    return false;
                } 
 			   else{
-				document.getElementById("fileInputError").innerHTML="";
+				document.getElementById("fileInputError1").innerHTML="";
 			   }
 			  		
            const file = fileInput.files[0];	   
