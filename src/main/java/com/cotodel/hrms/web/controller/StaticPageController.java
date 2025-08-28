@@ -2293,6 +2293,28 @@ public ModelAndView EmailerFleetBankAC(Model model) {
 }
 return new ModelAndView("home", "command", "");
 }
+
+@GetMapping(value="/TransactionEmailer")
+public ModelAndView TransactionEmailer(Model model) {
+	String token = (String) session.getAttribute("hrms");
+	Integer id  = (Integer) session.getAttribute("id");
+	if(token!=null) {
+		UserDetailsEntity obj = JwtTokenValidator.parseToken(token);
+		if(obj!=null) {
+			if(obj.getUser_role()==9 || obj.getUser_role()==1 || obj.getUser_role()==3) {
+			model.addAttribute("name",obj.getName());
+			model.addAttribute("org",obj.getOrgName());
+			model.addAttribute("mobile",obj.getMobile());
+			model.addAttribute("email",obj.getEmail());
+			model.addAttribute("employerId",id);
+			return new ModelAndView("TransactionEmailer", "command", "");
+		}
+		 return new ModelAndView("error", "command", "");
+	}
+	return new ModelAndView("home", "command", "");
+}
+return new ModelAndView("home", "command", "");
+}
 @GetMapping(value="/RevokeVoucherEmailer")
 public ModelAndView RevokeVoucherEmailer(Model model) {
 	String token = (String) session.getAttribute("hrms");

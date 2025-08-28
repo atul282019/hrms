@@ -1,0 +1,159 @@
+<!-- File: emails/upi-voucher-issued.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" />
+    <title>Cotodel – UPI Voucher Issued</title>
+    <!-- Why: modest client-level styles for better defaults; heavy styles are inlined below. -->
+    <style>
+      html,
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100% !important;
+        width: 100% !important;
+      }
+      /* Why: stop iOS blue links */
+      a[x-apple-data-detectors] {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+      /* Why: make images fluid on small screens */
+      @media only screen and (max-width: 600px) {
+        .container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .px-32 { padding-left: 16px !important; padding-right: 16px !important; }
+        .py-24 { padding-top: 16px !important; padding-bottom: 16px !important; }
+        .fluid-img { width: 100% !important; height: auto !important; }
+        .text-center-sm { text-align: center !important; }
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; background-color:#f5f7fa;">
+    <!-- Preheader (hidden) -->
+    <div style="display:none; font-size:1px; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden; mso-hide:all;">
+      Your UPI Voucher has been issued by {{business_name}}.
+    </div>
+    <center role="article" aria-roledescription="email" lang="en" style="width:100%; background:#f5f7fa;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#f5f7fa;">
+        <tr>
+          <td align="center">
+            <!-- Outer container -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="container" style="width:600px; max-width:600px;">
+              <!-- Header -->
+              <tr>
+                <td style="background:#12a05b; padding:24px 24px 18px 24px; text-align:center;">
+                  <!-- Replace src with your hosted logo asset -->
+                  <img src="img/emailer_cotodel_without_tagline.png" width="120" height="32" alt="cotodel" style="display:block; margin:0 auto; border:0; outline:none; text-decoration:none;" />
+                  <div style="font: 14px/20px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#e9fff5; margin-top:8px;">
+                    Business expenses made seamless like your personal UPI spends
+                  </div>
+                </td>
+              </tr>
+              <!-- Body card -->
+              <tr>
+                <td style="background:#ffffff; padding:28px 32px;" class="px-32 py-24">
+                  <div style="font:16px/24px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111827;">
+                    <p style="margin:0 0 16px 0;">Dear Customer,</p>
+                    <p style="margin:0 0 20px 0;">We’d like to inform you that a   <strong>UPI Voucher</strong> has been <strong>revoked</strong> by <strong>{{business_name}}</strong>.</p>
+                  </div>
+                  <!-- Hero image -->
+                  <!-- Replace src with your hosted illustration (e.g., from the design).
+                  <img src="img/IssueVoucherEmailerImg.png" width="536" alt="UPI Voucher illustration" class="fluid-img" style="width:100%; max-width:536px; height:auto; display:block; margin:8px auto 20px; border:0;" />
+				  -->
+                  <!-- Voucher details -->
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="font:14px/22px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111827;">
+                    <tr>
+                      <td style="width:92px; font-weight:700; padding:2px 0; color:#111827;">Value:</td>
+                      <td style="padding:2px 0;">₹1,000 </td>
+                    </tr>
+                    <tr>
+                      <td style="width:92px; font-weight:700; padding:2px 0; color:#111827;">Category:</td>
+                      <td style="padding:2px 0;">Meal</td>
+                    </tr>
+                    <tr>
+                      <td style="width:92px; font-weight:700; padding:2px 0; color:#111827;">Usage:</td>
+                      <td style="padding:2px 0;">Multiple Transactions</td>
+                    </tr>
+                    <tr>
+                      <td style="width:92px; font-weight:700; padding:2px 0; color:#111827;">Issued On:</td>
+                      <td style="padding:2px 0;">18 Aug 2025</td>
+                    </tr>
+                    <tr>
+                      <td style="width:92px; font-weight:700; padding:2px 0; color:#111827;">Valid Until:</td>
+                      <td style="padding:2px 0;">30 Sept 2025</td>
+                    </tr>
+                  </table>
+
+                  <div style="font:14px/22px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111827; margin-top:18px;">
+                    This voucher is no longer valid and cannot be redeemed.
+                  </div>
+
+                  <div style="font:14px/22px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111827; margin-top:18px;">
+                    If you have any concerns about this voucher, please reach out to your Business admin or contact us at
+                    <a href="mailto:support@cotodel.com" style="color:#12a05b; text-decoration:underline;">support@cotodel.com</a>.
+                  </div>
+                  <div style="font:14px/22px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111827; margin-top:20px;">
+                    Sincerely,<br />
+                    Team Cotodel
+                  </div>
+                </td>
+              </tr>
+              <!-- Divider & disclaimer -->
+              <tr>
+                <td style="background:#ffffff; padding:0 32px 24px;" class="px-32">
+                  <div style="height:1px; background:#e5e7eb; width:100%;"></div>
+                  <div style="font:10px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#6b7280; margin-top:12px; text-align:right;">
+                    Disclaimer: Please mark us as &quot;Not Spam&quot; to receive future emails from Cotodel in your inbox.
+                  </div>
+                </td>
+              </tr>
+              <!-- Footer -->
+              <tr>
+                <td style="background:#ffff; padding:24px 32px 40px;" class="px-32">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td class="text-center-sm" style="vertical-align:top;">
+                        <img src="img/Cotodel_Logo.png" width="96" height="24" alt="cotodel" style="display:block; border:0;" />
+                        <div style="font:10px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#6b7280; margin-top:10px;">
+                          WeWork, Eldeco Centre, Malviya Nagar New Delhi - 110017
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;">
+                    <tr>
+                      <td class="text-center-sm" valign="middle" style="font:10px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#9ca3af; vertical-align:middle;">
+                        © {{year}} Cotodel · All rights reserved
+                      </td>
+                      <td align="right" valign="middle" style="white-space:nowrap; vertical-align:middle;">
+                        <a href="https://www.linkedin.com/" style="display:inline-block; margin-left:8px; position:relative; top:-2px;">
+                          <img src="img/Emailer_Linkedin_Logo.png" width="20" height="20" alt="LinkedIn" style="display:block; border:0;" />
+                        </a>
+                        <a href="https://www.instagram.com/" style="display:inline-block; margin-left:8px;">
+                          <img src="img/Emailer_Instagram_Logo.png" width="20" height="20" alt="Instagram" style="display:block; border:0;" />
+                        </a>
+                        <a href="https://www.youtube.com/" style="display:inline-block; margin-left:8px; position:relative; top:2px;">
+                          <img src="img/Emailer_YouTube_Logo.png" width="24" height="24" alt="YouTube" style="display:block; border:0;" />
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+</table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>
