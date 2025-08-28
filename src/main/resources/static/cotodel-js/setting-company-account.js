@@ -1069,7 +1069,7 @@ function verfyIssueVoucherOTP() {
   				}else if (obj.status === false) {
 					$('#ModalReject').modal('show');
 					 document.getElementById("otpError").innerHTML="Please Enter Valid OTP..";
-					 document.getElementById("otpVerifyBtn").disabled = true;
+					 document.getElementById("otpVerifyBtn").disabled = false;
 					 document.getElementById("password1").value="";
 	 				 document.getElementById("password2").value="";
 	 				 document.getElementById("password3").value="";
