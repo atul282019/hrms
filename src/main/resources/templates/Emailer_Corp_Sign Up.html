@@ -1,302 +1,163 @@
-
-<!doctype html>
-<html lang="en">
+<!-- File: emails/welcome-emailer.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" />
     <title>Cotodel – Welcome</title>
-
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
     <style>
-      :root {
-        --brand: #2b8a56;
-        --brand-600: #237246;
-        --brand-700: #1c5e39;
-        --ink: #1d2b21;
-        --muted-bg: #f1f6f3;
-        --soft: #e6efe9;
-
-        /* Controls overall mail content width */
-        --mail-width: 880px;
-        /* Controls footer band width (can override via utility classes or inline) */
-        --footer-width: var(--mail-width);
+      html, body { margin:0 !important; padding:0 !important; height:100% !important; width:100% !important; }
+      /* iOS blue links */
+      a[x-apple-data-detectors] { color:inherit !important; text-decoration:none !important; }
+      /* Mobile stack */
+      @media only screen and (max-width:600px){
+        .container{ width:100% !important; max-width:100% !important; }
+        .stack{ display:block !important; width:100% !important; }
+        .px-24{ padding-left:16px !important; padding-right:16px !important; }
+        .py-24{ padding-top:16px !important; padding-bottom:16px !important; }
+        .text-center-sm{ text-align:center !important; }
+        .fluid-img{ width:100% !important; height:auto !important; }
       }
-
-      html, body { height: 100%; }
-      body {
-        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-        color: var(--ink);
-        background: #ffffff;
-      }
-
-      /* Email-like max width for comfy reading */
-      .mail-shell { max-width: var(--mail-width); }
-
-      /* Top banner */
-      .hero-bar {
-        background: var(--brand);
-        color: #fff;
-        min-height: 140px;
-        display: flex;
-        align-items: center;
-      }
-
-      .logo { font-weight: 700; letter-spacing: .2px; font-size: 2.1rem; line-height: 1; }
-      .logo .accent { color: #c6f0cf; }
-      .tagline { opacity: .92; }
-
-      /* Illustration card */
-      .illus-card { background: var(--muted-bg); border: 0; border-radius: 18px; }
-      .illus-wrapper { position: relative; overflow: hidden; border-radius: 18px; }
-      .illus-wrapper .back-bubble {
-        position: absolute; inset: 16px auto auto 16px; width: 44px; height: 44px;
-        background: #ffffff; border-radius: 50%; display: grid; place-items: center;
-        box-shadow: 0 6px 16px rgba(0,0,0,.08);
-      }
-
-      .cta-btn { background: var(--brand); border-color: var(--brand); }
-      .cta-btn:hover { background: var(--brand-600); border-color: var(--brand-600); }
-
-      /* ===================== Footer ===================== */
-      /* Full-bleed helper so the footer can escape .mail-shell */
-      .full-bleed {
-        position: relative; /* why: enable 100vw band centered regardless of parent width */
-        left: 50%;
-        right: 50%;
-        margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
-        width: 100vw;
-      }
-
-      /* The adjustable-width band centered inside the 100vw strip */
-	  .footer-band {
-	    width: 100vw;
-	    margin: 0; /* remove centering */
-	  }
-
-      /* Preset width utilities (pick one or override inline: style="--footer-width: 1280px") */
-      .footer-wide-sm { --footer-width: 960px; }
-      .footer-wide-md { --footer-width: 1100px; }
-      .footer-wide-lg { --footer-width: 1280px; }
-      .footer-wide-xl { --footer-width: 1440px; }
-      .footer-full    { --footer-width: 100vw; } /* makes the band edge-to-edge */
-
-	  .footer-strip {
-	    background: var(--muted-bg);
-	    min-height: 200px;
-	    border-radius: 0;
-	    padding: 2rem 2rem;
-	    display: block;
-	  }
-	  .footer-grid {
-	    display: grid;
-	    grid-template-columns: 1fr 1fr 1fr;
-	    align-items: center;
-	    margin-left: 260px; /* account for illustration */
-	  }
-
-	  .footer-grid > div {
-	    padding: 0.5rem;
-	  }
-
-	  @media (max-width: 768px) {
-	    .footer-grid {
-	      grid-template-columns: 1fr;
-	      text-align: center;
-	      margin-left: 200px;
-	    }
-	  }
-	  .footer-strip.footer-no-radius {
-	    border-radius: 0;
-	    padding: 0; /* remove both left & right padding */
-	  } /* optional when using .footer-full */
-
-      /* Footer left illustration: green side + lady overlay */
-      .footer-illus {
-        position: absolute; inset: 0 auto 0 0; width: 260px;
-        background: url('https://staging.cotodel.com/img/emailer_side_green_img.png') left bottom / cover no-repeat;
-        overflow: hidden;
-      }
-      .footer-illus .lady { position: absolute; left: 20px; bottom: 0; height: 150px; width: auto; }
-      .footer-site { position: absolute; bottom: 8px; left: 20px; font-size: .85rem; color: #2b8a56; text-decoration: none; }
-
-      .footer-content { margin-left: 260px; }
-
-      .link-muted { color: #6b7a71; text-decoration: none; }
-      .link-muted:hover { color: var(--brand-700); text-decoration: underline; }
-      .header-ill { max-height: 120px; }
-
-      /* Brand logo sizing */
-      .brand-logo { height: 48px; width: auto; max-width: 100%; }
-      @media (min-width: 768px) { .brand-logo { height: 60px; } }
-
-      /* Mobile tweaks */
-      @media (max-width: 575.98px) {
-        .logo { font-size: 1.7rem; }
-        .hero-bar { min-height: 120px; }
-        .footer-illus { width: 200px; }
-        .footer-content { margin-left: 200px; }
-      }
-	  :root {
-	    --footer-shift-x: 0px; /* default, no shift */
-	  }
-
-	  .shiftable-footer {
-	    position: relative;
-	    left: var(--footer-shift-x);
-	  }
-	  
-	  
-	  .footer-content-wrapper {
-	    margin-left: 260px; /* space for illustration */
-	    padding: 1rem 2rem;
-	  }
-
-	  .footer-bottom {
-	    gap: 1rem;
-	  }
-
-	  .footer-bottom .small {
-	    white-space: nowrap;
-	  }
-
-	  .footer-left hr {
-	    border: 0;
-	    border-top: 1px solid #ccc;
-	    margin: 1rem 0;
-	  }
-
-	  @media (max-width: 768px) {
-	    .footer-content-wrapper {
-	      margin-left: 200px;
-	      text-align: center;
-	    }
-
-	    .footer-bottom {
-	      flex-direction: column;
-	      gap: 0.5rem;
-	    }
-
-	    .footer-bottom .small {
-	      white-space: normal;
-	    }
-	  }
-
-
-
     </style>
   </head>
-  <body>
-    <header class="hero-bar">
-      <div class="container mail-shell py-4">
-        <div class="row align-items-center g-3">
-          <div class="col-12 col-md-7">
-			<img src="https://staging.cotodel.com/img/cotodel_without%20tagline.png"
-			     alt="Cotodel logo"
-			     style="width:162px !important; height:54px !important; object-fit:contain;" />
+  <body style="margin:0; padding:0; background:#ffffff;">
+    <!-- Preheader (hidden) -->
+    <div style="display:none; font-size:1px; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden; mso-hide:all;">
+      Welcome to Cotodel! You have successfully signed up.
+    </div>
 
-            <p class="mb-0 tagline fw-medium text-white-50">Business expenses made seamless like your personal UPI spends</p>
-          </div>
-          <div class="col-12 col-md-5 text-center text-md-end">
-            <img src="https://staging.cotodel.com/img/Emailer_Scan to pay-bro 1.svg" alt="Scan to Pay Illustration" class="img-fluid header-ill" />
-          </div>
-        </div>
-      </div>
-    </header>
+    <center role="article" aria-roledescription="email" lang="en" style="width:100%; background:#ffffff;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
+        <tr>
+          <td align="center">
+            <!-- Outer container -->
+            <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" class="container" style="width:600px; max-width:600px;">
+              <!-- Header / Hero Bar -->
+              <tr>
+                <td style="background:#2b8a56; padding:20px 24px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td class="stack text-center-sm" valign="middle" style="padding:0 0 10px 0;">
+                        <img src="https://staging.cotodel.com/img/cotodel_without%20tagline.png" width="162" height="54" alt="Cotodel" style="display:block; width:162px; height:54px; object-fit:contain; border:0;" />
+                        <div style="font:14px/20px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#e6f5ea; margin-top:6px;">
+                          Business expenses made seamless like your personal UPI spends
+                        </div>
+                      </td>
+                      <td class="stack" align="right" valign="middle" style="padding:0;">
+                        <img src="img/Emailer_Scan_to_pay-bro_1.png" width="200" alt="Scan to Pay Illustration" class="fluid-img" style="display:block; border:0; height:auto;" />
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
 
-    <main class="container mail-shell my-5">
-      <!-- Illustration / hero image card -->
-      <div class="card illus-card p-2 p-sm-3 mb-4">
-        <div class="illus-wrapper">
-          <img class="w-100 d-block" src="https://staging.cotodel.com/img/Emailer_corp_signup_img1.svg" alt="Cotodel platform welcome illustration" style="object-fit: cover; max-height: 420px;" />
-          
-        </div>
-      </div>
+              <!-- Hero Illustration -->
+              <tr>
+                <td style="background:#ffffff; padding:20px 24px 8px;" class="px-24 py-24">
+                  <img src="img/Emailer_corp_signup_img1.png" width="552" alt="Cotodel platform welcome illustration" class="fluid-img" style="display:block; width:100%; max-width:552px; height:auto; border:0; margin:0 auto;" />
+                </td>
+              </tr>
 
-      <!-- Copy section -->
-      <section class="px-1 px-sm-2 px-md-1">
-        <h2 class="fw-bold mb-3">Welcome, <span class="text-body-secondary">[Organization Name]</span>!</h2>
-        <p class="mb-3">You have successfully signed up on Cotodel platform!</p>
-        <p class="mb-3">Our team will get in touch with you soon to activate your account. Start managing your corporate expenses with ease by administering allowances for your employees.</p>
-        <p class="mb-4">If you would want to schedule a demo with our team, please choose any slot as per your convenience.</p>
+              <!-- Body Copy & CTA -->
+              <tr>
+                <td style="background:#ffffff; padding:0 24px 8px;" class="px-24">
+                  <div style="font:16px/24px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#1d2b21;">
+                    <h2 style="margin:0 0 8px 0; font:700 22px/28px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">Welcome, <span style="font-weight:500; color:#6b7a71;">[Organization Name]</span>!</h2>
+                    <p style="margin:0 0 10px 0;">You have successfully signed up on Cotodel platform!</p>
+                    <p style="margin:0 0 10px 0;">Our team will get in touch with you soon to activate your account. Start managing your corporate expenses with ease by administering allowances for your employees.</p>
+                    <p style="margin:0 0 18px 0;">If you would want to schedule a demo with our team, please choose any slot as per your convenience.</p>
+                  </div>
 
-		<div class="text-center mb-3">
-		  <a href="#" class="btn btn-success cta-btn px-4 py-2 fw-semibold rounded-3">Schedule Demo</a>
-		</div>
-		<p class="small text-secondary " style="margin-left: 135px;">
-		  Disclaimer: Please mark us as <em>'Not Spam'</em> to receive future emails from Cotodel in your inbox
-		</p>
+                  <!-- Bulletproof button -->
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin:0 auto 12px;">
+                    <tr>
+                      <td align="center" bgcolor="#2b8a56" style="border-radius:10px;">
+                        <a href="#" style="display:inline-block; padding:12px 20px; font:600 14px/18px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#ffffff; text-decoration:none; border-radius:10px;">Schedule Demo</a>
+                      </td>
+                    </tr>
+                  </table>
 
-	 </section>
+                  <div style="font:11px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#6b7a71; text-align:center; margin-bottom:10px;">
+                    Disclaimer: Please mark us as 'Not Spam' to receive future emails from Cotodel in your inbox
+                  </div>
+                </td>
+              </tr>
 
-      <!-- ===================== Footer ===================== -->
-      <!--
-        HOW TO CONTROL FOOTER WIDTH:
-        - Change the class on .footer-band to one of: footer-wide-sm | footer-wide-md | footer-wide-lg | footer-wide-xl | footer-full
-        - Or override exactly via inline style: style="--footer-width: 1360px"
-      -->
-	  <!-- ===================== Footer ===================== -->
-	  <!-- ===================== Footer ===================== -->
-	  <footer class="mt-5" style="margin-right: 420px;">
-	    <div class="full-bleed">
-	      <div class="footer-band footer-full">
-	        <div class="footer-strip footer-no-radius position-relative">
+              <!-- Divider -->
+              <tr>
+                <td style="background:#ffffff; padding:0 24px;" class="px-24">
+                  <div style="height:1px; background:#e5e7eb; width:100%;"></div>
+                </td>
+              </tr>
 
-	          <!-- Left Illustration -->
-	          <div class="footer-illus">
-	            <img src="https://staging.cotodel.com/img/Emailer_singleLady.svg" alt="Person working on laptop" class="lady" />
-	            <a class="footer-site small" href="https://www.cotodel.com">www.cotodel.com</a>
-	          </div>
+              <!-- Footer -->
+              <tr>
+                <td style="background:#EAF4EF; padding:18px 24px 28px;" class="px-24">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <!-- Left visual column -->
+                      <td class="stack text-center-sm" valign="top" style="width:180px;">
+                        <div style="position:relative; width:180px; height:140px; line-height:0; margin-left:-16px;">
+                          <img src="https://staging.cotodel.com/img/emailer_side_green_img.png" width="180" height="120" alt="Cotodel brand strip" style="display:block; width:180px; height:120px; border:0;" />
+                          <!-- Modern clients: absolutely positioned lady overlapping the green strip -->
+                          <!--[if !mso]> -->
+                          <img src="img/Emailer_singleLady.png" width="130" alt="Person working on laptop" style="display:block; border:0; position:absolute; left:14px; bottom:-6px; width:130px; height:auto;" />
+                          <!--<![endif]-->
+                          <!-- Outlook fallback: static image nudged with negative margin -->
+                          <!--[if mso]>
+                          <img src="https://staging.cotodel.com/img/Emailer_singleLady.svg" width="130" alt="Person working on laptop" style="display:block; border:0; margin-top:-82px; margin-left:14px; height:auto;" />
+                          <![endif]-->
+                        </div>
+                        <div style="font:12px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#2b8a56; margin-top:6px; text-align:left; margin-left:-16px;">
+                          <a href="https://www.cotodel.com" style="color:#2b8a56; text-decoration:none;">www.cotodel.com</a>
+                        </div>
+                      </td>
 
-	          <!-- Content Wrapper -->
-	          <div class="footer-content-wrapper ">
-	            
-	            <!-- Top: Logo + Address -->
-	            <div class="footer-left mb-3">
-	              <!--<div class="logo mb-2" style="font-size:1.8rem;">coto<span class="accent">del</span></div>-->
-				  <img src="https://staging.cotodel.com/img/Cotodel Logo.webp"
-				  			     alt="Cotodel logo"
-				  			     style="width:120px !important; height:34px !important; object-fit:contain;" />
-	              <div class="small text-secondary">
-	                <div class="fw-semibold">ADDRESS</div>
-	                <div>WeWork, Eldeco Centre, Malviya Nagar New Delhi - 110017</div>
-	              </div>
-	            </div>
+                      <!-- Content column -->
+                      <td class="stack" valign="top" style="padding-left:18px;">
+                        <img src="img/Cotodel_Logo.png" width="120" height="34" alt="Cotodel" style="display:block; border:0; margin-bottom:8px;" />
+                        <div style="font:12px/18px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#6b7a71;">
+                          <div style="font-weight:600; color:#1d2b21;">ADDRESS</div>
+                          <div>WeWork, Eldeco Centre, Malviya Nagar New Delhi - 110017</div>
+                        </div>
 
-	            <hr>
+                        <div style="height:1px; background:#e5e7eb; width:100%; margin:12px 0;"></div>
 
-	            <!-- Bottom Row: unsubscribe | copyright | social -->
-	            <div class="footer-bottom d-flex align-items-center justify-content-between flex-wrap mt-3">
-	              <a class="link-muted small" href="#">Click to unsubscribe from Marketing emails</a>
-				  
-	              <div class="small text-secondary text-start flex-grow-1">| © 2025 Cotodel – All rights reserved</div>
-	              <div class="d-flex gap-3 fs-5">
-	                <a class="text-dark" href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-	                <a class="text-dark" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-	                <a class="text-dark" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-	              </div>
-	            </div>
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                          <tr>
+                            <td class="stack text-center-sm" style="font:11px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#6b7a71;">
+                              <a href="#" style="color:#6b7a71; text-decoration:underline;">Click to unsubscribe from Marketing emails</a>
+                            </td>
+                            <td class="stack text-center-sm" align="center" style="font:11px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#6b7a71;">
+                              © 2025 Cotodel – All rights reserved
+                            </td>
+                            <td class="stack" align="right" style="white-space:nowrap;">
+                              <!-- Use social media images from earlier prompt -->
+                              <a href="https://www.linkedin.com/" style="display:inline-block; margin-left:8px; position:relative; top:-2px;">
+                                <img src="img/Emailer_Linkedin_Logo.png" width="20" height="20" alt="LinkedIn" style="display:block; border:0;" />
+                              </a>
+                              <a href="https://www.instagram.com/" style="display:inline-block; margin-left:8px;">
+                                <img src="img/Emailer_Instagram_Logo.png" width="20" height="20" alt="Instagram" style="display:block; border:0;" />
+                              </a>
+                              <a href="https://www.youtube.com/" style="display:inline-block; margin-left:8px; position:relative; top:2px;">
+                                <img src="img/Emailer_YouTube_Logo.png" width="24" height="24" alt="YouTube" style="display:block; border:0;" />
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
 
-	          </div>
-
-	        </div>
-	      </div>
-	    </div>
-	  </footer>
-
-      <!-- Footer meta row under the band (optional) 
-      <div class="d-flex justify-content-between small text-secondary mt-3">
-        <span><a class="link-muted" href="#">Made with Bootstrap 5</a></span>
-      </div>-->
-    </main>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </center>
   </body>
 </html>
