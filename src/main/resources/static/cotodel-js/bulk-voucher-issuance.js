@@ -134,7 +134,9 @@ $(document).on('change','.up', function(){
 						var resendCodeElement = document.getElementById("resendCode");
 						resendCodeElement.style.display = "none";
 							var downloadTimer = setInterval(function() {
-								document.getElementById("countdown").innerHTML = "00:"+timeleft;
+								//document.getElementById("countdown").innerHTML = "00:"+timeleft;
+								let seconds = timeleft < 10 ? "0" + timeleft : timeleft;
+								       document.getElementById("countdown").innerHTML = "00:" + seconds;
 								timeleft -= 1;
 								//document.getElementById("optBtn").style.display = "none";
 								document.getElementById("orderId").value= obj['orderId'];

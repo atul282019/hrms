@@ -26,7 +26,9 @@ $(document).ready(function() {
 		               // Hide the "Resend OTP" link initially
 		               resendCodeElement.style.display = "none";
 					var downloadTimer = setInterval(function() {
-						document.getElementById("countdown").innerHTML = "00:"+timeleft;
+						//document.getElementById("countdown").innerHTML = "00:"+timeleft;
+						let seconds = timeleft < 10 ? "0" + timeleft : timeleft;
+						       document.getElementById("countdown").innerHTML = "00:" + seconds;
 						timeleft -= 1;
 						document.getElementById("orderId").value= obj['orderId'];
 						if (timeleft < 0) {
