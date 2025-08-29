@@ -906,7 +906,7 @@ function getOTP() {
 }
 
 function resendOTP() {
-	
+	document.getElementById("orderId").value="";
     console.log("resend otp clicked");
 	document.getElementById("password1").value = "";
 	document.getElementById("password2").value = "";
@@ -938,7 +938,7 @@ function resendOTP() {
             var obj = data;
 			document.getElementById("signinLoader").style.display = "none";
             if (obj.status === true) {
-				
+				document.getElementById("orderId").value= obj.orderId;
 				// Mask the mobile number (show only last 4 digits)
 				var maskedMobile = "XXXXXX" + userMobile.toString().slice(-4);
                 document.getElementById("maskedMobileDisplay").innerText = `OTP code has been sent to your phone ${maskedMobile}`;
