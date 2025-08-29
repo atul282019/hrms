@@ -636,7 +636,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     	            	WhatsAppRequest whatsapp = new WhatsAppRequest();
     	                whatsapp.setSource("new-landing-page form");
     	                whatsapp.setCampaignName("250825_Bank Account Activation");
-    	                whatsapp.setFirstName((String) session.getAttribute("usernamme"));
+    	                whatsapp.setFirstName((String) session.getAttribute("organizationName"));
     	                //whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
     	                //whatsapp.setCategory(item.getVoucherDesc());
     	                whatsapp.setMobile((String) session.getAttribute("mobile"));

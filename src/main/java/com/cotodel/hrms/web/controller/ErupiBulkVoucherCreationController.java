@@ -361,7 +361,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
 					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-
+					 if (item.getEmail() != null && !item.getEmail().isEmpty()) {
 					 bodyText ="\r\n"
 								+ "<!DOCTYPE html>\r\n"
 								+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
@@ -523,7 +523,8 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 								+ "</html>\r\n"
 								+ "";
 		 				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
-		     			email,  "📲 Your UPI Voucher is Issued",  bodyText);
+		 				item.getEmail(),  "📲 Your UPI Voucher is Issued",  bodyText);
+					 }
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -635,7 +636,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 					smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					
 					JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-
+					if (item.getEmail() != null && !item.getEmail().isEmpty()) {
 		 			bodyText = "\r\n"
 		 					+ "<!DOCTYPE html>\r\n"
 		 					+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
@@ -797,7 +798,8 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		 					+ "</html>\r\n"
 		 					+ "";
 		 				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
-		     			email,  "❌ Your UPI Voucher is Revoked",  bodyText);
+		 						item.getEmail(),  "❌ Your UPI Voucher is Revoked",  bodyText);
+					}
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

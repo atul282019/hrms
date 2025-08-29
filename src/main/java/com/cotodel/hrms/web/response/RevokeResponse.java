@@ -47,5 +47,6 @@ public class RevokeResponse {
      private String validity;
      private Integer requestId;
      private String clientKey;
+     private String email;
      private String hash;
 }

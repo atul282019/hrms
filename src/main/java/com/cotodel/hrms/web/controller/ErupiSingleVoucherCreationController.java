@@ -248,7 +248,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-					 if (email != null && !email.isEmpty()) {
+					 if (item.getEmail() != null && !item.getEmail().isEmpty()) {
 					 bodyText ="\r\n"
 								+ "<!DOCTYPE html>\r\n"
 								+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
@@ -607,7 +607,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-					 if (email != null && !email.isEmpty()) {
+					 if (item.getEmail() != null && !item.getEmail().isEmpty()) {
 					 bodyText ="\r\n"
 							+ "<!DOCTYPE html>\r\n"
 							+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
@@ -976,7 +976,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 				 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 				 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-				 if (email != null && !email.isEmpty()) {
+				 if (revokeResponse.getEmail() != null && !revokeResponse.getEmail().isEmpty()) {
 		 			bodyText = "\r\n"
 		 					+ "<!DOCTYPE html>\r\n"
 		 					+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"

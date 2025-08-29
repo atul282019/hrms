@@ -118,7 +118,7 @@ public class SignupController  extends CotoDelBaseController{
 				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
 
 				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-				if (userForm.getEmail() != null && userForm.getEmail().isEmpty()) {
+				
 				bodyText = "\r\n"
 						+ "<!DOCTYPE html>\r\n"
 						+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
@@ -283,7 +283,7 @@ public class SignupController  extends CotoDelBaseController{
 						+ "";
 				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
     					userForm.getEmail(),  "Sign Up Successful",  bodyText);
-	        	}
+	        
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -333,7 +333,7 @@ public class SignupController  extends CotoDelBaseController{
 	    return responseJson.toString();
 	}
 
-	@PostMapping(value="corporateRegistration")
+	@PostMapping(value="/corporateRegistration")
 	public @ResponseBody String registerUserCorporate(HttpServletRequest request, EmployerDetailsRequest userForm) {
 	    String profileRes = null;
 	    JSONObject profileJsonRes = null;
@@ -373,7 +373,7 @@ public class SignupController  extends CotoDelBaseController{
 				EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(userFormResponse, EncriptResponse.class);
 
 				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-				if (userForm.getEmail() != null && userForm.getEmail().isEmpty()) {
+				
 				bodyText = "<!doctype html>\r\n"
     					+ "<html lang=\"en\">\r\n"
     					+ "  <head>\r\n"
@@ -498,7 +498,7 @@ public class SignupController  extends CotoDelBaseController{
     					+ "";
 				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
     					userForm.getEmail(),  "Sign Up Successful",  bodyText);
-				}
+			
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -48,4 +48,5 @@ public class VoucherData {
     private String clientKey;
     private String hash;
     private String mccDescription;
+    private String email;
 }
