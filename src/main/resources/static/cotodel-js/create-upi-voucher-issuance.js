@@ -363,6 +363,7 @@ function focusBack(){
 document.getElementById("selectedBank").addEventListener("click", function () {
   const list = document.getElementById("dropdownList");
   list.style.display = list.style.display === "block" ? "none" : "block";
+  document.getElementById("common-error-msg").innerHTML="";
 });
 
 document.addEventListener("click", function (e) {

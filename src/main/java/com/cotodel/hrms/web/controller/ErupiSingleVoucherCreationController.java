@@ -230,7 +230,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		        	smsRequest.setMobile(item .getMobile());
 		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
 		        	
-		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
+		        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", item.getAmount())
 		        	        .replace("#VAR2#",item.getMccDescription());
@@ -248,7 +248,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-					
+					 if (email != null && !email.isEmpty()) {
 					 bodyText ="\r\n"
 								+ "<!DOCTYPE html>\r\n"
 								+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
@@ -409,8 +409,10 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 								+ "  </body>\r\n"
 								+ "</html>\r\n"
 								+ "";
+					
 	    				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
 	        			email,  "📲 Your UPI Voucher is Issued",  bodyText);
+					 }
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -587,7 +589,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		        	smsRequest.setMobile(item .getMobile());
 		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
 		        	
-		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
+		        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", item.getAmount())
 		        	        .replace("#VAR2#",item.getMccDescription());
@@ -605,7 +607,8 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 					 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-					bodyText ="\r\n"
+					 if (email != null && !email.isEmpty()) {
+					 bodyText ="\r\n"
 							+ "<!DOCTYPE html>\r\n"
 							+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
 							+ "  <head>\r\n"
@@ -765,8 +768,10 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 							+ "  </body>\r\n"
 							+ "</html>\r\n"
 							+ "";
+					 
 	    				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
 	        			email,  "📲 Your UPI Voucher is Issued",  bodyText);
+					 }
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -971,7 +976,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 
 				 smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 				 JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
-
+				 if (email != null && !email.isEmpty()) {
 		 			bodyText = "\r\n"
 		 					+ "<!DOCTYPE html>\r\n"
 		 					+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
@@ -1134,6 +1139,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		 					+ "";
  				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
      			email,  "📲 Your UPI Voucher is Issued",  bodyText);
+		 		}
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

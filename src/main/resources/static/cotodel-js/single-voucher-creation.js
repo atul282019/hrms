@@ -259,6 +259,7 @@
 	}*/
 	function singleVoucherValidation() {
 	    // Get available balance as number
+		
 	    const availableBalance = parseFloat(
 	        document.querySelector(".text-wrapper-3")
 	            .textContent.replace(/[₹,]/g, '').trim()
@@ -333,6 +334,9 @@
 	        }
 
 	        // ✅ Validate Amount against availableBalance
+			
+			  
+			if(banklist =="12345678912345"){
 	        if (!amountInput || isNaN(amountInput.value) || amountInput.value <= 0) {
 	            overallIsValid = false;
 	            isValid = false;
@@ -344,7 +348,7 @@
 	            errorMessages.push(`Row ${index + 1}: Amount cannot exceed available balance (₹${availableBalance}).`);
 	            if (amountInput) amountInput.style.borderColor = '#F24822';
 	        }
-
+			}
 	        // Validate Date
 	        const today = new Date().toISOString().split('T')[0];
 	        if (dateInput) {
@@ -408,13 +412,14 @@
 	    });
 
 	    // ✅ Final check: total should not exceed availableBalance
+		if(banklist =="12345678912345"){
 	    if (totalAmount > availableBalance) {
 	        overallIsValid = false;
 	        errorMessages.push(
 	            `Total voucher amount (₹${totalAmount.toFixed(2)}) cannot exceed available balance (₹${availableBalance}).`
 	        );
 	    }
-
+		}
 	    document.getElementById("totalRowCount").textContent = `${validRowCount}`;
 	    document.getElementById("totalAmount").textContent = `₹${totalAmount.toFixed(2)}`;
 	    document.getElementById("totalRowCountHidden").value = `${validRowCount}`;

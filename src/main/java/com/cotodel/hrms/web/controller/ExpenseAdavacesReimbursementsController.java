@@ -454,8 +454,9 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
 
     				String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
     				
-
-    				bodyText = "<!DOCTYPE html>\r\n"
+    				if (email != null && !email.isEmpty()) {
+    				bodyText = "\r\n"
+    						+ "<!DOCTYPE html>\r\n"
     						+ "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"
     						+ "  <head>\r\n"
     						+ "    <meta charset=\"utf-8\" />\r\n"
@@ -503,7 +504,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     						+ "                        </div>\r\n"
     						+ "                      </td>\r\n"
     						+ "                      <td class=\"stack\" align=\"right\" valign=\"middle\" style=\"padding:0;\">\r\n"
-    						+ "                        <img src=\"https://staging.cotodel.com/img/Emailer_Scan_to_pay-bro_1.png\" width=\"200\" alt=\"Scan to Pay Illustration\" class=\"fluid-img\" style=\"display:block; border:0; height:auto;\" />\r\n"
+    						+ "                        <img src=\"https://staging.cotodel.com/img/Emailer_fleet_topbar.png\" width=\"200\" alt=\"Scan to Pay Illustration\" class=\"fluid-img\" style=\"display:block; border:0; height:auto;\" />\r\n"
     						+ "                      </td>\r\n"
     						+ "                    </tr>\r\n"
     						+ "                  </table>\r\n"
@@ -513,7 +514,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     						+ "              <!-- Hero Illustration -->\r\n"
     						+ "              <tr>\r\n"
     						+ "                <td style=\"background:#ffffff; padding:20px 24px 8px;\" class=\"px-24 py-24\">\r\n"
-    						+ "                  <img src=\"https://staging.cotodel.com/img/Emailer_Corp_Bank.png\" width=\"552\" alt=\"Cotodel platform welcome illustration\" class=\"fluid-img\" style=\"display:block; width:100%; max-width:552px; height:auto; border:0; margin:0 auto;\" />\r\n"
+    						+ "                  <img src=\"https://staging.cotodel.com/img/EmailerFleetBankAC.png\" width=\"552\" alt=\"Cotodel platform welcome illustration\" class=\"fluid-img\" style=\"display:block; width:100%; max-width:552px; height:auto; border:0; margin:0 auto;\" />\r\n"
     						+ "                </td>\r\n"
     						+ "              </tr>\r\n"
     						+ "\r\n"
@@ -522,7 +523,7 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     						+ "                <td style=\"background:#ffffff; padding:0 24px 8px;\" class=\"px-24\">\r\n"
     						+ "                  <div style=\"font:16px/24px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#1d2b21;\">\r\n"
     						+ "                    <h2 style=\"margin:0 0 8px 0; font:700 22px/28px -apple-system,Segoe UI,Roboto,Arial,sans-serif;\">Great news, <span style=\"font-weight:500; color:#6b7a71;\">"+session.getAttribute("organizationName")+"</span>!</h2>\r\n"
-    						+ "                    <p style=\"margin:0 0 10px 0;\">Your Bank Account is now live on the Cotodel platform. You can now onboard your employees and start managing your corporate expenses via UPI Vouchers!</p>\r\n"
+    						+ "                    <p style=\"margin:0 0 10px 0;\">Your Bank Account is now live on the Cotodel platform. You can now onboard your vehicles and driver partners to start managing your fuel spends via UPI Vouchers!</p>\r\n"
     						+ "					 <p style=\"margin:0 0 10px 0;\">If you have any concerns, please contact us at \r\n"
     						+ "						  <a href=\"mailto:support@cotodel.com\" style=\"color:#367AFF; text-decoration:none;\">\r\n"
     						+ "						    support@cotodel.com\r\n"
@@ -562,10 +563,15 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     						+ "                      <!-- Left visual column -->\r\n"
     						+ "                      <td class=\"stack text-center-sm\" valign=\"top\" style=\"width:180px;\">\r\n"
     						+ "                        <div style=\"position:relative; width:180px; height:140px; line-height:0; margin-left:-16px;\">\r\n"
-    						+ "                          <img src=\"https://staging.cotodel.com/img/emailer_side_green_img.png\" width=\"180\" height=\"120\" alt=\"Cotodel brand strip\" style=\"display:block; width:180px; height:120px; border:0;\" />\r\n"
-    						+ "                          \r\n"
-    						+ "                          <img src=\"https://staging.cotodel.com/img/Emailer_singleLady.png\" width=\"130\" alt=\"Person working on laptop\" style=\"display:block; border:0; position:absolute; left:14px; bottom:-6px; width:130px; height:auto;\" />\r\n"
-    						+ "                         \r\n"
+    						+ "                          <img src=\"https://staging.cotodel.com/img/Graphic.png\" width=\"180\" height=\"120\" alt=\"Cotodel brand strip\" style=\"display:block; width:180px; height:120px; border:0;\" />\r\n"
+    						+ "                          <!-- Modern clients: absolutely positioned lady overlapping the green strip -->\r\n"
+    						+ "                          <!--[if !mso]> -->\r\n"
+    						+ "                          <!--<img src=\"https://staging.cotodel.com/img/Emailer_footer_fleet.png\" width=\"130\" alt=\"Person working on laptop\" style=\"display:block; border:0; position:absolute; left:14px; bottom:-6px; width:130px; height:auto;\" />\r\n"
+    						+ "                          <![endif]-->\r\n"
+    						+ "                          <!-- Outlook fallback: static image nudged with negative margin -->\r\n"
+    						+ "                          <!--[if mso]>\r\n"
+    						+ "                          <img src=\"https://staging.cotodel.com/img/Emailer_singleLady.svg\" width=\"130\" alt=\"Person working on laptop\" style=\"display:block; border:0; margin-top:-82px; margin-left:14px; height:auto;\" />\r\n"
+    						+ "                          <![endif]-->\r\n"
     						+ "                        </div>\r\n"
     						+ "                        <div style=\"font:12px/16px -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#2b8a56; margin-top:6px; text-align:left; margin-left:-16px;\">\r\n"
     						+ "                          <a href=\"https://www.cotodel.com\" style=\"color:#2b8a56; text-decoration:none;\">www.cotodel.com</a>\r\n"
@@ -592,13 +598,13 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     						+ "                            </td>\r\n"
     						+ "                            <td class=\"stack\" align=\"right\" style=\"white-space:nowrap;\">\r\n"
     						+ "                              <!-- Use social media images from earlier prompt -->\r\n"
-    						+ "                              <a href=\"https://www.linkedin.com/\" style=\"display:inline-block; margin-left:8px; position:relative; top:-2px;\">\r\n"
+    						+ "                              <a href=\"https://www.linkedin.com/company/cotopay/posts/?feedView=all\" style=\"display:inline-block; margin-left:8px; position:relative; top:-2px;\">\r\n"
     						+ "                                <img src=\"https://staging.cotodel.com/img/Emailer_Linkedin_Logo.png\" width=\"20\" height=\"20\" alt=\"LinkedIn\" style=\"display:block; border:0;\" />\r\n"
     						+ "                              </a>\r\n"
-    						+ "                              <a href=\"https://www.instagram.com/\" style=\"display:inline-block; margin-left:8px;\">\r\n"
+    						+ "                              <a href=\"https://www.instagram.com/cotodelsolutions\" style=\"display:inline-block; margin-left:8px;\">\r\n"
     						+ "                                <img src=\"https://staging.cotodel.com/img/Emailer_Instagram_Logo.png\" width=\"20\" height=\"20\" alt=\"Instagram\" style=\"display:block; border:0;\" />\r\n"
     						+ "                              </a>\r\n"
-    						+ "                              <a href=\"https://www.youtube.com/\" style=\"display:inline-block; margin-left:8px; position:relative; top:2px;\">\r\n"
+    						+ "                              <a href=\"https://www.youtube.com/@Cotodel\" style=\"display:inline-block; margin-left:8px; position:relative; top:2px;\">\r\n"
     						+ "                                <img src=\"https://staging.cotodel.com/img/Emailer_YouTube_Logo.png\" width=\"24\" height=\"24\" alt=\"YouTube\" style=\"display:block; border:0;\" />\r\n"
     						+ "                              </a>\r\n"
     						+ "                            </td>\r\n"
@@ -617,9 +623,11 @@ public class ExpenseAdavacesReimbursementsController extends CotoDelBaseControll
     						+ "    </center>\r\n"
     						+ "  </body>\r\n"
     						+ "</html>\r\n"
-    						+ "-->";
+    						+ "\r\n"
+    						+ "";
     				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
         			email,  "✅ Bank Account Added",  bodyText);
+    	            }
     	            } catch (Exception e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();

@@ -81,12 +81,12 @@ $(document).on('change','.up', function(){
 			  // Remove ₹, commas, and spaces
 			  const totalValueCountAmt = Number(totalValueCountAmtText.replace(/[^0-9.-]/g, ""));
 			  const amountInAcc = Number(amountInAccText.replace(/[^0-9.-]/g, ""));
-
+			if(banklist =="12345678912345"){
 			  if (totalValueCountAmt > amountInAcc) {
 			      errorMessage.textContent = "Amount in the account is not sufficient to issue voucher";
 			      return false;
 			  }
-			   
+			 }  
 			  if(banklist =="" || banklist == null){
 			  				 alert("Please Select Bank");
 			  				 return false;
@@ -819,6 +819,7 @@ document.addEventListener("click", function (e) {
   const dropdown = document.getElementById("customDropdown2");
   if (dropdown && !dropdown.contains(e.target)) {
     document.getElementById("dropdownList2").style.display = "none";
+	document.getElementById("errorMessage").innerHTML = "";
   }
 });
 

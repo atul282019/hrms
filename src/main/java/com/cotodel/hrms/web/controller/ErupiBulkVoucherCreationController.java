@@ -343,7 +343,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		        	smsRequest.setMobile(item .getMobile());
 		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
 		        	
-		        	String template = "UPI Voucher worth â‚¹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel.";
+		        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", item.getAmount())
 		        	        .replace("#VAR2#",item.getMccDescription());
