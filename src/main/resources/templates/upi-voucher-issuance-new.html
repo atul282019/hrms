@@ -378,7 +378,9 @@ requestedVoucherCount()">
 			 										  
 			 										  <th>Expiry Date</th>	
 													  <th>Status</th>	
+													  <th>Redemption Type</th>
 			 										  <th>Issued</th>	
+													
 			 										  <th>Redeemed</th>	
 													  <th>Actions</th>	
 			 						                </tr>
@@ -793,6 +795,7 @@ requestedVoucherCount()">
 	          <th style="width: 140px;">Redemptions</th>
 	          <th style="width: 120px;">Expiry Date</th>
 	          <th style="width: 100px;">Status</th>
+			  <th style="width: 100px;">Redemption Status</th>
 	          <th style="width: 100px;">Issued</th>
 	          <th style="width: 100px;">Redeemed</th>
 	        </tr>
@@ -840,6 +843,7 @@ requestedVoucherCount()">
 		    </td>
 		    <td>${formatDate(row.expDate)}</td>
 		    <td>${row.type}</td>
+			<td>${row.redemtionStatus}</td>
 		    <td class="text-right">₹${parseFloat(row.amount).toLocaleString('en-IN')}</td>
 		    <td class="text-right">₹${parseFloat(row.redeemAmount || 0).toLocaleString('en-IN')}</td>
 		  </tr>
