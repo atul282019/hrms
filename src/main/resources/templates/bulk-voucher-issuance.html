@@ -829,23 +829,23 @@
 			    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
 			} </style>
 			<script>	
-				document.getElementById("recallBalance2").addEventListener("click", function() {
-				    const recallIcon = this;
-				    const selectedBankAccount = document.getElementById("banklist2").value;
+			//	document.getElementById("recallBalance2").addEventListener("click", function() {
+				//    const recallIcon = this;
+				  //  const selectedBankAccount = document.getElementById("banklist2").value;
 
 				    // Add rotation class
-				    recallIcon.classList.add("rotate");
+				 //   recallIcon.classList.add("rotate");
 
-				    setTimeout(() => {
-				        recallIcon.classList.remove("rotate");
-				    }, 600);
+				   // setTimeout(() => {
+				     //   recallIcon.classList.remove("rotate");
+				   // }, 600);
 
-				    if (selectedBankAccount) {
-				        showLinkedAccAmount2(selectedBankAccount, 'bank-section-2');
-				    } else {
-				        alert("Please select a bank account first.");
-				    }
-				});
+//				    if (selectedBankAccount) {
+	//			        showLinkedAccAmount2(selectedBankAccount, 'bank-section-2');
+		//		    } else {
+			//	        alert("Please select a bank account first.");
+				//    }
+				//});
 
 				/*function showLinkedAccAmount2(accountNumber, sectionId) {
 				    const employerId = document.getElementById("employerId").value;
