@@ -379,6 +379,40 @@ function erupiVoucherCreateListLimit() {
 			   			  return `<span class="${labelClass}">${labelText}</span>`;
 			   			}
 	         },
+			 {
+			   "mData": "redemtionStatus",
+			   "render": function (data, type, row) {
+			     if (!data) return '';
+
+			     let labelText = data;
+			     let labelClass = '';
+
+			     switch (data) {
+			       case "Not Redeemed":
+			         labelClass = "admin-ticket-status";
+			         labelText = "Not Redeemed";
+			         break;
+			       case "Partially Redeemed":
+			         labelClass = "admin-ticket-status-InProgress";
+			         labelText = "Partially Redeemed";
+			         break;
+			       //case "failed":
+			       case "Fully Redeemed":
+			         labelClass = "admin-ticket-status-hold ";
+			         labelText = "Fully Redeemed";
+			         break;
+			       /*case "revoked":
+			         labelClass = "pill bg-grey-txt-grey-pill";
+			         labelText = "Revoked";
+			         break;*/
+			       default:
+			         labelClass = "admin-ticket-status";
+			         labelText = data;
+			     }
+
+			     return `<span class="${labelClass}">${labelText}</span>`;
+			   }
+			 },
           /*{
             "mData": "creationDate",
             "render": function (data) {

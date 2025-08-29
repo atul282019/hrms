@@ -802,11 +802,24 @@ requestedVoucherCount()">
 	  `);
 
 	  selectedRows.forEach(row => {
-		const redemptionIcon = (row.redemtionType === 'SINGLE' || row.redemtionType === 'Single')
+		/*const redemptionIcon = (row.redemtionType === 'SINGLE' || row.redemtionType === 'Single')
 		  ? 'img/single-redemption-green.svg'
 		  : row.redemtionType === 'MULTIPLE'
 		    ? 'img/tiffinbox.svg'
-		    : '';
+		    : '';*/
+			const redemptionType = (row.redemtionType || '').toUpperCase();
+
+					let redemptionIcon = '';
+					switch (redemptionType) {
+					  case 'SINGLE':
+					    redemptionIcon = 'img/single-redemption-green.svg';
+					    break;
+					  case 'MULTIPLE':
+					    redemptionIcon = 'img/tiffinbox.svg';
+					    break;
+					  default:
+					    redemptionIcon = '';
+					}
 
 		const rowHtml = `
 		  <tr class="bulkRevokeRow">
@@ -1858,7 +1871,7 @@ requestedVoucherCount()">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bulk p-0">
             <div class="modal-top text-center">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"  onclick="window.location.href='/upiVoucherIssuanceNew'">
                     <img src="img/modal-close.svg" alt="">
                 </button>
                 <img src="img/modal-success.svg" alt="">
