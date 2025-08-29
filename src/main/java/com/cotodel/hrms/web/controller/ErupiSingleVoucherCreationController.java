@@ -1138,7 +1138,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		 					+ "</html>\r\n"
 		 					+ "";
  				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
-     			email,  "📲 Your UPI Voucher is Issued",  bodyText);
+     			email,  "❌ Your UPI Voucher is Revoked",  bodyText);
 		 		}
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
