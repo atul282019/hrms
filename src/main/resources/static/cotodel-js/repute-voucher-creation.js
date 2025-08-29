@@ -53,13 +53,7 @@ function singleVoucherValidation(){
 			   	else{
 			   		document.getElementById("beneficiaryMobileError").innerHTML="";
 			   	}
-				/*if(voucher=="" || voucher==null){
-			   			document.getElementById("voucherError").innerHTML="Please select voucher";
-			   			return false;
-			   		}
-			   	else{
-			   		document.getElementById("voucherError").innerHTML="";
-			   	}*/
+				
 				if(redemptionType=="" || redemptionType==null){
 				   			document.getElementById("redemptionTypeError").innerHTML="Please select redemption type";
 				   			return false;
@@ -103,7 +97,7 @@ function singleVoucherValidation(){
 			   			document.getElementById("expiryDateError").innerHTML="";
 			   		}
 				   var element = document.getElementById("lable2");
-				   							   	element.classList.add("active");
+				   element.classList.add("active");
 				   var element = document.getElementById("lable3");
 				   	   	element.classList.add("active");
 				   	   	
@@ -143,7 +137,7 @@ function singleVoucherValidation(){
 									   targetBody.appendChild(newRow);
 									 }
 								   var element = document.getElementById("lable2");
-								   							   	element.classList.add("active");
+								   element.classList.add("active");
 								   var element = document.getElementById("lable3");
 								   	   	element.classList.add("active");
 								   	   	

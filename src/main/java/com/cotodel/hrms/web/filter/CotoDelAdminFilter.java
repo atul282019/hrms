@@ -122,8 +122,8 @@ public class CotoDelAdminFilter implements Filter, WebMvcConfigurer{
 				RequestDispatcher rd = request.getRequestDispatcher("registerUser");
 				rd.forward(request, response);
 			}
-			else if(requestURI.contains("/registerUserCorporate")){
-				RequestDispatcher rd = request.getRequestDispatcher("registerUserCorporate");
+			else if(requestURI.contains("/corporateRegistration")){
+				RequestDispatcher rd = request.getRequestDispatcher("corporateRegistration");
 				rd.forward(request, response);
 			}
 			else if(requestURI.contains("/sendEmailVerifyLink")){

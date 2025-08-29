@@ -650,25 +650,20 @@
 		.rotate {
 		    animation: rotate360 0.6s linear; /* 0.6s for a smooth rotation */
 		} </style>
-		<script>				document.getElementById("recallBalance").addEventListener("click", function() {
-		    var recallIcon = this;
-		    var selectedBankAccount = document.getElementById("banklist").value; 
-
-		    // Add rotation class
-		    recallIcon.classList.add("rotate");
-
-		    // Remove rotation class after animation completes
-		    setTimeout(() => {
-		        recallIcon.classList.remove("rotate");
-		    }, 600);
-
-		    // Validate selection
-		    if (selectedBankAccount) {
-		        showLinkedAccAmount(selectedBankAccount);
-		    } else {
-		        alert("Please select a bank account first.");
-		    }
-		});
+		<script>				
+		//	document.getElementById("recallBalance").addEventListener("click", function() {
+		//    var recallIcon = this;
+		//    var selectedBankAccount = document.getElementById("banklist").value; 
+		 //   recallIcon.classList.add("rotate");
+		//    setTimeout(() => {
+		//        recallIcon.classList.remove("rotate");
+		//    }, 600);
+		 //   if (selectedBankAccount) {
+		 //       showLinkedAccAmount(selectedBankAccount);
+		 //   } else {
+		 //       alert("Please select a bank account first.");
+		 //   }
+		//});
 		
 		function formatTimestamp(timestamp) {
 		    let dateObj = new Date(timestamp.replace(" ", "T"));
@@ -742,8 +737,7 @@
 							           placeholder="2 - 365"
 							           min="2"
 							           max="365"
-							           oninput="appendDaysSuffix(this)"
-							           style="padding-right: 10px; box-sizing: border-box;">
+							          style="padding-right: 10px; box-sizing: border-box;">
 							    <span style="
 							      position: absolute;
 							      right: 32px;       /* Moves Days left of spinner */
@@ -1186,9 +1180,9 @@
 	    }
 
 	    // Set minimum and default values
-	    document.getElementById('expiryDate').min = getFormattedDate(1);
-	    document.getElementById('startDate').min = getFormattedDate();
-	    document.getElementById('startDate').value = getFormattedDate(); // Set default value to current date
+	   // document.getElementById('expiryDate').min = getFormattedDate(1);
+	    //document.getElementById('startDate').min = getFormattedDate();
+	    //document.getElementById('startDate').value = getFormattedDate(); // Set default value to current date
 	</script>
 
 	

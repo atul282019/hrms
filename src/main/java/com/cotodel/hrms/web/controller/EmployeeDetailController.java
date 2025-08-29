@@ -266,6 +266,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 	    			String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+	    			if(employeeOnboarding.getEmail() !=null && employeeOnboarding.getEmail()=="") {
 	    			bodyText = "<!doctype html>\r\n"
 	    					+ "<html lang=\"en\">\r\n"
 	    					+ "  <head>\r\n"
@@ -390,7 +391,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    					+ "";
 	    			Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
 	    					employeeOnboarding.getEmail(),"You are invited to join Cotodel",  bodyText);
-	    			
+	    			}
 	    			WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                whatsapp.setSource("new-landing-page form");
 	                whatsapp.setCampaignName("250825_Employee Add");

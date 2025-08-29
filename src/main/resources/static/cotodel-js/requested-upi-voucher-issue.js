@@ -358,13 +358,18 @@ function getLinkedBankDetail() {
 document.getElementById("selectedBank").addEventListener("click", function () {
   const list = document.getElementById("dropdownList");
   list.style.display = list.style.display === "block" ? "none" : "block";
+  document.getElementById("common-error-msg").innerHTML="";
+  singleVoucherValidation();
 });
 
 document.addEventListener("click", function (e) {
   const dropdown = document.getElementById("customDropdown");
   if (!dropdown.contains(e.target)) {
     document.getElementById("dropdownList").style.display = "none";
+	
   }
+ 
+ 
 });
 
 

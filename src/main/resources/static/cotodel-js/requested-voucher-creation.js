@@ -62,6 +62,7 @@ function singleVoucherValidation() {
     setInvalid(validityEl, !validity);
 
     // issued amount validation
+	if(banklist =="12345678912345"){
     if (!(Number.isFinite(issAmt) && issAmt > 0)) {
       setInvalid(issAmtEl, true);
       //alert("Issued amount must be greater than 0");
@@ -77,7 +78,10 @@ function singleVoucherValidation() {
     } else {
       setInvalid(issAmtEl, false);
     }
-
+	}
+	else{
+		setInvalid(issAmtEl, false);
+	}
     // validity range check (2–365)
     if (!(Number.isInteger(validity) && validity >= 2 && validity <= 365)) {
       setInvalid(validityEl, true);
@@ -114,12 +118,13 @@ function singleVoucherValidation() {
   }
 
   // ✅ total issued validation
+  if(banklist =="12345678912345"){
   if (totalIssued > availableBalance) {
    // alert(`Total issued amount ₹${totalIssued.toFixed(2)} cannot exceed available balance ₹${availableBalance.toFixed(2)}.`);
 	document.getElementById('common-error-msg').innerHTML=`Total issued amount ₹${totalIssued.toFixed(2)} cannot exceed available balance ₹${availableBalance.toFixed(2)}.`;
     return false;
   }
-
+ }
   // Go to verify screen
   $('#selectvouchers-wrap04').show();
   $('#selectvouchers-wrap03').hide();

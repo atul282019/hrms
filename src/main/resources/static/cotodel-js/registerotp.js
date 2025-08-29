@@ -296,7 +296,7 @@ function userRegistration(){
  	 
       $.ajax({
           type: "POST",
-          url: "/registerUserCorporate",
+          url: "/corporateRegistration",
  		 dataType: 'json',
  		data: {
               "companySize": noofEmp,

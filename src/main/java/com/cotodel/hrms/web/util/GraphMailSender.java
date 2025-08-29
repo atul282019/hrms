@@ -151,25 +151,6 @@ public class GraphMailSender {
         System.out.println("Done.");
     }
     
-//    public static String sendEmail() {
-//    	String result="FAIL";
-//    	try {
-//    		 String accessToken = acquireToken();
-//    	     String recipient = "fakhruddeen.ahmad@cotodel.com";
-//    	     String subject = "Test Mail via Microsoft Graph (Java 8)";
-//    	     String body = "Hello from Java 8 using MSAL4J and Microsoft Graph.";
-//
-//    	     sendMail(accessToken, SENDER_USER, recipient, subject, body);
-//    	     result="SUCCESS";
-//    	     System.out.println("Done.");
-//		} catch (Exception e) {
-//			result="FAIL";
-//		}     
-//
-//       
-//        return result;
-//    }
-
     public static String acquireToken() throws Exception {
         String authority = "https://login.microsoftonline.com/" + TENANT_ID + "/";
 
