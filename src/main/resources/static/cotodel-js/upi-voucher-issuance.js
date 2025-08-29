@@ -1236,6 +1236,40 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
 			}
 
           },
+		  {
+		  		   "mData": "redemtionStatus",
+		  		   "render": function (data, type, row) {
+		  		     if (!data) return '';
+
+		  		     let labelText = data;
+		  		     let labelClass = '';
+
+		  		     switch (data) {
+		  		       case "Not Redeemed":
+		  		         labelClass = "admin-ticket-status";
+		  		         labelText = "Not Redeemed";
+		  		         break;
+		  		       case "Partially Redeemed":
+		  		         labelClass = "admin-ticket-status-InProgress";
+		  		         labelText = "Partially Redeemed";
+		  		         break;
+		  		       //case "failed":
+		  		       case "Fully Redeemed":
+		  		         labelClass = "admin-ticket-status-hold ";
+		  		         labelText = "Fully Redeemed";
+		  		         break;
+		  		       /*case "revoked":
+		  		         labelClass = "pill bg-grey-txt-grey-pill";
+		  		         labelText = "Revoked";
+		  		         break;*/
+		  		       default:
+		  		         labelClass = "admin-ticket-status";
+		  		         labelText = data;
+		  		     }
+
+		  		     return `<span class="${labelClass}">${labelText}</span>`;
+		  		   }
+		  		 },
           {
             "mData": "amount",
             "class": "text-right",
@@ -2098,21 +2132,25 @@ function viewhistory(rowData) {
         balanceEl.className = "voucher-balance";
 
         switch (capitalizedStatus) {
+		  case "Failed Issuance":
           case "Failed":
             statusBox.classList.add("voucher-status-box-failed");
             statusTextEls.forEach(el => el.classList.add("voucher-status-text-failed"));
             balanceEl.classList.add("voucher-balance-failed");
             break;
+		  case "Revoked":
           case "Revoke":
             statusBox.classList.add("voucher-status-box-Revoke");
             statusTextEls.forEach(el => el.classList.add("voucher-status-text-Revoke"));
             balanceEl.classList.add("voucher-balance-Revoke");
             break;
+		  case "Fully Redeemed":	
           case "Expired":
             statusBox.classList.add("voucher-status-box-Expire");
             statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
             balanceEl.classList.add("voucher-balance-Expire");
             break;
+		case "Partially Redeemed":
 		case "Redeemed":
 		    statusBox.classList.add("voucher-status-box-Expire");
 		    statusTextEls.forEach(el => el.classList.add("voucher-status-text-Expire"));
