@@ -2108,9 +2108,32 @@ function viewhistory(rowData) {
 		document.getElementById("issueDate").textContent = formatDate(data1.issueDate);
         document.getElementById("merchantTranId").textContent = data1.merchantTranId;
         document.getElementById("balanceAmount").textContent = `₹${data1.activeAmount}`;
-        document.getElementById("redemtionType").textContent = data1.redemtionType;
+        document.getElementById("redemtionType").textContent = data1.redemptionType;
         document.getElementById("amountSpent").textContent = `₹${data1.amountSpent ?? 0}`;
 		document.getElementById("umn").textContent = data1.umn;
+		// Existing line that sets text
+		document.getElementById("voucherRedemptionStatus").textContent = data1.redemptionStatus;
+
+		// === NEW LOGIC FOR CSS CLASS BASED ON REDEMPTION TYPE ===
+		const redemptionStatusEl = document.getElementById("voucherRedemptionStatus");
+		
+		
+		switch (data1.redemptionStatus) {
+		  case "Not Redeemed":
+		    redemptionStatusEl.classList.add("admin-ticket-status");
+		    break;
+		  case "Partially Redeemed":
+		    redemptionStatusEl.classList.add("admin-ticket-status-InProgress");
+		    break;
+		  case "Completely  Redeemed":
+		    redemptionStatusEl.classList.add("admin-ticket-status-hold");
+		    break;
+		  default:
+		    redemptionStatusEl.classList.add("admin-ticket-status");
+		    break;
+		}
+		
+		
         const statusBox = document.querySelector(".voucher-status-box");
         const statusTextEls = statusBox.querySelectorAll(".voucher-status-text");
         const balanceEl = document.getElementById("balanceAmount");
