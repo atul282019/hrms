@@ -392,7 +392,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 								+ "";
 					
 	    				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
-	        			email,  "📲 Your UPI Voucher is Issued",  bodyText);
+	    				item.getEmail(),  "📲 Your UPI Voucher is Issued",  bodyText);
 					 }
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -751,7 +751,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 							+ "";
 					 
 	    				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
-	        			email,  "📲 Your UPI Voucher is Issued",  bodyText);
+	    						item.getEmail(),  "📲 Your UPI Voucher is Issued",  bodyText);
 					 }
 		            } catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -1119,7 +1119,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		 					+ "</html>\r\n"
 		 					+ "";
  				Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
-     			email,  "❌ Your UPI Voucher is Revoked",  bodyText);
+ 				revokeResponse.getEmail(),  "❌ Your UPI Voucher is Revoked",  bodyText);
 		 		}
 	            } catch (Exception e) {
 				// TODO Auto-generated catch block
