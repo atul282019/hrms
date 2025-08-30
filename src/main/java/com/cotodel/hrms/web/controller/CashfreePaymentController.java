@@ -153,7 +153,7 @@ public ResponseEntity<Void> paymentCallBackWebhooks(@RequestBody(required = fals
 			SMSRequest userForm = new SMSRequest();
 	            userForm.setMobile(root.data.customer_details.customer_phone);
 	            System.out.println("stagingWebhook mobile Number "+root.data.customer_details.customer_phone);
-	            String template = "You have successfully added â‚¹#VAR1# to your Cotodel Account. Your Coto Balance is â‚¹#VAR2#. - Cotodel";
+	            String template = "You have successfully added INR #VAR1# to your CotoPay Account. Your Coto Balance is INR #VAR2# - CotoPay";
 	        		String finalMessage = template
 	        	        .replace("#VAR1#", Integer.toString(root.data.order.order_amount))
 	        	        .replace("#VAR2#", totalAmount);
@@ -253,7 +253,7 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 		            userForm.setMobile(root.data.customer_details.customer_phone);
 		            System.out.println("stagingWebhook mobile Number "+root.data.customer_details.customer_name);
 		            
-		            String template = "You have successfully added â‚¹#VAR1# to your Cotodel Account. Your Coto Balance is â‚¹#VAR2#. - Cotodel";
+		            String template = "You have successfully added INR #VAR1# to your CotoPay Account. Your Coto Balance is INR #VAR2# - CotoPay";
 		        	String finalMessage = template
 		        	        .replace("#VAR1#", Integer.toString(root.data.order.order_amount))
 		        	        .replace("#VAR2#", total.toString());

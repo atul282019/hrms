@@ -939,7 +939,7 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 	        	smsRequest.setMobile(revokeResponse .getMobile());
 	        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
 	        	
-	        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# Spends is revoked! View details and manage via your Cotodel dashboard.";
+	        	String template = "UPI Voucher worth INR #VAR1# for #VAR2# Spends is revoked! View details and manage via your Cotodel dashboard.";
 	        	String finalMessage = template
 	        	        .replace("#VAR1#", revokeResponse.getRevokeAmount())
 	        	        .replace("#VAR2#", revokeResponse.getMccDescription());
@@ -1093,13 +1093,13 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
 		 					+ "                        © {{year}} Cotodel · All rights reserved\r\n"
 		 					+ "                      </td>\r\n"
 		 					+ "                      <td align=\"right\" valign=\"middle\" style=\"white-space:nowrap; vertical-align:middle;\">\r\n"
-		 					+ "                        <a href=\"https://www.linkedin.com/\" style=\"display:inline-block; margin-left:8px; position:relative; top:-2px;\">\r\n"
+		 					+ "                        <a href=\"https://www.linkedin.com/company/cotopay/posts/?feedView=all/\" style=\"display:inline-block; margin-left:8px; position:relative; top:-2px;\">\r\n"
 		 					+ "                          <img src=\"https://staging.cotodel.com/img/Emailer_Linkedin_Logo.png\" width=\"20\" height=\"20\" alt=\"LinkedIn\" style=\"display:block; border:0;\" />\r\n"
 		 					+ "                        </a>\r\n"
-		 					+ "                        <a href=\"https://www.instagram.com/\" style=\"display:inline-block; margin-left:8px;\">\r\n"
+		 					+ "                        <a href=\"https://www.instagram.com/cotodelsolutions/\" style=\"display:inline-block; margin-left:8px;\">\r\n"
 		 					+ "                          <img src=\"https://staging.cotodel.com/img/Emailer_Instagram_Logo.png\" width=\"20\" height=\"20\" alt=\"Instagram\" style=\"display:block; border:0;\" />\r\n"
 		 					+ "                        </a>\r\n"
-		 					+ "                        <a href=\"https://www.youtube.com/\" style=\"display:inline-block; margin-left:8px; position:relative; top:2px;\">\r\n"
+		 					+ "                        <a href=\"https://www.youtube.com/@Cotodel/\" style=\"display:inline-block; margin-left:8px; position:relative; top:2px;\">\r\n"
 		 					+ "                          <img src=\"https://staging.cotodel.com/img/Emailer_YouTube_Logo.png\" width=\"24\" height=\"24\" alt=\"YouTube\" style=\"display:block; border:0;\" />\r\n"
 		 					+ "                        </a>\r\n"
 		 					+ "                      </td>\r\n"
