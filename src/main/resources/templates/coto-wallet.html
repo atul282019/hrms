@@ -108,7 +108,7 @@
 					      </div>
 					      <div style="flex: 1; display: flex; flex-direction: column; padding: 10px 0 10px 10px;">
 					        <div class="cd-wallet-header">
-					          <h2>coto<span>Balance</span></h2>
+					           <img src="img/cotobalance_logo.svg" width="250px">
 					        </div>
 					        <div style="flex-grow: 1;"></div>
 					        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
@@ -202,7 +202,8 @@
 					  </div>-->
 					</div>
 				</div>
-								
+				<div class="walletAccount-wrap-p"><img src="img/recall.svg" alt="" class="mr-1">
+				<label class="mb-0">Last updated on</label> <span th:text="${session.formattedDate}" ></span></div>				
 				<!-- tabs section-->
 				<div class="business-benefits01 py-5">
 				<div class="container">
@@ -982,9 +983,11 @@
 			            let obj = typeof response === "string" ? JSON.parse(response) : response;
 
 			            if (obj.status) {
-			                // Update balance
-			                  document.getElementById("walletBalance").innerHTML = "₹"+obj.balance || "Amount Not Available";
+							let balanceText = obj.balance != null 
+							    ? "₹" + new Intl.NumberFormat("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(obj.balance) 
+							    : "Amount Not Available";
 
+							document.getElementById("walletBalance").innerHTML = balanceText;
 			                // Update timestamp
 			                if (obj.timestamp) {
 			                    document.querySelector(".last-updated-on span").textContent = formatTimestamp(obj.timestamp);

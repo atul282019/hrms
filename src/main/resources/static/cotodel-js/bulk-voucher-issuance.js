@@ -717,8 +717,7 @@ function getLinkedBankDetail2() {
         const selectedHTML =
           onlyBank.accountSeltWallet === "Wallet"
             ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
-                <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">Balance</span>
+				<img src="img/coto_balance_icon.svg" alt="logo" style="width: 24px; height: 24px;"><span>coto Balance</span>
              </div>
              <span class="dropdown-mask">${masked}</span>
              <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
@@ -756,8 +755,7 @@ function getLinkedBankDetail2() {
           if (bank.accountSeltWallet === "Wallet") {
             div.innerHTML = `
               <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
-                <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">Balance</span>
+               <img src="img/coto_balance_icon.svg" alt="logo" style="width: 24px; height: 24px;"><span>coto Balance</span>
               </div>
               <span class="dropdown-mask">${masked}</span>
             `;
@@ -855,8 +853,7 @@ function getLinkedBankDetail() {
 
         const selectedHTML = onlyBank.accountSeltWallet === "Wallet"
           ? `<div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif;">
-                <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">Balance</span>
+                <img src="img/coto_balance_icon.svg" alt="logo" style="width: 24px; height: 24px;"><span>coto Balance</span>
              </div>
              <span class="dropdown-mask">${masked}</span>
              <i class="bi bi-caret-down-fill dropdown-arrow"></i>`
@@ -893,8 +890,7 @@ function getLinkedBankDetail() {
           if (bank.accountSeltWallet === "Wallet") {
             div.innerHTML = `
               <div class="dropdown-cotowallet" style="font-family: 'Instrument Sans', sans-serif; font-size: 21px;">
-                <span style="font-weight: 500; color: #4A4E69;">coto</span>
-                <span style="font-weight: 700; color: #2F945A;">Balance</span>
+              <img src="img/coto_balance_icon.svg" alt="logo" style="width: 24px; height: 24px;"><span>coto Balance</span>
               </div>
               <span class="dropdown-mask">${masked}</span>
             `;

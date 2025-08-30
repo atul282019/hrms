@@ -4623,6 +4623,12 @@ table.table-upivouchers thead tr th:last-child {
     font-family: inter;
 }
 
+.walletAccount-wrap-p {
+    text-align: left;
+    font-family: inter;
+	padding-left: 20px;
+}
+
 .linkedAccount-wrap-p label {
     color: #86889B;
 }
