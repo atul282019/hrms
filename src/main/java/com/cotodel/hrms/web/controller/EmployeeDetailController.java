@@ -390,7 +390,7 @@ public class EmployeeDetailController extends CotoDelBaseController{
 	    					+ "</html>\r\n"
 	    					+ "";
 	    			Map<String, Object> response = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
-	    					employeeOnboarding.getEmail(),"You are invited to join Cotodel",  bodyText);
+	    					employeeOnboarding.getEmail(),"✅ You are invited to join Cotodel",  bodyText);
 	    			}
 	    			WhatsAppRequest whatsapp = new WhatsAppRequest();
 	                whatsapp.setSource("new-landing-page form");

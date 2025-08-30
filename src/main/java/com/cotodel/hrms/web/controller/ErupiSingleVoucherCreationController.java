@@ -86,20 +86,11 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
           //  return Map.of("isValid", false, "message", "Invalid client key");
         }
         String dataString = 
-//        		erupiVoucherCreateDetails.getName()+
-//        		erupiVoucherCreateDetails.getMobile()+
-//        		erupiVoucherCreateDetails.getStartDate()
-//        +erupiVoucherCreateDetails.getValidity()+
-//        erupiVoucherCreateDetails.getPurposeCode()+
         erupiVoucherCreateDetails.getConsent()
         +erupiVoucherCreateDetails.getCreatedby()+ 
         erupiVoucherCreateDetails.getOrgId()+
         erupiVoucherCreateDetails.getMerchantId()+
         erupiVoucherCreateDetails.getSubMerchantId()+
-//        erupiVoucherCreateDetails.getRedemtionType()+
-//        erupiVoucherCreateDetails.getMcc()+
-//        erupiVoucherCreateDetails.getVoucherCode()+
-//        erupiVoucherCreateDetails.getVoucherDesc() +
         erupiVoucherCreateDetails.getBankcode()+erupiVoucherCreateDetails
         .getAccountNumber()+erupiVoucherCreateDetails.getPayerVA()+erupiVoucherCreateDetails.getMandateType()+
         //erupiVoucherCreateDetails.getAmount()+
@@ -122,16 +113,6 @@ public class ErupiSingleVoucherCreationController  extends CotoDelBaseController
     Map<String, Object> responseMap = new HashMap<>();
     ObjectMapper mapper = new ObjectMapper();
  
-    // Get token from session
-//    if (!isValid) {
-//        responseMap.put("status", false);
-//        responseMap.put("message", "Request Tempered");
-//        try {
-//            return mapper.writeValueAsString(responseMap);
-//        } catch (JsonProcessingException e) {
-//            return "{\"status\":false, \"message\":\"JSON processing error\"}";
-//        }
-//    }
     String token = (String) session.getAttribute("hrms");
     
     if (token == null) {

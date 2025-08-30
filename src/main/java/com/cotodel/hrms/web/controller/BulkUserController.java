@@ -301,7 +301,9 @@ public class BulkUserController extends CotoDelBaseController{
 	@PostMapping(value="/createBulkemp")
 	public @ResponseBody String createBulkemp(HttpServletResponse response, HttpServletRequest request,
 			EmployeeBulkCreateRequest employeeBulkCreateRequest, BindingResult result, HttpSession session, Model model, RedirectAttributes redirect) {
-
+		String subject = null; 
+		String bodyText = null;
+		
 	    String profileRes = null;
 	    String whatsappResponse = null;
 	    Map<String, Object> responseMap = new HashMap<>();
@@ -401,10 +403,6 @@ public class BulkUserController extends CotoDelBaseController{
 		            for (BulkEmployeeResponse item : bulkEmployeeResponse) {
 		                if ("SUCCESS".equalsIgnoreCase(item.getResponse())) {
 		                    
-		                	//System.out.println("Name: " + item.getName());
-		                    //System.out.println("Amount: " + item.getBeneficiaryName());
-		                    //System.out.println("Response: " + item.getMobile());
-		                    
 		                    SMSRequest smsRequest = new SMSRequest();
 				        	smsRequest.setMobile(item.getMobile());
 				        	
@@ -425,8 +423,132 @@ public class BulkUserController extends CotoDelBaseController{
 			    			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptsmsResponse, EncriptResponse.class);
 
 			    			String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-			    			//String emailRequest =	GraphMailSender.sendEmail(tokengeneration.getToken(),  item.getEmail(), to,subject, bodyText);
-			    			
+			    			if(item.getEmail() !=null && item.getEmail() !="") {
+				    			bodyText = "<!doctype html>\r\n"
+				    					+ "<html lang=\"en\">\r\n"
+				    					+ "  <head>\r\n"
+				    					+ "    <meta charset=\"utf-8\" />\r\n"
+				    					+ "    <title>Cotodel – Welcome</title>\r\n"
+				    					+ "    <style>\r\n"
+				    					+ "      body {\r\n"
+				    					+ "        margin: 0;\r\n"
+				    					+ "        padding: 0;\r\n"
+				    					+ "        background: #ffffff;\r\n"
+				    					+ "        font-family: Arial, Helvetica, sans-serif;\r\n"
+				    					+ "        color: #1d2b21;\r\n"
+				    					+ "      }\r\n"
+				    					+ "      table { border-spacing: 0; border-collapse: collapse; width: 100%; }\r\n"
+				    					+ "      img { border: 0; display: block; max-width: 100%; }\r\n"
+				    					+ "      .container { max-width: 600px; margin: 0 auto; }\r\n"
+				    					+ "      .hero-bar {\r\n"
+				    					+ "        background: #2b8a56;\r\n"
+				    					+ "        color: #ffffff;\r\n"
+				    					+ "      }\r\n"
+				    					+ "      .tagline { font-size: 14px; opacity: .9; margin-top: 6px; }\r\n"
+				    					+ "      .card {\r\n"
+				    					+ "        background: #f1f6f3;\r\n"
+				    					+ "        border-radius: 12px;\r\n"
+				    					+ "        overflow: hidden;\r\n"
+				    					+ "        margin: 20px 0;\r\n"
+				    					+ "      }\r\n"
+				    					+ "      .content { padding: 20px; font-size: 15px; line-height: 1.6; }\r\n"
+				    					+ "      h2 { margin: 0 0 15px; font-size: 20px; }\r\n"
+				    					+ "      .btn {\r\n"
+				    					+ "        background: #2b8a56;\r\n"
+				    					+ "        color: #ffffff !important;\r\n"
+				    					+ "        text-decoration: none;\r\n"
+				    					+ "        padding: 12px 24px;\r\n"
+				    					+ "        border-radius: 6px;\r\n"
+				    					+ "        display: inline-block;\r\n"
+				    					+ "        font-weight: bold;\r\n"
+				    					+ "        font-size: 14px;\r\n"
+				    					+ "      }\r\n"
+				    					+ "      .footer {\r\n"
+				    					+ "        background: #f1f6f3;\r\n"
+				    					+ "        padding: 20px;\r\n"
+				    					+ "        font-size: 13px;\r\n"
+				    					+ "        color: #6b7a71;\r\n"
+				    					+ "      }\r\n"
+				    					+ "      .footer-logo { margin-bottom: 10px; }\r\n"
+				    					+ "      .footer hr { border: 0; border-top: 1px solid #ccc; margin: 15px 0; }\r\n"
+				    					+ "      .footer a { color: #2b8a56; text-decoration: none; }\r\n"
+				    					+ "      .social a { margin-right: 10px; text-decoration: none; font-size: 16px; color: #2b8a56; }\r\n"
+				    					+ "    </style>\r\n"
+				    					+ "  </head>\r\n"
+				    					+ "  <body>\r\n"
+				    					+ "    <table role=\"presentation\" width=\"100%\">\r\n"
+				    					+ "      <tr>\r\n"
+				    					+ "        <td>\r\n"
+				    					+ "          <div class=\"container\">\r\n"
+				    					+ "\r\n"
+				    					+ "            <!-- Header with background + side image -->\r\n"
+				    					+ "            <table role=\"presentation\" width=\"100%\" class=\"hero-bar\">\r\n"
+				    					+ "              <tr>\r\n"
+				    					+ "                <td style=\"padding:20px; vertical-align:middle; width:65%;\">\r\n"
+				    					+ "                  <img src=\"https://staging.cotodel.com/img/emailer_cotodel_without_tagline.png\" alt=\"Cotodel logo\" width=\"160\" height=\"54\" style=\"object-fit:contain;\" />\r\n"
+				    					+ "                  <p class=\"tagline\">Business expenses made seamless like your personal UPI spends</p>\r\n"
+				    					+ "                </td>\r\n"
+				    					+ "                <td style=\"width:35%; text-align:right; vertical-align:bottom;\">\r\n"
+				    					+ "                  <img src=\"https://staging.cotodel.com/img/Emailer_Scan_to_pay-bro_1.png\" alt=\"Green side illustration\" width=\"200\" style=\"max-width:200px; height:auto;\" />\r\n"
+				    					+ "                </td>\r\n"
+				    					+ "              </tr>\r\n"
+				    					+ "            </table>\r\n"
+				    					+ "\r\n"
+				    					+ "            <!-- Illustration -->\r\n"
+				    					+ "            <div class=\"card\">\r\n"
+				    					+ "              <img src=\"https://staging.cotodel.com/img/Emailer_corp_signup_img1.png\" alt=\"Cotodel platform welcome illustration\" />\r\n"
+				    					+ "            </div>\r\n"
+				    					+ "\r\n"
+				    					+ "            <!-- Body -->\r\n"
+				    					+ "            <div class=\"content\">\r\n"
+				    					+ "              <h2>Welcome, <span style=\"color:#555;\">"+item.getName()+"</span>!</h2>\r\n"
+				    					+ "              <p>You have successfully signed up on Cotodel platform!</p>\r\n"
+				    					+ "              <p>Our team will get in touch with you soon to activate your account. Start managing your corporate expenses with ease by administering allowances for your employees.</p>\r\n"
+				    					+ "              <p>If you would want to schedule a demo with our team, please choose any slot as per your convenience.</p>\r\n"
+				    					+ "\r\n"
+				    					+ "              <p style=\"text-align:center; margin:20px 0;\">\r\n"
+				    					+ "                <a href=\"https://calendly.com/business-cotodel/demo\" class=\"btn\">Schedule Demo</a>\r\n"
+				    					+ "              </p>\r\n"
+				    					+ "\r\n"
+				    					+ "              <p style=\"font-size:12px; color:#777; margin-top:20px;\">\r\n"
+				    					+ "                Disclaimer: Please mark us as <em>'Not Spam'</em> to receive future emails from Cotodel in your inbox\r\n"
+				    					+ "              </p>\r\n"
+				    					+ "            </div>\r\n"
+				    					+ "\r\n"
+				    					+ "            <!-- Footer -->\r\n"
+				    					+ "            <div class=\"footer\">\r\n"
+				    					+ "              <div class=\"footer-logo\">\r\n"
+				    					+ "                <img src=\"https://staging.cotodel.com/img/Cotodel_Logo.png\" alt=\"Cotodel logo\" width=\"120\" height=\"34\" style=\"object-fit:contain;\" />\r\n"
+				    					+ "              </div>\r\n"
+				    					+ "              <div><strong>ADDRESS</strong><br>WeWork, Eldeco Centre, Malviya Nagar New Delhi - 110017</div>\r\n"
+				    					+ "              <hr>\r\n"
+				    					+ "              <div>\r\n"
+				    					+ "                <a href=\"#\">Click to unsubscribe from Marketing emails</a><br><br>\r\n"
+				    					+ "                © 2025 Cotodel – All rights reserved\r\n"
+				    					+ "              </div>\r\n"
+				    					+ "              <div class=\"social\" style=\"margin-top:10px;\">\r\n"
+				    					+ "	                <a href=\"https://www.linkedin.com/company/cotopay/posts/?feedView=all\" aria-label=\"LinkedIn\">\r\n"
+				    					+ "	                  <img src=\"https://cdn-icons-png.flaticon.com/512/174/174857.png\" alt=\"LinkedIn\" width=\"24\" height=\"24\" style=\"display:inline-block; margin-right:10px;\">\r\n"
+				    					+ "	                </a>\r\n"
+				    					+ "	                <a href=\"https://www.instagram.com/cotodelsolutions\" aria-label=\"Instagram\">\r\n"
+				    					+ "	                  <img src=\"https://cdn-icons-png.flaticon.com/512/2111/2111463.png\" alt=\"Instagram\" width=\"24\" height=\"24\" style=\"display:inline-block; margin-right:10px;\">\r\n"
+				    					+ "	                </a>\r\n"
+				    					+ "	                <a href=\"https://www.youtube.com/@Cotodel\" aria-label=\"YouTube\">\r\n"
+				    					+ "	                  <img src=\"https://cdn-icons-png.flaticon.com/512/1384/1384060.png\" alt=\"YouTube\" width=\"24\" height=\"24\" style=\"display:inline-block;\">\r\n"
+				    					+ "	                </a>\r\n"
+				    					+ "              </div>\r\n"
+				    					+ "            </div>\r\n"
+				    					+ "\r\n"
+				    					+ "          </div>\r\n"
+				    					+ "        </td>\r\n"
+				    					+ "      </tr>\r\n"
+				    					+ "    </table>\r\n"
+				    					+ "  </body>\r\n"
+				    					+ "</html>\r\n"
+				    					+ "";
+				    			Map<String, Object> responses = GraphMailSender.sendMail(GraphMailSender.acquireToken(), "support@cotodel.com",
+				    					item.getEmail(),"✅ You are invited to join Cotodel",  bodyText);
+				    			}
 			                }
 			                catch (Exception e) {
 		            			// TODO Auto-generated catch block
@@ -435,13 +557,9 @@ public class BulkUserController extends CotoDelBaseController{
 		                    WhatsAppRequest whatsapp = new WhatsAppRequest();
 		                    whatsapp.setSource("new-landing-page form");
 		                    whatsapp.setCampaignName("Employee_add_confirmation");
-		                    whatsapp.setFirstName((String) session.getAttribute("usernamme"));
-		                   // whatsapp.setAmount(item.getAmount());
-		                    //whatsapp.setCategory(item.getVoucherDesc());
+		                    whatsapp.setFirstName(item.getName());
 		                    whatsapp.setMobile(item.getMobile());
 		                    whatsapp.setOrganizationName("Cotodel");
-		                   /// whatsapp.setValidity(item.getValidity());
-		                   // whatsapp.setType(item.getRedemtionType());
 		                    whatsapp.setUserName("Cotodel Communications");
 		                    try {
 		            			String whatsappJson = EncryptionDecriptionUtil.convertToJson(whatsapp);

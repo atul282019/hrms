@@ -1,6 +1,4 @@
 package com.cotodel.hrms.web.controller;
-
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -66,9 +64,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.IOException;
 import com.cotodel.hrms.web.util.MessageConstant;
 
-
-
-
 @Controller
 @CrossOrigin
 public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
@@ -93,7 +88,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	
 	@Autowired
 	LoginService loginservice;
-	
 	
 	@PostMapping(value="/saveBulkVoucher")
 	public @ResponseBody  String saveBulkVoucher(HttpServletResponse response, HttpServletRequest request,
@@ -170,7 +164,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
 			String encriptResponse = bulkVoucherService.saveBulkVoucher(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -246,7 +239,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
     // Validate hash
     boolean isValid = computedHash.equals(receivedHash);
- 
     // Get token from session
     if (!isValid) {
         responseMap.put("status", false);
@@ -295,18 +287,14 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
 	        if (status && apiJsonResponse.has("data")) {
 	        	
-	        	 // Extract the array
-	        	
 	            JSONArray dataArray = apiJsonResponse.getJSONArray("data");
-	            logger.info("voucher dataArray"+dataArray);// TODO: handle exception
-	            // Map JSON array to List<VoucherData>
+	            
 	            ObjectMapper objMapper = new ObjectMapper();
 	            List<VoucherData> voucherList = objMapper.readValue(
 	                dataArray.toString(),
 	                objMapper.getTypeFactory().constructCollectionType(List.class, VoucherData.class)
 	            );
 
-	            // Iterate only successful vouchers
 	            for (VoucherData item : voucherList) {
 	                if ("SUCCESS".equalsIgnoreCase(item.getResponse())) {
 	                    System.out.println("Name: " + item.getName());
@@ -341,7 +329,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	                String smsResponse =null;
 	                SMSRequest smsRequest = new SMSRequest();
 		        	smsRequest.setMobile(item .getMobile());
-		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
 		        	
 		        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# spends is issued to you! Transact using your Google Pay App. - Cotodel";
 		        	String finalMessage = template
@@ -533,9 +520,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 	            }
 	        	
 	            List<Object> dataList = apiJsonResponse.getJSONArray("data").toList();
-	            responseMap.put("data", dataList);
-	            
-	            
+	            responseMap.put("data", dataList);	            
 	        } else {
                 responseMap.put("status", false);
                 responseMap.put("message", apiJsonResponse.getString("message"));
@@ -569,7 +554,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
 			String encriptResponse = erupiVoucherCreateDetailsService.beneficiaryDeleteFromVoucherList(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -595,7 +579,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 
 			String encriptResponse = erupiVoucherCreateDetailsService.erupiVoucherRevokeBulk(tokengeneration.getToken(), jsonObject);
 
-   
 			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
 
 			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
@@ -604,7 +587,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 			JSONObject apiJsonResponse = new JSONObject(profileRes); 
 	        boolean status = apiJsonResponse.getBoolean("status");
 			if(status && apiJsonResponse.has("data")) {
-			// Map JSON array to List<VoucherData>
+		
 			JSONArray dataArray = apiJsonResponse.getJSONArray("data");
 			 ObjectMapper objMapper = new ObjectMapper();
 			
@@ -615,7 +598,6 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 			  for (RevokeResponse item : revokeResponse) {
 		            SMSRequest smsRequest = new SMSRequest();
 		        	smsRequest.setMobile(item.getMobile());
-		        	//smsRequest.setValue(revokeResponse .getRevokeAmount());
 		        	
 		        	String template = "UPI Voucher worth ₹#VAR1# for #VAR2# Spends is revoked! View details and manage via your Cotodel dashboard.";
 		        	String finalMessage = template
@@ -636,6 +618,7 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 					smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
 					
 					JSONObject smsapiJsonResponse = new JSONObject(smsResponse); 
+					
 					if (item.getEmail() != null && !item.getEmail().isEmpty()) {
 		 			bodyText = "\r\n"
 		 					+ "<!DOCTYPE html>\r\n"
@@ -825,7 +808,8 @@ public class ErupiBulkVoucherCreationController extends CotoDelBaseController{
 		    			EncriptResponse whatsappReqEnc =EncryptionDecriptionUtil.convertFromJson(whatsappEncriptResponse, EncriptResponse.class);
 		
 		    			String whatsappReqRes =  EncryptionDecriptionUtil.decriptResponse(whatsappReqEnc.getEncriptData(), whatsappReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-		    		} catch (Exception e) {
+		    		
+		            } catch (Exception e) {
 		    			// TODO Auto-generated catch block
 		    			e.printStackTrace();
 		    		}
