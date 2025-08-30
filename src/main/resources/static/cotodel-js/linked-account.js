@@ -99,7 +99,7 @@ async function  getLinkedBankDetail(){
 		       const container = document.createElement('div');
 		       container.className = 'data-container';
 
-		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile","merchentIid","submurchentid",//"mcc"
+		       const fieldsToDisplay = ["bankName", "accountHolderName", "acNumber","accountType","ifsc","mobile"//"mcc"
 				,"payerva"];
 			   
 			   const fieldLabels = {
@@ -110,8 +110,8 @@ async function  getLinkedBankDetail(){
 					   accountType: "Account Type",
 					   ifsc: "ifsc",
 					   mobile: "Mobile",
-					   merchentIid: "Merchant Id",
-					   submurchentid:"Sub Merchant Id",
+					   //merchentIid: "Merchant Id",
+					   //submurchentid:"Sub Merchant Id",
    					   //mcc: "MCC",
    					   payerva: "Payerva",
 			       };
