@@ -742,7 +742,7 @@ requestedVoucherCount()">
 	  // Only allow Active vouchers (type === "Created")
 	  //const invalidRows = selectedRows.filter(row => row.type !== "Created");
 	  const invalidRows = selectedRows.filter(row =>
-	    row.type !== "Created" && row.type !== "Partially Redeemed"
+	    row.type !== "Active" && row.type !== "Partially Redeemed"
 	  );
 
 	  if (invalidRows.length > 0) {
@@ -2069,7 +2069,7 @@ requestedVoucherCount()">
 
 		          <div class="voucher-status-box">
 		            <span class="voucher-status-text" id="voucherStatus">Active</span>
-		            <span class="voucher-status-text">Balance: <span class="voucher-balance" id="balanceAmount">₹5,000</span></span>
+		            <span class="voucher-status-text" >Balance: <span class="voucher-balance" id="balanceAmount">₹5,000</span></span>
 		          </div>
 
 		          <div class="voucher-meta">

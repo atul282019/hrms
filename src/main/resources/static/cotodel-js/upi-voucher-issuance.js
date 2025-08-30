@@ -2154,6 +2154,14 @@ function viewhistory(rowData) {
         statusBox.className = "voucher-status-box";
         statusTextEls.forEach(el => el.className = "voucher-status-text");
         balanceEl.className = "voucher-balance";
+		
+		// === NEW DYNAMIC BALANCE LABEL LOGIC ===
+		    const balanceLabelEl = statusBox.querySelector(".voucher-status-text:nth-child(2)");
+		    if (capitalizedStatus === "Active") {
+		        balanceLabelEl.firstChild.textContent = "Balance: ";
+		    } else {
+		        balanceLabelEl.firstChild.textContent = "Refund Balance: ";
+		    }
 
         switch (capitalizedStatus) {
 		  case "Failed Issuance":
