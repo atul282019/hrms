@@ -1,4 +1,5 @@
 function convertImageToBase64() {
+			
            const fileInput = document.getElementById('up');
            const output = document.getElementById('base64Output');
 		   const outputFileName = document.getElementById('fileName');
@@ -28,12 +29,13 @@ function convertImageToBase64() {
                output.value = base64String; 
 			   console.log("FileName:", fileInput.files[0].name);
 			   outputFileName.value =fileInput.files[0].name;
+			 
 			
            };
            reader.readAsDataURL(file);
     }
 	function convertImageToBase641() {
-		
+		document.getElementById('showFileName').innerHTML="";
 		document.getElementById('fileInputError').innerHTML="";// clear if error exists
 	    const fileInput = document.getElementById('chatFileUpload');
 	    const output = document.getElementById('base64Output');
@@ -62,6 +64,7 @@ function convertImageToBase64() {
 	        const base64String = event.target.result.split(',')[1];
 	        output.value = base64String;
 	        outputFileName.value = file.name;
+			document.getElementById('showFileName').innerHTML =file.name;
 	        console.log("FileName:", file.name);
 	    };
 	    reader.readAsDataURL(file);
@@ -499,6 +502,7 @@ async function replyTicket(){
 
 
 async function customerReplyTicket(){
+	
 	var ticketId = document.getElementById("ticketId").value;
 	var fileInput = document.getElementById("up").value;
 	var base64file = document.getElementById("base64Output").value;
@@ -554,6 +558,7 @@ async function customerReplyTicket(){
 			if(data2.status==true){
 				document.getElementById("chatInput").value=""; 
 				document.getElementById("fileName").innerHTML=""; 
+				document.getElementById("showFileName").innerHTML=""; 
 				getTicketTransactionHistoryById(ticketId);
 				
 			}else if(data.status==false){

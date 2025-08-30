@@ -226,6 +226,7 @@
 
 			      <!-- Input Area -->
 				  <div class="chat-input-bar">
+					
 				    <label for="chatFileUpload" class="chat-attachment-label">
 				      <i class="fas fa-paperclip"></i>
 				      <input type="file" id="chatFileUpload"  accept="image/*" onchange="convertImageToBase641()"  hidden>
@@ -233,6 +234,7 @@
 				    <input type="text" id="chatInput" class="chat-input" placeholder="Type a message..." >
 				    <button id="sendChatBtn" class="chat-send-btn" onclick="customerReplyTicket()">Send</button>
 				  </div>
+				  <label id="showFileName"></label>
 				  <div class="error-msg" id="fileInputError" ></div>	 	
 			    </div>
 			  </div>
