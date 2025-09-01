@@ -7753,6 +7753,11 @@ table.vcScheduledtable thead {
 						background-color: #FF95001A;
 					 	color: #FF9500 !important;
 					}
+					.bg-lightgrey-txt-grey-pill 
+					{
+						background-color: #EDEDF0;
+						 color: #ACAEBA !important;
+					}
 				.bg-lightgreen-txt-green-pill 
 				{
 					background-color: #EAF4EF ;
