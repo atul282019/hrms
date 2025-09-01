@@ -2127,7 +2127,7 @@ function viewhistory(rowData) {
 		  case "Partially Redeemed":
 		    redemptionStatusEl.classList.add("admin-ticket-status-InProgress");
 		    break;
-		  case "Completely  Redeemed":
+		  case "Completely Redeemed":
 		    redemptionStatusEl.classList.add("admin-ticket-status-hold");
 		    break;
 		  default:
@@ -2239,7 +2239,7 @@ function viewhistory(rowData) {
 			     <div class="voucher-transaction-top">
 			       <div>
 			         <div class="voucher-meta-label">Transaction date</div>
-			         <div class="voucher-meta-value">${formatDateTime(txn.transactionDate)}</div>
+			         <div class="voucher-meta-value">${formatDateTime1(txn.transactionDate)}</div>
 			       </div>
 			       <div>
 			         <div class="voucher-meta-label">Transaction RRN</div>
@@ -2277,6 +2277,25 @@ function viewhistory(rowData) {
 }
 
 
+function formatDateTime1(dateTimeStr) {
+  if (!dateTimeStr) return "";
+
+  // Split date and time
+  const [datePart, timePart] = dateTimeStr.split(" ");
+  if (!datePart || !timePart) return dateTimeStr;
+
+  const [yyyy, mm, dd] = datePart.split("-");
+  let [hh, min] = timePart.split(":");
+
+  // Ensure 2-digit day, month, hour, minute
+  const day = dd.padStart(2, "0");
+  const month = mm.padStart(2, "0");
+  const year = yyyy;
+  const hour = hh.padStart(2, "0");
+  const minute = min.padStart(2, "0");
+
+  return `${day}-${month}-${year} ${hour}:${minute}`;
+}
 
 
 
