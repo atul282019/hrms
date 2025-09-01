@@ -293,231 +293,267 @@ function erupiVoucherCreateListLimit() {
       newData = data;
       var data1 = jQuery.parseJSON(newData);
       var data2 = data1.data;
-		console.log("dashboard erupiVoucherCreateListLimit() ",data1);
+		console.log("dashboard erupiVoucherCreateListLimit() ",data2);
+   
       var table = $('#vouchersTableList').DataTable({
         destroy: true,
         lengthChange: true,
         responsive: true,
-        searching: false,
+        searching: true,
         bInfo: false,
         paging: false,
         autoWidth: false,
-        pagingType: "full_numbers",
         pageLength: 50,
         buttons: ["csv", "excel"],
         language: {
-          "emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded on the platform. If your team members have redeemed</br> a UPI Voucher already, please refresh and check again at the end of the day to view corresponding transactions.</br>If your team and you haven’t already, start issuing and using <a href="/upiVoucherIssuanceNew">UPI Vouchers</a> to experience the magic!'
+          "emptyTable": 'As per the last update, currently there are no UPI Vouchers transactions recorded...'
         },
         aaData: data2,
         aoColumns: [
-          { "mData": "name" },
-          { "mData": "mobile" },
-          { "mData": "accountNumber" },
-		  {
-	          "mData": null,
-	          "render": function (data, type, row) {
-	            const mccIcon = row.mccMainIcon;
-	            const imgHTML = mccIcon
-	              ? `<img src="data:image/png;base64,${mccIcon}" alt="MCC Icon" width="24" height="24">`
-	              : '';
-	            return `
-	              <div style="display: flex; align-items: center; gap: 8px;">
-	                ${imgHTML}
-	                <span>${row.mccDesc || ''}</span>
-	              </div>
-	            `;
-	          }
-	        },
-			{
-	           "mData": "type",
-			   "render": function (data, type, row) {
-			   			  // Safely parse dd-mm-yyyy to Date
-			   			  /*function parseDDMMYYYY(dateStr) {
-			   			    const [dd, mm, yyyy] = dateStr.split('-');
-			   			    return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
-			   			  }*/
-			   			  // Adjust parsing depending on backend format (yyyy-mm-dd)
-			   			  function parseDate(dateStr) {
-			   			    if (!dateStr) return null;
-			   			    
-			   			    // If format looks like yyyy-mm-dd
-			   			    if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
-			   			      return new Date(dateStr + "T00:00:00");
-			   			    }
-			   			    
-			   			    // If format looks like dd-mm-yyyy
-			   			    if (/^\d{2}-\d{2}-\d{4}/.test(dateStr)) {
-			   			      const [dd, mm, yyyy] = dateStr.split('-');
-			   			      return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
-			   			    }
-			   			    
-			   			    return new Date(dateStr); // fallback
-			   			  }
+          {
+            "mData": null,
+            "orderable": false,
+            "className": 'dt-body-center',
+            /*enables checkboxes only if voucher status is active 
+			"render": function (data, type, row) {
+              const expDate = new Date(row.expDate);
+              const today = new Date();
+              const isExpired = expDate < today;
+              const isActive = row.type === "Created" && !isExpired;
+              return `<input type="checkbox" class="rowCheckbox" data-id="${row.id}" ${isActive ? "" : "disabled"}>`;
+            }*/
+			"render": function (data, type, row) {
+			  return `<input type="hidden"  class="rowCheckbox" data-id="${row.id}">`;
+			}
 
-
-			   			  //const expDate = parseDDMMYYYY(row.expDate);
-			   			  const expDate = parseDate(row.expDate);
-			   			  const today = new Date();
-			   			  today.setHours(0, 0, 0, 0); // Compare only date part
-			   			  //console.log("Exp date parsed:", expDate, "Row expDate:", row.expDate,"merchanttxnId",row.merchanttxnId, "Today:", today);
-
-			   			  const isExpired = expDate < today;
-			   			  let labelText = '', labelClass = '';
-						  // if (isExpired && row.type === "Active") {
-				  			//    labelText = "Expired";
-				  			//    labelClass = "pill bg-grey-txt-grey-pill";
-				  			//  } else {
-				  			    switch (data) {
-				  			      case "Active": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
-				  			      case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
-				  			      case "Failed": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
-				  			      case "Revoked": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;
-				  				  case "Expired": labelText = "Expired"; labelClass = "pill bg-lightgrey-txt-grey-pill"; break;
-				  			      case "Partially Redeemed": labelText = "Partially Redeemed"; labelClass = "pill-wide bg-lightyellow-txt-yellow-pill"; break;
-				  			      default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
-				  			    }
-				  			 // }
-			   			  return `<span class="${labelClass}">${labelText}</span>`;
-			   			}
-	         },
-			 {
-			   "mData": "redemtionStatus",
-			   "render": function (data, type, row) {
-			     if (!data) return '';
-
-			     let labelText = data;
-			     let labelClass = '';
-
-			     switch (data) {
-			       case "Not Redeemed":
-			         labelClass = "admin-ticket-status";
-			         labelText = "Not Redeemed";
-			         break;
-			       case "Partially Redeemed":
-			         labelClass = "admin-ticket-status-InProgress";
-			         labelText = "Partially Redeemed";
-			         break;
-			       //case "failed":
-			       case "Fully Redeemed":
-			         labelClass = "admin-ticket-status-hold ";
-			         labelText = "Fully Redeemed";
-			         break;
-			       /*case "revoked":
-			         labelClass = "pill bg-grey-txt-grey-pill";
-			         labelText = "Revoked";
-			         break;*/
-			       default:
-			         labelClass = "admin-ticket-status";
-			         labelText = data;
-			     }
-
-			     return `<span class="${labelClass}">${labelText}</span>`;
-			   }
-			 },
+          },
           /*{
             "mData": "creationDate",
             "render": function (data) {
-              return formatDate(data);
+              return formatDateTime(data);
             }
           },*/
 		  {
-		      "mData": "creationDate",
-		      "render": function (data, type) {
-		        if (type === 'sort' || type === 'type') {
-		          // Parse into Date object so sorting works
-		          const date = new Date(data);
-		          const y = date.getFullYear();
-		          const m = String(date.getMonth() + 1).padStart(2, '0');
-		          const d = String(date.getDate()).padStart(2, '0');
-		          const hh = String(date.getHours()).padStart(2, '0');
-		          const mm = String(date.getMinutes()).padStart(2, '0');
-		          const ss = String(date.getSeconds()).padStart(2, '0');
+  		    "mData": "creationDate",
+  		    "render": function (data, type) {
+  		      if (type === 'sort' || type === 'type') {
+  		        // Parse into Date object so sorting works
+  		        const date = new Date(data);
+  		        const y = date.getFullYear();
+  		        const m = String(date.getMonth() + 1).padStart(2, '0');
+  		        const d = String(date.getDate()).padStart(2, '0');
+  		        const hh = String(date.getHours()).padStart(2, '0');
+  		        const mm = String(date.getMinutes()).padStart(2, '0');
+  		        const ss = String(date.getSeconds()).padStart(2, '0');
 
-		          // Return sortable string
-		          return `${y}-${m}-${d}T${hh}:${mm}:${ss}`;
-		        }
-		        // For display in the table
-		        return formatDate(data);
-		      }
-		    },
-          /*{
+  		        // Return sortable string
+  		        return `${y}-${m}-${d}T${hh}:${mm}:${ss}`;
+  		      }
+  		      // For display in the table
+  		      return formatDateTime(data);
+  		    }
+  		  },
+          {
+            "mData": null,
+            "render": function (data, type, row) {
+              return `<div>${row.name}</div><div>${row.mobile}</div>`;
+            }
+          },
+          { "mData": "merchanttxnId" },
+          {
+            "mData": null,
+            "render": function (data, type, row) {
+              const base64Icon = row.bankIcon;
+              const imgHTML = base64Icon
+                ? `<img src="data:image/png;base64,${base64Icon}" alt="Bank Icon" width="24" height="24">`
+                : '';
+              const maskedAccount = row.accountNumber && row.accountNumber.length >= 4
+                ? `xxxx${row.accountNumber.slice(-4)}`
+                : row.accountNumber || '';
+              return `
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  ${imgHTML}
+                  <span>${maskedAccount}</span>
+                </div>
+              `;
+            }
+          },
+          {
+            "mData": null,
+            "render": function (data, type, row) {
+              const mccIcon = row.mccMainIcon;
+              const imgHTML = mccIcon
+                ? `<img src="data:image/png;base64,${mccIcon}" alt="MCC Icon" width="24" height="24">`
+                : '';
+              return `
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  ${imgHTML}
+                  <span>${row.mccDesc || ''}</span>
+                </div>
+              `;
+            }
+          },
+		  {
+		    "mData": "redemtionType",
+		    "render": function (data, type, row) {
+		      const normalized = (data || '').toLowerCase();
+
+		      const label = normalized === "multiple" ? "Multiple"
+		                 : normalized === "single"   ? "Single"
+		                 : data;
+
+		      const redemptionImage = label === "Single"
+		        ? `<img src="img/single-redemption-green.svg" alt="Single" width="24" height="24" style="margin-left: 8px;">`
+		        : label === "Multiple"
+		          ? `<img src="img/tiffinbox.svg" alt="Multiple" width="24" height="24" style="margin-left: 8px;">`
+		          : '';
+
+		      return `<div style="display: flex; align-items: center;">${redemptionImage}${label}</div>`;
+		    }
+		  },
+          {
             "mData": "expDate",
             "render": function (data) {
               return formatDate(data);
             }
-          },*/
-		  {
-		      "mData": "expDate",
-		      "render": function (data, type) {
-		        if (type === 'sort' || type === 'type') {
-		          // Parse into Date object so sorting works
-		          const date = new Date(data);
-		          const y = date.getFullYear();
-		          const m = String(date.getMonth() + 1).padStart(2, '0');
-		          const d = String(date.getDate()).padStart(2, '0');
-		          const hh = String(date.getHours()).padStart(2, '0');
-		          const mm = String(date.getMinutes()).padStart(2, '0');
-		          const ss = String(date.getSeconds()).padStart(2, '0');
+          },
+          {
+            "mData": "type",
+            /*"render": function (data, type, row) {
+              const expDate = new Date(row.expDate);
+              const today = new Date();
+              const isExpired = expDate < today;
+              let labelText = '', labelClass = '';
+              if (isExpired && row.type === "Created") {
+                labelText = "Expired";
+                labelClass = "pill bg-grey-txt-grey-pill";
+              } else {
+                switch (data) {
+                  case "Created": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
+                  case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
+                  case "fail": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
+                  case "Revoke": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;	
+				  case "Partially Redeemed": labelText = "Partially Redeemed"; labelClass = "pill-wide bg-lightyellow-txt-yellow-pill"; break;
+                  default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+                }
+              }
+              return `<span class="${labelClass}">${labelText}</span>`;
+            }*/
+			"render": function (data, type, row) {
+			  // Safely parse dd-mm-yyyy to Date
+			  /*function parseDDMMYYYY(dateStr) {
+			    const [dd, mm, yyyy] = dateStr.split('-');
+			    return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+			  }*/
+			  // Adjust parsing depending on backend format (yyyy-mm-dd)
+			  function parseDate(dateStr) {
+			    if (!dateStr) return null;
+			    
+			    // If format looks like yyyy-mm-dd
+			    if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+			      return new Date(dateStr + "T00:00:00");
+			    }
+			    
+			    // If format looks like dd-mm-yyyy
+			    if (/^\d{2}-\d{2}-\d{4}/.test(dateStr)) {
+			      const [dd, mm, yyyy] = dateStr.split('-');
+			      return new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+			    }
+			    
+			    return new Date(dateStr); // fallback
+			  }
 
-		          // Return sortable string
-		          return `${y}-${m}-${d}T${hh}:${mm}:${ss}`;
-		        }
-		        // For display in the table
-		        return formatDate(data);
-		      }
-		    },
+
+			  //const expDate = parseDDMMYYYY(row.expDate);
+			  const expDate = parseDate(row.expDate);
+			  const today = new Date();
+			  today.setHours(0, 0, 0, 0); // Compare only date part
+			  //console.log("Exp date parsed:", expDate, "Row expDate:", row.expDate,"merchanttxnId",row.merchanttxnId, "Today:", today);
+
+			  const isExpired = expDate < today;
+			  let labelText = '', labelClass = '';
+			 // if (isExpired && row.type === "Active") {
+			//    labelText = "Expired";
+			//    labelClass = "pill bg-grey-txt-grey-pill";
+			//  } else {
+			    switch (data) {
+			      case "Active": labelText = "Active"; labelClass = "pill bg-lightgreen-txt-green-pill"; break;
+			      case "Redeemed": labelText = "Redeemed"; labelClass = "pill-redeemed bg-grey-txt-grey-pill "; break;
+			      case "Failed": labelText = "Failed"; labelClass = "pill bg-lightred-txt-red-pill "; break;
+			      case "Revoked": labelText = "Revoked"; labelClass = "pill bg-lightyellow-txt-yellow-pill"; break;
+				  case "Expired": labelText = "Expired"; labelClass = "pill bg-lightgrey-txt-grey-pill"; break;
+			      case "Partially Redeemed": labelText = "Partially Redeemed"; labelClass = "pill-wide bg-lightyellow-txt-yellow-pill"; break;
+			      default: labelText = data; labelClass = "pill bg-lightgrey-txt-grey-pill";
+			    }
+			 // }
+			  return `<span class="${labelClass}">${labelText}</span>`;
+			}
+
+          },
+		  {
+		  		   "mData": "redemtionStatus",
+		  		   "render": function (data, type, row) {
+		  		     if (!data) return '';
+
+		  		     let labelText = data;
+		  		     let labelClass = '';
+
+		  		     switch (data) {
+		  		       case "Not Redeemed":
+		  		         labelClass = "admin-ticket-status";
+		  		         labelText = "Not Redeemed";
+		  		         break;
+		  		       case "Partially Redeemed":
+		  		         labelClass = "admin-ticket-status-InProgress";
+		  		         labelText = "Partially Redeemed";
+		  		         break;
+		  		       //case "failed":
+		  		       case "Fully Redeemed":
+		  		         labelClass = "admin-ticket-status-hold ";
+		  		         labelText = "Fully Redeemed";
+		  		         break;
+		  		       /*case "revoked":
+		  		         labelClass = "pill bg-grey-txt-grey-pill";
+		  		         labelText = "Revoked";
+		  		         break;*/
+		  		       default:
+		  		         labelClass = "admin-ticket-status";
+		  		         labelText = data;
+		  		     }
+
+		  		     return `<span class="${labelClass}">${labelText}</span>`;
+		  		   }
+		  		 },
           {
             "mData": "amount",
-			"class":"text-right",
-			"render": function (data2, type, row) {
-				      if (!data2) return '';
-				      let amount = parseFloat(data2);
-				      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
-				      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-				      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
-				  }
+            "class": "text-right",
+            "render": function (data2, type, row) {
+              if (!data2) return '';
+              let amount = parseFloat(data2);
+              let formattedAmount = amount.toFixed(2);
+              let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              });
+              return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+            }
           },
-          { "mData": "redeemAmount" ,
-			"class":"text-right",
-			  "render": function (data2, type, row) {
-			      if (!data2) return '';
-			      let amount = parseFloat(data2);
-			      let formattedAmount = amount.toFixed(2); // enforce 2 decimal places
-			      let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-			      return '<div class="amount-cell">₹' + localizedAmount + '</div>';
-			  }
-		   },
-        ],
-
-        createdRow: function (row, data2, dataIndex) {
-          
-
-          var type = data2.type;
-          if (type == "fail") {
-            var imgTag = ' <img src="img/table-fail.svg" alt="" class="mr-2">';
-            $(row).find('td:eq(9)').html(imgTag);
+          {
+            "mData": "redeemAmount",
+            "class": "text-right",
+            "render": function (data2, type, row) {
+              if (!data2) return '';
+              let amount = parseFloat(data2);
+              let formattedAmount = amount.toFixed(2);
+              let localizedAmount = parseFloat(formattedAmount).toLocaleString('en-IN', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              });
+              return '<div class="amount-cell">₹' + localizedAmount + '</div>';
+            }
           }
-          if (type == "Created") {
-            var imgTag = ' <img src="img/table-create.svg" alt="" class="mr-2">';
-            $(row).find('td:eq(9)').html(imgTag);
-          }
-          if (type == "Revoke") {
-            var imgTag = ' <img src="img/Revoke.svg" alt="" class="mr-2">';
-            $(row).find('td:eq(9)').html(imgTag);
-          }
-          if (type == "Redeem") {
-            var imgTag = ' <img src="img/Redeem.svg" alt="" class="mr-2">';
-            $(row).find('td:eq(9)').html(imgTag);
-          }
-
-          var bankcode = data2.bankcode;
-          var bankIcon = data2.bankIcon;
-          var accountNumber = data2.accountNumber;
-          if (bankcode == "ICICI") {
-            var imgTag = ' <img src="data:image/png;base64,' + bankIcon + '" alt="" width="16px" height="16px">';
-            $(row).find('td:eq(2)').html(imgTag + " " + accountNumber);
-          }
-        }
+         
+        ]
       });
     },
     error: function (e) {

@@ -524,21 +524,27 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				     <div class="tab-pane fade" id="vouchers" role="tabpanel" >
 						<div class="table-responsive">
 			            <table class="table table-reimbursements mb-0" id="vouchersTableList">
-			              <thead>
-			                <tr>
-							 <!-- <th>S.NO</th>-->
-							  <th>Name</th>
-			                  <th>Mobile Number</th>	
-			                  <th>Bank A/c</th>
-							  <th>Voucher & Type</th>	
-							  <th>Voucher Status</th>	
-							  <th>Redemption Status</th>
-							  <th>Issue Date</th>	
-							  <th>Expiry Date</th>	
-							  <th>Issued</th>	
-							  <th>Redeemed</th>		
-			                </tr>
-			              </thead>
+							<thead>
+				                <tr>
+								 <!-- <th>S.NO</th>-->
+								<th><input type="hidden" id="checkAll" style="margin-left: 12px;"></th>
+								 <th>Issue Date <img src="img/Sorting-updown.svg" alt="sorting"></th>	
+								  <th>Name & Mobile # <img src="img/Sorting-updown.svg" alt="sorting"></th>
+								  <th>Voucher ID</th>
+								  
+				                  <th>Bank A/c<img src="img/Sorting-updown.svg" alt="sorting"></th>
+								  <th>Category<img src="img/Sorting-updown.svg" alt="sorting"></th>	
+									<th>Type</th>
+								  
+								  <th>Expiry Date</th>	
+								  <th>Voucher Status</th>	
+								  <th>Redemption Status</th>
+								  <th>Issued</th>	
+								
+								  <th>Redeemed</th>	
+							<!--	  <th>Actions</th>	-->
+				                </tr>
+				              </thead>
 			              <tbody class="table-bordered" id="voucherTableListBody">
 			            
 			              </tbody>
