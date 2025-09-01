@@ -109,7 +109,7 @@ public class CashfreePaymentController extends CotoDelBaseController{
 @PostMapping(value="/getOrderDetailByOrderId")
 public @ResponseBody String getOrderDetailByOrderId(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,OrderUserRequest orderUserRequest) {
-			logger.info("getPayrollMaster");	
+			logger.info("getOrderDetailByOrderId");	
 			String token = (String) session.getAttribute("hrms");
 			String profileRes=null;
 			try {
@@ -408,99 +408,99 @@ public ResponseEntity<Void> paymentCallBack(@RequestBody(required = false) Strin
 //		
 //}
 //
-//@PostMapping(value="/stagingWebhook")
-//public ResponseEntity<Void> staging_webhook(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
-//	
-//		logger.info("staging_webhook");
-//		logger.info("staging_webhook hook called"+payload);	
-//		String profileRes=null;
-//		String mobileNoResponse=null;
-//	    ObjectMapper om = new ObjectMapper();
-//		Root root = om.readValue(payload, Root.class); 
-//		try {
-//			
-//			WhatsAppRequest app = new WhatsAppRequest();
-//			app.setMobile(root.data.customer_details.customer_phone);
-//		
-//			String jsonapp = EncryptionDecriptionUtil.convertToJson(app);
-//
-//			EncriptResponse jsonappObject=EncryptionDecriptionUtil.encriptResponse(jsonapp, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponseMobile =  cashfreePaymentService.getTotalWalletAmountUsingMobileNo(tokengeneration.getToken(), jsonappObject);
-//
-//			EncriptResponse encriptResponseMobileEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponseMobile, EncriptResponse.class);
-//
-//			mobileNoResponse =  EncryptionDecriptionUtil.decriptResponse(encriptResponseMobileEnc.getEncriptData(), encriptResponseMobileEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//			logger.info("mobileNoResponse ---"+mobileNoResponse);
-//			JSONObject apiJsonResponse = new JSONObject(mobileNoResponse);
-//	         boolean status = apiJsonResponse.getBoolean("status");
-//	         String totalAmount = apiJsonResponse.getString("balance");
-//			
-//			profileRes = cashfreePaymentService.stagingWebhookSave(tokengeneration.getToken(),root);
-//			
-//			// Start SMS and Email service
-//            SMSRequest userForm = new SMSRequest();
-//            userForm.setMobile(root.data.customer_details.customer_phone);
-//            System.out.println("stagingWebhook mobile Number "+root.data.customer_details.customer_name);
-//            
-//        	String template = "Your CotoWallet has been successfully loaded with â‚¹#VAR1#. Your CotoWallet total balance is â‚¹#VAR2#. - Cotodel";
-//        	String finalMessage = template
-//        	        .replace("#VAR1#", Integer.toString(root.data.order.order_amount))
-//        	        .replace("#VAR2#", Integer.toString(root.data.order.order_amount));
-//        	System.out.println("Mobile Template "+finalMessage);
-//        	userForm.setMessage(finalMessage);
-//           
-//            try {
-//            String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
-//
-//			EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
-//
-//			String encriptResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
-//   
-//			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//			String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//			//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
-//            } catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//            try {
-//            	WhatsAppRequest whatsapp = new WhatsAppRequest();
-//                whatsapp.setSource("new-landing-page form");
-//                whatsapp.setCampaignName("cotowallet_confirmation");
-//                whatsapp.setFirstName(root.data.customer_details.customer_name);
-//                whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
-//                //whatsapp.setCategory(item.getVoucherDesc());
-//                whatsapp.setMobile(root.data.customer_details.customer_phone);
-//                System.out.println("stagingWebhook mobile Number whatsapp "+root.data.customer_details.customer_phone);
-//                whatsapp.setOrganizationName("Cotodel");
-//                //whatsapp.setValidity(item.getValidity());
-//                whatsapp.setBalance(totalAmount);
-//                whatsapp.setUserName("Cotodel Communications");
-//    			String json = EncryptionDecriptionUtil.convertToJson(whatsapp);
-//
-//    			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
-//
-//    			String encriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), jsonObject);
-//       
-//    			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
-//
-//    			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
-//    			logger.info(" stagingWebhook response Json---"+profileRes);
-//            } catch (Exception e) {
-//    			// TODO Auto-generated catch block
-//    			e.printStackTrace();
-//    		}
-//         //End Start SMS and Email service
-//			
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return new ResponseEntity<>(null, HttpStatus.OK);
-//		
-//}
+@PostMapping(value="/stagingWebhook")
+public ResponseEntity<Void> staging_webhook(@RequestBody(required = false) String payload) throws JsonMappingException, JsonProcessingException {
+	
+		logger.info("staging_webhook");
+		logger.info("staging_webhook hook called"+payload);	
+		String profileRes=null;
+		String mobileNoResponse=null;
+	    ObjectMapper om = new ObjectMapper();
+		Root root = om.readValue(payload, Root.class); 
+		try {
+			
+			WhatsAppRequest app = new WhatsAppRequest();
+			app.setMobile(root.data.customer_details.customer_phone);
+		
+			String jsonapp = EncryptionDecriptionUtil.convertToJson(app);
+
+			EncriptResponse jsonappObject=EncryptionDecriptionUtil.encriptResponse(jsonapp, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponseMobile =  cashfreePaymentService.getTotalWalletAmountUsingMobileNo(tokengeneration.getToken(), jsonappObject);
+
+			EncriptResponse encriptResponseMobileEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponseMobile, EncriptResponse.class);
+
+			mobileNoResponse =  EncryptionDecriptionUtil.decriptResponse(encriptResponseMobileEnc.getEncriptData(), encriptResponseMobileEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			logger.info("mobileNoResponse ---"+mobileNoResponse);
+			JSONObject apiJsonResponse = new JSONObject(mobileNoResponse);
+	         boolean status = apiJsonResponse.getBoolean("status");
+	         String totalAmount = apiJsonResponse.getString("balance");
+			
+			profileRes = cashfreePaymentService.stagingWebhookSave(tokengeneration.getToken(),root);
+			
+			// Start SMS and Email service
+            SMSRequest userForm = new SMSRequest();
+            userForm.setMobile(root.data.customer_details.customer_phone);
+            System.out.println("stagingWebhook mobile Number "+root.data.customer_details.customer_name);
+            
+        	String template = "Your CotoWallet has been successfully loaded with â‚¹#VAR1#. Your CotoWallet total balance is â‚¹#VAR2#. - Cotodel";
+        	String finalMessage = template
+        	        .replace("#VAR1#", Integer.toString(root.data.order.order_amount))
+        	        .replace("#VAR2#", Integer.toString(root.data.order.order_amount));
+        	System.out.println("Mobile Template "+finalMessage);
+        	userForm.setMessage(finalMessage);
+           
+            try {
+            String userFormjson = EncryptionDecriptionUtil.convertToJson(userForm);
+
+			EncriptResponse userFormjsonObject=EncryptionDecriptionUtil.encriptResponse(userFormjson, applicationConstantConfig.apiSignaturePublicPath);
+
+			String encriptResponse = loginservice.sendTransactionalSMS(tokengeneration.getToken(), userFormjsonObject);
+   
+			EncriptResponse userFornReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+			String smsResponse =  EncryptionDecriptionUtil.decriptResponse(userFornReqEnc.getEncriptData(), userFornReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+			//String emailRequest =	emailService.sendEmail(employeeOnboarding.getEmail());
+            } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+            try {
+            	WhatsAppRequest whatsapp = new WhatsAppRequest();
+                whatsapp.setSource("new-landing-page form");
+                whatsapp.setCampaignName("cotowallet_confirmation");
+                whatsapp.setFirstName(root.data.customer_details.customer_name);
+                whatsapp.setAmount(Integer.toString(root.data.order.order_amount));
+                //whatsapp.setCategory(item.getVoucherDesc());
+                whatsapp.setMobile(root.data.customer_details.customer_phone);
+                System.out.println("stagingWebhook mobile Number whatsapp "+root.data.customer_details.customer_phone);
+                whatsapp.setOrganizationName("Cotodel");
+                //whatsapp.setValidity(item.getValidity());
+                whatsapp.setBalance(totalAmount);
+                whatsapp.setUserName("Cotodel Communications");
+    			String json = EncryptionDecriptionUtil.convertToJson(whatsapp);
+
+    			EncriptResponse jsonObject=EncryptionDecriptionUtil.encriptResponse(json, applicationConstantConfig.apiSignaturePublicPath);
+
+    			String encriptResponse =  erupiVoucherCreateDetailsService.sendWhatsupMessage(tokengeneration.getToken(), jsonObject);
+       
+    			EncriptResponse userReqEnc =EncryptionDecriptionUtil.convertFromJson(encriptResponse, EncriptResponse.class);
+
+    			profileRes =  EncryptionDecriptionUtil.decriptResponse(userReqEnc.getEncriptData(), userReqEnc.getEncriptKey(), applicationConstantConfig.apiSignaturePrivatePath);
+    			logger.info(" stagingWebhook response Json---"+profileRes);
+            } catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+         //End Start SMS and Email service
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(null, HttpStatus.OK);
+		
+}
 @PostMapping(value="/viewOrderDetailByOrderId")
 public @ResponseBody String viewOrderDetailByOrderId(HttpServletRequest request, ModelMap model,Locale locale,
 			HttpSession session,OrderUserRequest orderUserRequest) {

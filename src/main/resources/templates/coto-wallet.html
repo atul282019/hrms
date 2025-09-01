@@ -343,7 +343,7 @@
 					<input type="hidden" class="form-input" id="amountServiceCharge" name="amountServiceCharge" > 
 					
 					<input type="hidden" id="order_id" th:value="${order_id}">
-								<div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section" style="display: none;">
+				    <div class="bg-white p-2 p-md-4 mb-4 w-100 br-10 Primary-details-section" style="display: none;">
            <h5>Payment Receipt</h5>
            <div class="primary-Details-wrap">
 			<div class="Primary-details-info">
@@ -409,7 +409,20 @@
 				   </div>
 				 </div>
 				 </div>				
-				
+				 <div class="lds-spinner" id="signinLoader" style="display: none">
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 					<div></div>
+				 				</div>
             <!-- End of Main Content -->							
         </div>
         <!-- End of Content Wrapper -->
@@ -742,13 +755,13 @@
     
    function getPaymentHistory() {
      		    const employerId = document.getElementById('employerId').value;
-     			//document.getElementById("signinLoader").style.display="flex";
+     			document.getElementById("signinLoader").style.display="flex";
      		    $.ajax({
      		        type: "POST",
      		        url: "/viewOrderIdList",
      		        data: { "orgId":employerId },
      		        success: function(data) {
-     				///	document.getElementById("signinLoader").style.display="none";
+     			 	document.getElementById("signinLoader").style.display="none";
      		            const parseddata = JSON.parse(data);
      		            console.log(data);
      					var payment_history=parseddata.data;

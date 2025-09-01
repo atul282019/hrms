@@ -1,9 +1,9 @@
 const cashfree = Cashfree({
-   mode:"production" //or production //sandbox
+   mode:"sandbox" //or production //sandbox
 });
 
 function getSessionId(){
-//	document.getElementById("signinLoader").style.display = "flex";
+	document.getElementById("signinLoader").style.display = "flex";
 	var employerId = document.getElementById("employerId").value;
 	var orderAmount = document.getElementById("advanceAmount").value;
 	//var orderCurrency = document.getElementById("employerId").value;
@@ -41,16 +41,15 @@ function getSessionId(){
 		beforeSend: function(xhr) {
 		},
 		success: function(data) {
+			document.getElementById("signinLoader").style.display = "none";
 			try {
 	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
-
 	               if (parsedData.data && parsedData.data.payment_session_id) {
 	                   let payment_session_id = parsedData.data.payment_session_id;
 					   let checkoutOptions = {
 				       paymentSessionId: payment_session_id,
 					  // redirectTarget: "_modal",
 					   redirectTarget: "_self",
-					   					   
 					  	};
 						cashfree.checkout(checkoutOptions);
 	                  
@@ -69,7 +68,7 @@ function getSessionId(){
 
 
 function getOrderDetail(){
-	//document.getElementById("signinLoader").style.display = "flex";
+	document.getElementById("signinLoader").style.display = "flex";
 	var order_id = document.getElementById("order_id").value;
 
 	$.ajax({
@@ -81,7 +80,7 @@ function getOrderDetail(){
 		beforeSend: function(xhr) {
 		},
 		success: function(data) {
-			//document.getElementById("signinLoader").style.display = "none";
+			document.getElementById("signinLoader").style.display = "none";
 			try {
 	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
 				   console.log(parsedData);
