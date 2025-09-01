@@ -1259,10 +1259,10 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
 		  		         labelClass = "admin-ticket-status-hold ";
 		  		         labelText = "Fully Redeemed";
 		  		         break;
-		  		       /*case "revoked":
-		  		         labelClass = "pill bg-grey-txt-grey-pill";
-		  		         labelText = "Revoked";
-		  		         break;*/
+		  		       case "Completely Redeemed":
+		  		         labelClass = "admin-ticket-status-hold";
+		  		         labelText = "Completely Redeemed";
+		  		         break;
 		  		       default:
 		  		         labelClass = "admin-ticket-status";
 		  		         labelText = data;
@@ -1302,11 +1302,13 @@ function erupiVoucherCreateListLimit(timePeriod = "AH") {
           {
             "mData": null,
             "render": function (data, type, row) {
-              const encodedRow = encodeURIComponent(JSON.stringify(row));
-              const expDate = new Date(row.expDate);
+             
+				const encodedRow = encodeURIComponent(JSON.stringify(row));
+             /* const expDate = new Date(row.expDate);
               const today = new Date();
               const isExpired = expDate < today;
-              const isActive = row.type === "Created" && !isExpired;
+              const isActive = row.type === "Active" && !isExpired;*/
+			  const isActive = row.type === "Active";
               const revokeBtn = isActive
                 ? `<button class="dropdown-item py-2" onclick="openRevokeDialog('${encodedRow}')">Revoke</button>`
                 : `<button class="dropdown-item py-2" disabled>Revoke</button>`;
@@ -2103,7 +2105,7 @@ function viewhistory(rowData) {
         document.getElementById("voucherAmount").textContent = `₹${data1.voucherAmount}`;
         document.getElementById("name").textContent = data1.name;
         document.getElementById("voucherMobile").textContent = data1.mobile;
-        document.getElementById("expDate").textContent = data1.expDate;
+        document.getElementById("expDate").textContent = formatDate(data1.expDate);
         //document.getElementById("issueDate").textContent = data1.issueDate;
 		document.getElementById("issueDate").textContent = formatDate(data1.issueDate);
         document.getElementById("merchantTranId").textContent = data1.merchantTranId;
@@ -2226,30 +2228,35 @@ function viewhistory(rowData) {
           redeemData.forEach((txn, idx) => {
             const item = document.createElement("li");
             item.className = "voucher-transaction-item";
-            item.innerHTML = `
-              <div class="voucher-transaction-step">${idx + 1}</div>
-              <div class="voucher-transaction-card">
-                <div class="voucher-transaction-top">
-                  <div>
-                    <div class="voucher-meta-label">Transaction date</div>
-                    <div class="voucher-meta-value">${txn.transactionDate}</div>
-                  </div>
-                  <div>
-                    <div class="voucher-meta-label">Transaction RRN</div>
-                    <div class="voucher-meta-value">${txn.bankrrn}</div>
-                  </div>
-                </div>
-                <div class="voucher-transaction-bottom">
-                  <div>
-                    <div class="voucher-meta-label">Merchant Name</div>
-                    <div class="voucher-meta-value">${txn.marchantName}</div>
-                  </div>
-                  <div>
-                    <div class="voucher-meta-label">Amount</div>
-                    <div class="voucher-meta-value">₹${txn.amount}</div>
-                  </div>
-                </div>
-              </div>`;
+			// Split merchantName if > 25 chars
+			 let merchantDisplay = txn.marchantName;
+			 if (merchantDisplay && merchantDisplay.length > 25) {
+			   merchantDisplay = merchantDisplay.slice(0, 25) + "<br>" + merchantDisplay.slice(25);
+			 }
+			 item.innerHTML = `
+			   <div class="voucher-transaction-step">${idx + 1}</div>
+			   <div class="voucher-transaction-card">
+			     <div class="voucher-transaction-top">
+			       <div>
+			         <div class="voucher-meta-label">Transaction date</div>
+			         <div class="voucher-meta-value">${formatDateTime(txn.transactionDate)}</div>
+			       </div>
+			       <div>
+			         <div class="voucher-meta-label">Transaction RRN</div>
+			         <div class="voucher-meta-value">${txn.bankrrn}</div>
+			       </div>
+			     </div>
+			     <div class="voucher-transaction-bottom">
+			       <div>
+			         <div class="voucher-meta-label">Merchant Name</div>
+			         <div class="voucher-meta-value">
+			           ${merchantDisplay}<br>
+			           <span class="voucher-meta-label">Amount</span><br>
+			           ₹${txn.amount}
+			         </div>
+			       </div>
+			     </div>
+			   </div>`;
             transactionList.appendChild(item);
 
             // Insert dotted line between items
