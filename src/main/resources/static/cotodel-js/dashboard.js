@@ -565,6 +565,7 @@ function erupiVoucherCreateListLimit() {
 
 function loadActiveInactiveUserList(){
 	
+	
 	var employerId = document.getElementById("employerId").value;
 		$.ajax({
 			type: "POST",
