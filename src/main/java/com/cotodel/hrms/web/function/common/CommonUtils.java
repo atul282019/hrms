@@ -9,12 +9,12 @@ public interface CommonUtils {
 	public static String verifyEmail = "/userServices/Api//verifyLink";
 	public static String sendOtp = "/userServices/Api/getOtp";
 	public static String otpWithOutRegister = "/userServices/Api/get/otpWithOutRegister";
-	public static String sendOtpNew = "/userServices/Api/getOtpNew"; //otp less
-	//public static String sendOtpNew = "/userServices/Api/getOtp2Factor";
+	//public static String sendOtpNew = "/userServices/Api/getOtpNew"; //otp less
+	public static String sendOtpNew = "/userServices/Api/getOtp2Factor";
 	public static String resendOtpNew = "/userServices/Api/getOtpResend";//otp less
 	//public static String resendOtpNew = "/userServices/Api/getOtp2Factor";
-	public static String verifyOtpNew = "/userServices/Api/verifyOtpNew"; //otp less
-	//public static String verifyOtpNew = "/userServices/Api/verifyOtp2Factor";
+	//public static String verifyOtpNew = "/userServices/Api/verifyOtpNew"; //otp less
+	public static String verifyOtpNew = "/userServices/Api/verifyOtp2Factor";
 	//with Dynamic template Id send otp
 	public static String sendOtp2FactorWithTemplateId = "/userServices/Api/get/sendOtp";
 	

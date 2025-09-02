@@ -43,22 +43,28 @@ function getSessionId(){
 		success: function(data) {
 			document.getElementById("signinLoader").style.display = "none";
 			try {
-	               let parsedData = typeof data === "string" ? JSON.parse(data) : data;
-	               if (parsedData.data && parsedData.data.payment_session_id) {
-	                   let payment_session_id = parsedData.data.payment_session_id;
-					   let checkoutOptions = {
-				       paymentSessionId: payment_session_id,
-					  // redirectTarget: "_modal",
-					   redirectTarget: "_self",
-					  	};
-						cashfree.checkout(checkoutOptions);
-	                  
-	               } else {
-	                   console.error("Unexpected response structure:", parsedData);
-	               }
-	           } catch (error) {
-	               console.error("Error parsing JSON:", error);
-	           }
+			    let parsedData = (typeof data === "string" && data.trim() !== "") ? JSON.parse(data) : data;
+
+			    if ( parsedData && parsedData.data &&  parsedData.data.payment_session_id ) {
+			       
+					 let payment_session_id = parsedData.data.payment_session_id;
+
+			        if (payment_session_id !== null && payment_session_id !== "") {
+			            let checkoutOptions = {
+			                paymentSessionId: payment_session_id,
+			                // redirectTarget: "_modal",
+			                redirectTarget: "_self",
+			            };
+			            cashfree.checkout(checkoutOptions);
+			        } else {
+			            console.error("Payment session ID is null or empty");
+			        }
+			    } else {
+			        console.error("Invalid session or missing payment_session_id:", parsedData);
+			    }
+			} catch (error) {
+			    console.error("Error parsing JSON or invalid session:", error);
+			}
 		},
 		error: function(e) {
 			alert('Error: ' + e);

@@ -884,7 +884,9 @@
 	        type: "POST",
 	        url: "/smsOtpSender",
 	        dataType: 'json',
-	        data: { "mobile": userName },
+    		data: { "mobile": userName,
+					"template":"Login Resend OTP User"
+					},
 	        success: function (data) {
 	            var obj = data;
 	            document.getElementById("loginLoader").style.display = "none";
@@ -1002,9 +1004,13 @@
 
 	    $.ajax({
 	        type: "POST",
-	        url: "/smsOtpResender",
+	    //    url: "/smsOtpResender",
+		url: "/smsOtpSender",
 	        dataType: 'json',
-	        data: { "mobile": userName, "orderId": orderId },
+	        //data: { "mobile": userName, "orderId": orderId },
+			data : { "mobile": userName,
+							"template":"Login Resend OTP User"
+							},
 	        success: function (data) {
 	            var obj = data;
 	            document.getElementById("loginLoader").style.display = "none";

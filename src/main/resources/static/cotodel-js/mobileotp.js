@@ -31,7 +31,7 @@ function getOTP() {
         url: "/smsOtpSender",
         dataType: 'json',
         data: { "mobile": userName,
-				"template":""
+				"template":"Login Resend OTP User"
 		},
         success: function (data) {
             var obj = data;
@@ -131,7 +131,9 @@ function resendOTP() {
         type: "POST",
         url: "/smsOtpResender",
         dataType: 'json',
-        data: { "mobile": userName, "orderId": orderId },
+        data: { "mobile": userName,
+			   "orderId": orderId 
+		 },
         success: function (data) {
             var obj = data;
             document.getElementById("loginLoader").style.display = "none";
