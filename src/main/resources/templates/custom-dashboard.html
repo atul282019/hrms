@@ -5,6 +5,7 @@
  <th:block th:include="fragments/headerlibs.html :: headerlibs"></th:block> 
  <!-- Make sure to include Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 <body id="page-top" onload="loadCategoryVoucherData(),loadActiveInactiveUserList(),erupiVoucherCreateListLimit(),
 getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
@@ -55,7 +56,7 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
 				      <!-- Notification Icon -->
 				      <li class="nav-item mr-3">
 				        <a href="#" role="button">
-				          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img">
+				          <img src="img/Notification-icon.png" alt="Notification" class="nav-icon-img" id="notifications">
 				        </a>
 				      </li>
 
@@ -649,6 +650,109 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
             <!-- End of Main Content -->							
         </div>
 		
+		<!-- Modal Wrapper -->
+		<div class="voucher-modal-overlay voucher-modal-overlay--dark" id="modal-overlay2">
+		  <div class="voucher-modal-canvas" id="bs-canvas-right2">
+		    <div class="voucher-modal-scrollable-wrapper d-flex flex-column h-100">
+
+		      <!-- ===== Notifications List View ===== -->
+		      <div id="notifications-list-view">
+		        <!-- Header -->
+		        <div class="d-flex justify-content-between align-items-center px-3 py-3 border-bottom">
+		          <h5 class="mb-0" style="color: #1F212C; font-weight: 700;">Notifications</h5>
+				  <button class="voucher-close-btn bs-canvas-close2" aria-label="Close" style="margin-top: 15px;">
+				  				          <i class="fas fa-times voucher-close-icon"></i>
+				  				        </button>
+		        </div>
+
+		        <!-- Tabs + Mark All -->
+		        <div id="notifications-header" class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+		          <div class="d-flex gap-2">
+		            <button class="notif-tab active">All</button>
+		            <button class="notif-tab">Unread (1)</button>
+		          </div>
+		          <a href="#" class="text-primary small fw-semibold">Mark all as read</a>
+		        </div>
+
+		        <!-- Notifications List -->
+		        <div id="notifications-list" class="notifications-list flex-grow-1 px-3">
+
+		          <!-- Yesterday -->
+		          <div class="section-label">Yesterday</div>
+		          <div class="notification-item d-flex align-items-start p-2 rounded"
+		               data-title="Maecenas dignissim justo eget nulla rutrum molestie."
+		               data-body="Donec a eros justo. Fusce egestas tristique ultrices. Nam tempor augue nec tincidunt molestie, massa nunc varius arcu, at scelerisque elit erat a magna."
+		               data-date="July 7"
+		               data-img="img/Notification1.png">
+		            <img src="img/Notification1.png" class="notification-avatar rounded" alt="icon">
+		            <div class="ms-3 flex-grow-1">
+		              <div style="color: #1F212C;">Notification 1</div>
+		              <div class="text-muted small">Lorem ipsum dolor sit amet... <a href="#" class="read-more">read more</a></div>
+		              <div class="text-muted small mt-1">July 7 <span class="status-dot"></span></div>
+		            </div>
+		            <span class="chevron-right"></span>
+		          </div>
+
+		          <!-- Older -->
+		          <div class="section-label mt-3">Older</div>
+		          <div class="notification-item d-flex align-items-start p-2 rounded"
+		               data-title="Notification 2 full title"
+		               data-body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem."
+		               data-date="Jun 30"
+		               data-img="img/Notification1.png">
+		            <img src="img/Notification1.png" class="notification-avatar rounded" alt="icon">
+		            <div class="ms-3 flex-grow-1">
+		              <div style="color: #1F212C;">Notification 2</div>
+		              <div class="text-muted small">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+		              <div class="text-muted small mt-1">Jun 30</div>
+		            </div>
+		            <span class="chevron-right"></span>
+		          </div>
+
+		          <div class="notification-item d-flex align-items-start p-2 rounded"
+		               data-title="Notification 3 full title"
+		               data-body="Another notification body goes here. Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur."
+		               data-date="Jun 27"
+		               data-img="img/Notification1.png">
+		            <img src="img/Notification1.png" class="notification-avatar rounded" alt="icon">
+		            <div class="ms-3 flex-grow-1">
+		              <div style="color: #1F212C;">Notification 3</div>
+		              <div class="text-muted small">Lorem ipsum dolor sit amet... <a href="#" class="read-more">read more</a></div>
+		              <div class="text-muted small mt-1">Jun 27</div>
+		            </div>
+		            <span class="chevron-right"></span>
+		          </div>
+
+		        </div>
+		      </div>
+
+			  <!-- ===== Notification Detail View ===== -->
+			  <div id="notification-detail-view" class="d-none h-100">
+			    <!-- Header with back button -->
+			    <div class="d-flex align-items-center py-3 border-bottom notif-detail-header">
+			      <button class="back-btn" id="backToList">
+			        <span class="chevron-left"></span>
+			      </button>
+			      <h5 class="fw-bold mb-0 notif-heading">Notifications</h5>
+			    </div>
+
+				<!-- Detail Content -->
+				<div class="p-3">
+				  <div class="d-flex align-items-start mb-2">
+				    <img id="detail-img" src="" class="notification-avatar rounded" alt="icon">
+				    <h6 id="detail-title" class="detail-title fw-bold mb-0 flex-grow-1"></h6>
+				  </div>
+				  
+				  <p id="detail-body" class="text-muted small mt-2"></p>
+				  <div class="text-muted small mt-1" id="detail-date"></div>
+				  <button class="btn btn-primary w-100 mt-3">Button</button>
+				</div>
+
+		    </div>
+		  </div>
+		</div>
+		</div>
+				
 		<div class="lds-spinner" id="signinLoader" style="display: none">
 			<div></div>
 			<div></div>
@@ -685,12 +789,74 @@ getVehicleManagementList(),getVoucherTransactionList(),loadVoucherData();">
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript" src="cotodel-js/dashboard.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<!-- Theme CSS -->	 
 	 <link rel="stylesheet" type="text/css" href="css/custom.css">
+	 <style>	 
+	
+
+	 #bs-canvas-right2 {
+	   position: fixed;
+	   right: -378px;
+	   top: 0;
+	   height: 100%;
+	   width: 378px;
+	   background: #fff;
+	   transition: right 0.3s ease-in-out;
+	   z-index: 1050;
+	   box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+	 }
+	
+	 #detail-title {
+	   font-size: 0.95rem;
+	   line-height: 1.3;
+	 }</style>
+	 <script>
+	 document.addEventListener("DOMContentLoaded", function () {
+	   const listView = document.getElementById("notifications-list-view");
+	   const detailView = document.getElementById("notification-detail-view");
+	   const detailTitle = document.getElementById("detail-title");
+	   const detailBody = document.getElementById("detail-body");
+	   const detailDate = document.getElementById("detail-date");
+	   const detailImg = document.getElementById("detail-img");
+
+	   // Open detail view
+	   document.querySelectorAll(".notification-item .chevron-right, .notification-item .read-more").forEach(el => {
+	     el.addEventListener("click", function (e) {
+	       e.preventDefault();
+	       const parent = e.target.closest(".notification-item");
+	       detailTitle.textContent = parent.getAttribute("data-title");
+	       detailBody.textContent = parent.getAttribute("data-body");
+	       detailDate.textContent = parent.getAttribute("data-date");
+	       detailImg.src = parent.getAttribute("data-img");
+
+	       listView.classList.add("d-none");
+	       detailView.classList.remove("d-none");
+	     });
+	   });
+
+	   // Back button
+	   document.getElementById("backToList").addEventListener("click", function () {
+	     detailView.classList.add("d-none");
+	     listView.classList.remove("d-none");
+	   });
+	 });
+	 </script>
+	 <script>	 document.getElementById('notifications').addEventListener('click', function (e) {
+	 	  
+	 	    document.getElementById('bs-canvas-right2').style.right = '0';
+	 	    document.getElementById('modal-overlay2').style.display = 'block';
+	 	
+	 	});
+
+	 document.querySelector('.bs-canvas-close2').addEventListener('click', function () {
+	 	  document.getElementById('bs-canvas-right2').style.right = '-378px';
+	 	  document.getElementById('modal-overlay2').style.display = 'none';
+	 	});</script>
     <script>
 	    $(document).ready(function(){
 	   	 $(".innernav").click(function(){
